@@ -7,7 +7,7 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="@string/billing_n_cash" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
@@ -22,16 +22,16 @@
             android:title="Tools" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="@string/billing_n_cash"
+        android:id="@+id/nav_billing"
+        android:icon="@drawable/ic_receipt">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_retail_sales"
+                android:title="@string/retail_sales" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_ddr_sales"
+                android:title="@string/ddr_sales" />
         </menu>
     </item>
 

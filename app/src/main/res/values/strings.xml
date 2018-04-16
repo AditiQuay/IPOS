@@ -14,5 +14,8 @@
     <string name="fa_thumb_tack">&#xf08d;</string>
     <string name="fa_qrcode" >&#xf029;</string>
     <string name="fa_redeem">&#xf290;</string>
+    <string name="billing_n_cash">Billing &amp; Cash</string>
+    <string name="retail_sales">Retail Sales (OTC &amp; Online)</string>
+    <string name="ddr_sales">DDR Sales (B2B)</string>
 
 </resources>
