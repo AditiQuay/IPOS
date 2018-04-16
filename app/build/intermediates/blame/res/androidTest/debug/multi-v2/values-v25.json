@@ -1,26 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v25\\values-v25.xml",
+            "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v25\\values-v25.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\values-v25\\values-v25.xml",
-                    "from": {
-                        "startLines": "2,3,4,6",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,126,209,308",
-                        "endLines": "2,3,5,7",
-                        "endColumns": "70,82,12,12",
-                        "endOffsets": "121,204,303,414"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "E:\\Aditi Bhuranda\\WORKSPACE_QUAY\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v25\\values-v25.xml",
-            "map": [
-                {
-                    "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\values-v25\\values-v25.xml",
+                    "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\values-v25\\values-v25.xml",
                     "from": {
                         "startLines": "2,3,4,6",
                         "startColumns": "4,4,4,4",
