@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4C98CF</color>
+    <color name="colorPrimaryDark">#4C98CF</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="light_blue">#ADD8E6</color>
+    <color name="survey_background_color">#f2f2f2</color>
+    <color name="textColorPrimary">#464646</color>
+    <color name="textColorPrimaryDark">#000000</color>
+    <color name="divider_color">#d3d3d3</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="backgroundgrey">#e3e3e3</color>
+    <color name="red">#b71c1c</color>
+    <color name="light_grey_one">#b7b7b7</color>
+    <color name="grey">#747474</color>
+    <color name="light_grey_two">#f5f5f5</color>
+    <color name="light_grey_">#ccc</color>
+    <color name="list_item_selected_state">#F4F6F6</color>
+    <color name="list_item_normal_state">#FFFFFF</color>
+    <color name="green">#00ff7f</color>
+    <color name="buttoncolor">#40C8C2</color>
+    <color name="filter_color">#EBEBEB</color>
+    <color name="filter_text_color">#9c9ca0</color>
+    <color name="buttoncolor1">#F27373</color>
+</resources>
