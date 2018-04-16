@@ -17,5 +17,6 @@
     <string name="billing_n_cash">Billing &amp; Cash</string>
     <string name="retail_sales">Retail Sales (OTC &amp; Online)</string>
     <string name="ddr_sales">DDR Sales (B2B)</string>
+    <string name="please_wait">Please Wait...</string>
 
 </resources>
