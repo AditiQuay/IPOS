@@ -1013,6 +1013,7 @@
     <dimen name="dim_1000">1000dp</dimen>
 
 
+
     <!--Universal text size-->
     <dimen name="universal_text_size12">12sp</dimen>
     <dimen name="universal_text_size13">13sp</dimen>

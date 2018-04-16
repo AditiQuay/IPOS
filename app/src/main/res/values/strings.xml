@@ -15,6 +15,7 @@
     <string name="fa_qrcode" >&#xf029;</string>
     <string name="fa_redeem">&#xf290;</string>
 
+
     <string name="internet_connection_error_string">No Internet Connection</string>
     <string name="internet_refresh_button_text">Refresh</string>
     <string name="internet_ok_button_text">OK</string>

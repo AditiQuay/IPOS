@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements InitInterface, V
     public void applyInitValues() {
 
 
+
     }
 
     @Override

@@ -13,6 +13,7 @@
         android:background="@color/colorPrimary"
         android:padding="@dimen/dim_16">
 
+
         <TextView
             android:id="@+id/textViewMainTitle"
             style="@style/styleWhiteTextColor18"
