@@ -1012,4 +1012,14 @@
     <dimen name="dim_999">999dp</dimen>
     <dimen name="dim_1000">1000dp</dimen>
 
+
+
+    <!--Universal text size-->
+    <dimen name="universal_text_size12">12sp</dimen>
+    <dimen name="universal_text_size13">13sp</dimen>
+    <dimen name="universal_text_size14">14sp</dimen>
+    <dimen name="universal_text_size15">15sp</dimen>
+    <dimen name="universal_text_size22">22sp</dimen>
+    <dimen name="universal_text_size20">20sp</dimen>
+    <dimen name="universal_text_size16">16sp</dimen>
 </resources>

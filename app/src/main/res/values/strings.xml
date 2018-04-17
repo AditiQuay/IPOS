@@ -19,4 +19,15 @@
     <string name="ddr_sales">DDR Sales (B2B)</string>
     <string name="please_wait">Please Wait...</string>
 
+
+    <string name="internet_connection_error_string">No Internet Connection</string>
+    <string name="internet_refresh_button_text">Refresh</string>
+    <string name="internet_ok_button_text">OK</string>
+    <string name="play_service_error_string">Google Play Service Not Found</string>
+    <string name="welcome_text_activity_login">Welcome, Good Morning !</string>
+    <string name="email_hint_activity_login">Email</string>
+    <string name="password_hint_activity_login">Password</string>
+    <string name="login_button_text_activity_login">LOGIN</string>
+    <string name="text_forgot_password_activity_login">Forgot Password?</string>
+    <string name="toolbar_title_login">USER LOGIN</string>
 </resources>
