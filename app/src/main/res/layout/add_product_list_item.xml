@@ -82,7 +82,7 @@
         android:src="@drawable/if_light_bulb"
         android:layout_width="90dp"
         android:padding="@dimen/dim_5"
-        android:layout_marginRight="@dimen/dim_10"
+        android:layout_marginRight="@dimen/dim_20"
         android:layout_gravity="center"
         android:layout_height="80dp" />
 </LinearLayout>

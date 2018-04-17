@@ -43,4 +43,5 @@
     <string name="search">Search</string>
     <string name="search_by_name">Search by name</string>
     <string name="add">Add</string>
+    <string name="fa_trash" >&#xf2ed;</string>
 </resources>

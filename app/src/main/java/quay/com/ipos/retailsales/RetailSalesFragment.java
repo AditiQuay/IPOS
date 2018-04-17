@@ -25,22 +25,22 @@ public class RetailSalesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.retail_dashboard, container, false);
+        View rootView = inflater.inflate(R.layout.show_product_list_item, container, false);
         initializeComponent(rootView);
         return rootView;
     }
 
     private void initializeComponent(View rootView) {
-        tvUserAdd = rootView.findViewById(R.id.tvUserAdd);
-        tvPin = rootView.findViewById(R.id.tvPin);
-        tvRedeem = rootView.findViewById(R.id.tvRedeem);
-        imvGlobe = rootView.findViewById(R.id.imvGlobe);
-        imvQRCode = rootView.findViewById(R.id.imvQRCode);
-
-        Typeface iconFont = FontManager.getTypeface(getActivity(), FontManager.FONTAWESOME);
-        FontManager.markAsIconContainer(tvUserAdd, iconFont);
-        FontManager.markAsIconContainer(tvPin, iconFont);
-        FontManager.markAsIconContainer(tvRedeem, iconFont);
+//        tvUserAdd = rootView.findViewById(R.id.tvUserAdd);
+//        tvPin = rootView.findViewById(R.id.tvPin);
+//        tvRedeem = rootView.findViewById(R.id.tvRedeem);
+//        imvGlobe = rootView.findViewById(R.id.imvGlobe);
+//        imvQRCode = rootView.findViewById(R.id.imvQRCode);
+//
+//        Typeface iconFont = FontManager.getTypeface(getActivity(), FontManager.FONTAWESOME);
+//        FontManager.markAsIconContainer(tvUserAdd, iconFont);
+//        FontManager.markAsIconContainer(tvPin, iconFont);
+//        FontManager.markAsIconContainer(tvRedeem, iconFont);
 
     }
 }
