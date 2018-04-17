@@ -1861,12 +1861,14 @@
     <string name="billing_n_cash">Billing &amp; Cash</string>
     <string name="bottom_sheet_behavior" translatable="false">android.support.design.widget.BottomSheetBehavior</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
+    <string name="dashboard">Dashboard</string>
     <string name="ddr_sales">DDR Sales (B2B)</string>
     <string name="email_hint_activity_login">Email</string>
     <string name="fa_qrcode"></string>
     <string name="fa_redeem"></string>
     <string name="fa_thumb_tack"></string>
     <string name="fa_user_plus"></string>
+    <string name="insight"><![CDATA[Insights & Analytics]]></string>
     <string name="internet_connection_error_string">No Internet Connection</string>
     <string name="internet_ok_button_text">OK</string>
     <string name="internet_refresh_button_text">Refresh</string>

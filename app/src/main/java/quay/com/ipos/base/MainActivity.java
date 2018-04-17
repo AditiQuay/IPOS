@@ -17,10 +17,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import quay.com.ipos.R;
+import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.retailsales.RetailSalesFragment;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private int mContainerId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,7 +30,7 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        mContainerId = R.id.fragment_container;
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +48,7 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        addFragment(new RetailSalesFragment(),mContainerId);
     }
 
     @Override
@@ -93,13 +96,9 @@ public class MainActivity extends BaseActivity
 
         if (id == R.id.nav_retail_sales) {
             // Handle the camera action
-            addFragment(new RetailSalesFragment(),id);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+            addFragment(new RetailSalesFragment(),mContainerId);
+        } else if (id == R.id.nav_dashbaord) {
+            addFragment(new DashboardFragment(),mContainerId);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

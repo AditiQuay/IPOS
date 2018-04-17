@@ -30,4 +30,6 @@
     <string name="login_button_text_activity_login">LOGIN</string>
     <string name="text_forgot_password_activity_login">Forgot Password?</string>
     <string name="toolbar_title_login">USER LOGIN</string>
+    <string name="insight"><![CDATA[Insights & Analytics]]></string>
+    <string name="dashboard">Dashboard</string>
 </resources>

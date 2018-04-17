@@ -4,22 +4,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/billing_n_cash" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+
     </group>
 
     <item android:title="@string/billing_n_cash"
@@ -35,4 +20,14 @@
         </menu>
     </item>
 
+    <item android:title="@string/insight"
+        android:id="@+id/nav_insight"
+        android:icon="@drawable/ic_receipt">
+        <menu>
+            <item
+                android:id="@+id/nav_dashbaord"
+                android:title="@string/dashboard" />
+
+        </menu>
+    </item>
 </menu>
