@@ -18,6 +18,7 @@
     <string name="retail_sales">Retail Sales (OTC &amp; Online)</string>
     <string name="ddr_sales">DDR Sales (B2B)</string>
     <string name="please_wait">Please Wait...</string>
+    <string name="Rs">\u20B9</string>
 
 
     <string name="internet_connection_error_string">No Internet Connection</string>
@@ -30,4 +31,11 @@
     <string name="login_button_text_activity_login">LOGIN</string>
     <string name="text_forgot_password_activity_login">Forgot Password?</string>
     <string name="toolbar_title_login">USER LOGIN</string>
+    <string name="barcode">Barcode</string>
+    <string name="items">Items</string>
+    <string name="qty">Qty</string>
+    <string name="total_gst">Total GST</string>
+    <string name="more_details">More Details</string>
+    <string name="pay">PAY</string>
+    <string name="fa_right">&#xf061;</string>
 </resources>

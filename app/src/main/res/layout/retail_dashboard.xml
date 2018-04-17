@@ -1,61 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="5dp"
-    android:background="@color/colorPrimary">
-    <TextView
-        android:id="@+id/tvUserAdd"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/fa_user_plus"
-        android:textSize="10dp"
-        android:textColor="@color/white"/>
+        android:orientation="horizontal"
+        android:padding="@dimen/dim_5"
+        android:gravity="center"
+        android:background="@color/colorPrimary">
+        <TextView
+            android:id="@+id/tvUserAdd"
+            android:paddingLeft="@dimen/dim_5"
+            android:paddingRight="@dimen/dim_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fa_user_plus"
+            android:textSize="@dimen/dim_10"
+            android:textColor="@color/white"/>
 
-    <TextView
-        android:id="@+id/tvPin"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fa_thumb_tack"
-        android:textSize="10dp"
-        android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tvPin"
+            android:paddingLeft="@dimen/dim_5"
+            android:paddingRight="@dimen/dim_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fa_thumb_tack"
+            android:textSize="@dimen/dim_10"
+            android:textColor="@color/white"/>
 
-    <ImageView
-        android:id="@+id/imvQRCode"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_discount"/>
+        <ImageView
+            android:id="@+id/imvQRCode"
+            android:paddingLeft="@dimen/dim_5"
+            android:paddingRight="@dimen/dim_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_discount"/>
 
-    <TextView
-        android:id="@+id/tvRedeem"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fa_redeem"
-        android:textSize="10dp"
-        android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/tvRedeem"
+            android:paddingLeft="@dimen/dim_5"
+            android:paddingRight="@dimen/dim_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fa_redeem"
+            android:textSize="@dimen/dim_10"
+            android:textColor="@color/white"/>
 
-    <ImageView
-        android:id="@+id/imvGlobe"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_earth"/>
-</LinearLayout>
+        <ImageView
+            android:id="@+id/imvGlobe"
+            android:paddingLeft="@dimen/dim_5"
+            android:paddingRight="@dimen/dim_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_earth"/>
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dim_1"
+            android:layout_weight="1"/>
+
+        <ToggleButton
+            android:id="@+id/chkState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dim_5"
+            android:background="@drawable/toggle_selector"
+            android:textOff=""
+            android:textOn=""/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+            <LinearLayout
+                android:id="@+id/ll_item_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:paddingTop="@dimen/dim_5"
+                android:paddingBottom="@dimen/dim_5"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:background="@color/backgroundgrey">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvItemNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="@string/items"
+                        android:textColor="@color/accent_color"
+                        android:textSize="@dimen/text_size_15sp"
+                        app:typeface="Roboto-Regular.ttf" />
+
+                    <View
+                        android:layout_width="@dimen/dim_1"
+                        android:layout_height="@dimen/dim_10"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dim_10"
+                        android:layout_marginRight="@dimen/dim_10"
+                        android:background="@color/black"/>
+
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvItemQty"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="@string/qty"
+                        android:textSize="@dimen/text_size_15sp"
+                        app:typeface="Roboto-Regular.ttf" />
+
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvItemPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="@string/Rs"
+                        android:textSize="@dimen/text_size_15sp"
+                        app:typeface="Roboto-Regular.ttf" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvTotalGST"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="@string/total_gst"
+                        android:textColor="@color/accent_color"
+                        android:textSize="@dimen/text_size_15sp"
+                        app:typeface="Roboto-Regular.ttf" />
+
+
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvMoreDetails"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dim_10"
+                        android:text="@string/more_details"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/text_size_11sp"
+                        app:typeface="Roboto-Regular.ttf" />
+
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvItemGSTPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="@string/Rs"
+                        android:textSize="@dimen/text_size_15sp"
+                        app:typeface="Roboto-Regular.ttf" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_item_pay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_10"
+                android:background="@color/colorPrimary">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_discount"
+                    />
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvTotalDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="@string/Rs"
+                    android:paddingLeft="@dimen/dim_5"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_15sp"
+                    app:typeface="Roboto-Regular.ttf" />
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dim_10"
+                    android:text="@string/pay"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_11sp"
+                    app:typeface="Roboto-Regular.ttf" />
+                <View
+                    android:layout_width="@dimen/dim_1"
+                    android:layout_height="@dimen/dim_10"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dim_10"
+                    android:layout_marginRight="@dimen/dim_10"
+                    android:background="@color/white"/>
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvPay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:layout_marginRight="@dimen/dim_10"
+                    android:text="@string/Rs"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_11sp"
+                    app:typeface="Roboto-Regular.ttf" />
+
+              <TextView
+                  android:id="@+id/tvRight"
+                  android:gravity="center"
+                  android:layout_gravity="center"
+                  android:textColor="@color/white"
+                  android:textSize="@dimen/text_size_15sp"
+                  android:padding="@dimen/dim_5"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/fa_right"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
 </LinearLayout>
