@@ -16,5 +16,332 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!--Dark grey-->
+    <style name="styleDarkGreyColor10">
+        <item name="android:textColor">@color/dark_grey_color</item>
+        <item name="android:textSize">10sp</item>
+    </style>
 
+    <style name="styleDarkGreyColor12">
+        <item name="android:textColor">@color/dark_grey_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="styleDarkGreyColor13">
+        <item name="android:textColor">@color/dark_grey_color</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="styleDarkGreyColor14">
+        <item name="android:textColor">@color/dark_grey_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="styleDarkGreyColor15">
+        <item name="android:textColor">@color/dark_grey_color</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="styleDarkGreyColor16">
+        <item name="android:textColor">@color/dark_grey_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!-- primary text color style-->
+    <style name="stylePrimaryTextColor10">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="stylePrimaryTextColor11">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="stylePrimaryTextColor12">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="stylePrimaryTextColor13">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="stylePrimaryTextColor14">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="stylePrimaryTextColor16">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="stylePrimaryTextColor18">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="stylePrimaryTextColor24">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="stylePrimaryTextColor30">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!-- secondary text color style-->
+    <style name="styleSecondaryTextColor10">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="styleSecondaryTextColor12">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="styleSecondaryTextColor11">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="styleSecondaryTextColor13">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="styleSecondaryTextColorfab">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:background">@color/secondary_text_color</item>
+    </style>
+
+    <style name="styleSecondaryTextColor14">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="styleSecondaryTextColor16">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="styleSecondaryTextColor18">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="styleSecondaryTextColor20">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+
+    <style name="styleSecondaryTextColor22">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="styleSecondaryTextColor24">
+        <item name="android:textColor">@color/secondary_text_color</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+
+    <!-- divider_text_color color style-->
+    <style name="styleDividerTextColor10">
+        <item name="android:textColor">@color/divider_text_color</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="styleDividerTextColor11">
+        <item name="android:textColor">@color/divider_text_color</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="styleDividerTextColor12">
+        <item name="android:textColor">@color/divider_text_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="styleDividerTextColor13">
+        <item name="android:textColor">@color/divider_text_color</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="styleDividerTextColor14">
+        <item name="android:textColor">@color/divider_text_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="styleDividerTextColor16">
+        <item name="android:textColor">@color/divider_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="styleDividerTextColor18">
+        <item name="android:textColor">@color/divider_text_color</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- accent_color style-->
+    <style name="styleAccentColor10">
+        <item name="android:textColor">@color/accent_color</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="styleAccentColor11">
+        <item name="android:textColor">@color/accent_color</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="styleAccentColor12">
+        <item name="android:textColor">@color/accent_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="styleAccentColor13">
+        <item name="android:textColor">@color/accent_color</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="styleAccentColor14">
+        <item name="android:textColor">@color/accent_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="styleAccentColor16">
+        <item name="android:textColor">@color/accent_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="styleAccentColor25">
+        <item name="android:textColor">@color/accent_color</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <!-- light_grey_color style-->
+    <style name="styleLightGreyColor10">
+        <item name="android:textColor">@color/light_grey_color</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="styleLightGreyColor12">
+        <item name="android:textColor">@color/light_grey_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="styleLightGreyColor13">
+        <item name="android:textColor">@color/light_grey_color</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="styleLightGreyColor14">
+        <item name="android:textColor">@color/light_grey_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="styleLightGreyColor16">
+        <item name="android:textColor">@color/light_grey_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- white_color style-->
+    <style name="styleWhiteTextColor10">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor11">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor12">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor13">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor14">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor15">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor16">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor18">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor20">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor22">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor24">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor30">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor40">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="styleWhiteTextColor50">
+        <item name="android:textColor">@color/white_text_color</item>
+        <item name="android:textSize">50sp</item>
+    </style>
+
+
+
+
+    <!-- Backward-compatible version of ?android:attr/buttonBarStyle -->
+    <style name="ButtonBar">
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="android:background">@android:drawable/bottom_bar</item>
+    </style>
+
+    <!-- Backward-compatible version of ?android:attr/buttonBarButtonStyle -->
+    <style name="ButtonBarButton" />
+
+    <!--Toolbar back arrow color-->
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
+    <style name="MY.DIALOG" parent="android:Theme">
+        <item name="android:windowNoTitle">false</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 </resources>
