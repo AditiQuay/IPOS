@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements InitInterface, V
 
     @Override
     public void applyTypeFace() {
-
+        ///
         FontUtil.applyTypeface(textViewForgotPassword, FontUtil.getTypceFaceRobotoRegular(LoginActivity.this));
         FontUtil.applyTypeface(textViewWelcome, FontUtil.getTypceFaceRobotoMedium_0(LoginActivity.this));
         FontUtil.applyTypeface(textViewMainTitle, FontUtil.getTypceFaceRobotoMedium_0(LoginActivity.this));
