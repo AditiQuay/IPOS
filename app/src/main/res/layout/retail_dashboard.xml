@@ -34,7 +34,7 @@
             android:textColor="@color/white"/>
 
         <ImageView
-            android:id="@+id/imvQRCode"
+            android:id="@+id/imvDicount"
             android:paddingLeft="@dimen/dim_5"
             android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
@@ -63,12 +63,21 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/dim_1"
             android:layout_weight="1"/>
-
-        <ToggleButton
-            android:id="@+id/chkState"
+        <quay.com.ipos.ui.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dim_5"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:text="@string/barcode"
+            android:textColor="@color/white"
+            android:paddingRight="@dimen/dim_5"
+            android:textSize="@dimen/text_size_15sp"
+            app:typeface="Roboto-Regular.ttf" />
+        <ToggleButton
+            android:id="@+id/chkBarCode"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginRight="@dimen/dim_10"
             android:background="@drawable/toggle_selector"
             android:textOff=""
             android:textOn=""/>
@@ -77,11 +86,34 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+           <ImageView
+               android:id="@+id/imvQRCode"
+               android:layout_width="match_parent"
+               android:layout_height="90dp"
+               android:background="@color/black"
+               android:visibility="gone"
+               android:src="@drawable/ic_barcode"/>
 
-        </FrameLayout>
+           <android.support.v4.widget.SwipeRefreshLayout
+               android:id="@+id/swipeRefreshLayout"
+               android:layout_width="match_parent"
+               android:visibility="gone"
+               android:layout_marginTop="@dimen/dim_1"
+               android:layout_height="match_parent">
+
+               <android.support.v7.widget.RecyclerView
+                   android:id="@+id/recycleView"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:scrollbars="vertical"
+                   android:layout_marginTop="@dimen/dim_1" />
+           </android.support.v4.widget.SwipeRefreshLayout>
+
+       </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
