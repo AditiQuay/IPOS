@@ -38,4 +38,9 @@
     <string name="more_details">More Details</string>
     <string name="pay">PAY</string>
     <string name="fa_right">&#xf061;</string>
+    <string name="fa_left_arrow">&#xf359;</string>
+    <string name="fa_cross">&#xf00d;</string>
+    <string name="search">Search</string>
+    <string name="search_by_name">Search by name</string>
+    <string name="add">Add</string>
 </resources>

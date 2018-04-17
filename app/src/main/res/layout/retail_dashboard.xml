@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fa_user_plus"
-            android:textSize="@dimen/dim_10"
+            android:textSize="@dimen/dim_25"
             android:textColor="@color/white"/>
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fa_thumb_tack"
-            android:textSize="@dimen/dim_10"
+            android:textSize="@dimen/dim_25"
             android:textColor="@color/white"/>
 
         <ImageView
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fa_redeem"
-            android:textSize="@dimen/dim_10"
+            android:textSize="@dimen/dim_25"
             android:textColor="@color/white"/>
 
         <ImageView
@@ -238,16 +238,16 @@
                     android:textSize="@dimen/text_size_11sp"
                     app:typeface="Roboto-Regular.ttf" />
 
-              <TextView
-                  android:id="@+id/tvRight"
-                  android:gravity="center"
-                  android:layout_gravity="center"
-                  android:textColor="@color/white"
-                  android:textSize="@dimen/text_size_15sp"
-                  android:padding="@dimen/dim_5"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="@string/fa_right"/>
+                <TextView
+                    android:id="@+id/tvRight"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_15sp"
+                    android:padding="@dimen/dim_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fa_right"/>
             </LinearLayout>
         </LinearLayout>
 
