@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-36:12
-INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-36:12
-INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-36:12
-INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-36:12
+ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-35:12
 MERGED from [io.realm:realm-android-library:3.1.3] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\realm-android-library-3.1.3.aar\21bf21220e9445c75d637f7e8195708b\AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:design:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\9404ccd1d66cf08c1d85011afdaaa9c3\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b5b2efaa8c7e841f9919bacbf16dfa96\AndroidManifest.xml:17:1-31:12
@@ -21,20 +21,20 @@ MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\Ankush.bans
 MERGED from [com.android.support:support-core-ui:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\support-core-ui-26.1.0.aar\8b404abf0f2ee3d2b25e480aa9e1fcb6\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\b3084387f9cafb8c11cab28105363336\AndroidManifest.xml:17:1-31:12
 MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\b2c6b5bfc0717bd30f4a81e0c8a122e0\AndroidManifest.xml:17:1-30:12
-INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-36:12
-INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-36:12
-INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-36:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-35:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-35:12
 	package
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:3:5-28
 		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-36:12
+		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-35:12
 		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-36:12
+		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-35:12
 		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:11-69
@@ -47,7 +47,7 @@ ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\Androi
 	android:name
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:6:22-76
 application
-ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:7:5-34:19
+ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:7:5-33:19
 MERGED from [com.android.support:design:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\9404ccd1d66cf08c1d85011afdaaa9c3\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:design:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\9404ccd1d66cf08c1d85011afdaaa9c3\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\b5b2efaa8c7e841f9919bacbf16dfa96\AndroidManifest.xml:25:5-29:19
@@ -107,21 +107,19 @@ ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\Androi
 	android:name
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:22:27-74
 activity#quay.com.ipos.login.LoginActivity
-ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:25:9-28:59
+ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:25:9-27:52
 	android:screenOrientation
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:27:13-49
-	android:theme
-		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:28:13-56
 	android:name
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:26:13-48
 activity#quay.com.ipos.base.MainActivity
-ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:30:9-33:59
+ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:29:9-32:59
 	android:screenOrientation
-		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:32:13-49
+		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:31:13-49
 	android:theme
-		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:33:13-56
+		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:32:13-56
 	android:name
-		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:31:13-46
+		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:30:13-46
 uses-sdk
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml

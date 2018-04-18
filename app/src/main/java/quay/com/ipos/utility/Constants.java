@@ -39,6 +39,7 @@ public class Constants {
 
     // mandatory or not mandatory
     public static final String ASTERIK_SIGN = "<font color='#03A9F4'> *</font>";
+    public static final String text = "<font color='#03A9F4'> 63%</font>";
 
     public static final int API_METHOD_GET = 0;
 }

@@ -1,12 +1,17 @@
 package quay.com.ipos.dashboard.fragment;
 
-import android.app.Fragment;
+
 import android.content.Context;
 import android.os.Bundle;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -16,9 +21,8 @@ import quay.com.ipos.R;
 public class DashboardFragment extends Fragment {
 
     private Context mContext;
-    private ArrayList<String> dashboardList = new ArrayList<>();
-/*    private ViewPager mViewPager;
-    private DashboardAdapter adapter;*/
+    private ViewPager mViewPager;
+    private DashboardAdapter adapter;
 
 
     @Override
@@ -35,15 +39,77 @@ public class DashboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         mContext = getActivity();
 
-      /*  mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
+
+        final TextView page1=(TextView)view.findViewById(R.id.tvFirstPage);
+        final TextView page2=(TextView)view.findViewById(R.id.tvSecondPage);
+        final TextView page3=(TextView)view.findViewById(R.id.tvThirdPage);
+        mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
          adapter= new DashboardAdapter(getChildFragmentManager());
         // Set an Adapter on the ViewPager
         mViewPager.setAdapter(adapter);
-        mViewPager.setPadding(50, 0, 50, 0);
-        mViewPager.setClipToPadding(false);
-        mViewPager.setPageMargin(0);
-        mViewPager.setOffscreenPageLimit(3);*/
+     //   mViewPager.setPadding(50, 0, 50, 0);
+     //   mViewPager.setClipToPadding(false);
+     //   mViewPager.setPageMargin(0);
+     //   mViewPager.setOffscreenPageLimit(3);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+                if (position==0){
+                    page1.setTextColor(getResources().getColor(R.color.black));
+                    page1.setBackgroundResource(R.drawable.textview_circle_white);
+                    page2.setTextColor(getResources().getColor(R.color.white));
+                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
+                    page3.setTextColor(getResources().getColor(R.color.white));
+                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
+                }else if (position==1){
+                    page1.setTextColor(getResources().getColor(R.color.white));
+                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
+                    page2.setTextColor(getResources().getColor(R.color.black));
+                    page2.setBackgroundResource(R.drawable.textview_circle_white);
+                    page3.setTextColor(getResources().getColor(R.color.white));
+                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
+                }else {
+                    page1.setTextColor(getResources().getColor(R.color.white));
+                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
+                    page2.setTextColor(getResources().getColor(R.color.white));
+                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
+                    page3.setTextColor(getResources().getColor(R.color.black));
+                    page3.setBackgroundResource(R.drawable.textview_circle_white);
+                }
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (position==0){
+                    page1.setTextColor(getResources().getColor(R.color.black));
+                    page1.setBackgroundResource(R.drawable.textview_circle_white);
+                    page2.setTextColor(getResources().getColor(R.color.white));
+                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
+                    page3.setTextColor(getResources().getColor(R.color.white));
+                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
+                }else if (position==1){
+                    page1.setTextColor(getResources().getColor(R.color.white));
+                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
+                    page2.setTextColor(getResources().getColor(R.color.black));
+                    page2.setBackgroundResource(R.drawable.textview_circle_white);
+                    page3.setTextColor(getResources().getColor(R.color.white));
+                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
+                }else {
+                    page1.setTextColor(getResources().getColor(R.color.white));
+                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
+                    page2.setTextColor(getResources().getColor(R.color.white));
+                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
+                    page3.setTextColor(getResources().getColor(R.color.black));
+                    page3.setBackgroundResource(R.drawable.textview_circle_white);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         return view;
     }
 
@@ -64,7 +130,7 @@ public class DashboardFragment extends Fragment {
 
 
 
-/*    public class DashboardAdapter extends FragmentStatePagerAdapter {
+    public class DashboardAdapter extends FragmentStatePagerAdapter {
 
         private DashboardAdapter(FragmentManager fm) {
             super(fm);
@@ -82,10 +148,10 @@ public class DashboardFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return dashboardList.size();
+            return 3;
         }
 
-    }*/
+    }
 
 
 
