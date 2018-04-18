@@ -68,7 +68,6 @@ public class BaseActivity extends AppCompatActivity {
     // get visible fragment
     public Fragment getVisibleFragment() {
         Fragment mFrag = ((Fragment) fragmentManager.findFragmentById(R.id.fragment_container));
-//        AppUtil.LogMsg(TAG, "Activity " + mFrag);
         return mFrag;
     }
 

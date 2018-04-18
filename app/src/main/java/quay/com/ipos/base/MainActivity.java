@@ -2,7 +2,6 @@ package quay.com.ipos.base;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -39,7 +38,7 @@ import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductCatalogueMainFragment;
-import quay.com.ipos.retailsales.RetailSalesFragment;
+import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
 
 public class MainActivity extends BaseActivity
