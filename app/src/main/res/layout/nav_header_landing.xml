@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <quay.com.ipos.utility.CircleImageView
+        android:id="@+id/profileImage"
+        android:layout_width="@dimen/dim_70"
+        android:layout_height="@dimen/dim_70"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/dim_16"
+        android:layout_marginStart="@dimen/dim_16"
+        android:src="@drawable/profile_bg" />
+
+    <TextView
+        android:id="@+id/textViewTraderName"
+        style="@style/styleWhiteTextColor16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/profileImage"
+        android:layout_marginLeft="@dimen/dim_16"
+        android:layout_marginStart="@dimen/dim_16"
+        android:layout_marginTop="@dimen/dim_8"
+        android:layout_toEndOf="@+id/profileImage"
+        android:layout_toRightOf="@+id/profileImage"
+        android:text="KGM Traders" />
+
+    <TextView
+        android:id="@+id/textViewTraderCode"
+        style="@style/styleWhiteTextColor14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTraderName"
+        android:layout_marginLeft="@dimen/dim_16"
+        android:layout_marginStart="@dimen/dim_16"
+        android:layout_toEndOf="@+id/profileImage"
+        android:layout_toRightOf="@+id/profileImage"
+        android:text="PC31908" />
+    <ImageView
+        android:id="@+id/helpImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_action_help"
+        android:layout_marginRight="@dimen/dim_16"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
