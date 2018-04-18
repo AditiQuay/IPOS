@@ -1,4 +1,4 @@
-package quay.com.ipos.retailsales;
+package quay.com.ipos.retailsales.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 

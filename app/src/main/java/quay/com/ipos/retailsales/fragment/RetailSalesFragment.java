@@ -1,4 +1,4 @@
-package quay.com.ipos.retailsales;
+package quay.com.ipos.retailsales.fragment;
 
 
 import android.support.v4.app.Fragment;
@@ -23,6 +23,8 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.retailsales.activity.FullScannerActivity;
+import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.utility.AppLog;
@@ -259,7 +261,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
         switch (id){
             case R.id.imvQRCode:
-               // ((MainActivity) getActivity()).launchActivity(FullScannerActivity.class);
+                ((MainActivity) getActivity()).launchActivity(FullScannerActivity.class);
                 break;
             case R.id.tvMoreDetails:
                 llTotalDiscountDetail.setVisibility(View.VISIBLE);

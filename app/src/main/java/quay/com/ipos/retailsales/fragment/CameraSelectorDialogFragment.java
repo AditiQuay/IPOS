@@ -1,4 +1,4 @@
-package quay.com.ipos.retailsales;
+package quay.com.ipos.retailsales.fragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

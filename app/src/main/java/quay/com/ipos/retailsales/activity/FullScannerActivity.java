@@ -1,4 +1,4 @@
-package quay.com.ipos.retailsales;
+package quay.com.ipos.retailsales.activity;
 
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -16,6 +16,7 @@ import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.retailsales.fragment.CameraSelectorDialogFragment;
 import quay.com.ipos.utility.AppLog;
 
 public class FullScannerActivity extends BaseActivity implements

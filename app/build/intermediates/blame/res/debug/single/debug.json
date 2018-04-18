@@ -44,22 +44,33 @@
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\drawable\\abc_spinner_textfield_background_material.xml"
     },
     {
+<<<<<<< HEAD
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_btn_colored_text_material.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\color-v23\\abc_btn_colored_text_material.xml"
+=======
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_cab_background_internal_bg.xml.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\drawable\\abc_cab_background_internal_bg.xml"
+>>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_action.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\b3084387f9cafb8c11cab28105363336\\res\\layout\\notification_action.xml"
     },
     {
+<<<<<<< HEAD
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_ic_star_black_48dp.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\drawable-xxxhdpi-v4\\abc_ic_star_black_48dp.png"
+=======
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_round_shape_view_all.xml.flat",
+        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable\\round_shape_view_all.xml"
+>>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\drawable-xxhdpi-v4\\abc_btn_radio_to_on_mtrl_000.png"
     },
     {
+<<<<<<< HEAD
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
     },
@@ -70,6 +81,18 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_receipt.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_receipt.png"
+=======
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_text_select_handle_right_mtrl_dark.png.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\drawable-hdpi-v4\\abc_text_select_handle_right_mtrl_dark.png"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_list_selector_holo_dark.xml.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\drawable\\abc_list_selector_holo_dark.xml"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_loyalty.png.flat",
+        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-mdpi\\ic_action_loyalty.png"
+>>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_list_focused_holo.9.png.flat",
@@ -96,6 +119,7 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\product_details.xml"
     },
     {
+<<<<<<< HEAD
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_btn_radio_to_on_mtrl_015.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\drawable-mdpi-v4\\abc_btn_radio_to_on_mtrl_015.png"
     },
@@ -106,6 +130,18 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_ic_arrow_drop_right_black_24dp.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\drawable\\abc_ic_arrow_drop_right_black_24dp.xml"
+=======
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_design_ic_visibility_off.png.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\2d0be75bf2e5dbdae0795be9649c0fa4\\res\\drawable-xxhdpi-v4\\design_ic_visibility_off.png"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_tooltip.xml.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\layout\\tooltip.xml"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_primary_text_material_light.xml.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\color\\abc_primary_text_material_light.xml"
+>>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ab_share_pack_mtrl_alpha.9.png.flat",
@@ -116,6 +152,7 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_receipt.png"
     },
     {
+<<<<<<< HEAD
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_ic_menu_share.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-v21\\ic_menu_share.xml"
     },
@@ -126,6 +163,18 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\drawable-xhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
+=======
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_caret_arrow_up.png.flat",
+        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_caret_arrow_up.png"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_ic_go_search_api_material.xml.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\drawable\\abc_ic_go_search_api_material.xml"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_mode_close_item_material.xml.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\layout\\abc_action_mode_close_item_material.xml"
+>>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_earth.png.flat",
@@ -160,6 +209,7 @@
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\9404ccd1d66cf08c1d85011afdaaa9c3\\res\\anim\\design_bottom_sheet_slide_out.xml"
     },
     {
+<<<<<<< HEAD
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
     },
@@ -170,6 +220,18 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_text_select_handle_middle_mtrl_light.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\drawable-xhdpi-v4\\abc_text_select_handle_middle_mtrl_light.png"
+=======
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_text_select_handle_right_mtrl_dark.png.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\drawable-mdpi-v4\\abc_text_select_handle_right_mtrl_dark.png"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_ratingbar_small_material.xml.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\drawable\\abc_ratingbar_small_material.xml"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_order_centre.png.flat",
+        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_order_centre.png"
+>>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ab_share_pack_mtrl_alpha.9.png.flat",
@@ -204,6 +266,7 @@
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\drawable-xxhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png"
     },
     {
+<<<<<<< HEAD
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_abc_btn_colored_material.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\drawable-v21\\abc_btn_colored_material.xml"
     },
@@ -214,6 +277,18 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_otc_discount.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\otc_discount.xml"
+=======
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_text_select_handle_left_mtrl_dark.png.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\drawable-xxhdpi-v4\\abc_text_select_handle_left_mtrl_dark.png"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_low_pressed.9.png.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\0a6c390f0999facface62c45dc601a82\\res\\drawable-xhdpi-v4\\notification_bg_low_pressed.9.png"
+>>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_textfield_search_activated_mtrl_alpha.9.png.flat",
