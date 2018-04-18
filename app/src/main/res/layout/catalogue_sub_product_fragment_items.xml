@@ -54,7 +54,7 @@
 
             <TextView
                 android:id="@+id/textViewPrice"
-                style="@style/stylePrimaryTextColor16"
+                style="@style/stylePrimaryTextColor14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="5"
@@ -64,16 +64,16 @@
 
             <ImageView
                 android:id="@+id/imageViewTag"
-                android:layout_width="@dimen/dim_40"
-                android:layout_height="@dimen/dim_40"
+                android:layout_width="@dimen/dim_25"
+                android:layout_height="@dimen/dim_25"
                 android:layout_toRightOf="@+id/textViewPrice"
                 android:adjustViewBounds="true"
                 android:src="@drawable/award" />
 
             <ImageView
                 android:id="@+id/imageViewOffer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dim_25"
+                android:layout_height="@dimen/dim_25"
                 android:layout_marginLeft="@dimen/dim_16"
                 android:layout_toRightOf="@+id/imageViewTag"
                 android:adjustViewBounds="true"
@@ -84,7 +84,7 @@
                 style="@style/stylePrimaryTextColor14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_8"
+                android:layout_marginLeft="@dimen/dim_4"
                 android:layout_toRightOf="@+id/imageViewOffer"
                 android:gravity="left|clip_vertical"
                 android:text="On Offer" />
@@ -103,12 +103,13 @@
                 android:layout_weight="1">
 
                 <Button
-                    style="@style/styleWhiteTextColor14"
+                    style="@style/styleWhiteTextColor12"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawablePadding="@dimen/dim_4"
+                    android:padding="@dimen/dim_4"
                     android:background="@drawable/button_round_shape"
-                    android:drawableLeft="@drawable/ic_action_download"
-                    android:paddingRight="@dimen/dim_8"
+                    android:drawableLeft="@drawable/datesheet"
                     android:text="DataSheet"
                     android:textAllCaps="false"
                     android:textColor="@color/white_text_color" />
@@ -123,11 +124,10 @@
                     style="@style/styleWhiteTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/dim_4"
                     android:background="@drawable/button_round_shape"
-                    android:drawableLeft="@drawable/calculator"
-                    android:drawablePadding="@dimen/dim_8"
-                    android:paddingLeft="@dimen/dim_4"
-                    android:paddingRight="@dimen/dim_4"
+                    android:drawableLeft="@drawable/calci"
+                    android:drawablePadding="@dimen/dim_4"
                     android:text="Calculator"
                     android:textAllCaps="false"
                     android:textColor="@color/white_text_color" />
@@ -143,9 +143,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/button_round_shape"
-                    android:drawableLeft="@drawable/ic_action_cart_white"
-                    android:paddingLeft="@dimen/dim_4"
+                    android:drawableLeft="@drawable/shopping_cart"
                     android:text="Cart"
+                    android:padding="@dimen/dim_4"
                     android:textAllCaps="false"
                     android:textColor="@color/white_text_color" />
             </LinearLayout>
