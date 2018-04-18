@@ -21,11 +21,11 @@
     <color name="list_item_selected_state">#F4F6F6</color>
     <color name="list_item_normal_state">#FFFFFF</color>
     <color name="green">#00ff7f</color>
+    <color name="border_grey">#e0e0f4</color>
     <color name="buttoncolor">#40C8C2</color>
     <color name="filter_color">#EBEBEB</color>
     <color name="filter_text_color">#9c9ca0</color>
     <color name="buttoncolor1">#F27373</color>
-
 
 
     <color name="windowBackground">#FFFFFF</color>

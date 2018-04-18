@@ -1,0 +1,83 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/nav_header_landing" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header">
+
+        <LinearLayout
+            android:id="@+id/lLayoutTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/dim_16">
+
+                <ImageView
+                    android:id="@+id/newOrderImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_action_cart" />
+
+                <TextView
+                    android:id="@+id/textViewNewOrder"
+                    style="@style/stylePrimaryTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dim_16"
+                    android:layout_marginStart="@dimen/dim_16"
+                    android:text="New Order" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/dim_16">
+
+                <ImageView
+                    android:id="@+id/orderCenterImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_action_order_centre" />
+
+                <TextView
+                    android:id="@+id/textViewOrderCenter"
+                    style="@style/stylePrimaryTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dim_16"
+                    android:layout_marginStart="@dimen/dim_16"
+                    android:text="Order Centre" />
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:id="@+id/viewBorder"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/light_grey_"
+            android:layout_below="@+id/lLayoutTitle"/>
+        <ListView
+            android:id="@+id/listViewContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dim_5"
+            android:layout_below="@+id/viewBorder"
+            android:scrollbars="vertical" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

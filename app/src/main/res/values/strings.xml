@@ -30,4 +30,13 @@
     <string name="login_button_text_activity_login">LOGIN</string>
     <string name="text_forgot_password_activity_login">Forgot Password?</string>
     <string name="toolbar_title_login">USER LOGIN</string>
+    <string name="toolbar_title_catalogue_product_details">PRODUCT CATALOGUE</string>
+
+    <string-array name="navigation_drawer_items_array">
+        <item>Dashboard &amp; Insight</item>
+        <item>Product Catalogue</item>
+        <item>Stock &amp; Price</item>
+        <item>Loyalty Program</item>
+        <item>Partner Connect</item>
+    </string-array>
 </resources>
