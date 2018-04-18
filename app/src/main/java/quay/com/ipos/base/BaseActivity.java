@@ -23,7 +23,7 @@ public class BaseActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     public boolean isReplaced = false;
 
-    protected Activity mActivity;
+    public static Activity mActivity;
     protected Fragment fragmentCurrent;
 
     private String mImageUrl;

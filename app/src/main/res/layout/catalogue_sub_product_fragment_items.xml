@@ -1,0 +1,156 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    card_view:cardUseCompatPadding="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="@dimen/dim_8">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dim_8">
+
+        <TextView
+            android:id="@+id/textViewProductName"
+            style="@style/stylePrimaryTextColor14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageViewProduct"
+            android:layout_marginRight="@dimen/dim_8"
+            android:layout_toLeftOf="@+id/imageViewProduct"
+            android:ems="7"
+            android:gravity="center_vertical"
+            android:lines="2"
+            android:text="Soudafoan 1K" />
+
+        <TextView
+            android:id="@+id/textViewFeature"
+            style="@style/stylePrimaryTextColor12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewProductName"
+            android:layout_marginRight="@dimen/dim_8"
+            android:layout_toLeftOf="@+id/imageViewProduct"
+            android:ems="7"
+            android:gravity="left|clip_vertical"
+            android:lines="2"
+            android:text="High Performance Straw" />
+
+        <ImageView
+            android:id="@+id/imageViewProduct"
+            android:layout_width="@dimen/dim_70"
+            android:layout_height="@dimen/dim_70"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/dim_4"
+            android:adjustViewBounds="true"
+            android:src="@drawable/cyld" />
+
+        <RelativeLayout
+            android:id="@+id/rLayoutOffers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageViewProduct">
+
+            <TextView
+                android:id="@+id/textViewPrice"
+                style="@style/stylePrimaryTextColor16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:gravity="left|clip_vertical"
+                android:lines="2"
+                android:text="$ 200" />
+
+            <ImageView
+                android:id="@+id/imageViewTag"
+                android:layout_width="@dimen/dim_40"
+                android:layout_height="@dimen/dim_40"
+                android:layout_toRightOf="@+id/textViewPrice"
+                android:adjustViewBounds="true"
+                android:src="@drawable/award" />
+
+            <ImageView
+                android:id="@+id/imageViewOffer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_16"
+                android:layout_toRightOf="@+id/imageViewTag"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_action_offer" />
+
+            <TextView
+                android:id="@+id/textViewOfferPrice"
+                style="@style/stylePrimaryTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_8"
+                android:layout_toRightOf="@+id/imageViewOffer"
+                android:gravity="left|clip_vertical"
+                android:text="On Offer" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rLayoutOffers"
+            android:layout_marginTop="@dimen/dim_16">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_round_shape"
+                    android:drawableLeft="@drawable/ic_action_download"
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="DataSheet"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white_text_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_round_shape"
+                    android:drawableLeft="@drawable/calculator"
+                    android:drawablePadding="@dimen/dim_8"
+                    android:paddingLeft="@dimen/dim_4"
+                    android:paddingRight="@dimen/dim_4"
+                    android:text="Calculator"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white_text_color" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_round_shape"
+                    android:drawableLeft="@drawable/ic_action_cart_white"
+                    android:paddingLeft="@dimen/dim_4"
+                    android:text="Cart"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white_text_color" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
+
