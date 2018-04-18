@@ -25,15 +25,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.adapter.DrawerItemCustomAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
+import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
@@ -59,7 +63,7 @@ public class MainActivity extends BaseActivity
     private static final int CAMERA_PERMISSION = 1;
     private Class<?> mClss;
     private Fragment dashboardFragment=null, productCatalogueMainFragment=null,retailSalesFragment=null;
-    boolean doubleBackToExitPressedOnce = false, exit = false;
+    boolean doubleBackToExitPressedOnce = false, exit = false,toggle=false;
 
 
     @Override
@@ -85,8 +89,33 @@ public class MainActivity extends BaseActivity
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         listViewContent = findViewById(R.id.listViewContent);
+        final ImageView profileImageSwitch=(ImageView)findViewById(R.id.profileImageSwitch);
+        final ImageView profileImage=(ImageView)findViewById(R.id.profileImage);
 
+        final RelativeLayout llNavigation=(RelativeLayout)findViewById(R.id.llNavigation);
         expandableListView1 = findViewById(R.id.expandableListView1);
+
+        profileImageSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!toggle){
+                    profileImageSwitch.setImageResource(R.drawable.profile_bg);
+                    profileImage.setImageResource(R.drawable.place_holder);
+
+                    expandableListView1.setVisibility(View.VISIBLE);
+                    llNavigation.setVisibility(View.GONE);
+                    toggle=true;
+                }else {
+                    profileImageSwitch.setImageResource(R.drawable.place_holder);
+                    profileImage.setImageResource(R.drawable.profile_bg);
+                    expandableListView1.setVisibility(View.GONE);
+                    llNavigation.setVisibility(View.VISIBLE);
+                    toggle=false;
+                }
+
+
+            }
+        });
     }
 
     @Override
@@ -112,42 +141,70 @@ public class MainActivity extends BaseActivity
 
         listViewContent.setOnItemClickListener(new DrawerItemClickListener());
 
-//        expandableListDetail = ExpandableListDataPump.getData();
-//        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-//        navigationViewExpeListViewAdapter = new NavigationViewExpeListViewAdapter(this, expandableListTitle, expandableListDetail);
-//        expandableListView1.setAdapter(navigationViewExpeListViewAdapter);
-//        expandableListView1.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-//            @Override
-//            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-//                Toast.makeText(mContext,"Group clicked",Toast.LENGTH_SHORT).show();
-//
-//                return false;
-//            }
-//        });
-//        expandableListView1.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-//            @Override
-//            public void onGroupExpand(int groupPosition) {
-//                if (lastExpandedGroup != groupPosition) {
-//                    expandableListView1.collapseGroup(lastExpandedGroup);
-//                }
-///*
-//                Toast.makeText(getApplicationContext(),
-//                        expandableListTitle.get(groupPosition) + " List Expanded.",
-//                        Toast.LENGTH_SHORT).show();*/
-//                lastExpandedGroup = groupPosition;
-//            }
-//        });
-//        expandableListView1.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-//            @Override
-//            public boolean onChildClick(ExpandableListView parent, View v,
-//                                        int groupPosition, int childPosition, long id) {
-//                String mainMenu = expandableListTitle.get(groupPosition).toString();
-//                String subMenu = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).toString();
-//                Toast.makeText(getApplicationContext(), mainMenu + " -> " + subMenu, Toast.LENGTH_SHORT).show();
-//
-//                return false;
-//            }
-//        });
+        expandableListDetail = ExpandableListDataPump.getData();
+        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+        navigationViewExpeListViewAdapter = new NavigationViewExpeListViewAdapter(this, expandableListTitle, expandableListDetail);
+        expandableListView1.setAdapter(navigationViewExpeListViewAdapter);
+        expandableListView1.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                //Toast.makeText(mContext,"Group clicked",Toast.LENGTH_SHORT).show();
+                switch (groupPosition) {
+                    case 0:
+                        break;
+                    case 1:
+                        retailSalesFragment = new RetailSalesFragment();
+                        replaceFragment(retailSalesFragment,containerId);
+                        drawer.closeDrawer(GravityCompat.START);
+                        toolbar.setTitle(getString(R.string.retail_sales));
+
+
+                        break;
+                    case 2:
+
+                        drawer.closeDrawer(GravityCompat.START);
+                        break;
+                    case 3:
+
+                        drawer.closeDrawer(GravityCompat.START);
+                        break;
+                    case 4:
+
+                        dashboardFragment = new DashboardFragment();
+                        replaceFragment(dashboardFragment, containerId);
+                        drawer.closeDrawer(GravityCompat.START);
+                        toolbar.setTitle(getString(R.string.dashboard));
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+        expandableListView1.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (lastExpandedGroup != groupPosition) {
+                    expandableListView1.collapseGroup(lastExpandedGroup);
+                }
+/*
+                Toast.makeText(getApplicationContext(),
+                        expandableListTitle.get(groupPosition) + " List Expanded.",
+                        Toast.LENGTH_SHORT).show();*/
+                lastExpandedGroup = groupPosition;
+            }
+        });
+        expandableListView1.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                String mainMenu = expandableListTitle.get(groupPosition).toString();
+                String subMenu = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).toString();
+                Toast.makeText(getApplicationContext(), mainMenu + " -> " + subMenu, Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        });
     }
 
     @Override
@@ -174,27 +231,29 @@ public class MainActivity extends BaseActivity
         switch (position) {
             case 0:
                 dashboardFragment = new DashboardFragment();
-                addFragment(dashboardFragment,containerId);
-                Toast.makeText(mContext, "Position 1 clicked", Toast.LENGTH_SHORT).show();
+                replaceFragment(dashboardFragment,containerId);
                 drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.dashboard));
                 break;
             case 1:
                 productCatalogueMainFragment = new ProductCatalogueMainFragment();
-                addFragment(productCatalogueMainFragment, containerId);
+                replaceFragment(productCatalogueMainFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.product));
                 break;
             case 2:
-                Toast.makeText(mContext, "Position 3 clicked", Toast.LENGTH_SHORT).show();
+
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case 3:
-                Toast.makeText(mContext, "Position 4 clicked", Toast.LENGTH_SHORT).show();
+
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case 4:
                 retailSalesFragment = new RetailSalesFragment();
-                addFragment(retailSalesFragment, containerId);
+                replaceFragment(retailSalesFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.retail_sales));
                 break;
             default:
                 break;

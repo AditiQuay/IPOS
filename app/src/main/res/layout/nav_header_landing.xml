@@ -6,6 +6,20 @@
     android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    <quay.com.ipos.utility.CircleImageView
+        android:id="@+id/profileImageSwitch"
+        android:layout_width="@dimen/dim_50"
+        android:layout_height="@dimen/dim_50"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/dim_16"
+        android:src="@drawable/place_holder" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
 
     <quay.com.ipos.utility.CircleImageView
         android:id="@+id/profileImage"
@@ -51,4 +65,6 @@
         android:src="@drawable/ic_action_help"
         android:layout_marginRight="@dimen/dim_16"
         android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
 </RelativeLayout>
