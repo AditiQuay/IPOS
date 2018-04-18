@@ -14,36 +14,6 @@
                     }
                 }
             ]
-        },
-        {
-            "outputFile": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\iposProject\\IPOS\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-port\\values-port.xml",
-            "map": [
-                {
-                    "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\b5b2efaa8c7e841f9919bacbf16dfa96\\res\\values-port\\values-port.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "55",
-                        "endOffsets": "106"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-port\\values-port.xml",
-            "map": [
-                {
-                    "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\44b373a46eee75b182d602872e9da98c\\res\\values-port\\values-port.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "55",
-                        "endColumns": "55",
-                        "endOffsets": "106"
-                    }
-                }
-            ]
         }
     ]
 }

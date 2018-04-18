@@ -30,6 +30,43 @@
     <string name="login_button_text_activity_login">LOGIN</string>
     <string name="text_forgot_password_activity_login">Forgot Password?</string>
     <string name="toolbar_title_login">USER LOGIN</string>
+    <string name="insight"><![CDATA[Insights & Analytics]]></string>
+    <string name="dashboard">Dashboard</string>
+    <string name="my_store">My Store 1</string>
+    <string name="focus">Focus</string>
+    <string name="pending_orders_to_deliver">Pending Orders to Deliver</string>
+    <string name="my_store_">My Store</string>
+    <string name="online_store">Online Store</string>
+    <string name="other_store">Other Stores</string>
+    <string name="low_inventory">Low Inventory</string>
+    <string name="total_sales">Total Sales</string>
+    <string name="_32k">\u20A8 32k</string>
+    <string name="total_sales_">63% below Target (₹ 86k) 37% Achievement</string>
+    <string name="schema_performance">Scheme Performances</string>
+    <string name="end_of_season">End of Season</string>
+    <string name="awcollection">A/W Collection 2018</string>
+    <string name="top_performing_stores">Top Performing Stores</string>
+    <string name="fast_moving">Fast Moving</string>
+    <string name="compliance">Compliance Summary</string>
+    <string name="immediate">Immediate Attention</string>
+    <string name="upcoming">Upcoming Events</string>
+    <string name="pending">Pending</string>
+    <string name="done">Done</string>
+    <string name="store">Store</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="month_sales">Month Sales</string>
+    <string name="day_sales">Day Sales</string>
+    <string name="product">Product</string>
+    <string name="store_sales_summary">Store Sales Summary</string>
+    <string name="week">Week</string>
+    <string name="store_status">Store Status</string>
+    <string name="opened">Opened @ 10:00 am today</string>
+    <string name="customer_footprints">Customer Footprints</string>
+    <string name="customer_feedback">Customer Feedback 4.3 *</string>
+    <string name="warehouse">Warehouse</string>
+    <string name="supplier">Supplier</string>
+    <string name="inventory">Inventory in transit</string>
     <string name="barcode">Barcode</string>
     <string name="items">Items</string>
     <string name="qty">Qty</string>
@@ -46,8 +83,8 @@
     <string name="select_camera">Select Camera</string>
     <string name="ok_button">Ok</string>
     <string name="cancel_button">Cancel</string>
-    <string name="insight"><![CDATA[Insights & Analytics]]></string>
-    <string name="dashboard">Dashboard</string>
+    <string name="Rs">\u20B9</string>
+
     <string name="toolbar_title_catalogue_product_details">PRODUCT CATALOGUE</string>
 
     <string-array name="navigation_drawer_items_array">
@@ -58,3 +95,4 @@
         <item>Partner Connect</item>
     </string-array>
 </resources>
+

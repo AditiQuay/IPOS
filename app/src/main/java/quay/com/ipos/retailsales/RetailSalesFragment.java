@@ -180,7 +180,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
         switch (id){
             case R.id.imvQRCode:
-                ((MainActivity) getActivity()).launchActivity(FullScannerActivity.class);
+               // ((MainActivity) getActivity()).launchActivity(FullScannerActivity.class);
                 break;
         }
     }
