@@ -11,14 +11,27 @@
   <component name="ChangeListManager">
     <list default="true" id="7be5ffd6-4699-4132-9935-fd5cbf34fe3f" name="Default" comment="">
 <<<<<<< HEAD
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/CameraSelectorDialogFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/CameraSelectorDialogFragment.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/FullScannerActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/FullScannerActivity.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/RetailSalesAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/RetailSalesFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java" />
+=======
+<<<<<<< HEAD
 =======
       <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/RetailSalesAdapter.java" afterPath="" />
 >>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
+>>>>>>> 5a23289e21f4ee7257234eeb82b59da0deb02fe7
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskJars.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/androidTest/debug/anim-v21_design_bottom_sheet_slide_in.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/androidTest/debug/anim-v21_design_bottom_sheet_slide_in.xml.flat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/androidTest/debug/anim-v21_design_bottom_sheet_slide_out.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/androidTest/debug/anim-v21_design_bottom_sheet_slide_out.xml.flat" />
@@ -1310,6 +1323,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zh-rTW_values-zh-rTW.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zh-rTW_values-zh-rTW.arsc.flat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zu_values-zu.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zu_values-zu.arsc.flat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values_values.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values_values.arsc.flat" />
+>>>>>>> 5a23289e21f4ee7257234eeb82b59da0deb02fe7
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_runtime_1_0_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_runtime_1_0_0.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_animated_vector_drawable_26_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_animated_vector_drawable_26_1_0.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_appcompat_v7_26_1_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/com_android_support_appcompat_v7_26_1_0.xml" />
@@ -1334,6 +1348,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/me_dm7_barcodescanner_core_1_9_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/me_dm7_barcodescanner_core_1_9_8.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/me_dm7_barcodescanner_zbar_1_9_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/me_dm7_barcodescanner_zbar_1_9_8.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/me_dm7_barcodescanner_zxing_1_9_8.xml" afterPath="$PROJECT_DIR$/.idea/libraries/me_dm7_barcodescanner_zxing_1_9_8.xml" />
+<<<<<<< HEAD
+=======
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/quay/com/ipos/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/quay/com/ipos/R.java" />
@@ -1564,19 +1580,25 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
 =======
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/debug/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/debug/resources-debug.ap_" />
+>>>>>>> 5a23289e21f4ee7257234eeb82b59da0deb02fe7
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/androidTest/debug/multi-v2/debug.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/androidTest/debug/multi-v2/debug.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/androidTest/debug/single/debug.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/androidTest/debug/single/debug.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/debug.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/debug.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/debug.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/debug.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAndroidTestResources/compile-file-map.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/manifests/full/debug/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/BaseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/BaseActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/MainActivity.java" />
+<<<<<<< HEAD
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/login/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/login/LoginActivity.java" />
+=======
       <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/CameraSelectorDialogFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/CameraSelectorDialogFragment.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/FullScannerActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/FullScannerActivity.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/RetailSalesAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java" />
       <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/RetailSalesFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java" />
 >>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
+>>>>>>> 5a23289e21f4ee7257234eeb82b59da0deb02fe7
     </list>
     <ignored path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\.idea\shelf/" />
     <ignored path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\.idea\shelf/" />
@@ -1643,7 +1665,7 @@
       <file leaf-file-name="RetailSalesAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
+            <state relative-caret-position="136">
               <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
 >>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
               <folding />
@@ -1701,6 +1723,9 @@
       <file leaf-file-name="CameraSelectorDialogFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/CameraSelectorDialogFragment.java">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="68">
+=======
             <state relative-caret-position="0">
 <<<<<<< HEAD
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1743,6 +1768,7 @@
                 <element signature="e#2363#2364#0" expanded="false" />
               </folding>
 =======
+>>>>>>> 5a23289e21f4ee7257234eeb82b59da0deb02fe7
               <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
               <folding />
 >>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
@@ -3557,6 +3583,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
+      <pane id="PackagesPane" />
+=======
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -3782,6 +3811,7 @@
       <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="Scratches" />
+>>>>>>> 5a23289e21f4ee7257234eeb82b59da0deb02fe7
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -3874,9 +3904,11 @@
       </pane>
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
       <pane id="Scratches" />
+>>>>>>> 5a23289e21f4ee7257234eeb82b59da0deb02fe7
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -3891,7 +3923,11 @@
           </PATH>
         </subPane>
       </pane>
+<<<<<<< HEAD
+      <pane id="Scratches" />
+=======
 >>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
+>>>>>>> 5a23289e21f4ee7257234eeb82b59da0deb02fe7
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3984,10 +4020,14 @@
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
 <<<<<<< HEAD
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524053140497" />
+=======
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524052041720" />
 =======
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524052416385" />
 >>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
+>>>>>>> 5a23289e21f4ee7257234eeb82b59da0deb02fe7
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -4036,10 +4076,14 @@
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
 <<<<<<< HEAD
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524053140497" />
+=======
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524052041720" />
 =======
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524052416385" />
 >>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
+>>>>>>> 5a23289e21f4ee7257234eeb82b59da0deb02fe7
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -4202,10 +4246,14 @@
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
 <<<<<<< HEAD
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524053140498" />
+=======
+<<<<<<< HEAD
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524052041724" />
 =======
         <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1524052416386" />
 >>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
+>>>>>>> 5a23289e21f4ee7257234eeb82b59da0deb02fe7
       </method>
     </configuration>
     <list size="1">
@@ -4253,7 +4301,6 @@
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -4287,6 +4334,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
 <<<<<<< HEAD
 =======
@@ -4551,14 +4599,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="91">
           <caret line="16" column="44" lean-forward="false" selection-start-line="16" selection-start-column="44" selection-end-line="16" selection-end-column="44" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml">
@@ -4726,7 +4774,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="70" column="21" lean-forward="true" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4776,7 +4823,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
+        <state relative-caret-position="136">
           <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
           <folding />
         </state>
@@ -4792,7 +4839,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/CameraSelectorDialogFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="68">
           <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
 >>>>>>> 2c0456f910f717626417db1948056021b8c1e2ab
           <folding />
