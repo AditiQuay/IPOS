@@ -127,7 +127,6 @@
     <color name="blue_green">#008080</color>
     <color name="blue_krayola">#1F75FE</color>
     <color name="border">#d9dadc</color>
-    <color name="border_grey">#e0e0f4</color>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
     <color name="bright_foreground_inverse_material_dark">@color/bright_foreground_material_light</color>
@@ -172,7 +171,7 @@
     <color name="foreground_material_light">@android:color/black</color>
     <color name="gentianaceae_blue">#2A6478</color>
     <color name="gold">#FFD700</color>
-    <color name="green">#00ff7f</color>
+    <color name="green">#4C9141</color>
     <color name="grey">#747474</color>
     <color name="greyish">#fff2f1f2</color>
     <color name="header_1">#fb9b36</color>
