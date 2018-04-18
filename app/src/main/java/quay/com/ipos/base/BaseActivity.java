@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 
@@ -25,6 +26,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public static Activity mActivity;
     protected Fragment fragmentCurrent;
+    private FragmentManager fragmentManager;
 
     private String mImageUrl;
     private boolean isUpdateImage = false;
@@ -45,6 +47,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public void addFragment(Fragment fragment, int containerId) {
         fragmentCurrent = fragment;
+        fragmentManager = getSupportFragmentManager();
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(containerId, fragment)
@@ -54,11 +57,19 @@ public class BaseActivity extends AppCompatActivity {
     public void replaceFragment(Fragment fragment, int containerId) {
         isReplaced = true;
         fragmentCurrent = fragment;
+        fragmentManager = getSupportFragmentManager();
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(containerId, fragment)
                 .addToBackStack(null)
                 .commitAllowingStateLoss();
+    }
+
+    // get visible fragment
+    public Fragment getVisibleFragment() {
+        Fragment mFrag = ((Fragment) fragmentManager.findFragmentById(R.id.fragment_container));
+//        AppUtil.LogMsg(TAG, "Activity " + mFrag);
+        return mFrag;
     }
 
     public void showProgress() {

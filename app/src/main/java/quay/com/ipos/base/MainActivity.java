@@ -1,15 +1,26 @@
 package quay.com.ipos.base;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.app.SearchManager;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,9 +39,12 @@ import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductCatalogueMainFragment;
+import quay.com.ipos.retailsales.RetailSalesFragment;
+import quay.com.ipos.utility.AppLog;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, InitInterface {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
     private DrawerLayout drawer;
@@ -43,6 +57,10 @@ public class MainActivity extends BaseActivity
     private NavigationViewExpeListViewAdapter navigationViewExpeListViewAdapter;
     private int lastExpandedGroup;
     public static int containerId;
+    private static final int CAMERA_PERMISSION = 1;
+    private Class<?> mClss;
+    private Fragment dashboardFragment=null, productCatalogueMainFragment=null,retailSalesFragment=null;
+    boolean doubleBackToExitPressedOnce = false, exit = false;
 
 
     @Override
@@ -51,8 +69,13 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         findViewById();
         applyInitValues();
+        setDashBoard();
 
+    }
 
+    private void setDashBoard() {
+        dashboardFragment = new DashboardFragment();
+        addFragment(dashboardFragment,containerId);
     }
 
     @Override
@@ -151,12 +174,14 @@ public class MainActivity extends BaseActivity
 
         switch (position) {
             case 0:
-                addFragment(new DashboardFragment(),containerId);
+                dashboardFragment = new DashboardFragment();
+                addFragment(dashboardFragment,containerId);
                 Toast.makeText(mContext, "Position 1 clicked", Toast.LENGTH_SHORT).show();
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case 1:
-                addFragment(new ProductCatalogueMainFragment(), containerId);
+                productCatalogueMainFragment = new ProductCatalogueMainFragment();
+                addFragment(productCatalogueMainFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case 2:
@@ -168,7 +193,8 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case 4:
-                Toast.makeText(mContext, "Position 5 clicked", Toast.LENGTH_SHORT).show();
+                retailSalesFragment = new RetailSalesFragment();
+                addFragment(retailSalesFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             default:
@@ -178,13 +204,59 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//
+//        }
+        if (drawer.isDrawerOpen(Gravity.START)) {
+            closeDrawer();
+            return;
+        }
+        // super.onBackPressed();
+        else {
+                Fragment mFrag = getVisibleFragment();
+
+
+                if (mFrag == dashboardFragment) {
+                    (new AlertDialog.Builder(this)).setTitle("Confirm action")
+                            .setMessage("Do you want to Exit?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    doubleBackToExitPressedOnce = true;
+                                    exit = true;
+                                    finish();
+                                }
+                            }).setNegativeButton("No", null).show();
+                    if (doubleBackToExitPressedOnce) {
+                        super.onBackPressed();
+                        return;
+                    }
+                    new Handler().postDelayed(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            doubleBackToExitPressedOnce = false; // exit = false;
+
+                            AppLog.e(TAG, "doubleBackToExitPressedOnce here false");
+                        }
+                    }, 5000);
+                } else {
+                    super.onBackPressed();
+                }
 
         }
     }
+
+    private void closeDrawer() {
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -221,5 +293,35 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+    public void launchActivity(Class<?> clss) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            mClss = clss;
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
+        } else {
+            Intent intent = new Intent(this, clss);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,  String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case CAMERA_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if(mClss != null) {
+                        Intent intent = new Intent(this, mClss);
+                        startActivity(intent);
+                    }
+                } else {
+                    Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
+                }
+                return;
+        }
     }
 }
