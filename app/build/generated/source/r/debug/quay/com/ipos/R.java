@@ -5002,12 +5002,15 @@ public final class R {
     public static final int bottom_sheet_slide_duration=0x7f090003;
     public static final int cancel_button_image_alpha=0x7f090004;
     public static final int config_tooltipAnimTime=0x7f090005;
-    public static final int design_snackbar_text_max_lines=0x7f090006;
-    public static final int hide_password_duration=0x7f090007;
-    public static final int show_password_duration=0x7f090008;
-    public static final int status_bar_notification_info_maxnum=0x7f090009;
-    public static final int viewfinder_border_length=0x7f09000a;
-    public static final int viewfinder_border_width=0x7f09000b;
+    public static final int defaultNonFixTabsCountStart=0x7f090006;
+    public static final int design_snackbar_text_max_lines=0x7f090007;
+    public static final int hide_password_duration=0x7f090008;
+    public static final int list_preview_columns=0x7f090009;
+    public static final int photo_list_preview_columns=0x7f09000a;
+    public static final int show_password_duration=0x7f09000b;
+    public static final int status_bar_notification_info_maxnum=0x7f09000c;
+    public static final int viewfinder_border_length=0x7f09000d;
+    public static final int viewfinder_border_width=0x7f09000e;
   }
   public static final class layout {
     public static final int abc_action_bar_title_item=0x7f0a0000;

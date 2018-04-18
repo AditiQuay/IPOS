@@ -47,4 +47,6 @@
     <string name="select_camera">Select Camera</string>
     <string name="ok_button">Ok</string>
     <string name="cancel_button">Cancel</string>
+    <string name="insight"><![CDATA[Insights & Analytics]]></string>
+    <string name="dashboard">Dashboard</string>
 </resources>

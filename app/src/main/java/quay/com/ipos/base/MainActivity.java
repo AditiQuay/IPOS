@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import quay.com.ipos.R;
+import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.retailsales.RetailSalesFragment;
 
 public class MainActivity extends BaseActivity
@@ -93,6 +94,8 @@ public class MainActivity extends BaseActivity
         if (id == R.id.nav_retail_sales) {
             // Handle the camera action
             addFragment(new RetailSalesFragment(),mContainerId);
+        }else if (id == R.id.nav_dashbaord) {
+            addFragment(new DashboardFragment(),mContainerId);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawerLayout);
