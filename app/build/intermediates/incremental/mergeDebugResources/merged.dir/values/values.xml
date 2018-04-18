@@ -1901,41 +1901,59 @@
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="action_settings">Settings</string>
+    <string name="add">Add</string>
     <string name="app_name">IPOS</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="assets_fonts_folder">fonts</string>
+    <string name="barcode">Barcode</string>
     <string name="billing_n_cash">Billing &amp; Cash</string>
     <string name="bottom_sheet_behavior" translatable="false">android.support.design.widget.BottomSheetBehavior</string>
+    <string name="cancel_button">Cancel</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
+    <string name="dashboard">Dashboard</string>
     <string name="ddr_sales">DDR Sales (B2B)</string>
     <string name="email_hint_activity_login">Email</string>
+    <string name="fa_cross"></string>
+    <string name="fa_left_arrow"></string>
     <string name="fa_qrcode"></string>
     <string name="fa_redeem"></string>
+    <string name="fa_right"></string>
     <string name="fa_thumb_tack"></string>
+    <string name="fa_trash"></string>
     <string name="fa_user_plus"></string>
+    <string name="insight"><![CDATA[Insights & Analytics]]></string>
     <string name="internet_connection_error_string">No Internet Connection</string>
     <string name="internet_ok_button_text">OK</string>
     <string name="internet_refresh_button_text">Refresh</string>
+    <string name="items">Items</string>
     <string name="login_button_text_activity_login">LOGIN</string>
     <string name="mandatory">mandatory</string>
+    <string name="more_details">More Details</string>
     <string name="msg_load_default">Loading...</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="ok_button">Ok</string>
     <string name="password_hint_activity_login">Password</string>
     <string name="password_toggle_content_description">Toggle password visibility</string>
     <string name="path_password_eye" translatable="false">M12,4.5C7,4.5 2.73,7.61 1,12c1.73,4.39 6,7.5 11,7.5s9.27,-3.11 11,-7.5c-1.73,-4.39 -6,-7.5 -11,-7.5zM12,17c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5 5,2.24 5,5 -2.24,5 -5,5zM12,9c-1.66,0 -3,1.34 -3,3s1.34,3 3,3 3,-1.34 3,-3 -1.34,-3 -3,-3z</string>
     <string name="path_password_eye_mask_strike_through" translatable="false">M2,4.27 L19.73,22 L22.27,19.46 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
     <string name="path_password_eye_mask_visible" translatable="false">M2,4.27 L2,4.27 L4.54,1.73 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
     <string name="path_password_strike_through" translatable="false">M3.27,4.27 L19.74,20.74</string>
+    <string name="pay">PAY</string>
     <string name="play_service_error_string">Google Play Service Not Found</string>
     <string name="please_wait">Please Wait...</string>
+    <string name="qty">Qty</string>
     <string name="retail_sales">Retail Sales (OTC &amp; Online)</string>
+    <string name="search">Search</string>
+    <string name="search_by_name">Search by name</string>
     <string name="search_menu_title">Search</string>
+    <string name="select_camera">Select Camera</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="superscript">&lt;sup>*&lt;/sup></string>
     <string name="text_forgot_password_activity_login">Forgot Password?</string>
     <string name="toolbar_title_catalogue_product_details">PRODUCT CATALOGUE</string>
     <string name="toolbar_title_login">USER LOGIN</string>
+    <string name="total_gst">Total GST</string>
     <string name="typeface_not_found">Typeface not found!!</string>
     <string name="welcome_text_activity_login">Welcome, Good Morning !</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
