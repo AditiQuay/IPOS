@@ -35,4 +35,16 @@
         </menu>
     </item>
 
+
+    <item android:title="@string/insight"
+        android:id="@+id/nav_insight"
+        android:icon="@drawable/ic_receipt">
+        <menu>
+            <item
+                android:id="@+id/nav_dashbaord"
+                android:title="@string/dashboard" />
+
+        </menu>
+    </item>
+
 </menu>
