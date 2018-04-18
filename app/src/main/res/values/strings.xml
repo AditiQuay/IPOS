@@ -83,6 +83,7 @@
     <string name="select_camera">Select Camera</string>
     <string name="ok_button">Ok</string>
     <string name="cancel_button">Cancel</string>
+    <string name="Rs">\u20B9</string>
 
     <string name="toolbar_title_catalogue_product_details">PRODUCT CATALOGUE</string>
 

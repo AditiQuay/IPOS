@@ -24,6 +24,7 @@ import java.util.List;
 import quay.com.ipos.R;
 import quay.com.ipos.adapter.DrawerItemCustomAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
+import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductCatalogueMainFragment;
@@ -150,6 +151,7 @@ public class MainActivity extends BaseActivity
 
         switch (position) {
             case 0:
+                addFragment(new DashboardFragment(),containerId);
                 Toast.makeText(mContext, "Position 1 clicked", Toast.LENGTH_SHORT).show();
                 drawer.closeDrawer(GravityCompat.START);
                 break;
