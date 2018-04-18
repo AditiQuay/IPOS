@@ -118,7 +118,8 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof RetailSalesAdapter.UserViewHolder) {
             String str = mDataset.get(position);
-
+            UserViewHolder userViewHolder = (UserViewHolder) holder;
+            userViewHolder.tvItemName.setText(str);
         }
 			  else if (holder instanceof LoadingViewHolder) { LoadingViewHolder
 			  loadingViewHolder = (LoadingViewHolder) holder;

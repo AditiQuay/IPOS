@@ -86,34 +86,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:orientation="vertical">
-           <ImageView
-               android:id="@+id/imvQRCode"
-               android:layout_width="match_parent"
-               android:layout_height="90dp"
-               android:background="@color/black"
-               android:visibility="gone"
-               android:src="@drawable/ic_barcode"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/imvQRCode"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:background="@color/black"
+                android:visibility="gone"
+                android:src="@drawable/ic_barcode"/>
 
-           <android.support.v4.widget.SwipeRefreshLayout
-               android:id="@+id/swipeRefreshLayout"
-               android:layout_width="match_parent"
-               android:visibility="gone"
-               android:layout_marginTop="@dimen/dim_1"
-               android:layout_height="match_parent">
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:layout_marginTop="@dimen/dim_1"
+                android:layout_height="match_parent">
 
-               <android.support.v7.widget.RecyclerView
-                   android:id="@+id/recycleView"
-                   android:layout_width="match_parent"
-                   android:layout_height="match_parent"
-                   android:scrollbars="vertical"
-                   android:layout_marginTop="@dimen/dim_1" />
-           </android.support.v4.widget.SwipeRefreshLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    android:layout_marginTop="@dimen/dim_1" />
+            </android.support.v4.widget.SwipeRefreshLayout>
+            <LinearLayout
+                android:id="@+id/layout_otc_discount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical" >
 
-       </LinearLayout>
+                <include
+                    layout="@layout/otc_discount"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -177,6 +188,7 @@
                         app:typeface="Roboto-Regular.ttf" />
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/llTotalGST"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -214,6 +226,138 @@
                         android:text="@string/Rs"
                         android:textSize="@dimen/text_size_15sp"
                         app:typeface="Roboto-Regular.ttf" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llTotalDiscountDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <quay.com.ipos.ui.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="@string/total_discount"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_15sp"
+                            app:typeface="Roboto-Regular.ttf" />
+
+                        <quay.com.ipos.ui.CustomTextView
+                            android:id="@+id/tvTotalDiscountQty"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/dim_10"
+                            android:text="(items 1)"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_11sp"
+                            app:typeface="Roboto-Regular.ttf" />
+
+                        <quay.com.ipos.ui.CustomTextView
+                            android:id="@+id/tvTotalDiscountPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="@string/Rs"
+                            android:textSize="@dimen/text_size_15sp"
+                            app:typeface="Roboto-Regular.ttf" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <quay.com.ipos.ui.CustomTextView
+                            android:id="@+id/tvCGST"
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="@string/cgst"
+                            android:textSize="@dimen/text_size_15sp"
+                            app:typeface="Roboto-Regular.ttf" />
+
+                        <quay.com.ipos.ui.CustomTextView
+                            android:id="@+id/tvCGSTPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="@string/Rs"
+                            android:textSize="@dimen/text_size_15sp"
+                            app:typeface="Roboto-Regular.ttf" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <quay.com.ipos.ui.CustomTextView
+                            android:id="@+id/tvSGST"
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="@string/sgst"
+                            android:textSize="@dimen/text_size_15sp"
+                            app:typeface="Roboto-Regular.ttf" />
+
+                        <quay.com.ipos.ui.CustomTextView
+                            android:id="@+id/tvSGSTPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="@string/Rs"
+                            android:textSize="@dimen/text_size_15sp"
+                            app:typeface="Roboto-Regular.ttf" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <quay.com.ipos.ui.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="@string/rounding_off"
+                            android:textSize="@dimen/text_size_15sp"
+                            app:typeface="Roboto-Regular.ttf" />
+
+                        <quay.com.ipos.ui.CustomTextView
+                            android:id="@+id/tvLessDetails"
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/dim_10"
+                            android:text="@string/less_details"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_11sp"
+                            app:typeface="Roboto-Regular.ttf" />
+
+                        <quay.com.ipos.ui.CustomTextView
+                            android:id="@+id/tvRoundingOffPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="@string/Rs"
+                            android:textSize="@dimen/text_size_15sp"
+                            app:typeface="Roboto-Regular.ttf" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -261,10 +405,10 @@
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvPay"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:layout_marginRight="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
                     android:text="@string/Rs"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_11sp"
@@ -272,6 +416,55 @@
 
                 <TextView
                     android:id="@+id/tvRight"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_15sp"
+                    android:padding="@dimen/dim_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fa_right"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llOTCSelect"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_10"
+                android:visibility="gone"
+                android:background="@color/colorPrimary">
+                <CheckBox
+                    android:id="@+id/chkOTC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    />
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="@string/select_all"
+                    android:paddingLeft="@dimen/dim_5"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_15sp"
+                    app:typeface="Roboto-Regular.ttf" />
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvOTCDiscount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:text="@string/otc_discount"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_15sp"
+                    app:typeface="Roboto-Regular.ttf" />
+
+                <TextView
+                    android:id="@+id/tvRight1"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@color/white"

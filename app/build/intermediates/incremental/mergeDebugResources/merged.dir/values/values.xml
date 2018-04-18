@@ -142,7 +142,7 @@
     <color name="cardview_light_background">#FFFFFFFF</color>
     <color name="cardview_shadow_end_color">#03000000</color>
     <color name="cardview_shadow_start_color">#37000000</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#757a80</color>
     <color name="colorPrimary">#4C98CF</color>
     <color name="colorPrimaryDark">#4C98CF</color>
     <color name="coral">#FF4040</color>
@@ -1905,12 +1905,14 @@
     <string name="add">Add</string>
     <string name="app_name">IPOS</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="apply">Apply</string>
     <string name="assets_fonts_folder">fonts</string>
     <string name="awcollection">A/W Collection 2018</string>
     <string name="barcode">Barcode</string>
     <string name="billing_n_cash">Billing &amp; Cash</string>
     <string name="bottom_sheet_behavior" translatable="false">android.support.design.widget.BottomSheetBehavior</string>
     <string name="cancel_button">Cancel</string>
+    <string name="cgst">CGST</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
     <string name="compliance">Compliance Summary</string>
     <string name="customer_feedback">Customer Feedback 4.3 *</string>
@@ -1919,16 +1921,18 @@
     <string name="day">Day</string>
     <string name="day_sales">Day Sales</string>
     <string name="ddr_sales">DDR Sales (B2B)</string>
+    <string name="discount_value">Discount Value</string>
     <string name="done">Done</string>
     <string name="email_hint_activity_login">Email</string>
     <string name="end_of_season">End of Season</string>
     <string name="fa_cross"></string>
+    <string name="fa_cross_circle"></string>
     <string name="fa_left_arrow"></string>
     <string name="fa_qrcode"></string>
     <string name="fa_redeem"></string>
     <string name="fa_right"></string>
     <string name="fa_thumb_tack"></string>
-    <string name="fa_trash"></string>
+    <string name="fa_trash"></string>
     <string name="fa_user_plus"></string>
     <string name="fast_moving">Fast Moving</string>
     <string name="focus">Focus</string>
@@ -1939,6 +1943,7 @@
     <string name="internet_refresh_button_text">Refresh</string>
     <string name="inventory">Inventory in transit</string>
     <string name="items">Items</string>
+    <string name="less_details">Less Details</string>
     <string name="login_button_text_activity_login">LOGIN</string>
     <string name="low_inventory">Low Inventory</string>
     <string name="mandatory">mandatory</string>
@@ -1953,6 +1958,10 @@
     <string name="ok_button">Ok</string>
     <string name="online_store">Online Store</string>
     <string name="opened">Opened @ 10:00 am today</string>
+    <string name="otc_approval_details">This action needs an approval &amp; the same has been initiated. Check approval status on workflow menu.</string>
+    <string name="otc_discount">OTC DISCOUNT</string>
+    <string name="otc_discount_details">OTC Discount Details</string>
+    <string name="otc_discount_workflow_approval">OTC Discount Workflow Approval</string>
     <string name="other_store">Other Stores</string>
     <string name="password_hint_activity_login">Password</string>
     <string name="password_toggle_content_description">Toggle password visibility</string>
@@ -1968,11 +1977,14 @@
     <string name="product">Product</string>
     <string name="qty">Qty</string>
     <string name="retail_sales">Retail Sales (OTC &amp; Online)</string>
+    <string name="rounding_off">Rounding off</string>
     <string name="schema_performance">Scheme Performances</string>
     <string name="search">Search</string>
     <string name="search_by_name">Search by name</string>
     <string name="search_menu_title">Search</string>
+    <string name="select_all">SELECT ALL</string>
     <string name="select_camera">Select Camera</string>
+    <string name="sgst">SGST</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="store">Store</string>
     <string name="store_sales_summary">Store Sales Summary</string>
@@ -1983,6 +1995,7 @@
     <string name="toolbar_title_catalogue_product_details">PRODUCT CATALOGUE</string>
     <string name="toolbar_title_login">USER LOGIN</string>
     <string name="top_performing_stores">Top Performing Stores</string>
+    <string name="total_discount">Total Discount</string>
     <string name="total_gst">Total GST</string>
     <string name="total_sales">Total Sales</string>
     <string name="total_sales_">63% below Target (₹ 86k) 37% Achievement</string>
