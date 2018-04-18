@@ -23,6 +23,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/chkItem"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvItemName"
                     android:layout_width="wrap_content"
@@ -90,8 +97,8 @@
 
                 <ImageView
                     android:id="@+id/imvInfo"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
                     android:src="@drawable/ic_information"/>
             </LinearLayout>
 
@@ -114,7 +121,8 @@
             android:textColor="@color/accent_color"
             android:paddingRight="@dimen/dim_10"
             android:paddingLeft="@dimen/dim_10"
-            android:textSize="@dimen/dim_25"
+            android:textSize="@dimen/text_size_21sp"
+            android:paddingTop="@dimen/dim_10"
             android:text="@string/fa_trash"
             />
     </LinearLayout>

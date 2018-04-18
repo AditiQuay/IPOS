@@ -43,8 +43,21 @@
     <string name="search">Search</string>
     <string name="search_by_name">Search by name</string>
     <string name="add">Add</string>
-    <string name="fa_trash" >&#xf2ed;</string>
+    <string name="fa_trash" >&#xf1f8;</string>
     <string name="select_camera">Select Camera</string>
     <string name="ok_button">Ok</string>
     <string name="cancel_button">Cancel</string>
+    <string name="total_discount">Total Discount</string>
+    <string name="rounding_off">Rounding off</string>
+    <string name="less_details">Less Details</string>
+    <string name="select_all">SELECT ALL</string>
+    <string name="otc_discount">OTC DISCOUNT</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="otc_discount_details">OTC Discount Details</string>
+    <string name="fa_cross_circle" >&#xf057;</string>
+    <string name="discount_value">Discount Value</string>
+    <string name="apply">Apply</string>
+    <string name="otc_approval_details">This action needs an approval &amp; the same has been initiated. Check approval status on workflow menu.</string>
+    <string name="otc_discount_workflow_approval">OTC Discount Workflow Approval</string>
 </resources>
