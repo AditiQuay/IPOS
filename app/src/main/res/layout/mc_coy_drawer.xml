@@ -7,8 +7,10 @@
         layout="@layout/nav_header_landing" />
 
     <RelativeLayout
+        android:id="@+id/llNavigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         android:layout_below="@+id/header">
 
         <LinearLayout
@@ -79,5 +81,13 @@
             android:scrollbars="vertical" />
     </RelativeLayout>
 
+    <ExpandableListView
+        android:id="@+id/expandableListView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_below="@+id/header">
 
+
+    </ExpandableListView>
 </RelativeLayout>

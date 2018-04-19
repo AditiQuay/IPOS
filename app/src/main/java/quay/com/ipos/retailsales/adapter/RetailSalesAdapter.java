@@ -130,8 +130,8 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.tvDiscountPrice.setText(discount+"");
             }
         }
-			  else if (holder instanceof LoadingViewHolder) { LoadingViewHolder
-			  loadingViewHolder = (LoadingViewHolder) holder;
+			  else if (holder instanceof LoadingViewHolder) {
+            LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
 			  loadingViewHolder.progressBar.setIndeterminate(true); }
 
     }
