@@ -1,0 +1,4 @@
+#Thu Apr 19 10:23:54 IST 2018
+base.0=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\9
+path.0=classes.dex
+renamed.0=classes.dex
