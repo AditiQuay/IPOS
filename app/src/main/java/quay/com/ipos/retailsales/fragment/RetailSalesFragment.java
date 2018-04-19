@@ -1,10 +1,9 @@
 package quay.com.ipos.retailsales.fragment;
 
 
-import android.support.v4.app.Fragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
-
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,11 +22,13 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.retailsales.activity.FullScannerActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by aditi.bhuranda on 16-04-2018.
@@ -51,7 +52,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     private int mSelectedpos=0;
-    private ArrayList<String> mList= new ArrayList<String>();
+    private ArrayList<ProductList.Product> mList= new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
@@ -224,11 +225,12 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     }
 
     private void setAdapter() {
-        mList.add("asd");
-        mList.add("wer");
+//        mList.add("asd");
+//        mList.add("wer");
+
         mRetailSalesAdapter = new RetailSalesAdapter(getActivity(), this, mRecyclerView, mList);
         mRecyclerView.setAdapter(mRetailSalesAdapter);
-
+        getProduct();
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -253,6 +255,17 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 }
             }
         });
+    }
+
+    private void getProduct() {
+        try {
+            ProductList mProductList = Util.getCustomGson().fromJson(Util.getAssetJsonResponse(getActivity(), "product_list.json"),ProductList.class);
+            mList.addAll(mProductList.getProduct());
+            mRetailSalesAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override

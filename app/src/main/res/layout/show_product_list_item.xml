@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="@string/qty"
+                    android:text="500 gm"
                     android:textSize="@dimen/text_size_15sp"
                     app:typeface="Roboto-Regular.ttf" />
             </LinearLayout>
