@@ -55,11 +55,15 @@
     <color name="edit_contact_color">#324560</color>
     <color name="list_selector">#c8c8c8</color>
     <color name="loader_bg">#b7b7b7</color>
+    <color name="ipos_circle_small_color">#D9D9D9</color>
+    <color name="ipos_block_title_color">#000000</color>
+    <color name="ipos_progress_bottom_title2">#7F7F7F</color>
+    <color name="dark_gray">#BFBFBF</color>
 
     <color name="header_1">#fb9b36</color>
     <color name="header_2">#455a64</color>
     <color name="header_3">#6d1948</color>
-
+    <color name="transparent">#00000000</color>
     <color name="black_overlay">#66000000</color>
 
 

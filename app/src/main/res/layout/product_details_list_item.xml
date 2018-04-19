@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rLayoutMain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/activatedBackgroundIndicator"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall">
+
+    <RelativeLayout
+        android:id="@+id/sepeartor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dim_8"
+        android:layout_marginRight="@dimen/dim_8"
+        android:padding="3dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:src="@drawable/ipos_line_black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ipos_circle_small_black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ipos_circle_small_black" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sepeartor"
+        android:paddingBottom="@dimen/dim_8"
+        android:paddingLeft="@dimen/dim_8"
+        android:paddingRight="@dimen/dim_8"
+        android:paddingTop="@dimen/dim_4">
+
+        <TextView
+            android:id="@+id/textViewChildName"
+            style="@style/stylePrimaryTextColor14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:text="Item Name" />
+
+        <Button
+            android:id="@+id/btnCheckStatus"
+            style="@style/stylePrimaryTextColor14"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dim_30"
+            android:paddingTop="@dimen/dim_4"
+            android:paddingLeft="@dimen/dim_8"
+            android:paddingRight="@dimen/dim_8"
+            android:paddingBottom="@dimen/dim_4"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button_round_shape"
+            android:text="Check Stock"
+            android:textAllCaps="false"
+            android:textColor="@color/white_text_color"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/items"
+        android:layout_marginTop="@dimen/dim_8">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dim_8"
+            android:background="@color/transparent_color" />
+    </RelativeLayout>
+</RelativeLayout>

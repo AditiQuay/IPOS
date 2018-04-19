@@ -4,6 +4,10 @@
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable\\abc_btn_check_material.xml"
     },
     {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_expandable_child_item.xml.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\expandable_child_item.xml"
+    },
+    {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_textfield_search_activated_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable-mdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
     },
@@ -60,12 +64,12 @@
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable-xxxhdpi-v4\\abc_ic_star_black_16dp.png"
     },
     {
-        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
-        "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
-    },
-    {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
+        "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable-xhdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
     },
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
@@ -108,16 +112,16 @@
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
     },
     {
-        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_offer.png.flat",
-        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_offer.png"
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_item_background_holo_dark.xml.flat",
+        "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_add_product_list_item.xml.flat",
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\add_product_list_item.xml"
     },
     {
-        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_item_background_holo_dark.xml.flat",
-        "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable\\abc_item_background_holo_dark.xml"
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_offer.png.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_offer.png"
     },
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_icon_minus.png.flat",
@@ -166,6 +170,10 @@
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_offer.png.flat",
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_offer.png"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_square.png.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_square.png"
     },
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_item_background_holo_light.xml.flat",
@@ -462,6 +470,10 @@
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_receipt.xml.flat",
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_receipt.xml"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_square.png.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-hdpi\\ic_action_square.png"
     },
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_show_product_list_item.xml.flat",
@@ -816,6 +828,10 @@
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_down_arrow.png"
     },
     {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_offer_grey.png.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-mdpi\\ic_action_offer_grey.png"
+    },
+    {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_barcode.png.flat",
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_barcode.png"
     },
@@ -930,6 +946,10 @@
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_arrow.png.flat",
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-hdpi\\ic_action_arrow.png"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_group_item.xml.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\group_item.xml"
     },
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_select_dialog_material.xml.flat",
@@ -1140,6 +1160,10 @@
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\anim\\tooltip_enter.xml"
     },
     {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_product_detail_list_group.xml.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\product_detail_list_group.xml"
+    },
+    {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_main.xml.flat",
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\activity_main.xml"
     },
@@ -1154,6 +1178,10 @@
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_popup_menu_header_item_layout.xml.flat",
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\layout\\abc_popup_menu_header_item_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_offer_grey.png.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-hdpi\\ic_action_offer_grey.png"
     },
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
@@ -1508,6 +1536,14 @@
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\color-v11\\abc_background_cache_hint_selector_material_light.xml"
     },
     {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_square.png.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_square.png"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_offer_grey.png.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_offer_grey.png"
+    },
+    {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_if_toggle_left.png.flat",
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_if_toggle_left.png"
     },
@@ -1676,6 +1712,10 @@
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
     },
     {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_product_details_list_item.xml.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\product_details_list_item.xml"
+    },
+    {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable-hdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png"
     },
@@ -1760,6 +1800,10 @@
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\b9185267a71440b4d7227d2a04f2fc78\\res\\layout\\design_navigation_item_header.xml"
     },
     {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ipos_line_black.xml.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable\\ipos_line_black.xml"
+    },
+    {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_launcher_background.png.flat",
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_launcher_background.png"
     },
@@ -1814,6 +1858,10 @@
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_menu_cut_mtrl_alpha.png.flat",
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable-xhdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ipos_circle_small_black.xml.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable\\ipos_circle_small_black.xml"
     },
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_icon_plus.png.flat",
@@ -2034,6 +2082,10 @@
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable-mdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_offer_grey.png.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_offer_grey.png"
     },
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
@@ -2266,6 +2318,10 @@
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_star_black_48dp.png.flat",
         "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\03e6de2b82e9a921d9a9d55f6c2f71dc\\res\\drawable-xhdpi-v4\\abc_ic_star_black_48dp.png"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_square.png.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-mdpi\\ic_action_square.png"
     },
     {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_login.xml.flat",
