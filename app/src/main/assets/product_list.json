@@ -1,0 +1,81 @@
+{
+  "data": [
+    {
+      "iProductModalId": 1,
+      "sProductName": "Soudafoam 1K",
+      "sProductFeature":"High Performance Straw-Grade Expanding PU Foam",
+      "sProductPrice":"\u20A8 500",
+      "sProductPoints":"500",
+      "sProductWeight":"500 gm",
+      "isDiscount":true,
+      "sDiscountName":"Season Discounts (10%)",
+      "sDiscountPrice":"10"
+    },
+    {
+      "iProductModalId": 1,
+      "sProductName": "Soudafoam PRO",
+      "sProductFeature":"High Performance Gun-Grade Expanding PU Foam",
+      "sProductPrice":"\u20A8 200",
+      "sProductPoints":"300",
+      "sProductWeight":"500 gm",
+      "isDiscount":true,
+      "sDiscountName":"Season Discounts (20%)",
+      "sDiscountPrice":"20"
+    },
+    {
+      "iProductModalId": 1,
+      "sProductName": "Soudafoam FR",
+      "sProductFeature":"High Performance Straw-Grade Expanding PU Foam",
+      "sProductPrice":"\u20A8 800",
+      "sProductPoints":"300",
+      "sProductWeight":"20 gm",
+      "isDiscount":false,
+      "sDiscountName":"",
+      "sDiscountPrice":""
+    },
+    {
+      "iProductModalId": 1,
+      "sProductName": "Soudafoam 1K",
+      "sProductFeature":"High Performance Gun-Grade Expanding PU Foam",
+      "sProductPrice":"\u20A8 500",
+      "sProductPoints":"300",
+      "sProductWeight":"50 gm",
+      "isDiscount":true,
+      "sDiscountName":"Season Discounts (20%)",
+      "sDiscountPrice":"20"
+    },
+    {
+      "iProductModalId": 1,
+      "sProductName": "Soudafoam FR",
+      "sProductFeature":"High Performance Straw-Grade Expanding PU Foam",
+      "sProductPrice":"\u20A8 700",
+      "sProductPoints":"300",
+      "sProductWeight":"500 gm",
+      "isDiscount":true,
+      "sDiscountName":"Season Discounts (50%)",
+      "sDiscountPrice":"50"
+    },
+    {
+      "iProductModalId": 1,
+      "sProductName": "Soudafoam PRO",
+      "sProductFeature":"High Performance Gun-Grade Expanding PU Foam",
+      "sProductPrice":"\u20A8 300",
+      "sProductPoints":"300",
+      "sProductWeight":"5000 gm",
+      "isDiscount":true,
+      "sDiscountName":"Season Discounts (25%)",
+      "sDiscountPrice":"25"
+    },
+    {
+      "iProductModalId": 1,
+      "sProductName": "Soudafoam 2K",
+      "sProductFeature":"High Performance Straw-Grade Expanding PU Foam",
+      "sProductPrice":"\u20A8 800",
+      "sProductPoints":"800",
+      "sProductWeight":"200 gm",
+      "isDiscount":true,
+      "sDiscountName":"Season Discounts (20%)",
+      "sDiscountPrice":"20"
+    }
+  ]
+}

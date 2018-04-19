@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.ui.FontManager;
 
 /**
@@ -32,11 +33,11 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<String> mDataset;
+    ArrayList<ProductList.Product> mDataset;
     RecyclerView mRecyclerView;
 
     public RetailSalesAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                               ArrayList<String> questionList) {
+                               ArrayList<ProductList.Product> questionList) {
         mOnClickListener = mClickListener;
         mContext = ctx;
 
@@ -116,12 +117,21 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof RetailSalesAdapter.UserViewHolder) {
-            String str = mDataset.get(position);
+            ProductList.Product str = mDataset.get(position);
             UserViewHolder userViewHolder = (UserViewHolder) holder;
-            userViewHolder.tvItemName.setText(str);
+            userViewHolder.tvItemName.setText(str.getSProductName());
+            userViewHolder.tvItemWeight.setText(str.getSProductWeight());
+            userViewHolder.tvItemRate.setText(str.getSProductPoints());
+            userViewHolder.tvItemPrice.setText(str.getSProductPrice());
+            if(str.getIsDiscount()) {
+                userViewHolder.tvDiscountPrice.setText(str.getSDiscountPrice());
+                userViewHolder.tvDiscount.setText(str.getSDiscountName());
+                int discount = Integer.parseInt(str.getSProductPrice())/Integer.parseInt(str.getSDiscountPrice());
+                userViewHolder.tvDiscountPrice.setText(discount+"");
+            }
         }
-			  else if (holder instanceof LoadingViewHolder) { LoadingViewHolder
-			  loadingViewHolder = (LoadingViewHolder) holder;
+			  else if (holder instanceof LoadingViewHolder) {
+            LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
 			  loadingViewHolder.progressBar.setIndeterminate(true); }
 
     }
