@@ -1,6 +1,7 @@
 package quay.com.ipos.productCatalogue;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.modal.CatalogueModal;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.CatalogueSubCatalogueFragmentAdapter;
 import quay.com.ipos.utility.Util;
@@ -29,7 +31,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 4/17/2018.
  */
 
-public class CatalogueSubProduct extends BaseFragment implements InitInterface {
+public class CatalogueSubProduct extends BaseFragment implements InitInterface, MyListener {
     private View rootView;
     private TextView textViewProductName;
     private RecyclerView recyclerviewProduct;
@@ -38,7 +40,7 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface {
     private CatalogueSubCatalogueFragmentAdapter catalogueSubCatalogueFragmentAdapter;
     private LinearLayoutManager layoutManager;
     private String productName;
-
+    private MyListener listener;
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_search);
@@ -50,8 +52,9 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.catalogue_sub_product, container, false);
         //Retrieve the value
-        productName = getArguments().getString("Prodcut Name");
+        productName = getArguments().getString("Product Name");
         mContext = getActivity();
+        listener = CatalogueSubProduct.this;
         setHasOptionsMenu(true);
         findViewById();
         applyInitValues();
@@ -71,7 +74,7 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface {
 
         layoutManager = new LinearLayoutManager(mContext);
         recyclerviewProduct.setLayoutManager(layoutManager);
-        catalogueSubCatalogueFragmentAdapter = new CatalogueSubCatalogueFragmentAdapter(mContext, catalogueModalsSet);
+        catalogueSubCatalogueFragmentAdapter = new CatalogueSubCatalogueFragmentAdapter(mContext, catalogueModalsSet,this);
         recyclerviewProduct.setAdapter(catalogueSubCatalogueFragmentAdapter);
 
         catalogueModalsSet.clear();
@@ -107,5 +110,13 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface {
     @Override
     public boolean applyLocalValidation() {
         return false;
+    }
+
+    @Override
+    public void onRowClicked(int position) {
+        CatalogueModal catalogueModal = catalogueModalsSet.get(position);
+        Intent gotToProductDetail = new Intent(mContext,ProductDetails.class);
+        gotToProductDetail.putExtra("ProductName",catalogueModal.sProductName);
+        startActivity(gotToProductDetail);
     }
 }

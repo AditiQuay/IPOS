@@ -27,7 +27,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".productCatalogue.CatalogueSubProduct"
+            android:name=".productCatalogue.ProductDetails"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
