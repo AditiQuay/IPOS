@@ -32,9 +32,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_graph" />
 
                     <TextView
                         android:id="@+id/tvOrderName"
@@ -63,7 +62,6 @@
                             android:gravity="center"
                             android:text="@string/month"
                             android:padding="@dimen/dim_3"
-                            android:alpha="0.6"
                             android:textColor="@color/white"
                             android:textSize="@dimen/dim_12"
                             android:spinnerMode="dropdown"/>
@@ -79,11 +77,7 @@
 
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+             <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -159,9 +153,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_shopping_cart" />
 
                     <TextView
                         android:id="@+id/tvStoreName"
@@ -177,22 +170,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:padding="@dimen/dim_4"
-                        android:layout_marginRight="@dimen/dim_8"
+                        android:paddingLeft="@dimen/dim_4"
+                        android:paddingRight="@dimen/dim_4"
+                        android:paddingTop="@dimen/dim_4"
+                        android:paddingBottom="@dimen/dim_4"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/white"
                         android:gravity="center"
                         android:alpha="0.6"
+                        android:textSize="@dimen/dim_12"
                         android:background="@drawable/button_round_shape"
                         android:text="@string/viewall"/>
 
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+                <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -262,8 +254,7 @@
                         android:layout_height="20dp"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:src="@drawable/ic_action_help"
-                        android:background="@color/black"
+                        android:src="@drawable/ic_calendar"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         />
@@ -282,11 +273,7 @@
 
 
                 </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey"/>
-
+                <include layout="@layout/view_layout"/>
 
 
                 <android.support.v7.widget.RecyclerView
@@ -317,9 +304,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_loyalty" />
 
                     <TextView
                         android:id="@+id/tvLoyalty"
@@ -335,22 +321,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:padding="@dimen/dim_4"
-                        android:layout_marginRight="@dimen/dim_8"
+                        android:paddingLeft="@dimen/dim_4"
+                        android:paddingRight="@dimen/dim_4"
+                        android:paddingTop="@dimen/dim_4"
+                        android:paddingBottom="@dimen/dim_4"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/white"
                         android:gravity="center"
                         android:alpha="0.6"
+                        android:textSize="@dimen/dim_12"
                         android:background="@drawable/button_round_shape"
                         android:text="@string/redeem_points"/>
 
                 </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+                <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -445,9 +429,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_summary" />
 
                     <TextView
                         android:id="@+id/tvOrderSummary"
@@ -457,7 +440,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_8"
                         android:gravity="center"
-                        android:text="@string/order_value"
+                        android:text="@string/order_summary"
                         android:textColor="@color/black" />
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -476,7 +459,6 @@
                             android:gravity="center"
                             android:text="@string/month"
                             android:padding="@dimen/dim_3"
-                            android:alpha="0.6"
                             android:textColor="@color/white"
                             android:textSize="@dimen/dim_12"
                             android:spinnerMode="dropdown"/>
@@ -491,12 +473,7 @@
                     </LinearLayout>
 
                 </RelativeLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+                <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -567,9 +544,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_cube_low_inventory" />
 
                     <TextView
                         android:id="@+id/tvProducts"
@@ -598,7 +574,6 @@
                             android:gravity="center"
                             android:text="@string/top"
                             android:padding="@dimen/dim_3"
-                            android:alpha="0.6"
                             android:textColor="@color/white"
                             android:textSize="@dimen/dim_12"
                             android:spinnerMode="dropdown"/>
@@ -614,10 +589,7 @@
 
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
+                <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -133,7 +133,7 @@
             android:layout_marginEnd="@dimen/dim_8"
             android:layout_gravity="center"
             android:visibility="visible"
-            android:background="@drawable/email"
+            android:background="@drawable/ic_click"
             android:contentDescription="TODO" />
 
     </RelativeLayout>
