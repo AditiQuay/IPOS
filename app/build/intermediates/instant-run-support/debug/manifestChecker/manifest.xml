@@ -18,6 +18,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
@@ -47,6 +48,11 @@
             android:name="quay.com.ipos.retailsales.activity.FullScannerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="quay.com.ipos.retailsales.activity.AddProductActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
 
         <meta-data
             android:name="android.support.VERSION"
