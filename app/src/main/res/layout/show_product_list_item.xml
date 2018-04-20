@@ -132,7 +132,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="@dimen/dim_5"
-        android:layout_marginLeft="@dimen/dim_10"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical">
 
@@ -140,20 +139,20 @@
             android:id="@+id/imvMinus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/dim_10"
             android:src="@drawable/icon_minus" />
 
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvQtySelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginLeft="@dimen/dim_10"
-            android:layout_marginRight="@dimen/dim_10"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:background="@drawable/lightgray_stroke_corner"
-            android:paddingLeft="10dp"
-            android:paddingRight="@dimen/dim_10"
             android:paddingBottom="@dimen/dim_5"
             android:paddingTop="@dimen/dim_5"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
             android:text="1"
             android:textColor="@color/accent_color"
             android:textSize="@dimen/text_size_13sp"
@@ -163,6 +162,7 @@
             android:id="@+id/imvPlus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="@dimen/dim_10"
             android:src="@drawable/icon_plus" />
 
         <quay.com.ipos.ui.CustomTextView
@@ -178,6 +178,7 @@
             app:typeface="Roboto-Regular.ttf" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/llDiscount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -185,6 +186,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/chkDiscount"
+            android:checked="true"
             android:layout_marginLeft="@dimen/dim_10"/>
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvDiscount"
