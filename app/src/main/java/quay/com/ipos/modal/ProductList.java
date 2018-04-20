@@ -7,23 +7,55 @@ import java.util.ArrayList;
 
 public class ProductList {
 
-@SerializedName("ProductList")
-@Expose
-private ArrayList<Product> productList = new ArrayList<>();
+    @SerializedName("GSTPerc")
+    @Expose
+    private Integer gSTPerc;
+    @SerializedName("CGST")
+    @Expose
+    private Integer cGST;
+    @SerializedName("SGST")
+    @Expose
+    private Integer sGST;
 
-public ArrayList<Product> getProduct() {
-return productList;
-}
+    public Integer getGSTPerc() {
+        return gSTPerc;
+    }
 
-public void setProduct(ArrayList<Product> productList) {
-this.productList = productList;
-}
+    public void setGSTPerc(Integer gSTPerc) {
+        this.gSTPerc = gSTPerc;
+    }
 
-    public class Product {
+    public Integer getCGST() {
+        return cGST;
+    }
+
+    public void setCGST(Integer cGST) {
+        this.cGST = cGST;
+    }
+
+    public Integer getSGST() {
+        return sGST;
+    }
+
+    public void setSGST(Integer sGST) {
+        this.sGST = sGST;
+    }
+    @SerializedName("data")
+    @Expose
+    private ArrayList<Datum> data = null;
+
+    public ArrayList<Datum> getData() {
+        return data;
+    }
+
+    public void setData(ArrayList<Datum> data) {
+        this.data = data;
+    }
+    public class Datum {
 
         @SerializedName("iProductModalId")
         @Expose
-        private Integer iProductModalId;
+        private Double iProductModalId;
         @SerializedName("sProductName")
         @Expose
         private String sProductName;
@@ -49,11 +81,57 @@ this.productList = productList;
         @Expose
         private String sDiscountPrice;
 
-        public Integer getIProductModalId() {
+        private int qty=1;
+        private double totalPrice;
+        private double discount;
+        private int totalQty;
+        private double totalDiscountPrice;
+
+        public int getTotalQty() {
+            return totalQty;
+        }
+
+        public void setTotalQty(int totalQty) {
+            this.totalQty = totalQty;
+        }
+
+        public double getTotalDiscountPrice() {
+            return totalDiscountPrice;
+        }
+
+        public void setTotalDiscountPrice(double totalDiscountPrice) {
+            this.totalDiscountPrice = totalDiscountPrice;
+        }
+
+        public double getTotalPrice() {
+            return totalPrice;
+        }
+
+        public void setTotalPrice(double totalPrice) {
+            this.totalPrice = totalPrice;
+        }
+
+        public double getDiscount() {
+            return discount;
+        }
+
+        public void setDiscount(double discount) {
+            this.discount = discount;
+        }
+
+        public int getQty() {
+            return qty;
+        }
+
+        public void setQty(int qty) {
+            this.qty = qty;
+        }
+
+        public Double getIProductModalId() {
             return iProductModalId;
         }
 
-        public void setIProductModalId(Integer iProductModalId) {
+        public void setIProductModalId(Double iProductModalId) {
             this.iProductModalId = iProductModalId;
         }
 

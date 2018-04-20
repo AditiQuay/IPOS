@@ -1,4 +1,19 @@
-#Wed Apr 18 18:38:29 IST 2018
-base.0=C\:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+#Fri Apr 20 09:02:42 IST 2018
+path.1=classes.dex
 path.0=classes.dex
+renamed.5=classes6.dex
+renamed.4=classes5.dex
+renamed.3=classes4.dex
+renamed.2=classes3.dex
+renamed.1=classes2.dex
 renamed.0=classes.dex
+base.5=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\66
+base.4=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\64
+base.3=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\69
+base.2=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\67
+base.1=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\68
+base.0=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\65
+path.5=classes.dex
+path.4=classes.dex
+path.3=classes.dex
+path.2=classes.dex

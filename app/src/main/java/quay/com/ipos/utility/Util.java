@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -47,15 +48,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.modal.ProductList;
 
 
 public class Util {
@@ -162,6 +167,10 @@ public class Util {
     }
 
     public static void showToast(String message) {
+        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void showToast(String message,Context mContext) {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 
@@ -499,7 +508,95 @@ public class Util {
         return false;
     }
 
+    /**
+     * Gets the app shared preference.
+     *
+     * @param aContext
+     *            the a context
+     * @return the app shared preference
+     */
 
+    public static SharedPreferences getAppSharedPreference(final Context aContext) {
+        SharedPreferences sp = null;
+
+        if (null != aContext) {
+            sp = aContext.getSharedPreferences(Constants.APP_SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        }
+
+        return sp;
+    }
+
+
+    /**
+     * Gets the cached email user.
+     *
+     * @return the cached email user
+     */
+//    public static User getCachedUser() {
+//        User user = null;
+//        Context context = SharekhanApplication.getAppInstance().getApplicationContext();
+//        SharedPreferences sp = getAppSharedPreference(context);
+//
+//        if (null != sp) {
+//            String userDetail = sp.getString(AppConstants.SP_KEY_USER_DETAIL, "");
+//
+//            if (false == userDetail.isEmpty()) {
+//                Gson gson = AppUtil.getCustomGson();
+//                user = gson.fromJson(userDetail, User.class);
+//            }
+//        }
+//        return user;
+//    }
+
+    /**
+     * Cache user.
+     *
+     *  user
+     *            the user
+     */
+//    public static void cacheUser(User user) {
+//        Context context = SharekhanApplication.getAppInstance().getApplicationContext();
+//        SharedPreferences sp = getAppSharedPreference(context);
+//
+//        if (null != user && null != sp) {
+//            Gson gson = AppUtil.getCustomGson();
+//            String userjson = gson.toJson(user);
+//            SharedPreferences.Editor ed = sp.edit();
+//            ed.putString(AppConstants.SP_KEY_USER_DETAIL, userjson);
+//            ed.commit();
+//        }
+//    }
+
+    public static ArrayList<ProductList.Datum> getCachedData() {
+        List<ProductList.Datum> mQuestionList = null;
+        Context context = IPOSApplication.getAppInstance().getApplicationContext();
+        SharedPreferences sp = getAppSharedPreference(context);
+
+        if (null != sp) {
+            String questionList = sp.getString("data", "");
+
+            if (false == questionList.isEmpty()) {
+                Gson gson = Util.getCustomGson();
+                ProductList.Datum[] mQuestionListData = gson.fromJson(questionList, ProductList.Datum[].class);
+                mQuestionList = Arrays.asList(mQuestionListData);
+                mQuestionList = new ArrayList<>(mQuestionList);
+            }
+        }
+        return (ArrayList<ProductList.Datum>) mQuestionList;
+    }
+
+    public static void cacheData(ArrayList<ProductList.Datum> mDatum) {
+        Context context = IPOSApplication.getAppInstance().getApplicationContext();
+        SharedPreferences sp = getAppSharedPreference(context);
+
+        if (null != mDatum && null != sp) {
+            Gson gson = Util.getCustomGson();
+            String userjson = gson.toJson(mDatum);
+            SharedPreferences.Editor ed = sp.edit();
+            ed.putString("data", userjson);
+            ed.commit();
+        }
+    }
 
 
 
