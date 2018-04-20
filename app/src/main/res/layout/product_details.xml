@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/transparent_color">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -37,15 +38,81 @@
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="135dp"
-        android:background="@color/grey"
         android:layout_below="@+id/rLayoutProductTitle"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:background="@color/grey" />
 
     <LinearLayout
         android:id="@+id/SliderDots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/viewPager"
+        android:layout_marginTop="@dimen/dim_8"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal" />
+
+    <ExpandableListView
+        android:id="@+id/expandableListViewProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rLayoutBottom"
+        android:layout_below="@+id/SliderDots"
+        android:layout_marginBottom="@dimen/dim_4"
+        android:layout_marginLeft="@dimen/dim_4"
+        android:layout_marginRight="@dimen/dim_4"
+        android:layout_marginTop="@dimen/dim_8"
+        android:background="@color/white"
+        android:groupIndicator="@null" />
+
+    <RelativeLayout
+        android:id="@+id/rLayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:padding="@dimen/dim_8">
+
+        <ImageView
+            android:id="@+id/imageViewDownload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_action_download" />
+
+        <TextView
+            android:id="@+id/textViewDateSheet"
+            style="@style/styleWhiteTextColor14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/imageViewDownload"
+            android:layout_toRightOf="@+id/imageViewDownload"
+            android:text="Datasheet"
+            tools:ignore="RtlSymmetry" />
+
+        <ImageView
+            android:id="@+id/imageViewCalci"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/calculator" />
+
+        <TextView
+            android:id="@+id/textViewFoam"
+            style="@style/styleWhiteTextColor14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dim_8"
+            android:layout_marginRight="@dimen/dim_8"
+            android:layout_toLeftOf="@+id/imageViewCalci"
+            android:layout_toStartOf="@+id/imageViewCalci"
+            android:text="Foam Calculator"
+            tools:ignore="RtlSymmetry" />
+
+
+    </RelativeLayout>
+
 </RelativeLayout>
