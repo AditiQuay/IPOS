@@ -107,4 +107,33 @@
     <string name="apply">Apply</string>
     <string name="otc_approval_details">This action needs an approval &amp; the same has been initiated. Check approval status on workflow menu.</string>
     <string name="otc_discount_workflow_approval">OTC Discount Workflow Approval</string>
+    <string name="viewall">View All</string>
+    <string name="order_tracking">Order Tracking</string>
+    <string name="accepted">Accepted</string>
+    <string name="dispatched">Dispatched</string>
+    <string name="upcoming_shipment">Upcoming Shipment</string>
+    <string name="loyalty">Loyalty Program</string>
+    <string name="redeem_points">Redeem Points</string>
+    <string name="earned_points">Earned Points</string>
+    <string name="redeemed_points">Redeemed Points</string>
+    <string name="available_points">Available Points</string>
+    <string name="order_value">Value of Orders by Period</string>
+    <string name="mtd">MTD</string>
+    <string name="ytd">YTD</string>
+    <string name="products">Products</string>
+    <string name="order_values">Order Value</string>
+    <string name="top">Top 5</string>
+    <string name="retail_sale">Retail Sales</string>
+    <string name="enter_number">Enter Mobile Number</string>
+    <string name="customer_details">Customer Details</string>
+    <string name="address">Billing address - 145, Sector 40, Gurugram, 122018</string>
+    <string name="suggest_to_buy">Suggest to buy</string>
+    <string name="suggest_dummy">Trizole was out of stock on last billing. its now available</string>
+    <string name="recent_orders">Recent Orders</string>
+    <string-array name="ordervalue">
+        <item>Apr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+    </string-array>
 </resources>

@@ -80,9 +80,8 @@
 
         <ImageView
             android:id="@+id/imgPin"
-            android:layout_width="0dp"
+            android:layout_width="24dp"
             android:layout_height="@dimen/dim_24"
-            android:layout_weight="0.3"
             android:maxWidth="@dimen/dim_20"
             android:layout_marginRight="@dimen/dim_8"
             android:layout_marginEnd="@dimen/dim_8"

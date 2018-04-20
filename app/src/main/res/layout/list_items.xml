@@ -11,9 +11,7 @@
         style="@style/stylePrimaryTextColor14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
+        android:layout_centerInParent="true"
         android:paddingEnd="10dp"
         android:paddingRight="10dp"
         android:text="Item Name" />

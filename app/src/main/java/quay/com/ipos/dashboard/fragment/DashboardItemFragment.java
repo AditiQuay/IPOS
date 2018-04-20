@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.dashboard.adapter.FastMovingListAdapter;
+import quay.com.ipos.dashboard.adapter.InventoryListAdapter;
 import quay.com.ipos.dashboard.adapter.LowInventoryListAdapter;
 import quay.com.ipos.dashboard.adapter.TopStoresListAdapter;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
@@ -30,12 +31,15 @@ public class DashboardItemFragment extends Fragment {
     String[] title = {"Nidan 4G", "Sure", "Built", "Extra Super", "Missile"};
     String[] product = {"Bavistin", "Abacin", "Snapper", "Kyoto", "Nutrozen"};
     String[] topstores = {"My store 1", "Top Store 2", "Top store 3", "Top store 4", "Top store 5"};
-    private RecyclerView recyclerView, recycler_view_top_stores, recycler_viewFastMoving;
+    String[] inventory = {"Reference # 1", "Reference # 2"};
+    private RecyclerView recyclerView, recycler_view_top_stores, recycler_viewFastMoving,recycler_viewInventory;
     private LowInventoryListAdapter adapter;
     private TopStoresListAdapter topStoresListAdapter;
     private FastMovingListAdapter fastMovingListAdapter;
+    private InventoryListAdapter inventoryListAdapter;
     private ArrayList<LowInventoryModal> responseList = new ArrayList<>();
     private ArrayList<LowInventoryModal> topStoresList = new ArrayList<>();
+    private ArrayList<LowInventoryModal> inventoryList = new ArrayList<>();
     private ArrayList<LowInventoryModal> fastMovingList = new ArrayList<>();
     private int position;
     private String strImage;
@@ -100,12 +104,31 @@ public class DashboardItemFragment extends Fragment {
         recycler_viewFastMoving.setAdapter(fastMovingListAdapter);
 
 
+        recycler_viewInventory = (RecyclerView) view.findViewById(R.id.recycler_viewInventory);
+        GridLayoutManager mLayoutManager4 = new GridLayoutManager(getActivity(), 1);
+        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recycler_viewInventory.setLayoutManager(mLayoutManager4);
+        recycler_viewInventory.addItemDecoration(new SpacesItemDecoration(10));
+        inventoryListAdapter = new InventoryListAdapter(getActivity(), inventoryList);
+        recycler_viewInventory.setAdapter(inventoryListAdapter);
+
         getLowInventoryData();
 
         getTopStoresData();
         getFastMovingData();
+        getInventoryData();
         return view;
 
+    }
+    private void getInventoryData() {
+        for (int i = 0; i < inventory.length; i++) {
+            LowInventoryModal lowInventoryModal = new LowInventoryModal();
+            lowInventoryModal.setTitle(inventory[i]);
+
+            inventoryList.add(lowInventoryModal);
+
+        }
+        inventoryListAdapter.notifyDataSetChanged();
     }
 
     private void getLowInventoryData() {
