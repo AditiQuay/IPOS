@@ -1,11 +1,9 @@
 package quay.com.ipos.retailsales.fragment;
 
 
-import android.support.v4.app.Fragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
-
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
@@ -22,20 +20,23 @@ import android.widget.ToggleButton;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.retailsales.activity.FullScannerActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by aditi.bhuranda on 16-04-2018.
  */
 
 public class RetailSalesFragment extends Fragment implements View.OnClickListener {
-    private TextView tvUserAdd,tvPin,tvRedeem,tvRight,tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvItemPrice,
-            tvTotalGST,tvItemGSTPrice,tvTotalDiscountQty,tvTotalDiscountPrice,tvCGST,tvCGSTPrice,tvSGST,tvSGSTPrice,
+    private TextView tvUserAdd,tvPin,tvRedeem,tvRight,tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
+            tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
             tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvClearOTC,tvClearOTC1;
     private ToggleButton tbPerc,tbRs;
     private CheckBox chkOTC;
@@ -43,15 +44,19 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     private LinearLayout llTotalDiscountDetail,ll_item_pay,llOTCSelect,llTotalGST;
     private ImageView imvDicount,imvGlobe,imvQRCode;
     private ToggleButton chkBarCode;
-    private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
     private String TAG=RetailSalesFragment.class.getSimpleName();
     private RetailSalesAdapter mRetailSalesAdapter;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
+    int qty = 0;
+    double totalPrice=0.0;
+    double sum=0;
+    double discount=0;
+    int discountItem=0;
     private int mSelectedpos=0;
-    private ArrayList<String> mList= new ArrayList<String>();
+//    private ArrayList<ProductList.Datum> mList= new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
@@ -76,15 +81,13 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         tvMoreDetails = rootView.findViewById(R.id.tvMoreDetails);
         tvItemNo = rootView.findViewById(R.id.tvItemNo);
         tvItemQty = rootView.findViewById(R.id.tvItemQty);
-        tvItemPrice = rootView.findViewById(R.id.tvItemPrice);
+        tvTotalItemPrice = rootView.findViewById(R.id.tvTotalItemPrice);
         tvTotalGST = rootView.findViewById(R.id.tvTotalGST);
-        tvItemGSTPrice = rootView.findViewById(R.id.tvItemGSTPrice);
+        tvTotalItemGSTPrice = rootView.findViewById(R.id.tvTotalItemGSTPrice);
         llTotalDiscountDetail = rootView.findViewById(R.id.llTotalDiscountDetail);
-        tvTotalDiscountQty = rootView.findViewById(R.id.tvTotalDiscountQty);
+        tvTotalDiscountDetail = rootView.findViewById(R.id.tvTotalDiscountDetail);
         tvTotalDiscountPrice = rootView.findViewById(R.id.tvTotalDiscountPrice);
-        tvCGST = rootView.findViewById(R.id.tvCGST);
         tvCGSTPrice = rootView.findViewById(R.id.tvCGSTPrice);
-        tvSGST = rootView.findViewById(R.id.tvSGST);
         tvSGSTPrice = rootView.findViewById(R.id.tvSGSTPrice);
         tvLessDetails = rootView.findViewById(R.id.tvLessDetails);
         tvRoundingOffPrice = rootView.findViewById(R.id.tvRoundingOffPrice);
@@ -98,7 +101,6 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         tvClearOTC = rootView.findViewById(R.id.tvClearOTC);
         tvClearOTC1 = rootView.findViewById(R.id.tvClearOTC1);
         mRecyclerView =  rootView.findViewById(R.id.recycleView);
-        swipeRefreshLayout =  rootView.findViewById(R.id.swipeRefreshLayout);
 
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -110,12 +112,9 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         setListener();
         setAdapter();
         setViewResponse();
-        setDefaultValues();
     }
 
-    private void setDefaultValues() {
 
-    }
 
     private void setViewResponse() {
     }
@@ -162,46 +161,38 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
                 });
 
-        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+//        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+//
+//            @Override
+//            public void onTouchEvent(RecyclerView arg0, MotionEvent arg1) {
+//
+//            }
+//
+//            @Override
+//            public void onRequestDisallowInterceptTouchEvent(boolean arg0) {
+//
+//            }
+//
+//            @SuppressWarnings("deprecation")
+//            @Override
+//            public boolean onInterceptTouchEvent(RecyclerView arg0, MotionEvent motionEvent) {
+//                View child = arg0.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+//
+//                if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
+//                    mSelectedpos = arg0.getChildPosition(child);
+////                    AppLog.e(TAG, "item:: " + arg0.getChildPosition(child));
+//                    // AppUtil.LogMsg(TAG,
+//                    // AppUtil.getCustomGson().toJson(moduleList.get(arg0.getChildPosition(child))));
+////                    openDetailActivity(arg0.getChildPosition(child));
+//                    return true;
+//
+//                }
+//
+//                return false;
+//            }
+//
+//        });
 
-            @Override
-            public void onTouchEvent(RecyclerView arg0, MotionEvent arg1) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean arg0) {
-
-            }
-
-            @SuppressWarnings("deprecation")
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView arg0, MotionEvent motionEvent) {
-                View child = arg0.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-
-                if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
-                    mSelectedpos = arg0.getChildPosition(child);
-                    AppLog.e(TAG, "item:: " + arg0.getChildPosition(child));
-                    // AppUtil.LogMsg(TAG,
-                    // AppUtil.getCustomGson().toJson(moduleList.get(arg0.getChildPosition(child))));
-//                    openDetailActivity(arg0.getChildPosition(child));
-                    return true;
-
-                }
-
-                return false;
-            }
-
-        });
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-//                mOffset = 0;
-//                nextOffset = 6;
-//                callBelongList();
-            }
-        });
         tbPerc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -224,11 +215,12 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     }
 
     private void setAdapter() {
-        mList.add("asd");
-        mList.add("wer");
-        mRetailSalesAdapter = new RetailSalesAdapter(getActivity(), this, mRecyclerView, mList);
-        mRecyclerView.setAdapter(mRetailSalesAdapter);
+//        mList.add("asd");
+//        mList.add("wer");
 
+        mRetailSalesAdapter = new RetailSalesAdapter(getActivity(), this, mRecyclerView, IPOSApplication.mProductList);
+        mRecyclerView.setAdapter(mRetailSalesAdapter);
+        getProduct();
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -255,6 +247,89 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         });
     }
 
+    private void getProduct() {
+        try {
+            IPOSApplication.mProductList.clear();
+            String json = Util.getAssetJsonResponse(getActivity(), "product_list.json");
+            ProductList mProductList = Util.getCustomGson().fromJson(json,ProductList.class);
+            AppLog.e(RetailSalesAdapter.class.getSimpleName(),Util.getCustomGson().toJson(mProductList));
+            IPOSApplication.mProductList.addAll(mProductList.getData());
+            setDefaultValues();
+
+            mRetailSalesAdapter.notifyDataSetChanged();
+            setUpdateValues(IPOSApplication.mProductList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void setDefaultValues() {
+        Double totalPrice;
+        for(int i=0 ; i < IPOSApplication.mProductList.size();i++ )
+        {
+            ProductList.Datum datum = IPOSApplication.mProductList.get(i);
+            datum.setQty(1);
+            totalPrice = (Double.parseDouble(datum.getSProductPrice()) * datum.getQty());
+            datum.setTotalPrice(totalPrice);
+            if(datum.getIsDiscount()) {
+                Double discount = Double.parseDouble(datum.getSDiscountPrice()) * totalPrice / 100;
+                datum.setDiscount(discount);
+            }else {
+                datum.setDiscount(0.0);
+            }
+            IPOSApplication.mProductList.set(i,datum);
+        }
+    }
+
+
+    private void setUpdateValues(ArrayList<ProductList.Datum> mList) {
+
+        AppLog.e(RetailSalesFragment.class.getSimpleName(), "IPOSApplication.mProductList:Frag: "+ Util.getCustomGson().toJson(IPOSApplication.mProductList));
+        if(mList.size()==1 || mList.size() == 0) {
+            tvItemNo.setText("Item " + mList.size());
+        }else {
+            tvItemNo.setText("Items " + mList.size());
+        }
+        if(mList.size()==0){
+            tvItemQty.setText("0 Qty");
+            tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+            tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+            tvTotalDiscount.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+            tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+            tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+            tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+            tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+            tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+            tvTotalDiscountDetail.setText("(Item 0)");
+        }else {
+
+
+            for(int i = 0 ; i < mList.size(); i++ ) {
+                ProductList.Datum datum = mList.get(i);
+                qty += mList.get(i).getQty();
+                datum.setTotalQty(qty);
+                totalPrice=mList.get(i).getQty()*Double.parseDouble(mList.get(i).getSProductPrice());
+                sum=totalPrice+sum;
+                datum.setTotalPrice(sum);
+                if(mList.get(i).getIsDiscount()) {
+                    discount = Double.parseDouble(mList.get(i).getSDiscountPrice()) * sum / 100;
+                    datum.setDiscount(discount);
+                    discountItem++;
+                }
+//                totalPrice += mList.get(i).getTotalPrice();
+                IPOSApplication.mProductList.set(i,datum);
+            }
+            tvItemQty.setText(qty+" Qty");
+            tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) +" "+sum);
+            tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) +" "+discount);
+            tvTotalDiscountDetail.setText("(Item "+ discountItem+")");
+
+            AppLog.e(RetailSalesAdapter.class.getSimpleName(),"updated: " + Util.getCustomGson().toJson(IPOSApplication.mProductList));
+        }
+    }
+
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -278,19 +353,42 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             case R.id.tvOTCDiscount:
                 AppLog.e(TAG,"click");
                 layoutOtcDiscount.setVisibility(View.VISIBLE);
-                swipeRefreshLayout.setVisibility(View.GONE);
                 break;
             case R.id.tvClearOTC:
                 layoutOtcDiscount.setVisibility(View.GONE);
                 ll_item_pay.setVisibility(View.VISIBLE);
                 llOTCSelect.setVisibility(View.GONE);
-                swipeRefreshLayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.tvClearOTC1:
                 layoutOtcDiscount.setVisibility(View.GONE);
                 ll_item_pay.setVisibility(View.VISIBLE);
                 llOTCSelect.setVisibility(View.GONE);
-                swipeRefreshLayout.setVisibility(View.VISIBLE);
+                break;
+            case R.id.imvMinus:
+                Util.animateView(view);
+                int posMinus = (int) view.getTag();
+                ProductList.Datum datum = IPOSApplication.mProductList.get(posMinus);
+                int qty = datum.getQty();
+                if(qty==1){
+                    Util.showToast("Cannot purchase with 0 quantity",getActivity());
+                    return;
+                }else {
+                    datum.setQty((qty - 1));
+                    IPOSApplication.mProductList.set(posMinus, datum);
+                    mRetailSalesAdapter.notifyDataSetChanged();
+                    setUpdateValues(IPOSApplication.mProductList);
+                }
+                break;
+
+            case R.id.imvPlus:
+                Util.animateView(view);
+                int posPlus = (int) view.getTag();
+                ProductList.Datum datum1 = IPOSApplication.mProductList.get(posPlus);
+                int qty1 = datum1.getQty();
+                datum1.setQty((qty1+1));
+                IPOSApplication.mProductList.set(posPlus,datum1);
+                mRetailSalesAdapter.notifyDataSetChanged();
+                setUpdateValues(IPOSApplication.mProductList);
                 break;
         }
     }

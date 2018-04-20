@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/backgroundgrey">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -98,12 +98,6 @@
                 android:visibility="gone"
                 android:src="@drawable/ic_barcode"/>
 
-            <android.support.v4.widget.SwipeRefreshLayout
-                android:id="@+id/swipeRefreshLayout"
-                android:layout_width="match_parent"
-                android:visibility="visible"
-                android:layout_marginTop="@dimen/dim_1"
-                android:layout_height="match_parent">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycleView"
@@ -111,7 +105,6 @@
                     android:layout_height="match_parent"
                     android:scrollbars="vertical"
                     android:layout_marginTop="@dimen/dim_1" />
-            </android.support.v4.widget.SwipeRefreshLayout>
             <LinearLayout
                 android:id="@+id/layout_otc_discount"
                 android:layout_width="match_parent"
@@ -178,7 +171,7 @@
                         app:typeface="Roboto-Regular.ttf" />
 
                     <quay.com.ipos.ui.CustomTextView
-                        android:id="@+id/tvItemPrice"
+                        android:id="@+id/tvTotalItemPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -218,7 +211,7 @@
                         app:typeface="Roboto-Regular.ttf" />
 
                     <quay.com.ipos.ui.CustomTextView
-                        android:id="@+id/tvItemGSTPrice"
+                        android:id="@+id/tvTotalItemGSTPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -248,7 +241,7 @@
                             app:typeface="Roboto-Regular.ttf" />
 
                         <quay.com.ipos.ui.CustomTextView
-                            android:id="@+id/tvTotalDiscountQty"
+                            android:id="@+id/tvTotalDiscountDetail"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
@@ -276,7 +269,6 @@
                         android:orientation="horizontal">
 
                         <quay.com.ipos.ui.CustomTextView
-                            android:id="@+id/tvCGST"
                             android:layout_width="wrap_content"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
@@ -302,7 +294,6 @@
                         android:orientation="horizontal">
 
                         <quay.com.ipos.ui.CustomTextView
-                            android:id="@+id/tvSGST"
                             android:layout_width="wrap_content"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"

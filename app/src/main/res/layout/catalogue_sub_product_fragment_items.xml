@@ -11,9 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dim_8">
 
+
         <TextView
             android:id="@+id/textViewProductName"
-            style="@style/stylePrimaryTextColor14"
+            style="@style/stylePrimaryTextColor16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/imageViewProduct"
@@ -21,16 +22,20 @@
             android:layout_toLeftOf="@+id/imageViewProduct"
             android:ems="7"
             android:gravity="center_vertical"
-            android:lines="2"
-            android:text="Soudafoan 1K" />
+            android:lines="1"
+            android:text="Soudafoan 1K"
+            android:layout_marginEnd="@dimen/dim_8"
+            android:layout_toStartOf="@+id/imageViewProduct" />
 
         <TextView
             android:id="@+id/textViewFeature"
-            style="@style/stylePrimaryTextColor12"
+            style="@style/stylePrimaryTextColor14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_4"
             android:layout_below="@+id/textViewProductName"
             android:layout_marginRight="@dimen/dim_8"
+            android:alpha="0.7"
             android:layout_toLeftOf="@+id/imageViewProduct"
             android:ems="7"
             android:gravity="left|clip_vertical"
@@ -59,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:ems="5"
                 android:gravity="left|clip_vertical"
-                android:lines="2"
+                android:lines="1"
                 android:text="$ 200" />
 
             <ImageView
@@ -105,9 +110,10 @@
                 <Button
                     style="@style/styleWhiteTextColor12"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="@dimen/dim_4"
+                    android:layout_height="@dimen/dim_30"
                     android:padding="@dimen/dim_4"
+                    android:drawablePadding="@dimen/dim_4"
+                    android:layout_gravity="bottom"
                     android:background="@drawable/button_round_shape"
                     android:drawableLeft="@drawable/datesheet"
                     android:text="DataSheet"
@@ -123,11 +129,11 @@
                 <Button
                     style="@style/styleWhiteTextColor14"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dim_30"
                     android:padding="@dimen/dim_4"
+                    android:drawablePadding="@dimen/dim_4"
                     android:background="@drawable/button_round_shape"
                     android:drawableLeft="@drawable/calci"
-                    android:drawablePadding="@dimen/dim_4"
                     android:text="Calculator"
                     android:textAllCaps="false"
                     android:textColor="@color/white_text_color" />
@@ -141,7 +147,7 @@
                 <Button
                     style="@style/styleWhiteTextColor14"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dim_30"
                     android:background="@drawable/button_round_shape"
                     android:drawableLeft="@drawable/shopping_cart"
                     android:text="Cart"

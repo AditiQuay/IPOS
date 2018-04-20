@@ -21,6 +21,11 @@ public class Constants {
      * The Constant MAX_DISK_CACHE_SIZE.
      */
     public static final int MAX_DISK_CACHE_SIZE = 50 * MB;
+    /**
+     * The Constant APP_SHARED_PREF_NAME.
+     */
+    public static final String APP_SHARED_PREF_NAME = "profile";
+
     public static final int SUCCESS = 200;
     public static final String DATE_FORMAT = "dd MMM yyyy";
     public static final SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");

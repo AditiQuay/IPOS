@@ -11,19 +11,27 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import java.util.ArrayList;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import quay.com.ipos.R;
+import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.utility.Constants;
 
 
 public class IPOSApplication extends MultiDexApplication {
     private static Context mContext;
 
+    /** The instance. */
+    private static IPOSApplication _instance = null;
+
+    public static ArrayList<ProductList.Datum> mProductList= new ArrayList<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
+        _instance = this;
         mContext = getApplicationContext();
         MultiDex.install(this);
         Realm.init(this);
@@ -45,6 +53,16 @@ public class IPOSApplication extends MultiDexApplication {
 
 
     }
+
+    /**
+     * Gets the app instance.
+     *
+     * @return the app instance
+     */
+    public static IPOSApplication getAppInstance() {
+        return _instance;
+    }
+
     public static Context getContext() {
         return mContext;
     }

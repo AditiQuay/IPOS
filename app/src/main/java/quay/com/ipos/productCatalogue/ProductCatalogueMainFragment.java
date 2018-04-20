@@ -146,7 +146,7 @@ public class ProductCatalogueMainFragment extends BaseFragment implements InitIn
         // Create new fragment and transaction
         Fragment newFragment = new CatalogueSubProduct();
         Bundle args = new Bundle();
-        args.putString("Prodcut Name", productCatalogueModal.productName);
+        args.putString("Product Name", productCatalogueModal.productName);
         newFragment.setArguments(args);
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 

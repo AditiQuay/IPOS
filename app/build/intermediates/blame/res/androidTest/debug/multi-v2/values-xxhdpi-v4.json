@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xxhdpi-v4\\values-xxhdpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\core-1.9.8.aar\\96f49d91eff8a649368a56b9d3990ff9\\res\\values-xxhdpi-v4\\values-xxhdpi-v4.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,114",
+                        "endColumns": "58,55",
+                        "endOffsets": "109,165"
+                    }
+                }
+            ]
+        }
+    ]
+}

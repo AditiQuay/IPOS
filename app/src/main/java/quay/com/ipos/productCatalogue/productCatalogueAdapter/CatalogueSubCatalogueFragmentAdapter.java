@@ -1,6 +1,7 @@
 package quay.com.ipos.productCatalogue.productCatalogueAdapter;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +24,11 @@ import quay.com.ipos.utility.FontUtil;
 public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<CatalogueSubCatalogueFragmentAdapter.MyViewHolder> {
     private Context mContext;
     private ArrayList<CatalogueModal> catalogueModalsSet;
-
-    public CatalogueSubCatalogueFragmentAdapter(Context mContext, ArrayList<CatalogueModal> catalogueModalsSet) {
+    private MyListener listener;
+    public CatalogueSubCatalogueFragmentAdapter(Context mContext, ArrayList<CatalogueModal> catalogueModalsSet,MyListener listener) {
         this.mContext = mContext;
         this.catalogueModalsSet = catalogueModalsSet;
+        this.listener = listener;
     }
 
     @Override
@@ -38,11 +40,18 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
     }
 
     @Override
-    public void onBindViewHolder(CatalogueSubCatalogueFragmentAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(CatalogueSubCatalogueFragmentAdapter.MyViewHolder holder, final int position) {
         CatalogueModal catalogueModal = catalogueModalsSet.get(position);
         holder.textViewProductName.setText(catalogueModal.sProductName);
         holder.textViewFeature.setText(catalogueModal.sProductFeature);
         holder.textViewPrice.setText(catalogueModal.sProductPrice);
+
+        holder.card_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onRowClicked(position);
+            }
+        });
     }
 
     @Override
@@ -53,9 +62,10 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageViewProduct;
         private TextView textViewProductName,textViewFeature,textViewPrice;
-
+        private CardView card_view;
         public MyViewHolder(View itemView) {
             super(itemView);
+            card_view = itemView.findViewById(R.id.card_view);
             imageViewProduct = itemView.findViewById(R.id.imageViewProduct);
             textViewProductName = itemView.findViewById(R.id.textViewProductName);
             textViewFeature = itemView.findViewById(R.id.textViewFeature);

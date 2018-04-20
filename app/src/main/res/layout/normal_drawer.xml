@@ -14,6 +14,7 @@
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/dim_16"
             android:layout_height="wrap_content"
+            android:groupIndicator="@null"
             android:layout_alignParentLeft="true" />
     </RelativeLayout>
 
