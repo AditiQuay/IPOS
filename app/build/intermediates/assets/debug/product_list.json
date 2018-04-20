@@ -1,4 +1,7 @@
 {
+  "GSTPerc":18,
+  "CGST":9,
+  "SGST":9,
   "data": [
     {
       "iProductModalId": 1,

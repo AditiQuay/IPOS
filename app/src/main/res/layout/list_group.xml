@@ -9,6 +9,7 @@
         android:id="@+id/imageViewGroupIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0.7"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:paddingRight="10dp" />
@@ -19,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:paddingLeft="@dimen/dim_10"
         android:layout_toRightOf="@+id/imageViewGroupIcon"
         android:paddingRight="10dp"
         android:text="Item Name" />
