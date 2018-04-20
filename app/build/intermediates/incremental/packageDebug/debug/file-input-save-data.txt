@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Apr 18 18:38:29 IST 2018
+#Fri Apr 20 15:15:43 IST 2018
 5.base=C\:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\assets\\debug
 22.path=fonts/RobotoCondensed-Bold.ttf
 32.set=ASSET

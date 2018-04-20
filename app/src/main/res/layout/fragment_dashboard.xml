@@ -31,7 +31,7 @@
                 android:layout_height="20dp"
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
-                android:background="@drawable/ic_earth"
+                android:background="@drawable/ic_filter"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
              />
