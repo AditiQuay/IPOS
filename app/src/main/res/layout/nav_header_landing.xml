@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/dim_16"
-        android:src="@drawable/place_holder" />
+        android:src="@drawable/user" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dim_16"
             android:layout_marginStart="@dimen/dim_16"
-            android:src="@drawable/profile_thumb" />
+            android:src="@drawable/cystal" />
 
         <TextView
             android:id="@+id/textViewTraderName"

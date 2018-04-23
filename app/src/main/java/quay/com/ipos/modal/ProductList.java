@@ -81,11 +81,39 @@ public class ProductList {
         @Expose
         private String sDiscountPrice;
 
+        private boolean discSelected = false;
+        private boolean ItemSelected = false;
+        private boolean OTCselected = false;
+
         private int qty=1;
         private double totalPrice;
         private double discount;
         private int totalQty;
         private double totalDiscountPrice;
+
+        public boolean isItemSelected() {
+            return ItemSelected;
+        }
+
+        public void setItemSelected(boolean itemSelected) {
+            ItemSelected = itemSelected;
+        }
+
+        public boolean isOTCselected() {
+            return OTCselected;
+        }
+
+        public void setOTCselected(boolean OTCselected) {
+            this.OTCselected = OTCselected;
+        }
+
+        public boolean isDiscSelected() {
+            return discSelected;
+        }
+
+        public void setDiscSelected(boolean discSelected) {
+            this.discSelected = discSelected;
+        }
 
         public int getTotalQty() {
             return totalQty;
