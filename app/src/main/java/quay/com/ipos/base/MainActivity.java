@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -49,7 +50,7 @@ import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, InitInterface {
+        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -68,7 +69,9 @@ public class MainActivity extends BaseActivity
     private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
-
+    private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
+    private View viewM, viewI, viewP;
+    private ImageView imageViewP, imageViewI, imageViewM;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,33 +97,50 @@ public class MainActivity extends BaseActivity
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         listViewContent = findViewById(R.id.listViewContent);
-        final ImageView profileImageSwitch = (ImageView) findViewById(R.id.profileImageSwitch);
-        final ImageView profileImage = (ImageView) findViewById(R.id.profileImage);
+
+        lLaoutBtnP = findViewById(R.id.lLaoutBtnP);
+        lLaoutBtnI = findViewById(R.id.lLaoutBtnI);
+        lLaoutBtnM = findViewById(R.id.lLaoutBtnM);
+
+        viewP = findViewById(R.id.viewP);
+        viewI = findViewById(R.id.viewI);
+        viewM = findViewById(R.id.viewM);
+
+        imageViewP = findViewById(R.id.imageViewP);
+        imageViewI = findViewById(R.id.imageViewI);
+        imageViewM = findViewById(R.id.imageViewM);
+
+
+//        final ImageView profileImageSwitch = (ImageView) findViewById(R.id.profileImageSwitch);
+//        final ImageView profileImage = (ImageView) findViewById(R.id.profileImage);
 
         final RelativeLayout llNavigation = (RelativeLayout) findViewById(R.id.llNavigation);
         expandableListView1 = findViewById(R.id.expandableListView1);
 
-        profileImageSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!toggle) {
-                    profileImageSwitch.setImageResource(R.drawable.profile_bg);
-                    profileImage.setImageResource(R.drawable.place_holder);
-
-                    expandableListView1.setVisibility(View.VISIBLE);
-                    llNavigation.setVisibility(View.GONE);
-                    toggle = true;
-                } else {
-                    profileImageSwitch.setImageResource(R.drawable.place_holder);
-                    profileImage.setImageResource(R.drawable.profile_bg);
-                    expandableListView1.setVisibility(View.GONE);
-                    llNavigation.setVisibility(View.VISIBLE);
-                    toggle = false;
-                }
-
-
-            }
-        });
+//        profileImageSwitch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (!toggle) {
+//                    profileImageSwitch.setImageResource(R.drawable.profile_bg);
+//                    profileImage.setImageResource(R.drawable.place_holder);
+//
+//                    expandableListView1.setVisibility(View.VISIBLE);
+//                    llNavigation.setVisibility(View.GONE);
+//                    toggle = true;
+//                } else {
+//                    profileImageSwitch.setImageResource(R.drawable.place_holder);
+//                    profileImage.setImageResource(R.drawable.profile_bg);
+//                    expandableListView1.setVisibility(View.GONE);
+//                    llNavigation.setVisibility(View.VISIBLE);
+//                    toggle = false;
+//                }
+//
+//
+//            }
+//        });
+        lLaoutBtnP.setOnClickListener(this);
+        lLaoutBtnI.setOnClickListener(this);
+        lLaoutBtnM.setOnClickListener(this);
     }
 
     @Override
@@ -133,18 +153,18 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mNavigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_array);
-        DrawerModal[] drawerItem = new DrawerModal[5];
-
-        drawerItem[0] = new DrawerModal(R.drawable.insights, "Dashboard & Insight");
-        drawerItem[1] = new DrawerModal(R.drawable.catalogue, "Product Catalogue");
-        drawerItem[2] = new DrawerModal(R.drawable.stock_price, "Stock & Price");
-        drawerItem[3] = new DrawerModal(R.drawable.loyalty, "Loyalty Program");
-        drawerItem[4] = new DrawerModal(R.drawable.partner, "Partner Connect");
-
-        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.drawer_list_items, drawerItem);
-        listViewContent.setAdapter(adapter);
-
-        listViewContent.setOnItemClickListener(new DrawerItemClickListener());
+//        DrawerModal[] drawerItem = new DrawerModal[5];
+//
+//        drawerItem[0] = new DrawerModal(R.drawable.insights, "Dashboard & Insight");
+//        drawerItem[1] = new DrawerModal(R.drawable.catalogue, "Product Catalogue");
+//        drawerItem[2] = new DrawerModal(R.drawable.stock_price, "Stock & Price");
+//        drawerItem[3] = new DrawerModal(R.drawable.loyalty, "Loyalty Program");
+//        drawerItem[4] = new DrawerModal(R.drawable.partner, "Partner Connect");
+//
+//        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.drawer_list_items, drawerItem);
+//        listViewContent.setAdapter(adapter);
+//
+//        listViewContent.setOnItemClickListener(new DrawerItemClickListener());
 
         expandableListDetail = ExpandableListDataPump.getData();
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
@@ -241,6 +261,38 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean applyLocalValidation() {
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == lLaoutBtnP) {
+            viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            imageViewP.setBackgroundResource(R.drawable.menu_background_select);
+
+            viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
+
+            viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
+        }if (v==lLaoutBtnI){
+            viewI.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            imageViewI.setBackgroundResource(R.drawable.menu_background_select);
+
+            viewP.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewP.setBackgroundResource(R.drawable.menu_background_unselect);
+
+            viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
+        }if (v==lLaoutBtnM){
+            viewM.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            imageViewM.setBackgroundResource(R.drawable.menu_background_select);
+
+            viewP.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewP.setBackgroundResource(R.drawable.menu_background_unselect);
+
+            viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
+        }
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
