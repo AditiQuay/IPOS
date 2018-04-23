@@ -1,22 +1,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/rLayoutOptions"
-        android:background="@color/colorPrimary">
+        android:layout_toRightOf="@+id/rLayoutOptions">
 
+        <include
+            android:id="@+id/header"
+            layout="@layout/nav_header_ipos" />
 
         <ExpandableListView
             android:id="@+id/expandableListView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:layout_below="@+id/header"
             android:layout_marginTop="@dimen/dim_16"
-            android:groupIndicator="@null" />
+            android:background="@color/transparent_color"
+            android:divider="@null"
+            android:groupIndicator="@null"
+            android:scrollbars="vertical" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -26,31 +31,32 @@
         android:background="@color/transparent_color">
 
         <LinearLayout
-            android:id="@+id/rLaoutBtnOne"
+            android:id="@+id/lLaoutBtnP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <View
-                android:id="@+id/view1"
-                android:layout_width="@dimen/dim_5"
+                android:id="@+id/viewP"
+                android:layout_width="@dimen/dim_3"
                 android:layout_height="match_parent"
-                android:background="@color/textColorPrimary" />
+                android:background="@color/transparent_color" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/dim_10"
+                android:layout_margin="@dimen/dim_8"
                 android:fillAfter="false"
                 android:fillEnabled="false">
 
                 <ImageView
-                    android:layout_width="@dimen/dim_45"
-                    android:layout_height="@dimen/dim_45"
-                    android:src="@drawable/menu_background" />
+                    android:id="@+id/imageViewP"
+                    android:layout_width="@dimen/dim_40"
+                    android:layout_height="@dimen/dim_40"
+                    android:background="@drawable/menu_background_unselect" />
 
                 <TextView
-                    style="@style/styleWhiteTextColor24"
+                    style="@style/styleWhiteTextColor18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -62,32 +68,33 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/rLaoutBtnTwo"
+            android:id="@+id/lLaoutBtnI"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rLaoutBtnOne">
+            android:layout_below="@+id/lLaoutBtnP">
 
             <View
-                android:id="@+id/view2"
-                android:layout_width="@dimen/dim_5"
+                android:id="@+id/viewI"
+                android:layout_width="@dimen/dim_3"
                 android:layout_height="match_parent"
-                android:background="@color/red" />
+                android:background="@color/transparent_color" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/dim_10"
+                android:layout_margin="@dimen/dim_8"
                 android:fillAfter="false"
                 android:fillEnabled="false">
 
                 <ImageView
-                    android:layout_width="@dimen/dim_45"
-                    android:layout_height="@dimen/dim_45"
-                    android:src="@drawable/menu_background" />
+                    android:id="@+id/imageViewI"
+                    android:layout_width="@dimen/dim_40"
+                    android:layout_height="@dimen/dim_40"
+                    android:background="@drawable/menu_background_unselect" />
 
                 <TextView
-                    style="@style/styleWhiteTextColor24"
+                    style="@style/styleWhiteTextColor18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -97,32 +104,33 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/rLaoutBtnThree"
+            android:id="@+id/lLaoutBtnM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rLaoutBtnTwo">
+            android:layout_below="@+id/lLaoutBtnI">
 
             <View
-                android:id="@+id/view3"
-                android:layout_width="@dimen/dim_5"
+                android:id="@+id/viewM"
+                android:layout_width="@dimen/dim_3"
                 android:layout_height="match_parent"
-                android:background="@color/red" />
+                android:background="@color/transparent_color" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/dim_10"
+                android:layout_margin="@dimen/dim_8"
                 android:fillAfter="false"
                 android:fillEnabled="false">
 
                 <ImageView
-                    android:layout_width="@dimen/dim_45"
-                    android:layout_height="@dimen/dim_45"
-                    android:src="@drawable/menu_background" />
+                    android:id="@+id/imageViewM"
+                    android:layout_width="@dimen/dim_40"
+                    android:layout_height="@dimen/dim_40"
+                    android:background="@drawable/menu_background_unselect" />
 
                 <TextView
-                    style="@style/styleWhiteTextColor24"
+                    style="@style/styleWhiteTextColor18"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -131,28 +139,88 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageViewHelp"
+
+        <LinearLayout
+            android:id="@+id/rLaoutBtnFour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/rLaoutBtnFive"
+            android:layout_marginBottom="@dimen/dim_8">
+
+            <View
+                android:id="@+id/view4"
+                android:layout_width="@dimen/dim_5"
+                android:layout_height="match_parent"
+                android:background="@color/transparent_color" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dim_8"
+                android:fillAfter="false"
+                android:fillEnabled="false">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_help_grey" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rLaoutBtnFive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/orderCenterImage"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="@dimen/dim_16"
-            android:alpha="0.7"
-            android:src="@drawable/ic_action_help_grey" />
-
-
-        <ImageView
-            android:id="@+id/orderCenterImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="@dimen/dim_16"
-            android:alpha="0.7"
-            android:src="@drawable/ic_action_settings" />
+            android:layout_marginBottom="@dimen/dim_16">
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="@dimen/dim_5"
+                android:layout_height="match_parent"
+                android:background="@color/transparent_color" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dim_8"
+                android:fillAfter="false"
+                android:fillEnabled="false">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_settings" />
+
+            </RelativeLayout>
+        </LinearLayout>
+        <!--<ImageView-->
+        <!--android:id="@+id/imageViewHelp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/orderCenterImage"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_marginBottom="@dimen/dim_16"-->
+        <!--android:alpha="0.7"-->
+        <!--android:src="@drawable/ic_action_help_grey" />-->
+
+
+        <!--<ImageView-->
+        <!--android:id="@+id/orderCenterImage"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_marginBottom="@dimen/dim_16"-->
+        <!--android:alpha="0.7"-->
+        <!--android:src="@drawable/ic_action_settings" />-->
 
     </RelativeLayout>
 
