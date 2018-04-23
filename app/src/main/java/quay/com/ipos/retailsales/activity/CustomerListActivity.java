@@ -3,34 +3,34 @@ package quay.com.ipos.retailsales.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.retailsales.adapter.CustomerListAdapter;
+import quay.com.ipos.retailsales.adapter.RecentOrdersListAdapter;
 import quay.com.ipos.utility.SpacesItemDecoration;
 
 /**
  * Created by ankush.bansal on 20-04-2018.
  */
 
-public class CustomerListActivity extends BaseActivity {
-    String[] inventory = {"Ramesh", "Suresh", "Mukesh"};
+public class CustomerListActivity extends BaseActivity{
+    String[] inventory = {"Ramesh","Suresh","Mukesh"};
 
     private RecyclerView recycler_viewRecentOrders;
     private CustomerListAdapter recentOrdersListAdapter;
-    private ArrayList<RecentOrderModal> arrSearchList = new ArrayList<>();
-    private ArrayList<RecentOrderModal> recentOrderModalArrayList = new ArrayList<>();
+    private ArrayList<RecentOrderModal> arrSearchList=new ArrayList<>();
+    private ArrayList<RecentOrderModal> recentOrderModalArrayList=new ArrayList<>();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class CustomerListActivity extends BaseActivity {
         recentOrdersListAdapter = new CustomerListAdapter(this, recentOrderModalArrayList);
         recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
 
-        EditText searchView = (EditText) findViewById(R.id.searchView);
+        EditText searchView=(EditText)findViewById(R.id.searchView);
         searchView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -55,7 +55,7 @@ public class CustomerListActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                filter(charSequence.toString(), recentOrderModalArrayList);
+                    filter(charSequence.toString(),recentOrderModalArrayList);
             }
 
             @Override
@@ -65,9 +65,8 @@ public class CustomerListActivity extends BaseActivity {
         });
         getRecentOrdersData();
     }
-
     private void filter(String charText, List<RecentOrderModal> responseList) {
-        if (responseList != null) {
+        if ( responseList != null) {
             charText = charText.toLowerCase(Locale.getDefault());
             arrSearchList.clear();
             if (charText.length() == 0) {
@@ -89,6 +88,7 @@ public class CustomerListActivity extends BaseActivity {
 
 
     }
+
 
 
     public void setHeader() {

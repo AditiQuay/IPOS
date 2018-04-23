@@ -10,7 +10,13 @@
         <include
             android:id="@+id/header"
             layout="@layout/nav_header_ipos" />
-
+        <ListView
+            android:id="@+id/listViewContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/header"
+            android:layout_marginTop="@dimen/dim_16"
+            android:scrollbars="vertical" />
         <ExpandableListView
             android:id="@+id/expandableListView1"
             android:layout_width="match_parent"
@@ -21,6 +27,7 @@
             android:background="@color/transparent_color"
             android:divider="@null"
             android:groupIndicator="@null"
+            android:visibility="gone"
             android:scrollbars="vertical" />
     </RelativeLayout>
 
