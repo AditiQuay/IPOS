@@ -104,15 +104,15 @@ public class MainActivity extends BaseActivity
             @Override
             public void onClick(View view) {
                 if (!toggle){
-                    profileImageSwitch.setImageResource(R.drawable.profile_bg);
-                    profileImage.setImageResource(R.drawable.place_holder);
+                    profileImageSwitch.setImageResource(R.drawable.cystal);
+                    profileImage.setImageResource(R.drawable.user);
 
                     expandableListView1.setVisibility(View.VISIBLE);
                     llNavigation.setVisibility(View.GONE);
                     toggle=true;
                 }else {
-                    profileImageSwitch.setImageResource(R.drawable.place_holder);
-                    profileImage.setImageResource(R.drawable.profile_bg);
+                    profileImageSwitch.setImageResource(R.drawable.user);
+                    profileImage.setImageResource(R.drawable.cystal);
                     expandableListView1.setVisibility(View.GONE);
                     llNavigation.setVisibility(View.VISIBLE);
                     toggle=false;
@@ -135,11 +135,11 @@ public class MainActivity extends BaseActivity
         mNavigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_array);
         DrawerModal[] drawerItem = new DrawerModal[5];
 
-        drawerItem[0] = new DrawerModal(R.drawable.ic_action_dashboard, "Dashboard & Insight");
-        drawerItem[1] = new DrawerModal(R.drawable.ic_action_order_centre, "Product Catalogue");
-        drawerItem[2] = new DrawerModal(R.drawable.ic_action_cart, "Stock & Price");
-        drawerItem[3] = new DrawerModal(R.drawable.ic_action_loyalty, "Loyalty Program");
-        drawerItem[4] = new DrawerModal(R.drawable.ic_action_cart, "Partner Connect");
+        drawerItem[0] = new DrawerModal(R.drawable.insights, "Dashboard & Insight");
+        drawerItem[1] = new DrawerModal(R.drawable.catalogue, "Product Catalogue");
+        drawerItem[2] = new DrawerModal(R.drawable.stock_price, "Stock & Price");
+        drawerItem[3] = new DrawerModal(R.drawable.loyalty, "Loyalty Program");
+        drawerItem[4] = new DrawerModal(R.drawable.partner, "Partner Connect");
 
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.drawer_list_items, drawerItem);
         listViewContent.setAdapter(adapter);

@@ -10,8 +10,8 @@
         android:id="@+id/llNavigation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        android:layout_below="@+id/header">
+        android:layout_below="@+id/header"
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/lLayoutTitle"
@@ -29,7 +29,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_action_cart" />
+                    android:alpha="0.7"
+                    android:src="@drawable/cart" />
 
                 <TextView
                     android:id="@+id/textViewNewOrder"
@@ -53,7 +54,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_action_order_centre" />
+                    android:alpha="0.7"
+                    android:src="@drawable/order_center" />
 
                 <TextView
                     android:id="@+id/textViewOrderCenter"
@@ -66,18 +68,20 @@
                     android:text="Order Centre" />
             </LinearLayout>
         </LinearLayout>
+
         <View
             android:id="@+id/viewBorder"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/light_grey_"
-            android:layout_below="@+id/lLayoutTitle"/>
+            android:layout_below="@+id/lLayoutTitle"
+            android:background="@color/light_grey_" />
+
         <ListView
             android:id="@+id/listViewContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dim_5"
             android:layout_below="@+id/viewBorder"
+            android:layout_marginTop="@dimen/dim_5"
             android:scrollbars="vertical" />
     </RelativeLayout>
 
@@ -85,9 +89,9 @@
         android:id="@+id/expandableListView1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:layout_below="@+id/header"
         android:groupIndicator="@null"
-        android:layout_below="@+id/header">
+        android:visibility="gone">
 
 
     </ExpandableListView>
