@@ -45,12 +45,7 @@ import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductCatalogueMainFragment;
-<<<<<<< HEAD
-import quay.com.ipos.retailsales.activity.AddProductActivity;
-=======
 import quay.com.ipos.retailsales.activity.CustomerListActivity;
-import quay.com.ipos.retailsales.fragment.RetailLoyaltyFragment;
->>>>>>> 4b30462a134c777c26a6781000df512d820c97ae
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
 
@@ -279,7 +274,8 @@ public class MainActivity extends BaseActivity
 
             viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
             imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
-        }if (v==lLaoutBtnI){
+        }
+        if (v == lLaoutBtnI) {
             viewI.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             imageViewI.setBackgroundResource(R.drawable.menu_background_select);
 
@@ -288,7 +284,8 @@ public class MainActivity extends BaseActivity
 
             viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
             imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
-        }if (v==lLaoutBtnM){
+        }
+        if (v == lLaoutBtnM) {
             viewM.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             imageViewM.setBackgroundResource(R.drawable.menu_background_select);
 
@@ -403,10 +400,6 @@ public class MainActivity extends BaseActivity
     }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 4b30462a134c777c26a6781000df512d820c97ae
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
