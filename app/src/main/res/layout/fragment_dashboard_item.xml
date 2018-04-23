@@ -225,14 +225,40 @@
                         android:text="@string/total_sales"
                         android:textColor="@color/black" />
 
-                    <Spinner
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
                         android:layout_alignParentRight="true"
-                        android:spinnerMode="dropdown">
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dim_8"
+                        android:paddingRight="@dimen/dim_8"
+                        android:alpha="0.6"
+                        android:background="@drawable/button_round_shape"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Day"
+                            android:padding="@dimen/dim_3"
+                            android:alpha="0.6"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dim_12"
+                            android:spinnerMode="dropdown"/>
+
+                        <ImageView
+                            android:layout_width="@dimen/dim_10"
+                            android:layout_height="@dimen/dim_10"
+                            android:paddingLeft="@dimen/dim_4"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:background="@drawable/ic_down_arrow_white"/>
+                    </LinearLayout>
 
 
-                    </Spinner>
+
+
 
 
                 </RelativeLayout>
@@ -585,7 +611,7 @@
                             <ImageView
                                 android:layout_width="@dimen/dim_20"
                                 android:layout_height="@dimen/dim_20"
-                                android:background="@drawable/ic_down_arrow"
+                                android:background="@drawable/ic_down_arrow_white"
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
                             <TextView
@@ -818,14 +844,36 @@
                         android:gravity="center"
                         android:text="@string/customer_footprints"
                         android:textColor="@color/black" />
-                    <Spinner
-
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
                         android:layout_alignParentRight="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
-                        />
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dim_8"
+                        android:paddingRight="@dimen/dim_8"
+                        android:alpha="0.6"
+                        android:background="@drawable/button_round_shape"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Day"
+                            android:padding="@dimen/dim_3"
+                            android:alpha="0.6"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dim_12"
+                            android:spinnerMode="dropdown"/>
+
+                        <ImageView
+                            android:layout_width="@dimen/dim_10"
+                            android:layout_height="@dimen/dim_10"
+                            android:paddingLeft="@dimen/dim_4"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:background="@drawable/ic_down_arrow_white"/>
+                    </LinearLayout>
 
 
 
@@ -1081,14 +1129,36 @@
                         android:gravity="center"
                         android:text="@string/customer_feedback"
                         android:textColor="@color/black" />
-                    <Spinner
-
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
                         android:layout_alignParentRight="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
-                        />
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dim_8"
+                        android:paddingRight="@dimen/dim_8"
+                        android:alpha="0.6"
+                        android:background="@drawable/button_round_shape"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Day"
+                            android:padding="@dimen/dim_3"
+                            android:alpha="0.6"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dim_12"
+                            android:spinnerMode="dropdown"/>
+
+                        <ImageView
+                            android:layout_width="@dimen/dim_10"
+                            android:layout_height="@dimen/dim_10"
+                            android:paddingLeft="@dimen/dim_4"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:background="@drawable/ic_down_arrow_white"/>
+                    </LinearLayout>
 
 
 
@@ -1318,7 +1388,7 @@
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@color/white">
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp">
@@ -1337,15 +1407,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_toRightOf="@+id/imgInventoryinTransit"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/black"
                         android:gravity="center"
                         android:text="@string/inventory"/>
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:padding="@dimen/dim_4"
+                        android:layout_marginRight="@dimen/dim_8"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:gravity="center"
+                        android:alpha="0.6"
+                        android:background="@drawable/button_round_shape"
+                        android:text="@string/viewall"/>
 
 
 
-                </LinearLayout>
+                </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dim_1"
@@ -1436,7 +1519,16 @@
 
                 </LinearLayout>
 
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_viewInventory"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                </android.support.v7.widget.RecyclerView>
             </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

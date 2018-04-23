@@ -61,10 +61,10 @@
                     android:layout_height="@dimen/dim_30"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:textAllCaps="false"
                     android:layout_centerVertical="true"
                     android:background="@drawable/round_shape_view_all"
-                    android:text="View All" />
+                    android:text="View All"
+                    android:textAllCaps="false" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -113,10 +113,10 @@
                     android:layout_height="@dimen/dim_30"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:textAllCaps="false"
                     android:layout_centerVertical="true"
                     android:background="@drawable/round_shape_view_all"
-                    android:text="View All" />
+                    android:text="View All"
+                    android:textAllCaps="false" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
@@ -165,10 +165,10 @@
                     android:layout_height="@dimen/dim_30"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:textAllCaps="false"
                     android:layout_centerVertical="true"
                     android:background="@drawable/round_shape_view_all"
-                    android:text="View All" />
+                    android:text="View All"
+                    android:textAllCaps="false" />
             </RelativeLayout>
 
             <android.support.v7.widget.RecyclerView
