@@ -27,7 +27,7 @@ import quay.com.ipos.utility.SpacesItemDecoration;
  */
 
 public class CustomerListActivity extends BaseActivity{
-    String[] inventory = {"Ramesh","Suresh","Mukesh"};
+    String[] invento = {"Ramesh","Suresh","Mukesh"};
 
     private RecyclerView recycler_viewRecentOrders;
     private CustomerListAdapter recentOrdersListAdapter;
