@@ -149,6 +149,7 @@ public class McCOYDashboardFragment extends Fragment {
         final BarChart barChart = (BarChart) view.findViewById(R.id.ordervalue);
 //  mChart.setDrawValueAboveBar(false);
         barChart.setHighlightFullBarEnabled(false);
+
         YAxis leftAxis = barChart.getAxisLeft();
         leftAxis.setValueFormatter(new MyAxisValueFormatter());
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
@@ -207,7 +208,8 @@ public class McCOYDashboardFragment extends Fragment {
 
         barChart.setData(data);
         barChart.setFitBars(true);
-
+        barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getXAxis().setDrawGridLines(false);
         barChart.getDescription().setEnabled(false);
         barChart.invalidate();
 

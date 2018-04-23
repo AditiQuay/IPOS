@@ -21,9 +21,9 @@
         android:visible="false"/>
     <item
         android:id="@+id/action_notification"
-        android:visible="true"
+        android:visible="false"
         app:actionLayout="@layout/notification_badge"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         tools:ignore="MenuTitle" />
 
 

@@ -2,7 +2,6 @@ package quay.com.ipos.base;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,10 +13,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
@@ -28,7 +25,6 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -44,18 +40,18 @@ import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductCatalogueMainFragment;
-<<<<<<< HEAD
-import quay.com.ipos.retailsales.activity.AddProductActivity;
-=======
 import quay.com.ipos.retailsales.activity.CustomerListActivity;
-import quay.com.ipos.retailsales.fragment.RetailLoyaltyFragment;
->>>>>>> 4b30462a134c777c26a6781000df512d820c97ae
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, InitInterface {
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int CAMERA_PERMISSION = 1;
+    public static int containerId;
+    List<String> expandableListTitle;
+    HashMap<String, List<String>> expandableListDetail;
+    boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
     private DrawerLayout drawer;
@@ -63,15 +59,10 @@ public class MainActivity extends BaseActivity
     private Toolbar toolbar;
     private NavigationView navigationView;
     private ExpandableListView expandableListView1;
-    List<String> expandableListTitle;
-    HashMap<String, List<String>> expandableListDetail;
     private NavigationViewExpeListViewAdapter navigationViewExpeListViewAdapter;
     private int lastExpandedGroup;
-    public static int containerId;
-    private static final int CAMERA_PERMISSION = 1;
     private Class<?> mClss;
     private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null;
-    boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
 
 
@@ -109,21 +100,18 @@ public class MainActivity extends BaseActivity
             @Override
             public void onClick(View view) {
                 if (!toggle) {
-                    profileImageSwitch.setImageResource(R.drawable.profile_bg);
-                    profileImage.setImageResource(R.drawable.place_holder);
-
+                    profileImageSwitch.setImageResource(R.drawable.cystal);
+                    profileImage.setImageResource(R.drawable.user);
                     expandableListView1.setVisibility(View.VISIBLE);
                     llNavigation.setVisibility(View.GONE);
                     toggle = true;
                 } else {
-                    profileImageSwitch.setImageResource(R.drawable.place_holder);
-                    profileImage.setImageResource(R.drawable.profile_bg);
+                    profileImageSwitch.setImageResource(R.drawable.user);
+                    profileImage.setImageResource(R.drawable.cystal);
                     expandableListView1.setVisibility(View.GONE);
                     llNavigation.setVisibility(View.VISIBLE);
                     toggle = false;
                 }
-
-
             }
         });
     }
@@ -223,6 +211,7 @@ public class MainActivity extends BaseActivity
                         menu1.findItem(R.id.action_notification).setVisible(false);
                         menu1.findItem(R.id.action_search).setVisible(true);
                     }
+                    return false;
                 } else if (groupPosition == 4) {
                     if (childPosition == 1) {
                         menu1.findItem(R.id.action_notification).setVisible(true);
@@ -232,8 +221,9 @@ public class MainActivity extends BaseActivity
                         toolbar.setTitle(getString(R.string.dashboard));
                         menu1.findItem(R.id.action_search).setVisible(false);
                     }
+                    return false;
                 }
-                return false;
+                return true;
             }
         });
     }
@@ -246,15 +236,6 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean applyLocalValidation() {
         return false;
-    }
-
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-
     }
 
     private void selectItem(int position) {
@@ -350,11 +331,6 @@ public class MainActivity extends BaseActivity
         drawer.closeDrawer(GravityCompat.START);
     }
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 4b30462a134c777c26a6781000df512d820c97ae
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -365,7 +341,6 @@ public class MainActivity extends BaseActivity
 //        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -393,7 +368,6 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
-
     public void launchActivity(Class<?> clss) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -420,5 +394,14 @@ public class MainActivity extends BaseActivity
                 }
                 return;
         }
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+
     }
 }

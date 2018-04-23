@@ -10,11 +10,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.modal.RecentOrderModal;
@@ -27,7 +25,7 @@ import quay.com.ipos.utility.SpacesItemDecoration;
  */
 
 public class CustomerListActivity extends BaseActivity{
-    String[] invento = {"Ramesh","Suresh","Mukesh"};
+    String[] inventory = {"Ramesh","Suresh","Mukesh"};
 
     private RecyclerView recycler_viewRecentOrders;
     private CustomerListAdapter recentOrdersListAdapter;
