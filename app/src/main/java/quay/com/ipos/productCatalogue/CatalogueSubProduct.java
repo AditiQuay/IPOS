@@ -25,6 +25,7 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.modal.CatalogueModal;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.CatalogueSubCatalogueFragmentAdapter;
+import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -84,6 +85,7 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface, 
 
     @Override
     public void applyTypeFace() {
+        FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoMedium_0(mContext));
 
     }
 

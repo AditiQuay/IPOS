@@ -29,6 +29,7 @@ import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
+import quay.com.ipos.utility.FontUtil;
 
 /**
  * Created by niraj.kumar on 4/18/2018.
@@ -171,6 +172,7 @@ public class ProductDetails extends AppCompatActivity implements InitInterface, 
 
     @Override
     public void applyTypeFace() {
+        FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoMedium_0(mContext));
 
     }
 

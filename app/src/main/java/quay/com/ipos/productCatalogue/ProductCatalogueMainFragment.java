@@ -60,6 +60,7 @@ public class ProductCatalogueMainFragment extends BaseFragment implements InitIn
         myListener = ProductCatalogueMainFragment.this;
         findViewById();
         applyInitValues();
+        applyTypeFace();
 //        showPopup(rootView);
         return rootView;
     }

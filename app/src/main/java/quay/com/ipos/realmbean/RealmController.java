@@ -3,9 +3,14 @@ package quay.com.ipos.realmbean;
 import android.content.Context;
 
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import io.realm.Realm;
+import io.realm.RealmResults;
+import quay.com.ipos.modal.CatalogueModal;
 
 
 public class RealmController {
@@ -55,14 +60,14 @@ public class RealmController {
     }
 
 
-    public void saveFormNewRetailerSubmit(String responseData, String isUpdate) {
+    public void saveFormNewRetailerSubmit(String responseData) {
         Realm realm = Realm.getDefaultInstance();
         try {
             JSONObject jsonResponse = new JSONObject(responseData);
             if (jsonResponse != null) {
                 realm.beginTransaction();
 
-                  //  realm.createOrUpdateObjectFromJson(RealmCustomer.class, jsonResponse);
+                   realm.createOrUpdateObjectFromJson(CatalogueModal.class, jsonResponse);
 
             }
         } catch (Exception e) {
@@ -99,7 +104,7 @@ public class RealmController {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         try {
-       //     realm.createOrUpdateAllFromJson(RealmQuestions.class, new JSONArray(responseData));
+            realm.createOrUpdateAllFromJson(CatalogueModal.class, new JSONArray(responseData));
         } catch (Exception e) {
             if (realm.isInTransaction())
                 realm.cancelTransaction();

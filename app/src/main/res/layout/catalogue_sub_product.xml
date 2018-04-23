@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/textViewProductName"
-            style="@style/styleWhiteTextColor14"
+            style="@style/styleWhiteTextColor16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
