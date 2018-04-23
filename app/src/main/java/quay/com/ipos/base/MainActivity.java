@@ -140,11 +140,11 @@ public class MainActivity extends BaseActivity
         mNavigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_array);
         DrawerModal[] drawerItem = new DrawerModal[5];
 
-        drawerItem[0] = new DrawerModal(R.drawable.ic_action_dashboard, "Dashboard & Insight");
-        drawerItem[1] = new DrawerModal(R.drawable.ic_action_order_centre, "Product Catalogue");
-        drawerItem[2] = new DrawerModal(R.drawable.ic_action_cart, "Stock & Price");
-        drawerItem[3] = new DrawerModal(R.drawable.ic_action_loyalty, "Loyalty Program");
-        drawerItem[4] = new DrawerModal(R.drawable.ic_action_cart, "Partner Connect");
+        drawerItem[0] = new DrawerModal(R.drawable.insights, "Dashboard & Insight");
+        drawerItem[1] = new DrawerModal(R.drawable.catalogue, "Product Catalogue");
+        drawerItem[2] = new DrawerModal(R.drawable.stock_price, "Stock & Price");
+        drawerItem[3] = new DrawerModal(R.drawable.loyalty, "Loyalty Program");
+        drawerItem[4] = new DrawerModal(R.drawable.partner, "Partner Connect");
 
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.drawer_list_items, drawerItem);
         listViewContent.setAdapter(adapter);

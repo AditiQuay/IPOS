@@ -79,7 +79,7 @@ public class ProductDetailsExpandableListAdapter extends BaseExpandableListAdapt
       /*  TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);
         expandedListTextView.setText(expandedListText);*/
-        expandableListView.setDividerHeight(0);
+//        expandableListView.setDividerHeight(20);
         return convertView;
     }
 
