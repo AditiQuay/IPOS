@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -39,13 +40,15 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     static Context mContext;
     ArrayList<ProductList.Datum> mDataset;
     RecyclerView mRecyclerView;
+    CompoundButton.OnCheckedChangeListener mCheckedChangeListener;
 
     public RetailSalesAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                              ArrayList<ProductList.Datum> questionList) {
+                              ArrayList<ProductList.Datum> questionList, CompoundButton.OnCheckedChangeListener mCheckedChangeListener) {
         mOnClickListener = mClickListener;
         mContext = ctx;
         mDataset = questionList;
         mRecyclerView = mRecycler;
+        this.mCheckedChangeListener = mCheckedChangeListener;
 
         // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
         // mRecyclerView.getLayoutManager();
@@ -69,12 +72,12 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         // });
     }
 
-    static class UserViewHolder extends RecyclerView.ViewHolder {
+    class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvClear,tvQtySelected;
         public TextView tvTotalPrice, tvDiscount, tvDiscountPrice;
         public ImageView imvInfo,imvProduct,imvMinus,imvPlus;
         public LinearLayout llDiscount;
-        public CheckBox chkDiscount;
+        public CheckBox chkDiscount,chkItem;
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -93,6 +96,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvDiscount =  itemView.findViewById(R.id.tvDiscount);
             tvDiscountPrice =  itemView.findViewById(R.id.tvDiscountPrice);
             llDiscount = itemView.findViewById(R.id.llDiscount);
+            chkItem = itemView.findViewById(R.id.chkItem);
 
             Typeface iconFont = FontManager.getTypeface(mContext, FontManager.FONTAWESOME);
             FontManager.markAsIconContainer(tvClear, iconFont);
@@ -111,7 +115,8 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             View view = LayoutInflater.from(mContext).inflate(R.layout.show_product_list_item, parent, false);
             return new RetailSalesAdapter.UserViewHolder(view);
         }
-        else if (viewType == VIEW_TYPE_LOADING) { View view =
+        else if (viewType == VIEW_TYPE_LOADING) {
+            View view =
                 LayoutInflater.from(mContext).inflate(R.layout.load_more_footer,
                         parent, false); return new LoadingViewHolder(view); }
 
@@ -129,6 +134,19 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.tvItemRate.setText(str.getSProductPoints());
             userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSProductPrice());
             userViewHolder.tvQtySelected.setText(str.getQty()+"");
+
+
+            if(str.isItemSelected())
+                userViewHolder.chkItem.setVisibility(View.VISIBLE);
+            else
+                userViewHolder.chkItem.setVisibility(View.GONE);
+
+            if(str.isOTCselected())
+                userViewHolder.chkItem.setChecked(true);
+            else
+                userViewHolder.chkItem.setChecked(false);
+
+
             Double totalPrice=(Double.parseDouble(str.getSProductPrice())*str.getQty());
             str.setTotalPrice(totalPrice);
             if(str.getIsDiscount()) {
@@ -138,7 +156,6 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 Double discount = Double.parseDouble(str.getSDiscountPrice())*totalPrice/100;
                 str.setDiscount(discount);
                 userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+discount+"");
-                userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+totalPrice);
                 userViewHolder.llDiscount.setVisibility(View.VISIBLE);
             }else {
                 str.setTotalPrice(totalPrice);
@@ -146,13 +163,22 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.llDiscount.setVisibility(View.GONE);
             }
 
+
+            userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+totalPrice);
             IPOSApplication.mProductList.set(position,str);
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), "IPOSApplication.mProductList: "+ Util.getCustomGson().toJson(IPOSApplication.mProductList));
+
             userViewHolder.imvMinus.setOnClickListener(mOnClickListener);
             userViewHolder.imvMinus.setTag(position);
 
             userViewHolder.imvPlus.setOnClickListener(mOnClickListener);
             userViewHolder.imvPlus.setTag(position);
+
+            userViewHolder.chkItem.setOnCheckedChangeListener(mCheckedChangeListener);
+            userViewHolder.chkItem.setTag(position);
+
+            userViewHolder.chkDiscount.setOnCheckedChangeListener(mCheckedChangeListener);
+            userViewHolder.chkDiscount.setTag(position);
         }
         else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;

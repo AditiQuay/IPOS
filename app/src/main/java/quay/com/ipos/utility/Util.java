@@ -46,6 +46,7 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -598,6 +599,19 @@ public class Util {
         }
     }
 
+
+    public static double numberFormat(double number){
+        try{
+            NumberFormat nf = NumberFormat.getInstance();
+            nf.setMaximumFractionDigits(1);// set as you need
+            String myString = nf.format(number);
+            AppLog.e("Util","string : " + myString);
+            number = Double.parseDouble(myString);
+        }catch(Exception e){
+            System.out.println("ex="+e);
+        }
+        return number;
+    }
 
 
 
