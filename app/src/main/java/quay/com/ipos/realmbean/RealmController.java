@@ -13,6 +13,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 //import quay.com.ipos.modal.PinnedResult;
 import quay.com.ipos.modal.ProductList;
+import quay.com.ipos.modal.CatalogueModal;
 
 
 public class RealmController {
@@ -62,14 +63,14 @@ public class RealmController {
     }
 
 
-    public void saveFormNewRetailerSubmit(String responseData, String isUpdate) {
+    public void saveFormNewRetailerSubmit(String responseData) {
         Realm realm = Realm.getDefaultInstance();
         try {
             JSONObject jsonResponse = new JSONObject(responseData);
             if (jsonResponse != null) {
                 realm.beginTransaction();
 
-                  //  realm.createOrUpdateObjectFromJson(RealmCustomer.class, jsonResponse);
+                   realm.createOrUpdateObjectFromJson(CatalogueModal.class, jsonResponse);
 
             }
         } catch (Exception e) {
@@ -152,6 +153,22 @@ public class RealmController {
 ////        datumArrayList = (ArrayList<RealmPinnedResults>) realm.copyFromRealm(productLists);
 //        return productLists;
 //    }
+    public void saveQuestions(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateAllFromJson(CatalogueModal.class, new JSONArray(responseData));
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
 
 }
 

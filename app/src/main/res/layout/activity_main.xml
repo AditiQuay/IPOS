@@ -37,7 +37,7 @@
 
             <include
                 android:id="@+id/mcCoyDrawerItems"
-                layout="@layout/mc_coy_drawer" />
+                layout="@layout/new_normal_drawer" />
         </android.support.design.widget.NavigationView>
 
     </android.support.v4.widget.DrawerLayout>

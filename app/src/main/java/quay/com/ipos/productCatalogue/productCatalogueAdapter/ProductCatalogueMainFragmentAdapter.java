@@ -70,7 +70,7 @@ public class ProductCatalogueMainFragmentAdapter extends RecyclerView.Adapter<Pr
             imageViewProduct = itemView.findViewById(R.id.imageViewProduct);
             textViewProductName = itemView.findViewById(R.id.textViewProductName);
 
-            FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoRegular(mContext));
+            FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoLight(mContext));
 
 
         }

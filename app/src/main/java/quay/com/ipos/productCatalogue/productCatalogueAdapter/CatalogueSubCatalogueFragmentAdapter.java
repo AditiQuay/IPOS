@@ -61,7 +61,7 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageViewProduct;
-        private TextView textViewProductName,textViewFeature,textViewPrice;
+        private TextView textViewProductName,textViewFeature,textViewPrice,textViewOfferPrice;
         private CardView card_view;
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -70,8 +70,12 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
             textViewProductName = itemView.findViewById(R.id.textViewProductName);
             textViewFeature = itemView.findViewById(R.id.textViewFeature);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
+            textViewOfferPrice = itemView.findViewById(R.id.textViewOfferPrice);
 
-            FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoRegular(mContext));
+            FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoMedium_0(mContext));
+            FontUtil.applyTypeface(textViewFeature, FontUtil.getTypceFaceRobotoLight(mContext));
+            FontUtil.applyTypeface(textViewPrice, FontUtil.getTypceFaceRobotoMedium_0(mContext));
+            FontUtil.applyTypeface(textViewOfferPrice, FontUtil.getTypceFaceRobotoMedium_0(mContext));
 
 
         }

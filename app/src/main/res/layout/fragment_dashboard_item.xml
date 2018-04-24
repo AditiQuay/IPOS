@@ -33,9 +33,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_pending_orders" />
 
                     <TextView
                         android:id="@+id/tvStoreName"
@@ -50,10 +49,7 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
+                <include layout="@layout/view_layout"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -156,9 +152,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_idea" />
 
                     <TextView
                         android:id="@+id/tvInventory"
@@ -173,11 +168,7 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+                <include layout="@layout/view_layout"/>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
@@ -210,9 +201,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_total_sales" />
 
                     <TextView
                         android:id="@+id/tvTotalSales"
@@ -242,7 +232,6 @@
                             android:gravity="center"
                             android:text="Day"
                             android:padding="@dimen/dim_3"
-                            android:alpha="0.6"
                             android:textColor="@color/white"
                             android:textSize="@dimen/dim_12"
                             android:spinnerMode="dropdown"/>
@@ -263,11 +252,7 @@
 
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+                <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
@@ -342,9 +327,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_schema" />
 
                     <TextView
                         android:id="@+id/tvSchemaPer"
@@ -359,11 +343,7 @@
 
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+                <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -518,8 +498,7 @@
                         android:layout_height="20dp"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:src="@drawable/ic_action_help"
-                        android:background="@color/black"
+                        android:src="@drawable/ic_store_sales"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         />
@@ -536,12 +515,7 @@
 
 
                 </LinearLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey"/>
-
-
+                <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -698,9 +672,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_total_sales" />
 
                     <TextView
                         android:id="@+id/tvStoreStatus"
@@ -728,11 +701,7 @@
 
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+                <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
@@ -831,9 +800,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_customer_footprint" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -861,7 +829,6 @@
                             android:gravity="center"
                             android:text="Day"
                             android:padding="@dimen/dim_3"
-                            android:alpha="0.6"
                             android:textColor="@color/white"
                             android:textSize="@dimen/dim_12"
                             android:spinnerMode="dropdown"/>
@@ -879,11 +846,7 @@
 
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+                <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
@@ -1116,9 +1079,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_customer_feedback" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -1146,7 +1108,6 @@
                             android:gravity="center"
                             android:text="Day"
                             android:padding="@dimen/dim_3"
-                            android:alpha="0.6"
                             android:textColor="@color/white"
                             android:textSize="@dimen/dim_12"
                             android:spinnerMode="dropdown"/>
@@ -1164,11 +1125,7 @@
 
                 </RelativeLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+                <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
@@ -1398,8 +1355,7 @@
                         android:layout_height="20dp"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:src="@drawable/ic_action_help"
-                        android:background="@color/black"
+                        android:src="@drawable/ic_in_transit"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         />
@@ -1417,29 +1373,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:padding="@dimen/dim_4"
-                        android:layout_marginRight="@dimen/dim_8"
+                        android:paddingLeft="@dimen/dim_6"
+                        android:paddingRight="@dimen/dim_6"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/white"
                         android:gravity="center"
                         android:alpha="0.6"
+                        android:textSize="@dimen/dim_12"
                         android:background="@drawable/button_round_shape"
                         android:text="@string/viewall"/>
 
 
 
                 </RelativeLayout>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey"/>
-
+                <include layout="@layout/view_layout"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="100dp"
@@ -1548,9 +1502,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_idea" />
 
                     <TextView
                         android:id="@+id/tvTopPerformingStores"
@@ -1565,11 +1518,7 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+                <include layout="@layout/view_layout"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1644,9 +1593,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_fast" />
 
                     <TextView
                         android:id="@+id/tvFastMoving"
@@ -1661,11 +1609,7 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-                <LinearLayout
+                <include layout="@layout/view_layout"/>     <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dim_8"
@@ -1735,9 +1679,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:background="@color/black"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_help" />
+                        android:src="@drawable/ic_summary" />
 
                     <TextView
                         android:id="@+id/tvCompliance"
@@ -1752,11 +1695,7 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dim_1"
-                    android:background="@color/backgroundgrey" />
-
+                <include layout="@layout/view_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

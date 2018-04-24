@@ -131,6 +131,7 @@
     <string name="suggest_dummy">Trizole was out of stock on last billing. its now available</string>
     <string name="recent_orders">Recent Orders</string>
     <string name="enter_product">Enter Product</string>
+    <string name="order_summary">Order Summary</string>
     <string-array name="ordervalue">
         <item>Apr</item>
         <item>May</item>

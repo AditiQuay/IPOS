@@ -546,6 +546,8 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             mRecyclerView.setVisibility(View.GONE);
             imvQRCode.setVisibility(View.GONE);
             llOTCApply.setVisibility(View.VISIBLE);
+        }else{
+            Util.showToast("Please select atleast one Item",getActivity());
         }
     }
 

@@ -10,11 +10,9 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.modal.RecentOrderModal;

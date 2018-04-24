@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -49,9 +50,10 @@ import quay.com.ipos.retailsales.activity.CustomerListActivity;
 import quay.com.ipos.retailsales.fragment.RetailLoyaltyFragment;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.CircleImageView;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, InitInterface {
+        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -70,7 +72,10 @@ public class MainActivity extends BaseActivity
     private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
-
+    private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
+    private View viewM, viewI, viewP;
+    private ImageView imageViewP, imageViewI, imageViewM;
+    private CircleImageView imageViewProfileDummy;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,33 +101,50 @@ public class MainActivity extends BaseActivity
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         listViewContent = findViewById(R.id.listViewContent);
-        final ImageView profileImageSwitch = (ImageView) findViewById(R.id.profileImageSwitch);
-        final ImageView profileImage = (ImageView) findViewById(R.id.profileImage);
 
-        final RelativeLayout llNavigation = (RelativeLayout) findViewById(R.id.llNavigation);
+        lLaoutBtnP = findViewById(R.id.lLaoutBtnP);
+        lLaoutBtnI = findViewById(R.id.lLaoutBtnI);
+        lLaoutBtnM = findViewById(R.id.lLaoutBtnM);
+
+        viewP = findViewById(R.id.viewP);
+        viewI = findViewById(R.id.viewI);
+        viewM = findViewById(R.id.viewM);
+
+        imageViewP = findViewById(R.id.imageViewP);
+        imageViewI = findViewById(R.id.imageViewI);
+        imageViewM = findViewById(R.id.imageViewM);
+        imageViewProfileDummy=findViewById(R.id.imageViewProfileDummy);
+
+//        final ImageView profileImageSwitch = (ImageView) findViewById(R.id.profileImageSwitch);
+//        final ImageView profileImage = (ImageView) findViewById(R.id.profileImage);
+
+
         expandableListView1 = findViewById(R.id.expandableListView1);
 
-        profileImageSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!toggle) {
-                    profileImageSwitch.setImageResource(R.drawable.profile_bg);
-                    profileImage.setImageResource(R.drawable.place_holder);
-
-                    expandableListView1.setVisibility(View.VISIBLE);
-                    llNavigation.setVisibility(View.GONE);
-                    toggle = true;
-                } else {
-                    profileImageSwitch.setImageResource(R.drawable.place_holder);
-                    profileImage.setImageResource(R.drawable.profile_bg);
-                    expandableListView1.setVisibility(View.GONE);
-                    llNavigation.setVisibility(View.VISIBLE);
-                    toggle = false;
-                }
-
-
-            }
-        });
+//        profileImageSwitch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (!toggle) {
+//                    profileImageSwitch.setImageResource(R.drawable.profile_bg);
+//                    profileImage.setImageResource(R.drawable.place_holder);
+//
+//                    expandableListView1.setVisibility(View.VISIBLE);
+//                    llNavigation.setVisibility(View.GONE);
+//                    toggle = true;
+//                } else {
+//                    profileImageSwitch.setImageResource(R.drawable.place_holder);
+//                    profileImage.setImageResource(R.drawable.profile_bg);
+//                    expandableListView1.setVisibility(View.GONE);
+//                    llNavigation.setVisibility(View.VISIBLE);
+//                    toggle = false;
+//                }
+//
+//
+//            }
+//        });
+        lLaoutBtnP.setOnClickListener(this);
+        lLaoutBtnI.setOnClickListener(this);
+        lLaoutBtnM.setOnClickListener(this);
     }
 
     @Override
@@ -135,13 +157,15 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mNavigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_array);
-        DrawerModal[] drawerItem = new DrawerModal[5];
+       DrawerModal[] drawerItem = new DrawerModal[7];
 
-        drawerItem[0] = new DrawerModal(R.drawable.insights, "Dashboard & Insight");
-        drawerItem[1] = new DrawerModal(R.drawable.catalogue, "Product Catalogue");
-        drawerItem[2] = new DrawerModal(R.drawable.stock_price, "Stock & Price");
-        drawerItem[3] = new DrawerModal(R.drawable.loyalty, "Loyalty Program");
-        drawerItem[4] = new DrawerModal(R.drawable.partner, "Partner Connect");
+        drawerItem[0] = new DrawerModal(R.drawable.cart, "New Order");
+        drawerItem[1] = new DrawerModal(R.drawable.order_center, "Order Centre");
+        drawerItem[2] = new DrawerModal(R.drawable.insights, "Dashboard & Insight");
+        drawerItem[3] = new DrawerModal(R.drawable.catalogue, "Product Catalogue");
+        drawerItem[4] = new DrawerModal(R.drawable.stock_price, "Stock & Price");
+        drawerItem[5] = new DrawerModal(R.drawable.loyalty, "Loyalty Program");
+        drawerItem[6] = new DrawerModal(R.drawable.partner, "Partner Connect");
 
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.drawer_list_items, drawerItem);
         listViewContent.setAdapter(adapter);
@@ -245,6 +269,45 @@ public class MainActivity extends BaseActivity
         return false;
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v == lLaoutBtnP) {
+            listViewContent.setVisibility(View.VISIBLE);
+            expandableListView1.setVisibility(View.GONE);
+            viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            imageViewP.setBackgroundResource(R.drawable.menu_background_select);
+
+            viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
+
+            viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
+
+            imageViewProfileDummy.setImageResource(R.drawable.cystal);
+        }if (v==lLaoutBtnI){
+            listViewContent.setVisibility(View.GONE);
+            expandableListView1.setVisibility(View.VISIBLE);
+            viewI.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            imageViewI.setBackgroundResource(R.drawable.menu_background_select);
+
+            viewP.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewP.setBackgroundResource(R.drawable.menu_background_unselect);
+
+            viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
+            imageViewProfileDummy.setImageResource(R.drawable.user);
+        }if (v==lLaoutBtnM){
+            viewM.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            imageViewM.setBackgroundResource(R.drawable.menu_background_select);
+
+            viewP.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewP.setBackgroundResource(R.drawable.menu_background_unselect);
+
+            viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
+        }
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
         @Override
@@ -258,32 +321,37 @@ public class MainActivity extends BaseActivity
 
         switch (position) {
             case 0:
+
+                break;
+            case 1:
+
+                break;
+            case 2:
                 dashboardFragment = new McCOYDashboardFragment();
                 replaceFragment(dashboardFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.dashboard));
                 menu1.findItem(R.id.action_notification).setVisible(true);
                 menu1.findItem(R.id.action_search).setVisible(false);
+
+                drawer.closeDrawer(GravityCompat.START);
                 break;
-            case 1:
+            case 3:
                 productCatalogueMainFragment = new ProductCatalogueMainFragment();
                 replaceFragment(productCatalogueMainFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.product));
                 menu1.findItem(R.id.action_notification).setVisible(false);
                 menu1.findItem(R.id.action_search).setVisible(true);
-                break;
-            case 2:
-
-                Intent intent = new Intent(MainActivity.this, CustomerListActivity.class);
-                startActivity(intent);
-                drawer.closeDrawer(GravityCompat.START);
-                break;
-            case 3:
-
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case 4:
+
+                break;
+            case 5:
+
+                break;
+            case 6:
                 retailSalesFragment = new RetailSalesFragment();
                 replaceFragment(retailSalesFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
@@ -346,8 +414,6 @@ public class MainActivity extends BaseActivity
     private void closeDrawer() {
         drawer.closeDrawer(GravityCompat.START);
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
