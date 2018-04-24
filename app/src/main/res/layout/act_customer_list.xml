@@ -34,7 +34,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:padding="8dp"
         android:background="@color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:orientation="vertical">
@@ -44,7 +44,7 @@
             android:id="@+id/llSearch"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="@dimen/dim_8"
+            android:layout_margin="@dimen/dim_3"
             android:padding="@dimen/dim_8"
             android:background="@drawable/edt_bg"
             android:orientation="horizontal">
@@ -61,7 +61,7 @@ android:layout_weight="1"
             <TextView
                 android:id="@+id/tvClear"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textColor="@color/accent_color"
                 android:paddingRight="@dimen/dim_10"
                 android:paddingLeft="@dimen/dim_10"

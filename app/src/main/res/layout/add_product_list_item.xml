@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:background="@drawable/round_shape">
+    android:layout_margin="@dimen/dim_5"
+    android:background="@drawable/item_bg">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -25,7 +26,7 @@
             android:gravity="center_vertical"
             android:text="Missile"
             android:paddingLeft="@dimen/dim_10"
-            android:textSize="@dimen/text_size_15sp"
+            android:textSize="@dimen/text_size_13sp"
             app:typeface="Roboto-Regular.ttf" />
 
         <View
@@ -44,7 +45,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
             android:text="@string/qty"
-            android:textSize="@dimen/text_size_15sp"
+            android:textSize="@dimen/text_size_11sp"
             app:typeface="Roboto-Regular.ttf" />
         </LinearLayout>
         <quay.com.ipos.ui.CustomTextView
@@ -56,7 +57,7 @@
             android:gravity="center_vertical"
             android:text="225"
             android:paddingLeft="@dimen/dim_10"
-            android:textSize="@dimen/text_size_15sp"
+            android:textSize="@dimen/text_size_11sp"
             app:typeface="Roboto-Regular.ttf" />
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvAdd"
