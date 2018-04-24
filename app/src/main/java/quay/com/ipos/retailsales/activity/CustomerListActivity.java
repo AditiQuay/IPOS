@@ -55,6 +55,7 @@ public class CustomerListActivity extends BaseActivity{
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
                     filter(charSequence.toString(),recentOrderModalArrayList);
             }
 

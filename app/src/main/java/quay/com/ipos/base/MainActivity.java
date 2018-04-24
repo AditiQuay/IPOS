@@ -260,7 +260,7 @@ public class MainActivity extends BaseActivity
                         menu1.findItem(R.id.action_search).setVisible(false);
                     }
                 }
-                return false;
+                return true;
             }
         });
     }
@@ -363,8 +363,8 @@ public class MainActivity extends BaseActivity
                 replaceFragment(retailSalesFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.retail_sales));
-                menu1.findItem(R.id.action_notification).setVisible(false);
-                menu1.findItem(R.id.action_search).setVisible(true);
+//                menu1.findItem(R.id.action_notification).setVisible(false);
+//                menu1.findItem(R.id.action_search).setVisible(true);
                 break;
             default:
                 break;

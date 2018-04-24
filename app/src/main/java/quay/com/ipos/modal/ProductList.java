@@ -5,41 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmObject;
+
 public class ProductList {
 
-    @SerializedName("GSTPerc")
-    @Expose
-    private Integer gSTPerc;
-    @SerializedName("CGST")
-    @Expose
-    private Integer cGST;
-    @SerializedName("SGST")
-    @Expose
-    private Integer sGST;
 
-    public Integer getGSTPerc() {
-        return gSTPerc;
-    }
-
-    public void setGSTPerc(Integer gSTPerc) {
-        this.gSTPerc = gSTPerc;
-    }
-
-    public Integer getCGST() {
-        return cGST;
-    }
-
-    public void setCGST(Integer cGST) {
-        this.cGST = cGST;
-    }
-
-    public Integer getSGST() {
-        return sGST;
-    }
-
-    public void setSGST(Integer sGST) {
-        this.sGST = sGST;
-    }
     @SerializedName("data")
     @Expose
     private ArrayList<Datum> data = null;
@@ -80,8 +51,9 @@ public class ProductList {
         @SerializedName("sDiscountPrice")
         @Expose
         private String sDiscountPrice;
-
+        private double OTCDiscount;
         private boolean discSelected = false;
+        private boolean discItemSelected = false;
         private boolean ItemSelected = false;
         private boolean OTCselected = false;
 
@@ -90,6 +62,56 @@ public class ProductList {
         private double discount;
         private int totalQty;
         private double totalDiscountPrice;
+
+        public double getOTCDiscount() {
+            return OTCDiscount;
+        }
+
+        public void setOTCDiscount(double OTCDiscount) {
+            this.OTCDiscount = OTCDiscount;
+        }
+
+        @SerializedName("GSTPerc")
+        @Expose
+        private Integer gSTPerc;
+        @SerializedName("CGST")
+        @Expose
+        private Integer cGST;
+        @SerializedName("SGST")
+        @Expose
+        private Integer sGST;
+
+        public Integer getGSTPerc() {
+            return gSTPerc;
+        }
+
+        public void setGSTPerc(Integer gSTPerc) {
+            this.gSTPerc = gSTPerc;
+        }
+
+        public Integer getCGST() {
+            return cGST;
+        }
+
+        public void setCGST(Integer cGST) {
+            this.cGST = cGST;
+        }
+
+        public Integer getSGST() {
+            return sGST;
+        }
+
+        public void setSGST(Integer sGST) {
+            this.sGST = sGST;
+        }
+
+        public boolean isDiscItemSelected() {
+            return discItemSelected;
+        }
+
+        public void setDiscItemSelected(boolean discItemSelected) {
+            this.discItemSelected = discItemSelected;
+        }
 
         public boolean isItemSelected() {
             return ItemSelected;

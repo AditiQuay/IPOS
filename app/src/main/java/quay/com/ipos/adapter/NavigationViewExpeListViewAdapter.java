@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -52,7 +53,8 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_items, null);
         }
-        RelativeLayout relativeLayout = convertView.findViewById(R.id.rLayoutMain);
+        LinearLayout relativeLayout = convertView.findViewById(R.id.rLayoutMain);
+        View vItem = convertView.findViewById(R.id.vItem);
 
         TextView subtitle = (TextView) convertView
                 .findViewById(R.id.textViewChildName);
@@ -77,10 +79,17 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
                 .size();
     }
 
+    public int hasChild(int listPosition){
+        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
+                .size();
+    }
+
     @Override
     public Object getGroup(int listPosition) {
         return this.expandableListTitle.get(listPosition);
     }
+
+
 
     @Override
     public int getGroupCount() {
@@ -101,11 +110,19 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_group, null);
         }
-
+        LinearLayout llGrp = convertView.findViewById(R.id.llGrp);
         ImageView imageViewMenu = (ImageView) convertView.findViewById(R.id.imageViewGroupIcon);
         TextView textViewTitle = (TextView) convertView.findViewById(R.id.textViewGroupName);
+        View vGrp = convertView.findViewById(R.id.vGrp);
         textViewTitle.setText(listTitle);
+        if(isExpanded && hasChild( listPosition)>0){
+            vGrp.setVisibility(View.VISIBLE);
+        }else
+            vGrp.setVisibility(View.GONE);
 
+        if(isExpanded){
+            llGrp.setBackgroundResource(R.color.light_blue);
+        }
         imageViewMenu.setBackgroundResource(applyMenuBGImage(listTitle.toString().trim()));
         FontUtil.applyTypeface(textViewTitle, FontUtil.getTypeFaceRobotTiteliumRegular(context));
 
