@@ -62,6 +62,7 @@ import java.util.regex.Pattern;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.modal.ProductList;
+import quay.com.ipos.realmbean.RealmPinnedResults;
 
 
 public class Util {
@@ -212,6 +213,12 @@ public class Util {
             path = mContext.getCacheDir() + IMAGE_NAME;
         }
         return new File(path);
+    }
+
+    public static String getCurrentTimeStamp(){
+        Long tsLong = System.currentTimeMillis()/1000;
+        String ts = tsLong.toString();
+        return ts;
     }
 
     public static int getSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
@@ -568,22 +575,38 @@ public class Util {
 //        }
 //    }
 
-    public static ArrayList<ProductList.Datum> getCachedData() {
-        List<ProductList.Datum> mQuestionList = null;
-        Context context = IPOSApplication.getAppInstance().getApplicationContext();
+//    public static ArrayList<ProductList.Datum> getCachedData() {
+//        List<ProductList.Datum> mQuestionList = null;
+//        Context context = IPOSApplication.getAppInstance().getApplicationContext();
+//        SharedPreferences sp = getAppSharedPreference(context);
+//
+//        if (null != sp) {
+//            String questionList = sp.getString("data", "");
+//
+//            if (false == questionList.isEmpty()) {
+//                Gson gson = Util.getCustomGson();
+//                ProductList.Datum[] mQuestionListData = gson.fromJson(questionList, ProductList.Datum[].class);
+//                mQuestionList = Arrays.asList(mQuestionListData);
+//                mQuestionList = new ArrayList<>(mQuestionList);
+//            }
+//        }
+//        return (ArrayList<ProductList.Datum>) mQuestionList;
+//    }
+
+        public static RealmPinnedResults getCachedPinned() {
+            RealmPinnedResults user = null;
+        Context context = IPOSApplication.getAppInstance();
         SharedPreferences sp = getAppSharedPreference(context);
 
         if (null != sp) {
-            String questionList = sp.getString("data", "");
+            String userDetail = sp.getString("Pinned_data", "");
 
-            if (false == questionList.isEmpty()) {
+            if (false == userDetail.isEmpty()) {
                 Gson gson = Util.getCustomGson();
-                ProductList.Datum[] mQuestionListData = gson.fromJson(questionList, ProductList.Datum[].class);
-                mQuestionList = Arrays.asList(mQuestionListData);
-                mQuestionList = new ArrayList<>(mQuestionList);
+                user = gson.fromJson(userDetail, RealmPinnedResults.class);
             }
         }
-        return (ArrayList<ProductList.Datum>) mQuestionList;
+        return user;
     }
 
     public static void cacheData(ArrayList<ProductList.Datum> mDatum) {
@@ -598,6 +621,57 @@ public class Util {
             ed.commit();
         }
     }
+
+
+
+//    public static ArrayList<RealmPinnedResults.Info> getCachedPinnedData() {
+//        List<RealmPinnedResults.Info> mQuestionList = null;
+//        Context context = IPOSApplication.getAppInstance().getApplicationContext();
+//        SharedPreferences sp = getAppSharedPreference(context);
+//
+//        if (null != sp) {
+//            String questionList = sp.getString("Pinned_data", "");
+//
+//            if (false == questionList.isEmpty()) {
+//                Gson gson = Util.getCustomGson();
+//                RealmPinnedResults.Info[] mQuestionListData = gson.fromJson(questionList, RealmPinnedResults.Info[].class);
+//                mQuestionList = Arrays.asList(mQuestionListData);
+//                mQuestionList = new ArrayList<>(mQuestionList);
+//            }
+//        }
+//        return (ArrayList<RealmPinnedResults.Info>) mQuestionList;
+//    }
+
+        public static void cachePinnedResults(RealmPinnedResults user) {
+        Context context = IPOSApplication.getContext();
+        SharedPreferences sp = getAppSharedPreference(context);
+
+        if (null != user && null != sp) {
+            Gson gson = Util.getCustomGson();
+            String userjson = gson.toJson(user);
+            SharedPreferences.Editor ed = sp.edit();
+            ed.putString(Constants.SP_KEY_USER_DETAIL, userjson);
+            ed.commit();
+        }
+    }
+
+
+    public static RealmPinnedResults getCachedPinnedResults() {
+            RealmPinnedResults user = null;
+        Context context = IPOSApplication.getContext();
+        SharedPreferences sp = getAppSharedPreference(context);
+
+        if (null != sp) {
+            String userDetail = sp.getString(Constants.SP_KEY_USER_DETAIL, "");
+
+            if (false == userDetail.isEmpty()) {
+                Gson gson = Util.getCustomGson();
+                user = gson.fromJson(userDetail, RealmPinnedResults.class);
+            }
+        }
+        return user;
+    }
+
 
 
     public static double numberFormat(double number){

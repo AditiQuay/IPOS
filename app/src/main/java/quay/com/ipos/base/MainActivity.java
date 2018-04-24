@@ -44,12 +44,9 @@ import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductCatalogueMainFragment;
-<<<<<<< HEAD
 import quay.com.ipos.retailsales.activity.AddProductActivity;
-=======
 import quay.com.ipos.retailsales.activity.CustomerListActivity;
 import quay.com.ipos.retailsales.fragment.RetailLoyaltyFragment;
->>>>>>> 4b30462a134c777c26a6781000df512d820c97ae
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
 
@@ -233,7 +230,7 @@ public class MainActivity extends BaseActivity
                         menu1.findItem(R.id.action_search).setVisible(false);
                     }
                 }
-                return false;
+                return true;
             }
         });
     }
@@ -291,8 +288,8 @@ public class MainActivity extends BaseActivity
                 replaceFragment(retailSalesFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.retail_sales));
-                menu1.findItem(R.id.action_notification).setVisible(false);
-                menu1.findItem(R.id.action_search).setVisible(true);
+//                menu1.findItem(R.id.action_notification).setVisible(false);
+//                menu1.findItem(R.id.action_search).setVisible(true);
                 break;
             default:
                 break;
@@ -351,10 +348,7 @@ public class MainActivity extends BaseActivity
     }
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 4b30462a134c777c26a6781000df512d820c97ae
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);

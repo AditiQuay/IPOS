@@ -1,11 +1,18 @@
 package quay.com.ipos.realmbean;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import io.realm.Realm;
+import io.realm.RealmResults;
+//import quay.com.ipos.modal.PinnedResult;
+import quay.com.ipos.modal.ProductList;
 
 
 public class RealmController {
@@ -95,22 +102,56 @@ public class RealmController {
         }
 
     }
-    public void saveQuestions(String responseData) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.beginTransaction();
-        try {
-       //     realm.createOrUpdateAllFromJson(RealmQuestions.class, new JSONArray(responseData));
-        } catch (Exception e) {
-            if (realm.isInTransaction())
-                realm.cancelTransaction();
-            e.printStackTrace();
-        } finally {
-            if (realm.isInTransaction())
-                realm.commitTransaction();
-            realm.close();
-        }
-
-    }
+//    public void saveQuestions(String responseData) {
+//        Realm realm = Realm.getDefaultInstance();
+//        realm.beginTransaction();
+//        try {
+//            realm.createOrUpdateAllFromJson(ProductList.class, new JSONArray(responseData));
+//        } catch (Exception e) {
+//            if (realm.isInTransaction())
+//                realm.cancelTransaction();
+//            e.printStackTrace();
+//        } finally {
+//            if (realm.isInTransaction())
+//                realm.commitTransaction();
+//            realm.close();
+//        }
+//
+//    }
+//
+//    public ArrayList<ProductList> allData(){
+//        ArrayList<ProductList> datumArrayList=new ArrayList<>();
+//        Realm realm = Realm.getDefaultInstance();
+//        RealmResults<ProductList> productLists=realm.where(ProductList.class).findAll();
+//        datumArrayList = (ArrayList<ProductList>) realm.copyFromRealm(productLists);
+//        return datumArrayList;
+//    }
+//
+//    @SuppressLint("NewApi")
+//    public void savePin(RealmPinnedResults responseData) {
+//        Realm realm = Realm.getDefaultInstance();
+//        realm.beginTransaction();
+//        try {
+//            realm.createOrUpdateAllFromJson(RealmPinnedResults.class, new JSONArray(responseData));
+//        } catch (Exception e) {
+//            if (realm.isInTransaction())
+//                realm.cancelTransaction();
+//            e.printStackTrace();
+//        } finally {
+//            if (realm.isInTransaction())
+//                realm.commitTransaction();
+//            realm.close();
+//        }
+//
+//    }
+//
+//    public RealmPinnedResults getAllPinnedData(){
+////        ArrayList<RealmPinnedResults> datumArrayList=new ArrayList<>();
+//        Realm realm = Realm.getDefaultInstance();
+//        RealmPinnedResults productLists=realm.where(RealmPinnedResults.class).findFirst();
+////        datumArrayList = (ArrayList<RealmPinnedResults>) realm.copyFromRealm(productLists);
+//        return productLists;
+//    }
 
 }
 

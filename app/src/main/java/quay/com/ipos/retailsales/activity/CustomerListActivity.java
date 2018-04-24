@@ -27,7 +27,7 @@ import quay.com.ipos.utility.SpacesItemDecoration;
  */
 
 public class CustomerListActivity extends BaseActivity{
-    String[] invento = {"Ramesh","Suresh","Mukesh"};
+    String[] inventory = {"Ramesh","Suresh","Mukesh"};
 
     private RecyclerView recycler_viewRecentOrders;
     private CustomerListAdapter recentOrdersListAdapter;
@@ -57,6 +57,7 @@ public class CustomerListActivity extends BaseActivity{
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
                     filter(charSequence.toString(),recentOrderModalArrayList);
             }
 

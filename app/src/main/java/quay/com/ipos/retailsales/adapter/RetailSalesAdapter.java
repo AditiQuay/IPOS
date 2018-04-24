@@ -74,13 +74,16 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvClear,tvQtySelected;
-        public TextView tvTotalPrice, tvDiscount, tvDiscountPrice;
+        public TextView tvTotalPrice, tvDiscount, tvDiscountPrice,tvOTCDiscountPrice;
         public ImageView imvInfo,imvProduct,imvMinus,imvPlus;
-        public LinearLayout llDiscount;
-        public CheckBox chkDiscount,chkItem;
+        public LinearLayout llDiscount,llOTCDiscount;
+        public CheckBox chkDiscount,chkItem,chkOTCDiscount;
 
         public UserViewHolder(View itemView) {
             super(itemView);
+            llOTCDiscount = itemView.findViewById(R.id.llOTCDiscount);
+            tvOTCDiscountPrice = itemView.findViewById(R.id.tvOTCDiscountPrice);
+            chkOTCDiscount = itemView.findViewById(R.id.chkOTCDiscount);
             tvItemName =  itemView.findViewById(R.id.tvItemName);
             tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
             tvItemRate =  itemView.findViewById(R.id.tvItemRate);
@@ -146,6 +149,12 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             else
                 userViewHolder.chkItem.setChecked(false);
 
+            if(str.isDiscSelected()) {
+                userViewHolder.llOTCDiscount.setVisibility(View.VISIBLE);
+                userViewHolder.tvOTCDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getOTCDiscount());
+            }
+            else
+                userViewHolder.llOTCDiscount.setVisibility(View.GONE);
 
             Double totalPrice=(Double.parseDouble(str.getSProductPrice())*str.getQty());
             str.setTotalPrice(totalPrice);
