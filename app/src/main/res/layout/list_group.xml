@@ -1,9 +1,10 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/activatedBackgroundIndicator"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
-    android:padding="10dp">
+    android:orientation="horizontal">
+
 
     <ImageView
         android:id="@+id/imageViewGroupIcon"
@@ -11,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:alpha="0.7"
         android:paddingRight="10dp" />
 
     <TextView
@@ -21,9 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/imageViewGroupIcon"
-        android:paddingLeft="@dimen/dim_10"
         android:paddingRight="10dp"
         android:text="Item Name" />
 
-
-</RelativeLayout>
+</LinearLayout>

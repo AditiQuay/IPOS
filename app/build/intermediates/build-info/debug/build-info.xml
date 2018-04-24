@@ -2,76 +2,49 @@
 <instant-run
     abi="armeabi-v7a,armeabi"
     api-level="23"
-    build-mode="HOT_WARM"
+    build-mode="COLD"
     density="xxhdpi"
     format="10"
     plugin-version="3.0.1"
-    timestamp="1524484598062"
+    timestamp="1524553856389"
     token="8443210809318909877"
-    verifier="COMPATIBLE" >
+    verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="2593" />
+        duration="0" />
     <task
         name="instant-run-dex"
-        duration="12" />
+        duration="0" />
     <task
         name="instant-run-transform"
-        duration="14" />
+        duration="0" />
     <task
         name="verifier"
-        duration="2" />
-
-    <artifact
-        location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\reload-dex\debug\classes.dex"
-        type="RELOAD_DEX" />
+        duration="0" />
 
     <build
         build-mode="FULL"
-        timestamp="1524483417472"
+        timestamp="1524553803281"
         verifier="FULL_BUILD_REQUESTED" >
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
-            type="SPLIT" />
         <artifact
             location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\outputs\apk\debug\app-debug.apk"
             type="SPLIT_MAIN" />
         <artifact
             location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
             type="SPLIT" />
-    </build>
-    <build
-        build-mode="COLD"
-        timestamp="1524484023000"
-        verifier="R_CLASS_CHANGE" >
+        <artifact
+            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            type="SPLIT" />
         <artifact
             location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
             type="SPLIT" />
@@ -82,61 +55,18 @@
             location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
-            type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
-            type="SPLIT" />
-        <artifact
             location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
             type="SPLIT" />
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\outputs\apk\debug\app-debug.apk"
-            type="SPLIT_MAIN" />
     </build>
     <build
-        build-mode="HOT_WARM"
-        timestamp="1524484080853"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\builds\debug\1524484080853\classes.dex"
-            type="RELOAD_DEX" />
-    </build>
-    <build
-        build-mode="HOT_WARM"
-        timestamp="1524484468167"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\builds\debug\1524484468167\classes.dex"
-            type="RELOAD_DEX" />
-    </build>
-    <build
-        build-mode="HOT_WARM"
-        timestamp="1524484526677"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\instant-run-resources\resources-debug.ir.ap_"
-            type="RESOURCES" />
-    </build>
-    <build
-        build-mode="HOT_WARM"
-        timestamp="1524484598062"
-        verifier="COMPATIBLE" >
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\reload-dex\debug\classes.dex"
-            type="RELOAD_DEX" />
-    </build>
+        build-mode="COLD"
+        timestamp="1524553856389"
+        verifier="COLD_SWAP_REQUESTED" />
 
 </instant-run>

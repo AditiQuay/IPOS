@@ -1,19 +1,22 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rLayoutMain"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall"
-    android:padding="@dimen/dim_8">
+    android:minHeight="?android:attr/listPreferredItemHeightSmall">
+
 
     <TextView
         android:id="@+id/textViewChildName"
         style="@style/stylePrimaryTextColor14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/dim_8"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:paddingEnd="10dp"
         android:paddingRight="10dp"
         android:text="Item Name" />
 
-</RelativeLayout>
+</LinearLayout>

@@ -32,6 +32,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +53,7 @@ import quay.com.ipos.retailsales.fragment.RetailLoyaltyFragment;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
+import quay.com.ipos.utility.FontUtil;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener {
@@ -76,13 +79,14 @@ public class MainActivity extends BaseActivity
     private View viewM, viewI, viewP;
     private ImageView imageViewP, imageViewI, imageViewM;
     private CircleImageView imageViewProfileDummy;
-
+    private TextView textViewMyBusiness,textViewAccount;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         findViewById();
         applyInitValues();
+        applyTypeFace();
         setDashBoard();
 
     }
@@ -115,6 +119,8 @@ public class MainActivity extends BaseActivity
         imageViewM = findViewById(R.id.imageViewM);
         imageViewProfileDummy=findViewById(R.id.imageViewProfileDummy);
 
+        textViewMyBusiness = findViewById(R.id.textViewMyBusiness);
+        textViewAccount = findViewById(R.id.textViewAccount);
 //        final ImageView profileImageSwitch = (ImageView) findViewById(R.id.profileImageSwitch);
 //        final ImageView profileImage = (ImageView) findViewById(R.id.profileImage);
 
@@ -261,6 +267,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void applyTypeFace() {
+        FontUtil.applyTypeface(textViewMyBusiness, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
     }
 
