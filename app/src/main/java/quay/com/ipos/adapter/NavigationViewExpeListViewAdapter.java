@@ -65,7 +65,7 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
         } catch (Exception e) {
             e.printStackTrace();
         }
-        FontUtil.applyTypeface(subtitle, FontUtil.getTypceFaceRobotoRegular(context));
+        FontUtil.applyTypeface(subtitle, FontUtil.getTypeFaceRobotTiteliumRegular(context));
 
       /*  TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);
@@ -124,7 +124,7 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
             llGrp.setBackgroundResource(R.color.light_blue);
         }
         imageViewMenu.setBackgroundResource(applyMenuBGImage(listTitle.toString().trim()));
-        FontUtil.applyTypeface(imageViewMenu, FontUtil.getTypceFaceRobotoRegular(context));
+        FontUtil.applyTypeface(textViewTitle, FontUtil.getTypeFaceRobotTiteliumRegular(context));
 
         return convertView;
 

@@ -4,6 +4,6 @@
         android:height="95dp"/>
     <stroke
         android:width="10dp"
-        android:color="#fff"/>
-    <solid android:color="#fff"/>
+        android:color="@color/menu_background"/>
+    <solid android:color="@color/menu_background"/>
 </shape>
