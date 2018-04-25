@@ -23,8 +23,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/header"
+
             android:layout_marginTop="@dimen/dim_16"
-            android:background="@color/transparent_color"
+            android:background="@color/transparent"
             android:divider="@null"
             android:groupIndicator="@null"
             android:visibility="gone"

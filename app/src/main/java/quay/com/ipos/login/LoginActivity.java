@@ -1,6 +1,7 @@
 package quay.com.ipos.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import quay.com.ipos.R;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 
 public class LoginActivity extends AppCompatActivity implements InitInterface, View.OnClickListener {
@@ -27,6 +29,12 @@ public class LoginActivity extends AppCompatActivity implements InitInterface, V
         applyInitValues();
         applyTypeFace();
         applyLocalValidation();
+
+    }
+
+    private void getDeviceToken() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.SHARED_PREF, 0);
+        String regId = pref.getString("regId", null);
     }
 
     @Override
@@ -67,6 +75,7 @@ public class LoginActivity extends AppCompatActivity implements InitInterface, V
     @Override
     public void onClick(View v) {
         if (v == btnLogin) {
+            getDeviceToken();
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
             finish();

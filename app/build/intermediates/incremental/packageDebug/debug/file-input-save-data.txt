@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Apr 23 12:58:51 IST 2018
+#Wed Apr 25 16:02:30 IST 2018
 5.base=C\:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\assets\\debug
 22.path=lib/arm64-v8a/libzbarjni.so
 32.set=NATIVE_RESOURCE

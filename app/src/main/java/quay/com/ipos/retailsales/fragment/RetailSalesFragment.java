@@ -465,25 +465,32 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+    public void onCheckedChanged(final CompoundButton compoundButton, boolean isChecked) {
         int id = compoundButton.getId();
         switch (id){
             case R.id.chkItem:
 
-                final int posItem = (int) compoundButton.getTag();
-                mRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
+                if (compoundButton.isPressed()) {
+                    final int posItem = (int) compoundButton.getTag();
+                    mRecyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
 
-                        ProductList.Datum datum = IPOSApplication.mProductList.get(posItem);
-                        if(!datum.isOTCselected())
-                            datum.setOTCselected(true);
-                        else
-                            datum.setOTCselected(false);
-                        IPOSApplication.mProductList.set(posItem, datum);
-                        mRetailSalesAdapter.notifyItemChanged(posItem);
-                    }
-                });
+                            ProductList.Datum datum = IPOSApplication.mProductList.get(posItem);
+                            if (!datum.isOTCselected()) {
+                                datum.setOTCselected(true);
+                                compoundButton.setChecked(true);
+                                IPOSApplication.mProductList.get(posItem).setOTCselected(true);
+                            } else {
+                                compoundButton.setChecked(false);
+                                datum.setOTCselected(false);
+                                IPOSApplication.mProductList.get(posItem).setOTCselected(false);
+                            }
+                            mRetailSalesAdapter.notifyItemChanged(posItem);
+                        }
+
+                    });
+                }
                 break;
         }
     }

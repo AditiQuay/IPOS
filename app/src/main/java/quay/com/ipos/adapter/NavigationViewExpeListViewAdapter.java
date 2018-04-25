@@ -101,7 +101,7 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_group, null);
         }
-
+        convertView.setBackgroundResource(R.drawable.drawer_item_background);
         ImageView imageViewMenu = (ImageView) convertView.findViewById(R.id.imageViewGroupIcon);
         TextView textViewTitle = (TextView) convertView.findViewById(R.id.textViewGroupName);
         textViewTitle.setText(listTitle);

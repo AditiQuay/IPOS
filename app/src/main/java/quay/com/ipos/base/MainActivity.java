@@ -3,8 +3,11 @@ package quay.com.ipos.base;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.SearchManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +16,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -32,6 +36,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +50,9 @@ import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
+import quay.com.ipos.neworder.activity.NewOrderDetailsActivity;
+import quay.com.ipos.neworder.fragment.OrderCentreFragment;
+import quay.com.ipos.notifications.NotificationUtils;
 import quay.com.ipos.productCatalogue.ProductCatalogueMainFragment;
 import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.retailsales.activity.CustomerListActivity;
@@ -51,6 +60,7 @@ import quay.com.ipos.retailsales.fragment.RetailLoyaltyFragment;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
+import quay.com.ipos.utility.Constants;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener {
@@ -69,14 +79,14 @@ public class MainActivity extends BaseActivity
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null;
+    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null,orderCentre=null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
     private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
     private View viewM, viewI, viewP;
     private ImageView imageViewP, imageViewI, imageViewM;
     private CircleImageView imageViewProfileDummy;
-
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +131,20 @@ public class MainActivity extends BaseActivity
 
         expandableListView1 = findViewById(R.id.expandableListView1);
 
+        listViewContent.setVisibility(View.VISIBLE);
+        expandableListView1.setVisibility(View.GONE);
+        viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        imageViewP.setBackgroundResource(R.drawable.menu_background_select);
+
+        viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+        imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
+
+        viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+        imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
+
+        imageViewProfileDummy.setImageResource(R.drawable.cystal);
+
+
 //        profileImageSwitch.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -145,6 +169,29 @@ public class MainActivity extends BaseActivity
         lLaoutBtnP.setOnClickListener(this);
         lLaoutBtnI.setOnClickListener(this);
         lLaoutBtnM.setOnClickListener(this);
+
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                // checking for type intent filter
+                if (intent.getAction().equals(Constants.REGISTRATION_COMPLETE)) {
+                    // gcm successfully registered
+                    // now subscribe to `global` topic to receive app wide notifications
+
+
+
+                } else if (intent.getAction().equals(Constants.PUSH_NOTIFICATION)) {
+                    // new push notification is received
+
+                    String message = intent.getStringExtra("message");
+
+
+                    //txtMessage.setText(message);
+                }
+            }
+        };
+
     }
 
     @Override
@@ -219,6 +266,7 @@ public class MainActivity extends BaseActivity
             public void onGroupExpand(int groupPosition) {
                 if (lastExpandedGroup != groupPosition) {
                     expandableListView1.collapseGroup(lastExpandedGroup);
+
                 }
 /*
                 Toast.makeText(getApplicationContext(),
@@ -322,9 +370,17 @@ public class MainActivity extends BaseActivity
         switch (position) {
             case 0:
 
+                Intent i=new Intent(MainActivity.this, NewOrderDetailsActivity.class);
+                startActivity(i);
                 break;
             case 1:
-
+                orderCentre = new OrderCentreFragment();
+                replaceFragment(orderCentre, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.order_centre));
+                menu1.findItem(R.id.action_notification).setVisible(true);
+                menu1.findItem(R.id.action_search).setVisible(false);
+                drawer.closeDrawer(GravityCompat.START);
                 break;
             case 2:
                 dashboardFragment = new McCOYDashboardFragment();
@@ -480,5 +536,29 @@ public class MainActivity extends BaseActivity
                 }
                 return;
         }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // register GCM registration complete receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Constants.REGISTRATION_COMPLETE));
+
+        // register new push message receiver
+        // by doing this, the activity will be notified each time a new message arrives
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Constants.PUSH_NOTIFICATION));
+
+        // clear the notification area when the app is opened
+       // NotificationUtils.clearNotifications(getApplicationContext());
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+
+        super.onPause();
     }
 }

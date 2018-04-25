@@ -79,8 +79,10 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public LinearLayout llDiscount;
         public CheckBox chkDiscount,chkItem;
 
+
         public UserViewHolder(View itemView) {
             super(itemView);
+          //  this.setIsRecyclable(false);
             tvItemName =  itemView.findViewById(R.id.tvItemName);
             tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
             tvItemRate =  itemView.findViewById(R.id.tvItemRate);
