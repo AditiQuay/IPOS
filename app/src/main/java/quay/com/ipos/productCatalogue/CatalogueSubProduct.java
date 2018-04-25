@@ -85,7 +85,7 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface, 
 
     @Override
     public void applyTypeFace() {
-        FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoMedium_0(mContext));
+        FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
     }
 

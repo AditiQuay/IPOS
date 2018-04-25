@@ -37,6 +37,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name="quay.com.ipos.productCatalogue.ProductCatalogueViewAll"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name="quay.com.ipos.productCatalogue.ProductDetails"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

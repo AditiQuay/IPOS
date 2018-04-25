@@ -72,10 +72,10 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             textViewOfferPrice = itemView.findViewById(R.id.textViewOfferPrice);
 
-            FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoMedium_0(mContext));
-            FontUtil.applyTypeface(textViewFeature, FontUtil.getTypceFaceRobotoLight(mContext));
-            FontUtil.applyTypeface(textViewPrice, FontUtil.getTypceFaceRobotoMedium_0(mContext));
-            FontUtil.applyTypeface(textViewOfferPrice, FontUtil.getTypceFaceRobotoMedium_0(mContext));
+            FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
+            FontUtil.applyTypeface(textViewFeature, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+            FontUtil.applyTypeface(textViewPrice, FontUtil.getTypeFaceRobotTiteliumRegularLight(mContext));
+            FontUtil.applyTypeface(textViewOfferPrice, FontUtil.getTypeFaceRobotTiteliumRegularLight(mContext));
 
 
         }

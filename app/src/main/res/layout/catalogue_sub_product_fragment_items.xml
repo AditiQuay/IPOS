@@ -3,7 +3,8 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="@dimen/dim_8"
+    card_view:cardCornerRadius="@dimen/dim_12"
+    card_view:cardElevation="@dimen/dim_4"
     card_view:cardUseCompatPadding="true">
 
     <RelativeLayout

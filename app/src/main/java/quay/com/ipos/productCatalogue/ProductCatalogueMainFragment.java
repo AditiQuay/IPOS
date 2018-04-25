@@ -2,6 +2,7 @@ package quay.com.ipos.productCatalogue;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -38,12 +39,12 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 4/17/2018.
  */
 
-public class ProductCatalogueMainFragment extends BaseFragment implements InitInterface, MyListener {
+public class ProductCatalogueMainFragment extends BaseFragment implements InitInterface, MyListener, View.OnClickListener {
     private Context mContext;
     private View rootView;
     private SearchView searchViewCatalogue;
     private TextView textViewHeader1, textViewHeader2, textViewHeader3;
-    private TextView textViewViewAll1, textViewViewAll2, textViewViewAll3;
+    private Button textViewViewAll1, textViewViewAll2, textViewViewAll3;
     private ArrayList<ProductCatalogueModal> productCatalogueModalsSet = new ArrayList<>();
     private RecyclerView recyclerviewCategory1, recyclerviewCategory2, recyclerviewCategory3;
     private ProductCatalogueMainFragmentAdapter productCatalogueMainFragmentAdapter;
@@ -99,6 +100,10 @@ public class ProductCatalogueMainFragment extends BaseFragment implements InitIn
         recyclerviewCategory1 = rootView.findViewById(R.id.recyclerviewCategory1);
         recyclerviewCategory2 = rootView.findViewById(R.id.recyclerviewCategory2);
         recyclerviewCategory3 = rootView.findViewById(R.id.recyclerviewCategory3);
+
+        textViewViewAll1.setOnClickListener(this);
+        textViewViewAll2.setOnClickListener(this);
+        textViewViewAll3.setOnClickListener(this);
     }
 
     private void getServerData() {
@@ -143,13 +148,13 @@ public class ProductCatalogueMainFragment extends BaseFragment implements InitIn
 
     @Override
     public void applyTypeFace() {
-        FontUtil.applyTypeface(textViewHeader1, FontUtil.getTypceFaceRobotoMedium_0(mContext));
-        FontUtil.applyTypeface(textViewHeader2, FontUtil.getTypceFaceRobotoMedium_0(mContext));
-        FontUtil.applyTypeface(textViewHeader3, FontUtil.getTypceFaceRobotoMedium_0(mContext));
+        FontUtil.applyTypeface(textViewHeader1, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewHeader2, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewHeader3, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
-        FontUtil.applyTypeface(textViewViewAll1, FontUtil.getTypceFaceRobotoRegular(mContext));
-        FontUtil.applyTypeface(textViewViewAll2, FontUtil.getTypceFaceRobotoRegular(mContext));
-        FontUtil.applyTypeface(textViewViewAll3, FontUtil.getTypceFaceRobotoRegular(mContext));
+        FontUtil.applyTypeface(textViewViewAll1, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewViewAll2, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewViewAll3, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
     }
 
     @Override
@@ -180,4 +185,31 @@ public class ProductCatalogueMainFragment extends BaseFragment implements InitIn
         transaction.commit();
     }
 
+    @Override
+    public void onClick(View v) {
+        if (v == textViewViewAll1) {
+            String text = textViewHeader1.getText().toString();
+
+            Intent i = new Intent(mContext, ProductCatalogueViewAll.class);
+            i.putExtra("Group", text);
+            i.putExtra("Products", productCatalogueModalsSet);
+            startActivity(i);
+        }
+        if (v == textViewViewAll2) {
+            String text = textViewHeader1.getText().toString();
+
+            Intent i = new Intent(mContext, ProductCatalogueViewAll.class);
+            i.putExtra("Group", text);
+            i.putExtra("Products", productCatalogueModalsSet);
+            startActivity(i);
+        }
+        if (v == textViewViewAll3) {
+            String text = textViewHeader1.getText().toString();
+
+            Intent i = new Intent(mContext, ProductCatalogueViewAll.class);
+            i.putExtra("Group", text);
+            i.putExtra("Products", productCatalogueModalsSet);
+            startActivity(i);
+        }
+    }
 }
