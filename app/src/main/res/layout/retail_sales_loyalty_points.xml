@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,15 +22,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
-                android:src="@drawable/ic_action_square" />
+                android:src="@drawable/ic_bag" />
 
-            <TextView
+            <quay.com.ipos.ui.CustomTextView
                 style="@style/stylePrimaryTextColor14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/imageViewLoyalty"
                 android:paddingLeft="@dimen/dim_4"
+                app:typeface="Roboto-Regular.ttf"
                 android:text="Redeem Loyalty Points" />
 
             <ImageView
@@ -49,22 +51,27 @@
             android:padding="@dimen/dim_8">
 
 
-            <TextView
+            <quay.com.ipos.ui.CustomTextView
                 style="@style/stylePrimaryTextColor14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:paddingLeft="@dimen/dim_4"
+                app:typeface="Roboto-Regular.ttf"
                 android:text="Available Points" />
 
 
-            <TextView
+            <quay.com.ipos.ui.CustomTextView
                 style="@style/stylePrimaryTextColor14"
+                android:id="@+id/tvRedeemPoints"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:paddingLeft="@dimen/dim_4"
+                android:drawableRight="@drawable/ic_award"
+                android:drawablePadding="@dimen/dim_5"
+                app:typeface="Roboto-Regular.ttf"
                 android:text="500 Pts" />
         </RelativeLayout>
 
@@ -76,39 +83,58 @@
             android:layout_marginBottom="@dimen/dim_8"
             android:layout_marginLeft="@dimen/dim_8"
             android:layout_marginRight="@dimen/dim_8"
+            android:weightSum="2"
             android:orientation="horizontal">
 
-
-            <EditText
-                android:id="@+id/editTextVehicleReadingFrom"
-                style="@style/stylePrimaryTextColor14"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_discount"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="@dimen/dim_16"
-                android:layout_marginRight="@dimen/dim_16"
                 android:layout_weight="1"
-                android:alpha="0.7"
-                android:background="@drawable/button_border_white"
-                android:gravity="center"
-                android:inputType="number"
+                android:background="@drawable/primary_stroke_corner_white_bg"
+                android:layout_marginEnd="@dimen/dim_8"
+                android:layout_marginRight="@dimen/dim_8"
                 android:padding="@dimen/dim_10"
-                android:text="Points to Redeem" />
+                android:layout_height="match_parent">
+                <quay.com.ipos.ui.CustomEditText
+                    android:id="@+id/etPointToRedeem"
+                    style="@style/stylePrimaryTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:alpha="0.7"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:inputType="number"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:hint="@string/points_to_redeem" />
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/editTextVehicleReadingTo"
-                style="@style/stylePrimaryTextColor14"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_discount2"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dim_8"
-                android:layout_marginStart="@dimen/dim_8"
                 android:layout_weight="1"
-                android:alpha="0.7"
-                android:background="@drawable/button_border_white"
-                android:gravity="center"
-                android:inputType="number"
+                android:layout_marginRight="@dimen/dim_5"
+                android:background="@drawable/primary_stroke_corner_lightgray_bg"
+
                 android:padding="@dimen/dim_10"
-                android:text="24567" />
+                android:layout_height="match_parent">
+
+                <quay.com.ipos.ui.CustomEditText
+                    android:id="@+id/etRedeemValue"
+                    style="@style/stylePrimaryTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:layout_weight="1"
+                    android:alpha="0.7"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:inputType="number"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:hint="@string/redeem_value" />
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/lLayoutView"
@@ -116,12 +142,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lLayoutPointsToRedeem"
             android:layout_marginBottom="@dimen/dim_8"
-            android:layout_marginLeft="@dimen/dim_8"
+            android:layout_marginLeft="@dimen/dim_10"
             android:layout_marginRight="@dimen/dim_8"
             android:orientation="horizontal">
 
 
-            <Button
+            <quay.com.ipos.ui.CustomButton
                 android:id="@+id/buttonSendOtp"
                 style="@style/styleWhiteTextColor14"
                 android:layout_width="wrap_content"
@@ -129,94 +155,95 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                app:typeface="Roboto-Regular.ttf"
                 android:background="@drawable/round_shape_view_all"
-                android:text="View All"
-                android:textAllCaps="false" />
+                android:text="@string/send_otp" />
 
-            <TextView
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvResendOTP"
                 style="@style/stylePrimaryTextColor14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dim_8"
                 android:paddingLeft="@dimen/dim_4"
                 android:paddingStart="@dimen/dim_4"
+                app:typeface="Roboto-Regular.ttf"
                 android:text="Resend OTP" />
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/lLayoutOtp"
+            android:id="@+id/llVerifyRedeem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lLayoutView"
-            android:layout_marginBottom="@dimen/dim_8"
-            android:layout_marginLeft="@dimen/dim_8"
-            android:layout_marginRight="@dimen/dim_8"
-            android:orientation="horizontal">
-
-
-            <EditText
-                style="@style/stylePrimaryTextColor14"
-                android:layout_width="0dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/lLayoutOtp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dim_16"
-                android:layout_marginRight="@dimen/dim_16"
-                android:layout_weight=".2"
-                android:alpha="0.7"
-                android:background="@drawable/button_border_white"
-                android:gravity="center"
-                android:hint="OTP"
-                android:inputType="number"
-                android:padding="@dimen/dim_10" />
+                android:layout_marginBottom="@dimen/dim_8"
+                android:layout_marginLeft="@dimen/dim_10"
+                android:layout_marginRight="@dimen/dim_10"
+                android:weightSum="1"
+                android:orientation="horizontal">
 
-            <EditText
-                style="@style/stylePrimaryTextColor14"
-                android:layout_width="0dp"
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/input_layout_discount3"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_3"
+                    android:layout_marginStart="@dimen/dim_3"
+                    android:layout_weight="0.5"
+                    android:padding="@dimen/dim_10"
+                    android:background="@drawable/primary_stroke_corner_white_bg"
+                    android:layout_height="match_parent">
+                    <quay.com.ipos.ui.CustomEditText
+                        android:id="@+id/etOTP"
+                        style="@style/stylePrimaryTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.7"
+                        android:background="@null"
+                        android:gravity="center"
+                        app:typeface="Roboto-Regular.ttf"
+                        android:hint="@string/otp"
+                        android:inputType="number" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lLayoutVerify"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dim_16"
-                android:layout_marginRight="@dimen/dim_16"
-                android:layout_weight=".2"
-                android:alpha="0.7"
-                android:background="@drawable/button_border_white"
-                android:gravity="center"
-                android:hint="OTP"
-                android:inputType="number"
-                android:padding="@dimen/dim_10"
-                android:visibility="invisible" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lLayoutVerify"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lLayoutOtp"
-            android:layout_marginBottom="@dimen/dim_10"
-            android:layout_marginLeft="@dimen/dim_8"
-            android:layout_marginRight="@dimen/dim_8"
-            android:orientation="horizontal">
-
-
-            <Button
-                android:id="@+id/buttonVerify"
-                style="@style/styleWhiteTextColor14"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/dim_30"
-                android:layout_marginRight="@dimen/dim_8"
-                android:layout_weight="1"
-                android:background="@drawable/round_shape_view_all"
-                android:text="Verify"
-                android:textAllCaps="false" />
-
-            <Button
-                android:id="@+id/buttonRedeem"
-                style="@style/styleWhiteTextColor14"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/dim_30"
+                android:layout_below="@+id/lLayoutOtp"
+                android:layout_marginBottom="@dimen/dim_10"
                 android:layout_marginLeft="@dimen/dim_8"
-                android:layout_weight="1"
-                android:background="@drawable/round_shape_view_all"
-                android:text="Redeem"
-                android:textAllCaps="false" />
-        </LinearLayout>
+                android:layout_marginRight="@dimen/dim_8"
+                android:orientation="horizontal">
 
+
+                <quay.com.ipos.ui.CustomButton
+                    android:id="@+id/buttonVerify"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dim_30"
+                    android:layout_marginRight="@dimen/dim_8"
+                    android:layout_weight="1"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:background="@drawable/round_shape_view_all"
+                    android:text="@string/verify" />
+
+                <quay.com.ipos.ui.CustomButton
+                    android:id="@+id/buttonRedeem"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dim_30"
+                    android:layout_marginLeft="@dimen/dim_8"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:background="@drawable/round_shape_view_all"
+                    android:text="@string/redeem" />
+            </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

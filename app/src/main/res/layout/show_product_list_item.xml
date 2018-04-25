@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim_10"
+            android:layout_marginTop="@dimen/dim_5"
             android:layout_marginLeft="@dimen/dim_10"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -39,7 +39,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
                     android:text="Missile"
-                    android:textSize="@dimen/text_size_15sp"
+                    android:textSize="@dimen/text_size_13sp"
                     android:lines="1"
                     android:singleLine="true"
                     app:typeface="Roboto-Regular.ttf" />
@@ -48,8 +48,8 @@
                     android:layout_width="@dimen/dim_1"
                     android:layout_height="@dimen/dim_10"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/dim_10"
-                    android:layout_marginRight="@dimen/dim_10"
+                    android:layout_marginLeft="@dimen/dim_5"
+                    android:layout_marginRight="@dimen/dim_5"
                     android:background="@color/black"/>
 
                 <quay.com.ipos.ui.CustomTextView
@@ -62,13 +62,13 @@
                     android:singleLine="true"
                     android:gravity="center_vertical"
                     android:text="500 gm"
-                    android:textSize="@dimen/text_size_15sp"
+                    android:textSize="@dimen/text_size_11sp"
                     app:typeface="Roboto-Regular.ttf" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/dim_8"
+                android:paddingTop="@dimen/dim_2"
                 android:orientation="horizontal">
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvItemRate"
@@ -78,15 +78,15 @@
                     android:gravity="center_vertical"
                     android:text="225"
                     android:paddingLeft="@dimen/dim_10"
-                    android:textSize="@dimen/text_size_15sp"
+                    android:textSize="@dimen/text_size_11sp"
                     app:typeface="Roboto-Regular.ttf" />
 
                 <View
                     android:layout_width="@dimen/dim_1"
                     android:layout_height="@dimen/dim_10"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/dim_10"
-                    android:layout_marginRight="@dimen/dim_10"
+                    android:layout_marginLeft="@dimen/dim_5"
+                    android:layout_marginRight="@dimen/dim_5"
                     android:background="@color/black"/>
 
                 <quay.com.ipos.ui.CustomTextView
@@ -97,7 +97,7 @@
                     android:gravity="center_vertical"
                     android:paddingRight="@dimen/dim_10"
                     android:text="250"
-                    android:textSize="@dimen/text_size_15sp"
+                    android:textSize="@dimen/text_size_11sp"
                     app:typeface="Roboto-Regular.ttf" />
 
                 <ImageView
@@ -114,7 +114,7 @@
             android:src="@drawable/if_light_bulb"
             android:layout_width="80dp"
             android:padding="@dimen/dim_5"
-            android:layout_marginTop="@dimen/dim_10"
+            android:layout_marginTop="@dimen/dim_2"
             android:layout_marginRight="@dimen/dim_20"
             android:layout_gravity="center"
             android:layout_height="60dp" />
@@ -135,7 +135,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="@dimen/dim_5"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical">
 
@@ -146,8 +145,8 @@
             android:padding="@dimen/dim_10"
             android:src="@drawable/icon_minus" />
 
-        <quay.com.ipos.ui.CustomTextView
-            android:id="@+id/tvQtySelected"
+        <quay.com.ipos.ui.CustomEditText
+            android:id="@+id/etQtySelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -157,6 +156,7 @@
             android:paddingTop="@dimen/dim_5"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_10"
+            android:enabled="false"
             android:text="1"
             android:textColor="@color/accent_color"
             android:textSize="@dimen/text_size_13sp"
