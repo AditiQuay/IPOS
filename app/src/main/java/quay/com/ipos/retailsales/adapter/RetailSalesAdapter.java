@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -73,11 +74,12 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvClear,tvQtySelected;
+        public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvClear;
         public TextView tvTotalPrice, tvDiscount, tvDiscountPrice,tvOTCDiscountPrice;
         public ImageView imvInfo,imvProduct,imvMinus,imvPlus;
         public LinearLayout llDiscount,llOTCDiscount;
         public CheckBox chkDiscount,chkItem,chkOTCDiscount;
+        public EditText etQtySelected;
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -92,7 +94,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             imvProduct =  itemView.findViewById(R.id.imvProduct);
             tvClear =  itemView.findViewById(R.id.tvClear);
             imvMinus =  itemView.findViewById(R.id.imvMinus);
-            tvQtySelected =  itemView.findViewById(R.id.tvQtySelected);
+            etQtySelected =  itemView.findViewById(R.id.etQtySelected);
             imvPlus =  itemView.findViewById(R.id.imvPlus);
             tvTotalPrice =  itemView.findViewById(R.id.tvTotalPrice);
             chkDiscount =  itemView.findViewById(R.id.chkDiscount);
@@ -136,7 +138,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
             userViewHolder.tvItemRate.setText(str.getSProductPoints());
             userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSProductPrice());
-            userViewHolder.tvQtySelected.setText(str.getQty()+"");
+            userViewHolder.etQtySelected.setText(str.getQty()+"");
 
 
             if(str.isItemSelected())

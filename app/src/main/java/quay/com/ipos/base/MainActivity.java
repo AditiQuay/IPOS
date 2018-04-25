@@ -313,6 +313,13 @@ public class MainActivity extends BaseActivity
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             selectItem(position);
+            for (int i = 0; i < listViewContent.getChildCount(); i++) {
+                if(position == i ){
+                    listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.light_blue));
+                }else{
+                    listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.white));
+                }
+            }
         }
 
     }

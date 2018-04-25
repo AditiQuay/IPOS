@@ -48,14 +48,14 @@ public class ProductCatalogueMainFragment extends BaseFragment implements InitIn
     private RecyclerView recyclerviewCategory1, recyclerviewCategory2, recyclerviewCategory3;
     private ProductCatalogueMainFragmentAdapter productCatalogueMainFragmentAdapter;
     private MyListener myListener;
-    Dialog myDialog;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.product_catalogue_fragment, container, false);
         mContext = getActivity();
-        myDialog = new Dialog(mContext);
+
         setHasOptionsMenu(true);
         myListener = ProductCatalogueMainFragment.this;
         findViewById();

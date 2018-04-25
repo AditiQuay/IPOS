@@ -1,7 +1,8 @@
 #Internal package file, do not edit.
-#Tue Apr 24 12:20:40 IST 2018
+#Tue Apr 24 18:06:08 IST 2018
 17.baseType=DIRECTORY
 4.path=fonts/Roboto-Thin.ttf
+22.set=ASSET
 8.set=ASSET
 19.baseType=DIRECTORY
 11.set=ASSET
@@ -9,7 +10,7 @@
 4.baseType=DIRECTORY
 14.base=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\assets\\debug
 16.set=ASSET
-count=22
+count=23
 6.base=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\assets\\debug
 13.path=fonts/Roboto-BlackItalic.ttf
 6.baseType=DIRECTORY
@@ -48,10 +49,11 @@ count=22
 2.base=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\assets\\debug
 18.baseType=DIRECTORY
 1.path=fonts/Roboto-Medium.ttf
+22.base=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\assets\\debug
 19.set=ASSET
 0.set=ASSET
 1.baseType=DIRECTORY
-21.path=fonts/Roboto-Black.ttf
+21.path=customer.json
 3.baseType=DIRECTORY
 5.set=ASSET
 9.base=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\assets\\debug
@@ -68,6 +70,8 @@ count=22
 13.set=ASSET
 2.path=fonts/Roboto-BoldItalic.ttf
 9.baseType=DIRECTORY
+22.baseType=DIRECTORY
+22.path=fonts/Roboto-Black.ttf
 18.set=ASSET
 19.base=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\assets\\debug
 12.base=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\assets\\debug

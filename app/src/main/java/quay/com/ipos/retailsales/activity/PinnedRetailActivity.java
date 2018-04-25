@@ -27,6 +27,7 @@ import quay.com.ipos.retailsales.adapter.PinnedAdapter;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -47,7 +48,7 @@ public class PinnedRetailActivity extends BaseActivity {
     private PinnedAdapter mPinnedAdapter;
     private int mSelectedpos;
     ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<>();
-
+    String json ;
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +63,12 @@ public class PinnedRetailActivity extends BaseActivity {
 //       arrPinned= new RealmController().getAllPinnedData().getInfo();
 
         mInfoArrayList.clear();
+        json = SharedPrefUtil.getString("mInfoArrayList","",this);
 //        if(Util.getCachedPinned()!=null) {
-//            RealmPinnedResults mRealmPinnedResults = Util.getCachedPinned();
-//            mInfoArrayList.addAll(mRealmPinnedResults.getInfo());
-            AppLog.e("TAG", Util.getCustomGson().toJson(Util.getCachedPinnedResults()));
+//            RealmPinnedResults mRealmPinnedResults = Util.getCachedPinnedData();
+            mInfoArrayList.addAll(Util.getCachedPinnedData());
+        AppLog.e(PinnedRetailActivity.class.getSimpleName(),"mInfoArrayList: "+ Util.getCustomGson().toJson(Util.getCachedPinnedData()) );
+            AppLog.e(PinnedRetailActivity.class.getSimpleName(), SharedPrefUtil.getString("mInfoArrayList","",this));
 //        }
         mPinnedAdapter = new PinnedAdapter(this,mRecyclerView,mInfoArrayList);
         mRecyclerView.setAdapter(mPinnedAdapter);

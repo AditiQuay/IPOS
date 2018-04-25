@@ -1,18 +1,25 @@
 package quay.com.ipos.retailsales.fragment;
 
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -35,14 +42,17 @@ import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
+import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 /**
  * Created by aditi.bhuranda on 16-04-2018.
  */
 
-public class RetailSalesFragment extends Fragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener {
+public class RetailSalesFragment extends Fragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,TextWatcher{
     private TextView tvUserAdd,tvPin,tvRedeem,tvRight,tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
             tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvClearOTC,tvClearOTC1,tvApplyOTC,tvApplyOTC2;
@@ -60,15 +70,16 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     private ProductList mProductListResult;
-
+    Dialog myDialog;
     double otcDiscount=0.0;
-
+    View rootView;
 //    private ArrayList<ProductList.Datum> mList= new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.retail_dashboard, container, false);
+         rootView = inflater.inflate(R.layout.retail_dashboard, container, false);
         initializeComponent(rootView);
+        myDialog = new Dialog(getActivity());
         setHasOptionsMenu(true);
         return rootView;
     }
@@ -166,6 +177,8 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         tvApplyOTC2.setOnClickListener(this);
         tvRight1.setOnClickListener(this);
         tvPin.setOnClickListener(this);
+        chkOTC.setOnCheckedChangeListener(this);
+        tvRedeem.setOnClickListener(this);
         chkBarCode.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -480,6 +493,19 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 //                setArrayPinned();
                 cachedPinned();
                 break;
+            case R.id.tvRedeem:
+                showRedeemLoyaltyPopup(rootView);
+                break;
+            case R.id.buttonSendOtp:
+                AppLog.e(TAG,"buttonSendOtp click");
+                Util.showToast("Sending OTP",getActivity());
+                break;
+            case R.id.buttonRedeem:
+
+                break;
+            case R.id.buttonVerify:
+
+                break;
         }
     }
 
@@ -489,10 +515,14 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         RealmPinnedResults.Info mInfo = mPinnedResult.new Info();
         mInfo.setKey(key);
         mInfo.setData(IPOSApplication.mProductList);
-        mInfoArrayList.add(0,mInfo);
-        AppLog.e("TAG","mInfoArrayList: "+ Util.getCustomGson().toJson(mInfoArrayList));
-        mPinnedResult.setInfo(mInfoArrayList);
-        Util.cachePinnedResults(mPinnedResult);
+        mInfoArrayList.add(mInfo);
+        String json = Util.getCustomGson().toJson(mInfoArrayList);
+//        String json ="abc";
+        AppLog.e("TAG","mInfoArrayList1: "+json);
+        Util.cachePinnedData(mInfoArrayList);
+        SharedPrefUtil.putString("mInfoArrayList",json,getActivity());
+
+        AppLog.e("TAG","mInfoArrayList: "+ SharedPrefUtil.getString("mInfoArrayList","",getActivity()));
         Intent mIntent = new Intent(getActivity(), PinnedRetailActivity.class);
         startActivityForResult(mIntent,2);
     }
@@ -601,27 +631,108 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         mRetailSalesAdapter.notifyDataSetChanged();
     }
 
+    int mAllChecked = 0;
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         int id = compoundButton.getId();
-        switch (id){
+        switch (id) {
             case R.id.chkItem:
+                if (compoundButton.isPressed()){
+                    final int posItem = (int) compoundButton.getTag();
+                    mRecyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
 
-                final int posItem = (int) compoundButton.getTag();
-                mRecyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
+                            ProductList.Datum datum = IPOSApplication.mProductList.get(posItem);
+                            if (!datum.isOTCselected())
+                                datum.setOTCselected(true);
+                            else {
+                                datum.setOTCselected(false);
+                                chkOTC.setChecked(false);
+                            }
+                            IPOSApplication.mProductList.set(posItem, datum);
+                            mRetailSalesAdapter.notifyItemChanged(posItem);
 
-                        ProductList.Datum datum = IPOSApplication.mProductList.get(posItem);
-                        if(!datum.isOTCselected())
-                            datum.setOTCselected(true);
-                        else
-                            datum.setOTCselected(false);
-                        IPOSApplication.mProductList.set(posItem, datum);
-                        mRetailSalesAdapter.notifyItemChanged(posItem);
+                        }
+                    });
+                    for (int i = 0; i < IPOSApplication.mProductList.size(); i++) {
+                        ProductList.Datum datum1 = IPOSApplication.mProductList.get(i);
+                        if(datum1.isOTCselected()){
+                            mAllChecked++;
+                        }
                     }
-                });
+                    if(IPOSApplication.mProductList.size()-1==mAllChecked){
+                        chkOTC.setChecked(true);
+                    }else
+                        chkOTC.setChecked(false);
+                }
+                break;
+            case R.id.chkOTC:
+                if (compoundButton.isPressed()){
+                    mRecyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(chkOTC.isChecked()) {
+                                for (int i = 0; i < IPOSApplication.mProductList.size(); i++) {
+                                    ProductList.Datum datum = IPOSApplication.mProductList.get(i);
+                                    datum.setOTCselected(true);
+                                    IPOSApplication.mProductList.set(i, datum);
+                                }
+                            }else {
+                                for (int i = 0; i < IPOSApplication.mProductList.size(); i++) {
+                                    ProductList.Datum datum = IPOSApplication.mProductList.get(i);
+                                    datum.setOTCselected(false);
+                                    IPOSApplication.mProductList.set(i, datum);
+                                }
+                            }
+                            mRetailSalesAdapter.notifyDataSetChanged();
+                        }
+                    });
+                }
                 break;
         }
+    }
+
+    public void showDiscountDeletePopup(View v) {
+//        TextView txtclose;
+//        myDialog.setContentView(R.layout.custompopup);
+//        txtclose =(TextView) myDialog.findViewById(R.id.txtclose);
+//        txtclose.setText("X");
+//        txtclose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                myDialog.dismiss();
+//            }
+//        });
+//        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        myDialog.show();
+    }
+
+    int points = 500;
+    public void showRedeemLoyaltyPopup(View v) {
+        Bundle args = new Bundle();
+        args.putInt("points", points);
+
+        FragmentManager fragmentManager = getChildFragmentManager();
+        MyDialogFragment mMyDialogFragment = MyDialogFragment.newInstance();
+        mMyDialogFragment.setDialogInfo(this);
+        mMyDialogFragment.setArguments(args);
+        mMyDialogFragment.show(fragmentManager, "Redeem");
+
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
     }
 }

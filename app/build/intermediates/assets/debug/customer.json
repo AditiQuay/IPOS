@@ -1,0 +1,40 @@
+{
+  "customer": [
+    {
+      "customerID": 1,
+      "customer_name": "Ram Verma",
+      "customer_points":"225"
+    },
+    {
+      "customerID": 2,
+      "customer_name": "Sanjay Mishra",
+      "customer_points":"300"
+	},
+    {
+      "customerID": 3,
+      "customer_name": "Deepak Vijay",
+      "customer_points":"300"
+    },
+    {
+      "customerID": 4,
+      "customer_name": "Aditya Sharma",
+      "customer_points":"300"
+    },
+    {
+      "customerID": 5,
+      "customer_name": "Vikas Arya",
+      "customer_points":"300"
+    },
+    {
+      "customerID": 6,
+      "customer_name": "Shweta Yadav",
+      "customer_points":"300"
+      
+    },
+    {
+      "customerID": 7,
+      "customer_name": "Rahul Sharma",
+      "customer_points":"800"
+    }
+  ]
+}

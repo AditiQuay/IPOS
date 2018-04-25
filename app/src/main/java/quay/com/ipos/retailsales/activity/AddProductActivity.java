@@ -42,6 +42,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     private FloatingActionButton fab;
     private LinearLayoutManager mLayoutManager;
     private ProductList mProductListResult;
+    private TextView tvItemSize;
     private AddProductAdapter mAddProductAdapter;
     private TextView tvClear;
     ArrayList<ProductList.Datum> arrData= new ArrayList<>();
@@ -84,6 +85,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         searchView.setHint(getResources().getString(R.string.enter_product));
         searchView.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         mRecyclerView = findViewById(R.id.recycler_view);
+        tvItemSize = findViewById(R.id.tvItemSize);
         tvClear = findViewById(R.id.tvClear);
         fab = findViewById(R.id.fab);
         fab.setVisibility(View.GONE);
@@ -107,13 +109,16 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 filter(charSequence.toString(),arrData);
-                if(charSequence.toString().length()>0)
+                if(charSequence.toString().length()>0) {
                     tvClear.setVisibility(View.VISIBLE);
+                    tvItemSize.setVisibility(View.VISIBLE);
+                }
                 else {
                     tvClear.setVisibility(View.GONE);
+                    tvItemSize.setVisibility(View.GONE);
                     arrSearlist.clear();
                 }
-
+                tvItemSize.setText("Showing "+arrSearlist.size() + " Products");
                 mAddProductAdapter.notifyDataSetChanged();
             }
 
