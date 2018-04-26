@@ -41,7 +41,7 @@ import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
-import quay.com.ipos.productCatalogue.ProductCatalogueMainFragment;
+import quay.com.ipos.productCatalogue.ProductMain;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
@@ -69,10 +69,8 @@ public class MainActivity extends BaseActivity
     private Menu menu1;
     private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
     private View viewM, viewI, viewP;
-    private ImageView imageViewP, imageViewI, imageViewM;
     private CircleImageView imageViewProfileDummy;
     private TextView textViewMyBusiness, textViewAccount;
-    private boolean mSelectedItem = true;
     private TextView textViewP, textViewI, textViewM;
 
     @Override
@@ -372,7 +370,7 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case 3:
-                productCatalogueMainFragment = new ProductCatalogueMainFragment();
+                productCatalogueMainFragment = new ProductMain();
                 replaceFragment(productCatalogueMainFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.product));

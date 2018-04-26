@@ -14,9 +14,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
-import quay.com.ipos.adapter.ProductCatalogueViewAllAdapter;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.modal.ProductCatalogueModal;
+import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductCatalogueViewAllAdapter;
+import quay.com.ipos.productCatalogue.productModal.ProductItemModal;
 import quay.com.ipos.utility.FontUtil;
 
 /**
@@ -29,7 +29,7 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
     private RecyclerView recyclerViewProductsList;
     private Context mContext;
     String ProductGroup;
-    private ArrayList<ProductCatalogueModal> productCatalogueModals;
+    private ArrayList<ProductItemModal> productItemModals;
     private ProductCatalogueViewAllAdapter productCatalogueViewAllAdapter;
 
     @Override
@@ -39,7 +39,7 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
         mContext = ProductCatalogueViewAll.this;
         Intent i = getIntent();
         ProductGroup = i.getStringExtra("Group");
-        productCatalogueModals = (ArrayList<ProductCatalogueModal>) i.getSerializableExtra("Products");
+        productItemModals = (ArrayList<ProductItemModal>) i.getSerializableExtra("Products");
         findViewById();
         applyInitValues();
         applyTypeFace();
@@ -69,7 +69,7 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
 
         recyclerViewProductsList.setHasFixedSize(true);
         recyclerViewProductsList.setLayoutManager(new LinearLayoutManager(mContext));
-        productCatalogueViewAllAdapter = new ProductCatalogueViewAllAdapter(mContext, productCatalogueModals);
+        productCatalogueViewAllAdapter = new ProductCatalogueViewAllAdapter(mContext, productItemModals);
         recyclerViewProductsList.setAdapter(productCatalogueViewAllAdapter);
 
     }

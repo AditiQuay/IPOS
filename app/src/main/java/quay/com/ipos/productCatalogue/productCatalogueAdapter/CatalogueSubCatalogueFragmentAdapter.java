@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.MyListener;
-import quay.com.ipos.modal.CatalogueModal;
-import quay.com.ipos.modal.ProductCatalogueModal;
+import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 4/17/2018.
@@ -49,6 +49,7 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Util.animateView(v);
                 listener.onRowClicked(position);
             }
         });

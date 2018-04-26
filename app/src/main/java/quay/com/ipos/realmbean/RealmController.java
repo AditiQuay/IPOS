@@ -1,19 +1,14 @@
 package quay.com.ipos.realmbean;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
 import io.realm.Realm;
-import io.realm.RealmResults;
+import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 //import quay.com.ipos.modal.PinnedResult;
-import quay.com.ipos.modal.ProductList;
-import quay.com.ipos.modal.CatalogueModal;
 
 
 public class RealmController {

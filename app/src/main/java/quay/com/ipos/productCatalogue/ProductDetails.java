@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,12 +22,9 @@ import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.adapter.ImageSliderViewPagerAdapter;
-import quay.com.ipos.adapter.ProductDetailsExpandableListAdapter;
 import quay.com.ipos.constant.ExpandabelProductDetails;
-import quay.com.ipos.constant.ExpandableListDataPump;
-import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
+import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductDetailsExpandableListAdapter;
 import quay.com.ipos.utility.FontUtil;
 
 /**
