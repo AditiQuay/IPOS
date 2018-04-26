@@ -87,6 +87,8 @@ public class MainActivity extends BaseActivity
     private ImageView imageViewP, imageViewI, imageViewM;
     private CircleImageView imageViewProfileDummy;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private int count=0;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,7 +185,11 @@ public class MainActivity extends BaseActivity
 
                 } else if (intent.getAction().equals(Constants.PUSH_NOTIFICATION)) {
                     // new push notification is received
-
+                   MenuItem menu= menu1.findItem(R.id.action_notification);
+                    View actionView = MenuItemCompat.getActionView(menu);
+                    count++;
+                    TextView  cart_badge = (TextView) actionView.findViewById(R.id.cart_badge);
+                    cart_badge.setText(count+"");
                     String message = intent.getStringExtra("message");
 
 
@@ -475,6 +481,11 @@ public class MainActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         this.menu1 = menu;
+        MenuItem menu12= menu1.findItem(R.id.action_notification);
+        View actionView = MenuItemCompat.getActionView(menu12);
+
+        TextView  cart_badge = (TextView) actionView.findViewById(R.id.cart_badge);
+        cart_badge.setText(count+"");
         // Retrieve the SearchView and plug it into SearchManager
 //        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
 //        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
