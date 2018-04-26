@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/whole_app_background"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/whole_app_background">
 
     <android.support.v7.widget.SearchView
         android:id="@+id/searchViewCatalogue"
@@ -15,14 +15,19 @@
         android:elevation="2dp"
         app:iconifiedByDefault="false" />
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerviewCategory"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchViewCatalogue"
-        android:overScrollMode="never"
-        android:scrollbars="none" />
+        android:layout_below="@+id/searchViewCatalogue">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerviewCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 
 </RelativeLayout>

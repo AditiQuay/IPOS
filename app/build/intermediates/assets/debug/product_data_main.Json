@@ -1,101 +1,143 @@
 {
   "info": [
     {
-      "key": "McCoy Soudal - PU foam, Sealants & Adhensives",
+      "section": "McCoy Soudal - PU foam, Sealants & Adhensives",
       "sectionItems": [
         {
-          "sProductName": "Friction Stay",
-          "sProductDetail": "Made of AISI 304 stainless steel and brass. Pressure adjustable brake for stopping. Can be used for side hung horizontal axis opening ventilators, as well as top hung vertical axis opening windows. Can be used in wood, aluminium or plastic windows."
+          "productId": 1,
+          "productName": "Friction Stay",
+          "productUrl":"",
+          "productDescription": "Made of AISI 304 stainless steel and brass. Pressure adjustable brake for stopping. Can be used for side hung horizontal axis opening ventilators, as well as top hung vertical axis opening windows. Can be used in wood, aluminium or plastic windows."
         },
         {
-          "sProductName": "Window Solution",
-          "sProductDetail": "Most suited solution for windows when it comes to screening flies. The use of Viscodynamic break offers smooth & slow rewinding of the screen, also in case of unintentional opening. Anti-wind brush strips hold the mesh firmly in the side tracks even in windy conditions, making it a robust screen."
+          "productId": 2,
+          "productName": "Window Solution",
+          "productUrl":"",
+          "productDescription": "Most suited solution for windows when it comes to screening flies. The use of Viscodynamic break offers smooth & slow rewinding of the screen, also in case of unintentional opening. Anti-wind brush strips hold the mesh firmly in the side tracks even in windy conditions, making it a robust screen."
         },
         {
-          "sProductName": "Chain System",
-          "sProductDetail": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
+          "productId": 3,
+          "productName": "Chain System",
+          "productUrl":"",
+          "productDescription": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
         },
         {
-          "sProductName": "uPVC Range",
-          "sProductDetail": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
+          "productId": 4,
+          "productName": "uPVC Range",
+          "productUrl":"",
+          "productDescription": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
         },
         {
-          "sProductName": "Door Frame Solutions",
-          "sProductDetail": "McCoy Fly Screen's nets, mesh and fly screens for windows and doors protect your families from insects, mosquitoes, pollen and pollutants. They come in roll up, chain, single and double sliding systems."
+          "productId": 5,
+          "productName": "Door Frame Solutions",
+          "productUrl":"",
+          "productDescription": "McCoy Fly Screen's nets, mesh and fly screens for windows and doors protect your families from insects, mosquitoes, pollen and pollutants. They come in roll up, chain, single and double sliding systems."
         },
         {
-          "sProductName": "Aluminium Range Products",
-          "sProductDetail": "TIMBER, ALUMINIUM & GLASS. Established in 1995 the company is renowned for its quality, and superior craftsmanship and design flair. McCoy's Doors & Windows offers a secure & compliant turnkey solution, for all fenestration and access ways."
+          "productId": 6,
+          "productName": "Aluminium Range Products",
+          "productUrl":"",
+          "productDescription": "TIMBER, ALUMINIUM & GLASS. Established in 1995 the company is renowned for its quality, and superior craftsmanship and design flair. McCoy's Doors & Windows offers a secure & compliant turnsection solution, for all fenestration and access ways."
         },
         {
-          "sProductName": "Mirror Bond Solutions",
-          "sProductDetail": "McCoy Soudal presents Fix All HT for mirror bonding, with high strength and initial tack based on MS-Polymer. It is Initial bond after 1 second of pressing, fast, easy to apply & paintable with all water based paints."
+          "productId": 7,
+          "productName": "Mirror Bond Solutions",
+          "productUrl":"",
+          "productDescription": "McCoy Soudal presents Fix All HT for mirror bonding, with high strength and initial tack based on MS-Polymer. It is Initial bond after 1 second of pressing, fast, easy to apply & paintable with all water based paints."
         }
       ]
     },
     {
-      "key": "McCoy 8m - Building Door Windows Hardware",
+      "section": "McCoy 8m - Building Door Windows Hardware",
       "sectionItems": [
         {
-          "sProductName": "Aluminium Range Products",
-          "sProductDetail": "TIMBER, ALUMINIUM & GLASS. Established in 1995 the company is renowned for its quality, and superior craftsmanship and design flair. McCoy's Doors & Windows offers a secure & compliant turnkey solution, for all fenestration and access ways."
+          "productId": 1,
+          "productName": "Aluminium Range Products",
+          "productUrl":"",
+          "productDescription": "TIMBER, ALUMINIUM & GLASS. Established in 1995 the company is renowned for its quality, and superior craftsmanship and design flair. McCoy's Doors & Windows offers a secure & compliant turnsection solution, for all fenestration and access ways."
         },
         {
-          "sProductName": "Friction Stay",
-          "sProductDetail": "Made of AISI 304 stainless steel and brass. Pressure adjustable brake for stopping. Can be used for side hung horizontal axis opening ventilators, as well as top hung vertical axis opening windows. Can be used in wood, aluminium or plastic windows."
+          "productId": 2,
+          "productName": "Friction Stay",
+          "productUrl":"",
+          "productDescription": "Made of AISI 304 stainless steel and brass. Pressure adjustable brake for stopping. Can be used for side hung horizontal axis opening ventilators, as well as top hung vertical axis opening windows. Can be used in wood, aluminium or plastic windows."
         },
         {
-          "sProductName": "Mirror Bond Solutions",
-          "sProductDetail": "McCoy Soudal presents Fix All HT for mirror bonding, with high strength and initial tack based on MS-Polymer. It is Initial bond after 1 second of pressing, fast, easy to apply & paintable with all water based paints."
+          "productId": 3,
+          "productName": "Mirror Bond Solutions",
+          "productUrl":"",
+          "productDescription": "McCoy Soudal presents Fix All HT for mirror bonding, with high strength and initial tack based on MS-Polymer. It is Initial bond after 1 second of pressing, fast, easy to apply & paintable with all water based paints."
         },
         {
-          "sProductName": "uPVC Range",
-          "sProductDetail": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
+          "productId": 4,
+          "productName": "uPVC Range",
+          "productUrl":"",
+          "productDescription": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
         },
         {
-          "sProductName": "Door Frame Solutions",
-          "sProductDetail": "McCoy Fly Screen's nets, mesh and fly screens for windows and doors protect your families from insects, mosquitoes, pollen and pollutants. They come in roll up, chain, single and double sliding systems."
+          "productId": 5,
+          "productName": "Door Frame Solutions",
+          "productUrl":"",
+          "productDescription": "McCoy Fly Screen's nets, mesh and fly screens for windows and doors protect your families from insects, mosquitoes, pollen and pollutants. They come in roll up, chain, single and double sliding systems."
         },
         {
-          "sProductName": "Window Solution",
-          "sProductDetail": "Most suited solution for windows when it comes to screening flies. The use of Viscodynamic break offers smooth & slow rewinding of the screen, also in case of unintentional opening. Anti-wind brush strips hold the mesh firmly in the side tracks even in windy conditions, making it a robust screen."
+          "productId": 6,
+          "productName": "Window Solution",
+          "productUrl":"",
+          "productDescription": "Most suited solution for windows when it comes to screening flies. The use of Viscodynamic break offers smooth & slow rewinding of the screen, also in case of unintentional opening. Anti-wind brush strips hold the mesh firmly in the side tracks even in windy conditions, making it a robust screen."
         },
         {
-          "sProductName": "Chain System",
-          "sProductDetail": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
+          "productId": 7,
+          "productName": "Chain System",
+          "productUrl":"",
+          "productDescription": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
         }
       ]
     },
     {
-      "key": "McCoy Fly Screen - Protect your family with McCoy fly screen",
+      "section": "McCoy Fly Screen - Protect your family with McCoy fly screen",
       "sectionItems": [
         {
-          "sProductName": "uPVC Range",
-          "sProductDetail": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
+          "productId": 1,
+          "productName": "uPVC Range",
+          "productUrl":"",
+          "productDescription": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
         },
         {
-          "sProductName": "Window Solution",
-          "sProductDetail": "Most suited solution for windows when it comes to screening flies. The use of Viscodynamic break offers smooth & slow rewinding of the screen, also in case of unintentional opening. Anti-wind brush strips hold the mesh firmly in the side tracks even in windy conditions, making it a robust screen."
+          "productId": 2,
+          "productName": "Window Solution",
+          "productUrl":"",
+          "productDescription": "Most suited solution for windows when it comes to screening flies. The use of Viscodynamic break offers smooth & slow rewinding of the screen, also in case of unintentional opening. Anti-wind brush strips hold the mesh firmly in the side tracks even in windy conditions, making it a robust screen."
         },
         {
-          "sProductName": "Mirror Bond Solutions",
-          "sProductDetail": "McCoy Soudal presents Fix All HT for mirror bonding, with high strength and initial tack based on MS-Polymer. It is Initial bond after 1 second of pressing, fast, easy to apply & paintable with all water based paints."
+          "productId": 3,
+          "productName": "Mirror Bond Solutions",
+          "productUrl":"",
+          "productDescription": "McCoy Soudal presents Fix All HT for mirror bonding, with high strength and initial tack based on MS-Polymer. It is Initial bond after 1 second of pressing, fast, easy to apply & paintable with all water based paints."
         },
         {
-          "sProductName": "Door Frame Solutions",
-          "sProductDetail": "McCoy Fly Screen's nets, mesh and fly screens for windows and doors protect your families from insects, mosquitoes, pollen and pollutants. They come in roll up, chain, single and double sliding systems."
+          "productId": 4,
+          "productName": "Door Frame Solutions",
+          "productUrl":"",
+          "productDescription": "McCoy Fly Screen's nets, mesh and fly screens for windows and doors protect your families from insects, mosquitoes, pollen and pollutants. They come in roll up, chain, single and double sliding systems."
         },
         {
-          "sProductName": "Chain System",
-          "sProductDetail": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
+          "productId": 5,
+          "productName": "Chain System",
+          "productUrl":"",
+          "productDescription": "Most suited screening mechanism for large Doors & Windows. This system offers very unique, simple and smooth operation. The special zero gravity metallic bar ensures that the fly screen system stays in place while it is pulled up or down. This mechanism is so far considered the most popular, suitable and hassle free solution for all windows and doors."
         },
         {
-          "sProductName": "Friction Stay",
-          "sProductDetail": "Made of AISI 304 stainless steel and brass. Pressure adjustable brake for stopping. Can be used for side hung horizontal axis opening ventilators, as well as top hung vertical axis opening windows. Can be used in wood, aluminium or plastic windows."
+          "productId": 6,
+          "productName": "Friction Stay",
+          "productUrl":"",
+          "productDescription": "Made of AISI 304 stainless steel and brass. Pressure adjustable brake for stopping. Can be used for side hung horizontal axis opening ventilators, as well as top hung vertical axis opening windows. Can be used in wood, aluminium or plastic windows."
         },
         {
-          "sProductName": "Aluminium Range Products",
-          "sProductDetail": "TIMBER, ALUMINIUM & GLASS. Established in 1995 the company is renowned for its quality, and superior craftsmanship and design flair. McCoy's Doors & Windows offers a secure & compliant turnkey solution, for all fenestration and access ways."
+          "productId": 7,
+          "productName": "Aluminium Range Products",
+          "productUrl":"",
+          "productDescription": "TIMBER, ALUMINIUM & GLASS. Established in 1995 the company is renowned for its quality, and superior craftsmanship and design flair. McCoy's Doors & Windows offers a secure & compliant turnsection solution, for all fenestration and access ways."
         }
       ]
     }

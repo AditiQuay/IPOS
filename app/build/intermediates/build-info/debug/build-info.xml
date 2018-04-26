@@ -6,26 +6,23 @@
     density="xxhdpi"
     format="10"
     plugin-version="3.0.1"
-    timestamp="1524720379925"
+    timestamp="1524723734865"
     token="8443210809318909877"
     verifier="FULL_BUILD_REQUESTED" >
 
     <task
         name="javac"
-        duration="8412" />
+        duration="13253" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="3795" />
+        duration="1371" />
     <task
         name="verifier"
-        duration="1104" />
+        duration="308" />
 
-    <artifact
-        location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
-        type="SPLIT" />
     <artifact
         location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
         type="SPLIT" />
@@ -59,14 +56,14 @@
     <artifact
         location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\outputs\apk\debug\app-debug.apk"
         type="SPLIT_MAIN" />
+    <artifact
+        location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+        type="SPLIT" />
 
     <build
         build-mode="FULL"
-        timestamp="1524720379925"
+        timestamp="1524723734865"
         verifier="FULL_BUILD_REQUESTED" >
-        <artifact
-            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
-            type="SPLIT" />
         <artifact
             location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
             type="SPLIT" />
@@ -100,6 +97,9 @@
         <artifact
             location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\outputs\apk\debug\app-debug.apk"
             type="SPLIT_MAIN" />
+        <artifact
+            location="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+            type="SPLIT" />
     </build>
 
 </instant-run>

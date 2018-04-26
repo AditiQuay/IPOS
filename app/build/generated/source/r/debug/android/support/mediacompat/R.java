@@ -93,10 +93,10 @@ public final class R {
         public static final int right_icon = 0x7f09011d;
         public static final int right_side = 0x7f09011e;
         public static final int status_bar_latest_event_content = 0x7f090148;
-        public static final int text = 0x7f09014f;
-        public static final int text2 = 0x7f090150;
-        public static final int time = 0x7f090179;
-        public static final int title = 0x7f09017a;
+        public static final int text = 0x7f090150;
+        public static final int text2 = 0x7f090151;
+        public static final int time = 0x7f09017a;
+        public static final int title = 0x7f09017b;
     }
     public static final class integer {
         public static final int cancel_button_image_alpha = 0x7f0a0004;
