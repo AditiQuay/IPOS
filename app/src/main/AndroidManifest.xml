@@ -33,6 +33,21 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".login.McCoyLoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".productCatalogue.CatalogueSubProduct"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".productCatalogue.ProductCatalogueViewAll"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".productCatalogue.ProductDetails"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -41,7 +56,10 @@
             android:name=".base.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name="quay.com.ipos.retailsales.activity.PinnedRetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".retailsales.activity.FullScannerActivity"
             android:screenOrientation="portrait"

@@ -47,6 +47,7 @@ public class Constants {
     public static final String text = "<font color='#03A9F4'> 63%</font>";
 
     public static final int API_METHOD_GET = 0;
+    public static final String SP_KEY_USER_DETAIL = "data";
 
 
     // global topic to receive app wide push notifications

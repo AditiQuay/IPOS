@@ -1,7 +1,4 @@
 {
-  "GSTPerc":18,
-  "CGST":9,
-  "SGST":9,
   "data": [
     {
       "iProductModalId": 1,
@@ -12,7 +9,11 @@
       "sProductWeight":"500",
       "isDiscount":true,
       "sDiscountName":"Season Discounts (10%)",
+      "GSTPerc":18,
+      "CGST":9,
+      "SGST":9,
       "sDiscountPrice":"10"
+
     },
     {
       "iProductModalId": 2,
@@ -23,6 +24,9 @@
       "sProductWeight":"500",
       "isDiscount":true,
       "sDiscountName":"Season Discounts (20%)",
+      "GSTPerc":18,
+      "CGST":9,
+      "SGST":9,
       "sDiscountPrice":"20"
     },
     {
@@ -34,6 +38,9 @@
       "sProductWeight":"20",
       "isDiscount":false,
       "sDiscountName":"",
+      "GSTPerc":18,
+      "CGST":9,
+      "SGST":9,
       "sDiscountPrice":""
     },
     {
@@ -45,6 +52,9 @@
       "sProductWeight":"50",
       "isDiscount":true,
       "sDiscountName":"Season Discounts (20%)",
+      "GSTPerc":18,
+      "CGST":9,
+      "SGST":9,
       "sDiscountPrice":"20"
     },
     {
@@ -56,6 +66,9 @@
       "sProductWeight":"55",
       "isDiscount":true,
       "sDiscountName":"Season Discounts (50%)",
+      "GSTPerc":18,
+      "CGST":9,
+      "SGST":9,
       "sDiscountPrice":"50"
     },
     {
@@ -67,6 +80,9 @@
       "sProductWeight":"5000",
       "isDiscount":true,
       "sDiscountName":"Season Discounts (25%)",
+      "GSTPerc":18,
+      "CGST":9,
+      "SGST":9,
       "sDiscountPrice":"25"
     },
     {
@@ -78,6 +94,9 @@
       "sProductWeight":"200",
       "isDiscount":true,
       "sDiscountName":"Season Discounts (20%)",
+      "GSTPerc":18,
+      "CGST":9,
+      "SGST":9,
       "sDiscountPrice":"20"
     }
   ]

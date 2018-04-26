@@ -57,10 +57,12 @@ import quay.com.ipos.productCatalogue.ProductCatalogueMainFragment;
 import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.retailsales.activity.CustomerListActivity;
 import quay.com.ipos.retailsales.fragment.RetailLoyaltyFragment;
+import quay.com.ipos.productCatalogue.ProductMain;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.FontUtil;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener {
@@ -84,10 +86,12 @@ public class MainActivity extends BaseActivity
     private Menu menu1;
     private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
     private View viewM, viewI, viewP;
-    private ImageView imageViewP, imageViewI, imageViewM;
     private CircleImageView imageViewProfileDummy;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private int count=0;
+    private TextView textViewMyBusiness, textViewAccount;
+    private TextView textViewP, textViewI, textViewM;
+    private ImageView imageViewI,imageViewP,imageViewM;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,7 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         findViewById();
         applyInitValues();
+        applyTypeFace();
         setDashBoard();
 
     }
@@ -125,13 +130,24 @@ public class MainActivity extends BaseActivity
         imageViewP = findViewById(R.id.imageViewP);
         imageViewI = findViewById(R.id.imageViewI);
         imageViewM = findViewById(R.id.imageViewM);
-        imageViewProfileDummy=findViewById(R.id.imageViewProfileDummy);
+        imageViewProfileDummy = findViewById(R.id.imageViewProfileDummy);
 
+        textViewMyBusiness = findViewById(R.id.textViewMyBusiness);
+        textViewAccount = findViewById(R.id.textViewAccount);
+
+       /* textViewP = findViewById(R.id.textViewP);
+        textViewI = findViewById(R.id.textViewI);
+        textViewM = findViewById(R.id.textViewM);*/
 //        final ImageView profileImageSwitch = (ImageView) findViewById(R.id.profileImageSwitch);
 //        final ImageView profileImage = (ImageView) findViewById(R.id.profileImage);
 
 
         expandableListView1 = findViewById(R.id.expandableListView1);
+        expandableListView1.setGroupIndicator(null);
+        expandableListView1.setChildIndicator(null);
+        expandableListView1.setChildDivider(getResources().getDrawable(R.color.white));
+        expandableListView1.setDivider(getResources().getDrawable(R.color.expand_list_color));
+        expandableListView1.setDividerHeight(0);
 
         listViewContent.setVisibility(View.VISIBLE);
         expandableListView1.setVisibility(View.GONE);
@@ -210,7 +226,7 @@ public class MainActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mNavigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_array);
-       DrawerModal[] drawerItem = new DrawerModal[7];
+        DrawerModal[] drawerItem = new DrawerModal[7];
 
         drawerItem[0] = new DrawerModal(R.drawable.cart, "New Order");
         drawerItem[1] = new DrawerModal(R.drawable.order_center, "Order Centre");
@@ -315,6 +331,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void applyTypeFace() {
+        FontUtil.applyTypeface(textViewMyBusiness, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
     }
 
@@ -328,8 +345,11 @@ public class MainActivity extends BaseActivity
         if (v == lLaoutBtnP) {
             listViewContent.setVisibility(View.VISIBLE);
             expandableListView1.setVisibility(View.GONE);
+
             viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            imageViewP.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
             imageViewP.setBackgroundResource(R.drawable.menu_background_select);
+
 
             viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
             imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
@@ -341,24 +361,35 @@ public class MainActivity extends BaseActivity
         }if (v==lLaoutBtnI){
             listViewContent.setVisibility(View.GONE);
             expandableListView1.setVisibility(View.VISIBLE);
+
             viewI.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            imageViewI.setBackgroundResource(R.drawable.menu_background_select);
+            textViewI.setBackgroundResource(R.drawable.menu_background_select);
+            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
+
 
             viewP.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            imageViewP.setBackgroundResource(R.drawable.menu_background_unselect);
+            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewP.setBackgroundResource(R.drawable.menu_background_unselect);
 
             viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
-            imageViewProfileDummy.setImageResource(R.drawable.user);
-        }if (v==lLaoutBtnM){
-            viewM.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            imageViewM.setBackgroundResource(R.drawable.menu_background_select);
+            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewM.setBackgroundResource(R.drawable.menu_background_unselect);
 
-            viewP.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            imageViewP.setBackgroundResource(R.drawable.menu_background_unselect);
+            imageViewProfileDummy.setImageResource(R.drawable.profile_thumb);
+        }
+        if (v == lLaoutBtnM) {
+            viewM.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
+            textViewM.setBackgroundResource(R.drawable.menu_background_select);
 
             viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
+            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewI.setBackgroundResource(R.drawable.menu_background_unselect);
+
+            viewP.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewP.setBackgroundResource(R.drawable.menu_background_unselect);
+
         }
     }
 
@@ -366,13 +397,20 @@ public class MainActivity extends BaseActivity
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
+//            for (int i = 0; i < listViewContent.getChildCount(); i++) {
+//                if(position == i ){
+//                    listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.light_blue));
+//                }else{
+//                    listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.white));
+//                }
+//            }
+
+            selectItem(position, view);
         }
 
     }
 
-    private void selectItem(int position) {
-
+    private void selectItem(int position, View view) {
         switch (position) {
             case 0:
 
@@ -399,7 +437,7 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case 3:
-                productCatalogueMainFragment = new ProductCatalogueMainFragment();
+                productCatalogueMainFragment = new ProductMain();
                 replaceFragment(productCatalogueMainFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.product));

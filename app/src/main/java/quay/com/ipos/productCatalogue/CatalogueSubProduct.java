@@ -25,6 +25,7 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.modal.CatalogueModal;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.CatalogueSubCatalogueFragmentAdapter;
+import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -52,12 +53,12 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface, 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.catalogue_sub_product, container, false);
         //Retrieve the value
-        productName = getArguments().getString("Product Name");
-        mContext = getActivity();
-        listener = CatalogueSubProduct.this;
-        setHasOptionsMenu(true);
-        findViewById();
-        applyInitValues();
+//        productName = getArguments().getString("Product Name");
+//        mContext = getActivity();
+//        listener = CatalogueSubProduct.this;
+//        setHasOptionsMenu(true);
+//        findViewById();
+//        applyInitValues();
         return rootView;
     }
 
@@ -70,20 +71,21 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface, 
 
     @Override
     public void applyInitValues() {
-        textViewProductName.setText(productName);
-
-        layoutManager = new LinearLayoutManager(mContext);
-        recyclerviewProduct.setLayoutManager(layoutManager);
-        catalogueSubCatalogueFragmentAdapter = new CatalogueSubCatalogueFragmentAdapter(mContext, catalogueModalsSet,this);
-        recyclerviewProduct.setAdapter(catalogueSubCatalogueFragmentAdapter);
-
-        catalogueModalsSet.clear();
-        getServerData();
+//        textViewProductName.setText(productName);
+//
+//        layoutManager = new LinearLayoutManager(mContext);
+//        recyclerviewProduct.setLayoutManager(layoutManager);
+//        catalogueSubCatalogueFragmentAdapter = new CatalogueSubCatalogueFragmentAdapter(mContext, catalogueModalsSet,this);
+//        recyclerviewProduct.setAdapter(catalogueSubCatalogueFragmentAdapter);
+//
+//        catalogueModalsSet.clear();
+//        getServerData();
 
     }
 
     @Override
     public void applyTypeFace() {
+        FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoMedium_0(mContext));
 
     }
 
@@ -118,5 +120,10 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface, 
         Intent gotToProductDetail = new Intent(mContext,ProductDetails.class);
         gotToProductDetail.putExtra("ProductName",catalogueModal.sProductName);
         startActivity(gotToProductDetail);
+    }
+
+    @Override
+    public void onRowClicked(int position, int value) {
+
     }
 }

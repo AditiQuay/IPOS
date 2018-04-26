@@ -1,6 +1,9 @@
 package quay.com.ipos.productCatalogue;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -51,13 +55,30 @@ public class ProductCatalogueMainFragment extends BaseFragment implements InitIn
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.product_catalogue_fragment, container, false);
         mContext = getActivity();
+
         setHasOptionsMenu(true);
         myListener = ProductCatalogueMainFragment.this;
         findViewById();
         applyInitValues();
+        applyTypeFace();
+//        showPopup(rootView);
         return rootView;
     }
 
+    //    public void showPopup(View v) {
+//        TextView txtclose;
+//        myDialog.setContentView(R.layout.custompopup);
+//        txtclose =(TextView) myDialog.findViewById(R.id.txtclose);
+//        txtclose.setText("X");
+//        txtclose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                myDialog.dismiss();
+//            }
+//        });
+//        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        myDialog.show();
+//    }
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem item = menu.findItem(R.id.action_search);
@@ -157,6 +178,11 @@ public class ProductCatalogueMainFragment extends BaseFragment implements InitIn
 
         // Commit the transaction
         transaction.commit();
+    }
+
+    @Override
+    public void onRowClicked(int position, int value) {
+
     }
 
 }
