@@ -246,6 +246,7 @@
     <color name="secondary_text_disabled_material_dark">#36ffffff</color>
     <color name="secondary_text_disabled_material_light">#24000000</color>
     <color name="sinch_purple">#ff63029d</color>
+    <color name="sky_blue">#ADD8E6</color>
     <color name="spring_bud">#A7FC00</color>
     <color name="strip_color">#eeeeee</color>
     <color name="survey_background_color">#f2f2f2</color>
@@ -1981,6 +1982,7 @@
     <string name="my_store_">My Store</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="no_match_found">No Match Found!</string>
     <string name="ok_button">Ok</string>
     <string name="online_store">Online Store</string>
     <string name="opened">Opened @ 10:00 am today</string>

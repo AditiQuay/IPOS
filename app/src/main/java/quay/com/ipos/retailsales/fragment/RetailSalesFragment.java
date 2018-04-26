@@ -386,6 +386,9 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             AppLog.e(RetailSalesFragment.class.getSimpleName(),"totalGst: "+totalGst);
             tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalGst);
 
+
+
+
             tvSGSTPrice.setText("+"+getActivity().getResources().getString(R.string.Rs) + " " +sgst);
 
             tvCGSTPrice.setText("+"+getActivity().getResources().getString(R.string.Rs) + " " +cgst);
