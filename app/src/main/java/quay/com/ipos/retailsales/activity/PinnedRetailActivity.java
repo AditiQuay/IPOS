@@ -38,7 +38,7 @@ import quay.com.ipos.utility.Util;
 
 public class PinnedRetailActivity extends BaseActivity {
     private static final String TAG = AddProductActivity.class.getSimpleName();
-//    ArrayList<RealmPinnedResults.Info> arrPinned= new ArrayList<>();
+    //    ArrayList<RealmPinnedResults.Info> arrPinned= new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;
     private FloatingActionButton fab;
@@ -71,7 +71,7 @@ public class PinnedRetailActivity extends BaseActivity {
 //            RealmPinnedResults mRealmPinnedResults = Util.getCachedPinnedData();
 //            mInfoArrayList.addAll(Util.getCachedPinnedData());
 //        AppLog.e(PinnedRetailActivity.class.getSimpleName(),"mInfoArrayList: "+ Util.getCustomGson().toJson(Util.getCachedPinnedData()) );
-            AppLog.e(PinnedRetailActivity.class.getSimpleName(), Util.getCustomGson().toJson(mInfoArrayList));
+        AppLog.e(PinnedRetailActivity.class.getSimpleName(), Util.getCustomGson().toJson(mInfoArrayList));
 //        }
         mPinnedAdapter = new PinnedAdapter(this,mRecyclerView,mInfoArrayList);
         mRecyclerView.setAdapter(mPinnedAdapter);

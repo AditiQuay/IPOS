@@ -21,11 +21,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:background="@color/colorPrimary"
-        android:padding="@dimen/dim_8">
+        android:paddingTop="@dimen/dim_4"
+        android:paddingBottom="@dimen/dim_4"
+        android:paddingLeft="@dimen/dim_8"
+        android:paddingRight="@dimen/dim_8">
 
         <TextView
             android:id="@+id/textViewProductName"
-            style="@style/styleWhiteTextColor14"
+            style="@style/styleWhiteTextColor16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -72,45 +75,31 @@
         android:background="@color/colorPrimary"
         android:padding="@dimen/dim_8">
 
-        <ImageView
-            android:id="@+id/imageViewDownload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_action_download" />
-
-        <TextView
-            android:id="@+id/textViewDateSheet"
+        <Button
+            android:id="@+id/buttonDataSheet"
             style="@style/styleWhiteTextColor14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/imageViewDownload"
-            android:layout_toRightOf="@+id/imageViewDownload"
-            android:text="Datasheet"
-            tools:ignore="RtlSymmetry" />
+            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
+            android:drawableLeft="@drawable/datesheet"
+            android:drawablePadding="@dimen/dim_8"
+            android:text="DataSheet"
+            android:textAllCaps="false" />
 
-        <ImageView
-            android:id="@+id/imageViewCalci"
+
+        <Button
+            android:id="@+id/buttonCalculator"
+            style="@style/styleWhiteTextColor14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/calculator" />
-
-        <TextView
-            android:id="@+id/textViewFoam"
-            style="@style/styleWhiteTextColor14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/dim_8"
-            android:layout_marginRight="@dimen/dim_8"
-            android:layout_toLeftOf="@+id/imageViewCalci"
-            android:layout_toStartOf="@+id/imageViewCalci"
-            android:text="Foam Calculator"
-            tools:ignore="RtlSymmetry" />
+            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
+            android:drawablePadding="@dimen/dim_8"
+            android:drawableRight="@drawable/calculator"
+            android:text="Calculator"
+            android:textAllCaps="false" />
 
 
     </RelativeLayout>

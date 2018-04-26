@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="#fff"
         android:elevation="2dp"
-        app:iconifiedByDefault="true" />
+        app:iconifiedByDefault="false" />
 
     <View
         android:id="@+id/viewBorder"
@@ -49,10 +49,12 @@
                     android:layout_marginRight="@dimen/dim_4"
                     android:layout_toLeftOf="@+id/textViewViewAll1"
                     android:layout_toStartOf="@+id/textViewViewAll1"
+                    android:alpha="0.7"
                     android:ems="18"
                     android:lines="2"
                     android:text="McCoy Soudal - PU foam, Sealants &amp; Adhesives"
                     tools:ignore="RtlSymmetry" />
+
 
                 <Button
                     android:id="@+id/textViewViewAll1"
@@ -101,6 +103,7 @@
                     android:layout_marginRight="@dimen/dim_4"
                     android:layout_toLeftOf="@+id/textViewViewAll2"
                     android:layout_toStartOf="@+id/textViewViewAll2"
+                    android:alpha="0.7"
                     android:ems="18"
                     android:lines="2"
                     android:text="McCoy 8m-Building Door Windows Hardware"
@@ -153,6 +156,7 @@
                     android:layout_marginRight="@dimen/dim_4"
                     android:layout_toLeftOf="@+id/textViewViewAll3"
                     android:layout_toStartOf="@+id/textViewViewAll3"
+                    android:alpha="0.7"
                     android:ems="18"
                     android:lines="2"
                     android:text="McCopy Fly Screen-Protect your family with McCoy fly screen"

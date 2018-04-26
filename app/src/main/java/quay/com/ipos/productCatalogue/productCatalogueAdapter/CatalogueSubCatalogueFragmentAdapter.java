@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.MyListener;
-import quay.com.ipos.modal.CatalogueModal;
-import quay.com.ipos.modal.ProductCatalogueModal;
+import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 4/17/2018.
@@ -49,6 +49,7 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
         holder.card_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Util.animateView(v);
                 listener.onRowClicked(position);
             }
         });
@@ -61,7 +62,7 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageViewProduct;
-        private TextView textViewProductName,textViewFeature,textViewPrice;
+        private TextView textViewProductName,textViewFeature,textViewPrice,textViewOfferPrice;
         private CardView card_view;
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -70,8 +71,12 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
             textViewProductName = itemView.findViewById(R.id.textViewProductName);
             textViewFeature = itemView.findViewById(R.id.textViewFeature);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
+            textViewOfferPrice = itemView.findViewById(R.id.textViewOfferPrice);
 
-            FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoRegular(mContext));
+            FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
+            FontUtil.applyTypeface(textViewFeature, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+            FontUtil.applyTypeface(textViewPrice, FontUtil.getTypeFaceRobotTiteliumRegularLight(mContext));
+            FontUtil.applyTypeface(textViewOfferPrice, FontUtil.getTypeFaceRobotTiteliumRegularLight(mContext));
 
 
         }
