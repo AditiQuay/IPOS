@@ -121,4 +121,9 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface, 
         gotToProductDetail.putExtra("ProductName",catalogueModal.sProductName);
         startActivity(gotToProductDetail);
     }
+
+    @Override
+    public void onRowClicked(int position, int value) {
+
+    }
 }

@@ -56,6 +56,7 @@ public class ProductList {
         private boolean discItemSelected = false;
         private boolean ItemSelected = false;
         private boolean OTCselected = false;
+        private boolean isEdited = false;
 
         private int qty=1;
         private double totalPrice;
@@ -111,6 +112,14 @@ public class ProductList {
 
         public void setDiscItemSelected(boolean discItemSelected) {
             this.discItemSelected = discItemSelected;
+        }
+
+        public boolean isEdited() {
+            return isEdited;
+        }
+
+        public void setEdited(boolean edited) {
+            isEdited = edited;
         }
 
         public boolean isItemSelected() {

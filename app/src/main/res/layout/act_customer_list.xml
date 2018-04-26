@@ -62,7 +62,7 @@ android:layout_weight="1"
                 android:id="@+id/tvClear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/accent_color"
+                android:textColor="@color/light_blue"
                 android:paddingRight="@dimen/dim_10"
                 android:paddingLeft="@dimen/dim_10"
                 android:gravity="center"
@@ -79,18 +79,34 @@ android:layout_weight="1"
             android:layout_below="@+id/llSearch"
             android:padding="@dimen/dim_10"
             android:visibility="gone"
+            android:textColor="@color/white"
             android:background="@color/colorPrimary"
-            android:layout_marginBottom="@dimen/dim_5"
+            android:layout_marginBottom="@dimen/dim_2"
             />
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dim_8"
+            android:layout_margin="@dimen/dim_4"
             android:layout_below="@+id/tvItemSize"
+            android:scrollbars="none"
             android:layout_gravity="center">
 
         </android.support.v7.widget.RecyclerView>
+
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvNoItemAvailable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:typeface="Roboto-Regular.ttf"
+            android:layout_below="@+id/llSearch"
+            android:padding="@dimen/dim_10"
+            android:visibility="gone"
+            android:gravity="center"
+            android:text="@string/no_match_found"
+            android:textColor="@color/accent_color"
+            android:layout_marginBottom="@dimen/dim_2"
+            />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

@@ -42,7 +42,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     private FloatingActionButton fab;
     private LinearLayoutManager mLayoutManager;
     private ProductList mProductListResult;
-    private TextView tvItemSize;
+    private TextView tvItemSize,tvNoItemAvailable;
     private AddProductAdapter mAddProductAdapter;
     private TextView tvClear;
     ArrayList<ProductList.Datum> arrData= new ArrayList<>();
@@ -89,6 +89,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         tvClear = findViewById(R.id.tvClear);
         fab = findViewById(R.id.fab);
         fab.setVisibility(View.GONE);
+        tvNoItemAvailable = findViewById(R.id.tvNoItemAvailable);
 
         tvClear.setOnClickListener(this);
         Typeface iconFont = FontManager.getTypeface(this, FontManager.FONTAWESOME);
@@ -97,7 +98,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(
-                new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
+                new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_3),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
 
         searchView.addTextChangedListener(new TextWatcher() {
@@ -124,7 +125,10 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                if(arrSearlist.size()==0){
+                    tvNoItemAvailable.setVisibility(View.VISIBLE);
+                }else
+                    tvNoItemAvailable.setVisibility(View.GONE);
             }
         });
     }
@@ -168,17 +172,36 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(final View view) {
 
         int id = view.getId();
         switch (id){
             case R.id.tvAdd:
-//                AppLog.e(TAG,"click");
+                boolean found = false;
                 int pos = (int) view.getTag();
-                IPOSApplication.mProductList.add(arrSearlist.get(pos));
+                if( IPOSApplication.mProductList.size()>0) {
+                    for (int i = 0; i < IPOSApplication.mProductList.size(); i++) {
+                        if (arrSearlist.get(pos).getIProductModalId().toString().equalsIgnoreCase (IPOSApplication.mProductList.get(i).getIProductModalId().toString())) {
+                            ProductList.Datum mProductListData = IPOSApplication.mProductList.get(i);
+
+                            mProductListData.setQty(mProductListData.getQty() + 1);
+                            IPOSApplication.mProductList.set(i, mProductListData);
+                            found=true;
+                        } else {
+//                            IPOSApplication.mProductList.add(0,arrSearlist.get(pos));
+                        }
+                    }
+                    if(!found){
+                        IPOSApplication.mProductList.add(0,arrSearlist.get(pos));
+                    }
+                }else {
+                    IPOSApplication.mProductList.add(0,arrSearlist.get(pos));
+                }
+                AppLog.e(TAG,"click" + Util.getCustomGson().toJson(IPOSApplication.mProductList));
                 Intent mIntent = new Intent();
                 setResult(1,mIntent);
                 finish();
+
                 break;
 
             case R.id.tvClear:

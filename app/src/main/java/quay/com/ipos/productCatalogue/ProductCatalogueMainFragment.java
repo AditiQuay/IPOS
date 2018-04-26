@@ -180,4 +180,9 @@ public class ProductCatalogueMainFragment extends BaseFragment implements InitIn
         transaction.commit();
     }
 
+    @Override
+    public void onRowClicked(int position, int value) {
+
+    }
+
 }
