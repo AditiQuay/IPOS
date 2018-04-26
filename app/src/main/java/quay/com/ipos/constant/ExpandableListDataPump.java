@@ -51,6 +51,7 @@ public class ExpandableListDataPump {
         expandableListDetail.put("Manage Store", ManageStore);
         expandableListDetail.put("Manage Business", ManageBusiness);
         expandableListDetail.put("Insights & Analytics", Insight);
+        expandableListDetail.put("Settings", Settings);
 
         return expandableListDetail;
     }

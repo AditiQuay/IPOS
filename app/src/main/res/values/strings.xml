@@ -130,15 +130,19 @@
     <string name="suggest_to_buy">Suggest to buy</string>
     <string name="suggest_dummy">Trizole was out of stock on last billing. its now available</string>
     <string name="recent_orders">Recent Orders</string>
-    <string name="enter_product">Enter Product</string>
     <string name="order_summary">Order Summary</string>
-    <string name="redeem_value">Redeem Value</string>
-    <string name="points_to_redeem">Points to Redeem</string>
-    <string name="send_otp">Send OTP</string>
-    <string name="otp">OTP</string>
-    <string name="verify">Verify</string>
+    <string name="discounts">Discounts</string>
+    <string name="deliverby">Deliver by</string>
     <string name="redeem">Redeem</string>
-    <string name="no_match_found">No Match Found!</string>
+    <string name="this_order">This Order</string>
+    <string name="accumulated">Accumulated</string>
+    <string name="total">Total</string>
+    <string name="new_">New</string>
+    <string name="delivered">Delivered</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="new_orders">New Orders</string>
+    <string name="order_centre">Order Centre</string>
+    <string name="accept">Accept</string>
     <string-array name="ordervalue">
         <item>Apr</item>
         <item>May</item>

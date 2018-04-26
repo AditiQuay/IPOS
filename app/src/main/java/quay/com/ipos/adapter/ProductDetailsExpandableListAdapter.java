@@ -1,10 +1,13 @@
 package quay.com.ipos.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -16,20 +19,22 @@ import quay.com.ipos.R;
 import quay.com.ipos.utility.FontUtil;
 
 /**
- * Created by niraj.kumar on 4/17/2018.
+ * Created by niraj.kumar on 4/19/2018.
  */
 
-public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter {
-
+public class ProductDetailsExpandableListAdapter extends BaseExpandableListAdapter {
+    private ExpandableListView expandableListView;
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
+    private Button btnCheckStatus;
 
-    public NavigationViewExpeListViewAdapter(Context context, List<String> expandableListTitle,
-                                             HashMap<String, List<String>> expandableListDetail) {
+    public ProductDetailsExpandableListAdapter(Context context, List<String> expandableListTitle,
+                                               HashMap<String, List<String>> expandableListDetail, ExpandableListView exp) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
+        this.expandableListView = exp;
     }
 
     @Override
@@ -47,17 +52,23 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
         final String expandedListText = (String) getChild(listPosition, expandedListPosition);
+
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_items, null);
+            convertView = layoutInflater.inflate(R.layout.product_details_list_item, null);
         }
         RelativeLayout relativeLayout = convertView.findViewById(R.id.rLayoutMain);
+        btnCheckStatus = convertView.findViewById(R.id.btnCheckStatus);
+        if (expandedListText.equalsIgnoreCase("• Aerosal can 750ml")) {
+            btnCheckStatus.setVisibility(View.VISIBLE);
+        } else {
+            btnCheckStatus.setVisibility(View.GONE);
+        }
 
         TextView subtitle = (TextView) convertView
                 .findViewById(R.id.textViewChildName);
-        subtitle.setText(expandedListText);
-
+        subtitle.setText(Html.fromHtml(expandedListText));
         try {
             relativeLayout.setBackgroundColor(context.getResources().getColor(R.color.white_text_color));
         } catch (Exception e) {
@@ -68,6 +79,7 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
       /*  TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);
         expandedListTextView.setText(expandedListText);*/
+//        expandableListView.setDividerHeight(20);
         return convertView;
     }
 
@@ -99,16 +111,16 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_group, null);
+            convertView = layoutInflater.inflate(R.layout.product_detail_list_group, null);
         }
-        convertView.setBackgroundResource(R.drawable.drawer_item_background);
+
         ImageView imageViewMenu = (ImageView) convertView.findViewById(R.id.imageViewGroupIcon);
         TextView textViewTitle = (TextView) convertView.findViewById(R.id.textViewGroupName);
         textViewTitle.setText(listTitle);
 
         imageViewMenu.setBackgroundResource(applyMenuBGImage(listTitle.toString().trim()));
         FontUtil.applyTypeface(imageViewMenu, FontUtil.getTypceFaceRobotoRegular(context));
-
+        expandableListView.setDividerHeight(20);
         return convertView;
 
     }
@@ -127,30 +139,21 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
     public int applyMenuBGImage(String ImageName) {
         int imageId = 0;
         switch (ImageName) {
-            case "Mostly Used":
-                imageId = R.drawable.favorite_border;
+            case "Product Details":
+                imageId = R.drawable.ic_action_square;
                 break;
-            case "Billing & Cash":
-                imageId = R.drawable.biling;
+            case "Offers & Discount":
+                imageId = R.drawable.ic_action_offer_grey;
                 break;
-            case "Manage Store":
-                imageId = R.drawable.store;
+            case "Packaging & Availability":
+                imageId = R.drawable.ic_action_square;
                 break;
-            case "Manage Business":
-                imageId = R.drawable.business;
-                break;
-            case "Insights & Analytics":
-                imageId = R.drawable.insights;
-                break;
-            case "Settings":
-                imageId = R.drawable.settings;
+            case "How to Use":
+                imageId = R.drawable.ic_action_square;
                 break;
         }
-
-
         return imageId;
     }
-
 
 
 }

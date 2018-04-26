@@ -29,24 +29,6 @@ public final class FontUtil {
         Typeface typeface_Roboto_Regular = Typeface.createFromAsset(context.getAssets(), "fonts/Roboto-Regular.ttf");
         return typeface_Roboto_Regular;
     }
-    /**
-     * Get typeface of Roboto-Regular
-     * @param context
-     * @return
-     */
-
-    public static Typeface getTypeFaceRobotTiteliumRegular(Context context){
-        Typeface typeface_Roboto_Regular = Typeface.createFromAsset(context.getAssets(), "fonts/TitilliumWeb-Regular.ttf");
-        return typeface_Roboto_Regular;
-    }
-    public static Typeface getTypeFaceRobotTiteliumRegularLight(Context context){
-        Typeface typeface_Roboto_Regular = Typeface.createFromAsset(context.getAssets(), "fonts/TitilliumWeb-Light.ttf");
-        return typeface_Roboto_Regular;
-    }
-    public static Typeface getTypeFaceRobotTiteliumSemiBold(Context context){
-        Typeface typeface_Roboto_Regular = Typeface.createFromAsset(context.getAssets(), "fonts/TitilliumWeb-SemiBold.ttf");
-        return typeface_Roboto_Regular;
-    }
 
     /**
      * Get typeface of Roboto-Medium_0

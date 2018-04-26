@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dim_7"
         android:orientation="vertical"
-        android:id="@+id/llOTCApply"
         android:background="@drawable/item_bg">
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,7 +68,6 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dim_5"
                     android:textSize="@dimen/text_size_16sp"
-                    android:inputType="number"
                     android:background="@null"
                     android:hint="@string/discount_value" />
 
@@ -119,12 +117,10 @@
             app:typeface="Roboto-Regular.ttf" />
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/llOTCConfirmation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dim_7"
         android:orientation="vertical"
-        android:visibility="gone"
         android:background="@drawable/item_bg">
         <LinearLayout
             android:layout_width="match_parent"

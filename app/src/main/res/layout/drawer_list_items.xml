@@ -1,16 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/llGrp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall">
-
-    <View
-        android:id="@+id/vGrp"
-        android:layout_width="@dimen/dim_2"
-        android:layout_height="match_parent"
-        android:background="@color/menu_background"
-        android:visibility="gone"/>
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:padding="10dp">
 
     <ImageView
         android:id="@+id/imageViewIcon"
@@ -18,24 +11,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_gravity="center"
-        android:alpha="0.5"
-        android:paddingLeft="@dimen/dim_10"
-        android:paddingRight="10dp" />
+        android:paddingRight="10dp"
+        android:src="@drawable/ic_action_order_centre" />
 
     <TextView
         android:id="@+id/textViewName"
-        android:textSize="@dimen/dim_14"
-        android:textColor="@color/menu_text_color"
-        android:alpha="0.7"
+        style="@style/stylePrimaryTextColor14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:layout_toRightOf="@+id/imageViewGroupIcon"
-        android:paddingLeft="@dimen/dim_10"
+        android:layout_toRightOf="@+id/imageViewIcon"
         android:paddingRight="10dp"
         android:text="Item Name" />
 
-
-</LinearLayout>
+</RelativeLayout>
