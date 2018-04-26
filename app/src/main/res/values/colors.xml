@@ -34,6 +34,7 @@
     <color name="menu_text_color">#132e67</color>
     <color name="transparent">#00000000</color>
 
+
     <!--    Application color constants     -->
     <color name="dark_primary_color">#e5b703</color>
     <color name="primary_color">#ffcc03</color>

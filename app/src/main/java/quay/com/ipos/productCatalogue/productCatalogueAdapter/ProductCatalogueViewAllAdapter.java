@@ -65,7 +65,7 @@ public class ProductCatalogueViewAllAdapter extends RecyclerView.Adapter<Product
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageViewProduct;
         private TextView textViewName, textViewProductDetails;
-        private Button textViewViewAll;
+        private TextView textViewViewAll;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -75,6 +75,7 @@ public class ProductCatalogueViewAllAdapter extends RecyclerView.Adapter<Product
             textViewViewAll = itemView.findViewById(R.id.textViewViewAll);
 
             FontUtil.applyTypeface(textViewName, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
+            FontUtil.applyTypeface(textViewViewAll, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
             FontUtil.applyTypeface(textViewProductDetails, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
 

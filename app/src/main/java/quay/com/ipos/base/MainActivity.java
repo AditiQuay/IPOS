@@ -284,6 +284,7 @@ public class MainActivity extends BaseActivity
             listViewContent.setVisibility(View.VISIBLE);
             expandableListView1.setVisibility(View.GONE);
 
+
             viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             textViewP.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
             textViewP.setBackgroundResource(R.drawable.menu_background_select);

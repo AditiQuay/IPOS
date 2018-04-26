@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Apr 26 11:53:04 IST 2018
+#Thu Apr 26 14:21:29 IST 2018
 17.baseType=DIRECTORY
 4.path=fonts/TitilliumWeb-SemiBoldItalic.ttf
 25.base=C\:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\assets\\debug

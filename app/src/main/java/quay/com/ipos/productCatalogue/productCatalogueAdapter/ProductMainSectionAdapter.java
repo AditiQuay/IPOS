@@ -88,16 +88,17 @@ public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainS
 
         protected TextView itemTitle;
         protected RecyclerView recyclerViewItems;
-        protected Button textViewViewAll;
+        protected TextView textViewViewAll;
 
         public ItemRowHolder(View view) {
             super(view);
 
             this.itemTitle = (TextView) view.findViewById(R.id.textViewHeader);
             this.recyclerViewItems = (RecyclerView) view.findViewById(R.id.recyclerViewItems);
-            this.textViewViewAll = (Button) view.findViewById(R.id.textViewViewAll);
+            this.textViewViewAll = (TextView) view.findViewById(R.id.textViewViewAll);
 
             FontUtil.applyTypeface(itemTitle, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
+            FontUtil.applyTypeface(textViewViewAll, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
 
         }
 
