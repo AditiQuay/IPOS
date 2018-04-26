@@ -117,11 +117,14 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
         textViewTitle.setText(listTitle);
         if(isExpanded && hasChild( listPosition)>0){
             vGrp.setVisibility(View.VISIBLE);
-        }else
+        }else{
             vGrp.setVisibility(View.GONE);
+        }
 
         if(isExpanded){
             llGrp.setBackgroundResource(R.color.light_blue);
+        }else{
+            llGrp.setBackgroundResource(R.color.expand_list_color);
         }
         imageViewMenu.setBackgroundResource(applyMenuBGImage(listTitle.toString().trim()));
         FontUtil.applyTypeface(textViewTitle, FontUtil.getTypeFaceRobotTiteliumRegular(context));
@@ -159,9 +162,7 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
             case "Insights & Analytics":
                 imageId = R.drawable.insights;
                 break;
-            case "Settings":
-                imageId = R.drawable.settings;
-                break;
+
         }
 
 

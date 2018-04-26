@@ -8,17 +8,18 @@
 
     <View
         android:id="@+id/vItem"
-        android:layout_width="@dimen/dim_5"
+        android:layout_width="@dimen/dim_2"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"></View>
+        android:background="@color/menu_background" />
     <TextView
         android:id="@+id/textViewChildName"
-        style="@style/stylePrimaryTextColor14"
+        android:textSize="@dimen/dim_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_gravity="center"
-
+        android:textColor="@color/menu_text_color"
+        android:alpha="0.7"
         android:paddingLeft="@dimen/dim_10"
         android:paddingEnd="10dp"
         android:paddingRight="10dp"

@@ -28,7 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
+public class CatalogueModalRealmProxy extends quay.com.ipos.productCatalogue.productModal.CatalogueModal
     implements RealmObjectProxy, CatalogueModalRealmProxyInterface {
 
     static final class CatalogueModalColumnInfo extends ColumnInfo
@@ -67,7 +67,7 @@ public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
 
     }
     private CatalogueModalColumnInfo columnInfo;
-    private ProxyState<quay.com.ipos.modal.CatalogueModal> proxyState;
+    private ProxyState<quay.com.ipos.productCatalogue.productModal.CatalogueModal> proxyState;
     private static final List<String> FIELD_NAMES;
     static {
         List<String> fieldNames = new ArrayList<String>();
@@ -88,7 +88,7 @@ public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
         }
         final BaseRealm.RealmObjectContext context = BaseRealm.objectContext.get();
         this.columnInfo = (CatalogueModalColumnInfo) context.getColumnInfo();
-        this.proxyState = new ProxyState<quay.com.ipos.modal.CatalogueModal>(this);
+        this.proxyState = new ProxyState<quay.com.ipos.productCatalogue.productModal.CatalogueModal>(this);
         proxyState.setRealm$realm(context.getRealm());
         proxyState.setRow$realm(context.getRow());
         proxyState.setAcceptDefaultValue$realm(context.getAcceptDefaultValue());
@@ -263,10 +263,10 @@ public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
     }
 
     @SuppressWarnings("cast")
-    public static quay.com.ipos.modal.CatalogueModal createOrUpdateUsingJsonObject(Realm realm, JSONObject json, boolean update)
+    public static quay.com.ipos.productCatalogue.productModal.CatalogueModal createOrUpdateUsingJsonObject(Realm realm, JSONObject json, boolean update)
         throws JSONException {
         final List<String> excludeFields = Collections.<String> emptyList();
-        quay.com.ipos.modal.CatalogueModal obj = realm.createObjectInternal(quay.com.ipos.modal.CatalogueModal.class, true, excludeFields);
+        quay.com.ipos.productCatalogue.productModal.CatalogueModal obj = realm.createObjectInternal(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class, true, excludeFields);
         if (json.has("sProductName")) {
             if (json.isNull("sProductName")) {
                 ((CatalogueModalRealmProxyInterface) obj).realmSet$sProductName(null);
@@ -293,9 +293,9 @@ public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
 
     @SuppressWarnings("cast")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static quay.com.ipos.modal.CatalogueModal createUsingJsonStream(Realm realm, JsonReader reader)
+    public static quay.com.ipos.productCatalogue.productModal.CatalogueModal createUsingJsonStream(Realm realm, JsonReader reader)
         throws IOException {
-        quay.com.ipos.modal.CatalogueModal obj = new quay.com.ipos.modal.CatalogueModal();
+        quay.com.ipos.productCatalogue.productModal.CatalogueModal obj = new quay.com.ipos.productCatalogue.productModal.CatalogueModal();
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
@@ -330,7 +330,7 @@ public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
         return obj;
     }
 
-    public static quay.com.ipos.modal.CatalogueModal copyOrUpdate(Realm realm, quay.com.ipos.modal.CatalogueModal object, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
+    public static quay.com.ipos.productCatalogue.productModal.CatalogueModal copyOrUpdate(Realm realm, quay.com.ipos.productCatalogue.productModal.CatalogueModal object, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
         if (object instanceof RealmObjectProxy && ((RealmObjectProxy) object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy) object).realmGet$proxyState().getRealm$realm().threadId != realm.threadId) {
             throw new IllegalArgumentException("Objects which belong to Realm instances in other threads cannot be copied into this Realm instance.");
         }
@@ -340,19 +340,19 @@ public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
         final BaseRealm.RealmObjectContext objectContext = BaseRealm.objectContext.get();
         RealmObjectProxy cachedRealmObject = cache.get(object);
         if (cachedRealmObject != null) {
-            return (quay.com.ipos.modal.CatalogueModal) cachedRealmObject;
+            return (quay.com.ipos.productCatalogue.productModal.CatalogueModal) cachedRealmObject;
         } else {
             return copy(realm, object, update, cache);
         }
     }
 
-    public static quay.com.ipos.modal.CatalogueModal copy(Realm realm, quay.com.ipos.modal.CatalogueModal newObject, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
+    public static quay.com.ipos.productCatalogue.productModal.CatalogueModal copy(Realm realm, quay.com.ipos.productCatalogue.productModal.CatalogueModal newObject, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
         RealmObjectProxy cachedRealmObject = cache.get(newObject);
         if (cachedRealmObject != null) {
-            return (quay.com.ipos.modal.CatalogueModal) cachedRealmObject;
+            return (quay.com.ipos.productCatalogue.productModal.CatalogueModal) cachedRealmObject;
         } else {
             // rejecting default values to avoid creating unexpected objects from RealmModel/RealmList fields.
-            quay.com.ipos.modal.CatalogueModal realmObject = realm.createObjectInternal(quay.com.ipos.modal.CatalogueModal.class, false, Collections.<String>emptyList());
+            quay.com.ipos.productCatalogue.productModal.CatalogueModal realmObject = realm.createObjectInternal(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class, false, Collections.<String>emptyList());
             cache.put(newObject, (RealmObjectProxy) realmObject);
             ((CatalogueModalRealmProxyInterface) realmObject).realmSet$sProductName(((CatalogueModalRealmProxyInterface) newObject).realmGet$sProductName());
             ((CatalogueModalRealmProxyInterface) realmObject).realmSet$sProductFeature(((CatalogueModalRealmProxyInterface) newObject).realmGet$sProductFeature());
@@ -361,13 +361,13 @@ public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
         }
     }
 
-    public static long insert(Realm realm, quay.com.ipos.modal.CatalogueModal object, Map<RealmModel,Long> cache) {
+    public static long insert(Realm realm, quay.com.ipos.productCatalogue.productModal.CatalogueModal object, Map<RealmModel,Long> cache) {
         if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
             return ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex();
         }
-        Table table = realm.getTable(quay.com.ipos.modal.CatalogueModal.class);
+        Table table = realm.getTable(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class);
         long tableNativePtr = table.getNativeTablePointer();
-        CatalogueModalColumnInfo columnInfo = (CatalogueModalColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.modal.CatalogueModal.class);
+        CatalogueModalColumnInfo columnInfo = (CatalogueModalColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class);
         long rowIndex = Table.nativeAddEmptyRow(tableNativePtr, 1);
         cache.put(object, rowIndex);
         String realmGet$sProductName = ((CatalogueModalRealmProxyInterface)object).realmGet$sProductName();
@@ -386,12 +386,12 @@ public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
     }
 
     public static void insert(Realm realm, Iterator<? extends RealmModel> objects, Map<RealmModel,Long> cache) {
-        Table table = realm.getTable(quay.com.ipos.modal.CatalogueModal.class);
+        Table table = realm.getTable(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class);
         long tableNativePtr = table.getNativeTablePointer();
-        CatalogueModalColumnInfo columnInfo = (CatalogueModalColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.modal.CatalogueModal.class);
-        quay.com.ipos.modal.CatalogueModal object = null;
+        CatalogueModalColumnInfo columnInfo = (CatalogueModalColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class);
+        quay.com.ipos.productCatalogue.productModal.CatalogueModal object = null;
         while (objects.hasNext()) {
-            object = (quay.com.ipos.modal.CatalogueModal) objects.next();
+            object = (quay.com.ipos.productCatalogue.productModal.CatalogueModal) objects.next();
             if(!cache.containsKey(object)) {
                 if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
                     cache.put(object, ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex());
@@ -415,13 +415,13 @@ public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
         }
     }
 
-    public static long insertOrUpdate(Realm realm, quay.com.ipos.modal.CatalogueModal object, Map<RealmModel,Long> cache) {
+    public static long insertOrUpdate(Realm realm, quay.com.ipos.productCatalogue.productModal.CatalogueModal object, Map<RealmModel,Long> cache) {
         if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
             return ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex();
         }
-        Table table = realm.getTable(quay.com.ipos.modal.CatalogueModal.class);
+        Table table = realm.getTable(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class);
         long tableNativePtr = table.getNativeTablePointer();
-        CatalogueModalColumnInfo columnInfo = (CatalogueModalColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.modal.CatalogueModal.class);
+        CatalogueModalColumnInfo columnInfo = (CatalogueModalColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class);
         long rowIndex = Table.nativeAddEmptyRow(tableNativePtr, 1);
         cache.put(object, rowIndex);
         String realmGet$sProductName = ((CatalogueModalRealmProxyInterface)object).realmGet$sProductName();
@@ -446,12 +446,12 @@ public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
     }
 
     public static void insertOrUpdate(Realm realm, Iterator<? extends RealmModel> objects, Map<RealmModel,Long> cache) {
-        Table table = realm.getTable(quay.com.ipos.modal.CatalogueModal.class);
+        Table table = realm.getTable(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class);
         long tableNativePtr = table.getNativeTablePointer();
-        CatalogueModalColumnInfo columnInfo = (CatalogueModalColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.modal.CatalogueModal.class);
-        quay.com.ipos.modal.CatalogueModal object = null;
+        CatalogueModalColumnInfo columnInfo = (CatalogueModalColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class);
+        quay.com.ipos.productCatalogue.productModal.CatalogueModal object = null;
         while (objects.hasNext()) {
-            object = (quay.com.ipos.modal.CatalogueModal) objects.next();
+            object = (quay.com.ipos.productCatalogue.productModal.CatalogueModal) objects.next();
             if(!cache.containsKey(object)) {
                 if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
                     cache.put(object, ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex());
@@ -481,22 +481,22 @@ public class CatalogueModalRealmProxy extends quay.com.ipos.modal.CatalogueModal
         }
     }
 
-    public static quay.com.ipos.modal.CatalogueModal createDetachedCopy(quay.com.ipos.modal.CatalogueModal realmObject, int currentDepth, int maxDepth, Map<RealmModel, CacheData<RealmModel>> cache) {
+    public static quay.com.ipos.productCatalogue.productModal.CatalogueModal createDetachedCopy(quay.com.ipos.productCatalogue.productModal.CatalogueModal realmObject, int currentDepth, int maxDepth, Map<RealmModel, CacheData<RealmModel>> cache) {
         if (currentDepth > maxDepth || realmObject == null) {
             return null;
         }
         CacheData<RealmModel> cachedObject = cache.get(realmObject);
-        quay.com.ipos.modal.CatalogueModal unmanagedObject;
+        quay.com.ipos.productCatalogue.productModal.CatalogueModal unmanagedObject;
         if (cachedObject != null) {
             // Reuse cached object or recreate it because it was encountered at a lower depth.
             if (currentDepth >= cachedObject.minDepth) {
-                return (quay.com.ipos.modal.CatalogueModal)cachedObject.object;
+                return (quay.com.ipos.productCatalogue.productModal.CatalogueModal)cachedObject.object;
             } else {
-                unmanagedObject = (quay.com.ipos.modal.CatalogueModal)cachedObject.object;
+                unmanagedObject = (quay.com.ipos.productCatalogue.productModal.CatalogueModal)cachedObject.object;
                 cachedObject.minDepth = currentDepth;
             }
         } else {
-            unmanagedObject = new quay.com.ipos.modal.CatalogueModal();
+            unmanagedObject = new quay.com.ipos.productCatalogue.productModal.CatalogueModal();
             cache.put(realmObject, new RealmObjectProxy.CacheData<RealmModel>(currentDepth, unmanagedObject));
         }
         ((CatalogueModalRealmProxyInterface) unmanagedObject).realmSet$sProductName(((CatalogueModalRealmProxyInterface) realmObject).realmGet$sProductName());
