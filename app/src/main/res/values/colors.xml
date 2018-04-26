@@ -95,5 +95,5 @@
     <color name="sinch_purple">#ff63029d</color>
     <color name="off_white">#fffafafa</color>
     <color name="greyish">#fff2f1f2</color>
-    <color name="menu_text_color">#fff</color>
+    <color name="menu_text_color">#000</color>
 </resources>

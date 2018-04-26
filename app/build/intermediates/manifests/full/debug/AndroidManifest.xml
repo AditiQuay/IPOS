@@ -40,10 +40,12 @@
             android:name="quay.com.ipos.login.McCoyLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="quay.com.ipos.productCatalogue.CatalogueSubProduct"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- <activity -->
+        <!-- android:name=".productCatalogue.CatalogueSubProduct" -->
+        <!-- android:screenOrientation="portrait" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" /> -->
+
         <activity
             android:name="quay.com.ipos.productCatalogue.ProductCatalogueViewAll"
             android:screenOrientation="portrait"
@@ -75,6 +77,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name="quay.com.ipos.retailsales.activity.CustomerListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="quay.com.ipos.retailsales.activity.CustomerListActivityNew"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="quay.com.ipos.retailsales.activity.CustomerDetailActivityNew"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 

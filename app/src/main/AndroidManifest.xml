@@ -34,10 +34,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity
-            android:name=".productCatalogue.CatalogueSubProduct"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity-->
+            <!--android:name=".productCatalogue.CatalogueSubProduct"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
 
         <activity
             android:name=".productCatalogue.ProductCatalogueViewAll"
@@ -72,6 +72,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".retailsales.activity.CustomerListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".retailsales.activity.CustomerListActivityNew"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".retailsales.activity.CustomerDetailActivityNew"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

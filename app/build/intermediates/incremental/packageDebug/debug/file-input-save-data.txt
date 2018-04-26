@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Apr 26 14:00:51 IST 2018
+#Thu Apr 26 18:12:31 IST 2018
 5.base=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\assets\\debug
 42.base=E\:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\assets\\debug
 22.path=fonts/Roboto-BoldItalic.ttf

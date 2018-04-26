@@ -48,5 +48,7 @@ public class Constants {
 
     public static final int API_METHOD_GET = 0;
     public static final String SP_KEY_USER_DETAIL = "data";
+    public static String UserProfilePic = "http://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png";
+    public static String customer_detail="customer_detail";
 }
 

@@ -222,13 +222,13 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+//                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(charSequence.toString()));
 
                 }
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(editable.toString()));
+
                 }
             });
         }
