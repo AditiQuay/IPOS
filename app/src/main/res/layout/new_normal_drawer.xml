@@ -39,6 +39,8 @@
                 android:layout_marginTop="@dimen/dim_16"
                 android:background="@color/expand_list_color"
                 android:divider="@null"
+                android:listSelector="@drawable/selector_list_item"
+                android:choiceMode="singleChoice"
                 android:dividerHeight="@null"
                 android:groupIndicator="@null"
                 android:scrollbars="vertical"

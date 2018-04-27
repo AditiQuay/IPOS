@@ -243,6 +243,10 @@ public class MainActivity extends BaseActivity
                 String subMenu = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).toString();
                 Toast.makeText(getApplicationContext(), mainMenu + " -> " + subMenu, Toast.LENGTH_SHORT).show();
 
+                int index = parent.getFlatListPosition(ExpandableListView.getPackedPositionForChild(groupPosition, childPosition));
+                parent.setItemChecked(index, true);
+
+
                 if (groupPosition == 1) {
                     if (childPosition == 0) {
                         retailSalesFragment = new RetailSalesFragment();
@@ -265,6 +269,7 @@ public class MainActivity extends BaseActivity
                 return true;
             }
         });
+
     }
 
     @Override

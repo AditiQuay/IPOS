@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 4/25/2018.
  */
 
-public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainSectionAdapter.ItemRowHolder> {
+public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainSectionAdapter.ItemRowHolder> implements Filterable{
     private ArrayList<ProductSectionModal> productSectionModals;
     private Context mContext;
 
@@ -46,15 +48,12 @@ public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainS
         final String sectionName = productSectionModals.get(i).getHeaderTitle();
 
         ArrayList singleSectionItems = productSectionModals.get(i).getProductItemModals();
-
         itemRowHolder.itemTitle.setText(sectionName);
 
         ProductMainSectionItemsAdapter itemListDataAdapter = new ProductMainSectionItemsAdapter(mContext, singleSectionItems);
-
         itemRowHolder.recyclerViewItems.setHasFixedSize(true);
         itemRowHolder.recyclerViewItems.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         itemRowHolder.recyclerViewItems.setAdapter(itemListDataAdapter);
-
         itemRowHolder.textViewViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +80,11 @@ public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainS
     @Override
     public int getItemCount() {
         return (null != productSectionModals ? productSectionModals.size() : 0);
+    }
+
+    @Override
+    public Filter getFilter() {
+        return null;
     }
 
 
