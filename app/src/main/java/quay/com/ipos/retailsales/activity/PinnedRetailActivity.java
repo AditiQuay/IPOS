@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
@@ -36,7 +38,7 @@ import quay.com.ipos.utility.Util;
 
 public class PinnedRetailActivity extends BaseActivity {
     private static final String TAG = AddProductActivity.class.getSimpleName();
-    ArrayList<RealmPinnedResults.Info> arrPinned= new ArrayList<>();
+    //    ArrayList<RealmPinnedResults.Info> arrPinned= new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;
     private FloatingActionButton fab;
@@ -64,11 +66,12 @@ public class PinnedRetailActivity extends BaseActivity {
 
         mInfoArrayList.clear();
         json = SharedPrefUtil.getString("mInfoArrayList","",this);
+        mInfoArrayList = Util.getCustomGson().fromJson(json, new TypeToken<ArrayList<RealmPinnedResults.Info>>(){}.getType());
 //        if(Util.getCachedPinned()!=null) {
 //            RealmPinnedResults mRealmPinnedResults = Util.getCachedPinnedData();
-            mInfoArrayList.addAll(Util.getCachedPinnedData());
-        AppLog.e(PinnedRetailActivity.class.getSimpleName(),"mInfoArrayList: "+ Util.getCustomGson().toJson(Util.getCachedPinnedData()) );
-            AppLog.e(PinnedRetailActivity.class.getSimpleName(), SharedPrefUtil.getString("mInfoArrayList","",this));
+//            mInfoArrayList.addAll(Util.getCachedPinnedData());
+//        AppLog.e(PinnedRetailActivity.class.getSimpleName(),"mInfoArrayList: "+ Util.getCustomGson().toJson(Util.getCachedPinnedData()) );
+        AppLog.e(PinnedRetailActivity.class.getSimpleName(), Util.getCustomGson().toJson(mInfoArrayList));
 //        }
         mPinnedAdapter = new PinnedAdapter(this,mRecyclerView,mInfoArrayList);
         mRecyclerView.setAdapter(mPinnedAdapter);
@@ -135,8 +138,10 @@ public class PinnedRetailActivity extends BaseActivity {
 
     private void selectPinned(int childPosition) {
         IPOSApplication.mProductList.clear();
-        IPOSApplication.mProductList.addAll(arrPinned.get(childPosition).getData());
+
+        IPOSApplication.mProductList.addAll(mInfoArrayList.get(childPosition).getData());
         Intent mIntent = new Intent();
+        mIntent.putExtra("pinned_position",childPosition);
         setResult(1,mIntent);
         finish();
 

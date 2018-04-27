@@ -39,10 +39,10 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
                     android:text="Missile"
-                    android:textSize="@dimen/text_size_13sp"
+                    android:textSize="@dimen/text_size_15sp"
                     android:lines="1"
                     android:singleLine="true"
-                    app:typeface="Roboto-Regular.ttf" />
+                    app:typeface="Roboto-Bold.ttf" />
 
                 <View
                     android:layout_width="@dimen/dim_1"
@@ -50,7 +50,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/dim_5"
                     android:layout_marginRight="@dimen/dim_5"
-                    android:background="@color/black"/>
+                    android:background="@color/accent_color"/>
 
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvItemWeight"
@@ -62,14 +62,20 @@
                     android:singleLine="true"
                     android:gravity="center_vertical"
                     android:text="500 gm"
-                    android:textSize="@dimen/text_size_11sp"
-                    app:typeface="Roboto-Regular.ttf" />
+                    android:textSize="@dimen/text_size_15sp"
+                    app:typeface="Roboto-Bold.ttf" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/dim_2"
+                android:paddingTop="@dimen/dim_4"
                 android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_5"
+                    android:src="@drawable/ic_cube"/>
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvItemRate"
                     android:layout_width="wrap_content"
@@ -77,7 +83,6 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
                     android:text="225"
-                    android:paddingLeft="@dimen/dim_10"
                     android:textSize="@dimen/text_size_11sp"
                     app:typeface="Roboto-Regular.ttf" />
 
@@ -87,7 +92,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/dim_5"
                     android:layout_marginRight="@dimen/dim_5"
-                    android:background="@color/black"/>
+                    android:background="@color/accent_color"/>
 
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvItemPrice"
@@ -114,10 +119,9 @@
             android:src="@drawable/if_light_bulb"
             android:layout_width="80dp"
             android:padding="@dimen/dim_5"
-            android:layout_marginTop="@dimen/dim_2"
             android:layout_marginRight="@dimen/dim_20"
             android:layout_gravity="center"
-            android:layout_height="60dp" />
+            android:layout_height="50dp" />
 
         <TextView
             android:id="@+id/tvClear"
@@ -135,6 +139,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginLeft="@dimen/dim_8"
         android:layout_gravity="center_vertical"
         android:gravity="center_vertical">
 
@@ -156,7 +161,6 @@
             android:paddingTop="@dimen/dim_5"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_10"
-            android:enabled="false"
             android:text="1"
             android:textColor="@color/accent_color"
             android:textSize="@dimen/text_size_13sp"
@@ -178,7 +182,7 @@
             android:gravity="right"
             android:text="@string/Rs"
             android:layout_marginRight="@dimen/dim_6"
-            android:textSize="@dimen/text_size_15sp"
+            android:textSize="@dimen/text_size_13sp"
             app:typeface="Roboto-Regular.ttf" />
     </LinearLayout>
     <LinearLayout
@@ -191,6 +195,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/chkDiscount"
             android:checked="true"
+            android:buttonTint="@color/sky_blue"
             android:layout_marginLeft="@dimen/dim_10"/>
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvDiscount"
@@ -201,7 +206,7 @@
             android:gravity="left"
             android:text="Special discount (10%)"
             android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_size_15sp"
+            android:textSize="@dimen/text_size_13sp"
             app:typeface="Roboto-Regular.ttf" />
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvDiscountPrice"
@@ -210,8 +215,9 @@
             android:layout_gravity="center_vertical"
             android:gravity="left"
             android:layout_marginRight="@dimen/dim_10"
+            android:textColor="@color/colorPrimary"
             android:text="@string/Rs"
-            android:textSize="@dimen/text_size_15sp"
+            android:textSize="@dimen/text_size_13sp"
             app:typeface="Roboto-Regular.ttf" />
     </LinearLayout>
     <LinearLayout
