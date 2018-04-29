@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,60 +34,72 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 4/17/2018.
  */
 
-public class CatalogueSubProduct extends BaseFragment implements InitInterface, MyListener {
-    private View rootView;
+public class CatalogueSubProduct extends AppCompatActivity implements InitInterface, MyListener{
     private TextView textViewProductName;
     private RecyclerView recyclerviewProduct;
     private Context mContext;
-    private ArrayList<CatalogueModal> catalogueModalsSet = new ArrayList<>();
+    private ArrayList<quay.com.ipos.productCatalogue.productModal.CatalogueModal> catalogueModalsSet = new ArrayList<>();
     private CatalogueSubCatalogueFragmentAdapter catalogueSubCatalogueFragmentAdapter;
     private LinearLayoutManager layoutManager;
     private String productName;
-    private MyListener listener;
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem item = menu.findItem(R.id.action_search);
-        item.setVisible(false);
-    }
+    private Toolbar toolbar;
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.catalogue_sub_product, container, false);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.catalogue_sub_product);
+        Intent i = getIntent();
         //Retrieve the value
-//        productName = getArguments().getString("Product Name");
-//        mContext = getActivity();
-//        listener = CatalogueSubProduct.this;
-//        setHasOptionsMenu(true);
-//        findViewById();
-//        applyInitValues();
-        return rootView;
+        productName = i.getStringExtra("Product Name");
+        mContext = CatalogueSubProduct.this;
+        findViewById();
+        applyInitValues();
     }
 
     @Override
     public void findViewById() {
-        textViewProductName = rootView.findViewById(R.id.textViewProductName);
-        recyclerviewProduct = rootView.findViewById(R.id.recyclerviewProduct);
+        toolbar = findViewById(R.id.toolbarCatalogueSubProduct);
+        textViewProductName = findViewById(R.id.textViewProductName);
+        recyclerviewProduct = findViewById(R.id.recyclerviewProduct);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public void applyInitValues() {
-//        textViewProductName.setText(productName);
-//
-//        layoutManager = new LinearLayoutManager(mContext);
-//        recyclerviewProduct.setLayoutManager(layoutManager);
-//        catalogueSubCatalogueFragmentAdapter = new CatalogueSubCatalogueFragmentAdapter(mContext, catalogueModalsSet,this);
-//        recyclerviewProduct.setAdapter(catalogueSubCatalogueFragmentAdapter);
-//
-//        catalogueModalsSet.clear();
-//        getServerData();
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+        toolbar.setTitle(getResources().getString(R.string.toolbar_title_catalogue_product_details));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+
+
+        textViewProductName.setText(productName);
+
+        layoutManager = new LinearLayoutManager(mContext);
+        recyclerviewProduct.setLayoutManager(layoutManager);
+        catalogueSubCatalogueFragmentAdapter = new CatalogueSubCatalogueFragmentAdapter(mContext, catalogueModalsSet, this);
+        recyclerviewProduct.setAdapter(catalogueSubCatalogueFragmentAdapter);
+
+        catalogueModalsSet.clear();
+        getServerData();
 
     }
 
     @Override
     public void applyTypeFace() {
-        FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoMedium_0(mContext));
+        FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
     }
 
@@ -98,7 +112,7 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface, 
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                CatalogueModal catalogueModal = new CatalogueModal();
+                quay.com.ipos.productCatalogue.productModal.CatalogueModal catalogueModal = new quay.com.ipos.productCatalogue.productModal.CatalogueModal();
                 catalogueModal.sProductName = jsonObject.getString("sProductName");
                 catalogueModal.sProductFeature = jsonObject.getString("sProductFeature");
                 catalogueModal.sProductPrice = jsonObject.getString("sProductPrice");
@@ -114,11 +128,12 @@ public class CatalogueSubProduct extends BaseFragment implements InitInterface, 
         return false;
     }
 
+
     @Override
     public void onRowClicked(int position) {
-        CatalogueModal catalogueModal = catalogueModalsSet.get(position);
-        Intent gotToProductDetail = new Intent(mContext,ProductDetails.class);
-        gotToProductDetail.putExtra("ProductName",catalogueModal.sProductName);
+        quay.com.ipos.productCatalogue.productModal.CatalogueModal catalogueModal = catalogueModalsSet.get(position);
+        Intent gotToProductDetail = new Intent(mContext, ProductDetails.class);
+        gotToProductDetail.putExtra("ProductName", catalogueModal.sProductName);
         startActivity(gotToProductDetail);
     }
 

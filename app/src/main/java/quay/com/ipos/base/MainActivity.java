@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -107,9 +110,6 @@ public class MainActivity extends BaseActivity
         viewI = findViewById(R.id.viewI);
         viewM = findViewById(R.id.viewM);
 
-//        imageViewP = findViewById(R.id.imageViewP);
-//        imageViewI = findViewById(R.id.imageViewI);
-//        imageViewM = findViewById(R.id.imageViewM);
         imageViewProfileDummy = findViewById(R.id.imageViewProfileDummy);
 
         textViewMyBusiness = findViewById(R.id.textViewMyBusiness);
@@ -118,8 +118,6 @@ public class MainActivity extends BaseActivity
         textViewP = findViewById(R.id.textViewP);
         textViewI = findViewById(R.id.textViewI);
         textViewM = findViewById(R.id.textViewM);
-//        final ImageView profileImageSwitch = (ImageView) findViewById(R.id.profileImageSwitch);
-//        final ImageView profileImage = (ImageView) findViewById(R.id.profileImage);
 
 
         expandableListView1 = findViewById(R.id.expandableListView1);
@@ -175,9 +173,28 @@ public class MainActivity extends BaseActivity
         drawerItem[5] = new DrawerModal(R.drawable.loyalty, "Loyalty Program");
         drawerItem[6] = new DrawerModal(R.drawable.partner, "Partner Connect");
 
+
+        int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+        int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+
+
+        viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        textViewP.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
+        textViewP.setBackgroundResource(R.drawable.menu_background_select);
+
+
+        viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+        textViewI.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
+        textViewI.setBackgroundResource(R.drawable.menu_background_unselect);
+
+        viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
+        textViewM.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
+        textViewM.setBackgroundResource(R.drawable.menu_background_unselect);
+
+
+
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.drawer_list_items, drawerItem);
         listViewContent.setAdapter(adapter);
-
         listViewContent.setOnItemClickListener(new DrawerItemClickListener());
 
         expandableListDetail = ExpandableListDataPump.getData();
@@ -187,6 +204,7 @@ public class MainActivity extends BaseActivity
         expandableListView1.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+
                 //Toast.makeText(mContext,"Group clicked",Toast.LENGTH_SHORT).show();
               /*  switch (groupPosition) {
                     case 0:
@@ -198,7 +216,6 @@ public class MainActivity extends BaseActivity
                         toolbar.setTitle(getString(R.string.retail_sales));
                         menu1.findItem(R.id.action_notification).setVisible(false);
                         menu1.findItem(R.id.action_search).setVisible(true);
-
                         break;
                     case 2:
                         menu1.findItem(R.id.action_notification).setVisible(false);
@@ -235,14 +252,19 @@ public class MainActivity extends BaseActivity
                 lastExpandedGroup = groupPosition;
             }
         });
+
         expandableListView1.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                int index = parent.getFlatListPosition(ExpandableListView
+                        .getPackedPositionForChild(groupPosition, childPosition));
+                parent.setItemChecked(index, true);
+
                 String mainMenu = expandableListTitle.get(groupPosition).toString();
                 String subMenu = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).toString();
                 Toast.makeText(getApplicationContext(), mainMenu + " -> " + subMenu, Toast.LENGTH_SHORT).show();
 
+//                v.setBackgroundColor(getResources().getColor(R.color.light_blue));
                 if (groupPosition == 1) {
                     if (childPosition == 0) {
                         retailSalesFragment = new RetailSalesFragment();
@@ -280,22 +302,27 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onClick(View v) {
+        int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+        int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+
+
         if (v == lLaoutBtnP) {
+
             listViewContent.setVisibility(View.VISIBLE);
             expandableListView1.setVisibility(View.GONE);
 
 
             viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
+            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
             textViewP.setBackgroundResource(R.drawable.menu_background_select);
 
 
             viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
             textViewI.setBackgroundResource(R.drawable.menu_background_unselect);
 
             viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
             textViewM.setBackgroundResource(R.drawable.menu_background_unselect);
 
             imageViewProfileDummy.setImageResource(R.drawable.cystal);
@@ -306,30 +333,30 @@ public class MainActivity extends BaseActivity
 
             viewI.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
             textViewI.setBackgroundResource(R.drawable.menu_background_select);
-            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
+            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
 
 
             viewP.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
             textViewP.setBackgroundResource(R.drawable.menu_background_unselect);
 
             viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
             textViewM.setBackgroundResource(R.drawable.menu_background_unselect);
 
             imageViewProfileDummy.setImageResource(R.drawable.profile_thumb);
         }
         if (v == lLaoutBtnM) {
             viewM.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
+            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
             textViewM.setBackgroundResource(R.drawable.menu_background_select);
 
             viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
             textViewI.setBackgroundResource(R.drawable.menu_background_unselect);
 
             viewP.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
             textViewP.setBackgroundResource(R.drawable.menu_background_unselect);
 
         }
@@ -339,17 +366,28 @@ public class MainActivity extends BaseActivity
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            for (int i = 0; i < listViewContent.getChildCount(); i++) {
-//                if(position == i ){
-//                    listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.light_blue));
-//                }else{
-//                    listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.white));
-//                }
-//            }
+
+            setItemNormal();
+            setItemSelected(view, position);
 
             selectItem(position, view);
         }
 
+    }
+
+    private void setItemNormal() {
+        for (int i = 0; i < listViewContent.getChildCount(); i++) {
+            View v = listViewContent.getChildAt(i);
+            View border = v.findViewById(R.id.vListGrp);
+            border.setVisibility(View.GONE);
+            listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.expand_list_color));
+        }
+    }
+
+    private void setItemSelected(View view, int pos) {
+        View borderView = view.findViewById(R.id.vListGrp);
+        borderView.setVisibility(View.VISIBLE);
+        listViewContent.getChildAt(pos).setBackgroundColor(getResources().getColor(R.color.light_blue));
     }
 
     private void selectItem(int position, View view) {

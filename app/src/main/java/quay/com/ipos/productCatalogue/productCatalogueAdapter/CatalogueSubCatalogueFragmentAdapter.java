@@ -25,7 +25,7 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
     private Context mContext;
     private ArrayList<CatalogueModal> catalogueModalsSet;
     private MyListener listener;
-    public CatalogueSubCatalogueFragmentAdapter(Context mContext, ArrayList<CatalogueModal> catalogueModalsSet,MyListener listener) {
+    public CatalogueSubCatalogueFragmentAdapter(Context mContext, ArrayList<CatalogueModal> catalogueModalsSet, MyListener listener) {
         this.mContext = mContext;
         this.catalogueModalsSet = catalogueModalsSet;
         this.listener = listener;

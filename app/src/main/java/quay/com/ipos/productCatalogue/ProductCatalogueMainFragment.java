@@ -165,19 +165,19 @@ public class ProductCatalogueMainFragment extends BaseFragment implements InitIn
 //        startActivity(i);
 
         // Create new fragment and transaction
-        Fragment newFragment = new CatalogueSubProduct();
-        Bundle args = new Bundle();
-        args.putString("Product Name", productCatalogueModal.productName);
-        newFragment.setArguments(args);
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack if needed
-        transaction.replace(R.id.fragment_container, newFragment);
-        transaction.addToBackStack(null);
-
-        // Commit the transaction
-        transaction.commit();
+//        Fragment newFragment = new CatalogueSubProduct();
+//        Bundle args = new Bundle();
+//        args.putString("Product Name", productCatalogueModal.productName);
+//        newFragment.setArguments(args);
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//
+//        // Replace whatever is in the fragment_container view with this fragment,
+//        // and add the transaction to the back stack if needed
+//        transaction.replace(R.id.fragment_container, newFragment);
+//        transaction.addToBackStack(null);
+//
+//        // Commit the transaction
+//        transaction.commit();
     }
 
     @Override

@@ -47,7 +47,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/dim_8"
                     android:alpha="0.7"
-                    android:src="@drawable/ic_action_camera" />
+                    android:src="@drawable/menu_camera" />
 
                 <ImageView
                     android:id="@+id/imageViewUserIcon"
@@ -57,16 +57,18 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="@dimen/dim_8"
                     android:alpha="0.7"
-                    android:src="@drawable/ic_action_account" />
+                    android:src="@drawable/profile_setting" />
 
             </RelativeLayout>
         </RelativeLayout>
 
         <TextView
             android:id="@+id/textViewMyBusiness"
-            style="@style/stylePrimaryTextColor16"
+            android:textSize="@dimen/dim_16"
             android:layout_width="wrap_content"
+            android:alpha="0.7"
             android:layout_height="wrap_content"
+            android:textColor="@color/menu_text_color"
             android:layout_below="@+id/rLayoutOption"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/dim_8"
@@ -74,8 +76,10 @@
 
         <TextView
             android:id="@+id/textViewAccount"
-            style="@style/stylePrimaryTextColor14"
+            android:textSize="@dimen/dim_14"
+            android:textColor="@color/menu_text_color"
             android:layout_width="wrap_content"
+            android:alpha="0.7"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewMyBusiness"
             android:layout_centerInParent="true"
@@ -83,8 +87,8 @@
             android:text="Account" />
 
         <RelativeLayout
-            android:layout_width="@dimen/dim_90"
-            android:layout_height="@dimen/dim_90"
+            android:layout_width="@dimen/dim_88"
+            android:layout_height="@dimen/dim_88"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/dim_20"
             android:layout_marginLeft="14dp"
@@ -94,7 +98,6 @@
             android:background="@drawable/solid_stroke_circle_color_gray_shadow_xl">
 
             <quay.com.ipos.utility.CircleImageView
-                android:id="@+id/imageViewProfileDummy"
                 android:layout_width="@dimen/dim_90"
                 android:layout_height="@dimen/dim_90"
                 android:background="@drawable/solid_stroke_circle_color_gray_shadow_xl" />
@@ -102,13 +105,14 @@
         </RelativeLayout>
 
         <quay.com.ipos.utility.CircleImageView
+            android:id="@+id/imageViewProfileDummy"
             android:layout_width="@dimen/dim_80"
             android:layout_height="@dimen/dim_80"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/dim_16"
             android:layout_marginStart="@dimen/dim_16"
-            android:layout_marginTop="@dimen/dim_22"
-            android:src="@drawable/profile_thumb"
+            android:layout_marginTop="@dimen/dim_20"
+            android:src="@drawable/cystal"
             app:civ_fill_color="@color/white" />
     </RelativeLayout>
 
