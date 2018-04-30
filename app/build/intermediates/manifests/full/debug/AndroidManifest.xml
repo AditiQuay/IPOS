@@ -50,6 +50,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name="customerInformation.customerActivity.CustomerSearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name="quay.com.ipos.productCatalogue.CatalogueSubProduct"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

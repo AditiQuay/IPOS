@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-107:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-107:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-107:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-107:12
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-110:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-110:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-110:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-110:12
 MERGED from [io.realm:realm-android-library:3.1.3] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\realm-android-library-3.1.3.aar\171be6cb5142e7aaa6faca92dce24240\AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0b7d622f1c8c1b04d75e19d1283930cb\AndroidManifest.xml:17:1-28:12
 MERGED from [:MPChartLib] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\MPChartLib\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-21:12
@@ -41,20 +41,20 @@ MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\niraj.
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\85f9d7ecc8368efb7b021a9857d2f498\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\934075a284e06f3ee5fa839a9c689a30\AndroidManifest.xml:17:1-24:12
 MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\fc168cd30465752f8f65865fda5ebb28\AndroidManifest.xml:17:1-30:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-107:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-107:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-107:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-110:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-110:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-110:12
 	package
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:3:5-28
 		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-107:12
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-110:12
 		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-107:12
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-110:12
 		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:11-69
@@ -87,7 +87,7 @@ ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidM
 	android:name
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:8:22-65
 application
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:11:5-105:19
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:11:5-108:19
 MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0b7d622f1c8c1b04d75e19d1283930cb\AndroidManifest.xml:22:5-26:19
 MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0b7d622f1c8c1b04d75e19d1283930cb\AndroidManifest.xml:22:5-26:19
 MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\4dea3aacfe6912ba1137e8a21d821cd6\AndroidManifest.xml:5:5-20
@@ -204,120 +204,128 @@ ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidM
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:38:13-56
 	android:name
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:36:13-53
+activity#customerInformation.customerActivity.CustomerSearchActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:40:9-42:58
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:41:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:42:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:40:19-93
 activity#quay.com.ipos.productCatalogue.CatalogueSubProduct
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:40:9-43:59
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:43:9-46:59
 	android:screenOrientation
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:42:13-49
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:45:13-49
 	android:theme
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:43:13-56
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:46:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:41:13-65
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:44:13-65
 activity#quay.com.ipos.productCatalogue.ProductCatalogueViewAll
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:45:9-48:59
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:48:9-51:59
 	android:screenOrientation
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:47:13-49
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:50:13-49
 	android:theme
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:48:13-56
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:51:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:46:13-69
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:49:13-69
 activity#quay.com.ipos.productCatalogue.ProductDetails
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:50:9-53:59
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:53:9-56:59
 	android:screenOrientation
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:52:13-49
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:55:13-49
 	android:theme
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:53:13-56
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:56:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:51:13-60
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:54:13-60
 activity#quay.com.ipos.base.MainActivity
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:55:9-58:59
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:58:9-61:59
 	android:screenOrientation
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:57:13-49
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:60:13-49
 	android:theme
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:58:13-56
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:61:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:56:13-46
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:59:13-46
 activity#quay.com.ipos.retailsales.activity.PinnedRetailActivity
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:59:9-62:59
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:62:9-65:59
 	android:screenOrientation
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:61:13-49
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:64:13-49
 	android:theme
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:62:13-56
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:65:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:60:13-83
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:63:13-83
 activity#quay.com.ipos.retailsales.activity.FullScannerActivity
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:63:9-66:59
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:66:9-69:59
 	android:screenOrientation
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:65:13-49
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:68:13-49
 	android:theme
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:66:13-56
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:69:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:64:13-69
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:67:13-69
 activity#quay.com.ipos.retailsales.activity.AddProductActivity
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:68:9-71:20
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:71:9-74:20
 	android:screenOrientation
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:69:13-49
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:72:13-49
 	android:theme
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:70:13-56
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:73:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:68:19-74
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:71:19-74
 activity#quay.com.ipos.retailsales.activity.CustomerDetailActivity
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:72:9-75:59
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:75:9-78:59
 	android:screenOrientation
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:74:13-49
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:77:13-49
 	android:theme
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:75:13-56
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:78:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:73:13-72
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:76:13-72
 activity#quay.com.ipos.retailsales.activity.CustomerListActivity
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:76:9-79:59
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:79:9-82:59
 	android:screenOrientation
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:78:13-49
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:81:13-49
 	android:theme
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:79:13-56
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:82:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:77:13-70
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:80:13-70
 activity#quay.com.ipos.neworder.activity.NewOrderDetailsActivity
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:80:9-83:59
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:83:9-86:59
 	android:screenOrientation
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:82:13-49
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:85:13-49
 	android:theme
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:83:13-56
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:86:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:81:13-70
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:84:13-70
 activity#quay.com.ipos.neworder.activity.OrderCentreDetailsActivity
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:84:9-87:59
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:87:9-90:59
 	android:screenOrientation
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:86:13-49
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:89:13-49
 	android:theme
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:87:13-56
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:90:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:85:13-73
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:88:13-73
 service#quay.com.ipos.notifications.MyFirebaseMessagingService
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:90:9-97:19
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:93:9-100:19
 	android:enabled
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:92:13-35
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:95:13-35
 	android:exported
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:93:13-36
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:96:13-36
 	android:stopWithTask
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:91:13-41
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:94:13-41
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:90:18-74
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:93:18-74
 intent-filter#com.google.firebase.MESSAGING_EVENT
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:94:13-96:29
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:97:13-99:29
 action#com.google.firebase.MESSAGING_EVENT
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:95:17-78
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:98:17-78
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:95:25-75
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:98:25-75
 service#quay.com.ipos.notifications.MyFirebaseInstanceIDService
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:98:9-102:19
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:101:9-105:19
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:98:18-75
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:101:18-75
 intent-filter#com.google.firebase.INSTANCE_ID_EVENT
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:99:13-101:29
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:102:13-104:29
 action#com.google.firebase.INSTANCE_ID_EVENT
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:100:17-80
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:103:17-80
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:100:25-77
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:103:25-77
 uses-sdk
 INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml

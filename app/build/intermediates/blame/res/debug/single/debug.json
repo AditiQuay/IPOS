@@ -496,6 +496,10 @@
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-mdpi\\business.png"
     },
     {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_customer_search_activity.xml.flat",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\customer_search_activity.xml"
+    },
+    {
         "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_primary_stroke_corner_lightgray_bg.xml.flat",
         "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable\\primary_stroke_corner_lightgray_bg.xml"
     },
