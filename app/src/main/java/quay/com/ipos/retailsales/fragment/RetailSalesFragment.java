@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,7 +53,7 @@ import quay.com.ipos.utility.Util;
  */
 
 public class RetailSalesFragment extends Fragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener {
-    private TextView tvRight,tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
+    private TextView tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
             tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvClearOTC,tvClearOTC1,tvApplyOTC,tvApplyOTC2;
     private ToggleButton tbPerc,tbRs;
@@ -60,7 +61,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     private CheckBox chkOTC;
     LinearLayout layoutOtcDiscount;
     private LinearLayout llTotalDiscountDetail,ll_item_pay,llOTCSelect,llTotalGST,llOTCConfirmation,llOTCApply;
-    private ImageView imvDicount,imvGlobe,imvQRCode,imvUserAdd,imvPin,imvRedeem;
+    private ImageView imvDicount,imvGlobe,imvUserAdd,imvPin,imvRedeem,imvQRCode,imvRight;
     private ToggleButton chkBarCode;
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
@@ -98,7 +99,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         imvDicount = rootView.findViewById(R.id.imvDicount);
         imvQRCode = rootView.findViewById(R.id.imvQRCode);
         chkBarCode = rootView.findViewById(R.id.chkBarCode);
-        tvRight = rootView.findViewById(R.id.tvRight);
+        imvRight = rootView.findViewById(R.id.imvRight);
         tvRight1 = rootView.findViewById(R.id.tvRight1);
         tvMoreDetails = rootView.findViewById(R.id.tvMoreDetails);
         tvItemNo = rootView.findViewById(R.id.tvItemNo);
@@ -151,12 +152,13 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountDetail.setText("(Item 0)");
+        IPOSApplication.mProductList.clear();
     }
 
 
     private void setFontText() {
         Typeface iconFont = FontManager.getTypeface(getActivity(), FontManager.FONTAWESOME);
-        FontManager.markAsIconContainer(tvRight, iconFont);
+        FontManager.markAsIconContainer(imvRight, iconFont);
         FontManager.markAsIconContainer(tvRight1, iconFont);
         FontManager.markAsIconContainer(tvClearOTC, iconFont);
         FontManager.markAsIconContainer(tvClearOTC1, iconFont);
@@ -324,9 +326,9 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
         AppLog.e(RetailSalesFragment.class.getSimpleName(), "IPOSApplication.mProductList:Frag: "+ Util.getCustomGson().toJson(IPOSApplication.mProductList));
         if(mList.size()==1 || mList.size() == 0) {
-            tvItemNo.setText("Item " + mList.size());
+            tvItemNo.setText("Item " + mList.size() + " item");
         }else {
-            tvItemNo.setText("Items " + mList.size());
+            tvItemNo.setText("Items " + mList.size()+ " item");
         }
         if(mList.size()==0){
             tvItemQty.setText("0 Qty");
@@ -447,11 +449,11 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 llOTCSelect.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 break;
-            case R.id.imvMinus:
+            case R.id.tvMinus:
                 setOnClickMinus(view);
                 break;
 
-            case R.id.imvPlus:
+            case R.id.tvPlus:
                 setOnClickPlus(view);
                 break;
 
@@ -623,6 +625,9 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         int posPlus = (int) view.getTag();
         ProductList.Datum datum1 = IPOSApplication.mProductList.get(posPlus);
         int qty1 = datum1.getQty();
+        if(Integer.parseInt(datum1.getSProductPoints())<qty1){
+            Util.showToast("Quantity limit exceed",getActivity());
+        }else
         datum1.setQty(qty1+1);
         IPOSApplication.mProductList.set(posPlus,datum1);
         mRetailSalesAdapter.notifyItemChanged(posPlus);

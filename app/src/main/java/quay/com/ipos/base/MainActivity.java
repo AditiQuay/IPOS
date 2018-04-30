@@ -41,7 +41,9 @@ import quay.com.ipos.adapter.DrawerItemCustomAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
 import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
+import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
+import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductMain;
@@ -51,7 +53,7 @@ import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.FontUtil;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener,FilterListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -75,6 +77,7 @@ public class MainActivity extends BaseActivity
     private CircleImageView imageViewProfileDummy;
     private TextView textViewMyBusiness, textViewAccount;
     private TextView textViewP, textViewI, textViewM;
+    public static DashboardItemFragment dashboardItemFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,7 @@ public class MainActivity extends BaseActivity
         applyInitValues();
         applyTypeFace();
         setDashBoard();
-
+        dashboardItemFragment=new DashboardItemFragment();
     }
 
     private void setDashBoard() {
@@ -266,7 +269,7 @@ public class MainActivity extends BaseActivity
 
                 String mainMenu = expandableListTitle.get(groupPosition).toString();
                 String subMenu = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).toString();
-                Toast.makeText(getApplicationContext(), mainMenu + " -> " + subMenu, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), mainMenu + " -> " + subMenu, Toast.LENGTH_SHORT).show();
 
 //                v.setBackgroundColor(getResources().getColor(R.color.light_blue));
                 if (groupPosition == 1) {
@@ -364,6 +367,13 @@ public class MainActivity extends BaseActivity
             textViewP.setBackgroundResource(R.drawable.menu_background_unselect);
 
         }
+    }
+
+    @Override
+    public void onUpdateTitle(String title) {
+        dashboardItemFragment.onUpdateTitle("dialog");
+
+
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

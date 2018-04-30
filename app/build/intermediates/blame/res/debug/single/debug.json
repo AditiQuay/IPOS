@@ -472,10 +472,6 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\layout\\toolbar_activity.xml"
     },
     {
-        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_barcode.png.flat",
-        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_barcode.png"
-    },
-    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_loyalty.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_loyalty.png"
     },
@@ -1772,10 +1768,6 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\layout\\mc_coy_drawer.xml"
     },
     {
-        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_barcode.png.flat",
-        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_barcode.png"
-    },
-    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_discount.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_discount.png"
     },
@@ -1986,6 +1978,10 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_if_toggle_right.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_if_toggle_right.png"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_action_cart_white.png.flat",
+        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-xxxhdpi\\ic_action_cart_white.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_ic_star_half_black_36dp.png.flat",
@@ -2484,10 +2480,6 @@
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f4914e7ca8926248e7901f221dbcad6b\\res\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
     },
     {
-        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_barcode.png.flat",
-        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_barcode.png"
-    },
-    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_icon_group.xml.flat",
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\9db9f23d49dc5c47aa9bcd4ed1b150ba\\res\\layout\\notification_template_icon_group.xml"
     },
@@ -2510,10 +2502,6 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_insights.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\insights.png"
-    },
-    {
-        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_barcode.xml.flat",
-        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_barcode.xml"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_switch_on.png.flat",
@@ -2808,10 +2796,6 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_stock_gray.png"
     },
     {
-        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_barcode.png.flat",
-        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_barcode.png"
-    },
-    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_big_media.xml.flat",
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\3ae903eece4f81ed0c3889ebb99b434c\\res\\layout\\notification_template_big_media.xml"
     },
@@ -2886,10 +2870,6 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_normal.9.png.flat",
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\9db9f23d49dc5c47aa9bcd4ed1b150ba\\res\\drawable-xhdpi-v4\\notification_bg_normal.9.png"
-    },
-    {
-        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_barcode.png.flat",
-        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_barcode.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_pin.png.flat",
@@ -3014,6 +2994,10 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_download.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_download.png"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_barcode.png.flat",
+        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable\\ic_barcode.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_password.png.flat",
@@ -3628,12 +3612,12 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_cube.png"
     },
     {
-        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_summary.png.flat",
-        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_summary.png"
-    },
-    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_notification_action_background.xml.flat",
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\9db9f23d49dc5c47aa9bcd4ed1b150ba\\res\\drawable-v21\\notification_action_background.xml"
+    },
+    {
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_summary.png.flat",
+        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_summary.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
@@ -4474,10 +4458,6 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_star_black_16dp.png.flat",
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f4914e7ca8926248e7901f221dbcad6b\\res\\drawable-xhdpi-v4\\abc_ic_star_black_16dp.png"
-    },
-    {
-        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_barcode.png.flat",
-        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_barcode.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_partner.png.flat",
