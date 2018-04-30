@@ -37,7 +37,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity android:name="customerInformation.customerActivity.CustomerSearchActivity"
+        <activity android:name=".customerInfo.CustomerInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity

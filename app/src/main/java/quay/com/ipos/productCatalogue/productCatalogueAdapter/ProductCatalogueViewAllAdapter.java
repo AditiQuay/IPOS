@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.productCatalogue.CatalogueSubProduct;
 import quay.com.ipos.productCatalogue.productModal.ProductItemModal;
 import quay.com.ipos.utility.FontUtil;
@@ -25,10 +26,12 @@ import quay.com.ipos.utility.Util;
 public class ProductCatalogueViewAllAdapter extends RecyclerView.Adapter<ProductCatalogueViewAllAdapter.MyViewHolder> {
     private Context mContext;
     private ArrayList<ProductItemModal> productItemModals;
+    private MyListener listener;
 
-    public ProductCatalogueViewAllAdapter(Context mContext, ArrayList<ProductItemModal> productItemModals) {
+    public ProductCatalogueViewAllAdapter(Context mContext, MyListener listener,ArrayList<ProductItemModal> productItemModals) {
         this.mContext = mContext;
         this.productItemModals = productItemModals;
+        this.listener = listener;
 
     }
 
@@ -48,9 +51,8 @@ public class ProductCatalogueViewAllAdapter extends RecyclerView.Adapter<Product
             @Override
             public void onClick(View v) {
                 Util.animateView(v);
-                Intent i = new Intent(mContext, CatalogueSubProduct.class);
-                i.putExtra("Product Name", productItemModal.getProductName());
-                mContext.startActivity(i);
+                listener.onRowClicked(position);
+
             }
         });
 

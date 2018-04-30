@@ -53,18 +53,18 @@ public final class R {
         public static final int notification_top_pad_large_text = 0x7f070485;
     }
     public static final class drawable {
-        public static final int notification_action_background = 0x7f0800d3;
-        public static final int notification_bg = 0x7f0800d4;
-        public static final int notification_bg_low = 0x7f0800d5;
-        public static final int notification_bg_low_normal = 0x7f0800d6;
-        public static final int notification_bg_low_pressed = 0x7f0800d7;
-        public static final int notification_bg_normal = 0x7f0800d8;
-        public static final int notification_bg_normal_pressed = 0x7f0800d9;
-        public static final int notification_icon_background = 0x7f0800da;
-        public static final int notification_template_icon_bg = 0x7f0800db;
-        public static final int notification_template_icon_low_bg = 0x7f0800dc;
-        public static final int notification_tile_bg = 0x7f0800dd;
-        public static final int notify_panel_notification_icon_bg = 0x7f0800de;
+        public static final int notification_action_background = 0x7f0800d4;
+        public static final int notification_bg = 0x7f0800d5;
+        public static final int notification_bg_low = 0x7f0800d6;
+        public static final int notification_bg_low_normal = 0x7f0800d7;
+        public static final int notification_bg_low_pressed = 0x7f0800d8;
+        public static final int notification_bg_normal = 0x7f0800d9;
+        public static final int notification_bg_normal_pressed = 0x7f0800da;
+        public static final int notification_icon_background = 0x7f0800db;
+        public static final int notification_template_icon_bg = 0x7f0800dc;
+        public static final int notification_template_icon_low_bg = 0x7f0800dd;
+        public static final int notification_tile_bg = 0x7f0800de;
+        public static final int notify_panel_notification_icon_bg = 0x7f0800df;
     }
     public static final class id {
         public static final int action0 = 0x7f090007;
@@ -102,11 +102,11 @@ public final class R {
         public static final int text2 = 0x7f090161;
         public static final int time = 0x7f09018e;
         public static final int title = 0x7f09018f;
-        public static final int transition_current_scene = 0x7f09019a;
-        public static final int transition_layout_save = 0x7f09019b;
-        public static final int transition_position = 0x7f09019c;
-        public static final int transition_scene_layoutid_cache = 0x7f09019d;
-        public static final int transition_transform = 0x7f09019e;
+        public static final int transition_current_scene = 0x7f09019b;
+        public static final int transition_layout_save = 0x7f09019c;
+        public static final int transition_position = 0x7f09019d;
+        public static final int transition_scene_layoutid_cache = 0x7f09019e;
+        public static final int transition_transform = 0x7f09019f;
     }
     public static final class integer {
         public static final int cancel_button_image_alpha = 0x7f0a0004;

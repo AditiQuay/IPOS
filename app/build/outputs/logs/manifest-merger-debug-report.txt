@@ -204,14 +204,14 @@ ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidM
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:38:13-56
 	android:name
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:36:13-53
-activity#customerInformation.customerActivity.CustomerSearchActivity
+activity#quay.com.ipos.customerInfo.CustomerInfoActivity
 ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:40:9-42:58
 	android:screenOrientation
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:41:13-49
 	android:theme
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:42:13-56
 	android:name
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:40:19-93
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:40:19-68
 activity#quay.com.ipos.productCatalogue.CatalogueSubProduct
 ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:43:9-46:59
 	android:screenOrientation

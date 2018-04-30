@@ -14,7 +14,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductCatalogueViewAllAdapter;
 import quay.com.ipos.productCatalogue.productModal.ProductItemModal;
 import quay.com.ipos.utility.FontUtil;
@@ -23,7 +25,7 @@ import quay.com.ipos.utility.FontUtil;
  * Created by niraj.kumar on 4/24/2018.
  */
 
-public class ProductCatalogueViewAll extends AppCompatActivity implements InitInterface {
+public class ProductCatalogueViewAll extends AppCompatActivity implements InitInterface, MyListener {
     private Toolbar toolbar;
     private TextView textViewProductName;
     private RecyclerView recyclerViewProductsList;
@@ -31,12 +33,14 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
     String ProductGroup;
     private ArrayList<ProductItemModal> productItemModals;
     private ProductCatalogueViewAllAdapter productCatalogueViewAllAdapter;
+    private MyListener myListener;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_catalogue_view_all);
         mContext = ProductCatalogueViewAll.this;
+        myListener = ProductCatalogueViewAll.this;
         Intent i = getIntent();
         ProductGroup = i.getStringExtra("Group");
         productItemModals = (ArrayList<ProductItemModal>) i.getSerializableExtra("Products");
@@ -69,7 +73,7 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
 
         recyclerViewProductsList.setHasFixedSize(true);
         recyclerViewProductsList.setLayoutManager(new LinearLayoutManager(mContext));
-        productCatalogueViewAllAdapter = new ProductCatalogueViewAllAdapter(mContext, productItemModals);
+        productCatalogueViewAllAdapter = new ProductCatalogueViewAllAdapter(mContext, this, productItemModals);
         recyclerViewProductsList.setAdapter(productCatalogueViewAllAdapter);
 
     }
@@ -87,11 +91,25 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
     @Override
     public void applyTypeFace() {
         FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(toolbar,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
     }
 
     @Override
     public boolean applyLocalValidation() {
         return false;
+    }
+
+    @Override
+    public void onRowClicked(int position) {
+        ProductItemModal productItemModal = productItemModals.get(position);
+        Intent i = new Intent(mContext, CustomerInfoActivity.class);
+//        i.putExtra("Product Name", productItemModal.getProductName());
+        startActivity(i);
+    }
+
+    @Override
+    public void onRowClicked(int position, int value) {
+
     }
 }
