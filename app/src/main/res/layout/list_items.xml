@@ -2,27 +2,29 @@
     android:id="@+id/rLayoutMain"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/activatedBackgroundIndicator"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:orientation="horizontal">
+
 
     <View
         android:id="@+id/vItem"
         android:layout_width="@dimen/dim_2"
         android:layout_height="match_parent"
         android:background="@color/menu_background" />
+
     <TextView
         android:id="@+id/textViewChildName"
-        android:textSize="@dimen/dim_14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_gravity="center"
-        android:textColor="@color/black"
         android:alpha="0.7"
-        android:paddingLeft="@dimen/dim_10"
         android:paddingEnd="10dp"
+        android:paddingLeft="@dimen/dim_10"
         android:paddingRight="10dp"
-        android:text="Item Name" />
+        android:text="Item Name"
+        android:textColor="@color/menu_text_color"
+        android:textSize="@dimen/dim_14" />
+
 
 </LinearLayout>

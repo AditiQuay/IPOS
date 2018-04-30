@@ -2,11 +2,11 @@ package quay.com.ipos.productCatalogue.productCatalogueAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,9 +43,8 @@ public class ProductCatalogueViewAllAdapter extends RecyclerView.Adapter<Product
     @Override
     public void onBindViewHolder(ProductCatalogueViewAllAdapter.MyViewHolder holder, final int position) {
         final ProductItemModal productItemModal = productItemModals.get(position);
-        holder.textViewName.setText(productItemModal.getProductName());
-        holder.textViewProductDetails.setText(productItemModal.getProductDescription());
-        holder.textViewViewAll.setOnClickListener(new View.OnClickListener() {
+        holder.textViewProName.setText(productItemModal.getProductName());
+        holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.animateView(v);
@@ -64,19 +63,18 @@ public class ProductCatalogueViewAllAdapter extends RecyclerView.Adapter<Product
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageViewProduct;
-        private TextView textViewName, textViewProductDetails;
-        private Button textViewViewAll;
-
+        private TextView textViewProName;
+        private TextView textViewViewAll;
+        private CardView cardViewProduct;
         public MyViewHolder(View itemView) {
             super(itemView);
             imageViewProduct = itemView.findViewById(R.id.imageViewProduct);
-            textViewName = itemView.findViewById(R.id.textViewName);
-            textViewProductDetails = itemView.findViewById(R.id.textViewProductDetails);
-            textViewViewAll = itemView.findViewById(R.id.textViewViewAll);
+            textViewProName = itemView.findViewById(R.id.textViewProName);
+//            textViewViewAll = itemView.findViewById(R.id.textViewViewAll);
+            cardViewProduct = itemView.findViewById(R.id.cardViewProduct);
 
-            FontUtil.applyTypeface(textViewName, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
-            FontUtil.applyTypeface(textViewProductDetails, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-
+            FontUtil.applyTypeface(textViewProName, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
+//            FontUtil.applyTypeface(textViewViewAll, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
 
         }
     }

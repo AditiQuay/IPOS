@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.modal.CustomerResult;
 import quay.com.ipos.modal.RecentOrderModal;
 
 
@@ -19,10 +20,10 @@ import quay.com.ipos.modal.RecentOrderModal;
 
 public class RecentOrdersListAdapter extends RecyclerView.Adapter<RecentOrdersListAdapter.SurveyViewHolder> {
     private Context mContext;
-    private ArrayList<RecentOrderModal> stringArrayList;
+    private ArrayList<CustomerResult.RecentOrder> stringArrayList;
     private OnItemSelecteListener mListener;
 
-    public RecentOrdersListAdapter(Context mContext, ArrayList<RecentOrderModal> stringArrayList) {
+    public RecentOrdersListAdapter(Context mContext, ArrayList<CustomerResult.RecentOrder> stringArrayList) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
 
@@ -38,8 +39,10 @@ public class RecentOrdersListAdapter extends RecyclerView.Adapter<RecentOrdersLi
     public void onBindViewHolder(SurveyViewHolder holder, int position) {
 
 
-        holder.tvTitle.setText(stringArrayList.get(position).getTitle());
-
+        holder.tvTitle.setText(stringArrayList.get(position).getFromStoreName());
+        holder.tvStoreState.setText(stringArrayList.get(position).getStoreState() + ", "+stringArrayList.get(position).getStoreCity());
+        holder.tvBillingAmount.setText(stringArrayList.get(position).getBillPrice());
+        holder.tvBillingDate.setText(stringArrayList.get(position).getBillDate());
 
 
     }
@@ -59,11 +62,15 @@ public class RecentOrdersListAdapter extends RecyclerView.Adapter<RecentOrdersLi
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvTitle;
+        private TextView tvTitle,tvStoreState,tvBillingDate,tvBillingAmount;
 
         public SurveyViewHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvStoreState = itemView.findViewById(R.id.tvStoreState);
+            tvBillingDate = itemView.findViewById(R.id.tvBillingDate);
+            tvBillingAmount = itemView.findViewById(R.id.tvBillingAmount);
+
 
         }
     }

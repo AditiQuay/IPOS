@@ -34,6 +34,8 @@ import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.retailsales.activity.AddProductActivity;
+import quay.com.ipos.retailsales.activity.CustomerListActivity;
+import quay.com.ipos.retailsales.activity.CustomerListActivityNew;
 import quay.com.ipos.retailsales.activity.FullScannerActivity;
 import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
@@ -177,7 +179,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         tvPin.setOnClickListener(this);
         chkOTC.setOnCheckedChangeListener(this);
         tvRedeem.setOnClickListener(this);
-
+        tvUserAdd.setOnClickListener(this);
         chkBarCode.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -396,6 +398,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             totalAfterGSt = Util.round(totalAfterGSt,1) + roundOff;
             tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalAfterGSt);
             AppLog.e(RetailSalesAdapter.class.getSimpleName(),"updated: " + Util.getCustomGson().toJson(IPOSApplication.mProductList));
+
         }
     }
 
@@ -419,7 +422,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 if(IPOSApplication.mProductList.size()>0)
                     setonImvDiscount();
                 else
-                    Util.showToast("Discount cannot be applied with empty list");
+                    Util.showToast("Discount cannot be applied with empty list",getActivity());
 
                 break;
             case R.id.tvOTCDiscount:
@@ -427,14 +430,14 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 if(IPOSApplication.mProductList.size()>0)
                     setOTCDiscount();
                 else
-                    Util.showToast("Discount cannot be applied with empty list");
+                    Util.showToast("Discount cannot be applied with empty list",getActivity());
                 break;
             case R.id.tvRight1:
                 AppLog.e(TAG,"click right");
                 if(IPOSApplication.mProductList.size()>0)
                     setOTCDiscount();
                 else
-                    Util.showToast("Discount cannot be applied with empty list");
+                    Util.showToast("Discount cannot be applied with empty list",getActivity());
                 break;
             case R.id.tvClearOTC:
                 layoutOtcDiscount.setVisibility(View.GONE);
@@ -472,7 +475,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 if(IPOSApplication.mProductList.size()>0)
                     cachedPinned();
                 else
-                    Util.showToast("Cannot pin empty list");
+                    Util.showToast("Cannot pin empty list",getActivity());
 
                 break;
             case R.id.tvRedeem:
@@ -480,7 +483,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 if(IPOSApplication.mProductList.size()>0)
                     showRedeemLoyaltyPopup(rootView);
                 else
-                    Util.showToast("Redeem cannot be applied with empty list");
+                    Util.showToast("Redeem cannot be applied with empty list",getActivity());
 
                 break;
             case R.id.buttonSendOtp:
@@ -519,6 +522,10 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                             }
                         }).setNegativeButton("No", null).show();
 
+                break;
+            case R.id.tvUserAdd:
+                Intent mIntent = new Intent(getActivity(), CustomerListActivityNew.class);
+                startActivity(mIntent);
                 break;
 
         }
@@ -614,6 +621,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     }
 
     private void setOnClickPlus(View view) {
+        Util.hideSoftKeyboard(getActivity());
         Util.animateView(view);
         int posPlus = (int) view.getTag();
         ProductList.Datum datum1 = IPOSApplication.mProductList.get(posPlus);
@@ -625,6 +633,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     }
 
     private void setOnClickMinus(View view) {
+        Util.hideSoftKeyboard(getActivity());
         Util.animateView(view);
         int posMinus = (int) view.getTag();
         ProductList.Datum datum = IPOSApplication.mProductList.get(posMinus);
@@ -781,17 +790,17 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onRowClicked(final int position, final int value) {
-        Util.hideSoftKeyboard(getActivity());
-        mRecyclerView.post(new Runnable() {
-            @Override
-            public void run() {
-                ProductList.Datum datum1 = IPOSApplication.mProductList.get(position);
+        ProductList.Datum datum1 = IPOSApplication.mProductList.get(position);
 
-                datum1.setQty(value);
-                IPOSApplication.mProductList.set(position, datum1);
-                mRetailSalesAdapter.notifyItemChanged(position);
+        datum1.setQty(value);
+        IPOSApplication.mProductList.set(position, datum1);
+        mRetailSalesAdapter.notifyItemChanged(position);
                 setUpdateValues(IPOSApplication.mProductList);
-            }});
-
+//        mRecyclerView.post(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }});
+        Util.hideSoftKeyboard(getActivity());
     }
 }

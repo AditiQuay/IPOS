@@ -31,6 +31,15 @@ public class ProductItemModal implements Serializable {
         this.productDescription = productDescription;
     }
 
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
+    private int productId;
     private String productName;
     private String productUrl;
     private String productDescription;

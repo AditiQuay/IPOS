@@ -74,7 +74,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         public SurveyViewHolder(View itemView) {
             super(itemView);
             item=itemView;
-            textViewName = itemView.findViewById(R.id.textViewName);
+            textViewName = itemView.findViewById(R.id.tvName);
 
         }
     }

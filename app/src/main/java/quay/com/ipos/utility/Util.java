@@ -61,6 +61,7 @@ import java.util.regex.Pattern;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.modal.CustomerResult;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 
@@ -618,6 +619,20 @@ public class Util {
             String userjson = gson.toJson(mDatum);
             SharedPreferences.Editor ed = sp.edit();
             ed.putString("data", userjson);
+            ed.commit();
+        }
+    }
+
+
+    public static void cacheCustomerData(ArrayList<CustomerResult.Customer> mDatum) {
+        Context context = IPOSApplication.getAppInstance().getApplicationContext();
+        SharedPreferences sp = getAppSharedPreference(context);
+
+        if (null != mDatum && null != sp) {
+            Gson gson = Util.getCustomGson();
+            String userjson = gson.toJson(mDatum);
+            SharedPreferences.Editor ed = sp.edit();
+            ed.putString("customer_data", userjson);
             ed.commit();
         }
     }

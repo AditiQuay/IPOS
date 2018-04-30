@@ -86,7 +86,7 @@
     <string name="cancel_button">Cancel</string>
 
     <string name="toolbar_title_catalogue_product_details">PRODUCT CATALOGUE</string>
-
+    <string name="toolbar_title_customer_screen">Customer Information</string>
     <string-array name="navigation_drawer_items_array">
         <item>Dashboard &amp; Insight</item>
         <item>Product Catalogue</item>
@@ -134,7 +134,7 @@
     <string name="order_summary">Order Summary</string>
     <string name="discounts">Discounts</string>
     <string name="deliverby">Deliver by</string>
-    <string name="redeem">Redeem</string>
+
     <string name="this_order">This Order</string>
     <string name="accumulated">Accumulated</string>
     <string name="total">Total</string>
@@ -149,11 +149,8 @@
     <string name="send_otp">Send OTP</string>
     <string name="otp">OTP</string>
     <string name="verify">Verify</string>
-
     <string name="no_match_found">No Match Found!</string>
-    <string name="filter">Filter</string>
-    <string name="no_data">No data available</string>
-    <string name="cancel">Cancel</string>
+    <string name="redeem">redeem</string>
     <string-array name="ordervalue">
         <item>Apr</item>
         <item>May</item>
