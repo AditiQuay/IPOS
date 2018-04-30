@@ -15,7 +15,7 @@
     <string name="fa_qrcode" >&#xf029;</string>
     <string name="fa_redeem">&#xf290;</string>
     <string name="billing_n_cash">Billing &amp; Cash</string>
-    <string name="retail_sales">Retail Sales (OTC &amp; Online)</string>
+    <string name="retail_sales">Retail Sales</string>
     <string name="ddr_sales">DDR Sales (B2B)</string>
     <string name="please_wait">Please Wait...</string>
     <string name="Rs">\u20B9</string>
@@ -73,7 +73,7 @@
     <string name="qty">Qty</string>
     <string name="total_gst">Total GST</string>
     <string name="more_details">More Details</string>
-    <string name="pay">PAY</string>
+    <string name="pay">Pay</string>
     <string name="fa_right">&#xf061;</string>
     <string name="fa_left_arrow">&#xf359;</string>
     <string name="fa_cross">&#xf00d;</string>

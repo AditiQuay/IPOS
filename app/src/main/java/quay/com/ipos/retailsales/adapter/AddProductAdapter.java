@@ -71,14 +71,14 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvItemName, tvItemWeight, tvPrice, tvAdd;
+        public TextView tvItemName, tvItemWeight, tvStock, tvAdd;
         public ImageView imvProduct;
 
         public UserViewHolder(View itemView) {
             super(itemView);
             tvItemName =  itemView.findViewById(R.id.tvItemName);
             tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
-            tvPrice =  itemView.findViewById(R.id.tvPrice);
+            tvStock =  itemView.findViewById(R.id.tvStock);
             tvAdd =  itemView.findViewById(R.id.tvAdd);
             imvProduct =  itemView.findViewById(R.id.imvProduct);
         }
@@ -112,7 +112,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             AddProductAdapter.UserViewHolder userViewHolder = (AddProductAdapter.UserViewHolder) holder;
             userViewHolder.tvItemName.setText(str.getSProductName());
             userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
-            userViewHolder.tvPrice.setText(str.getSProductPoints());
+            userViewHolder.tvStock.setText(str.getSProductPoints());
 
             userViewHolder.tvAdd.setOnClickListener(mOnClickListener);
             userViewHolder.tvAdd.setTag(position);

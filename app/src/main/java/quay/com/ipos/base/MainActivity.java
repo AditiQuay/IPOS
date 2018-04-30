@@ -270,7 +270,7 @@ public class MainActivity extends BaseActivity
 
                 String mainMenu = expandableListTitle.get(groupPosition).toString();
                 String subMenu = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).toString();
-                Toast.makeText(getApplicationContext(), mainMenu + " -> " + subMenu, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), mainMenu + " -> " + subMenu, Toast.LENGTH_SHORT).show();
 
 //                v.setBackgroundColor(getResources().getColor(R.color.light_blue));
                 if (groupPosition == 1) {

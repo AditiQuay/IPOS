@@ -4,18 +4,17 @@
     <color name="colorPrimaryDark">#58BAE1</color>
     <color name="colorAccent">#DBDBDB</color>
     <color name="colorAccentDark">#556892</color>
-
-
+    <color name="dark_text_color">#132E67</color>
 
 
     <color name="app_theme_color">#4C98CF</color>
-
 
     <color name="menu_background">#b7b7b7</color>
     <color name="expand_list_color">#b7b7b7</color>
     <color name="strip_color">#A8ADD8E6</color>
 
-    <color name="sky_blue">#ADD8E6</color>
+
+    <color name="sky_blue">#AFDAFB</color>
     <color name="light_blue">#A8ADD8E6</color>
     <color name="survey_background_color">#f2f2f2</color>
     <color name="textColorPrimary">#464646</color>
@@ -23,7 +22,8 @@
     <color name="divider_color">#d3d3d3</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
-    <color name="backgroundgrey">#e3e3e3</color>
+    <color name="backgroundgrey">#EEEEEE</color>
+    <color name="label_gray">#F6F6F6</color>
     <color name="red">#b71c1c</color>
     <color name="light_grey_one">#b7b7b7</color>
     <color name="grey">#747474</color>
@@ -44,7 +44,6 @@
 
 
 
-
     <!--    Application color constants     -->
     <color name="dark_primary_color">#e5b703</color>
     <color name="primary_color">#ffcc03</color>
@@ -55,7 +54,7 @@
     <color name="dark_grey_color">#606060</color>
     <color name="pager_bullet_active">#FFD700</color>
     <color name="pager_bullet_inactive">#B6B6B6</color>
-    <color name="accent_color">#757a80</color>
+    <color name="accent_color">#848484</color>
     <color name="button_bg">#dddee2</color>
     <color name="search_background_color">#f7f7f9</color>
 
@@ -103,6 +102,10 @@
     <color name="sinch_purple">#ff63029d</color>
     <color name="off_white">#fffafafa</color>
     <color name="greyish">#fff2f1f2</color>
+<<<<<<< HEAD
     <color name="menu_text_color">#132e67</color>
     <color name="payment_color">#132E67</color>
+=======
+    <color name="menu_text_color">#000</color>
+>>>>>>> b211d621426763f04645ddb0d19c08b57d3b370e
 </resources>
