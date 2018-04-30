@@ -1,0 +1,34 @@
+{
+  "lowInventory": [
+    {
+      "id":1,
+      "title":"Nidan 4G",
+      "count":100,
+      "lessby":"Less by 500"
+    },
+    {
+      "id":1,
+      "title":"Sure",
+      "count":100,
+      "lessby":"Less by 500"
+    },
+    {
+      "id":1,
+      "title":"Built",
+      "count":100,
+      "lessby":"Less by 500"
+    },
+    {
+      "id":1,
+      "title":"Super Power",
+      "count":100,
+      "lessby":"Less by 500"
+    },
+    {
+      "id":1,
+      "title":"Missile",
+      "count":100,
+      "lessby":"Less by 500"
+    }
+  ]
+}

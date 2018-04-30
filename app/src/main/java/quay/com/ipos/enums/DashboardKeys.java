@@ -3,7 +3,7 @@ package quay.com.ipos.enums;
 
 public enum DashboardKeys {
 
-    type("type");
+    type("type"), mystores("mystores"),onlineStores("onlineStores"),otherStores("otherStores"), lowInventory("lowInventory"), title("title"), totalAmount("totalAmount"), target("target"), achievement("achievement"), totalSales("totalSales"), endofSeason("endofSeason"), awCollection("awCollection");
 
     private final String name;
 
