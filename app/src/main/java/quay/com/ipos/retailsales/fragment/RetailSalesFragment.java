@@ -781,7 +781,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onRowClicked(final int position, final int value) {
-
+        Util.hideSoftKeyboard(getActivity());
         mRecyclerView.post(new Runnable() {
             @Override
             public void run() {
@@ -792,6 +792,6 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 mRetailSalesAdapter.notifyItemChanged(position);
                 setUpdateValues(IPOSApplication.mProductList);
             }});
-        Util.hideSoftKeyboard(getActivity());
+
     }
 }

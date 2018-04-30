@@ -1,9 +1,13 @@
 package quay.com.ipos.dashboard.fragment;
 
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -11,10 +15,20 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 import quay.com.ipos.R;
+import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.modal.SpinnerList;
+import quay.com.ipos.utility.SelectionItemListDialog;
+import quay.com.ipos.utility.Util;
 
 
 public class DashboardFragment extends Fragment {
@@ -22,6 +36,9 @@ public class DashboardFragment extends Fragment {
     private Context mContext;
     private ViewPager mViewPager;
     private DashboardAdapter adapter;
+    private MainActivity mainActivity;
+    private TextView tvStoreName;
+    private boolean isPopupVisible = false;
 
 
     @Override
@@ -40,7 +57,18 @@ public class DashboardFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         mContext = getActivity();
 
+        mainActivity = (MainActivity) mContext;
 
+        tvStoreName=(TextView)view.findViewById(R.id.tvStoreName);
+
+
+      /*  tvStoreName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainActivity.onUpdateTitle("filter");
+            }
+        });*/
+        prepareFilterList();
         final TextView page1=(TextView)view.findViewById(R.id.tvFirstPage);
         final TextView page2=(TextView)view.findViewById(R.id.tvSecondPage);
         final TextView page3=(TextView)view.findViewById(R.id.tvThirdPage);
@@ -154,6 +182,67 @@ public class DashboardFragment extends Fragment {
 
     }
 
+    private void prepareFilterList() {
+        tvStoreName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isPopupVisible) return;
+                isPopupVisible = true;
+                List<SpinnerList> spnPanchyatList = null;
+                final Realm realm = Realm.getDefaultInstance();
+                try {
 
+
+                    SpinnerList  spn ;
+                    spnPanchyatList = new ArrayList<>();
+
+                    for (int i = 0; i < 5; i++) {
+                        spn = new SpinnerList();
+                        spn.setName("My Store"+(i+1));
+                        spn.setId((i+1)+"");
+                        spnPanchyatList.add(spn);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    realm.close();
+                } finally {
+                    realm.close();
+                }
+                showSelectionListPanchyat(getActivity(), tvStoreName, spnPanchyatList, getString(R.string.filter));
+            }
+        });
+    }
+
+    private void showSelectionListPanchyat(Context context, final TextView textView, List<SpinnerList> list, final String defaultMsg) {
+        if (list != null && list.size() > 0) {
+            SelectionItemListDialog selectionPickerDialog = new SelectionItemListDialog(context, defaultMsg, textView.getText().toString().trim(), list, R.layout.pop_up_question_list, new SelectionItemListDialog.ItemPickerListner() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public void OnDoneButton(Dialog ansPopup, String strAns, SpinnerList spinnerItem) {
+                    ansPopup.dismiss();
+                    if (Util.validateString(strAns)) {
+                        textView.setText(strAns);
+                        textView.setTag(spinnerItem);
+                        mainActivity.onUpdateTitle(strAns);
+                    } else {
+                        textView.setText(defaultMsg);
+                    }
+
+                }
+            });
+            if (!selectionPickerDialog.isShowing()) {
+                selectionPickerDialog.show();
+            }
+            selectionPickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    isPopupVisible = false;
+                }
+            });
+        } else {
+            isPopupVisible = false;
+         //   showToastMessage(getString(R.string.no_data));
+        }
+    }
 
 }

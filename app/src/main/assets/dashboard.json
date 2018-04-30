@@ -1,0 +1,214 @@
+{
+  "pendingOrders": {
+    "mystores":5,
+    "onlineStores":5,
+    "otherStores":5
+  },
+  "lowInventory": [
+    {
+      "id":1,
+      "title":"Nidan 4G",
+      "count":100,
+      "lessby":"Less by 500"
+    },
+    {
+      "id":1,
+      "title":"Sure",
+      "count":100,
+      "lessby":"Less by 500"
+    },
+    {
+      "id":1,
+      "title":"Built",
+      "count":100,
+      "lessby":"Less by 500"
+    },
+    {
+      "id":1,
+      "title":"Super Power",
+      "count":100,
+      "lessby":"Less by 500"
+    },
+    {
+      "id":1,
+      "title":"Missile",
+      "count":100,
+      "lessby":"Less by 500"
+    }
+  ],
+  "totalSales": {
+    "totalAmount":"32k",
+    "target":"63% below Target ($ 86k)",
+    "achievement":"37% Achievement"
+
+  },
+  "schemePerformance": {
+    "endofSeason":{
+      "totalAmount":"32k",
+      "target":"63% below Target ($ 86k)",
+      "achievement":"37% Achievement"
+    },"awCollection":{
+      "totalAmount":"32k",
+      "target":"63% below Target ($ 86k)",
+      "achievement":"37% Achievement"
+    }
+  },
+  "StoreSalesSummary": {
+    "day":{
+      "totalAmount":"32k",
+      "signal":true,
+      "percentage":"2%"
+    }, "week":{
+      "totalAmount":"224k",
+      "signal":false,
+      "percentage":"10%"
+    }, "month":{
+      "totalAmount":"480k",
+      "signal":true,
+      "percentage":"2%"
+    }
+  },
+  "StoreStatus": {},
+  "customerFootprints": {
+    "total":35,
+    "repeated":25,
+    "new":10,
+    "online":2,
+    "loyalty":8
+
+  },
+  "customerfeedback": {
+    "Excellent":10,
+    "Good":10,
+    "Average":5,
+    "Poor":5,
+    "VeryPoor":5
+  },
+  "inventoryInTransit": {
+    "count":{"mystores":5,
+      "onlineStores":5,
+      "otherStores":5
+    },
+    "inventoryInTransit": [
+      {
+        "id":1,
+        "title":"Central Warehouse",
+        "plan":"ETA - 2 Days",
+        "header":"Reference# 1"
+      },
+      {
+        "id":2,
+        "title":"My Store",
+        "plan":"ETA - 2 Days",
+        "header":"Reference# 2"
+      }]
+  },
+  "topPerformingStores": [
+    {
+      "id":1,
+      "title":"My Store 1",
+      "day":{
+        "totalAmount":"32k",
+        "signal":true,
+        "percentage":"2"
+      }, "month":{
+      "totalAmount":"480k",
+      "signal":true,
+      "percentage":"2"
+    }
+    },
+    {
+      "id":2,
+      "title":"My Store 2",
+      "day":{
+        "totalAmount":"32k",
+        "signal":true,
+        "percentage":"2"
+      }, "month":{
+      "totalAmount":"480k",
+      "signal":true,
+      "percentage":"2"
+    }
+    },
+    {
+      "id":3,
+      "title":"My Store 3",
+      "day":{
+        "totalAmount":"32k",
+        "signal":true,
+        "percentage":"2"
+      }, "month":{
+      "totalAmount":"480k",
+      "signal":true,
+      "percentage":"2"
+    }
+    },
+    {
+      "id":4,
+      "title":"My Store 4",
+      "day":{
+        "totalAmount":"32k",
+        "signal":true,
+        "percentage":"2"
+      }, "month":{
+      "totalAmount":"480k",
+      "signal":true,
+      "percentage":"2"
+    }
+    },
+    {
+      "id":5,
+      "title":"My Store 5",
+      "day":{
+        "totalAmount":"32k",
+        "signal":true,
+        "percentage":"2"
+      }, "month":{
+      "totalAmount":"480k",
+      "signal":true,
+      "percentage":"2"
+    }
+    }
+  ],
+  "FastMoving": [
+
+    {
+      "id":1,
+      "title":"Bavistin",
+      "dayAmount":"320k",
+      "monthAmount":"500k"
+
+    },
+    {
+      "id":1,
+      "title":"Abacin",
+      "dayAmount":"320k",
+      "monthAmount":"500k"
+    },
+    {
+      "id":1,
+      "title":"Snapper",
+      "dayAmount":"320k",
+      "monthAmount":"500k"
+    },
+    {
+      "id":1,
+      "title":"Kyoto",
+      "dayAmount":"320k",
+      "monthAmount":"500k"
+    },
+    {
+      "id":1,
+      "title":"NeutroZen",
+      "dayAmount":"320k",
+      "monthAmount":"500k"
+    }
+  ],
+  "complianceSummary": {
+    "done":"3/5",
+    "pending":"2/5",
+    "upcoming":"2",
+    "immediate":"2"
+
+  }
+}

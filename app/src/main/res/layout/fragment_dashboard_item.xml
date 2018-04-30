@@ -216,6 +216,7 @@
                         android:textColor="@color/black" />
 
                     <LinearLayout
+                        android:id="@+id/llTotalSales"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -227,6 +228,7 @@
                         android:background="@drawable/button_round_shape"
                         >
                         <TextView
+                            android:id="@+id/tvTotalSalesSpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -289,17 +291,25 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.8"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/tvDescription"
+                            android:id="@+id/tvTotalSalesTarget"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="4dp"
-                            android:text="@string/total_sales_"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="start|center_vertical"
                             android:textColor="@color/black" />
-
+                        <TextView
+                            android:id="@+id/tvTotalSalesAcheviment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="start|center_vertical"
+                            android:textColor="@color/black" />
 
                     </LinearLayout>
 
@@ -373,6 +383,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvEndSeasonSales"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="₹ 32k"
@@ -396,13 +407,23 @@
                             android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/dim_8"
                             android:layout_weight="1.8"
-                            android:gravity="center"
-                            android:orientation="horizontal">
-
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
                             <TextView
+                                android:id="@+id/tvEndSeasonTarget"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
+                                android:gravity="start"
+                                android:text="@string/total_sales_"
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:id="@+id/tvEndSeasonAcheivement"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:gravity="start"
                                 android:text="@string/total_sales_"
                                 android:textColor="@color/black" />
 
@@ -442,6 +463,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvAWSales"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="₹ 32k"
@@ -465,14 +487,22 @@
                             android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/dim_8"
                             android:layout_weight="1.8"
-                            android:gravity="center"
-                            android:orientation="horizontal">
+                            android:gravity="center_vertical"
+                            android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvAWTarget"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
-                                android:text="@string/total_sales_"
+                                android:gravity="start"
+                                android:textColor="@color/black" />
+                            <TextView
+                                android:id="@+id/tvAWAcheviment"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="4dp"
+                                android:gravity="start"
                                 android:textColor="@color/black" />
 
 
@@ -529,6 +559,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvStoreSalesDayValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="32k"
@@ -546,7 +577,7 @@
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
                             <TextView
-
+                                android:id="@+id/tvStoreSalesDayPercent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dim_4"
@@ -573,6 +604,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvStoreSalesWeekValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="224k"
@@ -585,11 +617,11 @@
                             <ImageView
                                 android:layout_width="@dimen/dim_20"
                                 android:layout_height="@dimen/dim_20"
-                                android:background="@drawable/ic_down_arrow_white"
+                                android:background="@drawable/ic_down_arrow"
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
                             <TextView
-
+                                android:id="@+id/tvStoreSalesWeekPercent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dim_4"
@@ -615,6 +647,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvStoreSalesMonthValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="480k"
@@ -631,7 +664,7 @@
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
                             <TextView
-
+                                android:id="@+id/tvStoreSalesMonthPercent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dim_4"
@@ -824,6 +857,7 @@
                         android:background="@drawable/button_round_shape"
                         >
                         <TextView
+                            android:id="@+id/tvFootprintSpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -866,6 +900,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvFootprintTotal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="35"
@@ -908,6 +943,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvFootprintRepeated"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="25"
@@ -948,6 +984,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvFootprintNew"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="10"
@@ -988,6 +1025,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvFootprintOnline"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="2"
@@ -1028,6 +1066,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvFootprintLoyalty"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="8"
@@ -1037,7 +1076,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Loyality enrolled"
+                                android:text="Loyality"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:gravity="center"
                                 android:textColor="@color/filter_text_color"
@@ -1103,6 +1142,7 @@
                         android:background="@drawable/button_round_shape"
                         >
                         <TextView
+                            android:id="@+id/tvFeedbackSpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -1145,6 +1185,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvFeedBackExcellent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="10"
@@ -1187,6 +1228,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvFeedbackGood"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="10"
@@ -1227,6 +1269,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvFeedbackAverage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5"
@@ -1267,6 +1310,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvFeedbackPoor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5"
@@ -1307,6 +1351,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvFeedbackCVeryPoor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="5"
@@ -1410,7 +1455,7 @@
 
 
                         <TextView
-
+                            android:id="@+id/tvWarehouse"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
@@ -1428,6 +1473,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvSupplier"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2"
@@ -1453,6 +1499,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tvOtherStores"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1"

@@ -47,7 +47,9 @@ import quay.com.ipos.adapter.DrawerItemCustomAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
 import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
+import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
+import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.neworder.activity.NewOrderDetailsActivity;
@@ -65,7 +67,7 @@ import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener,FilterListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -92,6 +94,7 @@ public class MainActivity extends BaseActivity
     private TextView textViewMyBusiness, textViewAccount;
     private TextView textViewP, textViewI, textViewM;
     private ImageView imageViewI,imageViewP,imageViewM;
+    public static DashboardItemFragment dashboardItemFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,6 +104,7 @@ public class MainActivity extends BaseActivity
         applyInitValues();
         applyTypeFace();
         setDashBoard();
+        dashboardItemFragment=new DashboardItemFragment();
 
     }
 
@@ -127,17 +131,17 @@ public class MainActivity extends BaseActivity
         viewI = findViewById(R.id.viewI);
         viewM = findViewById(R.id.viewM);
 
-        imageViewP = findViewById(R.id.imageViewP);
+       /* imageViewP = findViewById(R.id.imageViewP);
         imageViewI = findViewById(R.id.imageViewI);
-        imageViewM = findViewById(R.id.imageViewM);
+        imageViewM = findViewById(R.id.imageViewM);*/
         imageViewProfileDummy = findViewById(R.id.imageViewProfileDummy);
 
         textViewMyBusiness = findViewById(R.id.textViewMyBusiness);
         textViewAccount = findViewById(R.id.textViewAccount);
 
-       /* textViewP = findViewById(R.id.textViewP);
+        textViewP = findViewById(R.id.textViewP);
         textViewI = findViewById(R.id.textViewI);
-        textViewM = findViewById(R.id.textViewM);*/
+        textViewM = findViewById(R.id.textViewM);
 //        final ImageView profileImageSwitch = (ImageView) findViewById(R.id.profileImageSwitch);
 //        final ImageView profileImage = (ImageView) findViewById(R.id.profileImage);
 
@@ -152,13 +156,13 @@ public class MainActivity extends BaseActivity
         listViewContent.setVisibility(View.VISIBLE);
         expandableListView1.setVisibility(View.GONE);
         viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        imageViewP.setBackgroundResource(R.drawable.menu_background_select);
+   //     imageViewP.setBackgroundResource(R.drawable.menu_background_select);
 
         viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-        imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
+    //    imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
 
         viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-        imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
+     //   imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
 
         imageViewProfileDummy.setImageResource(R.drawable.cystal);
 
@@ -347,15 +351,17 @@ public class MainActivity extends BaseActivity
             expandableListView1.setVisibility(View.GONE);
 
             viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            imageViewP.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
-            imageViewP.setBackgroundResource(R.drawable.menu_background_select);
+            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
+            textViewP.setBackgroundResource(R.drawable.menu_background_select);
 
 
             viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
+            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
+            textViewI.setBackgroundResource(R.drawable.menu_background_unselect);
 
             viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
+            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
+            textViewM.setBackgroundResource(R.drawable.menu_background_unselect);
 
             imageViewProfileDummy.setImageResource(R.drawable.cystal);
         }if (v==lLaoutBtnI){
@@ -391,6 +397,11 @@ public class MainActivity extends BaseActivity
             textViewP.setBackgroundResource(R.drawable.menu_background_unselect);
 
         }
+    }
+
+    @Override
+    public void onUpdateTitle(String title) {
+        dashboardItemFragment.onUpdateTitle("dialog");
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -519,6 +530,8 @@ public class MainActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         this.menu1 = menu;
+        menu1.findItem(R.id.action_notification).setVisible(true);
+        menu1.findItem(R.id.action_search).setVisible(false);
         MenuItem menu12= menu1.findItem(R.id.action_notification);
         View actionView = MenuItemCompat.getActionView(menu12);
 

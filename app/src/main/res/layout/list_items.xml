@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_gravity="center"
-        android:textColor="@color/menu_text_color"
+        android:textColor="@color/black"
         android:alpha="0.7"
         android:paddingLeft="@dimen/dim_10"
         android:paddingEnd="10dp"
