@@ -493,12 +493,18 @@
                             android:textColor="@color/black" />
 
                         <TextView
+                            android:id="@+id/tvMonth"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/mtd"
                             android:textColor="@color/filter_text_color" />
 
+                        <View
+                            android:id="@+id/viewMonth"
+                            android:layout_width="40dp"
+                            android:layout_height="3dp"
+                            android:background="@color/colorPrimary"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -515,11 +521,18 @@
                             android:textColor="@color/black" />
 
                         <TextView
+                            android:id="@+id/tvYTD"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/ytd"
                             android:textColor="@color/filter_text_color" />
+                        <View
+                            android:id="@+id/viewYear"
+                            android:layout_width="40dp"
+                            android:layout_height="3dp"
+                            android:visibility="gone"
+                            android:background="@color/colorPrimary"/>
 
                     </LinearLayout>
                 </LinearLayout>

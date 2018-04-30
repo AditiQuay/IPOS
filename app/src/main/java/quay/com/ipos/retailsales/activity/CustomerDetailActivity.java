@@ -30,17 +30,17 @@ public class CustomerDetailActivity extends BaseActivity{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_customer_detail);
-
-        setHeader();
-        recycler_viewRecentOrders = (RecyclerView) findViewById(R.id.recycler_viewRecentOrders);
-        GridLayoutManager mLayoutManager4 = new GridLayoutManager(this, 1);
-        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        recycler_viewRecentOrders.setLayoutManager(mLayoutManager4);
-        recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
-        recentOrdersListAdapter = new RecentOrdersListAdapter(this, recentOrderModalArrayList);
-        recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
-
-        getRecentOrdersData();
+//
+//        setHeader();
+//        recycler_viewRecentOrders = (RecyclerView) findViewById(R.id.recycler_viewRecentOrders);
+//        GridLayoutManager mLayoutManager4 = new GridLayoutManager(this, 1);
+//        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+//        recycler_viewRecentOrders.setLayoutManager(mLayoutManager4);
+//        recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
+//        recentOrdersListAdapter = new RecentOrdersListAdapter(this, recentOrderModalArrayList);
+//        recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
+//
+//        getRecentOrdersData();
     }
 
 

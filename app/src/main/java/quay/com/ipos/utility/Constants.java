@@ -63,5 +63,7 @@ public class Constants {
 
     public static final String SHARED_PREF = "ah_firebase";
 
+    public static String UserProfilePic = "http://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png";
+    public static String customer_detail="customer_detail";
 }
 

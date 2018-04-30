@@ -22,16 +22,11 @@
                 android:layout_height="56dp"
                 >
 
-                <TextView
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:text="R"
-                    android:textSize="@dimen/dim_28"
-                    android:gravity="center"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/white"
-                    android:padding="@dimen/dim_8"
-                    android:background="@drawable/textview_circle_app_color"/>
+                <ImageView
+                    android:id="@+id/imvUserImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/profile_bg"/>
 
             </RelativeLayout>
 
@@ -46,12 +41,12 @@
 
                 <LinearLayout
                     android:id="@+id/llHeaders"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dim_8"
                     android:orientation="vertical">
                     <TextView
-                        android:id="@+id/textViewName"
+                        android:id="@+id/tvName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ramesh"
@@ -66,9 +61,9 @@
                         <ImageView
                             android:layout_width="@dimen/dim_16"
                             android:layout_height="@dimen/dim_16"
-                            android:background="@drawable/ic_action_search_"/>
+                            android:background="@drawable/ic_phone_call"/>
                         <TextView
-                            android:id="@+id/textViewMobileNo"
+                            android:id="@+id/tvMobileNo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -78,19 +73,46 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textViewHeader2"
+                        android:id="@+id/tvEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ramesh@gmail.com"
                         android:textColor="@color/textColorPrimary"
                         android:textSize="@dimen/dim_14" />
-                    <TextView
-                        android:id="@+id/textViewHeader3"
-                        android:layout_width="wrap_content"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Last billing 15-jan 2018 | R 3500"
-                        android:textColor="@color/textColorPrimary"
-                        android:textSize="@dimen/dim_14" />
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Last billing"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="@dimen/dim_14" />
+                        <TextView
+                            android:id="@+id/tvBillingDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="@dimen/dim_5"
+                            android:text="15-jan 2018"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="@dimen/dim_14" />
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="10dp"
+                            android:layout_marginLeft="@dimen/dim_5"
+                            android:layout_marginRight="@dimen/dim_5"
+                            android:background="@color/accent_color"/>
+                        <TextView
+                            android:id="@+id/tvBillingAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="R 3500"
+                            android:textColor="@color/textColorPrimary"
+                            android:textSize="@dimen/dim_14" />
+                    </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -99,9 +121,9 @@
                         <ImageView
                             android:layout_width="@dimen/dim_16"
                             android:layout_height="@dimen/dim_16"
-                            android:background="@drawable/ic_action_search_"/>
+                            android:background="@drawable/ic_birthday_cake"/>
                         <TextView
-                            android:id="@+id/textViewBirthday"
+                            android:id="@+id/tvBirthday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
@@ -124,8 +146,9 @@
                     <ImageView
                         android:layout_width="@dimen/dim_16"
                         android:layout_height="@dimen/dim_16"
-                        android:background="@drawable/ic_action_search_"/>
+                        android:background="@drawable/ic_award"/>
                     <TextView
+                        android:id="@+id/tvRedeemPoints"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="visible"
@@ -137,7 +160,7 @@
                         android:layout_width="@dimen/dim_16"
                         android:layout_height="@dimen/dim_16"
                         android:layout_marginTop="@dimen/dim_8"
-                        android:background="@drawable/ic_action_search_"/>
+                        android:background="@drawable/ic_action_help"/>
                 </LinearLayout>
 
 

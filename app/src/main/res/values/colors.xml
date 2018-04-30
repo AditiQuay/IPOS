@@ -8,6 +8,10 @@
     <color name="menu_background">#1cade4</color>
     <color name="expand_list_color">#f2f2f2</color>
     <color name="strip_color">#eeeeee</color>
+    <color name="app_theme_color">#4C98CF</color>
+
+
+
     <color name="sky_blue">#ADD8E6</color>
     <color name="light_blue">#A8ADD8E6</color>
     <color name="survey_background_color">#f2f2f2</color>

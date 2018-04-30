@@ -134,7 +134,7 @@
     <string name="order_summary">Order Summary</string>
     <string name="discounts">Discounts</string>
     <string name="deliverby">Deliver by</string>
-    <string name="redeem">Redeem</string>
+
     <string name="this_order">This Order</string>
     <string name="accumulated">Accumulated</string>
     <string name="total">Total</string>
@@ -150,6 +150,7 @@
     <string name="otp">OTP</string>
     <string name="verify">Verify</string>
     <string name="no_match_found">No Match Found!</string>
+    <string name="redeem">redeem</string>
     <string-array name="ordervalue">
         <item>Apr</item>
         <item>May</item>

@@ -44,7 +44,15 @@
                     android:text="Reference # 1"
                     android:textColor="@color/black"
                     />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="@dimen/dim_5"
+                    android:layout_marginRight="@dimen/dim_5"
+                    android:background="@color/accent_color"/>
                 <TextView
+                    android:id="@+id/tvStoreState"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -62,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start">
                 <TextView
-                    android:id="@+id/textName"
+                    android:id="@+id/tvBillingDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -74,7 +82,7 @@
                     android:textColor="@color/filter_text_color"
                     />
                 <TextView
-                    android:id="@+id/textName2"
+                    android:id="@+id/tvBillingAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -148,7 +156,7 @@
             android:layout_marginEnd="@dimen/dim_8"
             android:layout_gravity="center"
             android:visibility="visible"
-            android:background="@drawable/email"
+            android:background="@drawable/ic_click"
             android:contentDescription="TODO" />
 
     </RelativeLayout>

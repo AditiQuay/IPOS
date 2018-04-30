@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -115,6 +116,25 @@ public class McCOYDashboardFragment extends Fragment {
         inventoryListAdapter = new UpcomingShipmentListAdapter(getActivity(), inventoryList);
         recycler_viewInventory.setAdapter(inventoryListAdapter);
 
+        TextView tvMonth=(TextView)view.findViewById(R.id.tvMonth);
+        final View viewMonth=(View)view.findViewById(R.id.viewMonth);
+        TextView tvYTD=(TextView)view.findViewById(R.id.tvYTD);
+        final View viewYear=(View)view.findViewById(R.id.viewYear);
+
+        tvMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewMonth.setVisibility(View.VISIBLE);
+                viewYear.setVisibility(View.GONE);
+            }
+        });
+        tvYTD.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewMonth.setVisibility(View.GONE);
+                viewYear.setVisibility(View.VISIBLE);
+            }
+        });
         getFastMovingData();
         getInventoryData();
         createOrderChart(view);
