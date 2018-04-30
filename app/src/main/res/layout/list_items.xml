@@ -23,6 +23,7 @@
         android:paddingLeft="@dimen/dim_10"
         android:paddingEnd="10dp"
         android:paddingRight="10dp"
+
         android:text="Item Name" />
 
 </LinearLayout>

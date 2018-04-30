@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class ProductSectionModal {
     private String headerTitle;
-
     public ArrayList<ProductItemModal> getProductItemModals() {
         return productItemModals;
     }

@@ -149,8 +149,8 @@
     <string name="send_otp">Send OTP</string>
     <string name="otp">OTP</string>
     <string name="verify">Verify</string>
-    <string name="redeem">Redeem</string>
     <string name="no_match_found">No Match Found!</string>
+    <string name="redeem">redeem</string>
     <string-array name="ordervalue">
         <item>Apr</item>
         <item>May</item>

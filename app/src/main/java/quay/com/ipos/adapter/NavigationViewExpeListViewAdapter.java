@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -142,7 +141,6 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
     }
-
 
     public int applyMenuBGImage(String ImageName) {
         int imageId = 0;

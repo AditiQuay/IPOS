@@ -2,12 +2,8 @@ package quay.com.ipos.base;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.SearchManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,12 +12,9 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
@@ -36,8 +29,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,18 +41,10 @@ import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
-import quay.com.ipos.neworder.activity.NewOrderDetailsActivity;
-import quay.com.ipos.neworder.fragment.OrderCentreFragment;
-import quay.com.ipos.notifications.NotificationUtils;
-import quay.com.ipos.productCatalogue.ProductCatalogueMainFragment;
-import quay.com.ipos.retailsales.activity.AddProductActivity;
-import quay.com.ipos.retailsales.activity.CustomerListActivity;
-import quay.com.ipos.retailsales.fragment.RetailLoyaltyFragment;
 import quay.com.ipos.productCatalogue.ProductMain;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
-import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 
 public class MainActivity extends BaseActivity
@@ -81,17 +64,14 @@ public class MainActivity extends BaseActivity
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null,orderCentre=null;
+    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
     private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
     private View viewM, viewI, viewP;
     private CircleImageView imageViewProfileDummy;
-    private BroadcastReceiver mRegistrationBroadcastReceiver;
-    private int count=0;
     private TextView textViewMyBusiness, textViewAccount;
     private TextView textViewP, textViewI, textViewM;
-    private ImageView imageViewI,imageViewP,imageViewM;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -127,17 +107,17 @@ public class MainActivity extends BaseActivity
         viewI = findViewById(R.id.viewI);
         viewM = findViewById(R.id.viewM);
 
-        imageViewP = findViewById(R.id.imageViewP);
-        imageViewI = findViewById(R.id.imageViewI);
-        imageViewM = findViewById(R.id.imageViewM);
+//        imageViewP = findViewById(R.id.imageViewP);
+//        imageViewI = findViewById(R.id.imageViewI);
+//        imageViewM = findViewById(R.id.imageViewM);
         imageViewProfileDummy = findViewById(R.id.imageViewProfileDummy);
 
         textViewMyBusiness = findViewById(R.id.textViewMyBusiness);
         textViewAccount = findViewById(R.id.textViewAccount);
 
-       /* textViewP = findViewById(R.id.textViewP);
+        textViewP = findViewById(R.id.textViewP);
         textViewI = findViewById(R.id.textViewI);
-        textViewM = findViewById(R.id.textViewM);*/
+        textViewM = findViewById(R.id.textViewM);
 //        final ImageView profileImageSwitch = (ImageView) findViewById(R.id.profileImageSwitch);
 //        final ImageView profileImage = (ImageView) findViewById(R.id.profileImage);
 
@@ -148,20 +128,6 @@ public class MainActivity extends BaseActivity
         expandableListView1.setChildDivider(getResources().getDrawable(R.color.white));
         expandableListView1.setDivider(getResources().getDrawable(R.color.expand_list_color));
         expandableListView1.setDividerHeight(0);
-
-        listViewContent.setVisibility(View.VISIBLE);
-        expandableListView1.setVisibility(View.GONE);
-        viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        imageViewP.setBackgroundResource(R.drawable.menu_background_select);
-
-        viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-        imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
-
-        viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-        imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
-
-        imageViewProfileDummy.setImageResource(R.drawable.cystal);
-
 
 //        profileImageSwitch.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -187,33 +153,6 @@ public class MainActivity extends BaseActivity
         lLaoutBtnP.setOnClickListener(this);
         lLaoutBtnI.setOnClickListener(this);
         lLaoutBtnM.setOnClickListener(this);
-
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-                // checking for type intent filter
-                if (intent.getAction().equals(Constants.REGISTRATION_COMPLETE)) {
-                    // gcm successfully registered
-                    // now subscribe to `global` topic to receive app wide notifications
-
-
-
-                } else if (intent.getAction().equals(Constants.PUSH_NOTIFICATION)) {
-                    // new push notification is received
-                   MenuItem menu= menu1.findItem(R.id.action_notification);
-                    View actionView = MenuItemCompat.getActionView(menu);
-                    count++;
-                    TextView  cart_badge = (TextView) actionView.findViewById(R.id.cart_badge);
-                    cart_badge.setText(count+"");
-                    String message = intent.getStringExtra("message");
-
-
-                    //txtMessage.setText(message);
-                }
-            }
-        };
-
     }
 
     @Override
@@ -288,7 +227,6 @@ public class MainActivity extends BaseActivity
             public void onGroupExpand(int groupPosition) {
                 if (lastExpandedGroup != groupPosition) {
                     expandableListView1.collapseGroup(lastExpandedGroup);
-
                 }
 /*
                 Toast.makeText(getApplicationContext(),
@@ -324,7 +262,7 @@ public class MainActivity extends BaseActivity
                         menu1.findItem(R.id.action_search).setVisible(false);
                     }
                 }
-                return false;
+                return true;
             }
         });
     }
@@ -346,19 +284,23 @@ public class MainActivity extends BaseActivity
             listViewContent.setVisibility(View.VISIBLE);
             expandableListView1.setVisibility(View.GONE);
 
+
             viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            imageViewP.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
-            imageViewP.setBackgroundResource(R.drawable.menu_background_select);
+            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(130,130));
+            textViewP.setBackgroundResource(R.drawable.menu_background_select);
 
 
             viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            imageViewI.setBackgroundResource(R.drawable.menu_background_unselect);
+            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewI.setBackgroundResource(R.drawable.menu_background_unselect);
 
             viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            imageViewM.setBackgroundResource(R.drawable.menu_background_unselect);
+            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(100,100));
+            textViewM.setBackgroundResource(R.drawable.menu_background_unselect);
 
             imageViewProfileDummy.setImageResource(R.drawable.cystal);
-        }if (v==lLaoutBtnI){
+        }
+        if (v == lLaoutBtnI) {
             listViewContent.setVisibility(View.GONE);
             expandableListView1.setVisibility(View.VISIBLE);
 
@@ -414,17 +356,9 @@ public class MainActivity extends BaseActivity
         switch (position) {
             case 0:
 
-                Intent i=new Intent(MainActivity.this, NewOrderDetailsActivity.class);
-                startActivity(i);
                 break;
             case 1:
-                orderCentre = new OrderCentreFragment();
-                replaceFragment(orderCentre, containerId);
-                drawer.closeDrawer(GravityCompat.START);
-                toolbar.setTitle(getString(R.string.order_centre));
-                menu1.findItem(R.id.action_notification).setVisible(true);
-                menu1.findItem(R.id.action_search).setVisible(false);
-                drawer.closeDrawer(GravityCompat.START);
+
                 break;
             case 2:
                 dashboardFragment = new McCOYDashboardFragment();
@@ -456,8 +390,8 @@ public class MainActivity extends BaseActivity
                 replaceFragment(retailSalesFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.retail_sales));
-                menu1.findItem(R.id.action_notification).setVisible(false);
-                menu1.findItem(R.id.action_search).setVisible(true);
+//                menu1.findItem(R.id.action_notification).setVisible(false);
+//                menu1.findItem(R.id.action_search).setVisible(true);
                 break;
             default:
                 break;
@@ -519,11 +453,6 @@ public class MainActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         this.menu1 = menu;
-        MenuItem menu12= menu1.findItem(R.id.action_notification);
-        View actionView = MenuItemCompat.getActionView(menu12);
-
-        TextView  cart_badge = (TextView) actionView.findViewById(R.id.cart_badge);
-        cart_badge.setText(count+"");
         // Retrieve the SearchView and plug it into SearchManager
 //        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
 //        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
@@ -585,29 +514,5 @@ public class MainActivity extends BaseActivity
                 }
                 return;
         }
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // register GCM registration complete receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Constants.REGISTRATION_COMPLETE));
-
-        // register new push message receiver
-        // by doing this, the activity will be notified each time a new message arrives
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Constants.PUSH_NOTIFICATION));
-
-        // clear the notification area when the app is opened
-       // NotificationUtils.clearNotifications(getApplicationContext());
-    }
-
-    @Override
-    protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
-
-        super.onPause();
     }
 }
