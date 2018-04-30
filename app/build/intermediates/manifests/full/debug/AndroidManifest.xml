@@ -30,7 +30,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:testOnly="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name="quay.com.ipos.login.SplashActivity"
@@ -84,11 +83,11 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
-            android:name="quay.com.ipos.retailsales.activity.CustomerDetailActivity"
+            android:name="quay.com.ipos.retailsales.activity.CustomerDetailActivityNew"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="quay.com.ipos.retailsales.activity.CustomerListActivity"
+            android:name="quay.com.ipos.retailsales.activity.CustomerListActivityNew"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

@@ -12,16 +12,14 @@
         android:orientation="horizontal"
         android:padding="@dimen/dim_5"
         android:gravity="center"
-        android:background="@color/colorPrimary">
-        <TextView
-            android:id="@+id/tvUserAdd"
+        android:background="@color/colorPrimaryDark">
+        <ImageView
+            android:id="@+id/imvUserAdd"
             android:paddingLeft="@dimen/dim_5"
             android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fa_user_plus"
-            android:textSize="@dimen/dim_25"
-            android:textColor="@color/white"/>
+      />
 
         <TextView
             android:id="@+id/tvPin"
@@ -75,8 +73,8 @@
             app:typeface="Roboto-Regular.ttf" />
         <ToggleButton
             android:id="@+id/chkBarCode"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="38dp"
+            android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dim_10"
             android:background="@drawable/toggle_selector"
             android:textOff=""
