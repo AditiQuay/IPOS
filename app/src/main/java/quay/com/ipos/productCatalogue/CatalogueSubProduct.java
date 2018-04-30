@@ -54,6 +54,7 @@ public class CatalogueSubProduct extends AppCompatActivity implements InitInterf
         mContext = CatalogueSubProduct.this;
         findViewById();
         applyInitValues();
+        applyTypeFace();
     }
 
     @Override
@@ -100,6 +101,7 @@ public class CatalogueSubProduct extends AppCompatActivity implements InitInterf
     @Override
     public void applyTypeFace() {
         FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(toolbar,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
     }
 

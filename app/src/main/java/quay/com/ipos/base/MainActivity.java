@@ -97,6 +97,9 @@ public class MainActivity extends BaseActivity
     public void findViewById() {
         toolbar = (Toolbar) findViewById(R.id.appBar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle(getResources().getString(R.string.toolbar_title_catalogue_product_details));
+
+
         containerId = R.id.fragment_container;
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -155,6 +158,8 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void applyInitValues() {
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -192,7 +197,6 @@ public class MainActivity extends BaseActivity
         textViewM.setBackgroundResource(R.drawable.menu_background_unselect);
 
 
-
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.drawer_list_items, drawerItem);
         listViewContent.setAdapter(adapter);
         listViewContent.setOnItemClickListener(new DrawerItemClickListener());
@@ -205,37 +209,37 @@ public class MainActivity extends BaseActivity
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
 
-                //Toast.makeText(mContext,"Group clicked",Toast.LENGTH_SHORT).show();
-              /*  switch (groupPosition) {
-                    case 0:
-                        break;
-                    case 1:
-                        retailSalesFragment = new RetailSalesFragment();
-                        replaceFragment(retailSalesFragment,containerId);
-                        drawer.closeDrawer(GravityCompat.START);
-                        toolbar.setTitle(getString(R.string.retail_sales));
-                        menu1.findItem(R.id.action_notification).setVisible(false);
-                        menu1.findItem(R.id.action_search).setVisible(true);
-                        break;
-                    case 2:
-                        menu1.findItem(R.id.action_notification).setVisible(false);
-                        drawer.closeDrawer(GravityCompat.START);
-                        break;
-                    case 3:
-                        menu1.findItem(R.id.action_notification).setVisible(false);
-                        drawer.closeDrawer(GravityCompat.START);
-                        break;
-                    case 4:
-                        menu1.findItem(R.id.action_notification).setVisible(true);
-                        dashboardFragment = new DashboardFragment();
-                        replaceFragment(dashboardFragment, containerId);
-                        drawer.closeDrawer(GravityCompat.START);
-                        toolbar.setTitle(getString(R.string.dashboard));
-                        menu1.findItem(R.id.action_search).setVisible(true);
-                        break;
-                    default:
-                        break;
-                }*/
+//                //Toast.makeText(mContext,"Group clicked",Toast.LENGTH_SHORT).show();
+//                switch (groupPosition) {
+//                    case 0:
+//                        break;
+//                    case 1:
+//                        retailSalesFragment = new RetailSalesFragment();
+//                        replaceFragment(retailSalesFragment,containerId);
+//                        drawer.closeDrawer(GravityCompat.START);
+//                        toolbar.setTitle(getString(R.string.retail_sales));
+//                        menu1.findItem(R.id.action_notification).setVisible(false);
+//                        menu1.findItem(R.id.action_search).setVisible(true);
+//                        break;
+//                    case 2:
+//                        menu1.findItem(R.id.action_notification).setVisible(false);
+//                        drawer.closeDrawer(GravityCompat.START);
+//                        break;
+//                    case 3:
+//                        menu1.findItem(R.id.action_notification).setVisible(false);
+//                        drawer.closeDrawer(GravityCompat.START);
+//                        break;
+//                    case 4:
+//                        menu1.findItem(R.id.action_notification).setVisible(true);
+//                        dashboardFragment = new DashboardFragment();
+//                        replaceFragment(dashboardFragment, containerId);
+//                        drawer.closeDrawer(GravityCompat.START);
+//                        toolbar.setTitle(getString(R.string.dashboard));
+//                        menu1.findItem(R.id.action_search).setVisible(true);
+//                        break;
+//                    default:
+//                        break;
+//                }
                 return false;
             }
         });
@@ -292,7 +296,7 @@ public class MainActivity extends BaseActivity
     @Override
     public void applyTypeFace() {
         FontUtil.applyTypeface(textViewMyBusiness, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-
+        FontUtil.applyTypeface(toolbar, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
     }
 
     @Override
@@ -412,7 +416,7 @@ public class MainActivity extends BaseActivity
                 productCatalogueMainFragment = new ProductMain();
                 replaceFragment(productCatalogueMainFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
-                toolbar.setTitle(getString(R.string.product));
+                toolbar.setTitle(getString(R.string.toolbar_title_catalogue_product_details));
                 menu1.findItem(R.id.action_notification).setVisible(false);
                 menu1.findItem(R.id.action_search).setVisible(true);
                 drawer.closeDrawer(GravityCompat.START);
