@@ -13,8 +13,8 @@
         android:padding="@dimen/dim_5"
         android:gravity="center"
         android:background="@color/colorPrimaryDark">
-        <ImageView
-            android:id="@+id/imvUserAdd"
+        <TextView
+            android:id="@+id/tvUserAdd"
             android:paddingLeft="@dimen/dim_5"
             android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"

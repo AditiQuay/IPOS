@@ -47,6 +47,7 @@ import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductMain;
+import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
@@ -407,6 +408,9 @@ public class MainActivity extends BaseActivity
     private void selectItem(int position, View view) {
         switch (position) {
             case 0:
+
+                Intent i=new Intent(MainActivity.this, PaymentModeActivity.class);
+                startActivity(i);
 
                 break;
             case 1:

@@ -153,6 +153,26 @@
     <string name="redeem">redeem</string>
     <string name="cancel">Cancel</string>
     <string name="filter">Filter</string>
+    <string name="Rs_">\u20B9 3902.90</string>
+    <string name="retail">Retail</string>
+    <string name="payment_mode">Payment Mode</string>
+    <string name="cash">Cash</string>
+    <string name="card">Card</string>
+    <string name="upi">UPI</string>
+    <string name="credit">Credit</string>
+    <string name="voucher">Voucher</string>
+    <string name="wallet">Wallet</string>
+    <string name="enter_cash_amount">Enter Cash Amount</string>
+    <string name="Rs_0">\u20B9 0.00</string>
+    <string name="enter_card_amount">Enter card number</string>
+    <string name="select_card_type">Select card type</string>
+    <string name="enter_last_digit">Enter last 4 digits</string>
+    <string name="enter_transaction_number">Enter transaction number</string>
+    <string name="balance">Balance</string>
+    <string name="print_receipt">Print Receipt</string>
+    <string name="cod">COD</string>
+    <string name="payment">Payment</string>
+
     <string-array name="ordervalue">
         <item>Apr</item>
         <item>May</item>
