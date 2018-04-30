@@ -59,11 +59,12 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
                 .findViewById(R.id.textViewChildName);
         subtitle.setText(expandedListText);
 
-        try {
-            relativeLayout.setBackgroundColor(context.getResources().getColor(R.color.white_text_color));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+//        try {
+//            relativeLayout.setBackgroundColor(context.getResources().getColor(R.color.white_text_color));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         FontUtil.applyTypeface(subtitle, FontUtil.getTypeFaceRobotTiteliumRegular(context));
 
       /*  TextView expandedListTextView = (TextView) convertView
