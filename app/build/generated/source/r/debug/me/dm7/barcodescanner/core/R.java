@@ -27,8 +27,8 @@ public final class R {
         public static final int viewfinder_mask = 0x7f0600b0;
     }
     public static final class integer {
-        public static final int viewfinder_border_length = 0x7f0a000d;
-        public static final int viewfinder_border_width = 0x7f0a000e;
+        public static final int viewfinder_border_length = 0x7f0a000e;
+        public static final int viewfinder_border_width = 0x7f0a000f;
     }
     public static final class styleable {
         public static final int[] BarcodeScannerView = { 0x7f04003d, 0x7f04003e, 0x7f04003f, 0x7f040040, 0x7f04007d, 0x7f0400a4, 0x7f0400c9, 0x7f0400ca, 0x7f04010f, 0x7f040141, 0x7f04014a, 0x7f040155 };
