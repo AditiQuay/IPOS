@@ -19,7 +19,7 @@
             android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="ic_ac"/>
+      />
 
         <TextView
             android:id="@+id/tvPin"
