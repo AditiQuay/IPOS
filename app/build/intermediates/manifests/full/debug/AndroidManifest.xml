@@ -30,7 +30,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
+<<<<<<< HEAD
         android:testOnly="true"
+=======
+>>>>>>> a1e22d421f92b2871fdff0ae68cb457f0ae52558
         android:theme="@style/AppTheme" >
         <activity
             android:name="quay.com.ipos.login.SplashActivity"

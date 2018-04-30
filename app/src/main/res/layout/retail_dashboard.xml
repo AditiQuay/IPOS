@@ -18,9 +18,13 @@
             android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:layout_gravity="center"
             android:background="@color/transparent"
             android:src="@drawable/ic_action_person_add"/>
+=======
+      />
+>>>>>>> a1e22d421f92b2871fdff0ae68cb457f0ae52558
 
         <ImageView
             android:id="@+id/imvPin"

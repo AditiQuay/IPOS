@@ -4,13 +4,20 @@
     <color name="colorPrimaryDark">#58BAE1</color>
     <color name="colorAccent">#DBDBDB</color>
     <color name="colorAccentDark">#556892</color>
+<<<<<<< HEAD
     <color name="dark_text_color">#132E67</color>
+=======
+
+>>>>>>> a1e22d421f92b2871fdff0ae68cb457f0ae52558
 
 
 
 
     <color name="app_theme_color">#4C98CF</color>
 
+    <color name="menu_background">#b7b7b7</color>
+    <color name="expand_list_color">#b7b7b7</color>
+    <color name="strip_color">#A8ADD8E6</color>
 
     <color name="menu_background">#b7b7b7</color>
     <color name="expand_list_color">#b7b7b7</color>
