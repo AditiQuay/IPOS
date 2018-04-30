@@ -19,17 +19,15 @@
             android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="ic_ac"/>
+            android:src="@drawable/ic_action_person_add_selector"/>
 
-        <TextView
-            android:id="@+id/tvPin"
+        <ImageView
+            android:id="@+id/imvPin"
             android:paddingLeft="@dimen/dim_5"
             android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fa_thumb_tack"
-            android:textSize="@dimen/dim_25"
-            android:textColor="@color/white"/>
+            android:src="@drawable/ic_action_pin_selector"/>
 
         <ImageView
             android:id="@+id/imvDicount"
@@ -37,17 +35,15 @@
             android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_discount"/>
+            android:src="@drawable/ic_action_discount_selector"/>
 
-        <TextView
-            android:id="@+id/tvRedeem"
+        <ImageView
+            android:id="@+id/imvRedeem"
             android:paddingLeft="@dimen/dim_5"
             android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fa_redeem"
-            android:textSize="@dimen/dim_25"
-            android:textColor="@color/white"/>
+            android:src="@drawable/ic_action_redeem_selector"/>
 
         <ImageView
             android:id="@+id/imvGlobe"
@@ -55,12 +51,13 @@
             android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_earth"/>
+            android:src="@drawable/ic_action_online_shop_selector"/>
 
         <View
             android:layout_width="0dp"
             android:layout_height="@dimen/dim_1"
             android:layout_weight="1"/>
+
         <quay.com.ipos.ui.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -70,7 +67,8 @@
             android:textColor="@color/white"
             android:paddingRight="@dimen/dim_5"
             android:textSize="@dimen/text_size_15sp"
-            app:typeface="Roboto-Regular.ttf" />
+            app:typeface="TitilliumWeb-Regular.ttf" />
+
         <ToggleButton
             android:id="@+id/chkBarCode"
             android:layout_width="38dp"

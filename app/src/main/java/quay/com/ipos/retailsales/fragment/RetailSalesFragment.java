@@ -52,7 +52,7 @@ import quay.com.ipos.utility.Util;
  */
 
 public class RetailSalesFragment extends Fragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener {
-    private TextView tvUserAdd,tvPin,tvRedeem,tvRight,tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
+    private TextView tvRight,tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
             tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvClearOTC,tvClearOTC1,tvApplyOTC,tvApplyOTC2;
     private ToggleButton tbPerc,tbRs;
@@ -60,7 +60,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     private CheckBox chkOTC;
     LinearLayout layoutOtcDiscount;
     private LinearLayout llTotalDiscountDetail,ll_item_pay,llOTCSelect,llTotalGST,llOTCConfirmation,llOTCApply;
-    private ImageView imvDicount,imvGlobe,imvQRCode;
+    private ImageView imvDicount,imvGlobe,imvQRCode,imvUserAdd,imvPin,imvRedeem;
     private ToggleButton chkBarCode;
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
@@ -89,11 +89,11 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         llOTCConfirmation = rootView.findViewById(R.id.llOTCConfirmation);
         llOTCApply = rootView.findViewById(R.id.llOTCApply);
         etDiscountAmt = rootView.findViewById(R.id.etDiscountAmt);
-        tvUserAdd = rootView.findViewById(R.id.tvUserAdd);
+        imvUserAdd = rootView.findViewById(R.id.imvUserAdd);
         tbRs = rootView.findViewById(R.id.tbRs);
         tbPerc = rootView.findViewById(R.id.tbPerc);
-        tvPin = rootView.findViewById(R.id.tvPin);
-        tvRedeem = rootView.findViewById(R.id.tvRedeem);
+        imvPin = rootView.findViewById(R.id.imvPin);
+        imvRedeem = rootView.findViewById(R.id.imvRedeem);
         imvGlobe = rootView.findViewById(R.id.imvGlobe);
         imvDicount = rootView.findViewById(R.id.imvDicount);
         imvQRCode = rootView.findViewById(R.id.imvQRCode);
@@ -156,9 +156,6 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
     private void setFontText() {
         Typeface iconFont = FontManager.getTypeface(getActivity(), FontManager.FONTAWESOME);
-        FontManager.markAsIconContainer(tvUserAdd, iconFont);
-        FontManager.markAsIconContainer(tvPin, iconFont);
-        FontManager.markAsIconContainer(tvRedeem, iconFont);
         FontManager.markAsIconContainer(tvRight, iconFont);
         FontManager.markAsIconContainer(tvRight1, iconFont);
         FontManager.markAsIconContainer(tvClearOTC, iconFont);
@@ -176,10 +173,10 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         tvApplyOTC.setOnClickListener(this);
         tvApplyOTC2.setOnClickListener(this);
         tvRight1.setOnClickListener(this);
-        tvPin.setOnClickListener(this);
+        imvPin.setOnClickListener(this);
         chkOTC.setOnCheckedChangeListener(this);
-        tvRedeem.setOnClickListener(this);
-        tvUserAdd.setOnClickListener(this);
+        imvRedeem.setOnClickListener(this);
+        imvUserAdd.setOnClickListener(this);
         chkBarCode.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -470,7 +467,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 llOTCConfirmation.setVisibility(View.VISIBLE);
                 llOTCApply.setVisibility(View.GONE);
                 break;
-            case R.id.tvPin:
+            case R.id.imvPin:
 //                setArrayPinned();
                 if(IPOSApplication.mProductList.size()>0)
                     cachedPinned();
@@ -478,7 +475,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                     Util.showToast("Cannot pin empty list",getActivity());
 
                 break;
-            case R.id.tvRedeem:
+            case R.id.imvRedeem:
 
                 if(IPOSApplication.mProductList.size()>0)
                     showRedeemLoyaltyPopup(rootView);
@@ -523,7 +520,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                         }).setNegativeButton("No", null).show();
 
                 break;
-            case R.id.tvUserAdd:
+            case R.id.imvUserAdd:
                 Intent mIntent = new Intent(getActivity(), CustomerListActivityNew.class);
                 startActivity(mIntent);
                 break;
