@@ -172,6 +172,7 @@
     <string name="print_receipt">Print Receipt</string>
     <string name="cod">COD</string>
     <string name="payment">Payment</string>
+    <string name="qty_available">quantity available</string>
 
     <string-array name="ordervalue">
         <item>Apr</item>

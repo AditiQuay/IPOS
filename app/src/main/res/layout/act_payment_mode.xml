@@ -69,6 +69,7 @@
                 android:text="@string/pay"
                 android:textColor="@color/payment_color"/>
             <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvPay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dim_16"

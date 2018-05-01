@@ -74,7 +74,8 @@
         <activity
             android:name="quay.com.ipos.base.MainActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name="quay.com.ipos.retailsales.activity.PinnedRetailActivity"
             android:screenOrientation="portrait"

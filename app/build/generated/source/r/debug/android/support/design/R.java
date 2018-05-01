@@ -1005,8 +1005,8 @@ public final class R {
         public static final int path_password_eye_mask_strike_through = 0x7f0e0091;
         public static final int path_password_eye_mask_visible = 0x7f0e0092;
         public static final int path_password_strike_through = 0x7f0e0093;
-        public static final int search_menu_title = 0x7f0e00ad;
-        public static final int status_bar_notification_info_overflow = 0x7f0e00b3;
+        public static final int search_menu_title = 0x7f0e00ae;
+        public static final int status_bar_notification_info_overflow = 0x7f0e00b4;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat = 0x7f0f0000;
