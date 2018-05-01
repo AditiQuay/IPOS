@@ -124,7 +124,7 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
         if(isExpanded){
             llGrp.setBackgroundResource(R.color.light_blue);
         }else{
-            llGrp.setBackgroundResource(R.color.expand_list_color);
+            llGrp.setBackgroundResource(R.color.menu_strip_color);
         }
         imageViewMenu.setBackgroundResource(applyMenuBGImage(listTitle.toString().trim()));
         FontUtil.applyTypeface(textViewTitle, FontUtil.getTypeFaceRobotTiteliumRegular(context));

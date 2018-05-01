@@ -25,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/header"
                 android:layout_marginTop="@dimen/dim_16"
-                android:background="@color/expand_list_color"
+                android:background="@color/menu_expand_list_color"
                 android:divider="@color/white"
                 android:dividerHeight="@dimen/dim_1"
                 android:listSelector="@drawable/selector_list_item"
@@ -40,6 +40,7 @@
                 android:layout_below="@+id/header"
                 android:layout_marginTop="@dimen/dim_16"
                 android:divider="@null"
+                android:background="@color/menu_strip_color"
                 android:listSelector="@drawable/selector_list_item"
                 android:choiceMode="singleChoice"
                 android:dividerHeight="@null"
@@ -54,7 +55,7 @@
         android:id="@+id/rLayoutOptions"
         android:layout_width="70dp"
         android:layout_height="match_parent"
-        android:background="@color/strip_color">
+        android:background="@color/menu_strip_color">
 
         <LinearLayout
             android:id="@+id/lLaoutBtnP"
@@ -65,7 +66,7 @@
                 android:id="@+id/viewP"
                 android:layout_width="@dimen/dim_3"
                 android:layout_height="match_parent"
-                android:background="@color/strip_color" />
+                android:background="@color/menu_strip_color" />
 
 
             <RelativeLayout
@@ -103,7 +104,7 @@
                 android:id="@+id/viewI"
                 android:layout_width="@dimen/dim_3"
                 android:layout_height="match_parent"
-                android:background="@color/strip_color" />
+                android:background="@color/menu_strip_color" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -139,7 +140,7 @@
                 android:id="@+id/viewM"
                 android:layout_width="@dimen/dim_3"
                 android:layout_height="match_parent"
-                android:background="@color/strip_color" />
+                android:background="@color/menu_strip_color" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

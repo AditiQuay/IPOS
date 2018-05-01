@@ -10,7 +10,7 @@
         android:id="@+id/vItem"
         android:layout_width="@dimen/dim_2"
         android:layout_height="match_parent"
-        android:background="@color/menu_background" />
+        android:background="@color/menu_strip" />
 
     <TextView
         android:id="@+id/textViewChildName"

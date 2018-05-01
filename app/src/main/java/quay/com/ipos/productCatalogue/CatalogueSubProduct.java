@@ -8,11 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -22,11 +18,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
-import quay.com.ipos.base.BaseFragment;
+import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
-import quay.com.ipos.modal.CatalogueModal;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.CatalogueSubCatalogueFragmentAdapter;
+import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
 
@@ -133,10 +129,12 @@ public class CatalogueSubProduct extends AppCompatActivity implements InitInterf
 
     @Override
     public void onRowClicked(int position) {
-        quay.com.ipos.productCatalogue.productModal.CatalogueModal catalogueModal = catalogueModalsSet.get(position);
-        Intent gotToProductDetail = new Intent(mContext, ProductDetails.class);
-        gotToProductDetail.putExtra("ProductName", catalogueModal.sProductName);
-        startActivity(gotToProductDetail);
+        Intent i = new Intent(mContext, CustomerInfoActivity.class);
+        startActivity(i);
+//        CatalogueModal catalogueModal = catalogueModalsSet.get(position);
+//        Intent gotToProductDetail = new Intent(mContext, ProductDetails.class);
+//        gotToProductDetail.putExtra("ProductName", catalogueModal.sProductName);
+//        startActivity(gotToProductDetail);
     }
 
     @Override

@@ -131,6 +131,9 @@ public class Util {
         } else {
             Typeface typeface;
             try {
+
+
+
 //                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
 //                        context.getString(R.string.assets_fonts_folder) + typefaceName);
                 if(typefaceName==null)

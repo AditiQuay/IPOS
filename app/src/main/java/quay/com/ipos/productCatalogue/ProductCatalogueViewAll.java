@@ -103,8 +103,8 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
     @Override
     public void onRowClicked(int position) {
         ProductItemModal productItemModal = productItemModals.get(position);
-        Intent i = new Intent(mContext, CustomerInfoActivity.class);
-//        i.putExtra("Product Name", productItemModal.getProductName());
+        Intent i = new Intent(mContext, CatalogueSubProduct.class);
+        i.putExtra("Product Name", productItemModal.getProductName());
         startActivity(i);
     }
 
