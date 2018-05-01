@@ -159,21 +159,21 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.llOTCDiscount.setVisibility(View.GONE);
 
             Double totalPrice=(Double.parseDouble(str.getSProductPrice())*str.getQty());
-            str.setTotalPrice(totalPrice);
+//            str.setTotalPrice(totalPrice);
 
             if(str.getIsDiscount()) {
                 userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSDiscountPrice());
                 userViewHolder.tvDiscount.setText(str.getSDiscountName());
 //                str.setDiscItemSelected(true);
-                Double discount = Double.parseDouble(str.getSDiscountPrice())*totalPrice/100;
+                Double discount = (Double.parseDouble(str.getSDiscountPrice())*totalPrice)/100;
 //                str.setDiscount(discount);
 
                 userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+discount+"");
                 userViewHolder.llDiscount.setVisibility(View.VISIBLE);
             }else {
 //                str.setDiscItemSelected(false);
-                str.setTotalPrice(totalPrice);
-                str.setDiscount(0.0);
+//                str.setTotalPrice(totalPrice);
+//                str.setDiscount(0.0);
                 userViewHolder.llDiscount.setVisibility(View.GONE);
             }
             if(str.isDiscItemSelected()) {

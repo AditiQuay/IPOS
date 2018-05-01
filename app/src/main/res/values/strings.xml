@@ -175,6 +175,8 @@
     <string name="Perc">%</string>
     <string name="togglebutton1">ToggleButton1</string>
     <string name="togglebutton2">ToggleButton2</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="enter_otp">Enter OTP</string>
 
     <string-array name="ordervalue">
         <item>Apr</item>
