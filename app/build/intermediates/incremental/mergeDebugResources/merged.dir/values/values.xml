@@ -230,6 +230,7 @@
     <color name="orange">#FFA500</color>
     <color name="pager_bullet_active">#FFD700</color>
     <color name="pager_bullet_inactive">#B6B6B6</color>
+    <color name="payment_color">#132E67</color>
     <color name="pink">#FF7A7A</color>
     <color name="primary_color">#ffcc03</color>
     <color name="primary_dark_material_dark">@android:color/black</color>
@@ -1921,6 +1922,8 @@
     <integer name="viewfinder_border_length">60</integer>
     <integer name="viewfinder_border_width">4</integer>
     <string name="Rs">\u20B9</string>
+    <string name="Rs_">\u20B9 3902.90</string>
+    <string name="Rs_0">\u20B9 0.00</string>
     <string name="_32k">\u20A8 32k</string>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
@@ -1965,16 +1968,21 @@
     <string name="assets_fonts_folder">fonts</string>
     <string name="available_points">Available Points</string>
     <string name="awcollection">A/W Collection 2018</string>
+    <string name="balance">Balance</string>
     <string name="barcode">Barcode</string>
     <string name="billing_n_cash">Billing &amp; Cash</string>
     <string name="bottom_sheet_behavior" translatable="false">android.support.design.widget.BottomSheetBehavior</string>
     <string name="cancel">Cancel</string>
     <string name="cancel_button">Cancel</string>
     <string name="cancelled">Cancelled</string>
+    <string name="card">Card</string>
+    <string name="cash">Cash</string>
     <string name="cgst">CGST</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
+    <string name="cod">COD</string>
     <string name="common_google_play_services_unknown_issue"><ns1:g id="app_name">%1$s</ns1:g> is having trouble with Google Play services. Please try again.</string>
     <string name="compliance">Compliance Summary</string>
+    <string name="credit">Credit</string>
     <string name="customer_details">Customer Details</string>
     <string name="customer_feedback">Customer Feedback 4.3 *</string>
     <string name="customer_footprints">Customer Footprints</string>
@@ -1992,8 +2000,12 @@
     <string name="earned_points">Earned Points</string>
     <string name="email_hint_activity_login">Email</string>
     <string name="end_of_season">End of Season</string>
+    <string name="enter_card_amount">Enter card number</string>
+    <string name="enter_cash_amount">Enter Cash Amount</string>
+    <string name="enter_last_digit">Enter last 4 digits</string>
     <string name="enter_number">Enter Mobile Number</string>
     <string name="enter_product">Enter Product</string>
+    <string name="enter_transaction_number">Enter transaction number</string>
     <string name="fa_cross"></string>
     <string name="fa_cross_circle"></string>
     <string name="fa_left_arrow"></string>
@@ -2058,11 +2070,14 @@
     <string name="path_password_eye_mask_visible" translatable="false">M2,4.27 L2,4.27 L4.54,1.73 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
     <string name="path_password_strike_through" translatable="false">M3.27,4.27 L19.74,20.74</string>
     <string name="pay">Pay</string>
+    <string name="payment">Payment</string>
+    <string name="payment_mode">Payment Mode</string>
     <string name="pending">Pending</string>
     <string name="pending_orders_to_deliver">Pending Orders to Deliver</string>
     <string name="play_service_error_string">Google Play Service Not Found</string>
     <string name="please_wait">Please Wait...</string>
     <string name="points_to_redeem">Points to Redeem</string>
+    <string name="print_receipt">Print Receipt</string>
     <string name="product">Product</string>
     <string name="products">Products</string>
     <string name="project_id" translatable="false">ipos-1749b</string>
@@ -2072,6 +2087,7 @@
     <string name="redeem_points">Redeem Points</string>
     <string name="redeem_value">Redeem Value</string>
     <string name="redeemed_points">Redeemed Points</string>
+    <string name="retail">Retail</string>
     <string name="retail_sale">Retail Sales</string>
     <string name="retail_sales">Retail Sales</string>
     <string name="rounding_off">Rounding off</string>
@@ -2081,6 +2097,7 @@
     <string name="search_menu_title">Search</string>
     <string name="select_all">SELECT ALL</string>
     <string name="select_camera">Select Camera</string>
+    <string name="select_card_type">Select card type</string>
     <string name="send_otp">Send OTP</string>
     <string name="sgst">SGST</string>
     <string name="status_bar_notification_info_overflow">999+</string>
@@ -2106,8 +2123,11 @@
     <string name="typeface_not_found">Typeface not found!!</string>
     <string name="upcoming">Upcoming Events</string>
     <string name="upcoming_shipment">Upcoming Shipment</string>
+    <string name="upi">UPI</string>
     <string name="verify">Verify</string>
     <string name="viewall">View All</string>
+    <string name="voucher">Voucher</string>
+    <string name="wallet">Wallet</string>
     <string name="warehouse">Warehouse</string>
     <string name="week">Week</string>
     <string name="welcome_text_activity_login">Welcome, Good Morning !</string>
