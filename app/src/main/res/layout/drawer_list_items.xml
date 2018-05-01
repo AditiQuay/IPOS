@@ -2,14 +2,13 @@
     android:id="@+id/llGrp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/activatedBackgroundIndicator"
     android:minHeight="?android:attr/listPreferredItemHeightSmall">
 
     <View
         android:id="@+id/vListGrp"
         android:layout_width="@dimen/dim_2"
         android:layout_height="match_parent"
-        android:background="@color/menu_background"
+        android:background="@color/menu_strip"
         android:visibility="gone"/>
 
     <ImageView

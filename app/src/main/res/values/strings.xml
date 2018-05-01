@@ -151,6 +151,8 @@
     <string name="verify">Verify</string>
     <string name="no_match_found">No Match Found!</string>
     <string name="redeem">redeem</string>
+    <string name="cancel">Cancel</string>
+    <string name="filter">Filter</string>
     <string-array name="ordervalue">
         <item>Apr</item>
         <item>May</item>

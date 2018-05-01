@@ -41,7 +41,9 @@ import quay.com.ipos.adapter.DrawerItemCustomAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
 import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
+import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
+import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductMain;
@@ -51,7 +53,7 @@ import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.FontUtil;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener,FilterListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -75,6 +77,7 @@ public class MainActivity extends BaseActivity
     private CircleImageView imageViewProfileDummy;
     private TextView textViewMyBusiness, textViewAccount;
     private TextView textViewP, textViewI, textViewM;
+    public static DashboardItemFragment dashboardItemFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,7 @@ public class MainActivity extends BaseActivity
         applyInitValues();
         applyTypeFace();
         setDashBoard();
-
+        dashboardItemFragment=new DashboardItemFragment();
     }
 
     private void setDashBoard() {
@@ -183,7 +186,7 @@ public class MainActivity extends BaseActivity
         int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
 
 
-        viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        viewP.setBackgroundColor(getResources().getColor(R.color.menu_strip));
         textViewP.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
         textViewP.setBackgroundResource(R.drawable.menu_background_select);
 
@@ -268,7 +271,6 @@ public class MainActivity extends BaseActivity
                 String subMenu = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).toString();
                 Toast.makeText(getApplicationContext(), mainMenu + " -> " + subMenu, Toast.LENGTH_SHORT).show();
 
-//                v.setBackgroundColor(getResources().getColor(R.color.light_blue));
                 if (groupPosition == 1) {
                     if (childPosition == 0) {
                         retailSalesFragment = new RetailSalesFragment();
@@ -316,7 +318,7 @@ public class MainActivity extends BaseActivity
             expandableListView1.setVisibility(View.GONE);
 
 
-            viewP.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            viewP.setBackgroundColor(getResources().getColor(R.color.menu_strip));
             textViewP.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
             textViewP.setBackgroundResource(R.drawable.menu_background_select);
 
@@ -335,7 +337,7 @@ public class MainActivity extends BaseActivity
             listViewContent.setVisibility(View.GONE);
             expandableListView1.setVisibility(View.VISIBLE);
 
-            viewI.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            viewI.setBackgroundColor(getResources().getColor(R.color.menu_strip));
             textViewI.setBackgroundResource(R.drawable.menu_background_select);
             textViewI.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
 
@@ -351,7 +353,7 @@ public class MainActivity extends BaseActivity
             imageViewProfileDummy.setImageResource(R.drawable.profile_thumb);
         }
         if (v == lLaoutBtnM) {
-            viewM.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            viewM.setBackgroundColor(getResources().getColor(R.color.menu_strip));
             textViewM.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
             textViewM.setBackgroundResource(R.drawable.menu_background_select);
 
@@ -364,6 +366,13 @@ public class MainActivity extends BaseActivity
             textViewP.setBackgroundResource(R.drawable.menu_background_unselect);
 
         }
+    }
+
+    @Override
+    public void onUpdateTitle(String title) {
+        dashboardItemFragment.onUpdateTitle("dialog");
+
+
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -384,7 +393,7 @@ public class MainActivity extends BaseActivity
             View v = listViewContent.getChildAt(i);
             View border = v.findViewById(R.id.vListGrp);
             border.setVisibility(View.GONE);
-            listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.expand_list_color));
+            listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.menu_strip_color));
         }
     }
 

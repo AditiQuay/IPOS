@@ -33,7 +33,7 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/dim_16"
             android:alpha="0.5"
-            android:background="@color/menu_background"
+            android:background="@color/menu_strip"
             android:padding="@dimen/dim_16">
 
             <RelativeLayout
