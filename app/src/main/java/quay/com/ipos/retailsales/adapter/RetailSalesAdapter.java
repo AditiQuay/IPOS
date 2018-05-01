@@ -76,9 +76,9 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvClear;
+        public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvMinus,tvPlus;
         public TextView tvTotalPrice, tvDiscount, tvDiscountPrice,tvOTCDiscountPrice;
-        public ImageView imvInfo,imvProduct,imvMinus,imvPlus;
+        public ImageView imvInfo,imvProduct,imvClear;
         public LinearLayout llDiscount,llOTCDiscount;
         public CheckBox chkDiscount,chkItem,chkOTCDiscount;
         public EditText etQtySelected;
@@ -94,19 +94,16 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvItemPrice =  itemView.findViewById(R.id.tvItemPrice);
             imvInfo =  itemView.findViewById(R.id.imvInfo);
             imvProduct =  itemView.findViewById(R.id.imvProduct);
-            tvClear =  itemView.findViewById(R.id.tvClear);
-            imvMinus =  itemView.findViewById(R.id.imvMinus);
+            imvClear =  itemView.findViewById(R.id.imvClear);
+            tvMinus =  itemView.findViewById(R.id.tvMinus);
             etQtySelected =  itemView.findViewById(R.id.etQtySelected);
-            imvPlus =  itemView.findViewById(R.id.imvPlus);
+            tvPlus =  itemView.findViewById(R.id.tvPlus);
             tvTotalPrice =  itemView.findViewById(R.id.tvTotalPrice);
             chkDiscount =  itemView.findViewById(R.id.chkDiscount);
             tvDiscount =  itemView.findViewById(R.id.tvDiscount);
             tvDiscountPrice =  itemView.findViewById(R.id.tvDiscountPrice);
             llDiscount = itemView.findViewById(R.id.llDiscount);
             chkItem = itemView.findViewById(R.id.chkItem);
-
-            Typeface iconFont = FontManager.getTypeface(mContext, FontManager.FONTAWESOME);
-            FontManager.markAsIconContainer(tvClear, iconFont);
         }
     }
 
@@ -199,11 +196,11 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            IPOSApplication.mProductList.set(position,str);
 //            AppLog.e(RetailSalesAdapter.class.getSimpleName(), "IPOSApplication.mProductList: "+ Util.getCustomGson().toJson(IPOSApplication.mProductList));
 
-            userViewHolder.imvMinus.setOnClickListener(mOnClickListener);
-            userViewHolder.imvMinus.setTag(position);
+            userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
+            userViewHolder.tvMinus.setTag(position);
 
-            userViewHolder.imvPlus.setOnClickListener(mOnClickListener);
-            userViewHolder.imvPlus.setTag(position);
+            userViewHolder.tvPlus.setOnClickListener(mOnClickListener);
+            userViewHolder.tvPlus.setTag(position);
 
             userViewHolder.chkItem.setOnCheckedChangeListener(mCheckedChangeListener);
             userViewHolder.chkItem.setTag(position);
@@ -211,8 +208,8 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.chkDiscount.setOnCheckedChangeListener(mCheckedChangeListener);
             userViewHolder.chkDiscount.setTag(position);
 
-            userViewHolder.tvClear.setOnClickListener(mOnClickListener);
-            userViewHolder.tvClear.setTag(position);
+            userViewHolder.imvClear.setOnClickListener(mOnClickListener);
+            userViewHolder.imvClear.setTag(position);
             userViewHolder.etQtySelected.setTag(position);
             userViewHolder.etQtySelected.addTextChangedListener(new TextWatcher() {
                 @Override

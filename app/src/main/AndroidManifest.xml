@@ -30,7 +30,11 @@
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".retailsales.activity.PaymentModeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".login.McCoyLoginActivity"
             android:screenOrientation="portrait"

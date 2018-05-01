@@ -131,7 +131,17 @@ public class Util {
         } else {
             Typeface typeface;
             try {
+<<<<<<< HEAD
                 typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
+=======
+//                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
+//                        context.getString(R.string.assets_fonts_folder) + typefaceName);
+                if(typefaceName==null)
+                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
+                        context.getString(R.string.assets_fonts_folder) + "/TitilliumWeb-Regular.ttf");
+                else
+                    typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
+>>>>>>> b2db5411767ceecebe63eb0a153c60de4800f20b
                         context.getString(R.string.assets_fonts_folder) + typefaceName);
             } catch (Exception e) {
                 AppLog.v(context.getString(R.string.app_name), e.toString());
