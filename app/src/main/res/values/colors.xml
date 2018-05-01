@@ -4,17 +4,30 @@
     <color name="colorPrimaryDark">#56B9E0</color>
     <color name="colorAccent">#DBDBDB</color>
     <color name="colorAccentDark">#556892</color>
+    <color name="app_background_color">#eeeeee</color>
+
     <color name="dark_text_color">#132E67</color>
 
 
+
+
     <color name="app_theme_color">#4C98CF</color>
+
 
     <color name="menu_background">#b7b7b7</color>
     <color name="expand_list_color">#b7b7b7</color>
     <color name="strip_color">#A8ADD8E6</color>
 
+    <!--Niraj colors starts-->
+    <color name="menu_strip">#1cade4</color>
+    <color name="menu_expand_list_color">#f2f2f2</color>
+    <color name="menu_strip_color">#eeeeee</color>
+    <color name="light_green">#4cac31</color>
+    <color name="light_gold">#dcb210</color>
+    <color name="bold_green">#398f1f</color>
+    <!--Niraj colors end-->
 
-    <color name="sky_blue">#AFDAFB</color>
+    <color name="sky_blue">#ADD8E6</color>
     <color name="light_blue">#A8ADD8E6</color>
     <color name="survey_background_color">#f2f2f2</color>
     <color name="textColorPrimary">#464646</color>
@@ -41,6 +54,7 @@
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#000000</color>
     <color name="background_color">#f4f4f4</color>
+
 
 
 
@@ -105,3 +119,4 @@
     <color name="menu_text_color">#132e67</color>
     <color name="payment_color">#132E67</color>
 </resources>
+

@@ -5,6 +5,6 @@
 
     <stroke
         android:width="10dp"
-        android:color="@color/menu_background"/>
-    <solid android:color="@color/menu_background"/>
+        android:color="@color/menu_strip"/>
+    <solid android:color="@color/menu_strip"/>
 </shape>
