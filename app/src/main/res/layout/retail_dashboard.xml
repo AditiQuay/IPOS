@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:background="@color/transparent"
             android:src="@drawable/ic_action_person_add"/>
-      />
+
 
         <ImageView
             android:id="@+id/imvPin"
@@ -33,6 +33,7 @@
             android:layout_gravity="center"
             android:background="@color/transparent"
             android:src="@drawable/ic_action_pin"/>
+
         <ImageView
             android:id="@+id/imvBilling"
             android:paddingLeft="@dimen/dim_10"
@@ -133,8 +134,6 @@
                 android:visibility="gone"
                 android:orientation="vertical" >
 
-                <include
-                    layout="@layout/otc_discount"/>
             </LinearLayout>
 
 

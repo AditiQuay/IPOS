@@ -177,6 +177,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         int id = view.getId();
         switch (id){
             case R.id.tvAdd:
+                Util.hideSoftKeyboard(AddProductActivity.this);
                 boolean found = false;
                 int pos = (int) view.getTag();
                 if( IPOSApplication.mProductList.size()>0) {
