@@ -75,6 +75,9 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     View rootView;
 //    private ArrayList<ProductList.Datum> mList= new ArrayList<>();
 
+    ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<>();
+
+
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.retail_dashboard, container, false);
@@ -499,8 +502,10 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             case R.id.txtclose:
                 mDiscountDeleteFragment.dismiss();
                 break;
+
             case R.id.btnNo:
                 mDiscountDeleteFragment.dismiss();
+                addDeleteDiscount();
                 break;
 
             case R.id.btnYes:
@@ -535,11 +540,14 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
     private void cachedPinned() {
 
+        if(IPOSApplication.mProductList!=null)
         if(IPOSApplication.mProductList.size()>0) {
             if( SharedPrefUtil.getString("mInfoArrayList","",getActivity())!=null) {
                 String json2 = SharedPrefUtil.getString("mInfoArrayList", "", getActivity());
-                mInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<RealmPinnedResults.Info>>() {
-                }.getType());
+                if (!json2.equalsIgnoreCase("")) {
+                    mInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<RealmPinnedResults.Info>>() {
+                    }.getType());
+                }
             }
 
 
@@ -559,13 +567,12 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             String json = Util.getCustomGson().toJson(mInfoArrayList);
             SharedPrefUtil.putString("mInfoArrayList", json, getActivity());
 //            IPOSApplication.mProductList.clear();
-
+            Intent mIntent = new Intent(getActivity(), PinnedRetailActivity.class);
+            startActivityForResult(mIntent,2);
         }
-        Intent mIntent = new Intent(getActivity(), PinnedRetailActivity.class);
-        startActivityForResult(mIntent,2);
+
     }
 
-    ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<>();
     private void setArrayPinned() {
 //        String key = Util.getCurrentTimeStamp();
 //        RealmPinnedResults mPinnedResult = new RealmPinnedResults();
@@ -747,7 +754,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                                 mDiscountDeleteFragment.setDialogInfo(RetailSalesFragment.this);
                                 mDiscountDeleteFragment.show(fragmentManager, "Delete Discount");
                             }else {
-                                setDeleteDiscount();
+                                addDeleteDiscount();
                             }
                         }
                     });
@@ -765,6 +772,18 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         else {
             datum.setDiscItemSelected(false);
         }
+        IPOSApplication.mProductList.set(posDeleteItem, datum);
+        mRetailSalesAdapter.notifyItemChanged(posDeleteItem);
+        setUpdateValues(IPOSApplication.mProductList);
+        mDiscountDeleteFragment.dismiss();
+    }
+
+    private void addDeleteDiscount() {
+        ProductList.Datum datum = IPOSApplication.mProductList.get(posDeleteItem);
+        if (!datum.isDiscItemSelected()) {
+            datum.setDiscItemSelected(true);
+        }
+
         IPOSApplication.mProductList.set(posDeleteItem, datum);
         mRetailSalesAdapter.notifyItemChanged(posDeleteItem);
         setUpdateValues(IPOSApplication.mProductList);
