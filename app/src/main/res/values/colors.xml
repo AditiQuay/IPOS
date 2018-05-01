@@ -102,5 +102,10 @@
     <color name="sinch_purple">#ff63029d</color>
     <color name="off_white">#fffafafa</color>
     <color name="greyish">#fff2f1f2</color>
+<<<<<<< HEAD
+    <color name="menu_text_color">#132e67</color>
+    <color name="payment_color">#132E67</color>
+=======
     <color name="menu_text_color">#000</color>
+>>>>>>> b211d621426763f04645ddb0d19c08b57d3b370e
 </resources>
