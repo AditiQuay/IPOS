@@ -33,6 +33,7 @@
             android:layout_gravity="center"
             android:background="@color/transparent"
             android:src="@drawable/ic_action_pin"/>
+
         <ImageView
             android:id="@+id/imvBilling"
             android:paddingLeft="@dimen/dim_10"
@@ -73,16 +74,13 @@
             android:background="@color/transparent"
             android:src="@drawable/ic_action_online_shop"/>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="1"/>
 
         <quay.com.ipos.ui.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
+            android:layout_gravity="right|center"
+            android:gravity="right"
+            android:layout_weight="1"
             android:text="@string/barcode"
             android:textColor="@color/dark_text_color"
             android:paddingLeft="@dimen/dim_10"
@@ -91,10 +89,10 @@
 
         <ToggleButton
             android:id="@+id/chkBarCode"
-            android:layout_width="38dp"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dim_10"
-            android:layout_gravity="center"
+            android:layout_gravity="right|center_vertical"
             android:background="@drawable/toggle_selector"
             android:textOff=""
             android:checked="true"
@@ -133,8 +131,6 @@
                 android:visibility="gone"
                 android:orientation="vertical" >
 
-                <include
-                    layout="@layout/otc_discount"/>
             </LinearLayout>
 
 

@@ -5,7 +5,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -57,13 +60,12 @@ import quay.com.ipos.utility.Util;
 public class RetailSalesFragment extends Fragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener {
     private TextView tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
-            tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvClearOTC,tvClearOTC1,tvApplyOTC,tvApplyOTC2;
+            tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvApplyOTC,tvApplyOTC2;
     private ToggleButton tbPerc,tbRs;
     private EditText etDiscountAmt ;
     private CheckBox chkOTC;
-    LinearLayout layoutOtcDiscount;
-    private LinearLayout llTotalDiscountDetail,ll_item_pay,llOTCSelect,llTotalGST,llOTCConfirmation,llOTCApply;
-    private ImageView imvDicount,imvGlobe,imvUserAdd,imvPin,imvRedeem,imvQRCode,imvRight;
+    private LinearLayout llTotalDiscountDetail,ll_item_pay,llOTCSelect,llTotalGST,llOTCConfirmation;
+    private ImageView imvDicount,imvGlobe,imvUserAdd,imvPin,imvRedeem,imvQRCode,imvRight,imvClearOTC;
     private ToggleButton chkBarCode;
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
@@ -92,13 +94,9 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     }
 
     private void initializeComponent(View rootView) {
-        layoutOtcDiscount = rootView.findViewById(R.id.layout_otc_discount);
-        llOTCConfirmation = rootView.findViewById(R.id.llOTCConfirmation);
-        llOTCApply = rootView.findViewById(R.id.llOTCApply);
-        etDiscountAmt = rootView.findViewById(R.id.etDiscountAmt);
+
+
         imvUserAdd = rootView.findViewById(R.id.imvUserAdd);
-        tbRs = rootView.findViewById(R.id.tbRs);
-        tbPerc = rootView.findViewById(R.id.tbPerc);
         imvPin = rootView.findViewById(R.id.imvPin);
         imvRedeem = rootView.findViewById(R.id.imvRedeem);
         imvGlobe = rootView.findViewById(R.id.imvGlobe);
@@ -127,10 +125,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         llTotalGST = rootView.findViewById(R.id.llTotalGST);
         chkOTC = rootView.findViewById(R.id.chkOTC);
         tvOTCDiscount = rootView.findViewById(R.id.tvOTCDiscount);
-        tvClearOTC = rootView.findViewById(R.id.tvClearOTC);
-        tvClearOTC1 = rootView.findViewById(R.id.tvClearOTC1);
-        tvApplyOTC = rootView.findViewById(R.id.tvApplyOTC);
-        tvApplyOTC2 = rootView.findViewById(R.id.tvApplyOTC2);
+
         mRecyclerView =  rootView.findViewById(R.id.recycleView);
 
         mRecyclerView.setHasFixedSize(true);
@@ -164,10 +159,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
     private void setFontText() {
         Typeface iconFont = FontManager.getTypeface(getActivity(), FontManager.FONTAWESOME);
-        FontManager.markAsIconContainer(imvRight, iconFont);
         FontManager.markAsIconContainer(tvRight1, iconFont);
-        FontManager.markAsIconContainer(tvClearOTC, iconFont);
-        FontManager.markAsIconContainer(tvClearOTC1, iconFont);
     }
 
     private void setListener() {
@@ -176,10 +168,6 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         tvLessDetails.setOnClickListener(this);
         imvDicount.setOnClickListener(this);
         tvOTCDiscount.setOnClickListener(this);
-        tvClearOTC.setOnClickListener(this);
-        tvClearOTC1.setOnClickListener(this);
-        tvApplyOTC.setOnClickListener(this);
-        tvApplyOTC2.setOnClickListener(this);
         tvRight1.setOnClickListener(this);
         imvPin.setOnClickListener(this);
         chkOTC.setOnCheckedChangeListener(this);
@@ -201,6 +189,27 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         });
 
 
+
+    }
+    Dialog dialogOTC;
+
+    private void dialogOTCTask() {
+        dialogOTC = new Dialog(getActivity());
+        dialogOTC.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogOTC.getWindow().setBackgroundDrawable(
+                new ColorDrawable(Color.TRANSPARENT));
+
+        // Include dialog.xml file
+        dialogOTC.setContentView(R.layout.otc_discount);
+        dialogOTC.show();
+        imvClearOTC = dialogOTC.findViewById(R.id.imvClearOTC);
+        etDiscountAmt = dialogOTC.findViewById(R.id.etDiscountAmt);
+        tbRs = dialogOTC.findViewById(R.id.tbRs);
+        tbPerc = dialogOTC.findViewById(R.id.tbPerc);
+        tvApplyOTC = dialogOTC.findViewById(R.id.tvApplyOTC);
+        llOTCConfirmation = dialogOTC.findViewById(R.id.llOTCConfirmation);
+        imvClearOTC.setOnClickListener(this);
+        tvApplyOTC.setOnClickListener(this);
         tbPerc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -208,6 +217,18 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 tbPerc.setChecked(true);
                 tbRs.setTextColor(getActivity().getResources().getColor(R.color.accent_color));
                 tbPerc.setTextColor(getActivity().getResources().getColor(R.color.white));
+                if(Integer.parseInt(etDiscountAmt.getText().toString())>100){
+                    (new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
+                            .setMessage("Please enter valid discount percentage")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    etDiscountAmt.setText("");
+                                }
+                            }).show();
+                }
             }
         });
 
@@ -221,6 +242,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             }
         });
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -448,17 +470,13 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 else
                     Util.showToast("Discount cannot be applied with empty list",getActivity());
                 break;
-            case R.id.tvClearOTC:
-                layoutOtcDiscount.setVisibility(View.GONE);
-                ll_item_pay.setVisibility(View.VISIBLE);
-                llOTCSelect.setVisibility(View.GONE);
-                break;
-            case R.id.tvClearOTC1:
-                layoutOtcDiscount.setVisibility(View.GONE);
+            case R.id.imvClearOTC:
+                dialogOTC.dismiss();
                 ll_item_pay.setVisibility(View.VISIBLE);
                 llOTCSelect.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 break;
+
             case R.id.tvMinus:
                 setOnClickMinus(view);
                 break;
@@ -467,18 +485,65 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 setOnClickPlus(view);
                 break;
 
+            case R.id.tvApplyOTC:
+                if(!etDiscountAmt.getText().toString().trim().equals("")) {
+                    if(tbPerc.isChecked()) {
+                        if (Integer.parseInt(etDiscountAmt.getText().toString()) > 100) {
+                            (new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
+                                    .setMessage("Please enter valid discount percentage")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            etDiscountAmt.setText("");
+                                        }
+                                    }).show();
+                        } else {
+                            tvApplyOTC.setBackgroundResource(R.drawable.button_rectangle_grey);
+                            llOTCConfirmation.setVisibility(View.VISIBLE);
+                        }
+                    }else {
+                        tvApplyOTC.setBackgroundResource(R.drawable.button_rectangle_grey);
+                        llOTCConfirmation.setVisibility(View.VISIBLE);
+                    }
+                }else {
+                    Util.showToast("Please enter Discount Value",getActivity());
+                }
+                break;
             case R.id.tvApplyOTC2:
-                ApplyOTC();
-                layoutOtcDiscount.setVisibility(View.GONE);
-                ll_item_pay.setVisibility(View.VISIBLE);
-                llOTCSelect.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);
+                if(!etDiscountAmt.getText().toString().trim().equals("")) {
+                    if(tbPerc.isChecked()) {
+                        if (Integer.parseInt(etDiscountAmt.getText().toString()) > 100) {
+                            (new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
+                                    .setMessage("Please enter valid discount percentage")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            etDiscountAmt.setText("");
+                                        }
+                                    }).show();
+                        } else {
+                            ApplyOTC();
+                            ll_item_pay.setVisibility(View.VISIBLE);
+                            llOTCSelect.setVisibility(View.GONE);
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            dialogOTC.dismiss();
+                        }
+                    }else {
+                        ApplyOTC();
+                        ll_item_pay.setVisibility(View.VISIBLE);
+                        llOTCSelect.setVisibility(View.GONE);
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                        dialogOTC.dismiss();
+                    }
+                }else {
+                    Util.showToast("Please enter Discount Value",getActivity());
+                }
                 break;
 
-            case R.id.tvApplyOTC:
-                llOTCConfirmation.setVisibility(View.VISIBLE);
-                llOTCApply.setVisibility(View.GONE);
-                break;
             case R.id.imvPin:
 //                setArrayPinned();
                 if(IPOSApplication.mProductList.size()>0)
@@ -560,10 +625,9 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         if(IPOSApplication.mProductList.size()>0) {
             if( SharedPrefUtil.getString("mInfoArrayList","",getActivity())!=null) {
                 String json2 = SharedPrefUtil.getString("mInfoArrayList", "", getActivity());
-                if (!json2.equalsIgnoreCase("")) {
-                    mInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<RealmPinnedResults.Info>>() {
-                    }.getType());
-                }
+                if (json2.equalsIgnoreCase(""))
+                mInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<RealmPinnedResults.Info>>() {
+                }.getType());
             }
 
 
@@ -604,6 +668,8 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
     boolean isOTC=false;
     private void ApplyOTC() {
+        tvApplyOTC.setBackgroundResource(R.drawable.button_rectangle_grey);
+        tvApplyOTC.setEnabled(false);
         for(int i = 0 ; i < IPOSApplication.mProductList.size();i++){
             ProductList.Datum datum = IPOSApplication.mProductList.get(i);
             isOTC = datum.isOTCselected();
@@ -633,10 +699,9 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 isOTC=true;
         }
         if(isOTC) {
-            layoutOtcDiscount.setVisibility(View.VISIBLE);
+            dialogOTCTask();
             mRecyclerView.setVisibility(View.GONE);
             imvQRCode.setVisibility(View.GONE);
-            llOTCApply.setVisibility(View.VISIBLE);
         }else{
             Util.showToast("Please select atleast one Item",getActivity());
         }

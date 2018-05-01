@@ -1,8 +1,13 @@
 <component name="libraryTable">
   <library name="me.dm7.barcodescanner:zxing-1.9.8">
     <CLASSES>
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/zxing-1.9.8.aar/0a8503cfbfd894c7c771d309262b4ec3/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/zxing-1.9.8.aar/0a8503cfbfd894c7c771d309262b4ec3/jars/classes.jar!/" />
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/zxing-1.9.8.aar/1ca02c864a5744dc3105290a226d1930/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/zxing-1.9.8.aar/1ca02c864a5744dc3105290a226d1930/jars/classes.jar!/" />
+>>>>>>> 003b92f08b9ee99580a30ddd47c97821f7d2d4d0
     </CLASSES>
     <JAVADOC />
     <SOURCES />
