@@ -23,12 +23,15 @@ import quay.com.ipos.R;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.ui.FontManager;
+import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by aditi.bhuranda on 17-04-2018.
  */
 
 public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private boolean onBind;
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
@@ -130,15 +133,16 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof RetailSalesAdapter.UserViewHolder) {
-            ProductList.Datum str = mDataset.get(position);
-//            AppLog.e(RetailSalesAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
+            onBind = true;
+            final ProductList.Datum str = mDataset.get(position);
+            AppLog.e(RetailSalesAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             final UserViewHolder userViewHolder = (UserViewHolder) holder;
             userViewHolder.tvItemName.setText(str.getSProductName());
             userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
             userViewHolder.tvItemRate.setText(str.getSProductPoints());
             userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSProductPrice());
             userViewHolder.etQtySelected.setText(str.getQty()+"");
-
+            onBind = false;
 
             if(str.isItemSelected())
                 userViewHolder.chkItem.setVisibility(View.VISIBLE);
@@ -219,8 +223,18 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(charSequence.toString()));
+                    if(!onBind) {
+                        if (!charSequence.toString().isEmpty()) {
+                            if (Integer.parseInt(charSequence.toString())<1) {
+                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
+                            }else {
+                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(charSequence.toString()));
+                            }
 
+                        }else {
+                            listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
+                        }
+                    }
                 }
 
                 @Override

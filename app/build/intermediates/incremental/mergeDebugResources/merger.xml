@@ -2047,7 +2047,7 @@
         <item>May</item>
         <item>Jun</item>
         <item>Jul</item>
-    </string-array><string name="resend_otp">Resend OTP</string><string name="enter_otp">Enter OTP</string></file><file path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\res\values\styles.xml" qualifiers=""><style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    </string-array><string name="resend_otp">Resend OTP</string><string name="enter_otp">Enter OTP</string><string name="qty_available">quantity available</string></file><file path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\res\values\styles.xml" qualifiers=""><style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

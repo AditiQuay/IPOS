@@ -177,6 +177,7 @@
     <string name="togglebutton2">ToggleButton2</string>
     <string name="resend_otp">Resend OTP</string>
     <string name="enter_otp">Enter OTP</string>
+    <string name="qty_available">quantity available</string>
 
     <string-array name="ordervalue">
         <item>Apr</item>

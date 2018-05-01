@@ -41,6 +41,7 @@ import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.retailsales.activity.CustomerListActivity;
 import quay.com.ipos.retailsales.activity.CustomerListActivityNew;
 import quay.com.ipos.retailsales.activity.FullScannerActivity;
+import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
 import quay.com.ipos.ui.DiscountDeleteFragment;
@@ -48,6 +49,7 @@ import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
@@ -75,6 +77,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     Dialog myDialog;
     double otcDiscount=0.0;
     View rootView;
+    private double totalAmount=0;
 //    private ArrayList<ProductList.Datum> mList= new ArrayList<>();
 
     ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<>();
@@ -169,6 +172,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         chkOTC.setOnCheckedChangeListener(this);
         imvRedeem.setOnClickListener(this);
         imvUserAdd.setOnClickListener(this);
+        tvPay.setOnClickListener(this);
         chkBarCode.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -417,12 +421,15 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             tvSGSTPrice.setText("+"+getActivity().getResources().getString(R.string.Rs) + " " +sgst);
 
             tvCGSTPrice.setText("+"+getActivity().getResources().getString(R.string.Rs) + " " +cgst);
-            totalAfterGSt = sum-discount+totalGst+sgst+cgst-otcDiscountPerc;
+            totalAfterGSt = (sum-discount)+(sgst+cgst)-otcDiscountPerc;
             double floorValue = Math.round(totalAfterGSt);
-            double roundOff = Util.numberFormat(floorValue-totalAfterGSt);
-            tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + (roundOff));
-            totalAfterGSt = Util.round(totalAfterGSt,1) + roundOff;
-            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalAfterGSt);
+
+
+            double roundOff = totalAfterGSt - Math.floor( totalAfterGSt );
+            tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + (Util.round(roundOff,1)));
+            totalAfterGSt = Util.round(floorValue,1) +  (Util.round(roundOff,1));
+            totalAmount=Util.round(totalAfterGSt,2);
+            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " +  Util.round(totalAfterGSt,2));
             AppLog.e(RetailSalesAdapter.class.getSimpleName(),"updated: " + Util.getCustomGson().toJson(IPOSApplication.mProductList));
 
         }
@@ -622,6 +629,15 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 Intent mIntent = new Intent(getActivity(), CustomerListActivityNew.class);
                 startActivity(mIntent);
                 break;
+            case R.id.tvPay:
+                if (totalAmount>0) {
+                    Intent i = new Intent(getActivity(), PaymentModeActivity.class);
+                    i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
+                    getActivity().startActivity(i);
+                }else {
+                    Util.showToast("Please add atleast one item to proceed.");
+                }
+                break;
 
         }
     }
@@ -731,13 +747,14 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         int posPlus = (int) view.getTag();
         ProductList.Datum datum1 = IPOSApplication.mProductList.get(posPlus);
         int qty1 = datum1.getQty();
-        if(Integer.parseInt(datum1.getSProductPoints())<qty1){
+        if(Integer.parseInt(datum1.getSProductPoints())<=qty1){
             Util.showToast("Quantity limit exceed",getActivity());
-        }else
-        datum1.setQty(qty1+1);
-        IPOSApplication.mProductList.set(posPlus,datum1);
-        mRetailSalesAdapter.notifyItemChanged(posPlus);
-        setUpdateValues(IPOSApplication.mProductList);
+        }else {
+            datum1.setQty(qty1 + 1);
+            IPOSApplication.mProductList.set(posPlus, datum1);
+            mRetailSalesAdapter.notifyItemChanged(posPlus);
+            setUpdateValues(IPOSApplication.mProductList);
+        }
     }
 
     private void setOnClickMinus(View view) {
@@ -913,10 +930,19 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     public void onRowClicked(final int position, final int value) {
         ProductList.Datum datum1 = IPOSApplication.mProductList.get(position);
 
-        datum1.setQty(value);
-        IPOSApplication.mProductList.set(position, datum1);
-        mRetailSalesAdapter.notifyItemChanged(position);
-//                setUpdateValues(IPOSApplication.mProductList);
+        if ( value<=Integer.parseInt(datum1.getSProductPoints())) {
+
+            datum1.setQty(value);
+            IPOSApplication.mProductList.set(position, datum1);
+            mRetailSalesAdapter.notifyItemChanged(position);
+            setUpdateValues(IPOSApplication.mProductList);
+        }else {
+            datum1.setQty(Integer.parseInt(datum1.getSProductPoints()));
+            IPOSApplication.mProductList.set(position, datum1);
+            mRetailSalesAdapter.notifyItemChanged(position);
+            setUpdateValues(IPOSApplication.mProductList);
+            Util.showToast(datum1.getSProductPoints()+" "+getString(R.string.qty_available),getActivity());
+        }
 //        mRecyclerView.post(new Runnable() {
 //            @Override
 //            public void run() {
