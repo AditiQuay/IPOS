@@ -493,10 +493,12 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                                         }
                                     }).show();
                         } else {
-
+                            tvApplyOTC.setBackgroundResource(R.drawable.button_rectangle_grey);
+                            llOTCConfirmation.setVisibility(View.VISIBLE);
                         }
                     }else {
-
+                        tvApplyOTC.setBackgroundResource(R.drawable.button_rectangle_grey);
+                        llOTCConfirmation.setVisibility(View.VISIBLE);
                     }
                 }else {
                     Util.showToast("Please enter Discount Value",getActivity());
