@@ -10,12 +10,12 @@ public final class R {
     public static final class id {
         public static final int auto = 0x7f090026;
         public static final int center = 0x7f09003e;
-        public static final int none = 0x7f0900fe;
-        public static final int normal = 0x7f0900ff;
-        public static final int radio = 0x7f090120;
-        public static final int text = 0x7f09016f;
-        public static final int text2 = 0x7f090170;
-        public static final int toolbar = 0x7f09019f;
+        public static final int none = 0x7f0900ff;
+        public static final int normal = 0x7f090100;
+        public static final int radio = 0x7f090121;
+        public static final int text = 0x7f090170;
+        public static final int text2 = 0x7f090171;
+        public static final int toolbar = 0x7f0901a0;
         public static final int wrap_content = 0x7f09023c;
     }
     public static final class integer {
