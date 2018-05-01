@@ -49,6 +49,7 @@
                         android:id="@+id/chkItem"
                         android:visibility="gone"
                         android:checked="false"
+                        android:buttonTint="@color/colorAccentDark"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
@@ -84,6 +85,16 @@
                         android:text="500 gm"
                         android:textSize="@dimen/text_size_15sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
+
+                    <ImageView
+                        android:id="@+id/imvClear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/dim_10"
+                        android:paddingLeft="@dimen/dim_10"
+                        android:paddingTop="@dimen/dim_10"
+                        android:src="@drawable/ic_action_delete"
+                        />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -192,7 +203,8 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="right"
                         android:text="@string/Rs"
-                        android:layout_marginRight="@dimen/dim_6"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_marginRight="@dimen/dim_10"
                         android:textSize="@dimen/text_size_13sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
                 </LinearLayout>
@@ -200,15 +212,7 @@
             </LinearLayout>
 
 
-            <ImageView
-                android:id="@+id/imvClear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingRight="@dimen/dim_10"
-                android:paddingLeft="@dimen/dim_10"
-                android:paddingTop="@dimen/dim_10"
-                android:src="@drawable/ic_action_delete"
-                />
+
         </LinearLayout>
 
 
@@ -216,6 +220,7 @@
     <View
         android:layout_width="wrap_content"
         android:layout_height="1dp"
+        android:layout_marginTop="@dimen/dim_5"
         android:background="@color/colorAccent"/>
     <LinearLayout
         android:id="@+id/llDiscount"
@@ -227,7 +232,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/chkDiscount"
             android:checked="true"
-            android:buttonTint="@color/sky_blue"
+            android:buttonTint="@color/colorAccentDark"
             android:layout_marginLeft="@dimen/dim_10"/>
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvDiscount"
@@ -237,9 +242,8 @@
             android:layout_gravity="center_vertical"
             android:gravity="left"
             android:text="Special discount (10%)"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_size_13sp"
-            app:typeface="Roboto-Regular.ttf" />
+            android:textColor="@color/colorAccentDark"
+            android:textSize="@dimen/text_size_13sp" />
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvDiscountPrice"
             android:layout_width="wrap_content"
@@ -247,10 +251,9 @@
             android:layout_gravity="center_vertical"
             android:gravity="left"
             android:layout_marginRight="@dimen/dim_10"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorAccentDark"
             android:text="@string/Rs"
-            android:textSize="@dimen/text_size_13sp"
-            app:typeface="Roboto-Regular.ttf" />
+            android:textSize="@dimen/text_size_13sp" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/llOTCDiscount"
@@ -263,6 +266,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/chkOTCDiscount"
             android:checked="true"
+            android:buttonTint="@color/colorAccentDark"
             android:layout_marginLeft="@dimen/dim_10"/>
         <quay.com.ipos.ui.CustomTextView
             android:layout_width="wrap_content"
@@ -271,9 +275,8 @@
             android:layout_gravity="center_vertical"
             android:gravity="left"
             android:text="OTC Discount"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_size_15sp"
-            app:typeface="Roboto-Regular.ttf" />
+            android:textColor="@color/colorAccentDark"
+            android:textSize="@dimen/text_size_15sp" />
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvOTCDiscountPrice"
             android:layout_width="wrap_content"
@@ -281,8 +284,8 @@
             android:layout_gravity="center_vertical"
             android:gravity="left"
             android:layout_marginRight="@dimen/dim_10"
+            android:textColor="@color/colorAccentDark"
             android:text="@string/Rs"
-            android:textSize="@dimen/text_size_15sp"
-            app:typeface="Roboto-Regular.ttf" />
+            android:textSize="@dimen/text_size_15sp" />
     </LinearLayout>
 </LinearLayout>

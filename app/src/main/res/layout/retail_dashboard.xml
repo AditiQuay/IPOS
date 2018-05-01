@@ -12,9 +12,10 @@
         android:orientation="horizontal"
         android:layout_gravity="center_vertical"
         android:background="@color/colorPrimaryDark">
-        <TextView
-            android:id="@+id/tvUserAdd"
-            android:paddingLeft="@dimen/dim_5"
+
+        <ImageView
+            android:id="@+id/imvUserAdd"
+            android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
