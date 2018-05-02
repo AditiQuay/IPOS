@@ -156,11 +156,13 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
             if(str.isDiscSelected()) {
+                userViewHolder.chkOTCDiscount.setChecked(true);
                 userViewHolder.llOTCDiscount.setVisibility(View.VISIBLE);
                 userViewHolder.tvOTCDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getOTCDiscount());
             }
-            else
+            else {
                 userViewHolder.llOTCDiscount.setVisibility(View.GONE);
+            }
 
             Double totalPrice=(Double.parseDouble(str.getSProductPrice())*str.getQty());
 //            str.setTotalPrice(totalPrice);
@@ -211,6 +213,10 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             userViewHolder.chkDiscount.setOnCheckedChangeListener(mCheckedChangeListener);
             userViewHolder.chkDiscount.setTag(position);
+
+            userViewHolder.chkOTCDiscount.setOnCheckedChangeListener(mCheckedChangeListener);
+            userViewHolder.chkOTCDiscount.setTag(position);
+
 
             userViewHolder.imvClear.setOnClickListener(mOnClickListener);
             userViewHolder.imvClear.setTag(position);

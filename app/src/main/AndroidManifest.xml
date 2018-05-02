@@ -78,19 +78,19 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-            android:name=".retailsales.activity.CustomerDetailActivityNew"
+            android:name=".retailsales.activity.CustomerDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".retailsales.activity.CustomerListActivityNew"
+            android:name=".retailsales.activity.CustomerListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".neworder.activity.NewOrderDetailsActivity"
+            android:name=".ddr.activity.NewOrderDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".neworder.activity.OrderCentreDetailsActivity"
+            android:name=".ddr.activity.OrderCentreDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 

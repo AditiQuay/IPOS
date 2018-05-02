@@ -100,40 +100,28 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <FrameLayout
+            android:id="@+id/flScanner"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:visibility="gone"
+            android:layout_height="100dp">
 
-        <LinearLayout
+            <fragment android:name="quay.com.ipos.retailsales.fragment.FullScannerFragment"
+                android:id="@+id/scanner_fragment"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
+        </FrameLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbars="none"
             android:layout_above="@id/llBelowPaymentDetail"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/imvQRCode"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:background="@color/sky_blue"
-                android:layout_gravity="center"
-                android:paddingTop="@dimen/dim_5"
-                android:paddingBottom="@dimen/dim_5"
-                android:src="@drawable/ic_barcode"/>
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycleView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none"
-                android:layout_marginTop="@dimen/dim_1" />
-            <LinearLayout
-                android:id="@+id/layout_otc_discount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="vertical" >
-
-            </LinearLayout>
-
-
-        </LinearLayout>
+            android:layout_below="@+id/flScanner"
+            android:layout_marginTop="@dimen/dim_1" />
 
         <LinearLayout
             android:id="@+id/llBelowPaymentDetail"

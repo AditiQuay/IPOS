@@ -19,6 +19,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.Html;
@@ -64,6 +67,7 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.modal.CustomerResult;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
+import quay.com.ipos.ui.MessageDialogFragment;
 
 
 public class Util {
@@ -723,6 +727,14 @@ public class Util {
         return number;
     }
 
+    public static void showMessageDialog(MessageDialogFragment.MessageDialogListener listener,String message, String yesButton,String noButton, int mCallType,String Title, FragmentManager supportFragmentManager) {
+        DialogFragment fragment = MessageDialogFragment.newInstance(Title, message,yesButton,noButton, listener,mCallType);
+        fragment.show(supportFragmentManager, "scan_results");
+    }
 
+    public static void showMessageDialogFragment(Fragment mFragment, MessageDialogFragment.MessageDialogListener listener, String message,String yesButton,String noButton, int mCallType, String Title) {
+        DialogFragment fragment = MessageDialogFragment.newInstance(Title, message,yesButton,noButton, listener,mCallType);
+        fragment.show(mFragment.getChildFragmentManager(), "scan_results");
+    }
 
 }

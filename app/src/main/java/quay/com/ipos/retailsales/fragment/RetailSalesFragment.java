@@ -1,18 +1,24 @@
 package quay.com.ipos.retailsales.fragment;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +27,7 @@ import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,14 +45,13 @@ import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.retailsales.activity.CustomerListActivity;
-import quay.com.ipos.retailsales.activity.CustomerListActivityNew;
-import quay.com.ipos.retailsales.activity.FullScannerActivity;
 import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
+import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
@@ -57,15 +62,17 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 16-04-2018.
  */
 
-public class RetailSalesFragment extends Fragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener {
+public class RetailSalesFragment extends Fragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialogFragment.MessageDialogListener {
     private TextView tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
             tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvApplyOTC,tvApplyOTC2;
+    private FrameLayout flScanner;
     private ToggleButton tbPerc,tbRs;
     private EditText etDiscountAmt ;
     private CheckBox chkOTC;
+    private Fragment scanner_fragment;
     private LinearLayout llTotalDiscountDetail,ll_item_pay,llOTCSelect,llTotalGST,llOTCConfirmation;
-    private ImageView imvDicount,imvGlobe,imvUserAdd,imvPin,imvRedeem,imvQRCode,imvRight,imvClearOTC;
+    private ImageView imvDicount,imvGlobe,imvUserAdd,imvPin,imvRedeem,imvRight,imvClearOTC;
     private ToggleButton chkBarCode;
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
@@ -78,6 +85,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     double otcDiscount=0.0;
     View rootView;
     private double totalAmount=0;
+    private boolean isFragmentDisplayed = true;
 //    private ArrayList<ProductList.Datum> mList= new ArrayList<>();
 
     ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<>();
@@ -93,15 +101,15 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         return rootView;
     }
 
+
+
     private void initializeComponent(View rootView) {
-
-
+        flScanner = rootView.findViewById(R.id.flScanner);
         imvUserAdd = rootView.findViewById(R.id.imvUserAdd);
         imvPin = rootView.findViewById(R.id.imvPin);
         imvRedeem = rootView.findViewById(R.id.imvRedeem);
         imvGlobe = rootView.findViewById(R.id.imvGlobe);
         imvDicount = rootView.findViewById(R.id.imvDicount);
-        imvQRCode = rootView.findViewById(R.id.imvQRCode);
         chkBarCode = rootView.findViewById(R.id.chkBarCode);
         imvRight = rootView.findViewById(R.id.imvRight);
         tvRight1 = rootView.findViewById(R.id.tvRight1);
@@ -153,6 +161,19 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountDetail.setText("(Item 0)");
         IPOSApplication.mProductList.clear();
+        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            flScanner.setVisibility(View.GONE);
+            chkBarCode.setChecked(false);
+            boolean request = ((MainActivity) getActivity()).launchActivity();
+            if(request ||((MainActivity) getActivity()).CameraPermission )
+            {
+                setTextDefault();
+            }
+        }else {
+            flScanner.setVisibility(View.VISIBLE);
+            chkBarCode.setChecked(true);
+        }
     }
 
 
@@ -162,7 +183,6 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     }
 
     private void setListener() {
-        imvQRCode.setOnClickListener(this);
         tvMoreDetails.setOnClickListener(this);
         tvLessDetails.setOnClickListener(this);
         imvDicount.setOnClickListener(this);
@@ -173,23 +193,97 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         imvRedeem.setOnClickListener(this);
         imvUserAdd.setOnClickListener(this);
         tvPay.setOnClickListener(this);
-        chkBarCode.setOnClickListener(new View.OnClickListener() {
+//        chkBarCode.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                if (chkBarCode.isChecked()) {
+//                    imvQRCode.setVisibility(View.VISIBLE);
+////                    Toast.makeText(getActivity(), "ON", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    imvQRCode.setVisibility(View.GONE);
+////                    Toast.makeText(getActivity(), "OFF", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
+        // Set the click listener for the button.
+        chkBarCode.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (chkBarCode.isChecked()) {
-                    imvQRCode.setVisibility(View.VISIBLE);
-//                    Toast.makeText(getActivity(), "ON", Toast.LENGTH_SHORT).show();
-                } else {
-                    imvQRCode.setVisibility(View.GONE);
-//                    Toast.makeText(getActivity(), "OFF", Toast.LENGTH_SHORT).show();
+            public void onClick(View view) {
+                if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ((MainActivity) getActivity()).launchActivity();
+                    chkBarCode.setChecked(false);
+                    setTextDefault();
+                }else {
+
+                    if (flScanner.getVisibility()==View.GONE) {
+                        flScanner.setVisibility(View.VISIBLE);
+                        chkBarCode.setChecked(true);
+                    } else {
+                        flScanner.setVisibility(View.GONE);
+                        chkBarCode.setChecked(false);
+                    }
                 }
             }
         });
-
-
-
     }
+
+    public void closeFragment() {
+        // Get the FragmentManager.
+        FragmentManager fragmentManager = getChildFragmentManager();
+        // Check to see if the fragment is already showing.
+        FullScannerFragment simpleFragment = (FullScannerFragment) fragmentManager
+                .findFragmentById(R.id.scanner_fragment);
+        if (simpleFragment != null) {
+            // Create and commit the transaction to remove the fragment.
+            FragmentTransaction fragmentTransaction =
+                    fragmentManager.beginTransaction();
+            fragmentTransaction.remove(simpleFragment).commit();
+        }
+        // Set boolean flag to indicate fragment is closed.
+        isFragmentDisplayed = false;
+    }
+
+    public void displayFragment() {
+        FullScannerFragment simpleFragment = FullScannerFragment.newInstance();
+        // TODO: Get the FragmentManager and start a transaction.
+        FragmentManager fragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        // TODO: Add the SimpleFragment.
+        // Add the SimpleFragment.
+        fragmentTransaction.add(R.id.scanner_fragment,
+                simpleFragment).addToBackStack(null).commit();
+        // Set boolean flag to indicate fragment is open.
+        isFragmentDisplayed = true;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.retail_sales));
+        //You need to add the following line for this solution to work; thanks skayred
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener( new View.OnKeyListener()
+        {
+            @Override
+            public boolean onKey( View v, int keyCode, KeyEvent event )
+            {
+                if( keyCode == KeyEvent.KEYCODE_BACK )
+                {
+                    if(IPOSApplication.mProductList.size()>0)
+                    Util.showMessageDialog(RetailSalesFragment.this,"Do you want to save the Cart?","YES","NO",Constants.APP_DIALOG_Cart,"",getActivity().getSupportFragmentManager());
+                    else
+                        return true;
+                }
+                return false;
+            }
+        } );
+    }
+
     Dialog dialogOTC;
 
     private void dialogOTCTask() {
@@ -219,18 +313,19 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 tbRs.setTextColor(getActivity().getResources().getColor(R.color.accent_color));
                 tbPerc.setTextColor(getActivity().getResources().getColor(R.color.white));
                 if(!etDiscountAmt.getText().toString().trim().equalsIgnoreCase(""))
-                if(Integer.parseInt(etDiscountAmt.getText().toString())>100){
-                    (new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
-                            .setMessage("Please enter valid discount percentage")
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.dismiss();
-                                    etDiscountAmt.setText("");
-                                }
-                            }).show();
-                }
+                    if(Integer.parseInt(etDiscountAmt.getText().toString())>100){
+//                        (new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
+//                                .setMessage("Please enter valid discount percentage")
+//                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+//
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        dialog.dismiss();
+//                                        etDiscountAmt.setText("");
+//                                    }
+//                                }).show();
+                        Util.showMessageDialog(RetailSalesFragment.this,"Please enter valid discount percentage","OK",null,Constants.APP_DIALOG_OTC,"",getActivity().getSupportFragmentManager());
+                    }
             }
         });
 
@@ -398,8 +493,11 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                     }
                 }
                 if(mList.get(i).isDiscSelected()) {
-                    discountItem++;
+                    if(!mList.get(i).isDiscItemSelected())
+                        discountItem++;
                     otcDiscountPerc +=mList.get(i).getOTCDiscount();
+                }else {
+                    otcDiscountPerc -=mList.get(i).getOTCDiscount();
                 }
                 totalGst = mList.get(i).getGSTPerc()*sum/100;
                 totalGst +=totalGst;
@@ -412,8 +510,8 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             }
             tvItemQty.setText(qty+" Qty");
             tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) +" "+sum);
-            tvTotalDiscountPrice.setText("-"+getActivity().getResources().getString(R.string.Rs) +" "+discount);
-            tvTotalDiscount.setText(getActivity().getResources().getString(R.string.Rs) +" "+discount);
+            tvTotalDiscountPrice.setText("-"+getActivity().getResources().getString(R.string.Rs) +" "+(discount+otcDiscountPerc));
+            tvTotalDiscount.setText(getActivity().getResources().getString(R.string.Rs) +" "+(discount+otcDiscountPerc));
             tvTotalDiscountDetail.setText("(Item "+ discountItem+")");
             AppLog.e(RetailSalesFragment.class.getSimpleName(),"totalGst: "+totalGst);
             tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalGst);
@@ -421,15 +519,15 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             tvSGSTPrice.setText("+"+getActivity().getResources().getString(R.string.Rs) + " " +sgst);
 
             tvCGSTPrice.setText("+"+getActivity().getResources().getString(R.string.Rs) + " " +cgst);
-            totalAfterGSt = (sum-discount)+(sgst+cgst)-otcDiscountPerc;
-            double floorValue = Math.round(totalAfterGSt);
+            totalAfterGSt = (sum-discount)+(sgst+cgst)-(otcDiscountPerc);
+//            double floorValue = Math.round(totalAfterGSt);
 
 
             double roundOff = totalAfterGSt - Math.floor( totalAfterGSt );
             tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + (Util.round(roundOff,1)));
-            totalAfterGSt = Util.round(floorValue,1) +  (Util.round(roundOff,1));
-            totalAmount=Util.round(totalAfterGSt,2);
-            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " +  Util.round(totalAfterGSt,2));
+            totalAfterGSt = totalAfterGSt +  (Util.round(roundOff,1));
+            totalAmount=Math.round(totalAfterGSt);
+            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " +  Math.round(totalAfterGSt));
             AppLog.e(RetailSalesAdapter.class.getSimpleName(),"updated: " + Util.getCustomGson().toJson(IPOSApplication.mProductList));
 
         }
@@ -440,9 +538,9 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         int id = view.getId();
 
         switch (id){
-            case R.id.imvQRCode:
-                ((MainActivity) getActivity()).launchActivity(FullScannerActivity.class);
-                break;
+//            case R.id.imvQRCode:
+//                ((MainActivity) getActivity()).launchActivity(FullScannerActivity.class);
+//                break;
             case R.id.tvMoreDetails:
                 llTotalDiscountDetail.setVisibility(View.VISIBLE);
                 llTotalGST.setVisibility(View.GONE);
@@ -548,7 +646,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                                 datum.setItemSelected(false);
                                 IPOSApplication.mProductList.set(i, datum);
                             }
-                        mRetailSalesAdapter.notifyDataSetChanged();
+                            mRetailSalesAdapter.notifyDataSetChanged();
                             dialogOTC.dismiss();
                         }
                     }else {
@@ -610,7 +708,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 setDeleteDiscount();
                 break;
 
-            case R.id.tvClear:
+            case R.id.imvClear:
                 final int posClear = (int) view.getTag();
                 (new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
                         .setMessage("Do you want to Delete this Item?")
@@ -626,7 +724,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
                 break;
             case R.id.imvUserAdd:
-                Intent mIntent = new Intent(getActivity(), CustomerListActivityNew.class);
+                Intent mIntent = new Intent(getActivity(), CustomerListActivity.class);
                 startActivity(mIntent);
                 break;
             case R.id.tvPay:
@@ -648,34 +746,34 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     private void cachedPinned() {
 
         if(IPOSApplication.mProductList!=null)
-        if(IPOSApplication.mProductList.size()>0) {
-            if( SharedPrefUtil.getString("mInfoArrayList","",getActivity())!=null) {
-                String json2 = SharedPrefUtil.getString("mInfoArrayList", "", getActivity());
-                if (json2.equalsIgnoreCase(""))
-                mInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<RealmPinnedResults.Info>>() {
-                }.getType());
-            }
+            if(IPOSApplication.mProductList.size()>0) {
+                if( SharedPrefUtil.getString("mInfoArrayList","",getActivity())!=null) {
+                    String json2 = SharedPrefUtil.getString("mInfoArrayList", "", getActivity());
+                    if (json2.equalsIgnoreCase(""))
+                        mInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<RealmPinnedResults.Info>>() {
+                        }.getType());
+                }
 
 
-            RealmPinnedResults mPinnedResult = new RealmPinnedResults();
-            RealmPinnedResults.Info mInfo = mPinnedResult.new Info();
-            if(childPosition!=-1) {
-                mInfo.setKey(mInfoArrayList.get(childPosition).getKey());
-                mInfo.setData(IPOSApplication.mProductList);
-                mInfoArrayList.set(childPosition, mInfo);
-            }
-            else {
-                mInfo.setKey(Util.getCurrentTimeStamp());
-                mInfo.setData(IPOSApplication.mProductList);
-                mInfoArrayList.add(0, mInfo);
-            }
+                RealmPinnedResults mPinnedResult = new RealmPinnedResults();
+                RealmPinnedResults.Info mInfo = mPinnedResult.new Info();
+                if(childPosition!=-1) {
+                    mInfo.setKey(mInfoArrayList.get(childPosition).getKey());
+                    mInfo.setData(IPOSApplication.mProductList);
+                    mInfoArrayList.set(childPosition, mInfo);
+                }
+                else {
+                    mInfo.setKey(Util.getCurrentTimeStamp());
+                    mInfo.setData(IPOSApplication.mProductList);
+                    mInfoArrayList.add(0, mInfo);
+                }
 
-            String json = Util.getCustomGson().toJson(mInfoArrayList);
-            SharedPrefUtil.putString("mInfoArrayList", json, getActivity());
+                String json = Util.getCustomGson().toJson(mInfoArrayList);
+                SharedPrefUtil.putString("mInfoArrayList", json, getActivity());
 //            IPOSApplication.mProductList.clear();
-            Intent mIntent = new Intent(getActivity(), PinnedRetailActivity.class);
-            startActivityForResult(mIntent,2);
-        }
+                Intent mIntent = new Intent(getActivity(), PinnedRetailActivity.class);
+                startActivityForResult(mIntent,2);
+            }
 
     }
 
@@ -714,8 +812,8 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 if (tbPerc.isChecked())
                     otcDiscount = (Double.parseDouble(etDiscountAmt.getText().toString()) * afterDiscountPrice )/ 100;
                 else
-                    otcDiscount = afterDiscountPrice - Double.parseDouble(etDiscountAmt.getText().toString());
-                datum.setOTCDiscount(otcDiscount);
+                    otcDiscount =  Double.parseDouble(etDiscountAmt.getText().toString());
+                datum.setOTCDiscount(Util.round(otcDiscount,1));
                 IPOSApplication.mProductList.set(i, datum);
 
             }
@@ -735,7 +833,6 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         if(isOTC) {
             dialogOTCTask();
             mRecyclerView.setVisibility(View.GONE);
-            imvQRCode.setVisibility(View.GONE);
         }else{
             Util.showToast("Please select atleast one Item",getActivity());
         }
@@ -803,6 +900,26 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         int id = compoundButton.getId();
         switch (id) {
+            case R.id.chkOTCDiscount:
+                if (compoundButton.isPressed()){
+                    final int posItem = (int) compoundButton.getTag();
+                    mRecyclerView.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            ProductList.Datum datum = IPOSApplication.mProductList.get(posItem);
+                            if (!datum.isDiscSelected())
+                                datum.setDiscSelected(true);
+                            else {
+                                datum.setDiscSelected(false);
+                            }
+                            IPOSApplication.mProductList.set(posItem, datum);
+                            mRetailSalesAdapter.notifyItemChanged(posItem);
+                            setUpdateValues(IPOSApplication.mProductList);
+                        }
+                    });
+                }
+                break;
             case R.id.chkItem:
                 if (compoundButton.isPressed()){
                     final int posItem = (int) compoundButton.getTag();
@@ -949,5 +1066,24 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 //
 //            }});
         Util.hideSoftKeyboard(getActivity());
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog,int mCallType) {
+        if(mCallType==Constants.APP_DIALOG_OTC) {
+            dialog.dismiss();
+            etDiscountAmt.setText("");
+        }else if(mCallType==Constants.APP_DIALOG_Cart){
+
+        }
+    }
+
+    @Override
+    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+        if(mCallType==Constants.APP_DIALOG_Cart){
+            IPOSApplication.mProductList.clear();
+            getFragmentManager().popBackStack();
+        }
+
     }
 }

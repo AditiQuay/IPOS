@@ -13,7 +13,6 @@ MERGED from [com.android.support:design:26.1.0] C:\Users\aditi.bhuranda\.gradle\
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\f4914e7ca8926248e7901f221dbcad6b\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\0dc0fda631b21f93b2f040b98522bf10\AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:multidex:1.0.1] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\multidex-1.0.1.aar\3c75b30b0ba1c600c28ddfa558b0fd97\AndroidManifest.xml:16:1-19:12
-MERGED from [me.dm7.barcodescanner:zxing:1.9.8] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\zxing-1.9.8.aar\1ca02c864a5744dc3105290a226d1930\AndroidManifest.xml:2:1-13:12
 MERGED from [me.dm7.barcodescanner:zbar:1.9.8] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\zbar-1.9.8.aar\29c9cea1cd5c79817350a390d5cb7013\AndroidManifest.xml:2:1-13:12
 MERGED from [com.getkeepsafe.relinker:relinker:1.2.2] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\relinker-1.2.2.aar\1642113ba429fa1d3b686f4b3ab9b22a\AndroidManifest.xml:2:1-9:12
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\7fcdd17be3124e708ab43be097d69e1d\AndroidManifest.xml:17:1-28:12
@@ -100,8 +99,6 @@ MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aditi.bhuranda\.g
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\f4914e7ca8926248e7901f221dbcad6b\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\0dc0fda631b21f93b2f040b98522bf10\AndroidManifest.xml:9:5-20
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\0dc0fda631b21f93b2f040b98522bf10\AndroidManifest.xml:9:5-20
-MERGED from [me.dm7.barcodescanner:zxing:1.9.8] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\zxing-1.9.8.aar\1ca02c864a5744dc3105290a226d1930\AndroidManifest.xml:11:5-20
-MERGED from [me.dm7.barcodescanner:zxing:1.9.8] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\zxing-1.9.8.aar\1ca02c864a5744dc3105290a226d1930\AndroidManifest.xml:11:5-20
 MERGED from [me.dm7.barcodescanner:zbar:1.9.8] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\zbar-1.9.8.aar\29c9cea1cd5c79817350a390d5cb7013\AndroidManifest.xml:11:5-20
 MERGED from [me.dm7.barcodescanner:zbar:1.9.8] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\zbar-1.9.8.aar\29c9cea1cd5c79817350a390d5cb7013\AndroidManifest.xml:11:5-20
 MERGED from [com.android.support:animated-vector-drawable:26.1.0] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\7fcdd17be3124e708ab43be097d69e1d\AndroidManifest.xml:22:5-26:19
@@ -280,38 +277,38 @@ ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManife
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:78:13-56
 	android:name
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:76:19-74
-activity#quay.com.ipos.retailsales.activity.CustomerDetailActivityNew
+activity#quay.com.ipos.retailsales.activity.CustomerDetailActivity
 ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:80:9-83:59
 	android:screenOrientation
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:82:13-49
 	android:theme
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:83:13-56
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:81:13-75
-activity#quay.com.ipos.retailsales.activity.CustomerListActivityNew
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:81:13-72
+activity#quay.com.ipos.retailsales.activity.CustomerListActivity
 ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:84:9-87:59
 	android:screenOrientation
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:86:13-49
 	android:theme
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:87:13-56
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:85:13-73
-activity#quay.com.ipos.neworder.activity.NewOrderDetailsActivity
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:85:13-70
+activity#quay.com.ipos.ddr.activity.NewOrderDetailsActivity
 ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:88:9-91:59
 	android:screenOrientation
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:90:13-49
 	android:theme
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:91:13-56
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:89:13-70
-activity#quay.com.ipos.neworder.activity.OrderCentreDetailsActivity
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:89:13-65
+activity#quay.com.ipos.ddr.activity.OrderCentreDetailsActivity
 ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:92:9-95:59
 	android:screenOrientation
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:94:13-49
 	android:theme
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:95:13-56
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:93:13-73
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:93:13-68
 service#quay.com.ipos.notifications.MyFirebaseMessagingService
 ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:98:9-105:19
 	android:enabled
@@ -360,8 +357,6 @@ MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\ad
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\0dc0fda631b21f93b2f040b98522bf10\AndroidManifest.xml:5:5-7:41
 MERGED from [com.android.support:multidex:1.0.1] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\multidex-1.0.1.aar\3c75b30b0ba1c600c28ddfa558b0fd97\AndroidManifest.xml:18:5-42
 MERGED from [com.android.support:multidex:1.0.1] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\multidex-1.0.1.aar\3c75b30b0ba1c600c28ddfa558b0fd97\AndroidManifest.xml:18:5-42
-MERGED from [me.dm7.barcodescanner:zxing:1.9.8] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\zxing-1.9.8.aar\1ca02c864a5744dc3105290a226d1930\AndroidManifest.xml:7:5-9:41
-MERGED from [me.dm7.barcodescanner:zxing:1.9.8] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\zxing-1.9.8.aar\1ca02c864a5744dc3105290a226d1930\AndroidManifest.xml:7:5-9:41
 MERGED from [me.dm7.barcodescanner:zbar:1.9.8] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\zbar-1.9.8.aar\29c9cea1cd5c79817350a390d5cb7013\AndroidManifest.xml:7:5-9:41
 MERGED from [me.dm7.barcodescanner:zbar:1.9.8] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\zbar-1.9.8.aar\29c9cea1cd5c79817350a390d5cb7013\AndroidManifest.xml:7:5-9:41
 MERGED from [com.getkeepsafe.relinker:relinker:1.2.2] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\relinker-1.2.2.aar\1642113ba429fa1d3b686f4b3ab9b22a\AndroidManifest.xml:7:5-43
