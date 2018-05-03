@@ -51,9 +51,9 @@ public class ProductList {
         @SerializedName("sDiscountPrice")
         @Expose
         private String sDiscountPrice;
-        @SerializedName("discount")
-        @Expose
-        private Discount discountObj;
+//        @SerializedName("discount")
+//        @Expose
+//        private Discount discountObj;
         private double OTCDiscount;
         private boolean discSelected = false;
         private boolean discItemSelected = false;
@@ -66,13 +66,13 @@ public class ProductList {
         private double discount;
         private int totalQty;
         private double totalDiscountPrice;
-        public Discount getDiscountObj() {
-            return discountObj;
-        }
-
-        public void setDiscountObj(Discount discount) {
-            this.discountObj = discount;
-        }
+//        public Discount getDiscountObj() {
+//            return discountObj;
+//        }
+//
+//        public void setDiscountObj(Discount discount) {
+//            this.discountObj = discount;
+//        }
         public double getOTCDiscount() {
             return OTCDiscount;
         }

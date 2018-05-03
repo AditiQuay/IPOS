@@ -45,9 +45,11 @@ public class FullScannerFragment extends Fragment implements
     private ArrayList<Integer> mSelectedIndices;
     private int mCameraId = -1;
     ScannerProductListener mScannerProductListener;
+
     public static FullScannerFragment newInstance() {
         return new FullScannerFragment();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         mScannerView = new ZBarScannerView(getActivity());
@@ -66,78 +68,78 @@ public class FullScannerFragment extends Fragment implements
         return mScannerView;
     }
 
-    @Override
-    public void onCreate(Bundle state) {
-        super.onCreate(state);
-        setHasOptionsMenu(true);
-    }
+//    @Override
+//    public void onCreate(Bundle state) {
+//        super.onCreate(state);
+//        setHasOptionsMenu(true);
+//    }
 
-    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-
-        MenuItem menuItem;
-
-        if(mFlash) {
-            menuItem = menu.add(Menu.NONE, R.id.menu_flash, 0, R.string.flash_on);
-        } else {
-            menuItem = menu.add(Menu.NONE, R.id.menu_flash, 0, R.string.flash_off);
-        }
-        MenuItemCompat.setShowAsAction(menuItem, MenuItem.SHOW_AS_ACTION_NEVER);
-
-
-        if(mAutoFocus) {
-            menuItem = menu.add(Menu.NONE, R.id.menu_auto_focus, 0, R.string.auto_focus_on);
-        } else {
-            menuItem = menu.add(Menu.NONE, R.id.menu_auto_focus, 0, R.string.auto_focus_off);
-        }
-        MenuItemCompat.setShowAsAction(menuItem, MenuItem.SHOW_AS_ACTION_NEVER);
-
-        menuItem = menu.add(Menu.NONE, R.id.menu_formats, 0, R.string.formats);
-        MenuItemCompat.setShowAsAction(menuItem, MenuItem.SHOW_AS_ACTION_NEVER);
-
-        menuItem = menu.add(Menu.NONE, R.id.menu_camera_selector, 0, R.string.select_camera);
-        MenuItemCompat.setShowAsAction(menuItem, MenuItem.SHOW_AS_ACTION_NEVER);
-    }
+//    public void onCreateOptionsMenu (Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//
+//        MenuItem menuItem;
+//
+//        if(mFlash) {
+//            menuItem = menu.add(Menu.NONE, R.id.menu_flash, 0, R.string.flash_on);
+//        } else {
+//            menuItem = menu.add(Menu.NONE, R.id.menu_flash, 0, R.string.flash_off);
+//        }
+//        MenuItemCompat.setShowAsAction(menuItem, MenuItem.SHOW_AS_ACTION_NEVER);
+//
+//
+//        if(mAutoFocus) {
+//            menuItem = menu.add(Menu.NONE, R.id.menu_auto_focus, 0, R.string.auto_focus_on);
+//        } else {
+//            menuItem = menu.add(Menu.NONE, R.id.menu_auto_focus, 0, R.string.auto_focus_off);
+//        }
+//        MenuItemCompat.setShowAsAction(menuItem, MenuItem.SHOW_AS_ACTION_NEVER);
+//
+//        menuItem = menu.add(Menu.NONE, R.id.menu_formats, 0, R.string.formats);
+//        MenuItemCompat.setShowAsAction(menuItem, MenuItem.SHOW_AS_ACTION_NEVER);
+//
+//        menuItem = menu.add(Menu.NONE, R.id.menu_camera_selector, 0, R.string.select_camera);
+//        MenuItemCompat.setShowAsAction(menuItem, MenuItem.SHOW_AS_ACTION_NEVER);
+//    }
 
     void setListener(ScannerProductListener mScannerProductListener){
         this.mScannerProductListener = mScannerProductListener;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        switch (item.getItemId()) {
-            case R.id.menu_flash:
-                mFlash = !mFlash;
-                if(mFlash) {
-                    item.setTitle(R.string.flash_on);
-                } else {
-                    item.setTitle(R.string.flash_off);
-                }
-                mScannerView.setFlash(mFlash);
-                return true;
-            case R.id.menu_auto_focus:
-                mAutoFocus = !mAutoFocus;
-                if(mAutoFocus) {
-                    item.setTitle(R.string.auto_focus_on);
-                } else {
-                    item.setTitle(R.string.auto_focus_off);
-                }
-                mScannerView.setAutoFocus(mAutoFocus);
-                return true;
-            case R.id.menu_formats:
-                DialogFragment fragment = FormatSelectorDialogFragment.newInstance(this, mSelectedIndices);
-                fragment.show(getActivity().getSupportFragmentManager(), "format_selector");
-                return true;
-            case R.id.menu_camera_selector:
-                mScannerView.stopCamera();
-                DialogFragment cFragment = CameraSelectorDialogFragment.newInstance(this, mCameraId);
-                cFragment.show(getActivity().getSupportFragmentManager(), "camera_selector");
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle presses on the action bar items
+//        switch (item.getItemId()) {
+//            case R.id.menu_flash:
+//                mFlash = !mFlash;
+//                if(mFlash) {
+//                    item.setTitle(R.string.flash_on);
+//                } else {
+//                    item.setTitle(R.string.flash_off);
+//                }
+//                mScannerView.setFlash(mFlash);
+//                return true;
+//            case R.id.menu_auto_focus:
+//                mAutoFocus = !mAutoFocus;
+//                if(mAutoFocus) {
+//                    item.setTitle(R.string.auto_focus_on);
+//                } else {
+//                    item.setTitle(R.string.auto_focus_off);
+//                }
+//                mScannerView.setAutoFocus(mAutoFocus);
+//                return true;
+//            case R.id.menu_formats:
+//                DialogFragment fragment = FormatSelectorDialogFragment.newInstance(this, mSelectedIndices);
+//                fragment.show(getActivity().getSupportFragmentManager(), "format_selector");
+//                return true;
+//            case R.id.menu_camera_selector:
+//                mScannerView.stopCamera();
+//                DialogFragment cFragment = CameraSelectorDialogFragment.newInstance(this, mCameraId);
+//                cFragment.show(getActivity().getSupportFragmentManager(), "camera_selector");
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     @Override
     public void onResume() {
@@ -205,6 +207,7 @@ public class FullScannerFragment extends Fragment implements
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+        // Resume the camera
         mScannerView.resumeCameraPreview(this);
     }
 
@@ -247,6 +250,7 @@ public class FullScannerFragment extends Fragment implements
     @Override
     public void onPause() {
         super.onPause();
+        if(mScannerView!=null)
         mScannerView.stopCamera();
         closeMessageDialog();
         closeFormatsDialog();

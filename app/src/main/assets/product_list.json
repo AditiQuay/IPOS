@@ -12,14 +12,7 @@
       "GSTPerc": 18,
       "CGST": 9,
       "SGST": 9,
-      "sDiscountPrice": "10",
-      "discount":
-      {
-        "isDiscount": true,
-        "sDiscountName": "Season Discounts (10%)",
-        "bulk_discount":10
-      }
-
+      "sDiscountPrice": "10"
     },
     {
       "iProductModalId": 2,
@@ -33,13 +26,8 @@
       "GSTPerc":18,
       "CGST":9,
       "SGST":9,
-      "sDiscountPrice":"20",
-      "discount":
-      {
-        "isDiscount": true,
-        "sDiscountName": "Season Discounts (10%)",
-        "bulk_discount":3
-      }
+      "sDiscountPrice":"20"
+
     },
     {
       "iProductModalId": 3,
@@ -53,13 +41,8 @@
       "GSTPerc":18,
       "CGST":9,
       "SGST":9,
-      "sDiscountPrice":"",
-      "discount":
-      {
-        "isDiscount": false,
-        "sDiscountName": "",
-        "bulk_discount":0
-      }
+      "sDiscountPrice":""
+
     },
     {
       "iProductModalId": 4,
@@ -73,13 +56,8 @@
       "GSTPerc":18,
       "CGST":9,
       "SGST":9,
-      "sDiscountPrice":"20",
-      "discount":
-      {
-        "isDiscount": true,
-        "sDiscountName": "Season Discounts (10%)",
-        "bulk_discount":20
-      }
+      "sDiscountPrice":"20"
+
     },
     {
       "iProductModalId": 5,
@@ -93,13 +71,8 @@
       "GSTPerc":18,
       "CGST":9,
       "SGST":9,
-      "sDiscountPrice":"50",
-      "discount":
-      {
-        "isDiscount": true,
-        "sDiscountName": "Season Discounts (10%)",
-        "bulk_discount":100
-      }
+      "sDiscountPrice":"50"
+
     },
     {
       "iProductModalId": 6,
@@ -113,13 +86,8 @@
       "GSTPerc":18,
       "CGST":9,
       "SGST":9,
-      "sDiscountPrice":"25",
-      "discount":
-      {
-        "isDiscount": true,
-        "sDiscountName": "Season Discounts (10%)",
-        "bulk_discount":15
-      }
+      "sDiscountPrice":"25"
+
     },
     {
       "iProductModalId": 7,
@@ -133,13 +101,8 @@
       "GSTPerc":18,
       "CGST":9,
       "SGST":9,
-      "sDiscountPrice":"20",
-      "discount":
-      {
-        "isDiscount": true,
-        "sDiscountName": "Season Discounts (10%)",
-        "bulk_discount":10
-      }
+      "sDiscountPrice":"20"
+
     }
   ]
 }

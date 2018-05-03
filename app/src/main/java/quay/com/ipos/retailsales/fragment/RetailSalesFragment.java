@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.ScannerProductListener;
 import quay.com.ipos.modal.ProductList;
@@ -740,7 +741,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
                 break;
             case R.id.imvUserAdd:
-                Intent mIntent = new Intent(getActivity(), CustomerListActivity.class);
+                Intent mIntent = new Intent(getActivity(), CustomerInfoActivity.class);
                 startActivity(mIntent);
                 break;
             case R.id.tvPay:
