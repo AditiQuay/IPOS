@@ -1,7 +1,8 @@
 {
   "info": [
     {
-      "section": "McCoy Soudal - PU foam, Sealants & Adhensives",
+      "section": "McCoy Soudal",
+      "sectionProduct":"PU foam, Sealants & Adhensives",
       "sectionItems": [
         {
           "productId": 1,
@@ -41,7 +42,8 @@
       ]
     },
     {
-      "section": "McCoy 8m - Building Door Windows Hardware",
+      "section": "McCoy 8m",
+      "sectionProduct":"Building Door Windows Hardware",
       "sectionItems": [
         {
           "productId": 1,
@@ -81,7 +83,8 @@
       ]
     },
     {
-      "section": "McCoy Fly Screen - Protect your family with McCoy fly screen",
+      "section": "McCoy Fly Screen",
+      "sectionProduct":"Protect your family with McCoy fly screen",
       "sectionItems": [
         {
           "productId": 1,

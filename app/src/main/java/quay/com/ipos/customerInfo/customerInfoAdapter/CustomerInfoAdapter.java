@@ -24,12 +24,13 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 4/30/2018.
  */
 
-public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapter.ItemViewholder> implements Filterable{
+public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapter.ItemViewholder> implements Filterable {
     private ArrayList<CustomerInfoModal> customerInfoModals;
 
     private Context mContext;
     private MyListener listener;
     private ArrayList<CustomerInfoModal> mFilteredList;
+
     public CustomerInfoAdapter(Context context, ArrayList<CustomerInfoModal> customerInfoModals, MyListener listener) {
         this.mContext = context;
         this.listener = listener;
@@ -51,7 +52,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         holder.textViewUserName.setText(customerInfoModal.customerName);
         holder.textViewMob.setText(customerInfoModal.customerMobileNumber);
         holder.textViewEmail.setText(customerInfoModal.customerEmail);
-        holder.textViewBill.setText("Last Billing " + customerInfoModal.customerBillingDate + " | " + customerInfoModal.customerBillingAmount);
+        holder.textViewBill.setText("Last Billing " + customerInfoModal.customerBillingDate + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.customerBillingAmount);
         holder.textViewCake.setText("Wish Birthday (" + customerInfoModal.customerBirthDay + ")");
         holder.textViewProName.setText(customerInfoModal.customerPoints + " Pts.");
     }
@@ -92,7 +93,8 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
                 mFilteredList = (ArrayList<CustomerInfoModal>) results.values;
                 notifyDataSetChanged();
             }
-        };    }
+        };
+    }
 
     public class ItemViewholder extends RecyclerView.ViewHolder {
         private TextView textViewUserName, textViewMob, textViewEmail, textViewBill, textViewCake, textViewProName;

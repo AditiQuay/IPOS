@@ -20,9 +20,14 @@
     <color name="menu_strip">#1cade4</color>
     <color name="menu_expand_list_color">#f2f2f2</color>
     <color name="menu_strip_color">#eeeeee</color>
-    <color name="light_green">#4cac31</color>
-    <color name="light_gold">#dcb210</color>
-    <color name="bold_green">#398f1f</color>
+    <color name="light_green">#9bd25d</color>
+    <color name="dark_gold">#dcb210</color>
+    <color name="light_gold">#f2c416</color>
+    <color name="button_tint_gray">#a9a9a9</color>
+    <color name="toolbar_blue">#56b9e0</color>
+    <color name="bold_green">#70be1a</color>
+    <color name="strip">#8bd3ec</color>
+    <color name="side_view">#546893</color>
     <!--Niraj colors end-->
 
     <color name="sky_blue">#AFDAFB</color>
