@@ -9,6 +9,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -57,6 +58,7 @@ public class ProductDetailsExpandableListAdapter extends BaseExpandableListAdapt
             convertView = layoutInflater.inflate(R.layout.product_details_list_item, null);
         }
         RelativeLayout relativeLayout = convertView.findViewById(R.id.rLayoutMain);
+
         btnCheckStatus = convertView.findViewById(R.id.btnCheckStatus);
         if (expandedListText.equalsIgnoreCase("• Aerosal can 750ml")) {
             btnCheckStatus.setVisibility(View.VISIBLE);
@@ -115,9 +117,19 @@ public class ProductDetailsExpandableListAdapter extends BaseExpandableListAdapt
 
         ImageView imageViewMenu = (ImageView) convertView.findViewById(R.id.imageViewGroupIcon);
         TextView textViewTitle = (TextView) convertView.findViewById(R.id.textViewGroupName);
-        textViewTitle.setText(listTitle);
+        LinearLayout linearLayout = convertView.findViewById(R.id.relRow);
+        ImageView arrowImage = convertView.findViewById(R.id.imageViewGroupArrow);
 
+        textViewTitle.setText(listTitle);
         imageViewMenu.setBackgroundResource(applyMenuBGImage(listTitle.toString().trim()));
+
+        if (isExpanded){
+            linearLayout.setBackgroundResource(R.drawable.rectangle_white);
+            arrowImage.setImageResource(R.drawable.ic_action_arrow_down);
+        }else {
+            linearLayout.setBackgroundResource(R.drawable.full_rectangle);
+            arrowImage.setImageResource(R.drawable.ic_action_arrow_right_blue);
+        }
 
         FontUtil.applyTypeface(imageViewMenu, FontUtil.getTypeFaceRobotTiteliumRegular(context));
         FontUtil.applyTypeface(textViewTitle, FontUtil.getTypeFaceRobotTiteliumRegular(context));
@@ -140,16 +152,16 @@ public class ProductDetailsExpandableListAdapter extends BaseExpandableListAdapt
         int imageId = 0;
         switch (ImageName) {
             case "Product Details":
-                imageId = R.drawable.product_detail_blue;
+                imageId = R.drawable.ic_action_product_detail_blue;
                 break;
             case "Offers & Discount":
-                imageId = R.drawable.offer;
+                imageId = R.drawable.ic_action_offer;
                 break;
             case "Packaging & Availability":
-                imageId = R.drawable.packaging;
+                imageId = R.drawable.ic_action_packaging;
                 break;
             case "How to Use":
-                imageId = R.drawable.help_blue;
+                imageId = R.drawable.ic_action_help_blue;
                 break;
         }
         return imageId;

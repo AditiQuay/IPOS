@@ -9,20 +9,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.lang.reflect.Type;
+
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
+import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.modal.CatalogueModal;
+import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 
-public class LoginActivity extends AppCompatActivity implements InitInterface, View.OnClickListener {
+public class LoginActivity extends BaseActivity implements InitInterface, View.OnClickListener, ServiceTask.ServiceResultListener {
     private TextView textViewWelcome;
     private EditText editTextEmail, editTextPassword;
     private Button btnLogin;
     private TextView textViewForgotPassword, textViewMainTitle;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findViewById();
@@ -79,6 +85,33 @@ public class LoginActivity extends AppCompatActivity implements InitInterface, V
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
             finish();
+
+
+//            showProgress("kdjkdj");
+//
+//            LoginParams loginParams = new LoginParams();
+//            loginParams.setEmail("kslkdld");
+//            loginParams.setDeviceId("jkjkdjkd");
+//
+//            ServiceTask mTask = new ServiceTask();
+//            mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+//            mTask.setApiMethod(IPOSAPI.WEB_SERVICE_LOGIN);
+//            mTask.setApiCallType(Constants.API_METHOD_POST);
+//            mTask.setParamObj(loginParams);
+//            mTask.setListener(this);
+//            mTask.setResultType(CatalogueModal.class);
+//            mTask.execute();
+
+
         }
+    }
+
+    @Override
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj) {
+            dismissProgress();
+            if(resultObj!=null){
+                CatalogueModal catalogueModal = (CatalogueModal) resultObj;
+
+            }
     }
 }

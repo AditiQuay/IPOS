@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
@@ -25,24 +26,25 @@ import quay.com.ipos.utility.FontUtil;
  * Created by niraj.kumar on 4/24/2018.
  */
 
-public class ProductCatalogueViewAll extends AppCompatActivity implements InitInterface, MyListener {
+public class ProductCatalogueViewAll extends BaseActivity implements InitInterface, MyListener {
     private Toolbar toolbar;
     private TextView textViewProductName;
     private RecyclerView recyclerViewProductsList;
     private Context mContext;
-    String ProductGroup;
+    String ProductGroup,sectionProducts;
     private ArrayList<ProductItemModal> productItemModals;
     private ProductCatalogueViewAllAdapter productCatalogueViewAllAdapter;
     private MyListener myListener;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_catalogue_view_all);
         mContext = ProductCatalogueViewAll.this;
         myListener = ProductCatalogueViewAll.this;
         Intent i = getIntent();
         ProductGroup = i.getStringExtra("Group");
+        sectionProducts = i.getStringExtra("sectionProduct");
         productItemModals = (ArrayList<ProductItemModal>) i.getSerializableExtra("Products");
         findViewById();
         applyInitValues();
@@ -69,7 +71,7 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
         toolbar.setTitle(getResources().getString(R.string.toolbar_title_catalogue_product_details));
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
-        textViewProductName.setText(ProductGroup);
+        textViewProductName.setText(ProductGroup+" - "+sectionProducts);
 
         recyclerViewProductsList.setHasFixedSize(true);
         recyclerViewProductsList.setLayoutManager(new LinearLayoutManager(mContext));

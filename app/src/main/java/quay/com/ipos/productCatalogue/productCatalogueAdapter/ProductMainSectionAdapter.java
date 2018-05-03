@@ -66,10 +66,12 @@ public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainS
             public void onClick(View v) {
                 Util.animateView(v);
                 String sectionName = productSectionModals.get(i).getHeaderTitle();
+                String sectionProductCatagory = productSectionModals.get(i).getSectionProduct();
                 ArrayList singleSectionItems = productSectionModals.get(i).getProductItemModals();
 
                 Intent i = new Intent(mContext, ProductCatalogueViewAll.class);
                 i.putExtra("Group", sectionName);
+                i.putExtra("sectionProduct",sectionProductCatagory);
                 i.putExtra("Products", singleSectionItems);
                 mContext.startActivity(i);
             }

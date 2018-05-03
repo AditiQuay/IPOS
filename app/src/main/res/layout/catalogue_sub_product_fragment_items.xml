@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:maxHeight="@dimen/dim_200"
     app:cardCornerRadius="@dimen/dim_4"
-    app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true">
+    android:layout_margin="@dimen/dim_8"
+    app:cardPreventCornerOverlap="true">
 
     <LinearLayout
         android:layout_width="match_parent"

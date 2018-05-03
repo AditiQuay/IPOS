@@ -53,18 +53,18 @@ public final class R {
         public static final int notification_top_pad_large_text = 0x7f070496;
     }
     public static final class drawable {
-        public static final int notification_action_background = 0x7f080112;
-        public static final int notification_bg = 0x7f080113;
-        public static final int notification_bg_low = 0x7f080114;
-        public static final int notification_bg_low_normal = 0x7f080115;
-        public static final int notification_bg_low_pressed = 0x7f080116;
-        public static final int notification_bg_normal = 0x7f080117;
-        public static final int notification_bg_normal_pressed = 0x7f080118;
-        public static final int notification_icon_background = 0x7f080119;
-        public static final int notification_template_icon_bg = 0x7f08011a;
-        public static final int notification_template_icon_low_bg = 0x7f08011b;
-        public static final int notification_tile_bg = 0x7f08011c;
-        public static final int notify_panel_notification_icon_bg = 0x7f08011d;
+        public static final int notification_action_background = 0x7f080118;
+        public static final int notification_bg = 0x7f080119;
+        public static final int notification_bg_low = 0x7f08011a;
+        public static final int notification_bg_low_normal = 0x7f08011b;
+        public static final int notification_bg_low_pressed = 0x7f08011c;
+        public static final int notification_bg_normal = 0x7f08011d;
+        public static final int notification_bg_normal_pressed = 0x7f08011e;
+        public static final int notification_icon_background = 0x7f08011f;
+        public static final int notification_template_icon_bg = 0x7f080120;
+        public static final int notification_template_icon_low_bg = 0x7f080121;
+        public static final int notification_tile_bg = 0x7f080122;
+        public static final int notify_panel_notification_icon_bg = 0x7f080123;
     }
     public static final class id {
         public static final int action0 = 0x7f090009;
@@ -92,21 +92,21 @@ public final class R {
         public static final int notification_main_column = 0x7f090111;
         public static final int notification_main_column_container = 0x7f090112;
         public static final int parent_matrix = 0x7f090119;
-        public static final int right_icon = 0x7f090158;
-        public static final int right_side = 0x7f090159;
-        public static final int save_image_matrix = 0x7f09015e;
-        public static final int save_non_transition_alpha = 0x7f09015f;
-        public static final int save_scale_type = 0x7f090160;
-        public static final int status_bar_latest_event_content = 0x7f090187;
-        public static final int text = 0x7f09018f;
-        public static final int text2 = 0x7f090190;
-        public static final int time = 0x7f0901cd;
-        public static final int title = 0x7f0901ce;
-        public static final int transition_current_scene = 0x7f0901db;
-        public static final int transition_layout_save = 0x7f0901dc;
-        public static final int transition_position = 0x7f0901dd;
-        public static final int transition_scene_layoutid_cache = 0x7f0901de;
-        public static final int transition_transform = 0x7f0901df;
+        public static final int right_icon = 0x7f090159;
+        public static final int right_side = 0x7f09015a;
+        public static final int save_image_matrix = 0x7f09015f;
+        public static final int save_non_transition_alpha = 0x7f090160;
+        public static final int save_scale_type = 0x7f090161;
+        public static final int status_bar_latest_event_content = 0x7f090188;
+        public static final int text = 0x7f090190;
+        public static final int text2 = 0x7f090191;
+        public static final int time = 0x7f0901ce;
+        public static final int title = 0x7f0901cf;
+        public static final int transition_current_scene = 0x7f0901dc;
+        public static final int transition_layout_save = 0x7f0901dd;
+        public static final int transition_position = 0x7f0901de;
+        public static final int transition_scene_layoutid_cache = 0x7f0901df;
+        public static final int transition_transform = 0x7f0901e0;
     }
     public static final class integer {
         public static final int cancel_button_image_alpha = 0x7f0a0004;
