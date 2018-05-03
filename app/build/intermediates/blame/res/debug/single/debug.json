@@ -236,6 +236,10 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_person_add_selected.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_dark_focused.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_text_dark_focused.xml"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_btn_colored_borderless_text_material.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\color-v23\\abc_btn_colored_borderless_text_material.xml"
     },
@@ -254,6 +258,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\drawable-xxhdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\raw_zxing_beep.ogg.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-embedded-2.0.1.aar\\1ddf685c654dbb1d76fe6eb1a7ef186d\\res\\raw\\zxing_beep.ogg"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_close.png.flat",
@@ -576,8 +584,16 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable\\slider_1.jpg"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_googleg_disabled_color_18.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xhdpi-v4\\googleg_disabled_color_18.png"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_cube_low_inventory.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_cube_low_inventory.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_zxing_help.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-embedded-2.0.1.aar\\1ddf685c654dbb1d76fe6eb1a7ef186d\\res\\layout\\zxing_help.xml"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_facebook.png.flat",
@@ -614,6 +630,10 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_cart.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-hdpi\\ic_action_cart.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_zxinglegacy_encode.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-legacy-2.0.1.aar\\6c4bb02434b5fc37ed502c0aa371a303\\res\\layout\\zxinglegacy_encode.xml"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_billing.png.flat",
@@ -812,6 +832,10 @@
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f4914e7ca8926248e7901f221dbcad6b\\res\\layout\\abc_popup_menu_item_layout.xml"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout-ldpi-v4_zxinglegacy_capture.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-legacy-2.0.1.aar\\6c4bb02434b5fc37ed502c0aa371a303\\res\\layout-ldpi-v4\\zxinglegacy_capture.xml"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_fast.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-ldpi\\ic_fast.png"
     },
@@ -904,6 +928,10 @@
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\drawable-mdpi-v4\\abc_ic_star_half_black_48dp.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_common_full_open_on_phone.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xhdpi-v4\\common_full_open_on_phone.png"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_pending_orders.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_pending_orders.png"
     },
@@ -936,12 +964,12 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
     },
     {
-        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_low_pressed.9.png.flat",
-        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\62808a74825136afa6f66fbf49b27da6\\res\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png"
-    },
-    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_low_pressed.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\62808a74825136afa6f66fbf49b27da6\\res\\drawable-mdpi-v4\\notification_bg_low_pressed.9.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_switch_track_mtrl_alpha.9.png.flat",
@@ -976,16 +1004,16 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-hdpi\\partner.png"
     },
     {
-        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxxhdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
-        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f4914e7ca8926248e7901f221dbcad6b\\res\\drawable-ldrtl-xxxhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png"
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_phone_call.png.flat",
+        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_phone_call.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_fast.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_fast.png"
     },
     {
-        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_phone_call.png.flat",
-        "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_phone_call.png"
+        "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-xxxhdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
+        "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f4914e7ca8926248e7901f221dbcad6b\\res\\drawable-ldrtl-xxxhdpi-v17\\abc_spinner_mtrl_am_alpha.9.png"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-anydpi-v26_ic_launcher.xml.flat",
@@ -1006,6 +1034,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_slide_out_bottom.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\anim\\abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_dark.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_icon_dark.xml"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_biling_gray.png.flat",
@@ -1046,6 +1078,10 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_list_group.xml.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\layout\\list_group.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_zxinglegacy_capture.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-legacy-2.0.1.aar\\6c4bb02434b5fc37ed502c0aa371a303\\res\\layout\\zxinglegacy_capture.xml"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
@@ -1140,12 +1176,20 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_graph.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout-ldpi-v4_zxing_capture.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-embedded-2.0.1.aar\\1ddf685c654dbb1d76fe6eb1a7ef186d\\res\\layout-ldpi-v4\\zxing_capture.xml"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_offers.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-hdpi\\offers.png"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_secondary_text_material_dark.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\color\\abc_secondary_text_material_dark.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\xml_zxinglegacy_preferences.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-legacy-2.0.1.aar\\6c4bb02434b5fc37ed502c0aa371a303\\res\\xml\\zxinglegacy_preferences.xml"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_total_sales.png.flat",
@@ -1252,12 +1296,20 @@
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f4914e7ca8926248e7901f221dbcad6b\\res\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_000.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_light_normal.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_text_light_normal.xml"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_mode_close_item_material.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\layout\\abc_action_mode_close_item_material.xml"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_list_pressed_holo_dark.9.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\drawable-hdpi-v4\\abc_list_pressed_holo_dark.9.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\xml_zxing_preferences.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-embedded-2.0.1.aar\\1ddf685c654dbb1d76fe6eb1a7ef186d\\res\\xml\\zxing_preferences.xml"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_nav_header_main.xml.flat",
@@ -1542,6 +1594,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_bar_view_list_nav_layout.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_common_google_signin_btn_text_light_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xxhdpi-v4\\common_google_signin_btn_text_light_normal_background.9.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_billing_selected.png.flat",
@@ -1956,6 +2012,10 @@
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f4914e7ca8926248e7901f221dbcad6b\\res\\drawable-mdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_disabled.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_text_disabled.xml"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_design_ic_visibility_off.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\6941d0ad28ad510b490efc16906085f8\\res\\drawable-xxhdpi-v4\\design_ic_visibility_off.png"
     },
@@ -2076,6 +2136,10 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-mdpi\\ic_action_redeem_selected.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_googleg_standard_color_18.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-hdpi-v4\\googleg_standard_color_18.png"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_lightgray_stroke_corner.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable\\lightgray_stroke_corner.xml"
     },
@@ -2126,6 +2190,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\drawable-mdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_light.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_icon_light.xml"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\color_switch_thumb_material_dark.xml.flat",
@@ -3112,6 +3180,10 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_close_blue.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_light_normal.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_icon_light_normal.xml"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_stock_gray.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_stock_gray.png"
     },
@@ -3184,6 +3256,10 @@
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\color-v23\\abc_color_highlight_material.xml"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout-land_zxing_encode.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-embedded-2.0.1.aar\\1ddf685c654dbb1d76fe6eb1a7ef186d\\res\\layout-land\\zxing_encode.xml"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_notification_bg_normal.9.png.flat",
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\9db9f23d49dc5c47aa9bcd4ed1b150ba\\res\\drawable-xhdpi-v4\\notification_bg_normal.9.png"
     },
@@ -3234,6 +3310,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_notifications_button.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_notifications_button.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_light_focused.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_icon_light_focused.xml"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_customer_feedback.png.flat",
@@ -3384,6 +3464,10 @@
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-26.1.0.aar\\2fe259b909be1a3a5f3de9e45f8046e1\\res\\layout\\notification_media_action.xml"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_zxing_capture.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-embedded-2.0.1.aar\\1ddf685c654dbb1d76fe6eb1a7ef186d\\res\\layout\\zxing_capture.xml"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_order_centre.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-mdpi\\ic_action_order_centre.png"
     },
@@ -3410,6 +3494,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_person_gray.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-mdpi\\person_gray.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_disabled.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_icon_disabled.xml"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_action_pin.png.flat",
@@ -3716,6 +3804,14 @@
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\drawable-mdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_googleg_standard_color_18.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xxhdpi-v4\\googleg_standard_color_18.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\menu_zxing_capture.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-embedded-2.0.1.aar\\1ddf685c654dbb1d76fe6eb1a7ef186d\\res\\menu\\zxing_capture.xml"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_in_transit.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_in_transit.png"
     },
@@ -3802,6 +3898,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_pin_badge.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\pin_badge.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_common_google_signin_btn_text_light_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-mdpi-v4\\common_google_signin_btn_text_light_normal_background.9.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_ratingbar_material.xml.flat",
@@ -4016,6 +4116,10 @@
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\9db9f23d49dc5c47aa9bcd4ed1b150ba\\res\\layout\\notification_template_custom_big.xml"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xxhdpi-v4\\common_google_signin_btn_icon_dark_normal_background.9.png"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_fast.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-hdpi\\ic_fast.png"
     },
@@ -4026,6 +4130,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_product_catalogue_view_all.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\product_catalogue_view_all.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_googleg_standard_color_18.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xhdpi-v4\\googleg_standard_color_18.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_switch_thumb_material.xml.flat",
@@ -4104,6 +4212,10 @@
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\layout\\abc_select_dialog_material.xml"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_common_google_signin_btn_icon_light_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xhdpi-v4\\common_google_signin_btn_icon_light_normal_background.9.png"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_caret_arrow_up.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_caret_arrow_up.png"
     },
@@ -4126,6 +4238,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21_customer_info_activity.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout-v21\\customer_info_activity.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_common_google_signin_btn_icon_light_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-mdpi-v4\\common_google_signin_btn_icon_light_normal_background.9.png"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_caret_arrow_up.png.flat",
@@ -4336,6 +4452,10 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-hdpi\\ic_action_discount_white.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-hdpi-v4\\common_google_signin_btn_icon_dark_normal_background.9.png"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_customer_list_item.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\customer_list_item.xml"
     },
@@ -4494,6 +4614,10 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_star_half_black_48dp.png.flat",
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f4914e7ca8926248e7901f221dbcad6b\\res\\drawable-xhdpi-v4\\abc_ic_star_half_black_48dp.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_common_google_signin_btn_text_dark_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-mdpi-v4\\common_google_signin_btn_text_dark_normal_background.9.png"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_switch_on.png.flat",
@@ -4904,6 +5028,10 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\layout\\add_product_list_item.xml"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_common_google_signin_btn_text_light_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xhdpi-v4\\common_google_signin_btn_text_light_normal_background.9.png"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_toggle_selector.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable\\toggle_selector.xml"
     },
@@ -5000,6 +5128,10 @@
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\9db9f23d49dc5c47aa9bcd4ed1b150ba\\res\\layout-v21\\notification_action.xml"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_zxing_encode.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-embedded-2.0.1.aar\\1ddf685c654dbb1d76fe6eb1a7ef186d\\res\\layout\\zxing_encode.xml"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_customer_info_activity.xml.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\layout\\customer_info_activity.xml"
     },
@@ -5036,6 +5168,10 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_search.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_common_full_open_on_phone.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-hdpi-v4\\common_full_open_on_phone.png"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_schema.xml.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_schema.xml"
     },
@@ -5066,6 +5202,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_filter.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_filter.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_dark_normal.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_icon_dark_normal.xml"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
@@ -5122,6 +5262,10 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_info_gray.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-mdpi\\ic_action_info_gray.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_googleg_disabled_color_18.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-mdpi-v4\\googleg_disabled_color_18.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_action_discount_selector.xml.flat",
@@ -5262,6 +5406,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_mode_bar.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_dark.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_text_dark.xml"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_notifications_button.png.flat",
@@ -5744,6 +5892,10 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-hdpi\\ic_action_square.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout-land_zxinglegacy_encode.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-legacy-2.0.1.aar\\6c4bb02434b5fc37ed502c0aa371a303\\res\\layout-land\\zxinglegacy_encode.xml"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_cart.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-hdpi\\cart.png"
     },
@@ -6076,6 +6228,10 @@
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-26.1.0.aar\\9db9f23d49dc5c47aa9bcd4ed1b150ba\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\menu_zxinglegacy_encode.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-legacy-2.0.1.aar\\6c4bb02434b5fc37ed502c0aa371a303\\res\\menu\\zxinglegacy_encode.xml"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_ic_star_half_black_48dp.png.flat",
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f4914e7ca8926248e7901f221dbcad6b\\res\\drawable-mdpi-v4\\abc_ic_star_half_black_48dp.png"
     },
@@ -6314,6 +6470,10 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_if_toggle_right.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xhdpi\\ic_if_toggle_right.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xhdpi-v4\\common_google_signin_btn_icon_dark_normal_background.9.png"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_store.png.flat",
@@ -6652,6 +6812,10 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_down_arrow.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-mdpi-v4\\common_google_signin_btn_icon_dark_normal_background.9.png"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_calculator.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\calculator.png"
     },
@@ -6770,6 +6934,10 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_store_sales.xml.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_store_sales.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\menu_zxinglegacy_capture.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-legacy-2.0.1.aar\\6c4bb02434b5fc37ed502c0aa371a303\\res\\menu\\zxinglegacy_capture.xml"
     },
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_design_ic_visibility_off.png.flat",
@@ -7468,6 +7636,10 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-hdpi\\ic_action_search_.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_light_focused.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_text_light_focused.xml"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_scrubber_control_to_pressed_mtrl_000.png.flat",
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f4914e7ca8926248e7901f221dbcad6b\\res\\drawable-xhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_000.png"
     },
@@ -7504,6 +7676,10 @@
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_dark_focused.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_icon_dark_focused.xml"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_design_ic_visibility.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\design-26.1.0.aar\\6941d0ad28ad510b490efc16906085f8\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
     },
@@ -7534,6 +7710,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_offer_grey.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_offer_grey.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_common_google_signin_btn_text_dark_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-hdpi-v4\\common_google_signin_btn_text_dark_normal_background.9.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi_ic_down_arrow.png.flat",
@@ -7728,6 +7908,10 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\phone_gray.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_dark_normal.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_text_dark_normal.xml"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_menu_cut_mtrl_alpha.png.flat",
         "source": "C:\\Users\\aditi.bhuranda\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\f4914e7ca8926248e7901f221dbcad6b\\res\\drawable-hdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png"
     },
@@ -7860,6 +8044,10 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-mdpi\\product_detail_blue.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_common_google_signin_btn_text_dark_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xxhdpi-v4\\common_google_signin_btn_text_dark_normal_background.9.png"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_data.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\data.png"
     },
@@ -7898,6 +8086,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_email.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable\\email.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\menu_zxing_encode.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-embedded-2.0.1.aar\\1ddf685c654dbb1d76fe6eb1a7ef186d\\res\\menu\\zxing_encode.xml"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
@@ -7996,6 +8188,10 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_magnifier.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_zxinglegacy_help.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-legacy-2.0.1.aar\\6c4bb02434b5fc37ed502c0aa371a303\\res\\layout\\zxinglegacy_help.xml"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_custompopup.xml.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\layout\\custompopup.xml"
     },
@@ -8092,6 +8288,10 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\menu_camera.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\color_common_google_signin_btn_tint.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\color\\common_google_signin_btn_tint.xml"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_primary_stroke_corner_lightgray_bg.xml.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable\\primary_stroke_corner_lightgray_bg.xml"
     },
@@ -8114,6 +8314,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_person_add.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_person_add.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\color_common_google_signin_btn_text_light.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\color\\common_google_signin_btn_text_light.xml"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_product_catalogue_main_fragment_items.xml.flat",
@@ -8142,6 +8346,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_action_person_add_selected.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\ic_action_person_add_selected.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_common_google_signin_btn_text_dark_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xhdpi-v4\\common_google_signin_btn_text_dark_normal_background.9.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldrtl-mdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
@@ -8636,6 +8844,10 @@
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\drawable\\abc_edit_text_material.xml"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\raw_zxinglegacy_beep.ogg.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\zxing-android-legacy-2.0.1.aar\\6c4bb02434b5fc37ed502c0aa371a303\\res\\raw\\zxinglegacy_beep.ogg"
+    },
+    {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_ic_cube.xml.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-anydpi-v21\\ic_cube.xml"
     },
@@ -8714,6 +8926,10 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_calendar_gray.png.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable-xxhdpi\\calendar_gray.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_common_google_signin_btn_icon_light_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xxhdpi-v4\\common_google_signin_btn_icon_light_normal_background.9.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_summary.png.flat",
@@ -9040,6 +9256,10 @@
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable\\round_grey_background.xml"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_common_google_signin_btn_text_light_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-hdpi-v4\\common_google_signin_btn_text_light_normal_background.9.png"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_item_background_holo_light.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\drawable\\abc_item_background_holo_light.xml"
     },
@@ -9074,6 +9294,10 @@
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_layout_border.xml.flat",
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\src\\main\\res\\drawable\\layout_border.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_common_google_signin_btn_icon_light_normal_background.9.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-hdpi-v4\\common_google_signin_btn_icon_light_normal_background.9.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_star_black_16dp.png.flat",
@@ -9296,6 +9520,10 @@
         "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_phone_call.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_googleg_disabled_color_18.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-xxhdpi-v4\\googleg_disabled_color_18.png"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi_ic_store_sales.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxxhdpi\\ic_store_sales.png"
     },
@@ -9326,6 +9554,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_switch_off.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-mdpi\\ic_switch_off.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\color_common_google_signin_btn_text_dark.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\color\\common_google_signin_btn_text_dark.xml"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_circle_btn.xml.flat",
@@ -9374,6 +9606,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_shopping_cart.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\generated\\res\\pngs\\debug\\drawable-xxhdpi\\ic_shopping_cart.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_light.xml.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable\\common_google_signin_btn_text_light.xml"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_caret_arrow_up.png.flat",
@@ -9704,6 +9940,10 @@
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\drawable-xhdpi-v4\\abc_ic_star_black_48dp.png"
     },
     {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_googleg_standard_color_18.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-mdpi-v4\\googleg_standard_color_18.png"
+    },
+    {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_screen_simple.xml.flat",
         "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-26.1.0.aar\\42c02bebeac4ee2eb4d7025a4328690c\\res\\layout\\abc_screen_simple.xml"
     },
@@ -9942,6 +10182,10 @@
     {
         "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_action_billing_selected.png.flat",
         "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\src\\main\\res\\drawable-xhdpi\\ic_action_billing_selected.png"
+    },
+    {
+        "merged": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_googleg_disabled_color_18.png.flat",
+        "source": "C:\\Users\\Ankush.bansal\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-12.0.1.aar\\3d98e23bdaac4d2cf50a8c766b4120c9\\res\\drawable-hdpi-v4\\googleg_disabled_color_18.png"
     },
     {
         "merged": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi_ic_action_help.png.flat",
