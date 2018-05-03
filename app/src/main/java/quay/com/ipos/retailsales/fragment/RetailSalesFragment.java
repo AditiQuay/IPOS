@@ -40,7 +40,9 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.listeners.AdapterListener;
+import quay.com.ipos.listeners.ScannerProductListener;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.retailsales.activity.AddProductActivity;
@@ -58,11 +60,13 @@ import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by aditi.bhuranda on 16-04-2018.
  */
 
-public class RetailSalesFragment extends Fragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialogFragment.MessageDialogListener {
+public class RetailSalesFragment extends Fragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialogFragment.MessageDialogListener,ScannerProductListener {
     private TextView tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
             tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvApplyOTC,tvApplyOTC2;
@@ -88,7 +92,10 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     private boolean isFragmentDisplayed = true;
 //    private ArrayList<ProductList.Datum> mList= new ArrayList<>();
 
+    boolean isOTC=false;
+    Double afterDiscountPrice;
     ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<>();
+    private String json;
 
 
     @Override
@@ -173,6 +180,8 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         }else {
             flScanner.setVisibility(View.VISIBLE);
             chkBarCode.setChecked(true);
+            displayFragment();
+
         }
     }
 
@@ -252,8 +261,11 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
+        simpleFragment.setListener(this);
         // TODO: Add the SimpleFragment.
         // Add the SimpleFragment.
+       // simpleFragment.setTargetFragment(RetailSalesFragment.this,2000);
+
         fragmentTransaction.add(R.id.scanner_fragment,
                 simpleFragment).addToBackStack(null).commit();
         // Set boolean flag to indicate fragment is open.
@@ -405,6 +417,11 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 getProduct();
             }
         }
+     /*   if (resultCode == RESULT_OK) {
+            if (requestCode==2000){
+                String scanCode=data.getStringExtra("scancode");
+            }
+        }*/
         Util.hideSoftKeyboard(getActivity());
     }
 
@@ -724,7 +741,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 
                 break;
             case R.id.imvUserAdd:
-                Intent mIntent = new Intent(getActivity(), CustomerListActivity.class);
+                Intent mIntent = new Intent(getActivity(), CustomerInfoActivity.class);
                 startActivity(mIntent);
                 break;
             case R.id.tvPay:
@@ -790,8 +807,6 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 //        startActivityForResult(mIntent,2);
     }
 
-    boolean isOTC=false;
-    Double afterDiscountPrice;
     private void ApplyOTC() {
         tvApplyOTC.setBackgroundResource(R.drawable.button_rectangle_grey);
         tvApplyOTC.setEnabled(false);
@@ -1084,6 +1099,16 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             IPOSApplication.mProductList.clear();
             getFragmentManager().popBackStack();
         }
+
+    }
+
+    @Override
+    public void setProductOnListener(String mDatum) {
+        ArrayList<ProductList.Datum> arrData= new ArrayList<>();
+        json = SharedPrefUtil.getString("mInfoArrayList","",getActivity());
+        arrData = Util.getCustomGson().fromJson(json, new TypeToken<ArrayList<RealmPinnedResults.Info>>(){}.getType());
+        IPOSApplication.mProductList.add(arrData.get(0));
+        mRetailSalesAdapter.notifyDataSetChanged();
 
     }
 }

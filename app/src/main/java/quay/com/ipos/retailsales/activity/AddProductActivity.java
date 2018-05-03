@@ -27,6 +27,8 @@ import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -143,7 +145,8 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
             arrData.addAll(mProductListResult.getData());
 //            setDefaultValues();
 
-            Util.cacheData(arrData);
+//            Util.cacheData(arrData);
+            SharedPrefUtil.putString(Constants.Product_List,Util.getCustomGson().toJson(arrData),this);
             mAddProductAdapter.notifyDataSetChanged();
 //            setUpdateValues(IPOSApplication.mProductList);
         } catch (Exception e) {
