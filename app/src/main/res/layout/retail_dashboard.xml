@@ -1,163 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/backgroundgrey">
+    android:background="@color/backgroundgrey"
+    android:orientation="vertical">
+
 
     <LinearLayout
+        android:id="@+id/llTopIcon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center_vertical"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/imvUserAdd"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_person_add"/>
-      />
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_5"
+            android:src="@drawable/ic_action_person_add" />
+        />
 
         <ImageView
             android:id="@+id/imvPin"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_pin"/>
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_5"
+            android:src="@drawable/ic_action_pin" />
 
         <ImageView
             android:id="@+id/imvBilling"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_billing"/>
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_5"
+            android:src="@drawable/ic_action_billing" />
 
         <ImageView
             android:id="@+id/imvDicount"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_discount"/>
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_5"
+            android:src="@drawable/ic_action_discount" />
 
         <ImageView
             android:id="@+id/imvRedeem"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_redeem"/>
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_5"
+            android:src="@drawable/ic_action_redeem" />
 
         <ImageView
             android:id="@+id/imvGlobe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/transparent"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_15"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:src="@drawable/ic_action_online_shop"/>
+            android:src="@drawable/ic_action_online_shop" />
 
 
         <quay.com.ipos.ui.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
-            android:gravity="right"
             android:layout_weight="1"
-            android:text="@string/barcode"
-            android:textColor="@color/dark_text_color"
+            android:gravity="right"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_5"
-            android:textSize="@dimen/text_size_15sp"/>
+            android:text="@string/barcode"
+            android:textColor="@color/dark_text_color"
+            android:textSize="@dimen/text_size_15sp" />
 
         <ToggleButton
             android:id="@+id/chkBarCode"
             android:layout_width="40dp"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dim_10"
             android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/dim_10"
             android:background="@drawable/toggle_selector"
-            android:textOff=""
             android:checked="true"
-            android:textOn=""/>
+            android:textOff=""
+            android:textOn="" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imvQRCode"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_below="@+id/llTopIcon"
+        android:layout_gravity="center"
+        android:background="@color/sky_blue"
+        android:paddingBottom="@dimen/dim_5"
+        android:paddingTop="@dimen/dim_5"
+        android:src="@drawable/ic_barcode" />
+    <!--  <android.support.v4.widget.NestedScrollView
+          android:id="@+id/nestedScrollview"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:fillViewport="true"
+          android:scrollbars="vertical">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">-->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/imvQRCode">
 
         <LinearLayout
+            android:id="@+id/llTop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/llBelowPaymentDetail"
-            android:orientation="vertical">
-            <ImageView
-                android:id="@+id/imvQRCode"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:background="@color/sky_blue"
-                android:layout_gravity="center"
-                android:paddingTop="@dimen/dim_5"
-                android:paddingBottom="@dimen/dim_5"
-                android:src="@drawable/ic_barcode"/>
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/dim_8">
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycleView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none"
-                android:layout_marginTop="@dimen/dim_1" />
             <LinearLayout
                 android:id="@+id/layout_otc_discount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                android:visibility="gone">
 
             </LinearLayout>
 
 
         </LinearLayout>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scrollbars="none" />
         <LinearLayout
             android:id="@+id/llBelowPaymentDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/ll_item_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_gravity="center"
-                android:paddingTop="@dimen/dim_5"
-                android:paddingBottom="@dimen/dim_5"
+                android:background="@color/label_gray"
                 android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dim_5"
                 android:paddingLeft="@dimen/dim_10"
                 android:paddingRight="@dimen/dim_10"
-                android:background="@color/label_gray">
+                android:paddingTop="@dimen/dim_5">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvItemNo"
                         android:layout_width="wrap_content"
@@ -174,14 +196,14 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dim_10"
                         android:layout_marginRight="@dimen/dim_10"
-                        android:background="@color/transparent"/>
+                        android:background="@color/transparent" />
 
                     <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvItemQty"
                         android:layout_width="wrap_content"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="@string/qty"
                         android:textSize="@dimen/text_size_15sp" />
@@ -195,11 +217,13 @@
                         android:text="@string/Rs"
                         android:textSize="@dimen/text_size_15sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/llTotalGST"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
+
                     <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvTotalGST"
                         android:layout_width="wrap_content"
@@ -214,14 +238,14 @@
                     <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvMoreDetails"
                         android:layout_width="wrap_content"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_10"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
                         android:text="@string/more_details"
                         android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_size_11sp"/>
+                        android:textSize="@dimen/text_size_11sp" />
 
                     <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvTotalItemGSTPrice"
@@ -230,18 +254,21 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:text="@string/Rs"
-                        android:textSize="@dimen/text_size_15sp"/>
+                        android:textSize="@dimen/text_size_15sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/llTotalDiscountDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -254,11 +281,11 @@
                         <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvTotalDiscountDetail"
                             android:layout_width="0dp"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
                             android:layout_marginLeft="@dimen/dim_10"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
                             android:text="(items 1)"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/text_size_11sp" />
@@ -272,6 +299,7 @@
                             android:text="@string/Rs"
                             android:textSize="@dimen/text_size_15sp" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -279,9 +307,9 @@
 
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="@string/cgst"
                             android:textSize="@dimen/text_size_15sp" />
@@ -293,8 +321,9 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:text="@string/Rs"
-                            android:textSize="@dimen/text_size_15sp"/>
+                            android:textSize="@dimen/text_size_15sp" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -302,9 +331,9 @@
 
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="@string/sgst"
                             android:textSize="@dimen/text_size_15sp" />
@@ -318,10 +347,12 @@
                             android:text="@string/Rs"
                             android:textSize="@dimen/text_size_15sp" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
+
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -333,11 +364,11 @@
                         <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvLessDetails"
                             android:layout_width="wrap_content"
-                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
                             android:layout_marginLeft="@dimen/dim_10"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
                             android:text="@string/less_details"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/text_size_11sp" />
@@ -353,31 +384,34 @@
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/ll_item_pay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
                 android:orientation="horizontal"
-                android:background="@color/colorPrimary">
+                android:visibility="visible">
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_discount"
                     android:layout_gravity="center"
-                    android:paddingLeft="@dimen/dim_10"
-                    android:paddingTop="@dimen/dim_5"
                     android:paddingBottom="@dimen/dim_5"
+                    android:paddingLeft="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_5"
-                    />
+                    android:paddingTop="@dimen/dim_5"
+                    android:src="@drawable/ic_action_discount" />
+
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvTotalDiscount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/Rs"
                     android:paddingLeft="@dimen/dim_5"
+                    android:text="@string/Rs"
                     android:textColor="@color/dark_text_color"
                     android:textSize="@dimen/text_size_15sp"
                     app:typeface="TitilliumWeb-SemiBold.ttf" />
@@ -386,8 +420,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
                     android:layout_marginLeft="@dimen/dim_10"
+                    android:gravity="center_vertical"
                     android:text="@string/pay"
                     android:textColor="@color/dark_text_color"
                     android:textSize="@dimen/text_size_15sp"
@@ -399,8 +433,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:paddingRight="@dimen/dim_10"
                     android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
                     android:text="@string/Rs"
                     android:textColor="@color/dark_text_color"
                     android:textSize="@dimen/text_size_15sp"
@@ -408,37 +442,39 @@
 
                 <ImageView
                     android:id="@+id/imvRight"
-                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_gravity="center"
+                    android:background="@color/colorAccentDark"
+                    android:gravity="center"
                     android:paddingLeft="@dimen/dim_15"
                     android:paddingRight="@dimen/dim_15"
-                    android:src="@drawable/ic_action_arrow_right"
-                    android:background="@color/colorAccentDark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"/>
+                    android:src="@drawable/ic_action_arrow_right" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/llOTCSelect"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/colorPrimary"
                 android:orientation="horizontal"
                 android:padding="@dimen/dim_10"
-                android:visibility="gone"
-                android:background="@color/colorPrimary">
+                android:visibility="gone">
+
                 <CheckBox
                     android:id="@+id/chkOTC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="false"
-                    />
+                    android:checked="false" />
+
                 <quay.com.ipos.ui.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/select_all"
                     android:paddingLeft="@dimen/dim_5"
+                    android:text="@string/select_all"
                     android:textColor="@color/white"
                     android:textSize="@dimen/text_size_15sp"
                     app:typeface="Roboto-Regular.ttf" />
@@ -457,17 +493,42 @@
 
                 <TextView
                     android:id="@+id/tvRight1"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp"
-                    android:padding="@dimen/dim_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/fa_right"/>
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:padding="@dimen/dim_5"
+                    android:text="@string/fa_right"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_15sp" />
             </LinearLayout>
         </LinearLayout>
 
-    </RelativeLayout>
 
-</LinearLayout>
+
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/imageFloat"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/dim_16"
+        android:layout_marginRight="@dimen/dim_16"
+        android:src="@drawable/ic_action_pin"
+        android:background="@drawable/circle_btn"/>
+  <!--  <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <include layout="@layout/pin_badge"
+            android:id="@+id/llFloat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>-->
+
+    <!-- </LinearLayout>
+ </android.support.v4.widget.NestedScrollView>-->
+</RelativeLayout>

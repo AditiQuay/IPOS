@@ -1,6 +1,7 @@
 package quay.com.ipos.retailsales.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -11,20 +12,26 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.gson.reflect.TypeToken;
@@ -50,6 +57,7 @@ import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
+
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
@@ -79,9 +87,12 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     View rootView;
     private double totalAmount=0;
 //    private ArrayList<ProductList.Datum> mList= new ArrayList<>();
-
+    private LinearLayout llBelowPaymentDetail;
     ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<>();
 
+    private int xDelta;
+    private int yDelta;
+    private ImageView imageFloat;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
@@ -93,9 +104,10 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         return rootView;
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void initializeComponent(View rootView) {
 
-
+        llBelowPaymentDetail=rootView.findViewById(R.id.llBelowPaymentDetail);
         imvUserAdd = rootView.findViewById(R.id.imvUserAdd);
         imvPin = rootView.findViewById(R.id.imvPin);
         imvRedeem = rootView.findViewById(R.id.imvRedeem);
@@ -126,6 +138,44 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         chkOTC = rootView.findViewById(R.id.chkOTC);
         tvOTCDiscount = rootView.findViewById(R.id.tvOTCDiscount);
 
+        imageFloat=rootView.findViewById(R.id.imageFloat);
+
+        imageFloat.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int x = (int) event.getRawX();
+                final int y = (int) event.getRawY();
+
+                switch (event.getAction() & MotionEvent.ACTION_MASK) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams)
+                                view.getLayoutParams();
+
+                        xDelta = x - lParams.leftMargin;
+                        yDelta = y - lParams.topMargin;
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view
+                                .getLayoutParams();
+                        layoutParams.leftMargin = x - xDelta;
+                        layoutParams.topMargin = y - yDelta;
+                        layoutParams.rightMargin = 0;
+                        layoutParams.bottomMargin = 0;
+                        view.setLayoutParams(layoutParams);
+                        break;
+                }
+              //  frameFLoat.invalidate();
+                return true;
+            }
+
+        });
+
         mRecyclerView =  rootView.findViewById(R.id.recycleView);
 
         mRecyclerView.setHasFixedSize(true);
@@ -134,6 +184,37 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         mRecyclerView.addItemDecoration(
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                switch (newState) {
+                    case RecyclerView.SCROLL_STATE_IDLE:
+                        llBelowPaymentDetail.setVisibility(View.VISIBLE);
+                        System.out.println("The RecyclerView is not scrolling");
+                        break;
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                      //  llBelowPaymentDetail.setVisibility(View.INVISIBLE);
+                        System.out.println("Scrolling now");
+                        break;
+                    case RecyclerView.SCROLL_STATE_SETTLING:
+                        System.out.println("Scroll Settling");
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (dy > 0) {
+                    llBelowPaymentDetail.setVisibility(View.GONE);
+                    System.out.println("Scrolled Right");
+                }else {
+                    llBelowPaymentDetail.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
         setFontText();
         setListener();
         setAdapter();
@@ -174,6 +255,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         imvRedeem.setOnClickListener(this);
         imvUserAdd.setOnClickListener(this);
         tvPay.setOnClickListener(this);
+        imageFloat.setOnClickListener(this);
         chkBarCode.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -612,6 +694,12 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                     Util.showToast("Please add atleast one item to proceed.");
                 }
                 break;
+            case R.id.imageFloat:
+                if(IPOSApplication.mProductList.size()>0)
+                    cachedPinned();
+                else
+                    Util.showToast("Cannot pin empty list",getActivity());
+                break;
 
         }
     }
@@ -915,4 +1003,6 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
 //            }});
         Util.hideSoftKeyboard(getActivity());
     }
+
+
 }
