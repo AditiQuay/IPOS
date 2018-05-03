@@ -31,7 +31,7 @@ import quay.com.ipos.utility.Util;
  */
 
 public class CatalogueSubProduct extends AppCompatActivity implements InitInterface, MyListener{
-    private TextView textViewProductName;
+    private TextView textViewProductName,textViewProductCountTitle,textViewProductCount;
     private RecyclerView recyclerviewProduct;
     private Context mContext;
     private ArrayList<quay.com.ipos.productCatalogue.productModal.CatalogueModal> catalogueModalsSet = new ArrayList<>();
@@ -58,6 +58,8 @@ public class CatalogueSubProduct extends AppCompatActivity implements InitInterf
         toolbar = findViewById(R.id.toolbarCatalogueSubProduct);
         textViewProductName = findViewById(R.id.textViewProductName);
         recyclerviewProduct = findViewById(R.id.recyclerviewProduct);
+        textViewProductCountTitle = findViewById(R.id.textViewProductCountTitle);
+        textViewProductCount = findViewById(R.id.textViewProductCount);
     }
 
     @Override
@@ -98,6 +100,8 @@ public class CatalogueSubProduct extends AppCompatActivity implements InitInterf
     public void applyTypeFace() {
         FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(toolbar,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewProductCountTitle,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewProductCount,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
     }
 
@@ -129,12 +133,11 @@ public class CatalogueSubProduct extends AppCompatActivity implements InitInterf
 
     @Override
     public void onRowClicked(int position) {
-        Intent i = new Intent(mContext, CustomerInfoActivity.class);
-        startActivity(i);
-//        CatalogueModal catalogueModal = catalogueModalsSet.get(position);
-//        Intent gotToProductDetail = new Intent(mContext, ProductDetails.class);
-//        gotToProductDetail.putExtra("ProductName", catalogueModal.sProductName);
-//        startActivity(gotToProductDetail);
+
+        CatalogueModal catalogueModal = catalogueModalsSet.get(position);
+        Intent gotToProductDetail = new Intent(mContext, ProductDetails.class);
+        gotToProductDetail.putExtra("ProductName", catalogueModal.sProductName);
+        startActivity(gotToProductDetail);
     }
 
     @Override

@@ -5,7 +5,7 @@
     <color name="colorAccent">#DBDBDB</color>
     <color name="colorAccentDark">#556892</color>
     <color name="app_background_color">#eeeeee</color>
-
+    <color name="colorAccentGreen">#7CBD00</color>
     <color name="dark_text_color">#132E67</color>
 
 
@@ -22,9 +22,14 @@
     <color name="menu_strip">#1cade4</color>
     <color name="menu_expand_list_color">#f2f2f2</color>
     <color name="menu_strip_color">#eeeeee</color>
-    <color name="light_green">#4cac31</color>
-    <color name="light_gold">#dcb210</color>
-    <color name="bold_green">#398f1f</color>
+    <color name="light_green">#9bd25d</color>
+    <color name="dark_gold">#dcb210</color>
+    <color name="light_gold">#f2c416</color>
+    <color name="button_tint_gray">#a9a9a9</color>
+    <color name="toolbar_blue">#56b9e0</color>
+    <color name="bold_green">#70be1a</color>
+    <color name="strip">#8bd3ec</color>
+    <color name="side_view">#546893</color>
     <!--Niraj colors end-->
 
     <color name="sky_blue">#ADD8E6</color>
@@ -62,7 +67,7 @@
     <color name="dark_primary_color">#e5b703</color>
     <color name="primary_color">#ffcc03</color>
     <color name="light_primary_color">#FFE0B2</color>
-    <color name="primary_text_color">#212121</color>
+    <color name="primary_text_color">#848484</color>
     <color name="secondary_text_color">#727272</color>
     <color name="divider_text_color">#B6B6B6</color>
     <color name="dark_grey_color">#606060</color>

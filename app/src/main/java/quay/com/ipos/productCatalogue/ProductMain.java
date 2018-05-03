@@ -28,6 +28,7 @@ import quay.com.ipos.productCatalogue.productCatalogueAdapter.SearchedItemsAdapt
 import quay.com.ipos.productCatalogue.productModal.ProductItemModal;
 import quay.com.ipos.productCatalogue.productModal.ProductSectionModal;
 import quay.com.ipos.productCatalogue.productModal.SearchedItemModal;
+import quay.com.ipos.utility.DividerItemDecoration;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -79,6 +80,7 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 ProductSectionModal dm = new ProductSectionModal();
                 dm.setHeaderTitle(jsonObject.optString("section"));
+                dm.setSectionProduct(jsonObject.optString("sectionProduct"));
 
 
                 JSONArray jsonArray3 = jsonObject.optJSONArray("sectionItems");
@@ -137,6 +139,7 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
         recyclerviewCategory.setHasFixedSize(true);
         ProductMainSectionAdapter adapter = new ProductMainSectionAdapter(mContext, productSectionModals);
         recyclerviewCategory.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+      //  recyclerviewCategory.addItemDecoration(new DividerItemDecoration(mContext, R.drawable.divider));
         recyclerviewCategory.setAdapter(adapter);
         swipeToRefresh.setOnRefreshListener(this);
 
@@ -145,6 +148,7 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
         recyclerviewFilter.setHasFixedSize(true);
         searchedItemsAdapter = new SearchedItemsAdapter(mContext, searchedItems);
         recyclerviewFilter.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+
         recyclerviewFilter.setAdapter(searchedItemsAdapter);
         ////////////////////////////////////////////////////////
 

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
     private Context mContext;
     private ArrayList<CatalogueModal> catalogueModalsSet;
     private MyListener listener;
+
     public CatalogueSubCatalogueFragmentAdapter(Context mContext, ArrayList<CatalogueModal> catalogueModalsSet, MyListener listener) {
         this.mContext = mContext;
         this.catalogueModalsSet = catalogueModalsSet;
@@ -46,7 +48,7 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
         holder.textViewFeature.setText(catalogueModal.sProductFeature);
         holder.textViewPrice.setText(catalogueModal.sProductPrice);
 
-        holder.card_view.setOnClickListener(new View.OnClickListener() {
+        holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.animateView(v);
@@ -62,22 +64,31 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageViewProduct;
-        private TextView textViewProductName,textViewFeature,textViewPrice,textViewOfferPrice;
-        private CardView card_view;
+        private TextView textViewProductName, textViewFeature, textViewPrice, textViewOffer;
+        private CardView cardViewProduct;
+        private Button btnDataSheet, btnCalculator, btnCart;
+
         public MyViewHolder(View itemView) {
             super(itemView);
-            card_view = itemView.findViewById(R.id.card_view);
+            cardViewProduct = itemView.findViewById(R.id.cardViewProduct);
             imageViewProduct = itemView.findViewById(R.id.imageViewProduct);
             textViewProductName = itemView.findViewById(R.id.textViewProductName);
             textViewFeature = itemView.findViewById(R.id.textViewFeature);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
-            textViewOfferPrice = itemView.findViewById(R.id.textViewOfferPrice);
+            textViewOffer = itemView.findViewById(R.id.textViewOffer);
+
+            btnDataSheet = itemView.findViewById(R.id.btnDataSheet);
+            btnCalculator = itemView.findViewById(R.id.btnCalculator);
+            btnCart = itemView.findViewById(R.id.btnCart);
 
             FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
             FontUtil.applyTypeface(textViewFeature, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
             FontUtil.applyTypeface(textViewPrice, FontUtil.getTypeFaceRobotTiteliumRegularLight(mContext));
-            FontUtil.applyTypeface(textViewOfferPrice, FontUtil.getTypeFaceRobotTiteliumRegularLight(mContext));
+            FontUtil.applyTypeface(textViewOffer, FontUtil.getTypeFaceRobotTiteliumRegularLight(mContext));
 
+            FontUtil.applyTypeface(btnDataSheet,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+            FontUtil.applyTypeface(btnCalculator,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+            FontUtil.applyTypeface(btnCart,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
         }
     }

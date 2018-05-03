@@ -2,6 +2,7 @@ package quay.com.ipos.customerInfo;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +35,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 4/30/2018.
  */
 
-public class CustomerInfoActivity extends AppCompatActivity implements InitInterface, MyListener{
+public class CustomerInfoActivity extends AppCompatActivity implements InitInterface, MyListener {
     private Toolbar toolbarCustomerInfo;
     private SearchView searchViewCatalogue;
     private RecyclerView recyclerviewCustomerCard;
@@ -42,6 +43,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     private ArrayList<CustomerInfoModal> customerInfoModalArrayList = new ArrayList<>();
     MyListener listener;
     private Context mContext;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +77,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
 
         recyclerviewCustomerCard.setHasFixedSize(true);
         recyclerviewCustomerCard.setLayoutManager(new LinearLayoutManager(mContext));
-        customerInfoAdapter = new CustomerInfoAdapter(mContext,customerInfoModalArrayList,this);
+        customerInfoAdapter = new CustomerInfoAdapter(mContext, customerInfoModalArrayList, this);
         recyclerviewCustomerCard.setAdapter(customerInfoAdapter);
 
         customerInfoModalArrayList.clear();
@@ -115,7 +117,8 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         });
 
     }
-    private void getCustomerData(){
+
+    private void getCustomerData() {
         try {
             // Creating JSONObject from String
             JSONObject jsonObjMain = new JSONObject(Util.getAssetJsonResponse(mContext, "customer.json"));
@@ -142,9 +145,10 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
             e.printStackTrace();
         }
     }
+
     @Override
     public void applyTypeFace() {
-        FontUtil.applyTypeface(toolbarCustomerInfo,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(toolbarCustomerInfo, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
     }
 
     @Override
@@ -155,7 +159,17 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     @Override
     public void onRowClicked(int position) {
         CustomerInfoModal customerInfoModal = customerInfoModalArrayList.get(position);
-        Toast.makeText(mContext,"You have clicked position"+position,Toast.LENGTH_SHORT).show();
+
+        Intent i = new Intent(CustomerInfoActivity.this, CustomerInfoDetailsActivity.class);
+        i.putExtra("customerName", customerInfoModal.customerName);
+        i.putExtra("customerMobile", customerInfoModal.customerMobileNumber);
+        i.putExtra("customerEmail", customerInfoModal.customerEmail);
+        i.putExtra("customerBilling", customerInfoModal.customerBillingDate);
+        i.putExtra("customerAmount", customerInfoModal.customerBillingAmount);
+        i.putExtra("customerBirthDay", customerInfoModal.customerBirthDay);
+        i.putExtra("customerPoints", customerInfoModal.customerPoints);
+        startActivity(i);
+
     }
 
     @Override

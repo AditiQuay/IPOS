@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity
         toolbar = (Toolbar) findViewById(R.id.appBar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getResources().getString(R.string.toolbar_title_catalogue_product_details));
-
+        launchActivity();
 
         containerId = R.id.fragment_container;
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -296,6 +296,10 @@ public class MainActivity extends BaseActivity
         });
     }
 
+    public void setToolbarTitle(String name){
+        toolbar.setTitle(name);
+    }
+
     @Override
     public void applyTypeFace() {
         FontUtil.applyTypeface(textViewMyBusiness, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
@@ -431,7 +435,7 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.toolbar_title_catalogue_product_details));
                 menu1.findItem(R.id.action_notification).setVisible(false);
-                menu1.findItem(R.id.action_search).setVisible(true);
+                menu1.findItem(R.id.action_search).setVisible(false);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case 4:
@@ -542,17 +546,18 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
-
-    public void launchActivity(Class<?> clss) {
+    public boolean CameraPermission=false;
+    public boolean launchActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            mClss = clss;
+//            mClss = clss;
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
+            CameraPermission =false;
         } else {
-            Intent intent = new Intent(this, clss);
-            startActivity(intent);
+            CameraPermission =true;
         }
+        return CameraPermission;
     }
 
     @Override
@@ -560,12 +565,14 @@ public class MainActivity extends BaseActivity
         switch (requestCode) {
             case CAMERA_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (mClss != null) {
-                        Intent intent = new Intent(this, mClss);
-                        startActivity(intent);
-                    }
+//                    if (mClss != null) {
+//                        Intent intent = new Intent(this, mClss);
+//                        startActivity(intent);
+//                    }
+                    CameraPermission=true;
                 } else {
                     Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
+                    CameraPermission =false;
                 }
                 return;
         }
