@@ -13,15 +13,14 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme"
-        app:theme="@style/ToolbarColoredBackArrow"
-        app:titleTextAppearance="@style/Toolbar.TitleText" />
+        app:theme="@style/ToolbarColoredBackArrow" />
 
     <RelativeLayout
         android:id="@+id/rLayoutProductTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarCatalogueSubProduct"
-        android:background="@color/colorPrimary"
+        android:background="@color/toolbar_blue"
         android:padding="@dimen/dim_8">
 
         <TextView
@@ -29,8 +28,31 @@
             style="@style/styleWhiteTextColor16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:text="Product Name"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/textViewProductCountTitle"
+            style="@style/styleWhiteTextColor16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dim_16"
+            android:layout_toLeftOf="@+id/textViewProductCount"
+            android:text="Product"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/textViewProductCount"
+            style="@style/stylePrimaryTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dim_10"
+            android:background="@drawable/product_count"
+            android:padding="@dimen/dim_6"
+            android:text="117"
             tools:ignore="RtlSymmetry" />
 
     </RelativeLayout>

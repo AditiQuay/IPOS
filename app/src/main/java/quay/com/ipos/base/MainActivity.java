@@ -435,7 +435,7 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.toolbar_title_catalogue_product_details));
                 menu1.findItem(R.id.action_notification).setVisible(false);
-                menu1.findItem(R.id.action_search).setVisible(true);
+                menu1.findItem(R.id.action_search).setVisible(false);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case 4:

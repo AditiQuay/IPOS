@@ -4,11 +4,11 @@
     android:id="@+id/cardViewProduct"
     android:layout_width="match_parent"
     android:layout_height="180dp"
-    android:maxHeight="@dimen/dim_200"
     android:layout_marginBottom="@dimen/dim_8"
+    android:maxHeight="@dimen/dim_200"
     app:cardCornerRadius="@dimen/dim_8"
-    app:cardUseCompatPadding="true"
-    app:cardPreventCornerOverlap="false">
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
 
 
     <RelativeLayout
@@ -46,8 +46,8 @@
                 android:id="@+id/rLayoutUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_8"
-                android:layout_marginStart="@dimen/dim_8"
+                android:layout_marginLeft="@dimen/dim_12"
+                android:layout_marginStart="@dimen/dim_12"
                 android:layout_marginTop="@dimen/dim_16"
                 android:layout_toLeftOf="@+id/rLayoutTopStrip"
                 android:layout_toStartOf="@+id/rLayoutTopStrip">
@@ -77,8 +77,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rLayoutUser"
-                android:layout_marginLeft="@dimen/dim_8"
-                android:layout_marginStart="@dimen/dim_8"
+                android:layout_marginLeft="@dimen/dim_12"
+                android:layout_marginStart="@dimen/dim_12"
                 android:layout_marginTop="@dimen/dim_4">
 
 
@@ -107,8 +107,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rLayoutMob"
-                android:layout_marginLeft="@dimen/dim_8"
-                android:layout_marginStart="@dimen/dim_8"
+                android:layout_marginLeft="@dimen/dim_12"
+                android:layout_marginStart="@dimen/dim_12"
                 android:layout_marginTop="@dimen/dim_4">
 
 
@@ -137,8 +137,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rLayoutEmail"
-                android:layout_marginLeft="@dimen/dim_8"
-                android:layout_marginStart="@dimen/dim_8"
+                android:layout_marginLeft="@dimen/dim_12"
+                android:layout_marginStart="@dimen/dim_12"
                 android:layout_marginTop="@dimen/dim_4">
 
 
@@ -167,8 +167,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rLayoutBill"
-                android:layout_marginLeft="@dimen/dim_8"
-                android:layout_marginStart="@dimen/dim_8"
+                android:layout_marginLeft="@dimen/dim_12"
+                android:layout_marginStart="@dimen/dim_12"
                 android:layout_marginTop="@dimen/dim_4">
 
 

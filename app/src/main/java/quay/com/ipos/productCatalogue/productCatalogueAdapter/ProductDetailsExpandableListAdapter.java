@@ -29,8 +29,7 @@ public class ProductDetailsExpandableListAdapter extends BaseExpandableListAdapt
     private HashMap<String, List<String>> expandableListDetail;
     private Button btnCheckStatus;
 
-    public ProductDetailsExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                               HashMap<String, List<String>> expandableListDetail, ExpandableListView exp) {
+    public ProductDetailsExpandableListAdapter(Context context, List<String> expandableListTitle, HashMap<String, List<String>> expandableListDetail, ExpandableListView exp) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
@@ -39,8 +38,7 @@ public class ProductDetailsExpandableListAdapter extends BaseExpandableListAdapt
 
     @Override
     public Object getChild(int listPosition, int expandedListPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
-                .get(expandedListPosition);
+        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition)).get(expandedListPosition);
     }
 
     @Override
@@ -74,7 +72,8 @@ public class ProductDetailsExpandableListAdapter extends BaseExpandableListAdapt
         } catch (Exception e) {
             e.printStackTrace();
         }
-        FontUtil.applyTypeface(subtitle, FontUtil.getTypceFaceRobotoRegular(context));
+        FontUtil.applyTypeface(subtitle, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+        FontUtil.applyTypeface(btnCheckStatus, FontUtil.getTypeFaceRobotTiteliumRegular(context));
 
       /*  TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);
@@ -119,8 +118,9 @@ public class ProductDetailsExpandableListAdapter extends BaseExpandableListAdapt
         textViewTitle.setText(listTitle);
 
         imageViewMenu.setBackgroundResource(applyMenuBGImage(listTitle.toString().trim()));
-        FontUtil.applyTypeface(imageViewMenu, FontUtil.getTypceFaceRobotoRegular(context));
-        expandableListView.setDividerHeight(20);
+
+        FontUtil.applyTypeface(imageViewMenu, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+        FontUtil.applyTypeface(textViewTitle, FontUtil.getTypeFaceRobotTiteliumRegular(context));
         return convertView;
 
     }
@@ -140,16 +140,16 @@ public class ProductDetailsExpandableListAdapter extends BaseExpandableListAdapt
         int imageId = 0;
         switch (ImageName) {
             case "Product Details":
-                imageId = R.drawable.ic_action_square;
+                imageId = R.drawable.product_detail_blue;
                 break;
             case "Offers & Discount":
-                imageId = R.drawable.ic_action_offer_grey;
+                imageId = R.drawable.offer;
                 break;
             case "Packaging & Availability":
-                imageId = R.drawable.ic_action_square;
+                imageId = R.drawable.packaging;
                 break;
             case "How to Use":
-                imageId = R.drawable.ic_action_square;
+                imageId = R.drawable.help_blue;
                 break;
         }
         return imageId;

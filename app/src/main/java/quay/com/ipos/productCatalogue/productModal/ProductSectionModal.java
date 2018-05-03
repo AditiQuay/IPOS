@@ -8,6 +8,16 @@ import java.util.ArrayList;
 
 public class ProductSectionModal {
     private String headerTitle;
+
+    public String getSectionProduct() {
+        return sectionProduct;
+    }
+
+    public void setSectionProduct(String sectionProduct) {
+        this.sectionProduct = sectionProduct;
+    }
+
+    private String sectionProduct;
     public ArrayList<ProductItemModal> getProductItemModals() {
         return productItemModals;
     }
