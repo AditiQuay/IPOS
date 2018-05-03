@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#5BC1E9</color>
-    <color name="colorPrimaryDark">#58BAE1</color>
+    <color name="colorPrimary">#5CBFE8</color>
+    <color name="colorPrimaryDark">#56B9E0</color>
     <color name="colorAccent">#DBDBDB</color>
     <color name="colorAccentDark">#556892</color>
+    <color name="app_background_color">#eeeeee</color>
+    <color name="colorAccentGreen">#7CBD00</color>
     <color name="dark_text_color">#132E67</color>
-   <color name="app_background_color">#eeeeee</color>
+
 
 
 
@@ -30,7 +32,7 @@
     <color name="side_view">#546893</color>
     <!--Niraj colors end-->
 
-    <color name="sky_blue">#AFDAFB</color>
+    <color name="sky_blue">#ADD8E6</color>
     <color name="light_blue">#A8ADD8E6</color>
     <color name="survey_background_color">#f2f2f2</color>
     <color name="textColorPrimary">#464646</color>
@@ -65,7 +67,7 @@
     <color name="dark_primary_color">#e5b703</color>
     <color name="primary_color">#ffcc03</color>
     <color name="light_primary_color">#FFE0B2</color>
-    <color name="primary_text_color">#212121</color>
+    <color name="primary_text_color">#848484</color>
     <color name="secondary_text_color">#727272</color>
     <color name="divider_text_color">#B6B6B6</color>
     <color name="dark_grey_color">#606060</color>
@@ -122,3 +124,4 @@
     <color name="menu_text_color">#132e67</color>
     <color name="payment_color">#132E67</color>
 </resources>
+

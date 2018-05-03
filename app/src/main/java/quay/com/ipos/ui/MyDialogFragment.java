@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import quay.com.ipos.R;
+import quay.com.ipos.utility.Util;
 
 public class MyDialogFragment extends DialogFragment
 {
@@ -79,9 +80,13 @@ public class MyDialogFragment extends DialogFragment
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                points = Integer.parseInt(charSequence.toString());
-                double redeemValue = points*0.1;
-                etRedeemValue.setText(redeemValue+"");
+                if(!charSequence.toString().trim().equals("")) {
+                    points = Integer.parseInt(charSequence.toString());
+                    double redeemValue = points * 0.1;
+                    etRedeemValue.setText(redeemValue + "");
+                }else {
+                    etRedeemValue.setText(0 + "");
+                }
             }
 
             @Override

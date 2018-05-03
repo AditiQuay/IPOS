@@ -18,7 +18,14 @@
     <string name="retail_sales">Retail Sales</string>
     <string name="ddr_sales">DDR Sales (B2B)</string>
     <string name="please_wait">Please Wait...</string>
-
+    <string name="Rs">\u20B9</string>
+    <string name="toggle_flash">Flash</string>
+    <string name="flash_on">Flash [ON]</string>
+    <string name="flash_off">Flash [OFF]</string>
+    <string name="auto_focus_on">Auto Focus [ON]</string>
+    <string name="auto_focus_off">Auto Focus [OFF]</string>
+    <string name="formats">Formats</string>
+    <string name="choose_formats">Choose Formats</string>
 
     <string name="internet_connection_error_string">No Internet Connection</string>
     <string name="internet_refresh_button_text">Refresh</string>
@@ -94,7 +101,6 @@
         <item>Loyalty Program</item>
         <item>Partner Connect</item>
     </string-array>
-    <string name="Rs">\u20B9</string>
     <string name="total_discount">Total Discount</string>
     <string name="rounding_off">Rounding off</string>
     <string name="less_details">Less Details</string>
@@ -173,6 +179,13 @@
     <string name="print_receipt">Print Receipt</string>
     <string name="cod">COD</string>
     <string name="payment">Payment</string>
+    <string name="Perc">%</string>
+    <string name="togglebutton1">ToggleButton1</string>
+    <string name="togglebutton2">ToggleButton2</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="qty_available">quantity available</string>
+
     <string name="proceed_update">Update &amp; Proceed</string>
     <string-array name="ordervalue">
         <item>Apr</item>

@@ -62,8 +62,12 @@ public class Constants {
     public static final int NOTIFICATION_ID_BIG_IMAGE = 101;
 
     public static final String SHARED_PREF = "ah_firebase";
+    public static final String TOTAL_AMOUNT ="totalAmount" ;
+    public static final int APP_DIALOG_OTC = 0;
+
 
     public static String UserProfilePic = "http://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png";
     public static String customer_detail="customer_detail";
+    public static int APP_DIALOG_Cart=1;
 }
 

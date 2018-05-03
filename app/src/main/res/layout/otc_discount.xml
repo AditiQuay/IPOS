@@ -1,55 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:background="@drawable/primary_bg_color"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dim_7"
         android:orientation="vertical"
-        android:id="@+id/llOTCApply"
-        android:background="@drawable/item_bg">
+        android:id="@+id/llOTCApply">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/dim_10"
             android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/dim_30"
+                android:orientation="vertical">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_discount"
-                android:tint="@color/accent_color"
-                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_action_discount_white"
+                android:layout_gravity="center"
                 android:layout_marginRight="@dimen/dim_5"
+                android:layout_marginTop="@dimen/dim_10"
                 />
-
             <quay.com.ipos.ui.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="@string/otc_discount_details"
                 android:textSize="@dimen/text_size_15sp"
-                app:typeface="Roboto-Regular.ttf" />
-
-            <TextView
-                android:id="@+id/tvClearOTC"
+                android:textColor="@color/white" />
+            </LinearLayout>
+            <ImageView
+                android:id="@+id/imvClearOTC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/accent_color"
-                android:paddingRight="@dimen/dim_10"
                 android:paddingLeft="@dimen/dim_10"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:textSize="@dimen/text_size_21sp"
-                android:text="@string/fa_cross_circle"
+                android:src="@drawable/ic_action_close_blue"
                 />
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,13 +66,12 @@
             android:orientation="horizontal">
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_discount"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
+                android:layout_width="150dp"
                 android:layout_marginRight="@dimen/dim_5"
                 android:background="@drawable/lightgray_stroke_corner"
                 android:layout_height="match_parent">
 
-                <EditText
+                <quay.com.ipos.ui.CustomEditText
                     android:id="@+id/etDiscountAmt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -80,27 +88,27 @@
                 android:id="@+id/tbPerc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ToggleButton1"
-                android:textOff="%"
+                android:text="@string/togglebutton1"
+                android:textOff="@string/Perc"
+                android:layout_marginLeft="@dimen/dim_10"
                 android:textColor="@color/accent_color"
-                android:background="@drawable/toggle_discount_selector"
-                android:layout_marginLeft="@dimen/dim_5"
-                android:textOn="%" />
+                android:background="@drawable/toggle_left_selector"
+                android:textOn="@string/Perc" />
 
             <ToggleButton
                 android:id="@+id/tbRs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ToggleButton2"
+                android:text="@string/togglebutton2"
                 android:textColor="@color/accent_color"
-                android:layout_marginLeft="@dimen/dim_5"
-                android:background="@drawable/toggle_discount_selector"
+                android:background="@drawable/toggle_right_selector"
+                android:checked="true"
                 android:textOff="@string/Rs"
                 android:textOn="@string/Rs" />
         </LinearLayout>
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvApplyOTC"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:gravity="center"
@@ -111,35 +119,21 @@
             android:layout_marginRight="@dimen/dim_10"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_10"
-            android:paddingTop="@dimen/dim_5"
-            android:paddingBottom="@dimen/dim_5"
+            android:paddingTop="@dimen/dim_15"
+            android:paddingBottom="@dimen/dim_15"
             android:textColor="@color/white"
             android:background="@drawable/button_drawable"
-            android:textSize="@dimen/text_size_15sp"
-            app:typeface="Roboto-Regular.ttf" />
+            android:textSize="@dimen/text_size_15sp" />
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/llOTCConfirmation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dim_7"
         android:orientation="vertical"
         android:visibility="gone"
-        android:background="@drawable/item_bg">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dim_10"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_discount"
-                android:tint="@color/accent_color"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/dim_5"
-                />
+        android:padding="@dimen/dim_10"
+        android:background="@color/colorAccent">
 
             <quay.com.ipos.ui.CustomTextView
                 android:layout_width="wrap_content"
@@ -147,24 +141,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:padding="@dimen/dim_10"
                 android:text="@string/otc_discount_workflow_approval"
-                android:textSize="@dimen/text_size_15sp"
-                app:typeface="Roboto-Regular.ttf" />
+                android:textSize="@dimen/text_size_15sp" />
 
-            <TextView
-                android:id="@+id/tvClearOTC1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/accent_color"
-                android:paddingRight="@dimen/dim_10"
-                android:paddingLeft="@dimen/dim_10"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size_21sp"
-                android:text="@string/fa_cross_circle"
-                />
 
-        </LinearLayout>
+
         <quay.com.ipos.ui.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -173,11 +155,10 @@
             android:gravity="center_vertical"
             android:padding="@dimen/dim_10"
             android:text="@string/otc_approval_details"
-            android:textSize="@dimen/text_size_15sp"
-            app:typeface="Roboto-Regular.ttf" />
+            android:textSize="@dimen/text_size_15sp" />
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvApplyOTC2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:gravity="center"
@@ -188,8 +169,8 @@
             android:layout_marginRight="@dimen/dim_10"
             android:paddingLeft="@dimen/dim_20"
             android:paddingRight="@dimen/dim_20"
-            android:paddingTop="@dimen/dim_5"
-            android:paddingBottom="@dimen/dim_5"
+            android:paddingTop="@dimen/dim_15"
+            android:paddingBottom="@dimen/dim_15"
             android:textColor="@color/white"
             android:background="@drawable/button_drawable"
             android:textSize="@dimen/text_size_15sp"
