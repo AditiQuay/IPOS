@@ -245,7 +245,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
 
                 Response response = client.newCall(request).execute();
                 AppLog.e(TAG, "StatusCode : " + response.code());
-
+                statusCode = response.code();
                 if (200 == response.code()) {
                     String responseJson = response.body().string();
                     AppLog.e(TAG, "responseJson: " + methodUrl + responseJson);

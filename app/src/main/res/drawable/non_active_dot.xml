@@ -3,12 +3,12 @@
     android:shape="oval">
     <gradient
         android:angle="360" />
-    <solid android:color="@color/white"/>
+    <solid android:color="@color/app_background_color"/>
     <size
         android:width="10dip"
         android:height="10dip" />-->
     <corners android:radius="3dp" />
     <stroke
-        android:width="1px"
-        android:color="#000000" />
+        android:width="5px"
+        android:color="@color/grey" />
 </shape>

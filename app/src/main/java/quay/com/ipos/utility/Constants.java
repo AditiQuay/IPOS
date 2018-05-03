@@ -64,6 +64,7 @@ public class Constants {
     public static final String SHARED_PREF = "ah_firebase";
     public static final String TOTAL_AMOUNT ="totalAmount" ;
     public static final int APP_DIALOG_OTC = 0;
+    public static final int API_METHOD_POST = 1;
 
 
     public static String UserProfilePic = "http://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png";

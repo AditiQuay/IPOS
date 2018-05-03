@@ -55,6 +55,7 @@ public class ProductDetails extends AppCompatActivity implements InitInterface, 
 
         findViewById();
         applyInitValues();
+        applyTypeFace();
     }
 
     @Override
@@ -65,7 +66,7 @@ public class ProductDetails extends AppCompatActivity implements InitInterface, 
         textViewProductName = findViewById(R.id.textViewProductName);
 
         expandableListViewProduct = findViewById(R.id.expandableListViewProduct);
-        expandableListViewProduct.setChildDivider(getResources().getDrawable(R.color.transparent));
+        expandableListViewProduct.setChildDivider(getResources().getDrawable(R.color.white));
     }
 
     @Override
@@ -108,25 +109,25 @@ public class ProductDetails extends AppCompatActivity implements InitInterface, 
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 //Toast.makeText(mContext,"Group clicked",Toast.LENGTH_SHORT).show();
-                switch (groupPosition) {
-                    case 0:
-                       Toast.makeText(mContext,"Position "+groupPosition+" Clicked",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 1:
-                        Toast.makeText(mContext,"Position "+groupPosition+" Clicked",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 2:
-                        Toast.makeText(mContext,"Position "+groupPosition+" Clicked",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 3:
-                        Toast.makeText(mContext,"Position "+groupPosition+" Clicked",Toast.LENGTH_SHORT).show();
-                        break;
-                    case 4:
-                        Toast.makeText(mContext,"Position "+groupPosition+" Clicked",Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        break;
-                }
+//                switch (groupPosition) {
+//                    case 0:
+//                       Toast.makeText(mContext,"Position "+groupPosition+" Clicked",Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case 1:
+//                        Toast.makeText(mContext,"Position "+groupPosition+" Clicked",Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case 2:
+//                        Toast.makeText(mContext,"Position "+groupPosition+" Clicked",Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case 3:
+//                        Toast.makeText(mContext,"Position "+groupPosition+" Clicked",Toast.LENGTH_SHORT).show();
+//                        break;
+//                    case 4:
+//                        Toast.makeText(mContext,"Position "+groupPosition+" Clicked",Toast.LENGTH_SHORT).show();
+//                        break;
+//                    default:
+//                        break;
+//                }
                 return false;
             }
         });
@@ -168,7 +169,8 @@ public class ProductDetails extends AppCompatActivity implements InitInterface, 
 
     @Override
     public void applyTypeFace() {
-        FontUtil.applyTypeface(textViewProductName, FontUtil.getTypceFaceRobotoMedium_0(mContext));
+        FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(toolbar, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
     }
 

@@ -30,7 +30,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_centerVertical="true"
-                android:alpha="0.7"
                 android:paddingEnd="@dimen/dim_10"
                 android:paddingRight="@dimen/dim_10" />
 
@@ -43,7 +42,6 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/imageViewGroupIcon"
                 android:layout_toRightOf="@+id/imageViewGroupIcon"
-                android:alpha="0.7"
                 android:paddingEnd="@dimen/dim_10"
                 android:paddingLeft="@dimen/dim_10"
                 android:paddingRight="@dimen/dim_10"
@@ -60,7 +58,7 @@
                 android:alpha="0.7"
                 android:paddingEnd="@dimen/dim_10"
                 android:paddingRight="@dimen/dim_10"
-                android:src="@drawable/ic_action_arrow" />
+                android:src="@drawable/ic_action_arrow_right_blue" />
 
         </RelativeLayout>
 

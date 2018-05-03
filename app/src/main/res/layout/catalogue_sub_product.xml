@@ -13,7 +13,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme"
-        app:theme="@style/ToolbarColoredBackArrow" />
+        app:theme="@style/ToolbarColoredBackArrow"
+        app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
     <RelativeLayout
         android:id="@+id/rLayoutProductTitle"
@@ -38,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/dim_16"
+            android:layout_marginRight="@dimen/dim_8"
             android:layout_toLeftOf="@+id/textViewProductCount"
             android:text="Product"
             tools:ignore="RtlSymmetry" />
@@ -51,7 +52,10 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dim_10"
             android:background="@drawable/product_count"
-            android:padding="@dimen/dim_6"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:paddingTop="@dimen/dim_6"
+            android:paddingBottom="@dimen/dim_6"
             android:text="117"
             tools:ignore="RtlSymmetry" />
 
