@@ -7,6 +7,8 @@
     android:layout_marginBottom="@dimen/dim_8"
     android:maxHeight="@dimen/dim_200"
     app:cardCornerRadius="@dimen/dim_8"
+    card_view:cardElevation="0dp"
+    app:cardElevation="0dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true">
 
