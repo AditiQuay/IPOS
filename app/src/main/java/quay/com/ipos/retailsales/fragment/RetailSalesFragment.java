@@ -31,9 +31,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.gson.reflect.TypeToken;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
@@ -180,7 +183,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         }else {
             flScanner.setVisibility(View.VISIBLE);
             chkBarCode.setChecked(true);
-            displayFragment();
+                displayFragment();
 
         }
     }
@@ -265,7 +268,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         simpleFragment.setListener(this);
         // TODO: Add the SimpleFragment.
         // Add the SimpleFragment.
-       // simpleFragment.setTargetFragment(RetailSalesFragment.this,2000);
+    //    simpleFragment.setTargetFragment(RetailSalesFragment.this,2000);
 
         fragmentTransaction.add(R.id.scanner_fragment,
                 simpleFragment).addToBackStack(null).commit();
@@ -416,6 +419,22 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             if(resultCode == 1){
                 childPosition = data.getIntExtra("pinned_position",0);
                 getProduct();
+            }
+        }else {
+            IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
+            if (scanningResult != null) {
+                //we have a result
+                String scanContent = scanningResult.getContents();
+                String scanFormat = scanningResult.getFormatName();
+                Toast toast = Toast.makeText(getActivity(),scanContent, Toast.LENGTH_SHORT);
+                // display it on screen
+             //   formatTxt.setText("FORMAT: " + scanFormat);
+             //   contentTxt.setText("CONTENT: " + scanContent);
+
+            }else{
+                Toast toast = Toast.makeText(getActivity(),"No scan data received!", Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
      /*   if (resultCode == RESULT_OK) {
