@@ -50,7 +50,7 @@
             android:paddingRight="10dp"
             android:text="Item Name"
             android:textColor="@color/menu_text_color"
-            android:textSize="@dimen/dim_16" />
+            android:textSize="@dimen/dim_14" />
     </LinearLayout>
 
 

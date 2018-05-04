@@ -9,6 +9,10 @@ MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradl
 MERGED from [:MPChartLib] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\MPChartLib\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-21:12
 MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\4dea3aacfe6912ba1137e8a21d821cd6\AndroidManifest.xml:2:1-6:12
 MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\13befbdf62456e2c28fb2065facf3d9e\AndroidManifest.xml:17:1-37:12
+MERGED from [com.google.android.gms:play-services-vision:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-12.0.1.aar\867b408068cd8369274f970ca6ded984\AndroidManifest.xml:2:1-9:12
+MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:17:1-77:12
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:17:1-77:12
+MERGED from [com.journeyapps:zxing-android-integration:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-integration-2.0.1.aar\bc2bebf72c34b3b7e0c93d6b44596705\AndroidManifest.xml:2:1-12:12
 MERGED from [com.android.support:design:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\aa22ac6a75a89bfea7355846a8dbe9f8\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\a66b774ecf0c749d634ec15613e4ea67\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\2706964bdaf1f94befacb664753ab210\AndroidManifest.xml:2:1-11:12
@@ -23,6 +27,8 @@ MERGED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar
 MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\da1044f3c61559295b43dbfef2243ff1\AndroidManifest.xml:17:1-40:12
 MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\9e61dc0aadd86256cd9beeaff4dcd93c\AndroidManifest.xml:17:1-59:12
 MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\28f44b8cf9fb9fa0188fb8b7ed7b5414\AndroidManifest.xml:2:1-15:12
+MERGED from [com.google.android.gms:play-services-vision-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-12.0.1.aar\018b6ed3c796dded3982ba2a06e84c5c\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\636f4d34c1b1a7c15de61908b6320b42\AndroidManifest.xml:17:1-29:12
 MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\effc68213ecb50d6982169c3b7ec108a\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\0ea04b99a81b84bf1a286596550fa09b\AndroidManifest.xml:17:1-28:12
 MERGED from [me.dm7.barcodescanner:core:1.9.8] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\core-1.9.8.aar\7053e6e5fe3cfaf6e0710d2a669e52aa\AndroidManifest.xml:2:1-13:12
@@ -33,10 +39,13 @@ MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\niraj.kum
 MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-core-utils-26.1.0.aar\cd7c9c08ac459e8cdf5adcf584164252\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\6394ee95a14e9fd1e8cfa00cb686b0a2\AndroidManifest.xml:17:1-31:12
 MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\ccdbb9b8152aa1fd8b9b3044f14b7795\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-vision-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-license-12.0.1.aar\390f2aab787e30bc495c8d2681f8590a\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\6e96c88225c44c0d72c63c0cfaade821\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-license-12.0.1.aar\8d2bc268dfbfedc1e242b127aa532647\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\52b2c29d69a15c2d834ec7be74178ce9\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\577852963cfaf0a331b607aa7d04b7ce\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-base-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-license-12.0.1.aar\ffc5c253facbf48de25e251bd735a65e\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-vision-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-license-12.0.1.aar\c778cf37da7aa0f48b86bb94d7ade564\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\85f9d7ecc8368efb7b021a9857d2f498\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\934075a284e06f3ee5fa839a9c689a30\AndroidManifest.xml:17:1-24:12
 MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\fc168cd30465752f8f65865fda5ebb28\AndroidManifest.xml:17:1-30:12
@@ -79,6 +88,10 @@ MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.grad
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:6:22-76
 uses-permission#android.permission.CAMERA
 ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:7:5-65
+MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:23:5-65
+MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:23:5-65
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:24:5-65
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:24:5-65
 	android:name
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:7:22-62
 uses-permission#android.permission.GET_TASKS
@@ -93,6 +106,14 @@ MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\niraj.kumar\.gra
 MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\4dea3aacfe6912ba1137e8a21d821cd6\AndroidManifest.xml:5:5-20
 MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\13befbdf62456e2c28fb2065facf3d9e\AndroidManifest.xml:22:5-35:19
 MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\13befbdf62456e2c28fb2065facf3d9e\AndroidManifest.xml:22:5-35:19
+MERGED from [com.google.android.gms:play-services-vision:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-12.0.1.aar\867b408068cd8369274f970ca6ded984\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-vision:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-12.0.1.aar\867b408068cd8369274f970ca6ded984\AndroidManifest.xml:7:5-20
+MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:59:5-75:19
+MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:59:5-75:19
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:60:5-75:19
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:60:5-75:19
+MERGED from [com.journeyapps:zxing-android-integration:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-integration-2.0.1.aar\bc2bebf72c34b3b7e0c93d6b44596705\AndroidManifest.xml:9:5-10:19
+MERGED from [com.journeyapps:zxing-android-integration:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-integration-2.0.1.aar\bc2bebf72c34b3b7e0c93d6b44596705\AndroidManifest.xml:9:5-10:19
 MERGED from [com.android.support:design:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\aa22ac6a75a89bfea7355846a8dbe9f8\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:design:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\aa22ac6a75a89bfea7355846a8dbe9f8\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\a66b774ecf0c749d634ec15613e4ea67\AndroidManifest.xml:25:5-29:19
@@ -117,6 +138,10 @@ MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.grad
 MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\9e61dc0aadd86256cd9beeaff4dcd93c\AndroidManifest.xml:34:5-57:19
 MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\28f44b8cf9fb9fa0188fb8b7ed7b5414\AndroidManifest.xml:7:5-13:19
 MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\28f44b8cf9fb9fa0188fb8b7ed7b5414\AndroidManifest.xml:7:5-13:19
+MERGED from [com.google.android.gms:play-services-vision-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-12.0.1.aar\018b6ed3c796dded3982ba2a06e84c5c\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-vision-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-12.0.1.aar\018b6ed3c796dded3982ba2a06e84c5c\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\636f4d34c1b1a7c15de61908b6320b42\AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\636f4d34c1b1a7c15de61908b6320b42\AndroidManifest.xml:22:5-27:19
 MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\effc68213ecb50d6982169c3b7ec108a\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\effc68213ecb50d6982169c3b7ec108a\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\0ea04b99a81b84bf1a286596550fa09b\AndroidManifest.xml:22:5-26:19
@@ -137,6 +162,8 @@ MERGED from [com.android.support:support-compat:26.1.0] C:\Users\niraj.kumar\.gr
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\6394ee95a14e9fd1e8cfa00cb686b0a2\AndroidManifest.xml:25:5-29:19
 MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\ccdbb9b8152aa1fd8b9b3044f14b7795\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\ccdbb9b8152aa1fd8b9b3044f14b7795\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-vision-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-license-12.0.1.aar\390f2aab787e30bc495c8d2681f8590a\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-vision-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-license-12.0.1.aar\390f2aab787e30bc495c8d2681f8590a\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\6e96c88225c44c0d72c63c0cfaade821\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\6e96c88225c44c0d72c63c0cfaade821\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-license-12.0.1.aar\8d2bc268dfbfedc1e242b127aa532647\AndroidManifest.xml:22:5-20
@@ -145,6 +172,10 @@ MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Us
 MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\52b2c29d69a15c2d834ec7be74178ce9\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\577852963cfaf0a331b607aa7d04b7ce\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\577852963cfaf0a331b607aa7d04b7ce\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-base-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-license-12.0.1.aar\ffc5c253facbf48de25e251bd735a65e\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-base-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-license-12.0.1.aar\ffc5c253facbf48de25e251bd735a65e\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-vision-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-license-12.0.1.aar\c778cf37da7aa0f48b86bb94d7ade564\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-vision-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-license-12.0.1.aar\c778cf37da7aa0f48b86bb94d7ade564\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\85f9d7ecc8368efb7b021a9857d2f498\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\85f9d7ecc8368efb7b021a9857d2f498\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\934075a284e06f3ee5fa839a9c689a30\AndroidManifest.xml:22:5-20
@@ -357,6 +388,14 @@ MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\niraj.kumar\.gra
 MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\4dea3aacfe6912ba1137e8a21d821cd6\AndroidManifest.xml:4:5-43
 MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\13befbdf62456e2c28fb2065facf3d9e\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\13befbdf62456e2c28fb2065facf3d9e\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-vision:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-12.0.1.aar\867b408068cd8369274f970ca6ded984\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-vision:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-12.0.1.aar\867b408068cd8369274f970ca6ded984\AndroidManifest.xml:5:5-44
+MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:19:5-21:41
+MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:19:5-21:41
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:20:5-22:41
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:20:5-22:41
+MERGED from [com.journeyapps:zxing-android-integration:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-integration-2.0.1.aar\bc2bebf72c34b3b7e0c93d6b44596705\AndroidManifest.xml:5:5-7:41
+MERGED from [com.journeyapps:zxing-android-integration:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-integration-2.0.1.aar\bc2bebf72c34b3b7e0c93d6b44596705\AndroidManifest.xml:5:5-7:41
 MERGED from [com.android.support:design:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\aa22ac6a75a89bfea7355846a8dbe9f8\AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:design:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\aa22ac6a75a89bfea7355846a8dbe9f8\AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\a66b774ecf0c749d634ec15613e4ea67\AndroidManifest.xml:21:5-23:78
@@ -385,6 +424,10 @@ MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.grad
 MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\9e61dc0aadd86256cd9beeaff4dcd93c\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\28f44b8cf9fb9fa0188fb8b7ed7b5414\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\28f44b8cf9fb9fa0188fb8b7ed7b5414\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-vision-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-12.0.1.aar\018b6ed3c796dded3982ba2a06e84c5c\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-vision-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-12.0.1.aar\018b6ed3c796dded3982ba2a06e84c5c\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\636f4d34c1b1a7c15de61908b6320b42\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\636f4d34c1b1a7c15de61908b6320b42\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\effc68213ecb50d6982169c3b7ec108a\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\effc68213ecb50d6982169c3b7ec108a\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\0ea04b99a81b84bf1a286596550fa09b\AndroidManifest.xml:20:5-44
@@ -405,6 +448,8 @@ MERGED from [com.android.support:support-compat:26.1.0] C:\Users\niraj.kumar\.gr
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\6394ee95a14e9fd1e8cfa00cb686b0a2\AndroidManifest.xml:21:5-23:58
 MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\ccdbb9b8152aa1fd8b9b3044f14b7795\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\ccdbb9b8152aa1fd8b9b3044f14b7795\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-vision-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-license-12.0.1.aar\390f2aab787e30bc495c8d2681f8590a\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-vision-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-license-12.0.1.aar\390f2aab787e30bc495c8d2681f8590a\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\6e96c88225c44c0d72c63c0cfaade821\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\6e96c88225c44c0d72c63c0cfaade821\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-license-12.0.1.aar\8d2bc268dfbfedc1e242b127aa532647\AndroidManifest.xml:20:5-44
@@ -413,6 +458,10 @@ MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Us
 MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\52b2c29d69a15c2d834ec7be74178ce9\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\577852963cfaf0a331b607aa7d04b7ce\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\577852963cfaf0a331b607aa7d04b7ce\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-license-12.0.1.aar\ffc5c253facbf48de25e251bd735a65e\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-license-12.0.1.aar\ffc5c253facbf48de25e251bd735a65e\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-vision-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-license-12.0.1.aar\c778cf37da7aa0f48b86bb94d7ade564\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-vision-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-license-12.0.1.aar\c778cf37da7aa0f48b86bb94d7ade564\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\85f9d7ecc8368efb7b021a9857d2f498\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\85f9d7ecc8368efb7b021a9857d2f498\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\934075a284e06f3ee5fa839a9c689a30\AndroidManifest.xml:20:5-44
@@ -467,6 +516,138 @@ ADDED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\
 		ADDED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\13befbdf62456e2c28fb2065facf3d9e\AndroidManifest.xml:30:13-36
 	android:name
 		ADDED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\13befbdf62456e2c28fb2065facf3d9e\AndroidManifest.xml:29:13-82
+uses-permission#android.permission.VIBRATE
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:24:5-66
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:25:5-66
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:25:5-66
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:24:22-63
+uses-permission#android.permission.FLASHLIGHT
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:25:5-69
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:26:5-69
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:26:5-69
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:25:22-66
+uses-feature#android.hardware.camera
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:28:5-30:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:29:5-31:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:29:5-31:36
+	android:required
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:30:9-33
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:29:9-47
+uses-feature#android.hardware.camera.front
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:31:5-33:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:32:5-34:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:32:5-34:36
+	android:required
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:33:9-33
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:32:9-53
+uses-feature#android.hardware.camera.autofocus
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:36:5-38:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:37:5-39:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:37:5-39:36
+	android:required
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:38:9-33
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:37:9-57
+uses-feature#android.hardware.camera.flash
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:39:5-41:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:40:5-42:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:40:5-42:36
+	android:required
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:41:9-33
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:40:9-53
+uses-feature#android.hardware.screen.landscape
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:42:5-44:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:43:5-45:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:43:5-45:36
+	android:required
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:44:9-33
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:43:9-57
+uses-feature#android.hardware.wifi
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:45:5-47:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:46:5-48:36
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:46:5-48:36
+	android:required
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:47:9-33
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:46:9-45
+supports-screens
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:52:5-57:40
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:53:5-58:40
+MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:53:5-58:40
+	android:largeScreens
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:54:9-36
+	android:smallScreens
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:56:9-36
+	android:normalScreens
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:55:9-37
+	android:xlargeScreens
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:57:9-37
+	android:anyDensity
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:53:9-34
+activity#com.google.zxing.client.android.CaptureActivity
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:60:9-66:63
+	android:screenOrientation
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:63:13-56
+	android:clearTaskOnLaunch
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:62:13-45
+	android:stateNotNeeded
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:64:13-42
+	android:windowSoftInputMode
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:66:13-60
+	android:theme
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:65:13-54
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:61:13-75
+activity#com.google.zxing.client.android.HelpActivity
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:67:9-71:45
+	android:screenOrientation
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:70:13-45
+	android:stateNotNeeded
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:71:13-42
+	android:label
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:69:13-52
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:68:13-72
+activity#com.google.zxing.client.android.encode.EncodeActivity
+ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:72:9-74:48
+	android:screenOrientation
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:74:13-45
+	android:name
+		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\bbbfc7e82c38fa49a4ce3ee1d941afe5\AndroidManifest.xml:73:13-81
+activity#com.google.zxing.client.androidlegacy.CaptureActivity
+ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:61:9-68:63
+	android:screenOrientation
+		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:65:13-50
+	android:clearTaskOnLaunch
+		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:63:13-45
+	android:stateNotNeeded
+		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:66:13-42
+	android:windowSoftInputMode
+		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:68:13-60
+	android:configChanges
+		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:64:13-63
+	android:theme
+		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:67:13-71
+	android:name
+		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:62:13-81
+activity#com.google.zxing.client.androidlegacy.HelpActivity
+ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:69:9-71:48
+	android:screenOrientation
+		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:71:13-45
+	android:name
+		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:70:13-78
+activity#com.google.zxing.client.androidlegacy.encode.EncodeActivity
+ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:72:9-74:48
+	android:screenOrientation
+		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:74:13-45
+	android:name
+		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\3b4b664b5f7e274c481af0448cb063a8\AndroidManifest.xml:73:13-87
 uses-permission#android.permission.WAKE_LOCK
 ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\da7c8e5b3c0493e613e860696821c602\AndroidManifest.xml:25:5-68
 MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\da1044f3c61559295b43dbfef2243ff1\AndroidManifest.xml:25:5-68
@@ -585,6 +766,14 @@ ADDED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gr
 		ADDED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\28f44b8cf9fb9fa0188fb8b7ed7b5414\AndroidManifest.xml:12:13-36
 	android:name
 		ADDED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\28f44b8cf9fb9fa0188fb8b7ed7b5414\AndroidManifest.xml:9:13-77
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\636f4d34c1b1a7c15de61908b6320b42\AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\636f4d34c1b1a7c15de61908b6320b42\AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\636f4d34c1b1a7c15de61908b6320b42\AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\636f4d34c1b1a7c15de61908b6320b42\AndroidManifest.xml:24:13-79
 meta-data#com.google.android.gms.version
 ADDED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\0ea04b99a81b84bf1a286596550fa09b\AndroidManifest.xml:23:9-25:69
 	android:value
