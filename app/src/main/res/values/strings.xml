@@ -202,4 +202,13 @@
         <item>Saket, ND</item>
         <item>XYZ, ND</item>
     </string-array>
+
+    <string name="edittext_email_error_activity_login">Please enter a valid email address!</string>
+    <string name="edittext_password_error_activity_login">Please enter password</string>
+    <string name="runtime_permissions_txt">Please enable ALL permissions.</string>
+    <string name="error_bad_request">Bad Request</string>
+    <string name="error_internal_server_error">Internal server error</string>
+    <string name="error_url_not_found">URL not found</string>
+    <string name="error_unautorize_access">UnAuthorize access</string>
+    <string name="error_connection_timed_out">Connection timed out!</string>
 </resources>
