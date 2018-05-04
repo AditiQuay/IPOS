@@ -71,5 +71,6 @@ public class Constants {
     public static String customer_detail="customer_detail";
     public static int APP_DIALOG_Cart=1;
     public static String Product_List="product_list";
+    public static String Order_List="order_list";
 }
 

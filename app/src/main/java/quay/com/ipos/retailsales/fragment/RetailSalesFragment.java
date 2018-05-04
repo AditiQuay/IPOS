@@ -31,9 +31,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.gson.reflect.TypeToken;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
@@ -180,7 +183,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         }else {
             flScanner.setVisibility(View.VISIBLE);
             chkBarCode.setChecked(true);
-            displayFragment();
+                displayFragment();
 
         }
     }
@@ -202,6 +205,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         imvRedeem.setOnClickListener(this);
         imvUserAdd.setOnClickListener(this);
         tvPay.setOnClickListener(this);
+        imvRight.setOnClickListener(this);
 //        chkBarCode.setOnClickListener(new View.OnClickListener() {
 //
 //            @Override
@@ -264,7 +268,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         simpleFragment.setListener(this);
         // TODO: Add the SimpleFragment.
         // Add the SimpleFragment.
-       // simpleFragment.setTargetFragment(RetailSalesFragment.this,2000);
+    //    simpleFragment.setTargetFragment(RetailSalesFragment.this,2000);
 
         fragmentTransaction.add(R.id.scanner_fragment,
                 simpleFragment).addToBackStack(null).commit();
@@ -415,6 +419,22 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             if(resultCode == 1){
                 childPosition = data.getIntExtra("pinned_position",0);
                 getProduct();
+            }
+        }else {
+            IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
+            if (scanningResult != null) {
+                //we have a result
+                String scanContent = scanningResult.getContents();
+                String scanFormat = scanningResult.getFormatName();
+                Toast toast = Toast.makeText(getActivity(),scanContent, Toast.LENGTH_SHORT);
+                // display it on screen
+             //   formatTxt.setText("FORMAT: " + scanFormat);
+             //   contentTxt.setText("CONTENT: " + scanContent);
+
+            }else{
+                Toast toast = Toast.makeText(getActivity(),"No scan data received!", Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
      /*   if (resultCode == RESULT_OK) {
@@ -753,7 +773,15 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                     Util.showToast("Please add atleast one item to proceed.");
                 }
                 break;
-
+            case R.id.imvRight:
+                if (totalAmount>0) {
+                    Intent i = new Intent(getActivity(), PaymentModeActivity.class);
+                    i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
+                    getActivity().startActivity(i);
+                }else {
+                    Util.showToast("Please add atleast one item to proceed.");
+                }
+                break;
         }
     }
 
@@ -1105,8 +1133,8 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     @Override
     public void setProductOnListener(String mDatum) {
         ArrayList<ProductList.Datum> arrData= new ArrayList<>();
-        json = SharedPrefUtil.getString("mInfoArrayList","",getActivity());
-        arrData = Util.getCustomGson().fromJson(json, new TypeToken<ArrayList<RealmPinnedResults.Info>>(){}.getType());
+        json = SharedPrefUtil.getString(Constants.Product_List,"",getActivity());
+        arrData = Util.getCustomGson().fromJson(json, new TypeToken<ArrayList<ProductList.Datum>>(){}.getType());
         IPOSApplication.mProductList.add(arrData.get(0));
         mRetailSalesAdapter.notifyDataSetChanged();
 

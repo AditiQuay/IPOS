@@ -101,7 +101,7 @@ public class FullScannerFragment extends Fragment implements
 //        MenuItemCompat.setShowAsAction(menuItem, MenuItem.SHOW_AS_ACTION_NEVER);
 //    }
 
-    void setListener(ScannerProductListener mScannerProductListener){
+    public void setListener(ScannerProductListener mScannerProductListener){
         this.mScannerProductListener = mScannerProductListener;
     }
 
@@ -170,11 +170,10 @@ public class FullScannerFragment extends Fragment implements
         }
         showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
 //        Intent intent = new Intent(getActivity(), FullScannerFragment.class);
-//
 //        intent.putExtra("scancode",rawResult.getContents());
 //        getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
 //        getFragmentManager().popBackStack();
-      //  mScannerProductListener.setProductOnListener("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
+        mScannerProductListener.setProductOnListener("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
     }
 
     public void showMessageDialog(String message) {

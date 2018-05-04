@@ -100,11 +100,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <FrameLayout
+     <FrameLayout
             android:id="@+id/flScanner"
             android:layout_width="match_parent"
             android:layout_alignParentTop="true"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_height="100dp">
 
             <fragment android:name="quay.com.ipos.retailsales.fragment.FullScannerFragment"

@@ -187,10 +187,19 @@
     <string name="qty_available">quantity available</string>
 
     <string name="proceed_update">Update &amp; Proceed</string>
+    <string name="stock">Stock</string>
+    <string name="available">Available</string>
+    <string name="check_stock">Check Stock</string>
+    <string name="reserved">Reserved</string>
+    <string name="cart">Cart</string>
     <string-array name="ordervalue">
-        <item>Apr</item>
-        <item>May</item>
-        <item>Jun</item>
-        <item>Jul</item>
+        <item>KGM Traders</item>
+        <item>ABC Traders</item>
+        <item>XYZ Traders</item>
+    </string-array>
+    <string-array name="addressvalue">
+        <item>Kirti Nagar, ND</item>
+        <item>Saket, ND</item>
+        <item>XYZ, ND</item>
     </string-array>
 </resources>
