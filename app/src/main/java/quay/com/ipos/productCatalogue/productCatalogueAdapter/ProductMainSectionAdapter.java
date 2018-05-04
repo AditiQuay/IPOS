@@ -26,7 +26,7 @@ import quay.com.ipos.utility.VerticalSpaceItemDecoration;
  * Created by niraj.kumar on 4/25/2018.
  */
 
-public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainSectionAdapter.ItemRowHolder> implements Filterable{
+public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainSectionAdapter.ItemRowHolder> implements Filterable {
     private ArrayList<ProductSectionModal> productSectionModals;
     private Context mContext;
     private static final int VERTICAL_ITEM_SPACE = 48;
@@ -59,7 +59,6 @@ public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainS
         itemRowHolder.recyclerViewItems.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
 
 
-
         itemRowHolder.recyclerViewItems.setAdapter(itemListDataAdapter);
         itemRowHolder.BtnViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +70,7 @@ public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainS
 
                 Intent i = new Intent(mContext, ProductCatalogueViewAll.class);
                 i.putExtra("Group", sectionName);
-                i.putExtra("sectionProduct",sectionProductCatagory);
+                i.putExtra("sectionProduct", sectionProductCatagory);
                 i.putExtra("Products", singleSectionItems);
                 mContext.startActivity(i);
             }
@@ -99,7 +98,7 @@ public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainS
 
     public class ItemRowHolder extends RecyclerView.ViewHolder {
 
-        protected TextView itemTitle,textViewProductDetails;
+        protected TextView itemTitle, textViewProductDetails;
         protected RecyclerView recyclerViewItems;
         protected Button BtnViewAll;
 

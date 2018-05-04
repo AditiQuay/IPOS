@@ -10,8 +10,8 @@
         android:id="@+id/items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dim_8"
-        android:background="@drawable/rectangle_child_white">
+        android:background="@drawable/rectangle_child_white"
+        android:padding="@dimen/dim_8">
 
         <TextView
             android:id="@+id/textViewChildName"
@@ -20,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/dim_8"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dim_8"
             android:paddingBottom="@dimen/dim_8"
             android:paddingEnd="@dimen/dim_10"
             android:paddingRight="@dimen/dim_10"
@@ -38,6 +38,7 @@
             android:backgroundTint="@color/colorPrimary"
             android:drawablePadding="@dimen/dim_8"
             android:drawableRight="@drawable/stock"
+            android:stateListAnimator="@null"
             android:text="Check Stock"
             android:textAllCaps="false"
             android:textColor="@color/white_text_color" />

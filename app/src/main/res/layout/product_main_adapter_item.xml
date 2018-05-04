@@ -55,10 +55,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
+            android:stateListAnimator="@null"
             android:layout_alignParentRight="true"
             android:backgroundTint="@color/colorPrimary"
             android:drawablePadding="@dimen/dim_4"
-            android:drawableRight="@drawable/view_all"
+            android:drawableLeft="@drawable/view_all"
             android:text="View All"
             android:textAllCaps="false" />
 
@@ -68,6 +69,7 @@
         android:id="@+id/recyclerViewItems"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:overScrollMode="never"
         android:layout_gravity="center_vertical"
         android:orientation="horizontal" />
 
