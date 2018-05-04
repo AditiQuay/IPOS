@@ -9,10 +9,6 @@ MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\Ankush.bansal\.gra
 MERGED from [:MPChartLib] C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\MPChartLib\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-21:12
 MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\7cb2f0ab247f3bd55b04f5ba687c6b25\AndroidManifest.xml:2:1-6:12
 MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\323ffc54f59af98160141ba499ff00a3\AndroidManifest.xml:17:1-37:12
-MERGED from [com.google.android.gms:play-services-vision:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-12.0.1.aar\f3e8983ed662adcb9bda41835779a8d0\AndroidManifest.xml:2:1-9:12
-MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:17:1-77:12
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:17:1-77:12
-MERGED from [com.journeyapps:zxing-android-integration:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-integration-2.0.1.aar\656b9f3ad379b05efb5fa73244a2406e\AndroidManifest.xml:2:1-12:12
 MERGED from [com.android.support:design:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\6941d0ad28ad510b490efc16906085f8\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\42c02bebeac4ee2eb4d7025a4328690c\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\859615c6167d9cb4e7e91751c5a3a00a\AndroidManifest.xml:2:1-11:12
@@ -27,8 +23,6 @@ MERGED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\Ankush.bans
 MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c52ef52509ca4e6214241de9f7e84a02\AndroidManifest.xml:17:1-40:12
 MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\48db2a8eb787122058b57bd79d63cf6f\AndroidManifest.xml:17:1-59:12
 MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\1f9903d081a0304443609914fd57141a\AndroidManifest.xml:2:1-15:12
-MERGED from [com.google.android.gms:play-services-vision-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-12.0.1.aar\f57d64df47040fc616f0befd8ca7b573\AndroidManifest.xml:2:1-9:12
-MERGED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\3d98e23bdaac4d2cf50a8c766b4120c9\AndroidManifest.xml:17:1-29:12
 MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\d27959937859c74872b3b376628bac36\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\921b9b21c12efeaa17b1656081d2871a\AndroidManifest.xml:17:1-28:12
 MERGED from [me.dm7.barcodescanner:core:1.9.8] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\core-1.9.8.aar\a2cab8345fb9d91d2624f3529c724797\AndroidManifest.xml:2:1-13:12
@@ -39,13 +33,10 @@ MERGED from [com.android.support:support-media-compat:26.1.0] C:\Users\Ankush.ba
 MERGED from [com.android.support:support-core-utils:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\support-core-utils-26.1.0.aar\2180b41321bea37ac0c396ae7fa0f27f\AndroidManifest.xml:17:1-31:12
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\62808a74825136afa6f66fbf49b27da6\AndroidManifest.xml:17:1-31:12
 MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\bba4e81120b82520d74aea2dd9c71287\AndroidManifest.xml:17:1-24:12
-MERGED from [com.google.android.gms:play-services-vision-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-license-12.0.1.aar\83f149906c5a5575107f2ac2c33bc80b\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\03780285d89680fef12af13a75da3464\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-iid-license-12.0.1.aar\fd481f98dabf60e02bef896c68a3d5c5\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\195cbbbbc6e6b7ffbb1ff4bb05a06f49\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\3b5b47694266d6332a1427bffed0148c\AndroidManifest.xml:17:1-24:12
-MERGED from [com.google.android.gms:play-services-base-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-license-12.0.1.aar\e202ea35e1ff083b749a112ed4d3d9e1\AndroidManifest.xml:17:1-24:12
-MERGED from [com.google.android.gms:play-services-vision-common-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-license-12.0.1.aar\87474fc94e0b01061c1185e8e843e179\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\bc12d04a06cef6c7bdb81bb51a9ddd88\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\5d7c7882e75523755729c321e2dd5c0b\AndroidManifest.xml:17:1-24:12
 MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\3e353e59a7bd69d44cdc45ddeab8f5b6\AndroidManifest.xml:17:1-30:12
@@ -88,10 +79,6 @@ MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\Ankush.bansal\.gr
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:6:22-76
 uses-permission#android.permission.CAMERA
 ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:7:5-65
-MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:23:5-65
-MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:23:5-65
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:24:5-65
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:24:5-65
 	android:name
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:7:22-62
 uses-permission#android.permission.GET_TASKS
@@ -106,14 +93,6 @@ MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\Ankush.bansal\.g
 MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\7cb2f0ab247f3bd55b04f5ba687c6b25\AndroidManifest.xml:5:5-20
 MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\323ffc54f59af98160141ba499ff00a3\AndroidManifest.xml:22:5-35:19
 MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\323ffc54f59af98160141ba499ff00a3\AndroidManifest.xml:22:5-35:19
-MERGED from [com.google.android.gms:play-services-vision:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-12.0.1.aar\f3e8983ed662adcb9bda41835779a8d0\AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-vision:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-12.0.1.aar\f3e8983ed662adcb9bda41835779a8d0\AndroidManifest.xml:7:5-20
-MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:59:5-75:19
-MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:59:5-75:19
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:60:5-75:19
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:60:5-75:19
-MERGED from [com.journeyapps:zxing-android-integration:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-integration-2.0.1.aar\656b9f3ad379b05efb5fa73244a2406e\AndroidManifest.xml:9:5-10:19
-MERGED from [com.journeyapps:zxing-android-integration:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-integration-2.0.1.aar\656b9f3ad379b05efb5fa73244a2406e\AndroidManifest.xml:9:5-10:19
 MERGED from [com.android.support:design:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\6941d0ad28ad510b490efc16906085f8\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:design:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\6941d0ad28ad510b490efc16906085f8\AndroidManifest.xml:25:5-29:19
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\42c02bebeac4ee2eb4d7025a4328690c\AndroidManifest.xml:25:5-29:19
@@ -138,10 +117,6 @@ MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\Ankush.bansal\.gr
 MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\48db2a8eb787122058b57bd79d63cf6f\AndroidManifest.xml:34:5-57:19
 MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\1f9903d081a0304443609914fd57141a\AndroidManifest.xml:7:5-13:19
 MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\1f9903d081a0304443609914fd57141a\AndroidManifest.xml:7:5-13:19
-MERGED from [com.google.android.gms:play-services-vision-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-12.0.1.aar\f57d64df47040fc616f0befd8ca7b573\AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-vision-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-12.0.1.aar\f57d64df47040fc616f0befd8ca7b573\AndroidManifest.xml:7:5-20
-MERGED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\3d98e23bdaac4d2cf50a8c766b4120c9\AndroidManifest.xml:22:5-27:19
-MERGED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\3d98e23bdaac4d2cf50a8c766b4120c9\AndroidManifest.xml:22:5-27:19
 MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\d27959937859c74872b3b376628bac36\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\d27959937859c74872b3b376628bac36\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\921b9b21c12efeaa17b1656081d2871a\AndroidManifest.xml:22:5-26:19
@@ -162,8 +137,6 @@ MERGED from [com.android.support:support-compat:26.1.0] C:\Users\Ankush.bansal\.
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\62808a74825136afa6f66fbf49b27da6\AndroidManifest.xml:25:5-29:19
 MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\bba4e81120b82520d74aea2dd9c71287\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\bba4e81120b82520d74aea2dd9c71287\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-vision-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-license-12.0.1.aar\83f149906c5a5575107f2ac2c33bc80b\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-vision-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-license-12.0.1.aar\83f149906c5a5575107f2ac2c33bc80b\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\03780285d89680fef12af13a75da3464\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\03780285d89680fef12af13a75da3464\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-iid-license-12.0.1.aar\fd481f98dabf60e02bef896c68a3d5c5\AndroidManifest.xml:22:5-20
@@ -172,10 +145,6 @@ MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Us
 MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\195cbbbbc6e6b7ffbb1ff4bb05a06f49\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\3b5b47694266d6332a1427bffed0148c\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\3b5b47694266d6332a1427bffed0148c\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-base-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-license-12.0.1.aar\e202ea35e1ff083b749a112ed4d3d9e1\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-base-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-license-12.0.1.aar\e202ea35e1ff083b749a112ed4d3d9e1\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-vision-common-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-license-12.0.1.aar\87474fc94e0b01061c1185e8e843e179\AndroidManifest.xml:22:5-20
-MERGED from [com.google.android.gms:play-services-vision-common-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-license-12.0.1.aar\87474fc94e0b01061c1185e8e843e179\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\bc12d04a06cef6c7bdb81bb51a9ddd88\AndroidManifest.xml:22:5-20
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\bc12d04a06cef6c7bdb81bb51a9ddd88\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\5d7c7882e75523755729c321e2dd5c0b\AndroidManifest.xml:22:5-20
@@ -388,14 +357,6 @@ MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\Ankush.bansal\.g
 MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\7cb2f0ab247f3bd55b04f5ba687c6b25\AndroidManifest.xml:4:5-43
 MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\323ffc54f59af98160141ba499ff00a3\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\323ffc54f59af98160141ba499ff00a3\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-vision:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-12.0.1.aar\f3e8983ed662adcb9bda41835779a8d0\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-vision:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-12.0.1.aar\f3e8983ed662adcb9bda41835779a8d0\AndroidManifest.xml:5:5-44
-MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:19:5-21:41
-MERGED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:19:5-21:41
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:20:5-22:41
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:20:5-22:41
-MERGED from [com.journeyapps:zxing-android-integration:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-integration-2.0.1.aar\656b9f3ad379b05efb5fa73244a2406e\AndroidManifest.xml:5:5-7:41
-MERGED from [com.journeyapps:zxing-android-integration:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-integration-2.0.1.aar\656b9f3ad379b05efb5fa73244a2406e\AndroidManifest.xml:5:5-7:41
 MERGED from [com.android.support:design:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\6941d0ad28ad510b490efc16906085f8\AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:design:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\6941d0ad28ad510b490efc16906085f8\AndroidManifest.xml:21:5-23:62
 MERGED from [com.android.support:appcompat-v7:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\42c02bebeac4ee2eb4d7025a4328690c\AndroidManifest.xml:21:5-23:78
@@ -424,10 +385,6 @@ MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\Ankush.bansal\.gr
 MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\48db2a8eb787122058b57bd79d63cf6f\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\1f9903d081a0304443609914fd57141a\AndroidManifest.xml:5:5-44
 MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\1f9903d081a0304443609914fd57141a\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-vision-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-12.0.1.aar\f57d64df47040fc616f0befd8ca7b573\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-vision-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-12.0.1.aar\f57d64df47040fc616f0befd8ca7b573\AndroidManifest.xml:5:5-44
-MERGED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\3d98e23bdaac4d2cf50a8c766b4120c9\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\3d98e23bdaac4d2cf50a8c766b4120c9\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\d27959937859c74872b3b376628bac36\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\d27959937859c74872b3b376628bac36\AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\921b9b21c12efeaa17b1656081d2871a\AndroidManifest.xml:20:5-44
@@ -448,8 +405,6 @@ MERGED from [com.android.support:support-compat:26.1.0] C:\Users\Ankush.bansal\.
 MERGED from [com.android.support:support-compat:26.1.0] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\62808a74825136afa6f66fbf49b27da6\AndroidManifest.xml:21:5-23:58
 MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\bba4e81120b82520d74aea2dd9c71287\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\bba4e81120b82520d74aea2dd9c71287\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-vision-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-license-12.0.1.aar\83f149906c5a5575107f2ac2c33bc80b\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-vision-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-license-12.0.1.aar\83f149906c5a5575107f2ac2c33bc80b\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\03780285d89680fef12af13a75da3464\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\03780285d89680fef12af13a75da3464\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-iid-license-12.0.1.aar\fd481f98dabf60e02bef896c68a3d5c5\AndroidManifest.xml:20:5-44
@@ -458,10 +413,6 @@ MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Us
 MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\195cbbbbc6e6b7ffbb1ff4bb05a06f49\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\3b5b47694266d6332a1427bffed0148c\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\3b5b47694266d6332a1427bffed0148c\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-base-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-license-12.0.1.aar\e202ea35e1ff083b749a112ed4d3d9e1\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-base-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-license-12.0.1.aar\e202ea35e1ff083b749a112ed4d3d9e1\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-vision-common-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-license-12.0.1.aar\87474fc94e0b01061c1185e8e843e179\AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-vision-common-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-vision-common-license-12.0.1.aar\87474fc94e0b01061c1185e8e843e179\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\bc12d04a06cef6c7bdb81bb51a9ddd88\AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\bc12d04a06cef6c7bdb81bb51a9ddd88\AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\5d7c7882e75523755729c321e2dd5c0b\AndroidManifest.xml:20:5-44
@@ -516,138 +467,6 @@ ADDED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\Ankush.bansa
 		ADDED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\323ffc54f59af98160141ba499ff00a3\AndroidManifest.xml:30:13-36
 	android:name
 		ADDED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\323ffc54f59af98160141ba499ff00a3\AndroidManifest.xml:29:13-82
-uses-permission#android.permission.VIBRATE
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:24:5-66
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:25:5-66
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:25:5-66
-	android:name
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:24:22-63
-uses-permission#android.permission.FLASHLIGHT
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:25:5-69
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:26:5-69
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:26:5-69
-	android:name
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:25:22-66
-uses-feature#android.hardware.camera
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:28:5-30:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:29:5-31:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:29:5-31:36
-	android:required
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:30:9-33
-	android:name
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:29:9-47
-uses-feature#android.hardware.camera.front
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:31:5-33:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:32:5-34:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:32:5-34:36
-	android:required
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:33:9-33
-	android:name
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:32:9-53
-uses-feature#android.hardware.camera.autofocus
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:36:5-38:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:37:5-39:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:37:5-39:36
-	android:required
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:38:9-33
-	android:name
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:37:9-57
-uses-feature#android.hardware.camera.flash
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:39:5-41:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:40:5-42:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:40:5-42:36
-	android:required
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:41:9-33
-	android:name
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:40:9-53
-uses-feature#android.hardware.screen.landscape
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:42:5-44:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:43:5-45:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:43:5-45:36
-	android:required
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:44:9-33
-	android:name
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:43:9-57
-uses-feature#android.hardware.wifi
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:45:5-47:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:46:5-48:36
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:46:5-48:36
-	android:required
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:47:9-33
-	android:name
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:46:9-45
-supports-screens
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:52:5-57:40
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:53:5-58:40
-MERGED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:53:5-58:40
-	android:largeScreens
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:54:9-36
-	android:smallScreens
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:56:9-36
-	android:normalScreens
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:55:9-37
-	android:xlargeScreens
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:57:9-37
-	android:anyDensity
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:53:9-34
-activity#com.google.zxing.client.android.CaptureActivity
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:60:9-66:63
-	android:screenOrientation
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:63:13-56
-	android:clearTaskOnLaunch
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:62:13-45
-	android:stateNotNeeded
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:64:13-42
-	android:windowSoftInputMode
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:66:13-60
-	android:theme
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:65:13-54
-	android:name
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:61:13-75
-activity#com.google.zxing.client.android.HelpActivity
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:67:9-71:45
-	android:screenOrientation
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:70:13-45
-	android:stateNotNeeded
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:71:13-42
-	android:label
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:69:13-52
-	android:name
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:68:13-72
-activity#com.google.zxing.client.android.encode.EncodeActivity
-ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:72:9-74:48
-	android:screenOrientation
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:74:13-45
-	android:name
-		ADDED from [com.journeyapps:zxing-android-embedded:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-embedded-2.0.1.aar\1ddf685c654dbb1d76fe6eb1a7ef186d\AndroidManifest.xml:73:13-81
-activity#com.google.zxing.client.androidlegacy.CaptureActivity
-ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:61:9-68:63
-	android:screenOrientation
-		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:65:13-50
-	android:clearTaskOnLaunch
-		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:63:13-45
-	android:stateNotNeeded
-		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:66:13-42
-	android:windowSoftInputMode
-		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:68:13-60
-	android:configChanges
-		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:64:13-63
-	android:theme
-		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:67:13-71
-	android:name
-		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:62:13-81
-activity#com.google.zxing.client.androidlegacy.HelpActivity
-ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:69:9-71:48
-	android:screenOrientation
-		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:71:13-45
-	android:name
-		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:70:13-78
-activity#com.google.zxing.client.androidlegacy.encode.EncodeActivity
-ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:72:9-74:48
-	android:screenOrientation
-		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:74:13-45
-	android:name
-		ADDED from [com.journeyapps:zxing-android-legacy:2.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\zxing-android-legacy-2.0.1.aar\6c4bb02434b5fc37ed502c0aa371a303\AndroidManifest.xml:73:13-87
 uses-permission#android.permission.WAKE_LOCK
 ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\563c4bfc1b2719dfac7ef593cb029bd8\AndroidManifest.xml:25:5-68
 MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c52ef52509ca4e6214241de9f7e84a02\AndroidManifest.xml:25:5-68
@@ -766,14 +585,6 @@ ADDED from [com.google.firebase:firebase-common:12.0.1] C:\Users\Ankush.bansal\.
 		ADDED from [com.google.firebase:firebase-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\1f9903d081a0304443609914fd57141a\AndroidManifest.xml:12:13-36
 	android:name
 		ADDED from [com.google.firebase:firebase-common:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\1f9903d081a0304443609914fd57141a\AndroidManifest.xml:9:13-77
-activity#com.google.android.gms.common.api.GoogleApiActivity
-ADDED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\3d98e23bdaac4d2cf50a8c766b4120c9\AndroidManifest.xml:23:9-26:75
-	android:exported
-		ADDED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\3d98e23bdaac4d2cf50a8c766b4120c9\AndroidManifest.xml:25:13-37
-	android:theme
-		ADDED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\3d98e23bdaac4d2cf50a8c766b4120c9\AndroidManifest.xml:26:13-72
-	android:name
-		ADDED from [com.google.android.gms:play-services-base:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-base-12.0.1.aar\3d98e23bdaac4d2cf50a8c766b4120c9\AndroidManifest.xml:24:13-79
 meta-data#com.google.android.gms.version
 ADDED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\Ankush.bansal\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\921b9b21c12efeaa17b1656081d2871a\AndroidManifest.xml:23:9-25:69
 	android:value
