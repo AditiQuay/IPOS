@@ -43,6 +43,8 @@ import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
+import quay.com.ipos.ddr.activity.NewOrderDetailsActivity;
+import quay.com.ipos.ddr.fragment.NewOrderFragment;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
@@ -70,7 +72,7 @@ public class MainActivity extends BaseActivity
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null;
+    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null,mNewOrderFragment= null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
     private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
@@ -411,9 +413,10 @@ public class MainActivity extends BaseActivity
     private void selectItem(int position, View view) {
         switch (position) {
             case 0:
-
-                Intent i=new Intent(MainActivity.this, PaymentModeActivity.class);
-                startActivity(i);
+                mNewOrderFragment = new NewOrderFragment();
+                replaceFragment(mNewOrderFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.new_orders));
 
                 break;
             case 1:

@@ -46,7 +46,7 @@ public class ProductCatalogueViewAllAdapter extends RecyclerView.Adapter<Product
     @Override
     public void onBindViewHolder(ProductCatalogueViewAllAdapter.MyViewHolder holder, final int position) {
         final ProductItemModal productItemModal = productItemModals.get(position);
-        holder.textViewProName.setText(productItemModal.getProductName());
+        holder.textViewProductName.setText(productItemModal.getProductName());
         holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,17 +65,15 @@ public class ProductCatalogueViewAllAdapter extends RecyclerView.Adapter<Product
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageViewProduct;
-        private TextView textViewProName;
-        private TextView textViewViewAll;
+        private TextView textViewProductName;
         private CardView cardViewProduct;
         public MyViewHolder(View itemView) {
             super(itemView);
             imageViewProduct = itemView.findViewById(R.id.imageViewProduct);
-            textViewProName = itemView.findViewById(R.id.textViewProName);
-//            textViewViewAll = itemView.findViewById(R.id.textViewViewAll);
+            textViewProductName = itemView.findViewById(R.id.textViewProductName);
             cardViewProduct = itemView.findViewById(R.id.cardViewProduct);
 
-            FontUtil.applyTypeface(textViewProName, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
+            FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
 //            FontUtil.applyTypeface(textViewViewAll, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
 
         }

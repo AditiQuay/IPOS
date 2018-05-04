@@ -5099,6 +5099,7 @@ public final class R {
     public static final int primary_stroke_corner_lightgray_bg=0x7f08012e;
     public static final int primary_stroke_corner_white_bg=0x7f08012f;
     public static final int product_count=0x7f080130;
+<<<<<<< HEAD
     public static final int product_detail_blue=0x7f080131;
     public static final int profile_bg=0x7f080132;
     public static final int profile_setting=0x7f080133;
@@ -5144,6 +5145,54 @@ public final class R {
     public static final int wallet=0x7f08015b;
     public static final int window=0x7f08015c;
     public static final int yellow_circle=0x7f08015d;
+=======
+    public static final int product_count_blue=0x7f080131;
+    public static final int product_detail_blue=0x7f080132;
+    public static final int profile_bg=0x7f080133;
+    public static final int profile_setting=0x7f080134;
+    public static final int profile_thumb=0x7f080135;
+    public static final int progress_bg=0x7f080136;
+    public static final int rectangle_child_white=0x7f080137;
+    public static final int rectangle_white=0x7f080138;
+    public static final int red_circle=0x7f080139;
+    public static final int right_gray_corner=0x7f08013a;
+    public static final int right_primary_corner=0x7f08013b;
+    public static final int round_btn_view_all=0x7f08013c;
+    public static final int round_grey_background=0x7f08013d;
+    public static final int round_shape=0x7f08013e;
+    public static final int round_shape_view_all=0x7f08013f;
+    public static final int rounded_corner_dialog=0x7f080140;
+    public static final int rounded_row_selector=0x7f080141;
+    public static final int selector_list_item=0x7f080142;
+    public static final int settings=0x7f080143;
+    public static final int shopping_cart=0x7f080144;
+    public static final int side_nav_bar=0x7f080145;
+    public static final int slider_1=0x7f080146;
+    public static final int solid_stroke_circle_color_gray_shadow_xl=0x7f080147;
+    public static final int stock=0x7f080148;
+    public static final int stock_price=0x7f080149;
+    public static final int store=0x7f08014a;
+    public static final int strip_transparent=0x7f08014b;
+    public static final int textview_circle_app_color=0x7f08014c;
+    public static final int textview_circle_red=0x7f08014d;
+    public static final int textview_circle_white=0x7f08014e;
+    public static final int thumb_1=0x7f08014f;
+    public static final int thumb_2=0x7f080150;
+    public static final int toggle_discount_selector=0x7f080151;
+    public static final int toggle_left_selector=0x7f080152;
+    public static final int toggle_right_selector=0x7f080153;
+    public static final int toggle_selector=0x7f080154;
+    public static final int tooltip_frame_dark=0x7f080155;
+    public static final int tooltip_frame_light=0x7f080156;
+    public static final int uncheck=0x7f080157;
+    public static final int upi=0x7f080158;
+    public static final int user=0x7f080159;
+    public static final int view_all=0x7f08015a;
+    public static final int voucher=0x7f08015b;
+    public static final int wallet=0x7f08015c;
+    public static final int window=0x7f08015d;
+    public static final int yellow_circle=0x7f08015e;
+>>>>>>> eb970d8dc8fc25be1b69e7996f0ef3d7bbaba800
   }
   public static final class id {
     public static final int ALT=0x7f090000;

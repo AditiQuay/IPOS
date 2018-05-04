@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import quay.com.ipos.R;
+import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.utility.Constants;
 
@@ -27,6 +28,8 @@ public class IPOSApplication extends MultiDexApplication {
     private static IPOSApplication _instance = null;
 
     public static ArrayList<ProductList.Datum> mProductList= new ArrayList<>();
+    public static ArrayList<OrderList.Datum> mOrderList= new ArrayList<>();
+
 
     @Override
     public void onCreate() {
