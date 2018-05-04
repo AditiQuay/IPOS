@@ -202,6 +202,7 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         imvRedeem.setOnClickListener(this);
         imvUserAdd.setOnClickListener(this);
         tvPay.setOnClickListener(this);
+        imvRight.setOnClickListener(this);
 //        chkBarCode.setOnClickListener(new View.OnClickListener() {
 //
 //            @Override
@@ -753,7 +754,15 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                     Util.showToast("Please add atleast one item to proceed.");
                 }
                 break;
-
+            case R.id.imvRight:
+                if (totalAmount>0) {
+                    Intent i = new Intent(getActivity(), PaymentModeActivity.class);
+                    i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
+                    getActivity().startActivity(i);
+                }else {
+                    Util.showToast("Please add atleast one item to proceed.");
+                }
+                break;
         }
     }
 
@@ -1105,8 +1114,8 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     @Override
     public void setProductOnListener(String mDatum) {
         ArrayList<ProductList.Datum> arrData= new ArrayList<>();
-        json = SharedPrefUtil.getString("mInfoArrayList","",getActivity());
-        arrData = Util.getCustomGson().fromJson(json, new TypeToken<ArrayList<RealmPinnedResults.Info>>(){}.getType());
+        json = SharedPrefUtil.getString(Constants.Product_List,"",getActivity());
+        arrData = Util.getCustomGson().fromJson(json, new TypeToken<ArrayList<ProductList.Datum>>(){}.getType());
         IPOSApplication.mProductList.add(arrData.get(0));
         mRetailSalesAdapter.notifyDataSetChanged();
 
