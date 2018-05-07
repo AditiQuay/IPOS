@@ -220,6 +220,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             userViewHolder.imvClear.setOnClickListener(mOnClickListener);
             userViewHolder.imvClear.setTag(position);
+
             userViewHolder.etQtySelected.setTag(position);
             userViewHolder.etQtySelected.addTextChangedListener(new TextWatcher() {
                 @Override

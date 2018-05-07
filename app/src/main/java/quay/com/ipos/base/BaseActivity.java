@@ -50,7 +50,7 @@ public class BaseActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(containerId, fragment)
+                .add(containerId, fragment).addToBackStack("tag")
                 .commitAllowingStateLoss();
     }
 
@@ -61,7 +61,7 @@ public class BaseActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(containerId, fragment)
-                .addToBackStack(null)
+                .addToBackStack("tag")
                 .commitAllowingStateLoss();
     }
 

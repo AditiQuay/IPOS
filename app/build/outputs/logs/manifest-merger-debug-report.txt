@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-122:12
-INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-122:12
-INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-122:12
-INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-122:12
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-129:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-129:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-129:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-129:12
 MERGED from [io.realm:realm-android-library:3.1.3] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\realm-android-library-3.1.3.aar\ccadc32c4bea824233e830e63cd5238f\AndroidManifest.xml:2:1-11:12
 MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\777501c42630f0729ef1ad2305fefca4\AndroidManifest.xml:17:1-28:12
 MERGED from [:MPChartLib] E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\MPChartLib\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-21:12
@@ -49,20 +49,20 @@ MERGED from [com.google.android.gms:play-services-vision-common-license:12.0.1] 
 MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\3597352c5ca62a1017773f7ce4bf40f8\AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\8078a0cdad28aadda2251be34aac7656\AndroidManifest.xml:17:1-24:12
 MERGED from [android.arch.lifecycle:runtime:1.0.0] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\739cfdfb5d962fdda9ac39889f5cd2ec\AndroidManifest.xml:17:1-30:12
-INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-122:12
-INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-122:12
-INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-122:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-129:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-129:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-129:12
 	package
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:3:5-28
 		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml
 		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-122:12
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-129:12
 		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-122:12
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:1-129:12
 		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:2:11-69
@@ -99,7 +99,7 @@ ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManife
 	android:name
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:8:22-65
 application
-ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:11:5-120:19
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:11:5-127:19
 MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\777501c42630f0729ef1ad2305fefca4\AndroidManifest.xml:22:5-26:19
 MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\777501c42630f0729ef1ad2305fefca4\AndroidManifest.xml:22:5-26:19
 MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\aditi.bhuranda\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\ee3bd585c129519800f57260166ea02c\AndroidManifest.xml:5:5-20
@@ -300,80 +300,96 @@ ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManife
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:76:13-56
 	android:name
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:74:13-83
-activity#quay.com.ipos.retailsales.activity.FullScannerActivity
+activity#quay.com.ipos.ddr.activity.PinnedOrderActivity
 ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:77:9-80:59
 	android:screenOrientation
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:79:13-49
 	android:theme
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:80:13-56
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:78:13-69
-activity#quay.com.ipos.retailsales.activity.AddProductActivity
-ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:82:9-85:68
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:78:13-74
+activity#quay.com.ipos.retailsales.activity.FullScannerActivity
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:81:9-84:59
 	android:screenOrientation
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:84:13-49
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:83:13-49
 	android:theme
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:85:13-56
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:84:13-56
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:83:13-68
-activity#quay.com.ipos.retailsales.activity.CustomerDetailActivity
-ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:86:9-89:59
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:82:13-69
+activity#quay.com.ipos.retailsales.activity.AddProductActivity
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:86:9-89:58
 	android:screenOrientation
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:88:13-49
 	android:theme
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:89:13-56
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:87:13-72
-activity#quay.com.ipos.retailsales.activity.CustomerListActivity
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:87:13-68
+activity#quay.com.ipos.retailsales.activity.CustomerDetailActivity
 ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:90:9-93:59
 	android:screenOrientation
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:92:13-49
 	android:theme
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:93:13-56
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:91:13-70
-activity#quay.com.ipos.ddr.activity.NewOrderDetailsActivity
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:91:13-72
+activity#quay.com.ipos.retailsales.activity.CustomerListActivity
 ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:94:9-97:59
 	android:screenOrientation
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:96:13-49
 	android:theme
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:97:13-56
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:95:13-65
-activity#quay.com.ipos.ddr.activity.OrderCentreDetailsActivity
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:95:13-70
+activity#quay.com.ipos.ddr.activity.NewOrderDetailsActivity
 ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:98:9-101:59
 	android:screenOrientation
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:100:13-49
 	android:theme
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:101:13-56
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:99:13-68
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:99:13-65
+activity#quay.com.ipos.ddr.activity.OrderCentreDetailsActivity
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:102:9-105:59
+	android:screenOrientation
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:104:13-49
+	android:theme
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:105:13-56
+	android:name
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:103:13-68
+activity#quay.com.ipos.ddr.activity.AddNewOrderActivity
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:106:9-109:58
+	android:screenOrientation
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:108:13-49
+	android:theme
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:109:13-56
+	android:name
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:107:13-74
 service#quay.com.ipos.notifications.MyFirebaseMessagingService
-ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:104:9-112:19
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:111:9-119:19
 	android:enabled
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:106:13-35
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:113:13-35
 	android:exported
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:107:13-36
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:114:13-36
 	android:stopWithTask
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:108:13-41
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:115:13-41
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:105:13-69
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:112:13-69
 intent-filter#com.google.firebase.MESSAGING_EVENT
-ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:109:13-111:29
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:116:13-118:29
 action#com.google.firebase.MESSAGING_EVENT
-ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:110:17-78
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:117:17-78
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:110:25-75
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:117:25-75
 service#quay.com.ipos.notifications.MyFirebaseInstanceIDService
-ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:113:9-117:19
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:120:9-124:19
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:113:18-75
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:120:18-75
 intent-filter#com.google.firebase.INSTANCE_ID_EVENT
-ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:114:13-116:29
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:121:13-123:29
 action#com.google.firebase.INSTANCE_ID_EVENT
-ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:115:17-80
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:122:17-80
 	android:name
-		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:115:25-77
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml:122:25-77
 uses-sdk
 INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\app\src\main\AndroidManifest.xml

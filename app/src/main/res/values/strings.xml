@@ -192,6 +192,7 @@
     <string name="check_stock">Check Stock</string>
     <string name="reserved">Reserved</string>
     <string name="cart">Cart</string>
+    <string name="an_offer">An Offer</string>
     <string-array name="ordervalue">
         <item>KGM Traders</item>
         <item>ABC Traders</item>
