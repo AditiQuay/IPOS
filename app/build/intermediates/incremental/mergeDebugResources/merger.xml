@@ -2050,7 +2050,7 @@
         <item>Kirti Nagar, ND</item>
         <item>Saket, ND</item>
         <item>XYZ, ND</item>
-    </string-array></file><file path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\res\values\styles.xml" qualifiers=""><style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    </string-array><string name="error_unautorize_access">UnAuthorize access</string><string name="edittext_password_error_activity_login">Please enter password</string><string name="runtime_permissions_txt">Please enable ALL permissions.</string><string name="error_internal_server_error">Internal server error</string><string name="error_url_not_found">URL not found</string><string name="error_connection_timed_out">Connection timed out!</string><string name="edittext_email_error_activity_login">Please enter a valid email address!</string><string name="error_bad_request">Bad Request</string></file><file path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\src\main\res\values\styles.xml" qualifiers=""><style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

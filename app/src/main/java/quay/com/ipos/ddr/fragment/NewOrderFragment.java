@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.ddr.activity.NewOrderDetailsActivity;
 import quay.com.ipos.ddr.adapter.NewOrderListAdapter;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.ScannerProductListener;
@@ -413,7 +414,7 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
             tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) +" "+sum);
             tvTotalDiscountPrice.setText("-"+getActivity().getResources().getString(R.string.Rs) +" "+(discount+otcDiscountPerc));
             tvTotalDiscountDetail.setText("(Item "+ discountItem+")");
-            AppLog.e(quay.com.ipos.retailsales.fragment.RetailSalesFragment.class.getSimpleName(),"totalGst: "+totalGst);
+            AppLog.e(TAG,"totalGst: "+totalGst);
             tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalGst);
 
             tvSGSTPrice.setText("+"+getActivity().getResources().getString(R.string.Rs) + " " +sgst);
@@ -481,7 +482,7 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
                 break;
             case R.id.tvPay:
                 if (totalAmount>0) {
-                    Intent i = new Intent(getActivity(), PaymentModeActivity.class);
+                    Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
                     getActivity().startActivity(i);
                 }else {

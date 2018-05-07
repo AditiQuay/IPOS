@@ -75,7 +75,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_graph" />
+                        android:src="@drawable/ic_action_online_shop" />
 
                     <TextView
                         android:id="@+id/tvOrderName"
