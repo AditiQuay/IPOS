@@ -123,5 +123,7 @@
     <color name="greyish">#fff2f1f2</color>
     <color name="menu_text_color">#132e67</color>
     <color name="payment_color">#132E67</color>
+
+    <color name="dashboard_mtd">#DADADA</color>
 </resources>
 
