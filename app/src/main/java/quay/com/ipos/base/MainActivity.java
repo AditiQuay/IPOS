@@ -1,13 +1,8 @@
 package quay.com.ipos.base;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -18,15 +13,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -44,15 +36,12 @@ import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
-import quay.com.ipos.ddr.activity.NewOrderDetailsActivity;
 import quay.com.ipos.ddr.fragment.NewOrderFragment;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductMain;
-import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
-import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.FontUtil;
 
@@ -403,12 +392,12 @@ public class MainActivity extends BaseActivity
     }
 
     private void setItemNormal() {
-            for (int i = 0; i < listViewContent.getChildCount(); i++) {
-                View v = listViewContent.getChildAt(i);
-                View border = v.findViewById(R.id.vListGrp);
-                border.setVisibility(View.GONE);
-                listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.menu_strip_color));
-            }
+        for (int i = 0; i < listViewContent.getChildCount(); i++) {
+            View v = listViewContent.getChildAt(i);
+            View border = v.findViewById(R.id.vListGrp);
+            border.setVisibility(View.GONE);
+            listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.menu_strip_color));
+        }
 //        }else {
 //            View v = listViewContent.getChildAt(pos);
 //            View border = v.findViewById(R.id.vListGrp);
@@ -473,7 +462,7 @@ public class MainActivity extends BaseActivity
             fragmentManager.popBackStack("fragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             if (inMenu.size() > 0) {
                 setItemNormal();
-                setItemSelected(view1, inMenu.get(inMenu.size()-1));
+                setItemSelected(view1, inMenu.get(inMenu.size() - 1));
                 selectItem(inMenu.get(inMenu.size() - 1));
                 inMenu.remove(inMenu.size() - 1);
 

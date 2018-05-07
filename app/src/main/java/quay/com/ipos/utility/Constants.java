@@ -82,5 +82,6 @@ public class Constants {
     public static int UNAUTHORIZE_ACCESS = 401;
     public static int CONNECTION_OUT = 408;
     public static String mOrderInfoArrayList="mOrderInfoArrayList";
+    public static String mInfoArrayList="mInfoArrayList";
 }
 

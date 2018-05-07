@@ -14,9 +14,8 @@
             android:id="@+id/imvProduct"
             android:src="@drawable/if_light_bulb"
             android:layout_width="80dp"
-            android:padding="@dimen/dim_5"
-            android:layout_marginLeft="@dimen/dim_10"
-            android:layout_marginRight="@dimen/dim_10"
+            android:layout_marginLeft="@dimen/dim_5"
+            android:layout_marginRight="@dimen/dim_5"
             android:layout_gravity="center"
             android:layout_height="80dp" />
 
@@ -36,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_5"
-                android:layout_marginLeft="@dimen/dim_10"
+                android:layout_marginLeft="@dimen/dim_5"
                 android:layout_weight="1"
                 android:orientation="vertical">
                 <LinearLayout
@@ -192,20 +191,15 @@
                         android:background="@color/colorAccent"
                         app:typeface="TitilliumWeb-SemiBold.ttf"/>
 
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="1dp"
-                        android:layout_weight="1"/>
                     <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvPoints"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|center"
                         android:gravity="right|center"
-                        android:drawableLeft="@drawable/ic_action_redeem"
+                        android:paddingLeft="@dimen/dim_7"                        android:drawableLeft="@drawable/ic_action_redeem"
                         android:text="20 Pts."
                         android:textColor="@color/colorPrimary"
-                        android:layout_marginRight="@dimen/dim_10"
                         android:textSize="@dimen/text_size_13sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
                     <quay.com.ipos.ui.CustomTextView
@@ -216,6 +210,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="right"
                         android:text="@string/Rs"
+                        android:paddingLeft="@dimen/dim_5"
                         android:textColor="@color/colorPrimary"
                         android:layout_marginRight="@dimen/dim_10"
                         android:textSize="@dimen/text_size_13sp"

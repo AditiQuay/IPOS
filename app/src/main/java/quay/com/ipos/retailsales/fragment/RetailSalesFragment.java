@@ -106,7 +106,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.retail_dashboard, container, false);
         initializeComponent(rootView);
-     //   mScannerView = new ZBarScannerView(getActivity());
+        //   mScannerView = new ZBarScannerView(getActivity());
         myDialog = new Dialog(getActivity());
         setHasOptionsMenu(true);
         Util.hideSoftKeyboard(getActivity());
@@ -183,9 +183,9 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         }else {
             flScanner.setVisibility(View.VISIBLE);
             chkBarCode.setChecked(true);
-          //  mScannerView.setResultHandler(this);
-           // mScannerView.startCamera();
-                displayFragment();
+            //  mScannerView.setResultHandler(this);
+            // mScannerView.startCamera();
+            displayFragment();
 
         }
     }
@@ -267,10 +267,10 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-     //   simpleFragment.setListener(this);
+        //   simpleFragment.setListener(this);
         // TODO: Add the SimpleFragment.
         // Add the SimpleFragment.
-    //    simpleFragment.setTargetFragment(RetailSalesFragment.this,2000);
+        //    simpleFragment.setTargetFragment(RetailSalesFragment.this,2000);
 
         fragmentTransaction.add(R.id.scanner_fragment,
                 simpleFragment).addToBackStack(null).commit();
@@ -293,7 +293,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
                 if( keyCode == KeyEvent.KEYCODE_BACK )
                 {
                     if(IPOSApplication.mProductList.size()>0)
-                    Util.showMessageDialog(RetailSalesFragment.this,"Do you want to save the Cart?","YES","NO",Constants.APP_DIALOG_Cart,"",getActivity().getSupportFragmentManager());
+                        Util.showMessageDialog(RetailSalesFragment.this,"Do you want to save the Cart?","YES","NO",Constants.APP_DIALOG_Cart,"",getActivity().getSupportFragmentManager());
                     else
                         return true;
                 }
@@ -692,11 +692,11 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
 
             case R.id.imvPin:
 //                setArrayPinned();
-                if(IPOSApplication.mProductList.size()>0)
+                if (SharedPrefUtil.getString(Constants.mInfoArrayList, "", getActivity()) != null && !SharedPrefUtil.getString(Constants.mInfoArrayList, "", getActivity()).equalsIgnoreCase("")) {
                     cachedPinned(true);
-                else
-                    Util.showToast("Cannot pin empty list",getActivity());
-
+                }else {
+                    Util.showToast("Pinned List is empty", getActivity());
+                }
                 break;
             case R.id.imvRedeem:
 
@@ -802,11 +802,13 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
                 }
 
                 String json = Util.getCustomGson().toJson(mInfoArrayList);
-                SharedPrefUtil.putString("mInfoArrayList", json, getActivity());
+                SharedPrefUtil.putString(Constants.mInfoArrayList, json, getActivity());
 //            IPOSApplication.mProductList.clear();
                 if (showScreen) {
                     Intent mIntent = new Intent(getActivity(), PinnedRetailActivity.class);
                     startActivityForResult(mIntent, 2);
+                    IPOSApplication.mProductList.clear();
+                    mRetailSalesAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -1153,27 +1155,27 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
 
     }
 
-  /*  @Override
-    public void handleResult(Result rawResult) {
-        Toast.makeText(getActivity(), "Contents = " + rawResult.getContents() +
-                ", Format = " + rawResult.getBarcodeFormat().getName(), Toast.LENGTH_SHORT).show();
-        // Note:
-        // * Wait 2 seconds to resume the preview.
-        // * On older devices continuously stopping and resuming camera preview can result in freezing the app.
-        // * I don't know why this is the case but I don't have the time to figure out.
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mScannerView.resumeCameraPreview(RetailSalesFragment.this);
-            }
-        }, 2000);
-    }
+    /*  @Override
+      public void handleResult(Result rawResult) {
+          Toast.makeText(getActivity(), "Contents = " + rawResult.getContents() +
+                  ", Format = " + rawResult.getBarcodeFormat().getName(), Toast.LENGTH_SHORT).show();
+          // Note:
+          // * Wait 2 seconds to resume the preview.
+          // * On older devices continuously stopping and resuming camera preview can result in freezing the app.
+          // * I don't know why this is the case but I don't have the time to figure out.
+          Handler handler = new Handler();
+          handler.postDelayed(new Runnable() {
+              @Override
+              public void run() {
+                  mScannerView.resumeCameraPreview(RetailSalesFragment.this);
+              }
+          }, 2000);
+      }
 
-*/
+  */
     @Override
     public void onPause() {
         super.onPause();
-     //   mScannerView.stopCamera();
+        //   mScannerView.stopCamera();
     }
 }
