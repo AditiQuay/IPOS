@@ -27,7 +27,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public static Activity mActivity;
     protected Fragment fragmentCurrent;
-    private FragmentManager fragmentManager;
+    public FragmentManager fragmentManager;
 
     private String mImageUrl;
     private boolean isUpdateImage = false;
@@ -38,7 +38,6 @@ public class BaseActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mErrorString = new SparseIntArray();
         mContext = this;
         mActivity = this;
 
@@ -65,7 +64,7 @@ public class BaseActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(containerId, fragment)
-                .addToBackStack(null)
+                .addToBackStack("fragment")
                 .commitAllowingStateLoss();
     }
 

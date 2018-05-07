@@ -189,7 +189,6 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
 
     @Override
     public void applyTypeFace() {
-        ///
         FontUtil.applyTypeface(textViewForgotPassword, FontUtil.getTypceFaceRobotoRegular(LoginActivity.this));
         FontUtil.applyTypeface(textViewWelcome, FontUtil.getTypceFaceRobotoMedium_0(LoginActivity.this));
         FontUtil.applyTypeface(textViewMainTitle, FontUtil.getTypceFaceRobotoMedium_0(LoginActivity.this));
