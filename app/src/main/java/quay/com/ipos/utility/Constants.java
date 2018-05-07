@@ -72,6 +72,15 @@ public class Constants {
     public static int APP_DIALOG_Cart=1;
     public static String Product_List="product_list";
     public static String Order_List="order_list";
+
+
+    public static String FCM_KEY = "fcmToken";
+    public static int SUCCESS = 200;
+    public static int BAD_REQUEST = 400;
+    public static int INTERNAL_SERVER_ERROR = 500;
+    public static int URL_NOT_FOUND = 404;
+    public static int UNAUTHORIZE_ACCESS = 401;
+    public static int CONNECTION_OUT = 408;
     public static String mOrderInfoArrayList="mOrderInfoArrayList";
 }
 

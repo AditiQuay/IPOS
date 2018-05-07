@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductCatalogueViewAllAdapter;
@@ -52,6 +50,7 @@ public class ProductCatalogueViewAll extends BaseActivity implements InitInterfa
         applyLocalValidation();
 
     }
+
 
     @Override
     public void findViewById() {

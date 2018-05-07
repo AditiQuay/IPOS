@@ -86,6 +86,8 @@ public class OrderCentreDetailsActivity extends BaseActivity{
     }
 
 
+
+
     public void setHeader() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));

@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,11 +36,11 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.gson.reflect.TypeToken;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
+import me.dm7.barcodescanner.zbar.Result;
+import me.dm7.barcodescanner.zbar.ZBarScannerView;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
@@ -69,7 +70,7 @@ import static android.app.Activity.RESULT_OK;
  * Created by aditi.bhuranda on 16-04-2018.
  */
 
-public class RetailSalesFragment extends Fragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialogFragment.MessageDialogListener,ScannerProductListener {
+public class RetailSalesFragment extends Fragment implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialogFragment.MessageDialogListener,ScannerProductListener {
     private TextView tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
             tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvApplyOTC,tvApplyOTC2;
@@ -99,12 +100,13 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     Double afterDiscountPrice;
     private ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<RealmPinnedResults.Info>();
     private String json;
-
+    private ZBarScannerView mScannerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.retail_dashboard, container, false);
         initializeComponent(rootView);
+     //   mScannerView = new ZBarScannerView(getActivity());
         myDialog = new Dialog(getActivity());
         setHasOptionsMenu(true);
         Util.hideSoftKeyboard(getActivity());
@@ -179,11 +181,13 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
                 setTextDefault();
             }
         }else {
-//                displayFragment();
+            flScanner.setVisibility(View.VISIBLE);
+            chkBarCode.setChecked(true);
+          //  mScannerView.setResultHandler(this);
+           // mScannerView.startCamera();
+                displayFragment();
 
         }
-        flScanner.setVisibility(View.GONE);
-        chkBarCode.setChecked(false);
     }
 
 
@@ -258,12 +262,12 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
     }
 
     public void displayFragment() {
-        FullScannerFragment simpleFragment = FullScannerFragment.newInstance();
+        SimpleScannerFragment simpleFragment =new  SimpleScannerFragment();
         // TODO: Get the FragmentManager and start a transaction.
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-        simpleFragment.setListener(this);
+     //   simpleFragment.setListener(this);
         // TODO: Add the SimpleFragment.
         // Add the SimpleFragment.
     //    simpleFragment.setTargetFragment(RetailSalesFragment.this,2000);
@@ -417,22 +421,6 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
             if(resultCode == 1){
                 childPosition = data.getIntExtra("pinned_position",0);
                 getProduct();
-            }
-        }else {
-            IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-
-            if (scanningResult != null) {
-                //we have a result
-                String scanContent = scanningResult.getContents();
-                String scanFormat = scanningResult.getFormatName();
-                Toast toast = Toast.makeText(getActivity(),scanContent, Toast.LENGTH_SHORT);
-                // display it on screen
-             //   formatTxt.setText("FORMAT: " + scanFormat);
-             //   contentTxt.setText("CONTENT: " + scanContent);
-
-            }else{
-                Toast toast = Toast.makeText(getActivity(),"No scan data received!", Toast.LENGTH_SHORT);
-                toast.show();
             }
         }
      /*   if (resultCode == RESULT_OK) {
@@ -1163,5 +1151,29 @@ public class RetailSalesFragment extends Fragment implements View.OnClickListene
         IPOSApplication.mProductList.add(arrData.get(0));
         mRetailSalesAdapter.notifyDataSetChanged();
 
+    }
+
+  /*  @Override
+    public void handleResult(Result rawResult) {
+        Toast.makeText(getActivity(), "Contents = " + rawResult.getContents() +
+                ", Format = " + rawResult.getBarcodeFormat().getName(), Toast.LENGTH_SHORT).show();
+        // Note:
+        // * Wait 2 seconds to resume the preview.
+        // * On older devices continuously stopping and resuming camera preview can result in freezing the app.
+        // * I don't know why this is the case but I don't have the time to figure out.
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mScannerView.resumeCameraPreview(RetailSalesFragment.this);
+            }
+        }, 2000);
+    }
+
+*/
+    @Override
+    public void onPause() {
+        super.onPause();
+     //   mScannerView.stopCamera();
     }
 }
