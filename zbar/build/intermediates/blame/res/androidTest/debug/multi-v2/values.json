@@ -14,6 +14,21 @@
                     }
                 }
             ]
+        },
+        {
+            "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\zbar\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "from": {
+                        "startLines": "2,3,4,6,7",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,107,158,807,865",
+                        "endColumns": "51,50,51,57,55",
+                        "endOffsets": "102,153,205,860,916"
+                    }
+                }
+            ]
         }
     ]
 }
