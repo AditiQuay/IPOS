@@ -594,8 +594,4 @@ public class MainActivity extends BaseActivity
         }
     }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 1ea0ce6001fe680ca9355027564dbefd55b8001f
 }
