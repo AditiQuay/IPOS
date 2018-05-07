@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IPOS.iml" filepath="$PROJECT_DIR$/IPOS.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MPChartLib/IPOS-MPChartLib.iml" filepath="$PROJECT_DIR$/MPChartLib/IPOS-MPChartLib.iml" />
       <module fileurl="file://C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\MPChartLib\IPOS-MPChartLib.iml" filepath="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\MPChartLib\IPOS-MPChartLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/IPOS-app.iml" filepath="$PROJECT_DIR$/app/IPOS-app.iml" />
       <module fileurl="file://C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\IPOS-app.iml" filepath="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\app\IPOS-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/MPChartLib/MPChartLib.iml" filepath="$PROJECT_DIR$/MPChartLib/MPChartLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
