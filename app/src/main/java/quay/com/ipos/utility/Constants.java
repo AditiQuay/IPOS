@@ -26,7 +26,7 @@ public class Constants {
      */
     public static final String APP_SHARED_PREF_NAME = "profile";
 
-
+    public static final int SUCCESS = 200;
     public static final String DATE_FORMAT = "dd MMM yyyy";
     public static final SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
     public static final SimpleDateFormat format11 = new SimpleDateFormat("dd-MM-yyyy");
@@ -81,5 +81,6 @@ public class Constants {
     public static int URL_NOT_FOUND = 404;
     public static int UNAUTHORIZE_ACCESS = 401;
     public static int CONNECTION_OUT = 408;
+    public static String mOrderInfoArrayList="mOrderInfoArrayList";
 }
 

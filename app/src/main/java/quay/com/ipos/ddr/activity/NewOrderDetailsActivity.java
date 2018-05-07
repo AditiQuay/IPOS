@@ -10,10 +10,12 @@ import android.view.View;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.ddr.adapter.AddressListAdapter;
 import quay.com.ipos.ddr.adapter.ItemsDetailListAdapter;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.SpacesItemDecoration;
 
 /**
@@ -22,7 +24,8 @@ import quay.com.ipos.utility.SpacesItemDecoration;
 
 public class NewOrderDetailsActivity extends BaseActivity{
     String[] address = {"1/82"};
-    String[] items={"SoudaFoam 1k","SoudaFoam Pro"};
+//    String[] items={"SoudaFoam 1k","SoudaFoam Pro"};
+    String totalAmount;
 
     private RecyclerView recycler_viewRecentOrders,recycler_viewAddress;
     private ItemsDetailListAdapter recentOrdersListAdapter;
@@ -37,19 +40,9 @@ public class NewOrderDetailsActivity extends BaseActivity{
         setContentView(R.layout.new_order_detail);
 
         setHeader();
-        recycler_viewRecentOrders = (RecyclerView) findViewById(R.id.recycler_viewItems);
-        GridLayoutManager mLayoutManager4 = new GridLayoutManager(this, 1);
-        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        recycler_viewRecentOrders.setLayoutManager(mLayoutManager4);
-        recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
-        recentOrdersListAdapter = new ItemsDetailListAdapter(this, recentOrderModalArrayList);
-        recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
+        initializeComponent();
+        totalAmount = getIntent().getStringExtra(Constants.TOTAL_AMOUNT);
 
-        recycler_viewAddress = (RecyclerView) findViewById(R.id.recycler_viewAddress);
-        GridLayoutManager mLayoutManager5 = new GridLayoutManager(this, 1);
-        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        recycler_viewAddress.setLayoutManager(mLayoutManager5);
-        recycler_viewAddress.addItemDecoration(new SpacesItemDecoration(10));
         addressListAdapter = new AddressListAdapter(this, recentOrderModalArrayList);
         recycler_viewAddress.setAdapter(addressListAdapter);
 
@@ -57,6 +50,20 @@ public class NewOrderDetailsActivity extends BaseActivity{
         getAddressData();
     }
 
+    private void initializeComponent() {
+        recycler_viewRecentOrders =  findViewById(R.id.recycler_viewItems);
+        GridLayoutManager mLayoutManager4 = new GridLayoutManager(this, 1);
+        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recycler_viewRecentOrders.setLayoutManager(mLayoutManager4);
+        recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
+
+
+        recycler_viewAddress =  findViewById(R.id.recycler_viewAddress);
+        GridLayoutManager mLayoutManager5 = new GridLayoutManager(this, 1);
+        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recycler_viewAddress.setLayoutManager(mLayoutManager5);
+        recycler_viewAddress.addItemDecoration(new SpacesItemDecoration(10));
+    }
 
 
     public void setHeader() {
@@ -79,14 +86,8 @@ public class NewOrderDetailsActivity extends BaseActivity{
     }
 
     private void getRecentOrdersData() {
-        for (int i = 0; i < items.length; i++) {
-            RecentOrderModal recentOrderModal = new RecentOrderModal();
-            recentOrderModal.setTitle(items[i]);
-
-            recentOrderModalArrayList.add(recentOrderModal);
-
-        }
-        recentOrdersListAdapter.notifyDataSetChanged();
+        recentOrdersListAdapter = new ItemsDetailListAdapter(this, IPOSApplication.mOrderList);
+        recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
     }
 
 

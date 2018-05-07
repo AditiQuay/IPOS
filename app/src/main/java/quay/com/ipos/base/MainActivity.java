@@ -450,12 +450,6 @@ public class MainActivity extends BaseActivity
             case 5:
                 break;
             case 6:
-                retailSalesFragment = new RetailSalesFragment();
-                replaceFragment(retailSalesFragment, containerId);
-                drawer.closeDrawer(GravityCompat.START);
-                toolbar.setTitle(getString(R.string.retail_sales));
-//                menu1.findItem(R.id.action_notification).setVisible(false);
-//                menu1.findItem(R.id.action_search).setVisible(true);
                 break;
             default:
                 break;
@@ -600,5 +594,8 @@ public class MainActivity extends BaseActivity
         }
     }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 1ea0ce6001fe680ca9355027564dbefd55b8001f
 }

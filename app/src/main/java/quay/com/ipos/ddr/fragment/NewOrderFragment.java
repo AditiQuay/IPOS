@@ -6,8 +6,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -21,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -36,15 +33,15 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.ddr.activity.AddNewOrderActivity;
+import quay.com.ipos.ddr.activity.PinnedOrderActivity;
 import quay.com.ipos.ddr.adapter.NewOrderListAdapter;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.ScannerProductListener;
+import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
-import quay.com.ipos.modal.ProductList;
-import quay.com.ipos.realmbean.RealmPinnedResults;
-import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.retailsales.activity.PaymentModeActivity;
-import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
+import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.fragment.FullScannerFragment;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
@@ -83,7 +80,7 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
 //    private ArrayList<ProductList.Datum> mList= new ArrayList<>();
 
     Double afterDiscountPrice;
-    ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<>();
+    ArrayList<NewOrderPinnedResults.Info> mOrderInfoArrayList = new ArrayList<>();
     private String json;
 
 
@@ -151,14 +148,14 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
             flScanner.setVisibility(View.GONE);
             chkBarCode.setChecked(false);
             boolean request = ((MainActivity) getActivity()).launchActivity();
-            if(request ||((MainActivity) getActivity()).CameraPermission )
+            if(request && ((MainActivity) getActivity()).CameraPermission )
             {
                 setTextDefault();
             }
         }else {
-            flScanner.setVisibility(View.VISIBLE);
-            chkBarCode.setChecked(true);
-            displayFragment();
+            flScanner.setVisibility(View.GONE);
+            chkBarCode.setChecked(false);
+//            displayFragment();
 
         }
     }
@@ -215,7 +212,7 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.retail_sales));
+        ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.new_orders));
         //You need to add the following line for this solution to work; thanks skayred
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
@@ -228,6 +225,7 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
                 {
                     if(IPOSApplication.mOrderList.size()>0)
                         Util.showMessageDialog(NewOrderFragment.this,"Do you want to save the Cart?","YES","NO", Constants.APP_DIALOG_Cart,"",getActivity().getSupportFragmentManager());
+
                     else
                         return true;
                 }
@@ -252,8 +250,8 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
 
 
     public void onSearchButton(){
-//        Intent mIntent = new Intent(getActivity(), AddProductActivity.class);
-//        startActivityForResult(mIntent,1);
+        Intent mIntent = new Intent(getActivity(), AddNewOrderActivity.class);
+        startActivityForResult(mIntent,3);
     }
 
     private void setAdapter() {
@@ -291,14 +289,14 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==1){
-            if(resultCode == 1){
+        if(requestCode==3){
+            if(resultCode == 3){
                 mNewOrderListAdapter.notifyDataSetChanged();
                 getProduct();
             }
-        }else if(requestCode==2){
-            if(resultCode == 1){
-                childPosition = data.getIntExtra("pinned_position",0);
+        }else if(requestCode==5){
+            if(resultCode == 5){
+                childPosition = data.getIntExtra("pinned_order_position",0);
                 getProduct();
             }
         }
@@ -312,11 +310,11 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
 
     private void getProduct() {
         try {
-            IPOSApplication.mOrderList.clear();
-            String json = Util.getAssetJsonResponse(getActivity(), "product_list.json");
-            mOrderListResult = Util.getCustomGson().fromJson(json,OrderList.class);
+//            IPOSApplication.mOrderList.clear();
+//            String json = Util.getAssetJsonResponse(getActivity(), "product_list.json");
+//            mOrderListResult = Util.getCustomGson().fromJson(json,OrderList.class);
             AppLog.e(NewOrderFragment.class.getSimpleName(),"Get Order: "+Util.getCustomGson().toJson(IPOSApplication.mOrderList));
-            IPOSApplication.mOrderList.addAll(mOrderListResult.getData());
+//            IPOSApplication.mOrderList.addAll(mOrderListResult.getData());
             setDefaultValues();
 //
             mNewOrderListAdapter.notifyDataSetChanged();
@@ -460,7 +458,7 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
 
 
             case R.id.imvPin:
-
+                cachedPinned(true);
                 break;
 
 
@@ -699,20 +697,73 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
         Util.hideSoftKeyboard(getActivity());
     }
 
+
+
+    private void cachedPinned(boolean showScreen) {
+
+        if(IPOSApplication.mOrderList!=null)
+            if(IPOSApplication.mOrderList.size()>0) {
+
+                if (SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity()) != null) {
+                    String json2 = SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity());
+                    if (!json2.equalsIgnoreCase(""))
+                        mOrderInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<NewOrderPinnedResults.Info>>() {
+                        }.getType());
+                }
+
+
+                NewOrderPinnedResults mPinnedResult = new NewOrderPinnedResults();
+                NewOrderPinnedResults.Info mInfo = mPinnedResult.new Info();
+                if (childPosition != -1) {
+                    mInfo.setKey(mOrderInfoArrayList.get(childPosition).getKey());
+                    mInfo.setData(IPOSApplication.mOrderList);
+                    mOrderInfoArrayList.set(childPosition, mInfo);
+                } else {
+                    mInfo.setKey(Util.getCurrentTimeStamp());
+                    mInfo.setData(IPOSApplication.mOrderList);
+                    if (mOrderInfoArrayList == null) {
+                        mOrderInfoArrayList = new ArrayList<>();
+                    }
+                    mOrderInfoArrayList.add(0, mInfo);
+                }
+
+                String json = Util.getCustomGson().toJson(mOrderInfoArrayList);
+                SharedPrefUtil.putString(Constants.mOrderInfoArrayList, json, getActivity());
+//            IPOSApplication.mOrderList.clear();
+            }
+                if (showScreen) {
+                    Intent mIntent = new Intent(getActivity(), PinnedOrderActivity.class);
+                    startActivityForResult(mIntent, 5);
+                    IPOSApplication.mOrderList.clear();
+                    mNewOrderListAdapter.notifyDataSetChanged();
+                }
+
+
+    }
+
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_OTC) {
             dialog.dismiss();
         }else if(mCallType==Constants.APP_DIALOG_Cart){
-
+            if(IPOSApplication.mOrderList.size()>0)
+                cachedPinned(false);
+            else
+                Util.showToast("Cannot save empty list",getActivity());
+            dialog.dismiss();
+            getFragmentManager().popBackStack();
         }
     }
 
     @Override
     public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_Cart){
-            IPOSApplication.mOrderList.clear();
-            getFragmentManager().popBackStack();
+            if(IPOSApplication.mOrderList.size()>0) {
+                IPOSApplication.mOrderList.clear();
+                getFragmentManager().popBackStack();
+            }
+            dialog.dismiss();
+
         }
 
     }

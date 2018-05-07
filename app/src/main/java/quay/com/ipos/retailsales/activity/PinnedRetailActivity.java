@@ -37,7 +37,7 @@ import quay.com.ipos.utility.Util;
  */
 
 public class PinnedRetailActivity extends BaseActivity {
-    private static final String TAG = AddProductActivity.class.getSimpleName();
+    private static final String TAG = PinnedRetailActivity.class.getSimpleName();
     //    ArrayList<RealmPinnedResults.Info> arrPinned= new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;
