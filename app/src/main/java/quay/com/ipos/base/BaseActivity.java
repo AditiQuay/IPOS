@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseIntArray;
 
 
 import quay.com.ipos.R;
@@ -26,10 +27,12 @@ public class BaseActivity extends AppCompatActivity {
 
     public static Activity mActivity;
     protected Fragment fragmentCurrent;
-    private FragmentManager fragmentManager;
+    public FragmentManager fragmentManager;
 
     private String mImageUrl;
     private boolean isUpdateImage = false;
+
+    private SparseIntArray mErrorString;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class BaseActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(containerId, fragment)
-                .addToBackStack(null)
+                .addToBackStack("fragment")
                 .commitAllowingStateLoss();
     }
 

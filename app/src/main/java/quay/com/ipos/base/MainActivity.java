@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -56,7 +57,7 @@ import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.FontUtil;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener,FilterListener {
+        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener, FilterListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -72,7 +73,7 @@ public class MainActivity extends BaseActivity
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null,mNewOrderFragment= null;
+    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
     private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
@@ -81,6 +82,9 @@ public class MainActivity extends BaseActivity
     private TextView textViewMyBusiness, textViewAccount;
     private TextView textViewP, textViewI, textViewM;
     public static DashboardItemFragment dashboardItemFragment;
+    private int preMenu = -1;
+    private View view1;
+    private ArrayList<Integer> inMenu = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,13 +94,14 @@ public class MainActivity extends BaseActivity
         applyInitValues();
         applyTypeFace();
         setDashBoard();
-        dashboardItemFragment=new DashboardItemFragment();
+        dashboardItemFragment = new DashboardItemFragment();
     }
 
     private void setDashBoard() {
         dashboardFragment = new McCOYDashboardFragment();
         addFragment(dashboardFragment, containerId);
         toolbar.setTitle(getString(R.string.dashboard));
+
     }
 
     @Override
@@ -298,7 +303,7 @@ public class MainActivity extends BaseActivity
         });
     }
 
-    public void setToolbarTitle(String name){
+    public void setToolbarTitle(String name) {
         toolbar.setTitle(name);
     }
 
@@ -387,30 +392,39 @@ public class MainActivity extends BaseActivity
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+            view1 = view;
             setItemNormal();
             setItemSelected(view, position);
-
-            selectItem(position, view);
+            preMenu = position;
+            selectItem(position);
+            inMenu.add(preMenu);
         }
 
     }
 
     private void setItemNormal() {
-        for (int i = 0; i < listViewContent.getChildCount(); i++) {
-            View v = listViewContent.getChildAt(i);
-            View border = v.findViewById(R.id.vListGrp);
-            border.setVisibility(View.GONE);
-            listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.menu_strip_color));
-        }
+            for (int i = 0; i < listViewContent.getChildCount(); i++) {
+                View v = listViewContent.getChildAt(i);
+                View border = v.findViewById(R.id.vListGrp);
+                border.setVisibility(View.GONE);
+                listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.menu_strip_color));
+            }
+//        }else {
+//            View v = listViewContent.getChildAt(pos);
+//            View border = v.findViewById(R.id.vListGrp);
+//            border.setVisibility(View.GONE);
+//            listViewContent.getChildAt(pos).setBackgroundColor(getResources().getColor(R.color.menu_strip_color));
+//        }
     }
 
     private void setItemSelected(View view, int pos) {
-        View borderView = view.findViewById(R.id.vListGrp);
+        View v = listViewContent.getChildAt(pos);
+        View borderView = v.findViewById(R.id.vListGrp);
         borderView.setVisibility(View.VISIBLE);
         listViewContent.getChildAt(pos).setBackgroundColor(getResources().getColor(R.color.light_blue));
     }
 
-    private void selectItem(int position, View view) {
+    private void selectItem(int position) {
         switch (position) {
             case 0:
                 mNewOrderFragment = new NewOrderFragment();
@@ -420,7 +434,6 @@ public class MainActivity extends BaseActivity
 
                 break;
             case 1:
-
                 break;
             case 2:
                 dashboardFragment = new McCOYDashboardFragment();
@@ -431,6 +444,7 @@ public class MainActivity extends BaseActivity
                 menu1.findItem(R.id.action_search).setVisible(false);
 
                 drawer.closeDrawer(GravityCompat.START);
+
                 break;
             case 3:
                 productCatalogueMainFragment = new ProductMain();
@@ -439,13 +453,12 @@ public class MainActivity extends BaseActivity
                 toolbar.setTitle(getString(R.string.toolbar_title_catalogue_product_details));
                 menu1.findItem(R.id.action_notification).setVisible(false);
                 menu1.findItem(R.id.action_search).setVisible(false);
+
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case 4:
-
                 break;
             case 5:
-
                 break;
             case 6:
                 retailSalesFragment = new RetailSalesFragment();
@@ -462,13 +475,30 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack("fragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            if (inMenu.size() > 0) {
+                setItemNormal();
+                setItemSelected(view1, inMenu.get(inMenu.size()-1));
+                selectItem(inMenu.get(inMenu.size() - 1));
+                inMenu.remove(inMenu.size() - 1);
+
+            } else {
+                finish();
+            }
+        } else {
+            super.onBackPressed();
+        }
+     /*   setItemNormal();
+        setItemSelected(view1, preMenu);
+        selectItem(preMenu);*/
 //        if (drawer.isDrawerOpen(GravityCompat.START)) {
 //            drawer.closeDrawer(GravityCompat.START);
 //        } else {
 //            super.onBackPressed();
 //
 //        }
-        if (drawer.isDrawerOpen(Gravity.START)) {
+       /* if (drawer.isDrawerOpen(Gravity.START)) {
             closeDrawer();
             return;
         }
@@ -503,8 +533,7 @@ public class MainActivity extends BaseActivity
             } else {
                 super.onBackPressed();
             }
-
-        }
+*/
     }
 
     private void closeDrawer() {
@@ -549,16 +578,17 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
-    public boolean CameraPermission=false;
+    public boolean CameraPermission = false;
+
     public boolean launchActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 //            mClss = clss;
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSION);
-            CameraPermission =false;
+            CameraPermission = false;
         } else {
-            CameraPermission =true;
+            CameraPermission = true;
         }
         return CameraPermission;
     }
@@ -572,12 +602,14 @@ public class MainActivity extends BaseActivity
 //                        Intent intent = new Intent(this, mClss);
 //                        startActivity(intent);
 //                    }
-                    CameraPermission=true;
+                    CameraPermission = true;
                 } else {
                     Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
-                    CameraPermission =false;
+                    CameraPermission = false;
                 }
                 return;
         }
     }
+
+
 }

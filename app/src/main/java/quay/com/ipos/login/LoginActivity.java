@@ -1,46 +1,147 @@
 package quay.com.ipos.login;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.ActivityCompat;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.nostra13.universalimageloader.utils.L;
 
 import java.lang.reflect.Type;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.base.RunTimePermissionActivity;
+import quay.com.ipos.constant.ServerRequestKey;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.CatalogueModal;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 
-public class LoginActivity extends BaseActivity implements InitInterface, View.OnClickListener, ServiceTask.ServiceResultListener {
+import static quay.com.ipos.utility.Util.validateEmail;
+
+public class LoginActivity extends RunTimePermissionActivity implements InitInterface, View.OnClickListener, View.OnFocusChangeListener, ServiceTask.ServiceResultListener {
+
     private TextView textViewWelcome;
     private EditText editTextEmail, editTextPassword;
     private Button btnLogin;
     private TextView textViewForgotPassword, textViewMainTitle;
+    private String sAppVersion, sDeviceType, sDeviceModel, sDeviceVersion, sDeviceIMEI;
+    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
+    private final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+    /**
+     * Code used in requesting runtime permissions.
+     */
+    private static final int REQUEST_PERMISSIONS = 20;
+    private static final String[] ALL_PERMISSIONS = {
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.INTERNET,
+            android.Manifest.permission.ACCESS_NETWORK_STATE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    private Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mContext = LoginActivity.this;
+
         findViewById();
         applyInitValues();
         applyTypeFace();
-        applyLocalValidation();
+
 
     }
 
-    private void getDeviceToken() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(Constants.SHARED_PREF, 0);
-        String regId = pref.getString("regId", null);
+    /*
+*Getting device information like deviceId,AppVersion,DeviceModel and IMEI number.
+*
+*/
+    private void getDeviceInformation() {
+        //App version
+        try {
+            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+            sAppVersion = pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        //Device type
+        sDeviceType = "android";
+        sDeviceModel = Build.MODEL;
+        sDeviceVersion = Build.VERSION_CODES.class.getFields()[Build.VERSION.SDK_INT].getName();
+
+        //IMEI number;
+        TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        String IMEI;
+        try {
+            assert telephonyManager != null;
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            IMEI = telephonyManager.getDeviceId();
+        } catch (Exception e) {
+            IMEI = "Error!!";
+        }
+        sDeviceIMEI = IMEI;
+        if (applyLocalValidation()) {
+            validateWithServer(sAppVersion, sDeviceType, sDeviceModel, sDeviceVersion, IMEI);
+        }
+    }
+
+    private void validateWithServer(String sAppVersion, String sDeviceType, String sDeviceModel, String sDeviceVersion, String sDeviceIMEI) {
+        showProgress("Loading");
+        String sFcmToken = Prefs.getStringPrefs(Constants.FCM_KEY);
+        final String sEmail = editTextEmail.getText().toString().trim();
+        final String sPassword = editTextPassword.getText().toString().trim();
+
+        LoginParams loginParams = new LoginParams();
+        loginParams.setKEY_EMAIL(sEmail.trim());
+        loginParams.setKEY_PASSWORD(sPassword.trim());
+        loginParams.setKEY_APPVERSION(sAppVersion.trim());
+        loginParams.setKEY_DEVICE_TOKEN(sFcmToken);
+        loginParams.setKEY_DEVICE_TYPE(sDeviceType);
+        loginParams.setKEY_DEVICE_MODEL(sDeviceModel);
+        loginParams.setKEY_DEVICE_VERSION(sDeviceVersion);
+        loginParams.setKEY_DEVICE_IMEI(sDeviceIMEI);
+
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_LOGIN);
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(loginParams);
+        mTask.setListener(this);
+        mTask.setResultType(CatalogueModal.class);
+        mTask.execute();
     }
 
     @Override
@@ -53,18 +154,41 @@ public class LoginActivity extends BaseActivity implements InitInterface, View.O
         textViewMainTitle = findViewById(R.id.textViewMainTitle);
 
         btnLogin.setOnClickListener(this);
+        editTextEmail.setOnFocusChangeListener(this);
+        editTextPassword.setOnFocusChangeListener(this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode) {
+        if (requestCode == REQUEST_PERMISSIONS) {
+            getDeviceInformation();
+            hideKeyboard();
+        }
+
+    }
+
+    private boolean validateEmail(String email) {
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    private void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            assert getSystemService(Context.INPUT_METHOD_SERVICE) != null;
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
     }
 
     @Override
     public void applyInitValues() {
 
 
-
     }
 
     @Override
     public void applyTypeFace() {
-        ///
         FontUtil.applyTypeface(textViewForgotPassword, FontUtil.getTypceFaceRobotoRegular(LoginActivity.this));
         FontUtil.applyTypeface(textViewWelcome, FontUtil.getTypceFaceRobotoMedium_0(LoginActivity.this));
         FontUtil.applyTypeface(textViewMainTitle, FontUtil.getTypceFaceRobotoMedium_0(LoginActivity.this));
@@ -75,32 +199,31 @@ public class LoginActivity extends BaseActivity implements InitInterface, View.O
 
     @Override
     public boolean applyLocalValidation() {
+        String email = editTextEmail.getText().toString();
+        String password = editTextPassword.getText().toString();
+        if (!validateEmail(email)) {
+            editTextEmail.setError(getResources().getString(R.string.edittext_email_error_activity_login));
+        } else if (TextUtils.isEmpty(password)) {
+            editTextPassword.setError(getResources().getString(R.string.edittext_password_error_activity_login));
+        } else {
+            return true;
+        }
+
         return false;
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnLogin) {
-            getDeviceToken();
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                LoginActivity.super.requestAppPermissions(ALL_PERMISSIONS, R.string.runtime_permissions_txt, REQUEST_PERMISSIONS);
+//            } else {
+//                getDeviceInformation();
+//                hideKeyboard();
+//            }
+
             Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
-            finish();
-
-
-//            showProgress("kdjkdj");
-//
-//            LoginParams loginParams = new LoginParams();
-//            loginParams.setEmail("kslkdld");
-//            loginParams.setDeviceId("jkjkdjkd");
-//
-//            ServiceTask mTask = new ServiceTask();
-//            mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-//            mTask.setApiMethod(IPOSAPI.WEB_SERVICE_LOGIN);
-//            mTask.setApiCallType(Constants.API_METHOD_POST);
-//            mTask.setParamObj(loginParams);
-//            mTask.setListener(this);
-//            mTask.setResultType(CatalogueModal.class);
-//            mTask.execute();
 
 
         }
@@ -108,10 +231,51 @@ public class LoginActivity extends BaseActivity implements InitInterface, View.O
 
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj) {
-            dismissProgress();
-            if(resultObj!=null){
+        dismissProgress();
+        if (httpStatusCode == Constants.SUCCESS) {
+            if (resultObj != null) {
                 CatalogueModal catalogueModal = (CatalogueModal) resultObj;
 
             }
+        } else if (httpStatusCode == Constants.BAD_REQUEST) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        String email = editTextEmail.getText().toString();
+        String password = editTextPassword.getText().toString();
+        switch (v.getId()) {
+            case R.id.editTextEmail:
+                if (!hasFocus) {
+                    if (!validateEmail(email.trim())) {
+                        editTextEmail.setError(getResources().getString(R.string.edittext_email_error_activity_login));
+                    } else {
+                        editTextEmail.setError(null);
+                    }
+                }
+                break;
+            case R.id.editTextPassword:
+                if (hasFocus) {
+                    {
+                        if (TextUtils.isEmpty(password)) {
+                            editTextPassword.setError(getResources().getString(R.string.edittext_password_error_activity_login));
+                        }
+                    }
+                }
+            default:
+                break;
+
+        }
     }
 }

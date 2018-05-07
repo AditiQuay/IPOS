@@ -54,8 +54,8 @@
             android:background="@drawable/product_count"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_10"
-            android:paddingTop="@dimen/dim_6"
-            android:paddingBottom="@dimen/dim_6"
+            android:paddingTop="@dimen/dim_4"
+            android:paddingBottom="@dimen/dim_4"
             android:text="117"
             tools:ignore="RtlSymmetry" />
 

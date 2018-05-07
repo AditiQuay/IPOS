@@ -51,6 +51,7 @@ public class ProductCatalogueViewAll extends BaseActivity implements InitInterfa
 
     }
 
+
     @Override
     public void findViewById() {
         toolbar = findViewById(R.id.toolbar);
