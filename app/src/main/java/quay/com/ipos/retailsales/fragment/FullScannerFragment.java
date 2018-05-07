@@ -105,6 +105,7 @@ public class FullScannerFragment extends Fragment implements
         this.mScannerProductListener = mScannerProductListener;
     }
 
+
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        // Handle presses on the action bar items
@@ -147,14 +148,17 @@ public class FullScannerFragment extends Fragment implements
         mScannerView.setResultHandler(this);
         mScannerView.startCamera(mCameraId);
         mScannerView.setFlash(mFlash);
-        mScannerView.setAutoFocus(mAutoFocus);
+        mScannerView.setAutoFocus(true);
+        mScannerView.setShouldScaleToFill(true);
+
+
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(FLASH_STATE, mFlash);
-        outState.putBoolean(AUTO_FOCUS_STATE, mAutoFocus);
+        outState.putBoolean(AUTO_FOCUS_STATE, true);
         outState.putIntegerArrayList(SELECTED_FORMATS, mSelectedIndices);
         outState.putInt(CAMERA_ID, mCameraId);
     }
@@ -173,7 +177,7 @@ public class FullScannerFragment extends Fragment implements
 //        intent.putExtra("scancode",rawResult.getContents());
 //        getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
 //        getFragmentManager().popBackStack();
-        mScannerProductListener.setProductOnListener("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
+//        mScannerProductListener.setProductOnListener("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
     }
 
     public void showMessageDialog(String message) {

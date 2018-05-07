@@ -72,13 +72,13 @@
             android:layout_width="match_parent"
             android:layout_alignParentTop="true"
             android:visibility="gone"
-            android:layout_height="100dp">
+            android:layout_height="150dp">
 
             <fragment android:name="quay.com.ipos.retailsales.fragment.FullScannerFragment"
                 android:id="@+id/scanner_fragment"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="match_parent" />
 
         </FrameLayout>
         <android.support.v7.widget.RecyclerView
