@@ -98,7 +98,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
 
     boolean isOTC=false;
     Double afterDiscountPrice;
-    ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<>();
+    private ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<RealmPinnedResults.Info>();
     private String json;
     private ZBarScannerView mScannerView;
 
@@ -175,8 +175,6 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         IPOSApplication.mProductList.clear();
         if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            flScanner.setVisibility(View.GONE);
-            chkBarCode.setChecked(false);
             boolean request = ((MainActivity) getActivity()).launchActivity();
             if(request ||((MainActivity) getActivity()).CameraPermission )
             {
@@ -522,7 +520,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
                         discountItem++;
                     otcDiscountPerc +=mList.get(i).getOTCDiscount();
                 }else {
-                    otcDiscountPerc -=mList.get(i).getOTCDiscount();
+                    otcDiscountPerc =0;
                 }
                 totalGst = mList.get(i).getGSTPerc()*sum/100;
                 totalGst +=totalGst;
@@ -695,7 +693,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
             case R.id.imvPin:
 //                setArrayPinned();
                 if(IPOSApplication.mProductList.size()>0)
-                    cachedPinned();
+                    cachedPinned(true);
                 else
                     Util.showToast("Cannot pin empty list",getActivity());
 
@@ -776,13 +774,13 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
 
 
 
-    private void cachedPinned() {
+    private void cachedPinned(boolean showScreen) {
 
         if(IPOSApplication.mProductList!=null)
             if(IPOSApplication.mProductList.size()>0) {
-                if( SharedPrefUtil.getString("mInfoArrayList","",getActivity())!=null) {
+                if (SharedPrefUtil.getString("mInfoArrayList", "", getActivity()) != null) {
                     String json2 = SharedPrefUtil.getString("mInfoArrayList", "", getActivity());
-                    if (json2.equalsIgnoreCase(""))
+                    if (!json2.equalsIgnoreCase(""))
                         mInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<RealmPinnedResults.Info>>() {
                         }.getType());
                 }
@@ -790,22 +788,26 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
 
                 RealmPinnedResults mPinnedResult = new RealmPinnedResults();
                 RealmPinnedResults.Info mInfo = mPinnedResult.new Info();
-                if(childPosition!=-1) {
+                if (childPosition != -1) {
                     mInfo.setKey(mInfoArrayList.get(childPosition).getKey());
                     mInfo.setData(IPOSApplication.mProductList);
                     mInfoArrayList.set(childPosition, mInfo);
-                }
-                else {
+                } else {
                     mInfo.setKey(Util.getCurrentTimeStamp());
                     mInfo.setData(IPOSApplication.mProductList);
+                    if (mInfoArrayList == null) {
+                        mInfoArrayList = new ArrayList<>();
+                    }
                     mInfoArrayList.add(0, mInfo);
                 }
 
                 String json = Util.getCustomGson().toJson(mInfoArrayList);
                 SharedPrefUtil.putString("mInfoArrayList", json, getActivity());
 //            IPOSApplication.mProductList.clear();
-                Intent mIntent = new Intent(getActivity(), PinnedRetailActivity.class);
-                startActivityForResult(mIntent,2);
+                if (showScreen) {
+                    Intent mIntent = new Intent(getActivity(), PinnedRetailActivity.class);
+                    startActivityForResult(mIntent, 2);
+                }
             }
 
     }
@@ -903,6 +905,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
     }
 
     private void setonImvDiscount() {
+
         if(llOTCSelect.getVisibility()==View.GONE) {
             ll_item_pay.setVisibility(View.GONE);
             llOTCSelect.setVisibility(View.VISIBLE);
@@ -954,7 +957,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
             case R.id.chkItem:
                 if (compoundButton.isPressed()){
                     final int posItem = (int) compoundButton.getTag();
-                    mRecyclerView.post(new Runnable() {
+                  /*  mRecyclerView.post(new Runnable() {
                         @Override
                         public void run() {
 
@@ -969,14 +972,26 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
                             mRetailSalesAdapter.notifyItemChanged(posItem);
 
                         }
-                    });
+                    });*/
+                    ProductList.Datum datum = IPOSApplication.mProductList.get(posItem);
+                    if (!datum.isOTCselected())
+                        datum.setOTCselected(true);
+                    else {
+                        datum.setOTCselected(false);
+                        chkOTC.setChecked(false);
+                    }
+                    IPOSApplication.mProductList.set(posItem, datum);
+                    mRetailSalesAdapter.notifyItemChanged(posItem);
+                    mAllChecked=0;
                     for (int i = 0; i < IPOSApplication.mProductList.size(); i++) {
                         ProductList.Datum datum1 = IPOSApplication.mProductList.get(i);
                         if(datum1.isOTCselected()){
                             mAllChecked++;
+                        }else {
+                            mAllChecked--;
                         }
                     }
-                    if(IPOSApplication.mProductList.size()-1==mAllChecked){
+                    if(IPOSApplication.mProductList.size()==mAllChecked){
                         chkOTC.setChecked(true);
                     }else
                         chkOTC.setChecked(false);
@@ -1105,6 +1120,12 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
             dialog.dismiss();
             etDiscountAmt.setText("");
         }else if(mCallType==Constants.APP_DIALOG_Cart){
+            if(IPOSApplication.mProductList.size()>0)
+                cachedPinned(false);
+            else
+                Util.showToast("Cannot save empty list",getActivity());
+            dialog.dismiss();
+            getFragmentManager().popBackStack();
 
         }
     }
@@ -1112,8 +1133,12 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
     @Override
     public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_Cart){
-            IPOSApplication.mProductList.clear();
-            getFragmentManager().popBackStack();
+            if(IPOSApplication.mProductList.size()>0) {
+                IPOSApplication.mProductList.clear();
+                getFragmentManager().popBackStack();
+            }
+            dialog.dismiss();
+
         }
 
     }

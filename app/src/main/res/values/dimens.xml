@@ -1078,4 +1078,5 @@
     <dimen name="btnSmallHeight">30dp</dimen>
 
     <dimen name="txtProgressSize">12dp</dimen>
+    <dimen name="text_size_14sp">14sp</dimen>
 </resources>
