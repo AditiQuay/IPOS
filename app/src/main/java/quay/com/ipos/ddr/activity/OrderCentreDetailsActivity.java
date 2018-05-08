@@ -62,9 +62,9 @@ public class OrderCentreDetailsActivity extends BaseActivity{
         GridLayoutManager mLayoutManager4 = new GridLayoutManager(this, 1);
         //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recycler_viewRecentOrders.setLayoutManager(mLayoutManager4);
-        recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
-        recentOrdersListAdapter = new ItemsDetailListAdapter(this, recentOrderModalArrayList);
-        recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
+//        recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
+//        recentOrdersListAdapter = new ItemsDetailListAdapter(this, recentOrderModalArrayList);
+//        recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
 
         recycler_viewAddress = (RecyclerView) findViewById(R.id.recycler_viewAddress);
         GridLayoutManager mLayoutManager5 = new GridLayoutManager(this, 1);
