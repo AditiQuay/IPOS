@@ -1,0 +1,175 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ConcernedPortionofScreen"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.4"
+        android:orientation="vertical">
+
+        <!-- Parent FrameLayout 'FL' -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- This is Layout 'LL'
+                 This is where you will place your image & the nice bg
+            -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="25dp"
+                android:background="#b2ebf2">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="72dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/profile_thumb" />
+            </LinearLayout>
+
+            <co.ceryle.segmentedbutton.SegmentedButtonGroup
+                android:id="@+id/segmentedButtonGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="@dimen/dim_8"
+                android:layout_marginLeft="@dimen/dim_18"
+                android:layout_marginRight="@dimen/dim_18"
+                android:background="@drawable/button_round"
+                android:elevation="2dp"
+                app:sbg_animateSelectorDuration="1000"
+                app:sbg_borderSize="1dp"
+                app:sbg_draggable="true"
+                app:sbg_position="0"
+                app:sbg_radius="30dp"
+                app:sbg_selectorColor="@color/white">
+
+                <co.ceryle.segmentedbutton.SegmentedButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    app:sb_text="Login"
+                    app:sb_textColor="@color/colorPrimary"
+                    app:sb_textColor_onSelection="@color/black"
+                    app:sb_textTypeface="serif" />
+
+                <co.ceryle.segmentedbutton.SegmentedButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    app:sb_text="SignUp"
+                    app:sb_textColor="@color/colorPrimary"
+                    app:sb_textColor_onSelection="@color/black"
+                    app:sb_textTypeface="serif" />
+
+            </co.ceryle.segmentedbutton.SegmentedButtonGroup>
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/RestofScreen"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:orientation="vertical">
+        <!-- Email Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_4">
+
+            <EditText
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email or Phone"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Password Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_4">
+
+            <EditText
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textEmailAddress" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btn_login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_16"
+            android:background="@drawable/button_round_all"
+            android:backgroundTint="@color/colorPrimary"
+            android:padding="12dp"
+            android:text="Login"
+            android:textColor="@color/white"
+            android:textSize="@dimen/dim_14" />
+
+        <TextView
+            android:id="@+id/link_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/dim_16"
+            android:gravity="center"
+            android:text="Forgot Password?"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16dip" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dim_16">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <ImageButton
+                    android:layout_width="@dimen/dim_40"
+                    android:layout_height="@dimen/dim_40"
+                    android:background="@drawable/facebook"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="hello"
+                    android:textColor="#fff" />
+
+
+                <View
+                    android:layout_width="@dimen/dim_1"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dim_8"
+                    android:layout_marginLeft="@dimen/dim_8"
+                    android:layout_marginRight="@dimen/dim_8"
+                    android:layout_marginTop="@dimen/dim_8"
+                    android:background="@color/grey" />
+
+                <ImageButton
+                    android:layout_width="@dimen/dim_40"
+                    android:layout_height="@dimen/dim_40"
+                    android:background="@drawable/google_plus"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="hello"
+                    android:textColor="#fff" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

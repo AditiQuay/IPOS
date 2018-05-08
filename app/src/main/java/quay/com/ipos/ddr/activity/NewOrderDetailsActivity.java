@@ -73,7 +73,6 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+mOrderList.getRound_off()+"");
         else
             tvRoundingOffPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+mOrderList.getRound_off()+"");
-
     }
 
     private void initializeComponent() {
@@ -141,8 +140,10 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
         switch (id){
             case R.id.btnAccept:
-                Intent mIntent = new Intent(this,OrderCentreDetailsActivity.class);
-                startActivity(mIntent);
+//                Intent mIntent = new Intent(this,OrderCentreDetailsActivity.class);
+//                startActivity(mIntent);
+                Intent mIntent = new Intent();
+                setResult(6,mIntent);
                 finish();
                 break;
         }

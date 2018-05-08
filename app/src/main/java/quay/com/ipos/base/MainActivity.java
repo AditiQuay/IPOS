@@ -42,6 +42,7 @@ import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
+import quay.com.ipos.ddr.fragment.OrderCentreListFragment;
 import quay.com.ipos.ddr.fragment.NewOrderFragment;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
@@ -69,7 +70,7 @@ public class MainActivity extends BaseActivity
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null;
+    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null,mOrderCentreListFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
     private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
@@ -458,6 +459,10 @@ public class MainActivity extends BaseActivity
 
                 break;
             case 1:
+                mOrderCentreListFragment = new OrderCentreListFragment();
+                replaceFragment(mOrderCentreListFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.order_centre));
                 break;
             case 2:
                 dashboardFragment = new McCOYDashboardFragment();

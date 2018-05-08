@@ -32,6 +32,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.ddr.activity.AddNewOrderActivity;
 import quay.com.ipos.ddr.activity.NewOrderDetailsActivity;
@@ -59,7 +60,7 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 03-05-2018.
  */
 
-public class NewOrderFragment extends Fragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialogFragment.MessageDialogListener,ScannerProductListener {
+public class NewOrderFragment extends BaseFragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialogFragment.MessageDialogListener,ScannerProductListener {
     private TextView tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
             tvLessDetails,tvRoundingOffPrice,tvPay;
@@ -302,6 +303,13 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
                 childPosition = data.getIntExtra("pinned_order_position",0);
                 getProduct();
             }
+        }else if(requestCode==6){
+            if(resultCode == 6){
+//                childPosition = data.getIntExtra("pinned_order_position",0);
+//                getProduct();
+                IPOSApplication.mOrderList.clear();
+                mNewOrderListAdapter.notifyDataSetChanged();
+            }
         }
      /*   if (resultCode == RESULT_OK) {
             if (requestCode==2000){
@@ -512,7 +520,7 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
                     i.putExtra(Constants.Order_List,Util.getCustomGson().toJson(mOrderList));
-                    getActivity().startActivity(i);
+                    getActivity().startActivityForResult(i,6);
                 }else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }
@@ -528,6 +536,7 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
 
         }
     }
+
 
 
     private void setOnClickPlus(View view) {
