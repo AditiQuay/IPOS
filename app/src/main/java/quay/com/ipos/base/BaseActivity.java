@@ -65,11 +65,8 @@ public class BaseActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(containerId, fragment)
 
-<<<<<<< HEAD
                 .addToBackStack("fragment")
-=======
-                .addToBackStack("tag")
->>>>>>> d00dd8c8b5b68515999763218624f7237bba54ee
+
                 .commitAllowingStateLoss();
     }
 

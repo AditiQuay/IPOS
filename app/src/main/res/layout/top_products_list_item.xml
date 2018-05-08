@@ -26,8 +26,6 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:textSize="12sp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
             android:text=" Nidan 4G"
             android:textColor="@color/filter_text_color"
             />
@@ -45,8 +43,6 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:textSize="14sp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
                 android:text="100"
                 android:textColor="@color/filter_text_color"
                 />
@@ -96,10 +92,8 @@
                 android:layout_alignParentLeft="true"
                 android:textSize="14sp"
                 android:gravity="center"
-                android:layout_marginLeft="8dp"
-                android:layout_marginStart="8dp"
                 android:text="₹ 50,100"
-                android:textColor="@color/filter_text_color"
+                android:textColor="@color/colorPrimary"
                 />
 
         </LinearLayout>

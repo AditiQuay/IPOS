@@ -32,12 +32,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.dashboard.adapter.BarGraphAdapter;
 import quay.com.ipos.dashboard.adapter.FastMovingListAdapter;
 import quay.com.ipos.dashboard.adapter.InventoryListAdapter;
 import quay.com.ipos.dashboard.adapter.LowInventoryListAdapter;
 import quay.com.ipos.dashboard.adapter.TopProductsListAdapter;
 import quay.com.ipos.dashboard.adapter.TopStoresListAdapter;
 import quay.com.ipos.dashboard.adapter.UpcomingShipmentListAdapter;
+import quay.com.ipos.dashboard.modal.BarGraphModal;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
 import quay.com.ipos.utility.SpacesItemDecoration;
 
@@ -48,11 +50,15 @@ import quay.com.ipos.utility.SpacesItemDecoration;
 
 @SuppressLint("ValidFragment")
 public class McCOYDashboardFragment extends Fragment {
+    String[] days={"Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar"};
+
+    int[] progress={10,20,30,40,50,40,30,20,10,80,60,50};
+    String[] money={"10000000","20000000","30000000","40000000","50000000","40000","30000","20000","10000","80000","60000","50000"};
     String[] title = {"Nidan 4G", "Sure", "Built", "Extra Super", "Missile"};
     String[] product = {"Bavistin", "Abacin", "Snapper", "Kyoto", "Nutrozen"};
     String[] topstores = {"My store 1", "Top Store 2", "Top store 3", "Top store 4", "Top store 5"};
     String[] inventory = {"Order Reference # 1", "Order Reference # 2"};
-    private RecyclerView recyclerView, recycler_view_top_stores, recycler_viewOrderValue,recycler_viewInventory;
+    private RecyclerView recyclerView, recycler_view_top_stores, recycler_viewOrderValue,recycler_viewInventory,recycler_viewBarGraph;
     private LowInventoryListAdapter adapter;
     private TopStoresListAdapter topStoresListAdapter;
     private TopProductsListAdapter topProductsListAdapter;
@@ -61,8 +67,10 @@ public class McCOYDashboardFragment extends Fragment {
     private ArrayList<LowInventoryModal> topStoresList = new ArrayList<>();
     private ArrayList<LowInventoryModal> inventoryList = new ArrayList<>();
     private ArrayList<LowInventoryModal> fastMovingList = new ArrayList<>();
+    private ArrayList<BarGraphModal> barGraphModals=new ArrayList<>();
     private int position;
     private String strImage;
+    private BarGraphAdapter barGraphAdapter;
 
     // newInstance constructor for creating fragment with arguments
     public McCOYDashboardFragment newInstance(int position) {
@@ -97,6 +105,13 @@ public class McCOYDashboardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mccoy_dashboard_item, container, false);
 
+        recycler_viewBarGraph = (RecyclerView) view.findViewById(R.id.recycler_viewBarGraph);
+        GridLayoutManager mLayoutManager3 = new GridLayoutManager(getActivity(), 1);
+        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recycler_viewBarGraph.setLayoutManager(mLayoutManager3);
+        recycler_viewBarGraph.addItemDecoration(new SpacesItemDecoration(5));
+        barGraphAdapter = new BarGraphAdapter(getActivity(), barGraphModals);
+        recycler_viewBarGraph.setAdapter(barGraphAdapter);
 
 
         recycler_viewOrderValue = (RecyclerView) view.findViewById(R.id.recycler_viewOrderValue);
@@ -137,7 +152,8 @@ public class McCOYDashboardFragment extends Fragment {
         });
         getFastMovingData();
         getInventoryData();
-        createOrderChart(view);
+      //  createOrderChart(view);
+        getBarGraph();
         return view;
 
     }
@@ -150,6 +166,18 @@ public class McCOYDashboardFragment extends Fragment {
 
         }
         inventoryListAdapter.notifyDataSetChanged();
+    }
+    private void getBarGraph() {
+        for (int i = 0; i < days.length; i++) {
+            BarGraphModal barGraphModal = new BarGraphModal();
+            barGraphModal.setTitle(days[i]);
+            barGraphModal.setProgress(progress[i]);
+            barGraphModal.setMoney(money[i]);
+
+            barGraphModals.add(barGraphModal);
+
+        }
+        barGraphAdapter.notifyDataSetChanged();
     }
 
 

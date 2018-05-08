@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/menu_item_container"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:gravity="start"
+        android:paddingLeft="@dimen/dim_16"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:singleLine="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:textSize="14sp"
+            android:text="Apn"
+            android:minWidth="30dp"
+            android:textColor="@color/filter_text_color"
+            />
+
+        <LinearLayout
+            android:id="@+id/llseekbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dim_16"
+            android:layout_toRightOf="@+id/tvTitle"
+            android:layout_centerVertical="true">
+            <TextView
+                android:id="@+id/seekbar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:maxWidth="150dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/button_round_app"
+                />
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvLess"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:textSize="12sp"
+            android:layout_marginLeft="16dp"
+            android:visibility="gone"
+            android:layout_marginStart="16dp"
+            android:text=" Less by 500"
+            android:textColor="@color/red"
+            />
+
+
+        <ImageView
+            android:id="@+id/imgPin"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dim_20"
+            android:layout_weight="0.3"
+            android:maxWidth="@dimen/dim_20"
+            android:layout_marginRight="@dimen/dim_8"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/dim_8"
+            android:layout_gravity="center"
+            android:background="@drawable/email"
+            android:contentDescription="TODO" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:layout_toRightOf="@+id/llseekbar"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/tvValueMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="12sp"
+                android:gravity="center"
+                android:text="₹ 50,100"
+                android:textColor="@color/filter_text_color"
+                />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>
