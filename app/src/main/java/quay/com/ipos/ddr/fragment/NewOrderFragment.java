@@ -34,6 +34,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.ddr.activity.AddNewOrderActivity;
+import quay.com.ipos.ddr.activity.NewOrderDetailsActivity;
 import quay.com.ipos.ddr.activity.PinnedOrderActivity;
 import quay.com.ipos.ddr.adapter.NewOrderListAdapter;
 import quay.com.ipos.listeners.AdapterListener;
@@ -349,7 +350,7 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
         }
     }
 
-
+    OrderList mOrderList = new OrderList();
     private void setUpdateValues(ArrayList<OrderList.Datum> mList) {
 
         AppLog.e(TAG, "IPOSApplication.mProductList:Frag: "+ Util.getCustomGson().toJson(IPOSApplication.mOrderList));
@@ -371,10 +372,12 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
             tvTotalDiscountDetail.setText("(Item 0)");
         }else {
 
+
+
             int qty = 0;
             double totalPrice=0.0;
             double sum=0;
-            double discount=0, totalGst=0.0, cgst = 0.0, sgst = 0.0;
+            double discount=0,discountPrice=0.0, totalGst=0.0, cgst = 0.0, sgst = 0.0;
             int discountItem=0;
             int mSelectedpos=0;
             double totalAfterGSt=0.0;
@@ -409,27 +412,51 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
 //                totalPrice += mList.get(i).getTotalPrice();
                 IPOSApplication.mOrderList.set(i,datum);
             }
+
+            // Total Qty
             tvItemQty.setText(qty+" Qty");
+            mOrderList.setTotalQty(qty);
+
+            // Total price befor discount & gst
             tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) +" "+sum);
-            tvTotalDiscountPrice.setText("-"+getActivity().getResources().getString(R.string.Rs) +" "+(discount+otcDiscountPerc));
+            mOrderList.setTotalPrice(sum);
+
+            // discountPrice
+            discountPrice = discount+otcDiscountPerc;
+            tvTotalDiscountPrice.setText("-"+getActivity().getResources().getString(R.string.Rs) +" "+(discountPrice));
+            mOrderList.setDiscountPrice(discountPrice);
+
+//            discountItem
             tvTotalDiscountDetail.setText("(Item "+ discountItem+")");
+            mOrderList.setDiscountItem(discountItem);
+
+//            totalGst
             AppLog.e(TAG,"totalGst: "+totalGst);
             tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalGst);
+            mOrderList.setTotalGst(totalGst);
 
+//            sgst
             tvSGSTPrice.setText("+"+getActivity().getResources().getString(R.string.Rs) + " " +sgst);
+            mOrderList.setSgst(sgst);
 
+//            cgst
             tvCGSTPrice.setText("+"+getActivity().getResources().getString(R.string.Rs) + " " +cgst);
+            mOrderList.setCgst(cgst);
+
             totalAfterGSt = (sum-discount)+(sgst+cgst)-(otcDiscountPerc);
 //            double floorValue = Math.round(totalAfterGSt);
 
 
             double roundOff = totalAfterGSt - Math.floor( totalAfterGSt );
-            tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + (Util.round(roundOff,1)));
+            double round_off = (Util.round(roundOff,1));
+            tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + round_off);
+            mOrderList.setRound_off(round_off);
             totalAfterGSt = totalAfterGSt +  (Util.round(roundOff,1));
             totalAmount=Math.round(totalAfterGSt);
-            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " +  Math.round(totalAfterGSt));
+            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " +  totalAmount);
+            mOrderList.setTotalGst(totalAmount);
             AppLog.e(TAG,"updated: " + Util.getCustomGson().toJson(IPOSApplication.mOrderList));
-
+            mOrderList.setData(IPOSApplication.mOrderList);
         }
     }
 
@@ -482,12 +509,21 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
                 break;
             case R.id.tvPay:
                 if (totalAmount>0) {
-                    Intent i = new Intent(getActivity(), PaymentModeActivity.class);
+                    Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
+                    i.putExtra(Constants.Order_List,Util.getCustomGson().toJson(mOrderList));
                     getActivity().startActivity(i);
                 }else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }
+                break;
+            case R.id.btnNo:
+                mDiscountDeleteFragment.dismiss();
+                addDeleteDiscount();
+                break;
+
+            case R.id.btnYes:
+                setDeleteDiscount();
                 break;
 
         }
@@ -623,12 +659,12 @@ public class NewOrderFragment extends Fragment implements View.OnClickListener ,
                 SharedPrefUtil.putString(Constants.mOrderInfoArrayList, json, getActivity());
 //            IPOSApplication.mOrderList.clear();
             }
-                if (showScreen) {
-                    Intent mIntent = new Intent(getActivity(), PinnedOrderActivity.class);
-                    startActivityForResult(mIntent, 5);
-                    IPOSApplication.mOrderList.clear();
-                    mNewOrderListAdapter.notifyDataSetChanged();
-                }
+        if (showScreen) {
+            Intent mIntent = new Intent(getActivity(), PinnedOrderActivity.class);
+            startActivityForResult(mIntent, 5);
+            IPOSApplication.mOrderList.clear();
+            mNewOrderListAdapter.notifyDataSetChanged();
+        }
 
 
     }

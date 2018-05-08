@@ -4,10 +4,11 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/menu_item_container"
     android:orientation="vertical"
-    android:background="@color/backgroundgrey"
+    android:background="@color/white"
     android:layout_width="match_parent"
+    android:paddingRight="@dimen/dim_10"
     android:layout_height="wrap_content"
-  >
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,11 +18,7 @@
         android:padding="@dimen/dim_4"
         android:orientation="horizontal">
 
-
-
-
-
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,8 +30,8 @@
             android:layout_marginStart="16dp"
             android:text="Total"
             />
-        <TextView
-
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvTotalQty"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -45,8 +42,8 @@
             android:layout_marginStart="16dp"
             android:text="10"
             />
-        <TextView
-
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvTotalPriceBeforeGst"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -67,11 +64,7 @@
         android:padding="@dimen/dim_4"
         android:orientation="horizontal">
 
-
-
-
-
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -84,8 +77,8 @@
             android:text="CGST"
             />
 
-        <TextView
-
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvCGSTPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -106,11 +99,7 @@
         android:padding="@dimen/dim_4"
         android:orientation="horizontal">
 
-
-
-
-
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -123,8 +112,8 @@
             android:text="SGST"
             />
 
-        <TextView
-
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvSGSTPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -145,11 +134,7 @@
         android:padding="@dimen/dim_4"
         android:orientation="horizontal">
 
-
-
-
-
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -162,8 +147,8 @@
             android:text="Rounding off"
             />
 
-        <TextView
-
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvRoundingOffPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

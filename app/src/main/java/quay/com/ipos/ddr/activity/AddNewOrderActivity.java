@@ -91,6 +91,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
     public void setHeader() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        toolbar.setTitle("New Order");
         // toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.back));
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
