@@ -34,7 +34,7 @@
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_graph" />
+                        android:src="@drawable/chart_app" />
 
                     <TextView
                         android:id="@+id/tvOrderName"
@@ -55,8 +55,8 @@
                         android:gravity="center"
                         android:paddingLeft="@dimen/dim_12"
                         android:paddingRight="@dimen/dim_12"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
                         android:alpha="0.6"
                         android:background="@drawable/button_round_grey"
                         >
@@ -135,12 +135,23 @@
 
                     </LinearLayout>
                 </RelativeLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_viewBarGraph"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dim_8"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white">
+
+
+                </android.support.v7.widget.RecyclerView>
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/ordervalue"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
                     android:background="@color/white"
-                    android:visibility="visible" />
+
+                    android:visibility="gone" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -163,7 +174,7 @@
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_shopping_cart" />
+                        android:src="@drawable/cart_app" />
 
                     <TextView
                         android:id="@+id/tvStoreName"
@@ -176,9 +187,44 @@
                         android:layout_centerVertical="true"
                         android:text="@string/order_tracking"
                         android:textColor="@color/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:background="@drawable/button_round_app"
+                        >
+                        <ImageView
+                            android:layout_width="@dimen/dim_10"
+                            android:layout_height="@dimen/dim_10"
+                            android:paddingLeft="@dimen/dim_4"
+
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:background="@drawable/view_all_app"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/viewall"
+                            android:padding="@dimen/dim_3"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dim_12"
+                            android:spinnerMode="dropdown"/>
+
+                              </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_alignParentRight="true"
                         android:paddingLeft="@dimen/dim_12"
                         android:paddingRight="@dimen/dim_12"
@@ -266,7 +312,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:src="@drawable/ic_calendar"
+                        android:src="@drawable/shipment_app"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         />
@@ -319,7 +365,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_loyalty" />
+                        android:src="@drawable/loyalty_app" />
 
                     <TextView
                         android:id="@+id/tvLoyalty"
@@ -332,6 +378,39 @@
                         android:gravity="center"
                         android:text="@string/loyalty"
                         android:textColor="@color/colorPrimary" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:background="@drawable/button_round_app"
+                        >
+                        <ImageView
+                            android:layout_width="@dimen/dim_10"
+                            android:layout_height="@dimen/dim_10"
+                            android:paddingLeft="@dimen/dim_4"
+
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:background="@drawable/loyalty_white"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/redeem_points"
+                            android:padding="@dimen/dim_3"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dim_12"
+                            android:spinnerMode="dropdown"/>
+
+                    </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -339,6 +418,7 @@
                         android:paddingLeft="@dimen/dim_4"
                         android:paddingRight="@dimen/dim_4"
                         android:paddingTop="@dimen/dim_4"
+                        android:visibility="gone"
                         android:paddingBottom="@dimen/dim_4"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/white"
@@ -447,7 +527,7 @@
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_summary" />
+                        android:src="@drawable/cart_app" />
 
                     <TextView
                         android:id="@+id/tvOrderSummary"
@@ -577,7 +657,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_cube_low_inventory" />
+                        android:src="@drawable/chart_app" />
 
                     <TextView
                         android:id="@+id/tvProducts"
@@ -598,8 +678,8 @@
                         android:gravity="center"
                         android:paddingLeft="@dimen/dim_12"
                         android:paddingRight="@dimen/dim_12"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
                         android:background="@drawable/button_round_grey"
                         >
                         <TextView
@@ -624,7 +704,7 @@
 
                 </RelativeLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -654,7 +734,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         android:text="@string/order_values"
-                        android:textColor="@color/filter_text_color" />
+                        android:textColor="@color/colorPrimary" />
 
 
                 </LinearLayout>

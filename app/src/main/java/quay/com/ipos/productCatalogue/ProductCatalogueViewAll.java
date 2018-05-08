@@ -29,7 +29,7 @@ public class ProductCatalogueViewAll extends BaseActivity implements InitInterfa
     private TextView textViewProductName;
     private RecyclerView recyclerViewProductsList;
     private Context mContext;
-    String ProductGroup,sectionProducts;
+    String ProductGroup, sectionProducts;
     private ArrayList<ProductItemModal> productItemModals;
     private ProductCatalogueViewAllAdapter productCatalogueViewAllAdapter;
     private MyListener myListener;
@@ -70,7 +70,7 @@ public class ProductCatalogueViewAll extends BaseActivity implements InitInterfa
         toolbar.setTitle(getResources().getString(R.string.toolbar_title_catalogue_product_details));
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
-        textViewProductName.setText(ProductGroup+" - "+sectionProducts);
+        textViewProductName.setText(ProductGroup + " - " + sectionProducts);
 
         recyclerViewProductsList.setHasFixedSize(true);
         recyclerViewProductsList.setLayoutManager(new LinearLayoutManager(mContext));
@@ -92,7 +92,7 @@ public class ProductCatalogueViewAll extends BaseActivity implements InitInterfa
     @Override
     public void applyTypeFace() {
         FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(toolbar,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(toolbar, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
     }
 
