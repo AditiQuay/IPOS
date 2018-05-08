@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rLayoutMain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/activatedBackgroundIndicator"
+    >
+
+    <RelativeLayout
+        android:id="@+id/sepeartor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="3dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_centerVertical="true"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:src="@drawable/ipos_line_black" />
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
