@@ -39,18 +39,15 @@ public class ItemsDetailListAdapter extends RecyclerView.Adapter<ItemsDetailList
 
         OrderList.Datum datum = mOrderList.get(position);
         holder.tvTitle.setText(datum.getSProductName());
-        holder.tvItemQty.setText(datum.getQty());
+        holder.tvItemQty.setText(datum.getQty()+"");
         holder.tvValue.setText(mContext.getResources().getString(R.string.Rs) + " " + datum.getSProductPrice());
         double totalPrice = datum.getQty() * Double.parseDouble(datum.getSProductPrice());
         holder.tvValueMonth.setText(mContext.getResources().getString(R.string.Rs) + " " + totalPrice);
         if(datum.getIsDiscount()) {
             Double discount = (Double.parseDouble(datum.getSDiscountPrice())*totalPrice)/100;
-            holder.tvValueDisc.setText(mContext.getResources().getString(R.string.Rs) +" "+discount+"");
+            holder.tvValueDisc.setText("- "+mContext.getResources().getString(R.string.Rs) +" "+discount+"");
             holder.tvValueDisc.setVisibility(View.VISIBLE);
         }else {
-//                str.setDiscItemSelected(false);
-//                str.setTotalPrice(totalPrice);
-//                str.setDiscount(0.0);
             holder.tvValueDisc.setVisibility(View.GONE);
         }
     }

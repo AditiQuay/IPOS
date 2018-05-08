@@ -41,9 +41,9 @@ public class OrderCentreDetailsActivity extends BaseActivity{
     private WorkFLowUserAdapter workFLowUserAdapter;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_order_detail);
+        setContentView(R.layout.activity_order_center_detail);
 
         setHeader();
         LinearLayout menu_item_container=(LinearLayout)findViewById(R.id.menu_item_container);
