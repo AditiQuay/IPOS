@@ -1,6 +1,10 @@
 package quay.com.ipos.base;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,7 +13,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -43,6 +49,7 @@ import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductMain;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.utility.CircleImageView;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 
 public class MainActivity extends BaseActivity
@@ -74,6 +81,8 @@ public class MainActivity extends BaseActivity
     private int preMenu = -1;
     private View view1;
     private ArrayList<Integer> inMenu = new ArrayList<>();
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private int count=0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -154,6 +163,32 @@ public class MainActivity extends BaseActivity
         lLaoutBtnP.setOnClickListener(this);
         lLaoutBtnI.setOnClickListener(this);
         lLaoutBtnM.setOnClickListener(this);
+
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                // checking for type intent filter
+                if (intent.getAction().equals(Constants.REGISTRATION_COMPLETE)) {
+                    // gcm successfully registered
+                    // now subscribe to `global` topic to receive app wide notifications
+
+
+
+                } else if (intent.getAction().equals(Constants.PUSH_NOTIFICATION)) {
+                    // new push notification is received
+                    MenuItem menu= menu1.findItem(R.id.action_notification);
+                    View actionView = MenuItemCompat.getActionView(menu);
+                    count++;
+                    TextView  cart_badge = (TextView) actionView.findViewById(R.id.cart_badge);
+                    cart_badge.setText(count+"");
+                    String message = intent.getStringExtra("message");
+
+
+                    //txtMessage.setText(message);
+                }
+            }
+        };
     }
 
     @Override
@@ -527,6 +562,11 @@ public class MainActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         this.menu1 = menu;
+        MenuItem menu12= menu1.findItem(R.id.action_notification);
+        View actionView = MenuItemCompat.getActionView(menu12);
+
+        TextView  cart_badge = (TextView) actionView.findViewById(R.id.cart_badge);
+        cart_badge.setText(count+"");
         // Retrieve the SearchView and plug it into SearchManager
 //        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
 //        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
@@ -594,4 +634,26 @@ public class MainActivity extends BaseActivity
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // register GCM registration complete receiver
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Constants.REGISTRATION_COMPLETE));
+
+        // register new push message receiver
+        // by doing this, the activity will be notified each time a new message arrives
+        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
+                new IntentFilter(Constants.PUSH_NOTIFICATION));
+
+        // clear the notification area when the app is opened
+        // NotificationUtils.clearNotifications(getApplicationContext());
+    }
+
+    @Override
+    protected void onPause() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+
+        super.onPause();
+    }
 }

@@ -24,7 +24,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgFilter"
@@ -41,15 +41,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
                         android:text="@string/pending_orders_to_deliver"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
 
 
                 </LinearLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -143,7 +143,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgInventory"
@@ -160,15 +160,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
                         android:text="@string/low_inventory"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
 
 
                 </LinearLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
@@ -192,7 +192,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgTotalSales"
@@ -209,11 +209,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgTotalSales"
                         android:gravity="center"
                         android:text="@string/total_sales"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
 
                     <LinearLayout
                         android:id="@+id/llTotalSales"
@@ -254,7 +254,7 @@
 
                 </RelativeLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
@@ -328,7 +328,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgSchemaPer"
@@ -345,7 +345,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgSchemaPer"
                         android:gravity="center"
                         android:text="@string/schema_performance"
@@ -353,7 +353,7 @@
 
                 </RelativeLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -522,7 +522,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
@@ -535,7 +535,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/black"
                         android:gravity="center"
@@ -696,7 +696,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgStoreStatus"
@@ -713,11 +713,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgStoreStatus"
                         android:gravity="center"
                         android:text="@string/store_status"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
                     <TextView
 
                         android:layout_width="wrap_content"
@@ -734,7 +734,7 @@
 
                 </RelativeLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
@@ -824,7 +824,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgCustomerFootprints"
@@ -840,11 +840,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgCustomerFootprints"
                         android:gravity="center"
                         android:text="@string/customer_footprints"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1109,7 +1109,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgCustomerfeedback"
@@ -1125,11 +1125,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgCustomerfeedback"
                         android:gravity="center"
                         android:text="@string/customer_feedback"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1393,7 +1393,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
                     <ImageView
                         android:id="@+id/imgInventoryinTransit"
                         android:layout_width="20dp"
@@ -1407,10 +1407,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgInventoryinTransit"
                         android:layout_gravity="center_vertical"
-                        android:textColor="@color/black"
+                        android:textColor="@color/colorPrimary"
                         android:gravity="center"
                         android:text="@string/inventory"/>
 
@@ -1540,7 +1540,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgTopPerformingStores"
@@ -1557,15 +1557,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
                         android:text="@string/top_performing_stores"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
 
 
                 </LinearLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1631,7 +1631,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgFastMoving"
@@ -1648,15 +1648,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
                         android:text="@string/fast_moving"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
 
 
                 </LinearLayout>
 
-                <include layout="@layout/view_layout"/>     <LinearLayout
+                <include layout="@layout/view_layout_without_dot"/>     <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dim_8"
@@ -1717,7 +1717,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgCompliance"
@@ -1734,15 +1734,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
                         android:text="@string/compliance"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
 
 
                 </LinearLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

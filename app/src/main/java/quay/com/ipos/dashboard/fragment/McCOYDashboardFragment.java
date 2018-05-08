@@ -53,7 +53,7 @@ public class McCOYDashboardFragment extends Fragment {
     String[] days={"Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan","Feb","Mar"};
 
     int[] progress={10,20,30,40,50,40,30,20,10,80,60,50};
-    String[] money={"10000000","20000000","30000000","40000000","50000000","40000","30000","20000","10000","80000","60000","50000"};
+    String[] money={"42,660","32,634","37,828","32,634","38,635","39,984","37,634","50,627","39,631","41,630","22,132","31,148"};
     String[] title = {"Nidan 4G", "Sure", "Built", "Extra Super", "Missile"};
     String[] product = {"Bavistin", "Abacin", "Snapper", "Kyoto", "Nutrozen"};
     String[] topstores = {"My store 1", "Top Store 2", "Top store 3", "Top store 4", "Top store 5"};
@@ -109,7 +109,7 @@ public class McCOYDashboardFragment extends Fragment {
         GridLayoutManager mLayoutManager3 = new GridLayoutManager(getActivity(), 1);
         //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recycler_viewBarGraph.setLayoutManager(mLayoutManager3);
-        recycler_viewBarGraph.addItemDecoration(new SpacesItemDecoration(5));
+        recycler_viewBarGraph.addItemDecoration(new SpacesItemDecoration(0));
         barGraphAdapter = new BarGraphAdapter(getActivity(), barGraphModals);
         recycler_viewBarGraph.setAdapter(barGraphAdapter);
 
