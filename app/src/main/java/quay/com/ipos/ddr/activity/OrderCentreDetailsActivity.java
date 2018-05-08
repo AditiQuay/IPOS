@@ -41,9 +41,9 @@ public class OrderCentreDetailsActivity extends BaseActivity{
     private WorkFLowUserAdapter workFLowUserAdapter;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.new_order_detail);
+        setContentView(R.layout.activity_order_center_detail);
 
         setHeader();
         LinearLayout menu_item_container=(LinearLayout)findViewById(R.id.menu_item_container);
@@ -62,7 +62,11 @@ public class OrderCentreDetailsActivity extends BaseActivity{
         GridLayoutManager mLayoutManager4 = new GridLayoutManager(this, 1);
         //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recycler_viewRecentOrders.setLayoutManager(mLayoutManager4);
+<<<<<<< HEAD
 //        recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
+=======
+        recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
+>>>>>>> 6dd9e4caa225ecb517ba29911b0bd1cedbbf1611
 //        recentOrdersListAdapter = new ItemsDetailListAdapter(this, recentOrderModalArrayList);
 //        recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
 

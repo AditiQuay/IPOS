@@ -23,7 +23,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgOrdervalue"
@@ -33,7 +33,8 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_graph" />
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/chart_app" />
 
                     <TextView
                         android:id="@+id/tvOrderName"
@@ -41,20 +42,23 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/imgOrdervalue"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
+                        android:layout_centerVertical="true"
                         android:text="@string/order_value"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
-                        android:paddingLeft="@dimen/dim_8"
-                        android:paddingRight="@dimen/dim_8"
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
                         android:alpha="0.6"
-                        android:background="@drawable/button_round_shape"
+                        android:background="@drawable/button_round_grey"
                         >
                         <TextView
                             android:layout_width="wrap_content"
@@ -62,7 +66,7 @@
                             android:gravity="center"
                             android:text="@string/month"
                             android:padding="@dimen/dim_3"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/dim_12"
                             android:spinnerMode="dropdown"/>
 
@@ -70,69 +74,84 @@
                             android:layout_width="@dimen/dim_10"
                             android:layout_height="@dimen/dim_10"
                             android:paddingLeft="@dimen/dim_4"
+                            android:layout_marginLeft="8dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/dim_2"
-                            android:background="@drawable/ic_down_arrow_white"/>
+                            android:background="@drawable/down_arrow_grey"/>
                     </LinearLayout>
 
                 </RelativeLayout>
 
-             <include layout="@layout/view_layout"/>
-                <LinearLayout
+
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:layout_marginTop="@dimen/dim_8"
+                    android:background="@color/dashboard_mtd"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="100dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
                         android:gravity="center|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/mtd"
+                            android:textColor="@color/grey" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="₹ 1,16,660"
-                            android:textColor="@color/black" />
+                            android:layout_marginLeft="@dimen/dim_12"
+                            android:textColor="@color/grey" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:text="@string/mtd"
-                            android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="100dp"
-                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
                         android:gravity="center|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ytd"
+                            android:textColor="@color/grey" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="₹ 43,35,000"
-                            android:textColor="@color/black" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:text="@string/ytd"
-                            android:textColor="@color/filter_text_color" />
+                            android:layout_marginLeft="12dp"
+                            android:textColor="@color/grey" />
 
                     </LinearLayout>
-                </LinearLayout>
+                </RelativeLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_viewBarGraph"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dim_8"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/white">
+
+
+                </android.support.v7.widget.RecyclerView>
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/ordervalue"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
                     android:background="@color/white"
-                    android:visibility="visible" />
+
+                    android:visibility="gone" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -144,7 +163,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgOrderTracking"
@@ -154,7 +173,8 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_shopping_cart" />
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/cart_app" />
 
                     <TextView
                         android:id="@+id/tvStoreName"
@@ -162,29 +182,66 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/imgOrderTracking"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
+                        android:layout_centerVertical="true"
                         android:text="@string/order_tracking"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:background="@drawable/button_round_app"
+                        >
+                        <ImageView
+                            android:layout_width="@dimen/dim_10"
+                            android:layout_height="@dimen/dim_10"
+                            android:paddingLeft="@dimen/dim_4"
+
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:background="@drawable/view_all_app"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/viewall"
+                            android:padding="@dimen/dim_3"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dim_12"
+                            android:spinnerMode="dropdown"/>
+
+                              </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_alignParentRight="true"
-                        android:paddingLeft="@dimen/dim_4"
-                        android:paddingRight="@dimen/dim_4"
-                        android:paddingTop="@dimen/dim_4"
-                        android:paddingBottom="@dimen/dim_4"
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="@dimen/dim_8"
+                        android:paddingBottom="@dimen/dim_8"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/white"
                         android:gravity="center"
-                        android:alpha="0.6"
+                        android:drawableLeft="@drawable/ic_action_pin"
                         android:textSize="@dimen/dim_12"
+                        android:drawablePadding="8dp"
                         android:background="@drawable/button_round_shape"
                         android:text="@string/viewall"/>
 
                 </RelativeLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -247,25 +304,27 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
                     <ImageView
                         android:id="@+id/imgInventoryinTransit"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="@dimen/dim_4"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:src="@drawable/ic_calendar"
+                        android:src="@drawable/shipment_app"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgInventoryinTransit"
                         android:layout_gravity="center_vertical"
-                        android:textColor="@color/black"
+                        android:textColor="@color/colorPrimary"
                         android:gravity="center"
+                        android:layout_centerVertical="true"
                         android:text="@string/upcoming_shipment"/>
 
 
@@ -273,7 +332,7 @@
 
 
                 </RelativeLayout>
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
 
 
                 <android.support.v7.widget.RecyclerView
@@ -295,28 +354,63 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgLoyalty"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_loyalty" />
+                        android:src="@drawable/loyalty_app" />
 
                     <TextView
                         android:id="@+id/tvLoyalty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/imgLoyalty"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
                         android:text="@string/loyalty"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:background="@drawable/button_round_app"
+                        >
+                        <ImageView
+                            android:layout_width="@dimen/dim_10"
+                            android:layout_height="@dimen/dim_10"
+                            android:paddingLeft="@dimen/dim_4"
+
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:background="@drawable/loyalty_white"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/redeem_points"
+                            android:padding="@dimen/dim_3"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dim_12"
+                            android:spinnerMode="dropdown"/>
+
+                    </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -324,17 +418,19 @@
                         android:paddingLeft="@dimen/dim_4"
                         android:paddingRight="@dimen/dim_4"
                         android:paddingTop="@dimen/dim_4"
+                        android:visibility="gone"
                         android:paddingBottom="@dimen/dim_4"
                         android:layout_gravity="center_vertical"
                         android:textColor="@color/white"
                         android:gravity="center"
-                        android:alpha="0.6"
                         android:textSize="@dimen/dim_12"
-                        android:background="@drawable/button_round_shape"
+                        android:drawablePadding="8dp"
+                        android:drawableLeft="@drawable/ic_action_pin"
+                        android:background="@drawable/button_round_app"
                         android:text="@string/redeem_points"/>
 
                 </RelativeLayout>
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -420,7 +516,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgOrderSummary"
@@ -430,7 +526,8 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_summary" />
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/cart_app" />
 
                     <TextView
                         android:id="@+id/tvOrderSummary"
@@ -438,10 +535,11 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/imgOrderSummary"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
+                        android:layout_centerVertical="true"
                         android:text="@string/order_summary"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -449,9 +547,9 @@
                         android:layout_alignParentRight="true"
                         android:gravity="center"
                         android:paddingLeft="@dimen/dim_8"
+                        android:visibility="gone"
                         android:paddingRight="@dimen/dim_8"
-                        android:alpha="0.6"
-                        android:background="@drawable/button_round_shape"
+                        android:background="@drawable/button_round_app"
                         >
                         <TextView
                             android:layout_width="wrap_content"
@@ -473,7 +571,7 @@
                     </LinearLayout>
 
                 </RelativeLayout>
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -548,38 +646,41 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/imgProducts"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_cube_low_inventory" />
+                        android:src="@drawable/chart_app" />
 
                     <TextView
                         android:id="@+id/tvProducts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/imgProducts"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
                         android:text="@string/products"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
-                        android:paddingLeft="@dimen/dim_8"
-                        android:paddingRight="@dimen/dim_8"
-                        android:alpha="0.6"
-                        android:background="@drawable/button_round_shape"
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:background="@drawable/button_round_grey"
                         >
                         <TextView
                             android:layout_width="wrap_content"
@@ -587,7 +688,7 @@
                             android:gravity="center"
                             android:text="@string/top"
                             android:padding="@dimen/dim_3"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/dim_12"
                             android:spinnerMode="dropdown"/>
 
@@ -595,14 +696,15 @@
                             android:layout_width="@dimen/dim_10"
                             android:layout_height="@dimen/dim_10"
                             android:paddingLeft="@dimen/dim_4"
+                            android:layout_marginLeft="@dimen/dim_8"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/dim_2"
-                            android:background="@drawable/ic_down_arrow_white"/>
+                            android:background="@drawable/down_arrow_grey"/>
                     </LinearLayout>
 
                 </RelativeLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -632,7 +734,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         android:text="@string/order_values"
-                        android:textColor="@color/filter_text_color" />
+                        android:textColor="@color/colorPrimary" />
 
 
                 </LinearLayout>
