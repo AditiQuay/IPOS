@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -17,8 +18,10 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -725,6 +728,14 @@ public class Util {
             System.out.println("ex="+e);
         }
         return number;
+    }
+
+    public static void OpenSetting(Context ctx){
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", ctx.getPackageName(), null);
+        intent.setData(uri);
+        ctx.startActivity(intent);
     }
 
     public static void showMessageDialog(MessageDialogFragment.MessageDialogListener listener,String message, String yesButton,String noButton, int mCallType,String Title, FragmentManager supportFragmentManager) {

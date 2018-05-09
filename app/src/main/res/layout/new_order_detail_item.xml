@@ -448,25 +448,11 @@
             android:id="@+id/recycler_viewItems"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
 
 
-    <include layout="@layout/bottom_total_cart"
-        />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
-
-        <include layout="@layout/bottom_buttons" />
-    </LinearLayout>
 
 
 </LinearLayout>

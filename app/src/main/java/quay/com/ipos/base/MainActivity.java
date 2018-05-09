@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -49,12 +50,14 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductMain;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
+import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.Util;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener, FilterListener {
+        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener, FilterListener,MessageDialogFragment.MessageDialogListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -108,7 +111,7 @@ public class MainActivity extends BaseActivity
         toolbar = (Toolbar) findViewById(R.id.appBar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getResources().getString(R.string.toolbar_title_catalogue_product_details));
-        launchActivity();
+        launchActivity(false);
 
         containerId = R.id.fragment_container;
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -412,6 +415,18 @@ public class MainActivity extends BaseActivity
 
     }
 
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+        if(mCallType==Constants.APP_DIALOG_PERMISSION){
+            Util.OpenSetting(MainActivity.this);
+        }
+    }
+
+    @Override
+    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
         @Override
@@ -607,8 +622,10 @@ public class MainActivity extends BaseActivity
     }
 
     public boolean CameraPermission = false;
+    boolean settingPermission=false;
 
-    public boolean launchActivity() {
+    public boolean launchActivity(boolean settingPermission) {
+        this.settingPermission = settingPermission;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 //            mClss = clss;
@@ -632,7 +649,10 @@ public class MainActivity extends BaseActivity
 //                    }
                     CameraPermission = true;
                 } else {
-                    Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
+                    if(!settingPermission)
+                        Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
+                    else
+                        Util.showMessageDialog(this,"Please grant camera permission to use the QR Scanner ","Open Settings",null,Constants.APP_DIALOG_PERMISSION,"Alert!",getSupportFragmentManager());
                     CameraPermission = false;
                 }
                 return;
