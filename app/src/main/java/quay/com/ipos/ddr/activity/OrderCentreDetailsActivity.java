@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.ddr.adapter.WorkFLowAdapter;
 import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.ddr.adapter.AddressListAdapter;
 import quay.com.ipos.ddr.adapter.ItemsDetailListAdapter;
@@ -31,14 +32,17 @@ public class OrderCentreDetailsActivity extends BaseActivity{
     String[] items={"SoudaFoam 1k","SoudaFoam Pro"};
     String[] user={"KGM Traders","McCoy"};
 
-    private RecyclerView recycler_viewRecentOrders,recycler_viewAddress,recylerViewRoles;
+    private RecyclerView recycler_viewRecentOrders,recycler_viewAddress,recylerViewRoles,recylerViewFlow;
     private ItemsDetailListAdapter recentOrdersListAdapter;
     private AddressListAdapter addressListAdapter;
     private ArrayList<RecentOrderModal> arrSearchList=new ArrayList<>();
     private ArrayList<RecentOrderModal> recentOrderModalArrayList=new ArrayList<>();
     private ArrayList<RecentOrderModal> addressList=new ArrayList<>();
+
     private ArrayList<UserModal> stringArrayListRoles=new ArrayList<>();
+    private ArrayList<UserModal> stringArrayListFlow=new ArrayList<>();
     private WorkFLowUserAdapter workFLowUserAdapter;
+    private  WorkFLowAdapter workFLowAdapter;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -58,6 +62,16 @@ public class OrderCentreDetailsActivity extends BaseActivity{
         rlETA.setVisibility(View.VISIBLE);
         View viewETA=(View)findViewById(R.id.viewETA);
         viewETA.setVisibility(View.VISIBLE);
+
+        recylerViewFlow = (RecyclerView) findViewById(R.id.recylerViewFlow);
+        GridLayoutManager mLayoutManager7 = new GridLayoutManager(this, 1);
+        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recylerViewFlow.setLayoutManager(mLayoutManager7);
+
+        recylerViewFlow.addItemDecoration(new SpacesItemDecoration(10));
+        workFLowAdapter = new WorkFLowAdapter(this, stringArrayListFlow);
+        recylerViewFlow.setAdapter(workFLowAdapter);
+
         recycler_viewRecentOrders = (RecyclerView) findViewById(R.id.recycler_viewItems);
         GridLayoutManager mLayoutManager4 = new GridLayoutManager(this, 1);
         //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -75,6 +89,7 @@ public class OrderCentreDetailsActivity extends BaseActivity{
         recycler_viewAddress.addItemDecoration(new SpacesItemDecoration(10));
         addressListAdapter = new AddressListAdapter(this, recentOrderModalArrayList);
         recycler_viewAddress.setAdapter(addressListAdapter);
+
         recylerViewRoles = findViewById(R.id.recylerViewRoles);
         recylerViewRoles.setVisibility(View.VISIBLE);
         workFLowUserAdapter = new WorkFLowUserAdapter(mContext, stringArrayListRoles);
@@ -85,6 +100,7 @@ public class OrderCentreDetailsActivity extends BaseActivity{
         getRecentOrdersData();
         getAddressData();
         getuserData();
+        getFlow();
     }
 
 
@@ -145,6 +161,21 @@ public class OrderCentreDetailsActivity extends BaseActivity{
 
         }
         workFLowUserAdapter.notifyDataSetChanged();
+    }
+
+    private void getFlow() {
+        for (int i = 0; i < user.length; i++) {
+            UserModal userModal = new UserModal();
+            userModal.setUserName(user[i]);
+            if (i==0)
+                userModal.setUserStatus("Submitted");
+            else
+                userModal.setUserStatus("Initiated");
+
+            stringArrayListFlow.add(userModal);
+
+        }
+        workFLowAdapter.notifyDataSetChanged();
     }
 
 }

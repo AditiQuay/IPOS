@@ -61,27 +61,33 @@
                 android:gravity="center"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical">
-
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/imgCustomer"
+                    android:text="25 Jul 2018 07:30 PM"
+                    android:textColor="@color/textColorPrimaryDark"
+                    android:textSize="@dimen/text_size_small" />
 
                 <TextView
                     android:id="@+id/textViewRetailersName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_medium"
+                    android:layout_marginTop="4dp"
                     android:layout_toRightOf="@+id/imgCustomer"
                     android:text="@string/retailersname"
                     android:textColor="@color/textColorPrimary"
                     android:textSize="@dimen/text_size_small" />
                 <TextView
-                    android:id="@+id/textViewMobileNo"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/textViewStatus"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="@dimen/margin_min"
-                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginTop="4dp"
                     android:layout_toRightOf="@+id/imgCustomer"
-                    android:text="@string/mobile_no"
-                    android:textColor="@color/textColorPrimaryDark"
+                    android:text=""
+                    android:textColor="@color/textColorPrimary"
                     android:textSize="@dimen/text_size_small" />
 
 
