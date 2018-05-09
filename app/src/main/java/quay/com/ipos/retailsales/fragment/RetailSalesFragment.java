@@ -250,7 +250,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         // Get the FragmentManager.
         FragmentManager fragmentManager = getChildFragmentManager();
         // Check to see if the fragment is already showing.
-        FullScannerFragment simpleFragment = (FullScannerFragment) fragmentManager
+        SimpleScannerFragment simpleFragment = (SimpleScannerFragment) fragmentManager
                 .findFragmentById(R.id.scanner_fragment);
         if (simpleFragment != null) {
             // Create and commit the transaction to remove the fragment.

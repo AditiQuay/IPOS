@@ -55,6 +55,7 @@
     <string name="top_performing_stores">Top Performing Stores</string>
     <string name="fast_moving">Fast Moving</string>
     <string name="compliance">Compliance Summary</string>
+    <string name="no_internet_connection_warning_server_error">No internet connection available</string>
     <string name="immediate">Immediate Attention</string>
     <string name="upcoming">Upcoming Events</string>
     <string name="pending">Pending</string>
