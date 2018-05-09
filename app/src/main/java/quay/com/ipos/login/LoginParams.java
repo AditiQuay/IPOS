@@ -5,45 +5,50 @@ package quay.com.ipos.login;
  */
 
 class LoginParams {
-    public void setKEY_EMAIL(String KEY_EMAIL) {
-        this.KEY_EMAIL = KEY_EMAIL;
+    public void setUserEmailId(String userEmailId) {
+        this.userEmailId = userEmailId;
     }
 
-    public void setKEY_PASSWORD(String KEY_PASSWORD) {
-        this.KEY_PASSWORD = KEY_PASSWORD;
+    public void setUserPwd(String userPwd) {
+        UserPwd = userPwd;
     }
 
-    public void setKEY_APPVERSION(String KEY_APPVERSION) {
-        this.KEY_APPVERSION = KEY_APPVERSION;
+    public void setUserDeviceActive(int userDeviceActive) {
+        this.userDeviceActive = userDeviceActive;
     }
 
-    public void setKEY_DEVICE_TOKEN(String KEY_DEVICE_TOKEN) {
-        this.KEY_DEVICE_TOKEN = KEY_DEVICE_TOKEN;
+    public void setDeviceIMEI(String deviceIMEI) {
+        this.deviceIMEI = deviceIMEI;
     }
 
-    public void setKEY_DEVICE_TYPE(String KEY_DEVICE_TYPE) {
-        this.KEY_DEVICE_TYPE = KEY_DEVICE_TYPE;
+    public void setDeviceVersion(String deviceVersion) {
+        this.deviceVersion = deviceVersion;
     }
 
-    public void setKEY_DEVICE_MODEL(String KEY_DEVICE_MODEL) {
-        this.KEY_DEVICE_MODEL = KEY_DEVICE_MODEL;
+    public void setDeviceModel(String deviceModel) {
+        this.deviceModel = deviceModel;
     }
 
-    public void setKEY_DEVICE_VERSION(String KEY_DEVICE_VERSION) {
-        this.KEY_DEVICE_VERSION = KEY_DEVICE_VERSION;
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
     }
 
-    public void setKEY_DEVICE_IMEI(String KEY_DEVICE_IMEI) {
-        this.KEY_DEVICE_IMEI = KEY_DEVICE_IMEI;
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
-    public String KEY_EMAIL;
-    public String KEY_PASSWORD;
-    public String KEY_APPVERSION;
-    public String KEY_DEVICE_TOKEN;
-    public String KEY_DEVICE_TYPE;
-    public String KEY_DEVICE_MODEL;
-    public String KEY_DEVICE_VERSION;
-    public String KEY_DEVICE_IMEI;
+    public void setAppVersion(String appVersion) {
+        this.appVersion = appVersion;
+    }
+
+    public String userEmailId;
+    public String UserPwd;
+    public int userDeviceActive;
+    public String deviceIMEI;
+    public String deviceVersion;
+    public String deviceModel;
+    public String deviceType;
+    public String deviceToken;
+    public String appVersion;
 
 }

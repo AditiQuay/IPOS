@@ -84,5 +84,10 @@ public class Constants {
     public static int CONNECTION_OUT = 408;
     public static String mOrderInfoArrayList="mOrderInfoArrayList";
     public static String mInfoArrayList="mInfoArrayList";
+
+
+    public static final String ISLOGGEDIN = "ISLOGGEDIN";
+    public static final String ACCESS_TOKEN = "AccessToken";
+
 }
 

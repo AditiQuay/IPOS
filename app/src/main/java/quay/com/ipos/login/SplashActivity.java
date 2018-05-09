@@ -5,7 +5,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.android.gms.common.ConnectionResult;
+
 import quay.com.ipos.R;
+import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.NetUtil;
+import quay.com.ipos.utility.NetworkErrorDialog;
+import quay.com.ipos.utility.SharedPrefUtil;
 
 /**
  * Created by niraj.kumar on 4/16/2018.
@@ -22,15 +29,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-//        if (NetUtil.isNetworkAvailable(SplashActivity.this)) {
-//            if (checkPlayServices()) {
-        redirectToActivity();
-//            } else {
-//                NetworkErrorDialog.playServiceErrorDialog(this, "");
-//            }
-//        } else {
-//            NetworkErrorDialog.networkErrorDialogShow(this, "");
-//        }
+        if (NetUtil.isNetworkAvailable(SplashActivity.this)) {
+            redirectToActivity();
+        } else {
+            NetworkErrorDialog.networkErrorDialogShow(this, "");
+        }
     }
 
     //Redirect to activity
@@ -38,18 +41,15 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-//                if (!SharedPrefUtil.getBoolean(KeyConstants.ISLOGGEDIN, false, SplashActivity.this)){
-//                    Intent i = new Intent(SplashActivity.this,LoginActivity.class);
-//                    startActivity(i);
-//                    finish();
-//                }else {
-//                    Intent i = new Intent(SplashActivity.this,LandingActivity.class);
-//                    startActivity(i);
-//                    finish();
-//                }
-                Intent i = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(i);
-                finish();
+                if (!SharedPrefUtil.getBoolean(Constants.ISLOGGEDIN, false, SplashActivity.this)) {
+                    Intent i = new Intent(SplashActivity.this, LoginActivity.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    startActivity(i);
+                    finish();
+                }
 
             }
         }, 1000);
@@ -72,21 +72,5 @@ public class SplashActivity extends AppCompatActivity {
 
     }
 
-//    //Check for google play service
-//    private boolean checkPlayServices() {
-//        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-//        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
-//        if (resultCode != ConnectionResult.SUCCESS) {
-//            if (apiAvailability.isUserResolvableError(resultCode)) {
-//                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
-//                        .show();
-//            } else {
-//                Log.i(TAG, "This device is not supported.");
-//                finish();
-//            }
-//            return false;
-//        }
-//        return true;
-//    }
 
 }
