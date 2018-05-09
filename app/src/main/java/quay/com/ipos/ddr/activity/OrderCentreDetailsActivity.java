@@ -1,7 +1,6 @@
 package quay.com.ipos.ddr.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -67,8 +66,9 @@ public class OrderCentreDetailsActivity extends BaseActivity{
 
         rlETA= findViewById(R.id.rlETA);
         rlETA.setVisibility(View.VISIBLE);
-        viewETA=(View)findViewById(R.id.viewETA);
+        viewETA=findViewById(R.id.viewETA);
         viewETA.setVisibility(View.VISIBLE);
+
 
         recylerViewFlow = (RecyclerView) findViewById(R.id.recylerViewFlow);
         GridLayoutManager mLayoutManager7 = new GridLayoutManager(this, 1);
@@ -79,27 +79,29 @@ public class OrderCentreDetailsActivity extends BaseActivity{
         recylerViewFlow.setAdapter(workFLowAdapter);
         recylerViewFlow.setVisibility(View.VISIBLE);
         recycler_viewRecentOrders = (RecyclerView) findViewById(R.id.recycler_viewItems);
+
+
         mLayoutManager4 = new GridLayoutManager(this, 1);
-        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recycler_viewRecentOrders.setLayoutManager(mLayoutManager4);
-//        recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
         recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
-//        recentOrdersListAdapter = new ItemsDetailListAdapter(this, recentOrderModalArrayList);
-//        recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
+
+        recycler_viewAddress =  findViewById(R.id.recycler_viewAddress);
         mLayoutManager5 = new GridLayoutManager(this, 1);
-        recycler_viewAddress = (RecyclerView) findViewById(R.id.recycler_viewAddress);
-        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recycler_viewAddress.setLayoutManager(mLayoutManager5);
         recycler_viewAddress.addItemDecoration(new SpacesItemDecoration(10));
+
         addressListAdapter = new AddressListAdapter(this, recentOrderModalArrayList);
         recycler_viewAddress.setAdapter(addressListAdapter);
 
         recylerViewRoles = findViewById(R.id.recylerViewRoles);
         recylerViewRoles.setVisibility(View.VISIBLE);
+
         workFLowUserAdapter = new WorkFLowUserAdapter(mContext, stringArrayListRoles);
         recylerViewRoles.addItemDecoration(new SpacesItemDecoration(10));
-        recylerViewRoles.setAdapter(workFLowUserAdapter);
         recylerViewRoles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        recylerViewRoles.setAdapter(workFLowUserAdapter);
+
+
 
 
         final LinearLayout llFlow=(LinearLayout)findViewById(R.id.llFLow);
@@ -140,13 +142,14 @@ public class OrderCentreDetailsActivity extends BaseActivity{
 //        getRecentOrdersData();
 //        getAddressData();
 //        getuserData();
+
     }
 
 
 
 
     public void setHeader() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         // toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.back));
         setSupportActionBar(toolbar);
