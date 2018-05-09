@@ -69,6 +69,7 @@
             android:inputType="text"
             android:paddingLeft="@dimen/dim_20"
             android:paddingStart="@dimen/dim_20"
+            android:text="niraj.kumar@quayintech.com"
             android:textColor="@color/grey"
             android:textColorHint="@color/grey"
             android:textSize="@dimen/universal_text_size15" />
@@ -110,6 +111,7 @@
             android:inputType="textPassword"
             android:paddingLeft="@dimen/dim_20"
             android:paddingStart="@dimen/dim_20"
+            android:text="niraj@123"
             android:textColor="@color/grey"
             android:textColorHint="@color/grey"
             android:textSize="@dimen/universal_text_size15" />

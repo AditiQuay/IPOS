@@ -33,9 +33,11 @@ import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.constant.ServerRequestKey;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.CatalogueModal;
+import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 
@@ -114,25 +116,31 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         }
         sDeviceIMEI = IMEI;
         if (applyLocalValidation()) {
-            validateWithServer(sAppVersion, sDeviceType, sDeviceModel, sDeviceVersion, IMEI);
+            if (NetUtil.isNetworkAvailable(mContext)) {
+                validateWithServer(sAppVersion, sDeviceType, sDeviceModel, sDeviceVersion, IMEI);
+            } else {
+                Toast.makeText(mContext, getResources().getString(R.string.no_internet_connection_warning_server_error), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     private void validateWithServer(String sAppVersion, String sDeviceType, String sDeviceModel, String sDeviceVersion, String sDeviceIMEI) {
-        showProgress("Loading");
+        showProgress("Authenticating....");
+
         String sFcmToken = Prefs.getStringPrefs(Constants.FCM_KEY);
         final String sEmail = editTextEmail.getText().toString().trim();
         final String sPassword = editTextPassword.getText().toString().trim();
 
         LoginParams loginParams = new LoginParams();
-        loginParams.setKEY_EMAIL(sEmail.trim());
-        loginParams.setKEY_PASSWORD(sPassword.trim());
-        loginParams.setKEY_APPVERSION(sAppVersion.trim());
-        loginParams.setKEY_DEVICE_TOKEN(sFcmToken);
-        loginParams.setKEY_DEVICE_TYPE(sDeviceType);
-        loginParams.setKEY_DEVICE_MODEL(sDeviceModel);
-        loginParams.setKEY_DEVICE_VERSION(sDeviceVersion);
-        loginParams.setKEY_DEVICE_IMEI(sDeviceIMEI);
+        loginParams.setUserEmailId(sEmail.trim());
+        loginParams.setUserPwd(sPassword.trim());
+        loginParams.setUserDeviceActive(1);
+        loginParams.setDeviceIMEI(sDeviceIMEI);
+        loginParams.setDeviceVersion(sDeviceVersion);
+        loginParams.setDeviceModel(sDeviceModel);
+        loginParams.setDeviceType(sDeviceType);
+        loginParams.setDeviceToken(sFcmToken);
+        loginParams.setAppVersion(sAppVersion);
 
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
@@ -140,7 +148,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         mTask.setApiCallType(Constants.API_METHOD_POST);
         mTask.setParamObj(loginParams);
         mTask.setListener(this);
-        mTask.setResultType(CatalogueModal.class);
+        mTask.setResultType(LoginResult.class);
         mTask.execute();
     }
 
@@ -222,10 +230,6 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                 hideKeyboard();
             }
 
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(i);
-
-
         }
     }
 
@@ -234,7 +238,15 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         dismissProgress();
         if (httpStatusCode == Constants.SUCCESS) {
             if (resultObj != null) {
-                CatalogueModal catalogueModal = (CatalogueModal) resultObj;
+                LoginResult loginResult = (LoginResult) resultObj;
+                loginResult.getUserAccess().get(0).getAccessToken();
+
+                Toast.makeText(mContext, "Login success", Toast.LENGTH_SHORT).show();
+                SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
+                SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().get(0).getAccessToken(), mContext);
+
+                Intent i = new Intent(mContext, MainActivity.class);
+                startActivity(i);
 
             }
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
