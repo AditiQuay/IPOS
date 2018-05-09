@@ -84,7 +84,6 @@ public class OrderCentreDetailsActivity extends BaseActivity{
         recylerViewRoles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recylerViewRoles.setAdapter(workFLowUserAdapter);
 
-
     }
 
 
