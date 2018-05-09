@@ -47,7 +47,7 @@ public class OrderCentreDetailsActivity extends BaseActivity{
     private ArrayList<UserModal> stringArrayListRoles=new ArrayList<>();
     private ArrayList<UserModal> stringArrayListFlow=new ArrayList<>();
     private WorkFLowUserAdapter workFLowUserAdapter;
-    private  WorkFLowAdapter workFLowAdapter;
+    private WorkFLowAdapter workFLowAdapter;
     private RecyclerView recylerViewFlow;
 
     @Override
