@@ -212,4 +212,6 @@
     <string name="error_url_not_found">URL not found</string>
     <string name="error_unautorize_access">UnAuthorize access</string>
     <string name="error_connection_timed_out">Connection timed out!</string>
+    <string name="retailersname">KGM Traders</string>
+    <string name="mobile_no">Mobile</string>
 </resources>

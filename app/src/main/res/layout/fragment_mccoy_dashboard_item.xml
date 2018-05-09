@@ -201,8 +201,8 @@
                         android:background="@drawable/button_round_app"
                         >
                         <ImageView
-                            android:layout_width="@dimen/dim_10"
-                            android:layout_height="@dimen/dim_10"
+                            android:layout_width="@dimen/dim_20"
+                            android:layout_height="@dimen/dim_20"
                             android:paddingLeft="@dimen/dim_4"
 
                             android:layout_gravity="center"
@@ -391,8 +391,8 @@
                         android:background="@drawable/button_round_app"
                         >
                         <ImageView
-                            android:layout_width="@dimen/dim_10"
-                            android:layout_height="@dimen/dim_10"
+                            android:layout_width="@dimen/dim_20"
+                            android:layout_height="@dimen/dim_20"
                             android:paddingLeft="@dimen/dim_4"
 
                             android:layout_gravity="center"

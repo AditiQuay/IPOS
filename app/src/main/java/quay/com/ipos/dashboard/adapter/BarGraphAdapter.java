@@ -57,7 +57,7 @@ public class BarGraphAdapter extends RecyclerView.Adapter<BarGraphAdapter.Survey
 
        // int prog=(Integer.parseInt(stringArrayList.get(position).getMoney())*100)/(50000000);
 
-        double progDouble=Double.parseDouble(stringArrayList.get(position).getMoney())*100/50000000;
+        double progDouble=Double.parseDouble(stringArrayList.get(position).getMoney().replace(",",""))*100/50627;
         if (progDouble<=0){
             lp.width = 5*3;
         }else {
