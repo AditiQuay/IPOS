@@ -68,6 +68,11 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
     private int apiCallType = -1;
 
     /**
+     * The apiToken.
+     */
+    private String apiToken = "";
+
+    /**
      * The _result obj.
      */
     private Object resultObj = null;
@@ -168,12 +173,15 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
         this.paramObj = paramObj;
     }
 
+    public void setApiToken(String apiToken) {
+        this.apiToken = apiToken;
+    }
 
     /*
-     * (non-Javadoc)
-     *
-     * @see android.os.AsyncTask#onPreExecute()
-     */
+         * (non-Javadoc)
+         *
+         * @see android.os.AsyncTask#onPreExecute()
+         */
     @Override
     protected void onPreExecute() {
         AppLog.e(TAG, "onPreExecute++");
@@ -209,12 +217,14 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
 
                 if (apiMethod.equals("upload.php")) {
                     request = new Request.Builder()
+                            .addHeader("Authorization",apiToken)
                             .url(methodUrl)
                             .post(fileToUpload)
                             .build();
                 } else {
                     if (apiCallType == Constants.API_METHOD_GET) {
                         request = new Request.Builder()
+                                .addHeader("Authorization",apiToken)
                                 .url(methodUrl + getParameters)
                                 .get()
                                 .build();
@@ -228,6 +238,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
 //                            AppLog.e(TAG, "requestJson: " + methodUrl + requestJson);
                             RequestBody body = RequestBody.create(JSON, requestJson);
                             request = new Request.Builder()
+                                    .addHeader("Authorization",apiToken)
                                     .url(methodUrl)
                                     .post(body)
                                     .build();

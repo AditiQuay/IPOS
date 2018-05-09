@@ -26,7 +26,7 @@ import quay.com.ipos.utility.SpacesItemDecoration;
 import quay.com.ipos.utility.Util;
 
 /**
- * Created by ankush.bansal on 20-04-2018.
+ * Created by aditi.bhuranda on 20-04-2018.
  */
 
 public class NewOrderDetailsActivity extends BaseActivity implements View.OnClickListener{
