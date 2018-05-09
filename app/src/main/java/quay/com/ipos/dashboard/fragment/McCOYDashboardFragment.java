@@ -1,15 +1,24 @@
 package quay.com.ipos.dashboard.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -31,7 +40,9 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
 import quay.com.ipos.R;
+import quay.com.ipos.dashboard.activity.UpcomingShipmentActivity;
 import quay.com.ipos.dashboard.adapter.BarGraphAdapter;
 import quay.com.ipos.dashboard.adapter.FastMovingListAdapter;
 import quay.com.ipos.dashboard.adapter.InventoryListAdapter;
@@ -41,7 +52,10 @@ import quay.com.ipos.dashboard.adapter.TopStoresListAdapter;
 import quay.com.ipos.dashboard.adapter.UpcomingShipmentListAdapter;
 import quay.com.ipos.dashboard.modal.BarGraphModal;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
+import quay.com.ipos.modal.SpinnerList;
+import quay.com.ipos.utility.SelectionItemListDialog;
 import quay.com.ipos.utility.SpacesItemDecoration;
+import quay.com.ipos.utility.Util;
 
 
 /**
@@ -71,6 +85,7 @@ public class McCOYDashboardFragment extends Fragment {
     private int position;
     private String strImage;
     private BarGraphAdapter barGraphAdapter;
+    private boolean isPopupVisible = false;
 
     // newInstance constructor for creating fragment with arguments
     public McCOYDashboardFragment newInstance(int position) {
@@ -131,10 +146,21 @@ public class McCOYDashboardFragment extends Fragment {
         inventoryListAdapter = new UpcomingShipmentListAdapter(getActivity(), inventoryList);
         recycler_viewInventory.setAdapter(inventoryListAdapter);
 
+        Spinner spinner = (Spinner) view.findViewById(R.id.spnCardType);
         TextView tvMonth=(TextView)view.findViewById(R.id.tvMonth);
         final View viewMonth=(View)view.findViewById(R.id.viewMonth);
         TextView tvYTD=(TextView)view.findViewById(R.id.tvYTD);
         final View viewYear=(View)view.findViewById(R.id.viewYear);
+        TextView tvOrderMonth=(TextView)view.findViewById(R.id.tvOrderMonth);
+        TextView tvTop=(TextView)view.findViewById(R.id.tvTop);
+        LinearLayout llViewAll=(LinearLayout)view.findViewById(R.id.llViewAll);
+        llViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getActivity(), UpcomingShipmentActivity.class);
+                startActivity(i);
+            }
+        });
 
         tvMonth.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,10 +176,13 @@ public class McCOYDashboardFragment extends Fragment {
                 viewYear.setVisibility(View.VISIBLE);
             }
         });
+
         getFastMovingData();
         getInventoryData();
       //  createOrderChart(view);
         getBarGraph();
+        prepareSpinnerList(tvOrderMonth);
+        prepareSpinnerList(tvTop);
         return view;
 
     }
@@ -302,4 +331,86 @@ public class McCOYDashboardFragment extends Fragment {
         }
     }
 
+    private void prepareSpinnerList(final TextView textView) {
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isPopupVisible) return;
+                isPopupVisible = true;
+                List<SpinnerList> spnPanchyatList = null;
+                final Realm realm = Realm.getDefaultInstance();
+                try {
+
+                if (textView.getId()==R.id.tvOrderMonth) {
+                    SpinnerList spn;
+                    spnPanchyatList = new ArrayList<>();
+                    spn = new SpinnerList();
+                    spn.setName("Day");
+                    spn.setId((0) + "");
+                    spnPanchyatList.add(spn);
+                    spn = new SpinnerList();
+                    spn.setName("Month");
+                    spn.setId((1) + "");
+                    spnPanchyatList.add(spn);
+                }else {
+                    SpinnerList spn;
+                    spnPanchyatList = new ArrayList<>();
+                    spn = new SpinnerList();
+                    spn.setName("Top 5");
+                    spn.setId((0) + "");
+                    spnPanchyatList.add(spn);
+                    spn = new SpinnerList();
+                    spn.setName("Top 10");
+                    spn.setId((1) + "");
+                    spnPanchyatList.add(spn);
+                    spn = new SpinnerList();
+                    spn.setName("Top 20");
+                    spn.setId((1) + "");
+                    spnPanchyatList.add(spn);
+                    spn = new SpinnerList();
+                    spn.setName("Top 50");
+                    spn.setId((1) + "");
+                    spnPanchyatList.add(spn);
+                }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    realm.close();
+                } finally {
+                    realm.close();
+                }
+                showSelectionListPanchyat(getActivity(), textView, spnPanchyatList, getString(R.string.filter));
+            }
+        });
+    }
+
+    private void showSelectionListPanchyat(Context context, final TextView textView, List<SpinnerList> list, final String defaultMsg) {
+        if (list != null && list.size() > 0) {
+            SelectionItemListDialog selectionPickerDialog = new SelectionItemListDialog(context, defaultMsg, textView.getText().toString().trim(), list, R.layout.pop_up_question_list, new SelectionItemListDialog.ItemPickerListner() {
+                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                @Override
+                public void OnDoneButton(Dialog ansPopup, String strAns, SpinnerList spinnerItem) {
+                    ansPopup.dismiss();
+                    if (Util.validateString(strAns)) {
+                        textView.setText(strAns);
+                        textView.setTag(spinnerItem);
+                    } else {
+                        textView.setText(defaultMsg);
+                    }
+
+                }
+            });
+            if (!selectionPickerDialog.isShowing()) {
+                selectionPickerDialog.show();
+            }
+            selectionPickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    isPopupVisible = false;
+                }
+            });
+        } else {
+            isPopupVisible = false;
+            //   showToastMessage(getString(R.string.no_data));
+        }
+    }
 }

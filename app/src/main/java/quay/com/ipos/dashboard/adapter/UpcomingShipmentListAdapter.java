@@ -1,6 +1,7 @@
 package quay.com.ipos.dashboard.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.dashboard.activity.UpcomingShipmentActivity;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
 
-/**
- * Created by gaurav.pandey on 24-01-2018.
- */
 
 public class UpcomingShipmentListAdapter extends RecyclerView.Adapter<UpcomingShipmentListAdapter.SurveyViewHolder> {
     private Context mContext;
@@ -40,6 +39,12 @@ public class UpcomingShipmentListAdapter extends RecyclerView.Adapter<UpcomingSh
         holder.tvTitle.setText(stringArrayList.get(position).getTitle());
 
 
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
     }
 
@@ -58,10 +63,13 @@ public class UpcomingShipmentListAdapter extends RecyclerView.Adapter<UpcomingSh
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
+        private final View item;
         private TextView tvTitle;
+
 
         public SurveyViewHolder(View itemView) {
             super(itemView);
+            item=itemView;
             tvTitle = itemView.findViewById(R.id.tvTitle);
 
         }
