@@ -119,6 +119,7 @@ public class CustomerListActivity extends BaseActivity implements View.OnClickLi
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Util.hideSoftKeyboard(CustomerListActivity.this);
                 finish();
             }
         });

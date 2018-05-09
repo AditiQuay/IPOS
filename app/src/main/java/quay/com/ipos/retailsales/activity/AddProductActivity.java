@@ -50,7 +50,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     ArrayList<ProductList.Datum> arrData= new ArrayList<>();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_customer_list);
         setHeader();

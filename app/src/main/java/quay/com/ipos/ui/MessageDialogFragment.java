@@ -40,7 +40,7 @@ public class MessageDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(mMessage)
-                .setTitle(mTitle);
+                .setTitle(mTitle).setCancelable(false);
 
         if(yesButton!=null)
         builder.setPositiveButton(yesButton, new DialogInterface.OnClickListener() {

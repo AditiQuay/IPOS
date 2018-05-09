@@ -173,21 +173,22 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountDetail.setText("(Item 0)");
         IPOSApplication.mProductList.clear();
-        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            boolean request = ((MainActivity) getActivity()).launchActivity();
-            if(request ||((MainActivity) getActivity()).CameraPermission )
-            {
-                setTextDefault();
-            }
-        }else {
-            flScanner.setVisibility(View.VISIBLE);
-            chkBarCode.setChecked(true);
+//        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            boolean request = ((MainActivity) getActivity()).launchActivity(false);
+//            if(request ||((MainActivity) getActivity()).CameraPermission )
+//            {
+//                setTextDefault();
+//            }
+//        }else {
+            flScanner.setVisibility(View.GONE);
+            chkBarCode.setChecked(false);
+            closeFragment();
             //  mScannerView.setResultHandler(this);
             // mScannerView.startCamera();
-            displayFragment();
+//            displayFragment();
 
-        }
+//        }
     }
 
 
@@ -228,11 +229,11 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
             public void onClick(View view) {
                 if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
-                    ((MainActivity) getActivity()).launchActivity();
+                    ((MainActivity) getActivity()).launchActivity(true);
                     chkBarCode.setChecked(false);
                     setTextDefault();
                 }else {
-
+                    displayFragment();
                     if (flScanner.getVisibility()==View.GONE) {
                         flScanner.setVisibility(View.VISIBLE);
                         chkBarCode.setChecked(true);
@@ -335,7 +336,6 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
 //                        (new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
 //                                .setMessage("Please enter valid discount percentage")
 //                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-//
 //                                    @Override
 //                                    public void onClick(DialogInterface dialog, int which) {
 //                                        dialog.dismiss();
@@ -619,7 +619,8 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
                 if(!etDiscountAmt.getText().toString().trim().equals("")) {
                     if(tbPerc.isChecked()) {
                         if (Integer.parseInt(etDiscountAmt.getText().toString()) > 100) {
-                            (new AlertDialog.Builder(getActivity(),R.style.Theme_AppCompat_DayNight_Dialog_Alert)).setTitle("Confirm action")
+                            (new AlertDialog.Builder(getActivity(),R.style.Theme_AppCompat_DayNight_Dialog_Alert))
+                                    .setTitle("Confirm action")
                                     .setMessage("Please enter valid discount percentage")
                                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
@@ -756,7 +757,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
                     i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
                     getActivity().startActivity(i);
                 }else {
-                    Util.showToast("Please add atleast one item to proceed.");
+                    Util.showToast("Please add atleast one item to proceed.",getActivity());
                 }
                 break;
             case R.id.imvRight:
@@ -765,7 +766,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
                     i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
                     getActivity().startActivity(i);
                 }else {
-                    Util.showToast("Please add atleast one item to proceed.");
+                    Util.showToast("Please add atleast one item to proceed.",getActivity());
                 }
                 break;
         }

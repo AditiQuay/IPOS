@@ -18,16 +18,36 @@
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-            <quay.com.ipos.ui.CustomTextView
-                android:id="@+id/toolbarTtile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:textColor="@android:color/white"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:typeface="Roboto-Regular.ttf"
-                android:visibility="visible" />
+            <LinearLayout
+                android:id="@+id/llSearch"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+                <quay.com.ipos.ui.CustomEditText
+                    android:id="@+id/searchView"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:background="@null"
+                    android:hint="@string/enter_number"
+                    android:inputType="number"
+                    app:typeface="Roboto-Regular.ttf"
+                    android:visibility="visible" />
+                <TextView
+                    android:id="@+id/tvClear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccentDark"
+                    android:paddingRight="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:textSize="@dimen/text_size_21sp"
+                    android:text="@string/fa_cross_circle"
+                    />
+            </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
@@ -38,50 +58,21 @@
         android:orientation="vertical">
 
 
-        <LinearLayout
-            android:id="@+id/llSearch"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="@dimen/dim_8"
-            android:padding="@dimen/dim_8"
-            android:background="@drawable/edt_bg"
-            android:orientation="horizontal">
-            <quay.com.ipos.ui.CustomEditText
-                android:id="@+id/searchView"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:background="@null"
-                android:hint="@string/enter_number"
-                android:inputType="number"
-                app:typeface="Roboto-Regular.ttf"
-                android:visibility="visible" />
-            <TextView
-                android:id="@+id/tvClear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/light_blue"
-                android:paddingRight="@dimen/dim_10"
-                android:paddingLeft="@dimen/dim_10"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size_21sp"
-                android:text="@string/fa_cross_circle"
-                />
-        </LinearLayout>
+
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvItemSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:typeface="Roboto-Regular.ttf"
-            android:layout_below="@+id/llSearch"
-            android:padding="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:paddingBottom="@dimen/dim_5"
             android:visibility="gone"
             android:textColor="@color/white"
             android:background="@color/colorPrimary"
             android:layout_marginBottom="@dimen/dim_2"
             />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
@@ -98,7 +89,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:typeface="Roboto-Regular.ttf"
-            android:layout_below="@+id/llSearch"
             android:padding="@dimen/dim_10"
             android:visibility="gone"
             android:gravity="center"

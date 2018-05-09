@@ -147,21 +147,21 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountDetail.setText("(Item 0)");
         IPOSApplication.mOrderList.clear();
-        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
+//        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            flScanner.setVisibility(View.GONE);
+//            chkBarCode.setChecked(false);
+//            boolean request = ((MainActivity) getActivity()).launchActivity(false);
+//            if(request && ((MainActivity) getActivity()).CameraPermission )
+//            {
+//                setTextDefault();
+//            }
+//        }else {
             flScanner.setVisibility(View.GONE);
             chkBarCode.setChecked(false);
-            boolean request = ((MainActivity) getActivity()).launchActivity();
-            if(request && ((MainActivity) getActivity()).CameraPermission )
-            {
-                setTextDefault();
-            }
-        }else {
-            flScanner.setVisibility(View.GONE);
-            chkBarCode.setChecked(false);
+        closeFragment();
 //            displayFragment();
-
-        }
+//        }
     }
 
 
@@ -178,7 +178,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
             public void onClick(View view) {
                 if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
-                    ((MainActivity) getActivity()).launchActivity();
+                    ((MainActivity) getActivity()).launchActivity(true);
                     chkBarCode.setChecked(false);
                     setTextDefault();
                 }else {
@@ -194,7 +194,21 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
             }
         });
     }
-
+    public void closeFragment() {
+        // Get the FragmentManager.
+        FragmentManager fragmentManager = getChildFragmentManager();
+        // Check to see if the fragment is already showing.
+        FullScannerFragment simpleFragment = (FullScannerFragment) fragmentManager
+                .findFragmentById(R.id.scanner_fragment);
+        if (simpleFragment != null) {
+            // Create and commit the transaction to remove the fragment.
+            FragmentTransaction fragmentTransaction =
+                    fragmentManager.beginTransaction();
+            fragmentTransaction.remove(simpleFragment).commit();
+        }
+        // Set boolean flag to indicate fragment is closed.
+        isFragmentDisplayed = false;
+    }
 
     public void displayFragment() {
         FullScannerFragment simpleFragment = FullScannerFragment.newInstance();

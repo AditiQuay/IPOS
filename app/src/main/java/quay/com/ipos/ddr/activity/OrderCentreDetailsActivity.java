@@ -33,7 +33,7 @@ public class OrderCentreDetailsActivity extends BaseActivity{
     private RelativeLayout rlETA;
     private View viewETA;
     LinearLayout menu_item_container;
-    GridLayoutManager mLayoutManager4;
+    GridLayoutManager mLayoutManager4,mLayoutManager5;
     private RecyclerView recycler_viewRecentOrders,recycler_viewAddress,recylerViewRoles;
     private ItemsDetailListAdapter recentOrdersListAdapter;
     private AddressListAdapter addressListAdapter;
@@ -69,10 +69,10 @@ public class OrderCentreDetailsActivity extends BaseActivity{
         recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
 //        recentOrdersListAdapter = new ItemsDetailListAdapter(this, recentOrderModalArrayList);
 //        recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
-
+        mLayoutManager5 = new GridLayoutManager(this, 1);
         recycler_viewAddress = (RecyclerView) findViewById(R.id.recycler_viewAddress);
         //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
-        recycler_viewAddress.setLayoutManager(mLayoutManager4);
+        recycler_viewAddress.setLayoutManager(mLayoutManager5);
         recycler_viewAddress.addItemDecoration(new SpacesItemDecoration(10));
         addressListAdapter = new AddressListAdapter(this, recentOrderModalArrayList);
         recycler_viewAddress.setAdapter(addressListAdapter);
