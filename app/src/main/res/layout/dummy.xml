@@ -1,6 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -10,7 +9,7 @@
         android:id="@+id/ConcernedPortionofScreen"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.4"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <!-- Parent FrameLayout 'FL' -->
@@ -45,7 +44,6 @@
                 android:background="@drawable/button_round"
                 android:elevation="2dp"
                 app:sbg_animateSelectorDuration="1000"
-                app:sbg_borderSize="1dp"
                 app:sbg_draggable="true"
                 app:sbg_position="0"
                 app:sbg_radius="30dp"
@@ -57,8 +55,8 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     app:sb_text="Login"
-                    app:sb_textColor="@color/colorPrimary"
-                    app:sb_textColor_onSelection="@color/black"
+                    app:sb_textColor="@color/color_text"
+                    app:sb_textColor_onSelection="@color/colorPrimary"
                     app:sb_textTypeface="serif" />
 
                 <co.ceryle.segmentedbutton.SegmentedButton
@@ -67,8 +65,8 @@
                     android:layout_weight="1"
                     android:padding="5dp"
                     app:sb_text="SignUp"
-                    app:sb_textColor="@color/colorPrimary"
-                    app:sb_textColor_onSelection="@color/black"
+                    app:sb_textColor="@color/color_text"
+                    app:sb_textColor_onSelection="@color/colorPrimary"
                     app:sb_textTypeface="serif" />
 
             </co.ceryle.segmentedbutton.SegmentedButtonGroup>
@@ -80,8 +78,9 @@
         android:id="@+id/RestofScreen"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.6"
-        android:orientation="vertical">
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:padding="@dimen/dim_24">
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
