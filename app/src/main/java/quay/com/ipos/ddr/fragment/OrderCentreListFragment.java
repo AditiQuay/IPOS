@@ -1,5 +1,6 @@
 package quay.com.ipos.ddr.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,14 +9,18 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
+import quay.com.ipos.ddr.activity.OrderCentreDetailsActivity;
+import quay.com.ipos.ddr.adapter.ExpandableListAdapter;
 import quay.com.ipos.ddr.adapter.OrderCentreListAdapter;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.utility.AppLog;
@@ -37,6 +42,10 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
 //    private ArrayList<LowInventoryModal> responseList = new ArrayList<>();
     private ArrayList<OrderList.Datum> orderList= new ArrayList<>();
     private int mSelectedpos;
+    ExpandableListAdapter listAdapter;
+    ExpandableListView expListView;
+    ArrayList<String> listDataHeader;
+    HashMap<String, ArrayList<OrderList.Datum>> listDataChild;
 
     // newInstance constructor for creating fragment with arguments
     public OrderCentreListFragment newInstance(int position) {
@@ -80,6 +89,11 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         vDispatched = view.findViewById(R.id.vDispatched);
         vDelivered = view.findViewById(R.id.vDelivered);
         vCancelled = view.findViewById(R.id.vCancelled);
+
+        // get the listview
+        expListView = (ExpandableListView) view.findViewById(R.id.lvExp);
+
+    setExpandableAdapter();
         llNew.setOnClickListener(this);
         llAccepted.setOnClickListener(this);
         llDispatched.setOnClickListener(this);
@@ -116,6 +130,8 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                     mSelectedpos = arg0.getChildPosition(child);
 //                    AppLog.e(TAG, "item:: " + arg0.getChildPosition(child));
 //                    selectPinned(arg0.getChildPosition(child));
+                    Intent mIntent = new Intent(getActivity(),OrderCentreDetailsActivity.class);
+                    getActivity().startActivity(mIntent);
                     return true;
 
                 }
@@ -126,12 +142,127 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         });
     }
 
+    private void setExpandableAdapter() {
+        // preparing list data
+        prepareListData();
+
+        listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
+
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+    }
+
+
+    /*
+     * Preparing the list data
+     */
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, ArrayList<OrderList.Datum>>();
+
+        // Adding child data
+        listDataHeader.add("Top 250");
+        listDataHeader.add("Now Showing");
+        listDataHeader.add("Coming Soon..");
+
+//        // Adding child data
+//        ArrayList<OrderList.Datum> top250 = new ArrayList<String>();
+//        top250.add("The Shawshank Redemption");
+//        top250.add("The Godfather");
+//        top250.add("The Godfather: Part II");
+//        top250.add("Pulp Fiction");
+//        top250.add("The Good, the Bad and the Ugly");
+//        top250.add("The Dark Knight");
+//        top250.add("12 Angry Men");
+//
+//        List<String> nowShowing = new ArrayList<String>();
+//        nowShowing.add("The Conjuring");
+//        nowShowing.add("Despicable Me 2");
+//        nowShowing.add("Turbo");
+//        nowShowing.add("Grown Ups 2");
+//        nowShowing.add("Red 2");
+//        nowShowing.add("The Wolverine");
+//
+//        List<String> comingSoon = new ArrayList<String>();
+//        comingSoon.add("2 Guns");
+//        comingSoon.add("The Smurfs 2");
+//        comingSoon.add("The Spectacular Now");
+//        comingSoon.add("The Canyons");
+//        comingSoon.add("Europa Report");
+
+//        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
+//        listDataChild.put(listDataHeader.get(1), nowShowing);
+//        listDataChild.put(listDataHeader.get(2), comingSoon);
+    }
 
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
 
+        switch (id){
+            case R.id.llNew:
+                selectItemNew();
+                break;
+
+            case R.id.llAccepted:
+                selectItemAccepted();
+                break;
+
+            case R.id.llDispatched:
+                selectItemDispatched();
+                break;
+
+            case R.id.llDelivered:
+                selectItemDelivered();
+                break;
+
+            case R.id.llCancelled:
+                selectItemCancel();
+                break;
+        }
 
     }
+
+    private void selectItemNew() {
+        vNew.setVisibility(View.VISIBLE);
+        vAccepted.setVisibility(View.INVISIBLE);
+        vDelivered.setVisibility(View.INVISIBLE);
+        vDispatched.setVisibility(View.INVISIBLE);
+        vCancelled.setVisibility(View.INVISIBLE);
+    }
+
+    private void selectItemAccepted() {
+        vNew.setVisibility(View.INVISIBLE);
+        vAccepted.setVisibility(View.VISIBLE);
+        vDelivered.setVisibility(View.INVISIBLE);
+        vDispatched.setVisibility(View.INVISIBLE);
+        vCancelled.setVisibility(View.INVISIBLE);
+    }
+
+    private void selectItemDelivered() {
+        vNew.setVisibility(View.INVISIBLE);
+        vAccepted.setVisibility(View.INVISIBLE);
+        vDelivered.setVisibility(View.VISIBLE);
+        vDispatched.setVisibility(View.INVISIBLE);
+        vCancelled.setVisibility(View.INVISIBLE);
+    }
+
+    private void selectItemDispatched() {
+        vNew.setVisibility(View.INVISIBLE);
+        vAccepted.setVisibility(View.INVISIBLE);
+        vDelivered.setVisibility(View.INVISIBLE);
+        vDispatched.setVisibility(View.VISIBLE);
+        vCancelled.setVisibility(View.INVISIBLE);
+    }
+
+
+    private void selectItemCancel() {
+        vNew.setVisibility(View.INVISIBLE);
+        vAccepted.setVisibility(View.INVISIBLE);
+        vDelivered.setVisibility(View.INVISIBLE);
+        vDispatched.setVisibility(View.INVISIBLE);
+        vCancelled.setVisibility(View.VISIBLE);
+    }
+
 }

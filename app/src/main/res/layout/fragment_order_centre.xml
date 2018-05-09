@@ -240,27 +240,24 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/llNewRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@color/white">
-                <RelativeLayout
-                    android:layout_width="match_parent"
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:layout_marginLeft="@dimen/dim_8"
+                    android:id="@+id/tvNewStatus"
+                    android:padding="8dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:text="@string/new_orders"/>
 
-                    <quay.com.ipos.ui.CustomTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dim_8"
-                        android:id="@+id/tvStatus"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        android:text="@string/new_orders"/>
-
-                </RelativeLayout>
                 <include layout="@layout/view_layout"/>
 
 
@@ -271,6 +268,20 @@
 
 
                 </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llViewAll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/dim_8"
+                android:visibility="gone"
+                android:background="@color/white">
+
+                <ExpandableListView
+                    android:id="@+id/lvExp"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"/>
             </LinearLayout>
 
 

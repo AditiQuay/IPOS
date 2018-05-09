@@ -171,7 +171,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         tvLessDetails.setOnClickListener(this);
         imvPin.setOnClickListener(this);
         tvPay.setOnClickListener(this);
-
+        imvRight.setOnClickListener(this);
         // Set the click listener for the button.
         chkBarCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -516,6 +516,16 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
 
                 break;
             case R.id.tvPay:
+                if (totalAmount>0) {
+                    Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
+                    i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
+                    i.putExtra(Constants.Order_List,Util.getCustomGson().toJson(mOrderList));
+                    getActivity().startActivityForResult(i,6);
+                }else {
+                    Util.showToast("Please add atleast one item to proceed.");
+                }
+                break;
+            case R.id.imvRight:
                 if (totalAmount>0) {
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");

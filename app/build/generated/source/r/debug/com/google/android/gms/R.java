@@ -8,15 +8,15 @@ package com.google.android.gms;
 
 public final class R {
     public static final class id {
-        public static final int auto = 0x7f090028;
-        public static final int center = 0x7f090042;
-        public static final int none = 0x7f090115;
-        public static final int normal = 0x7f090116;
-        public static final int radio = 0x7f090145;
-        public static final int text = 0x7f090197;
-        public static final int text2 = 0x7f090198;
-        public static final int toolbar = 0x7f0901d9;
-        public static final int wrap_content = 0x7f090289;
+        public static final int auto = 0x7f09002e;
+        public static final int center = 0x7f09004a;
+        public static final int none = 0x7f090128;
+        public static final int normal = 0x7f090129;
+        public static final int radio = 0x7f090159;
+        public static final int text = 0x7f0901b0;
+        public static final int text2 = 0x7f0901b1;
+        public static final int toolbar = 0x7f0901f2;
+        public static final int wrap_content = 0x7f0902a2;
     }
     public static final class integer {
         public static final int google_play_services_version = 0x7f0a0008;

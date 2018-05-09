@@ -111,7 +111,7 @@ public class OrderCentreListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (holder instanceof OrderCentreListAdapter.UserViewHolder) {
-                final OrderList.Datum str = mDataset.get(position);
+                OrderList.Datum str = mDataset.get(position);
                 AppLog.e(OrderCentreListAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
                 OrderCentreListAdapter.UserViewHolder userViewHolder = (OrderCentreListAdapter.UserViewHolder) holder;
                 userViewHolder.tvQty.setText("Qty "+str.getQty());
