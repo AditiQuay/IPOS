@@ -45,7 +45,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     private Context mContext;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_info_activity);
         mContext = CustomerInfoActivity.this;
@@ -91,7 +91,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         assert searchManager != null;
         searchViewCatalogue.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         final EditText et = (EditText) searchViewCatalogue.findViewById(R.id.search_src_text);
-        ImageView searchImage = searchViewCatalogue.findViewById(android.support.v7.appcompat.R.id.search_button);
+        ImageView searchImage = searchViewCatalogue.findViewById(R.id.search_button);
 
         final ImageView searchClose = (ImageView) searchViewCatalogue.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
         searchClose.setOnClickListener(new View.OnClickListener() {
@@ -181,6 +181,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                Util.hideSoftKeyboard(CustomerInfoActivity.this);
                 finish();
                 return true;
         }
