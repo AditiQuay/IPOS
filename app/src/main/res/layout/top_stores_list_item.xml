@@ -56,7 +56,7 @@
                 android:layout_height="@dimen/dim_20"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/ic_down_arrow_white"
+                android:background="@drawable/ic_down_arrow"
                 android:layout_gravity="center"
                 android:contentDescription="TODO" />
             <TextView

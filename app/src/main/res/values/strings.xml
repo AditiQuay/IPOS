@@ -71,7 +71,7 @@
     <string name="store_status">Store Status</string>
     <string name="opened">Opened @ 10:00 am today</string>
     <string name="customer_footprints">Customer Footprints</string>
-    <string name="customer_feedback">Customer Feedback 4.3 *</string>
+    <string name="customer_feedback">Customer Feedback</string>
     <string name="warehouse">Warehouse</string>
     <string name="supplier">Supplier</string>
     <string name="inventory">Inventory in transit</string>
