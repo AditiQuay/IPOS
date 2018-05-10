@@ -206,6 +206,7 @@
                         android:id="@+id/imgTotalSales"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
@@ -216,6 +217,7 @@
                         android:id="@+id/tvTotalSales"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgTotalSales"
@@ -871,6 +873,7 @@
                         android:id="@+id/imgCustomerFootprints"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
@@ -880,6 +883,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgCustomerFootprints"
@@ -1161,6 +1165,7 @@
                         android:id="@+id/imgCustomerfeedback"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
@@ -1170,6 +1175,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgCustomerfeedback"
@@ -1228,7 +1234,13 @@
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:rating="3"
-                       style="@style/Base.Widget.AppCompat.RatingBar"/>
+                       android:isIndicator="true"
+
+android:stepSize="0.1"
+                       android:scaleX="0.8"
+                       android:scaleY="0.8"
+                       android:theme="@style/MyRatingBar"
+                       android:focusable="false"/>
 
                    <TextView
                        android:layout_width="wrap_content"
@@ -1240,6 +1252,8 @@
                        android:textSize="@dimen/text_size_16sp"/>
 
                </LinearLayout>
+
+                <include layout="@layout/view_layout_without_dot"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1542,6 +1556,7 @@
                         android:id="@+id/imgInventoryinTransit"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:src="@drawable/cart_app"
@@ -1551,6 +1566,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgInventoryinTransit"
                         android:layout_gravity="center_vertical"
@@ -1701,7 +1717,8 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_viewInventory"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rect_four_white">
 
 
                 </android.support.v7.widget.RecyclerView>
@@ -1790,7 +1807,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dim_8"
-                    android:background="@color/white">
+                    android:background="@drawable/rect_four_white">
 
 
                 </android.support.v7.widget.RecyclerView>
@@ -1877,7 +1894,7 @@
                     android:id="@+id/recycler_viewFastMoving"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
+                    android:background="@drawable/rect_four_white">
 
 
                 </android.support.v7.widget.RecyclerView>
@@ -1921,10 +1938,14 @@
                 </LinearLayout>
 
                 <include layout="@layout/view_layout_without_dot"/>
+
+
+                <include  layout="@layout/progress_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -1958,7 +1979,6 @@
 
                                 <ProgressBar
                                     android:id="@+id/circularProgressbar"
-                                    style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
                                     android:layout_alignParentEnd="true"
@@ -2018,7 +2038,6 @@
 
 
                                 <ProgressBar
-                                    style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
                                     android:layout_alignParentEnd="true"
@@ -2077,7 +2096,6 @@
 
 
                                 <ProgressBar
-                                    style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
                                     android:layout_alignParentEnd="true"
@@ -2137,7 +2155,6 @@
 
 
                                 <ProgressBar
-                                    style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
                                     android:layout_alignParentEnd="true"

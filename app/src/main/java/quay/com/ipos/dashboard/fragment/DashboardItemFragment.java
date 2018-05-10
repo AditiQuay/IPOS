@@ -35,6 +35,7 @@ import quay.com.ipos.dashboard.modal.LowInventoryModal;
 import quay.com.ipos.enums.DashboardKeys;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.modal.SpinnerList;
+import quay.com.ipos.ui.CircularProgressBar;
 import quay.com.ipos.utility.SelectionItemListDialog;
 import quay.com.ipos.utility.SpacesItemDecoration;
 import quay.com.ipos.utility.Util;
@@ -65,6 +66,7 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
             ,tvAWAcheviment,tvAWTarget,tvAWSales,tvFootprintTotal,tvFootprintRepeated,tvFootprintNew,getTvFootprintOnline
             ,getTvFootprintLoyalty,tvFeedBackExcellent,tvFeedbackGood,tvFeedbackAverage,tvFeedbackPoor,tvFeedbackVeryPoor,tvFeedbackSpinner,tvTotalSalesSpinner,tvFootprintSpinner;
     private boolean isPopupVisible = false;
+    private CircularProgressBar cpb1,cpb2,cpb3,cpb4;
     // newInstance constructor for creating fragment with arguments
     public DashboardItemFragment newInstance(int position) {
         DashboardItemFragment fragmentFirst = new DashboardItemFragment();
@@ -188,6 +190,37 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
         tvTotalSalesSpinner=(TextView)view.findViewById(R.id.tvTotalSalesSpinner);
         tvFootprintSpinner=(TextView)view.findViewById(R.id.tvFootprintSpinner);
 
+        cpb1 = view.findViewById(R.id.cpb1);
+        cpb2 = view.findViewById(R.id.cpb2);
+        cpb3 = view.findViewById(R.id.cpb3);
+        cpb4 = view.findViewById(R.id.cpb4);
+        cpb1.setProgressColor(getResources().getColor(R.color.green));
+        cpb1.setProgressWidth(10);
+        int newProgress1 = (int) (70/ 100);
+        cpb1.setProgress(70);
+        cpb1.showProgressText(false);
+        cpb1.setSecondaryColor(getResources().getColor(R.color.green_transulent));
+
+        cpb2.setProgressColor(getResources().getColor(R.color.dark_primary_color));
+        cpb2.setProgressWidth(10);
+        int newProgress2 = (int) (30/ 100);
+        cpb2.setProgress(30);
+        cpb2.showProgressText(false);
+        cpb2.setSecondaryColor(getResources().getColor(R.color.orange_transulent));
+
+        cpb3.setProgressColor(getResources().getColor(R.color.colorPrimary));
+        cpb3.setProgressWidth(10);
+        int newProgress3 = (int) (40/100);
+        cpb3.setProgress(60);
+        cpb3.showProgressText(false);
+        cpb3.setSecondaryColor(getResources().getColor(R.color.coloryPrimary_transulent));
+
+        cpb4.setProgressColor(getResources().getColor(R.color.red));
+        cpb4.setProgressWidth(10);
+        int newProgress4 = (int) (50 /100);
+        cpb4.setProgress(80);
+        cpb4.showProgressText(false);
+        cpb4.setSecondaryColor(getResources().getColor(R.color.red_transulent));
     }
 
     private void parsingJson(){
