@@ -92,7 +92,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
 
         // get the listview
         expListView = (ExpandableListView) view.findViewById(R.id.lvExp);
-
+        selectItemNew();
     setExpandableAdapter();
         llNew.setOnClickListener(this);
         llAccepted.setOnClickListener(this);
