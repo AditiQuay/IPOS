@@ -353,6 +353,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
 //                getProduct();
                 IPOSApplication.mOrderList.clear();
                 mNewOrderListAdapter.notifyDataSetChanged();
+                setUpdateValues(IPOSApplication.mOrderList);
             }
         }
      /*   if (resultCode == RESULT_OK) {
@@ -574,7 +575,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
                     i.putExtra(Constants.Order_List,Util.getCustomGson().toJson(mOrderList));
-                    getActivity().startActivityForResult(i,6);
+                    startActivityForResult(i,6);
                 }else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }

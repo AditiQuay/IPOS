@@ -206,6 +206,7 @@
                         android:id="@+id/imgTotalSales"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
@@ -216,6 +217,7 @@
                         android:id="@+id/tvTotalSales"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgTotalSales"
@@ -229,23 +231,21 @@
                         android:orientation="horizontal"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
-                        android:paddingLeft="@dimen/dim_12"
-                        android:paddingRight="@dimen/dim_12"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
+                        android:paddingRight="@dimen/dim_5"
                         android:alpha="0.6"
                         android:background="@drawable/button_round_grey"
                         >
-                        <TextView
-                            android:id="@+id/tvTotalSalesSpinner"
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/spTotalSalesSpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/day"
-                            android:padding="@dimen/dim_3"
+                            android:theme="@style/ThemeOverlay.AppCompat.Dark"
                             android:textColor="@color/black"
+                            android:background="@null"
                             android:textSize="@dimen/dim_12"
-                            android:spinnerMode="dropdown"/>
+                            android:spinnerMode="dialog"/>
 
                         <ImageView
                             android:layout_width="@dimen/dim_10"
@@ -871,6 +871,7 @@
                         android:id="@+id/imgCustomerFootprints"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
@@ -880,6 +881,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgCustomerFootprints"
@@ -893,23 +895,22 @@
                         android:orientation="horizontal"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
-                        android:paddingLeft="@dimen/dim_12"
-                        android:paddingRight="@dimen/dim_12"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
+                        android:paddingRight="@dimen/dim_8"
                         android:alpha="0.6"
                         android:background="@drawable/button_round_grey"
                         >
-                        <TextView
-                            android:id="@+id/tvFootprintSpinner"
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/spFootprintSpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/day"
-                            android:padding="@dimen/dim_3"
+                            android:theme="@style/ThemeOverlay.AppCompat.Dark"
                             android:textColor="@color/black"
                             android:textSize="@dimen/dim_12"
-                            android:spinnerMode="dropdown"/>
+                            android:background="@null"
+                            style="@style/MySpinner"
+                            android:spinnerMode="dialog"/>
 
                         <ImageView
                             android:layout_width="@dimen/dim_10"
@@ -1161,6 +1162,7 @@
                         android:id="@+id/imgCustomerfeedback"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
@@ -1170,6 +1172,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgCustomerfeedback"
@@ -1183,23 +1186,21 @@
                         android:orientation="horizontal"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
-                        android:paddingLeft="@dimen/dim_12"
-                        android:paddingRight="@dimen/dim_12"
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
+                        android:paddingRight="@dimen/dim_8"
                         android:alpha="0.6"
                         android:background="@drawable/button_round_grey"
                         >
-                        <TextView
-                            android:id="@+id/tvFeedbackSpinner"
+                        <Spinner
+                            android:id="@+id/spFeedbackSpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/day"
-                            android:padding="@dimen/dim_3"
+                            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                            android:background="@null"
                             android:textColor="@color/black"
                             android:textSize="@dimen/dim_12"
-                            android:spinnerMode="dropdown"/>
+                            android:spinnerMode="dialog"/>
 
                         <ImageView
                             android:layout_width="@dimen/dim_10"
@@ -1218,28 +1219,36 @@
 
                 <include layout="@layout/view_layout_without_dot"/>
 
-               <LinearLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:gravity="center_vertical"
-                   android:padding="8dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:padding="8dp">
 
-                   <RatingBar
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:rating="3"
-                       style="@style/Base.Widget.AppCompat.RatingBar"/>
+                    <RatingBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:rating="3"
+                        android:isIndicator="true"
 
-                   <TextView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:text="3.0"
-                       android:layout_marginLeft="@dimen/dim_20"
-                       android:textColor="@color/dark_primary_color"
-                       android:textStyle="normal"
-                       android:textSize="@dimen/text_size_16sp"/>
+                        android:stepSize="0.1"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:theme="@style/MyRatingBar"
+                        android:focusable="false"/>
 
-               </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3.0"
+                        android:layout_marginLeft="@dimen/dim_20"
+                        android:textColor="@color/dark_primary_color"
+                        android:textStyle="normal"
+                        android:textSize="@dimen/text_size_16sp"/>
+
+                </LinearLayout>
+
+                <include layout="@layout/view_layout_without_dot"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1542,6 +1551,7 @@
                         android:id="@+id/imgInventoryinTransit"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:src="@drawable/cart_app"
@@ -1551,6 +1561,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgInventoryinTransit"
                         android:layout_gravity="center_vertical"
@@ -1701,7 +1712,8 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_viewInventory"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rect_four_white">
 
 
                 </android.support.v7.widget.RecyclerView>
@@ -1790,7 +1802,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dim_8"
-                    android:background="@color/white">
+                    android:background="@drawable/rect_four_white">
 
 
                 </android.support.v7.widget.RecyclerView>
@@ -1835,38 +1847,38 @@
                 </LinearLayout>
 
                 <include layout="@layout/view_layout_without_dot"/>     <LinearLayout
-                    android:layout_width="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_8"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dim_8"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="@string/product"
-                        android:textColor="@color/filter_text_color" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="@string/day_sales"
-                        android:textColor="@color/filter_text_color" />
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center"
-                        android:text="@string/month_sales"
-                        android:textColor="@color/filter_text_color" />
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="@string/product"
+                    android:textColor="@color/filter_text_color" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="@string/day_sales"
+                    android:textColor="@color/filter_text_color" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="@string/month_sales"
+                    android:textColor="@color/filter_text_color" />
 
 
-                </LinearLayout>
+            </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -1877,7 +1889,7 @@
                     android:id="@+id/recycler_viewFastMoving"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
+                    android:background="@drawable/rect_four_white">
 
 
                 </android.support.v7.widget.RecyclerView>
@@ -1921,10 +1933,14 @@
                 </LinearLayout>
 
                 <include layout="@layout/view_layout_without_dot"/>
+
+
+                <include  layout="@layout/progress_layout"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -1958,7 +1974,6 @@
 
                                 <ProgressBar
                                     android:id="@+id/circularProgressbar"
-                                    style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
                                     android:layout_alignParentEnd="true"
@@ -2018,7 +2033,6 @@
 
 
                                 <ProgressBar
-                                    style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
                                     android:layout_alignParentEnd="true"
@@ -2077,7 +2091,6 @@
 
 
                                 <ProgressBar
-                                    style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
                                     android:layout_alignParentEnd="true"
@@ -2137,7 +2150,6 @@
 
 
                                 <ProgressBar
-                                    style="?android:attr/progressBarStyleHorizontal"
                                     android:layout_width="150dp"
                                     android:layout_height="150dp"
                                     android:layout_alignParentEnd="true"

@@ -204,7 +204,16 @@
         <item>Saket, ND</item>
         <item>XYZ, ND</item>
     </string-array>
-
+    <string-array name="stores">
+        <item>Store 1</item>
+        <item>Store 2</item>
+        <item>Store 3</item>
+    </string-array>
+    <string-array name="days">
+        <item>Day</item>
+        <item>Month</item>
+        <item>Year</item>
+    </string-array>
     <string name="edittext_email_error_activity_login">Please enter a valid email address!</string>
     <string name="edittext_password_error_activity_login">Please enter password</string>
     <string name="runtime_permissions_txt">Please enable ALL permissions.</string>

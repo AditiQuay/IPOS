@@ -142,6 +142,9 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             case R.id.btnAccept:
 //                Intent mIntent = new Intent(this,OrderCentreDetailsActivity.class);
 //                startActivity(mIntent);
+//                Intent mIntent = new Intent();
+//                setResult(6,mIntent);
+//                finish();
                 Intent mIntent = new Intent();
                 setResult(6,mIntent);
                 finish();

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@drawable/rect_four_white">
 
     <RelativeLayout
         android:id="@+id/relTitle"
@@ -44,6 +44,7 @@
         android:layout_marginBottom="@dimen/dim_10"
         android:background="@drawable/edt_bg"
         android:focusable="false"
+        android:visibility="gone"
         android:focusableInTouchMode="false"
         android:iconifiedByDefault="false"
         android:imeActionLabel="Done"
@@ -57,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/searchView"
-        android:background="@color/white"
+        android:background="@drawable/rect_four_white"
         android:cacheColorHint="@android:color/transparent"
         android:divider="@color/light_grey_"
         android:dividerHeight="0.5dp"

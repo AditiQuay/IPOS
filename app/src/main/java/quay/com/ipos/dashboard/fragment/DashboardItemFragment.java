@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -30,11 +31,13 @@ import quay.com.ipos.R;
 import quay.com.ipos.dashboard.adapter.FastMovingListAdapter;
 import quay.com.ipos.dashboard.adapter.InventoryListAdapter;
 import quay.com.ipos.dashboard.adapter.LowInventoryListAdapter;
+import quay.com.ipos.dashboard.adapter.SpinnerDropDownAdapter;
 import quay.com.ipos.dashboard.adapter.TopStoresListAdapter;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
 import quay.com.ipos.enums.DashboardKeys;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.modal.SpinnerList;
+import quay.com.ipos.ui.CircularProgressBar;
 import quay.com.ipos.utility.SelectionItemListDialog;
 import quay.com.ipos.utility.SpacesItemDecoration;
 import quay.com.ipos.utility.Util;
@@ -63,8 +66,10 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
     private String strImage;
     private TextView tvMyStore,tvOnlineValue,tvotherValue,tvSalesValue,tvTotalSalesTarget,tvTotalSalesAcheviment,tvEndSeasonAcheivement,tvEndSeasonTarget,tvEndSeasonSales
             ,tvAWAcheviment,tvAWTarget,tvAWSales,tvFootprintTotal,tvFootprintRepeated,tvFootprintNew,getTvFootprintOnline
-            ,getTvFootprintLoyalty,tvFeedBackExcellent,tvFeedbackGood,tvFeedbackAverage,tvFeedbackPoor,tvFeedbackVeryPoor,tvFeedbackSpinner,tvTotalSalesSpinner,tvFootprintSpinner;
+            ,getTvFootprintLoyalty,tvFeedBackExcellent,tvFeedbackGood,tvFeedbackAverage,tvFeedbackPoor,tvFeedbackVeryPoor;
+    Spinner spFeedbackSpinner,spTotalSalesSpinner,spFootprintSpinner;
     private boolean isPopupVisible = false;
+    private CircularProgressBar cpb1,cpb2,cpb3,cpb4;
     // newInstance constructor for creating fragment with arguments
     public DashboardItemFragment newInstance(int position) {
         DashboardItemFragment fragmentFirst = new DashboardItemFragment();
@@ -93,9 +98,9 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
         super.onDestroyView();
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard_item, container, false);
 
 
@@ -140,9 +145,9 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
         getTopStoresData();
         getFastMovingData();
         getInventoryData();
-        prepareSpinnerList(tvTotalSalesSpinner);
-        prepareSpinnerList(tvFeedbackSpinner);
-        prepareSpinnerList(tvFootprintSpinner);
+//        prepareSpinnerList(tvTotalSalesSpinner);
+//        prepareSpinnerList(tvFeedbackSpinner);
+//        prepareSpinnerList(tvFootprintSpinner);
 
         return view;
 
@@ -178,16 +183,55 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
         getTvFootprintLoyalty=(TextView)view.findViewById(R.id.tvFootprintLoyalty);
 
         //Customer Feedback
-        tvFeedBackExcellent=(TextView)view.findViewById(R.id.tvFeedBackExcellent);
+        tvFeedBackExcellent=view.findViewById(R.id.tvFeedBackExcellent);
         tvFeedbackGood=(TextView)view.findViewById(R.id.tvFeedbackGood);
         tvFeedbackAverage=(TextView)view.findViewById(R.id.tvFeedbackAverage);
         tvFeedbackPoor=(TextView)view.findViewById(R.id.tvFeedbackPoor);
         tvFeedbackVeryPoor=(TextView)view.findViewById(R.id.tvFeedbackCVeryPoor);
 
-        tvFeedbackSpinner=(TextView)view.findViewById(R.id.tvFeedbackSpinner);
-        tvTotalSalesSpinner=(TextView)view.findViewById(R.id.tvTotalSalesSpinner);
-        tvFootprintSpinner=(TextView)view.findViewById(R.id.tvFootprintSpinner);
+        spFeedbackSpinner=view.findViewById(R.id.spFeedbackSpinner);
+        spTotalSalesSpinner=view.findViewById(R.id.spTotalSalesSpinner);
+        spFootprintSpinner=view.findViewById(R.id.spFootprintSpinner);
+//        spFeedbackSpinner.setPadding(0, 0, spFeedbackSpinner.getPaddingRight(), 0);
+//        spTotalSalesSpinner.setPadding(0, 0, spFeedbackSpinner.getPaddingRight(), 0);
+//        spFootprintSpinner.setPadding(0, 0, spFeedbackSpinner.getPaddingRight(), 0);
+        SpinnerDropDownAdapter sddadapter = new SpinnerDropDownAdapter(getActivity(),getResources().getStringArray(R.array.days));
+        sddadapter.setColor(true);
+        spFeedbackSpinner.setAdapter(sddadapter);
+        spTotalSalesSpinner.setAdapter(sddadapter);
+        spFootprintSpinner.setAdapter(sddadapter);
 
+        cpb1 = view.findViewById(R.id.cpb1);
+        cpb2 = view.findViewById(R.id.cpb2);
+        cpb3 = view.findViewById(R.id.cpb3);
+        cpb4 = view.findViewById(R.id.cpb4);
+        cpb1.setProgressColor(getResources().getColor(R.color.green));
+        cpb1.setProgressWidth(10);
+        int newProgress1 = (int) (70/ 100);
+        cpb1.setProgress(70);
+        cpb1.showProgressText(false);
+        cpb1.setSecondaryColor(getResources().getColor(R.color.green_transulent));
+
+        cpb2.setProgressColor(getResources().getColor(R.color.dark_primary_color));
+        cpb2.setProgressWidth(10);
+        int newProgress2 = (int) (30/ 100);
+        cpb2.setProgress(30);
+        cpb2.showProgressText(false);
+        cpb2.setSecondaryColor(getResources().getColor(R.color.orange_transulent));
+
+        cpb3.setProgressColor(getResources().getColor(R.color.colorPrimary));
+        cpb3.setProgressWidth(10);
+        int newProgress3 = (int) (40/100);
+        cpb3.setProgress(60);
+        cpb3.showProgressText(false);
+        cpb3.setSecondaryColor(getResources().getColor(R.color.coloryPrimary_transulent));
+
+        cpb4.setProgressColor(getResources().getColor(R.color.red));
+        cpb4.setProgressWidth(10);
+        int newProgress4 = (int) (50 /100);
+        cpb4.setProgress(80);
+        cpb4.showProgressText(false);
+        cpb4.setSecondaryColor(getResources().getColor(R.color.red_transulent));
     }
 
     private void parsingJson(){

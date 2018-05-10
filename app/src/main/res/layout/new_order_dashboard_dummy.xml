@@ -106,7 +106,6 @@
             android:background="@color/backgroundgrey"
             android:layout_above="@id/llBelowPaymentDetail"
             android:layout_below="@+id/flScanner"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginTop="@dimen/dim_1" />
 
         <LinearLayout
@@ -114,7 +113,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_collapseMode="pin"
             android:layout_alignParentBottom="true">
             <LinearLayout
