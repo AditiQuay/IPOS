@@ -33,19 +33,40 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llbottom_buttons"
+    >
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dim_25"
             android:orientation="vertical">
+
             <include layout="@layout/new_order_detail_item"></include>
+            <include layout="@layout/bottom_total_cart" />
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
+    <LinearLayout
+        android:id="@+id/llbottom_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
 
+        <include layout="@layout/bottom_buttons" />
+    </LinearLayout>
+
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
