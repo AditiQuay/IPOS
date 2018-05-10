@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,27 +15,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-
-import org.json.JSONObject;
-
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +26,6 @@ import io.realm.Realm;
 import quay.com.ipos.R;
 import quay.com.ipos.dashboard.activity.UpcomingShipmentActivity;
 import quay.com.ipos.dashboard.adapter.BarGraphAdapter;
-import quay.com.ipos.dashboard.adapter.FastMovingListAdapter;
-import quay.com.ipos.dashboard.adapter.InventoryListAdapter;
 import quay.com.ipos.dashboard.adapter.LowInventoryListAdapter;
 import quay.com.ipos.dashboard.adapter.TopProductsListAdapter;
 import quay.com.ipos.dashboard.adapter.TopStoresListAdapter;
@@ -222,114 +202,7 @@ public class McCOYDashboardFragment extends Fragment {
         topProductsListAdapter.notifyDataSetChanged();
     }
 
-    private void createOrderChart(final View view) {
-        final BarChart barChart = (BarChart) view.findViewById(R.id.ordervalue);
-//  mChart.setDrawValueAboveBar(false);
-        barChart.setHighlightFullBarEnabled(false);
 
-        YAxis leftAxis = barChart.getAxisLeft();
-        leftAxis.setValueFormatter(new MyAxisValueFormatter());
-        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-        barChart.getAxisRight().setEnabled(false);
-        String[] l = getResources().getStringArray(R.array.ordervalue);
-        XAxis xLabels = barChart.getXAxis();
-        xLabels.setDrawLabels(true);
-        xLabels.setLabelCount(l.length);
-        xLabels.setValueFormatter(new IndexAxisValueFormatter(l));
-        xLabels.setPosition(XAxis.XAxisPosition.BOTTOM);
-        ArrayList<BarEntry> bargroup1 = new ArrayList<>();
-        ArrayList<BarEntry> bargroup2 = new ArrayList<>();
-        ArrayList<BarEntry> bargroup3 = new ArrayList<>();
-        ArrayList<BarEntry> bargroup4 = new ArrayList<>();
-
-
-        bargroup1.add(new BarEntry(0, (float) 5));
-        bargroup1.add(new BarEntry(1, (float) 4));
-        bargroup1.add(new BarEntry(2, (float) 3));
-
-        bargroup2.add(new BarEntry(0, (float) 5));
-        bargroup2.add(new BarEntry(1, (float) 4));
-        bargroup2.add(new BarEntry(2, (float) 3));
-
-        bargroup3.add(new BarEntry(0, (float) 6));
-        bargroup3.add(new BarEntry(1, (float) 4));
-        bargroup3.add(new BarEntry(2, (float) 2));
-        bargroup4.add(new BarEntry(0, (float) 6));
-        bargroup4.add(new BarEntry(1, (float) 4));
-        bargroup4.add(new BarEntry(2, (float) 2));
-
-        BarDataSet barDataSet1 = new BarDataSet(bargroup1, "Apr");
-        barDataSet1.setColor(Color.rgb(76, 152, 207));
-
-        BarDataSet barDataSet2 = new BarDataSet(bargroup2, "May");
-        barDataSet2.setColor(Color.rgb(76, 152, 207));
-
-        BarDataSet barDataSet3 = new BarDataSet(bargroup3, "Jun");
-        barDataSet3.setColor(Color.rgb(76, 152, 207));
-
-        BarDataSet barDataSet4 = new BarDataSet(bargroup4, "Jul");
-        barDataSet4.setColor(Color.rgb(76, 152, 207));
-
-        barDataSet1.setStackLabels(l);
-        barDataSet2.setStackLabels(l);
-        barDataSet3.setStackLabels(l);
-        barDataSet4.setStackLabels(l);
-
-        ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
-        dataSets.add(barDataSet1);
-        dataSets.add(barDataSet2);
-        dataSets.add(barDataSet3);
-        dataSets.add(barDataSet4);
-        BarData data = new BarData(dataSets);
-        data.setValueTextColor(Color.WHITE);
-
-        barChart.setData(data);
-        barChart.setFitBars(true);
-        barChart.getAxisLeft().setDrawGridLines(false);
-        barChart.getXAxis().setDrawGridLines(false);
-        barChart.getDescription().setEnabled(false);
-        barChart.invalidate();
-
-
-    }
-
-    class MyAxisValueFormatter implements IAxisValueFormatter {
-
-        private DecimalFormat mFormat;
-
-        /**
-         * Instantiates a new My axis value formatter.
-         */
-        public MyAxisValueFormatter() {
-            mFormat = new DecimalFormat("###,###,##"); // use one decimal
-        }
-
-
-        @Override
-        public String getFormattedValue(float value, AxisBase axis) {
-            NumberFormat format = DecimalFormat.getInstance();
-            format.setRoundingMode(RoundingMode
-                    .FLOOR);
-            format.setMinimumFractionDigits(0);
-            format.setMaximumFractionDigits(2);
-            return mFormat.format(value);
-//            return mFormat.format(value); // e.g. append a dollar-sign
-        }
-    }
-
-
-    public class LabelFormatter implements IAxisValueFormatter {
-        private List<String> lableList;
-
-        public LabelFormatter(List<String> labels) {
-            lableList = labels;
-        }
-
-        @Override
-        public String getFormattedValue(float value, AxisBase axis) {
-            return lableList.get((int) value);
-        }
-    }
 
     private void prepareSpinnerList(final TextView textView) {
         textView.setOnClickListener(new View.OnClickListener() {
