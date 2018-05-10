@@ -215,7 +215,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
     public void onClick(View v) {
         if (v == btnLogin) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                LoginActivity.super.requestAppPermissions(ALL_PERMISSIONS, R.string.runtime_permissions_txt, REQUEST_PERMISSIONS);
+                LoginActivity.super.requestAppPermissions(ALL_PERMISSIONS, R.string.runtime_permissions_txt, REQUEST_PERMISSIONS,0);
             } else {
                 getDeviceInformation();
                 hideKeyboard();

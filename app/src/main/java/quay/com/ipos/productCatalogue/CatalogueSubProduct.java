@@ -1,11 +1,13 @@
 package quay.com.ipos.productCatalogue;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -31,9 +33,11 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.listeners.DataSheetDownloadListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
+import quay.com.ipos.login.LoginActivity;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.CatalogueSubCatalogueFragmentAdapter;
 import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 import quay.com.ipos.utility.FontUtil;
@@ -43,7 +47,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 4/17/2018.
  */
 
-public class CatalogueSubProduct extends AppCompatActivity implements InitInterface, MyListener, DataSheetDownloadListener {
+public class CatalogueSubProduct extends RunTimePermissionActivity implements InitInterface, MyListener, DataSheetDownloadListener {
     private TextView textViewProductName, textViewProductCountTitle, textViewProductCount;
     private RecyclerView recyclerviewProduct;
     private Context mContext;
@@ -56,8 +60,15 @@ public class CatalogueSubProduct extends AppCompatActivity implements InitInterf
     // Progress dialog type (0 - for Horizontal progress bar)
     public static final int progress_bar_type = 0;
 
+    private static final int REQUEST_PERMISSIONS = 20;
+    private static final String[] ALL_PERMISSIONS = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+    private int clickedPosition;
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.catalogue_sub_product);
         Intent i = getIntent();
@@ -67,6 +78,16 @@ public class CatalogueSubProduct extends AppCompatActivity implements InitInterf
         findViewById();
         applyInitValues();
         applyTypeFace();
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode) {
+        if (requestCode == REQUEST_PERMISSIONS) {
+            CatalogueModal catalogueModal = catalogueModalsSet.get(clickedPosition);
+            // starting new Async Task
+            new DownloadFileFromURL().execute(catalogueModal.sDataSheet.trim());
+        }
+
     }
 
     @Override
@@ -164,9 +185,17 @@ public class CatalogueSubProduct extends AppCompatActivity implements InitInterf
 
     @Override
     public void onDataSheetDownload(int position) {
-        CatalogueModal catalogueModal = catalogueModalsSet.get(position);
-        // starting new Async Task
-        new DownloadFileFromURL().execute(catalogueModal.sDataSheet.trim());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            CatalogueSubProduct.super.requestAppPermissions(ALL_PERMISSIONS, R.string.runtime_permissions_txt, REQUEST_PERMISSIONS,position);
+            this.clickedPosition=position;
+        } else {
+            CatalogueModal catalogueModal = catalogueModalsSet.get(position);
+            // starting new Async Task
+            new DownloadFileFromURL().execute(catalogueModal.sDataSheet.trim());
+        }
+
+
+
     }
 
     /**
