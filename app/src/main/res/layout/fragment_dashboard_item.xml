@@ -34,7 +34,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_pending_orders" />
+                        android:src="@drawable/ic_action_pending" />
 
                     <TextView
                         android:id="@+id/tvStoreName"
@@ -161,7 +161,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_idea" />
+                        android:src="@drawable/ic_action_insights" />
 
                     <TextView
                         android:id="@+id/tvInventory"
@@ -210,7 +210,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_total_sales" />
+                        android:src="@drawable/ic_action_total" />
 
                     <TextView
                         android:id="@+id/tvTotalSales"
@@ -351,7 +351,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_schema" />
+                        android:src="@drawable/ic_action_performence" />
 
                     <TextView
                         android:id="@+id/tvSchemaPer"
@@ -376,7 +376,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_marginTop="@dimen/dim_8"
                         android:gravity="center"
                         android:textStyle="italic"
@@ -457,7 +457,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_marginTop="@dimen/dim_8"
                         android:gravity="center"
                         android:textStyle="italic"
@@ -543,7 +543,7 @@
                         android:layout_height="20dp"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:src="@drawable/ic_store_sales"
+                        android:src="@drawable/ic_action_store"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         />
@@ -588,7 +588,7 @@
                                 android:id="@+id/icon"
                                 android:layout_width="@dimen/dim_20"
                                 android:layout_height="@dimen/dim_20"
-                                android:background="@drawable/ic_caret_arrow_up"
+                                android:background="@drawable/ic_action_arrow_upward"
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
                             <TextView
@@ -636,7 +636,7 @@
                             <ImageView
                                 android:layout_width="@dimen/dim_20"
                                 android:layout_height="@dimen/dim_20"
-                                android:background="@drawable/ic_down_arrow"
+                                android:background="@drawable/ic_action_arrow_downward"
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
                             <TextView
@@ -683,7 +683,7 @@
                             <ImageView
                                 android:layout_width="@dimen/dim_20"
                                 android:layout_height="@dimen/dim_20"
-                                android:background="@drawable/ic_caret_arrow_up"
+                                android:background="@drawable/ic_action_arrow_upward"
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
                             <TextView
@@ -732,7 +732,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_total_sales" />
+                        android:src="@drawable/ic_action_status" />
 
                     <TextView
                         android:id="@+id/tvStoreStatus"
@@ -1165,7 +1165,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_customer_feedback" />
+                        android:src="@drawable/ic_action_feedback" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -1544,7 +1544,7 @@
                         android:layout_height="20dp"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:src="@drawable/ic_in_transit"
+                        android:src="@drawable/cart_app"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         />
@@ -1728,7 +1728,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_idea" />
+                        android:src="@drawable/ic_action_store" />
 
                     <TextView
                         android:id="@+id/tvTopPerformingStores"
@@ -1819,7 +1819,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_fast" />
+                        android:src="@drawable/shipment_app" />
 
                     <TextView
                         android:id="@+id/tvFastMoving"
@@ -1905,7 +1905,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_summary" />
+                        android:src="@drawable/ic_action_product_detail_blue" />
 
                     <TextView
                         android:id="@+id/tvCompliance"
