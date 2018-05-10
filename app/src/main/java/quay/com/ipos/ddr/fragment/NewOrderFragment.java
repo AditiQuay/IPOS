@@ -12,8 +12,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -90,7 +92,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.new_order_dashboard, container, false);
+        rootView = inflater.inflate(R.layout.new_order_dashboard_dummy, container, false);
         initializeComponent(rootView);
         myDialog = new Dialog(getActivity());
         setHasOptionsMenu(true);
@@ -129,6 +131,34 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         mRecyclerView.addItemDecoration(
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
+
+//        final LinearLayout llBelowPaymentDetail=(LinearLayout)rootView.findViewById(R.id.llBelowPaymentDetail);
+//        NestedScrollView nestedScrollView=(NestedScrollView) rootView.findViewById(R.id.scroller);
+//
+//        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//
+//                if (scrollY > oldScrollY) {
+//                    llBelowPaymentDetail.setVisibility(View.GONE);
+//                    Log.i(TAG, "Scroll DOWN");
+//                }
+//                if (scrollY < oldScrollY) {
+//                    llBelowPaymentDetail.setVisibility(View.VISIBLE);
+//                    Log.i(TAG, "Scroll UP");
+//                }
+//
+//                if (scrollY == 0) {
+//                    llBelowPaymentDetail.setVisibility(View.VISIBLE);
+//                    Log.i(TAG, "TOP SCROLL");
+//                }
+//
+//                if (scrollY == ( v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight() )) {
+//                    llBelowPaymentDetail.setVisibility(View.VISIBLE);
+//                    Log.i(TAG, "BOTTOM SCROLL");
+//                }
+//            }
+//        });
         setListener();
         setAdapter();
         setTextDefault();
@@ -182,7 +212,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
                     chkBarCode.setChecked(false);
                     setTextDefault();
                 }else {
-
+                        displayFragment();
                     if (flScanner.getVisibility()==View.GONE) {
                         flScanner.setVisibility(View.VISIBLE);
                         chkBarCode.setChecked(true);

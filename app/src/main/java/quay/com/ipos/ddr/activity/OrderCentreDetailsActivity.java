@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.ddr.adapter.WorkFLowAdapter;
 import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.ddr.adapter.AddressListAdapter;
 import quay.com.ipos.ddr.adapter.ItemsDetailListAdapter;
@@ -41,8 +43,12 @@ public class OrderCentreDetailsActivity extends BaseActivity{
     private ArrayList<RecentOrderModal> arrSearchList=new ArrayList<>();
     private ArrayList<RecentOrderModal> recentOrderModalArrayList=new ArrayList<>();
     private ArrayList<RecentOrderModal> addressList=new ArrayList<>();
+
     private ArrayList<UserModal> stringArrayListRoles=new ArrayList<>();
+    private ArrayList<UserModal> stringArrayListFlow=new ArrayList<>();
     private WorkFLowUserAdapter workFLowUserAdapter;
+    private WorkFLowAdapter workFLowAdapter;
+    private RecyclerView recylerViewFlow;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -63,7 +69,18 @@ public class OrderCentreDetailsActivity extends BaseActivity{
         viewETA=findViewById(R.id.viewETA);
         viewETA.setVisibility(View.VISIBLE);
 
-        recycler_viewRecentOrders =  findViewById(R.id.recycler_viewItems);
+
+        recylerViewFlow = (RecyclerView) findViewById(R.id.recylerViewFlow);
+        GridLayoutManager mLayoutManager7 = new GridLayoutManager(this, 1);
+        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recylerViewFlow.setLayoutManager(mLayoutManager7);
+
+        workFLowAdapter = new WorkFLowAdapter(this, stringArrayListFlow);
+        recylerViewFlow.setAdapter(workFLowAdapter);
+        recylerViewFlow.setVisibility(View.VISIBLE);
+        recycler_viewRecentOrders = (RecyclerView) findViewById(R.id.recycler_viewItems);
+
+
         mLayoutManager4 = new GridLayoutManager(this, 1);
         recycler_viewRecentOrders.setLayoutManager(mLayoutManager4);
         recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
@@ -84,6 +101,47 @@ public class OrderCentreDetailsActivity extends BaseActivity{
         recylerViewRoles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recylerViewRoles.setAdapter(workFLowUserAdapter);
 
+
+
+
+        final LinearLayout llFlow=(LinearLayout)findViewById(R.id.llFLow);
+        final LinearLayout llDetails=(LinearLayout)findViewById(R.id.llDetails);
+        LinearLayout llRetailer=(LinearLayout)findViewById(R.id.llRetailer);
+        LinearLayout llPartner=(LinearLayout)findViewById(R.id.llPartner);
+        final LinearLayout menu_item_container=(LinearLayout)findViewById(R.id.menu_item_container);
+        final ImageView imgArrow=(ImageView)findViewById(R.id.imgArrow);
+        LinearLayout llbottom_buttons=(LinearLayout)findViewById(R.id.llbottom_buttons);
+        llbottom_buttons.setVisibility(View.GONE);
+
+        llRetailer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llDetails.setVisibility(View.GONE);
+                llFlow.setVisibility(View.VISIBLE);
+                menu_item_container.setVisibility(View.GONE);
+                imgArrow.setImageResource(R.drawable.arrow_down);
+            }
+        });
+
+        llPartner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llDetails.setVisibility(View.VISIBLE);
+                llFlow.setVisibility(View.GONE);
+                menu_item_container.setVisibility(View.VISIBLE);
+                imgArrow.setImageResource(R.drawable.icon_right_arrow);
+
+
+            }
+        });
+
+    /*    getRecentOrdersData();
+        getAddressData();
+        getuserData();*/
+        getFlow();
+//        getRecentOrdersData();
+//        getAddressData();
+//        getuserData();
 
     }
 
@@ -145,6 +203,21 @@ public class OrderCentreDetailsActivity extends BaseActivity{
 
         }
         workFLowUserAdapter.notifyDataSetChanged();
+    }
+
+    private void getFlow() {
+        for (int i = 0; i < user.length; i++) {
+            UserModal userModal = new UserModal();
+            userModal.setUserName(user[i]);
+            if (i==0)
+                userModal.setUserStatus("Submitted");
+            else
+                userModal.setUserStatus("Initiated");
+
+            stringArrayListFlow.add(userModal);
+
+        }
+        workFLowAdapter.notifyDataSetChanged();
     }
 
 }

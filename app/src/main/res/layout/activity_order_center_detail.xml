@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:gravity="center"
-            app:layout_collapseMode="pin"
+            app:layout_collapseMode="parallax"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <quay.com.ipos.ui.CustomTextView
@@ -53,6 +53,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/llRetailer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -60,11 +61,23 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/user" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
+
+                    <TextView
+                        android:id="@+id/imgCD"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="@drawable/green_circle"
+                        />
+                    <ImageView
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_centerInParent="true"
+                        android:src="@drawable/ic_grey_user" />
+                    </RelativeLayout>
                     <quay.com.ipos.ui.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -74,12 +87,14 @@
                 </LinearLayout>
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/imgArrow"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_action_arrow" />
+                    android:src="@drawable/icon_right_arrow" />
 
                 <LinearLayout
+                    android:id="@+id/llPartner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -87,10 +102,22 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/user" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:background="@drawable/yellow_circle"
+                            />
+                        <ImageView
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_grey_user" />
+                    </RelativeLayout>
 
                     <quay.com.ipos.ui.CustomTextView
                         android:layout_width="wrap_content"
@@ -104,7 +131,8 @@
 
             <include layout="@layout/new_order_detail_item" />
 
-            <include layout="@layout/bottom_total_cart" />
+            <include layout="@layout/bottom_total_cart"
+                android:visibility="gone"/>
 
 
         </LinearLayout>
@@ -116,6 +144,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <include layout="@layout/bottom_buttons" />

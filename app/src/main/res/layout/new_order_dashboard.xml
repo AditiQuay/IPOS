@@ -1,77 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:background="@color/backgroundgrey">
-
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/tabanim_appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_vertical"
-        android:background="@color/colorPrimaryDark">
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <ImageView
-            android:id="@+id/imvPin"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/transparent"
-            android:src="@drawable/ic_action_pin"/>
-
-        <quay.com.ipos.ui.CustomTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center"
-            android:gravity="right"
-            android:layout_weight="1"
-            android:text="@string/barcode"
-            android:textColor="@color/dark_text_color"
-            android:paddingRight="@dimen/dim_5"
-            android:textSize="@dimen/text_size_15sp"/>
-
-        <ToggleButton
-            android:id="@+id/chkBarCode"
-            android:layout_width="40dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dim_10"
-            android:layout_gravity="right|center_vertical"
-            android:background="@drawable/toggle_selector"
-            android:textOff=""
-            android:checked="true"
-            android:textOn=""/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_vertical"
-        android:background="@color/white">
-
-        <android.support.v7.widget.AppCompatSpinner
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/ordervalue"/>
-        <android.support.v7.widget.AppCompatSpinner
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/addressvalue"/>
-    </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/llTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="top"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            android:background="@color/colorPrimaryDark">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/imvPin"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_action_pin"/>
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center"
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:text="@string/barcode"
+                    android:textColor="@color/dark_text_color"
+                    android:paddingRight="@dimen/dim_5"
+                    android:textSize="@dimen/text_size_15sp"/>
+
+                <ToggleButton
+                    android:id="@+id/chkBarCode"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dim_10"
+                    android:layout_gravity="right|center_vertical"
+                    android:background="@drawable/toggle_selector"
+                    android:textOff=""
+                    android:checked="true"
+                    android:textOn=""/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:background="@color/white">
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" style="@android:style/Widget.Holo.Light.Spinner"
+                    android:layout_weight="1"
+                    android:entries="@array/ordervalue"/>
+                <android.support.v7.widget.AppCompatSpinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    style="@android:style/Widget.Holo.Light.Spinner"
+                    android:entries="@array/addressvalue"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroller"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true"
+            android:layout_below="@+id/llTop"
+            android:layout_above="@+id/llBelowPaymentDetail">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
         <FrameLayout
             android:id="@+id/flScanner"
             android:layout_width="match_parent"
             android:layout_alignParentTop="true"
             android:visibility="gone"
+            android:background="@color/backgroundgrey"
             android:layout_height="150dp">
 
             <fragment android:name="quay.com.ipos.retailsales.fragment.FullScannerFragment"
@@ -86,9 +123,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
+            android:background="@color/backgroundgrey"
             android:layout_above="@id/llBelowPaymentDetail"
             android:layout_below="@+id/flScanner"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginTop="@dimen/dim_1" />
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
         <LinearLayout
             android:id="@+id/llBelowPaymentDetail"
@@ -353,7 +396,6 @@
                     android:layout_height="50dp"/>
             </LinearLayout>
         </LinearLayout>
-
     </RelativeLayout>
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

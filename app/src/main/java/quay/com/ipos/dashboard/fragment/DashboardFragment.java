@@ -110,28 +110,28 @@ public class DashboardFragment extends Fragment {
 
             @Override
             public void onPageSelected(int position) {
-                if (position==0){
-                    page1.setTextColor(getResources().getColor(R.color.black));
-                    page1.setBackgroundResource(R.drawable.textview_circle_white);
-                    page2.setTextColor(getResources().getColor(R.color.white));
-                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
-                    page3.setTextColor(getResources().getColor(R.color.white));
-                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
-                }else if (position==1){
-                    page1.setTextColor(getResources().getColor(R.color.white));
-                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
-                    page2.setTextColor(getResources().getColor(R.color.black));
-                    page2.setBackgroundResource(R.drawable.textview_circle_white);
-                    page3.setTextColor(getResources().getColor(R.color.white));
-                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
-                }else {
-                    page1.setTextColor(getResources().getColor(R.color.white));
-                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
-                    page2.setTextColor(getResources().getColor(R.color.white));
-                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
-                    page3.setTextColor(getResources().getColor(R.color.black));
-                    page3.setBackgroundResource(R.drawable.textview_circle_white);
-                }
+//                if (position==0){
+//                    page1.setTextColor(getResources().getColor(R.color.black));
+//                    page1.setBackgroundResource(R.drawable.textview_circle_white);
+//                    page2.setTextColor(getResources().getColor(R.color.white));
+//                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                    page3.setTextColor(getResources().getColor(R.color.white));
+//                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                }else if (position==1){
+//                    page1.setTextColor(getResources().getColor(R.color.white));
+//                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                    page2.setTextColor(getResources().getColor(R.color.black));
+//                    page2.setBackgroundResource(R.drawable.textview_circle_white);
+//                    page3.setTextColor(getResources().getColor(R.color.white));
+//                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                }else {
+//                    page1.setTextColor(getResources().getColor(R.color.white));
+//                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                    page2.setTextColor(getResources().getColor(R.color.white));
+//                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                    page3.setTextColor(getResources().getColor(R.color.black));
+//                    page3.setBackgroundResource(R.drawable.textview_circle_white);
+//                }
             }
 
             @Override
