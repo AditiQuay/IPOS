@@ -1,6 +1,7 @@
 package quay.com.ipos.ddr.fragment;
 
 import android.Manifest;
+import android.animation.Animator;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -21,6 +22,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -88,6 +91,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
     Double afterDiscountPrice;
     ArrayList<NewOrderPinnedResults.Info> mOrderInfoArrayList = new ArrayList<>();
     private String json;
+    private LinearLayout llBelowPaymentDetail;
 
 
     @Override
@@ -99,6 +103,17 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         Util.hideSoftKeyboard(getActivity());
         return rootView;
     }
+
+    RecyclerView.OnScrollListener listener = new RecyclerView.OnScrollListener(){
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            if (newState == RecyclerView.TOUCH_SLOP_PAGING || newState != RecyclerView.SCROLL_STATE_IDLE) {
+                hideViews();
+            } else {
+                llBelowPaymentDetail.animate().alpha(1.0f).translationY(0).setInterpolator(new DecelerateInterpolator(1)).start();
+                showViews();
+            }
+        }
+    };
 
 
 
@@ -131,8 +146,10 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         mRecyclerView.addItemDecoration(
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
+        mRecyclerView.addOnScrollListener(listener);
+     llBelowPaymentDetail=(LinearLayout)rootView.findViewById(R.id.llBelowPaymentDetail);
 
-//        final LinearLayout llBelowPaymentDetail=(LinearLayout)rootView.findViewById(R.id.llBelowPaymentDetail);
+//
 //        NestedScrollView nestedScrollView=(NestedScrollView) rootView.findViewById(R.id.scroller);
 //
 //        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
@@ -797,6 +814,44 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
                 }
                 break;
         }
+    }
+    private void showViews() {
+        // TODO uncomment this Hide Footer in android when Scrolling
+        llBelowPaymentDetail.animate().alpha(1.0f).translationY(0).setInterpolator(new DecelerateInterpolator(1.4f)).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                llBelowPaymentDetail.setVisibility(View.VISIBLE);
+            }
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                llBelowPaymentDetail.setVisibility(View.VISIBLE);
+            }
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
+    }
+
+    private void hideViews() {
+        // TODO (+mToolbar)  plus means  2 view forward ho jaye or not visible to user
+        llBelowPaymentDetail.animate().alpha(0f).translationY(+llBelowPaymentDetail.getHeight()).setInterpolator(new AccelerateInterpolator(1.4f)).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+            }
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                llBelowPaymentDetail.setVisibility(View.GONE);
+            }
+            @Override
+            public void onAnimationCancel(Animator animation) {
+            }
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+            }
+        });
     }
 
 }

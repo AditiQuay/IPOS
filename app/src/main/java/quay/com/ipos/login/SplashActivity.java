@@ -4,9 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-
-import com.google.android.gms.common.ConnectionResult;
-
 import quay.com.ipos.R;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.utility.Constants;

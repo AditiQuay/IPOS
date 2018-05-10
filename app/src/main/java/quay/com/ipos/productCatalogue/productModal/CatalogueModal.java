@@ -11,6 +11,7 @@ public class CatalogueModal extends RealmObject {
     public String sProductName;
     public String sProductFeature;
     public String sProductPrice;
+    public String sDataSheet;
 
     public CatalogueModal() {
 

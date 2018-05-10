@@ -76,7 +76,7 @@ public abstract class RunTimePermissionActivity extends AppCompatActivity {
         }
     }
     public void requestAppPermissions(final String[] requestedPermissions,
-                                      final int stringId, final int requestCode) {
+                                      final int stringId, final int requestCode,int position) {
         mErrorString.put(requestCode, stringId);
         int permissionCheck = PackageManager.PERMISSION_GRANTED;
         boolean shouldShowRequestPermissionRationale = false;

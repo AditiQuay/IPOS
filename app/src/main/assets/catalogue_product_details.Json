@@ -4,43 +4,55 @@
       "iProductModalId": 1,
       "sProductName": "Soudafoam 1K",
       "sProductFeature":"High Performance Straw-Grade Expanding PU Foam",
-      "sProductPrice":"\u20B9 500"
+      "sProductPrice":"\u20B9 500",
+      "sDataSheet":"http://13.127.101.233:8181/SpendRequestFiles/18000009/List_Top%20100_2018.pdf"
     },
     {
       "iProductModalId": 1,
       "sProductName": "Soudafoam PRO",
       "sProductFeature":"High Performance Gun-Grade Expanding PU Foam",
-      "sProductPrice":"\u20B9 200"
+      "sProductPrice":"\u20B9 200",
+      "sDataSheet":"http://13.127.101.233:8181/SpendRequestFiles/18000009/List_Top%20100_2018.pdf"
     },
     {
       "iProductModalId": 1,
       "sProductName": "Soudafoam FR",
       "sProductFeature":"High Performance Straw-Grade Expanding PU Foam",
-      "sProductPrice":"\u20B9 800"
+      "sProductPrice":"\u20B9 800",
+      "sDataSheet":"http://13.127.101.233:8181/SpendRequestFiles/18000009/List_Top%20100_2018.pdf"
+
     },
     {
       "iProductModalId": 1,
       "sProductName": "Soudafoam 1K",
       "sProductFeature":"High Performance Gun-Grade Expanding PU Foam",
-      "sProductPrice":"\u20B9 500"
+      "sProductPrice":"\u20B9 500",
+      "sDataSheet":"http://13.127.101.233:8181/SpendRequestFiles/18000009/List_Top%20100_2018.pdf"
+
     },
     {
       "iProductModalId": 1,
       "sProductName": "Soudafoam FR",
       "sProductFeature":"High Performance Straw-Grade Expanding PU Foam",
-      "sProductPrice":"\u20B9 700"
+      "sProductPrice":"\u20B9 700",
+      "sDataSheet":"http://13.127.101.233:8181/SpendRequestFiles/18000009/List_Top%20100_2018.pdf"
+
     },
     {
       "iProductModalId": 1,
       "sProductName": "Soudafoam PRO",
       "sProductFeature":"High Performance Gun-Grade Expanding PU Foam",
-      "sProductPrice":"\u20B9 300"
+      "sProductPrice":"\u20B9 300",
+      "sDataSheet":"http://13.127.101.233:8181/SpendRequestFiles/18000009/List_Top%20100_2018.pdf"
+
     },
     {
       "iProductModalId": 1,
       "sProductName": "Soudafoam 2K",
       "sProductFeature":"High Performance Straw-Grade Expanding PU Foam",
-      "sProductPrice":"\u20B9 800"
+      "sProductPrice":"\u20B9 800",
+      "sDataSheet":"http://13.127.101.233:8181/SpendRequestFiles/18000009/List_Top%20100_2018.pdf"
+
     }
   ]
 }

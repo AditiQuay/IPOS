@@ -4,6 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundgrey">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/tabanim_appbar"
         android:layout_width="match_parent"
@@ -81,8 +87,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_below="@+id/tabanim_appbar"
+
         >
+
+
+
+
+
+
+
         <FrameLayout
             android:id="@+id/flScanner"
             android:layout_width="match_parent"
@@ -101,12 +115,15 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/llBelowPaymentDetail"
             android:background="@color/backgroundgrey"
-            android:layout_above="@id/llBelowPaymentDetail"
             android:layout_below="@+id/flScanner"
             android:layout_marginTop="@dimen/dim_1" />
+
+
 
         <LinearLayout
             android:id="@+id/llBelowPaymentDetail"
@@ -121,8 +138,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dim_20"
                 android:paddingTop="@dimen/dim_5"
-                android:paddingBottom="@dimen/dim_5"
                 android:gravity="center"
                 android:paddingLeft="@dimen/dim_10"
                 android:paddingRight="@dimen/dim_10"
@@ -372,7 +389,6 @@
                     android:layout_height="50dp"/>
             </LinearLayout>
         </LinearLayout>
-
     </RelativeLayout>
-
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
