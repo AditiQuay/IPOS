@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.listeners.DataSheetDownloadListener;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 import quay.com.ipos.utility.FontUtil;
@@ -26,11 +27,12 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
     private Context mContext;
     private ArrayList<CatalogueModal> catalogueModalsSet;
     private MyListener listener;
-
-    public CatalogueSubCatalogueFragmentAdapter(Context mContext, ArrayList<CatalogueModal> catalogueModalsSet, MyListener listener) {
+    private DataSheetDownloadListener dataSheetDownloadListener;
+    public CatalogueSubCatalogueFragmentAdapter(Context mContext, ArrayList<CatalogueModal> catalogueModalsSet, MyListener listener,DataSheetDownloadListener dataSheetDownloadListener) {
         this.mContext = mContext;
         this.catalogueModalsSet = catalogueModalsSet;
         this.listener = listener;
+        this.dataSheetDownloadListener=dataSheetDownloadListener;
     }
 
     @Override
@@ -53,6 +55,12 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
             public void onClick(View v) {
                 Util.animateView(v);
                 listener.onRowClicked(position);
+            }
+        });
+        holder.btnDataSheet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataSheetDownloadListener.onDataSheetDownload(position);
             }
         });
     }

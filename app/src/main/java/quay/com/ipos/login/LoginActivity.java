@@ -1,10 +1,8 @@
 package quay.com.ipos.login;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -19,20 +17,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.utils.L;
-
 import java.lang.reflect.Type;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
-import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.base.RunTimePermissionActivity;
-import quay.com.ipos.constant.ServerRequestKey;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.modal.CatalogueModal;
 import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
@@ -40,8 +33,6 @@ import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
-
-import static quay.com.ipos.utility.Util.validateEmail;
 
 public class LoginActivity extends RunTimePermissionActivity implements InitInterface, View.OnClickListener, View.OnFocusChangeListener, ServiceTask.ServiceResultListener {
 
@@ -239,7 +230,6 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         if (httpStatusCode == Constants.SUCCESS) {
             if (resultObj != null) {
                 LoginResult loginResult = (LoginResult) resultObj;
-                loginResult.getUserAccess().get(0).getAccessToken();
 
                 Toast.makeText(mContext, "Login success", Toast.LENGTH_SHORT).show();
                 SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
