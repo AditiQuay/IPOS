@@ -250,6 +250,8 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         } else if (httpStatusCode == Constants.CONNECTION_OUT) {
             Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
+        Intent i = new Intent(mContext, MainActivity.class);
+        startActivity(i);
 
     }
 
