@@ -18,13 +18,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/rect_four_white"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imgFilter"
@@ -34,7 +34,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_pending_orders" />
+                        android:src="@drawable/ic_action_pending" />
 
                     <TextView
                         android:id="@+id/tvStoreName"
@@ -80,6 +80,10 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"/>
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="100dp"
@@ -103,6 +107,10 @@
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -137,13 +145,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white"
+                android:background="@drawable/rect_four_white"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imgInventory"
@@ -153,7 +161,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_idea" />
+                        android:src="@drawable/ic_action_insights" />
 
                     <TextView
                         android:id="@+id/tvInventory"
@@ -173,7 +181,7 @@
                     android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
+                    android:background="@drawable/rect_four_white">
 
 
                 </android.support.v7.widget.RecyclerView>
@@ -186,13 +194,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white"
+                android:background="@drawable/rect_four_white"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imgTotalSales"
@@ -202,7 +210,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_total_sales" />
+                        android:src="@drawable/ic_action_total" />
 
                     <TextView
                         android:id="@+id/tvTotalSales"
@@ -214,7 +222,6 @@
                         android:gravity="center"
                         android:text="@string/total_sales"
                         android:textColor="@color/colorPrimary" />
-
                     <LinearLayout
                         android:id="@+id/llTotalSales"
                         android:layout_width="wrap_content"
@@ -222,19 +229,21 @@
                         android:orientation="horizontal"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
-                        android:paddingLeft="@dimen/dim_8"
-                        android:paddingRight="@dimen/dim_8"
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
                         android:alpha="0.6"
-                        android:background="@drawable/button_round_shape"
+                        android:background="@drawable/button_round_grey"
                         >
                         <TextView
                             android:id="@+id/tvTotalSalesSpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Day"
+                            android:text="@string/day"
                             android:padding="@dimen/dim_3"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/dim_12"
                             android:spinnerMode="dropdown"/>
 
@@ -242,10 +251,12 @@
                             android:layout_width="@dimen/dim_10"
                             android:layout_height="@dimen/dim_10"
                             android:paddingLeft="@dimen/dim_4"
+                            android:layout_marginLeft="8dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/dim_2"
-                            android:background="@drawable/ic_down_arrow_white"/>
+                            android:background="@drawable/down_arrow_grey"/>
                     </LinearLayout>
+
 
 
 
@@ -282,6 +293,8 @@
                         android:layout_height="match_parent"
                         android:background="@color/backgroundgrey"
                         android:gravity="center|center_vertical"
+                        android:layout_marginTop="@dimen/dim_16"
+                        android:layout_marginBottom="@dimen/dim_16"
                         android:orientation="vertical">
 
 
@@ -291,7 +304,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1.8"
-                        android:gravity="center_vertical"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
@@ -322,13 +335,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white"
+                android:background="@drawable/rect_four_white"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imgSchemaPer"
@@ -338,7 +351,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_schema" />
+                        android:src="@drawable/ic_action_performence" />
 
                     <TextView
                         android:id="@+id/tvSchemaPer"
@@ -349,7 +362,7 @@
                         android:layout_toRightOf="@+id/imgSchemaPer"
                         android:gravity="center"
                         android:text="@string/schema_performance"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/colorPrimary" />
 
                 </RelativeLayout>
 
@@ -363,9 +376,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_marginTop="@dimen/dim_8"
                         android:gravity="center"
+                        android:textStyle="italic"
                         android:text="@string/end_of_season"
                         android:textColor="@color/filter_text_color" />
 
@@ -443,9 +457,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:layout_marginTop="@dimen/dim_8"
                         android:gravity="center"
+                        android:textStyle="italic"
                         android:text="@string/awcollection"
                         android:textColor="@color/filter_text_color" />
 
@@ -518,17 +533,17 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white">
+                android:background="@drawable/rect_four_white">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="16dp">
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:src="@drawable/ic_store_sales"
+                        android:src="@drawable/ic_action_store"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         />
@@ -537,7 +552,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_gravity="center_vertical"
-                        android:textColor="@color/black"
+                        android:textColor="@color/colorPrimary"
                         android:gravity="center"
                         android:text="@string/store_sales_summary"/>
 
@@ -545,7 +560,7 @@
 
 
                 </LinearLayout>
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -563,7 +578,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="32k"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/colorPrimary" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -573,7 +588,7 @@
                                 android:id="@+id/icon"
                                 android:layout_width="@dimen/dim_20"
                                 android:layout_height="@dimen/dim_20"
-                                android:background="@drawable/ic_caret_arrow_up"
+                                android:background="@drawable/ic_action_arrow_upward"
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
                             <TextView
@@ -594,6 +609,10 @@
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"/>
 
 
                     <LinearLayout
@@ -608,7 +627,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="224k"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/colorPrimary" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -617,7 +636,7 @@
                             <ImageView
                                 android:layout_width="@dimen/dim_20"
                                 android:layout_height="@dimen/dim_20"
-                                android:background="@drawable/ic_down_arrow"
+                                android:background="@drawable/ic_action_arrow_downward"
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
                             <TextView
@@ -638,6 +657,10 @@
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
+                    <View
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -651,7 +674,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="480k"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/colorPrimary" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -660,7 +683,7 @@
                             <ImageView
                                 android:layout_width="@dimen/dim_20"
                                 android:layout_height="@dimen/dim_20"
-                                android:background="@drawable/ic_caret_arrow_up"
+                                android:background="@drawable/ic_action_arrow_upward"
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
                             <TextView
@@ -690,28 +713,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white"
+                android:background="@drawable/rect_four_white"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:paddingLeft="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
 
                     <ImageView
                         android:id="@+id/imgStoreStatus"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_total_sales" />
+                        android:src="@drawable/ic_action_status" />
 
                     <TextView
                         android:id="@+id/tvStoreStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgStoreStatus"
@@ -726,9 +753,10 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_8"
                         android:gravity="center"
-
+                        android:padding="8dp"
+                        android:background="@drawable/rect_one_side_round"
                         android:text="@string/opened"
-                        android:textColor="@color/may_green" />
+                        android:textColor="@color/white" />
 
 
 
@@ -755,12 +783,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="30 min"
-                                android:textColor="@color/red"
+                                android:paddingTop="@dimen/dim_8"
+                                android:paddingBottom="8dp"
+                                android:paddingLeft="@dimen/dim_16"
+                                android:paddingRight="@dimen/dim_16"
+                                android:background="@drawable/rect_both_round_red"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/dim_14" />
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="delay"
+                                android:text=""
                                 android:layout_marginLeft="@dimen/dim_4"
                                 android:textColor="@color/filter_text_color"
                                 android:textSize="@dimen/dim_14" />
@@ -770,7 +803,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Target (9:30 am)"
+                            android:layout_marginTop="8dp"
+                            android:text="Delay Target (9:30 am)"
                             android:textColor="@color/filter_text_color"
                             android:textSize="@dimen/dim_14" />
 
@@ -796,12 +830,19 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="30 min"
-                            android:textColor="@color/red"
+                            android:paddingTop="@dimen/dim_8"
+                            android:paddingBottom="8dp"
+                            android:paddingLeft="@dimen/dim_16"
+                            android:paddingRight="@dimen/dim_16"
+
+                            android:background="@drawable/rect_both_round_red"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/dim_14" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="store unattended"
+                            android:layout_marginTop="8dp"
                             android:layout_marginLeft="@dimen/dim_4"
                             android:textColor="@color/filter_text_color"
                             android:textSize="@dimen/dim_14" />
@@ -818,13 +859,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white"
+                android:background="@drawable/rect_four_white"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imgCustomerFootprints"
@@ -845,25 +886,28 @@
                         android:gravity="center"
                         android:text="@string/customer_footprints"
                         android:textColor="@color/colorPrimary" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
-                        android:paddingLeft="@dimen/dim_8"
-                        android:paddingRight="@dimen/dim_8"
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
                         android:alpha="0.6"
-                        android:background="@drawable/button_round_shape"
+                        android:background="@drawable/button_round_grey"
                         >
                         <TextView
                             android:id="@+id/tvFootprintSpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Day"
+                            android:text="@string/day"
                             android:padding="@dimen/dim_3"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/dim_12"
                             android:spinnerMode="dropdown"/>
 
@@ -871,16 +915,18 @@
                             android:layout_width="@dimen/dim_10"
                             android:layout_height="@dimen/dim_10"
                             android:paddingLeft="@dimen/dim_4"
+                            android:layout_marginLeft="8dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/dim_2"
-                            android:background="@drawable/ic_down_arrow_white"/>
+                            android:background="@drawable/down_arrow_grey"/>
                     </LinearLayout>
+
 
 
 
                 </RelativeLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
@@ -1103,13 +1149,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white"
+                android:background="@drawable/rect_four_white"
                 android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imgCustomerfeedback"
@@ -1119,7 +1165,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_customer_feedback" />
+                        android:src="@drawable/ic_action_feedback" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -1130,25 +1176,28 @@
                         android:gravity="center"
                         android:text="@string/customer_feedback"
                         android:textColor="@color/colorPrimary" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
-                        android:paddingLeft="@dimen/dim_8"
-                        android:paddingRight="@dimen/dim_8"
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
                         android:alpha="0.6"
-                        android:background="@drawable/button_round_shape"
+                        android:background="@drawable/button_round_grey"
                         >
                         <TextView
                             android:id="@+id/tvFeedbackSpinner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Day"
+                            android:text="@string/day"
                             android:padding="@dimen/dim_3"
-                            android:textColor="@color/white"
+                            android:textColor="@color/black"
                             android:textSize="@dimen/dim_12"
                             android:spinnerMode="dropdown"/>
 
@@ -1156,16 +1205,42 @@
                             android:layout_width="@dimen/dim_10"
                             android:layout_height="@dimen/dim_10"
                             android:paddingLeft="@dimen/dim_4"
+                            android:layout_marginLeft="8dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/dim_2"
-                            android:background="@drawable/ic_down_arrow_white"/>
+                            android:background="@drawable/down_arrow_grey"/>
                     </LinearLayout>
+
 
 
 
                 </RelativeLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:gravity="center_vertical"
+                   android:padding="8dp">
+
+                   <RatingBar
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:rating="3"
+                       style="@style/Base.Widget.AppCompat.RatingBar"/>
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="3.0"
+                       android:layout_marginLeft="@dimen/dim_20"
+                       android:textColor="@color/dark_primary_color"
+                       android:textStyle="normal"
+                       android:textSize="@dimen/text_size_16sp"/>
+
+               </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
@@ -1190,7 +1265,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="10"
                                 android:gravity="center"
-                                android:textColor="@color/green"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
                             <TextView
                                 android:layout_width="wrap_content"
@@ -1214,6 +1289,7 @@
 
 
                     </View>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -1233,7 +1309,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="10"
                                 android:gravity="center"
-                                android:textColor="@color/green"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
                             <TextView
                                 android:layout_width="wrap_content"
@@ -1274,7 +1350,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="5"
                                 android:gravity="center"
-                                android:textColor="@color/red"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
                             <TextView
                                 android:layout_width="wrap_content"
@@ -1315,7 +1391,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="5"
                                 android:gravity="center"
-                                android:textColor="@color/red"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
                             <TextView
                                 android:layout_width="wrap_content"
@@ -1356,7 +1432,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="5"
                                 android:gravity="center"
-                                android:textColor="@color/red"
+                                android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
                             <TextView
                                 android:layout_width="wrap_content"
@@ -1383,24 +1459,92 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/green"/>
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"
+                        android:gravity="center|center_vertical"
+                        android:orientation="vertical">
+
+
+                    </View>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/green"/>
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"
+                        android:gravity="center|center_vertical"
+                        android:orientation="vertical">
+
+
+                    </View>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/dark_primary_color"/>
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"
+                        android:gravity="center|center_vertical"
+                        android:orientation="vertical">
+
+
+                    </View>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/red"/>
+                    <View
+                        android:layout_width="2dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"
+                        android:gravity="center|center_vertical"
+                        android:orientation="vertical">
+
+
+                    </View>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_weight="1"
+                        android:background="@color/red"/>
+
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white">
+                android:background="@drawable/rect_four_white">
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="16dp">
                     <ImageView
                         android:id="@+id/imgInventoryinTransit"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
-                        android:src="@drawable/ic_in_transit"
+                        android:src="@drawable/cart_app"
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         />
@@ -1413,7 +1557,40 @@
                         android:textColor="@color/colorPrimary"
                         android:gravity="center"
                         android:text="@string/inventory"/>
+                    <LinearLayout
+                        android:id="@+id/llViewAll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:background="@drawable/button_round_app"
+                        >
+                        <ImageView
+                            android:layout_width="@dimen/dim_20"
+                            android:layout_height="@dimen/dim_20"
+                            android:paddingLeft="@dimen/dim_4"
 
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:background="@drawable/view_all_app"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/viewall"
+                            android:padding="@dimen/dim_3"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dim_12"
+                            android:spinnerMode="dropdown"/>
+
+                    </LinearLayout>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1426,6 +1603,7 @@
                         android:textColor="@color/white"
                         android:gravity="center"
                         android:alpha="0.6"
+                        android:visibility="gone"
                         android:textSize="@dimen/dim_12"
                         android:background="@drawable/button_round_shape"
                         android:text="@string/viewall"/>
@@ -1433,7 +1611,7 @@
 
 
                 </RelativeLayout>
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1534,13 +1712,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white"
+                android:background="@drawable/rect_four_white"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imgTopPerformingStores"
@@ -1550,7 +1728,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_idea" />
+                        android:src="@drawable/ic_action_store" />
 
                     <TextView
                         android:id="@+id/tvTopPerformingStores"
@@ -1625,13 +1803,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white"
+                android:background="@drawable/rect_four_white"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imgFastMoving"
@@ -1641,7 +1819,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_fast" />
+                        android:src="@drawable/shipment_app" />
 
                     <TextView
                         android:id="@+id/tvFastMoving"
@@ -1711,13 +1889,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white"
+                android:background="@drawable/rect_four_white"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="10dp">
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imgCompliance"
@@ -1727,7 +1905,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_summary" />
+                        android:src="@drawable/ic_action_product_detail_blue" />
 
                     <TextView
                         android:id="@+id/tvCompliance"
