@@ -131,7 +131,8 @@
 
             <include layout="@layout/new_order_detail_item" />
 
-            <include layout="@layout/bottom_total_cart" />
+            <include layout="@layout/bottom_total_cart"
+                android:visibility="gone"/>
 
 
         </LinearLayout>
@@ -143,6 +144,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <include layout="@layout/bottom_buttons" />
