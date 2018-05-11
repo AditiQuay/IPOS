@@ -224,4 +224,7 @@
     <string name="error_connection_timed_out">Connection timed out!</string>
     <string name="retailersname">KGM Traders</string>
     <string name="mobile_no">Mobile</string>
+    <string name="pinned_msg">Do you want to remove this pinned Item?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

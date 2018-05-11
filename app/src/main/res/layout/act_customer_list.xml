@@ -18,6 +18,18 @@
             app:layout_collapseMode="pin"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvToolBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_15sp"
+                android:visibility="gone"
+                android:textColor="@color/white"
+                android:background="@color/colorPrimary"
+                android:layout_marginBottom="@dimen/dim_2"
+                />
+
+
             <LinearLayout
                 android:id="@+id/llSearch"
                 android:layout_width="match_parent"
@@ -63,7 +75,6 @@
             android:id="@+id/tvItemSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:typeface="Roboto-Regular.ttf"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_10"
             android:paddingBottom="@dimen/dim_5"
@@ -88,7 +99,6 @@
             android:id="@+id/tvNoItemAvailable"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:typeface="Roboto-Regular.ttf"
             android:padding="@dimen/dim_10"
             android:visibility="gone"
             android:gravity="center"

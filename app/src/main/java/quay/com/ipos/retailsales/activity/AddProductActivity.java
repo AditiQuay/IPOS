@@ -3,7 +3,6 @@ package quay.com.ipos.retailsales.activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -214,4 +213,6 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         }
 
     }
+
+
 }
