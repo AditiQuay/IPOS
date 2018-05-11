@@ -21,9 +21,11 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="3/5"
+
             android:gravity="center"
+            android:textColor="@color/green"
             android:paddingBottom="@dimen/dim_16"
-            android:textSize="10sp" />
+            android:textSize="14sp" />
 
 
         <quay.com.ipos.ui.CircularProgressBar
@@ -52,8 +54,10 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="3/5"
+            android:textColor="@color/dark_primary_color"
+
             android:paddingBottom="@dimen/dim_16"
-            android:textSize="10sp" />
+            android:textSize="14sp" />
 
 
         <quay.com.ipos.ui.CircularProgressBar
@@ -82,8 +86,10 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="2"
+            android:textColor="@color/colorPrimary"
+
             android:paddingBottom="@dimen/dim_16"
-            android:textSize="10sp" />
+            android:textSize="14sp" />
 
 
         <quay.com.ipos.ui.CircularProgressBar
@@ -111,9 +117,11 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
+            android:textColor="@color/red"
+
             android:text="2"
             android:paddingBottom="@dimen/dim_16"
-            android:textSize="10sp" />
+            android:textSize="14sp" />
 
 
         <quay.com.ipos.ui.CircularProgressBar

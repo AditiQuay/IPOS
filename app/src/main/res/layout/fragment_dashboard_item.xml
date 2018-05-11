@@ -58,7 +58,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="100dp"
+                        android:layout_height="80dp"
                         android:layout_weight="1"
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
@@ -86,7 +86,7 @@
                         android:background="@color/backgroundgrey"/>
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="100dp"
+                        android:layout_height="80dp"
                         android:layout_weight="1"
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
@@ -114,7 +114,7 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="100dp"
+                        android:layout_height="80dp"
                         android:layout_weight="1"
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
@@ -274,7 +274,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
+                        android:layout_weight="0.7"
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
 
@@ -283,7 +283,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="₹ 32k"
-                            android:textColor="@color/black"
+                            android:layout_marginLeft="@dimen/dim_16"
+                            android:layout_gravity="start"
+                            android:textColor="@color/dashboard_textcolor"
                             android:textSize="@dimen/dim_18" />
 
                     </LinearLayout>
@@ -305,24 +307,25 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1.8"
                         android:gravity="center"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:orientation="vertical">
 
                         <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvTotalSalesTarget"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="4dp"
+                            android:layout_marginLeft="8dp"
                             android:layout_gravity="center_vertical"
                             android:gravity="start|center_vertical"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/dashboard_textcolor" />
                         <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvTotalSalesAcheviment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="4dp"
+                            android:layout_marginLeft="8dp"
                             android:layout_gravity="center_vertical"
                             android:gravity="start|center_vertical"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
 
@@ -392,8 +395,8 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center|center_vertical"
+                            android:layout_weight="0.7"
+                            android:gravity="center"
                             android:orientation="vertical">
 
                             <quay.com.ipos.ui.CustomTextView
@@ -401,7 +404,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="₹ 32k"
-                                android:textColor="@color/black"
+                                android:layout_marginLeft="@dimen/dim_16"
+                                android:layout_gravity="start"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_18" />
 
                         </LinearLayout>
@@ -410,7 +415,10 @@
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
                             android:background="@color/backgroundgrey"
-                            android:gravity="center|center_vertical"
+                            android:gravity="start"
+                            android:layout_marginTop="@dimen/dim_16"
+                            android:layout_marginBottom="@dimen/dim_16"
+
                             android:orientation="vertical">
 
 
@@ -419,7 +427,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/dim_8"
+                            android:layout_marginLeft="@dimen/dim_16"
                             android:layout_weight="1.8"
                             android:gravity="center_vertical"
                             android:orientation="vertical">
@@ -427,19 +435,19 @@
                                 android:id="@+id/tvEndSeasonTarget"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
+                                android:layout_marginLeft="8dp"
                                 android:gravity="start"
                                 android:text="@string/total_sales_"
-                                android:textColor="@color/black" />
+                                android:textColor="@color/dashboard_textcolor" />
 
                             <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvEndSeasonAcheivement"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
+                                android:layout_marginLeft="8dp"
                                 android:gravity="start"
                                 android:text="@string/total_sales_"
-                                android:textColor="@color/black" />
+                                android:textColor="@color/dashboard_textcolor" />
 
 
                         </LinearLayout>
@@ -473,7 +481,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_weight="1"
+                            android:layout_weight="0.7"
                             android:gravity="center|center_vertical"
                             android:orientation="vertical">
 
@@ -482,7 +490,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="₹ 32k"
-                                android:textColor="@color/black"
+                                android:layout_marginLeft="@dimen/dim_16"
+                                android:layout_gravity="start"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_18" />
 
                         </LinearLayout>
@@ -490,6 +500,8 @@
                         <View
                             android:layout_width="1dp"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/dim_16"
+                            android:layout_marginBottom="@dimen/dim_16"
                             android:background="@color/backgroundgrey"
                             android:gravity="center|center_vertical"
                             android:orientation="vertical">
@@ -500,7 +512,7 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:layout_marginLeft="@dimen/dim_8"
+                            android:layout_marginLeft="@dimen/dim_16"
                             android:layout_weight="1.8"
                             android:gravity="center_vertical"
                             android:orientation="vertical">
@@ -509,16 +521,16 @@
                                 android:id="@+id/tvAWTarget"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
+                                android:layout_marginLeft="8dp"
                                 android:gravity="start"
-                                android:textColor="@color/black" />
+                                android:textColor="@color/dashboard_textcolor" />
                             <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvAWAcheviment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="4dp"
+                                android:layout_marginLeft="8dp"
                                 android:gravity="start"
-                                android:textColor="@color/black" />
+                                android:textColor="@color/dashboard_textcolor" />
 
 
                         </LinearLayout>
@@ -577,7 +589,7 @@
                             android:id="@+id/tvStoreSalesDayValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="32k"
+                            android:text="₹ 32k"
                             android:textColor="@color/colorPrimary" />
 
                         <LinearLayout
@@ -597,7 +609,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dim_4"
                                 android:text="2%"
-                                android:textColor="@color/filter_text_color" />
+                                android:textColor="@color/dashboard_textcolor" />
                         </LinearLayout>
 
                         <quay.com.ipos.ui.CustomTextView
@@ -606,7 +618,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/day"
-                            android:textColor="@color/filter_text_color" />
+                            android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
                     <View
@@ -626,7 +638,7 @@
                             android:id="@+id/tvStoreSalesWeekValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="224k"
+                            android:text="₹ 224k"
                             android:textColor="@color/colorPrimary" />
 
                         <LinearLayout
@@ -645,7 +657,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dim_4"
                                 android:text="10%"
-                                android:textColor="@color/filter_text_color" />
+                                android:textColor="@color/dashboard_textcolor" />
                         </LinearLayout>
 
                         <quay.com.ipos.ui.CustomTextView
@@ -654,7 +666,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/week"
-                            android:textColor="@color/filter_text_color" />
+                            android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
                     <View
@@ -673,7 +685,7 @@
                             android:id="@+id/tvStoreSalesMonthValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="480k"
+                            android:text="₹ 480k"
                             android:textColor="@color/colorPrimary" />
 
                         <LinearLayout
@@ -692,7 +704,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dim_4"
                                 android:text="2%"
-                                android:textColor="@color/filter_text_color" />
+                                android:textColor="@color/dashboard_textcolor" />
                         </LinearLayout>
 
                         <quay.com.ipos.ui.CustomTextView
@@ -700,7 +712,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/month"
-                            android:textColor="@color/filter_text_color" />
+                            android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
 
@@ -795,7 +807,7 @@
                                 android:layout_height="wrap_content"
                                 android:text=""
                                 android:layout_marginLeft="@dimen/dim_4"
-                                android:textColor="@color/filter_text_color"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                         </LinearLayout>
 
@@ -841,10 +853,10 @@
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="store unattended"
+                            android:text="Store unattended"
                             android:layout_marginTop="8dp"
                             android:layout_marginLeft="@dimen/dim_4"
-                            android:textColor="@color/filter_text_color"
+                            android:textColor="@color/dashboard_textcolor"
                             android:textSize="@dimen/dim_14" />
 
 
@@ -952,7 +964,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="35"
                                 android:gravity="center"
-                                android:textColor="@color/black"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                             <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
@@ -960,7 +972,7 @@
                                 android:text="Total"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:gravity="center"
-                                android:textColor="@color/filter_text_color"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                         </LinearLayout>
 
@@ -995,7 +1007,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="25"
                                 android:gravity="center"
-                                android:textColor="@color/black"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                             <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
@@ -1003,7 +1015,7 @@
                                 android:text="Repeated"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:gravity="center"
-                                android:textColor="@color/filter_text_color"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                         </LinearLayout>
 
@@ -1036,7 +1048,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="10"
                                 android:gravity="center"
-                                android:textColor="@color/black"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                             <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
@@ -1044,7 +1056,7 @@
                                 android:text="New"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:gravity="center"
-                                android:textColor="@color/filter_text_color"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                         </LinearLayout>
 
@@ -1077,7 +1089,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="2"
                                 android:gravity="center"
-                                android:textColor="@color/black"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                             <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
@@ -1085,7 +1097,7 @@
                                 android:text="Online"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:gravity="center"
-                                android:textColor="@color/filter_text_color"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                         </LinearLayout>
 
@@ -1118,7 +1130,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="8"
                                 android:gravity="center"
-                                android:textColor="@color/black"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                             <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
@@ -1126,7 +1138,7 @@
                                 android:text="Loyality"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:gravity="center"
-                                android:textColor="@color/filter_text_color"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                         </LinearLayout>
 
@@ -1241,10 +1253,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="3.0"
+                        android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_20"
                         android:textColor="@color/dark_primary_color"
                         android:textStyle="normal"
-                        android:textSize="@dimen/text_size_16sp"/>
+                        android:textSize="22sp"/>
 
                 </LinearLayout>
 
@@ -1274,7 +1287,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="10"
                                 android:gravity="center"
-                                android:textColor="@color/black"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                             <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
@@ -1282,7 +1295,7 @@
                                 android:text="Excellent"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:gravity="center"
-                                android:textColor="@color/filter_text_color"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                         </LinearLayout>
 
@@ -1318,7 +1331,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="10"
                                 android:gravity="center"
-                                android:textColor="@color/black"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                             <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
@@ -1326,7 +1339,7 @@
                                 android:text="Good"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:gravity="center"
-                                android:textColor="@color/filter_text_color"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                         </LinearLayout>
 
@@ -1359,7 +1372,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="5"
                                 android:gravity="center"
-                                android:textColor="@color/black"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                             <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
@@ -1367,7 +1380,7 @@
                                 android:text="Average"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:gravity="center"
-                                android:textColor="@color/filter_text_color"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                         </LinearLayout>
 
@@ -1400,7 +1413,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="5"
                                 android:gravity="center"
-                                android:textColor="@color/black"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                             <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
@@ -1408,7 +1421,7 @@
                                 android:text="Poor"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:gravity="center"
-                                android:textColor="@color/filter_text_color"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                         </LinearLayout>
 
@@ -1441,7 +1454,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="5"
                                 android:gravity="center"
-                                android:textColor="@color/black"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                             <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
@@ -1449,7 +1462,7 @@
                                 android:text="Very Poor"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:gravity="center"
-                                android:textColor="@color/filter_text_color"
+                                android:textColor="@color/dashboard_textcolor"
                                 android:textSize="@dimen/dim_14" />
                         </LinearLayout>
 
@@ -1475,7 +1488,7 @@
 
                     <View
                         android:layout_width="0dp"
-                        android:layout_height="2dp"
+                        android:layout_height="5dp"
                         android:layout_weight="1"
                         android:background="@color/green"/>
                     <View
@@ -1489,7 +1502,7 @@
                     </View>
                     <View
                         android:layout_width="0dp"
-                        android:layout_height="2dp"
+                        android:layout_height="5dp"
                         android:layout_weight="1"
                         android:background="@color/green"/>
                     <View
@@ -1503,7 +1516,7 @@
                     </View>
                     <View
                         android:layout_width="0dp"
-                        android:layout_height="2dp"
+                        android:layout_height="5dp"
                         android:layout_weight="1"
                         android:background="@color/dark_primary_color"/>
                     <View
@@ -1517,7 +1530,7 @@
                     </View>
                     <View
                         android:layout_width="0dp"
-                        android:layout_height="2dp"
+                        android:layout_height="5dp"
                         android:layout_weight="1"
                         android:background="@color/red"/>
                     <View
@@ -1531,7 +1544,7 @@
                     </View>
                     <View
                         android:layout_width="0dp"
-                        android:layout_height="2dp"
+                        android:layout_height="5dp"
                         android:layout_weight="1"
                         android:background="@color/red"/>
 
@@ -1639,7 +1652,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/dashboard_textcolor" />
 
 
 
@@ -1649,7 +1662,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/warehouse"
-                            android:textColor="@color/filter_text_color" />
+                            android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
 
@@ -1666,7 +1679,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="2"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/dashboard_textcolor" />
 
 
 
@@ -1676,7 +1689,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/supplier"
-                            android:textColor="@color/filter_text_color" />
+                            android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
 
@@ -1692,7 +1705,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/dashboard_textcolor" />
 
 
 
@@ -1702,7 +1715,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/other_store"
-                            android:textColor="@color/filter_text_color" />
+                            android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
 
@@ -1771,7 +1784,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         android:text="@string/store"
-                        android:textColor="@color/filter_text_color" />
+                        android:textColor="@color/dashboard_textcolor" />
                     <quay.com.ipos.ui.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -1779,7 +1792,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         android:text="@string/day"
-                        android:textColor="@color/filter_text_color" />
+                        android:textColor="@color/dashboard_textcolor" />
                     <quay.com.ipos.ui.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -1787,7 +1800,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         android:text="@string/month"
-                        android:textColor="@color/filter_text_color" />
+                        android:textColor="@color/dashboard_textcolor" />
 
 
                 </LinearLayout>
@@ -1859,23 +1872,26 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
                     android:text="@string/product"
-                    android:textColor="@color/filter_text_color" />
+                    android:textStyle="bold"
+                    android:textColor="@color/dashboard_textcolor" />
                 <quay.com.ipos.ui.CustomTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
+                    android:textStyle="bold"
                     android:text="@string/day_sales"
-                    android:textColor="@color/filter_text_color" />
+                    android:textColor="@color/dashboard_textcolor" />
                 <quay.com.ipos.ui.CustomTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
+                    android:textStyle="bold"
                     android:text="@string/month_sales"
-                    android:textColor="@color/filter_text_color" />
+                    android:textColor="@color/dashboard_textcolor" />
 
 
             </LinearLayout>
