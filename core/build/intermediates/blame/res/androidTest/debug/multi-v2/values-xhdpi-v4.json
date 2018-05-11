@@ -1,17 +1,10 @@
 {
     "logs": [
         {
-<<<<<<< HEAD
-            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xhdpi-v4\\values-xhdpi-v4.xml",
+            "outputFile": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xhdpi-v4\\values-xhdpi-v4.xml",
             "map": [
                 {
-                    "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xhdpi-v4\\values-xhdpi-v4.xml",
-=======
-            "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xhdpi-v4\\values-xhdpi-v4.xml",
-            "map": [
-                {
-                    "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xhdpi-v4\\values-xhdpi-v4.xml",
->>>>>>> 06251f555cdb0275ea50e6bc277b5d0aa237d26b
+                    "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xhdpi-v4\\values-xhdpi-v4.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

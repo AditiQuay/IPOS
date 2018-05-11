@@ -571,7 +571,9 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 IPOSApplication.mOrderList.remove(posClear);
-                                mNewOrderListAdapter.notifyItemChanged(posClear);
+                                mNewOrderListAdapter.notifyItemRemoved(posClear);
+                                mNewOrderListAdapter.notifyItemRangeChanged(posClear,IPOSApplication.mProductList.size());
+
                                 setUpdateValues(IPOSApplication.mOrderList);
                             }
                         }).setNegativeButton("No", null).show();
