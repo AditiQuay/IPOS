@@ -31,11 +31,9 @@
                 android:spinnerMode="dialog"/>
             <ImageView
                 android:id="@+id/imgFilter"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginStart="@dimen/dim_4"
-                android:background="@drawable/ic_filter"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/ic_action_filter_white"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
              />
