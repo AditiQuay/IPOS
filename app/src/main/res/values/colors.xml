@@ -130,5 +130,6 @@
     <color name="orange_transulent">#30e4be00</color>
     <color name="coloryPrimary_transulent">#305CBFE8</color>
     <color name="red_transulent">#30e64f20</color>
+    <color name="dashboard_textcolor">#848484</color>
 </resources>
 

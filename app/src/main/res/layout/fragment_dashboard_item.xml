@@ -36,7 +36,7 @@
                         android:gravity="center"
                         android:src="@drawable/ic_action_pending" />
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvStoreName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -63,20 +63,20 @@
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvStoreValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/dashboard_textcolor" />
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvMyStore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/my_store_"
-                            android:textColor="@color/filter_text_color" />
+                            android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
 
@@ -91,20 +91,20 @@
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvOnlineValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/dashboard_textcolor" />
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvOnlineStore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/online_store"
-                            android:textColor="@color/filter_text_color" />
+                            android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
                     <View
@@ -119,20 +119,20 @@
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvotherValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/dashboard_textcolor" />
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvOthersStore"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/other_store"
-                            android:textColor="@color/filter_text_color" />
+                            android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
 
@@ -163,7 +163,7 @@
                         android:gravity="center"
                         android:src="@drawable/ic_action_insights" />
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvInventory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -213,7 +213,7 @@
                         android:gravity="center"
                         android:src="@drawable/ic_action_total" />
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvTotalSales"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -278,7 +278,7 @@
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvSalesValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -307,7 +307,7 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvTotalSalesTarget"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -315,7 +315,7 @@
                             android:layout_gravity="center_vertical"
                             android:gravity="start|center_vertical"
                             android:textColor="@color/black" />
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvTotalSalesAcheviment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -353,7 +353,7 @@
                         android:gravity="center"
                         android:src="@drawable/ic_action_performence" />
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvSchemaPer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -372,7 +372,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -396,7 +396,7 @@
                             android:gravity="center|center_vertical"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvEndSeasonSales"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -423,7 +423,7 @@
                             android:layout_weight="1.8"
                             android:gravity="center_vertical"
                             android:orientation="vertical">
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvEndSeasonTarget"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -432,7 +432,7 @@
                                 android:text="@string/total_sales_"
                                 android:textColor="@color/black" />
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvEndSeasonAcheivement"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -453,7 +453,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -477,7 +477,7 @@
                             android:gravity="center|center_vertical"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvAWSales"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -505,14 +505,14 @@
                             android:gravity="center_vertical"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvAWTarget"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="4dp"
                                 android:gravity="start"
                                 android:textColor="@color/black" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvAWAcheviment"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -547,7 +547,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         />
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dim_16"
@@ -573,7 +573,7 @@
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvStoreSalesDayValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -591,7 +591,7 @@
                                 android:background="@drawable/ic_action_arrow_upward"
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvStoreSalesDayPercent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -600,7 +600,7 @@
                                 android:textColor="@color/filter_text_color" />
                         </LinearLayout>
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -622,7 +622,7 @@
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvStoreSalesWeekValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -639,7 +639,7 @@
                                 android:background="@drawable/ic_action_arrow_downward"
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvStoreSalesWeekPercent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -648,7 +648,7 @@
                                 android:textColor="@color/filter_text_color" />
                         </LinearLayout>
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -669,7 +669,7 @@
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvStoreSalesMonthValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -686,7 +686,7 @@
                                 android:background="@drawable/ic_action_arrow_upward"
                                 android:layout_gravity="center"
                                 android:contentDescription="TODO" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvStoreSalesMonthPercent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -695,7 +695,7 @@
                                 android:textColor="@color/filter_text_color" />
                         </LinearLayout>
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
@@ -734,7 +734,7 @@
                         android:gravity="center"
                         android:src="@drawable/ic_action_status" />
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvStoreStatus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -745,7 +745,7 @@
                         android:gravity="center"
                         android:text="@string/store_status"
                         android:textColor="@color/colorPrimary" />
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -779,7 +779,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="30 min"
@@ -790,7 +790,7 @@
                                 android:background="@drawable/rect_both_round_red"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/dim_14" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text=""
@@ -800,7 +800,7 @@
                         </LinearLayout>
 
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -826,7 +826,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="30 min"
@@ -838,7 +838,7 @@
                             android:background="@drawable/rect_both_round_red"
                             android:textColor="@color/white"
                             android:textSize="@dimen/dim_14" />
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="store unattended"
@@ -878,7 +878,7 @@
                         android:gravity="center"
                         android:src="@drawable/ic_customer_footprint" />
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -946,7 +946,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvFootprintTotal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -954,7 +954,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Total"
@@ -989,7 +989,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvFootprintRepeated"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -997,7 +997,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Repeated"
@@ -1030,7 +1030,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvFootprintNew"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1038,7 +1038,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="New"
@@ -1071,7 +1071,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvFootprintOnline"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1079,7 +1079,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Online"
@@ -1112,7 +1112,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvFootprintLoyalty"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1120,7 +1120,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Loyality"
@@ -1169,7 +1169,7 @@
                         android:gravity="center"
                         android:src="@drawable/ic_action_feedback" />
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -1237,7 +1237,7 @@
                         android:theme="@style/MyRatingBar"
                         android:focusable="false"/>
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="3.0"
@@ -1268,7 +1268,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvFeedBackExcellent"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1276,7 +1276,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Excellent"
@@ -1312,7 +1312,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvFeedbackGood"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1320,7 +1320,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Good"
@@ -1353,7 +1353,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvFeedbackAverage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1361,7 +1361,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Average"
@@ -1394,7 +1394,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvFeedbackPoor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1402,7 +1402,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Poor"
@@ -1435,7 +1435,7 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:id="@+id/tvFeedbackCVeryPoor"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -1443,7 +1443,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/dim_14" />
-                            <TextView
+                            <quay.com.ipos.ui.CustomTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Very Poor"
@@ -1558,7 +1558,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center"
                         />
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -1590,7 +1590,7 @@
                             android:layout_marginTop="@dimen/dim_2"
                             android:background="@drawable/view_all_app"/>
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -1602,7 +1602,7 @@
                             android:spinnerMode="dropdown"/>
 
                     </LinearLayout>
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -1635,7 +1635,7 @@
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3"
@@ -1643,7 +1643,7 @@
 
 
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvWarehouse"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1661,7 +1661,7 @@
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvSupplier"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1670,7 +1670,7 @@
 
 
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1687,7 +1687,7 @@
                         android:gravity="center|center_vertical"
                         android:orientation="vertical">
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvOtherStores"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1696,7 +1696,7 @@
 
 
 
-                        <TextView
+                        <quay.com.ipos.ui.CustomTextView
 
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -1742,7 +1742,7 @@
                         android:gravity="center"
                         android:src="@drawable/ic_action_store" />
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvTopPerformingStores"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1764,7 +1764,7 @@
                     android:layout_marginBottom="@dimen/dim_8"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -1772,7 +1772,7 @@
                         android:gravity="center"
                         android:text="@string/store"
                         android:textColor="@color/filter_text_color" />
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -1780,7 +1780,7 @@
                         android:gravity="center"
                         android:text="@string/day"
                         android:textColor="@color/filter_text_color" />
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -1833,7 +1833,7 @@
                         android:gravity="center"
                         android:src="@drawable/shipment_app" />
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvFastMoving"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -1852,7 +1852,7 @@
                 android:layout_marginTop="@dimen/dim_8"
                 android:orientation="horizontal">
 
-                <TextView
+                <quay.com.ipos.ui.CustomTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -1860,7 +1860,7 @@
                     android:gravity="center"
                     android:text="@string/product"
                     android:textColor="@color/filter_text_color" />
-                <TextView
+                <quay.com.ipos.ui.CustomTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -1868,7 +1868,7 @@
                     android:gravity="center"
                     android:text="@string/day_sales"
                     android:textColor="@color/filter_text_color" />
-                <TextView
+                <quay.com.ipos.ui.CustomTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -1919,7 +1919,7 @@
                         android:gravity="center"
                         android:src="@drawable/ic_action_product_detail_blue" />
 
-                    <TextView
+                    <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvCompliance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
