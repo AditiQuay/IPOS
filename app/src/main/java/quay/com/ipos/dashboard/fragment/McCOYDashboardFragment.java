@@ -34,6 +34,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.dashboard.activity.UpcomingShipmentActivity;
 import quay.com.ipos.dashboard.adapter.BarGraphAdapter;
 import quay.com.ipos.dashboard.adapter.LowInventoryListAdapter;
+import quay.com.ipos.dashboard.adapter.SpinnerDropDownAdapter;
 import quay.com.ipos.dashboard.adapter.TopProductsListAdapter;
 import quay.com.ipos.dashboard.adapter.TopStoresListAdapter;
 import quay.com.ipos.dashboard.adapter.UpcomingShipmentListAdapter;
@@ -60,6 +61,8 @@ public class McCOYDashboardFragment extends Fragment {
     String[] topstores = {"My store 1", "Top Store 2", "Top store 3", "Top store 4", "Top store 5"};
     String[] inventory = {"Order Reference # 1", "Order Reference # 2"};
     private RecyclerView recyclerView, recycler_view_top_stores, recycler_viewOrderValue,recycler_viewInventory,recycler_viewBarGraph;
+    private Spinner spOrderMonth;
+    private Spinner spTop;
     private LowInventoryListAdapter adapter;
     private TopStoresListAdapter topStoresListAdapter;
     private TopProductsListAdapter topProductsListAdapter;
@@ -138,8 +141,8 @@ public class McCOYDashboardFragment extends Fragment {
         final View viewMonth=(View)view.findViewById(R.id.viewMonth);
         TextView tvYTD=(TextView)view.findViewById(R.id.tvYTD);
         final View viewYear=(View)view.findViewById(R.id.viewYear);
-        TextView tvOrderMonth=(TextView)view.findViewById(R.id.tvOrderMonth);
-        TextView tvTop=(TextView)view.findViewById(R.id.tvTop);
+        spOrderMonth=view.findViewById(R.id.spOrderMonth);
+        spTop=view.findViewById(R.id.spTop);
         LinearLayout llViewAll=(LinearLayout)view.findViewById(R.id.llViewAll);
         llViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,8 +171,14 @@ public class McCOYDashboardFragment extends Fragment {
         getInventoryData();
       //  createOrderChart(view);
         getBarGraph();
-        prepareSpinnerList(tvOrderMonth);
-        prepareSpinnerList(tvTop);
+        SpinnerDropDownAdapter sddadapter = new SpinnerDropDownAdapter(getActivity(),getResources().getStringArray(R.array.days));
+        sddadapter.setColor(true);
+        spOrderMonth.setAdapter(sddadapter);
+        SpinnerDropDownAdapter sddadapter1 = new SpinnerDropDownAdapter(getActivity(),getResources().getStringArray(R.array.top_list));
+        sddadapter1.setColor(true);
+        spTop.setAdapter(sddadapter1);
+//        prepareSpinnerList(tvOrderMonth);
+//        prepareSpinnerList(tvTop);
         return view;
 
     }
@@ -211,57 +220,57 @@ public class McCOYDashboardFragment extends Fragment {
 
 
 
-    private void prepareSpinnerList(final TextView textView) {
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isPopupVisible) return;
-                isPopupVisible = true;
-                List<SpinnerList> spnPanchyatList = null;
-                final Realm realm = Realm.getDefaultInstance();
-                try {
-
-                if (textView.getId()==R.id.tvOrderMonth) {
-                    SpinnerList spn;
-                    spnPanchyatList = new ArrayList<>();
-                    spn = new SpinnerList();
-                    spn.setName("Day");
-                    spn.setId((0) + "");
-                    spnPanchyatList.add(spn);
-                    spn = new SpinnerList();
-                    spn.setName("Month");
-                    spn.setId((1) + "");
-                    spnPanchyatList.add(spn);
-                }else {
-                    SpinnerList spn;
-                    spnPanchyatList = new ArrayList<>();
-                    spn = new SpinnerList();
-                    spn.setName("Top 5");
-                    spn.setId((0) + "");
-                    spnPanchyatList.add(spn);
-                    spn = new SpinnerList();
-                    spn.setName("Top 10");
-                    spn.setId((1) + "");
-                    spnPanchyatList.add(spn);
-                    spn = new SpinnerList();
-                    spn.setName("Top 20");
-                    spn.setId((1) + "");
-                    spnPanchyatList.add(spn);
-                    spn = new SpinnerList();
-                    spn.setName("Top 50");
-                    spn.setId((1) + "");
-                    spnPanchyatList.add(spn);
-                }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    realm.close();
-                } finally {
-                    realm.close();
-                }
-                showSelectionListPanchyat(getActivity(), textView, spnPanchyatList, getString(R.string.filter));
-            }
-        });
-    }
+//    private void prepareSpinnerList(final TextView textView) {
+//        textView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (isPopupVisible) return;
+//                isPopupVisible = true;
+//                List<SpinnerList> spnPanchyatList = null;
+//                final Realm realm = Realm.getDefaultInstance();
+//                try {
+//
+//                if (textView.getId()==R.id.tvOrderMonth) {
+//                    SpinnerList spn;
+//                    spnPanchyatList = new ArrayList<>();
+//                    spn = new SpinnerList();
+//                    spn.setName("Day");
+//                    spn.setId((0) + "");
+//                    spnPanchyatList.add(spn);
+//                    spn = new SpinnerList();
+//                    spn.setName("Month");
+//                    spn.setId((1) + "");
+//                    spnPanchyatList.add(spn);
+//                }else {
+//                    SpinnerList spn;
+//                    spnPanchyatList = new ArrayList<>();
+//                    spn = new SpinnerList();
+//                    spn.setName("Top 5");
+//                    spn.setId((0) + "");
+//                    spnPanchyatList.add(spn);
+//                    spn = new SpinnerList();
+//                    spn.setName("Top 10");
+//                    spn.setId((1) + "");
+//                    spnPanchyatList.add(spn);
+//                    spn = new SpinnerList();
+//                    spn.setName("Top 20");
+//                    spn.setId((1) + "");
+//                    spnPanchyatList.add(spn);
+//                    spn = new SpinnerList();
+//                    spn.setName("Top 50");
+//                    spn.setId((1) + "");
+//                    spnPanchyatList.add(spn);
+//                }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    realm.close();
+//                } finally {
+//                    realm.close();
+//                }
+//                showSelectionListPanchyat(getActivity(), textView, spnPanchyatList, getString(R.string.filter));
+//            }
+//        });
+//    }
 
     private void showSelectionListPanchyat(Context context, final TextView textView, List<SpinnerList> list, final String defaultMsg) {
         if (list != null && list.size() > 0) {

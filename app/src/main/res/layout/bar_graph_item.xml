@@ -17,7 +17,7 @@
         android:background="@color/white"
         android:orientation="horizontal">
 
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:text="Apn"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:minWidth="30dp"
+            android:minWidth="40dp"
             android:textColor="@color/filter_text_color"
             />
 
@@ -40,7 +40,7 @@
             android:layout_marginLeft="@dimen/dim_16"
             android:layout_toRightOf="@+id/tvTitle"
             android:layout_centerVertical="true">
-            <TextView
+            <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/seekbar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
 
         </LinearLayout>
 
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvLess"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
             android:layout_marginLeft="12dp"
             android:layout_toRightOf="@+id/llseekbar"
             android:gravity="center">
-            <TextView
+            <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvValueMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
