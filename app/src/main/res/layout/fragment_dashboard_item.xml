@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundgrey"
     android:focusableInTouchMode="true">
 
@@ -383,6 +384,7 @@
                         android:layout_marginTop="@dimen/dim_8"
                         android:gravity="center"
                         android:textStyle="italic"
+                        app:typeface="TitilliumWeb-Italic.ttf"
                         android:text="@string/end_of_season"
                         android:textColor="@color/filter_text_color" />
 
@@ -456,6 +458,8 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <include layout="@layout/view_layout_without_dot"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -468,6 +472,8 @@
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_marginTop="@dimen/dim_8"
                         android:gravity="center"
+                        app:typeface="TitilliumWeb-Italic.ttf"
+
                         android:textStyle="italic"
                         android:text="@string/awcollection"
                         android:textColor="@color/filter_text_color" />
@@ -1666,6 +1672,10 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -1692,6 +1702,10 @@
                             android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -1721,6 +1735,7 @@
 
 
                 </LinearLayout>
+                <include layout="@layout/view_layout_without_dot"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_viewInventory"
