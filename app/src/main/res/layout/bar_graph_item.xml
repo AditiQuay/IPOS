@@ -27,6 +27,8 @@
             android:layout_alignParentLeft="true"
             android:textSize="14sp"
             android:text="Apn"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
             android:minWidth="30dp"
             android:textColor="@color/filter_text_color"
             />
