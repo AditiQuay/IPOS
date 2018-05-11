@@ -214,6 +214,11 @@
         <item>Month</item>
         <item>Year</item>
     </string-array>
+    <string-array name="top_list">
+        <item>Top 10</item>
+        <item>Top 20</item>
+        <item>Top 50</item>
+    </string-array>
     <string name="edittext_email_error_activity_login">Please enter a valid email address!</string>
     <string name="edittext_password_error_activity_login">Please enter password</string>
     <string name="runtime_permissions_txt">Please enable ALL permissions.</string>

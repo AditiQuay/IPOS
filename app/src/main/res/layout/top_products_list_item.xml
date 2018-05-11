@@ -16,7 +16,7 @@
         android:background="@color/white"
         android:orientation="horizontal">
 
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-            <TextView
+            <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
 
         </LinearLayout>
 
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvLess"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-            <TextView
+            <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvValueMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
