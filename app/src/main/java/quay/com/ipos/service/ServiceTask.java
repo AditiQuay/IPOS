@@ -11,6 +11,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
+import java.io.File;
 import java.lang.reflect.Type;
 
 import quay.com.ipos.utility.AppLog;
@@ -216,6 +217,18 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
 
 
                 if (apiMethod.equals("upload.php")) {
+//                    RequestBody requestBody = new MultipartBody.Builder()
+//                            .setType(MultipartBody.FORM)
+//                            .addFormDataPart("title", "Square Logo")
+//                            .addFormDataPart("image", "logo-square.png",
+//                                    RequestBody.create(MEDIA_TYPE_PNG, new File("website/static/logo-square.png")))
+//                            .build();
+//
+//                    request = new Request.Builder()
+//                            .header("Authorization", "Client-ID " + IMGUR_CLIENT_ID)
+//                            .url("https://api.imgur.com/3/image")
+//                            .post(requestBody)
+//                            .build();
                     request = new Request.Builder()
                             .addHeader("Authorization",apiToken)
                             .url(methodUrl)

@@ -31,6 +31,8 @@ public class IPOSApplication extends MultiDexApplication {
     public static ArrayList<OrderList.Datum> mOrderList= new ArrayList<>();
 
 
+
+
     @Override
     public void onCreate() {
         super.onCreate();
