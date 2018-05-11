@@ -579,7 +579,8 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
 
             case R.id.imvClear:
                 final int posClear = (int) view.getTag();
-                (new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
+                (
+                        new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
                         .setMessage("Do you want to Delete this Item?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
