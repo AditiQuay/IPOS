@@ -1,10 +1,11 @@
-package quay.com.ipos.retailsales.adapter;
+package quay.com.ipos.ddr.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.modal.NewOrderPinnedResults;
-import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Util;
 
@@ -33,13 +33,14 @@ public class PinnedOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         static Context mContext;
         ArrayList<NewOrderPinnedResults.Info> mDataset;
         RecyclerView mRecyclerView;
+    View.OnClickListener mOnClickListener;
 
         public PinnedOrderAdapter(Context ctx, RecyclerView mRecycler,
-                             ArrayList<NewOrderPinnedResults.Info> questionList) {
+                                  ArrayList<NewOrderPinnedResults.Info> questionList , View.OnClickListener mOnClickListener) {
             mContext = ctx;
             mDataset = questionList;
             mRecyclerView = mRecycler;
-
+            this.mOnClickListener = mOnClickListener;
             // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
             // mRecyclerView.getLayoutManager();
             // mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -64,10 +65,12 @@ public class PinnedOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         class UserViewHolder extends RecyclerView.ViewHolder {
             public TextView textViewChildName;
-
+            public ImageView imvClose;
             public UserViewHolder(View itemView) {
                 super(itemView);
                 textViewChildName =  itemView.findViewById(R.id.textViewChildName);
+                imvClose = itemView.findViewById(R.id.imvClose);
+                imvClose.setVisibility(View.VISIBLE);
             }
         }
 
@@ -99,7 +102,9 @@ public class PinnedOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 PinnedOrderAdapter.UserViewHolder userViewHolder = (PinnedOrderAdapter.UserViewHolder) holder;
                 userViewHolder.textViewChildName.setText(str.getKey());
                 userViewHolder.textViewChildName.setTag(position);
-
+                userViewHolder.imvClose.setOnClickListener(mOnClickListener);
+                userViewHolder.imvClose.setTag(position);
+                userViewHolder.imvClose.setVisibility(View.VISIBLE);
 
             }
             else if (holder instanceof PinnedOrderAdapter.LoadingViewHolder) {

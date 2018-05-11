@@ -224,11 +224,7 @@
     <string name="error_connection_timed_out">Connection timed out!</string>
     <string name="retailersname">KGM Traders</string>
     <string name="mobile_no">Mobile</string>
-    <string name="delete_item_message">Do you want to Delete this Item?</string>
+    <string name="pinned_msg">Do you want to remove this pinned Item?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
-    <string name="confirm_action">Confirm action</string>
-    <string name="redeem_cannot_applied">Redeem cannot be applied with empty list</string>
-    <string name="pinned_empty">Pinned List is empty</string>
-    <string name="sending_otp">Sending OTP</string>
 </resources>

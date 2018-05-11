@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,13 +33,14 @@ public class PinnedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     static Context mContext;
     ArrayList<RealmPinnedResults.Info> mDataset;
     RecyclerView mRecyclerView;
+    View.OnClickListener mOnClickListener;
 
     public PinnedAdapter(Context ctx, RecyclerView mRecycler,
-                             ArrayList<RealmPinnedResults.Info> questionList) {
+                         ArrayList<RealmPinnedResults.Info> questionList, View.OnClickListener mOnClickListener) {
         mContext = ctx;
         mDataset = questionList;
         mRecyclerView = mRecycler;
-
+        this.mOnClickListener = mOnClickListener;
         // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
         // mRecyclerView.getLayoutManager();
         // mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -63,10 +65,12 @@ public class PinnedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewChildName;
-
+        public ImageView imvClose;
         public UserViewHolder(View itemView) {
             super(itemView);
             textViewChildName =  itemView.findViewById(R.id.textViewChildName);
+            imvClose = itemView.findViewById(R.id.imvClose);
+            imvClose.setVisibility(View.VISIBLE);
         }
     }
 
@@ -98,7 +102,9 @@ public class PinnedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             PinnedAdapter.UserViewHolder userViewHolder = (PinnedAdapter.UserViewHolder) holder;
             userViewHolder.textViewChildName.setText(str.getKey());
             userViewHolder.textViewChildName.setTag(position);
-
+            userViewHolder.imvClose.setOnClickListener(mOnClickListener);
+            userViewHolder.imvClose.setTag(position);
+            userViewHolder.imvClose.setVisibility(View.VISIBLE);
 
         }
         else if (holder instanceof PinnedAdapter.LoadingViewHolder) {
@@ -112,7 +118,7 @@ public class PinnedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         public LoadingViewHolder(View itemView) {
             super(itemView);
-            progressBar = (ProgressBar) itemView.findViewById(R.id.load_more_progressBar);
+            progressBar =  itemView.findViewById(R.id.load_more_progressBar);
         }
     }
     @Override
