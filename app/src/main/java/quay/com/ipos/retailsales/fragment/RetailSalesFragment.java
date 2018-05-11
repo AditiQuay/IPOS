@@ -698,6 +698,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
                 }else {
                     Util.showToast(getString(R.string.pinned_empty), getActivity());
                 }
+
                 break;
             case R.id.imvRedeem:
 
