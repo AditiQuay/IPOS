@@ -3,10 +3,12 @@ package quay.com.ipos.base;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -19,8 +21,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +55,7 @@ import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.productCatalogue.ProductMain;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.ui.MessageDialogFragment;
+import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
@@ -513,20 +518,19 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            fragmentManager.popBackStack("fragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            if (inMenu.size() > 0) {
-                setItemNormal();
-                setItemSelected(view1, inMenu.get(inMenu.size() - 1));
-                selectItem(inMenu.get(inMenu.size() - 1));
-                inMenu.remove(inMenu.size() - 1);
-
-            } else {
-                finish();
-            }
-        } else {
-            super.onBackPressed();
-        }
+//        if (fragmentManager.getBackStackEntryCount() > 0) {
+//            fragmentManager.popBackStack("tag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            if (inMenu.size() > 0) {
+//                setItemNormal();
+//                setItemSelected(view1, inMenu.get(inMenu.size() - 1));
+//                selectItem(inMenu.get(inMenu.size() - 1));
+//                inMenu.remove(inMenu.size() - 1);
+//
+//            } else {
+//                finish();
+//            }
+//        } else {
+        //}
      /*   setItemNormal();
         setItemSelected(view1, preMenu);
         selectItem(preMenu);*/
@@ -536,7 +540,7 @@ public class MainActivity extends BaseActivity
 //            super.onBackPressed();
 //
 //        }
-       /* if (drawer.isDrawerOpen(Gravity.START)) {
+        if (drawer.isDrawerOpen(Gravity.START)) {
             closeDrawer();
             return;
         }
@@ -571,7 +575,7 @@ public class MainActivity extends BaseActivity
             } else {
                 super.onBackPressed();
             }
-*/
+        }
     }
 
     private void closeDrawer() {

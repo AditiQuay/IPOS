@@ -288,7 +288,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         // Set boolean flag to indicate fragment is open.
         isFragmentDisplayed = true;
     }
-
+    boolean isBack=false;
     @Override
     public void onResume() {
         super.onResume();
@@ -301,15 +301,20 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
             @Override
             public boolean onKey( View v, int keyCode, KeyEvent event )
             {
+
                 if( keyCode == KeyEvent.KEYCODE_BACK )
                 {
-                    if(IPOSApplication.mOrderList.size()>0)
-                        Util.showMessageDialog(NewOrderFragment.this,"Do you want to save the Cart?","YES","NO", Constants.APP_DIALOG_Cart,"",getActivity().getSupportFragmentManager());
+                    if(IPOSApplication.mOrderList.size()>=1) {
+                        Util.showMessageDialog(NewOrderFragment.this, "Do you want to save the Cart?", "YES", "NO", Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
+
+                        isBack = true;
+                    }
 
                     else
-                        return true;
+                        isBack =  false;
+
                 }
-                return false;
+                return isBack;
             }
         } );
     }

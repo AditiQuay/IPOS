@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundgrey"
     android:focusableInTouchMode="true">
 
@@ -200,7 +201,7 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="16dp">
+                    android:paddingLeft="16dp">
 
                     <ImageView
                         android:id="@+id/imgTotalSales"
@@ -220,6 +221,8 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
+                        android:paddingTop="@dimen/dim_16"
+                        android:paddingBottom="@dimen/dim_16"
                         android:layout_toRightOf="@+id/imgTotalSales"
                         android:gravity="center"
                         android:text="@string/total_sales"
@@ -231,7 +234,9 @@
                         android:orientation="horizontal"
                         android:layout_alignParentRight="true"
                         android:gravity="center"
+                        android:layout_centerInParent="true"
                         android:paddingRight="@dimen/dim_5"
+                        android:layout_marginRight="@dimen/dim_10"
                         android:alpha="0.6"
                         android:background="@drawable/button_round_grey"
                         >
@@ -250,8 +255,7 @@
                         <ImageView
                             android:layout_width="@dimen/dim_10"
                             android:layout_height="@dimen/dim_10"
-                            android:paddingLeft="@dimen/dim_4"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/dim_2"
                             android:background="@drawable/down_arrow_grey"/>
@@ -383,6 +387,7 @@
                         android:layout_marginTop="@dimen/dim_8"
                         android:gravity="center"
                         android:textStyle="italic"
+                        app:typeface="TitilliumWeb-Italic.ttf"
                         android:text="@string/end_of_season"
                         android:textColor="@color/filter_text_color" />
 
@@ -456,6 +461,8 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <include layout="@layout/view_layout_without_dot"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -468,6 +475,8 @@
                         android:layout_marginLeft="@dimen/dim_16"
                         android:layout_marginTop="@dimen/dim_8"
                         android:gravity="center"
+                        app:typeface="TitilliumWeb-Italic.ttf"
+
                         android:textStyle="italic"
                         android:text="@string/awcollection"
                         android:textColor="@color/filter_text_color" />
@@ -927,8 +936,7 @@
                         <ImageView
                             android:layout_width="@dimen/dim_10"
                             android:layout_height="@dimen/dim_10"
-                            android:paddingLeft="@dimen/dim_4"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/dim_2"
                             android:background="@drawable/down_arrow_grey"/>
@@ -1217,8 +1225,7 @@
                         <ImageView
                             android:layout_width="@dimen/dim_10"
                             android:layout_height="@dimen/dim_10"
-                            android:paddingLeft="@dimen/dim_4"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="@dimen/dim_2"
                             android:background="@drawable/down_arrow_grey"/>
@@ -1666,6 +1673,10 @@
 
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -1692,6 +1703,10 @@
                             android:textColor="@color/dashboard_textcolor" />
 
                     </LinearLayout>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/backgroundgrey"/>
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -1721,6 +1736,7 @@
 
 
                 </LinearLayout>
+                <include layout="@layout/view_layout_without_dot"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_viewInventory"
