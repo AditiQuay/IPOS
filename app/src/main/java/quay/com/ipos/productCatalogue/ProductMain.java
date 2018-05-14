@@ -22,6 +22,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductMainSectionAdapter;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.SearchedItemsAdapter;
@@ -129,6 +130,12 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.toolbar_title_catalogue_product_details));
+    }
+
+    @Override
     public void applyInitValues() {
         productSectionModals.clear();
         searchedItems.clear();
@@ -139,7 +146,7 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
         recyclerviewCategory.setHasFixedSize(true);
         ProductMainSectionAdapter adapter = new ProductMainSectionAdapter(mContext, productSectionModals);
         recyclerviewCategory.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-      //  recyclerviewCategory.addItemDecoration(new DividerItemDecoration(mContext, R.drawable.divider));
+        //  recyclerviewCategory.addItemDecoration(new DividerItemDecoration(mContext, R.drawable.divider));
         recyclerviewCategory.setAdapter(adapter);
         swipeToRefresh.setOnRefreshListener(this);
 

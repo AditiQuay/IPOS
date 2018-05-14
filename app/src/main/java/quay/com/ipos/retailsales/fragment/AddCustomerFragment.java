@@ -16,6 +16,9 @@ import quay.com.ipos.R;
 import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 
 
+/**
+ * The type Add customer fragment.
+ */
 public class AddCustomerFragment extends Fragment {
 
     private Context mContext;
@@ -47,10 +50,6 @@ public class AddCustomerFragment extends Fragment {
          adapter= new DashboardAdapter(getChildFragmentManager());
         // Set an Adapter on the ViewPager
         mViewPager.setAdapter(adapter);
-     //   mViewPager.setPadding(50, 0, 50, 0);
-     //   mViewPager.setClipToPadding(false);
-     //   mViewPager.setPageMargin(0);
-     //   mViewPager.setOffscreenPageLimit(3);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -127,9 +126,9 @@ public class AddCustomerFragment extends Fragment {
     }
 
 
-
-
-
+    /**
+     * The type Dashboard adapter.
+     */
     public class DashboardAdapter extends FragmentStatePagerAdapter {
 
         private DashboardAdapter(FragmentManager fm) {

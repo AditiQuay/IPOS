@@ -18,6 +18,7 @@ import java.util.HashMap;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
+import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
 import quay.com.ipos.ddr.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.ddr.adapter.ExpandableListAdapter;
@@ -263,6 +264,13 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         vDelivered.setVisibility(View.INVISIBLE);
         vDispatched.setVisibility(View.INVISIBLE);
         vCancelled.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.order_centre));
     }
 
 }

@@ -45,8 +45,10 @@ import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
+import quay.com.ipos.ddr.fragment.NewOrderFragment;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.ScannerProductListener;
+import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.retailsales.activity.AddProductActivity;
@@ -69,11 +71,10 @@ import static android.app.Activity.RESULT_OK;
 /**
  * Created by aditi.bhuranda on 16-04-2018.
  */
-
 public class RetailSalesFragment extends Fragment implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialogFragment.MessageDialogListener,ScannerProductListener {
     private TextView tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
-            tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvApplyOTC,tvApplyOTC2;
+            tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvApplyOTC,tvApplyOTC2,tvPinCount;
     private FrameLayout flScanner;
     private ToggleButton tbPerc,tbRs;
     private EditText etDiscountAmt ;
@@ -87,21 +88,53 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
     private String TAG=RetailSalesFragment.class.getSimpleName();
     private RetailSalesAdapter mRetailSalesAdapter;
     private boolean loading = true;
-    int pastVisiblesItems, visibleItemCount, totalItemCount;
+    /**
+     * The Past visibles items.
+     */
+    int pastVisiblesItems, /**
+     * The Visible item count.
+     */
+    visibleItemCount, /**
+     * The Total item count.
+     */
+    totalItemCount;
     private ProductList mProductListResult;
+    /**
+     * The My dialog.
+     */
     Dialog myDialog;
+    /**
+     * The Otc discount.
+     */
     double otcDiscount=0.0;
+    /**
+     * The Root view.
+     */
     View rootView;
     private double totalAmount=0;
     private boolean isFragmentDisplayed = true;
 //    private ArrayList<ProductList.Datum> mList= new ArrayList<>();
 
+    /**
+     * The Is otc.
+     */
     boolean isOTC=false;
+    /**
+     * The After discount price.
+     */
     Double afterDiscountPrice;
     private ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<RealmPinnedResults.Info>();
     private String json;
     private ZBarScannerView mScannerView;
 
+    /**
+     * On create view view.
+     *
+     * @param inflater           the inflater
+     * @param container          the container
+     * @param savedInstanceState the saved instance state
+     * @return the view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.retail_dashboard, container, false);
@@ -114,7 +147,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
     }
 
 
-
+    // initialize views
     private void initializeComponent(View rootView) {
         flScanner = rootView.findViewById(R.id.flScanner);
         imvUserAdd = rootView.findViewById(R.id.imvUserAdd);
@@ -145,7 +178,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         llTotalGST = rootView.findViewById(R.id.llTotalGST);
         chkOTC = rootView.findViewById(R.id.chkOTC);
         tvOTCDiscount = rootView.findViewById(R.id.tvOTCDiscount);
-
+        tvPinCount = rootView.findViewById(R.id.tvPinCount);
         mRecyclerView =  rootView.findViewById(R.id.recycleView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -159,6 +192,8 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         setTextDefault();
     }
 
+
+    // initialize & declare textviews
     private void setTextDefault() {
         tvItemNo.setText("Item 0");
         tvItemQty.setText("0 Qty");
@@ -173,25 +208,26 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountDetail.setText("(Item 0)");
         IPOSApplication.mProductList.clear();
-//        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            boolean request = ((MainActivity) getActivity()).launchActivity(false);
-//            if(request ||((MainActivity) getActivity()).CameraPermission )
-//            {
-//                setTextDefault();
-//            }
-//        }else {
-            flScanner.setVisibility(View.GONE);
-            chkBarCode.setChecked(false);
-            closeFragment();
-            //  mScannerView.setResultHandler(this);
-            // mScannerView.startCamera();
-//            displayFragment();
-
-//        }
+        flScanner.setVisibility(View.GONE);
+        chkBarCode.setChecked(false);
+        closeFragment();
+        if (SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity()) != null) {
+            String json2 = SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity());
+            if (!json2.equalsIgnoreCase(""))
+                mInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<NewOrderPinnedResults.Info>>() {}.getType());
+            if(mInfoArrayList.size()>0){
+                tvPinCount.setText(""+mInfoArrayList.size());
+                tvPinCount.setVisibility(View.VISIBLE);
+            }else {
+                tvPinCount.setVisibility(View.GONE);
+            }
+        }else {
+            tvPinCount.setVisibility(View.GONE);
+        }
     }
 
 
+    // set fontAwesonme
     private void setFontText() {
         Typeface iconFont = FontManager.getTypeface(getActivity(), FontManager.FONTAWESOME);
         FontManager.markAsIconContainer(tvRight1, iconFont);
@@ -246,6 +282,9 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         });
     }
 
+    /**
+     * Close fragment.
+     */
     public void closeFragment() {
         // Get the FragmentManager.
         FragmentManager fragmentManager = getChildFragmentManager();
@@ -262,6 +301,9 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         isFragmentDisplayed = false;
     }
 
+    /**
+     * Display fragment.
+     */
     public void displayFragment() {
         SimpleScannerFragment simpleFragment =new  SimpleScannerFragment();
         // TODO: Get the FragmentManager and start a transaction.
@@ -279,6 +321,14 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         isFragmentDisplayed = true;
     }
 
+    /**
+     * The Is back.
+     */
+    boolean isBack=false;
+
+    /**
+     * On resume.
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -291,18 +341,27 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
             @Override
             public boolean onKey( View v, int keyCode, KeyEvent event )
             {
+
                 if( keyCode == KeyEvent.KEYCODE_BACK )
                 {
-                    if(IPOSApplication.mProductList.size()>0)
-                        Util.showMessageDialog(RetailSalesFragment.this,"Do you want to save the Cart?","YES","NO",Constants.APP_DIALOG_Cart,"",getActivity().getSupportFragmentManager());
+                    if(IPOSApplication.mOrderList.size()>=1) {
+                        Util.showMessageDialog(RetailSalesFragment.this, "Do you want to save the Cart?", "YES", "NO", Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
+
+                        isBack = true;
+                    }
+
                     else
-                        return true;
+                        isBack =  false;
+
                 }
-                return false;
+                return isBack;
             }
         } );
     }
 
+    /**
+     * The Dialog otc.
+     */
     Dialog dialogOTC;
 
     private void dialogOTCTask() {
@@ -359,6 +418,12 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
     }
 
 
+    /**
+     * On options item selected boolean.
+     *
+     * @param item the item
+     * @return the boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -372,6 +437,9 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
     }
 
 
+    /**
+     * On search button.
+     */
     public void onSearchButton(){
         Intent mIntent = new Intent(getActivity(), AddProductActivity.class);
         startActivityForResult(mIntent,1);
@@ -407,7 +475,18 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         });
     }
 
+    /**
+     * The Child position.
+     */
     int childPosition= -1;
+
+    /**
+     * On activity result.
+     *
+     * @param requestCode the request code
+     * @param resultCode  the result code
+     * @param data        the data
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -556,6 +635,11 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         }
     }
 
+    /**
+     * On click.
+     *
+     * @param view the view
+     */
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -742,7 +826,7 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 IPOSApplication.mProductList.remove(posClear);
-                               // mRetailSalesAdapter.notifyItemChanged(posClear);
+                                // mRetailSalesAdapter.notifyItemChanged(posClear);
                                 mRetailSalesAdapter.notifyItemRemoved(posClear);
                                 mRetailSalesAdapter.notifyItemRangeChanged(posClear,IPOSApplication.mProductList.size());
                                 setUpdateValues(IPOSApplication.mProductList);
@@ -935,7 +1019,17 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         mRetailSalesAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * The all checked.
+     */
     int mAllChecked = 0;
+
+    /**
+     * On checked changed.
+     *
+     * @param compoundButton the compound button
+     * @param isChecked      the is checked
+     */
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         int id = compoundButton.getId();
@@ -1048,7 +1142,14 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
                 break;
         }
     }
+
+    /**
+     * The Pos delete item.
+     */
     int posDeleteItem=0;
+    /**
+     * The M discount delete fragment.
+     */
     DiscountDeleteFragment mDiscountDeleteFragment;
     private void setDeleteDiscount() {
         ProductList.Datum datum = IPOSApplication.mProductList.get(posDeleteItem);
@@ -1075,7 +1176,17 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         setUpdateValues(IPOSApplication.mProductList);
         mDiscountDeleteFragment.dismiss();
     }
+
+    /**
+     * The Points.
+     */
     int points = 500;
+
+    /**
+     * Show redeem loyalty popup.
+     *
+     * @param v the v
+     */
     public void showRedeemLoyaltyPopup(View v) {
         Bundle args = new Bundle();
         args.putInt("points", points);
@@ -1088,6 +1199,11 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
 
     }
 
+    /**
+     * On row clicked.
+     *
+     * @param position the position
+     */
     @Override
     public void onRowClicked(int position) {
 
@@ -1095,6 +1211,12 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
 
     }
 
+    /**
+     * On row clicked.
+     *
+     * @param position the position
+     * @param value    the value
+     */
     @Override
     public void onRowClicked(final int position, final int value) {
         ProductList.Datum datum1 = IPOSApplication.mProductList.get(position);
@@ -1120,6 +1242,12 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         Util.hideSoftKeyboard(getActivity());
     }
 
+    /**
+     * On dialog positive click.
+     *
+     * @param dialog    the dialog
+     * @param mCallType the m call type
+     */
     @Override
     public void onDialogPositiveClick(DialogFragment dialog,int mCallType) {
         if(mCallType==Constants.APP_DIALOG_OTC) {
@@ -1136,6 +1264,12 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
         }
     }
 
+    /**
+     * On dialog negetive click.
+     *
+     * @param dialog    the dialog
+     * @param mCallType the m call type
+     */
     @Override
     public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_Cart){
@@ -1149,6 +1283,11 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
 
     }
 
+    /**
+     * Sets product on listener.
+     *
+     * @param mDatum the m datum
+     */
     @Override
     public void setProductOnListener(String mDatum) {
         ArrayList<ProductList.Datum> arrData= new ArrayList<>();
@@ -1159,7 +1298,10 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
 
     }
 
-    /*  @Override
+    /**
+     * On pause.
+     */
+/*  @Override
       public void handleResult(Result rawResult) {
           Toast.makeText(getActivity(), "Contents = " + rawResult.getContents() +
                   ", Format = " + rawResult.getBarcodeFormat().getName(), Toast.LENGTH_SHORT).show();

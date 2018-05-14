@@ -18,7 +18,9 @@ import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 
 
-// TODO: Auto-generated Javadoc
+/**
+ * Created by aditi.bhuranda on 15-04-2018.
+ */
 
 /**
  * The Class ServiceTask.
@@ -64,7 +66,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
     private String apiUrl = null;
 
     /**
-     * The _service url.
+     * The _apiCall Type.
      */
     private int apiCallType = -1;
 
@@ -94,6 +96,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
     private String apiMethod = null;
 
     byte[] resultInBytes = null;
+
     /**
      * HTTP Status code
      */

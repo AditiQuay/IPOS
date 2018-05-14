@@ -518,37 +518,14 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-//        if (fragmentManager.getBackStackEntryCount() > 0) {
-//            fragmentManager.popBackStack("tag", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//            if (inMenu.size() > 0) {
-//                setItemNormal();
-//                setItemSelected(view1, inMenu.get(inMenu.size() - 1));
-//                selectItem(inMenu.get(inMenu.size() - 1));
-//                inMenu.remove(inMenu.size() - 1);
-//
-//            } else {
-//                finish();
-//            }
-//        } else {
-        //}
-     /*   setItemNormal();
-        setItemSelected(view1, preMenu);
-        selectItem(preMenu);*/
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        } else {
-//            super.onBackPressed();
-//
-//        }
         if (drawer.isDrawerOpen(Gravity.START)) {
             closeDrawer();
             return;
+        }else if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
         }
-        // super.onBackPressed();
         else {
             Fragment mFrag = getVisibleFragment();
-
-
             if (mFrag == dashboardFragment) {
                 (new AlertDialog.Builder(this)).setTitle("Confirm action")
                         .setMessage("Do you want to Exit?")
@@ -569,7 +546,7 @@ public class MainActivity extends BaseActivity
                     @Override
                     public void run() {
                         doubleBackToExitPressedOnce = false; // exit = false;
-                        AppLog.e(TAG, "doubleBackToExitPressedOnce here false");
+//                        AppLog.e(TAG, "doubleBackToExitPressedOnce here false");
                     }
                 }, 5000);
             } else {
