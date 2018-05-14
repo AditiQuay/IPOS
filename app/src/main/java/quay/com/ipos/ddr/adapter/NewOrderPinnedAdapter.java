@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -34,13 +35,14 @@ public class NewOrderPinnedAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         static Context mContext;
         ArrayList<NewOrderPinnedResults.Info> mDataset;
         RecyclerView mRecyclerView;
+    View.OnClickListener mOnClickListener;
 
         public NewOrderPinnedAdapter(Context ctx, RecyclerView mRecycler,
-                             ArrayList<NewOrderPinnedResults.Info> questionList) {
+                                     ArrayList<NewOrderPinnedResults.Info> questionList, View.OnClickListener mOnClickListener) {
             mContext = ctx;
             mDataset = questionList;
             mRecyclerView = mRecycler;
-
+            this.mOnClickListener = mOnClickListener;
             // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
             // mRecyclerView.getLayoutManager();
             // mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -65,10 +67,14 @@ public class NewOrderPinnedAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         class UserViewHolder extends RecyclerView.ViewHolder {
             public TextView textViewChildName;
+            public ImageView imvClose;
+
 
             public UserViewHolder(View itemView) {
                 super(itemView);
                 textViewChildName =  itemView.findViewById(R.id.textViewChildName);
+                imvClose = itemView.findViewById(R.id.imvClose);
+                imvClose.setVisibility(View.VISIBLE);
             }
         }
 
@@ -98,10 +104,11 @@ public class NewOrderPinnedAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 NewOrderPinnedResults.Info str = mDataset.get(position);
                 AppLog.e(NewOrderPinnedAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
                 NewOrderPinnedAdapter.UserViewHolder userViewHolder = (NewOrderPinnedAdapter.UserViewHolder) holder;
-                userViewHolder.textViewChildName.setText(str.getKey());
+                userViewHolder.textViewChildName.setText("Order: "+str.getKey());
                 userViewHolder.textViewChildName.setTag(position);
-
-
+                userViewHolder.imvClose.setOnClickListener(mOnClickListener);
+                userViewHolder.imvClose.setTag(position);
+                userViewHolder.imvClose.setVisibility(View.VISIBLE);
             }
             else if (holder instanceof NewOrderPinnedAdapter.LoadingViewHolder) {
                 NewOrderPinnedAdapter.LoadingViewHolder loadingViewHolder = (NewOrderPinnedAdapter.LoadingViewHolder) holder;

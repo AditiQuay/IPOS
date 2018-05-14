@@ -696,20 +696,21 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
                 if (SharedPrefUtil.getString(Constants.mInfoArrayList, "", getActivity()) != null && !SharedPrefUtil.getString(Constants.mInfoArrayList, "", getActivity()).equalsIgnoreCase("")) {
                     cachedPinned(true);
                 }else {
-                    Util.showToast("Pinned List is empty", getActivity());
+                    Util.showToast(getString(R.string.pinned_empty), getActivity());
                 }
                 break;
+
             case R.id.imvRedeem:
 
                 if(IPOSApplication.mProductList.size()>0)
                     showRedeemLoyaltyPopup(rootView);
                 else
-                    Util.showToast("Redeem cannot be applied with empty list",getActivity());
+                    Util.showToast(getString(R.string.redeem_cannot_applied),getActivity());
 
                 break;
             case R.id.buttonSendOtp:
                 AppLog.e(TAG,"buttonSendOtp click");
-                Util.showToast("Sending OTP",getActivity());
+                Util.showToast(getString(R.string.sending_otp),getActivity());
                 break;
             case R.id.buttonRedeem:
 
@@ -734,17 +735,19 @@ public class RetailSalesFragment extends Fragment implements  View.OnClickListen
 
             case R.id.imvClear:
                 final int posClear = (int) view.getTag();
-                (new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
-                        .setMessage("Do you want to Delete this Item?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                (new AlertDialog.Builder(getActivity())).setTitle(R.string.confirm_action)
+                        .setMessage(R.string.delete_item_message)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 IPOSApplication.mProductList.remove(posClear);
-                                mRetailSalesAdapter.notifyItemChanged(posClear);
+                               // mRetailSalesAdapter.notifyItemChanged(posClear);
+                                mRetailSalesAdapter.notifyItemRemoved(posClear);
+                                mRetailSalesAdapter.notifyItemRangeChanged(posClear,IPOSApplication.mProductList.size());
                                 setUpdateValues(IPOSApplication.mProductList);
                             }
-                        }).setNegativeButton("No", null).show();
+                        }).setNegativeButton(R.string.no, null).show();
 
                 break;
             case R.id.imvUserAdd:

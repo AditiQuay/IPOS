@@ -15,7 +15,9 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import quay.com.ipos.R;
 import quay.com.ipos.dashboard.modal.BarGraphModal;
@@ -46,10 +48,14 @@ public class BarGraphAdapter extends RecyclerView.Adapter<BarGraphAdapter.Survey
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(SurveyViewHolder holder, int position) {
+        Calendar cal=Calendar.getInstance();
+        SimpleDateFormat month_date = new SimpleDateFormat("MMM");
+        String month_name = month_date.format(cal.getTime());
 
-        if (position==0){
-            holder.tvTitle.setTextColor(ContextCompat.getColor(mContext,R.color.green));
-        }
+       if (month_name.equalsIgnoreCase(stringArrayList.get(position).getTitle())) {
+           holder.tvTitle.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+           holder.tvTitle.setBackgroundResource(R.drawable.rect_green);
+       }
 
         holder.tvTitle.setText(stringArrayList.get(position).getTitle());
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) holder.seekbar.getLayoutParams();

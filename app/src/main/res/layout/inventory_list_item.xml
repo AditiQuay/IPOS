@@ -21,6 +21,7 @@
             android:id="@+id/view"
             android:layout_width="6dp"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:background="@color/dark_primary_color"/>
 
         <LinearLayout
@@ -36,10 +37,8 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textSize="16sp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
                 android:text="Reference # 1"
-                android:textColor="@color/black"
+                android:textColor="@color/dashboard_textcolor"
                 />
 
             <LinearLayout
@@ -53,8 +52,6 @@
                     android:layout_gravity="center"
                     android:singleLine="true"
                     android:textSize="14sp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
                     android:text="Central Warehouse |"
                     android:textColor="@color/filter_text_color"
                     />

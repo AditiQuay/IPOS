@@ -68,7 +68,8 @@ import quay.com.ipos.utility.Util;
 public class NewOrderFragment extends BaseFragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialogFragment.MessageDialogListener,ScannerProductListener {
     private TextView tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
-            tvLessDetails,tvRoundingOffPrice,tvPay;
+            tvLessDetails,tvRoundingOffPrice,tvPay,tvPinCount;
+
     private FrameLayout flScanner;
     private Fragment scanner_fragment;
     private LinearLayout llTotalDiscountDetail,ll_item_pay,llTotalGST;
@@ -119,6 +120,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
 
     private void initializeComponent(View rootView) {
         flScanner = rootView.findViewById(R.id.flScanner);
+        tvPinCount = (quay.com.ipos.ui.CustomTextView) rootView.findViewById(R.id.tvPinCount);
         imvPin = rootView.findViewById(R.id.imvPin);
         chkBarCode = rootView.findViewById(R.id.chkBarCode);
         imvRight = rootView.findViewById(R.id.imvRight);
@@ -147,7 +149,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
         mRecyclerView.addOnScrollListener(listener);
-     llBelowPaymentDetail=(LinearLayout)rootView.findViewById(R.id.llBelowPaymentDetail);
+        llBelowPaymentDetail=(LinearLayout)rootView.findViewById(R.id.llBelowPaymentDetail);
 
 //
 //        NestedScrollView nestedScrollView=(NestedScrollView) rootView.findViewById(R.id.scroller);
@@ -194,6 +196,19 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountDetail.setText("(Item 0)");
         IPOSApplication.mOrderList.clear();
+        if (SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity()) != null) {
+            String json2 = SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity());
+            if (!json2.equalsIgnoreCase(""))
+                mOrderInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<NewOrderPinnedResults.Info>>() {}.getType());
+            if(mOrderInfoArrayList.size()>0){
+                tvPinCount.setText(""+mOrderInfoArrayList.size());
+                tvPinCount.setVisibility(View.VISIBLE);
+            }else {
+                tvPinCount.setVisibility(View.GONE);
+            }
+        }else {
+            tvPinCount.setVisibility(View.GONE);
+        }
 //        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
 //                != PackageManager.PERMISSION_GRANTED) {
 //            flScanner.setVisibility(View.GONE);
@@ -204,8 +219,8 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
 //                setTextDefault();
 //            }
 //        }else {
-            flScanner.setVisibility(View.GONE);
-            chkBarCode.setChecked(false);
+        flScanner.setVisibility(View.GONE);
+        chkBarCode.setChecked(false);
         closeFragment();
 //            displayFragment();
 //        }
@@ -229,7 +244,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
                     chkBarCode.setChecked(false);
                     setTextDefault();
                 }else {
-                        displayFragment();
+                    displayFragment();
                     if (flScanner.getVisibility()==View.GONE) {
                         flScanner.setVisibility(View.VISIBLE);
                         chkBarCode.setChecked(true);
@@ -370,6 +385,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
 //                getProduct();
                 IPOSApplication.mOrderList.clear();
                 mNewOrderListAdapter.notifyDataSetChanged();
+                setUpdateValues(IPOSApplication.mOrderList);
             }
         }
      /*   if (resultCode == RESULT_OK) {
@@ -563,14 +579,17 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
 
             case R.id.imvClear:
                 final int posClear = (int) view.getTag();
-                (new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
+                (
+                        new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
                         .setMessage("Do you want to Delete this Item?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 IPOSApplication.mOrderList.remove(posClear);
-                                mNewOrderListAdapter.notifyItemChanged(posClear);
+                                mNewOrderListAdapter.notifyItemRemoved(posClear);
+                                mNewOrderListAdapter.notifyItemRangeChanged(posClear,IPOSApplication.mProductList.size());
+
                                 setUpdateValues(IPOSApplication.mOrderList);
                             }
                         }).setNegativeButton("No", null).show();
@@ -591,7 +610,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
                     i.putExtra(Constants.Order_List,Util.getCustomGson().toJson(mOrderList));
-                    getActivity().startActivityForResult(i,6);
+                    startActivityForResult(i,6);
                 }else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }

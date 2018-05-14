@@ -26,11 +26,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        if (NetUtil.isNetworkAvailable(SplashActivity.this)) {
+//        if (NetUtil.isNetworkAvailable(SplashActivity.this)) {
             redirectToActivity();
-        } else {
-            NetworkErrorDialog.networkErrorDialogShow(this, "");
-        }
+//        } else {
+//            NetworkErrorDialog.networkErrorDialogShow(this, "");
+//        }
     }
 
     //Redirect to activity

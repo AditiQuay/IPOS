@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#5CBFE8</color>
+    <color name="colorPrimary">#1cade4</color>
     <color name="colorPrimaryDark">#199BCD</color>
     <color name="colorAccent">#DBDBDB</color>
     <color name="colorAccentDark">#556892</color>
@@ -130,5 +130,6 @@
     <color name="orange_transulent">#30e4be00</color>
     <color name="coloryPrimary_transulent">#305CBFE8</color>
     <color name="red_transulent">#30e64f20</color>
+    <color name="dashboard_textcolor">#848484</color>
 </resources>
 

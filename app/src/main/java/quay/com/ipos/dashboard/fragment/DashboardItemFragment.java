@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -30,6 +31,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.dashboard.adapter.FastMovingListAdapter;
 import quay.com.ipos.dashboard.adapter.InventoryListAdapter;
 import quay.com.ipos.dashboard.adapter.LowInventoryListAdapter;
+import quay.com.ipos.dashboard.adapter.SpinnerDropDownAdapter;
 import quay.com.ipos.dashboard.adapter.TopStoresListAdapter;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
 import quay.com.ipos.enums.DashboardKeys;
@@ -64,7 +66,8 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
     private String strImage;
     private TextView tvMyStore,tvOnlineValue,tvotherValue,tvSalesValue,tvTotalSalesTarget,tvTotalSalesAcheviment,tvEndSeasonAcheivement,tvEndSeasonTarget,tvEndSeasonSales
             ,tvAWAcheviment,tvAWTarget,tvAWSales,tvFootprintTotal,tvFootprintRepeated,tvFootprintNew,getTvFootprintOnline
-            ,getTvFootprintLoyalty,tvFeedBackExcellent,tvFeedbackGood,tvFeedbackAverage,tvFeedbackPoor,tvFeedbackVeryPoor,tvFeedbackSpinner,tvTotalSalesSpinner,tvFootprintSpinner;
+            ,getTvFootprintLoyalty,tvFeedBackExcellent,tvFeedbackGood,tvFeedbackAverage,tvFeedbackPoor,tvFeedbackVeryPoor;
+    Spinner spFeedbackSpinner,spTotalSalesSpinner,spFootprintSpinner;
     private boolean isPopupVisible = false;
     private CircularProgressBar cpb1,cpb2,cpb3,cpb4;
     // newInstance constructor for creating fragment with arguments
@@ -95,9 +98,9 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
         super.onDestroyView();
     }
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard_item, container, false);
 
 
@@ -142,9 +145,9 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
         getTopStoresData();
         getFastMovingData();
         getInventoryData();
-        prepareSpinnerList(tvTotalSalesSpinner);
-        prepareSpinnerList(tvFeedbackSpinner);
-        prepareSpinnerList(tvFootprintSpinner);
+//        prepareSpinnerList(tvTotalSalesSpinner);
+//        prepareSpinnerList(tvFeedbackSpinner);
+//        prepareSpinnerList(tvFootprintSpinner);
 
         return view;
 
@@ -180,15 +183,23 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
         getTvFootprintLoyalty=(TextView)view.findViewById(R.id.tvFootprintLoyalty);
 
         //Customer Feedback
-        tvFeedBackExcellent=(TextView)view.findViewById(R.id.tvFeedBackExcellent);
+        tvFeedBackExcellent=view.findViewById(R.id.tvFeedBackExcellent);
         tvFeedbackGood=(TextView)view.findViewById(R.id.tvFeedbackGood);
         tvFeedbackAverage=(TextView)view.findViewById(R.id.tvFeedbackAverage);
         tvFeedbackPoor=(TextView)view.findViewById(R.id.tvFeedbackPoor);
         tvFeedbackVeryPoor=(TextView)view.findViewById(R.id.tvFeedbackCVeryPoor);
 
-        tvFeedbackSpinner=(TextView)view.findViewById(R.id.tvFeedbackSpinner);
-        tvTotalSalesSpinner=(TextView)view.findViewById(R.id.tvTotalSalesSpinner);
-        tvFootprintSpinner=(TextView)view.findViewById(R.id.tvFootprintSpinner);
+        spFeedbackSpinner=view.findViewById(R.id.spFeedbackSpinner);
+        spTotalSalesSpinner=view.findViewById(R.id.spTotalSalesSpinner);
+        spFootprintSpinner=view.findViewById(R.id.spFootprintSpinner);
+//        spFeedbackSpinner.setPadding(0, 0, spFeedbackSpinner.getPaddingRight(), 0);
+//        spTotalSalesSpinner.setPadding(0, 0, spFeedbackSpinner.getPaddingRight(), 0);
+//        spFootprintSpinner.setPadding(0, 0, spFeedbackSpinner.getPaddingRight(), 0);
+        SpinnerDropDownAdapter sddadapter = new SpinnerDropDownAdapter(getActivity(),getResources().getStringArray(R.array.days));
+        sddadapter.setColor(true);
+        spFeedbackSpinner.setAdapter(sddadapter);
+        spTotalSalesSpinner.setAdapter(sddadapter);
+        spFootprintSpinner.setAdapter(sddadapter);
 
         cpb1 = view.findViewById(R.id.cpb1);
         cpb2 = view.findViewById(R.id.cpb2);

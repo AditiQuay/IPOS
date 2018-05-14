@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,24 +24,24 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.ProductList;
-import quay.com.ipos.realmbean.RealmPinnedResults;
-import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.AddProductAdapter;
-import quay.com.ipos.retailsales.adapter.PinnedAdapter;
-import quay.com.ipos.retailsales.adapter.PinnedOrderAdapter;
+import quay.com.ipos.ddr.adapter.PinnedOrderAdapter;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
+import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
+import static quay.com.ipos.utility.Constants.mInfoArrayList;
+
 /**
  * Created by aditi.bhuranda on 07-05-2018.
  */
 
-public class PinnedOrderActivity extends BaseActivity {
+public class PinnedOrderActivity extends BaseActivity implements View.OnClickListener,MessageDialogFragment.MessageDialogListener{
         private static final String TAG = PinnedOrderActivity.class.getSimpleName();
         //    ArrayList<RealmPinnedResults.Info> arrPinned= new ArrayList<>();
         private EditText searchView;
@@ -50,12 +51,14 @@ public class PinnedOrderActivity extends BaseActivity {
         private LinearLayout llSearch;
         private ProductList mProductListResult;
         private AddProductAdapter mAddProductAdapter;
-        private TextView tvClear;
+        private TextView tvClear,tvToolBar;
         private PinnedOrderAdapter mPinnedOrderAdapter;
         private int mSelectedpos;
         ArrayList<NewOrderPinnedResults.Info> mOrderInfoArrayList = new ArrayList<>();
         String json ;
-        @Override
+    private int pinned_pos=0;
+
+    @Override
         public void onCreate( Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.act_customer_list);
@@ -77,7 +80,7 @@ public class PinnedOrderActivity extends BaseActivity {
 //        AppLog.e(PinnedRetailActivity.class.getSimpleName(),"mOrderInfoArrayList: "+ Util.getCustomGson().toJson(Util.getCachedPinnedData()) );
             AppLog.e(TAG, Util.getCustomGson().toJson(mOrderInfoArrayList));
 //        }
-            mPinnedOrderAdapter = new PinnedOrderAdapter(this,mRecyclerView,mOrderInfoArrayList);
+            mPinnedOrderAdapter = new PinnedOrderAdapter(this,mRecyclerView,mOrderInfoArrayList,this);
             mRecyclerView.setAdapter(mPinnedOrderAdapter);
         }
 
@@ -86,6 +89,7 @@ public class PinnedOrderActivity extends BaseActivity {
             searchView = findViewById(R.id.searchView);
             mRecyclerView = findViewById(R.id.recycler_view);
             tvClear = findViewById(R.id.tvClear);
+
             fab = findViewById(R.id.fab);
             fab.setVisibility(View.GONE);
             llSearch = findViewById(R.id.llSearch);
@@ -156,6 +160,10 @@ public class PinnedOrderActivity extends BaseActivity {
             toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
             // toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.back));
             setSupportActionBar(toolbar);
+            tvToolBar = toolbar.findViewById(R.id.tvToolBar);
+            tvToolBar.setVisibility(View.VISIBLE);
+            toolbar.setTitle(getResources().getString(R.string.new_orders));
+            tvToolBar.setText(getResources().getString(R.string.new_orders));
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -171,4 +179,33 @@ public class PinnedOrderActivity extends BaseActivity {
         }
 
 
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id){
+            case R.id.imvClose:
+                int pos = (int) view.getTag();
+                pinned_pos = pos;
+                Util.showMessageDialog(PinnedOrderActivity.this,getResources().getString(R.string.pinned_msg),getResources().getString(R.string.yes),getResources().getString(R.string.no), Constants.APP_DIALOG_Pinned_ORDER,"",getSupportFragmentManager());
+                break;
+        }
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+        if(mCallType==Constants.APP_DIALOG_Pinned_ORDER) {
+            mOrderInfoArrayList.remove(pinned_pos);
+            mPinnedOrderAdapter.notifyDataSetChanged();
+            String json = Util.getCustomGson().toJson(mInfoArrayList);
+            SharedPrefUtil.putString(Constants.mOrderInfoArrayList, json, PinnedOrderActivity.this);
+        }
+    }
+
+    @Override
+    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+        if(mCallType==Constants.APP_DIALOG_Pinned_ORDER) {
+            dialog.dismiss();
+        }
+    }
 }
