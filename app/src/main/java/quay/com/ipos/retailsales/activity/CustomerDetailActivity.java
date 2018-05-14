@@ -25,11 +25,16 @@ import quay.com.ipos.utility.Util;
 /**
  * Created by aditi.bhuranda on 26-04-2018.
  */
-
 public class CustomerDetailActivity extends BaseActivity {
     private RecyclerView recycler_viewRecentOrders;
     private RecentOrdersListAdapter recentOrdersListAdapter;
+    /**
+     * The Json.
+     */
     String json;
+    /**
+     * The M customer.
+     */
     CustomerResult.Customer mCustomer;
     private ArrayList<CustomerResult.RecentOrder> recentOrderModalArrayList=new ArrayList<>();
     private ImageView imvUserImage;
@@ -84,6 +89,9 @@ public class CustomerDetailActivity extends BaseActivity {
     }
 
 
+    /**
+     * Sets header.
+     */
     public void setHeader() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));

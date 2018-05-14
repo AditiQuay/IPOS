@@ -32,10 +32,12 @@ import quay.com.ipos.utility.Util;
 /**
  * Created by aditi.bhuranda on 26-04-2018.
  */
-
 public class CustomerListActivity extends BaseActivity implements View.OnClickListener{
 
     private static final String TAG = AddProductActivity.class.getSimpleName();
+    /**
+     * The Arr searlist.
+     */
     ArrayList<CustomerResult.Customer> arrSearlist= new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;
@@ -45,6 +47,9 @@ public class CustomerListActivity extends BaseActivity implements View.OnClickLi
     private TextView tvItemSize,tvNoItemAvailable;
     private CustomerListAdapter mCustomerListAdapterNew;
     private TextView tvClear;
+    /**
+     * The Arr data.
+     */
     ArrayList<CustomerResult.Customer> arrData= new ArrayList<>();
     private int mSelectedpos;
 
@@ -111,6 +116,9 @@ public class CustomerListActivity extends BaseActivity implements View.OnClickLi
         finish();
     }
 
+    /**
+     * Sets header.
+     */
     public void setHeader() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));

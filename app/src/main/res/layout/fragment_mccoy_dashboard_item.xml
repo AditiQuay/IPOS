@@ -201,10 +201,10 @@
                         android:background="@drawable/button_round_app"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:paddingBottom="8dp"
+                        android:paddingBottom="10dp"
                         android:paddingLeft="@dimen/dim_12"
                         android:paddingRight="@dimen/dim_12"
-                        android:paddingTop="8dp">
+                        android:paddingTop="10dp">
 
                         <ImageView
                             android:layout_width="@dimen/dim_20"
@@ -219,10 +219,6 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
                             android:gravity="center"
-                            android:paddingBottom="@dimen/dim_5"
-                            android:paddingLeft="@dimen/dim_3"
-                            android:paddingRight="@dimen/dim_3"
-                            android:paddingTop="@dimen/dim_5"
                             android:spinnerMode="dropdown"
                             android:text="@string/viewall"
                             android:textColor="@color/white"
@@ -402,10 +398,10 @@
                         android:background="@drawable/button_round_app"
                         android:gravity="center"
                         android:orientation="horizontal"
-                        android:paddingBottom="8dp"
+                        android:paddingBottom="10dp"
                         android:paddingLeft="@dimen/dim_12"
                         android:paddingRight="@dimen/dim_12"
-                        android:paddingTop="8dp">
+                        android:paddingTop="10dp">
 
                         <ImageView
                             android:layout_width="@dimen/dim_20"

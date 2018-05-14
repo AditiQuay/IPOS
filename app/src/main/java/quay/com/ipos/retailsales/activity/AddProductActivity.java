@@ -33,10 +33,12 @@ import quay.com.ipos.utility.Util;
 /**
  * Created by aditi.bhuranda on 20-04-2018.
  */
-
 public class AddProductActivity extends BaseActivity implements View.OnClickListener{
 
     private static final String TAG = AddProductActivity.class.getSimpleName();
+    /**
+     * The Array searchlist.
+     */
     ArrayList<ProductList.Datum> arrSearlist= new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;
@@ -46,6 +48,9 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     private TextView tvItemSize,tvNoItemAvailable;
     private AddProductAdapter mAddProductAdapter;
     private TextView tvClear;
+    /**
+     * The Arr data.
+     */
     ArrayList<ProductList.Datum> arrData= new ArrayList<>();
 
     @Override
@@ -62,6 +67,10 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         mAddProductAdapter = new AddProductAdapter(this,this,mRecyclerView,arrSearlist);
         mRecyclerView.setAdapter(mAddProductAdapter);
     }
+
+    /**
+     * Sets header.
+     */
     public void setHeader() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));

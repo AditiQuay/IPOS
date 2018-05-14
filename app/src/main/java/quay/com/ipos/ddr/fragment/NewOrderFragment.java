@@ -13,10 +13,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -47,15 +45,10 @@ import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.ScannerProductListener;
 import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
-import quay.com.ipos.modal.ProductList;
-import quay.com.ipos.retailsales.activity.PaymentModeActivity;
-import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.fragment.FullScannerFragment;
-import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialogFragment;
-import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.SharedPrefUtil;
@@ -120,7 +113,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
 
     private void initializeComponent(View rootView) {
         flScanner = rootView.findViewById(R.id.flScanner);
-        tvPinCount = (quay.com.ipos.ui.CustomTextView) rootView.findViewById(R.id.tvPinCount);
+        tvPinCount =  rootView.findViewById(R.id.tvPinCount);
         imvPin = rootView.findViewById(R.id.imvPin);
         chkBarCode = rootView.findViewById(R.id.chkBarCode);
         imvRight = rootView.findViewById(R.id.imvRight);
@@ -149,35 +142,8 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
         mRecyclerView.addOnScrollListener(listener);
-        llBelowPaymentDetail=(LinearLayout)rootView.findViewById(R.id.llBelowPaymentDetail);
+        llBelowPaymentDetail=rootView.findViewById(R.id.llBelowPaymentDetail);
 
-//
-//        NestedScrollView nestedScrollView=(NestedScrollView) rootView.findViewById(R.id.scroller);
-//
-//        nestedScrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//
-//                if (scrollY > oldScrollY) {
-//                    llBelowPaymentDetail.setVisibility(View.GONE);
-//                    Log.i(TAG, "Scroll DOWN");
-//                }
-//                if (scrollY < oldScrollY) {
-//                    llBelowPaymentDetail.setVisibility(View.VISIBLE);
-//                    Log.i(TAG, "Scroll UP");
-//                }
-//
-//                if (scrollY == 0) {
-//                    llBelowPaymentDetail.setVisibility(View.VISIBLE);
-//                    Log.i(TAG, "TOP SCROLL");
-//                }
-//
-//                if (scrollY == ( v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight() )) {
-//                    llBelowPaymentDetail.setVisibility(View.VISIBLE);
-//                    Log.i(TAG, "BOTTOM SCROLL");
-//                }
-//            }
-//        });
         setListener();
         setAdapter();
         setTextDefault();
@@ -289,6 +255,8 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         isFragmentDisplayed = true;
     }
 
+    boolean isBack=false;
+
     @Override
     public void onResume() {
         super.onResume();
@@ -301,15 +269,20 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
             @Override
             public boolean onKey( View v, int keyCode, KeyEvent event )
             {
+
                 if( keyCode == KeyEvent.KEYCODE_BACK )
                 {
-                    if(IPOSApplication.mOrderList.size()>0)
-                        Util.showMessageDialog(NewOrderFragment.this,"Do you want to save the Cart?","YES","NO", Constants.APP_DIALOG_Cart,"",getActivity().getSupportFragmentManager());
+                    if(IPOSApplication.mOrderList.size()>=1) {
+                        Util.showMessageDialog(NewOrderFragment.this, "Do you want to save the Cart?", "YES", "NO", Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
+
+                        isBack = true;
+                    }
 
                     else
-                        return true;
+                        isBack =  false;
+
                 }
-                return false;
+                return isBack;
             }
         } );
     }
