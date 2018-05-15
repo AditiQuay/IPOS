@@ -175,14 +175,14 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
         tvAWAcheviment=(TextView)view.findViewById(R.id.tvAWAcheviment);
 
 
-        //Customer FootPrint
+        //CustomerList FootPrint
         tvFootprintTotal=(TextView)view.findViewById(R.id.tvFootprintTotal);
         tvFootprintRepeated=(TextView)view.findViewById(R.id.tvFootprintRepeated);
         tvFootprintNew=(TextView)view.findViewById(R.id.tvFootprintNew);
         getTvFootprintOnline=(TextView)view.findViewById(R.id.tvFootprintOnline);
         getTvFootprintLoyalty=(TextView)view.findViewById(R.id.tvFootprintLoyalty);
 
-        //Customer Feedback
+        //CustomerList Feedback
         tvFeedBackExcellent=view.findViewById(R.id.tvFeedBackExcellent);
         tvFeedbackGood=(TextView)view.findViewById(R.id.tvFeedbackGood);
         tvFeedbackAverage=(TextView)view.findViewById(R.id.tvFeedbackAverage);

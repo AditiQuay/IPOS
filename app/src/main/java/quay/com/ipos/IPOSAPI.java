@@ -9,6 +9,7 @@ public class IPOSAPI {
     //  MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     public static String WEB_SERVICE_BASE_URL = "http://13.127.101.233:8087/api/";
     public static String WEB_SERVICE_LOGIN = "Token/generateToken";
+    public static String WEB_SERVICE_SEARCH_PRODUCT = "Retail/SearchRetailProduct";
 
 
 }

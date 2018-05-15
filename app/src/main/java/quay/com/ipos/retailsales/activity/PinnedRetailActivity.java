@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.modal.ProductList;
+import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.retailsales.adapter.AddProductAdapter;
 import quay.com.ipos.retailsales.adapter.PinnedAdapter;
@@ -47,7 +47,7 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
     private FloatingActionButton fab;
     private LinearLayoutManager mLayoutManager;
     private LinearLayout llSearch;
-    private ProductList mProductListResult;
+    private ProductListResult mProductListResult;
     private AddProductAdapter mAddProductAdapter;
     private TextView tvClear;
     private PinnedAdapter mPinnedAdapter;
@@ -140,9 +140,9 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void selectPinned(int childPosition) {
-        IPOSApplication.mProductList.clear();
+        IPOSApplication.mProductListResult.clear();
 
-        IPOSApplication.mProductList.addAll(mInfoArrayList.get(childPosition).getData());
+        IPOSApplication.mProductListResult.addAll(mInfoArrayList.get(childPosition).getData());
         Intent mIntent = new Intent();
         mIntent.putExtra("pinned_position",childPosition);
         setResult(1,mIntent);

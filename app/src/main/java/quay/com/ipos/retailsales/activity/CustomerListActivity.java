@@ -20,7 +20,7 @@ import java.util.Locale;
 
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.modal.CustomerResult;
+import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.retailsales.adapter.CustomerListAdapter;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
 import quay.com.ipos.ui.FontManager;
@@ -38,19 +38,19 @@ public class CustomerListActivity extends BaseActivity implements View.OnClickLi
     /**
      * The Arr searlist.
      */
-    ArrayList<CustomerResult.Customer> arrSearlist= new ArrayList<>();
+    ArrayList<CustomerList.Customer> arrSearlist= new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;
     private FloatingActionButton fab;
     private LinearLayoutManager mLayoutManager;
-    private CustomerResult customerResult;
+    private CustomerList customerListResult;
     private TextView tvItemSize,tvNoItemAvailable;
     private CustomerListAdapter mCustomerListAdapterNew;
     private TextView tvClear;
     /**
      * The Arr data.
      */
-    ArrayList<CustomerResult.Customer> arrData= new ArrayList<>();
+    ArrayList<CustomerList.Customer> arrData= new ArrayList<>();
     private int mSelectedpos;
 
     @Override
@@ -195,9 +195,9 @@ public class CustomerListActivity extends BaseActivity implements View.OnClickLi
         try {
             arrData.clear();
             String json = Util.getAssetJsonResponse(this, "customer.json");
-            customerResult = Util.getCustomGson().fromJson(json,CustomerResult.class);
-            AppLog.e(RetailSalesAdapter.class.getSimpleName(),Util.getCustomGson().toJson(customerResult));
-            arrData.addAll(customerResult.getCustomer());
+            customerListResult = Util.getCustomGson().fromJson(json,CustomerList.class);
+            AppLog.e(RetailSalesAdapter.class.getSimpleName(),Util.getCustomGson().toJson(customerListResult));
+            arrData.addAll(customerListResult.getCustomer());
 //            setDefaultValues();
 
             Util.cacheCustomerData(arrData);
@@ -209,14 +209,14 @@ public class CustomerListActivity extends BaseActivity implements View.OnClickLi
 
     }
 
-    private void filter(String charText, ArrayList<CustomerResult.Customer> responseList) {
+    private void filter(String charText, ArrayList<CustomerList.Customer> responseList) {
         if (arrSearlist != null && responseList != null) {
             charText = charText.toLowerCase(Locale.getDefault());
             arrSearlist.clear();
             if (charText.length() == 0) {
                 arrSearlist.addAll(responseList);
             } else {
-                for (CustomerResult.Customer wp : responseList) {
+                for (CustomerList.Customer wp : responseList) {
                     if (wp.getCustomerPhone() != null) {
 
                         if (wp.getCustomerPhone().toLowerCase(Locale.getDefault()).contains(charText)) {

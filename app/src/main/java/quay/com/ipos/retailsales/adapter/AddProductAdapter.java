@@ -1,26 +1,22 @@
 package quay.com.ipos.retailsales.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
-import quay.com.ipos.application.IPOSApplication;
-import quay.com.ipos.modal.ProductList;
-import quay.com.ipos.ui.FontManager;
+import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Util;
+
+import static quay.com.ipos.application.IPOSApplication.mProductListResult;
 
 /**
  * Created by aditi.bhuranda on 23-04-2018.
@@ -38,11 +34,11 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<ProductList.Datum> mDataset;
+    ArrayList<ProductListResult.Datum> mDataset;
     RecyclerView mRecyclerView;
 
     public AddProductAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                              ArrayList<ProductList.Datum> questionList) {
+                              ArrayList<ProductListResult.Datum> questionList) {
         mOnClickListener = mClickListener;
         mContext = ctx;
         mDataset = questionList;
@@ -107,12 +103,19 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof AddProductAdapter.UserViewHolder) {
-            ProductList.Datum str = mDataset.get(position);
-            AppLog.e(AddProductAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
+            ProductListResult.Datum str = mDataset.get(position);
+//            AppLog.e(AddProductAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             AddProductAdapter.UserViewHolder userViewHolder = (AddProductAdapter.UserViewHolder) holder;
             userViewHolder.tvItemName.setText(str.getSProductName());
             userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
-            userViewHolder.tvStock.setText(str.getSProductPoints());
+            userViewHolder.tvStock.setText(str.getSProductStock()+"");
+            if(str.isAdded()){
+                userViewHolder.tvAdd.setText("Added");
+                userViewHolder.tvAdd.setBackgroundResource(R.drawable.button_rectangle_grey);
+            }else {
+                userViewHolder.tvAdd.setText("Add");
+                userViewHolder.tvAdd.setBackgroundResource(R.drawable.button_drawable);
+            }
 
             userViewHolder.tvAdd.setOnClickListener(mOnClickListener);
             userViewHolder.tvAdd.setTag(position);
