@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
 
-/**
- * Created by gaurav.pandey on 24-01-2018.
- */
+
 
 public class LowInventoryListAdapter extends RecyclerView.Adapter<LowInventoryListAdapter.SurveyViewHolder> {
     private Context mContext;
