@@ -30,6 +30,7 @@ import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.SpacesItemDecoration;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -93,9 +94,8 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.addItemDecoration(
-                new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_3),
-                        getResources().getInteger(R.integer.photo_list_preview_columns)));
+        mRecyclerView.addItemDecoration(new SpacesItemDecoration(8));
+     //   mRecyclerView.addItemDecoration(new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_3), getResources().getInteger(R.integer.photo_list_preview_columns)));
 
         searchView.addTextChangedListener(new TextWatcher() {
             @Override
@@ -107,7 +107,11 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length()>0)
                     searchProductCall(charSequence.toString());
-
+                else {
+                    arrSearchlist.clear();
+                    mAddProductAdapter.notifyDataSetChanged();
+                    tvItemSize.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -180,7 +184,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 
         int id = view.getId();
         switch (id){
-            case R.id.tvAdd:
+            case R.id.llAdd:
                 Util.hideSoftKeyboard(AddProductActivity.this);
                 boolean found = false;
                 int pos = (int) view.getTag();
@@ -191,36 +195,34 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                             if(mProductListResultData.isAdded()){
                                 mProductListResultData.setAdded(false);
                                 mProductListResultData.setQty(mProductListResultData.getQty() - 1);
+                                IPOSApplication.mProductListResult.remove(i);
                             }else{
                                 mProductListResultData.setQty(mProductListResultData.getQty() + 1);
                                 mProductListResultData.setAdded(true);
+                                IPOSApplication.mProductListResult.set(i, mProductListResultData);
                             }
-
-
-                            IPOSApplication.mProductListResult.set(i, mProductListResultData);
                             found=true;
                         } else {
 //                            IPOSApplication.mProductListResult.add(0,arrSearchlist.get(pos));
                         }
                     }
                     if(!found){
-                        IPOSApplication.mProductListResult.add(0,arrSearchlist.get(pos));
+                        ProductListResult.Datum mProductListResultData = arrSearchlist.get(pos);
+                        mProductListResultData.setQty(mProductListResultData.getQty() + 1);
+                        mProductListResultData.setAdded(true);
+                        IPOSApplication.mProductListResult.add(0,mProductListResultData);
                     }
                 }else {
-                    IPOSApplication.mProductListResult.add(0,arrSearchlist.get(pos));
+                    ProductListResult.Datum mProductListResultData = arrSearchlist.get(pos);
+                    mProductListResultData.setQty(mProductListResultData.getQty() + 1);
+                    mProductListResultData.setAdded(true);
+                    IPOSApplication.mProductListResult.add(0,mProductListResultData);
                 }
                 AppLog.e(TAG,"click" + Util.getCustomGson().toJson(IPOSApplication.mProductListResult));
 
 
-                if(IPOSApplication.mProductListResult.size()>0){
-                    llAdded.setVisibility(View.VISIBLE);
-                    tvItemAddedSize.setText(IPOSApplication.mProductListResult.size()+"");
-                    llAccept.setVisibility(View.VISIBLE);
-                }else {
-                    llAdded.setVisibility(View.GONE);
-                    llAccept.setVisibility(View.GONE);
-                }
-mAddProductAdapter.notifyItemChanged(pos);
+                updateItem();
+                mAddProductAdapter.notifyItemChanged(pos);
                 break;
 
             case R.id.tvClear:
@@ -231,24 +233,43 @@ mAddProductAdapter.notifyItemChanged(pos);
                 llAdded.setVisibility(View.GONE);
                 IPOSApplication.mProductListResult.clear();
                 llAccept.setVisibility(View.GONE);
+                if( arrSearchlist.size()>0) {
+                    for (int i = 0; i < arrSearchlist.size(); i++) {
+                        ProductListResult.Datum datum = arrSearchlist.get(i);
+                        datum.setAdded(false);
+                        arrSearchlist.set(i, datum);
+                    }
+                }
+                mAddProductAdapter.notifyDataSetChanged();
                 break;
             case R.id.imvBack:
                 Intent mIntent = new Intent();
-                setResult(0, mIntent);
+                setResult(1, mIntent);
                 onBackPressed();
                 break;
             case R.id.llAccept:
-                if(IPOSApplication.mProductListResult.size()>0) {
-                    Intent mIntent1 = new Intent();
-                    setResult(1, mIntent1);
-                }else {
-                    Intent mIntent2 = new Intent();
-                    setResult(0, mIntent2);
-                }
+//                if(IPOSApplication.mProductListResult.size()>0) {
+                Intent mIntent1 = new Intent();
+                setResult(1, mIntent1);
+//                }else {
+//                    Intent mIntent2 = new Intent();
+//                    setResult(0, mIntent2);
+//                }
                 onBackPressed();
                 break;
         }
 
+    }
+
+    private void updateItem() {
+        if(IPOSApplication.mProductListResult.size()>0){
+            llAdded.setVisibility(View.VISIBLE);
+            tvItemAddedSize.setText(IPOSApplication.mProductListResult.size()+"");
+            llAccept.setVisibility(View.VISIBLE);
+        }else {
+            llAdded.setVisibility(View.GONE);
+            llAccept.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -271,14 +292,28 @@ mAddProductAdapter.notifyItemChanged(pos);
                 if(arrSearchlist.size()>0) {
                     tvClear.setVisibility(View.VISIBLE);
                     llSize.setVisibility(View.VISIBLE);
+                    if(IPOSApplication.mProductListResult.size()>0)
+                        for(int i = 0 ; i < arrSearchlist.size(); i++){
+
+                        for (int k=0;k<IPOSApplication.mProductListResult.size();k++){
+                            if(arrSearchlist.get(i).getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(k).getIProductModalId())){
+                                ProductListResult.Datum datum = arrSearchlist.get(i);
+                                datum.setAdded(true);
+                                arrSearchlist.set(i,datum);
+                            }
+                        }
+
+                        }
                 }
                 else {
                     tvClear.setVisibility(View.GONE);
                     llSize.setVisibility(View.GONE);
                     arrSearchlist.clear();
                 }
+                tvItemSize.setVisibility(View.VISIBLE);
                 tvItemSize.setText("Showing "+arrSearchlist.size() + " Products");
                 mAddProductAdapter.notifyDataSetChanged();
+                updateItem();
             }
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
             Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();

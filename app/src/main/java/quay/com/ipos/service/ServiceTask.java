@@ -266,9 +266,9 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
 
 
                 // Send request to WCF service
-                if (isCancelled()) {
-                    break;
-                }
+//                if (isCancelled()) {
+//                    break;
+//                }
 
                 Response response = client.newCall(request).execute();
                 AppLog.e(TAG, "StatusCode : " + response.code());
@@ -294,7 +294,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
-
+                statusCode = Constants.INTERNAL_SERVER_ERROR;
             }
 
         }

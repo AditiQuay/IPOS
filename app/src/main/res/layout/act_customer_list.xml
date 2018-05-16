@@ -16,7 +16,7 @@
             android:layout_height="?attr/actionBarSize"
             android:gravity="center"
             app:layout_collapseMode="pin"
-            android:background="@color/white"
+            android:background="@color/colorPrimary"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <quay.com.ipos.ui.CustomTextView

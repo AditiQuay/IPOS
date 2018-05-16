@@ -49,7 +49,7 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
     private LinearLayout llSearch;
     private ProductListResult mProductListResult;
     private AddProductAdapter mAddProductAdapter;
-    private TextView tvClear;
+    private TextView tvClear,tvToolBar;
     private PinnedAdapter mPinnedAdapter;
     private int mSelectedpos;
     int pinned_pos;
@@ -152,13 +152,16 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
 
     public void setHeader() {
         Toolbar toolbar = findViewById(R.id.toolbar);
+        tvToolBar = toolbar.findViewById(R.id.tvToolBar);
+        tvToolBar.setVisibility(View.VISIBLE);
+        tvToolBar.setText(getResources().getString(R.string.pinned_retail));
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         // toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.back));
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         if (getSupportActionBar() != null) {
@@ -169,6 +172,13 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent mIntent = new Intent();
+        setResult(0,mIntent);
+        finish();
+        super.onBackPressed();
+    }
 
     @Override
     public void onClick(View view) {

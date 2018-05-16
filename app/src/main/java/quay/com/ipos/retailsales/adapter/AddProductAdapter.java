@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -69,6 +71,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView tvItemName, tvItemWeight, tvStock, tvAdd;
         public ImageView imvProduct;
+        private RelativeLayout llAdd;
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -77,6 +80,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvStock =  itemView.findViewById(R.id.tvStock);
             tvAdd =  itemView.findViewById(R.id.tvAdd);
             imvProduct =  itemView.findViewById(R.id.imvProduct);
+            llAdd=itemView.findViewById(R.id.llAdd);
         }
     }
 
@@ -111,14 +115,14 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.tvStock.setText(str.getSProductStock()+"");
             if(str.isAdded()){
                 userViewHolder.tvAdd.setText("Added");
-                userViewHolder.tvAdd.setBackgroundResource(R.drawable.button_rectangle_grey);
+                userViewHolder.llAdd.setBackgroundResource(R.drawable.button_rectangle_light_gray );
             }else {
                 userViewHolder.tvAdd.setText("Add");
-                userViewHolder.tvAdd.setBackgroundResource(R.drawable.button_drawable);
+                userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
             }
 
-            userViewHolder.tvAdd.setOnClickListener(mOnClickListener);
-            userViewHolder.tvAdd.setTag(position);
+            userViewHolder.llAdd.setOnClickListener(mOnClickListener);
+            userViewHolder.llAdd.setTag(position);
 
 
         }

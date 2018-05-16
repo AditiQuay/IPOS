@@ -7,6 +7,7 @@ package quay.com.ipos.modal;
 public class CommonParams {
     private String storeId;
     private String searchParam;
+    private String barCodeNumber;
 
     public String getStoreId() {
         return storeId;
@@ -22,5 +23,13 @@ public class CommonParams {
 
     public void setSearchParam(String searchParam) {
         this.searchParam = searchParam;
+    }
+
+    public String getBarCodeNumber() {
+        return barCodeNumber;
+    }
+
+    public void setBarCodeNumber(String barCodeNumber) {
+        this.barCodeNumber = barCodeNumber;
     }
 }

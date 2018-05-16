@@ -35,16 +35,20 @@ import android.widget.ToggleButton;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.listeners.AdapterListener;
+import quay.com.ipos.listeners.ScanFilterListener;
 import quay.com.ipos.listeners.ScannerProductListener;
+import quay.com.ipos.modal.CommonParams;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.realmbean.RealmPinnedResults;
@@ -52,6 +56,7 @@ import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
+import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
@@ -65,7 +70,7 @@ import quay.com.ipos.utility.Util;
 /**
  * Created by aditi.bhuranda on 16-04-2018.
  */
-public class RetailSalesFragment extends BaseFragment implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialogFragment.MessageDialogListener,ScannerProductListener {
+public class RetailSalesFragment extends BaseFragment implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialogFragment.MessageDialogListener,ScannerProductListener,ScanFilterListener,ServiceTask.ServiceResultListener {
     private TextView tvRight1,tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
             tvLessDetails,tvRoundingOffPrice,tvTotalDiscount,tvPay,tvOTCDiscount,tvApplyOTC,tvApplyOTC2,tvPinCount;
@@ -75,8 +80,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     private CheckBox chkOTC;
     private Fragment scanner_fragment;
     private LinearLayout llTotalDiscountDetail,ll_item_pay,llOTCSelect,llTotalGST,llOTCConfirmation;
-    private ImageView imvDicount,imvGlobe,imvUserAdd,imvPin,imvRedeem,imvRight,imvClearOTC;
-    private ToggleButton chkBarCode;
+    private ImageView imvDicount,imvGlobe,imvUserAdd,imvPin,imvRedeem,imvRight,imvClearOTC,imvBarcode;
+//    private ToggleButton chkBarCode;
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
     private String TAG=RetailSalesFragment.class.getSimpleName();
@@ -133,7 +138,6 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.retail_dashboard, container, false);
         initializeComponent(rootView);
-        //   mScannerView = new ZBarScannerView(getActivity());
         myDialog = new Dialog(getActivity());
         setHasOptionsMenu(true);
         Util.hideSoftKeyboard(getActivity());
@@ -149,7 +153,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         imvRedeem = rootView.findViewById(R.id.imvRedeem);
         imvGlobe = rootView.findViewById(R.id.imvGlobe);
         imvDicount = rootView.findViewById(R.id.imvDicount);
-        chkBarCode = rootView.findViewById(R.id.chkBarCode);
+        imvBarcode = rootView.findViewById(R.id.imvBarcode);
         imvRight = rootView.findViewById(R.id.imvRight);
         tvRight1 = rootView.findViewById(R.id.tvRight1);
         tvMoreDetails = rootView.findViewById(R.id.tvMoreDetails);
@@ -203,9 +207,14 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         tvTotalDiscountDetail.setText("(Item 0)");
         IPOSApplication.mProductListResult.clear();
         flScanner.setVisibility(View.GONE);
-        chkBarCode.setChecked(false);
+//        chkBarCode.setChecked(false);
         closeFragment();
 
+        pinnedUpdate();
+
+    }
+
+    private void pinnedUpdate() {
         if (SharedPrefUtil.getString("mInfoArrayList", "", getActivity()) != null) {
             String json2 = SharedPrefUtil.getString("mInfoArrayList", "", getActivity());
             if (!json2.equalsIgnoreCase(""))
@@ -256,22 +265,22 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //        });
 
         // Set the click listener for the button.
-        chkBarCode.setOnClickListener(new View.OnClickListener() {
+        imvBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                         != PackageManager.PERMISSION_GRANTED) {
                     ((MainActivity) getActivity()).launchActivity(true);
-                    chkBarCode.setChecked(false);
+//                    chkBarCode.setChecked(false);
                     setTextDefault();
                 }else {
                     displayFragment();
                     if (flScanner.getVisibility()==View.GONE) {
                         flScanner.setVisibility(View.VISIBLE);
-                        chkBarCode.setChecked(true);
+//                        chkBarCode.setChecked(true);
                     } else {
                         flScanner.setVisibility(View.GONE);
-                        chkBarCode.setChecked(false);
+//                        chkBarCode.setChecked(false);
                     }
                 }
             }
@@ -285,7 +294,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         // Get the FragmentManager.
         FragmentManager fragmentManager = getChildFragmentManager();
         // Check to see if the fragment is already showing.
-        SimpleScannerFragment simpleFragment = (SimpleScannerFragment) fragmentManager
+        FullScannerFragment simpleFragment = (FullScannerFragment) fragmentManager
                 .findFragmentById(R.id.scanner_fragment);
         if (simpleFragment != null) {
             // Create and commit the transaction to remove the fragment.
@@ -301,12 +310,12 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
      * Display fragment.
      */
     public void displayFragment() {
-        SimpleScannerFragment simpleFragment =new  SimpleScannerFragment();
+        FullScannerFragment simpleFragment =new  FullScannerFragment();
         // TODO: Get the FragmentManager and start a transaction.
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-        //   simpleFragment.setListener(this);
+           simpleFragment.setListener(this);
         // TODO: Add the SimpleFragment.
         // Add the SimpleFragment.
         //    simpleFragment.setTargetFragment(RetailSalesFragment.this,2000);
@@ -495,6 +504,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         }else if(requestCode==2){
             if(resultCode == 1){
                 childPosition = data.getIntExtra("pinned_position",0);
+                pinnedUpdate();
+                getProduct();
+            }else if(resultCode==0){
+                pinnedUpdate();
                 getProduct();
             }
         }
@@ -773,8 +786,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
             case R.id.imvPin:
 //                setArrayPinned();
+                cachedPinned();
                 if (SharedPrefUtil.getString(Constants.mInfoArrayList, "", getActivity()) != null && !SharedPrefUtil.getString(Constants.mInfoArrayList, "", getActivity()).equalsIgnoreCase("")) {
-                    cachedPinned(true);
+
+                    openPinnedDetailActivity(true);
                 }else {
 
                     Util.showToast(getString(R.string.pinned_empty), getActivity());
@@ -859,7 +874,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
 
 
-    private void cachedPinned(boolean showScreen) {
+    private void cachedPinned() {
 
         if(IPOSApplication.mProductListResult!=null)
             if(IPOSApplication.mProductListResult.size()>0) {
@@ -889,14 +904,18 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 String json = Util.getCustomGson().toJson(mInfoArrayList);
                 SharedPrefUtil.putString(Constants.mInfoArrayList, json, getActivity());
 //            IPOSApplication.mProductListResult.clear();
-                if (showScreen) {
-                    Intent mIntent = new Intent(getActivity(), PinnedRetailActivity.class);
-                    startActivityForResult(mIntent, 2);
-                    IPOSApplication.mProductListResult.clear();
-                    mRetailSalesAdapter.notifyDataSetChanged();
-                }
+
             }
 
+    }
+
+    void openPinnedDetailActivity(boolean showScreen){
+        if (showScreen) {
+            Intent mIntent = new Intent(getActivity(), PinnedRetailActivity.class);
+            startActivityForResult(mIntent, 2);
+            IPOSApplication.mProductListResult.clear();
+            mRetailSalesAdapter.notifyDataSetChanged();
+        }
     }
 
     private void setArrayPinned() {
@@ -1252,9 +1271,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             etDiscountAmt.setText("");
         }else if(mCallType==Constants.APP_DIALOG_Cart){
             if(IPOSApplication.mProductListResult.size()>0)
-                cachedPinned(false);
+                cachedPinned();
             else
                 Util.showToast("Cannot save empty list",getActivity());
+            pinnedUpdate();
             dialog.dismiss();
             getFragmentManager().popBackStack();
 
@@ -1320,5 +1340,35 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     public void onPause() {
         super.onPause();
         //   mScannerView.stopCamera();
+    }
+
+    @Override
+    public void onUpdate(String title) {
+        System.out.println("DIALOG CALLL"+title);
+        callScanService(title);
+    }
+
+    void callScanService(String title){
+//        showProgress(getResources().getString(R.string.please_wait));
+            CommonParams mCommonParams = new CommonParams();
+            mCommonParams.setStoreId("1");
+            mCommonParams.setBarCodeNumber(title);
+
+            ServiceTask mTask = new ServiceTask();
+            mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+            mTask.setApiMethod(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT);
+            mTask.setApiCallType(Constants.API_METHOD_POST);
+            mTask.setParamObj(mCommonParams);
+            mTask.setListener(this);
+            mTask.setResultType(ProductListResult.class);
+            if(Util.isConnected())
+                mTask.execute();
+            else
+                Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
+    }
+
+    @Override
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj) {
+
     }
 }
