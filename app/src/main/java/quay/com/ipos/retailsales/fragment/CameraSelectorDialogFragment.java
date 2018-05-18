@@ -9,8 +9,19 @@ import android.support.v7.app.AlertDialog;
 
 import quay.com.ipos.R;
 
+/**
+ * The type Camera selector dialog fragment.
+ */
 public class CameraSelectorDialogFragment extends DialogFragment {
+    /**
+     * The interface Camera selector dialog listener.
+     */
     public interface CameraSelectorDialogListener {
+        /**
+         * On camera selected.
+         *
+         * @param cameraId the camera id
+         */
         public void onCameraSelected(int cameraId);
     }
 
@@ -22,6 +33,13 @@ public class CameraSelectorDialogFragment extends DialogFragment {
         setRetainInstance(true);
     }
 
+    /**
+     * New instance camera selector dialog fragment.
+     *
+     * @param listener the listener
+     * @param cameraId the camera id
+     * @return the camera selector dialog fragment
+     */
     public static CameraSelectorDialogFragment newInstance(CameraSelectorDialogListener listener, int cameraId) {
         CameraSelectorDialogFragment fragment = new CameraSelectorDialogFragment();
         fragment.mCameraId = cameraId;

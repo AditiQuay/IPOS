@@ -25,6 +25,7 @@ import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.ScannerProductListener;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.ui.MessageDialogFragment;
@@ -45,7 +46,7 @@ public class FullScannerFragment extends Fragment implements
     private ArrayList<Integer> mSelectedIndices;
     private int mCameraId = -1;
     ScannerProductListener mScannerProductListener;
-
+    private MainActivity mainActivity;
     public static FullScannerFragment newInstance() {
         return new FullScannerFragment();
     }
@@ -53,6 +54,7 @@ public class FullScannerFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         mScannerView = new ZBarScannerView(getActivity());
+        mainActivity = (MainActivity) getActivity();
         if(state != null) {
             mFlash = state.getBoolean(FLASH_STATE, false);
             mAutoFocus = state.getBoolean(AUTO_FOCUS_STATE, true);
@@ -65,6 +67,7 @@ public class FullScannerFragment extends Fragment implements
             mCameraId = -1;
         }
         setupFormats();
+
         return mScannerView;
     }
 
@@ -163,6 +166,7 @@ public class FullScannerFragment extends Fragment implements
         outState.putInt(CAMERA_ID, mCameraId);
     }
 
+
     @Override
     public void handleResult(Result rawResult) {
         try {
@@ -173,11 +177,12 @@ public class FullScannerFragment extends Fragment implements
 
         }
         showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
+        mainActivity.onUpdate(rawResult.getContents());
 //        Intent intent = new Intent(getActivity(), FullScannerFragment.class);
 //        intent.putExtra("scancode",rawResult.getContents());
 //        getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
 //        getFragmentManager().popBackStack();
-//        mScannerProductListener.setProductOnListener("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
+       // mScannerProductListener.setProductOnListener("Contents = " + rawResult.getContents() + ", Format = " + rawResul.getBarcodeFormat().getName());
     }
 
     public void showMessageDialog(String message) {

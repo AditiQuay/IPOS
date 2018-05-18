@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.modal.ProductList;
+import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.retailsales.adapter.AddProductAdapter;
 import quay.com.ipos.retailsales.adapter.PinnedAdapter;
@@ -47,9 +47,9 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
     private FloatingActionButton fab;
     private LinearLayoutManager mLayoutManager;
     private LinearLayout llSearch;
-    private ProductList mProductListResult;
+    private ProductListResult mProductListResult;
     private AddProductAdapter mAddProductAdapter;
-    private TextView tvClear;
+    private TextView tvClear,tvToolBar;
     private PinnedAdapter mPinnedAdapter;
     private int mSelectedpos;
     int pinned_pos;
@@ -140,9 +140,9 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void selectPinned(int childPosition) {
-        IPOSApplication.mProductList.clear();
+        IPOSApplication.mProductListResult.clear();
 
-        IPOSApplication.mProductList.addAll(mInfoArrayList.get(childPosition).getData());
+        IPOSApplication.mProductListResult.addAll(mInfoArrayList.get(childPosition).getData());
         Intent mIntent = new Intent();
         mIntent.putExtra("pinned_position",childPosition);
         setResult(1,mIntent);
@@ -152,13 +152,16 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
 
     public void setHeader() {
         Toolbar toolbar = findViewById(R.id.toolbar);
+        tvToolBar = toolbar.findViewById(R.id.tvToolBar);
+        tvToolBar.setVisibility(View.VISIBLE);
+        tvToolBar.setText(getResources().getString(R.string.pinned_retail));
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         // toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.back));
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                onBackPressed();
             }
         });
         if (getSupportActionBar() != null) {
@@ -169,6 +172,13 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent mIntent = new Intent();
+        setResult(0,mIntent);
+        finish();
+        super.onBackPressed();
+    }
 
     @Override
     public void onClick(View view) {

@@ -31,6 +31,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import quay.com.ipos.R;
+import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.dashboard.activity.UpcomingShipmentActivity;
 import quay.com.ipos.dashboard.adapter.BarGraphAdapter;
 import quay.com.ipos.dashboard.adapter.LowInventoryListAdapter;
@@ -301,5 +302,11 @@ public class McCOYDashboardFragment extends Fragment {
             isPopupVisible = false;
             //   showToastMessage(getString(R.string.no_data));
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.dashboard));
     }
 }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.modal.CustomerResult;
+import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.retailsales.adapter.RecentOrdersListAdapter;
 import quay.com.ipos.ui.CircleTransform;
 import quay.com.ipos.utility.Constants;
@@ -25,13 +25,18 @@ import quay.com.ipos.utility.Util;
 /**
  * Created by aditi.bhuranda on 26-04-2018.
  */
-
 public class CustomerDetailActivity extends BaseActivity {
     private RecyclerView recycler_viewRecentOrders;
     private RecentOrdersListAdapter recentOrdersListAdapter;
+    /**
+     * The Json.
+     */
     String json;
-    CustomerResult.Customer mCustomer;
-    private ArrayList<CustomerResult.RecentOrder> recentOrderModalArrayList=new ArrayList<>();
+    /**
+     * The M customer.
+     */
+    CustomerList.Customer mCustomer;
+    private ArrayList<CustomerList.RecentOrder> recentOrderModalArrayList=new ArrayList<>();
     private ImageView imvUserImage;
     private TextView tvName,tvMobileNo,tvEmail,tvBillingAmount,tvBillingDate,tvBirthday,tvRedeemPoints;
 
@@ -65,7 +70,7 @@ public class CustomerDetailActivity extends BaseActivity {
         recycler_viewRecentOrders.setLayoutManager(mLayoutManager4);
         recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
 
-        mCustomer = Util.getCustomGson().fromJson(json, CustomerResult.Customer.class);
+        mCustomer = Util.getCustomGson().fromJson(json, CustomerList.Customer.class);
         recentOrderModalArrayList.addAll(mCustomer.getRecentOrders());
 
         tvName.setText(mCustomer.getCustomerName());
@@ -84,6 +89,9 @@ public class CustomerDetailActivity extends BaseActivity {
     }
 
 
+    /**
+     * Sets header.
+     */
     public void setHeader() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));

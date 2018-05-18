@@ -21,8 +21,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.AdapterListener;
-import quay.com.ipos.modal.ProductList;
-import quay.com.ipos.ui.FontManager;
+import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Util;
 
@@ -43,13 +42,13 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<ProductList.Datum> mDataset;
+    ArrayList<ProductListResult.Datum> mDataset;
     RecyclerView mRecyclerView;
     CompoundButton.OnCheckedChangeListener mCheckedChangeListener;
     TextWatcher mTextWatcher;
 
     public RetailSalesAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                              ArrayList<ProductList.Datum> questionList, CompoundButton.OnCheckedChangeListener mCheckedChangeListener, AdapterListener listener) {
+                              ArrayList<ProductListResult.Datum> questionList, CompoundButton.OnCheckedChangeListener mCheckedChangeListener, AdapterListener listener) {
         this.mOnClickListener = mClickListener;
         this.mContext = ctx;
         this.mDataset = questionList;
@@ -134,12 +133,12 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof RetailSalesAdapter.UserViewHolder) {
             onBind = true;
-            final ProductList.Datum str = mDataset.get(position);
+            final ProductListResult.Datum str = mDataset.get(position);
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             final UserViewHolder userViewHolder = (UserViewHolder) holder;
             userViewHolder.tvItemName.setText(str.getSProductName());
             userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
-            userViewHolder.tvItemRate.setText(str.getSProductPoints());
+            userViewHolder.tvItemRate.setText(str.getSProductStock()+"");
             userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSProductPrice());
             userViewHolder.etQtySelected.setText(str.getQty()+"");
             onBind = false;
@@ -164,14 +163,14 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.llOTCDiscount.setVisibility(View.GONE);
             }
 
-            Double totalPrice=(Double.parseDouble(str.getSProductPrice())*str.getQty());
+            Double totalPrice=(str.getSProductPrice()*str.getQty());
 //            str.setTotalPrice(totalPrice);
 
             if(str.getIsDiscount()) {
                 userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSDiscountPrice());
                 userViewHolder.tvDiscount.setText(str.getSDiscountName());
 //                str.setDiscItemSelected(true);
-                Double discount = (Double.parseDouble(str.getSDiscountPrice())*totalPrice)/100;
+                Double discount = (str.getSDiscountPrice()*totalPrice)/100;
 //                str.setDiscount(discount);
 
                 userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+discount+"");

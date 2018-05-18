@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
         android:layout_gravity="center_vertical"
         android:background="@color/colorPrimaryDark">
 
@@ -17,62 +19,112 @@
             android:id="@+id/imvUserAdd"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_5"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_person_add"/>
-      />
+            android:src="@drawable/ic_action_add_person"/>
 
-        <ImageView
-            android:id="@+id/imvPin"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            style="?attr/actionButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/transparent"
-            android:src="@drawable/ic_action_pin"/>
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/imvPin"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_pin_white"/>
+
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvPinCount"
+                android:layout_width="28dp"
+                android:layout_height="20dp"
+                android:layout_gravity="right|end|top"
+                android:layout_marginRight="-10dp"
+                android:layout_marginLeft="@dimen/dim_16"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/yellow_circle"
+                android:maxLength="3"
+                android:gravity="center"
+                android:padding="3dp"
+                android:textColor="@android:color/white"
+                android:text="164"
+                android:textSize="10sp"/>
+
+        </FrameLayout>
+
 
         <ImageView
             android:id="@+id/imvBilling"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_5"
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_billing"/>
+            android:src="@drawable/ic_action_billing_white"/>
 
         <ImageView
             android:id="@+id/imvDicount"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_5"
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_discount"/>
+            android:src="@drawable/ic_action_discount_white"/>
 
-        <ImageView
-            android:id="@+id/imvRedeem"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
-            android:layout_width="wrap_content"
+        <FrameLayout
+            style="?attr/actionButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/transparent"
-            android:src="@drawable/ic_action_redeem"/>
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/imvRedeem"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_loyality_white"/>
+
+            <quay.com.ipos.ui.CustomTextView
+                android:layout_width="28dp"
+                android:layout_height="20dp"
+                android:layout_gravity="right|end|top"
+                android:layout_marginRight="-10dp"
+                android:layout_marginLeft="@dimen/dim_16"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/yellow_circle"
+                android:gravity="center"
+                android:padding="3dp"
+                android:maxLength="3"
+                android:textColor="@android:color/white"
+                android:text="164"
+                android:textSize="10sp"/>
+
+        </FrameLayout>
+
 
         <ImageView
             android:id="@+id/imvGlobe"
             android:paddingLeft="@dimen/dim_10"
             android:paddingRight="@dimen/dim_15"
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_online_shop"/>
+            android:src="@drawable/ic_action_online_shoping"/>
 
 
         <quay.com.ipos.ui.CustomTextView
@@ -82,14 +134,26 @@
             android:gravity="right"
             android:layout_weight="1"
             android:text="@string/barcode"
+            android:visibility="gone"
             android:textColor="@color/dark_text_color"
             android:paddingRight="@dimen/dim_5"
             android:textSize="@dimen/text_size_15sp"/>
-
+        <ImageView
+            android:id="@+id/imvBarcode"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_15"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_action_qr_code1"/>
         <ToggleButton
             android:id="@+id/chkBarCode"
-            android:layout_width="40dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_weight="1"
             android:layout_marginRight="@dimen/dim_10"
             android:layout_gravity="right|center_vertical"
             android:background="@drawable/toggle_selector"
@@ -107,7 +171,7 @@
             android:visibility="visible"
             android:layout_height="120dp">
 
-            <fragment android:name="quay.com.ipos.retailsales.fragment.SimpleScannerFragment"
+            <fragment android:name="quay.com.ipos.retailsales.fragment.FullScannerFragment"
                 android:id="@+id/scanner_fragment"
                 android:layout_weight="1"
                 android:layout_width="match_parent"

@@ -87,7 +87,7 @@ public class ExpandableListDataPump {
         List<String> Insight = new ArrayList<String>();
         Insight.add("Insights & Alerts for Action");
         Insight.add("Dashboards & Reports");
-        Insight.add("Customer Engagements");
+        Insight.add("CustomerList Engagements");
 
         List<String> Settings = new ArrayList<String>();
         List<String> MostlyUsed = new ArrayList<String>();
