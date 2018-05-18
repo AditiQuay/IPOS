@@ -45,7 +45,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
          * @param resultType    the result type
          * @param resultObj     the result obj
          */
-        public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj);
+        public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj,String serverResponse);
     }
 
     /**
@@ -77,6 +77,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
      * The _result obj.
      */
     private Object resultObj = null;
+    private String serverResponse = null;
 
     /**
      * The _param obj.
@@ -166,7 +167,9 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
         this.resultObj = resultObj;
     }
 
-
+    public void setServerResponse(String serverResponse) {
+        this.serverResponse = serverResponse;
+    }
     /**
      * @param paramObj the paramObj to set
      */
@@ -272,6 +275,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
                 statusCode = response.code();
                 if (200 == response.code()) {
                     String responseJson = response.body().string();
+
                     AppLog.e(TAG, "responseJson: " + methodUrl + responseJson);
                     AppLog.e(TAG, responseJson);
 
@@ -279,7 +283,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
                         if (isCancelled()) {
                             break;
                         }
-
+                        serverResponse=responseJson;
                         resultObj = gson.fromJson(responseJson, resultType);
                         responseJson = null;
                     } else {
@@ -310,7 +314,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
         AppLog.e(TAG, "onPostExecute++");
         super.onPostExecute(result);
         if (null != listener && false == isCancelled()) {
-            listener.onResult(apiUrl, apiMethod, statusCode, resultType, resultObj);
+            listener.onResult(apiUrl, apiMethod, statusCode, resultType, resultObj,serverResponse);
         } else {
             AppLog.e(TAG, "listener is null!!!");
         }

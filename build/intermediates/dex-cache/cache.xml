@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\multidex-1.0.1.aar\ef70fd4bbcb1ca3371fd5acb5178a0eb\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="78ea232052df889856dcb7b7b542707c89bb3bfb">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\0ea04b99a81b84bf1a286596550fa09b\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="22569eca3029ab00583c332a2be220cdbf091b35">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\26.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp\2.5.0\4de2b4ed3445c37ec1720a7d214712e845a24636\okhttp-2.5.0.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4de2b4ed3445c37ec1720a7d214712e845a24636">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\13.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\2706964bdaf1f94befacb664753ab210\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-compat-26.1.0.aar\6394ee95a14e9fd1e8cfa00cb686b0a2\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2442771a5590dd4eb4bce00c2e9dca9e22e4c963">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\design-26.1.0.aar\aa22ac6a75a89bfea7355846a8dbe9f8\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a37fc31c5ceeaa4532a37358add1b189d8db4af1">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\27.1.0\39ded76b5e1ce1c5b2688e1d25cdc20ecee32007\support-annotations-27.1.0.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="39ded76b5e1ce1c5b2688e1d25cdc20ecee32007">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\modules-2\files-2.1\io.realm\realm-annotations\3.1.3\b4ecd87169faeee5abfb6c4793713cc1a14b1c25\realm-annotations-3.1.3.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b4ecd87169faeee5abfb6c4793713cc1a14b1c25">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\appcompat-v7-26.1.0.aar\a66b774ecf0c749d634ec15613e4ea67\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f428e2fbc9ed0b297e3a3f420e51e6982f66822d">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\modules-2\files-2.1\android.arch.lifecycle\common\1.0.0\e414a4cb28434e25c4f6aa71426eb20cf4874ae9\common-1.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e414a4cb28434e25c4f6aa71426eb20cf4874ae9">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\47.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\relinker-1.2.2.aar\171a4912fc350f724fb77362077f8e10\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b64dd5f01bc37de289f90fd59299b0c76d119611">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\17.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-core-ui-26.1.0.aar\c58d31a959ecf1543c20936a82cf4d36\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="508f50705b4fde51a16259f29c854201a3044516">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\32.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.0.0.aar\fc168cd30465752f8f65865fda5ebb28\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b62fdc4cfef174c1e456014195c83fa7de7dc041">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\46.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\effc68213ecb50d6982169c3b7ec108a\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a38a8974c8d066800237d22a86df2e88cb9e065c">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\build\intermediates\intermediate-jars\release\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="47a42f5fad8339bd5b42c7b69fc30e24dea371cc">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\49.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\da7c8e5b3c0493e613e860696821c602\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4c9dde3866f60967d73035b3445bb0f703429612">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\21.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\build\intermediates\intermediate-jars\release\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3a4a279d2f94424def18cea493bed98907238ab8">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\50.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\exifinterface-27.1.0.aar\c81280c6e6b0ee3c69dd7044857d0249\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0d6df4057d1620a785f5bd2e69dd0d7866f3613c">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\9e61dc0aadd86256cd9beeaff4dcd93c\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b739661c7142579d33f42801cfb71882cd217727">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-26.1.0.aar\84c7e2d2646fe8a17c530c12eec97d10\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b12cd9c87c3dfb012a911b6e38d2444ed0a65e1f">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0b7d622f1c8c1b04d75e19d1283930cb\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b4d6fbbb48b42dd03fd9c5a09b3b7a53266df6ed">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.14.0\102d7be47241d781ef95f1581d414b0943053130\okio-1.14.0.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="102d7be47241d781ef95f1581d414b0943053130">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\39.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-v4-26.1.0.aar\18c1c37ec87bcc75f227290f095d77cb\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\libs\zbar.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b7350ba6ec0fd2beac4e95d75410da582cec5baa">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.7.0\9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4\glide-3.7.0.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\transition-26.1.0.aar\2ea78ab508970542e29645b58895fbfb\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="58b12bdb21a84f22e0dc3b047aeceb0a546b1b44">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\SegmentedButton-v2.0.2.aar\48caa9fcf5003b41802b21c1e1b6b6f3\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2cd3bd22f58af1908e36bada841cd0032f0116f1">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\da1044f3c61559295b43dbfef2243ff1\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="43777ad2c3f87b64ced35a875ce2befa178a23da">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-26.1.0.aar\3fa1f6cdc0a1e0d986d05798356fc2da\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="6f4138a4e065826cb044d49faea4cfd7191773d1">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\33.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\AppData\Local\Android\Sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\37.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\modules-2\files-2.1\android.arch.core\common\1.0.0\a2d487452376193fc8c103dd2b9bd5f2b1b44563\common-1.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a2d487452376193fc8c103dd2b9bd5f2b1b44563">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\48.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-fragment-26.1.0.aar\0ad4c0eebe4ce725ef446b639622c171\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7efef32744ca4a436492d5cf28c08698cc2af256">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\29.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\com\google\code\gson\gson\2.2.4\gson-2.2.4.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\modules-2\files-2.1\com.nostra13.universalimageloader\universal-image-loader\1.9.5\442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375\universal-image-loader-1.9.5.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="442dbfb517b9ab5cb5c6da7ebf8cc28ec5bd0375">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\14.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-26.1.0.aar\9ab92d11ce69b12d8865ae8e3e4e676b\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="40392f30a601db5675cdf18192aab013d6fee6ec">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\31.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\28f44b8cf9fb9fa0188fb8b7ed7b5414\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d8ec04dc91c0c90a0ceeca77c94c8b15cb7f3892">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\picasso-2.71828.aar\3015d6e8e4c7c6fa5a96d16a98e83a0b\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4a77dd97f559e5fdc641380539d31a71f2b0470c">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-core-utils-26.1.0.aar\cd7c9c08ac459e8cdf5adcf584164252\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="233f60a165ae622c8b36731502ebbda0f65e1930">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.10.0\7ef0f1d95bf4c0b3ba30bbae25e0e562b05cf75e\okhttp-3.10.0.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7ef0f1d95bf4c0b3ba30bbae25e0e562b05cf75e">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\38.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-media-compat-26.1.0.aar\3be8e5ca4218b05b57575755f24c7364\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f97cf85b0fe70d37a705111dafa6b1b418ea1650">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\28.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\realm-android-library-3.1.3.aar\171be6cb5142e7aaa6faca92dce24240\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="bd255815270a5d4083c4cf41bde3d5b475493264">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\13befbdf62456e2c28fb2065facf3d9e\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="15"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e1086213a85bf2bfc3f6448d66581198ba380f69">
+        <dex dex="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\transforms\preDex\release\6.jar" />
+    </item>
+
+</items>

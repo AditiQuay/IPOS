@@ -78,13 +78,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/shaders" isTestSource="true" />
-<<<<<<< HEAD
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
-<<<<<<< HEAD
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
-=======
-=======
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
@@ -95,23 +88,10 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/build-info" />
-<<<<<<< HEAD
-=======
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/builds" />
->>>>>>> 97e317d2d7367a9a5fb7abb884505654d593112a
->>>>>>> b2db5411767ceecebe63eb0a153c60de4800f20b
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/check-manifest" />
-<<<<<<< HEAD
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
-=======
->>>>>>> a1e22d421f92b2871fdff0ae68cb457f0ae52558
->>>>>>> b211d621426763f04645ddb0d19c08b57d3b370e
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
-<<<<<<< HEAD
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
-=======
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-verifier" />
@@ -120,9 +100,10 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/prebuild" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/reload-dex" />
->>>>>>> 97e317d2d7367a9a5fb7abb884505654d593112a
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/shaders" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/split-apk" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/splits-support" />
@@ -130,22 +111,24 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
+      <excludeFolder url="file://$MODULE_DIR$/build/reports" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.android.support:multidex-1.0.1" level="project" />
+    <orderEntry type="library" name="com.squareup.okhttp3:okhttp:3.10.0@jar" level="project" />
+    <orderEntry type="library" name="com.squareup.okio:okio:1.14.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-media-compat-26.1.0" level="project" />
     <orderEntry type="library" name="com.android.support:recyclerview-v7-26.1.0" level="project" />
+    <orderEntry type="library" name="com.squareup.picasso:picasso-2.71828" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-messaging-12.0.1" level="project" />
     <orderEntry type="library" name="android.arch.lifecycle:common:1.0.0@jar" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-common-12.0.1" level="project" />
     <orderEntry type="library" name="com.squareup.okhttp:okhttp:2.5.0@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="com.squareup:javawriter:2.1.1@jar" level="project" />
     <orderEntry type="library" name="android.arch.lifecycle:runtime-1.0.0" level="project" />
-    <orderEntry type="library" name="me.dm7.barcodescanner:zbar-1.9.8" level="project" />
     <orderEntry type="library" name="com.android.support:appcompat-v7-26.1.0" level="project" />
-    <orderEntry type="library" name="com.android.support:support-annotations:26.1.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support.constraint:constraint-layout-solver:1.0.2@jar" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-common-license-12.0.1" level="project" />
     <orderEntry type="library" name="com.android.support.constraint:constraint-layout-1.0.2" level="project" />
@@ -162,11 +145,11 @@
     <orderEntry type="library" name="android.arch.core:common:1.0.0@jar" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-basement-license-12.0.1" level="project" />
     <orderEntry type="library" scope="TEST" name="org.hamcrest:hamcrest-integration:1.3@jar" level="project" />
-    <orderEntry type="library" name="com.google.zxing:core:3.3.0@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="net.sf.kxml:kxml2:2.3.0@jar" level="project" />
     <orderEntry type="library" name="com.android.support:transition-26.1.0" level="project" />
     <orderEntry type="library" name="com.android.support:design-26.1.0" level="project" />
     <orderEntry type="library" name="com.getkeepsafe.relinker:relinker-1.2.2" level="project" />
+    <orderEntry type="library" name="com.github.ceryle:SegmentedButton-v2.0.2" level="project" />
     <orderEntry type="library" name="io.realm:realm-android-library-3.1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="junit:junit:4.12@jar" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-tasks-12.0.1" level="project" />
@@ -174,6 +157,7 @@
     <orderEntry type="library" scope="TEST" name="com.android.support.test.espresso:espresso-core-3.0.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-basement-12.0.1" level="project" />
     <orderEntry type="library" name="com.android.support:support-fragment-26.1.0" level="project" />
+    <orderEntry type="library" name="com.android.support:support-annotations:27.1.0@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="javax.inject:javax.inject:1@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-vector-drawable-26.1.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-messaging-license-12.0.1" level="project" />
@@ -184,15 +168,15 @@
     <orderEntry type="library" name="com.google.code.gson:gson:2.2.4@jar" level="project" />
     <orderEntry type="library" scope="TEST" name="org.hamcrest:hamcrest-library:1.3@jar" level="project" />
     <orderEntry type="library" name="com.android.support:support-v4-26.1.0" level="project" />
-    <orderEntry type="library" name="com.squareup.okio:okio:1.6.0@jar" level="project" />
-    <orderEntry type="library" name="me.dm7.barcodescanner:core-1.9.8" level="project" />
+    <orderEntry type="library" name="__local_aars__:C.\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\libs\zbar.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="com.android.support:exifinterface-27.1.0" level="project" />
     <orderEntry type="library" name="com.android.support:animated-vector-drawable-26.1.0" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-analytics-impl-license-12.0.1" level="project" />
     <orderEntry type="library" name="com.google.android.gms:play-services-tasks-license-12.0.1" level="project" />
-    <orderEntry type="library" name="me.dm7.barcodescanner:zxing-1.9.8" level="project" />
     <orderEntry type="library" name="com.android.support:cardview-v7-26.1.0" level="project" />
     <orderEntry type="library" name="com.github.bumptech.glide:glide:3.7.0@jar" level="project" />
     <orderEntry type="library" name="com.google.firebase:firebase-iid-license-12.0.1" level="project" />
-    <orderEntry type="module" module-name="MPChartLib" />
+    <orderEntry type="module" module-name="core" />
+    <orderEntry type="module" module-name="zbar" />
   </component>
 </module>
