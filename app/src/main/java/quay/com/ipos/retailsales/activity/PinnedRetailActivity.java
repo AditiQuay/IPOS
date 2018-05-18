@@ -55,6 +55,7 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
     int pinned_pos;
     ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<>();
     String json ;
+
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

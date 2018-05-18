@@ -53,6 +53,7 @@ import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
 import quay.com.ipos.modal.DrawerModal;
+import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.productCatalogue.ProductMain;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.ui.MessageDialogFragment;
@@ -317,8 +318,7 @@ public class MainActivity extends BaseActivity
 
                 if (groupPosition == 1) {
                     if (childPosition == 0) {
-                        retailSalesFragment = new RetailSalesFragment();
-                        replaceFragment(retailSalesFragment, containerId);
+                        openRetailSalesFragment();
                         drawer.closeDrawer(GravityCompat.START);
                         toolbar.setTitle(getString(R.string.retail_sales));
                         menu1.findItem(R.id.action_notification).setVisible(false);
@@ -337,6 +337,11 @@ public class MainActivity extends BaseActivity
                 return true;
             }
         });
+    }
+
+    public void openRetailSalesFragment(){
+        retailSalesFragment = new RetailSalesFragment();
+        replaceFragment(retailSalesFragment, containerId);
     }
 
     public void setToolbarTitle(String name) {
@@ -419,8 +424,6 @@ public class MainActivity extends BaseActivity
     @Override
     public void onUpdateTitle(String title) {
         dashboardItemFragment.onUpdateTitle("dialog");
-
-
     }
 
     @Override
@@ -436,8 +439,9 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    public void onUpdate(String title) {
-        retailSalesFragment1.onUpdate(title);
+    public void onUpdate(ProductListResult title, Context mContext) {
+
+        retailSalesFragment1.onUpdate(title, MainActivity.this);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

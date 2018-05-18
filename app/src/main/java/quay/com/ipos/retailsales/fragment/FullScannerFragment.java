@@ -1,5 +1,6 @@
 package quay.com.ipos.retailsales.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -17,25 +18,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import me.dm7.barcodescanner.zbar.BarcodeFormat;
 import me.dm7.barcodescanner.zbar.Result;
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.ScannerProductListener;
+import quay.com.ipos.modal.CommonParams;
 import quay.com.ipos.modal.ProductList;
+import quay.com.ipos.modal.ProductListResult;
+import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.MessageDialogFragment;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Util;
 
 import static android.app.Activity.RESULT_OK;
 
 public class FullScannerFragment extends Fragment implements
         ZBarScannerView.ResultHandler, FormatSelectorDialogFragment.FormatSelectorDialogListener,
-        CameraSelectorDialogFragment.CameraSelectorDialogListener,MessageDialogFragment.MessageDialogListener {
+        CameraSelectorDialogFragment.CameraSelectorDialogListener,MessageDialogFragment.MessageDialogListener,ServiceTask.ServiceResultListener {
     private static final String FLASH_STATE = "FLASH_STATE";
     private static final String AUTO_FOCUS_STATE = "AUTO_FOCUS_STATE";
     private static final String SELECTED_FORMATS = "SELECTED_FORMATS";
@@ -167,6 +174,28 @@ public class FullScannerFragment extends Fragment implements
     }
 
 
+    void callScanService(String title, Context mContext){
+
+
+//        showProgressDialog(mContext,R.string.please_wait);
+        CommonParams mCommonParams = new CommonParams();
+        mCommonParams.setStoreId("1");
+        mCommonParams.setBarCodeNumber(title);
+
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_ProductDetailUsingBarCode);
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(mCommonParams);
+        mTask.setListener(this);
+        mTask.setResultType(ProductListResult.class);
+        if(Util.isConnected())
+            mTask.execute();
+        else
+            Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
+    }
+
+
     @Override
     public void handleResult(Result rawResult) {
         try {
@@ -177,7 +206,8 @@ public class FullScannerFragment extends Fragment implements
 
         }
         showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
-        mainActivity.onUpdate(rawResult.getContents());
+        callScanService(rawResult.getContents(),getActivity());
+//        mainActivity.onUpdate(rawResult.getContents(), mainActivity);
 //        Intent intent = new Intent(getActivity(), FullScannerFragment.class);
 //        intent.putExtra("scancode",rawResult.getContents());
 //        getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
@@ -264,4 +294,33 @@ public class FullScannerFragment extends Fragment implements
         closeFormatsDialog();
     }
 
+    @Override
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj) {
+        if (httpStatusCode == Constants.SUCCESS) {
+            if(serviceUrl!=null && serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_ProductDetailUsingBarCode)) {
+                if (resultObj != null) {
+
+                  ProductListResult productListResult = (ProductListResult) resultObj;
+                    if(productListResult.getData()!=null)
+                    if(productListResult.getData()!=null && productListResult.getData().size()>0) {
+                        ProductListResult.Datum datum = productListResult.getData().get(0);
+                        datum.setAdded(true);
+                        IPOSApplication.mProductListResult.add(0, datum);
+                    }
+                }
+
+                mainActivity.onUpdate((ProductListResult)resultObj,getActivity());
+            }
+        } else if (httpStatusCode == Constants.BAD_REQUEST) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+            Toast.makeText(getActivity(), getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+        }
+    }
 }

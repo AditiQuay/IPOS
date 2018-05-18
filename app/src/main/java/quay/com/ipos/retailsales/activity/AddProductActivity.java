@@ -126,7 +126,6 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         CommonParams mCommonParams = new CommonParams();
         mCommonParams.setStoreId("1");
         mCommonParams.setSearchParam(s);
-
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT);
