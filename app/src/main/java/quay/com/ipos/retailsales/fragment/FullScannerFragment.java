@@ -174,7 +174,7 @@ public class FullScannerFragment extends Fragment implements
             Ringtone r = RingtoneManager.getRingtone(getActivity().getApplicationContext(), notification);
             r.play();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
         mainActivity.onUpdate(rawResult.getContents());
