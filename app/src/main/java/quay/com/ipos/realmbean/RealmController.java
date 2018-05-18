@@ -14,9 +14,6 @@ import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 public class RealmController {
 
 
-
-
-
     public void clearRealm(Context context) {
 
         Realm realm = Realm.getDefaultInstance();
@@ -45,8 +42,6 @@ public class RealmController {
             realm.delete(RealmSurveyQuestion.class);*/
 
 
-
-
         } catch (Exception e) {
             realm.cancelTransaction();
             realm.close();
@@ -65,7 +60,7 @@ public class RealmController {
             if (jsonResponse != null) {
                 realm.beginTransaction();
 
-                   realm.createOrUpdateObjectFromJson(CatalogueModal.class, jsonResponse);
+                realm.createOrUpdateObjectFromJson(CatalogueModal.class, jsonResponse);
 
             }
         } catch (Exception e) {
@@ -79,14 +74,12 @@ public class RealmController {
     }
 
 
-
-
     public void saveUserDetail(String responseData) {
 
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         try {
-         //   realm.createOrUpdateObjectFromJson(RealmUser.class, responseData);
+              realm.createOrUpdateObjectFromJson(RealmUserDetail.class, responseData);
         } catch (Exception e) {
             if (realm.isInTransaction())
                 realm.cancelTransaction();
@@ -98,7 +91,8 @@ public class RealmController {
         }
 
     }
-//    public void saveQuestions(String responseData) {
+
+    //    public void saveQuestions(String responseData) {
 //        Realm realm = Realm.getDefaultInstance();
 //        realm.beginTransaction();
 //        try {

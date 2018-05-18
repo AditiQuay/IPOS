@@ -203,7 +203,7 @@ public class FullScannerFragment extends Fragment implements
             Ringtone r = RingtoneManager.getRingtone(getActivity().getApplicationContext(), notification);
             r.play();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
         callScanService(rawResult.getContents(),getActivity());
@@ -295,7 +295,7 @@ public class FullScannerFragment extends Fragment implements
     }
 
     @Override
-    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj) {
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj,String response) {
         if (httpStatusCode == Constants.SUCCESS) {
             if(serviceUrl!=null && serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_ProductDetailUsingBarCode)) {
                 if (resultObj != null) {

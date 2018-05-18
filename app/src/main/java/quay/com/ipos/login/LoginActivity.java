@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.lang.reflect.Type;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -27,12 +30,14 @@ import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.LoginResult;
+import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
+import quay.com.ipos.utility.Util;
 
 public class LoginActivity extends RunTimePermissionActivity implements InitInterface, View.OnClickListener, View.OnFocusChangeListener, ServiceTask.ServiceResultListener {
 
@@ -225,16 +230,22 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
     }
 
     @Override
-    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj) {
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj,String serverResponse) {
         dismissProgress();
         if (httpStatusCode == Constants.SUCCESS) {
             if (resultObj != null) {
-                LoginResult loginResult = (LoginResult) resultObj;
 
-                Toast.makeText(mContext, "Login success", Toast.LENGTH_SHORT).show();
-                SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
-                SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().get(0).getAccessToken(), mContext);
 
+             //   LoginResult loginResult = (LoginResult) resultObj;
+                Gson gson = new GsonBuilder().create();
+                gson.fromJson(serverResponse, LoginResult.class);
+//                SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
+//                SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().get(0).getAccessToken(), mContext);
+
+//                String userdata= Util.getAssetJsonResponse(LoginActivity.this,"login.json");
+
+               new  RealmController().saveUserDetail(serverResponse);
+                //new  RealmController().saveUserDetail(userdata);
                 Intent i = new Intent(mContext, MainActivity.class);
                 startActivity(i);
 
@@ -250,8 +261,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         } else if (httpStatusCode == Constants.CONNECTION_OUT) {
             Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
-        Intent i = new Intent(mContext, MainActivity.class);
-        startActivity(i);
+
 
     }
 
