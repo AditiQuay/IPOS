@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.modal.CustomerResult;
+import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.retailsales.adapter.RecentOrdersListAdapter;
 import quay.com.ipos.ui.CircleTransform;
 import quay.com.ipos.utility.Constants;
@@ -35,8 +35,8 @@ public class CustomerDetailActivity extends BaseActivity {
     /**
      * The M customer.
      */
-    CustomerResult.Customer mCustomer;
-    private ArrayList<CustomerResult.RecentOrder> recentOrderModalArrayList=new ArrayList<>();
+    CustomerList.Customer mCustomer;
+    private ArrayList<CustomerList.RecentOrder> recentOrderModalArrayList=new ArrayList<>();
     private ImageView imvUserImage;
     private TextView tvName,tvMobileNo,tvEmail,tvBillingAmount,tvBillingDate,tvBirthday,tvRedeemPoints;
 
@@ -70,7 +70,7 @@ public class CustomerDetailActivity extends BaseActivity {
         recycler_viewRecentOrders.setLayoutManager(mLayoutManager4);
         recycler_viewRecentOrders.addItemDecoration(new SpacesItemDecoration(10));
 
-        mCustomer = Util.getCustomGson().fromJson(json, CustomerResult.Customer.class);
+        mCustomer = Util.getCustomGson().fromJson(json, CustomerList.Customer.class);
         recentOrderModalArrayList.addAll(mCustomer.getRecentOrders());
 
         tvName.setText(mCustomer.getCustomerName());

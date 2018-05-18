@@ -67,7 +67,7 @@ import java.util.regex.Pattern;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
-import quay.com.ipos.modal.CustomerResult;
+import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.ui.MessageDialogFragment;
@@ -640,7 +640,7 @@ public class Util {
     }
 
 
-    public static void cacheCustomerData(ArrayList<CustomerResult.Customer> mDatum) {
+    public static void cacheCustomerData(ArrayList<CustomerList.Customer> mDatum) {
         Context context = IPOSApplication.getAppInstance().getApplicationContext();
         SharedPreferences sp = getAppSharedPreference(context);
 

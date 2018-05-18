@@ -1,6 +1,9 @@
 package quay.com.ipos.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +12,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.utility.FontUtil;
 
 /**
@@ -22,11 +31,11 @@ import quay.com.ipos.utility.FontUtil;
 public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private List<String> expandableListTitle;
-    private HashMap<String, List<String>> expandableListDetail;
+    private List<MenuModal> expandableListTitle;
+    private HashMap<MenuModal, List<String>> expandableListDetail;
 
-    public NavigationViewExpeListViewAdapter(Context context, List<String> expandableListTitle,
-                                             HashMap<String, List<String>> expandableListDetail) {
+    public NavigationViewExpeListViewAdapter(Context context, List<MenuModal> expandableListTitle,
+                                             HashMap<MenuModal, List<String>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
@@ -79,16 +88,15 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
                 .size();
     }
 
-    public int hasChild(int listPosition){
+    public int hasChild(int listPosition) {
         return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
                 .size();
     }
 
     @Override
     public Object getGroup(int listPosition) {
-        return this.expandableListTitle.get(listPosition);
+        return this.expandableListTitle.get(listPosition).getGroupTitle();
     }
-
 
 
     @Override
@@ -115,18 +123,19 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
         TextView textViewTitle = (TextView) convertView.findViewById(R.id.textViewGroupName);
         View vGrp = convertView.findViewById(R.id.vGrp);
         textViewTitle.setText(listTitle);
-        if(isExpanded && hasChild( listPosition)>0){
+        if (isExpanded && hasChild(listPosition) > 0) {
             vGrp.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             vGrp.setVisibility(View.GONE);
         }
 
-        if(isExpanded){
+        if (isExpanded) {
             llGrp.setBackgroundResource(R.color.light_blue);
-        }else{
+        } else {
             llGrp.setBackgroundResource(R.color.menu_strip_color);
         }
-        imageViewMenu.setBackgroundResource(applyMenuBGImage(listTitle.toString().trim()));
+
+        Picasso.get().load(expandableListTitle.get(listPosition).getGroupIcon()).into(imageViewMenu);
         FontUtil.applyTypeface(textViewTitle, FontUtil.getTypeFaceRobotTiteliumRegular(context));
 
         return convertView;
@@ -143,31 +152,30 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
         return true;
     }
 
-    public int applyMenuBGImage(String ImageName) {
-        int imageId = 0;
-        switch (ImageName) {
-            case "Mostly Used":
-                imageId = R.drawable.favorite_border;
-                break;
-            case "Billing & Cash":
-                imageId = R.drawable.biling;
-                break;
-            case "Manage Store":
-                imageId = R.drawable.store;
-                break;
-            case "Manage Business":
-                imageId = R.drawable.business;
-                break;
-            case "Insights & Analytics":
-                imageId = R.drawable.insights;
-                break;
-
-        }
-
-
-        return imageId;
-    }
-
+//    public int applyMenuBGImage(String ImageName) {
+//        int imageId = 0;
+//        switch (ImageName) {
+//            case "Mostly Used":
+//                imageId = R.drawable.favorite_border;
+//                break;
+//            case "Billing & Cash":
+//                imageId = R.drawable.biling;
+//                break;
+//            case "Manage Store":
+//                imageId = R.drawable.store;
+//                break;
+//            case "Manage Business":
+//                imageId = R.drawable.business;
+//                break;
+//            case "Insights & Analytics":
+//                imageId = R.drawable.insights;
+//                break;
+//
+//        }
+//
+//
+//        return imageId;
+//    }
 
 
 }

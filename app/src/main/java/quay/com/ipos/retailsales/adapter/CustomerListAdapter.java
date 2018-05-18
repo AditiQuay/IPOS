@@ -15,7 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
-import quay.com.ipos.modal.CustomerResult;
+import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.ui.CircleTransform;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
@@ -37,11 +37,11 @@ public class CustomerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<CustomerResult.Customer> mDataset;
+    ArrayList<CustomerList.Customer> mDataset;
     RecyclerView mRecyclerView;
 
     public CustomerListAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                               ArrayList<CustomerResult.Customer> questionList) {
+                               ArrayList<CustomerList.Customer> questionList) {
         mOnClickListener = mClickListener;
         mContext = ctx;
         mDataset = questionList;
@@ -109,7 +109,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof CustomerListAdapter.UserViewHolder) {
-            CustomerResult.Customer str = mDataset.get(position);
+            CustomerList.Customer str = mDataset.get(position);
             AppLog.e(CustomerListAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             CustomerListAdapter.UserViewHolder userViewHolder = (CustomerListAdapter.UserViewHolder) holder;
             userViewHolder.tvName.setText(str.getCustomerName());

@@ -2,21 +2,67 @@ package quay.com.ipos.constant;
 
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import io.realm.Realm;
+import quay.com.ipos.modal.DrawerRoleModal;
+import quay.com.ipos.modal.MenuModal;
+import quay.com.ipos.realmbean.RealmUserDetail;
+import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 4/17/2018.
  */
 
 public class ExpandableListDataPump {
-    public static HashMap<String, List<String>> getData() {
+    public static HashMap<MenuModal, List<String>> getData() {
 
-        LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<String, List<String>>();
+        LinkedHashMap<MenuModal, List<String>> expandableListDetail = new LinkedHashMap<MenuModal, List<String>>();
 
-        List<String> Billing = new ArrayList<String>();
+        Realm realm =Realm.getDefaultInstance();
+        RealmUserDetail realmUserDetails=realm.where(RealmUserDetail.class).findFirst();
+
+        try {
+            JSONArray jsonArray=new JSONArray(realmUserDetails.getUserMenu());
+
+            for (int i=0;i<1;i++){
+                JSONObject jsonObject=jsonArray.optJSONObject(i);
+                JSONArray jsonArray1=jsonObject.optJSONArray("data");
+                for (int j=0;j<jsonArray1.length();j++){
+                    MenuModal menuModal=new MenuModal();
+                    JSONObject jsonObject1=jsonArray1.optJSONObject(j);
+
+                    menuModal.setGroupTitle(jsonObject1.optString("title"));
+                    menuModal.setGroupIcon(jsonObject1.optString("icon"));
+                    JSONArray jsonArray2=jsonObject1.optJSONArray("child");
+                    ArrayList<String> childList = new ArrayList<String>();
+                    for (int k=0;k<jsonArray2.length();k++){
+                        JSONObject jsonObject2=jsonArray2.optJSONObject(k);
+                        childList.add(jsonObject2.optString("name"));
+
+                    }
+
+                    menuModal.setArrayList(childList);
+                    expandableListDetail.put(menuModal, childList);
+                }
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+      /*  List<String> Billing = new ArrayList<String>();
         Billing.add("Retail Sales (OTC & Online)");
         Billing.add("DDR Sales (B2B)");
         Billing.add("Day Closure");
@@ -41,7 +87,7 @@ public class ExpandableListDataPump {
         List<String> Insight = new ArrayList<String>();
         Insight.add("Insights & Alerts for Action");
         Insight.add("Dashboards & Reports");
-        Insight.add("Customer Engagements");
+        Insight.add("CustomerList Engagements");
 
         List<String> Settings = new ArrayList<String>();
         List<String> MostlyUsed = new ArrayList<String>();
@@ -50,8 +96,9 @@ public class ExpandableListDataPump {
         expandableListDetail.put("Billing & Cash", Billing);
         expandableListDetail.put("Manage Store", ManageStore);
         expandableListDetail.put("Manage Business", ManageBusiness);
-        expandableListDetail.put("Insights & Analytics", Insight);
+        expandableListDetail.put("Insights & Analytics", Insight);*/
 
+        AppLog.e("tag", Util.getCustomGson().toJson(expandableListDetail));
         return expandableListDetail;
     }
 }

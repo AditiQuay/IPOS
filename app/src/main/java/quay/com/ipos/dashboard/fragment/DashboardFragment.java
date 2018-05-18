@@ -81,6 +81,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 spStoreName.performClick();
+                mainActivity.onUpdateTitle("dialog");
             }
         });
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);

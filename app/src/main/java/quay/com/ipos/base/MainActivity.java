@@ -3,12 +3,10 @@ package quay.com.ipos.base;
 import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -21,10 +19,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,33 +32,40 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
+import io.realm.Realm;
 import quay.com.ipos.R;
-import quay.com.ipos.adapter.DrawerItemCustomAdapter;
+import quay.com.ipos.adapter.DrawerRoleAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
 import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
-import quay.com.ipos.ddr.fragment.OrderCentreListFragment;
 import quay.com.ipos.ddr.fragment.NewOrderFragment;
+import quay.com.ipos.ddr.fragment.OrderCentreListFragment;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.modal.DrawerModal;
+import quay.com.ipos.modal.DrawerRoleModal;
+import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.productCatalogue.ProductMain;
+import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.ui.MessageDialogFragment;
-import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, View.OnClickListener, FilterListener,MessageDialogFragment.MessageDialogListener {
+        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, FilterListener, MessageDialogFragment.MessageDialogListener, AdapterView.OnItemClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -71,14 +74,14 @@ public class MainActivity extends BaseActivity
     private Toolbar toolbar;
     private NavigationView navigationView;
     private ExpandableListView expandableListView1;
-    List<String> expandableListTitle;
-    HashMap<String, List<String>> expandableListDetail;
+    ArrayList<MenuModal> expandableListTitle;
+    HashMap<MenuModal, List<String>> expandableListDetail;
     private NavigationViewExpeListViewAdapter navigationViewExpeListViewAdapter;
     private int lastExpandedGroup;
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null,mOrderCentreListFragment = null;
+    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
     private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
@@ -91,7 +94,11 @@ public class MainActivity extends BaseActivity
     private View view1;
     private ArrayList<Integer> inMenu = new ArrayList<>();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    private int count=0;
+    private int count = 0;
+    private ListView lvMenu;
+    int mSelectedItemPosition;
+    DrawerRoleModal[] drawerRoleModals = new DrawerRoleModal[3];
+    private DrawerRoleAdapter drawerRoleAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,33 +120,21 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void findViewById() {
-        toolbar = (Toolbar) findViewById(R.id.appBar);
+        toolbar = findViewById(R.id.appBar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getResources().getString(R.string.toolbar_title_catalogue_product_details));
         launchActivity(false);
 
         containerId = R.id.fragment_container;
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
         listViewContent = findViewById(R.id.listViewContent);
-
-        lLaoutBtnP = findViewById(R.id.lLaoutBtnP);
-        lLaoutBtnI = findViewById(R.id.lLaoutBtnI);
-        lLaoutBtnM = findViewById(R.id.lLaoutBtnM);
-
-        viewP = findViewById(R.id.viewP);
-        viewI = findViewById(R.id.viewI);
-        viewM = findViewById(R.id.viewM);
+        lvMenu = findViewById(R.id.lvMenu);
 
         imageViewProfileDummy = findViewById(R.id.imageViewProfileDummy);
 
         textViewMyBusiness = findViewById(R.id.textViewMyBusiness);
         textViewAccount = findViewById(R.id.textViewAccount);
-
-        textViewP = findViewById(R.id.textViewP);
-        textViewI = findViewById(R.id.textViewI);
-        textViewM = findViewById(R.id.textViewM);
-
 
         expandableListView1 = findViewById(R.id.expandableListView1);
         expandableListView1.setGroupIndicator(null);
@@ -147,31 +142,6 @@ public class MainActivity extends BaseActivity
         expandableListView1.setChildDivider(getResources().getDrawable(R.color.white));
         expandableListView1.setDivider(getResources().getDrawable(R.color.expand_list_color));
         expandableListView1.setDividerHeight(0);
-
-//        profileImageSwitch.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (!toggle) {
-//                    profileImageSwitch.setImageResource(R.drawable.profile_bg);
-//                    profileImage.setImageResource(R.drawable.place_holder);
-//
-//                    expandableListView1.setVisibility(View.VISIBLE);
-//                    llNavigation.setVisibility(View.GONE);
-//                    toggle = true;
-//                } else {
-//                    profileImageSwitch.setImageResource(R.drawable.place_holder);
-//                    profileImage.setImageResource(R.drawable.profile_bg);
-//                    expandableListView1.setVisibility(View.GONE);
-//                    llNavigation.setVisibility(View.VISIBLE);
-//                    toggle = false;
-//                }
-//
-//
-//            }
-//        });
-        lLaoutBtnP.setOnClickListener(this);
-        lLaoutBtnI.setOnClickListener(this);
-        lLaoutBtnM.setOnClickListener(this);
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -183,14 +153,13 @@ public class MainActivity extends BaseActivity
                     // now subscribe to `global` topic to receive app wide notifications
 
 
-
                 } else if (intent.getAction().equals(Constants.PUSH_NOTIFICATION)) {
                     // new push notification is received
-                    MenuItem menu= menu1.findItem(R.id.action_notification);
+                    MenuItem menu = menu1.findItem(R.id.action_notification);
                     View actionView = MenuItemCompat.getActionView(menu);
                     count++;
-                    TextView  cart_badge = (TextView) actionView.findViewById(R.id.cart_badge);
-                    cart_badge.setText(count+"");
+                    TextView cart_badge = actionView.findViewById(R.id.cart_badge);
+                    cart_badge.setText(count + "");
                     String message = intent.getStringExtra("message");
 
 
@@ -211,79 +180,45 @@ public class MainActivity extends BaseActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        mNavigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_array);
-        DrawerModal[] drawerItem = new DrawerModal[7];
+        Realm realm = Realm.getDefaultInstance();
+        RealmUserDetail realmUserDetails = realm.where(RealmUserDetail.class).findFirst();
 
-        drawerItem[0] = new DrawerModal(R.drawable.cart, "New Order");
-        drawerItem[1] = new DrawerModal(R.drawable.order_center, "Order Centre");
-        drawerItem[2] = new DrawerModal(R.drawable.insights, "Dashboard & Insight");
-        drawerItem[3] = new DrawerModal(R.drawable.catalogue, "Product Catalogue");
-        drawerItem[4] = new DrawerModal(R.drawable.stock_price, "Stock & Price");
-        drawerItem[5] = new DrawerModal(R.drawable.loyalty, "Loyalty Program");
-        drawerItem[6] = new DrawerModal(R.drawable.partner, "Partner Connect");
+        try {
+            JSONArray jsonArray = new JSONArray(realmUserDetails.getUserMenu());
+            drawerRoleModals = new DrawerRoleModal[jsonArray.length()];
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.optJSONObject(i);
+                textViewMyBusiness.setText(jsonArray.optJSONObject(0).optString("userName"));
+                textViewAccount.setText(jsonArray.optJSONObject(0).optString("account"));
+                JSONArray jsonArray1 = jsonObject.optJSONArray("data");
+                if (jsonObject.has("key")) {
+                    drawerRoleModals[i] = new DrawerRoleModal(jsonObject.optString("key"));
 
+                } else {
+                    drawerRoleModals[i] = new DrawerRoleModal("");
+                }
 
-        int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
-        int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+            }
 
-
-        viewP.setBackgroundColor(getResources().getColor(R.color.menu_strip));
-        textViewP.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
-        textViewP.setBackgroundResource(R.drawable.menu_background_select);
-
-
-        viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-        textViewI.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
-        textViewI.setBackgroundResource(R.drawable.menu_background_unselect);
-
-        viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-        textViewM.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
-        textViewM.setBackgroundResource(R.drawable.menu_background_unselect);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
-        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.drawer_list_items, drawerItem);
-        listViewContent.setAdapter(adapter);
-        listViewContent.setOnItemClickListener(new DrawerItemClickListener());
+        if (drawerRoleModals.length > 0)
+            drawerRoleModals[0].setSelected(true);
+        drawerRoleAdapter = new DrawerRoleAdapter(this, R.layout.drawer_role_item, drawerRoleModals);
+        lvMenu.setAdapter(drawerRoleAdapter);
+        lvMenu.setOnItemClickListener(this);
+
 
         expandableListDetail = ExpandableListDataPump.getData();
-        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
         navigationViewExpeListViewAdapter = new NavigationViewExpeListViewAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView1.setAdapter(navigationViewExpeListViewAdapter);
         expandableListView1.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-
-//                //Toast.makeText(mContext,"Group clicked",Toast.LENGTH_SHORT).show();
-//                switch (groupPosition) {
-//                    case 0:
-//                        break;
-//                    case 1:
-//                        retailSalesFragment = new RetailSalesFragment();
-//                        replaceFragment(retailSalesFragment,containerId);
-//                        drawer.closeDrawer(GravityCompat.START);
-//                        toolbar.setTitle(getString(R.string.retail_sales));
-//                        menu1.findItem(R.id.action_notification).setVisible(false);
-//                        menu1.findItem(R.id.action_search).setVisible(true);
-//                        break;
-//                    case 2:
-//                        menu1.findItem(R.id.action_notification).setVisible(false);
-//                        drawer.closeDrawer(GravityCompat.START);
-//                        break;
-//                    case 3:
-//                        menu1.findItem(R.id.action_notification).setVisible(false);
-//                        drawer.closeDrawer(GravityCompat.START);
-//                        break;
-//                    case 4:
-//                        menu1.findItem(R.id.action_notification).setVisible(true);
-//                        dashboardFragment = new DashboardFragment();
-//                        replaceFragment(dashboardFragment, containerId);
-//                        drawer.closeDrawer(GravityCompat.START);
-//                        toolbar.setTitle(getString(R.string.dashboard));
-//                        menu1.findItem(R.id.action_search).setVisible(true);
-//                        break;
-//                    default:
-//                        break;
-//                }
                 return false;
             }
         });
@@ -293,10 +228,12 @@ public class MainActivity extends BaseActivity
                 if (lastExpandedGroup != groupPosition) {
                     expandableListView1.collapseGroup(lastExpandedGroup);
                 }
-/*
-                Toast.makeText(getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();*/
+                String mainMenu = expandableListTitle.get(groupPosition).getGroupTitle();
+
+                if (expandableListTitle.get(groupPosition).getArrayList().size() == 0) {
+                    applyMenuBGImage(mainMenu);
+                }
+
                 lastExpandedGroup = groupPosition;
             }
         });
@@ -309,28 +246,9 @@ public class MainActivity extends BaseActivity
                 parent.setItemChecked(index, true);
 
                 String mainMenu = expandableListTitle.get(groupPosition).toString();
-                String subMenu = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition).toString();
-//                Toast.makeText(getApplicationContext(), mainMenu + " -> " + subMenu, Toast.LENGTH_SHORT).show();
+                String subMenu = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition);
 
-                if (groupPosition == 1) {
-                    if (childPosition == 0) {
-                        retailSalesFragment = new RetailSalesFragment();
-                        replaceFragment(retailSalesFragment, containerId);
-                        drawer.closeDrawer(GravityCompat.START);
-                        toolbar.setTitle(getString(R.string.retail_sales));
-                        menu1.findItem(R.id.action_notification).setVisible(false);
-                        menu1.findItem(R.id.action_search).setVisible(true);
-                    }
-                } else if (groupPosition == 4) {
-                    if (childPosition == 1) {
-                        menu1.findItem(R.id.action_notification).setVisible(true);
-                        dashboardFragment = new DashboardFragment();
-                        replaceFragment(dashboardFragment, containerId);
-                        drawer.closeDrawer(GravityCompat.START);
-                        toolbar.setTitle(getString(R.string.dashboard));
-                        menu1.findItem(R.id.action_search).setVisible(false);
-                    }
-                }
+                applyMenuBGImage(subMenu);
                 return true;
             }
         });
@@ -351,67 +269,6 @@ public class MainActivity extends BaseActivity
         return false;
     }
 
-    @Override
-    public void onClick(View v) {
-        int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
-        int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
-
-
-        if (v == lLaoutBtnP) {
-
-            listViewContent.setVisibility(View.VISIBLE);
-            expandableListView1.setVisibility(View.GONE);
-
-
-            viewP.setBackgroundColor(getResources().getColor(R.color.menu_strip));
-            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
-            textViewP.setBackgroundResource(R.drawable.menu_background_select);
-
-
-            viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
-            textViewI.setBackgroundResource(R.drawable.menu_background_unselect);
-
-            viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
-            textViewM.setBackgroundResource(R.drawable.menu_background_unselect);
-
-            imageViewProfileDummy.setImageResource(R.drawable.cystal);
-        }
-        if (v == lLaoutBtnI) {
-            listViewContent.setVisibility(View.GONE);
-            expandableListView1.setVisibility(View.VISIBLE);
-
-            viewI.setBackgroundColor(getResources().getColor(R.color.menu_strip));
-            textViewI.setBackgroundResource(R.drawable.menu_background_select);
-            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
-
-
-            viewP.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
-            textViewP.setBackgroundResource(R.drawable.menu_background_unselect);
-
-            viewM.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
-            textViewM.setBackgroundResource(R.drawable.menu_background_unselect);
-
-            imageViewProfileDummy.setImageResource(R.drawable.profile_thumb);
-        }
-        if (v == lLaoutBtnM) {
-            viewM.setBackgroundColor(getResources().getColor(R.color.menu_strip));
-            textViewM.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
-            textViewM.setBackgroundResource(R.drawable.menu_background_select);
-
-            viewI.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewI.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
-            textViewI.setBackgroundResource(R.drawable.menu_background_unselect);
-
-            viewP.setBackgroundColor(getResources().getColor(R.color.transparent_color));
-            textViewP.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
-            textViewP.setBackgroundResource(R.drawable.menu_background_unselect);
-
-        }
-    }
 
     @Override
     public void onUpdateTitle(String title) {
@@ -422,7 +279,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
-        if(mCallType==Constants.APP_DIALOG_PERMISSION){
+        if (mCallType == Constants.APP_DIALOG_PERMISSION) {
             Util.OpenSetting(MainActivity.this);
         }
     }
@@ -432,19 +289,45 @@ public class MainActivity extends BaseActivity
 
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+        int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+        setMenuItemNormal();
+        if (mSelectedItemPosition != -1 && mSelectedItemPosition != position) {
+            view = lvMenu.getChildAt(position);
+            View borderView = view.findViewById(R.id.viewP);
+            TextView textView = view.findViewById(R.id.textViewP);
 
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            borderView.setBackgroundColor(mContext.getResources().getColor(R.color.menu_strip));
+            textView.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
+            textView.setBackgroundResource(R.drawable.menu_background_select);
+            drawerRoleModals[position].setSelected(true);
 
-            view1 = view;
-            setItemNormal();
-            setItemSelected(view, position);
-            preMenu = position;
-            selectItem(position);
-            inMenu.add(preMenu);
         }
+        mSelectedItemPosition = position;
+        drawerRoleAdapter.notifyDataSetChanged();
 
+        expandableListDetail = expandableDataonClick(drawerRoleModals[position].name);
+        expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
+        navigationViewExpeListViewAdapter = new NavigationViewExpeListViewAdapter(this, expandableListTitle, expandableListDetail);
+        expandableListView1.setAdapter(navigationViewExpeListViewAdapter);
+    }
+
+    private void setMenuItemNormal() {
+        int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+        int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+
+        for (int i = 0; i < lvMenu.getChildCount(); i++) {
+            View v = lvMenu.getChildAt(i);
+            View border = v.findViewById(R.id.viewP);
+            TextView textView = v.findViewById(R.id.textViewP);
+
+            border.setBackgroundColor(mContext.getResources().getColor(R.color.transparent_color));
+            textView.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
+            textView.setBackgroundResource(R.drawable.menu_background_unselect);
+            drawerRoleModals[i].setSelected(false);
+        }
     }
 
     private void setItemNormal() {
@@ -454,12 +337,7 @@ public class MainActivity extends BaseActivity
             border.setVisibility(View.GONE);
             listViewContent.getChildAt(i).setBackgroundColor(getResources().getColor(R.color.menu_strip_color));
         }
-//        }else {
-//            View v = listViewContent.getChildAt(pos);
-//            View border = v.findViewById(R.id.vListGrp);
-//            border.setVisibility(View.GONE);
-//            listViewContent.getChildAt(pos).setBackgroundColor(getResources().getColor(R.color.menu_strip_color));
-//        }
+
     }
 
     private void setItemSelected(View view, int pos) {
@@ -467,6 +345,93 @@ public class MainActivity extends BaseActivity
         View borderView = v.findViewById(R.id.vListGrp);
         borderView.setVisibility(View.VISIBLE);
         listViewContent.getChildAt(pos).setBackgroundColor(getResources().getColor(R.color.light_blue));
+    }
+
+    public void applyMenuBGImage(String ImageName) {
+
+        switch (ImageName) {
+            case "Mostly Used":
+
+                break;
+            case "Billing & Cash":
+                retailSalesFragment = new RetailSalesFragment();
+                replaceFragment(retailSalesFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.retail_sales));
+                menu1.findItem(R.id.action_notification).setVisible(false);
+                menu1.findItem(R.id.action_search).setVisible(true);
+                break;
+            case "Retail Sales (OTC & Online)":
+                retailSalesFragment = new RetailSalesFragment();
+                replaceFragment(retailSalesFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.retail_sales));
+                menu1.findItem(R.id.action_notification).setVisible(false);
+                menu1.findItem(R.id.action_search).setVisible(true);
+                break;
+
+            case "Manage Store":
+
+                break;
+            case "Manage Business":
+
+                break;
+            case "Insights & Analytics":
+                menu1.findItem(R.id.action_notification).setVisible(true);
+                dashboardFragment = new DashboardFragment();
+                replaceFragment(dashboardFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.dashboard));
+                menu1.findItem(R.id.action_search).setVisible(false);
+                break;
+            case "New Order":
+                mNewOrderFragment = new NewOrderFragment();
+                replaceFragment(mNewOrderFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.new_orders));
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case "Order Centre":
+                mOrderCentreListFragment = new OrderCentreListFragment();
+                replaceFragment(mOrderCentreListFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.order_centre));
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case "Dashboard & Insights":
+                dashboardFragment = new McCOYDashboardFragment();
+                replaceFragment(dashboardFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.dashboard));
+                menu1.findItem(R.id.action_notification).setVisible(true);
+                menu1.findItem(R.id.action_search).setVisible(false);
+
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case "Product Catalogue":
+                productCatalogueMainFragment = new ProductMain();
+                replaceFragment(productCatalogueMainFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.toolbar_title_catalogue_product_details));
+                menu1.findItem(R.id.action_notification).setVisible(false);
+                menu1.findItem(R.id.action_search).setVisible(false);
+
+                drawer.closeDrawer(GravityCompat.START);
+                break;
+            case "Stock & Price":
+                //   imageId = R.drawable.insights;
+                break;
+            case "Loyalty Program":
+                //  imageId = R.drawable.insights;
+                break;
+            case "Partner Connect":
+                // imageId = R.drawable.insights;
+                break;
+
+
+        }
+
+
     }
 
     private void selectItem(int position) {
@@ -518,14 +483,38 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        if (drawer.isDrawerOpen(Gravity.START)) {
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack("fragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            if (inMenu.size() > 0) {
+                setItemNormal();
+                setItemSelected(view1, inMenu.get(inMenu.size() - 1));
+                selectItem(inMenu.get(inMenu.size() - 1));
+                inMenu.remove(inMenu.size() - 1);
+
+            } else {
+                finish();
+            }
+        } else {
+            super.onBackPressed();
+        }
+     /*   setItemNormal();
+        setItemSelected(view1, preMenu);
+        selectItem(preMenu);*/
+//        if (drawer.isDrawerOpen(GravityCompat.START)) {
+//            drawer.closeDrawer(GravityCompat.START);
+//        } else {
+//            super.onBackPressed();
+//
+//        }
+       /* if (drawer.isDrawerOpen(Gravity.START)) {
             closeDrawer();
             return;
-        }else if (fragmentManager.getBackStackEntryCount() > 0) {
-            fragmentManager.popBackStack();
         }
+        // super.onBackPressed();
         else {
             Fragment mFrag = getVisibleFragment();
+
+
             if (mFrag == dashboardFragment) {
                 (new AlertDialog.Builder(this)).setTitle("Confirm action")
                         .setMessage("Do you want to Exit?")
@@ -546,13 +535,13 @@ public class MainActivity extends BaseActivity
                     @Override
                     public void run() {
                         doubleBackToExitPressedOnce = false; // exit = false;
-//                        AppLog.e(TAG, "doubleBackToExitPressedOnce here false");
+                        AppLog.e(TAG, "doubleBackToExitPressedOnce here false");
                     }
                 }, 5000);
             } else {
                 super.onBackPressed();
             }
-        }
+*/
     }
 
     private void closeDrawer() {
@@ -563,15 +552,11 @@ public class MainActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         this.menu1 = menu;
-        MenuItem menu12= menu1.findItem(R.id.action_notification);
+        MenuItem menu12 = menu1.findItem(R.id.action_notification);
         View actionView = MenuItemCompat.getActionView(menu12);
 
-        TextView  cart_badge = (TextView) actionView.findViewById(R.id.cart_badge);
-        cart_badge.setText(count+"");
-        // Retrieve the SearchView and plug it into SearchManager
-//        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
-//        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-//        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        TextView cart_badge = actionView.findViewById(R.id.cart_badge);
+        cart_badge.setText(count + "");
         return true;
     }
 
@@ -597,13 +582,13 @@ public class MainActivity extends BaseActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     public boolean CameraPermission = false;
-    boolean settingPermission=false;
+    boolean settingPermission = false;
 
     public boolean launchActivity(boolean settingPermission) {
         this.settingPermission = settingPermission;
@@ -624,16 +609,12 @@ public class MainActivity extends BaseActivity
         switch (requestCode) {
             case CAMERA_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    if (mClss != null) {
-//                        Intent intent = new Intent(this, mClss);
-//                        startActivity(intent);
-//                    }
                     CameraPermission = true;
                 } else {
-                    if(!settingPermission)
+                    if (!settingPermission)
                         Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
                     else
-                        Util.showMessageDialog(this,"Please grant camera permission to use the QR Scanner ","Open Settings",null,Constants.APP_DIALOG_PERMISSION,"Alert!",getSupportFragmentManager());
+                        Util.showMessageDialog(this, "Please grant camera permission to use the QR Scanner ", "Open Settings", null, Constants.APP_DIALOG_PERMISSION, "Alert!", getSupportFragmentManager());
                     CameraPermission = false;
                 }
                 return;
@@ -661,5 +642,50 @@ public class MainActivity extends BaseActivity
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
 
         super.onPause();
+    }
+
+
+    private HashMap<MenuModal, List<String>> expandableDataonClick(String key) {
+        LinkedHashMap<MenuModal, List<String>> expandableListDetail = new LinkedHashMap<>();
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmUserDetail realmUserDetails = realm.where(RealmUserDetail.class).findFirst();
+
+        try {
+            JSONArray jsonArray = new JSONArray(realmUserDetails.getUserMenu());
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.optJSONObject(i);
+                String matchKey = jsonObject.optString("key");
+                textViewMyBusiness.setText(jsonObject.optString("userName"));
+                textViewAccount.setText(jsonObject.optString("account"));
+                if (matchKey.equalsIgnoreCase(key)) {
+                    JSONArray jsonArray1 = jsonObject.optJSONArray("data");
+
+                    for (int j = 0; j < jsonArray1.length(); j++) {
+                        MenuModal menuModal = new MenuModal();
+                        JSONObject jsonObject1 = jsonArray1.optJSONObject(j);
+                        menuModal.setGroupTitle(jsonObject1.optString("title"));
+                        menuModal.setGroupIcon(jsonObject1.optString("icon"));
+                        JSONArray jsonArray2 = jsonObject1.optJSONArray("child");
+                        ArrayList<String> childList = new ArrayList<>();
+                        for (int k = 0; k < jsonArray2.length(); k++) {
+                            JSONObject jsonObject2 = jsonArray2.optJSONObject(k);
+                            childList.add(jsonObject2.optString("name"));
+
+                        }
+                        menuModal.setArrayList(childList);
+
+                        expandableListDetail.put(menuModal, childList);
+                    }
+                }
+
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return expandableListDetail;
     }
 }

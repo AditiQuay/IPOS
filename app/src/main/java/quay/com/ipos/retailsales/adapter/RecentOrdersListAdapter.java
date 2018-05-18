@@ -10,8 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
-import quay.com.ipos.modal.CustomerResult;
-import quay.com.ipos.modal.RecentOrderModal;
+import quay.com.ipos.modal.CustomerList;
 
 
 /**
@@ -20,10 +19,10 @@ import quay.com.ipos.modal.RecentOrderModal;
 
 public class RecentOrdersListAdapter extends RecyclerView.Adapter<RecentOrdersListAdapter.SurveyViewHolder> {
     private Context mContext;
-    private ArrayList<CustomerResult.RecentOrder> stringArrayList;
+    private ArrayList<CustomerList.RecentOrder> stringArrayList;
     private OnItemSelecteListener mListener;
 
-    public RecentOrdersListAdapter(Context mContext, ArrayList<CustomerResult.RecentOrder> stringArrayList) {
+    public RecentOrdersListAdapter(Context mContext, ArrayList<CustomerList.RecentOrder> stringArrayList) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
 
