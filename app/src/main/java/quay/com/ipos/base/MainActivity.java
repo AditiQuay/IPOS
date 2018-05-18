@@ -53,6 +53,7 @@ import quay.com.ipos.ddr.fragment.NewOrderFragment;
 import quay.com.ipos.ddr.fragment.OrderCentreListFragment;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.listeners.ScanFilterListener;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.productCatalogue.ProductMain;
@@ -65,7 +66,7 @@ import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, FilterListener, MessageDialogFragment.MessageDialogListener, AdapterView.OnItemClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, FilterListener, MessageDialogFragment.MessageDialogListener, AdapterView.OnItemClickListener,ScanFilterListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -687,5 +688,10 @@ public class MainActivity extends BaseActivity
         }
 
         return expandableListDetail;
+    }
+
+    @Override
+    public void onUpdate(String title) {
+
     }
 }

@@ -1368,7 +1368,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     }
 
     @Override
-    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj) {
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String response) {
 
     }
 }

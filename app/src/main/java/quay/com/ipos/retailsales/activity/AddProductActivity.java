@@ -280,7 +280,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     }
     ProductListResult productListResult;
     @Override
-    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj) {
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj,String responseJson) {
         dismissProgress();
 
         if (httpStatusCode == Constants.SUCCESS) {
