@@ -294,6 +294,9 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
                     }
                     AppLog.e(TAG, "Got success!!");
                 } else {
+                    String responseJson = response.body().string();
+                    AppLog.e(TAG, "responseJson: " + methodUrl + responseJson);
+                    responseJson = null;
                     AppLog.e(TAG, "Got success but InputStream is null");
                 }
             } catch (Exception ex) {

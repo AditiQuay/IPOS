@@ -1,5 +1,6 @@
 package quay.com.ipos.retailsales.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import quay.com.ipos.retailsales.adapter.AddProductAdapter;
 import quay.com.ipos.retailsales.adapter.PinnedAdapter;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
+import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
@@ -38,7 +40,7 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 23-04-2018.
  */
 
-public class PinnedRetailActivity extends BaseActivity implements View.OnClickListener,MessageDialogFragment.MessageDialogListener{
+public class PinnedRetailActivity extends BaseActivity implements View.OnClickListener,MessageDialog.MessageDialogListener{
 
     private final String TAG = PinnedRetailActivity.class.getSimpleName();
     //    ArrayList<RealmPinnedResults.Info> arrPinned= new ArrayList<>();
@@ -188,13 +190,13 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
             case R.id.imvClose:
                 int pos = (int) view.getTag();
                 pinned_pos = pos;
-                Util.showMessageDialog(PinnedRetailActivity.this,"Do you want to remove this pinned Item?","Yes","No", Constants.APP_DIALOG_Pinned_ORDER,"",getSupportFragmentManager());
+                Util.showMessageDialog(mContext,PinnedRetailActivity.this,"Do you want to remove this pinned Item?","Yes","No", Constants.APP_DIALOG_Pinned_ORDER,"",getSupportFragmentManager());
                 break;
         }
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+    public void onDialogPositiveClick(Dialog dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_Pinned_ORDER) {
             mInfoArrayList.remove(pinned_pos);
             mPinnedAdapter.notifyDataSetChanged();
@@ -204,7 +206,7 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+    public void onDialogNegetiveClick(Dialog dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_Pinned_ORDER) {
             dialog.dismiss();
         }

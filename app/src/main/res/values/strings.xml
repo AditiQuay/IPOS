@@ -239,4 +239,6 @@
     <string name="sending_otp">Sending OTP</string>
     <string name="add_item">Add Item</string>
     <string name="pinned_retail">Retail Pinned</string>
+    <string name="product_not_found">Product not found</string>
+    <string name="product_added_successfully">Product added Successfully</string>
 </resources>

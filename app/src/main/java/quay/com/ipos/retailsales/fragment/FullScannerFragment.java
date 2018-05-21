@@ -1,19 +1,18 @@
 package quay.com.ipos.retailsales.fragment;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.MenuItemCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -28,21 +27,17 @@ import me.dm7.barcodescanner.zbar.ZBarScannerView;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
-import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.listeners.ScannerProductListener;
 import quay.com.ipos.modal.CommonParams;
-import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.service.ServiceTask;
-import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Util;
 
-import static android.app.Activity.RESULT_OK;
-
-public class FullScannerFragment extends Fragment implements
+public class FullScannerFragment extends BaseFragment implements
         ZBarScannerView.ResultHandler, FormatSelectorDialogFragment.FormatSelectorDialogListener,
-        CameraSelectorDialogFragment.CameraSelectorDialogListener,MessageDialogFragment.MessageDialogListener,ServiceTask.ServiceResultListener {
+        CameraSelectorDialogFragment.CameraSelectorDialogListener,ServiceTask.ServiceResultListener {
     private static final String FLASH_STATE = "FLASH_STATE";
     private static final String AUTO_FOCUS_STATE = "AUTO_FOCUS_STATE";
     private static final String SELECTED_FORMATS = "SELECTED_FORMATS";
@@ -53,7 +48,9 @@ public class FullScannerFragment extends Fragment implements
     private ArrayList<Integer> mSelectedIndices;
     private int mCameraId = -1;
     ScannerProductListener mScannerProductListener;
-    private MainActivity mainActivity;
+    int REQUEST_CAMERA=22;
+    private boolean found=false;
+
     public static FullScannerFragment newInstance() {
         return new FullScannerFragment();
     }
@@ -61,7 +58,7 @@ public class FullScannerFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         mScannerView = new ZBarScannerView(getActivity());
-        mainActivity = (MainActivity) getActivity();
+
         if(state != null) {
             mFlash = state.getBoolean(FLASH_STATE, false);
             mAutoFocus = state.getBoolean(AUTO_FOCUS_STATE, true);
@@ -155,13 +152,35 @@ public class FullScannerFragment extends Fragment implements
     @Override
     public void onResume() {
         super.onResume();
-        mScannerView.setResultHandler(this);
-        mScannerView.startCamera(mCameraId);
-        mScannerView.setFlash(mFlash);
-        mScannerView.setAutoFocus(true);
-        mScannerView.setShouldScaleToFill(true);
+        String cameraPermission = Manifest.permission.CAMERA;
+        int permissionCheck = ContextCompat.checkSelfPermission(getActivity(), cameraPermission);
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            mScannerView.setResultHandler(this);
+            mScannerView.startCamera(mCameraId);
+            mScannerView.setFlash(mFlash);
+            mScannerView.setAutoFocus(true);
+            mScannerView.setShouldScaleToFill(true);
+        } else {
+            requestPermissions(new String[]{cameraPermission}, REQUEST_CAMERA);
+        }
 
 
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (permissions[i].equals(Manifest.permission.CAMERA)
+                        && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    mScannerView.setResultHandler(this);
+                    mScannerView.startCamera(mCameraId);
+                    mScannerView.setFlash(mFlash);
+                    mScannerView.setAutoFocus(true);
+                    mScannerView.setShouldScaleToFill(true);
+                }
+            }
+        }
     }
 
     @Override
@@ -176,8 +195,8 @@ public class FullScannerFragment extends Fragment implements
 
     void callScanService(String title, Context mContext){
 
-
-//        showProgressDialog(mContext,R.string.please_wait);
+        mProductList = IPOSApplication.mProductListResult;
+        showProgressDialog(mContext,R.string.please_wait);
         CommonParams mCommonParams = new CommonParams();
         mCommonParams.setStoreId("1");
         mCommonParams.setBarCodeNumber(title);
@@ -205,21 +224,21 @@ public class FullScannerFragment extends Fragment implements
         } catch (Exception e) {
             e.printStackTrace();
         }
-        showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
+//        showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
         callScanService(rawResult.getContents(),getActivity());
 //        mainActivity.onUpdate(rawResult.getContents(), mainActivity);
 //        Intent intent = new Intent(getActivity(), FullScannerFragment.class);
 //        intent.putExtra("scancode",rawResult.getContents());
 //        getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
 //        getFragmentManager().popBackStack();
-       // mScannerProductListener.setProductOnListener("Contents = " + rawResult.getContents() + ", Format = " + rawResul.getBarcodeFormat().getName());
+        // mScannerProductListener.setProductOnListener("Contents = " + rawResult.getContents() + ", Format = " + rawResul.getBarcodeFormat().getName());
     }
 
-    public void showMessageDialog(String message) {
-        DialogFragment fragment = MessageDialogFragment.newInstance("Scan Results", message,"OK",null, this,3);
-        fragment.show(getActivity().getSupportFragmentManager(), "scan_results");
-//        Util.showToast("Scan Results "+message,getActivity());
-    }
+//    public void showMessageDialog(String message) {
+//        DialogFragment fragment = MessageDialogFragment.newInstance("Scan Results", message,"OK",null, this,3);
+//        fragment.show(getActivity().getSupportFragmentManager(), "scan_results");
+////        Util.showToast("Scan Results "+message,getActivity());
+//    }
 
     public void closeMessageDialog() {
         closeDialog("scan_results");
@@ -243,16 +262,16 @@ public class FullScannerFragment extends Fragment implements
 //        mScannerView.resumeCameraPreview(this);
 //    }
 
-    @Override
-    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
-        // Resume the camera
-        mScannerView.resumeCameraPreview(this);
-    }
-
-    @Override
-    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
-
-    }
+//    @Override
+//    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+//        // Resume the camera
+//        mScannerView.resumeCameraPreview(this);
+//    }
+//
+//    @Override
+//    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+//
+//    }
 
     @Override
     public void onFormatsSaved(ArrayList<Integer> selectedIndices) {
@@ -289,27 +308,59 @@ public class FullScannerFragment extends Fragment implements
     public void onPause() {
         super.onPause();
         if(mScannerView!=null)
-        mScannerView.stopCamera();
+            mScannerView.stopCamera();
         closeMessageDialog();
         closeFormatsDialog();
     }
-
+    public ArrayList<ProductListResult.Datum> mProductList= new ArrayList<>();
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj,String response) {
+        hideProgressDialog();
+        // Resume the camera
+        //   mScannerView.resumeCameraPreview(this);
         if (httpStatusCode == Constants.SUCCESS) {
             if(serviceUrl!=null && serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_ProductDetailUsingBarCode)) {
                 if (resultObj != null) {
 
-                  ProductListResult productListResult = (ProductListResult) resultObj;
+                    ProductListResult productListResult = (ProductListResult) resultObj;
                     if(productListResult.getData()!=null)
-                    if(productListResult.getData()!=null && productListResult.getData().size()>0) {
-                        ProductListResult.Datum datum = productListResult.getData().get(0);
-                        datum.setAdded(true);
-                        IPOSApplication.mProductListResult.add(0, datum);
-                    }
+                        if(productListResult.getData()!=null && productListResult.getData().size()>0) {
+                            if (IPOSApplication.mProductListResult.size() > 0){
+
+                                for (int i = 0; i < mProductList.size(); i++) {
+
+                                    if (productListResult.getData().get(0).getIProductModalId().equalsIgnoreCase(mProductList.get(i).getIProductModalId())) {
+                                        ProductListResult.Datum mProductListResultData = mProductList.get(i);
+                                        mProductListResultData.setQty(mProductListResultData.getQty() + 1);
+                                        mProductListResultData.setAdded(true);
+                                        IPOSApplication.mProductListResult.set(i, mProductListResultData);
+                                        found=true;
+                                    } else {
+
+
+                                    }
+                                }
+                                if(!found){
+                                    ProductListResult.Datum datum = productListResult.getData().get(0);
+                                    datum.setAdded(true);
+                                    datum.setQty(1);
+                                    IPOSApplication.mProductListResult.add(0, datum);
+                                }
+                            }else {
+                                ProductListResult.Datum datum = productListResult.getData().get(0);
+                                datum.setAdded(true);
+                                datum.setQty(1);
+                                IPOSApplication.mProductListResult.add(0, datum);
+                            }
+
+                            IPOSApplication.isRefreshed=true;
+                            Util.showToast(getString(R.string.product_added_successfully),getActivity());
+                        }else {
+                            Util.showToast(getString(R.string.product_not_found),getActivity());
+                        }
                 }
 
-                mainActivity.onUpdate((ProductListResult)resultObj,getActivity());
+//                mainActivity.onUpdate((ProductListResult)resultObj,getActivity());
             }
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
             Toast.makeText(getActivity(), getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
@@ -322,5 +373,24 @@ public class FullScannerFragment extends Fragment implements
         } else if (httpStatusCode == Constants.CONNECTION_OUT) {
             Toast.makeText(getActivity(), getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
+
+
+
+        mScannerView.resumeCameraPreview(this);
+
+        Intent intent = new Intent("CUSTOM_ACTION");
+        // You can also include some extra data.
+        intent.putExtra("message", "This is my message!");
+        try {
+            LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+        }catch (Exception e){
+
+        }
     }
+
+    void onResumeCamera(){
+        if(mScannerView!=null)
+            mScannerView.resumeCameraPreview(this);
+    }
+
 }

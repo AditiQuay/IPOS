@@ -27,6 +27,7 @@ public class IPOSApplication extends MultiDexApplication {
 
     /** The instance. */
     private static IPOSApplication _instance = null;
+    public static boolean isRefreshed=false;
 
     public static ArrayList<ProductListResult.Datum> mProductListResult= new ArrayList<>();
 //    public static ArrayList<ProductList.Datum> mProductList= new ArrayList<>();

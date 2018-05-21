@@ -10,5 +10,5 @@ import quay.com.ipos.modal.ProductListResult;
 
 public interface ScanFilterListener
 {
-    public void onUpdate(ProductListResult title, Context mContext);
+    public void onUpdate(String title, Context mContext);
 }

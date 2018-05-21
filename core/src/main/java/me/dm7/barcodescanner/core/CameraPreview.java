@@ -126,6 +126,20 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
     }
 
+//    176 x 144
+//            320 x 240
+//            352 x 288
+//            480 x 320
+//            480 x 368
+//            640 x 480
+//            800 x 480
+//            800 x 600
+//            864 x 480
+//            864 x 576
+//            960 x 540
+//            1280 x 720 << best size in my example to use
+// 1280 x 768
+//            1280 x 960
     public void setupCameraParameters() {
         Camera.Size optimalSize = getOptimalPreviewSize();
         Camera.Parameters parameters = mCameraWrapper.mCamera.getParameters();
@@ -133,11 +147,13 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         Log.e("--","setPreviewSize height ------------------ "+optimalSize.height); // 1080
 //        parameters.setPreviewSize(optimalSize.width, optimalSize.height);
         if(optimalSize.height>=1080){
-            parameters.setPreviewSize(optimalSize.width, optimalSize.height);
-        }else
+           parameters.setPreviewSize(optimalSize.width, optimalSize.height);
+         //   parameters.setPreviewSize(1280, 500);
+        }else {
             parameters.setPreviewSize(300, 500);
-
-        parameters.setZoom(1);
+            parameters.setZoom(1);
+        }
+      //  parameters.setZoom(1);
         mCameraWrapper.mCamera.setParameters(parameters);
 
         adjustViewSize(optimalSize);
@@ -149,9 +165,9 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         float screenRatio = ((float) previewSize.x) / previewSize.y;
 
         if (screenRatio > cameraRatio) {
-            setViewSize((int) (previewSize.y * cameraRatio), previewSize.y);
+            setViewSize((int) (previewSize.y * cameraRatio), previewSize.y,cameraSize);
         } else {
-            setViewSize(previewSize.x, (int) (previewSize.x / cameraRatio));
+            setViewSize(previewSize.x, (int) (previewSize.x / cameraRatio),cameraSize);
         }
     }
 
@@ -165,11 +181,20 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     }
 
     @SuppressWarnings("SuspiciousNameCombination")
-    private void setViewSize(int width, int height) {
+    private void setViewSize(int width, int height, Camera.Size optimalSize) {
         ViewGroup.LayoutParams layoutParams = getLayoutParams();
-        int tmpWidth=300;
-        int tmpHeight=250;
-      /*  if (getDisplayOrientation() % 180 == 0) {
+        int tmpWidth=0;
+        int tmpHeight=0;
+        /*tmpWidth=300;
+        tmpHeight=250;*/
+        if(optimalSize.height>=1080){
+            tmpWidth=900;
+            tmpHeight=550;
+        }else {
+            tmpWidth=300;
+            tmpHeight=250;
+        }
+     /*   if (getDisplayOrientation() % 180 == 0) {
             tmpWidth = width;
             tmpHeight = height;
         } else {

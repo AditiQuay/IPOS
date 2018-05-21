@@ -2,12 +2,13 @@ package quay.com.ipos.retailsales.fragment;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -18,8 +19,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -33,16 +36,13 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
-import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
@@ -51,7 +51,6 @@ import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.ScanFilterListener;
 import quay.com.ipos.listeners.ScannerProductListener;
-import quay.com.ipos.modal.CommonParams;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.realmbean.RealmPinnedResults;
@@ -60,10 +59,10 @@ import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
 import quay.com.ipos.service.ServiceTask;
-import quay.com.ipos.ui.CustomProgressDialog;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
+import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.utility.AppLog;
@@ -74,7 +73,7 @@ import quay.com.ipos.utility.Util;
 /**
  * Created by aditi.bhuranda on 16-04-2018.
  */
-public class RetailSalesFragment extends BaseFragment implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialogFragment.MessageDialogListener,ScannerProductListener,ScanFilterListener,ServiceTask.ServiceResultListener {
+public class RetailSalesFragment extends BaseFragment implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialog.MessageDialogListener,ScannerProductListener,ScanFilterListener {
 
 
     ProductListResult productListResult = null;
@@ -82,7 +81,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     /**
      * The Array searchlist.
      */
-    ArrayList<ProductListResult.Datum> arrSearchlist = new ArrayList<>();
+//    ArrayList<ProductListResult.Datum> arrSearchlist = new ArrayList<>();
     private TextView tvRight1, tvMoreDetails, tvItemNo, tvItemQty, tvTotalItemPrice,
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
             tvLessDetails, tvRoundingOffPrice, tvTotalDiscount, tvPay, tvOTCDiscount, tvApplyOTC, tvApplyOTC2, tvPinCount;
@@ -156,12 +155,13 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         setTextDefault();
         myDialog = new Dialog(getActivity());
         setHasOptionsMenu(true);
-        displayFragment();
         Util.hideSoftKeyboard(getActivity());
-        if (productListResult != null) {
-            setProductListResult();
+        try {
+            LocalBroadcastManager.getInstance(getActivity()).registerReceiver(listener,
+                    new IntentFilter("CUSTOM_ACTION"));
+        }catch (Exception e){
+
         }
-//        hideProgressDialog();
         return rootView;
     }
 
@@ -288,14 +288,17 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     if (flScanner.getVisibility() == View.GONE) {
                         flScanner.setVisibility(View.VISIBLE);
 //                        chkBarCode.setChecked(true);
+                        displayFragment();
                     } else {
                         flScanner.setVisibility(View.GONE);
+                        closeFragment();
 //                        chkBarCode.setChecked(false);
                     }
                 }
             }
         });
     }
+
 
     /**
      * Close fragment.
@@ -316,6 +319,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         isFragmentDisplayed = false;
     }
 
+
     /**
      * Display fragment.
      */
@@ -332,6 +336,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
         fragmentTransaction.add(R.id.scanner_fragment,
                 simpleFragment).addToBackStack("fragment").commit();
+        simpleFragment.onResumeCamera();
         // Set boolean flag to indicate fragment is open.
         isFragmentDisplayed = true;
     }
@@ -341,6 +346,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
      */
     boolean isBack = false;
 
+
+
     /**
      * On resume.
      */
@@ -348,6 +355,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     public void onResume() {
         super.onResume();
         ((MainActivity) mContext).setToolbarTitle(getString(R.string.retail_sales));
+
         //You need to add the following line for this solution to work; thanks skayred
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
@@ -356,8 +364,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    if (IPOSApplication.mOrderList.size() >= 1) {
-                        Util.showMessageDialog(RetailSalesFragment.this, "Do you want to save the Cart?", "YES", "NO", Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
+                    if (IPOSApplication.mProductListResult.size() >= 1 && !isBack) {
+                        Util.showMessageDialog(mContext,RetailSalesFragment.this, "Do you want to save the Cart?", "YES", "NO", Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
 
                         isBack = true;
                     } else
@@ -411,7 +419,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //                                        etDiscountAmt.setText("");
 //                                    }
 //                                }).show();
-                        Util.showMessageDialog(RetailSalesFragment.this, "Please enter valid discount percentage", "OK", null, Constants.APP_DIALOG_OTC, "", getActivity().getSupportFragmentManager());
+                        Util.showMessageDialog(mContext,RetailSalesFragment.this, "Please enter valid discount percentage", "OK", null, Constants.APP_DIALOG_OTC, "", getActivity().getSupportFragmentManager());
                     }
             }
         });
@@ -483,7 +491,31 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 }
             }
         });
+      /*  mRecyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+
+            @Override
+            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+               // mRecyclerView.removeOnLayoutChangeListener(this);
+                AppLog.e(TAG, "updated");
+           //    mRetailSalesAdapter.notifyDataSetChanged();
+            //     getProduct();
+            }
+        });*/
     }
+    ArrayList<ProductListResult.Datum> arrSearchlist = IPOSApplication.mProductListResult;
+
+
+    private BroadcastReceiver listener = new BroadcastReceiver() {
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            String data = intent.getStringExtra("CUSTOM_ACTION");
+          //  Log.e( "Received data : ", data);
+
+
+            mRetailSalesAdapter.notifyDataSetChanged();
+            getProduct();
+        }
+    };
 
     /**
      * The Child position.
@@ -492,7 +524,6 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
     /**
      * On activity result.
-     *
      * @param requestCode the request code
      * @param resultCode  the result code
      * @param data        the data
@@ -532,7 +563,6 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             AppLog.e(RetailSalesFragment.class.getSimpleName(), "Get Product: " + Util.getCustomGson().toJson(IPOSApplication.mProductListResult));
 //            IPOSApplication.mProductList.addAll(mProductListResult.getData());
             setDefaultValues();
-//
             mRetailSalesAdapter.notifyDataSetChanged();
             setUpdateValues(IPOSApplication.mProductListResult);
         } catch (Exception e) {
@@ -842,9 +872,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 IPOSApplication.mProductListResult.remove(posClear);
-                                // mRetailSalesAdapter.notifyItemChanged(posClear);
-                                mRetailSalesAdapter.notifyItemRemoved(posClear);
-                                mRetailSalesAdapter.notifyItemRangeChanged(posClear, IPOSApplication.mProductListResult.size());
+//                                mRetailSalesAdapter.notifyItemRemoved(posClear);
+//                                mRetailSalesAdapter.notifyItemRangeChanged(posClear, IPOSApplication.mProductListResult.size());
                                 setUpdateValues(IPOSApplication.mProductListResult);
                             }
                         }).setNegativeButton(R.string.no, null).show();
@@ -855,7 +884,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 startActivity(mIntent);
                 break;
             case R.id.tvPay:
-                if (totalAmount > 0) {
+                flScanner.setVisibility(View.GONE);
+                closeFragment();
+                if (IPOSApplication.mProductListResult.size() > 0) {
                     Intent i = new Intent(mContext, PaymentModeActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
                     mContext.startActivity(i);
@@ -990,7 +1021,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         } else {
             datum1.setQty(qty1 + 1);
             IPOSApplication.mProductListResult.set(posPlus, datum1);
-            mRetailSalesAdapter.notifyItemChanged(posPlus);
+//            mRetailSalesAdapter.notifyItemChanged(posPlus);
             setUpdateValues(IPOSApplication.mProductListResult);
         }
     }
@@ -1007,7 +1038,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         } else {
             datum.setQty(qty - 1);
             IPOSApplication.mProductListResult.set(posMinus, datum);
-            mRetailSalesAdapter.notifyItemChanged(posMinus);
+//            mRetailSalesAdapter.notifyItemChanged(posMinus);
             setUpdateValues(IPOSApplication.mProductListResult);
         }
     }
@@ -1066,7 +1097,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                                 datum.setDiscSelected(false);
                             }
                             IPOSApplication.mProductListResult.set(posItem, datum);
-                            mRetailSalesAdapter.notifyItemChanged(posItem);
+//                            mRetailSalesAdapter.notifyItemChanged(posItem);
                             setUpdateValues(IPOSApplication.mProductListResult);
                         }
                     });
@@ -1099,7 +1130,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                         chkOTC.setChecked(false);
                     }
                     IPOSApplication.mProductListResult.set(posItem, datum);
-                    mRetailSalesAdapter.notifyItemChanged(posItem);
+//                    mRetailSalesAdapter.notifyItemChanged(posItem);
                     mAllChecked = 0;
                     for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
                         ProductListResult.Datum datum1 = IPOSApplication.mProductListResult.get(i);
@@ -1178,7 +1209,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             datum.setDiscItemSelected(false);
         }
         IPOSApplication.mProductListResult.set(posDeleteItem, datum);
-        mRetailSalesAdapter.notifyItemChanged(posDeleteItem);
+//        mRetailSalesAdapter.notifyItemChanged(posDeleteItem);
         setUpdateValues(IPOSApplication.mProductListResult);
         mDiscountDeleteFragment.dismiss();
     }
@@ -1190,7 +1221,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         }
 
         IPOSApplication.mProductListResult.set(posDeleteItem, datum);
-        mRetailSalesAdapter.notifyItemChanged(posDeleteItem);
+//        mRetailSalesAdapter.notifyItemChanged(posDeleteItem);
         setUpdateValues(IPOSApplication.mProductListResult);
         mDiscountDeleteFragment.dismiss();
     }
@@ -1242,12 +1273,12 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
             datum1.setQty(value);
             IPOSApplication.mProductListResult.set(position, datum1);
-            mRetailSalesAdapter.notifyItemChanged(position);
+//            mRetailSalesAdapter.notifyItemChanged(position);
             setUpdateValues(IPOSApplication.mProductListResult);
         } else {
             datum1.setQty(datum1.getSProductStock());
             IPOSApplication.mProductListResult.set(position, datum1);
-            mRetailSalesAdapter.notifyItemChanged(position);
+//            mRetailSalesAdapter.notifyItemChanged(position);
             setUpdateValues(IPOSApplication.mProductListResult);
             Util.showToast(datum1.getSProductStock() + " " + getString(R.string.qty_available), mContext);
         }
@@ -1266,7 +1297,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
      * @param mCallType the m call type
      */
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+    public void onDialogPositiveClick(Dialog dialog, int mCallType) {
         if (mCallType == Constants.APP_DIALOG_OTC) {
             dialog.dismiss();
             etDiscountAmt.setText("");
@@ -1289,7 +1320,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
      * @param mCallType the m call type
      */
     @Override
-    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+    public void onDialogNegetiveClick(Dialog dialog, int mCallType) {
         if (mCallType == Constants.APP_DIALOG_Cart) {
             if (IPOSApplication.mProductListResult.size() > 0) {
                 IPOSApplication.mProductListResult.clear();
@@ -1356,105 +1387,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     }
 
     @Override
-    public void onUpdate(ProductListResult title, Context mContext) {
+    public void onUpdate(String title, Context mContext) {
         AppLog.e(TAG, "DIALOG CALLL" + title);
-//        closeFragment();
-//        ((MainActivity)mContext).openRetailSalesFragment();
-//        if (rootView==null)
-//        openRetailSales(mContext);
-        productListResult = title;
-
-//        callScanService(title,mContext);
+        getProduct();
     }
 
-    void setProductListResult() {
-//        if(productListResult.getData()!=null)
-//            arrSearchlist.addAll(productListResult.getData());
-//        if(arrSearchlist!=null && arrSearchlist.size()>0) {
-//            ProductListResult.Datum datum = arrSearchlist.get(0);
-//            datum.setAdded(true);
-//            IPOSApplication.mProductListResult.add(0, datum);
-//        }
-//        arrSearchlist.clear();
-
-
-//        if(mRetailSalesAdapter!=null)
-//            mRetailSalesAdapter.notifyDataSetChanged();
-//        else
-//            setAdapter();
-    }
-
-//    void callScanService(String title, Context mContext){
-//
-//
-////        showProgressDialog(mContext,R.string.please_wait);
-//        CommonParams mCommonParams = new CommonParams();
-//        mCommonParams.setStoreId("1");
-//        mCommonParams.setBarCodeNumber(title);
-//
-//        ServiceTask mTask = new ServiceTask();
-//        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-//        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_ProductDetailUsingBarCode);
-//        mTask.setApiCallType(Constants.API_METHOD_POST);
-//        mTask.setParamObj(mCommonParams);
-//        mTask.setListener(this);
-//        mTask.setResultType(ProductListResult.class);
-//        if(Util.isConnected())
-//            mTask.execute();
-//        else
-//            Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
-//    }
-
-
-    @Override
-    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String response) {
-
-
-        if (httpStatusCode == Constants.SUCCESS) {
-            if (serviceUrl != null && serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_ProductDetailUsingBarCode)) {
-                if (resultObj != null) {
-                    productListResult = (ProductListResult) resultObj;
-                    if (productListResult.getData() != null)
-                        arrSearchlist.addAll(productListResult.getData());
-                    if (arrSearchlist != null && arrSearchlist.size() > 0) {
-                        ProductListResult.Datum datum = arrSearchlist.get(0);
-                        datum.setAdded(true);
-                        IPOSApplication.mProductListResult.add(0, datum);
-                    }
-                    arrSearchlist.clear();
-
-
-                    if (mRetailSalesAdapter != null)
-                        mRetailSalesAdapter.notifyDataSetChanged();
-                    else
-                        setAdapter();
-                }
-
-
-            }
-        } else if (httpStatusCode == Constants.BAD_REQUEST) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
-        }
-
-    }
-
-//    protected void showProgressDialog(Context context, int message) {
-//        _progressDialog = new CustomProgressDialog(mainActivity, getResources().getString(message));
-//        _progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-//        _progressDialog.setCancelable(false);
-//        if (null != _progressDialog) {
-//            _progressDialog.setMessage(getResources().getString(message));
-//            _progressDialog.show();
-//        }
-//    }
 
     @Override
     public void onAttach(Context context) {
