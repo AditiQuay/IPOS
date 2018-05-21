@@ -173,8 +173,7 @@
             android:paddingBottom="@dimen/dim_15"
             android:textColor="@color/white"
             android:background="@drawable/button_drawable"
-            android:textSize="@dimen/text_size_15sp"
-            app:typeface="Roboto-Regular.ttf" />
+            android:textSize="@dimen/text_size_15sp" />
     </LinearLayout>
 
 </LinearLayout>

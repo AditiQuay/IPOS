@@ -1,5 +1,6 @@
 package quay.com.ipos.ddr.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import quay.com.ipos.retailsales.adapter.AddProductAdapter;
 import quay.com.ipos.ddr.adapter.PinnedOrderAdapter;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
+import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
@@ -41,7 +43,7 @@ import static quay.com.ipos.utility.Constants.mInfoArrayList;
  * Created by aditi.bhuranda on 07-05-2018.
  */
 
-public class PinnedOrderActivity extends BaseActivity implements View.OnClickListener,MessageDialogFragment.MessageDialogListener{
+public class PinnedOrderActivity extends BaseActivity implements View.OnClickListener,MessageDialog.MessageDialogListener{
         private static final String TAG = PinnedOrderActivity.class.getSimpleName();
         //    ArrayList<RealmPinnedResults.Info> arrPinned= new ArrayList<>();
         private EditText searchView;
@@ -187,13 +189,13 @@ public class PinnedOrderActivity extends BaseActivity implements View.OnClickLis
             case R.id.imvClose:
                 int pos = (int) view.getTag();
                 pinned_pos = pos;
-                Util.showMessageDialog(PinnedOrderActivity.this,getResources().getString(R.string.pinned_msg),getResources().getString(R.string.yes),getResources().getString(R.string.no), Constants.APP_DIALOG_Pinned_ORDER,"",getSupportFragmentManager());
+                Util.showMessageDialog(mContext,PinnedOrderActivity.this,getResources().getString(R.string.pinned_msg),getResources().getString(R.string.yes),getResources().getString(R.string.no), Constants.APP_DIALOG_Pinned_ORDER,"",getSupportFragmentManager());
                 break;
         }
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+    public void onDialogPositiveClick(Dialog dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_Pinned_ORDER) {
             mOrderInfoArrayList.remove(pinned_pos);
             mPinnedOrderAdapter.notifyDataSetChanged();
@@ -203,7 +205,7 @@ public class PinnedOrderActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+    public void onDialogNegetiveClick(Dialog dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_Pinned_ORDER) {
             dialog.dismiss();
         }

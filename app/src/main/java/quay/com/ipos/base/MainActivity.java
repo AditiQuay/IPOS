@@ -1,12 +1,15 @@
 package quay.com.ipos.base;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -19,9 +22,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -55,20 +60,24 @@ import quay.com.ipos.ddr.fragment.OrderCentreListFragment;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
+import quay.com.ipos.modal.DrawerModal;
+import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.productCatalogue.ProductMain;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
+import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.ui.MessageDialogFragment;
+import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, FilterListener, MessageDialogFragment.MessageDialogListener, AdapterView.OnItemClickListener,ScanFilterListener {
+        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, FilterListener, MessageDialog.MessageDialogListener, AdapterView.OnItemClickListener,ScanFilterListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -103,6 +112,9 @@ public class MainActivity extends BaseActivity
     ArrayList<DrawerRoleModal> drawerRoleModals = new ArrayList<>();
     private DrawerRoleAdapter drawerRoleAdapter;
 
+    public static RetailSalesFragment retailSalesFragment1;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +126,7 @@ public class MainActivity extends BaseActivity
         dashboardItemFragment = new DashboardItemFragment();
 
 
+        retailSalesFragment1=new RetailSalesFragment();
     }
 
     private void setDashBoard() {
@@ -261,6 +274,11 @@ public class MainActivity extends BaseActivity
         });
     }
 
+    public void openRetailSalesFragment(){
+        retailSalesFragment = new RetailSalesFragment();
+        replaceFragment(retailSalesFragment, containerId);
+    }
+
     public void setToolbarTitle(String name) {
         toolbar.setTitle(name);
     }
@@ -280,22 +298,24 @@ public class MainActivity extends BaseActivity
     @Override
     public void onUpdateTitle(String title) {
         dashboardItemFragment.onUpdateTitle("dialog");
-
-
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+    public void onDialogPositiveClick(Dialog dialog, int mCallType) {
         if (mCallType == Constants.APP_DIALOG_PERMISSION) {
             Util.OpenSetting(MainActivity.this);
         }
     }
 
     @Override
-    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+    public void onDialogNegetiveClick(Dialog dialog, int mCallType) {
 
     }
+    @Override
+    public void onUpdate(String title, Context mContext) {
 
+        retailSalesFragment1.onUpdate(title, MainActivity.this);
+    }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
@@ -490,20 +510,20 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            fragmentManager.popBackStack("fragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            if (inMenu.size() > 0) {
-                setItemNormal();
-                setItemSelected(view1, inMenu.get(inMenu.size() - 1));
-                selectItem(inMenu.get(inMenu.size() - 1));
-                inMenu.remove(inMenu.size() - 1);
-
-            } else {
-                finish();
-            }
-        } else {
-            super.onBackPressed();
-        }
+//        if (fragmentManager.getBackStackEntryCount() > 0) {
+//            fragmentManager.popBackStack("fragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            if (inMenu.size() > 0) {
+//                setItemNormal();
+//                setItemSelected(view1, inMenu.get(inMenu.size() - 1));
+//                selectItem(inMenu.get(inMenu.size() - 1));
+//                inMenu.remove(inMenu.size() - 1);
+//
+//            } else {
+//                finish();
+//            }
+//        } else {
+//            super.onBackPressed();
+//        }
      /*   setItemNormal();
         setItemSelected(view1, preMenu);
         selectItem(preMenu);*/
@@ -513,7 +533,7 @@ public class MainActivity extends BaseActivity
 //            super.onBackPressed();
 //
 //        }
-       /* if (drawer.isDrawerOpen(Gravity.START)) {
+        if (drawer.isDrawerOpen(Gravity.START)) {
             closeDrawer();
             return;
         }
@@ -548,7 +568,8 @@ public class MainActivity extends BaseActivity
             } else {
                 super.onBackPressed();
             }
-*/
+
+        }
     }
 
     private void closeDrawer() {
@@ -621,7 +642,7 @@ public class MainActivity extends BaseActivity
                     if (!settingPermission)
                         Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
                     else
-                        Util.showMessageDialog(this, "Please grant camera permission to use the QR Scanner ", "Open Settings", null, Constants.APP_DIALOG_PERMISSION, "Alert!", getSupportFragmentManager());
+                        Util.showMessageDialog(mContext,this, "Please grant camera permission to use the QR Scanner ", "Open Settings", null, Constants.APP_DIALOG_PERMISSION, "Alert!", getSupportFragmentManager());
                     CameraPermission = false;
                 }
                 return;
@@ -697,8 +718,4 @@ public class MainActivity extends BaseActivity
         return expandableListDetail;
     }
 
-    @Override
-    public void onUpdate(String title) {
-
-    }
 }

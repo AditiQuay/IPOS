@@ -75,11 +75,11 @@ public class BaseActivity extends AppCompatActivity {
         return mFrag;
     }
 
-    public void showProgress() {
-        showProgress(getStringRes(R.string.msg_load_default));
+    public void showProgressDialog() {
+        showProgressDialog(getStringRes(R.string.msg_load_default));
     }
 
-    public void showProgress(String msg) {
+    public void showProgressDialog(String msg) {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.setMessage(msg);
         } else {
@@ -91,9 +91,9 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void showProgress(int msgId) {
+    public void showProgressDialog(int msgId) {
         String message = getStringRes(msgId);
-        showProgress(message);
+        showProgressDialog(message);
     }
 
     public void dismissProgress() {

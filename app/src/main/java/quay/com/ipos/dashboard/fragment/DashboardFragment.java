@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -81,7 +82,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 spStoreName.performClick();
-                mainActivity.onUpdateTitle("dialog");
+
             }
         });
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
@@ -92,6 +93,18 @@ public class DashboardFragment extends Fragment {
         //   mViewPager.setClipToPadding(false);
         //   mViewPager.setPageMargin(0);
         //   mViewPager.setOffscreenPageLimit(3);
+        spStoreName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(view.isPressed())
+                mainActivity.onUpdateTitle("dialog");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -118,6 +131,8 @@ public class DashboardFragment extends Fragment {
                     page3.setTextColor(getResources().getColor(R.color.black));
                     page3.setBackgroundResource(R.drawable.textview_circle_white);
                 }
+
+
             }
 
             @Override

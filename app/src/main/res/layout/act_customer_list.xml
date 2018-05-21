@@ -25,8 +25,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_15sp"
                 android:visibility="gone"
-                android:textColor="@color/colorPrimary"
-                android:background="@color/white"
+                android:textColor="@color/white"
                 android:layout_marginBottom="@dimen/dim_2"
                 />
 

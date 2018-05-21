@@ -48,6 +48,7 @@ import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.retailsales.fragment.FullScannerFragment;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
+import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
@@ -58,7 +59,7 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 03-05-2018.
  */
 
-public class NewOrderFragment extends BaseFragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialogFragment.MessageDialogListener,ScannerProductListener {
+public class NewOrderFragment extends BaseFragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener {
     private TextView tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
             tvLessDetails,tvRoundingOffPrice,tvPay,tvPinCount;
@@ -273,7 +274,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
                 if( keyCode == KeyEvent.KEYCODE_BACK )
                 {
                     if(IPOSApplication.mOrderList.size()>=1) {
-                        Util.showMessageDialog(NewOrderFragment.this, "Do you want to save the Cart?", "YES", "NO", Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
+                        Util.showMessageDialog(getActivity(),NewOrderFragment.this, "Do you want to save the Cart?", "YES", "NO", Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
 
                         isBack = true;
                     }
@@ -742,7 +743,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
     }
 
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+    public void onDialogPositiveClick(Dialog dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_OTC) {
             dialog.dismiss();
         }else if(mCallType==Constants.APP_DIALOG_Cart){
@@ -756,7 +757,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
     }
 
     @Override
-    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+    public void onDialogNegetiveClick(Dialog dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_Cart){
             if(IPOSApplication.mOrderList.size()>0) {
                 IPOSApplication.mOrderList.clear();

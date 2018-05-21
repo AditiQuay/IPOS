@@ -70,6 +70,7 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
+import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.ui.MessageDialogFragment;
 
 
@@ -738,14 +739,12 @@ public class Util {
         ctx.startActivity(intent);
     }
 
-    public static void showMessageDialog(MessageDialogFragment.MessageDialogListener listener,String message, String yesButton,String noButton, int mCallType,String Title, FragmentManager supportFragmentManager) {
-        DialogFragment fragment = MessageDialogFragment.newInstance(Title, message,yesButton,noButton, listener,mCallType);
-        fragment.show(supportFragmentManager, "scan_results");
+    public static void showMessageDialog(Context mContext,MessageDialog.MessageDialogListener listener, String message, String yesButton, String noButton, int mCallType, String Title, FragmentManager supportFragmentManager) {
+        MessageDialog fragment = new MessageDialog(mContext,Title, message,yesButton,noButton, listener,mCallType);
+
+//        fragment.show(supportFragmentManager, "scan_results");
     }
 
-    public static void showMessageDialogFragment(Fragment mFragment, MessageDialogFragment.MessageDialogListener listener, String message,String yesButton,String noButton, int mCallType, String Title) {
-        DialogFragment fragment = MessageDialogFragment.newInstance(Title, message,yesButton,noButton, listener,mCallType);
-        fragment.show(mFragment.getChildFragmentManager(), "scan_results");
-    }
+
 
 }
