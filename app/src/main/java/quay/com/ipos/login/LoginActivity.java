@@ -220,7 +220,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
     public void onClick(View v) {
         if (v == btnLogin) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                LoginActivity.super.requestAppPermissions(ALL_PERMISSIONS, R.string.runtime_permissions_txt, REQUEST_PERMISSIONS,0);
+                LoginActivity.super.requestAppPermissions(ALL_PERMISSIONS, R.string.runtime_permissions_txt, REQUEST_PERMISSIONS, 0);
             } else {
                 getDeviceInformation();
                 hideKeyboard();
@@ -230,21 +230,19 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
     }
 
     @Override
-    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj,String serverResponse) {
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         dismissProgress();
         if (httpStatusCode == Constants.SUCCESS) {
             if (resultObj != null) {
 
 
-             //   LoginResult loginResult = (LoginResult) resultObj;
+                LoginResult loginResult = (LoginResult) resultObj;
                 Gson gson = new GsonBuilder().create();
                 gson.fromJson(serverResponse, LoginResult.class);
-//                SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
-//                SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().get(0).getAccessToken(), mContext);
+                SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
+                SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().getAccessToken(), mContext);
 
-//                String userdata= Util.getAssetJsonResponse(LoginActivity.this,"login.json");
-
-               new  RealmController().saveUserDetail(serverResponse);
+                new RealmController().saveUserDetail(serverResponse);
                 //new  RealmController().saveUserDetail(userdata);
                 Intent i = new Intent(mContext, MainActivity.class);
                 startActivity(i);

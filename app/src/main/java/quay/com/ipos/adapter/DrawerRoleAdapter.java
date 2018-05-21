@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import quay.com.ipos.R;
 import quay.com.ipos.modal.DrawerModal;
 import quay.com.ipos.modal.DrawerRoleModal;
@@ -25,13 +27,13 @@ public class DrawerRoleAdapter extends ArrayAdapter<DrawerRoleModal> {
 
     private Context mContext;
     private int layoutResourceId;
-    private DrawerRoleModal data[] = null;
+    private ArrayList<DrawerRoleModal> drawerRoleModals;
 
-    public DrawerRoleAdapter(Context mContext, int layoutResourceId, DrawerRoleModal[] data) {
-        super(mContext, layoutResourceId, data);
+    public DrawerRoleAdapter(Context mContext, int layoutResourceId, ArrayList<DrawerRoleModal> drawerRoleModals) {
+        super(mContext, layoutResourceId, drawerRoleModals);
         this.layoutResourceId = layoutResourceId;
         this.mContext = mContext;
-        this.data = data;
+        this.drawerRoleModals = drawerRoleModals;
     }
 
     @NonNull
@@ -46,7 +48,7 @@ public class DrawerRoleAdapter extends ArrayAdapter<DrawerRoleModal> {
         TextView textViewName = (TextView) listItem.findViewById(R.id.textViewP);
 
 
-        DrawerRoleModal folder = data[position];
+        DrawerRoleModal folder = drawerRoleModals.get(position);
         int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, mContext.getResources().getDisplayMetrics());
         int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, mContext.getResources().getDisplayMetrics());
 
@@ -55,7 +57,7 @@ public class DrawerRoleAdapter extends ArrayAdapter<DrawerRoleModal> {
             vGrp.setBackgroundColor(mContext.getResources().getColor(R.color.menu_strip));
             textViewName.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
             textViewName.setBackgroundResource(R.drawable.menu_background_select);
-            data[position].setSelected(true);
+            folder.setSelected(true);
 
 
         } else {
@@ -63,7 +65,7 @@ public class DrawerRoleAdapter extends ArrayAdapter<DrawerRoleModal> {
             vGrp.setBackgroundColor(mContext.getResources().getColor(R.color.transparent_color));
             textViewName.setLayoutParams(new RelativeLayout.LayoutParams(UnSelectSize, UnSelectSize));
             textViewName.setBackgroundResource(R.drawable.menu_background_unselect);
-            data[position].setSelected(false);
+            folder.setSelected(false);
         }
 
 

@@ -72,7 +72,7 @@
             android:layout_below="@+id/rLayoutOption"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/dim_8"
-            android:text="My Business" />
+            />
 
         <TextView
             android:id="@+id/textViewAccount"
@@ -84,7 +84,7 @@
             android:layout_below="@+id/textViewMyBusiness"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/dim_4"
-            android:text="Account" />
+            />
 
         <RelativeLayout
             android:layout_width="@dimen/dim_88"

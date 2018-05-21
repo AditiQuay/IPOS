@@ -9,6 +9,10 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
@@ -16,7 +20,9 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomerInfoModal;
 import quay.com.ipos.listeners.MyListener;
 
 import quay.com.ipos.productCatalogue.productModal.SearchedItemModal;
+import quay.com.ipos.realmbean.RealmCustomerInfoModal;
 import quay.com.ipos.utility.CircleImageView;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
 
@@ -25,13 +31,13 @@ import quay.com.ipos.utility.Util;
  */
 
 public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapter.ItemViewholder> implements Filterable {
-    private ArrayList<CustomerInfoModal> customerInfoModals;
+    private ArrayList<RealmCustomerInfoModal> customerInfoModals;
 
     private Context mContext;
     private MyListener listener;
-    private ArrayList<CustomerInfoModal> mFilteredList;
+    private ArrayList<RealmCustomerInfoModal> mFilteredList;
 
-    public CustomerInfoAdapter(Context context, ArrayList<CustomerInfoModal> customerInfoModals, MyListener listener) {
+    public CustomerInfoAdapter(Context context, ArrayList<RealmCustomerInfoModal> customerInfoModals, MyListener listener) {
         this.mContext = context;
         this.listener = listener;
         this.customerInfoModals = customerInfoModals;
@@ -48,13 +54,23 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
 
     @Override
     public void onBindViewHolder(CustomerInfoAdapter.ItemViewholder holder, int position) {
-        CustomerInfoModal customerInfoModal = mFilteredList.get(position);
-        holder.textViewUserName.setText(customerInfoModal.customerName);
-        holder.textViewMob.setText(customerInfoModal.customerMobileNumber);
-        holder.textViewEmail.setText(customerInfoModal.customerEmail);
-        holder.textViewBill.setText("Last Billing " + customerInfoModal.customerBillingDate + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.customerBillingAmount);
-        holder.textViewCake.setText("Wish Birthday (" + customerInfoModal.customerBirthDay + ")");
-        holder.textViewProName.setText(customerInfoModal.customerPoints + " Pts.");
+        RealmCustomerInfoModal customerInfoModal = mFilteredList.get(position);
+        holder.textViewUserName.setText(customerInfoModal.getCustomer_name());
+        holder.textViewMob.setText(customerInfoModal.getCustomer_phone());
+        holder.textViewEmail.setText(customerInfoModal.getCustomer_email());
+
+        try {
+            JSONObject jsonObject = new JSONObject(customerInfoModal.getLast_billing());
+            String last_billing_date = jsonObject.getString(Constants.KEY_LAST_BILLING_DATE.trim());
+            String last_billing_amount = jsonObject.getString(Constants.KEY_LAST_BILLING_AMOUNT.trim());
+            holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + last_billing_date + " | " + mContext.getResources().getString(R.string.Rs) + " " + last_billing_amount);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        holder.textViewCake.setText(mContext.getResources().getString(R.string.text_birthday) + customerInfoModal.getCustomer_bday() + ")");
+        holder.textViewProName.setText(customerInfoModal.getCustomer_points() + mContext.getResources().getString(R.string.text_points));
+
+
     }
 
     @Override
@@ -72,10 +88,10 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
 
                     mFilteredList = customerInfoModals;
                 } else {
-                    ArrayList<CustomerInfoModal> filteredList = new ArrayList<>();
-                    for (CustomerInfoModal customerInfoModal : customerInfoModals) {
+                    ArrayList<RealmCustomerInfoModal> filteredList = new ArrayList<>();
+                    for (RealmCustomerInfoModal customerInfoModal : customerInfoModals) {
 
-                        if (customerInfoModal.customerMobileNumber.toLowerCase().contains(charString) || customerInfoModal.customerName.toLowerCase().contains(charString)) {
+                        if (customerInfoModal.getCustomer_phone().toLowerCase().contains(charString) || customerInfoModal.getCustomer_name().toLowerCase().contains(charString)) {
 
                             filteredList.add(customerInfoModal);
                         }
@@ -90,7 +106,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mFilteredList = (ArrayList<CustomerInfoModal>) results.values;
+                mFilteredList = (ArrayList<RealmCustomerInfoModal>) results.values;
                 notifyDataSetChanged();
             }
         };

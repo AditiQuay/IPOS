@@ -211,7 +211,7 @@ public class CustomerList {
     }
 
 
-    public class RecentOrder {
+    public static class RecentOrder {
 
         @SerializedName("from_store_name")
         @Expose
