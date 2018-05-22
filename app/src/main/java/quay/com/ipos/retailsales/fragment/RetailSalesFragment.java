@@ -85,13 +85,13 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     private TextView tvRight1, tvMoreDetails, tvItemNo, tvItemQty, tvTotalItemPrice,
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
             tvLessDetails, tvRoundingOffPrice, tvTotalDiscount, tvPay, tvOTCDiscount, tvApplyOTC, tvApplyOTC2, tvPinCount;
-    private FrameLayout flScanner;
+    private FrameLayout flScanner,flScanLayout;
     private ToggleButton tbPerc, tbRs;
     private EditText etDiscountAmt;
     private CheckBox chkOTC;
     private Fragment scanner_fragment;
     private LinearLayout llTotalDiscountDetail, ll_item_pay, llOTCSelect, llTotalGST, llOTCConfirmation;
-    private ImageView imvDicount, imvGlobe, imvUserAdd, imvPin, imvRedeem, imvRight, imvClearOTC, imvBarcode;
+    private ImageView imvDicount, imvGlobe, imvUserAdd, imvPin, imvRedeem, imvRight, imvClearOTC, imvBarcode,imvStatus;
     //    private ToggleButton chkBarCode;
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
@@ -169,9 +169,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     // initialize views
     private void initializeComponent(View rootView) {
         flScanner = rootView.findViewById(R.id.flScanner);
+        flScanLayout = rootView.findViewById(R.id.flScanLayout);
         imvUserAdd = rootView.findViewById(R.id.imvUserAdd);
         imvPin = rootView.findViewById(R.id.imvPin);
         imvRedeem = rootView.findViewById(R.id.imvRedeem);
+        imvStatus = rootView.findViewById(R.id.imvStatus);
         imvGlobe = rootView.findViewById(R.id.imvGlobe);
         imvDicount = rootView.findViewById(R.id.imvDicount);
         imvBarcode = rootView.findViewById(R.id.imvBarcode);
@@ -275,7 +277,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         imvRight.setOnClickListener(this);
 
         // Set the click listener for the button.
-        imvBarcode.setOnClickListener(new View.OnClickListener() {
+        flScanLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA)
@@ -287,9 +289,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
                     if (flScanner.getVisibility() == View.GONE) {
                         flScanner.setVisibility(View.VISIBLE);
+                        imvStatus.setBackgroundResource(R.drawable.circle_activate);
 //                        chkBarCode.setChecked(true);
                         displayFragment();
                     } else {
+                        imvStatus.setBackgroundResource(R.drawable.circle_disabled);
                         flScanner.setVisibility(View.GONE);
                         closeFragment();
 //                        chkBarCode.setChecked(false);
@@ -365,7 +369,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     if (IPOSApplication.mProductListResult.size() >= 1 && !isBack) {
-                        Util.showMessageDialog(mContext,RetailSalesFragment.this, "Do you want to save the Cart?", "YES", "NO", Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
+                        Util.showMessageDialog(mContext,RetailSalesFragment.this, getResources().getString(R.string.save_cart_message), getResources().getString(R.string.yes), getResources().getString(R.string.no), Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
 
                         isBack = true;
                     } else
