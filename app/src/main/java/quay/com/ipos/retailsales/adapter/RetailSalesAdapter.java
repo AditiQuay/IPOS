@@ -20,6 +20,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.utility.AppLog;
@@ -34,7 +36,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
-
+    private MainActivity mainActivity;
     // private OnLoadMoreListener mOnLoadMoreListener;
     private AdapterListener listener;
     private boolean isLoading;
@@ -55,6 +57,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.mRecyclerView = mRecycler;
         this.mCheckedChangeListener = mCheckedChangeListener;
         this. listener = listener;
+        mainActivity = (MainActivity) mContext;
         // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
         // mRecyclerView.getLayoutManager();
         // mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -130,10 +133,14 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof RetailSalesAdapter.UserViewHolder) {
             onBind = true;
-            final ProductListResult.Datum str = mDataset.get(position);
+            ProductListResult.Datum str = mDataset.get(position);
+            if(IPOSApplication.isRefreshed) {
+                str = mDataset.get(0);
+                IPOSApplication.isRefreshed=false;
+            }
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             final UserViewHolder userViewHolder = (UserViewHolder) holder;
             userViewHolder.tvItemName.setText(str.getSProductName());

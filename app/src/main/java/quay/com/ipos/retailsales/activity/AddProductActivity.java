@@ -126,7 +126,6 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         CommonParams mCommonParams = new CommonParams();
         mCommonParams.setStoreId("1");
         mCommonParams.setSearchParam(s);
-
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT);
@@ -218,11 +217,11 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                     mProductListResultData.setAdded(true);
                     IPOSApplication.mProductListResult.add(0,mProductListResultData);
                 }
-                AppLog.e(TAG,"click" + Util.getCustomGson().toJson(IPOSApplication.mProductListResult));
-
+//                AppLog.e(TAG,"click" + Util.getCustomGson().toJson(IPOSApplication.mProductListResult));
 
                 updateItem();
                 mAddProductAdapter.notifyItemChanged(pos);
+                Util.showToast(getString(R.string.product_added_successfully),AddProductActivity.this);
                 break;
 
             case R.id.tvClear:

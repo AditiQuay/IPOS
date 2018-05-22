@@ -425,100 +425,20 @@
 
             </RelativeLayout>
 
-            <android.support.v7.widget.CardView
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerviewRecentOrder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/rLayoutRecent"
                 android:layout_marginBottom="@dimen/dim_10"
                 android:layout_marginLeft="@dimen/dim_16"
                 android:layout_marginRight="@dimen/dim_16"
                 android:layout_marginTop="@dimen/dim_10"
-                android:maxHeight="@dimen/dim_200"
-                app:cardCornerRadius="@dimen/dim_8"
-                app:cardElevation="0dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true"
-                card_view:cardElevation="0dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/dim_8">
-
-                    <RelativeLayout
-                        android:id="@+id/rLayoutMyStore"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/textViewStoreCount"
-                            style="@style/stylePrimaryTextColor14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="My Store 1" />
-
-                        <View
-                            android:id="@+id/viewBorder"
-                            android:layout_width="2dp"
-                            android:layout_height="@dimen/dim_20"
-                            android:layout_marginLeft="@dimen/dim_4"
-                            android:layout_marginRight="@dimen/dim_4"
-                            android:layout_toEndOf="@+id/textViewStoreCount"
-                            android:layout_toRightOf="@+id/textViewStoreCount"
-                            android:background="@color/grey" />
-
-                        <TextView
-                            android:id="@+id/textViewStoreAddress"
-                            style="@style/stylePrimaryTextColor14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/viewBorder"
-                            android:layout_toRightOf="@+id/viewBorder"
-                            android:text="Rohtak, Haryana" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/rLayoutMyStore"
-                        android:layout_marginTop="@dimen/dim_10">
-
-                        <ImageView
-                            android:id="@+id/imageViewCalender"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/calendar_gray" />
+                android:overScrollMode="never"
+                android:layout_below="@+id/rLayoutRecent"
+                android:scrollbars="none" />
 
 
-                        <TextView
-                            android:id="@+id/textViewDate"
-                            style="@style/stylePrimaryTextColor14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/imageViewCalender"
-                            android:layout_toRightOf="@+id/imageViewCalender"
-                            android:paddingLeft="@dimen/dim_8"
-                            android:paddingRight="@dimen/dim_8"
-                            android:text="Rohtak, Haryana" />
-
-                        <TextView
-                            android:id="@+id/textViewAmount"
-                            style="@style/stylePrimaryTextColor14"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toEndOf="@+id/textViewDate"
-                            android:layout_toRightOf="@+id/textViewDate"
-                            android:paddingLeft="@dimen/dim_10"
-                            android:paddingRight="@dimen/dim_10"
-                            android:text="Rohtak, Haryana" />
-                    </RelativeLayout>
-                </RelativeLayout>
-
-            </android.support.v7.widget.CardView>
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 

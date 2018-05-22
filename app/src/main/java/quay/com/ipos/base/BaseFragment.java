@@ -1,11 +1,13 @@
 package quay.com.ipos.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.MotionEvent;
 
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.ui.CustomProgressDialog;
 
 
@@ -70,12 +72,13 @@ public class BaseFragment extends Fragment {
      *
      * @param message the message
      */
-    protected void showProgressDialog(int message) {
-        _progressDialog = new CustomProgressDialog(getActivity(), getResources().getString(message));
+    protected void showProgressDialog(Context context, int message) {
+        _progressDialog = new CustomProgressDialog(context, getResources().getString(message));
         _progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        _progressDialog.setCancelable(false);
+        _progressDialog.setCancelable(true);
         if (null != _progressDialog) {
-            _progressDialog.setMessage(getResources().getString(message));
+          //  _progressDialog.setMessage(getResources().getString(message));
+            if (!_progressDialog.isShowing())
             _progressDialog.show();
         }
     }

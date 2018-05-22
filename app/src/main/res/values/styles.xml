@@ -498,7 +498,10 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">normal</item>
     </style>
-
+    <style name="DialogThemeNoTitle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
     <style name="app_custom_dialog_theme" parent="android:Theme.Dialog">
         <item name="android:bottomBright">@color/white</item>
         <item name="android:bottomDark">@color/white</item>

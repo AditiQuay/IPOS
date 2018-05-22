@@ -33,25 +33,31 @@ public class ExpandableListDataPump {
         try {
             JSONArray jsonArray=new JSONArray(realmUserDetails.getUserMenu());
 
-            for (int i=0;i<1;i++){
+            for (int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject=jsonArray.optJSONObject(i);
                 JSONArray jsonArray1=jsonObject.optJSONArray("data");
-                for (int j=0;j<jsonArray1.length();j++){
-                    MenuModal menuModal=new MenuModal();
-                    JSONObject jsonObject1=jsonArray1.optJSONObject(j);
+                if (jsonArray1.length()>0) {
 
-                    menuModal.setGroupTitle(jsonObject1.optString("title"));
-                    menuModal.setGroupIcon(jsonObject1.optString("icon"));
-                    JSONArray jsonArray2=jsonObject1.optJSONArray("child");
-                    ArrayList<String> childList = new ArrayList<String>();
-                    for (int k=0;k<jsonArray2.length();k++){
-                        JSONObject jsonObject2=jsonArray2.optJSONObject(k);
-                        childList.add(jsonObject2.optString("name"));
 
+                    for (int j = 0; j < jsonArray1.length(); j++) {
+                        MenuModal menuModal = new MenuModal();
+                        JSONObject jsonObject1 = jsonArray1.optJSONObject(j);
+
+                        menuModal.setGroupTitle(jsonObject1.optString("title"));
+                        menuModal.setGroupIcon(jsonObject1.optString("icon"));
+                        JSONArray jsonArray2 = jsonObject1.optJSONArray("child");
+                        ArrayList<String> childList = new ArrayList<String>();
+                        for (int k = 0; k < jsonArray2.length(); k++) {
+                            JSONObject jsonObject2 = jsonArray2.optJSONObject(k);
+                            childList.add(jsonObject2.optString("name"));
+
+                        }
+
+                        menuModal.setArrayList(childList);
+                        expandableListDetail.put(menuModal, childList);
                     }
 
-                    menuModal.setArrayList(childList);
-                    expandableListDetail.put(menuModal, childList);
+                    break;
                 }
 
             }

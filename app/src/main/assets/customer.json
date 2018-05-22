@@ -8,7 +8,7 @@
       "customer_email":"ram.verma@xyz.com",
       "customer_bday":"28th Feb",
       "customer_address":{
-        "address":"456, Sector 40",
+        "address":"4216, Sector 44",
         "state":"Haryana",
         "city":"Gurgaon",
         "pin":"122018"
@@ -41,7 +41,7 @@
       "customer_email":"sanjay.mishra@xyz.com",
       "customer_bday":"28th Feb",
       "customer_address":{
-        "address":"456, Sector 40",
+        "address":"46, Sector 4",
         "state":"Haryana",
         "city":"Gurgaon",
         "pin":"122018"
@@ -73,10 +73,10 @@
       "customer_email":"deepak.vijay@xyz.com",
       "customer_bday":"28th Feb",
       "customer_address":{
-        "address":"456, Sector 40",
-        "state":"Haryana",
-        "city":"Gurgaon",
-        "pin":"122018"
+        "address":"4, Sector 2",
+        "state":"Delhi",
+        "city":"New Delhi",
+        "pin":"110018"
       },
       "last_billing": {
         "last_billing_date":"15-Jan-18",
@@ -105,10 +105,10 @@
       "customer_email":"aditya.sharma@xyz.com",
       "customer_bday":"28th Feb",
       "customer_address":{
-        "address":"456, Sector 40",
+        "address":"223, Sector 12",
         "state":"Haryana",
         "city":"Gurgaon",
-        "pin":"122018"
+        "pin":"122015"
       },
       "last_billing": {
         "last_billing_date":"15-Jan-18",
@@ -137,10 +137,10 @@
       "customer_email":"vikas.arya@xyz.com",
       "customer_bday":"28th Feb",
       "customer_address":{
-        "address":"456, Sector 40",
+        "address":"16, Sector 98",
         "state":"Haryana",
         "city":"Gurgaon",
-        "pin":"122018"
+        "pin":"122001"
       },
       "last_billing": {
         "last_billing_date":"15-Jan-18",
@@ -169,10 +169,10 @@
       "customer_email":"shweta.yadav@xyz.com",
       "customer_bday":"28th Feb",
       "customer_address":{
-        "address":"456, Sector 40",
-        "state":"Haryana",
-        "city":"Gurgaon",
-        "pin":"122018"
+        "address":"116, Sector 1",
+        "state":"Delhi",
+        "city":"New Delhi",
+        "pin":"110017"
       },
       "last_billing": {
         "last_billing_date":"15-Jan-18",
@@ -202,10 +202,10 @@
       "customer_email":"rahul.sharma@xyz.com",
       "customer_bday":"28th Feb",
       "customer_address":{
-        "address":"456, Sector 40",
+        "address":"6, Sector 12",
         "state":"Haryana",
         "city":"Gurgaon",
-        "pin":"122018"
+        "pin":"122014"
       },
       "last_billing": {
         "last_billing_date":"15-Jan-18",

@@ -91,6 +91,24 @@ public class RealmController {
         }
 
     }
+    public void saveCustomers(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateAllFromJson(RealmCustomerInfoModal.class, new JSONArray(responseData));
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
+
+
 
     //    public void saveQuestions(String responseData) {
 //        Realm realm = Realm.getDefaultInstance();
