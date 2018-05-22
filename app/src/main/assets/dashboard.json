@@ -85,7 +85,8 @@
     "VeryPoor":5
   },
   "inventoryInTransit": {
-    "count":{"mystores":5,
+    "count": {
+      "mystores":5,
       "onlineStores":5,
       "otherStores":5
     },
@@ -111,7 +112,8 @@
         "totalAmount":"32k",
         "signal":true,
         "percentage":"2"
-      }, "month":{
+      },
+      "month":{
       "totalAmount":"480k",
       "signal":true,
       "percentage":"2"
@@ -124,7 +126,8 @@
         "totalAmount":"32k",
         "signal":true,
         "percentage":"2"
-      }, "month":{
+      },
+      "month":{
       "totalAmount":"480k",
       "signal":true,
       "percentage":"2"
@@ -137,7 +140,8 @@
         "totalAmount":"32k",
         "signal":true,
         "percentage":"2"
-      }, "month":{
+      },
+      "month":{
       "totalAmount":"480k",
       "signal":true,
       "percentage":"2"
@@ -209,6 +213,5 @@
     "pending":"2/5",
     "upcoming":"2",
     "immediate":"2"
-
   }
 }
