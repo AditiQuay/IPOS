@@ -11,6 +11,7 @@ import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.RealmClass;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.modal.ProductListResult;
+import quay.com.ipos.modal.ProductSearchResult;
 
 /**
  * Created by aditi.bhuranda on 23-04-2018.
@@ -29,7 +30,7 @@ public class RealmPinnedResults {
         @PrimaryKey
         private String key;
 
-        private ArrayList<ProductListResult.Datum> data = null;
+        private ArrayList<ProductSearchResult.Datum> data = null;
 
         public String getKey() {
             return key;
@@ -39,11 +40,11 @@ public class RealmPinnedResults {
             this.key = key;
         }
 
-        public ArrayList<ProductListResult.Datum> getData() {
+        public ArrayList<ProductSearchResult.Datum> getData() {
             return data;
         }
 
-        public void setData(ArrayList<ProductListResult.Datum> data) {
+        public void setData(ArrayList<ProductSearchResult.Datum> data) {
             this.data = data;
         }
 

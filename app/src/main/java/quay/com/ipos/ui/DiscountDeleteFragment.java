@@ -20,6 +20,7 @@ import quay.com.ipos.ddr.fragment.NewOrderFragment;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.modal.ProductListResult;
+import quay.com.ipos.modal.ProductSearchResult;
 
 /**
  * Created by aditi.bhuranda on 25-04-2018.
@@ -33,7 +34,7 @@ public class DiscountDeleteFragment extends DialogFragment
     int points;
     View.OnClickListener mOnClickListener;
     static DiscountDeleteFragment f;
-    ProductListResult.Datum datum;
+    ProductSearchResult.Datum datum;
     OrderList.Datum datum1;
     public DiscountDeleteFragment() {
         super();
@@ -45,7 +46,7 @@ public class DiscountDeleteFragment extends DialogFragment
         return f;
     }
 
-    public void setDialogInfo(View.OnClickListener mOnClickListener, ProductListResult.Datum datum)
+    public void setDialogInfo(View.OnClickListener mOnClickListener, ProductSearchResult.Datum datum)
     {
         this.mOnClickListener = mOnClickListener;
         this.datum = datum;
@@ -73,9 +74,9 @@ public class DiscountDeleteFragment extends DialogFragment
             tvItemWeight.setText(datum.getSProductWeight() + " gm");
             tvItemQty.setText("Qty " + datum.getQty());
             tvItemPrice.setText(getResources().getString(R.string.Rs) + " " + datum.getSProductPrice());
-            tvDiscount.setText(datum.getSDiscountName());
-            Double discount = (datum.getSDiscountPrice() * datum.getSProductPrice()) / 100;
-            tvDiscountPrice.setText(getResources().getString(R.string.Rs) + discount);
+//            tvDiscount.setText(datum.getSDiscountName());
+//            Double discount = (datum.getSDiscountPrice() * datum.getSProductPrice()) / 100;
+//            tvDiscountPrice.setText(getResources().getString(R.string.Rs) + discount);
         }else {
             tvItemName.setText(datum1.getSProductName());
             tvItemWeight.setText(datum1.getSProductWeight() + " gm");

@@ -11,10 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4bfe4176-35d6-4c9c-90e2-c209b1fb381d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/circle_activate.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/circle_disabled.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/SimpleScannerFragment.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/ProductSearchResult.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
@@ -24,16 +21,14 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/PinnedRetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/PinnedRetailActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/application/IPOSApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/application/IPOSApplication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/realmbean/RealmPinnedResults.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/realmbean/RealmPinnedResults.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/AddProductActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/AddProductActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/AddProductAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/AddProductAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/utility/Constants.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/utility/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/circle_btn.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/circle_btn.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_message.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_message.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/retail_dashboard.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/retail_dashboard.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/show_product_list_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/show_product_list_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle.properties" afterPath="$PROJECT_DIR$/gradle.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ui/DiscountDeleteFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ui/DiscountDeleteFragment.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -57,99 +52,249 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/MainActivity.java">
+      <file leaf-file-name="ProductSearchResult.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/ProductSearchResult.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="590" column="5" lean-forward="false" selection-start-line="590" selection-start-column="5" selection-end-line="590" selection-end-column="5" />
+            <state relative-caret-position="296">
+              <caret line="239" column="33" lean-forward="false" selection-start-line="239" selection-start-column="33" selection-end-line="239" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#22579#22611#0" expanded="true" />
-                <element signature="e#22613#22651#0" expanded="true" />
-                <element signature="e#22653#22690#0" expanded="true" />
+                <element signature="e#517#518#0" expanded="true" />
+                <element signature="e#545#546#0" expanded="true" />
+                <element signature="e#588#589#0" expanded="true" />
+                <element signature="e#622#623#0" expanded="true" />
+                <element signature="e#657#658#0" expanded="true" />
+                <element signature="e#687#688#0" expanded="true" />
+                <element signature="e#734#735#0" expanded="true" />
+                <element signature="e#772#773#0" expanded="true" />
+                <element signature="e#808#809#0" expanded="true" />
+                <element signature="e#839#840#0" expanded="true" />
+                <element signature="e#888#889#0" expanded="true" />
+                <element signature="e#928#929#0" expanded="true" />
+                <element signature="e#969#970#0" expanded="true" />
+                <element signature="e#996#997#0" expanded="true" />
+                <element signature="e#1046#1047#0" expanded="true" />
+                <element signature="e#1078#1079#0" expanded="true" />
+                <element signature="e#3145#3146#0" expanded="true" />
+                <element signature="e#3191#3192#0" expanded="true" />
+                <element signature="e#3362#3363#0" expanded="true" />
+                <element signature="e#3405#3406#0" expanded="true" />
+                <element signature="e#3465#3466#0" expanded="true" />
+                <element signature="e#3521#3522#0" expanded="true" />
+                <element signature="e#3567#3568#0" expanded="true" />
+                <element signature="e#3613#3614#0" expanded="true" />
+                <element signature="e#3784#3785#0" expanded="true" />
+                <element signature="e#3827#3828#0" expanded="true" />
+                <element signature="e#3887#3888#0" expanded="true" />
+                <element signature="e#3943#3944#0" expanded="true" />
+                <element signature="e#3987#3988#0" expanded="true" />
+                <element signature="e#4031#4032#0" expanded="true" />
+                <element signature="e#4093#4094#0" expanded="true" />
+                <element signature="e#4151#4152#0" expanded="true" />
+                <element signature="e#4196#4197#0" expanded="true" />
+                <element signature="e#4240#4241#0" expanded="true" />
+                <element signature="e#4303#4304#0" expanded="true" />
+                <element signature="e#4361#4362#0" expanded="true" />
+                <element signature="e#4407#4408#0" expanded="true" />
+                <element signature="e#4452#4453#0" expanded="true" />
+                <element signature="e#4619#4620#0" expanded="true" />
+                <element signature="e#4660#4661#0" expanded="true" />
+                <element signature="e#4717#4718#0" expanded="true" />
+                <element signature="e#4769#4770#0" expanded="true" />
+                <element signature="e#4807#4808#0" expanded="true" />
+                <element signature="e#4845#4846#0" expanded="true" />
+                <element signature="e#4895#4896#0" expanded="true" />
+                <element signature="e#4941#4942#0" expanded="true" />
+                <element signature="e#4976#4977#0" expanded="true" />
+                <element signature="e#5011#5012#0" expanded="true" />
+                <element signature="e#5055#5056#0" expanded="true" />
+                <element signature="e#5095#5096#0" expanded="true" />
+                <element signature="e#5130#5131#0" expanded="true" />
+                <element signature="e#5165#5166#0" expanded="true" />
+                <element signature="e#5209#5210#0" expanded="true" />
+                <element signature="e#5249#5250#0" expanded="true" />
+                <element signature="e#5290#5291#0" expanded="true" />
+                <element signature="e#5331#5332#0" expanded="true" />
+                <element signature="e#5387#5388#0" expanded="true" />
+                <element signature="e#5439#5440#0" expanded="true" />
+                <element signature="e#5473#5474#0" expanded="true" />
+                <element signature="e#5507#5508#0" expanded="true" />
+                <element signature="e#5549#5550#0" expanded="true" />
+                <element signature="e#5587#5588#0" expanded="true" />
+                <element signature="e#5621#5622#0" expanded="true" />
+                <element signature="e#5655#5656#0" expanded="true" />
+                <element signature="e#5697#5698#0" expanded="true" />
+                <element signature="e#5735#5736#0" expanded="true" />
+                <element signature="e#5769#5770#0" expanded="true" />
+                <element signature="e#5803#5804#0" expanded="true" />
+                <element signature="e#5845#5846#0" expanded="true" />
+                <element signature="e#5883#5884#0" expanded="true" />
+                <element signature="e#5927#5928#0" expanded="true" />
+                <element signature="e#5971#5972#0" expanded="true" />
+                <element signature="e#6033#6034#0" expanded="true" />
+                <element signature="e#6091#6092#0" expanded="true" />
+                <element signature="e#6143#6144#0" expanded="true" />
+                <element signature="e#6182#6183#0" expanded="true" />
+                <element signature="e#6247#6248#0" expanded="true" />
+                <element signature="e#6295#6296#0" expanded="true" />
+                <element signature="e#8043#8044#0" expanded="true" />
+                <element signature="e#8087#8088#0" expanded="true" />
+                <element signature="e#8149#8150#0" expanded="true" />
+                <element signature="e#8207#8208#0" expanded="true" />
+                <element signature="e#8995#8996#0" expanded="true" />
+                <element signature="e#9039#9040#0" expanded="true" />
+                <element signature="e#9101#9102#0" expanded="true" />
+                <element signature="e#9159#9160#0" expanded="true" />
+                <element signature="e#9210#9211#0" expanded="true" />
+                <element signature="e#9261#9262#0" expanded="true" />
+                <element signature="e#9453#9454#0" expanded="true" />
+                <element signature="e#9488#9489#0" expanded="true" />
+                <element signature="e#9541#9542#0" expanded="true" />
+                <element signature="e#9581#9582#0" expanded="true" />
+                <element signature="e#11040#11041#0" expanded="true" />
+                <element signature="e#11084#11085#0" expanded="true" />
+                <element signature="e#11146#11147#0" expanded="true" />
+                <element signature="e#11204#11205#0" expanded="true" />
+                <element signature="e#11250#11251#0" expanded="true" />
+                <element signature="e#11295#11296#0" expanded="true" />
+                <element signature="e#11470#11471#0" expanded="true" />
+                <element signature="e#11520#11521#0" expanded="true" />
+                <element signature="e#11711#11712#0" expanded="true" />
+                <element signature="e#11758#11759#0" expanded="true" />
+                <element signature="e#11930#11931#0" expanded="true" />
+                <element signature="e#11969#11970#0" expanded="true" />
+                <element signature="e#12022#12023#0" expanded="true" />
+                <element signature="e#12070#12071#0" expanded="true" />
+                <element signature="e#12108#12109#0" expanded="true" />
+                <element signature="e#12145#12146#0" expanded="true" />
+                <element signature="e#12194#12195#0" expanded="true" />
+                <element signature="e#12238#12239#0" expanded="true" />
+                <element signature="e#12278#12279#0" expanded="true" />
+                <element signature="e#12317#12318#0" expanded="true" />
+                <element signature="e#12370#12371#0" expanded="true" />
+                <element signature="e#12418#12419#0" expanded="true" />
+                <element signature="e#12463#12464#0" expanded="true" />
+                <element signature="e#12507#12508#0" expanded="true" />
+                <element signature="e#12570#12571#0" expanded="true" />
+                <element signature="e#12628#12629#0" expanded="true" />
+                <element signature="e#12670#12671#0" expanded="true" />
+                <element signature="e#12712#12713#0" expanded="true" />
+                <element signature="e#12770#12771#0" expanded="true" />
+                <element signature="e#12824#12825#0" expanded="true" />
+                <element signature="e#12863#12864#0" expanded="true" />
+                <element signature="e#12902#12903#0" expanded="true" />
+                <element signature="e#12954#12955#0" expanded="true" />
+                <element signature="e#13002#13003#0" expanded="true" />
+                <element signature="e#13042#13043#0" expanded="true" />
+                <element signature="e#13082#13083#0" expanded="true" />
+                <element signature="e#13136#13137#0" expanded="true" />
+                <element signature="e#13186#13187#0" expanded="true" />
+                <element signature="e#13224#13225#0" expanded="true" />
+                <element signature="e#13261#13262#0" expanded="true" />
+                <element signature="e#13310#13311#0" expanded="true" />
+                <element signature="e#13354#13355#0" expanded="true" />
+                <element signature="e#13396#13397#0" expanded="true" />
+                <element signature="e#13437#13438#0" expanded="true" />
+                <element signature="e#13494#13495#0" expanded="true" />
+                <element signature="e#13546#13547#0" expanded="true" />
+                <element signature="e#13590#13591#0" expanded="true" />
+                <element signature="e#13633#13634#0" expanded="true" />
+                <element signature="e#13694#13695#0" expanded="true" />
+                <element signature="e#13750#13751#0" expanded="true" />
+                <element signature="e#13798#13799#0" expanded="true" />
+                <element signature="e#13845#13846#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dialog_message.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_message.xml">
+      <file leaf-file-name="AddProductActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/AddProductActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="32" column="43" lean-forward="false" selection-start-line="32" selection-start-column="43" selection-end-line="32" selection-end-column="43" />
-              <folding>
-                <element signature="e#766#806#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="68">
+              <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+              <folding />
             </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="RetailSalesFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="276" column="42" lean-forward="false" selection-start-line="276" selection-start-column="42" selection-end-line="276" selection-end-column="42" />
+            <state relative-caret-position="109">
+              <caret line="930" column="31" lean-forward="false" selection-start-line="930" selection-start-column="31" selection-end-line="930" selection-end-column="31" />
               <folding>
-                <element signature="e#5024#5049#0" expanded="true" />
-                <element signature="e#14507#14539#0" expanded="true" />
-                <element signature="e#15093#15145#0" expanded="true" />
-                <element signature="e#15147#15185#0" expanded="true" />
-                <element signature="e#15187#15224#0" expanded="true" />
+                <element signature="e#5072#5097#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="retail_dashboard.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/retail_dashboard.xml">
+      <file leaf-file-name="RealmPinnedResults.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/realmbean/RealmPinnedResults.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+            <state relative-caret-position="354">
+              <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
               <folding>
-                <element signature="e#4605#4620#0" expanded="true" />
-                <element signature="e#5596#5610#0" expanded="true" />
-                <element signature="e#6365#6379#0" expanded="true" />
+                <element signature="e#1177#1178#0" expanded="true" />
+                <element signature="e#1217#1218#0" expanded="true" />
               </folding>
             </state>
           </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="DiscountDeleteFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ui/DiscountDeleteFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="373">
+              <caret line="79" column="15" lean-forward="true" selection-start-line="79" selection-start-column="15" selection-end-line="79" selection-end-column="15" />
+              <folding>
+                <marker date="1526992110143" expanded="false" signature="2920:2957" ph="&quot;₹&quot;" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IPOSApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/application/IPOSApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="169">
+              <caret line="32" column="73" lean-forward="false" selection-start-line="32" selection-start-column="55" selection-end-line="32" selection-end-column="73" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="DatabaseHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
-              <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+            <state relative-caret-position="5">
+              <caret line="324" column="61" lean-forward="false" selection-start-line="324" selection-start-column="48" selection-end-line="324" selection-end-column="61" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#10757#10784#0" expanded="true" />
+                <element signature="e#12469#12496#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="circle_activate.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/circle_activate.xml">
+      <file leaf-file-name="PinnedRetailActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/PinnedRetailActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="35" lean-forward="false" selection-start-line="4" selection-start-column="35" selection-end-line="4" selection-end-column="35" />
+            <state relative-caret-position="201">
+              <caret line="74" column="15" lean-forward="false" selection-start-line="74" selection-start-column="15" selection-end-line="74" selection-end-column="15" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="circle_disabled.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/circle_disabled.xml">
+      <file leaf-file-name="ProductListResult.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/ProductListResult.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
-              <folding>
-                <element signature="e#194#208#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="379">
+              <caret line="341" column="9" lean-forward="false" selection-start-line="341" selection-start-column="9" selection-end-line="341" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -167,8 +312,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setPreviewSize</find>
-      <find>setPreviewSize</find>
       <find>RetailSalesFragment</find>
       <find>oncreate</find>
       <find>oncreat</find>
@@ -197,9 +340,12 @@
       <find>onres</find>
       <find>ondi</find>
       <find>flScanner</find>
+      <find>List</find>
+      <find>mProductListResult</find>
     </findStrings>
     <replaceStrings>
       <replace>ArrayList</replace>
+      <replace>mProductSearchResult</replace>
     </replaceStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -3599,12 +3745,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/DrawerRoleModal.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/adapter/NavigationViewExpeListViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/IPOSAPI.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/application/IPOSApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/listeners/ScanFilterListener.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java" />
         <option value="$PROJECT_DIR$/core/src/main/java/me/dm7/barcodescanner/core/CameraPreview.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/service/ServiceTask.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/AddProductActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ui/MessageDialogFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/activity/PinnedOrderActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/fragment/NewOrderFragment.java" />
@@ -3622,9 +3765,16 @@
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/circle_btn.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/circle_activate.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/circle_disabled.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/retail_dashboard.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/AddProductAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/ProductSearchResult.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/application/IPOSApplication.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/AddProductActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ui/DiscountDeleteFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/realmbean/RealmPinnedResults.java" />
       </list>
     </option>
   </component>
@@ -3702,6 +3852,98 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="ipos" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IPOS" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ipos" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="retailsales" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fragment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IPOS" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ipos" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="retailsales" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IPOS" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ipos" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="helper" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IPOS" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ipos" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -3905,7 +4147,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526970523229" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526992110357" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -3953,7 +4195,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526970523229" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526992110357" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -4136,7 +4378,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526970523229" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1526992110358" />
       </method>
     </configuration>
     <list size="1">
@@ -4184,7 +4426,7 @@
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20272315" sideWeight="0.51877135" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.52047783" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7457338" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -4283,43 +4525,43 @@
       <breakpoints>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java</url>
-          <line>151</line>
+          <line>152</line>
           <properties />
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java</url>
-          <line>471</line>
+          <line>472</line>
           <properties />
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java</url>
-          <line>1350</line>
+          <line>1351</line>
           <properties />
           <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java</url>
-          <line>53</line>
+          <line>54</line>
           <properties />
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java</url>
-          <line>1377</line>
+          <line>1378</line>
           <properties />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java</url>
-          <line>139</line>
+          <line>140</line>
           <properties />
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java</url>
-          <line>146</line>
+          <line>147</line>
           <properties />
           <option name="timeStamp" value="52" />
         </line-breakpoint>
@@ -4347,33 +4589,27 @@
           <properties />
           <option name="timeStamp" value="57" />
         </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/AddProductActivity.java</url>
-          <line>189</line>
-          <properties />
-          <option name="timeStamp" value="58" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java</url>
-          <line>359</line>
+          <line>360</line>
           <properties />
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java</url>
-          <line>360</line>
+          <line>361</line>
           <properties />
           <option name="timeStamp" value="63" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java</url>
-          <line>370</line>
+          <line>371</line>
           <properties />
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java</url>
-          <line>369</line>
+          <line>370</line>
           <properties />
           <option name="timeStamp" value="67" />
         </line-breakpoint>
@@ -4410,56 +4646,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/BaseFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="100" column="27" lean-forward="true" selection-start-line="100" selection-start-column="27" selection-end-line="100" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-26/android.jar!/android/os/AsyncTask.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="151">
-          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-26/android.jar!/android/os/Looper.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="26" column="31" lean-forward="false" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
-          <folding>
-            <element signature="e#612#613#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/listeners/ScanFilterListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="12" column="33" lean-forward="false" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/listeners/AdapterListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/listeners/ScannerProductListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="36" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-26/android.jar!/android/view/SurfaceView.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
@@ -4529,14 +4715,6 @@
             <element signature="e#15647#15648#0" expanded="true" />
             <element signature="e#15698#15699#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/application/IPOSApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="31" column="91" lean-forward="true" selection-start-line="31" selection-start-column="91" selection-end-line="31" selection-end-column="91" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4660,14 +4838,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/utility/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="743" column="0" lean-forward="false" selection-start-line="743" selection-start-column="0" selection-end-line="743" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/utility/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
@@ -4707,34 +4877,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/AddCustomerFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/AddProductActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="40" column="32" lean-forward="false" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/PinnedRetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="193" column="22" lean-forward="true" selection-start-line="193" selection-start-column="22" selection-end-line="193" selection-end-column="22" />
-          <folding>
-            <element signature="e#7376#7410#0" expanded="false" />
-            <element signature="e#7411#7449#0" expanded="false" />
-            <element signature="e#7450#7487#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -4745,14 +4887,6 @@
             <element signature="e#22613#22651#0" expanded="true" />
             <element signature="e#22653#22690#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="123" column="83" lean-forward="false" selection-start-line="123" selection-start-column="83" selection-end-line="123" selection-end-column="83" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4864,20 +4998,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="276" column="42" lean-forward="false" selection-start-line="276" selection-start-column="42" selection-end-line="276" selection-end-column="42" />
-          <folding>
-            <element signature="e#5024#5049#0" expanded="true" />
-            <element signature="e#14507#14539#0" expanded="true" />
-            <element signature="e#15093#15145#0" expanded="true" />
-            <element signature="e#15147#15185#0" expanded="true" />
-            <element signature="e#15187#15224#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -4886,20 +5006,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/ProductList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="153">
+          <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/retail_dashboard.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="113" column="0" lean-forward="true" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+        <state relative-caret-position="99">
+          <caret line="95" column="44" lean-forward="true" selection-start-line="95" selection-start-column="44" selection-end-line="95" selection-end-column="44" />
           <folding>
             <element signature="e#4605#4620#0" expanded="true" />
             <element signature="e#5596#5610#0" expanded="true" />
@@ -4909,6 +5027,270 @@
       </provider>
       <provider editor-type-id="android-designer2">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/AddCustomerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1015">
+          <caret line="21" column="13" lean-forward="false" selection-start-line="21" selection-start-column="13" selection-end-line="21" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/ProductListResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="341" column="9" lean-forward="false" selection-start-line="341" selection-start-column="9" selection-end-line="341" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/AddProductAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1138">
+          <caret line="110" column="31" lean-forward="false" selection-start-line="110" selection-start-column="31" selection-end-line="110" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/ProductSearchResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="239" column="33" lean-forward="false" selection-start-line="239" selection-start-column="33" selection-end-line="239" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#517#518#0" expanded="true" />
+            <element signature="e#545#546#0" expanded="true" />
+            <element signature="e#588#589#0" expanded="true" />
+            <element signature="e#622#623#0" expanded="true" />
+            <element signature="e#657#658#0" expanded="true" />
+            <element signature="e#687#688#0" expanded="true" />
+            <element signature="e#734#735#0" expanded="true" />
+            <element signature="e#772#773#0" expanded="true" />
+            <element signature="e#808#809#0" expanded="true" />
+            <element signature="e#839#840#0" expanded="true" />
+            <element signature="e#888#889#0" expanded="true" />
+            <element signature="e#928#929#0" expanded="true" />
+            <element signature="e#969#970#0" expanded="true" />
+            <element signature="e#996#997#0" expanded="true" />
+            <element signature="e#1046#1047#0" expanded="true" />
+            <element signature="e#1078#1079#0" expanded="true" />
+            <element signature="e#3145#3146#0" expanded="true" />
+            <element signature="e#3191#3192#0" expanded="true" />
+            <element signature="e#3362#3363#0" expanded="true" />
+            <element signature="e#3405#3406#0" expanded="true" />
+            <element signature="e#3465#3466#0" expanded="true" />
+            <element signature="e#3521#3522#0" expanded="true" />
+            <element signature="e#3567#3568#0" expanded="true" />
+            <element signature="e#3613#3614#0" expanded="true" />
+            <element signature="e#3784#3785#0" expanded="true" />
+            <element signature="e#3827#3828#0" expanded="true" />
+            <element signature="e#3887#3888#0" expanded="true" />
+            <element signature="e#3943#3944#0" expanded="true" />
+            <element signature="e#3987#3988#0" expanded="true" />
+            <element signature="e#4031#4032#0" expanded="true" />
+            <element signature="e#4093#4094#0" expanded="true" />
+            <element signature="e#4151#4152#0" expanded="true" />
+            <element signature="e#4196#4197#0" expanded="true" />
+            <element signature="e#4240#4241#0" expanded="true" />
+            <element signature="e#4303#4304#0" expanded="true" />
+            <element signature="e#4361#4362#0" expanded="true" />
+            <element signature="e#4407#4408#0" expanded="true" />
+            <element signature="e#4452#4453#0" expanded="true" />
+            <element signature="e#4619#4620#0" expanded="true" />
+            <element signature="e#4660#4661#0" expanded="true" />
+            <element signature="e#4717#4718#0" expanded="true" />
+            <element signature="e#4769#4770#0" expanded="true" />
+            <element signature="e#4807#4808#0" expanded="true" />
+            <element signature="e#4845#4846#0" expanded="true" />
+            <element signature="e#4895#4896#0" expanded="true" />
+            <element signature="e#4941#4942#0" expanded="true" />
+            <element signature="e#4976#4977#0" expanded="true" />
+            <element signature="e#5011#5012#0" expanded="true" />
+            <element signature="e#5055#5056#0" expanded="true" />
+            <element signature="e#5095#5096#0" expanded="true" />
+            <element signature="e#5130#5131#0" expanded="true" />
+            <element signature="e#5165#5166#0" expanded="true" />
+            <element signature="e#5209#5210#0" expanded="true" />
+            <element signature="e#5249#5250#0" expanded="true" />
+            <element signature="e#5290#5291#0" expanded="true" />
+            <element signature="e#5331#5332#0" expanded="true" />
+            <element signature="e#5387#5388#0" expanded="true" />
+            <element signature="e#5439#5440#0" expanded="true" />
+            <element signature="e#5473#5474#0" expanded="true" />
+            <element signature="e#5507#5508#0" expanded="true" />
+            <element signature="e#5549#5550#0" expanded="true" />
+            <element signature="e#5587#5588#0" expanded="true" />
+            <element signature="e#5621#5622#0" expanded="true" />
+            <element signature="e#5655#5656#0" expanded="true" />
+            <element signature="e#5697#5698#0" expanded="true" />
+            <element signature="e#5735#5736#0" expanded="true" />
+            <element signature="e#5769#5770#0" expanded="true" />
+            <element signature="e#5803#5804#0" expanded="true" />
+            <element signature="e#5845#5846#0" expanded="true" />
+            <element signature="e#5883#5884#0" expanded="true" />
+            <element signature="e#5927#5928#0" expanded="true" />
+            <element signature="e#5971#5972#0" expanded="true" />
+            <element signature="e#6033#6034#0" expanded="true" />
+            <element signature="e#6091#6092#0" expanded="true" />
+            <element signature="e#6143#6144#0" expanded="true" />
+            <element signature="e#6182#6183#0" expanded="true" />
+            <element signature="e#6247#6248#0" expanded="true" />
+            <element signature="e#6295#6296#0" expanded="true" />
+            <element signature="e#8043#8044#0" expanded="true" />
+            <element signature="e#8087#8088#0" expanded="true" />
+            <element signature="e#8149#8150#0" expanded="true" />
+            <element signature="e#8207#8208#0" expanded="true" />
+            <element signature="e#8995#8996#0" expanded="true" />
+            <element signature="e#9039#9040#0" expanded="true" />
+            <element signature="e#9101#9102#0" expanded="true" />
+            <element signature="e#9159#9160#0" expanded="true" />
+            <element signature="e#9210#9211#0" expanded="true" />
+            <element signature="e#9261#9262#0" expanded="true" />
+            <element signature="e#9453#9454#0" expanded="true" />
+            <element signature="e#9488#9489#0" expanded="true" />
+            <element signature="e#9541#9542#0" expanded="true" />
+            <element signature="e#9581#9582#0" expanded="true" />
+            <element signature="e#11040#11041#0" expanded="true" />
+            <element signature="e#11084#11085#0" expanded="true" />
+            <element signature="e#11146#11147#0" expanded="true" />
+            <element signature="e#11204#11205#0" expanded="true" />
+            <element signature="e#11250#11251#0" expanded="true" />
+            <element signature="e#11295#11296#0" expanded="true" />
+            <element signature="e#11470#11471#0" expanded="true" />
+            <element signature="e#11520#11521#0" expanded="true" />
+            <element signature="e#11711#11712#0" expanded="true" />
+            <element signature="e#11758#11759#0" expanded="true" />
+            <element signature="e#11930#11931#0" expanded="true" />
+            <element signature="e#11969#11970#0" expanded="true" />
+            <element signature="e#12022#12023#0" expanded="true" />
+            <element signature="e#12070#12071#0" expanded="true" />
+            <element signature="e#12108#12109#0" expanded="true" />
+            <element signature="e#12145#12146#0" expanded="true" />
+            <element signature="e#12194#12195#0" expanded="true" />
+            <element signature="e#12238#12239#0" expanded="true" />
+            <element signature="e#12278#12279#0" expanded="true" />
+            <element signature="e#12317#12318#0" expanded="true" />
+            <element signature="e#12370#12371#0" expanded="true" />
+            <element signature="e#12418#12419#0" expanded="true" />
+            <element signature="e#12463#12464#0" expanded="true" />
+            <element signature="e#12507#12508#0" expanded="true" />
+            <element signature="e#12570#12571#0" expanded="true" />
+            <element signature="e#12628#12629#0" expanded="true" />
+            <element signature="e#12670#12671#0" expanded="true" />
+            <element signature="e#12712#12713#0" expanded="true" />
+            <element signature="e#12770#12771#0" expanded="true" />
+            <element signature="e#12824#12825#0" expanded="true" />
+            <element signature="e#12863#12864#0" expanded="true" />
+            <element signature="e#12902#12903#0" expanded="true" />
+            <element signature="e#12954#12955#0" expanded="true" />
+            <element signature="e#13002#13003#0" expanded="true" />
+            <element signature="e#13042#13043#0" expanded="true" />
+            <element signature="e#13082#13083#0" expanded="true" />
+            <element signature="e#13136#13137#0" expanded="true" />
+            <element signature="e#13186#13187#0" expanded="true" />
+            <element signature="e#13224#13225#0" expanded="true" />
+            <element signature="e#13261#13262#0" expanded="true" />
+            <element signature="e#13310#13311#0" expanded="true" />
+            <element signature="e#13354#13355#0" expanded="true" />
+            <element signature="e#13396#13397#0" expanded="true" />
+            <element signature="e#13437#13438#0" expanded="true" />
+            <element signature="e#13494#13495#0" expanded="true" />
+            <element signature="e#13546#13547#0" expanded="true" />
+            <element signature="e#13590#13591#0" expanded="true" />
+            <element signature="e#13633#13634#0" expanded="true" />
+            <element signature="e#13694#13695#0" expanded="true" />
+            <element signature="e#13750#13751#0" expanded="true" />
+            <element signature="e#13798#13799#0" expanded="true" />
+            <element signature="e#13845#13846#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/utility/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="76" column="13" lean-forward="false" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/PinnedRetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="74" column="15" lean-forward="false" selection-start-line="74" selection-start-column="15" selection-end-line="74" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5">
+          <caret line="324" column="61" lean-forward="false" selection-start-line="324" selection-start-column="48" selection-end-line="324" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#10757#10784#0" expanded="true" />
+            <element signature="e#12469#12496#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/application/IPOSApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="32" column="73" lean-forward="false" selection-start-line="32" selection-start-column="55" selection-end-line="32" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/AddProductActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="139" column="31" lean-forward="false" selection-start-line="139" selection-start-column="12" selection-end-line="139" selection-end-column="31" />
+          <folding>
+            <marker date="1526992110245" expanded="false" signature="7679:7725" ph="&quot;₹&quot;" />
+            <marker date="1526992110245" expanded="false" signature="7972:8018" ph="&quot;₹&quot;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ui/DiscountDeleteFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="79" column="15" lean-forward="true" selection-start-line="79" selection-start-column="15" selection-end-line="79" selection-end-column="15" />
+          <folding>
+            <marker date="1526992110143" expanded="false" signature="2920:2957" ph="&quot;₹&quot;" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="930" column="31" lean-forward="false" selection-start-line="930" selection-start-column="31" selection-end-line="930" selection-end-column="31" />
+          <folding>
+            <element signature="e#5072#5097#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/realmbean/RealmPinnedResults.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="42" column="44" lean-forward="false" selection-start-line="42" selection-start-column="44" selection-end-line="42" selection-end-column="44" />
+          <folding>
+            <element signature="e#1177#1178#0" expanded="true" />
+            <element signature="e#1217#1218#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>

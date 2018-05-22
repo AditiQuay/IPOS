@@ -2,86 +2,97 @@ package quay.com.ipos.helper;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+
+import quay.com.ipos.modal.ProductSearchResult;
+import quay.com.ipos.realmbean.RealmPinnedResults;
+import quay.com.ipos.utility.Util;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// All Static variables
-    // Database Version
+	// Database Version
 	private static final int DATABASE_VERSION = 1;
 
 	// Database Name
-	public static final String DATABASE_NAME = "ContestManager";
+	public static final String DATABASE_NAME = "IPOS_MANAGER";
 
-	// Contacts table name
-	public static final String TABLE_QUESTION = "ContestTable";
+	// Retail table name
+	public static final String TABLE_RETAIL = "RetailTable";
 
-	// Contacts table name
-	public static final String TABLE_OPINION = "OpnionTable";
+	// OpnionTable table name
+//	public static final String TABLE_OPINION = "OpnionTable";
 
-	// Test Table name
-	public static final String TABLE_TEST = "TestTable";
+	// TestTable name
+//	public static final String TABLE_TEST = "TestTable";
 
-	// Contacts Table Columns names
-	private static final String KEY_ID = "questionId";
-	// private static final String KEY_QUESTIONID = "questionId";
-	private static final String KEY_OPTION_ANSWER = "answer";
-	private static final String KEY_QUESTION = "question";
+	// Retail Table Columns names
+	private static final String KEY_ID = "iId";
+	private static final String KEY_iProductModalId = "iProductModalId";
+	private static final String KEY_sProductName = "sProductName";
+	private static final String KEY_sProductFeature = "sProductFeature";
+	private static final String KEY_sProductImage = "productImage";
+	private static final String KEY_sProductPrice = "sProductPrice";
+	private static final String KEY_sProductStock = "sProductStock";
+	private static final String KEY_sProductWeight = "sProductWeight";
+	private static final String KEY_isDiscount = "isDiscount";
+	private static final String KEY_gstPerc = "gstPerc";
+	private static final String KEY_cgst = "cgst";
+	private static final String KEY_sgst = "sgst";
+	private static final String KEY_salesPrice = "salesPrice";
+	private static final String KEY_nrv = "nrv";
+	private static final String KEY_gpl = "gpl";
+	private static final String KEY_mrp = "mrp";
+	private static final String KEY_barCodeNumber = "barCodeNumber";
+	private static final String KEY_discount = "discount";
 
-	// OpnionTable Table Columns names
-	private static final String KEY_OPINION_ID = "OpinionId";
-	// private static final String KEY_QUESTIONID = "questionId";
-	private static final String KEY_OPINION_ANSWER = "OpinionAnswer";
-	private static final String KEY_OPINION_QUESTION = "OpinionQuestion";
-
-	// OpnionTable Table Columns names
-	private static final String KEY_TEST_ID = "TestId";
-	// private static final String KEY_QUESTIONID = "questionId";
-	private static final String KEY_TEST_ANSWER = "TestAnswer";
-	private static final String KEY_TEST_QUESTION = "TestQuestion";
 
 	public DatabaseHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
-//	ContestQuestionResult mContestQuestionResult = new ContestQuestionResult();
+	ProductSearchResult mProductSearchResult = new ProductSearchResult();
 //	OpinionPollListResult mOpinionPollListResult = new OpinionPollListResult();
 //	LearnTestResult mLearnTestResult = new LearnTestResult();
 
 	// Creating Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_QUESTION_TABLE = "CREATE TABLE " + TABLE_QUESTION + "(" + KEY_ID + " INTEGER," + KEY_QUESTION
-				+ " TEXT," + KEY_OPTION_ANSWER + " INTEGER" + ")";
-		db.execSQL(CREATE_QUESTION_TABLE);
+		String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+KEY_iProductModalId + " TEXT," + KEY_sProductName	+ " TEXT," + KEY_sProductFeature + " TEXT,"+KEY_sProductImage + " TEXT,"+KEY_sProductPrice + " REAL,"+KEY_sProductStock + " INTEGER,"+KEY_sProductWeight + " INTEGER,"+KEY_isDiscount + " INTEGER,"+KEY_gstPerc + " REAL,"+KEY_cgst + " REAL," +KEY_sgst + " REAL,"+KEY_salesPrice + " REAL,"+KEY_nrv + " REAL,"+KEY_gpl + " REAL,"+KEY_mrp + " REAL,"+KEY_barCodeNumber + " TEXT,"+KEY_discount + " TEXT"+ ")";
+		db.execSQL(CREATE_RETAIL_TABLE);
 
-		String CREATE_OPINION_TABLE = "CREATE TABLE " + TABLE_OPINION + "(" + KEY_OPINION_ID + " INTEGER,"
-				+ KEY_OPINION_QUESTION + " TEXT," + KEY_OPINION_ANSWER + " INTEGER" + ")";
+//		String CREATE_OPINION_TABLE = "CREATE TABLE " + TABLE_OPINION + "(" + KEY_OPINION_ID + " INTEGER,"
+//				+ KEY_OPINION_QUESTION + " TEXT," + KEY_OPINION_ANSWER + " INTEGER" + ")";
 
-		db.execSQL(CREATE_OPINION_TABLE);
+//		db.execSQL(CREATE_OPINION_TABLE);
 
-		String CREATE_TEST_TABLE = "CREATE TABLE " + TABLE_TEST + "(" + KEY_TEST_ID + " INTEGER," + KEY_TEST_QUESTION
-				+ " TEXT," + KEY_TEST_ANSWER + " INTEGER" + ")";
+//		String CREATE_TEST_TABLE = "CREATE TABLE " + TABLE_TEST + "(" + KEY_TEST_ID + " INTEGER," + KEY_TEST_QUESTION
+//				+ " TEXT," + KEY_TEST_ANSWER + " INTEGER" + ")";
 
-		db.execSQL(CREATE_TEST_TABLE);
+//		db.execSQL(CREATE_TEST_TABLE);
 	}
 
 	// Upgrading database
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_QUESTION);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL);
 
 		// Create tables again
 		// onCreate(db);
 
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_OPINION);
+//		db.execSQL("DROP TABLE IF EXISTS " + TABLE_OPINION);
 
 		// Create tables again
 		// onCreate(db);
 
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEST);
+//		db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEST);
 
 		// Create tables again
 		onCreate(db);
@@ -92,22 +103,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	 */
 
 //	// Adding new contact
-//	public void addQuestionaire(ContestQuestionResult.QuestionList mQuestionListData) {
-//		SQLiteDatabase db = this.getWritableDatabase();
-//
-//		ContentValues values = new ContentValues();
-//		values.put(KEY_ID, mQuestionListData.getQuestionId());
-//		values.put(KEY_QUESTION, mQuestionListData.getQuestion()); //
-//		// Questionnaire
-//		// Question
-//		values.put(KEY_OPTION_ANSWER, mQuestionListData.getAnswer()); //
-//		// Questionnaire
-//		// Answer
-//		// Inserting Row
-//		db.insert(TABLE_QUESTION, null, values);
-//		db.close(); // Closing database connection
-//	}
-//
+	public void addProduct(ProductSearchResult.Datum datum) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(KEY_iProductModalId,datum.getIProductModalId());
+		values.put(KEY_sProductName, datum.getSProductName()); //
+		values.put(KEY_sProductFeature, datum.getSProductFeature()); //
+		values.put(KEY_sProductImage, datum.getProductImage()); //
+		values.put(KEY_sProductPrice, datum.getSProductPrice()); //
+		values.put(KEY_sProductStock, datum.getSProductStock()); //
+		values.put(KEY_sProductWeight, datum.getSProductWeight()); //
+		if(datum.getIsDiscount())
+			values.put(KEY_isDiscount, 1); //
+		else
+			values.put(KEY_isDiscount, 0); //
+		values.put(KEY_gstPerc, datum.getGstPerc()); //
+		values.put(KEY_cgst, datum.getCgst()); //
+		values.put(KEY_sgst, datum.getSgst()); //
+		values.put(KEY_salesPrice, datum.getSalesPrice()); //
+		values.put(KEY_nrv, datum.getNrv()); //
+		values.put(KEY_gpl, datum.getGpl()); //
+		values.put(KEY_mrp, datum.getMrp()); //
+		values.put(KEY_barCodeNumber, datum.getBarCodeNumber()); //
+		values.put(KEY_discount, Util.getCustomGson().toJson(datum.getDiscount())); //
+		// Inserting Row
+		db.insert(TABLE_RETAIL, null, values);
+		db.close(); // Closing database connection
+	}
+	//
 //	// Adding new test
 //	public void addTestQuestionaire(
 //			QuestionList mQuestionListData) {
@@ -232,55 +256,113 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		return questionaire;
 //	}
 //
+
+	public boolean  isRetailMasterEmpty() {
+
+		boolean flag;
+		String quString = "select exists(select * from " + TABLE_RETAIL  + ");";
+
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor cursor = db.rawQuery(quString, null);
+		cursor.moveToFirst();
+		int count= cursor.getInt(0);
+		if (count ==1) {
+			flag =  false;
+		} else {
+			flag = true;
+		}
+		cursor.close();
+		db.close();
+
+		return flag;
+	}
+
+	ArrayList<ProductSearchResult.Discount> searchResult = new ArrayList<>();
+	//	// Getting All Questionaire
+	public ArrayList<ProductSearchResult.Datum> getAllQuestionaIdByQuestionId(String questionId) {
+		ArrayList<ProductSearchResult.Datum> questionList = new ArrayList<ProductSearchResult.Datum>();
+		// Select All Query
+		String selectQuery = "Select * FROM " + TABLE_RETAIL + " WHERE " + KEY_iProductModalId + " = \"" + questionId + "\"";
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			do {
+				ProductSearchResult.Datum datum = mProductSearchResult.new Datum();
+				datum.setIProductModalId(cursor.getString(1));
+				datum.setSProductName(cursor.getString(2));
+				datum.setSProductFeature(cursor.getString(3));
+				datum.setProductImage(cursor.getString(4));
+				datum.setSProductPrice(cursor.getDouble(5));
+				datum.setSProductStock(cursor.getInt(6));
+				datum.setSProductWeight(cursor.getInt(7));
+				if(cursor.getInt(8)==0)
+					datum.setIsDiscount(false);
+				else
+					datum.setIsDiscount(true);
+				datum.setGstPerc(cursor.getDouble(9));
+				datum.setCgst(cursor.getDouble(10));
+				datum.setSgst(cursor.getDouble(11));
+				datum.setSalesPrice(cursor.getDouble(12));
+				datum.setNrv(cursor.getDouble(13));
+				datum.setGpl(cursor.getDouble(14));
+				datum.setMrp(cursor.getDouble(15));
+				datum.setBarCodeNumber(cursor.getString(16));
+				searchResult = Util.getCustomGson().fromJson(cursor.getString(17), new TypeToken<ArrayList<ProductSearchResult.Discount>>(){}.getType());
+				datum.setDiscount(searchResult);
+				// Adding question to List
+				questionList.add(datum);
+			} while (cursor.moveToNext());
+		}
+
+		// return question List
+		return questionList;
+	}
+//
 //	// Getting All Questionaire
-//	public ArrayList<in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList> getAllQuestionaIdByQuestionId(String questionId) {
-//		ArrayList<in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList> questionList = new ArrayList<in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList>();
-//		// Select All Query
-//		String selectQuery = "Select * FROM " + TABLE_QUESTION + " WHERE " + KEY_ID + " = \"" + questionId + "\"";
-//
-//		SQLiteDatabase db = this.getWritableDatabase();
-//		Cursor cursor = db.rawQuery(selectQuery, null);
-//
-//		// looping through all rows and adding to list
-//		if (cursor.moveToFirst()) {
-//			do {
-//				in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList mQuestionListData = mContestQuestionResult.new QuestionList();
-//				mQuestionListData.setQuestionId(cursor.getString(0));
-//				mQuestionListData.setQuestion(cursor.getString(1));
-//				mQuestionListData.setAnswer(cursor.getInt(2));
-//				// Adding question to List
-//				questionList.add(mQuestionListData);
-//			} while (cursor.moveToNext());
-//		}
-//
-//		// return question List
-//		return questionList;
-//	}
-//
-//	// Getting All Questionaire
-//	public ArrayList<in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList> getAllQuestionaire() {
-//		ArrayList<in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList> contactList = new ArrayList<in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList>();
-//		// Select All Query
-//		String selectQuery = "SELECT * FROM " + TABLE_QUESTION;
-//
-//		SQLiteDatabase db = this.getWritableDatabase();
-//		Cursor cursor = db.rawQuery(selectQuery, null);
-//
-//		// looping through all rows and adding to list
-//		if (cursor.moveToFirst()) {
-//			do {
-//				in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList mQuestionListData = mContestQuestionResult.new QuestionList();
-//				mQuestionListData.setQuestionId(cursor.getString(0));
-//				mQuestionListData.setQuestion(cursor.getString(1));
-//				mQuestionListData.setAnswer(cursor.getInt(2));
-//				// Adding contact to list
-//				contactList.add(mQuestionListData);
-//			} while (cursor.moveToNext());
-//		}
-//
-//		// return contact list
-//		return contactList;
-//	}
+	public ArrayList<ProductSearchResult.Datum> getAllProduct() {
+		ArrayList<ProductSearchResult.Datum> questionList = new ArrayList<ProductSearchResult.Datum>();
+		// Select All Query
+		String selectQuery = "SELECT * FROM " + TABLE_RETAIL;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			do {
+				ProductSearchResult.Datum datum = mProductSearchResult.new Datum();
+				datum.setIProductModalId(cursor.getString(1));
+				datum.setSProductName(cursor.getString(2));
+				datum.setSProductFeature(cursor.getString(3));
+				datum.setProductImage(cursor.getString(4));
+				datum.setSProductPrice(cursor.getDouble(5));
+				datum.setSProductStock(cursor.getInt(6));
+				datum.setSProductWeight(cursor.getInt(7));
+				if(cursor.getInt(8)==0)
+					datum.setIsDiscount(false);
+				else
+					datum.setIsDiscount(true);
+				datum.setGstPerc(cursor.getDouble(9));
+				datum.setCgst(cursor.getDouble(10));
+				datum.setSgst(cursor.getDouble(11));
+				datum.setSalesPrice(cursor.getDouble(12));
+				datum.setNrv(cursor.getDouble(13));
+				datum.setGpl(cursor.getDouble(14));
+				datum.setMrp(cursor.getDouble(15));
+				datum.setBarCodeNumber(cursor.getString(16));
+				searchResult = Util.getCustomGson().fromJson(cursor.getString(17), new TypeToken<ArrayList<ProductSearchResult.Discount>>(){}.getType());
+				datum.setDiscount(searchResult);
+				// Adding question to List
+				questionList.add(datum);
+			} while (cursor.moveToNext());
+		}
+
+		// return contact list
+		return questionList;
+	}
 //
 //	public ArrayList<in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList> getAllTestQuestionaire() {
 //		ArrayList<in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList> contactList = new ArrayList<in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList>();
