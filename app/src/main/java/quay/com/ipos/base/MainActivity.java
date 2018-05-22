@@ -20,6 +20,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -58,6 +59,7 @@ import quay.com.ipos.listeners.ScanFilterListener;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.productCatalogue.ProductMain;
+import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.ui.MessageDialog;
@@ -100,7 +102,7 @@ public class MainActivity extends BaseActivity
     private int count = 0;
     private ListView lvMenu;
     int mSelectedItemPosition;
-    DrawerRoleModal[] drawerRoleModals = new DrawerRoleModal[3];
+    ArrayList<DrawerRoleModal> drawerRoleModals = new ArrayList<>();
     private DrawerRoleAdapter drawerRoleAdapter;
 
     public static RetailSalesFragment retailSalesFragment1;
@@ -115,6 +117,8 @@ public class MainActivity extends BaseActivity
         applyTypeFace();
         setDashBoard();
         dashboardItemFragment = new DashboardItemFragment();
+
+
         retailSalesFragment1=new RetailSalesFragment();
     }
 
@@ -192,17 +196,19 @@ public class MainActivity extends BaseActivity
 
         try {
             JSONArray jsonArray = new JSONArray(realmUserDetails.getUserMenu());
-            drawerRoleModals = new DrawerRoleModal[jsonArray.length()];
+            drawerRoleModals = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); i++) {
+                DrawerRoleModal modal = new DrawerRoleModal();
                 JSONObject jsonObject = jsonArray.optJSONObject(i);
-                textViewMyBusiness.setText(jsonArray.optJSONObject(0).optString("userName"));
-                textViewAccount.setText(jsonArray.optJSONObject(0).optString("account"));
                 JSONArray jsonArray1 = jsonObject.optJSONArray("data");
-                if (jsonObject.has("key")) {
-                    drawerRoleModals[i] = new DrawerRoleModal(jsonObject.optString("key"));
+                if (jsonObject.has("key") && jsonArray1.length()>0 && !Util.validateString(textViewMyBusiness.getText().toString())) {
+                    textViewMyBusiness.setText(jsonArray.optJSONObject(i).optString("userName"));
+                    textViewAccount.setText(jsonArray.optJSONObject(i).optString("account"));
+                }
+                if (jsonObject.has("key") && jsonArray1.length()>0) {
+                    modal.setName(jsonObject.optString("key"));
+                    drawerRoleModals.add(modal);
 
-                } else {
-                    drawerRoleModals[i] = new DrawerRoleModal("");
                 }
 
             }
@@ -212,8 +218,8 @@ public class MainActivity extends BaseActivity
         }
 
 
-        if (drawerRoleModals.length > 0)
-            drawerRoleModals[0].setSelected(true);
+        if (drawerRoleModals.size() > 0)
+            drawerRoleModals.get(0).setSelected(true);
         drawerRoleAdapter = new DrawerRoleAdapter(this, R.layout.drawer_role_item, drawerRoleModals);
         lvMenu.setAdapter(drawerRoleAdapter);
         lvMenu.setOnItemClickListener(this);
@@ -325,13 +331,13 @@ public class MainActivity extends BaseActivity
             borderView.setBackgroundColor(mContext.getResources().getColor(R.color.menu_strip));
             textView.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
             textView.setBackgroundResource(R.drawable.menu_background_select);
-            drawerRoleModals[position].setSelected(true);
+            drawerRoleModals.get(position).setSelected(true);
 
         }
         mSelectedItemPosition = position;
         drawerRoleAdapter.notifyDataSetChanged();
 
-        expandableListDetail = expandableDataonClick(drawerRoleModals[position].name);
+        expandableListDetail = expandableDataonClick( drawerRoleModals.get(position).name);
         expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
         navigationViewExpeListViewAdapter = new NavigationViewExpeListViewAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView1.setAdapter(navigationViewExpeListViewAdapter);
@@ -349,7 +355,7 @@ public class MainActivity extends BaseActivity
             border.setBackgroundColor(mContext.getResources().getColor(R.color.transparent_color));
             textView.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
             textView.setBackgroundResource(R.drawable.menu_background_unselect);
-            drawerRoleModals[i].setSelected(false);
+            drawerRoleModals.get(i).setSelected(false);
         }
     }
 
@@ -671,11 +677,12 @@ public class MainActivity extends BaseActivity
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.optJSONObject(i);
                 String matchKey = jsonObject.optString("key");
-                textViewMyBusiness.setText(jsonObject.optString("userName"));
-                textViewAccount.setText(jsonObject.optString("account"));
+
+
                 if (matchKey.equalsIgnoreCase(key)) {
                     JSONArray jsonArray1 = jsonObject.optJSONArray("data");
-
+                    textViewMyBusiness.setText(jsonObject.optString("userName"));
+                    textViewAccount.setText(jsonObject.optString("account"));
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         MenuModal menuModal = new MenuModal();
                         JSONObject jsonObject1 = jsonArray1.optJSONObject(j);

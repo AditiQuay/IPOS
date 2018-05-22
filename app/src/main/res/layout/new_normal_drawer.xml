@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/rLayoutOptions"
-        card_view:cardElevation="@dimen/dim_8">
+        card_view:cardElevation="@dimen/dim_8"
+        android:layout_toEndOf="@+id/rLayoutOptions">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,19 +20,7 @@
                 android:id="@+id/header"
                 layout="@layout/nav_header_ipos" />
 
-            <ListView
-                android:id="@+id/listViewContent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/header"
-                android:layout_marginTop="@dimen/dim_16"
-                android:background="@color/menu_expand_list_color"
-                android:choiceMode="singleChoice"
-                android:divider="@color/white"
-                android:dividerHeight="@dimen/dim_1"
-                android:visibility="gone"
-                android:listSelector="@drawable/selector_list_item"
-                android:scrollbars="vertical" />
+
 
             <ExpandableListView
                 android:id="@+id/expandableListView1"
@@ -63,7 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_above="@+id/rLaoutBtnFour"
-
             android:divider="@null">
 
         </ListView>
