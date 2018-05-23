@@ -118,7 +118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put(KEY_iProductModalId,datum.getIProductModalId());
 		values.put(KEY_sProductName, datum.getSProductName()); //
-		values.put(KEY_sProductFeature, datum.getSProductFeature()); //
+		values.put(KEY_sProductFeature,Util.getCustomGson().toJson(datum.getSProductFeature())); //
 		values.put(KEY_sProductImage, datum.getProductImage()); //
 		values.put(KEY_sProductPrice, datum.getSProductPrice()); //
 		values.put(KEY_sProductStock, datum.getSProductStock()); //
@@ -288,6 +288,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	}
 
 	ArrayList<ProductSearchResult.Discount> searchResult = new ArrayList<>();
+	ArrayList<ProductSearchResult.SProductFeature> productFeatures = new
+			ArrayList<>();
 	//	// Getting All Questionaire
 	public ArrayList<ProductSearchResult.Datum> getAllQuestionaIdByQuestionId(String questionId) {
 		ArrayList<ProductSearchResult.Datum> questionList = new ArrayList<ProductSearchResult.Datum>();
@@ -303,7 +305,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				ProductSearchResult.Datum datum = mProductSearchResult.new Datum();
 				datum.setIProductModalId(cursor.getString(1));
 				datum.setSProductName(cursor.getString(2));
-				datum.setSProductFeature(cursor.getString(3));
+				productFeatures = Util.getCustomGson().fromJson(cursor.getString(3), new TypeToken<ArrayList<ProductSearchResult.SProductFeature>>(){}.getType());
+				datum.setDiscount(searchResult);
+				datum.setSProductFeature(productFeatures);
 				datum.setProductImage(cursor.getString(4));
 				datum.setSProductPrice(cursor.getDouble(5));
 				datum.setSProductStock(cursor.getInt(6));
@@ -346,7 +350,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 				ProductSearchResult.Datum datum = mProductSearchResult.new Datum();
 				datum.setIProductModalId(cursor.getString(1));
 				datum.setSProductName(cursor.getString(2));
-				datum.setSProductFeature(cursor.getString(3));
+				productFeatures = Util.getCustomGson().fromJson(cursor.getString(3), new TypeToken<ArrayList<ProductSearchResult.SProductFeature>>(){}.getType());
+				datum.setDiscount(searchResult);
+				datum.setSProductFeature(productFeatures);
 				datum.setProductImage(cursor.getString(4));
 				datum.setSProductPrice(cursor.getDouble(5));
 				datum.setSProductStock(cursor.getInt(6));
