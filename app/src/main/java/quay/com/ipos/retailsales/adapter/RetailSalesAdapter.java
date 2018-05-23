@@ -267,9 +267,6 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.mRecyclerView.setHasFixedSize(true);
             LinearLayoutManager  mLayoutManager = new LinearLayoutManager(mContext);
             userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
-            userViewHolder.mRecyclerView.addItemDecoration(
-                    new ItemDecorationAlbumColumns(mContext.getResources().getDimensionPixelSize(R.dimen.dim_5),
-                            mContext.getResources().getInteger(R.integer.photo_list_preview_columns)));
             DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
             userViewHolder.mRecyclerView.setAdapter(itemListDataAdapter);
         }

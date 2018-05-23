@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -72,11 +73,13 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView tvDiscountPrice,tvDiscount;
+        public LinearLayout llDiscount;
 
         public UserViewHolder(View itemView) {
             super(itemView);
             tvDiscountPrice =  itemView.findViewById(R.id.tvDiscountPrice);
             tvDiscount=itemView.findViewById(R.id.tvDiscount);
+            llDiscount=itemView.findViewById(R.id.llDiscount);
         }
     }
 
@@ -108,6 +111,11 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             DiscountListAdapter.UserViewHolder userViewHolder = (DiscountListAdapter.UserViewHolder) holder;
             userViewHolder.tvDiscount.setText(str.getSDiscountName());
 
+            if (position==mDataset.size()-1){
+                userViewHolder.llDiscount.setBackgroundResource(R.drawable.rect_bottom_corner_app_trans);
+            }else {
+                userViewHolder.llDiscount.setBackgroundResource(R.color.coloryPrimary_transulent);
+            }
 
 
         }
