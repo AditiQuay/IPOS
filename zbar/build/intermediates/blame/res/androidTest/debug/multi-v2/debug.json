@@ -2,6 +2,8 @@
     "logs": [
         {
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
             "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\zbar\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xhdpi-v4_values-xhdpi-v4.arsc.flat",
 =======
 <<<<<<< HEAD
@@ -16,6 +18,7 @@
                         "endColumns": "57,55",
                         "endOffsets": "108,164"
 =======
+>>>>>>> 48d8e9a964fce3a1a6f0096f59e22ccde1e7eca2
             "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\zbar\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
 >>>>>>> eafa4efddbaf204fd5dfbbc0ddb233140b751092
             "map": [
@@ -34,13 +37,18 @@
                         "startOffsets": "55,107,158,807,865",
                         "endColumns": "51,50,51,57,55",
                         "endOffsets": "102,153,205,860,916"
+<<<<<<< HEAD
+=======
 >>>>>>> cbd54e5d6eebe643fe6bf84a467c77027ef4f90c
 >>>>>>> eafa4efddbaf204fd5dfbbc0ddb233140b751092
+>>>>>>> 48d8e9a964fce3a1a6f0096f59e22ccde1e7eca2
                     }
                 }
             ]
         },
         {
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
             "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\zbar\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xxhdpi-v4_values-xxhdpi-v4.arsc.flat",
 =======
@@ -56,6 +64,7 @@
                         "endColumns": "58,55",
                         "endOffsets": "109,165"
 =======
+>>>>>>> 48d8e9a964fce3a1a6f0096f59e22ccde1e7eca2
             "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\zbar\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-hdpi-v4_values-hdpi-v4.arsc.flat",
 >>>>>>> eafa4efddbaf204fd5dfbbc0ddb233140b751092
             "map": [
@@ -72,13 +81,18 @@
                         "startOffsets": "55,113",
                         "endColumns": "57,55",
                         "endOffsets": "108,164"
+<<<<<<< HEAD
+=======
 >>>>>>> cbd54e5d6eebe643fe6bf84a467c77027ef4f90c
 >>>>>>> eafa4efddbaf204fd5dfbbc0ddb233140b751092
+>>>>>>> 48d8e9a964fce3a1a6f0096f59e22ccde1e7eca2
                     }
                 }
             ]
         },
         {
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
             "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\zbar\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
 =======
@@ -94,6 +108,7 @@
                         "endColumns": "51,50,51,57,55",
                         "endOffsets": "102,153,205,860,916"
 =======
+>>>>>>> 48d8e9a964fce3a1a6f0096f59e22ccde1e7eca2
             "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\zbar\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xhdpi-v4_values-xhdpi-v4.arsc.flat",
 >>>>>>> eafa4efddbaf204fd5dfbbc0ddb233140b751092
             "map": [
@@ -112,13 +127,18 @@
                         "startOffsets": "55,113",
                         "endColumns": "57,55",
                         "endOffsets": "108,164"
+<<<<<<< HEAD
+=======
 >>>>>>> cbd54e5d6eebe643fe6bf84a467c77027ef4f90c
 >>>>>>> eafa4efddbaf204fd5dfbbc0ddb233140b751092
+>>>>>>> 48d8e9a964fce3a1a6f0096f59e22ccde1e7eca2
                     }
                 }
             ]
         },
         {
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
             "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\zbar\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-hdpi-v4_values-hdpi-v4.arsc.flat",
 =======
@@ -134,6 +154,7 @@
                         "endColumns": "57,55",
                         "endOffsets": "108,164"
 =======
+>>>>>>> 48d8e9a964fce3a1a6f0096f59e22ccde1e7eca2
             "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\zbar\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xxhdpi-v4_values-xxhdpi-v4.arsc.flat",
 >>>>>>> eafa4efddbaf204fd5dfbbc0ddb233140b751092
             "map": [
@@ -150,8 +171,11 @@
                         "startOffsets": "55,114",
                         "endColumns": "58,55",
                         "endOffsets": "109,165"
+<<<<<<< HEAD
+=======
 >>>>>>> cbd54e5d6eebe643fe6bf84a467c77027ef4f90c
 >>>>>>> eafa4efddbaf204fd5dfbbc0ddb233140b751092
+>>>>>>> 48d8e9a964fce3a1a6f0096f59e22ccde1e7eca2
                     }
                 }
             ]
