@@ -3,6 +3,7 @@ package quay.com.ipos.retailsales.adapter;
 import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +25,7 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.ProductListResult;
+import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Util;
 
@@ -87,9 +89,18 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public LinearLayout llDiscount,llOTCDiscount;
         public CheckBox chkDiscount,chkItem,chkOTCDiscount;
         public EditText etQtySelected;
+        private RecyclerView mRecyclerView;
+        private LinearLayoutManager mLayoutManager;
 
         public UserViewHolder(View itemView) {
             super(itemView);
+            mRecyclerView = itemView.findViewById(R.id.recycleView);
+            mRecyclerView.setHasFixedSize(true);
+            mLayoutManager = new LinearLayoutManager(mContext);
+            mRecyclerView.setLayoutManager(mLayoutManager);
+            mRecyclerView.addItemDecoration(
+                    new ItemDecorationAlbumColumns(mContext.getResources().getDimensionPixelSize(R.dimen.dim_5),
+                            mContext.getResources().getInteger(R.integer.photo_list_preview_columns)));
             llOTCDiscount = itemView.findViewById(R.id.llOTCDiscount);
             tvOTCDiscountPrice = itemView.findViewById(R.id.tvOTCDiscountPrice);
             chkOTCDiscount = itemView.findViewById(R.id.chkOTCDiscount);

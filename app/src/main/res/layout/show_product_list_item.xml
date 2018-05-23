@@ -219,6 +219,13 @@
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/dim_5"
         android:background="@color/colorAccent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_marginTop="@dimen/dim_1" />
     <LinearLayout
         android:id="@+id/llDiscount"
         android:layout_width="match_parent"
