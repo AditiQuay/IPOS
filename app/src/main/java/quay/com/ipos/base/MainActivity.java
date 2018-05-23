@@ -25,6 +25,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.Menu;
@@ -42,21 +43,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import io.realm.Realm;
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.adapter.DrawerRoleAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
 import quay.com.ipos.constant.ExpandableListDataPump;
+import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
+import quay.com.ipos.db.CustomerListDB;
 import quay.com.ipos.ddr.fragment.NewOrderFragment;
 import quay.com.ipos.ddr.fragment.OrderCentreListFragment;
+import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
@@ -68,16 +74,18 @@ import quay.com.ipos.productCatalogue.ProductMain;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
+import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Util;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, InitInterface, FilterListener, MessageDialog.MessageDialogListener, AdapterView.OnItemClickListener,ScanFilterListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ServiceTask.ServiceResultListener, InitInterface, FilterListener, MessageDialog.MessageDialogListener, AdapterView.OnItemClickListener, ScanFilterListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -114,11 +122,46 @@ public class MainActivity extends BaseActivity
 
     public static RetailSalesFragment retailSalesFragment1;
 
+    private CustomerListDB dbHelper;
+    private String customerID;
+    private String customerName;
+    private String customerPoints;
+    private String customerPhone;
+    private String customerPhone2;
+    private String customerPhone3;
+    private String customerEmail;
+    private String customerEmail2;
+    private String customerDom;
+    private String customerBday;
+    private String customerGender;
+    private String customerFirstName;
+    private String customerLastName;
+    private String custoemrGstin;
+    private String customerStatus;
+    private String customerDesignation;
+    private String customerCompany;
+    private String customerRelationship;
+    private String cfactor;
+    private String customerAddress;
+    private String customerState;
+    private String customerCity;
+    private String customerPin;
+    private String customerImage;
+    private String lastBillingDate;
+    private String lastBillingAmount;
+    private String issuggestion;
+    private String suggestion;
+    private Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dbHelper = new CustomerListDB(this);
+        mContext = MainActivity.this;
+        if (NetUtil.isNetworkAvailable(mContext)) {
+            getCustomerData();
+        }
         findViewById();
         applyInitValues();
         applyTypeFace();
@@ -126,7 +169,22 @@ public class MainActivity extends BaseActivity
         dashboardItemFragment = new DashboardItemFragment();
 
 
-        retailSalesFragment1=new RetailSalesFragment();
+        retailSalesFragment1 = new RetailSalesFragment();
+    }
+
+    private void getCustomerData() {
+        CustomerModel loginParams = new CustomerModel();
+        loginParams.setSearchParam("NA");
+        loginParams.setStoreId("1");
+
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_CUSTOMER_LIST);
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(loginParams);
+        mTask.setListener(this);
+        mTask.setResultType(CustomerModel.class);
+        mTask.execute();
     }
 
     private void setDashBoard() {
@@ -208,11 +266,11 @@ public class MainActivity extends BaseActivity
                 DrawerRoleModal modal = new DrawerRoleModal();
                 JSONObject jsonObject = jsonArray.optJSONObject(i);
                 JSONArray jsonArray1 = jsonObject.optJSONArray("data");
-                if (jsonObject.has("key") && jsonArray1.length()>0 && !Util.validateString(textViewMyBusiness.getText().toString())) {
+                if (jsonObject.has("key") && jsonArray1.length() > 0 && !Util.validateString(textViewMyBusiness.getText().toString())) {
                     textViewMyBusiness.setText(jsonArray.optJSONObject(i).optString("userName"));
                     textViewAccount.setText(jsonArray.optJSONObject(i).optString("account"));
                 }
-                if (jsonObject.has("key") && jsonArray1.length()>0) {
+                if (jsonObject.has("key") && jsonArray1.length() > 0) {
                     modal.setName(jsonObject.optString("key"));
                     drawerRoleModals.add(modal);
 
@@ -274,7 +332,7 @@ public class MainActivity extends BaseActivity
         });
     }
 
-    public void openRetailSalesFragment(){
+    public void openRetailSalesFragment() {
         retailSalesFragment = new RetailSalesFragment();
         replaceFragment(retailSalesFragment, containerId);
     }
@@ -311,11 +369,13 @@ public class MainActivity extends BaseActivity
     public void onDialogNegetiveClick(Dialog dialog, int mCallType) {
 
     }
+
     @Override
     public void onUpdate(String title, Context mContext) {
 
         retailSalesFragment1.onUpdate(title, MainActivity.this);
     }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
@@ -335,7 +395,7 @@ public class MainActivity extends BaseActivity
         mSelectedItemPosition = position;
         drawerRoleAdapter.notifyDataSetChanged();
 
-        expandableListDetail = expandableDataonClick( drawerRoleModals.get(position).name);
+        expandableListDetail = expandableDataonClick(drawerRoleModals.get(position).name);
         expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
         navigationViewExpeListViewAdapter = new NavigationViewExpeListViewAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView1.setAdapter(navigationViewExpeListViewAdapter);
@@ -642,7 +702,7 @@ public class MainActivity extends BaseActivity
                     if (!settingPermission)
                         Toast.makeText(this, "Please grant camera permission to use the QR Scanner", Toast.LENGTH_SHORT).show();
                     else
-                        Util.showMessageDialog(mContext,this, "Please grant camera permission to use the QR Scanner ", "Open Settings", null, Constants.APP_DIALOG_PERMISSION, "Alert!", getSupportFragmentManager());
+                        Util.showMessageDialog(mContext, this, "Please grant camera permission to use the QR Scanner ", "Open Settings", null, Constants.APP_DIALOG_PERMISSION, "Alert!", getSupportFragmentManager());
                     CameraPermission = false;
                 }
                 return;
@@ -718,4 +778,94 @@ public class MainActivity extends BaseActivity
         return expandableListDetail;
     }
 
+    @Override
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
+        if (httpStatusCode == Constants.SUCCESS) {
+            if (resultObj != null) {
+                dbHelper.removeAll();
+                fetchCustomerData(serverResponse);
+            }
+
+        } else if (httpStatusCode == Constants.BAD_REQUEST) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void fetchCustomerData(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray(Constants.KEY_CUSTOMER.trim());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                customerID = String.valueOf(object.optInt(CustomerEnum.ColoumnCustomerID.toString()));
+                customerName = object.optString(CustomerEnum.ColoumnCustomerName.toString());
+                customerPoints = object.optString(CustomerEnum.ColoumnCustomerPoints.toString());
+                customerPhone = object.optString(CustomerEnum.ColoumnCustomerPhone.toString());
+                customerPhone2 = object.optString(CustomerEnum.ColoumnCustomerPhone2.toString());
+                customerPhone3 = object.optString(CustomerEnum.ColoumnCustomerPhone3.toString());
+                customerEmail = object.optString(CustomerEnum.ColoumnCustomerEmail.toString());
+                customerEmail2 = object.optString(CustomerEnum.ColoumnCustomerEmail2.toString());
+                customerDom = object.optString(CustomerEnum.ColoumnCustomerDom.toString());
+                customerBday = object.optString(CustomerEnum.ColoumnCustomerBday.toString());
+                customerGender = object.optString(CustomerEnum.ColoumnCustomerGender.toString());
+                customerFirstName = object.optString(CustomerEnum.ColoumnCustomerFirstName.toString());
+                customerLastName = object.optString(CustomerEnum.ColoumnCustomerLastName.toString());
+                custoemrGstin = object.optString(CustomerEnum.ColoumnCustoemrGstin.toString());
+                customerStatus = object.optString(CustomerEnum.ColoumnCustomerStatus.toString());
+                customerDesignation = object.optString(CustomerEnum.ColoumnCustomerDesignation.toString());
+                customerCompany = object.optString(CustomerEnum.ColoumnCustomerCompany.toString());
+                customerRelationship = object.optString(CustomerEnum.ColoumnCustomerRelationship.toString());
+                cfactor = object.optString(CustomerEnum.ColoumnCfactor.toString());
+                customerAddress = object.optString(CustomerEnum.ColoumnCustomerAddress.toString());
+                customerState = object.optString(CustomerEnum.ColoumnCustomerState.toString());
+                customerCity = object.optString(CustomerEnum.ColoumnCustomerCity.toString());
+                customerPin = object.optString(CustomerEnum.ColoumnCustomerPin.toString());
+                customerImage = object.optString(CustomerEnum.ColoumnCustomerImage.toString());
+                lastBillingDate = object.optString(CustomerEnum.ColoumnLastBillingDate.toString());
+                lastBillingAmount = object.optString(CustomerEnum.ColoumnLastBillingAmount.toString());
+                issuggestion = object.optString(CustomerEnum.ColoumnIsSuggestion.toString());
+                suggestion = object.optString(CustomerEnum.ColoumnSuggestion.toString());
+
+                JSONArray recentOrders = object.getJSONArray(CustomerEnum.ColoumnRecentOrders.toString());
+                // inserting note in db and getting
+                // newly inserted note id
+
+
+                long id = dbHelper.insertCustomer(customerID, customerName, customerPoints, customerPhone, customerPhone2, customerPhone3,
+                        customerEmail, customerEmail2, customerDom, customerBday, customerGender, customerFirstName, customerLastName,
+                        custoemrGstin, customerStatus, customerDesignation, customerCompany, customerRelationship, cfactor,
+                        customerAddress, customerState, customerCity, customerPin, customerImage, lastBillingDate,
+                        lastBillingAmount, issuggestion, suggestion, recentOrders.toString(), 1);
+
+//                // get the newly inserted note from db
+                Log.e(TAG, "Newly added Customer***" + id);
+//                CustomerModel n = dbHelper.getCustomer(id);
+//                Log.e(TAG,"New Added"+ n);
+//                if (n != null) {
+//                    // adding new note to array list at 0 position
+//                    customerModelList.add(0, n);
+//
+//                    // refreshing the list
+//                    customerInfoAdapter.notifyDataSetChanged();
+//                }
+
+            }
+            //Getting count of data in database.
+            int recordCount = (int) dbHelper.getRecordsCount();
+            Log.e(TAG, "CustomerData Count******" + recordCount);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
