@@ -44,7 +44,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
      * The Array searchlist.
      */
     ArrayList<ProductSearchResult.Datum> arrSearchlist= new ArrayList<>();
-    public ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
+    //    public ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
@@ -64,17 +64,31 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_add_list);
+
         initializeComponent();
-        setAdapter();
         databaseHandler = new DatabaseHandler(this);
         if(databaseHandler.isRetailMasterEmpty()) {
             searchProductCall("1");
         }else {
             data = databaseHandler.getAllProduct();
         }
+
+        setAdapter();
     }
 
     private void setAdapter() {
+        for (int i = 0 ; i < IPOSApplication.mProductListResult.size();i++){
+            for (int j = 0 ; j < data.size(); j++)
+            {
+                if (IPOSApplication.mProductListResult.get(i).getIProductModalId().equalsIgnoreCase(data.get(j).getIProductModalId())){
+                    ProductSearchResult.Datum datum = data.get(j);
+                    count++;
+                    datum.setAdded(true);
+                    data.set(j,datum);
+                }
+
+            }
+        }
         mAddProductAdapter = new AddProductAdapter(this,this,mRecyclerView,arrSearchlist);
         mRecyclerView.setAdapter(mAddProductAdapter);
     }
@@ -116,8 +130,16 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length()>0)
                 {
-                    if(data.size()>0)
-                    filter(charSequence.toString(),data);
+                    if(data.size()>0) {
+                        tvClear.setVisibility(View.VISIBLE);
+                        llSize.setVisibility(View.VISIBLE);
+                        filter(charSequence.toString(), data);
+                    }else {
+                        tvClear.setVisibility(View.GONE);
+                        llSize.setVisibility(View.GONE);
+                    }
+                    updateItem();
+                    mAddProductAdapter.notifyDataSetChanged();
                 }
                 else {
                     arrSearchlist.clear();
@@ -190,6 +212,8 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    int count =0;
+
     @Override
     public void onClick(final View view) {
 
@@ -201,39 +225,51 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                 int pos = (int) view.getTag();
                 if( IPOSApplication.mProductListResult.size()>0) {
                     for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
-                        if (arrSearchlist.get(pos).getIProductModalId().equalsIgnoreCase (IPOSApplication.mProductListResult.get(i).getIProductModalId())) {
-                            ProductSearchResult.Datum mProductSearchResultData = IPOSApplication.mProductListResult.get(i);
-                            if(mProductSearchResultData.isAdded()){
-                                mProductSearchResultData.setAdded(false);
-                                mProductSearchResultData.setQty(mProductSearchResultData.getQty() - 1);
-                                IPOSApplication.mProductListResult.remove(i);
-                            }else{
-                                mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 1);
-                                mProductSearchResultData.setAdded(true);
-                                IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
-                            }
-                            found=true;
-                        } else {
+                            if (arrSearchlist.get(pos).getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(i).getIProductModalId())) {
+                                ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
+                                if (mProductSearchResultData.isAdded()) {
+                                    mProductSearchResultData.setAdded(false);
+                                    count--;
+                                    mProductSearchResultData.setQty(mProductSearchResultData.getQty() - 1);
+                                    IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
+                                    arrSearchlist.set(pos, mProductSearchResultData);
+
+                                    Util.showToast(getString(R.string.product_removed_successfully), AddProductActivity.this);
+                                } else {
+                                    mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 1);
+                                    mProductSearchResultData.setAdded(true);
+                                    count++;
+                                    IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
+                                    arrSearchlist.set(pos, mProductSearchResultData);
+                                    Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
+                                }
+                                found = true;
+                            } else {
 //                            IPOSApplication.mProductSearchResult.add(0,arrSearchlist.get(pos));
-                        }
+                            }
                     }
                     if(!found){
                         ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
                         mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 1);
                         mProductSearchResultData.setAdded(true);
+                        count++;
                         IPOSApplication.mProductListResult.add(0,mProductSearchResultData);
+
+                        Util.showToast(getString(R.string.product_added_successfully),AddProductActivity.this);
                     }
                 }else {
                     ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
                     mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 1);
                     mProductSearchResultData.setAdded(true);
+                    count++;
                     IPOSApplication.mProductListResult.add(0,mProductSearchResultData);
+                    Util.showToast(getString(R.string.product_added_successfully),AddProductActivity.this);
                 }
 //                AppLog.e(TAG,"click" + Util.getCustomGson().toJson(IPOSApplication.mProductSearchResult));
 
                 updateItem();
                 mAddProductAdapter.notifyItemChanged(pos);
-                Util.showToast(getString(R.string.product_added_successfully),AddProductActivity.this);
+
                 break;
 
             case R.id.tvClear:
@@ -254,18 +290,13 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                 mAddProductAdapter.notifyDataSetChanged();
                 break;
             case R.id.imvBack:
-                Intent mIntent = new Intent();
-                setResult(1, mIntent);
+
                 onBackPressed();
                 break;
             case R.id.llAccept:
-//                if(IPOSApplication.mProductListResult.size()>0) {
+
                 Intent mIntent1 = new Intent();
                 setResult(1, mIntent1);
-//                }else {
-//                    Intent mIntent2 = new Intent();
-//                    setResult(0, mIntent2);
-//                }
                 onBackPressed();
                 break;
         }
@@ -273,14 +304,16 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     }
 
     private void updateItem() {
-        if(IPOSApplication.mProductListResult.size()>0){
+
+        if(count>0){
             llAdded.setVisibility(View.VISIBLE);
-            tvItemAddedSize.setText(IPOSApplication.mProductListResult.size()+"");
-            llAccept.setVisibility(View.VISIBLE);
+            tvItemAddedSize.setText(count+"");
         }else {
             llAdded.setVisibility(View.GONE);
-            llAccept.setVisibility(View.GONE);
         }
+        llAccept.setVisibility(View.VISIBLE);
+        tvItemSize.setVisibility(View.VISIBLE);
+        tvItemSize.setText("Showing "+arrSearchlist.size() + " Products");
     }
 
     @Override
@@ -304,8 +337,8 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                     data.addAll(mProductSearchResult.getData());
 
                     if(databaseHandler.isRetailMasterEmpty()) {
-                        for (int i = 0; i < arrSearchlist.size(); i++) {
-                            databaseHandler.addProduct(arrSearchlist.get(i));
+                        for (int i = 0; i < data.size(); i++) {
+                            databaseHandler.addProduct(data.get(i));
                         }
                     }
                 }
@@ -313,29 +346,28 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 //                    productListResult = (ProductListResult) resultObj;
 //                    arrSearchlist.addAll(productListResult.getData());
 //                }
-//                if(arrSearchlist.size()>0) {
-//                    tvClear.setVisibility(View.VISIBLE);
-//                    llSize.setVisibility(View.VISIBLE);
-//                    if(IPOSApplication.mProductSearchResult.size()>0)
-//                        for(int i = 0 ; i < arrSearchlist.size(); i++){
-//
-//                        for (int k=0;k<IPOSApplication.mProductSearchResult.size();k++){
-//                            if(arrSearchlist.get(i).getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductSearchResult.get(k).getIProductModalId())){
-//                                ProductListResult.Datum datum = arrSearchlist.get(i);
-//                                datum.setAdded(true);
-//                                arrSearchlist.set(i,datum);
-//                            }
-//                        }
-//
-//                        }
-//                }
-//                else {
-//                    tvClear.setVisibility(View.GONE);
-//                    llSize.setVisibility(View.GONE);
-//                    arrSearchlist.clear();
-//                }
-                tvItemSize.setVisibility(View.VISIBLE);
-                tvItemSize.setText("Showing "+arrSearchlist.size() + " Products");
+                if(data.size()>0) {
+                    tvClear.setVisibility(View.VISIBLE);
+                    llSize.setVisibility(View.VISIBLE);
+                    if(IPOSApplication.mProductListResult.size()>0)
+                        for(int i = 0 ; i < arrSearchlist.size(); i++){
+
+                            for (int k=0;k<IPOSApplication.mProductListResult.size();k++){
+                                if(arrSearchlist.get(i).getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(k).getIProductModalId())){
+                                    ProductSearchResult.Datum datum = arrSearchlist.get(i);
+                                    datum.setAdded(true);
+                                    arrSearchlist.set(i,datum);
+                                }
+                            }
+
+                        }
+                }
+                else {
+                    tvClear.setVisibility(View.GONE);
+                    llSize.setVisibility(View.GONE);
+                    arrSearchlist.clear();
+                }
+
                 mAddProductAdapter.notifyDataSetChanged();
                 updateItem();
             }

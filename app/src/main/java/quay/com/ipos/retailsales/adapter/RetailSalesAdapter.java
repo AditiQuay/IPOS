@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
@@ -149,6 +151,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.tvItemRate.setText(str.getSProductStock()+"");
             userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSProductPrice());
             userViewHolder.etQtySelected.setText(str.getQty()+"");
+            ImageLoader.getInstance().displayImage(str.getProductImage(),userViewHolder.imvProduct);
             onBind = false;
 
             if(str.isItemSelected())

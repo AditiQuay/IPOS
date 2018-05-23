@@ -14,7 +14,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,7 +21,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -59,12 +57,10 @@ import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
-import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
-import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
@@ -276,7 +272,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         imvUserAdd.setOnClickListener(this);
         tvPay.setOnClickListener(this);
         imvRight.setOnClickListener(this);
-
+        closeFragment();
         // Set the click listener for the button.
         flScanLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -539,6 +535,14 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
         if (requestCode == 1) {
             if (resultCode == 1) {
+                if(IPOSApplication.mProductListResult.size()>0){
+                    for(int i = 0 ; i < IPOSApplication.mProductListResult.size(); i++){
+                        if(!IPOSApplication.mProductListResult.get(i).isAdded()) {
+                            IPOSApplication.mProductListResult.remove(i);
+                            i--;
+                        }
+                    }
+                }
                 mRetailSalesAdapter.notifyDataSetChanged();
                 getProduct();
             }

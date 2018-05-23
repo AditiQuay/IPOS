@@ -108,6 +108,7 @@ public class ProductSearchResult {
 
 
         private boolean isAdded=false;
+        private boolean isNonCheckOutAdded=false;
         private double OTCDiscount;
         private boolean discSelected = false;
         private boolean discItemSelected = false;
@@ -127,6 +128,14 @@ public class ProductSearchResult {
 
         public void setIProductModalId(String iProductModalId) {
             this.iProductModalId = iProductModalId;
+        }
+
+        public boolean isNonCheckOutAdded() {
+            return isNonCheckOutAdded;
+        }
+
+        public void setNonCheckOutAdded(boolean nonCheckOutAdded) {
+            isNonCheckOutAdded = nonCheckOutAdded;
         }
 
         public String getSProductName() {

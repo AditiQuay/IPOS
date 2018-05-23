@@ -248,4 +248,5 @@
     <string name="text_Last_Billing">"Last Billing "</string>
     <string name="text_birthday">"Wish Birthday ("</string>
     <string name="text_points">" Pts."</string>
+    <string name="product_removed_successfully">Product Removed Successfully</string>
 </resources>
