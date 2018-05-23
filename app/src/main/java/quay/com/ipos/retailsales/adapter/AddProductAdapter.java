@@ -70,7 +70,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvItemName, tvItemWeight, tvStock, tvAdd;
+        public TextView tvItemName, tvItemWeight, tvStock, tvAdd,tvOfferDetail,tvUnitPrice;
         public ImageView imvProduct;
         private RelativeLayout llAdd;
 
@@ -80,6 +80,8 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
             tvStock =  itemView.findViewById(R.id.tvStock);
             tvAdd =  itemView.findViewById(R.id.tvAdd);
+            tvOfferDetail =  itemView.findViewById(R.id.tvOfferDetail);
+            tvUnitPrice =  itemView.findViewById(R.id.tvUnitPrice);
             imvProduct =  itemView.findViewById(R.id.imvProduct);
             llAdd=itemView.findViewById(R.id.llAdd);
         }
@@ -122,6 +124,14 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
             }
 
+            userViewHolder.tvUnitPrice.setText(str.getSalesPrice()+"");
+            if(str.getDiscount().size()>1){
+                userViewHolder.tvOfferDetail.setText(str.getDiscount().size()+1+ "offers applied");
+            }else if(str.getDiscount().size()==1){
+                userViewHolder.tvOfferDetail.setText(str.getDiscount().get(0).getSDiscountName());
+            }else {
+                userViewHolder.tvOfferDetail.setVisibility(View.GONE);
+            }
             userViewHolder.llAdd.setOnClickListener(mOnClickListener);
             userViewHolder.llAdd.setTag(position);
 

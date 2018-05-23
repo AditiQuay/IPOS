@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import io.realm.Realm;
 import quay.com.ipos.R;
 import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerRecentOrdersAdapter;
+import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
+import quay.com.ipos.db.CustomerListDB;
+import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.realmbean.RealmCustomerInfoModal;
@@ -37,18 +40,20 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private TextView textViewUserName, textViewMob, textViewEmail, textViewBill, textViewBirthDay, textViewPoints, textViewBillingAddress, textViewSuggestedBy, textViewWarningText, textViewRecentOrder, textViewStoreCount, textViewStoreAddress, textViewDate, textViewAmount, textViewUpdateAndProceed;
     private CircleImageView imageViewProfileDummy;
     private Context mContext;
-    private int customerId;
+    private String customerId;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
     private ArrayList<CustomerList.RecentOrder> recentOrders = new ArrayList<>();
+    private CustomerListDB db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_info_details);
         mContext = CustomerInfoDetailsActivity.this;
+        db = new CustomerListDB(mContext);
         Intent i = getIntent();
-        customerId = i.getIntExtra("customerID", 0);
+        customerId = i.getStringExtra("customerID");
 
 
         findViewById();
@@ -87,56 +92,45 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         toolbarCustomerInfoDetail.setTitle(getResources().getString(R.string.toolbar_title_customer_screen_details));
         toolbarCustomerInfoDetail.setTitleTextColor(getResources().getColor(R.color.white));
 
-        Realm realm = Realm.getDefaultInstance();
-        RealmCustomerInfoModal realmCustomerInfoModals = realm.where(RealmCustomerInfoModal.class).equalTo("customerID", customerId).findFirst();
 
 
-        if (Util.validateString(realmCustomerInfoModals.getCustomer_name())) {
-            textViewUserName.setText(realmCustomerInfoModals.getCustomer_name());
+        CustomerModel customerModel = db.getCustomer(customerId);
+
+        if (Util.validateString(customerModel.getCustomerName())) {
+            textViewUserName.setText(customerModel.getCustomerName());
         }
-        if (Util.validateString(realmCustomerInfoModals.getCustomer_phone())) {
-            textViewMob.setText(realmCustomerInfoModals.getCustomer_phone());
+        if (Util.validateString(customerModel.getCustomerPhone())) {
+            textViewMob.setText(customerModel.getCustomerPhone());
         }
-        if (Util.validateString(realmCustomerInfoModals.getCustomer_email())) {
-            textViewEmail.setText(realmCustomerInfoModals.getCustomer_email());
+        if (Util.validateString(customerModel.getCustomerEmail())) {
+            textViewEmail.setText(customerModel.getCustomerEmail());
         }
-        if (Util.validateString(realmCustomerInfoModals.getCustomer_bday())) {
-            textViewBirthDay.setText(getResources().getString(R.string.text_birthday) + realmCustomerInfoModals.getCustomer_bday() + ")");
+        if (Util.validateString(customerModel.getCustomerBday())) {
+            textViewBirthDay.setText(getResources().getString(R.string.text_birthday) + customerModel.getCustomerBday() + ")");
         }
-        if (Util.validateString(realmCustomerInfoModals.getCustomer_points())) {
-            textViewPoints.setText(realmCustomerInfoModals.getCustomer_points() + getResources().getString(R.string.text_points));
+        if (Util.validateString(customerModel.getCustomerPoints())) {
+            textViewPoints.setText(customerModel.getCustomerPoints() + getResources().getString(R.string.text_points));
         }
+        textViewBill.setText(getResources().getString(R.string.text_Last_Billing) + customerModel.getLastBillingDate() + " | " + getResources().getString(R.string.Rs) + " " + customerModel.getLastBillingAmount());
+
+        String address = customerModel.getCustomerAddress();
+        String state = customerModel.getCustomerState();
+        String city = customerModel.getCustomerCity();
+        String pin = customerModel.getCustomerPin();
+        String finalAddress = address + ", " + state + ", " + city + ", " + pin;
+        textViewBillingAddress.setText(finalAddress);
+        textViewWarningText.setText(customerModel.getSuggestion());
+
         try {
-            //Setting last billing details
-            JSONObject jsonObject = new JSONObject(realmCustomerInfoModals.getLast_billing());
-            String last_billing_date = jsonObject.getString(Constants.KEY_LAST_BILLING_DATE.trim());
-            String last_billing_amount = jsonObject.getString(Constants.KEY_LAST_BILLING_AMOUNT.trim());
-            textViewBill.setText(getResources().getString(R.string.text_Last_Billing) + last_billing_date + " | " + getResources().getString(R.string.Rs) + " " + last_billing_amount);
-
-
-            //Getting and setting address of customer
-            JSONObject jsonObject2 = new JSONObject(realmCustomerInfoModals.getCustomer_address());
-            String address = jsonObject2.optString(Constants.KEY_ADDRESS.trim());
-            String state = jsonObject2.optString(Constants.KEY_STATE.trim());
-            String city = jsonObject2.optString(Constants.KEY_CITY.trim());
-            String pin = jsonObject2.optString(Constants.KEY_PIN.trim());
-            String finalAddress = address + ", " + state + ", " + city + ", " + pin;
-            textViewBillingAddress.setText(finalAddress);
-
-            //Setting suggestion.
-            JSONObject jsonObject1 = jsonObject.getJSONObject(Constants.KEY_SUGGESTION.trim());
-            String suggestion = jsonObject1.getString(Constants.KEY_SUGGESTION.trim());
-            textViewWarningText.setText(suggestion);
-
-            JSONArray jsonArray = new JSONArray(realmCustomerInfoModals.getRecent_orders());
+            JSONArray jsonArray = new JSONArray(customerModel.getRecentOrders());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject3 = jsonArray.getJSONObject(i);
                 CustomerList.RecentOrder recentOrder = new CustomerList.RecentOrder();
-                recentOrder.setFromStoreName(jsonObject3.optString(Constants.KEY_FROM_STORE_NAME.trim()));
-                recentOrder.setStoreCity(jsonObject3.optString(Constants.KEY_STORE_CITY.trim()));
-                recentOrder.setStoreState(jsonObject3.optString(Constants.KEY_STORE_STATE.trim()));
-                recentOrder.setBillDate(jsonObject3.optString(Constants.KEY_BILL_DATE.trim()));
-                recentOrder.setBillPrice(jsonObject3.optString(Constants.KEY_BILL_PRICE.trim()));
+                recentOrder.setFromStoreName(jsonObject3.optString(CustomerEnum.ColoumnFromStoreName.toString().trim()));
+                recentOrder.setStoreCity(jsonObject3.optString(CustomerEnum.ColoumnStoreCity.toString().trim()));
+                recentOrder.setStoreState(jsonObject3.optString(CustomerEnum.ColoumnStoreState.toString().trim()));
+                recentOrder.setBillDate(jsonObject3.optString(CustomerEnum.ColoumnBillDate.toString().trim()));
+                recentOrder.setBillPrice(jsonObject3.optString(CustomerEnum.ColoumnBillPrice.toString().trim()));
                 recentOrders.add(recentOrder);
             }
 

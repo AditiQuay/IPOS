@@ -1,5 +1,7 @@
 package quay.com.ipos.utility;
 
+import org.json.JSONArray;
+
 import java.text.SimpleDateFormat;
 
 /**
@@ -90,19 +92,10 @@ public class Constants {
     public static final String ISLOGGEDIN = "ISLOGGEDIN";
     public static final String ACCESS_TOKEN = "AccessToken";
     public static final String KEY_CUSTOMER= "customer";
-    public static final String KEY_LAST_BILLING_DATE= "last_billing_date";
-    public static final String KEY_LAST_BILLING_AMOUNT= "last_billing_amount";
-    public static final String KEY_ADDRESS= "address";
-    public static final String KEY_STATE= "state";
-    public static final String KEY_CITY= "city";
-    public static final String KEY_PIN= "pin";
-    public static final String KEY_SUGGESTION= "suggestion";
 
-    public static final String KEY_FROM_STORE_NAME= "from_store_name";
-    public static final String KEY_STORE_CITY= "store_city";
-    public static final String KEY_STORE_STATE= "store_state";
-    public static final String KEY_BILL_DATE= "bill_date";
-    public static final String KEY_BILL_PRICE= "bill_price";
+
+
+
 
 
 }
