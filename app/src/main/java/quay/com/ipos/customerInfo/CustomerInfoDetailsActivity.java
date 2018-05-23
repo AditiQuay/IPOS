@@ -17,17 +17,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import io.realm.Realm;
 import quay.com.ipos.R;
 import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerRecentOrdersAdapter;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
-import quay.com.ipos.db.CustomerListDB;
 import quay.com.ipos.enums.CustomerEnum;
+import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.CustomerList;
-import quay.com.ipos.realmbean.RealmCustomerInfoModal;
 import quay.com.ipos.utility.CircleImageView;
-import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
 
@@ -44,14 +41,14 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
     private ArrayList<CustomerList.RecentOrder> recentOrders = new ArrayList<>();
-    private CustomerListDB db;
+    private DatabaseHandler db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_info_details);
         mContext = CustomerInfoDetailsActivity.this;
-        db = new CustomerListDB(mContext);
+        db = new DatabaseHandler(mContext);
         Intent i = getIntent();
         customerId = i.getStringExtra("customerID");
 
@@ -91,7 +88,6 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         }
         toolbarCustomerInfoDetail.setTitle(getResources().getString(R.string.toolbar_title_customer_screen_details));
         toolbarCustomerInfoDetail.setTitleTextColor(getResources().getColor(R.color.white));
-
 
 
         CustomerModel customerModel = db.getCustomer(customerId);

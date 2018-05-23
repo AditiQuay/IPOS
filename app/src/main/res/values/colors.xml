@@ -54,6 +54,7 @@
     <color name="list_item_selected_state">#F4F6F6</color>
     <color name="list_item_normal_state">#FFFFFF</color>
     <color name="green">#70bf1a</color>
+    <color name="dark_green">#5da748</color>
     <color name="buttoncolor">#40C8C2</color>
     <color name="filter_color">#EBEBEB</color>
     <color name="filter_text_color">#9c9ca0</color>

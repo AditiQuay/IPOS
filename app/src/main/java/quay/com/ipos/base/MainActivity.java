@@ -55,10 +55,10 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
-import quay.com.ipos.db.CustomerListDB;
 import quay.com.ipos.ddr.fragment.NewOrderFragment;
 import quay.com.ipos.ddr.fragment.OrderCentreListFragment;
 import quay.com.ipos.enums.CustomerEnum;
+import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity
 
     public static RetailSalesFragment retailSalesFragment1;
 
-    private CustomerListDB dbHelper;
+    private DatabaseHandler dbHelper;
     private String customerID;
     private String customerName;
     private String customerPoints;
@@ -150,7 +150,7 @@ public class MainActivity extends BaseActivity
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbHelper = new CustomerListDB(this);
+        dbHelper = new DatabaseHandler(this);
         mContext = MainActivity.this;
         if (NetUtil.isNetworkAvailable(mContext)) {
             getCustomerData();
@@ -251,29 +251,31 @@ public class MainActivity extends BaseActivity
 
         Realm realm = Realm.getDefaultInstance();
         RealmUserDetail realmUserDetails = realm.where(RealmUserDetail.class).findFirst();
+        if (realmUserDetails!=null){
+            try {
+                JSONArray jsonArray = new JSONArray(realmUserDetails.getUserMenu());
+                drawerRoleModals = new ArrayList<>();
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    DrawerRoleModal modal = new DrawerRoleModal();
+                    JSONObject jsonObject = jsonArray.optJSONObject(i);
+                    JSONArray jsonArray1 = jsonObject.optJSONArray("data");
+                    if (jsonObject.has("key") && jsonArray1.length() > 0 && !Util.validateString(textViewMyBusiness.getText().toString())) {
+                        textViewMyBusiness.setText(jsonArray.optJSONObject(i).optString("userName"));
+                        textViewAccount.setText(jsonArray.optJSONObject(i).optString("account"));
+                    }
+                    if (jsonObject.has("key") && jsonArray1.length() > 0) {
+                        modal.setName(jsonObject.optString("key"));
+                        drawerRoleModals.add(modal);
 
-        try {
-            JSONArray jsonArray = new JSONArray(realmUserDetails.getUserMenu());
-            drawerRoleModals = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                DrawerRoleModal modal = new DrawerRoleModal();
-                JSONObject jsonObject = jsonArray.optJSONObject(i);
-                JSONArray jsonArray1 = jsonObject.optJSONArray("data");
-                if (jsonObject.has("key") && jsonArray1.length() > 0 && !Util.validateString(textViewMyBusiness.getText().toString())) {
-                    textViewMyBusiness.setText(jsonArray.optJSONObject(i).optString("userName"));
-                    textViewAccount.setText(jsonArray.optJSONObject(i).optString("account"));
+                    }
+
                 }
-                if (jsonObject.has("key") && jsonArray1.length() > 0) {
-                    modal.setName(jsonObject.optString("key"));
-                    drawerRoleModals.add(modal);
 
-                }
-
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
         }
+
 
 
         if (drawerRoleModals.size() > 0)
