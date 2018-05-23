@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductSearchResult {
 
@@ -53,6 +54,17 @@ public class ProductSearchResult {
     }
 
     public class Datum {
+        @SerializedName("sProductFeature")
+        @Expose
+        private List<SProductFeature> sProductFeature = null;
+
+        public List<SProductFeature> getSProductFeature() {
+            return sProductFeature;
+        }
+
+        public void setSProductFeature(List<SProductFeature> sProductFeature) {
+            this.sProductFeature = sProductFeature;
+        }
 
         @SerializedName("iProductModalId")
         @Expose
@@ -60,9 +72,9 @@ public class ProductSearchResult {
         @SerializedName("sProductName")
         @Expose
         private String sProductName;
-        @SerializedName("sProductFeature")
-        @Expose
-        private String sProductFeature;
+        /*  @SerializedName("sProductFeature")
+          @Expose
+          private String sProductFeature;*/
         @SerializedName("productImage")
         @Expose
         private String productImage;
@@ -107,8 +119,8 @@ public class ProductSearchResult {
         private ArrayList<Discount> discount = null;
 
 
-        private boolean isAdded=false;
-        private boolean isNonCheckOutAdded=false;
+        private boolean isAdded = false;
+        private boolean isNonCheckOutAdded = false;
         private double OTCDiscount;
         private boolean discSelected = false;
         private boolean discItemSelected = false;
@@ -116,7 +128,7 @@ public class ProductSearchResult {
         private boolean OTCselected = false;
         private boolean isEdited = false;
 
-        private int qty=1;
+        private int qty = 1;
         private double totalPrice;
         private double discountPrice;
         private int totalQty;
@@ -146,14 +158,14 @@ public class ProductSearchResult {
             this.sProductName = sProductName;
         }
 
-        public String getSProductFeature() {
-            return sProductFeature;
-        }
+        /*       public String getSProductFeature() {
+                   return sProductFeature;
+               }
 
-        public void setSProductFeature(String sProductFeature) {
-            this.sProductFeature = sProductFeature;
-        }
-
+               public void setSProductFeature(String sProductFeature) {
+                   this.sProductFeature = sProductFeature;
+               }
+       */
         public String getProductImage() {
             return productImage;
         }
@@ -265,6 +277,7 @@ public class ProductSearchResult {
         public void setDiscount(ArrayList<Discount> discount) {
             this.discount = discount;
         }
+
         public double getOTCDiscount() {
             return OTCDiscount;
         }
@@ -568,6 +581,49 @@ public class ProductSearchResult {
 
         public void setRuleProdecessors(Integer ruleProdecessors) {
             this.ruleProdecessors = ruleProdecessors;
+        }
+
+    }
+
+    public class SCharacteristicValue {
+
+        @SerializedName("sCharacteristicValue")
+        @Expose
+        private String sCharacteristicValue;
+
+        public String getSCharacteristicValue() {
+            return sCharacteristicValue;
+        }
+
+        public void setSCharacteristicValue(String sCharacteristicValue) {
+            this.sCharacteristicValue = sCharacteristicValue;
+        }
+
+    }
+
+    public class SProductFeature {
+
+        @SerializedName("sCharacteristicType")
+        @Expose
+        private String sCharacteristicType;
+        @SerializedName("sCharacteristicValues")
+        @Expose
+        private List<SCharacteristicValue> sCharacteristicValues = null;
+
+        public String getSCharacteristicType() {
+            return sCharacteristicType;
+        }
+
+        public void setSCharacteristicType(String sCharacteristicType) {
+            this.sCharacteristicType = sCharacteristicType;
+        }
+
+        public List<SCharacteristicValue> getSCharacteristicValues() {
+            return sCharacteristicValues;
+        }
+
+        public void setSCharacteristicValues(List<SCharacteristicValue> sCharacteristicValues) {
+            this.sCharacteristicValues = sCharacteristicValues;
         }
 
     }

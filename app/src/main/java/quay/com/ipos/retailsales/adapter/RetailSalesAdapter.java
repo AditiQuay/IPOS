@@ -27,6 +27,7 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.ProductListResult;
+import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductMainSectionItemsAdapter;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.utility.AppLog;
@@ -92,18 +93,13 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public LinearLayout llDiscount,llOTCDiscount;
         public CheckBox chkDiscount,chkItem,chkOTCDiscount;
         public EditText etQtySelected;
-        private RecyclerView mRecyclerView;
-        private LinearLayoutManager mLayoutManager;
+        public RecyclerView mRecyclerView;
+
 
         public UserViewHolder(View itemView) {
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.recycleView);
-            mRecyclerView.setHasFixedSize(true);
-            mLayoutManager = new LinearLayoutManager(mContext);
-            mRecyclerView.setLayoutManager(mLayoutManager);
-            mRecyclerView.addItemDecoration(
-                    new ItemDecorationAlbumColumns(mContext.getResources().getDimensionPixelSize(R.dimen.dim_5),
-                            mContext.getResources().getInteger(R.integer.photo_list_preview_columns)));
+
             llOTCDiscount = itemView.findViewById(R.id.llOTCDiscount);
             tvOTCDiscountPrice = itemView.findViewById(R.id.tvOTCDiscountPrice);
             chkOTCDiscount = itemView.findViewById(R.id.chkOTCDiscount);
@@ -266,6 +262,16 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 }
             });
+
+
+            userViewHolder.mRecyclerView.setHasFixedSize(true);
+            LinearLayoutManager  mLayoutManager = new LinearLayoutManager(mContext);
+            userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
+            userViewHolder.mRecyclerView.addItemDecoration(
+                    new ItemDecorationAlbumColumns(mContext.getResources().getDimensionPixelSize(R.dimen.dim_5),
+                            mContext.getResources().getInteger(R.integer.photo_list_preview_columns)));
+            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
+            userViewHolder.mRecyclerView.setAdapter(itemListDataAdapter);
         }
         else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
