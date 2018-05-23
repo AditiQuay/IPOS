@@ -11,6 +11,7 @@ public class IPOSAPI {
     public static String WEB_SERVICE_LOGIN = "Token/GenerateToken";
     public static String WEB_SERVICE_SEARCH_PRODUCT = "Retail/SearchRetailProduct";
     public static String WEB_SERVICE_ProductDetailUsingBarCode = "Retail/ProductDetailUsingBarCode";
+    public static String WEB_SERVICE_RETAIL_CUSTOMER_LIST = "RetailCustomers/RetailCustomerList";
 
 
 }

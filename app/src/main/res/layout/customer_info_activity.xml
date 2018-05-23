@@ -18,8 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme"
-            app:theme="@style/ToolbarColoredBackArrow"
-             />
+            app:theme="@style/ToolbarColoredBackArrow" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -29,28 +28,7 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-        <android.support.v7.widget.SearchView
-            android:id="@+id/searchViewCatalogue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dim_8"
-            android:layout_marginRight="@dimen/dim_8"
-            android:alpha="0.7"
-            android:elevation="2dp"
-            app:iconifiedByDefault="false"
-            app:queryHint="Enter Mobile Number" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerviewCustomerCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/searchViewCatalogue"
-            android:layout_marginLeft="@dimen/dim_8"
-            android:layout_marginRight="@dimen/dim_8"
-            android:layout_marginTop="@dimen/dim_8"
-            android:overScrollMode="never"
-            android:scrollbars="none" />
+        <include layout="@layout/customer_content" />
 
 
         <android.support.design.widget.FloatingActionButton
@@ -58,11 +36,11 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/fab_margin"
             app:srcCompat="@drawable/icon_plus"
-            tools:ignore="VectorDrawableCompat"
-            android:layout_alignParentEnd="true" />
+            tools:ignore="VectorDrawableCompat" />
 
     </RelativeLayout>
 

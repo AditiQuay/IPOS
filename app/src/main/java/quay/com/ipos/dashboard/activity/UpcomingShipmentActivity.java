@@ -23,16 +23,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
-import quay.com.ipos.customerInfo.CustomerInfoDetailsActivity;
-import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerInfoAdapter;
-import quay.com.ipos.customerInfo.customerInfoModal.CustomerInfoModal;
+
 import quay.com.ipos.dashboard.adapter.UpcomingShipmentListAdapter;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.SpacesItemDecoration;
-import quay.com.ipos.utility.Util;
+
 
 
 public class UpcomingShipmentActivity extends AppCompatActivity implements InitInterface, MyListener {
@@ -103,33 +101,7 @@ public class UpcomingShipmentActivity extends AppCompatActivity implements InitI
         inventoryListAdapter.notifyDataSetChanged();
     }
 
-    private void getCustomerData() {
-        try {
-            // Creating JSONObject from String
-            JSONObject jsonObjMain = new JSONObject(Util.getAssetJsonResponse(mContext, "customer.json"));
-            // Creating JSONArray from JSONObject
-            JSONArray jsonArray = jsonObjMain.getJSONArray("customer");
 
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                CustomerInfoModal customerInfoModal = new CustomerInfoModal();
-                customerInfoModal.id = jsonObject.optInt("customerID");
-                customerInfoModal.customerName = jsonObject.optString("customer_name");
-                customerInfoModal.customerPoints = jsonObject.optString("customer_points");
-                customerInfoModal.customerMobileNumber = jsonObject.optString("customer_phone");
-                customerInfoModal.customerEmail = jsonObject.optString("customer_email");
-                customerInfoModal.customerBirthDay = jsonObject.optString("customer_bday");
-
-                JSONObject jsonObject1 = jsonObject.getJSONObject("last_billing");
-                customerInfoModal.customerBillingDate = jsonObject1.optString("last_billing_date");
-                customerInfoModal.customerBillingAmount = jsonObject1.optString("last_billing_amount");
-
-
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void applyTypeFace() {
