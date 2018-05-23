@@ -154,6 +154,7 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
                 catalogueModal.sProductFeature = jsonObject.getString("sProductFeature");
                 catalogueModal.sProductPrice = jsonObject.getString("sProductPrice");
                 catalogueModal.sDataSheet = jsonObject.getString("sDataSheet");
+                catalogueModal.sPoints = jsonObject.getString("sPoints");
                 catalogueModalsSet.add(catalogueModal);
             }
         } catch (JSONException e) {

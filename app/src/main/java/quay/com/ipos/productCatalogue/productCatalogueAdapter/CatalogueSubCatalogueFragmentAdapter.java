@@ -49,7 +49,7 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
         holder.textViewProductName.setText(catalogueModal.sProductName);
         holder.textViewFeature.setText(catalogueModal.sProductFeature);
         holder.textViewPrice.setText(catalogueModal.sProductPrice);
-
+        holder.textViewOffer.setText(catalogueModal.sPoints);
         holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

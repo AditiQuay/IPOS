@@ -1,7 +1,6 @@
 package quay.com.ipos.customerInfo.customerInfoAdapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,23 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
-import quay.com.ipos.db.CustomerListDB;
 import quay.com.ipos.listeners.MyListener;
-import quay.com.ipos.realmbean.RealmCustomerInfoModal;
 import quay.com.ipos.utility.CircleImageView;
-import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
 
@@ -61,7 +49,6 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + customerInfoModal.getLastBillingDate() + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.getLastBillingAmount());
 
 
-
 //        Picasso.get().load(customerInfoModal.getCustomerImage())
 //                .networkPolicy(NetworkPolicy.OFFLINE)
 //                .into(holder.imageViewProfileDummy, new Callback() {
@@ -85,7 +72,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         holder.textViewCake.setText(mContext.getResources().getString(R.string.text_birthday) + customerInfoModal.getCustomerBday() + ")");
         holder.textViewProName.setText(customerInfoModal.getCustomerPoints() + mContext.getResources().getString(R.string.text_points));
 
-        Log.e("CustomerInforAdapter","Recent Orders"+customerInfoModal.getRecentOrders());
+        Log.e("CustomerInforAdapter", "Recent Orders" + customerInfoModal.getRecentOrders());
 
     }
 

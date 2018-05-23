@@ -5,12 +5,12 @@
     android:id="@+id/cardViewProduct"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dim_8"
     android:maxHeight="@dimen/dim_200"
     app:cardCornerRadius="@dimen/dim_4"
-    android:layout_margin="@dimen/dim_8"
-    card_view:cardElevation="0dp"
     app:cardElevation="0dp"
-    app:cardPreventCornerOverlap="true">
+    app:cardPreventCornerOverlap="true"
+    card_view:cardElevation="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,23 +35,7 @@
                     android:padding="@dimen/dim_8"
                     android:src="@drawable/cyld" />
 
-                <RelativeLayout
-                    android:id="@+id/rLayoutTopStrip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:alpha="0.7"
-                    android:background="@drawable/strip_transparent"
-                    android:padding="@dimen/dim_8">
 
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/badge_white" />
-
-                </RelativeLayout>
             </RelativeLayout>
 
             <View
@@ -59,7 +43,7 @@
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/dim_8"
-                android:layout_marginLeft="@dimen/dim_8"
+                android:layout_marginStart="@dimen/dim_8"
                 android:layout_marginTop="@dimen/dim_8"
                 android:alpha="0.7"
                 android:background="@color/expand_list_color" />
@@ -68,22 +52,38 @@
             <RelativeLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_8"
-                android:layout_weight="2"
-                android:padding="@dimen/dim_4">
+                android:layout_marginStart="@dimen/dim_8"
+                android:layout_weight="2">
 
                 <TextView
                     android:id="@+id/textViewProductName"
-                    style="@style/stylePrimaryTextColor16"
+                    style="@style/stylePrimaryTextColor17"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dim_8"
-                    android:layout_marginRight="@dimen/dim_8"
+                    android:layout_marginTop="@dimen/dim_4"
                     android:alpha="0.7"
                     android:ems="7"
                     android:gravity="center_vertical"
                     android:lines="1"
+                    android:padding="@dimen/dim_4"
                     android:text="Soudafoan 1K" />
+
+                <RelativeLayout
+                    android:id="@+id/rLayoutTopStrip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/dim_16"
+                    android:alpha="0.7">
+
+
+                    <ImageView
+                        android:layout_width="@dimen/dim_24"
+                        android:layout_height="@dimen/dim_24"
+                        android:src="@drawable/on_offer" />
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/textViewFeature"
@@ -91,12 +91,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textViewProductName"
-                    android:layout_marginRight="@dimen/dim_8"
-                    android:layout_marginTop="@dimen/dim_4"
+                    android:layout_marginEnd="@dimen/dim_8"
                     android:alpha="0.7"
                     android:ems="7"
                     android:gravity="left|clip_vertical"
                     android:lines="2"
+                    android:paddingLeft="@dimen/dim_4"
+                    android:paddingRight="@dimen/dim_4"
                     android:text="High Performance Straw" />
 
                 <TextView
@@ -106,10 +107,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textViewFeature"
                     android:layout_marginTop="@dimen/dim_8"
+                    android:layout_toStartOf="@+id/textViewOffer"
                     android:alpha="0.7"
-                    android:ems="5"
+                    android:ems="10"
                     android:lines="1"
-                    android:text="$ 200" />
+                    android:paddingLeft="@dimen/dim_4"
+                    android:paddingRight="@dimen/dim_4"
+                    android:text="$ 200 - $ 999" />
 
                 <TextView
                     android:id="@+id/textViewOffer"
@@ -117,14 +121,19 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:textColor="@color/green"
-                    android:textSize="@dimen/universal_text_size16"
                     android:layout_below="@+id/textViewFeature"
-                    android:layout_marginRight="@dimen/dim_8"
+                    android:layout_marginEnd="@dimen/dim_8"
                     android:layout_marginTop="@dimen/dim_8"
                     android:alpha="0.7"
+                    android:drawableStart="@drawable/loyality_green"
+                    android:gravity="center_vertical"
                     android:lines="1"
-                    android:text="On Offer" />
+                    android:paddingBottom="@dimen/dim_4"
+                    android:paddingLeft="@dimen/dim_4"
+                    android:paddingRight="@dimen/dim_4"
+                    android:text="On Offer"
+                    android:textColor="@color/dark_green"
+                    android:textSize="@dimen/universal_text_size14" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -157,9 +166,9 @@
                         style="@style/styleWhiteTextColor14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:stateListAnimator="@null"
                         android:backgroundTint="@color/button_tint_gray"
-                        android:drawableLeft="@drawable/data"
+                        android:drawableStart="@drawable/data"
+                        android:stateListAnimator="@null"
                         android:text="DataSheet"
                         android:textAllCaps="false" />
 
@@ -175,9 +184,9 @@
                         style="@style/styleWhiteTextColor14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:stateListAnimator="@null"
                         android:backgroundTint="@color/button_tint_gray"
-                        android:drawableLeft="@drawable/calculator"
+                        android:drawableStart="@drawable/calculator"
+                        android:stateListAnimator="@null"
                         android:text="Calculator"
                         android:textAllCaps="false" />
 
@@ -193,9 +202,9 @@
                         style="@style/styleWhiteTextColor14"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:stateListAnimator="@null"
                         android:backgroundTint="@color/colorPrimary"
-                        android:drawableLeft="@drawable/cart_white"
+                        android:drawableStart="@drawable/cart_white"
+                        android:stateListAnimator="@null"
                         android:text="Cart"
                         android:textAllCaps="false" />
 

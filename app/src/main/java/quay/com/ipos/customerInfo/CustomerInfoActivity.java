@@ -21,7 +21,7 @@ import java.util.Locale;
 import quay.com.ipos.R;
 import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerInfoAdapter;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
-import quay.com.ipos.db.CustomerListDB;
+import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.utility.FontUtil;
@@ -44,7 +44,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     private ArrayList<CustomerModel> customerModelList = new ArrayList<>();
     private ArrayList<CustomerModel> arrSearlist = new ArrayList<>();
 
-    private CustomerListDB dbHelper;
+    private DatabaseHandler dbHelper;
 
 
     @Override
@@ -53,7 +53,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         setContentView(R.layout.customer_info_activity);
         mContext = CustomerInfoActivity.this;
         listener = CustomerInfoActivity.this;
-        dbHelper = new CustomerListDB(this);
+        dbHelper = new DatabaseHandler(this);
         findViewById();
         applyInitValues();
         applyTypeFace();
