@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:visibility="visible"
@@ -18,7 +18,8 @@
             android:gravity="center_vertical"
             android:padding="@dimen/dim_10"
             android:text="@string/otc_discount_workflow_approval"
-            android:textSize="@dimen/text_size_15sp" />
+            android:textSize="@dimen/text_size_15sp"
+            app:typeface="TitilliumWeb-Bold.ttf"/>
 
 
 

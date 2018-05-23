@@ -190,7 +190,7 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
             case R.id.imvClose:
                 int pos = (int) view.getTag();
                 pinned_pos = pos;
-                Util.showMessageDialog(mContext,PinnedRetailActivity.this,"Do you want to remove this pinned Item?","Yes","No", Constants.APP_DIALOG_Pinned_ORDER,"",getSupportFragmentManager());
+                Util.showMessageDialog(mContext,PinnedRetailActivity.this,getString(R.string.pinned_message),getResources().getString(R.string.yes),getResources().getString(R.string.no), Constants.APP_DIALOG_Pinned_ORDER,"",getSupportFragmentManager());
                 break;
         }
     }

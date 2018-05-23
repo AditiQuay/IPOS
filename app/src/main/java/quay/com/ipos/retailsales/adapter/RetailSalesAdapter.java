@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
@@ -26,6 +28,7 @@ import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
+import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Util;
 
@@ -46,13 +49,13 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<ProductListResult.Datum> mDataset;
+    ArrayList<ProductSearchResult.Datum> mDataset;
     RecyclerView mRecyclerView;
     CompoundButton.OnCheckedChangeListener mCheckedChangeListener;
     TextWatcher mTextWatcher;
 
     public RetailSalesAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                              ArrayList<ProductListResult.Datum> questionList, CompoundButton.OnCheckedChangeListener mCheckedChangeListener, AdapterListener listener) {
+                              ArrayList<ProductSearchResult.Datum> questionList, CompoundButton.OnCheckedChangeListener mCheckedChangeListener, AdapterListener listener) {
         this.mOnClickListener = mClickListener;
         this.mContext = ctx;
         this.mDataset = questionList;
@@ -147,7 +150,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof RetailSalesAdapter.UserViewHolder) {
             onBind = true;
-            ProductListResult.Datum str = mDataset.get(position);
+            ProductSearchResult.Datum str = mDataset.get(position);
             if(IPOSApplication.isRefreshed) {
                 str = mDataset.get(0);
                 IPOSApplication.isRefreshed=false;
@@ -159,6 +162,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.tvItemRate.setText(str.getSProductStock()+"");
             userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSProductPrice());
             userViewHolder.etQtySelected.setText(str.getQty()+"");
+            ImageLoader.getInstance().displayImage(str.getProductImage(),userViewHolder.imvProduct);
             onBind = false;
 
             if(str.isItemSelected())
@@ -185,20 +189,16 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            str.setTotalPrice(totalPrice);
 
             if(str.getIsDiscount()) {
-                userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSDiscountPrice());
-                userViewHolder.tvDiscount.setText(str.getSDiscountName());
-//                str.setDiscItemSelected(true);
-                Double discount = (str.getSDiscountPrice()*totalPrice)/100;
-//                str.setDiscount(discount);
-
-                userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+discount+"");
-                userViewHolder.llDiscount.setVisibility(View.VISIBLE);
+//                userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSDiscountPrice());
+//                userViewHolder.tvDiscount.setText(str.getSDiscountName());
+//                Double discount = (str.getSDiscountPrice()*totalPrice)/100;
+//
+//                userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+discount+"");
+//                userViewHolder.llDiscount.setVisibility(View.VISIBLE);
             }else {
-//                str.setDiscItemSelected(false);
-//                str.setTotalPrice(totalPrice);
-//                str.setDiscount(0.0);
-                userViewHolder.llDiscount.setVisibility(View.GONE);
+//                userViewHolder.llDiscount.setVisibility(View.GONE);
             }
+            userViewHolder.llDiscount.setVisibility(View.GONE);
             if(str.isDiscItemSelected()) {
                 userViewHolder.chkDiscount.setChecked(true);
                 userViewHolder.tvDiscount.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));

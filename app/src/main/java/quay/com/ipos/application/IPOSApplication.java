@@ -19,6 +19,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.modal.ProductListResult;
+import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.utility.Constants;
 
 
@@ -29,8 +30,8 @@ public class IPOSApplication extends MultiDexApplication {
     private static IPOSApplication _instance = null;
     public static boolean isRefreshed=false;
 
-    public static ArrayList<ProductListResult.Datum> mProductListResult= new ArrayList<>();
-//    public static ArrayList<ProductList.Datum> mProductList= new ArrayList<>();
+    public static ArrayList<ProductSearchResult.Datum> mProductListResult= new ArrayList<>();
+//    public static ArrayList<ProductSearchResult.Datum> mProductSearchResult= new ArrayList<>();
     public static ArrayList<OrderList.Datum> mOrderList= new ArrayList<>();
 
 
