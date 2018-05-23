@@ -44,7 +44,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
      * The Array searchlist.
      */
     ArrayList<ProductSearchResult.Datum> arrSearchlist= new ArrayList<>();
-    public static ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
+    public ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
@@ -56,9 +56,9 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     private LinearLayout llAccept,llSize,llAdded;
     DatabaseHandler databaseHandler;
     /**
-     * The Arr data.
+     * The data.
      */
-//    ArrayList<ProductListResult.Datum> arrData= new ArrayList<>();
+    public ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -136,7 +136,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     private void searchProductCall(String s) {
 //        showProgress(getResources().getString(R.string.please_wait));
         CommonParams mCommonParams = new CommonParams();
-        mCommonParams.setStoreId("1");
+        mCommonParams.setStoreId(s);
         mCommonParams.setSearchParam("NA");
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
@@ -285,20 +285,21 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void onBackPressed() {
-
         super.onBackPressed();
-
     }
+
+
     ProductSearchResult mProductSearchResult;
 
 
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj,String responseJson) {
         dismissProgress();
-
+        data.clear();
         if (httpStatusCode == Constants.SUCCESS) {
             if(serviceUrl!=null && serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT)) {
                 if(resultObj!=null){
+
                     mProductSearchResult = (ProductSearchResult) resultObj;
                     data.addAll(mProductSearchResult.getData());
 
