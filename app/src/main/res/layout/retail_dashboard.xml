@@ -118,7 +118,7 @@
         <ImageView
             android:id="@+id/imvGlobe"
             android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_15"
+            android:paddingRight="@dimen/dim_10"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_gravity="center"
@@ -138,16 +138,38 @@
             android:textColor="@color/dark_text_color"
             android:paddingRight="@dimen/dim_5"
             android:textSize="@dimen/text_size_15sp"/>
-        <ImageView
-            android:id="@+id/imvBarcode"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_15"
-            android:layout_weight="1"
+        <FrameLayout
+            style="?attr/actionButtonStyle"
             android:layout_width="0dp"
-            android:layout_gravity="center"
+
+            android:id="@+id/flScanLayout"
+            android:layout_marginRight="@dimen/dim_5"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:src="@drawable/ic_action_qr_code1"/>
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/imvBarcode"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_qr_code1"/>
+
+            <ImageView
+                android:id="@+id/imvStatus"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="right|end|top"
+                android:layout_marginRight="-8dp"
+                android:layout_marginLeft="@dimen/dim_8"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle_disabled"
+                android:gravity="center"
+                android:padding="3dp"/>
+
+        </FrameLayout>
+
         <ToggleButton
             android:id="@+id/chkBarCode"
             android:layout_width="0dp"

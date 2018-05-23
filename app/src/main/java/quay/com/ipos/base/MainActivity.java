@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -13,16 +12,13 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -66,8 +62,6 @@ import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
-import quay.com.ipos.modal.DrawerModal;
-import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.productCatalogue.ProductMain;
@@ -76,7 +70,6 @@ import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.MessageDialog;
-import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
@@ -362,12 +355,21 @@ public class MainActivity extends BaseActivity
     public void onDialogPositiveClick(Dialog dialog, int mCallType) {
         if (mCallType == Constants.APP_DIALOG_PERMISSION) {
             Util.OpenSetting(MainActivity.this);
+        }else if(mCallType==Constants.APP_DIALOG_BACK){
+            doubleBackToExitPressedOnce = true;
+                                exit = true;
+                                finish();
+            dialog.dismiss();
         }
     }
 
     @Override
     public void onDialogNegetiveClick(Dialog dialog, int mCallType) {
-
+        if(mCallType==Constants.APP_DIALOG_BACK){
+            doubleBackToExitPressedOnce = false;
+            exit = false;
+            dialog.dismiss();
+        }
     }
 
     @Override
@@ -603,17 +605,7 @@ public class MainActivity extends BaseActivity
 
 
             if (mFrag == dashboardFragment) {
-                (new AlertDialog.Builder(this)).setTitle("Confirm action")
-                        .setMessage("Do you want to Exit?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                doubleBackToExitPressedOnce = true;
-                                exit = true;
-                                finish();
-                            }
-                        }).setNegativeButton("No", null).show();
+                Util.showMessageDialog(mContext,this, getString(R.string.exit_message), getResources().getString(R.string.yes), getResources().getString(R.string.no), Constants.APP_DIALOG_BACK, "", getSupportFragmentManager());
                 if (doubleBackToExitPressedOnce) {
                     super.onBackPressed();
                     return;

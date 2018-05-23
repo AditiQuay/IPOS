@@ -28,9 +28,11 @@ import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
+import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.ScannerProductListener;
 import quay.com.ipos.modal.CommonParams;
 import quay.com.ipos.modal.ProductListResult;
+import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Util;
@@ -50,6 +52,10 @@ public class FullScannerFragment extends BaseFragment implements
     ScannerProductListener mScannerProductListener;
     int REQUEST_CAMERA=22;
     private boolean found=false;
+    DatabaseHandler databaseHandler;
+    public ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
+    private ProductSearchResult productListResult;
+
 
     public static FullScannerFragment newInstance() {
         return new FullScannerFragment();
@@ -71,7 +77,7 @@ public class FullScannerFragment extends BaseFragment implements
             mCameraId = -1;
         }
         setupFormats();
-
+        databaseHandler = new DatabaseHandler(getActivity());
         return mScannerView;
     }
 
@@ -207,7 +213,7 @@ public class FullScannerFragment extends BaseFragment implements
         mTask.setApiCallType(Constants.API_METHOD_POST);
         mTask.setParamObj(mCommonParams);
         mTask.setListener(this);
-        mTask.setResultType(ProductListResult.class);
+        mTask.setResultType(ProductSearchResult.class);
         if(Util.isConnected())
             mTask.execute();
         else
@@ -224,21 +230,68 @@ public class FullScannerFragment extends BaseFragment implements
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        showMessageDialog("Contents = " + rawResult.getContents() + ", Format = " + rawResult.getBarcodeFormat().getName());
-        callScanService(rawResult.getContents(),getActivity());
-//        mainActivity.onUpdate(rawResult.getContents(), mainActivity);
-//        Intent intent = new Intent(getActivity(), FullScannerFragment.class);
-//        intent.putExtra("scancode",rawResult.getContents());
-//        getTargetFragment().onActivityResult(getTargetRequestCode(), RESULT_OK, intent);
-//        getFragmentManager().popBackStack();
-        // mScannerProductListener.setProductOnListener("Contents = " + rawResult.getContents() + ", Format = " + rawResul.getBarcodeFormat().getName());
+
+        if(databaseHandler.isRetailMasterEmpty()) {
+            callScanService(rawResult.getContents(),getActivity());
+        }else {
+            data = databaseHandler.getAllProduct();
+            if(data.size()>0)
+                for(int i = 0 ; i < data.size() ; i++){
+                    if(rawResult.getContents().equalsIgnoreCase(data.get(i).getBarCodeNumber())){
+                        productListResult = new ProductSearchResult();
+                        productListResult.setData(data);
+                    }
+                }
+
+            if(productListResult.getData()!=null && productListResult.getData().size()>0) {
+                if (IPOSApplication.mProductListResult.size() > 0){
+
+                    for (int i = 0; i < mProductList.size(); i++) {
+
+                        if (productListResult.getData().get(0).getIProductModalId().equalsIgnoreCase(mProductList.get(i).getIProductModalId())) {
+                            ProductSearchResult.Datum mProductListResultData = mProductList.get(i);
+                            mProductListResultData.setQty(mProductListResultData.getQty() + 1);
+                            mProductListResultData.setAdded(true);
+                            IPOSApplication.mProductListResult.set(i, mProductListResultData);
+                            found=true;
+                        } else {
+
+
+                        }
+                    }
+                    if(!found){
+                        ProductSearchResult.Datum datum = productListResult.getData().get(0);
+                        datum.setAdded(true);
+                        datum.setQty(1);
+                        IPOSApplication.mProductListResult.add(0, datum);
+                    }
+                }else {
+                    ProductSearchResult.Datum datum = productListResult.getData().get(0);
+                    datum.setAdded(true);
+                    datum.setQty(1);
+                    IPOSApplication.mProductListResult.add(0, datum);
+                }
+
+                IPOSApplication.isRefreshed=true;
+                Util.showToast(getString(R.string.product_added_successfully),getActivity());
+            }else {
+                Util.showToast(getString(R.string.product_not_found),getActivity());
+            }
+
+        }
+
+        mScannerView.resumeCameraPreview(this);
+
+        Intent intent = new Intent("CUSTOM_ACTION");
+        // You can also include some extra data.
+        intent.putExtra("message", "This is my message!");
+        try {
+            LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
+        }catch (Exception e){
+
+        }
     }
 
-//    public void showMessageDialog(String message) {
-//        DialogFragment fragment = MessageDialogFragment.newInstance("Scan Results", message,"OK",null, this,3);
-//        fragment.show(getActivity().getSupportFragmentManager(), "scan_results");
-////        Util.showToast("Scan Results "+message,getActivity());
-//    }
 
     public void closeMessageDialog() {
         closeDialog("scan_results");
@@ -312,7 +365,10 @@ public class FullScannerFragment extends BaseFragment implements
         closeMessageDialog();
         closeFormatsDialog();
     }
-    public ArrayList<ProductListResult.Datum> mProductList= new ArrayList<>();
+
+
+    public ArrayList<ProductSearchResult.Datum> mProductList= new ArrayList<>();
+
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj,String response) {
         hideProgressDialog();
@@ -322,7 +378,7 @@ public class FullScannerFragment extends BaseFragment implements
             if(serviceUrl!=null && serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_ProductDetailUsingBarCode)) {
                 if (resultObj != null) {
 
-                    ProductListResult productListResult = (ProductListResult) resultObj;
+                    ProductSearchResult productListResult = (ProductSearchResult) resultObj;
                     if(productListResult.getData()!=null)
                         if(productListResult.getData()!=null && productListResult.getData().size()>0) {
                             if (IPOSApplication.mProductListResult.size() > 0){
@@ -330,7 +386,7 @@ public class FullScannerFragment extends BaseFragment implements
                                 for (int i = 0; i < mProductList.size(); i++) {
 
                                     if (productListResult.getData().get(0).getIProductModalId().equalsIgnoreCase(mProductList.get(i).getIProductModalId())) {
-                                        ProductListResult.Datum mProductListResultData = mProductList.get(i);
+                                        ProductSearchResult.Datum mProductListResultData = mProductList.get(i);
                                         mProductListResultData.setQty(mProductListResultData.getQty() + 1);
                                         mProductListResultData.setAdded(true);
                                         IPOSApplication.mProductListResult.set(i, mProductListResultData);
@@ -341,13 +397,13 @@ public class FullScannerFragment extends BaseFragment implements
                                     }
                                 }
                                 if(!found){
-                                    ProductListResult.Datum datum = productListResult.getData().get(0);
+                                    ProductSearchResult.Datum datum = productListResult.getData().get(0);
                                     datum.setAdded(true);
                                     datum.setQty(1);
                                     IPOSApplication.mProductListResult.add(0, datum);
                                 }
                             }else {
-                                ProductListResult.Datum datum = productListResult.getData().get(0);
+                                ProductSearchResult.Datum datum = productListResult.getData().get(0);
                                 datum.setAdded(true);
                                 datum.setQty(1);
                                 IPOSApplication.mProductListResult.add(0, datum);

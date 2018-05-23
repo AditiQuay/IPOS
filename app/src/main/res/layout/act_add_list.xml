@@ -131,6 +131,7 @@ android:padding="@dimen/dim_10"
             android:layout_margin="@dimen/dim_4"
             android:layout_below="@+id/llSize"
             android:scrollbars="none"
+            android:background="@color/backgroundgrey"
             android:layout_gravity="center">
 
         </android.support.v7.widget.RecyclerView>
@@ -143,6 +144,7 @@ android:padding="@dimen/dim_10"
             android:visibility="gone"
             android:gravity="center"
             android:text="@string/no_match_found"
+            android:background="@color/backgroundgrey"
             android:textColor="@color/accent_color"
             android:layout_marginBottom="@dimen/dim_2"
             />

@@ -241,8 +241,12 @@
     <string name="pinned_retail">Retail Pinned</string>
     <string name="product_not_found">Product not found</string>
     <string name="product_added_successfully">Product added Successfully</string>
+    <string name="save_cart_message">\"Do you want to save the Cart?\"</string>
+    <string name="exit_message">Do you want to Exit?</string>
+    <string name="pinned_message">Do you want to remove this pinned Item?</string>
 
     <string name="text_Last_Billing">"Last Billing "</string>
     <string name="text_birthday">"Wish Birthday ("</string>
     <string name="text_points">" Pts."</string>
+    <string name="product_removed_successfully">Product Removed Successfully</string>
 </resources>

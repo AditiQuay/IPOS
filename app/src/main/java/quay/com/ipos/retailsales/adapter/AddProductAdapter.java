@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.modal.ProductListResult;
+import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Util;
 
@@ -36,11 +37,11 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<ProductListResult.Datum> mDataset;
+    ArrayList<ProductSearchResult.Datum> mDataset;
     RecyclerView mRecyclerView;
 
     public AddProductAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                              ArrayList<ProductListResult.Datum> questionList) {
+                              ArrayList<ProductSearchResult.Datum> questionList) {
         mOnClickListener = mClickListener;
         mContext = ctx;
         mDataset = questionList;
@@ -107,7 +108,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof AddProductAdapter.UserViewHolder) {
-            ProductListResult.Datum str = mDataset.get(position);
+            ProductSearchResult.Datum str = mDataset.get(position);
 //            AppLog.e(AddProductAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             AddProductAdapter.UserViewHolder userViewHolder = (AddProductAdapter.UserViewHolder) holder;
             userViewHolder.tvItemName.setText(str.getSProductName());

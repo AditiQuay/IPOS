@@ -60,9 +60,9 @@ public class ProductListResult {
         @SerializedName("sProductName")
         @Expose
         private String sProductName;
-        @SerializedName("sProductFeature")
-        @Expose
-        private String sProductFeature;
+//        @SerializedName("sProductFeature")
+//        @Expose
+//        private String sProductFeature;
         @SerializedName("productImage")
         @Expose
         private String productImage;
@@ -133,13 +133,13 @@ public class ProductListResult {
             this.sProductName = sProductName;
         }
 
-        public String getSProductFeature() {
-            return sProductFeature;
-        }
-
-        public void setSProductFeature(String sProductFeature) {
-            this.sProductFeature = sProductFeature;
-        }
+//        public String getSProductFeature() {
+//            return sProductFeature;
+//        }
+//
+//        public void setSProductFeature(String sProductFeature) {
+//            this.sProductFeature = sProductFeature;
+//        }
 
         public String getProductImage() {
             return productImage;

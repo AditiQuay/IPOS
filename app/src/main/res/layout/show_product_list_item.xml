@@ -14,9 +14,8 @@
             android:id="@+id/imvProduct"
             android:src="@drawable/if_light_bulb"
             android:layout_width="80dp"
-            android:padding="@dimen/dim_5"
-            android:layout_marginLeft="@dimen/dim_10"
-            android:layout_marginRight="@dimen/dim_10"
+            android:layout_marginLeft="@dimen/dim_5"
+            android:layout_marginRight="@dimen/dim_5"
             android:layout_gravity="center"
             android:layout_height="80dp" />
 
@@ -60,7 +59,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:text="Missile"
-                        android:textSize="@dimen/text_size_15sp"
+                        android:textSize="@dimen/text_size_12sp"
                         android:lines="1"
                         android:singleLine="true"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
@@ -83,7 +82,7 @@
                         android:singleLine="true"
                         android:gravity="center_vertical"
                         android:text="500 gm"
-                        android:textSize="@dimen/text_size_15sp"
+                        android:textSize="@dimen/text_size_12sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
 
                     <ImageView
@@ -93,13 +92,14 @@
                         android:paddingRight="@dimen/dim_10"
                         android:paddingLeft="@dimen/dim_10"
                         android:paddingTop="@dimen/dim_10"
+                        android:layout_gravity="top"
                         android:src="@drawable/ic_action_delete"
                         />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/dim_4"
+                    android:paddingTop="@dimen/dim_1"
                     android:orientation="horizontal">
                     <ImageView
                         android:layout_width="wrap_content"
@@ -112,9 +112,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
+                        android:gravity="top"
                         android:text="225"
-                        android:textSize="@dimen/text_size_13sp"
+                        android:textSize="@dimen/text_size_12sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
 
                     <View
@@ -130,10 +130,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
+                        android:gravity="top"
                         android:paddingRight="@dimen/dim_10"
                         android:text="250"
-                        android:textSize="@dimen/text_size_13sp"
+                        android:textSize="@dimen/text_size_12sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
 
                     <ImageView
@@ -170,14 +170,14 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:background="@color/backgroundgrey"
-                        android:paddingBottom="@dimen/dim_5"
-                        android:paddingTop="@dimen/dim_5"
+                        android:paddingBottom="@dimen/dim_6"
+                        android:paddingTop="@dimen/dim_6"
                         android:paddingLeft="@dimen/dim_10"
                         android:paddingRight="@dimen/dim_10"
                         android:text="1"
                         android:inputType="number"
                         android:textColor="@color/accent_color"
-                        android:textSize="@dimen/text_size_13sp"
+                        android:textSize="@dimen/text_size_12sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
 
                     <quay.com.ipos.ui.CustomTextView
@@ -219,6 +219,13 @@
         android:layout_height="1dp"
         android:layout_marginTop="@dimen/dim_5"
         android:background="@color/colorAccent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_marginTop="@dimen/dim_1" />
     <LinearLayout
         android:id="@+id/llDiscount"
         android:layout_width="match_parent"
@@ -240,7 +247,7 @@
             android:gravity="left"
             android:text="Special discount (10%)"
             android:textColor="@color/colorAccentDark"
-            android:textSize="@dimen/text_size_13sp" />
+            android:textSize="@dimen/text_size_12sp" />
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvDiscountPrice"
             android:layout_width="wrap_content"
@@ -250,7 +257,7 @@
             android:layout_marginRight="@dimen/dim_10"
             android:textColor="@color/colorAccentDark"
             android:text="@string/Rs"
-            android:textSize="@dimen/text_size_13sp" />
+            android:textSize="@dimen/text_size_12sp" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/llOTCDiscount"
@@ -273,7 +280,7 @@
             android:gravity="left"
             android:text="OTC Discount"
             android:textColor="@color/colorAccentDark"
-            android:textSize="@dimen/text_size_15sp" />
+            android:textSize="@dimen/text_size_12sp" />
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvOTCDiscountPrice"
             android:layout_width="wrap_content"
@@ -283,6 +290,6 @@
             android:layout_marginRight="@dimen/dim_10"
             android:textColor="@color/colorAccentDark"
             android:text="@string/Rs"
-            android:textSize="@dimen/text_size_15sp" />
+            android:textSize="@dimen/text_size_12sp" />
     </LinearLayout>
 </LinearLayout>
