@@ -125,11 +125,13 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
 
             userViewHolder.tvUnitPrice.setText(str.getSalesPrice()+"");
-//            if(str.getDiscount().size()>1){
-//                userViewHolder.tvOfferDetail.setText(str.getDiscount().size()+1+ "offers applied");
-//            }else if(){
-//
-//            }
+            if(str.getDiscount().size()>1){
+                userViewHolder.tvOfferDetail.setText(str.getDiscount().size()+1+ "offers applied");
+            }else if(str.getDiscount().size()==1){
+                userViewHolder.tvOfferDetail.setText(str.getDiscount().get(0).getSDiscountName());
+            }else {
+                userViewHolder.tvOfferDetail.setVisibility(View.GONE);
+            }
             userViewHolder.llAdd.setOnClickListener(mOnClickListener);
             userViewHolder.llAdd.setTag(position);
 
