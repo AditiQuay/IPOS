@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="0.8"
-        android:background="@color/colorPrimary"
+        android:background="@color/coloryPrimary_transulent"
         android:orientation="horizontal">
         <CheckBox
             android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="left"
             android:text="Special discount (10%)"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_12sp" />
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvDiscountPrice"
@@ -33,7 +33,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="left"
             android:layout_marginRight="@dimen/dim_10"
-            android:textColor="@color/white"
+            android:textColor="@color/colorPrimary"
             android:text="@string/Rs"
             android:textSize="@dimen/text_size_12sp" />
     </LinearLayout>

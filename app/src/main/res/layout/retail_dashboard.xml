@@ -205,6 +205,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
+            android:layout_margin="@dimen/dim_12"
             android:layout_above="@id/llBelowPaymentDetail"
             android:layout_below="@+id/flScanner"
             android:layout_marginTop="@dimen/dim_1" />
@@ -451,7 +452,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/Rs"
                     android:paddingLeft="@dimen/dim_5"
-                    android:textColor="@color/dark_text_color"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_size_15sp"
                     app:typeface="TitilliumWeb-SemiBold.ttf" />
 
@@ -461,8 +462,8 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="@dimen/dim_10"
-                    android:text="@string/pay"
-                    android:textColor="@color/dark_text_color"
+                    android:text="@string/sale_value"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_size_15sp"
                     app:typeface="TitilliumWeb-SemiBold.ttf" />
 
@@ -475,7 +476,7 @@
                     android:paddingRight="@dimen/dim_10"
                     android:paddingLeft="@dimen/dim_10"
                     android:text="@string/Rs"
-                    android:textColor="@color/dark_text_color"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/text_size_15sp"
                     app:typeface="TitilliumWeb-SemiBold.ttf" />
 
