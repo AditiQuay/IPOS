@@ -67,6 +67,8 @@ import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
+import static quay.com.ipos.application.IPOSApplication.totalAmount;
+
 /**
  * Created by aditi.bhuranda on 16-04-2018.
  */
@@ -118,7 +120,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
      * The Root view.
      */
     View rootView;
-    private double totalAmount = 0;
+
     private boolean isFragmentDisplayed = true;
 //    private ArrayList<ProductList.Datum> mList= new ArrayList<>();
 
@@ -587,6 +589,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             ProductSearchResult.Datum datum = IPOSApplication.mProductListResult.get(i);
             if (datum.getQty() == 0)
                 datum.setQty(1);
+
             if (!datum.isDiscItemSelected())
                 datum.setDiscItemSelected(true);
             totalPrice = (datum.getSProductPrice() * datum.getQty());
@@ -632,11 +635,12 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             int mSelectedpos = 0;
             double totalAfterGSt = 0.0;
             double otcDiscountPerc = 0.0;
+
             for (int i = 0; i < mList.size(); i++) {
                 ProductSearchResult.Datum datum = mList.get(i);
                 qty += mList.get(i).getQty();
                 datum.setTotalQty(qty);
-                totalPrice = mList.get(i).getQty() * mList.get(i).getSProductPrice();
+                totalPrice = mList.get(i).getQty() * mList.get(i).getSalesPrice();
                 sum = totalPrice + sum;
                 datum.setTotalPrice(sum);
                 if (mList.get(i).isDiscItemSelected()) {
@@ -837,6 +841,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
                     Util.showToast(getString(R.string.pinned_empty), mContext);
                 }
+                totalAmount =0.0;
                 break;
 
             case R.id.imvRedeem:
@@ -902,6 +907,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 } else {
                     Util.showToast("Please add atleast one item to proceed.", mContext);
                 }
+                totalAmount =0.0;
                 break;
             case R.id.imvRight:
                 if (totalAmount > 0) {
@@ -911,6 +917,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 } else {
                     Util.showToast("Please add atleast one item to proceed.", mContext);
                 }
+                totalAmount =0.0;
                 break;
         }
     }

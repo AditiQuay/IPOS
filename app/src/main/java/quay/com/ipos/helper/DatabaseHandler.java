@@ -74,15 +74,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		// create notes table
 		db.execSQL(CustomerModel.CREATE_TABLE);
 
-//		String CREATE_OPINION_TABLE = "CREATE TABLE " + TABLE_OPINION + "(" + KEY_OPINION_ID + " INTEGER,"
-//				+ KEY_OPINION_QUESTION + " TEXT," + KEY_OPINION_ANSWER + " INTEGER" + ")";
-
-//		db.execSQL(CREATE_OPINION_TABLE);
-
-//		String CREATE_TEST_TABLE = "CREATE TABLE " + TABLE_TEST + "(" + KEY_TEST_ID + " INTEGER," + KEY_TEST_QUESTION
-//				+ " TEXT," + KEY_TEST_ANSWER + " INTEGER" + ")";
-
-//		db.execSQL(CREATE_TEST_TABLE);
 	}
 
 	// Upgrading database
@@ -178,7 +169,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //	}
 //
 //	// Getting single QUESTION
-//	public in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList getTestQuestionaire(int id) {
+//	public LearnTestResult.QuestionList getTestQuestionaire(int id) {
 //		SQLiteDatabase db = this.getReadableDatabase();
 //
 //		Cursor cursor = db.query(TABLE_TEST, new String[] { KEY_TEST_ID, KEY_TEST_QUESTION, KEY_TEST_ANSWER },
@@ -186,13 +177,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		if (cursor != null)
 //			cursor.moveToFirst();
 //
-//		in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList questionaire = mLearnTestResult.new QuestionList(
+//		LearnTestResult.QuestionList questionaire = mLearnTestResult.new QuestionList(
 //				Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getInt(2));
 //		// return questionnaire
 //		return questionaire;
 //	}
 //
-//	public in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList getQuestionaire(int id) {
+//	public ContestQuestionResult.QuestionList getQuestionaire(int id) {
 //		SQLiteDatabase db = this.getReadableDatabase();
 //
 //		Cursor cursor = db.query(TABLE_QUESTION, new String[] { KEY_ID, KEY_QUESTION, KEY_OPTION_ANSWER },
@@ -200,7 +191,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		if (cursor != null)
 //			cursor.moveToFirst();
 //
-//		in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList questionaire = mContestQuestionResult.new QuestionList(Integer.parseInt(cursor.getString(0)),
+//		ContestQuestionResult.QuestionList questionaire = mContestQuestionResult.new QuestionList(Integer.parseInt(cursor.getString(0)),
 //				cursor.getString(1), cursor.getInt(2));
 //		// return questionnaire
 //		return questionaire;
@@ -222,14 +213,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		return mOpinionList;
 //	}
 //
-//	public in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList findQuestionByQuestionID(int questionId) {
+//	public ContestQuestionResult.QuestionList findQuestionByQuestionID(int questionId) {
 //		String query = "Select * FROM " + TABLE_QUESTION + " WHERE " + KEY_ID + " = \"" + questionId + "\"";
 //
 //		SQLiteDatabase db = this.getWritableDatabase();
 //
 //		Cursor cursor = db.rawQuery(query, null);
 //
-//		in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList questionaire = mContestQuestionResult.new QuestionList();
+//		ContestQuestionResult.QuestionList questionaire = mContestQuestionResult.new QuestionList();
 //
 //		if (cursor.moveToFirst()) {
 //			cursor.moveToFirst();
@@ -244,14 +235,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		return questionaire;
 //	}
 //
-//	public in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList findTestByQuestionID(int questionId) {
+//	public LearnTestResult.QuestionList findTestByQuestionID(int questionId) {
 //		String query = "Select * FROM " + TABLE_TEST + " WHERE " + KEY_TEST_ID + " = \"" + questionId + "\"";
 //
 //		SQLiteDatabase db = this.getWritableDatabase();
 //
 //		Cursor cursor = db.rawQuery(query, null);
 //
-//		in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList questionaire = mLearnTestResult.new QuestionList();
+//		LearnTestResult.QuestionList questionaire = mLearnTestResult.new QuestionList();
 //
 //		if (cursor.moveToFirst()) {
 //			cursor.moveToFirst();
@@ -380,8 +371,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		return questionList;
 	}
 //
-//	public ArrayList<in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList> getAllTestQuestionaire() {
-//		ArrayList<in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList> contactList = new ArrayList<in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList>();
+//	public ArrayList<LearnTestResult.QuestionList> getAllTestQuestionaire() {
+//		ArrayList<LearnTestResult.QuestionList> contactList = new ArrayList<LearnTestResult.QuestionList>();
 //		// Select All Query
 //		String selectQuery = "SELECT * FROM " + TABLE_TEST;
 //
@@ -391,7 +382,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		// looping through all rows and adding to list
 //		if (cursor.moveToFirst()) {
 //			do {
-//				in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList mQuestionListData = mLearnTestResult.new QuestionList();
+//				LearnTestResult.QuestionList mQuestionListData = mLearnTestResult.new QuestionList();
 //				mQuestionListData.setQuestionId(cursor.getString(0));
 //				mQuestionListData.setQuestion(cursor.getString(1));
 //				mQuestionListData.setAnswer(cursor.getInt(2));
@@ -429,8 +420,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		return mOpinionList;
 //	}
 //
-//	public ArrayList<in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList> getResultQuestionaire() {
-//		ArrayList<in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList> contactList = new ArrayList<in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList>();
+//	public ArrayList<ContestQuestionResult.QuestionList> getResultQuestionaire() {
+//		ArrayList<ContestQuestionResult.QuestionList> contactList = new ArrayList<ContestQuestionResult.QuestionList>();
 //		// Select All Query
 //		String selectQuery = "SELECT * FROM " + TABLE_QUESTION;
 //
@@ -440,7 +431,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		// looping through all rows and adding to list
 //		if (cursor.moveToFirst()) {
 //			do {
-//				in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList mQuestionListData = mContestQuestionResult.new QuestionList();
+//				ContestQuestionResult.QuestionList mQuestionListData = mContestQuestionResult.new QuestionList();
 //				mQuestionListData.setQuestionId(cursor.getString(0));
 //				mQuestionListData.setAnswer(cursor.getInt(2));
 //				// Adding contact to list
@@ -452,8 +443,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		return contactList;
 //	}
 //
-//	public ArrayList<in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList> getTestResultQuestionaire() {
-//		ArrayList<in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList> contactList = new ArrayList<in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList>();
+//	public ArrayList<LearnTestResult.QuestionList> getTestResultQuestionaire() {
+//		ArrayList<LearnTestResult.QuestionList> contactList = new ArrayList<LearnTestResult.QuestionList>();
 //		// Select All Query
 //		String selectQuery = "SELECT * FROM " + TABLE_TEST;
 //
@@ -463,7 +454,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		// looping through all rows and adding to list
 //		if (cursor.moveToFirst()) {
 //			do {
-//				in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList mQuestionListData = mLearnTestResult.new QuestionList();
+//				.LearnTestResult.QuestionList mQuestionListData = mLearnTestResult.new QuestionList();
 //				mQuestionListData.setQuestionId(cursor.getString(0));
 //				mQuestionListData.setAnswer(cursor.getInt(2));
 //				// Adding contact to list
@@ -498,7 +489,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //	}
 //
 //	// Updating single contact
-//	public int updateAnswer(in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList questionaire, int questionId) {
+//	public int updateAnswer(ContestQuestionResult.QuestionList questionaire, int questionId) {
 //		SQLiteDatabase db = this.getWritableDatabase();
 //
 //		ContentValues values = new ContentValues();
@@ -515,7 +506,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //	}
 //
 //	// Updating single contact
-//	public int updateTestAnswer(in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList questionaire, int questionId) {
+//	public int updateTestAnswer(LearnTestResult.QuestionList questionaire, int questionId) {
 //		SQLiteDatabase db = this.getWritableDatabase();
 //
 //		ContentValues values = new ContentValues();
@@ -549,13 +540,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //	}
 //
 //	// Deleting single question
-//	public void deleteQuestionaire(in.android.sharekhan.vision2020.datatype.ContestQuestionResult.QuestionList questionaire) {
-//		SQLiteDatabase db = this.getWritableDatabase();
-//		db.delete(TABLE_QUESTION, KEY_ID + " = ?", new String[] { String.valueOf(questionaire.getQuestionId()) });
-//		db.close();
-//	}
+	public void deleteRetailTable(ProductSearchResult.Datum datum) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(TABLE_RETAIL, KEY_iProductModalId + " = ?", new String[] { String.valueOf(datum.getIProductModalId()) });
+		db.close();
+	}
 //
-//	public void deleteTestQuestionaire(in.android.sharekhan.vision2020.datatype.LearnTestResult.QuestionList questionaire) {
+//	public void deleteTestQuestionaire(LearnTestResult.QuestionList questionaire) {
 //		SQLiteDatabase db = this.getWritableDatabase();
 //		db.delete(TABLE_TEST, KEY_TEST_ID + " = ?", new String[] { String.valueOf(questionaire.getQuestionId()) });
 //		db.close();
@@ -567,10 +558,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		db.close();
 //	}
 //
-//	public void deleteTable(String TABLE_NAME) {
-//		SQLiteDatabase db = this.getWritableDatabase();
-//		db.execSQL("delete from " + TABLE_NAME);
-//	}
+	public void deleteTable(String TABLE_NAME) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.execSQL("delete from " + TABLE_NAME);
+	}
 //
 //	// Getting Questionaire Count
 //	public int getQuestionaireCount() {

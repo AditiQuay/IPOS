@@ -67,6 +67,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 
         initializeComponent();
         databaseHandler = new DatabaseHandler(this);
+//        databaseHandler.deleteTable(DatabaseHandler.TABLE_RETAIL);
         if(databaseHandler.isRetailMasterEmpty()) {
             searchProductCall("1");
         }else {
@@ -250,7 +251,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                     }
                     if(!found){
                         ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
-                        mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 1);
+                        mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 0);
                         mProductSearchResultData.setAdded(true);
                         count++;
                         IPOSApplication.mProductListResult.add(0,mProductSearchResultData);
@@ -259,7 +260,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                     }
                 }else {
                     ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
-                    mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 1);
+                    mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 0);
                     mProductSearchResultData.setAdded(true);
                     count++;
                     IPOSApplication.mProductListResult.add(0,mProductSearchResultData);
@@ -349,18 +350,23 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                 if(data.size()>0) {
                     tvClear.setVisibility(View.VISIBLE);
                     llSize.setVisibility(View.VISIBLE);
-                    if(IPOSApplication.mProductListResult.size()>0)
-                        for(int i = 0 ; i < arrSearchlist.size(); i++){
+                    if(IPOSApplication.mProductListResult.size()>0) {
+                        for (int i = 0; i < arrSearchlist.size(); i++) {
 
-                            for (int k=0;k<IPOSApplication.mProductListResult.size();k++){
-                                if(arrSearchlist.get(i).getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(k).getIProductModalId())){
+                            for (int k = 0; k < IPOSApplication.mProductListResult.size(); k++) {
+                                if (arrSearchlist.get(i).getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(k).getIProductModalId())) {
                                     ProductSearchResult.Datum datum = arrSearchlist.get(i);
                                     datum.setAdded(true);
-                                    arrSearchlist.set(i,datum);
+                                    arrSearchlist.set(i, datum);
                                 }
                             }
 
                         }
+                    }else {
+                        tvClear.setVisibility(View.GONE);
+                        llSize.setVisibility(View.GONE);
+                        arrSearchlist.clear();
+                    }
                 }
                 else {
                     tvClear.setVisibility(View.GONE);
@@ -382,7 +388,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         } else if (httpStatusCode == Constants.CONNECTION_OUT) {
             Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
-        if(arrSearchlist.size()==0){
+        if(data.size()==0){
             tvNoItemAvailable.setVisibility(View.VISIBLE);
             tvNoItemAvailable.setText(getResources().getString(R.string.no_match_found));
         }else

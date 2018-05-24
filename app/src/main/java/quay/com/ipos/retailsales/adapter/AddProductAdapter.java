@@ -126,7 +126,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             userViewHolder.tvUnitPrice.setText(str.getSalesPrice()+"");
             if(str.getDiscount().size()>1){
-                userViewHolder.tvOfferDetail.setText(str.getDiscount().size()+1+ "offers applied");
+                userViewHolder.tvOfferDetail.setText(str.getDiscount().size()+ " offers applied");
             }else if(str.getDiscount().size()==1){
                 userViewHolder.tvOfferDetail.setText(str.getDiscount().get(0).getSDiscountName());
             }else {
