@@ -147,7 +147,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //                str.setDiscount(discount);
 
                 userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+discount+"");
-                userViewHolder.llDiscount.setVisibility(View.VISIBLE);
+                userViewHolder.llDiscount.setVisibility(View.GONE);
             }else {
 //                str.setDiscItemSelected(false);
 //                str.setTotalPrice(totalPrice);

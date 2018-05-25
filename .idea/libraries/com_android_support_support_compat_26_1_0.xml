@@ -1,18 +1,8 @@
 <component name="libraryTable">
   <library name="com.android.support:support-compat-26.1.0">
     <CLASSES>
-<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/62808a74825136afa6f66fbf49b27da6/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/62808a74825136afa6f66fbf49b27da6/jars/classes.jar!/" />
-=======
-<<<<<<< HEAD
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6394ee95a14e9fd1e8cfa00cb686b0a2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/6394ee95a14e9fd1e8cfa00cb686b0a2/res" />
-=======
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/9db9f23d49dc5c47aa9bcd4ed1b150ba/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/9db9f23d49dc5c47aa9bcd4ed1b150ba/jars/classes.jar!/" />
->>>>>>> 856486b1a332363490bb061ab34e308049700195
->>>>>>> 4b4ef4e0545f2f39fa511575fabba4995b944525
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -175,7 +175,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
                 tvPinCount.setText(""+mOrderInfoArrayList.size());
                 tvPinCount.setVisibility(View.VISIBLE);
             }else {
-                tvMessage.setVisibility(View.VISIBLE);
+                tvMessage.setVisibility(View.GONE);
                 tvPinCount.setVisibility(View.GONE);
             }
         }else {
