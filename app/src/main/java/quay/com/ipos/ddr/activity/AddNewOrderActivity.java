@@ -76,9 +76,9 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
             datum.setTotalPrice(totalPrice);
             if(datum.getIsDiscount()) {
                 Double discount = Double.parseDouble(datum.getSDiscountPrice()) * totalPrice / 100;
-                datum.setDiscount(discount);
+              //  datum.setDiscount(discount);
             }else {
-                datum.setDiscount(0.0);
+             //   datum.setDiscount(0.0);
             }
             arrData.set(i,datum);
         }

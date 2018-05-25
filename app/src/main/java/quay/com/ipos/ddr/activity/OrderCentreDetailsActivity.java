@@ -107,7 +107,7 @@ public class OrderCentreDetailsActivity extends BaseActivity{
         final LinearLayout llFlow=(LinearLayout)findViewById(R.id.llFLow);
         final LinearLayout llDetails=(LinearLayout)findViewById(R.id.llDetails);
         LinearLayout llRetailer=(LinearLayout)findViewById(R.id.llRetailer);
-        LinearLayout llPartner=(LinearLayout)findViewById(R.id.llPartner);
+       // LinearLayout llPartner=(LinearLayout)findViewById(R.id.llPartner);
         final LinearLayout menu_item_container=(LinearLayout)findViewById(R.id.menu_item_container);
         final ImageView imgArrow=(ImageView)findViewById(R.id.imgArrow);
         LinearLayout llbottom_buttons=(LinearLayout)findViewById(R.id.llbottom_buttons);
@@ -123,7 +123,7 @@ public class OrderCentreDetailsActivity extends BaseActivity{
             }
         });
 
-        llPartner.setOnClickListener(new View.OnClickListener() {
+       /* llPartner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 llDetails.setVisibility(View.VISIBLE);
@@ -133,7 +133,7 @@ public class OrderCentreDetailsActivity extends BaseActivity{
 
 
             }
-        });
+        });*/
 
     /*    getRecentOrdersData();
         getAddressData();

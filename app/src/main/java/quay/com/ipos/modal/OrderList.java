@@ -52,9 +52,13 @@ public class OrderList  {
         @SerializedName("sDiscountName")
         @Expose
         private String sDiscountName;
+        @SerializedName("discount")
+        @Expose
+        private ArrayList<Discount> discount = null;
         @SerializedName("sDiscountPrice")
         @Expose
         private String sDiscountPrice;
+
         //        @SerializedName("discount")
 //        @Expose
 //        private Discount discountObj;
@@ -67,7 +71,7 @@ public class OrderList  {
 
         private int qty=1;
         private double totalPrice;
-        private double discount;
+
         private int totalQty;
         private double totalDiscountPrice;
         //        public Discount getDiscountObj() {
@@ -183,13 +187,7 @@ public class OrderList  {
             this.totalPrice = totalPrice;
         }
 
-        public double getDiscount() {
-            return discount;
-        }
 
-        public void setDiscount(double discount) {
-            this.discount = discount;
-        }
 
         public int getQty() {
             return qty;
@@ -271,6 +269,13 @@ public class OrderList  {
             this.sDiscountPrice = sDiscountPrice;
         }
 
+        public ArrayList<Discount> getDiscount() {
+            return discount;
+        }
+
+        public void setDiscount(ArrayList<Discount> discount) {
+            this.discount = discount;
+        }
     }
 
 

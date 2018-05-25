@@ -26,6 +26,7 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -86,7 +87,8 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
     Double afterDiscountPrice;
     ArrayList<NewOrderPinnedResults.Info> mOrderInfoArrayList = new ArrayList<>();
     private String json;
-    private LinearLayout llBelowPaymentDetail;
+    private RelativeLayout llBelowPaymentDetail;
+    private TextView tvMessage;
 
 
     @Override
@@ -113,6 +115,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
 
 
     private void initializeComponent(View rootView) {
+        tvMessage=rootView.findViewById(R.id.tvMessage);
         flScanner = rootView.findViewById(R.id.flScanner);
         tvPinCount =  rootView.findViewById(R.id.tvPinCount);
         imvPin = rootView.findViewById(R.id.imvPin);
@@ -168,9 +171,11 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
             if (!json2.equalsIgnoreCase(""))
                 mOrderInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<NewOrderPinnedResults.Info>>() {}.getType());
             if(mOrderInfoArrayList.size()>0){
+                tvMessage.setVisibility(View.GONE);
                 tvPinCount.setText(""+mOrderInfoArrayList.size());
                 tvPinCount.setVisibility(View.VISIBLE);
             }else {
+                tvMessage.setVisibility(View.VISIBLE);
                 tvPinCount.setVisibility(View.GONE);
             }
         }else {
@@ -401,9 +406,9 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
             datum.setTotalPrice(totalPrice);
             if(datum.getIsDiscount()) {
                 Double discount = Double.parseDouble(datum.getSDiscountPrice()) * totalPrice / 100;
-                datum.setDiscount(discount);
+               // datum.setDiscount(discount);
             }else {
-                datum.setDiscount(0.0);
+              //  datum.setDiscount(0.0);
             }
             IPOSApplication.mOrderList.set(i,datum);
         }
@@ -451,7 +456,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
                 if(mList.get(i).isDiscItemSelected()){
                     if(mList.get(i).getIsDiscount()) {
                         discount = discount+Double.parseDouble(mList.get(i).getSDiscountPrice()) * totalPrice / 100;
-                        datum.setDiscount(discount);
+                     //   datum.setDiscount(discount);
                         discountItem++;
                     }
                 }
