@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +12,11 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +35,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 4/30/2018.
  */
 
-public class CustomerInfoActivity extends AppCompatActivity implements InitInterface, MyListener {
+public class CustomerInfoActivity extends AppCompatActivity implements InitInterface, MyListener, CustomerInfoAdapter.InFoListener {
     private static final String TAG = CustomerInfoActivity.class.getSimpleName();
     private Toolbar toolbarCustomerInfo;
     private SearchView searchViewCatalogue;
@@ -45,7 +49,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     private ArrayList<CustomerModel> arrSearlist = new ArrayList<>();
 
     private DatabaseHandler dbHelper;
-
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         mContext = CustomerInfoActivity.this;
         listener = CustomerInfoActivity.this;
         dbHelper = new DatabaseHandler(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         findViewById();
         applyInitValues();
         applyTypeFace();
@@ -65,6 +70,13 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         toolbarCustomerInfo = findViewById(R.id.toolbarCustomerInfo);
         searchViewCatalogue = findViewById(R.id.searchViewCatalogue);
         recyclerviewCustomerCard = findViewById(R.id.recyclerviewCustomerCard);
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,"Clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -85,7 +97,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
 
         recyclerviewCustomerCard.setHasFixedSize(true);
         recyclerviewCustomerCard.setLayoutManager(new LinearLayoutManager(mContext));
-        customerInfoAdapter = new CustomerInfoAdapter(mContext, customerModelList, this);
+        customerInfoAdapter = new CustomerInfoAdapter(mContext, customerModelList, this, this);
         recyclerviewCustomerCard.setAdapter(customerInfoAdapter);
 
         customerModelList.addAll(dbHelper.getAllOfflineCustomer());
@@ -150,7 +162,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         }
 
         recyclerviewCustomerCard.setLayoutManager(new LinearLayoutManager(mContext));
-        customerInfoAdapter = new CustomerInfoAdapter(mContext, arrSearlist, this);
+        customerInfoAdapter = new CustomerInfoAdapter(mContext, arrSearlist, this, this);
         recyclerviewCustomerCard.setAdapter(customerInfoAdapter);
 
 
@@ -192,52 +204,8 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Measure used memory and give garbage collector time to free up some
-     * space.
-     *
-     * @param callback Callback operations to be done when memory is free.
-     */
-    public static void waitForGarbageCollector(final Runnable callback) {
-
-        Runtime runtime;
-        long maxMemory;
-        long usedMemory;
-        double availableMemoryPercentage = 1.0;
-        final double MIN_AVAILABLE_MEMORY_PERCENTAGE = 0.1;
-        final int DELAY_TIME = 5 * 1000;
-
-        runtime =
-                Runtime.getRuntime();
-
-        maxMemory =
-                runtime.maxMemory();
-
-        usedMemory =
-                runtime.totalMemory() -
-                        runtime.freeMemory();
-
-        availableMemoryPercentage =
-                1 -
-                        (double) usedMemory /
-                                maxMemory;
-
-        if (availableMemoryPercentage < MIN_AVAILABLE_MEMORY_PERCENTAGE) {
-
-            try {
-                Thread.sleep(DELAY_TIME);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            waitForGarbageCollector(
-                    callback);
-        } else {
-
-            // Memory resources are availavle, go to next operation:
-
-            callback.run();
-        }
+    @Override
+    public void onInfoListener(int position) {
+        Toast.makeText(mContext,"In Process",Toast.LENGTH_SHORT).show();
     }
-
 }

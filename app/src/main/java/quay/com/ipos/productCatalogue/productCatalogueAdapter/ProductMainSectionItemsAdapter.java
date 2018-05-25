@@ -8,7 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -16,6 +19,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.productCatalogue.CatalogueSubProduct;
 import quay.com.ipos.productCatalogue.productModal.ProductItemModal;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -42,15 +46,35 @@ public class ProductMainSectionItemsAdapter extends RecyclerView.Adapter<Product
     public void onBindViewHolder(SingleItemRowHolder holder, final int i) {
         ProductItemModal singleItem = productItemModalArrayList.get(i);
         holder.textViewProductName.setText(singleItem.getProductName());
+        if (NetUtil.isNetworkAvailable(mContext)) {
+            Picasso.get().load(singleItem.getProductUrl()).placeholder(R.drawable.product_placeholder).into(holder.imageViewProduct);
 
+        } else {
+            Picasso.get()
+                    .load(singleItem.getProductUrl())
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .placeholder(R.drawable.product_placeholder)
+                    .into(holder.imageViewProduct, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+
+                    });
+        }
         holder.imageViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.animateView(v);
                 ProductItemModal productCatalogueModal = productItemModalArrayList.get(i);
 
-                Intent i = new Intent(mContext,CatalogueSubProduct.class);
-                i.putExtra("Product Name",productCatalogueModal.getProductName());
+                Intent i = new Intent(mContext, CatalogueSubProduct.class);
+                i.putExtra("Product Name", productCatalogueModal.getProductName());
                 mContext.startActivity(i);
 
             }
@@ -61,18 +85,12 @@ public class ProductMainSectionItemsAdapter extends RecyclerView.Adapter<Product
                 Util.animateView(v);
                 ProductItemModal productCatalogueModal = productItemModalArrayList.get(i);
 
-                Intent i = new Intent(mContext,CatalogueSubProduct.class);
-                i.putExtra("Product Name",productCatalogueModal.getProductName());
+                Intent i = new Intent(mContext, CatalogueSubProduct.class);
+                i.putExtra("Product Name", productCatalogueModal.getProductName());
                 mContext.startActivity(i);
 
             }
         });
-       /* Glide.with(mContext)
-                .load(feedItem.getImageURL())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .error(R.drawable.bg)
-                .into(feedListRowHolder.thumbView);*/
     }
 
     @Override

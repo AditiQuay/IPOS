@@ -1,8 +1,18 @@
 <component name="libraryTable">
   <library name="com.squareup.picasso:picasso-2.71828">
     <CLASSES>
+<<<<<<< HEAD
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/picasso-2.71828.aar/0eda8ab805fedd5bda5540be1924c679/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/picasso-2.71828.aar/0eda8ab805fedd5bda5540be1924c679/res" />
+=======
+<<<<<<< HEAD
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/picasso-2.71828.aar/3015d6e8e4c7c6fa5a96d16a98e83a0b/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/picasso-2.71828.aar/3015d6e8e4c7c6fa5a96d16a98e83a0b/res" />
+=======
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/picasso-2.71828.aar/4f4e54081c5bc763fecac826e70308b6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/picasso-2.71828.aar/4f4e54081c5bc763fecac826e70308b6/res" />
+>>>>>>> 856486b1a332363490bb061ab34e308049700195
+>>>>>>> 4b4ef4e0545f2f39fa511575fabba4995b944525
     </CLASSES>
     <JAVADOC />
     <SOURCES>

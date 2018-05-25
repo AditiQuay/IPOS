@@ -44,6 +44,15 @@ public class ProductItemModal implements Serializable {
     private String productUrl;
     private String productDescription;
 
+    public String getCount() {
+        return count;
+    }
+
+    public void setCount(String count) {
+        this.count = count;
+    }
+
+    private String count;
 
     public ProductItemModal() {
     }

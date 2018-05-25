@@ -156,7 +156,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.tvItemName.setText(str.getSProductName());
             userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
             userViewHolder.tvItemRate.setText(str.getSProductStock()+"");
-            userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSProductPrice());
+            userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSalesPrice());
             userViewHolder.etQtySelected.setText(str.getQty()+"");
             ImageLoader.getInstance().displayImage(str.getProductImage(),userViewHolder.imvProduct);
             onBind = false;
@@ -181,7 +181,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.llOTCDiscount.setVisibility(View.GONE);
             }
 
-            Double totalPrice=(str.getSProductPrice()*str.getQty());
+            Double totalPrice=(str.getSalesPrice()*str.getQty());
 //            str.setTotalPrice(totalPrice);
 
             if(str.getIsDiscount()) {
@@ -194,6 +194,8 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }else {
 //                userViewHolder.llDiscount.setVisibility(View.GONE);
             }
+
+
             userViewHolder.llDiscount.setVisibility(View.GONE);
             if(str.isDiscItemSelected()) {
                 userViewHolder.chkDiscount.setChecked(true);
@@ -267,7 +269,11 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.mRecyclerView.setHasFixedSize(true);
             LinearLayoutManager  mLayoutManager = new LinearLayoutManager(mContext);
             userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
-            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
+//            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
+            userViewHolder.mRecyclerView.addItemDecoration(
+                    new ItemDecorationAlbumColumns(mContext.getResources().getDimensionPixelSize(R.dimen.dim_5),
+                            mContext.getResources().getInteger(R.integer.photo_list_preview_columns)));
+            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount(),str);
             userViewHolder.mRecyclerView.setAdapter(itemListDataAdapter);
         }
         else if (holder instanceof LoadingViewHolder) {

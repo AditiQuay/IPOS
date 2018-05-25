@@ -2,19 +2,36 @@ package quay.com.ipos.customerInfo.customerInfoAdapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 import quay.com.ipos.R;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.listeners.MyListener;
+import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.CircleImageView;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -22,14 +39,21 @@ import quay.com.ipos.utility.Util;
  */
 
 public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapter.ItemViewholder> {
+    private static final String TAG = CustomerInfoAdapter.class.getSimpleName();
     private ArrayList<CustomerModel> customerModelList;
     private Context mContext;
     private MyListener listener;
+    private InFoListener inFoListener;
 
-    public CustomerInfoAdapter(Context context, ArrayList<CustomerModel> customerInfoModals, MyListener listener) {
+    public interface InFoListener {
+        void onInfoListener(int position);
+    }
+
+    public CustomerInfoAdapter(Context context, ArrayList<CustomerModel> customerInfoModals, MyListener listener, InFoListener inFoListener) {
         this.mContext = context;
         this.listener = listener;
         this.customerModelList = customerInfoModals;
+        this.inFoListener = inFoListener;
     }
 
     @Override
@@ -46,21 +70,42 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         holder.textViewUserName.setText(customerInfoModal.getCustomerName());
         holder.textViewMob.setText(customerInfoModal.getCustomerPhone());
         holder.textViewEmail.setText(customerInfoModal.getCustomerEmail());
-        holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + customerInfoModal.getLastBillingDate() + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.getLastBillingAmount());
+
+        String date1 = Util.getFormattedDates(customerInfoModal.getLastBillingDate(), Constants.format12, Constants.format13);
+        AppLog.e(TAG, "Date 1" + date1);
+
+        if (TextUtils.isEmpty(customerInfoModal.getLastBillingDate())) {
+            holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + " " + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.getLastBillingAmount());
+        } else {
+            holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + date1 + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.getLastBillingAmount());
+        }
+        if (NetUtil.isNetworkAvailable(mContext)) {
+            Picasso.get().load(customerInfoModal.getCustomerImage()).into(holder.imageViewProfileDummy);
+
+        } else {
+            Picasso.get()
+                    .load(customerInfoModal.getCustomerImage())
+                    .placeholder(R.drawable.placeholder)
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(holder.imageViewProfileDummy, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+
+                    });
+        }
 
 
-//        Picasso.get().load(customerInfoModal.getCustomerImage())
-//                .networkPolicy(NetworkPolicy.OFFLINE)
-//                .into(holder.imageViewProfileDummy, new Callback() {
-//                    @Override
-//                    public void onSuccess() {
-//                    }
-//
-//                    @Override
-//                    public void onError(Exception e) {
-////                        Picasso.get().load(customerInfoModal.getCustomerImage()).into(holder.imageViewProfileDummy);
-//                    }
-//                });
+
+//        Picasso.get().load(customerInfoModal.getCustomerImage()).placeholder(R.drawable.placeholder).into(holder.imageViewProfileDummy);
+
+
 //        try {
 //            JSONObject jsonObject = new JSONObject(customerInfoModal.get());
 //            String last_billing_date = jsonObject.getString(Constants.KEY_LAST_BILLING_DATE.trim());
@@ -69,11 +114,67 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
 //        } catch (JSONException e) {
 //            e.printStackTrace();
 //        }
-        holder.textViewCake.setText(mContext.getResources().getString(R.string.text_birthday) + customerInfoModal.getCustomerBday() + ")");
+
+        String bDate = Util.getFormattedDates(customerInfoModal.getCustomerBday(), Constants.formatDate, Constants.format14);
+        AppLog.e(TAG, "Date 1" + bDate);
+
+
+        holder.textViewCake.setText(mContext.getResources().getString(R.string.text_birthday) + bDate + ")");
         holder.textViewProName.setText(customerInfoModal.getCustomerPoints() + mContext.getResources().getString(R.string.text_points));
 
         Log.e("CustomerInforAdapter", "Recent Orders" + customerInfoModal.getRecentOrders());
+        // apply click events
+        applyClickEvents(holder, position);
 
+    }
+
+    private void applyClickEvents(final ItemViewholder holder, int position) {
+        holder.rLayoutContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onRowClicked(holder.getAdapterPosition());
+            }
+        });
+        holder.imageViewProfileDummy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onRowClicked(holder.getAdapterPosition());
+            }
+        });
+        holder.imageViewInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inFoListener.onInfoListener(holder.getAdapterPosition());
+            }
+        });
+//        holder.textViewUserName.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                inFoListener.onInfoListener(holder.getAdapterPosition());
+//
+//            }
+//        });
+//        holder.textViewMob.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                inFoListener.onInfoListener(holder.getAdapterPosition());
+//
+//            }
+//        });
+//        holder.textViewEmail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                inFoListener.onInfoListener(holder.getAdapterPosition());
+//
+//            }
+//        });
+//        holder.textViewBill.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                inFoListener.onInfoListener(holder.getAdapterPosition());
+//
+//            }
+//        });
     }
 
     @Override
@@ -85,6 +186,8 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
     public class ItemViewholder extends RecyclerView.ViewHolder {
         private TextView textViewUserName, textViewMob, textViewEmail, textViewBill, textViewCake, textViewProName;
         private CircleImageView imageViewProfileDummy;
+        private RelativeLayout rLayoutContent;
+        private ImageView imageViewInfo;
 
         public ItemViewholder(View itemView) {
             super(itemView);
@@ -94,8 +197,8 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
             textViewBill = itemView.findViewById(R.id.textViewBill);
             textViewCake = itemView.findViewById(R.id.textViewCake);
             textViewProName = itemView.findViewById(R.id.textViewProName);
-
-
+            rLayoutContent = itemView.findViewById(R.id.rLayoutContent);
+            imageViewInfo = itemView.findViewById(R.id.imageViewInfo);
             imageViewProfileDummy = itemView.findViewById(R.id.imageViewProfileDummy);
 
             FontUtil.applyTypeface(textViewUserName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
@@ -104,14 +207,6 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
             FontUtil.applyTypeface(textViewBill, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
             FontUtil.applyTypeface(textViewCake, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
             FontUtil.applyTypeface(textViewProName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Util.animateView(v);
-                    listener.onRowClicked(getAdapterPosition());
-                }
-            });
 
         }
     }

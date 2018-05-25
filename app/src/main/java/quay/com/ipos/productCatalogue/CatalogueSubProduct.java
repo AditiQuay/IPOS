@@ -150,6 +150,7 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 CatalogueModal catalogueModal = new CatalogueModal();
+                catalogueModal.ProductCode = jsonObject.getString("ProductCode");
                 catalogueModal.sProductName = jsonObject.getString("sProductName");
                 catalogueModal.sProductFeature = jsonObject.getString("sProductFeature");
                 catalogueModal.sProductPrice = jsonObject.getString("sProductPrice");
@@ -195,6 +196,14 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
 
 
 
+    }
+
+    @Override
+    public void onCartBtnClick(int position) {
+        CatalogueModal catalogueModal = catalogueModalsSet.get(position);
+        Intent i = new Intent(mContext,ProductRangeActivity.class);
+        i.putExtra("ProductCode",catalogueModal.ProductCode);
+        startActivity(i);
     }
 
     /**
