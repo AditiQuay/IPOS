@@ -117,7 +117,21 @@ public class ProductSearchResult {
         @SerializedName("discount")
         @Expose
         private ArrayList<Discount> discount = null;
-
+        @SerializedName("points")
+        @Expose
+        private Integer points;
+        @SerializedName("pointsBasedOn")
+        @Expose
+        private String pointsBasedOn;
+        @SerializedName("valueFrom")
+        @Expose
+        private Integer valueFrom;
+        @SerializedName("valueTo")
+        @Expose
+        private Integer valueTo;
+        @SerializedName("pointsPer")
+        @Expose
+        private Integer pointsPer;
 
         private boolean isAdded = false;
         private boolean isNonCheckOutAdded = false;
@@ -276,6 +290,47 @@ public class ProductSearchResult {
 
         public void setDiscount(ArrayList<Discount> discount) {
             this.discount = discount;
+        }
+
+
+        public Integer getPoints() {
+            return points;
+        }
+
+        public void setPoints(Integer points) {
+            this.points = points;
+        }
+
+        public String getPointsBasedOn() {
+            return pointsBasedOn;
+        }
+
+        public void setPointsBasedOn(String pointsBasedOn) {
+            this.pointsBasedOn = pointsBasedOn;
+        }
+
+        public Integer getValueFrom() {
+            return valueFrom;
+        }
+
+        public void setValueFrom(Integer valueFrom) {
+            this.valueFrom = valueFrom;
+        }
+
+        public Integer getValueTo() {
+            return valueTo;
+        }
+
+        public void setValueTo(Integer valueTo) {
+            this.valueTo = valueTo;
+        }
+
+        public Integer getPointsPer() {
+            return pointsPer;
+        }
+
+        public void setPointsPer(Integer pointsPer) {
+            this.pointsPer = pointsPer;
         }
 
         public double getOTCDiscount() {
@@ -462,6 +517,18 @@ public class ProductSearchResult {
         @SerializedName("ruleProdecessors")
         @Expose
         private Integer ruleProdecessors;
+        @SerializedName("opsType")
+        @Expose
+        private String opsType;
+
+
+        public String getOpsType() {
+            return opsType;
+        }
+
+        public void setOpsType(String opsType) {
+            this.opsType = opsType;
+        }
 
         public String getSDiscountType() {
             return sDiscountType;

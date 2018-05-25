@@ -254,4 +254,5 @@
     <string name="afternoon_text">Good Afternoon !</string>
     <string name="evening_text">Good Evening !</string>
     <string name="night_text">Good Night !</string>
+    <string name="sale_value">Sale Value</string>
 </resources>

@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\shaders"/></dataSet><dataSet config="debug"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\debug\shaders"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="main"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\debug\shaders"/></dataSet></merger>
+>>>>>>> 856486b1a332363490bb061ab34e308049700195
