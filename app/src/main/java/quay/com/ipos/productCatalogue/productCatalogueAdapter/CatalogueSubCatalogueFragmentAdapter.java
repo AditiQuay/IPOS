@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerInfoAdapter;
 import quay.com.ipos.listeners.DataSheetDownloadListener;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
@@ -49,7 +50,12 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
         holder.textViewProductName.setText(catalogueModal.sProductName);
         holder.textViewFeature.setText(catalogueModal.sProductFeature);
         holder.textViewPrice.setText(catalogueModal.sProductPrice);
-        holder.textViewOffer.setText(catalogueModal.sPoints);
+        holder.textViewOffer.setText(catalogueModal.sPoints+" "+mContext.getResources().getString(R.string.text_points));
+
+        applyClickEvents(holder, position);
+
+    }
+    private void applyClickEvents(final CatalogueSubCatalogueFragmentAdapter.MyViewHolder holder, final int position){
         holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,8 +69,13 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
                 dataSheetDownloadListener.onDataSheetDownload(position);
             }
         });
+        holder.btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataSheetDownloadListener.onCartBtnClick(position);
+            }
+        });
     }
-
     @Override
     public int getItemCount() {
         return catalogueModalsSet.size();

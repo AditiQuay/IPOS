@@ -8,6 +8,7 @@ import io.realm.RealmObject;
 
 public class CatalogueModal extends RealmObject {
 
+    public String ProductCode;
     public String sProductName;
     public String sProductFeature;
     public String sProductPrice;

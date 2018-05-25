@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,6 +63,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
 
     @Override
     public void findViewById() {
+        imageViewProfileDummy = findViewById(R.id.imageViewProfileDummy);
         toolbarCustomerInfoDetail = findViewById(R.id.toolbarCustomerInfoDetail);
         textViewUserName = findViewById(R.id.textViewUserName);
         textViewMob = findViewById(R.id.textViewMob);
@@ -91,6 +94,8 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
 
 
         CustomerModel customerModel = db.getCustomer(customerId);
+
+        Picasso.get().load(customerModel.getCustomerImage()).placeholder(R.drawable.placeholder).into(imageViewProfileDummy);
 
         if (Util.validateString(customerModel.getCustomerName())) {
             textViewUserName.setText(customerModel.getCustomerName());

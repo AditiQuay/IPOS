@@ -51,6 +51,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
+            android:name=".productCatalogue.ProductRangeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
             android:name=".customerInfo.CustomerInfoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

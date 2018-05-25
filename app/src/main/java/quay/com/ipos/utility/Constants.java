@@ -41,8 +41,14 @@ public class Constants {
     public static final String utc_format1 = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     public static final String format6 = "yyyy-MM-dd";
     public static final String format5 = "MMM dd, yyyy hh:mm:ss a";
+    public static final String format7 = "dd/MM/yyyy hh:mm:ss a";
+    public static final String format12 = "MM/dd/yyyy hh:mm:ss a";
+    public static final SimpleDateFormat format13 = new SimpleDateFormat("dd-MMM-yy");
     public static final SimpleDateFormat format10 = new SimpleDateFormat(Constants.format5);
     public static final String format = "dd/MMM/yyyy";
+    public static final String formatDate = "dd-MM-yyyy";
+    public static final SimpleDateFormat format14 = new SimpleDateFormat("dd-MMM");
+
 
     // mandatory or not mandatory
     public static final String ASTERIK_SIGN = "<font color='#03A9F4'> *</font>";
@@ -91,8 +97,14 @@ public class Constants {
 
     public static final String ISLOGGEDIN = "ISLOGGEDIN";
     public static final String ACCESS_TOKEN = "AccessToken";
+    public static final String STORE_ID = "WorklocationID";
     public static final String KEY_CUSTOMER= "customer";
 
+    public static final String PREF_KEY_PRODUCT_MAIN="ProductMain";
+    public static final String PREF_KEY_SEARCHED_ITEM="SearchedItem";
+
+    public static final String PREF_KEY_SEARCHED_PRODUCT_DATA="SearchedProductData";
+    public static final String PREF_KEY_PRODUCT_DATA="ProductData";
 
 
 

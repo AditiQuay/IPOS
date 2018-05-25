@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ProductSectionModal {
     private String headerTitle;
-
+    private String companyName;
     public String getSectionProduct() {
         return sectionProduct;
     }
@@ -18,6 +18,7 @@ public class ProductSectionModal {
     }
 
     private String sectionProduct;
+
     public ArrayList<ProductItemModal> getProductItemModals() {
         return productItemModals;
     }
@@ -46,4 +47,11 @@ public class ProductSectionModal {
     }
 
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 }

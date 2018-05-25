@@ -249,4 +249,9 @@
     <string name="text_birthday">"Wish Birthday ("</string>
     <string name="text_points">" Pts."</string>
     <string name="product_removed_successfully">Product Removed Successfully</string>
+
+    <string name="morning_text">Good Morning !</string>
+    <string name="afternoon_text">Good Afternoon !</string>
+    <string name="evening_text">Good Evening !</string>
+    <string name="night_text">Good Night !</string>
 </resources>

@@ -3,6 +3,7 @@ package quay.com.ipos.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,17 +13,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.NetUtil;
 
 /**
  * Created by niraj.kumar on 4/17/2018.
@@ -110,7 +117,7 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
     }
 
     @Override
-    public View getGroupView(int listPosition, boolean isExpanded,
+    public View getGroupView(final int listPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
         String listTitle = (String) getGroup(listPosition);
         if (convertView == null) {
@@ -135,7 +142,26 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
             llGrp.setBackgroundResource(R.color.menu_strip_color);
         }
 
-        Picasso.get().load(expandableListTitle.get(listPosition).getGroupIcon()).into(imageViewMenu);
+        if (NetUtil.isNetworkAvailable(context)) {
+            Picasso.get().load(expandableListTitle.get(listPosition).getGroupIcon()).into(imageViewMenu);
+
+        } else {
+            Picasso.get()
+                    .load(expandableListTitle.get(listPosition).getGroupIcon())
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(imageViewMenu, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+
+                    });
+        }
         FontUtil.applyTypeface(textViewTitle, FontUtil.getTypeFaceRobotTiteliumRegular(context));
 
         return convertView;
