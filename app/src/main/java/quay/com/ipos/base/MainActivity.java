@@ -62,6 +62,7 @@ import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
+import quay.com.ipos.login.SplashActivity;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.productCatalogue.ProductMain;
@@ -75,6 +76,7 @@ import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.NetUtil;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 public class MainActivity extends BaseActivity
@@ -166,9 +168,12 @@ public class MainActivity extends BaseActivity
     }
 
     private void getCustomerData() {
+        int storeId = SharedPrefUtil.getStoreId(Constants.STORE_ID.trim(),0,mContext);
+        AppLog.e(TAG,"StoreId"+storeId);
+
         CustomerModel loginParams = new CustomerModel();
         loginParams.setSearchParam("NA");
-        loginParams.setStoreId("1");
+        loginParams.setStoreId(String.valueOf(storeId));
 
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);

@@ -27,10 +27,10 @@ import quay.com.ipos.utility.Util;
 
 public class SearchedItemsAdapter extends RecyclerView.Adapter<SearchedItemsAdapter.MyViewHolder> implements Filterable {
     private Context mContext;
-    private ArrayList<SearchedItemModal> searchedItemModals;
-    private ArrayList<SearchedItemModal> mFilteredList;
+    private ArrayList<ProductItemModal> searchedItemModals;
+    private ArrayList<ProductItemModal> mFilteredList;
 
-    public SearchedItemsAdapter(Context mContext, ArrayList<SearchedItemModal> searchedItemModals) {
+    public SearchedItemsAdapter(Context mContext, ArrayList<ProductItemModal> searchedItemModals) {
         this.mContext = mContext;
         this.searchedItemModals = searchedItemModals;
         mFilteredList = searchedItemModals;
@@ -47,8 +47,10 @@ public class SearchedItemsAdapter extends RecyclerView.Adapter<SearchedItemsAdap
 
     @Override
     public void onBindViewHolder(SearchedItemsAdapter.MyViewHolder holder, final int position) {
-        final SearchedItemModal searchedItemModal = mFilteredList.get(position);
-        holder.textViewProName.setText(searchedItemModal.getProductName());
+        final ProductItemModal searchedItemModal = mFilteredList.get(position);
+        holder.textViewProductName.setText(searchedItemModal.getProductName());
+        holder.textViewProductCount.setText(searchedItemModal.getCount());
+
         holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,8 +79,8 @@ public class SearchedItemsAdapter extends RecyclerView.Adapter<SearchedItemsAdap
 
                     mFilteredList = searchedItemModals;
                 } else {
-                    ArrayList<SearchedItemModal> filteredList = new ArrayList<>();
-                    for (SearchedItemModal searchedItemModal : searchedItemModals) {
+                    ArrayList<ProductItemModal> filteredList = new ArrayList<>();
+                    for (ProductItemModal searchedItemModal : searchedItemModals) {
 
                         if (searchedItemModal.getProductName().toLowerCase().contains(charString) || searchedItemModal.getProductName().toLowerCase().contains(charString) || searchedItemModal.getProductName().toLowerCase().contains(charString)) {
 
@@ -95,7 +97,7 @@ public class SearchedItemsAdapter extends RecyclerView.Adapter<SearchedItemsAdap
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                mFilteredList = (ArrayList<SearchedItemModal>) results.values;
+                mFilteredList = (ArrayList<ProductItemModal>) results.values;
                 notifyDataSetChanged();
             }
         };
@@ -103,17 +105,16 @@ public class SearchedItemsAdapter extends RecyclerView.Adapter<SearchedItemsAdap
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageViewProduct;
-        private TextView textViewProName;
-        private TextView textViewViewAll;
+        private TextView textViewProductName;
+        private TextView textViewViewAll,textViewProductCount;
         private CardView cardViewProduct;
-
         public MyViewHolder(View itemView) {
             super(itemView);
             imageViewProduct = itemView.findViewById(R.id.imageViewProduct);
-            textViewProName = itemView.findViewById(R.id.textViewProName);
+            textViewProductName = itemView.findViewById(R.id.textViewProductName);
             cardViewProduct = itemView.findViewById(R.id.cardViewProduct);
-
-            FontUtil.applyTypeface(textViewProName, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
+            textViewProductCount = itemView.findViewById(R.id.textViewProductCount);
+            FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumSemiBold(mContext));
 
         }
     }

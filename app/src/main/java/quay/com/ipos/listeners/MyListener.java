@@ -7,5 +7,4 @@ package quay.com.ipos.listeners;
 public interface MyListener {
     void onRowClicked(int position);
     void onRowClicked(int position, int value);
-
 }

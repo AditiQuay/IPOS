@@ -210,7 +210,6 @@
                 android:layout_height="@dimen/dim_90"
                 android:layout_marginLeft="@dimen/dim_18"
                 android:layout_marginStart="@dimen/dim_18"
-                android:src="@drawable/profile_thumb"
                 app:civ_border_color="@color/menu_strip"
                 app:civ_border_width="@dimen/dim_3"
                 app:civ_fill_color="@color/white" />

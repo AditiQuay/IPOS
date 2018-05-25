@@ -12,6 +12,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
@@ -29,7 +31,6 @@ import quay.com.ipos.utility.VerticalSpaceItemDecoration;
 public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainSectionAdapter.ItemRowHolder> implements Filterable {
     private ArrayList<ProductSectionModal> productSectionModals;
     private Context mContext;
-    private static final int VERTICAL_ITEM_SPACE = 48;
 
     public ProductMainSectionAdapter(Context context, ArrayList<ProductSectionModal> productSectionModals) {
         this.productSectionModals = productSectionModals;
@@ -77,12 +78,12 @@ public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainS
         });
 
 
-       /* Glide.with(mContext)
-                .load(feedItem.getImageURL())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .centerCrop()
-                .error(R.drawable.bg)
-                .into(feedListRowHolder.thumbView);*/
+//      Glide.with(mContext)
+//                .load(feedItem.getImageURL())
+//                .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                .centerCrop()
+//                .error(R.drawable.bg)
+//                .into(feedListRowHolder.thumbView);
     }
 
     @Override

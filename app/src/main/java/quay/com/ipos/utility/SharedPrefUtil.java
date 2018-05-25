@@ -22,6 +22,14 @@ public final class SharedPrefUtil {
         editor.putString(key, defValue);
         editor.commit();
     }
+    public static void setStoreID(String key, int value, Context context){
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.putInt(key, value);
+        editor.commit();
+    }
+    public static int getStoreId(String key, int defValue, Context context) {
+        return getSharedPreferences(context).getInt(key, defValue);
+    }
     /**
      *
      * @param key

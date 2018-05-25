@@ -2,59 +2,85 @@ package quay.com.ipos.productCatalogue;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerInfoAdapter;
+import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
+import quay.com.ipos.enums.ProductCatalogueEnum;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductMainSectionAdapter;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.SearchedItemsAdapter;
+import quay.com.ipos.productCatalogue.productCatalogueHelper.ProductCatalogueUtils;
+import quay.com.ipos.productCatalogue.productModal.ProductCatalogueServerModal;
 import quay.com.ipos.productCatalogue.productModal.ProductItemModal;
 import quay.com.ipos.productCatalogue.productModal.ProductSectionModal;
 import quay.com.ipos.productCatalogue.productModal.SearchedItemModal;
+import quay.com.ipos.service.ServiceTask;
+import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.DividerItemDecoration;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 4/25/2018.
  */
 
-public class ProductMain extends Fragment implements InitInterface, SwipeRefreshLayout.OnRefreshListener {
+public class ProductMain extends Fragment implements InitInterface, SwipeRefreshLayout.OnRefreshListener, ServiceTask.ServiceResultListener {
+    private static final String TAG = ProductMain.class.getSimpleName();
     private View rootView;
     private Context mContext;
     private RecyclerView recyclerviewCategory, recyclerviewFilter;
     private SwipeRefreshLayout swipeToRefresh;
     ArrayList<ProductSectionModal> productSectionModals = new ArrayList<>();
-    ArrayList<SearchedItemModal> searchedItems = new ArrayList<SearchedItemModal>();
+    private ArrayList<ProductItemModal> singleItem;
 
     private SearchView searchViewCatalogue;
     private SearchedItemsAdapter searchedItemsAdapter;
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.product_main_fragment, container, false);
         mContext = getActivity();
+        getProductList();
+
         findViewById();
         applyInitValues();
         applyTypeFace();
+
+
         return rootView;
     }
 
@@ -70,64 +96,43 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
     }
 
 
-    private void getServerData() {
+
+    private void getServerData(String response) {
         try {
             // Creating JSONObject from String
-            JSONObject jsonObjMain = new JSONObject(Util.getAssetJsonResponse(mContext, "product_data_main.Json"));
+            JSONObject jsonObjMain = new JSONObject(response);
             // Creating JSONArray from JSONObject
-            JSONArray jsonArray = jsonObjMain.optJSONArray("info");
+            JSONArray jsonArray = jsonObjMain.optJSONArray(ProductCatalogueEnum.info.toString());
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 ProductSectionModal dm = new ProductSectionModal();
-                dm.setHeaderTitle(jsonObject.optString("section"));
-                dm.setSectionProduct(jsonObject.optString("sectionProduct"));
+                dm.setHeaderTitle(jsonObject.optString(ProductCatalogueEnum.section.toString()));
+                dm.setSectionProduct(jsonObject.optString(ProductCatalogueEnum.info.toString()));
 
 
-                JSONArray jsonArray3 = jsonObject.optJSONArray("sectionItems");
-                ArrayList<ProductItemModal> singleItem = new ArrayList<ProductItemModal>();
+                JSONArray jsonArray3 = jsonObject.optJSONArray(ProductCatalogueEnum.sectionItems.toString());
+                singleItem = new ArrayList<>();
                 for (int j = 0; j < jsonArray3.length(); j++) {
                     JSONObject jsonObject1 = jsonArray3.getJSONObject(j);
                     ProductItemModal productItemModal = new ProductItemModal();
-                    productItemModal.setProductId(jsonObject1.optInt("productId"));
-                    productItemModal.setProductName(jsonObject1.optString("productName"));
-                    productItemModal.setProductUrl(jsonObject1.optString("productUrl"));
+                    productItemModal.setProductId(jsonObject1.optInt(ProductCatalogueEnum.productId.toString()));
+                    productItemModal.setProductName(jsonObject1.optString(ProductCatalogueEnum.productName.toString()));
+                    productItemModal.setProductUrl(jsonObject1.optString(ProductCatalogueEnum.productUrl.toString()));
+                    productItemModal.setCount(jsonObject1.optString(ProductCatalogueEnum.count.toString()));
                     singleItem.add(productItemModal);
                 }
                 dm.setProductItemModals(singleItem);
                 productSectionModals.add(dm);
             }
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void getSearchedData() {
-        try {
-            // Creating JSONObject from String
-            JSONObject jsonObjMain = new JSONObject(Util.getAssetJsonResponse(mContext, "product_data_main.Json"));
-            // Creating JSONArray from JSONObject
-            JSONArray jsonArray = jsonObjMain.optJSONArray("info");
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                JSONArray jsonArray1 = jsonObject.optJSONArray("sectionItems");
-                for (int j = 0; j < jsonArray1.length(); j++) {
-                    JSONObject jsonObject1 = jsonArray1.getJSONObject(j);
-                    SearchedItemModal searchedItemModal = new SearchedItemModal();
-                    searchedItemModal.setProductId(jsonObject1.optInt("productId"));
-                    searchedItemModal.setProductName(jsonObject1.optString("productName"));
-                    searchedItemModal.setProductUrl(jsonObject1.optString("productUrl"));
-                    searchedItems.add(searchedItemModal);
-                }
-            }
+            ProductCatalogueUtils.saveProductData(mContext, productSectionModals, Constants.PREF_KEY_PRODUCT_MAIN.trim());
+            ProductCatalogueUtils.saveSearchedProductData(mContext, singleItem, Constants.PREF_KEY_SEARCHED_ITEM.trim());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public void onResume() {
@@ -135,16 +140,25 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
         ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.toolbar_title_catalogue_product_details));
     }
 
+    private void getProductList() {
+
+        ProductSectionModal loginParams = new ProductSectionModal();
+        loginParams.setCompanyName("Quay");
+
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL.trim());
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_PRODUCT_MAIN.trim());
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(loginParams);
+        mTask.setListener(this);
+        mTask.setResultType(ProductCatalogueServerModal.class);
+        mTask.execute();
+    }
+
     @Override
     public void applyInitValues() {
-        productSectionModals.clear();
-        searchedItems.clear();
-
-        getServerData();
-        getSearchedData();
-
         recyclerviewCategory.setHasFixedSize(true);
-        ProductMainSectionAdapter adapter = new ProductMainSectionAdapter(mContext, productSectionModals);
+        ProductMainSectionAdapter adapter = new ProductMainSectionAdapter(mContext, ProductCatalogueUtils.getProductSectionModals(mContext,Constants.PREF_KEY_PRODUCT_MAIN.trim()));
         recyclerviewCategory.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         //  recyclerviewCategory.addItemDecoration(new DividerItemDecoration(mContext, R.drawable.divider));
         recyclerviewCategory.setAdapter(adapter);
@@ -153,7 +167,7 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
 
         //Search item list
         recyclerviewFilter.setHasFixedSize(true);
-        searchedItemsAdapter = new SearchedItemsAdapter(mContext, searchedItems);
+        searchedItemsAdapter = new SearchedItemsAdapter(mContext, ProductCatalogueUtils.getSearchedItems(mContext,Constants.PREF_KEY_SEARCHED_ITEM.trim()));
         recyclerviewFilter.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
         recyclerviewFilter.setAdapter(searchedItemsAdapter);
@@ -228,6 +242,39 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
 
     @Override
     public void onRefresh() {
-        swipeToRefresh.setRefreshing(false);
+        getProductList();
+
+    }
+
+    private void disableSwipeToRefresh() {
+        if (swipeToRefresh.isRefreshing()) {
+            swipeToRefresh.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
+        disableSwipeToRefresh();
+        if (httpStatusCode == Constants.SUCCESS) {
+            disableSwipeToRefresh();
+            if (resultObj != null) {
+                ProductCatalogueUtils.clearProductData(mContext);
+                ProductCatalogueUtils.clearSearchedProductData(mContext);
+                getServerData(serverResponse);
+            }
+
+        } else if (httpStatusCode == Constants.BAD_REQUEST) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+        }
+
+
     }
 }

@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.lang.reflect.Type;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -186,7 +187,18 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
 
     @Override
     public void applyInitValues() {
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
+        if (timeOfDay >= 0 && timeOfDay < 12) {
+            textViewWelcome.setText(mContext.getResources().getString(R.string.morning_text));
+        } else if (timeOfDay >= 12 && timeOfDay < 16) {
+            textViewWelcome.setText(mContext.getResources().getString(R.string.afternoon_text));
+        } else if (timeOfDay >= 16 && timeOfDay < 21) {
+            textViewWelcome.setText(mContext.getResources().getString(R.string.evening_text));
+        } else if (timeOfDay >= 21 && timeOfDay < 24) {
+            textViewWelcome.setText(mContext.getResources().getString(R.string.night_text));
+        }
 
     }
 
@@ -240,6 +252,8 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                 gson.fromJson(serverResponse, LoginResult.class);
                 SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
                 SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().getAccessToken(), mContext);
+                SharedPrefUtil.setStoreID(Constants.STORE_ID.trim(), loginResult.getUserAccess().getWorklocationID(), mContext);
+
 
                 new RealmController().saveUserDetail(serverResponse);
                 //new  RealmController().saveUserDetail(userdata);

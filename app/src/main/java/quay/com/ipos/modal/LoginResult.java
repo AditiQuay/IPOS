@@ -3,10 +3,11 @@ package quay.com.ipos.modal;
 import java.util.List;
 
 public class LoginResult {
+
     /**
      * Code : 200
-     * UserAccess : {"ID":1,"UserEmailID":"niraj.kumar@quayintech.com","UserPwd":"","ActivedeviceToken":"mmqqueertyyu","AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJRU1JNDM1NiIsImVtYWlsIjoibmlyYWoua3VtYXJAcXVheWludGVjaC5jb20iLCJqdGkiOiJjNzQyN2VhYy03OTExLTQwMGYtYjJmMy04ODVlMjFhMmY3YzkiLCJleHAiOjE1MjY0NTM0MjgsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4Ny8iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjgwODcvIn0.CUtcV-meAZKE7pAwYzik7qH7j7ck-BH8eogaJyqUcZY","IsActive":true,"RoleCode":3,"ID1":2,"appVersion":"a2","deviceToken":"mmqqueertyyu","deviceType":"android","deviceModel":"ec890765","deviceVersion":"v1","deviceIMEI":"IEMI4356","userDeviceActive":true,"userId":"1"}
-     * UserMenu : [{"key":"I","data":[{"title":"Mostly Used","icon":"","child":[]},{"title":"Billing & Cash","icon":"","child":[{"name":"Retail Sales (OTC & Online)","icon":""},{"name":"DDR Sales (B2B)","icon":""},{"name":"Day Closure","icon":""},{"name":"Loyalty Program","icon":""},{"name":"Offer Discount","icon":""}]},{"title":"Manage Store","icon":"","child":[{"name":"Inventory In/Out","icon":""},{"name":"Asset In/Out","icon":""},{"name":"Store Expenses","icon":""},{"name":"Employee Management","icon":""}]},{"title":"Manage Business","icon":"","child":[{"name":"Miscellaneous Income","icon":""},{"name":"Expense & IV","icon":""},{"name":"Accounting & Settlements","icon":""},{"name":"Auto Bank Reconcillation","icon":""},{"name":"Secondary Sales Tracking","icon":""},{"name":"Compliance Tracking","icon":""}]},{"title":"Insights & Analytics","icon":"","child":[]}]},{"key":"P","data":[{"title":"New Order","icon":"","child":[]},{"title":"Order Center","icon":"","child":[]},{"title":"Dashboard & Insights","icon":"","child":[]},{"title":"Product Catalogue","icon":"","child":[]},{"title":"Stock & Price","icon":"","child":[]},{"title":"Loyalty Program","icon":"","child":[]},{"title":"Partner Connect","icon":"","child":[]}]}]
+     * UserAccess : {"ID":1,"UserEmailID":"niraj.kumar@quayintech.com","UserPwd":"","ActivedeviceToken":"mmqqueertyyu","AccessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJRU1JNDM1NiIsImVtYWlsIjoibmlyYWoua3VtYXJAcXVheWludGVjaC5jb20iLCJqdGkiOiIwOWU4ZGY3OC0zMDNlLTRiNDItYTRhYS05Y2UyMzAwYTg0YmUiLCJleHAiOjE1MjcwNzU2MTMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4Ny8iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjgwODcvIn0.CohKUdg0HN4OFFSwC35w6lRZVQescuRq7_R5WnNmnnM","IsActive":true,"ID1":2,"appVersion":"a2","deviceToken":"mmqqueertyyu","deviceType":"android","deviceModel":"ec890765","deviceVersion":"v1","deviceIMEI":"IEMI4356","userDeviceActive":true,"userId":"1","RoleCode":3,"WorklocationID":1,"BusinessPlaceCode":"mcd001","StoreName":"Strore 1"}
+     * UserMenu : [{"userName":"M","userImage":"M","account":"My Business","key":"M","data":[]},{"userName":"P","userImage":"P","account":"My Business","key":"P","data":[{"title":"New Order","icon":"http://13.127.101.233/image/new_order.png","child":[]},{"title":"Order Center","icon":"http://13.127.101.233/image/order_center.png","child":[]},{"title":"Dashboard & Insights","icon":"http://13.127.101.233/image/insights.png","child":[]},{"title":"Product Catalogue","icon":"http://13.127.101.233/image/catalogue.png","child":[]},{"title":"Stock & Price","icon":"http://13.127.101.233/image/stock_price.png","child":[]},{"title":"Loyalty Program","icon":"http://13.127.101.233/image/loyalty.png","child":[]},{"title":"Partner Connect","icon":"http://13.127.101.233/image/partner.png","child":[]}]},{"userName":"I","userImage":"I","account":"My Business","key":"I","data":[{"title":"Mostly Used","icon":"http://13.127.101.233/image/mostly_used.png","child":[]},{"title":"Billing & Cash","icon":"http://13.127.101.233/image/biling.png","child":[{"name":"Retail Sales (OTC & Online)","icon":""},{"name":"DDR Sales (B2B)","icon":""},{"name":"Day Closure","icon":""},{"name":"Loyalty Program","icon":""},{"name":"Offer Discount","icon":""}]},{"title":"Manage Store","icon":"http://13.127.101.233/image/store.png","child":[{"name":"Inventory In/Out","icon":""},{"name":"Asset In/Out","icon":""},{"name":"Store Expenses","icon":""},{"name":"Employee Management","icon":""}]},{"title":"Manage Business","icon":"http://13.127.101.233/image/business.png","child":[{"name":"Miscellaneous Income","icon":""},{"name":"Expense & IV","icon":""},{"name":"Accounting & Settlements","icon":""},{"name":"Auto Bank Reconcillation","icon":""},{"name":"Secondary Sales Tracking","icon":""},{"name":"Compliance Tracking","icon":""}]},{"title":"Insights & Analytics","icon":"http://13.127.101.233/image/insights.png","child":[]}]}]
      */
 
     private int Code;
@@ -43,9 +44,8 @@ public class LoginResult {
          * UserEmailID : niraj.kumar@quayintech.com
          * UserPwd :
          * ActivedeviceToken : mmqqueertyyu
-         * AccessToken : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJRU1JNDM1NiIsImVtYWlsIjoibmlyYWoua3VtYXJAcXVheWludGVjaC5jb20iLCJqdGkiOiJjNzQyN2VhYy03OTExLTQwMGYtYjJmMy04ODVlMjFhMmY3YzkiLCJleHAiOjE1MjY0NTM0MjgsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4Ny8iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjgwODcvIn0.CUtcV-meAZKE7pAwYzik7qH7j7ck-BH8eogaJyqUcZY
+         * AccessToken : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJRU1JNDM1NiIsImVtYWlsIjoibmlyYWoua3VtYXJAcXVheWludGVjaC5jb20iLCJqdGkiOiIwOWU4ZGY3OC0zMDNlLTRiNDItYTRhYS05Y2UyMzAwYTg0YmUiLCJleHAiOjE1MjcwNzU2MTMsImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4Ny8iLCJhdWQiOiJodHRwOi8vbG9jYWxob3N0OjgwODcvIn0.CohKUdg0HN4OFFSwC35w6lRZVQescuRq7_R5WnNmnnM
          * IsActive : true
-         * RoleCode : 3
          * ID1 : 2
          * appVersion : a2
          * deviceToken : mmqqueertyyu
@@ -55,6 +55,10 @@ public class LoginResult {
          * deviceIMEI : IEMI4356
          * userDeviceActive : true
          * userId : 1
+         * RoleCode : 3
+         * WorklocationID : 1
+         * BusinessPlaceCode : mcd001
+         * StoreName : Strore 1
          */
 
         private int ID;
@@ -63,7 +67,6 @@ public class LoginResult {
         private String ActivedeviceToken;
         private String AccessToken;
         private boolean IsActive;
-        private int RoleCode;
         private int ID1;
         private String appVersion;
         private String deviceToken;
@@ -73,6 +76,10 @@ public class LoginResult {
         private String deviceIMEI;
         private boolean userDeviceActive;
         private String userId;
+        private int RoleCode;
+        private int WorklocationID;
+        private String BusinessPlaceCode;
+        private String StoreName;
 
         public int getID() {
             return ID;
@@ -120,14 +127,6 @@ public class LoginResult {
 
         public void setIsActive(boolean IsActive) {
             this.IsActive = IsActive;
-        }
-
-        public int getRoleCode() {
-            return RoleCode;
-        }
-
-        public void setRoleCode(int RoleCode) {
-            this.RoleCode = RoleCode;
         }
 
         public int getID1() {
@@ -201,16 +200,78 @@ public class LoginResult {
         public void setUserId(String userId) {
             this.userId = userId;
         }
+
+        public int getRoleCode() {
+            return RoleCode;
+        }
+
+        public void setRoleCode(int RoleCode) {
+            this.RoleCode = RoleCode;
+        }
+
+        public int getWorklocationID() {
+            return WorklocationID;
+        }
+
+        public void setWorklocationID(int WorklocationID) {
+            this.WorklocationID = WorklocationID;
+        }
+
+        public String getBusinessPlaceCode() {
+            return BusinessPlaceCode;
+        }
+
+        public void setBusinessPlaceCode(String BusinessPlaceCode) {
+            this.BusinessPlaceCode = BusinessPlaceCode;
+        }
+
+        public String getStoreName() {
+            return StoreName;
+        }
+
+        public void setStoreName(String StoreName) {
+            this.StoreName = StoreName;
+        }
     }
 
     public static class UserMenuBean {
         /**
-         * key : I
-         * data : [{"title":"Mostly Used","icon":"","child":[]},{"title":"Billing & Cash","icon":"","child":[{"name":"Retail Sales (OTC & Online)","icon":""},{"name":"DDR Sales (B2B)","icon":""},{"name":"Day Closure","icon":""},{"name":"Loyalty Program","icon":""},{"name":"Offer Discount","icon":""}]},{"title":"Manage Store","icon":"","child":[{"name":"Inventory In/Out","icon":""},{"name":"Asset In/Out","icon":""},{"name":"Store Expenses","icon":""},{"name":"Employee Management","icon":""}]},{"title":"Manage Business","icon":"","child":[{"name":"Miscellaneous Income","icon":""},{"name":"Expense & IV","icon":""},{"name":"Accounting & Settlements","icon":""},{"name":"Auto Bank Reconcillation","icon":""},{"name":"Secondary Sales Tracking","icon":""},{"name":"Compliance Tracking","icon":""}]},{"title":"Insights & Analytics","icon":"","child":[]}]
+         * userName : M
+         * userImage : M
+         * account : My Business
+         * key : M
+         * data : []
          */
 
+        private String userName;
+        private String userImage;
+        private String account;
         private String key;
-        private List<DataBean> data;
+        private List<?> data;
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getUserImage() {
+            return userImage;
+        }
+
+        public void setUserImage(String userImage) {
+            this.userImage = userImage;
+        }
+
+        public String getAccount() {
+            return account;
+        }
+
+        public void setAccount(String account) {
+            this.account = account;
+        }
 
         public String getKey() {
             return key;
@@ -220,48 +281,12 @@ public class LoginResult {
             this.key = key;
         }
 
-        public List<DataBean> getData() {
+        public List<?> getData() {
             return data;
         }
 
-        public void setData(List<DataBean> data) {
+        public void setData(List<?> data) {
             this.data = data;
-        }
-
-        public static class DataBean {
-            /**
-             * title : Mostly Used
-             * icon :
-             * child : []
-             */
-
-            private String title;
-            private String icon;
-            private List<?> child;
-
-            public String getTitle() {
-                return title;
-            }
-
-            public void setTitle(String title) {
-                this.title = title;
-            }
-
-            public String getIcon() {
-                return icon;
-            }
-
-            public void setIcon(String icon) {
-                this.icon = icon;
-            }
-
-            public List<?> getChild() {
-                return child;
-            }
-
-            public void setChild(List<?> child) {
-                this.child = child;
-            }
         }
     }
 }
