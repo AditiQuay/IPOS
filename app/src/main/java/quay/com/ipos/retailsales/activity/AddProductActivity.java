@@ -72,6 +72,8 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
             searchProductCall("1");
         }else {
             data = databaseHandler.getAllProduct();
+            IPOSApplication.datumArrayList.addAll(data);
+
         }
 
         setAdapter();

@@ -1,34 +1,5 @@
 -- Merging decision tree log ---
 manifest
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-=======
-<<<<<<< HEAD
->>>>>>> 4c129790d43fb76f9108326e07566112862fb2de
-ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-	package
-		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:70-106
-		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml
-	xmlns:android
-		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
-application
-ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 48d8e9a964fce3a1a6f0096f59e22ccde1e7eca2
->>>>>>> b6d7ad4b1498ce501a8a37d5a3c0bb495ae309e5
 ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
@@ -40,12 +11,3 @@ INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidMa
 		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
 application
 ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
->>>>>>> cbd54e5d6eebe643fe6bf84a467c77027ef4f90c
->>>>>>> eafa4efddbaf204fd5dfbbc0ddb233140b751092
->>>>>>> 48d8e9a964fce3a1a6f0096f59e22ccde1e7eca2
->>>>>>> 4c129790d43fb76f9108326e07566112862fb2de
->>>>>>> b6d7ad4b1498ce501a8a37d5a3c0bb495ae309e5
