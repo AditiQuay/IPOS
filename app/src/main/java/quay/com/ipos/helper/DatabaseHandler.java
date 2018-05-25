@@ -38,6 +38,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// Retail Table Columns names
 	private static final String KEY_ID = "iId";
+	private static final String KEY_productCode= "productCode";
 	private static final String KEY_iProductModalId = "iProductModalId";
 	private static final String KEY_sProductName = "sProductName";
 	private static final String KEY_sProductFeature = "sProductFeature";
@@ -68,7 +69,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	// Creating Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+KEY_iProductModalId + " TEXT," + KEY_sProductName	+ " TEXT," + KEY_sProductFeature + " TEXT,"+KEY_sProductImage + " TEXT,"+KEY_sProductPrice + " REAL,"+KEY_sProductStock + " INTEGER,"+KEY_sProductWeight + " INTEGER,"+KEY_isDiscount + " INTEGER,"+KEY_gstPerc + " REAL,"+KEY_cgst + " REAL," +KEY_sgst + " REAL,"+KEY_salesPrice + " REAL,"+KEY_nrv + " REAL,"+KEY_gpl + " REAL,"+KEY_mrp + " REAL,"+KEY_barCodeNumber + " TEXT,"+KEY_discount + " TEXT"+ ")";
+		String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+KEY_productCode+ " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName	+ " TEXT," + KEY_sProductFeature + " TEXT,"+KEY_sProductImage + " TEXT,"+KEY_sProductPrice + " REAL,"+KEY_sProductStock + " INTEGER,"+KEY_sProductWeight + " INTEGER,"+KEY_isDiscount + " INTEGER,"+KEY_gstPerc + " REAL,"+KEY_cgst + " REAL," +KEY_sgst + " REAL,"+KEY_salesPrice + " REAL,"+KEY_nrv + " REAL,"+KEY_gpl + " REAL,"+KEY_mrp + " REAL,"+KEY_barCodeNumber + " TEXT,"+KEY_discount + " TEXT"+ ")";
 		db.execSQL(CREATE_RETAIL_TABLE);
 
 		// create notes table
@@ -107,6 +108,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
+		values.put(KEY_productCode,datum.getProductCode());
 		values.put(KEY_iProductModalId,datum.getIProductModalId());
 		values.put(KEY_sProductName, datum.getSProductName()); //
 		values.put(KEY_sProductFeature,Util.getCustomGson().toJson(datum.getSProductFeature())); //
@@ -294,28 +296,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				ProductSearchResult.Datum datum = mProductSearchResult.new Datum();
-				datum.setIProductModalId(cursor.getString(1));
-				datum.setSProductName(cursor.getString(2));
-				productFeatures = Util.getCustomGson().fromJson(cursor.getString(3), new TypeToken<ArrayList<ProductSearchResult.SProductFeature>>(){}.getType());
+				datum.setProductCode(cursor.getString(1));
+				datum.setIProductModalId(cursor.getString(2));
+
+				datum.setSProductName(cursor.getString(3));
+				productFeatures = Util.getCustomGson().fromJson(cursor.getString(4), new TypeToken<ArrayList<ProductSearchResult.SProductFeature>>(){}.getType());
 				datum.setDiscount(searchResult);
 				datum.setSProductFeature(productFeatures);
-				datum.setProductImage(cursor.getString(4));
-				datum.setSProductPrice(cursor.getDouble(5));
-				datum.setSProductStock(cursor.getInt(6));
-				datum.setSProductWeight(cursor.getInt(7));
-				if(cursor.getInt(8)==0)
+				datum.setProductImage(cursor.getString(5));
+				datum.setSProductPrice(cursor.getDouble(6));
+				datum.setSProductStock(cursor.getInt(7));
+				datum.setSProductWeight(cursor.getInt(8));
+				if(cursor.getInt(9)==0)
 					datum.setIsDiscount(false);
 				else
 					datum.setIsDiscount(true);
-				datum.setGstPerc(cursor.getDouble(9));
-				datum.setCgst(cursor.getDouble(10));
-				datum.setSgst(cursor.getDouble(11));
-				datum.setSalesPrice(cursor.getDouble(12));
-				datum.setNrv(cursor.getDouble(13));
-				datum.setGpl(cursor.getDouble(14));
-				datum.setMrp(cursor.getDouble(15));
-				datum.setBarCodeNumber(cursor.getString(16));
-				searchResult = Util.getCustomGson().fromJson(cursor.getString(17), new TypeToken<ArrayList<ProductSearchResult.Discount>>(){}.getType());
+				datum.setGstPerc(cursor.getDouble(10));
+				datum.setCgst(cursor.getDouble(11));
+				datum.setSgst(cursor.getDouble(12));
+				datum.setSalesPrice(cursor.getDouble(13));
+				datum.setNrv(cursor.getDouble(14));
+				datum.setGpl(cursor.getDouble(15));
+				datum.setMrp(cursor.getDouble(16));
+				datum.setBarCodeNumber(cursor.getString(17));
+				searchResult = Util.getCustomGson().fromJson(cursor.getString(18), new TypeToken<ArrayList<ProductSearchResult.Discount>>(){}.getType());
 				datum.setDiscount(searchResult);
 				// Adding question to List
 				questionList.add(datum);
@@ -339,28 +343,30 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				ProductSearchResult.Datum datum = mProductSearchResult.new Datum();
-				datum.setIProductModalId(cursor.getString(1));
-				datum.setSProductName(cursor.getString(2));
-				productFeatures = Util.getCustomGson().fromJson(cursor.getString(3), new TypeToken<ArrayList<ProductSearchResult.SProductFeature>>(){}.getType());
+				datum.setProductCode(cursor.getString(1));
+				datum.setIProductModalId(cursor.getString(2));
+
+				datum.setSProductName(cursor.getString(3));
+				productFeatures = Util.getCustomGson().fromJson(cursor.getString(4), new TypeToken<ArrayList<ProductSearchResult.SProductFeature>>(){}.getType());
 				datum.setDiscount(searchResult);
 				datum.setSProductFeature(productFeatures);
-				datum.setProductImage(cursor.getString(4));
-				datum.setSProductPrice(cursor.getDouble(5));
-				datum.setSProductStock(cursor.getInt(6));
-				datum.setSProductWeight(cursor.getInt(7));
-				if(cursor.getInt(8)==0)
+				datum.setProductImage(cursor.getString(5));
+				datum.setSProductPrice(cursor.getDouble(6));
+				datum.setSProductStock(cursor.getInt(7));
+				datum.setSProductWeight(cursor.getInt(8));
+				if(cursor.getInt(9)==0)
 					datum.setIsDiscount(false);
 				else
 					datum.setIsDiscount(true);
-				datum.setGstPerc(cursor.getDouble(9));
-				datum.setCgst(cursor.getDouble(10));
-				datum.setSgst(cursor.getDouble(11));
-				datum.setSalesPrice(cursor.getDouble(12));
-				datum.setNrv(cursor.getDouble(13));
-				datum.setGpl(cursor.getDouble(14));
-				datum.setMrp(cursor.getDouble(15));
-				datum.setBarCodeNumber(cursor.getString(16));
-				searchResult = Util.getCustomGson().fromJson(cursor.getString(17), new TypeToken<ArrayList<ProductSearchResult.Discount>>(){}.getType());
+				datum.setGstPerc(cursor.getDouble(10));
+				datum.setCgst(cursor.getDouble(11));
+				datum.setSgst(cursor.getDouble(12));
+				datum.setSalesPrice(cursor.getDouble(13));
+				datum.setNrv(cursor.getDouble(14));
+				datum.setGpl(cursor.getDouble(15));
+				datum.setMrp(cursor.getDouble(16));
+				datum.setBarCodeNumber(cursor.getString(17));
+				searchResult = Util.getCustomGson().fromJson(cursor.getString(18), new TypeToken<ArrayList<ProductSearchResult.Discount>>(){}.getType());
 				datum.setDiscount(searchResult);
 				// Adding question to List
 				questionList.add(datum);

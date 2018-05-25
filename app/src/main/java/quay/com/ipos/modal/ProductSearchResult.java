@@ -65,7 +65,9 @@ public class ProductSearchResult {
         public void setSProductFeature(List<SProductFeature> sProductFeature) {
             this.sProductFeature = sProductFeature;
         }
-
+        @SerializedName("productCode")
+        @Expose
+        private String productCode;
         @SerializedName("iProductModalId")
         @Expose
         private String iProductModalId;
@@ -132,7 +134,7 @@ public class ProductSearchResult {
         @SerializedName("pointsPer")
         @Expose
         private Integer pointsPer;
-
+        private String PriceSelected;
         private boolean isAdded = false;
         private boolean isNonCheckOutAdded = false;
         private double OTCDiscount;
@@ -148,6 +150,21 @@ public class ProductSearchResult {
         private int totalQty;
         private double totalDiscountPrice;
 
+        public String getPriceSelected() {
+            return PriceSelected;
+        }
+
+        public void setPriceSelected(String priceSelected) {
+            PriceSelected = priceSelected;
+        }
+
+        public String getProductCode() {
+            return productCode;
+        }
+
+        public void setProductCode(String productCode) {
+            this.productCode = productCode;
+        }
         public String getIProductModalId() {
             return iProductModalId;
         }
@@ -433,7 +450,7 @@ public class ProductSearchResult {
 
 
     public class Discount {
-
+        double discountTotal;
         @SerializedName("sDiscountName")
         @Expose
         private String sDiscountName;
@@ -468,6 +485,13 @@ public class ProductSearchResult {
             this.rule = rule;
         }
 
+        public double getDiscountTotal() {
+            return discountTotal;
+        }
+
+        public void setDiscountTotal(double discountTotal) {
+            this.discountTotal = discountTotal;
+        }
     }
 
     public class Rule {

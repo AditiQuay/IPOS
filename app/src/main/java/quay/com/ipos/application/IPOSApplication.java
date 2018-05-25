@@ -12,6 +12,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -29,10 +30,15 @@ public class IPOSApplication extends MultiDexApplication {
     /** The instance. */
     private static IPOSApplication _instance = null;
     public static boolean isRefreshed=false;
+    public static boolean isClicked=false;
     public static double totalAmount = 0;
     public static ArrayList<ProductSearchResult.Datum> mProductListResult= new ArrayList<>();
 //    public static ArrayList<ProductSearchResult.Datum> mProductSearchResult= new ArrayList<>();
     public static ArrayList<OrderList.Datum> mOrderList= new ArrayList<>();
+    public static ArrayList<ProductSearchResult.Datum> minDiscount=new ArrayList<>();
+
+    public static ArrayList<ProductSearchResult.Datum> datumArrayList = new ArrayList<>();
+    public static HashMap<String,ArrayList<ProductSearchResult.Datum>> datumSameCode = new HashMap<String,ArrayList<ProductSearchResult.Datum>>();
 
 
 

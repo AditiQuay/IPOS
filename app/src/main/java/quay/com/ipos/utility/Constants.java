@@ -75,6 +75,7 @@ public class Constants {
     public static final int API_METHOD_POST = 1;
     public static final int APP_DIALOG_PERMISSION = 2;
     public static final int APP_DIALOG_BACK = 4;
+    public static final int DISCOUNT = 2;
     public static int APP_DIALOG_Pinned_ORDER=3;
 
     public static String UserProfilePic = "http://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png";
