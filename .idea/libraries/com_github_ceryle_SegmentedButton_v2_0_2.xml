@@ -1,8 +1,13 @@
 <component name="libraryTable">
   <library name="com.github.ceryle:SegmentedButton-v2.0.2">
     <CLASSES>
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/SegmentedButton-v2.0.2.aar/48caa9fcf5003b41802b21c1e1b6b6f3/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/SegmentedButton-v2.0.2.aar/48caa9fcf5003b41802b21c1e1b6b6f3/jars/classes.jar!/" />
+=======
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/SegmentedButton-v2.0.2.aar/92fda16c19a5e72630d1db7ec082f92f/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/SegmentedButton-v2.0.2.aar/92fda16c19a5e72630d1db7ec082f92f/res" />
+>>>>>>> 4774edfbe832a966d025411a53e353111b7d93bb
     </CLASSES>
     <JAVADOC />
     <SOURCES>

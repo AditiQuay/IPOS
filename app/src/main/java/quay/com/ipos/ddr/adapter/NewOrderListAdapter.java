@@ -2,6 +2,7 @@ package quay.com.ipos.ddr.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.OrderList;
+import quay.com.ipos.retailsales.adapter.DiscountListAdapter;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Util;
 
@@ -80,9 +82,11 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public LinearLayout llDiscount;
         public CheckBox chkDiscount;
         public EditText etQtySelected;
+        public RecyclerView mUserRecyclerView;
 
         public UserViewHolder(View itemView) {
             super(itemView);
+            mUserRecyclerView = itemView.findViewById(R.id.recycleView);
             tvItemName =  itemView.findViewById(R.id.tvItemName);
             tvItemPrice =  itemView.findViewById(R.id.tvItemPrice);
             imvInfo =  itemView.findViewById(R.id.imvInfo);
@@ -143,7 +147,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //                str.setDiscount(discount);
 
                 userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+discount+"");
-                userViewHolder.llDiscount.setVisibility(View.VISIBLE);
+                userViewHolder.llDiscount.setVisibility(View.GONE);
             }else {
 //                str.setDiscItemSelected(false);
 //                str.setTotalPrice(totalPrice);
@@ -212,6 +216,12 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 }
             });
+
+            userViewHolder.mUserRecyclerView.setHasFixedSize(true);
+            LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+            userViewHolder.mUserRecyclerView.setLayoutManager(mLayoutManager);
+            DiscountNewOrderListAdapter itemListDataAdapter = new DiscountNewOrderListAdapter(mContext,userViewHolder.mUserRecyclerView, mDataset.get(position).getDiscount());
+            userViewHolder.mUserRecyclerView.setAdapter(itemListDataAdapter);
         }
         else if (holder instanceof NewOrderListAdapter.LoadingViewHolder) {
             NewOrderListAdapter.LoadingViewHolder loadingViewHolder = (NewOrderListAdapter.LoadingViewHolder) holder;

@@ -25,47 +25,70 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="8dp">
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imgOrderTracking"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/ic_shopping_cart" />
+                        android:src="@drawable/ic_action_online_shoping" />
 
                     <TextView
                         android:id="@+id/tvStoreName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/imgOrderTracking"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_8"
+                        android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
                         android:text="@string/order_summary"
-                        android:textColor="@color/black" />
-                    <TextView
+                        android:textColor="@color/colorPrimary" />
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
-                        android:paddingLeft="@dimen/dim_8"
-                        android:paddingRight="@dimen/dim_8"
-                        android:paddingTop="@dimen/dim_4"
-                        android:paddingBottom="@dimen/dim_4"
-                        android:layout_gravity="center_vertical"
-                        android:textColor="@color/white"
                         android:gravity="center"
-                        android:alpha="0.6"
-                        android:textSize="@dimen/dim_12"
-                        android:background="@drawable/button_round_shape"
-                        android:text="@string/viewall"/>
+                        android:paddingLeft="@dimen/dim_12"
+                        android:paddingRight="@dimen/dim_12"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:background="@drawable/button_round_app"
+                        >
+                        <ImageView
+                            android:layout_width="@dimen/dim_20"
+                            android:layout_height="@dimen/dim_20"
+                            android:paddingLeft="@dimen/dim_4"
+
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:background="@drawable/view_all_app"/>
+
+                        <quay.com.ipos.ui.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="@string/viewall"
+                            android:padding="@dimen/dim_3"
+                            android:layout_marginLeft="8dp"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/dim_12"
+                            android:spinnerMode="dropdown"/>
+
+                    </LinearLayout>
+
+
 
                 </RelativeLayout>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -258,7 +281,7 @@
                     android:gravity="center"
                     android:text="@string/new_orders"/>
 
-                <include layout="@layout/view_layout"/>
+                <include layout="@layout/view_layout_without_dot"/>
 
 
                 <android.support.v7.widget.RecyclerView

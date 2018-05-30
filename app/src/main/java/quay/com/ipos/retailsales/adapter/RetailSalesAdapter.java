@@ -2,7 +2,6 @@ package quay.com.ipos.retailsales.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -26,11 +25,10 @@ import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.AdapterListener;
-import quay.com.ipos.modal.ProductListResult;
-import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductMainSectionItemsAdapter;
-import quay.com.ipos.ui.ItemDecorationAlbumColumns;
+import quay.com.ipos.listeners.MyAdapterTags;
 import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -51,19 +49,21 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     View.OnClickListener mOnClickListener;
     static Context mContext;
     ArrayList<ProductSearchResult.Datum> mDataset;
-    RecyclerView mRecyclerView;
     CompoundButton.OnCheckedChangeListener mCheckedChangeListener;
     TextWatcher mTextWatcher;
-
+    MyAdapterTags myAdapterTags;
+ //   public RecyclerView mRecyclerView;
     public RetailSalesAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                              ArrayList<ProductSearchResult.Datum> questionList, CompoundButton.OnCheckedChangeListener mCheckedChangeListener, AdapterListener listener) {
+                              ArrayList<ProductSearchResult.Datum> questionList, CompoundButton.OnCheckedChangeListener mCheckedChangeListener, AdapterListener listener,MyAdapterTags myAdapterTags) {
         this.mOnClickListener = mClickListener;
         this.mContext = ctx;
         this.mDataset = questionList;
-        this.mRecyclerView = mRecycler;
+    //    this.mRecyclerView = mRecycler;
         this.mCheckedChangeListener = mCheckedChangeListener;
         this. listener = listener;
         mainActivity = (MainActivity) mContext;
+        this.myAdapterTags = myAdapterTags;
+
         // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
         // mRecyclerView.getLayoutManager();
         // mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -151,8 +151,10 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 str = mDataset.get(0);
                 IPOSApplication.isRefreshed=false;
             }
+
+            myAdapterTags.onRowClicked(position,0, Constants.DISCOUNT+"");
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
-            final UserViewHolder userViewHolder = (UserViewHolder) holder;
+            final UserViewHolder  userViewHolder = (UserViewHolder) holder;
             userViewHolder.tvItemName.setText(str.getSProductName());
             userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
             userViewHolder.tvItemRate.setText(str.getSProductStock()+"");
@@ -270,17 +272,26 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             LinearLayoutManager  mLayoutManager = new LinearLayoutManager(mContext);
             userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
 //            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
-            userViewHolder.mRecyclerView.addItemDecoration(
-                    new ItemDecorationAlbumColumns(mContext.getResources().getDimensionPixelSize(R.dimen.dim_5),
-                            mContext.getResources().getInteger(R.integer.photo_list_preview_columns)));
-            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount(),str);
+            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext, userViewHolder.mRecyclerView, mDataset.get(userViewHolder.getAdapterPosition()).getDiscount(), mDataset.get(userViewHolder.getAdapterPosition()),userViewHolder.getAdapterPosition(),listener);
             userViewHolder.mRecyclerView.setAdapter(itemListDataAdapter);
+            //setDiscountAdapter(userViewHolder);
         }
         else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true); }
 
     }
+
+   /* public void setDiscountAdapter(UserViewHolder userViewHolder){
+        if(itemListDataAdapter!=null)
+            itemListDataAdapter.notifyDataSetChanged();
+        else {
+            if(userViewHolder!=null) {
+                itemListDataAdapter = new DiscountListAdapter(mContext, userViewHolder.mRecyclerView, mDataset.get(userViewHolder.getAdapterPosition()).getDiscount(), mDataset.get(userViewHolder.getAdapterPosition()),userViewHolder.getAdapterPosition());
+                userViewHolder.mRecyclerView.setAdapter(itemListDataAdapter);
+            }
+        }
+    }*/
 
     class LoadingViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
