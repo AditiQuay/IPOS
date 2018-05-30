@@ -101,11 +101,16 @@ public class Constants {
     public static final String STORE_ID = "WorklocationID";
     public static final String KEY_CUSTOMER= "customer";
 
+    //Shared preference keys
     public static final String PREF_KEY_PRODUCT_MAIN="ProductMain";
     public static final String PREF_KEY_SEARCHED_ITEM="SearchedItem";
+    public static final String PREF_KEY_PRODUCT_DETAIL="ProductDetailMain";
+    public static final String PREF_KEY_PRODUCT_COUNT = "ProductCount";
 
+    //Shared preference file name
     public static final String PREF_KEY_SEARCHED_PRODUCT_DATA="SearchedProductData";
     public static final String PREF_KEY_PRODUCT_DATA="ProductData";
+    public static final String PREF_KEY_PRODUCT_DETAIL_KEY="ProductDetail";
 
 
 
