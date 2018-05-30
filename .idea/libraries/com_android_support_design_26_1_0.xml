@@ -1,23 +1,8 @@
 <component name="libraryTable">
   <library name="com.android.support:design-26.1.0">
     <CLASSES>
-<<<<<<< HEAD
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/aa22ac6a75a89bfea7355846a8dbe9f8/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/aa22ac6a75a89bfea7355846a8dbe9f8/res" />
-=======
-<<<<<<< HEAD
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/6941d0ad28ad510b490efc16906085f8/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/6941d0ad28ad510b490efc16906085f8/res" />
-=======
-<<<<<<< HEAD
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/aa22ac6a75a89bfea7355846a8dbe9f8/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/aa22ac6a75a89bfea7355846a8dbe9f8/res" />
-=======
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/a00894d2e5e1f2bed9617beedb83e77c/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/a00894d2e5e1f2bed9617beedb83e77c/res" />
->>>>>>> 4774edfbe832a966d025411a53e353111b7d93bb
->>>>>>> f34bf56e1687d0765576f947a65ba6039a43d1dd
->>>>>>> 25f295598b1bf6b46ede157064b319cd941ad429
     </CLASSES>
     <JAVADOC />
     <SOURCES>

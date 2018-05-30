@@ -12,184 +12,388 @@
     app:cardPreventCornerOverlap="true"
     card_view:cardElevation="0dp">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/dim_8">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
+
+        <LinearLayout
+            android:id="@+id/lLayoutTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dim_4">
+            android:orientation="vertical"
+            android:padding="@dimen/dim_8">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dim_4">
+
+                <TextView
+                    android:id="@+id/textViewPersonalHeading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:alpha="0.7"
+                    android:text="Personal Information"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/universal_text_size18" />
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/textViewPersonalHeading"
+                android:id="@+id/textViewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dim_8"
                 android:alpha="0.7"
-                android:text="Personal Information"
-                android:textColor="@color/black"
-                android:textSize="@dimen/universal_text_size18" />
-        </RelativeLayout>
+                android:text="Title"
+                android:textColor="@color/primary_text_color"
+                android:textSize="@dimen/universal_text_size12" />
 
-        <TextView
-            android:id="@+id/textViewTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dim_8"
-            android:alpha="0.7"
-            android:text="Title"
-            android:textColor="@color/primary_text_color"
-            android:textSize="@dimen/universal_text_size12" />
-
-        <Spinner
-            android:id="@+id/titleSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dim_2"
-            android:layout_marginRight="@dimen/dim_2"
-            android:layout_marginTop="@dimen/dim_8"
-            android:orientation="horizontal"
-            android:padding="@dimen/dim_2">
+            <Spinner
+                android:id="@+id/titleSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_marginLeft="@dimen/dim_2"
+                android:layout_marginRight="@dimen/dim_2"
+                android:layout_marginTop="@dimen/dim_8"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_2">
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/tieFirstName"
+                    <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="First Name *"
-                        android:textSize="@dimen/universal_text_size14" />
+                        android:layout_height="match_parent">
 
-                </android.support.design.widget.TextInputLayout>
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/tieFirstName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="First Name *"
+                            android:textSize="@dimen/universal_text_size14" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/tieLastName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Last Name *"
+                            android:textSize="@dimen/universal_text_size14" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_marginLeft="@dimen/dim_2"
+                android:layout_marginRight="@dimen/dim_2"
+                android:layout_marginTop="@dimen/dim_8"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_2">
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/tieLastName"
+                    <TextView
+                        android:id="@+id/textViewGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.7"
+                        android:text="Gender *"
+                        android:textColor="@color/primary_text_color"
+                        android:textSize="@dimen/universal_text_size12" />
+
+
+                    <Spinner
+                        android:id="@+id/genderSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Last Name *"
-                        android:textSize="@dimen/universal_text_size14" />
+                        android:layout_marginTop="@dimen/dim_4" />
+                </LinearLayout>
 
-                </android.support.design.widget.TextInputLayout>
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/tieDOB"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawableRight="@drawable/calendar_gray"
+                            android:hint="DOB *"
+                            android:textSize="@dimen/universal_text_size14" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_2"
+                android:layout_marginRight="@dimen/dim_2"
+                android:layout_marginTop="@dimen/dim_8"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textViewMaritalStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0.7"
+                        android:text="Married Status *"
+                        android:textColor="@color/primary_text_color"
+                        android:textSize="@dimen/universal_text_size12" />
+
+
+                    <Spinner
+                        android:id="@+id/maritalStatusSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dim_4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/lLayoutSpouse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dim_2"
-            android:layout_marginRight="@dimen/dim_2"
-            android:layout_marginTop="@dimen/dim_8"
-            android:orientation="horizontal"
-            android:padding="@dimen/dim_2">
+            android:layout_below="@+id/lLayoutTop"
+            android:visibility="gone"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginRight="@dimen/dim_2"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_2">
 
-                <TextView
-                    android:id="@+id/textViewGender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.7"
-                    android:text="Gender *"
-                    android:textColor="@color/primary_text_color"
-                    android:textSize="@dimen/universal_text_size12" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary" />
 
-
-                <Spinner
-                    android:id="@+id/genderSpinner"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dim_4" />
-            </LinearLayout>
+                    android:layout_marginLeft="@dimen/dim_8"
+                    android:layout_marginTop="@dimen/dim_4"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/tieDOB"
+                        <TextView
+                            android:id="@+id/textViewSpouseHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.7"
+                            android:text="Spouse Details"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/universal_text_size18" />
+                    </RelativeLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableRight="@drawable/calendar_gray"
-                        android:hint="DOB *"
-                        android:textSize="@dimen/universal_text_size14" />
+                        android:layout_marginLeft="@dimen/dim_2"
+                        android:layout_marginRight="@dimen/dim_2"
+                        android:layout_marginTop="@dimen/dim_8"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dim_2">
 
-                </android.support.design.widget.TextInputLayout>
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/tieSpouseFirstName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Spouse First Name *"
+                                    android:textSize="@dimen/universal_text_size14" />
+
+                            </android.support.design.widget.TextInputLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/tieSpouseLastName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Spouse Last Name *"
+                                    android:textSize="@dimen/universal_text_size14" />
+
+                            </android.support.design.widget.TextInputLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dim_2"
+                        android:layout_marginRight="@dimen/dim_2"
+                        android:layout_marginTop="@dimen/dim_8"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/dim_2">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/tieSpouseDOB"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawableRight="@drawable/calendar_gray"
+                                    android:hint="DOB *"
+                                    android:textSize="@dimen/universal_text_size14" />
+
+                            </android.support.design.widget.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textViewChild"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dim_4"
+                                android:alpha="0.7"
+                                android:text="Child *"
+                                android:textColor="@color/primary_text_color"
+                                android:textSize="@dimen/universal_text_size12" />
+
+
+                            <Spinner
+                                android:id="@+id/childSpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/dim_4" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dim_2"
-            android:layout_marginRight="@dimen/dim_2"
-            android:layout_marginTop="@dimen/dim_8"
-            android:orientation="horizontal"
-            android:padding="@dimen/dim_2">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:id="@+id/lLayoutChild"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginRight="@dimen/dim_2"
+                android:layout_marginTop="@dimen/dim_4"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_2">
 
-                <TextView
-                    android:id="@+id/textViewMaritalStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.7"
-                    android:text="Married Status *"
-                    android:textColor="@color/primary_text_color"
-                    android:textSize="@dimen/universal_text_size12" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary" />
 
-
-                <Spinner
-                    android:id="@+id/maritalStatusSpinner"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dim_4" />
-            </LinearLayout>
+                    android:layout_marginLeft="@dimen/dim_8"
+                    android:layout_marginTop="@dimen/dim_4"
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+                        <TextView
+                            android:id="@+id/textViewChildHeading"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:alpha="0.7"
+                            android:text="Child Details"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/universal_text_size18" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerViewChild"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dim_4"
+                        android:overScrollMode="never"
+                        android:scrollbars="none" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </android.support.v7.widget.CardView>
 
