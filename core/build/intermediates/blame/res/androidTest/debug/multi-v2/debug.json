@@ -1,7 +1,6 @@
 {
     "logs": [
         {
-<<<<<<< HEAD
             "outputFile": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
             "map": [
                 {
@@ -12,34 +11,15 @@
                         "startOffsets": "55,107,158,807,865",
                         "endColumns": "51,50,51,57,55",
                         "endOffsets": "102,153,205,860,916"
-=======
-            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xxhdpi-v4_values-xxhdpi-v4.arsc.flat",
-            "map": [
-                {
-                    "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xxhdpi-v4\\values-xxhdpi-v4.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,114",
-                        "endColumns": "58,55",
-                        "endOffsets": "109,165"
->>>>>>> df8a2ea1ace89b2caa52ecdf74f02925dc422eb2
                     }
                 }
             ]
         },
         {
-<<<<<<< HEAD
             "outputFile": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xhdpi-v4_values-xhdpi-v4.arsc.flat",
             "map": [
                 {
                     "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xhdpi-v4\\values-xhdpi-v4.xml",
-=======
-            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
-            "map": [
-                {
-                    "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
->>>>>>> df8a2ea1ace89b2caa52ecdf74f02925dc422eb2
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -51,17 +31,10 @@
             ]
         },
         {
-<<<<<<< HEAD
             "outputFile": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-hdpi-v4_values-hdpi-v4.arsc.flat",
             "map": [
                 {
                     "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
-=======
-            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-hdpi-v4_values-hdpi-v4.arsc.flat",
-            "map": [
-                {
-                    "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
->>>>>>> df8a2ea1ace89b2caa52ecdf74f02925dc422eb2
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -73,7 +46,6 @@
             ]
         },
         {
-<<<<<<< HEAD
             "outputFile": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xxhdpi-v4_values-xxhdpi-v4.arsc.flat",
             "map": [
                 {
@@ -84,18 +56,6 @@
                         "startOffsets": "55,114",
                         "endColumns": "58,55",
                         "endOffsets": "109,165"
-=======
-            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xhdpi-v4_values-xhdpi-v4.arsc.flat",
-            "map": [
-                {
-                    "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xhdpi-v4\\values-xhdpi-v4.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,113",
-                        "endColumns": "57,55",
-                        "endOffsets": "108,164"
->>>>>>> df8a2ea1ace89b2caa52ecdf74f02925dc422eb2
                     }
                 }
             ]

@@ -29,6 +29,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 	// Retail table name
 	public static final String TABLE_RETAIL = "RetailTable";
+	public static final String TABLE_RETAIL_CART = "RetailTableCart";
 
 	// OpnionTable table name
 //	public static final String TABLE_OPINION = "OpnionTable";
@@ -82,6 +83,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL);
+
 		// Drop older table if existed
 		db.execSQL("DROP TABLE IF EXISTS " + CustomerModel.TABLE_NAME);
 
@@ -131,6 +133,36 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 		values.put(KEY_discount, Util.getCustomGson().toJson(datum.getDiscount())); //
 		// Inserting Row
 		db.insert(TABLE_RETAIL, null, values);
+		db.close(); // Closing database connection
+	}
+
+	public void addProductinCart(ProductSearchResult.Datum datum) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(KEY_productCode,datum.getProductCode());
+		values.put(KEY_iProductModalId,datum.getIProductModalId());
+		values.put(KEY_sProductName, datum.getSProductName()); //
+		values.put(KEY_sProductFeature,Util.getCustomGson().toJson(datum.getSProductFeature())); //
+		values.put(KEY_sProductImage, datum.getProductImage()); //
+		values.put(KEY_sProductPrice, datum.getSProductPrice()); //
+		values.put(KEY_sProductStock, datum.getSProductStock()); //
+		values.put(KEY_sProductWeight, datum.getSProductWeight()); //
+		if(datum.getIsDiscount())
+			values.put(KEY_isDiscount, 1); //
+		else
+			values.put(KEY_isDiscount, 0); //
+		values.put(KEY_gstPerc, datum.getGstPerc()); //
+		values.put(KEY_cgst, datum.getCgst()); //
+		values.put(KEY_sgst, datum.getSgst()); //
+		values.put(KEY_salesPrice, datum.getSalesPrice()); //
+		values.put(KEY_nrv, datum.getNrv()); //
+		values.put(KEY_gpl, datum.getGpl()); //
+		values.put(KEY_mrp, datum.getMrp()); //
+		values.put(KEY_barCodeNumber, datum.getBarCodeNumber()); //
+		values.put(KEY_discount, Util.getCustomGson().toJson(datum.getDiscount())); //
+		// Inserting Row
+		db.insert(TABLE_RETAIL_CART, null, values);
 		db.close(); // Closing database connection
 	}
 
