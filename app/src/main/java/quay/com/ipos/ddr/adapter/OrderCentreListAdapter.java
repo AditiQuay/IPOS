@@ -97,7 +97,7 @@ public class OrderCentreListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             if (viewType == VIEW_TYPE_ITEM) {
-                View view = LayoutInflater.from(mContext).inflate(R.layout.new_order_list_item, parent, false);
+                View view = LayoutInflater.from(mContext).inflate(R.layout.order_centre_list_item, parent, false);
                 return new OrderCentreListAdapter.UserViewHolder(view);
             }
             else if (viewType == VIEW_TYPE_LOADING) {

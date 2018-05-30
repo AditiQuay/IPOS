@@ -158,7 +158,7 @@
     <string name="otp">OTP</string>
     <string name="verify">Verify</string>
     <string name="no_match_found">No Match Found!</string>
-    <string name="redeem">redeem</string>
+    <string name="redeem">Redeem</string>
     <string name="cancel">Cancel</string>
     <string name="filter">Filter</string>
     <string name="Rs_">\u20B9 3902.90</string>
@@ -255,4 +255,5 @@
     <string name="evening_text">Good Evening !</string>
     <string name="night_text">Good Night !</string>
     <string name="sale_value">Sale Value</string>
+    <string name="click_icon_for_add_product">Click icon for add product</string>
 </resources>
