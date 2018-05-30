@@ -18,10 +18,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.ProductSearchResult;
-import quay.com.ipos.productCatalogue.productCatalogueAdapter.CatalogueSubCatalogueFragmentAdapter;
-import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductRangeAdapter;
 import quay.com.ipos.retailsales.adapter.AddProductAdapter;
-import quay.com.ipos.utility.Constants;
 
 /**
  * Created by niraj.kumar on 5/23/2018.
@@ -36,7 +33,8 @@ public class ProductRangeActivity extends AppCompatActivity implements InitInter
     private DatabaseHandler databaseHandler;
     public ArrayList<ProductSearchResult.Datum> data = new ArrayList<>();
     String productCode;
-    ArrayList<ProductSearchResult.Datum> responseList=new ArrayList<>();
+    ArrayList<ProductSearchResult.Datum> responseList = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +95,6 @@ public class ProductRangeActivity extends AppCompatActivity implements InitInter
         filter(productCode, data);
         productRangeAdapter = new AddProductAdapter(this, this, recyclerViewProductList, responseList);
         recyclerViewProductList.setAdapter(productRangeAdapter);
-
 
 
     }

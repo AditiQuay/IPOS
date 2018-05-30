@@ -1039,6 +1039,7 @@
     <dimen name="universal_text_size15">15sp</dimen>
     <dimen name="universal_text_size22">22sp</dimen>
     <dimen name="universal_text_size20">20sp</dimen>
+    <dimen name="universal_text_size18">18sp</dimen>
     <dimen name="universal_text_size16">16sp</dimen>
 
 

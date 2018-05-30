@@ -6,8 +6,11 @@ package quay.com.ipos.enums;
 
 public enum ProductCatalogueEnum {
     info("info"), section("section"),sectionProduct("sectionProduct"),
-    sectionItems("sectionItems"), productId("productId"),
-    productName("productName"), productUrl("productUrl"), count("count");
+    sectionItems("sectionItems"), productId("productId"),productNameMain("productName"),productMainUrl("productUrl"),count("count"),
+
+    productData("data"),productCode("productCode"),sProductName("sProductName"),
+    sProductUrl("sProductUrl"),sProductFeature("sProductFeature"),sProductPrice("sProductPrice"),sDataSheet("sDataSheet"),
+    sPoints("sPoints"),isOnOffer("isOnOffer"),isCalculator("isCalculator"),isDataSheet("isDataSheet");
 
     private final String name;
 

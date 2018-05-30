@@ -102,6 +102,7 @@
         <item>Loyalty Program</item>
         <item>Partner Connect</item>
     </string-array>
+
     <string name="total_discount">Total Discount</string>
     <string name="rounding_off">Rounding off</string>
     <string name="less_details">Less Details</string>

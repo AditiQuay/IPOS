@@ -121,7 +121,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
     }
 
     private void validateWithServer(String sAppVersion, String sDeviceType, String sDeviceModel, String sDeviceVersion, String sDeviceIMEI) {
-        showProgress("Authenticating....");
+        showProgress("Authenticating please wait....");
 
         String sFcmToken = Prefs.getStringPrefs(Constants.FCM_KEY);
         final String sEmail = editTextEmail.getText().toString().trim();
