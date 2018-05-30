@@ -104,7 +104,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //                    getLowestValue(rule.get(i));
                     if(rule.get(i).getRuleType().equalsIgnoreCase("I")){
                         userViewHolder.tvDiscount.setText(str.getSDiscountName());
-                        value =setOPS(i,rule,datum,mDataset);
+                        value =setOPS(i,rule);
                         userViewHolder.tvDiscountPrice.setText(value+"");
                         adapterListener.onRowClicked(position);
                     }else {
@@ -113,7 +113,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //                                discountbeforeSorting = new ArrayList<>();
 //                                discountbeforeSorting.addAll(IPOSApplication.datumSameCode.get( datum.getProductCode()));
                                 userViewHolder.tvDiscount.setText(str.getSDiscountName());
-                                value =setOPS(i,rule,datum,mDataset);
+                                value =setOPS(i,rule);
                                 userViewHolder.tvDiscountPrice.setText(value+"");
 
                             }
@@ -136,9 +136,15 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     }
 
-    private double setOPS(int i, ArrayList<ProductSearchResult.Rule> rule, ProductSearchResult.Datum datum, ArrayList<ProductSearchResult.Discount> mDataset) {
+    private double setOPS(int i, ArrayList<ProductSearchResult.Rule> rule) {
         Double value =0.0;
-        if(rule.get(i).getOpsType().equalsIgnoreCase("P"))
+        boolean pack = false;
+        if(rule.get(i).getPackSize()>0 && rule.get(i).getOpsType().equalsIgnoreCase("V")){
+            pack = true;
+        }else {
+
+        }
+        if(rule.get(i).getOpsType().equalsIgnoreCase("P") || pack)
         {
             // OPS TYPE if Product
             if(rule.get(i).getPackSize()==0)
@@ -327,8 +333,8 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         }else if(rule.get(i).getOpsType().equalsIgnoreCase("V")){
             // OPS TYPE if Value
-            if(rule.get(i).getPackSize()==0)
-            {
+//            if(rule.get(i).getPackSize()==0)
+//            {
                 if(rule.get(i).getSEligibilityBasedOn().equalsIgnoreCase("Q")){
                     // Eligibility BasedOn QUANTITY
                     if(this.datum.getQty()>rule.get(i).getSlabFrom() && this.datum.getQty() < rule.get(i).getSlabTO()){
@@ -403,45 +409,45 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                     }
                 }
-            }else if(rule.get(i).getPackSize()>0) {
-                int productCartItem = 0;
-                int totalItem =0 ;
-                int cartCount = IPOSApplication.mProductListResult.size();
-//                discountbeforeSorting = new ArrayList<>();
-//                if(productCartItem==1){
-//                    productCartItem = IPOSApplication.mProductListResult.get(0).getQty();
-//                }else {
-                discountbeforeSorting.addAll(IPOSApplication.datumSameCode.get( datum.getProductCode()));
-                for (int l = 0 ; l < discountbeforeSorting.size() ; l++){
-                    for (int h = 0 ; h < IPOSApplication.mProductListResult.size(); h++){
-                        if(discountbeforeSorting.get(l).getProductCode().equalsIgnoreCase(IPOSApplication.mProductListResult.get(h).getProductCode()))
-                            productCartItem ++;
-                    }
-                }
-//                int totalItem =rule.get(i).getSlabFrom() + rule.get(i).getPackSize();
-//                }
-                if(productCartItem > 0)
-                    totalItem  = productCartItem / (rule.get(i).getSlabFrom() + rule.get(i).getPackSize());
-                if(totalItem>=IPOSApplication.mProductListResult.get(cartCount).getTotalQty()) {
-//                    int QuantityCheck =  this.datum.getQty() /rule.get(i).getPackSize() ;
-//                    if(QuantityCheck>=rule.get(i).getSlabFrom() && QuantityCheck <= rule.get(i).getSlabTO())
-//                    {
-                    // Qty in range of SLAB from - SLAB to
-                    if (rule.get(i).getOpsCriteria().equalsIgnoreCase("L")) {
-                        getLowestValue(rule.get(i));
-
-                        value = getDiscountTypeBaseOn( i)*totalItem;
-
-
-                    } else if (rule.get(i).getOpsCriteria().equalsIgnoreCase("H")) {
-                        getHighestValue(rule.get(i));
-
-                        value = getDiscountTypeBaseOn( i)*totalItem;
-                    }
+//            }else if(rule.get(i).getPackSize()>0) {
+//                int productCartItem = 0;
+//                int totalItem =0 ;
+//                int cartCount = IPOSApplication.mProductListResult.size();
+////                discountbeforeSorting = new ArrayList<>();
+////                if(productCartItem==1){
+////                    productCartItem = IPOSApplication.mProductListResult.get(0).getQty();
+////                }else {
+//                discountbeforeSorting.addAll(IPOSApplication.datumSameCode.get( datum.getProductCode()));
+//                for (int l = 0 ; l < discountbeforeSorting.size() ; l++){
+//                    for (int h = 0 ; h < IPOSApplication.mProductListResult.size(); h++){
+//                        if(discountbeforeSorting.get(l).getProductCode().equalsIgnoreCase(IPOSApplication.mProductListResult.get(h).getProductCode()))
+//                            productCartItem ++;
 //                    }
-
-                }
-            }
+//                }
+////                int totalItem =rule.get(i).getSlabFrom() + rule.get(i).getPackSize();
+////                }
+//                if(productCartItem > 0)
+//                    totalItem  = productCartItem / (rule.get(i).getSlabFrom() + rule.get(i).getPackSize());
+//                if(totalItem>=IPOSApplication.mProductListResult.get(cartCount).getTotalQty()) {
+////                    int QuantityCheck =  this.datum.getQty() /rule.get(i).getPackSize() ;
+////                    if(QuantityCheck>=rule.get(i).getSlabFrom() && QuantityCheck <= rule.get(i).getSlabTO())
+////                    {
+//                    // Qty in range of SLAB from - SLAB to
+//                    if (rule.get(i).getOpsCriteria().equalsIgnoreCase("L")) {
+//                        getLowestValue(rule.get(i));
+//
+//                        value = getDiscountTypeBaseOn( i)*totalItem;
+//
+//
+//                    } else if (rule.get(i).getOpsCriteria().equalsIgnoreCase("H")) {
+//                        getHighestValue(rule.get(i));
+//
+//                        value = getDiscountTypeBaseOn( i)*totalItem;
+//                    }
+////                    }
+//
+//                }
+//            }
 
 
 

@@ -70,7 +70,7 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView tvItemName, tvItemPrice, tvItemStockAvailabilty, tvCheckStock,
-                tvMinus,tvPlus,tvOffers,tvReserved,tvAddCart;
+                tvMinus,tvPlus,tvAddCart;
         public ImageView imvProduct,imvInfo;
         public EditText etQtySelected;
 
@@ -83,8 +83,6 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvMinus =  itemView.findViewById(R.id.tvMinus);
             etQtySelected =  itemView.findViewById(R.id.etQtySelected);
             tvPlus =  itemView.findViewById(R.id.tvPlus);
-            tvOffers =  itemView.findViewById(R.id.tvOffers);
-            tvReserved =  itemView.findViewById(R.id.tvReserved);
             tvAddCart =  itemView.findViewById(R.id.tvAddCart);
             imvProduct =  itemView.findViewById(R.id.imvProduct);
             imvInfo = itemView.findViewById(R.id.imvInfo);
@@ -139,11 +137,6 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.imvInfo.setOnClickListener(mOnClickListener);
             userViewHolder.imvInfo.setTag(position);
 
-            userViewHolder.tvReserved.setOnClickListener(mOnClickListener);
-            userViewHolder.tvReserved.setTag(position);
-
-            userViewHolder.tvOffers.setOnClickListener(mOnClickListener);
-            userViewHolder.tvOffers.setTag(position);
 
             userViewHolder.etQtySelected.setTag(position);
             userViewHolder.etQtySelected.addTextChangedListener(new TextWatcher() {
