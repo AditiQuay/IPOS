@@ -31,9 +31,11 @@ import quay.com.ipos.R;
 import quay.com.ipos.dashboard.adapter.FastMovingListAdapter;
 import quay.com.ipos.dashboard.adapter.InventoryListAdapter;
 import quay.com.ipos.dashboard.adapter.LowInventoryListAdapter;
+import quay.com.ipos.dashboard.adapter.SchemeListAdapter;
 import quay.com.ipos.dashboard.adapter.SpinnerDropDownAdapter;
 import quay.com.ipos.dashboard.adapter.TopStoresListAdapter;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
+import quay.com.ipos.dashboard.modal.SchemePerformanceModal;
 import quay.com.ipos.enums.DashboardKeys;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.modal.SpinnerList;
@@ -53,7 +55,7 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
     String[] product = {"Bavistin", "Abacin", "Snapper", "Kyoto", "Nutrozen"};
     String[] topstores = {"My store 1", "Top Store 2", "Top store 3", "Top store 4", "Top store 5"};
     String[] inventory = {"Reference # 1", "Reference # 2"};
-    private RecyclerView recyclerView, recycler_view_top_stores, recycler_viewFastMoving,recycler_viewInventory;
+    private RecyclerView recyclerView, recycler_view_top_stores, recycler_viewFastMoving,recycler_viewInventory,recycler_viewScheme;
     private LowInventoryListAdapter adapter;
     private TopStoresListAdapter topStoresListAdapter;
     private FastMovingListAdapter fastMovingListAdapter;
@@ -62,6 +64,7 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
     private ArrayList<LowInventoryModal> topStoresList = new ArrayList<>();
     private ArrayList<LowInventoryModal> inventoryList = new ArrayList<>();
     private ArrayList<LowInventoryModal> fastMovingList = new ArrayList<>();
+    private ArrayList<SchemePerformanceModal> schemePerformance = new ArrayList<>();
     private int position;
     private String strImage;
     private TextView tvMyStore,tvOnlineValue,tvotherValue,tvSalesValue,tvTotalSalesTarget,tvTotalSalesAcheviment,tvEndSeasonAcheivement,tvEndSeasonTarget,tvEndSeasonSales
@@ -70,6 +73,8 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
     Spinner spFeedbackSpinner,spTotalSalesSpinner,spFootprintSpinner;
     private boolean isPopupVisible = false;
     private CircularProgressBar cpb1,cpb2,cpb3,cpb4;
+    private SchemeListAdapter schemeListAdapter;
+
     // newInstance constructor for creating fragment with arguments
     public DashboardItemFragment newInstance(int position) {
         DashboardItemFragment fragmentFirst = new DashboardItemFragment();
@@ -139,6 +144,14 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
         recycler_viewInventory.addItemDecoration(new SpacesItemDecoration(10));
         inventoryListAdapter = new InventoryListAdapter(getActivity(), inventoryList);
         recycler_viewInventory.setAdapter(inventoryListAdapter);
+
+        recycler_viewScheme = (RecyclerView) view.findViewById(R.id.recycler_viewScheme);
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
+        //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        recycler_viewScheme.setLayoutManager(manager);
+        recycler_viewScheme.addItemDecoration(new SpacesItemDecoration(10));
+        schemeListAdapter = new SchemeListAdapter(getActivity(), schemePerformance);
+        recycler_viewScheme.setAdapter(schemeListAdapter);
 
       //  getLowInventoryData();
         parsingJson();
@@ -281,10 +294,10 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
             e.printStackTrace();
         }
 
-        String schemePerformance=Util.getAssetJsonResponse(getActivity(),"schemePerformance.json");
+        String schemePerformanc1e=Util.getAssetJsonResponse(getActivity(),"schemePerformance.json");
 
         try {
-            JSONObject jsonObject=new JSONObject(schemePerformance);
+            JSONObject jsonObject=new JSONObject(schemePerformanc1e);
 
             tvEndSeasonSales.setText(getString(R.string.Rs)+" "+jsonObject.optJSONObject(DashboardKeys.endofSeason.toString()).optString(DashboardKeys.totalAmount.toString()));
             tvEndSeasonTarget.setText(jsonObject.optJSONObject(DashboardKeys.endofSeason.toString()).optString(DashboardKeys.target.toString()));
@@ -297,6 +310,29 @@ public class DashboardItemFragment extends Fragment implements FilterListener {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        String scheme=Util.getAssetJsonResponse(getActivity(),"scheme");
+
+        try {
+
+            JSONObject jsonObject=new JSONObject(scheme);
+            JSONArray array=jsonObject.optJSONArray(DashboardKeys.schemePerformance.toString());
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject1=array.optJSONObject(i);
+                SchemePerformanceModal lowInventoryModal = new SchemePerformanceModal();
+                lowInventoryModal.setName(jsonObject1.optString(DashboardKeys.title1.toString()));
+                lowInventoryModal.setTarget(jsonObject1.optString(DashboardKeys.target.toString()));
+                lowInventoryModal.setAchievement(jsonObject1.optString(DashboardKeys.achievement.toString()));
+                lowInventoryModal.setSales(jsonObject1.optString(DashboardKeys.totalSales.toString()));
+
+                schemePerformance.add(lowInventoryModal);
+
+            }
+            schemeListAdapter.notifyDataSetChanged();
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
 
 
