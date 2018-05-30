@@ -24,7 +24,7 @@
             android:layout_margin="@dimen/dim_4">
 
             <TextView
-                android:id="@+id/textViewHeading"
+                android:id="@+id/textViewPersonalHeading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
@@ -170,7 +170,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.7"
-                    android:text="Gender *"
+                    android:text="Married Status *"
                     android:textColor="@color/primary_text_color"
                     android:textSize="@dimen/universal_text_size12" />
 

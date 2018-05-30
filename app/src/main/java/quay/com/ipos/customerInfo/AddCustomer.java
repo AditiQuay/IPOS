@@ -19,7 +19,7 @@ import quay.com.ipos.utility.FontUtil;
 
 public class AddCustomer extends RunTimePermissionActivity implements InitInterface {
     private Toolbar toolbar;
-    private TextView textViewMadatory, textViewHeading, textViewTitle, textViewGender, textViewMaritalStatus;
+    private TextView textViewMadatory, textViewPersonalHeading, textViewTitle, textViewGender, textViewMaritalStatus;
     private TextInputEditText tieFirstName, tieLastName, tieDOB;
     private Spinner genderSpinner, titleSpinner, maritalStatusSpinner;
     String[] nameTitle = {"Mr.", "Mrs.", "Miss."};
@@ -30,9 +30,15 @@ public class AddCustomer extends RunTimePermissionActivity implements InitInterf
     String[] country = {"India", "US", "China"};
 
     //ContactInformation
-    private TextView textViewContactHeading, textViewContactCountry, textViewContactState, textViewContactCity;
-    private TextInputEditText tieContactPinCode, tieContactAddress, tieContactMobileNumSecondary, tieContactMobileNumPrimary, tieContactEmail2, tieContactEmail1;
-    private Spinner countryContactSpinner, stateContactSpinner, cityContactSpinner;
+    private TextView textViewContactHeading, textViewCountry, textViewState, textViewCity;
+    private TextInputEditText tiePinCode, tieAddress, tieMobileNumSecondary, tieMobileNumPrimary, tieEmail2, tieEmail1;
+    private Spinner countrySpinner, stateSpinner, citySpinner;
+
+    //Professional information
+    private TextView textViewProfessionalHeading,textViewTitleDesignation,textViewCompanyTitle,textViewCustomerType,textViewRelationShip;
+    private Spinner designationSpinner,companySpinner,customerTypeSpinner,relationShipSpinner;
+    private TextInputEditText tieGstin;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,13 +53,14 @@ public class AddCustomer extends RunTimePermissionActivity implements InitInterf
     @Override
     public void onPermissionsGranted(int requestCode) {
 
+
     }
 
     @Override
     public void findViewById() {
         toolbar = findViewById(R.id.toolbar);
         textViewMadatory = findViewById(R.id.textViewMadatory);
-        textViewHeading = findViewById(R.id.textViewHeading);
+        textViewPersonalHeading = findViewById(R.id.textViewPersonalHeading);
         textViewTitle = findViewById(R.id.textViewTitle);
         titleSpinner = findViewById(R.id.titleSpinner);
         textViewGender = findViewById(R.id.textViewGender);
@@ -66,18 +73,30 @@ public class AddCustomer extends RunTimePermissionActivity implements InitInterf
 
         //Contact info
         textViewContactHeading = findViewById(R.id.textViewContactHeading);
-        textViewContactCountry = findViewById(R.id.textViewContactCountry);
-        textViewContactState = findViewById(R.id.textViewContactState);
-        textViewContactCity = findViewById(R.id.textViewContactCity);
-        tieContactPinCode = findViewById(R.id.tieContactPinCode);
-        tieContactAddress = findViewById(R.id.tieContactAddress);
-        tieContactMobileNumSecondary = findViewById(R.id.tieContactMobileNumSecondary);
-        tieContactMobileNumPrimary = findViewById(R.id.tieContactMobileNumPrimary);
-        tieContactEmail2 = findViewById(R.id.tieContactEmail2);
-        tieContactEmail1 = findViewById(R.id.tieContactEmail1);
-        countryContactSpinner = findViewById(R.id.countryContactSpinner);
-        stateContactSpinner = findViewById(R.id.stateContactSpinner);
-        cityContactSpinner = findViewById(R.id.cityContactSpinner);
+        textViewCountry = findViewById(R.id.textViewCountry);
+        textViewState = findViewById(R.id.textViewState);
+        textViewCity = findViewById(R.id.textViewCity);
+        tiePinCode = findViewById(R.id.tiePinCode);
+        tieAddress = findViewById(R.id.tieAddress);
+        tieMobileNumSecondary = findViewById(R.id.tieMobileNumSecondary);
+        tieMobileNumPrimary = findViewById(R.id.tieMobileNumPrimary);
+        tieEmail2 = findViewById(R.id.tieEmail2);
+        tieEmail1 = findViewById(R.id.tieEmail1);
+        countrySpinner = findViewById(R.id.countrySpinner);
+        stateSpinner = findViewById(R.id.stateSpinner);
+        citySpinner = findViewById(R.id.citySpinner);
+
+        //Professional info
+        textViewProfessionalHeading = findViewById(R.id.textViewProfessionalHeading);
+        textViewTitleDesignation = findViewById(R.id.textViewTitleDesignation);
+        textViewCompanyTitle = findViewById(R.id.textViewCompanyTitle);
+        textViewCustomerType = findViewById(R.id.textViewCustomerType);
+        textViewRelationShip = findViewById(R.id.textViewRelationShip);
+        designationSpinner = findViewById(R.id.designationSpinner);
+        companySpinner = findViewById(R.id.companySpinner);
+        customerTypeSpinner = findViewById(R.id.customerTypeSpinner);
+        relationShipSpinner = findViewById(R.id.relationShipSpinner);
+        tieGstin = findViewById(R.id.tieGstin);
 
 
     }
@@ -111,24 +130,25 @@ public class AddCustomer extends RunTimePermissionActivity implements InitInterf
         //Creating the ArrayAdapter instance having the bank name list
         ArrayAdapter cityHeading = new ArrayAdapter(this, android.R.layout.simple_spinner_item, city);
         cityHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        cityContactSpinner.setAdapter(cityHeading);
+        citySpinner.setAdapter(cityHeading);
 
         //Creating the ArrayAdapter instance having the bank name list
         ArrayAdapter stateHeading = new ArrayAdapter(this, android.R.layout.simple_spinner_item, state);
         stateHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        stateContactSpinner.setAdapter(stateHeading);
+        stateSpinner.setAdapter(stateHeading);
 
         //Creating the ArrayAdapter instance having the bank name list
         ArrayAdapter countryHeading = new ArrayAdapter(this, android.R.layout.simple_spinner_item, country);
         countryHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        countryContactSpinner.setAdapter(countryHeading);
+        countrySpinner.setAdapter(countryHeading);
     }
 
     @Override
     public void applyTypeFace() {
+        //Personal
         FontUtil.applyTypeface(textViewMadatory, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(toolbar, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(textViewHeading, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewPersonalHeading, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(textViewTitle, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(titleSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(textViewGender, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
@@ -140,19 +160,35 @@ public class AddCustomer extends RunTimePermissionActivity implements InitInterf
         FontUtil.applyTypeface(textViewMaritalStatus, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
 
+        //Contact
         FontUtil.applyTypeface(textViewContactHeading, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(textViewContactCountry, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(textViewContactState, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(textViewContactCity, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tieContactPinCode, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tieContactAddress, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tieContactMobileNumSecondary, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tieContactMobileNumPrimary, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tieContactEmail2, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tieContactEmail1, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(countryContactSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(stateContactSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(cityContactSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewCountry, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewState, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewCity, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(tiePinCode, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(tieAddress, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(tieMobileNumSecondary, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(tieMobileNumPrimary, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(tieEmail2, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(tieEmail1, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(countrySpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(stateSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(citySpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+
+
+        //Professional
+
+        FontUtil.applyTypeface(textViewProfessionalHeading, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewTitleDesignation, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewCompanyTitle, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewCustomerType, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(textViewRelationShip, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(designationSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(companySpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(customerTypeSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(relationShipSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(tieGstin, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+
 
 
     }
