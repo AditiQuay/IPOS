@@ -1,8 +1,18 @@
 <component name="libraryTable">
   <library name="com.google.firebase:firebase-messaging-12.0.1">
     <CLASSES>
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-12.0.1.aar/323ffc54f59af98160141ba499ff00a3/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-12.0.1.aar/323ffc54f59af98160141ba499ff00a3/jars/classes.jar!/" />
+=======
+<<<<<<< HEAD
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-12.0.1.aar/13befbdf62456e2c28fb2065facf3d9e/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-12.0.1.aar/13befbdf62456e2c28fb2065facf3d9e/jars/classes.jar!/" />
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-12.0.1.aar/417fdebe4c222a5365ac989fdf4c76b1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-12.0.1.aar/417fdebe4c222a5365ac989fdf4c76b1/jars/classes.jar!/" />
+>>>>>>> 4774edfbe832a966d025411a53e353111b7d93bb
+>>>>>>> f34bf56e1687d0765576f947a65ba6039a43d1dd
     </CLASSES>
     <JAVADOC />
     <SOURCES />

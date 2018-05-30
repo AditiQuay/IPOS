@@ -49,11 +49,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/items"
+        android:visibility="gone"
         android:layout_marginTop="@dimen/dim_6">
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dim_8"
+            android:layout_height="@dimen/dim_6"
             android:background="@color/app_background_color" />
     </RelativeLayout>
 </LinearLayout>

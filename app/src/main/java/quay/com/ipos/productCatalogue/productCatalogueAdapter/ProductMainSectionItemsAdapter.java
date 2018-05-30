@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
@@ -70,24 +71,34 @@ public class ProductMainSectionItemsAdapter extends RecyclerView.Adapter<Product
         holder.imageViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Util.animateView(v);
-                ProductItemModal productCatalogueModal = productItemModalArrayList.get(i);
+                if (NetUtil.isNetworkAvailable(mContext)) {
+                    Util.animateView(v);
+                    ProductItemModal productCatalogueModal = productItemModalArrayList.get(i);
 
-                Intent i = new Intent(mContext, CatalogueSubProduct.class);
-                i.putExtra("Product Name", productCatalogueModal.getProductName());
-                mContext.startActivity(i);
+                    Intent i = new Intent(mContext, CatalogueSubProduct.class);
+                    i.putExtra("ProductName", productCatalogueModal.getProductName());
+                    mContext.startActivity(i);
+                } else {
+                    Toast.makeText(mContext, mContext.getResources().getString(R.string.no_internet_connection_warning_server_error), Toast.LENGTH_SHORT).show();
+                }
+
 
             }
         });
         holder.textViewProductName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Util.animateView(v);
-                ProductItemModal productCatalogueModal = productItemModalArrayList.get(i);
+                if (NetUtil.isNetworkAvailable(mContext)) {
+                    Util.animateView(v);
+                    ProductItemModal productCatalogueModal = productItemModalArrayList.get(i);
 
-                Intent i = new Intent(mContext, CatalogueSubProduct.class);
-                i.putExtra("Product Name", productCatalogueModal.getProductName());
-                mContext.startActivity(i);
+                    Intent i = new Intent(mContext, CatalogueSubProduct.class);
+                    i.putExtra("ProductName", productCatalogueModal.getProductName());
+                    mContext.startActivity(i);
+
+                } else {
+                    Toast.makeText(mContext, mContext.getResources().getString(R.string.no_internet_connection_warning_server_error), Toast.LENGTH_SHORT).show();
+                }
 
             }
         });

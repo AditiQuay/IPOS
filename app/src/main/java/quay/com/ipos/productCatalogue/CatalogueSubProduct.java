@@ -14,9 +14,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,29 +29,41 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.RunTimePermissionActivity;
+import quay.com.ipos.enums.ProductCatalogueEnum;
 import quay.com.ipos.listeners.DataSheetDownloadListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.CatalogueSubCatalogueFragmentAdapter;
+import quay.com.ipos.productCatalogue.productCatalogueHelper.ProductCatalogueUtils;
 import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
+import quay.com.ipos.productCatalogue.productModal.CatalogueServerModel;
+import quay.com.ipos.productCatalogue.productModal.ProductCatalogueServerModal;
+import quay.com.ipos.productCatalogue.productModal.ProductSectionModal;
+import quay.com.ipos.service.ServiceTask;
+import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 4/17/2018.
  */
 
-public class CatalogueSubProduct extends RunTimePermissionActivity implements InitInterface, MyListener, DataSheetDownloadListener {
+public class CatalogueSubProduct extends RunTimePermissionActivity implements InitInterface, MyListener, DataSheetDownloadListener, ServiceTask.ServiceResultListener {
+    private static final String TAG = CatalogueSubProduct.class.getSimpleName();
     private TextView textViewProductName, textViewProductCountTitle, textViewProductCount;
     private RecyclerView recyclerviewProduct;
     private Context mContext;
-    private ArrayList<quay.com.ipos.productCatalogue.productModal.CatalogueModal> catalogueModalsSet = new ArrayList<>();
+    private ArrayList<CatalogueModal> catalogueModalsSet = new ArrayList<>();
     private CatalogueSubCatalogueFragmentAdapter catalogueSubCatalogueFragmentAdapter;
     private LinearLayoutManager layoutManager;
     private String productName;
@@ -65,17 +79,38 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
     };
 
     private int clickedPosition;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.catalogue_sub_product);
-        Intent i = getIntent();
-        //Retrieve the value
-        productName = i.getStringExtra("Product Name");
         mContext = CatalogueSubProduct.this;
+        Intent i = getIntent();
+        productName = i.getStringExtra("ProductName");
         findViewById();
         applyInitValues();
         applyTypeFace();
+    }
+
+    private void getProductList() {
+        showProgress("Loading please wait...");
+
+        int storeId = SharedPrefUtil.getStoreId(Constants.STORE_ID.trim(), 0, mContext);
+        AppLog.e(TAG, "StoreId" + storeId);
+
+        CatalogueModal catalogueSubProductParam = new CatalogueModal();
+        catalogueSubProductParam.setCompanyName("Quay");
+        catalogueSubProductParam.setProductId("1");
+        catalogueSubProductParam.setStoreID(String.valueOf(storeId));
+
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL.trim());
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_PRODUCT_DETAIL.trim());
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(catalogueSubProductParam);
+        mTask.setListener(this);
+        mTask.setResultType(CatalogueServerModel.class);
+        mTask.execute();
     }
 
     @Override
@@ -83,7 +118,7 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
         if (requestCode == REQUEST_PERMISSIONS) {
             CatalogueModal catalogueModal = catalogueModalsSet.get(clickedPosition);
             // starting new Async Task
-            new DownloadFileFromURL().execute(catalogueModal.sDataSheet.trim());
+            new DownloadFileFromURL().execute(catalogueModal.getsDataSheet().trim());
         }
 
     }
@@ -121,13 +156,17 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
 
         textViewProductName.setText(productName);
 
+
         layoutManager = new LinearLayoutManager(mContext);
         recyclerviewProduct.setLayoutManager(layoutManager);
-        catalogueSubCatalogueFragmentAdapter = new CatalogueSubCatalogueFragmentAdapter(mContext, catalogueModalsSet, this, this);
-        recyclerviewProduct.setAdapter(catalogueSubCatalogueFragmentAdapter);
+        if (ProductCatalogueUtils.getProductDetail(mContext) != null) {
+            String productCount = SharedPrefUtil.getString(Constants.PREF_KEY_PRODUCT_COUNT.trim(), "", mContext);
+            textViewProductCount.setText(productCount);
 
-        catalogueModalsSet.clear();
-        getServerData();
+            catalogueSubCatalogueFragmentAdapter = new CatalogueSubCatalogueFragmentAdapter(mContext, ProductCatalogueUtils.getProductDetail(mContext), this, this);
+            recyclerviewProduct.setAdapter(catalogueSubCatalogueFragmentAdapter);
+        }
+        getProductList();
 
     }
 
@@ -140,24 +179,40 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
 
     }
 
-    private void getServerData() {
+    private void getServerData(String response) {
         try {
             // Creating JSONObject from String
-            JSONObject jsonObjMain = new JSONObject(Util.getAssetJsonResponse(mContext, "catalogue_product_details.Json"));
+            JSONObject jsonObjMain = new JSONObject(response);
+            int count = jsonObjMain.optInt(ProductCatalogueEnum.count.toString());
             // Creating JSONArray from JSONObject
-            JSONArray jsonArray = jsonObjMain.getJSONArray("data");
+            JSONArray jsonArray = jsonObjMain.getJSONArray(ProductCatalogueEnum.productData.toString());
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                CatalogueModal catalogueModal = new CatalogueModal();
-                catalogueModal.ProductCode = jsonObject.getString("ProductCode");
-                catalogueModal.sProductName = jsonObject.getString("sProductName");
-                catalogueModal.sProductFeature = jsonObject.getString("sProductFeature");
-                catalogueModal.sProductPrice = jsonObject.getString("sProductPrice");
-                catalogueModal.sDataSheet = jsonObject.getString("sDataSheet");
-                catalogueModal.sPoints = jsonObject.getString("sPoints");
-                catalogueModalsSet.add(catalogueModal);
+                CatalogueModal catalogueModal2 = new CatalogueModal();
+                catalogueModal2.setProductCode(jsonObject.optString(ProductCatalogueEnum.productCode.toString()));
+                catalogueModal2.setsProductName(jsonObject.optString(ProductCatalogueEnum.sProductName.toString()));
+                catalogueModal2.setsProductUrl(jsonObject.optString(ProductCatalogueEnum.sProductUrl.toString()));
+                catalogueModal2.setsProductFeature(jsonObject.optString(ProductCatalogueEnum.sProductFeature.toString()));
+                catalogueModal2.setsProductPrice(jsonObject.optString(ProductCatalogueEnum.sProductPrice.toString()));
+                catalogueModal2.setsDataSheet(jsonObject.optString(ProductCatalogueEnum.sDataSheet.toString()));
+                catalogueModal2.setsPoints(jsonObject.optString(ProductCatalogueEnum.sPoints.toString()));
+                catalogueModal2.setIsOnOffer(jsonObject.optBoolean(ProductCatalogueEnum.isOnOffer.toString()));
+                catalogueModal2.setIsCalculator(jsonObject.optBoolean(ProductCatalogueEnum.isCalculator.toString()));
+                catalogueModal2.setIsDataSheet(jsonObject.optBoolean(ProductCatalogueEnum.isDataSheet.toString()));
+                catalogueModalsSet.add(catalogueModal2);
             }
+
+            ProductCatalogueUtils.saveProductDetail(mContext, catalogueModalsSet);
+
+            SharedPrefUtil.putString(Constants.PREF_KEY_PRODUCT_COUNT.trim(), String.valueOf(count), mContext);
+            String productCount = SharedPrefUtil.getString(Constants.PREF_KEY_PRODUCT_COUNT.trim(), "", mContext);
+
+            textViewProductCount.setText(productCount);
+            catalogueSubCatalogueFragmentAdapter = new CatalogueSubCatalogueFragmentAdapter(mContext, ProductCatalogueUtils.getProductDetail(mContext), this, this);
+            recyclerviewProduct.setAdapter(catalogueSubCatalogueFragmentAdapter);
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -174,7 +229,8 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
 
         CatalogueModal catalogueModal = catalogueModalsSet.get(position);
         Intent gotToProductDetail = new Intent(mContext, ProductDetails.class);
-        gotToProductDetail.putExtra("ProductName", catalogueModal.sProductName);
+        gotToProductDetail.putExtra("ProductName", catalogueModal.getsProductName());
+        gotToProductDetail.putExtra("ProductId", catalogueModal.getProductCode());
         startActivity(gotToProductDetail);
     }
 
@@ -186,14 +242,18 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
     @Override
     public void onDataSheetDownload(int position) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            CatalogueSubProduct.super.requestAppPermissions(ALL_PERMISSIONS, R.string.runtime_permissions_txt, REQUEST_PERMISSIONS,position);
-            this.clickedPosition=position;
+            CatalogueSubProduct.super.requestAppPermissions(ALL_PERMISSIONS, R.string.runtime_permissions_txt, REQUEST_PERMISSIONS, position);
+            this.clickedPosition = position;
         } else {
             CatalogueModal catalogueModal = catalogueModalsSet.get(position);
-            // starting new Async Task
-            new DownloadFileFromURL().execute(catalogueModal.sDataSheet.trim());
-        }
+            if (!TextUtils.isEmpty(catalogueModal.getsDataSheet().trim())) {
+                // starting new Async Task
+                new DownloadFileFromURL().execute(catalogueModal.getsDataSheet().trim());
+            } else {
+                Toast.makeText(mContext, "No attachment found !", Toast.LENGTH_SHORT).show();
+            }
 
+        }
 
 
     }
@@ -201,8 +261,8 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
     @Override
     public void onCartBtnClick(int position) {
         CatalogueModal catalogueModal = catalogueModalsSet.get(position);
-        Intent i = new Intent(mContext,ProductRangeActivity.class);
-        i.putExtra("ProductCode",catalogueModal.ProductCode);
+        Intent i = new Intent(mContext, ProductRangeActivity.class);
+        i.putExtra("ProductCode", catalogueModal.getProductCode());
         startActivity(i);
     }
 
@@ -223,6 +283,31 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
                 return pDialog;
             default:
                 return null;
+        }
+    }
+
+    @Override
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
+        dismissProgress();
+        if (httpStatusCode == Constants.SUCCESS) {
+            if (resultObj != null) {
+                ProductCatalogueUtils.clearProductDetail(mContext);
+                SharedPrefUtil.remove(Constants.PREF_KEY_PRODUCT_COUNT.trim(), mContext);
+                if (catalogueModalsSet.size() > 0) {
+                    catalogueModalsSet.clear();
+                }
+                getServerData(serverResponse);
+            }
+        } else if (httpStatusCode == Constants.BAD_REQUEST) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
     }
 

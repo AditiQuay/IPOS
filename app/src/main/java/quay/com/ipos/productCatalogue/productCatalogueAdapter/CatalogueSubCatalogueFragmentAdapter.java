@@ -8,7 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -18,6 +23,7 @@ import quay.com.ipos.listeners.DataSheetDownloadListener;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -29,11 +35,12 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
     private ArrayList<CatalogueModal> catalogueModalsSet;
     private MyListener listener;
     private DataSheetDownloadListener dataSheetDownloadListener;
-    public CatalogueSubCatalogueFragmentAdapter(Context mContext, ArrayList<CatalogueModal> catalogueModalsSet, MyListener listener,DataSheetDownloadListener dataSheetDownloadListener) {
+
+    public CatalogueSubCatalogueFragmentAdapter(Context mContext, ArrayList<CatalogueModal> catalogueModalsSet, MyListener listener, DataSheetDownloadListener dataSheetDownloadListener) {
         this.mContext = mContext;
         this.catalogueModalsSet = catalogueModalsSet;
         this.listener = listener;
-        this.dataSheetDownloadListener=dataSheetDownloadListener;
+        this.dataSheetDownloadListener = dataSheetDownloadListener;
     }
 
     @Override
@@ -47,15 +54,59 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
     @Override
     public void onBindViewHolder(CatalogueSubCatalogueFragmentAdapter.MyViewHolder holder, final int position) {
         CatalogueModal catalogueModal = catalogueModalsSet.get(position);
-        holder.textViewProductName.setText(catalogueModal.sProductName);
-        holder.textViewFeature.setText(catalogueModal.sProductFeature);
-        holder.textViewPrice.setText(catalogueModal.sProductPrice);
-        holder.textViewOffer.setText(catalogueModal.sPoints+" "+mContext.getResources().getString(R.string.text_points));
+        holder.textViewProductName.setText(catalogueModal.getsProductName());
+        holder.textViewFeature.setText(catalogueModal.getsProductFeature());
+        String s1 = catalogueModal.getsProductPrice();
+        String[] words = s1.split("-");
+        String part1 =words[0];
+        String part2 = words[1];
+        String finalPrice = "\u20B9"+" "+part1+"-"+" \u20B9"+" "+part2;
 
+        holder.textViewPrice.setText(finalPrice);
+        holder.textViewOffer.setText(catalogueModal.getsPoints() + " " + mContext.getResources().getString(R.string.text_points));
+        if (catalogueModal.getIsOnOffer()){
+            holder.rLayoutTopStrip.setVisibility(View.VISIBLE);
+        }else {
+            holder.rLayoutTopStrip.setVisibility(View.INVISIBLE);
+        }
+
+        if (catalogueModal.getIsDataSheet()) {
+            holder.btnDataSheet.setVisibility(View.VISIBLE);
+        } else {
+            holder.btnDataSheet.setVisibility(View.INVISIBLE);
+        }
+        if (catalogueModal.getIsCalculator()) {
+            holder.btnCalculator.setVisibility(View.VISIBLE);
+        } else {
+            holder.btnCalculator.setVisibility(View.INVISIBLE);
+        }
+
+        if (NetUtil.isNetworkAvailable(mContext)) {
+            Picasso.get().load(catalogueModal.getsProductUrl()).placeholder(R.drawable.product_placeholder).into(holder.imageViewProduct);
+
+        } else {
+            Picasso.get()
+                    .load(catalogueModal.getsProductUrl())
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .placeholder(R.drawable.product_placeholder)
+                    .into(holder.imageViewProduct, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+
+                    });
+        }
         applyClickEvents(holder, position);
 
     }
-    private void applyClickEvents(final CatalogueSubCatalogueFragmentAdapter.MyViewHolder holder, final int position){
+
+    private void applyClickEvents(final CatalogueSubCatalogueFragmentAdapter.MyViewHolder holder, final int position) {
         holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +127,7 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return catalogueModalsSet.size();
@@ -86,7 +138,7 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
         private TextView textViewProductName, textViewFeature, textViewPrice, textViewOffer;
         private CardView cardViewProduct;
         private Button btnDataSheet, btnCalculator, btnCart;
-
+        private RelativeLayout rLayoutTopStrip;
         public MyViewHolder(View itemView) {
             super(itemView);
             cardViewProduct = itemView.findViewById(R.id.cardViewProduct);
@@ -95,7 +147,7 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
             textViewFeature = itemView.findViewById(R.id.textViewFeature);
             textViewPrice = itemView.findViewById(R.id.textViewPrice);
             textViewOffer = itemView.findViewById(R.id.textViewOffer);
-
+            rLayoutTopStrip = itemView.findViewById(R.id.rLayoutTopStrip);
             btnDataSheet = itemView.findViewById(R.id.btnDataSheet);
             btnCalculator = itemView.findViewById(R.id.btnCalculator);
             btnCart = itemView.findViewById(R.id.btnCart);
@@ -105,9 +157,9 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
             FontUtil.applyTypeface(textViewPrice, FontUtil.getTypeFaceRobotTiteliumRegularLight(mContext));
             FontUtil.applyTypeface(textViewOffer, FontUtil.getTypeFaceRobotTiteliumRegularLight(mContext));
 
-            FontUtil.applyTypeface(btnDataSheet,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(btnCalculator,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(btnCart,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+            FontUtil.applyTypeface(btnDataSheet, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+            FontUtil.applyTypeface(btnCalculator, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+            FontUtil.applyTypeface(btnCart, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
         }
     }

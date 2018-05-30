@@ -9,6 +9,25 @@ import java.util.ArrayList;
 public class ProductSectionModal {
     private String headerTitle;
     private String companyName;
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getStoreID() {
+        return storeID;
+    }
+
+    public void setStoreID(String storeID) {
+        this.storeID = storeID;
+    }
+
+    private String productId;
+    private String storeID;
     public String getSectionProduct() {
         return sectionProduct;
     }

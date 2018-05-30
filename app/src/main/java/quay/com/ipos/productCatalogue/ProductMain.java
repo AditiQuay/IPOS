@@ -4,14 +4,12 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,38 +17,29 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.MainActivity;
-import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerInfoAdapter;
-import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.enums.ProductCatalogueEnum;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductMainSectionAdapter;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.SearchedItemsAdapter;
 import quay.com.ipos.productCatalogue.productCatalogueHelper.ProductCatalogueUtils;
+import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 import quay.com.ipos.productCatalogue.productModal.ProductCatalogueServerModal;
 import quay.com.ipos.productCatalogue.productModal.ProductItemModal;
 import quay.com.ipos.productCatalogue.productModal.ProductSectionModal;
-import quay.com.ipos.productCatalogue.productModal.SearchedItemModal;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
-import quay.com.ipos.utility.DividerItemDecoration;
 import quay.com.ipos.utility.SharedPrefUtil;
-import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 4/25/2018.
@@ -63,10 +52,11 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
     private RecyclerView recyclerviewCategory, recyclerviewFilter;
     private SwipeRefreshLayout swipeToRefresh;
     ArrayList<ProductSectionModal> productSectionModals = new ArrayList<>();
-    private ArrayList<ProductItemModal> singleItem;
+    private ArrayList<ProductItemModal> singleItem = new ArrayList<>();
 
     private SearchView searchViewCatalogue;
     private SearchedItemsAdapter searchedItemsAdapter;
+    private ProductMainSectionAdapter productMainSectionAdapter;
 
 
     @Nullable
@@ -74,7 +64,7 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.product_main_fragment, container, false);
         mContext = getActivity();
-        getProductList();
+
 
         findViewById();
         applyInitValues();
@@ -96,7 +86,6 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
     }
 
 
-
     private void getServerData(String response) {
         try {
             // Creating JSONObject from String
@@ -108,7 +97,7 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 ProductSectionModal dm = new ProductSectionModal();
                 dm.setHeaderTitle(jsonObject.optString(ProductCatalogueEnum.section.toString()));
-                dm.setSectionProduct(jsonObject.optString(ProductCatalogueEnum.info.toString()));
+                dm.setSectionProduct(jsonObject.optString(ProductCatalogueEnum.sectionProduct.toString()));
 
 
                 JSONArray jsonArray3 = jsonObject.optJSONArray(ProductCatalogueEnum.sectionItems.toString());
@@ -117,16 +106,30 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
                     JSONObject jsonObject1 = jsonArray3.getJSONObject(j);
                     ProductItemModal productItemModal = new ProductItemModal();
                     productItemModal.setProductId(jsonObject1.optInt(ProductCatalogueEnum.productId.toString()));
-                    productItemModal.setProductName(jsonObject1.optString(ProductCatalogueEnum.productName.toString()));
-                    productItemModal.setProductUrl(jsonObject1.optString(ProductCatalogueEnum.productUrl.toString()));
+                    productItemModal.setProductName(jsonObject1.optString(ProductCatalogueEnum.productNameMain.toString()));
+                    productItemModal.setProductUrl(jsonObject1.optString(ProductCatalogueEnum.productMainUrl.toString()));
                     productItemModal.setCount(jsonObject1.optString(ProductCatalogueEnum.count.toString()));
                     singleItem.add(productItemModal);
                 }
                 dm.setProductItemModals(singleItem);
                 productSectionModals.add(dm);
             }
-            ProductCatalogueUtils.saveProductData(mContext, productSectionModals, Constants.PREF_KEY_PRODUCT_MAIN.trim());
-            ProductCatalogueUtils.saveSearchedProductData(mContext, singleItem, Constants.PREF_KEY_SEARCHED_ITEM.trim());
+            ProductCatalogueUtils.clearProductData(mContext);
+            ProductCatalogueUtils.clearSearchedProductData(mContext);
+
+
+            ProductCatalogueUtils.saveProductData(mContext, productSectionModals);
+            ProductCatalogueUtils.saveSearchedProductData(mContext, singleItem);
+
+            productMainSectionAdapter = new ProductMainSectionAdapter(mContext, ProductCatalogueUtils.getProductSectionModals(mContext));
+            recyclerviewCategory.setAdapter(null);
+            recyclerviewCategory.setAdapter(productMainSectionAdapter);
+
+            searchedItemsAdapter = new SearchedItemsAdapter(mContext, ProductCatalogueUtils.getSearchedItems(mContext));
+            recyclerviewFilter.setAdapter(null);
+            recyclerviewFilter.setAdapter(searchedItemsAdapter);
+
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -141,15 +144,20 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
     }
 
     private void getProductList() {
+        int storeId = SharedPrefUtil.getStoreId(Constants.STORE_ID.trim(), 0, mContext);
+        AppLog.e(TAG, "StoreId" + storeId);
 
-        ProductSectionModal loginParams = new ProductSectionModal();
-        loginParams.setCompanyName("Quay");
+
+        ProductSectionModal productSectionModalParam = new ProductSectionModal();
+        productSectionModalParam.setCompanyName("Quay");
+        productSectionModalParam.setProductId("NA");
+        productSectionModalParam.setStoreID(String.valueOf(storeId));
 
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL.trim());
         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_PRODUCT_MAIN.trim());
         mTask.setApiCallType(Constants.API_METHOD_POST);
-        mTask.setParamObj(loginParams);
+        mTask.setParamObj(productSectionModalParam);
         mTask.setListener(this);
         mTask.setResultType(ProductCatalogueServerModal.class);
         mTask.execute();
@@ -157,25 +165,31 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
 
     @Override
     public void applyInitValues() {
+        //Normal item list
         recyclerviewCategory.setHasFixedSize(true);
-        ProductMainSectionAdapter adapter = new ProductMainSectionAdapter(mContext, ProductCatalogueUtils.getProductSectionModals(mContext,Constants.PREF_KEY_PRODUCT_MAIN.trim()));
         recyclerviewCategory.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        //  recyclerviewCategory.addItemDecoration(new DividerItemDecoration(mContext, R.drawable.divider));
-        recyclerviewCategory.setAdapter(adapter);
+
+        if (ProductCatalogueUtils.getProductSectionModals(mContext)!=null){
+            productMainSectionAdapter = new ProductMainSectionAdapter(mContext, ProductCatalogueUtils.getProductSectionModals(mContext));
+            recyclerviewCategory.setAdapter(null);
+            recyclerviewCategory.setAdapter(productMainSectionAdapter);
+        }
         swipeToRefresh.setOnRefreshListener(this);
 
 
         //Search item list
         recyclerviewFilter.setHasFixedSize(true);
-        searchedItemsAdapter = new SearchedItemsAdapter(mContext, ProductCatalogueUtils.getSearchedItems(mContext,Constants.PREF_KEY_SEARCHED_ITEM.trim()));
         recyclerviewFilter.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
-        recyclerviewFilter.setAdapter(searchedItemsAdapter);
-        ////////////////////////////////////////////////////////
+        if (ProductCatalogueUtils.getSearchedItems(mContext)!=null){
+            searchedItemsAdapter = new SearchedItemsAdapter(mContext, ProductCatalogueUtils.getSearchedItems(mContext));
+            recyclerviewFilter.setAdapter(null);
+            recyclerviewFilter.setAdapter(searchedItemsAdapter);
+        }
 
+        getProductList();
         SearchView.SearchAutoComplete searchAutoComplete =
                 (SearchView.SearchAutoComplete) searchViewCatalogue.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-
         searchAutoComplete.setTextColor(getResources().getColor(R.color.colorPrimary));
         SearchManager searchManager = (SearchManager) mContext.getSystemService(Context.SEARCH_SERVICE);
         assert searchManager != null;
@@ -257,9 +271,14 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
         disableSwipeToRefresh();
         if (httpStatusCode == Constants.SUCCESS) {
             disableSwipeToRefresh();
+
             if (resultObj != null) {
-                ProductCatalogueUtils.clearProductData(mContext);
-                ProductCatalogueUtils.clearSearchedProductData(mContext);
+                if (productSectionModals.size()>0){
+                    productSectionModals.clear();
+                }
+                if (singleItem.size()>0){
+                    singleItem.clear();
+                }
                 getServerData(serverResponse);
             }
 

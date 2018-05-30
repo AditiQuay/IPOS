@@ -12,6 +12,10 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
@@ -19,6 +23,7 @@ import quay.com.ipos.productCatalogue.CatalogueSubProduct;
 import quay.com.ipos.productCatalogue.productModal.ProductItemModal;
 import quay.com.ipos.productCatalogue.productModal.SearchedItemModal;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -50,13 +55,34 @@ public class SearchedItemsAdapter extends RecyclerView.Adapter<SearchedItemsAdap
         final ProductItemModal searchedItemModal = mFilteredList.get(position);
         holder.textViewProductName.setText(searchedItemModal.getProductName());
         holder.textViewProductCount.setText(searchedItemModal.getCount());
+        if (NetUtil.isNetworkAvailable(mContext)) {
+            Picasso.get().load(searchedItemModal.getProductUrl()).placeholder(R.drawable.product_placeholder).into(holder.imageViewProduct);
+
+        } else {
+            Picasso.get()
+                    .load(searchedItemModal.getProductUrl())
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .placeholder(R.drawable.product_placeholder)
+                    .into(holder.imageViewProduct, new Callback() {
+                        @Override
+                        public void onSuccess() {
+
+                        }
+
+                        @Override
+                        public void onError(Exception e) {
+
+                        }
+
+                    });
+        }
 
         holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Util.animateView(v);
                 Intent i = new Intent(mContext, CatalogueSubProduct.class);
-                i.putExtra("Product Name", searchedItemModal.getProductName());
+                i.putExtra("ProductName", searchedItemModal.getProductName());
                 mContext.startActivity(i);
             }
         });

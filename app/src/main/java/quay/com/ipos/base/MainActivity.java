@@ -154,9 +154,9 @@ public class MainActivity extends BaseActivity
         setContentView(R.layout.activity_main);
         dbHelper = new DatabaseHandler(this);
         mContext = MainActivity.this;
-        if (NetUtil.isNetworkAvailable(mContext)) {
-            getCustomerData();
-        }
+//        if (NetUtil.isNetworkAvailable(mContext)) {
+//            getCustomerData();
+//        }
         findViewById();
         applyInitValues();
         applyTypeFace();

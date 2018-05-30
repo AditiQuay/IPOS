@@ -74,7 +74,8 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"Clicked",Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(mContext,AddCustomer.class);
+                startActivity(i);
             }
         });
     }
@@ -206,6 +207,6 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
 
     @Override
     public void onInfoListener(int position) {
-        Toast.makeText(mContext,"In Process",Toast.LENGTH_SHORT).show();
+
     }
 }

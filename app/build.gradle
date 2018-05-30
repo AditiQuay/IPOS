@@ -7,6 +7,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
+        vectorDrawables.useSupportLibrary = true
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -16,6 +17,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dexOptions {
+        javaMaxHeapSize "8g"
+    }
+
     allprojects {
         repositories {
             maven { url "https://jitpack.io" }

@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 public final class SharedPrefUtil {
 
 
-    public static final String PLOTS_PERF = "plots_perference";
+    public static final String IPOS_PERF = "iPos_perference";
 
 
     private SharedPrefUtil(){
@@ -246,7 +246,7 @@ public final class SharedPrefUtil {
      * @return
      */
     private static SharedPreferences getSharedPreferences(Context context) {
-        SharedPreferences pref = context.getSharedPreferences(SharedPrefUtil.PLOTS_PERF, Context.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(SharedPrefUtil.IPOS_PERF, Context.MODE_PRIVATE);
         return pref;
     }
 }
