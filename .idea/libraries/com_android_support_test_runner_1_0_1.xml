@@ -1,8 +1,23 @@
 <component name="libraryTable">
   <library name="com.android.support.test:runner-1.0.1">
     <CLASSES>
+<<<<<<< HEAD
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runner-1.0.1.aar/7c97dca402e4b2a718275e7d6a7e19d6/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runner-1.0.1.aar/7c97dca402e4b2a718275e7d6a7e19d6/res" />
+=======
+<<<<<<< HEAD
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runner-1.0.1.aar/1ff5a5d392232f1a3c73581c77f430e6/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runner-1.0.1.aar/1ff5a5d392232f1a3c73581c77f430e6/jars/classes.jar!/" />
+=======
+<<<<<<< HEAD
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runner-1.0.1.aar/7c97dca402e4b2a718275e7d6a7e19d6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runner-1.0.1.aar/7c97dca402e4b2a718275e7d6a7e19d6/res" />
+=======
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runner-1.0.1.aar/172bdc962bbaf627eb6a26fdb20e8403/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runner-1.0.1.aar/172bdc962bbaf627eb6a26fdb20e8403/res" />
+>>>>>>> 4774edfbe832a966d025411a53e353111b7d93bb
+>>>>>>> f34bf56e1687d0765576f947a65ba6039a43d1dd
+>>>>>>> 25f295598b1bf6b46ede157064b319cd941ad429
     </CLASSES>
     <JAVADOC />
     <SOURCES>

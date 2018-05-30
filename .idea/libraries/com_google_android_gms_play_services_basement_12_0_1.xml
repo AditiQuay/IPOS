@@ -1,8 +1,23 @@
 <component name="libraryTable">
   <library name="com.google.android.gms:play-services-basement-12.0.1">
     <CLASSES>
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-basement-12.0.1.aar/0ea04b99a81b84bf1a286596550fa09b/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-basement-12.0.1.aar/0ea04b99a81b84bf1a286596550fa09b/jars/classes.jar!/" />
+=======
+<<<<<<< HEAD
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-basement-12.0.1.aar/921b9b21c12efeaa17b1656081d2871a/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-basement-12.0.1.aar/921b9b21c12efeaa17b1656081d2871a/res" />
+=======
+<<<<<<< HEAD
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-basement-12.0.1.aar/0ea04b99a81b84bf1a286596550fa09b/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-basement-12.0.1.aar/0ea04b99a81b84bf1a286596550fa09b/jars/classes.jar!/" />
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-basement-12.0.1.aar/d748cddd4d63c0e13f766d8646247fef/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/play-services-basement-12.0.1.aar/d748cddd4d63c0e13f766d8646247fef/jars/classes.jar!/" />
+>>>>>>> 4774edfbe832a966d025411a53e353111b7d93bb
+>>>>>>> f34bf56e1687d0765576f947a65ba6039a43d1dd
+>>>>>>> 25f295598b1bf6b46ede157064b319cd941ad429
     </CLASSES>
     <JAVADOC />
     <SOURCES />

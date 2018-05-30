@@ -487,7 +487,7 @@ public class MainActivity extends BaseActivity
                 toolbar.setTitle(getString(R.string.new_orders));
                 drawer.closeDrawer(GravityCompat.START);
                 break;
-            case "Order Centre":
+            case "Order Center":
                 mOrderCentreListFragment = new OrderCentreListFragment();
                 replaceFragment(mOrderCentreListFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);

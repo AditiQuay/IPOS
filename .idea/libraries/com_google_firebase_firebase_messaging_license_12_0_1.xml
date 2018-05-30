@@ -1,8 +1,23 @@
 <component name="libraryTable">
   <library name="com.google.firebase:firebase-messaging-license-12.0.1">
     <CLASSES>
+<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-license-12.0.1.aar/ccdbb9b8152aa1fd8b9b3044f14b7795/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-license-12.0.1.aar/ccdbb9b8152aa1fd8b9b3044f14b7795/jars/classes.jar!/" />
+=======
+<<<<<<< HEAD
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-license-12.0.1.aar/bba4e81120b82520d74aea2dd9c71287/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-license-12.0.1.aar/bba4e81120b82520d74aea2dd9c71287/jars/classes.jar!/" />
+=======
+<<<<<<< HEAD
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-license-12.0.1.aar/ccdbb9b8152aa1fd8b9b3044f14b7795/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-license-12.0.1.aar/ccdbb9b8152aa1fd8b9b3044f14b7795/jars/classes.jar!/" />
+=======
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-license-12.0.1.aar/08be2dad8ceab702ab219388bd16e825/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/firebase-messaging-license-12.0.1.aar/08be2dad8ceab702ab219388bd16e825/res" />
+>>>>>>> 4774edfbe832a966d025411a53e353111b7d93bb
+>>>>>>> f34bf56e1687d0765576f947a65ba6039a43d1dd
+>>>>>>> 25f295598b1bf6b46ede157064b319cd941ad429
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -80,15 +80,15 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvItemPrice =  itemView.findViewById(R.id.tvItemPrice);
             tvItemStockAvailabilty =  itemView.findViewById(R.id.tvItemStockAvailabilty);
             tvCheckStock =  itemView.findViewById(R.id.tvCheckStock);
-            tvMinus =  itemView.findViewById(R.id.tvMinus);
-            etQtySelected =  itemView.findViewById(R.id.etQtySelected);
-            tvPlus =  itemView.findViewById(R.id.tvPlus);
-            tvOffers =  itemView.findViewById(R.id.tvOffers);
-            tvReserved =  itemView.findViewById(R.id.tvReserved);
+          //  tvMinus =  itemView.findViewById(R.id.tvMinus);
+          //  etQtySelected =  itemView.findViewById(R.id.etQtySelected);
+          //  tvPlus =  itemView.findViewById(R.id.tvPlus);
+          //  tvOffers =  itemView.findViewById(R.id.tvOffers);
+         //   tvReserved =  itemView.findViewById(R.id.tvReserved);
             tvAddCart =  itemView.findViewById(R.id.tvAddCart);
-            imvProduct =  itemView.findViewById(R.id.imvProduct);
+         //   imvProduct =  itemView.findViewById(R.id.imvProduct);
             imvInfo = itemView.findViewById(R.id.imvInfo);
-            etQtySelected =  itemView.findViewById(R.id.etQtySelected);
+         //   etQtySelected =  itemView.findViewById(R.id.etQtySelected);
         }
     }
 
@@ -121,31 +121,31 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             final AddNewOrderAdapter.UserViewHolder userViewHolder = (AddNewOrderAdapter.UserViewHolder) holder;
             userViewHolder.tvItemName.setText(str.getSProductName());
             userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs)+" "+str.getSProductPrice());
-            userViewHolder.etQtySelected.setText(str.getQty()+"");
+          //  userViewHolder.etQtySelected.setText(str.getQty()+"");
             onBind = false;
 
             userViewHolder.tvCheckStock.setOnClickListener(mOnClickListener);
             userViewHolder.tvCheckStock.setTag(position);
 
-            userViewHolder.tvAddCart.setOnClickListener(mOnClickListener);
+           userViewHolder.tvAddCart.setOnClickListener(mOnClickListener);
             userViewHolder.tvAddCart.setTag(position);
 
-            userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
+         /*   userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
             userViewHolder.tvMinus.setTag(position);
 
             userViewHolder.tvPlus.setOnClickListener(mOnClickListener);
-            userViewHolder.tvPlus.setTag(position);
+            userViewHolder.tvPlus.setTag(position);*/
 
             userViewHolder.imvInfo.setOnClickListener(mOnClickListener);
             userViewHolder.imvInfo.setTag(position);
 
-            userViewHolder.tvReserved.setOnClickListener(mOnClickListener);
-            userViewHolder.tvReserved.setTag(position);
+        //    userViewHolder.tvReserved.setOnClickListener(mOnClickListener);
+          //  userViewHolder.tvReserved.setTag(position);
 
-            userViewHolder.tvOffers.setOnClickListener(mOnClickListener);
-            userViewHolder.tvOffers.setTag(position);
+     //       userViewHolder.tvOffers.setOnClickListener(mOnClickListener);
+      //      userViewHolder.tvOffers.setTag(position);
 
-            userViewHolder.etQtySelected.setTag(position);
+           /* userViewHolder.etQtySelected.setTag(position);
             userViewHolder.etQtySelected.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -173,7 +173,7 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 }
             });
-
+*/
         }
         else if (holder instanceof AddNewOrderAdapter.LoadingViewHolder) {
             AddNewOrderAdapter.LoadingViewHolder loadingViewHolder = (AddNewOrderAdapter.LoadingViewHolder) holder;

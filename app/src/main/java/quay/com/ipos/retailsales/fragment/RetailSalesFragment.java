@@ -551,7 +551,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                         }
                     }
                 }
-                mRetailSalesAdapter.notifyDataSetChanged();
+             //   mRetailSalesAdapter.notifyDataSetChanged();
                 //  mRetailSalesAdapter.setDiscountAdapter(userViewHolder);
                 getProduct();
             }
@@ -1057,6 +1057,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         if (datum1.getSProductStock() <= qty1) {
             Util.showToast("Quantity limit exceed", mContext);
         } else {
+
+
             datum1.setQty(qty1 + 1);
             IPOSApplication.mProductListResult.set(posPlus, datum1);
             mRetailSalesAdapter.notifyItemChanged(posPlus);
