@@ -374,9 +374,19 @@
                 </RelativeLayout>
 
                 <include layout="@layout/view_layout_without_dot"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_viewScheme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rect_four_white">
+
+
+                </android.support.v7.widget.RecyclerView>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <quay.com.ipos.ui.CustomTextView
@@ -461,11 +471,13 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <include layout="@layout/view_layout_without_dot"/>
+                <include layout="@layout/view_layout_without_dot"
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <quay.com.ipos.ui.CustomTextView
