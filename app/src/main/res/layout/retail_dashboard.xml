@@ -170,18 +170,7 @@
 
         </FrameLayout>
 
-        <ToggleButton
-            android:id="@+id/chkBarCode"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_weight="1"
-            android:layout_marginRight="@dimen/dim_10"
-            android:layout_gravity="right|center_vertical"
-            android:background="@drawable/toggle_selector"
-            android:textOff=""
-            android:checked="true"
-            android:textOn=""/>
+
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
