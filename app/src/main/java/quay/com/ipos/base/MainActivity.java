@@ -167,7 +167,10 @@ public class MainActivity extends BaseActivity
         mContext = MainActivity.this;
         if (NetUtil.isNetworkAvailable(mContext)) {
             getCustomerData();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1292f568a4c98d3255b283d906dc47a51648d9a3
         }
         findViewById();
         applyInitValues();

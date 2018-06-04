@@ -16,9 +16,9 @@
 
         <ImageView
             android:id="@+id/imvProduct"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:scaleType="centerCrop"
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
             android:layout_gravity="center"
             android:src="@drawable/if_light_bulb" />
 
@@ -144,7 +144,7 @@
                         android:textSize="@dimen/text_size_14sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
 
-                          </LinearLayout>
+                </LinearLayout>
 
 
                 <LinearLayout
@@ -204,21 +204,33 @@
                         android:layout_gravity="center"
                         android:src="@drawable/ic_action_info_gray" />
 
-                <ImageView
-                    android:id="@+id/imvClear"
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:layout_marginLeft="@dimen/dim_16"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_action_delete" />
+                    <ImageView
+                        android:id="@+id/imvClear"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginLeft="@dimen/dim_16"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_action_delete" />
 
 
                 </LinearLayout>
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvDiscountedPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:visibility="gone"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:layout_marginTop="@dimen/dim_12"
+                    android:gravity="center"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-
+                    android:id="@+id/llEvent"
                     android:layout_marginTop="@dimen/dim_12"
                     android:gravity="center"
                     android:orientation="horizontal">

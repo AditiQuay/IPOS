@@ -1,3 +1,4 @@
+<<<<<<< HEAD:.idea/libraries/com_android_support_transition_27_1_1.xml
 <component name="libraryTable">
   <library name="com.android.support:transition-27.1.1">
     <CLASSES>
@@ -9,4 +10,17 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/transition/27.1.1/88ebe6765790253d410e51a3952571565f2040e9/transition-27.1.1-sources.jar!/" />
     </SOURCES>
   </library>
+=======
+<component name="libraryTable">
+  <library name="com.android.support:transition-26.1.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/45e0d449c2dfaf27bd6be8d59384735a/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/transition-26.1.0.aar/45e0d449c2dfaf27bd6be8d59384735a/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/transition/26.1.0/bf675688e3ad5a0b68c627efa77de94822af2610/transition-26.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+>>>>>>> 1292f568a4c98d3255b283d906dc47a51648d9a3:.idea/libraries/com_android_support_transition_26_1_0.xml
 </component>

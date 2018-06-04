@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,15 +28,18 @@ import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.MyAdapterTags;
 import quay.com.ipos.modal.ProductSearchResult;
+import quay.com.ipos.ui.WrapContentLinearLayoutManager;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Util;
+
+
 
 /**
  * Created by aditi.bhuranda on 17-04-2018.
  */
 
-public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements AdapterListener {
     private boolean onBind;
 
     private final int VIEW_TYPE_ITEM = 0;
@@ -86,11 +90,22 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         // });
     }
 
+    @Override
+    public void onRowClicked(int position) {
+
+    }
+
+    @Override
+    public void onRowClicked(int position, int value) {
+
+        notifyItemRangeRemoved(value,IPOSApplication.mProductListResult.size());
+    }
+
     class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvMinus,tvPlus;
-        public TextView tvTotalPrice, tvDiscount, tvDiscountPrice,tvOTCDiscountPrice;
+        public TextView tvTotalPrice, tvDiscount, tvDiscountPrice,tvOTCDiscountPrice,tvDiscountedPrice;
         public ImageView imvInfo,imvProduct,imvClear;
-        public LinearLayout llDiscount,llOTCDiscount;
+        public LinearLayout llDiscount,llOTCDiscount,llEvent;
         public CheckBox chkDiscount,chkItem,chkOTCDiscount;
         public EditText etQtySelected;
         public RecyclerView mRecyclerView;
@@ -100,8 +115,10 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             super(itemView);
             mRecyclerView = itemView.findViewById(R.id.recycleView);
 
+            llEvent = itemView.findViewById(R.id.llEvent);
             llOTCDiscount = itemView.findViewById(R.id.llOTCDiscount);
             tvOTCDiscountPrice = itemView.findViewById(R.id.tvOTCDiscountPrice);
+            tvDiscountedPrice = itemView.findViewById(R.id.tvDiscountedPrice);
             chkOTCDiscount = itemView.findViewById(R.id.chkOTCDiscount);
             tvItemName =  itemView.findViewById(R.id.tvItemName);
             tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
@@ -151,7 +168,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 str = mDataset.get(0);
                 IPOSApplication.isRefreshed=false;
             }
-
+            Log.e("UserViewHolder","UserViewHolder-------------------------"+position);
             myAdapterTags.onRowClicked(position,0, Constants.DISCOUNT+"");
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             final UserViewHolder  userViewHolder = (UserViewHolder) holder;
@@ -215,7 +232,15 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //                userViewHolder.etQtySelected.setEnabled(false);
 //            }
 
-            userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+totalPrice);
+
+
+            if(str.isFreeItem()){
+                userViewHolder.llEvent.setVisibility(View.GONE);
+                userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" " + str.getSProductPrice());
+            }else {
+                userViewHolder.llEvent.setVisibility(View.VISIBLE);
+                userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+totalPrice);
+            }
 //            IPOSApplication.mProductList.set(position,str);
 //            AppLog.e(RetailSalesAdapter.class.getSimpleName(), "IPOSApplication.mProductList: "+ Util.getCustomGson().toJson(IPOSApplication.mProductList));
 
@@ -269,9 +294,12 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
             userViewHolder.mRecyclerView.setHasFixedSize(true);
-            LinearLayoutManager  mLayoutManager = new LinearLayoutManager(mContext);
-            userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
+//            WrapContentLinearLayoutManager mLayoutManager = new WrapContentLinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+
+            userViewHolder.mRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+//            userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
 //            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
+
             DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext, userViewHolder.mRecyclerView, mDataset.get(userViewHolder.getAdapterPosition()).getDiscount(), mDataset.get(userViewHolder.getAdapterPosition()),userViewHolder.getAdapterPosition(),listener);
             userViewHolder.mRecyclerView.setAdapter(itemListDataAdapter);
             //setDiscountAdapter(userViewHolder);

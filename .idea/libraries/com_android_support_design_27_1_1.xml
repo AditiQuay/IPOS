@@ -1,3 +1,4 @@
+<<<<<<< HEAD:.idea/libraries/com_android_support_design_27_1_1.xml
 <component name="libraryTable">
   <library name="com.android.support:design-27.1.1">
     <CLASSES>
@@ -9,4 +10,17 @@
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/design/27.1.1/6e10c7f954f63690f7846fb22352375cf1b9fbb4/design-27.1.1-sources.jar!/" />
     </SOURCES>
   </library>
+=======
+<component name="libraryTable">
+  <library name="android.arch.lifecycle:runtime-1.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/739cfdfb5d962fdda9ac39889f5cd2ec/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/runtime-1.0.0.aar/739cfdfb5d962fdda9ac39889f5cd2ec/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/android.arch.lifecycle/runtime/1.0.0/1dd0298d8c45d8dfa4d038270247327f23df7a3a/runtime-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+>>>>>>> 1292f568a4c98d3255b283d906dc47a51648d9a3:.idea/libraries/android_arch_lifecycle_runtime_1_0_0.xml
 </component>

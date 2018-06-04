@@ -54,6 +54,7 @@ public class ProductSearchResult {
     }
 
     public class Datum {
+
         @SerializedName("sProductFeature")
         @Expose
         private List<SProductFeature> sProductFeature = null;
@@ -65,6 +66,7 @@ public class ProductSearchResult {
         public void setSProductFeature(List<SProductFeature> sProductFeature) {
             this.sProductFeature = sProductFeature;
         }
+        boolean isFreeItem=false;
         @SerializedName("productCode")
         @Expose
         private String productCode;
@@ -149,6 +151,14 @@ public class ProductSearchResult {
         private double discountPrice;
         private int totalQty;
         private double totalDiscountPrice;
+
+        public boolean isFreeItem() {
+            return isFreeItem;
+        }
+
+        public void setFreeItem(boolean freeItem) {
+            isFreeItem = freeItem;
+        }
 
         public String getPriceSelected() {
             return PriceSelected;
@@ -451,6 +461,7 @@ public class ProductSearchResult {
 
     public class Discount {
         double discountTotal;
+        boolean isFreeItem=false;
         @SerializedName("sDiscountName")
         @Expose
         private String sDiscountName;
@@ -477,6 +488,14 @@ public class ProductSearchResult {
             this.sDiscountDisplayName = sDiscountDisplayName;
         }
 
+        public boolean isFreeItem() {
+            return isFreeItem;
+        }
+
+        public void setFreeItem(boolean freeItem) {
+            isFreeItem = freeItem;
+        }
+
         public ArrayList<Rule> getRule() {
             return rule;
         }
@@ -495,7 +514,8 @@ public class ProductSearchResult {
     }
 
     public class Rule {
-
+        boolean isApplied=false;
+        int ruleApplied=0;
         @SerializedName("sDiscountType")
         @Expose
         private String sDiscountType;
@@ -545,6 +565,13 @@ public class ProductSearchResult {
         @Expose
         private String opsType;
 
+        public int getRuleApplied() {
+            return ruleApplied;
+        }
+
+        public void setRuleApplied(int ruleApplied) {
+            this.ruleApplied = ruleApplied;
+        }
 
         public String getOpsType() {
             return opsType;
@@ -674,6 +701,13 @@ public class ProductSearchResult {
             this.ruleProdecessors = ruleProdecessors;
         }
 
+        public boolean isApplied() {
+            return isApplied;
+        }
+
+        public void setApplied(boolean applied) {
+            isApplied = applied;
+        }
     }
 
     public class SCharacteristicValue {
