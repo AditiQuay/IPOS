@@ -111,7 +111,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
                 ((UserViewHolder) holder).tvDiscountPrice.setText(str.getDiscountTotal()+"");
-            }else if(!str.isFreeItem())
+            }else if(!datum.isFreeItem())
                 if(str.getRule()!=null && str.getRule().size()>0){
                     rule = str.getRule();
                     Collections.sort(rule, new Comparator<ProductSearchResult.Rule>() {
@@ -126,49 +126,59 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                     if (((UserViewHolder) holder).chkDiscount.isChecked()){
 
-                        for (int i = 0 ; i < rule.size() ; i++) {
-                            rulePosition = i;
-                            if(rule.get(i).getRuleType().equalsIgnoreCase("I")) {
-                                value =  setOPS(i, rule, datum, holder);
+                        if(rule.size()>0)
+                            for (int i = 0 ; i < rule.size() ; i++) {
+                                rulePosition = i;
+                                if(rule.get(i).getRuleType().equalsIgnoreCase("I")) {
+                                    value =  setOPS(i, rule, datum, holder);
 
-                                if(value>0.0 ) {
-                                    ProductSearchResult.Rule mRule = rule.get(i);
-                                    mRule.setApplied(true);
-                                    //  rule.set(i, mRule);
-                                    //  str.setRule(rule);
-                                    mDataset.set(((UserViewHolder) holder).getAdapterPosition(), str);
-                                    datum.setDiscount(mDataset);
-                                    IPOSApplication.mProductListResult.set(retailAdapterPosition, datum);
-
-                                }else {
-                                    break;
+                                    if(value>0.0  ) {
+                                        ProductSearchResult.Rule mRule = rule.get(i);
+                                        mRule.setApplied(true);
+                                          rule.set(i, mRule);
+                                          str.setRule(rule);
+                                        mDataset.set(((UserViewHolder) holder).getAdapterPosition(), str);
+                                        datum.setDiscount(mDataset);
+                                        IPOSApplication.mProductListResult.set(retailAdapterPosition, datum);
+//                                            i++;
+                                    }else {
+//                                        break;
+                                    }
                                 }
-                            }else  if(rule.get(i).getRuleType().equalsIgnoreCase("D"))
-                            {
-                                if(IPOSApplication.isClicked) {
-                                    int predecessor = rule.get(i).getRuleProdecessors();
+                                if(rule.get(i).getRuleType().equalsIgnoreCase("D"))
+                                {
+                                    if(IPOSApplication.isClicked) {
+                                        int predecessor = rule.get(i).getRuleProdecessors();
+                                        for (int h = 0 ; h <rule.size();h++){
 
-                                    if (predecessor==rule.get(i-1).getRuleID()){
-                                        if (rule.get(i-1).isApplied() ) {
-                                            value = setOPS(i-1, rule, datum, holder);
-                                            if (value > 0.0) {
-                                                ProductSearchResult.Rule mRule = rule.get(i-1);
-                                                mRule.setApplied(true);
-                                                //   rule.set(i-1, mRule);
-                                                //   str.setRule(rule);
-                                                mDataset.set(((UserViewHolder) holder).getAdapterPosition(), str);
-                                                datum.setDiscount(mDataset);
-                                                IPOSApplication.mProductListResult.set(retailAdapterPosition, datum);
-                                                i++;
-                                            } else {
-                                                break;
-                                                // checkDependentPrecessor(i, value, holder, str, rule, datum, predecessor);
+
+                                            if (predecessor == rule.get(h).getRuleID()) {
+                                                if (rule.get(h).isApplied()) {
+                                                    value = setOPS(i, rule, datum, holder);
+                                                    if (value > 0.0) {
+                                                        ProductSearchResult.Rule mRule = rule.get(h);
+                                                        mRule.setApplied(true);
+                                                           rule.set(i-1, mRule);
+                                                           str.setRule(rule);
+                                                        mDataset.set(((UserViewHolder) holder).getAdapterPosition(), str);
+                                                        datum.setDiscount(mDataset);
+                                                        IPOSApplication.mProductListResult.set(retailAdapterPosition, datum);
+
+//
+
+//     i++;
+                                                    } else {
+//                                                        break;
+                                                        // checkDependentPrecessor(i, value, holder, str, rule, datum, predecessor);
+                                                    }
+                                                }else {
+//                                                    break;
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
-                        }
                         if (value>0.0) {
                             ProductSearchResult.Discount mDiscount = mDataset.get(((UserViewHolder) holder).getAdapterPosition());
                             mDiscount.setDiscountTotal(value);
@@ -202,39 +212,40 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                     for (int i = 0; i < mDataset.get(position).getRule().size(); i++) {
                                         if (mDataset.get(position).getRule().get(i).getRuleType().equalsIgnoreCase("I")) {
                                             value = setOPS(i, mDataset.get(position).getRule(), datum, userViewHolder);
-                                        } else {
-                                            if (IPOSApplication.isClicked) {
-                                                int predecessor = rule.get(i).getRuleProdecessors();
-                                                for (int k = 0; k < rule.size(); k++) {
-                                                    if (predecessor == rule.get(k).getRuleID()) {
+                                        }
+
+                                        if (IPOSApplication.isClicked) {
+                                            int predecessor = rule.get(i).getRuleProdecessors();
+                                            for (int k = 0; k < rule.size(); k++) {
+                                                if (predecessor == rule.get(k).getRuleID()) {
 //                                                            if (rule.get(k).getRuleType().equalsIgnoreCase("I")) {
 //                                                                value = value + setOPS(k, rule, datum, mDataset, userViewHolder);
 //                                                            } else {
 //                                                                if (IPOSApplication.isClicked) {
 
-                                                        if (datum.getProductCode().equalsIgnoreCase(IPOSApplication.mProductListResult.get(i).getProductCode())) {
+                                                    if (datum.getProductCode().equalsIgnoreCase(IPOSApplication.mProductListResult.get(i).getProductCode())) {
 //                                discountbeforeSorting = new ArrayList<>();
 //                                discountbeforeSorting.addAll(IPOSApplication.datumSameCode.get( datum.getProductCode()));
-                                                            //   userViewHolder.tvDiscount.setText(str.getSDiscountName());
-                                                            //    value =setOPS(i,rule,datum,mDataset);
-                                                            //    userViewHolder.tvDiscountPrice.setText(value+"");
-                                                            value =  setOPS(i, rule, datum, holder);
-                                                        }
+                                                        //   userViewHolder.tvDiscount.setText(str.getSDiscountName());
+                                                        //    value =setOPS(i,rule,datum,mDataset);
+                                                        //    userViewHolder.tvDiscountPrice.setText(value+"");
+                                                        value =  setOPS(i, rule, datum, holder);
+                                                    }
 //                                                                }
 //                                                            }
 
-                                                    }
-                                                }
-                                                if (datum.getProductCode().equalsIgnoreCase(IPOSApplication.mProductListResult.get(i).getProductCode())) {
-//                                discountbeforeSorting = new ArrayList<>();
-//                                discountbeforeSorting.addAll(IPOSApplication.datumSameCode.get( datum.getProductCode()));
-                                                    //   userViewHolder.tvDiscount.setText(str.getSDiscountName());
-                                                    //    value =setOPS(i,rule,datum,mDataset);
-                                                    //    userViewHolder.tvDiscountPrice.setText(value+"");
-                                                    value = setOPS(i, rule, datum, userViewHolder);
                                                 }
                                             }
+                                            if (datum.getProductCode().equalsIgnoreCase(IPOSApplication.mProductListResult.get(i).getProductCode())) {
+//                                discountbeforeSorting = new ArrayList<>();
+//                                discountbeforeSorting.addAll(IPOSApplication.datumSameCode.get( datum.getProductCode()));
+                                                //   userViewHolder.tvDiscount.setText(str.getSDiscountName());
+                                                //    value =setOPS(i,rule,datum,mDataset);
+                                                //    userViewHolder.tvDiscountPrice.setText(value+"");
+                                                value = setOPS(i, rule, datum, userViewHolder);
+                                            }
                                         }
+
                                     }
                                     ProductSearchResult.Discount mDiscount = mDataset.get(((UserViewHolder) holder).getAdapterPosition());
                                     mDiscount.setDiscountTotal(value);
@@ -301,6 +312,37 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     }
 
+    private double checkRules(int i,double value,RecyclerView.ViewHolder holder,ProductSearchResult.Discount str){
+        int predecessor = rule.get(i).getRuleProdecessors();
+        for (int h = 0 ; h <rule.size();h++){
+
+
+            if (predecessor == rule.get(h).getRuleID()) {
+                if (rule.get(h).isApplied()) {
+
+                    value = setOPS(h, rule, datum, holder);
+                    if (value > 0.0) {
+                        ProductSearchResult.Rule mRule = rule.get(h);
+                        mRule.setApplied(true);
+                        //   rule.set(i-1, mRule);
+                        //   str.setRule(rule);
+
+                        mDataset.set(((UserViewHolder) holder).getAdapterPosition(), str);
+                        datum.setDiscount(mDataset);
+                        IPOSApplication.mProductListResult.set(retailAdapterPosition, datum);
+//                                                    i++;
+                    } else {
+                        break;
+                        // checkDependentPrecessor(i, value, holder, str, rule, datum, predecessor);
+                    }
+                }else {
+
+                }
+            }
+        }
+
+        return value;
+    }
     public double checkDependentPrecessor(int i, double value, RecyclerView.ViewHolder holder, ProductSearchResult.Discount str, ArrayList<ProductSearchResult.Rule> rule, ProductSearchResult.Datum datum, int predecessor){
 
         predecessor = rule.get(i).getRuleProdecessors();
@@ -338,6 +380,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private double setOPS(int i, ArrayList<ProductSearchResult.Rule> rule, ProductSearchResult.Datum datum, RecyclerView.ViewHolder holder) {
         Double value =0.0;
+        ProductSearchResult.Discount mDiscount = this.mDataset.get(holder.getAdapterPosition());
         if(rule.get(i).getOpsType().equalsIgnoreCase("P"))
         {
             // OPS TYPE if Product
@@ -448,17 +491,19 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     discountbeforeSorting.addAll(IPOSApplication.datumSameCode.get(this.datum.getProductCode()));
 //                for (int l = 0 ; l < discountbeforeSorting.size() ; l++){
                 int totalFreeItems = 0;
+                ArrayList<ProductSearchResult.Datum> mTotalFreeArr = new ArrayList<>();
                 for (int h = 0; h < IPOSApplication.mProductListResult.size(); h++) {
 
-                    if (datum.getProductCode().equals(IPOSApplication.mProductListResult.get(h).getProductCode())) {
+                    if (this.datum.getProductCode().equals(IPOSApplication.mProductListResult.get(h).getProductCode())) {
                         productCartItem++;
                         if(!IPOSApplication.mProductListResult.get(h).isFreeItem()){
-                            totalQty1 = totalQty1 + datum.getQty();
+                            totalQty1 = totalQty1 + IPOSApplication.mProductListResult.get(h).getQty();
                         }
 
 
                         if(IPOSApplication.mProductListResult.get(h).isFreeItem()){
-                             totalFreeItems++;
+                            totalFreeItems++;
+                            mTotalFreeArr.add( IPOSApplication.mProductListResult.get(h));
                         }
 
                     }
@@ -480,18 +525,40 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //                    if(QuantityCheck>=rule.get(i).getSlabFrom() && QuantityCheck <= rule.get(i).getSlabTO())
 //                    {
                         // Qty in range of SLAB from - SLAB to
-                        if(totalFreePackSize>totalFreeItems)
-                        if (rule.get(i).getOpsCriteria().equalsIgnoreCase("L")) {
+                        if(totalFreePackSize > totalFreeItems) {
+                            totalFreeItems = totalFreePackSize-totalFreeItems;
+                            if (rule.get(i).getOpsCriteria().equalsIgnoreCase("L")) {
 //                            IPOSApplication.minDiscount.clear();
-                            value=   getLowestValue(rule.get(i), totalFreePackSize,holder);
+                                value = getLowestValue(rule.get(i), totalFreeItems, holder);
 
+                                mDiscount.setFreeItem(true);
+                            } else if (rule.get(i).getOpsCriteria().equalsIgnoreCase("H")) {
+                                getHighestValue(rule.get(i));
 
-                        } else if (rule.get(i).getOpsCriteria().equalsIgnoreCase("H")) {
-                            getHighestValue(rule.get(i));
-
-                            value =  getDiscountTypeBaseOn(i) * totalFreePackSize;
+                                value = getDiscountTypeBaseOn(i) * totalFreeItems;
+                                mDiscount.setFreeItem(true);
+                            }
+                        }else  if(totalFreePackSize < totalFreeItems){
+                            totalFreeItems = totalFreeItems-totalFreePackSize;
+                            mDiscount.setFreeItem(true);
+                            if(mTotalFreeArr.size()>0) {
+                                for (int k = 0; k < totalFreeItems; k++) {
+                                    IPOSApplication.mProductListResult.remove(mTotalFreeArr.get(k));
+                                }
+                                adapterListener.onRowClicked(-1);
+                            }
                         }
 
+                    }else {
+                        mDiscount.setFreeItem(false);
+                        if(mTotalFreeArr.size()>0){
+                            //  for (int k = 0 ; k < mTotalFreeArr.size(); k++){
+                            IPOSApplication.mProductListResult.removeAll(mTotalFreeArr);
+                            adapterListener.onRowClicked(-1);
+
+                            //  }
+                            //   adapterListener.onRowClicked(-1);
+                        }
 
                     }
                 }
@@ -580,93 +647,98 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
             }else if(rule.get(i).getPackSize()>0) {
 
-//                if(rule.get(i).getSEligibilityBasedOn().equalsIgnoreCase("Q")){
-                // Eligibility BasedOn QUANTITY
-//                    if(QuantityCheck>=rule.get(i).getSlabFrom() && QuantityCheck <= rule.get(i).getSlabTO()){
+                // Eligibility BasedOn Value
                 // Qty in range of SLAB from - SLAB to
                 int productCartItem = 0;
-                int mFreeOfPackSize =0 ;
-                int totalQty =0 ;
-                int totalFreePackSize =0 ;
+                int mFreeOfPackSize = 0;
+                int totalQty1 = 0;
+
+                int totalFreePackSize = 0;
                 int cartCount = IPOSApplication.mProductListResult.size();
                 discountbeforeSorting = new ArrayList<>();
-//                if(productCartItem==1){
-//                    productCartItem = IPOSApplication.mProductListResult.get(0).getQty();
-//                }else {
 
-                discountbeforeSorting.addAll(IPOSApplication.datumSameCode.get( this.datum.getProductCode()));
-//                for (int l = 0 ; l < discountbeforeSorting.size() ; l++){
-                for (int h = 0 ; h < IPOSApplication.mProductListResult.size(); h++){
+                if (IPOSApplication.datumSameCode.size() > 0)
+                    discountbeforeSorting.addAll(IPOSApplication.datumSameCode.get(this.datum.getProductCode()));
+                int totalFreeItems = 0;
+                ArrayList<ProductSearchResult.Datum> mTotalFreeArr = new ArrayList<>();
+                for (int h = 0; h < IPOSApplication.mProductListResult.size(); h++) {
 
-                    if(datum.getProductCode().equals(IPOSApplication.mProductListResult.get(h).getProductCode())) {
+                    if (this.datum.getProductCode().equals(IPOSApplication.mProductListResult.get(h).getProductCode())) {
                         productCartItem++;
-                        totalQty = totalQty+datum.getQty();
+                        if(!IPOSApplication.mProductListResult.get(h).isFreeItem()){
+                            totalQty1 = totalQty1 + IPOSApplication.mProductListResult.get(h).getQty();
+                        }
+
+
+                        if(IPOSApplication.mProductListResult.get(h).isFreeItem()){
+                            totalFreeItems++;
+                            mTotalFreeArr.add( IPOSApplication.mProductListResult.get(h));
+                        }
 
                     }
 
                 }
-                AppLog.e(DiscountListAdapter.class.getSimpleName(),"productCartItem: " + productCartItem);
-//                }
-//                int totalItem =rule.get(i).getSlabFrom() + rule.get(i).getPackSize();
-//                }
-                if(totalQty >= 1) {
-                    mFreeOfPackSize = totalQty / (rule.get(i).getSlabFrom() + rule.get(i).getPackSize());
+                AppLog.e(DiscountListAdapter.class.getSimpleName(), "productCartItem: " + productCartItem);
+                if (totalQty1 > 1) {
+                    mFreeOfPackSize = totalQty1 / (rule.get(i).getSlabFrom() + rule.get(i).getPackSize());
 
-                    if(mFreeOfPackSize>0) {
-                        totalFreePackSize = mFreeOfPackSize*rule.get(i).getPackSize();
-//                        if (mFreeOfPackSize >= IPOSApplication.mProductListResult.get(cartCount).getTotalQty()) {
-//                    int QuantityCheck =  this.datum.getQty() /rule.get(i).getPackSize() ;
-//                    if(QuantityCheck>=rule.get(i).getSlabFrom() && QuantityCheck <= rule.get(i).getSlabTO())
-//                    {
+                    if (mFreeOfPackSize > 0) {
+                        totalFreePackSize = mFreeOfPackSize * rule.get(i).getPackSize();
                         // Qty in range of SLAB from - SLAB to
-                        if (rule.get(i).getOpsCriteria().equalsIgnoreCase("L")) {
+                        if(totalFreePackSize>totalFreeItems) {
+                            totalFreeItems = totalFreePackSize-totalFreeItems;
+                            if (rule.get(i).getOpsCriteria().equalsIgnoreCase("L")) {
 //                            IPOSApplication.minDiscount.clear();
-                            getLowestValue(rule.get(i),totalFreePackSize,holder);
+                                value = getLowestValue(rule.get(i), totalFreeItems, holder);
 
-                            for(int p = 0 ; p < minDiscount.size(); p++){
-                                if(minDiscount.get(i).getIProductModalId().equalsIgnoreCase(datum.getIProductModalId())){
-                                    value = value+getDiscountTypeBaseOn( i) *totalFreePackSize ;
-                                }
+                                mDiscount.setFreeItem(true);
+                            } else if (rule.get(i).getOpsCriteria().equalsIgnoreCase("H")) {
+                                getHighestValue(rule.get(i));
+
+                                value = getDiscountTypeBaseOn(i) * totalFreeItems;
+                                mDiscount.setFreeItem(true);
                             }
+                        }else {
+                            mDiscount.setFreeItem(true);
+                            if(mTotalFreeArr.size()>0) {
+                                for (int k = 0; k < totalFreePackSize; k++) {
+                                    IPOSApplication.mProductListResult.remove(mTotalFreeArr.get(k));
 
 
-
-                        } else if (rule.get(i).getOpsCriteria().equalsIgnoreCase("H")) {
-                            getHighestValue(rule.get(i));
-
-                            value = value+getDiscountTypeBaseOn( i) * totalFreePackSize;
+                                }
+                                adapterListener.onRowClicked(-1);
+                            }
                         }
-                    }
-//                    }
 
-//                        }
-                }else{
-//                    if (rule.get(i).getOpsCriteria().equalsIgnoreCase("L")) {
-////                            IPOSApplication.minDiscount.clear();
-//                        getLowestValue(rule.get(i),totalFreePackSize);
-//
-//                        for(int p = 0 ; p < IPOSApplication.minDiscount.size(); p++){
-//                            if(IPOSApplication.minDiscount.get(i).getIProductModalId().equalsIgnoreCase(datum.getIProductModalId())){
-//                                value = getDiscountTypeBaseOn( i) ;
-//                            }
-//                        }
-//
-//
-//
-//                    } else if (rule.get(i).getOpsCriteria().equalsIgnoreCase("H")) {
-//                        getHighestValue(rule.get(i));
-//
-//                        value = getDiscountTypeBaseOn( i);
-//                    }
+                    }else {
+                        mDiscount.setFreeItem(false);
+                        if(mTotalFreeArr.size()>0){
+                            //  for (int k = 0 ; k < mTotalFreeArr.size(); k++){
+                            IPOSApplication.mProductListResult.removeAll(mTotalFreeArr);
+                            adapterListener.onRowClicked(-1);
+
+                            //  }
+                            //   adapterListener.onRowClicked(-1);
+                        }
+
+                    }
                 }
             }
 
 
 
         }
-        ProductSearchResult.Discount mDiscount = this.mDataset.get(holder.getAdapterPosition());
+
         mDiscount.setDiscountTotal(value);
         this.mDataset.set(holder.getAdapterPosition(),mDiscount);
+        ProductSearchResult.Rule mRule = rule.get(i);
+        mRule.setApplied(true);
+        this.rule.set(i, mRule);
+        mDiscount.setRule(rule);
+        mDataset.set(((UserViewHolder) holder).getAdapterPosition(), mDiscount);
+//        datum.setDiscount(mDataset);
+//        IPOSApplication.mProductListResult.set(retailAdapterPosition, datum);
+
        /* int quantityCheck=this.datum.getQty();
         if (rule.get(i).getPackSize()>0) {
             if (quantityCheck >= rule.get(i).getSlabFrom() && quantityCheck <= rule.get(i).getSlabTO() || this.datum.getQty() > rule.get(i).getSlabTO()) {
@@ -820,6 +892,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private double getLowestValue(final ProductSearchResult.Rule rule, final int totalFreePackSize, final RecyclerView.ViewHolder holder) {
         final double[] value = {0.0};
+
         discountbeforeSorting = new ArrayList<>();
         discountbeforeSorting.addAll(IPOSApplication.datumSameCode.get(datum.getProductCode()));
         ArrayList<ProductSearchResult.Datum> data = new ArrayList<>();
@@ -854,7 +927,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //                    break;
             }
         }else{
-
+            int totalFree=totalFreePackSize;
             Collections.sort(discountbeforeSorting, new Comparator<ProductSearchResult.Datum>() {
                 @Override
                 public int compare(ProductSearchResult.Datum lhs, ProductSearchResult.Datum rhs) {
@@ -862,24 +935,24 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                     if (rule.getSDiscountBasedOn().equalsIgnoreCase("MRP")) {
                         valueSort = Double.valueOf(lhs.getMrp()).compareTo(rhs.getMrp());
-//                    lowestDiscountValue = discountbeforeSorting.get(0).getMrp();
-                        value[0] = getLowestArray(totalFreePackSize, datum.getMrp(), holder);
+                        value[0] = datum.getMrp();
                     } else if (rule.getSDiscountBasedOn().equalsIgnoreCase("NRV")) {
                         valueSort = Double.valueOf(lhs.getNrv()).compareTo(rhs.getNrv());
-//                    lowestDiscountValue = discountbeforeSorting.get(0).getNrv();
-                        value[0] =   getLowestArray(totalFreePackSize, datum.getNrv(), holder);
+                        value[0] = datum.getNrv();
                     } else if (rule.getSDiscountBasedOn().equalsIgnoreCase("SP")) {
                         valueSort = Double.valueOf(lhs.getSalesPrice()).compareTo(rhs.getSalesPrice());
-//                    lowestDiscountValue = discountbeforeSorting.get(0).getSalesPrice();
-                        value[0] =  getLowestArray(totalFreePackSize, datum.getSalesPrice(), holder);
+                        value[0] = datum.getSalesPrice();
                     } else if (rule.getSDiscountBasedOn().equalsIgnoreCase("GPL")) {
                         valueSort = Double.valueOf(lhs.getGpl()).compareTo(rhs.getGpl());
 //                    lowestDiscountValue = discountbeforeSorting.get(0).getGpl();
-                        value[0] = getLowestArray(totalFreePackSize, datum.getGpl(), holder);
+                        value[0] = datum.getGpl();
                     }
+
                     return valueSort;
                 }
             });
+            value[0] = getLowestArray(totalFree, datum.getMrp(), holder);
+            totalFree=0;
         }
         return value[0];
     }
@@ -912,52 +985,44 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         int total=totalFreePackSize;
         ArrayList<ProductSearchResult.Discount> discounts = new ArrayList<>();
         ArrayList<ProductSearchResult.Rule> rules = new ArrayList<>();
-        for (int i=0;i<discountbeforeSorting.size();i++){
-            int qtyType =discountbeforeSorting.get(i).getQty();
-            if (qtyType>=total){
+        if (discountbeforeSorting.size()==1){
+            for(int k = 0 ; k <total; k++) {
+                ProductSearchResult.Datum datum1 = discountbeforeSorting.get(0);
+                minDiscount.add(datum1);
+//                break;
+            }
+        }else {
+            for (int i=0;i<discountbeforeSorting.size();i++){
+                int qtyType =discountbeforeSorting.get(i).getQty();
+                if (qtyType>=total){
 
-                for (int k=0;k<total;k++){
-//                    discounts.clear();
-//                    rules.clear();
-//                    ProductSearchResult.Discount discount = new ProductSearchResult().new Discount();
-//                    discount.setFreeItem(true);
-//                    discount.setSDiscountName(mDataset.get(holder.getAdapterPosition()).getSDiscountName());
-//                    discount.setDiscountTotal(mPriceSelected);
-//                    discount.setRule(rules);
-//                    discounts.add(discount);
-                    ProductSearchResult.Datum datum1=discountbeforeSorting.get(i);
-//                    datum1.setQty(1);
-//                    datum1.setSProductPrice(mPriceSelected);
-//                    datum1.setDiscount(discounts);
-//                    datum1.setFreeItem(true);
-                    minDiscount.add(datum1);
-                }
-                total=0;
-                break;
-
-            }else {
-                if (qtyType<total){
-                    for (int k=0;k<total;k++){
-
-//                        discounts.clear();
-//                        rules.clear();
-//                        ProductSearchResult.Discount discount = new ProductSearchResult().new Discount();
-//                        discount.setFreeItem(true);
-//                        discount.setSDiscountName(mDataset.get(holder.getAdapterPosition()).getSDiscountName());
-//                        discount.setDiscountTotal(mPriceSelected);
-//                        discount.setRule(rules);
-//                        discounts.add(discount);
-                        ProductSearchResult.Datum datum1=discountbeforeSorting.get(i);
-//                        datum1.setQty(1);
-//                        datum1.setSProductPrice(mPriceSelected);
-//                        datum1.setDiscount(discounts);
-//                        datum1.setFreeItem(true);
+//                if (total==i+1){
+//                    total=0;
+//                    break;
+//                }
+//                  if (i<=total-1){
+                    for(int k = 0 ; k <total; k++) {
+                        ProductSearchResult.Datum datum1 = discountbeforeSorting.get(i);
                         minDiscount.add(datum1);
+                        break;
+//                break;
                     }
-                    total=total-qtyType;
+//                total--;
+                }else {
+                    if (qtyType<total){
+//                    for(int k = 0 ; k <=total; k++) {
+                        for(int k = 0 ; k <total; k++) {
+                            ProductSearchResult.Datum datum1 = discountbeforeSorting.get(i);
+                            minDiscount.add(datum1);
+                            break;
+//                break;
+                        }
+
+                    }
                 }
             }
         }
+
 //        adapterListener.onRowClicked(-1);
 //        if(discountbeforeSorting.size() > totalFreePackSize) {
 //            for (int f = 0; f < totalFreePackSize; f++) {

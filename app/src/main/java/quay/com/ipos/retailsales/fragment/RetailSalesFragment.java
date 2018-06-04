@@ -63,6 +63,7 @@ import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.ui.MyDialogFragment;
+import quay.com.ipos.ui.WrapContentLinearLayoutManager;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.SharedPrefUtil;
@@ -206,7 +207,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         mRecyclerView = rootView.findViewById(R.id.recycleView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(mContext);
-        mRecyclerView.setLayoutManager(mLayoutManager);
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.addItemDecoration(
                 new ItemDecorationAlbumColumns(mContext.getResources().getDimensionPixelSize(R.dimen.dim_5),
                         mContext.getResources().getInteger(R.integer.photo_list_preview_columns)));
@@ -1082,8 +1084,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         } else {
             datum.setQty(qty - 1);
             IPOSApplication.mProductListResult.set(posMinus, datum);
+          //  mRetailSalesAdapter.notifyDataSetChanged();
             mRetailSalesAdapter.notifyItemChanged(posMinus);
             setUpdateValues(IPOSApplication.mProductListResult);
+           //
         }
 
         IPOSApplication.isClicked = true;
@@ -1303,6 +1307,14 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     public void onRowClicked(int position) {
 
         if(position==-1){
+
+            mRecyclerView.post(new Runnable() {
+                @Override
+                public void run() {
+               mRetailSalesAdapter.notifyDataSetChanged();
+                }
+            });
+//            mRetailSalesAdapter.notifyItemRangeChanged(0,IPOSApplication.mProductListResult.size());
 //            if(SharedPrefUtil.getString(Constants.DISCOUNT+"","",getActivity())!=null){
 //                jsonDiscount = SharedPrefUtil.getString(Constants.DISCOUNT+"","",getActivity());
 //
@@ -1314,6 +1326,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //                    }
 //                }
 //            }
+//            mRetailSalesAdapter.notifyDataSetChanged();
         }else {
             boolean row = false;
             row = IPOSApplication.isClicked;
@@ -1379,8 +1392,16 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
             datum1.setQty(value);
             IPOSApplication.mProductListResult.set(position, datum1);
-            mRetailSalesAdapter.notifyItemChanged(position);
-            setUpdateValues(IPOSApplication.mProductListResult);
+//            mRecyclerView.post(new Runnable()
+//            {
+//                @Override
+//                public void run() {
+                    mRetailSalesAdapter.notifyItemChanged(position);
+                    setUpdateValues(IPOSApplication.mProductListResult);
+//                }
+//            });
+
+
         } else {
             datum1.setQty(datum1.getSProductStock());
             IPOSApplication.mProductListResult.set(position, datum1);

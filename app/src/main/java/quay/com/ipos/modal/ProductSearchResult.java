@@ -54,6 +54,7 @@ public class ProductSearchResult {
     }
 
     public class Datum {
+
         @SerializedName("sProductFeature")
         @Expose
         private List<SProductFeature> sProductFeature = null;

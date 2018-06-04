@@ -28,6 +28,7 @@ import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.MyAdapterTags;
 import quay.com.ipos.modal.ProductSearchResult;
+import quay.com.ipos.ui.WrapContentLinearLayoutManager;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Util;
@@ -38,7 +39,7 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 17-04-2018.
  */
 
-public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements AdapterListener {
     private boolean onBind;
 
     private final int VIEW_TYPE_ITEM = 0;
@@ -87,6 +88,17 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         // }
         // }
         // });
+    }
+
+    @Override
+    public void onRowClicked(int position) {
+
+    }
+
+    @Override
+    public void onRowClicked(int position, int value) {
+
+        notifyItemRangeRemoved(value,IPOSApplication.mProductListResult.size());
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
@@ -282,8 +294,10 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
             userViewHolder.mRecyclerView.setHasFixedSize(true);
-            LinearLayoutManager  mLayoutManager = new LinearLayoutManager(mContext);
-            userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
+//            WrapContentLinearLayoutManager mLayoutManager = new WrapContentLinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+
+            userViewHolder.mRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+//            userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
 //            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
 
             DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext, userViewHolder.mRecyclerView, mDataset.get(userViewHolder.getAdapterPosition()).getDiscount(), mDataset.get(userViewHolder.getAdapterPosition()),userViewHolder.getAdapterPosition(),listener);
