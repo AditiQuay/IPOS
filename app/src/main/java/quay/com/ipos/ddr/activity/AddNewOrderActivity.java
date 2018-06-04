@@ -14,18 +14,33 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.ddr.adapter.AddNewOrderAdapter;
+import quay.com.ipos.ddr.adapter.CustomAdapter;
+import quay.com.ipos.ddr.modal.NewOrderProductsResult;
+import quay.com.ipos.ddr.modal.NoGetEntityResultModal;
+import quay.com.ipos.ddr.modal.ProductSearchRequest;
+import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.listeners.AdapterListener;
+import quay.com.ipos.modal.CommonParams;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.modal.ProductList;
+import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
+import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.utility.AppLog;
@@ -37,7 +52,7 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 04-05-2018.
  */
 
-public class AddNewOrderActivity extends BaseActivity implements View.OnClickListener,AdapterListener{
+public class AddNewOrderActivity extends BaseActivity implements View.OnClickListener,AdapterListener,ServiceTask.ServiceResultListener{
 
     private static final String TAG = quay.com.ipos.retailsales.activity.AddProductActivity.class.getSimpleName();
     ArrayList<OrderList.Datum> arrSearlist= new ArrayList<>();
@@ -49,7 +64,10 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
     private TextView tvItemSize,tvNoItemAvailable;
     private AddNewOrderAdapter mAddNewOrderAdapter;
     private TextView tvClear;
-    ArrayList<OrderList.Datum> arrData= new ArrayList<>();
+    private String entityStateCode="";
+    private int businessPlaceCode;
+    ArrayList<NewOrderProductsResult> arrData= new ArrayList<>();
+    ArrayList<NewOrderProductsResult.DataBean> dataBeans= new ArrayList<>();
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -57,12 +75,23 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.act_customer_list);
         setHeader();
 
+        getIntentValues();
         initializeComponent();
         setAdapter();
-        getProduct();
+    //    getProduct();
 //            setDefaultValues();
     }
-    private void setDefaultValues() {
+
+    private void getIntentValues() {
+
+        Intent i=getIntent();
+        if (i!=null){
+            entityStateCode=i.getStringExtra(Constants.entityStateCode);
+            businessPlaceCode=i.getIntExtra(Constants.businessPlaceCode,0);
+        }
+    }
+
+   /* private void setDefaultValues() {
 
         Double totalPrice;
         for(int i=0 ; i < arrData.size();i++ )
@@ -83,9 +112,9 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
             arrData.set(i,datum);
         }
 
-    }
+    }*/
     private void setAdapter() {
-        mAddNewOrderAdapter = new AddNewOrderAdapter(this,this,mRecyclerView,arrSearlist,this);
+        mAddNewOrderAdapter = new AddNewOrderAdapter(this,this,mRecyclerView,dataBeans,this);
         mRecyclerView.setAdapter(mAddNewOrderAdapter);
     }
     public void setHeader() {
@@ -137,23 +166,13 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                filter(charSequence.toString(),arrData);
-                if(charSequence.toString().length()>0) {
-                    tvClear.setVisibility(View.VISIBLE);
-                    tvItemSize.setVisibility(View.VISIBLE);
-                }
-                else {
-                    tvClear.setVisibility(View.GONE);
-                    tvItemSize.setVisibility(View.GONE);
-                    arrSearlist.clear();
-                }
-                tvItemSize.setText("Showing "+arrSearlist.size() + " Products");
-                mAddNewOrderAdapter.notifyDataSetChanged();
+                searchProductCall(charSequence.toString());
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(arrSearlist.size()==0){
+                if(arrData.size()==0){
                     tvNoItemAvailable.setVisibility(View.VISIBLE);
                 }else
                     tvNoItemAvailable.setVisibility(View.GONE);
@@ -162,7 +181,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
     }
 
 
-    private void getProduct() {
+ /*   private void getProduct() {
         try {
             arrData.clear();
             String json = Util.getAssetJsonResponse(this, "product_list.json");
@@ -179,7 +198,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
             e.printStackTrace();
         }
 
-    }
+    }*/
 
     private void filter(String charText, ArrayList<OrderList.Datum> responseList) {
         if (arrSearlist != null && responseList != null) {
@@ -310,6 +329,90 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
             arrSearlist.set(posMinus, datum);
             mAddNewOrderAdapter.notifyItemChanged(posMinus);
 
+        }
+    }
+
+    private void searchProductCall(String s) {
+//        showProgress(getResources().getString(R.string.please_wait));
+        ProductSearchRequest productSearchRequest = new ProductSearchRequest();
+        productSearchRequest.setEntityCode("1");
+        productSearchRequest.setEntityRole("distributer");
+        productSearchRequest.setEntityStateCode(entityStateCode);
+        productSearchRequest.setSearchParam(s);
+        productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
+        productSearchRequest.setBarCodeNumber("NA");
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOProductSearch);
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(productSearchRequest);
+        mTask.setListener(this);
+        mTask.setResultType(NewOrderProductsResult.class);
+        if(Util.isConnected())
+            mTask.execute();
+        else
+            Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
+    }
+
+    @Override
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
+
+
+
+
+
+        if (httpStatusCode == Constants.SUCCESS) {
+
+            if (Util.validateString(serverResponse)){
+
+                NewOrderProductsResult noGetEntityResultModal=(NewOrderProductsResult)resultObj;
+                arrData.add(noGetEntityResultModal);
+
+
+                for (int i=0;i<arrData.size();i++){
+
+
+
+                    dataBeans.addAll(arrData.get(0).getData());
+                }
+
+             /*   try {
+                    JSONObject jsonObject=new JSONObject(serverResponse);
+                    JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.data)
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }*/
+
+
+
+
+                // dataBeans.add(arrData)
+
+            }
+            if(arrData.size()>0) {
+                tvClear.setVisibility(View.VISIBLE);
+                tvItemSize.setVisibility(View.VISIBLE);
+            }
+            else {
+                tvClear.setVisibility(View.GONE);
+                tvItemSize.setVisibility(View.GONE);
+                arrData.clear();
+            }
+            tvItemSize.setText("Showing "+arrData.size() + " Products");
+            mAddNewOrderAdapter.notifyDataSetChanged();
+
+
+        } else if (httpStatusCode == Constants.BAD_REQUEST) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
     }
 }

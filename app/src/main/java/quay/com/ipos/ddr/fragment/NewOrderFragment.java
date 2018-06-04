@@ -4,6 +4,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -22,18 +24,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
@@ -41,12 +54,20 @@ import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.ddr.activity.AddNewOrderActivity;
 import quay.com.ipos.ddr.activity.NewOrderDetailsActivity;
 import quay.com.ipos.ddr.activity.PinnedOrderActivity;
+import quay.com.ipos.ddr.adapter.CustomAdapter;
 import quay.com.ipos.ddr.adapter.NewOrderListAdapter;
+import quay.com.ipos.ddr.modal.NOGetEntityBuisnessPlacesModal;
+import quay.com.ipos.ddr.modal.NoGetEntityResultModal;
+import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.ScannerProductListener;
+
+import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
+import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.retailsales.fragment.FullScannerFragment;
+import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
@@ -60,7 +81,7 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 03-05-2018.
  */
 
-public class NewOrderFragment extends BaseFragment implements View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener {
+public class NewOrderFragment extends BaseFragment implements ServiceTask.ServiceResultListener ,View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener {
     private TextView tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
             tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
             tvLessDetails,tvRoundingOffPrice,tvPay,tvPinCount;
@@ -89,12 +110,18 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
     private String json;
     private RelativeLayout llBelowPaymentDetail;
     private TextView tvMessage;
+    private AppCompatSpinner spnAddress;
+    private Context mContext;
+    private ArrayList<NoGetEntityResultModal.BuisnessPlacesBean> noGetEntityBuisnessPlacesModals=new ArrayList<>();
+    private String entityStateCode="";
+    private int businessPlaceCode;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.new_order_dashboard_dummy, container, false);
         initializeComponent(rootView);
+        mContext=getActivity();
         myDialog = new Dialog(getActivity());
         setHasOptionsMenu(true);
         Util.hideSoftKeyboard(getActivity());
@@ -137,7 +164,7 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         ll_item_pay = rootView.findViewById(R.id.ll_item_pay);
         tvPay = rootView.findViewById(R.id.tvPay);
         llTotalGST = rootView.findViewById(R.id.llTotalGST);
-
+        spnAddress=rootView.findViewById(R.id.spnAddress);
         mRecyclerView =  rootView.findViewById(R.id.recycleView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -148,9 +175,43 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         mRecyclerView.addOnScrollListener(listener);
         llBelowPaymentDetail=rootView.findViewById(R.id.llBelowPaymentDetail);
 
+        setSpinnerData();
         setListener();
         setAdapter();
         setTextDefault();
+    }
+
+    private void setSpinnerData(){
+
+        spnAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                entityStateCode=noGetEntityBuisnessPlacesModals.get(i).getBuisnessLocationStateCode();
+                businessPlaceCode=noGetEntityBuisnessPlacesModals.get(i).getBuisnessPlaceId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+//        showProgressDialog(mContext,R.string.msg_load_default);
+        NOGetEntityBuisnessPlacesModal noGetEntityBuisnessPlacesModal = new NOGetEntityBuisnessPlacesModal();
+        noGetEntityBuisnessPlacesModal.setEntityCode("1");
+        noGetEntityBuisnessPlacesModal.setEntityRole("distributer");
+        noGetEntityBuisnessPlacesModal.setEntityType("manager");
+
+
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOGetEntityBuisnessPlaces);
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(noGetEntityBuisnessPlacesModal);
+        mTask.setListener(this);
+        mTask.setResultType(NoGetEntityResultModal.class);
+        mTask.execute();
+
     }
 
     private void setTextDefault() {
@@ -310,6 +371,8 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
 
     public void onSearchButton(){
         Intent mIntent = new Intent(getActivity(), AddNewOrderActivity.class);
+        mIntent.putExtra(Constants.businessPlaceCode,businessPlaceCode);
+        mIntent.putExtra(Constants.entityStateCode,entityStateCode);
         startActivityForResult(mIntent,3);
     }
 
@@ -851,4 +914,48 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         });
     }
 
+    @Override
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
+     //   hideProgressDialog();
+        if (httpStatusCode == Constants.SUCCESS) {
+
+            if (Util.validateString(serverResponse)){
+                try {
+                    JSONObject jsonObject=new JSONObject(serverResponse);
+                    JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
+                    for (int i=0;i<array.length();i++){
+                        NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
+                        JSONObject jsonObject1=array.optJSONObject(i);
+                        noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
+                        noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
+                        noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
+                        noGetEntityBuisnessPlacesModals.add(noGetEntityBuisnessPlacesModal);
+
+
+
+                    }
+
+                    CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss,R.id.text1,noGetEntityBuisnessPlacesModals);
+                    adapter.setDropDownViewResource(R.layout.spinner_item_pss);
+                    spnAddress.setAdapter(adapter);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+
+        } else if (httpStatusCode == Constants.BAD_REQUEST) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+        }
+
+    }
 }

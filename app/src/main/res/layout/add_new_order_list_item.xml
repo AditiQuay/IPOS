@@ -22,7 +22,6 @@
 
             <ImageView
                 android:id="@+id/imvProduct"
-                android:src="@drawable/if_light_bulb"
                 android:layout_width="60dp"
                 android:layout_marginTop="8dp"
                 android:layout_gravity="top"

@@ -12,9 +12,12 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.ddr.modal.NewOrderProductsResult;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.utility.AppLog;
@@ -36,11 +39,11 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<OrderList.Datum> mDataset;
+    ArrayList<NewOrderProductsResult.DataBean> mDataset;
     RecyclerView mRecyclerView;
 
     public AddNewOrderAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                              ArrayList<OrderList.Datum> questionList,AdapterListener listener) {
+                              ArrayList<NewOrderProductsResult.DataBean> questionList,AdapterListener listener) {
         this.mOnClickListener = mClickListener;
         mContext = ctx;
         mDataset = questionList;
@@ -70,8 +73,8 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView tvItemName, tvItemPrice, tvItemStockAvailabilty, tvCheckStock,
-                tvMinus,tvPlus,tvOffers,tvReserved,tvAddCart;
-        public ImageView imvProduct,imvInfo;
+                tvMinus,tvPlus,tvOffers,tvReserved,tvAddCart,tvPoints;
+        public ImageView imvProduct,imvInfo,imvOffer;
         public EditText etQtySelected;
 
         public UserViewHolder(View itemView) {
@@ -80,13 +83,16 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvItemPrice =  itemView.findViewById(R.id.tvItemPrice);
             tvItemStockAvailabilty =  itemView.findViewById(R.id.tvItemStockAvailabilty);
             tvCheckStock =  itemView.findViewById(R.id.tvCheckStock);
+            imvOffer=itemView.findViewById(R.id.imvOffer);
+            tvPoints=itemView.findViewById(R.id.tvPoints);
+
           //  tvMinus =  itemView.findViewById(R.id.tvMinus);
           //  etQtySelected =  itemView.findViewById(R.id.etQtySelected);
           //  tvPlus =  itemView.findViewById(R.id.tvPlus);
           //  tvOffers =  itemView.findViewById(R.id.tvOffers);
          //   tvReserved =  itemView.findViewById(R.id.tvReserved);
             tvAddCart =  itemView.findViewById(R.id.tvAddCart);
-         //   imvProduct =  itemView.findViewById(R.id.imvProduct);
+            imvProduct =  itemView.findViewById(R.id.imvProduct);
             imvInfo = itemView.findViewById(R.id.imvInfo);
          //   etQtySelected =  itemView.findViewById(R.id.etQtySelected);
         }
@@ -116,11 +122,24 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof AddNewOrderAdapter.UserViewHolder) {
             onBind = true;
-            OrderList.Datum str = mDataset.get(position);
+            NewOrderProductsResult.DataBean str = mDataset.get(position);
 //            AppLog.e(AddNewOrderAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             final AddNewOrderAdapter.UserViewHolder userViewHolder = (AddNewOrderAdapter.UserViewHolder) holder;
             userViewHolder.tvItemName.setText(str.getSProductName());
+            Picasso.get().load(str.getProductImage()).into(userViewHolder.imvProduct);
             userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs)+" "+str.getSProductPrice());
+            userViewHolder.tvItemStockAvailabilty.setText(str.getSProductStock().substring(0,1).toUpperCase()+str.getSProductStock().substring(1).toLowerCase());
+            userViewHolder.tvPoints.setText(str.getPoints()+ " Pts.");
+            if (str.isIsDiscount()){
+                userViewHolder.imvOffer.setVisibility(View.VISIBLE);
+            }else {
+                userViewHolder.imvOffer.setVisibility(View.GONE);
+            }
+            if (str.isIsCheckStock()){
+                userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
+            }else {
+                userViewHolder.tvCheckStock.setVisibility(View.GONE);
+            }
           //  userViewHolder.etQtySelected.setText(str.getQty()+"");
             onBind = false;
 

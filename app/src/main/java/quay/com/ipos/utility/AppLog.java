@@ -36,9 +36,9 @@ public class AppLog {
      * @param message
      */
     public static void e(String tag, String message) {
-        if (print) {
+//        if (print) {
             android.util.Log.e(tag, message);
-        }
+//        }
     }
 
     /**

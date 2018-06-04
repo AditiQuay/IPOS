@@ -1,6 +1,18 @@
 {
     "logs": [
         {
+<<<<<<< HEAD
+            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xxhdpi-v4_values-xxhdpi-v4.arsc.flat",
+            "map": [
+                {
+                    "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xxhdpi-v4\\values-xxhdpi-v4.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,114",
+                        "endColumns": "58,55",
+                        "endOffsets": "109,165"
+=======
             "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xhdpi-v4_values-xhdpi-v4.arsc.flat",
             "map": [
                 {
@@ -11,11 +23,13 @@
                         "startOffsets": "55,113",
                         "endColumns": "57,55",
                         "endOffsets": "108,164"
+>>>>>>> 75519d8410b08fb69f097084ebe5587391fe1a84
                     }
                 }
             ]
         },
         {
+<<<<<<< HEAD
             "outputFile": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
             "map": [
                 {
@@ -31,10 +45,19 @@
             ]
         },
         {
+=======
+<<<<<<< HEAD
+            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
+            "map": [
+                {
+                    "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+=======
+>>>>>>> 4a14d675ce14fa9c0cff88239acdc4c44a23e15f
             "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values_values.arsc.flat",
             "map": [
                 {
                     "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+>>>>>>> 75519d8410b08fb69f097084ebe5587391fe1a84
                     "from": {
                         "startLines": "2,3,4,6,7",
                         "startColumns": "4,4,4,4,4",
@@ -46,6 +69,7 @@
             ]
         },
         {
+<<<<<<< HEAD
             "outputFile": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xhdpi-v4_values-xhdpi-v4.arsc.flat",
             "map": [
                 {
@@ -61,10 +85,19 @@
             ]
         },
         {
+=======
+<<<<<<< HEAD
+            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-hdpi-v4_values-hdpi-v4.arsc.flat",
+            "map": [
+                {
+                    "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+=======
+>>>>>>> 4a14d675ce14fa9c0cff88239acdc4c44a23e15f
             "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-hdpi-v4_values-hdpi-v4.arsc.flat",
             "map": [
                 {
                     "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+>>>>>>> 75519d8410b08fb69f097084ebe5587391fe1a84
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -76,6 +109,7 @@
             ]
         },
         {
+<<<<<<< HEAD
             "outputFile": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-hdpi-v4_values-hdpi-v4.arsc.flat",
             "map": [
                 {
@@ -91,16 +125,25 @@
             ]
         },
         {
+=======
+<<<<<<< HEAD
+            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xhdpi-v4_values-xhdpi-v4.arsc.flat",
+            "map": [
+                {
+                    "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xhdpi-v4\\values-xhdpi-v4.xml",
+=======
+>>>>>>> 4a14d675ce14fa9c0cff88239acdc4c44a23e15f
             "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\androidTest\\debug\\values-xxhdpi-v4_values-xxhdpi-v4.arsc.flat",
             "map": [
                 {
                     "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xxhdpi-v4\\values-xxhdpi-v4.xml",
+>>>>>>> 75519d8410b08fb69f097084ebe5587391fe1a84
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
-                        "startOffsets": "55,114",
-                        "endColumns": "58,55",
-                        "endOffsets": "109,165"
+                        "startOffsets": "55,113",
+                        "endColumns": "57,55",
+                        "endOffsets": "108,164"
                     }
                 }
             ]

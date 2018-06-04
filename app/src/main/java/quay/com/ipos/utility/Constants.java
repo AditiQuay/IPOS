@@ -113,6 +113,10 @@ public class Constants {
     public static final String PREF_KEY_PRODUCT_DETAIL_KEY="ProductDetail";
 
 
+    public static final String businessPlaceCode="businessPlaceCode";
+    public static final String entityStateCode="entityStateCode";
+
+
 
 
 

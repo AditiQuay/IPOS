@@ -35,7 +35,6 @@ public class IPOSApplication extends MultiDexApplication {
     public static ArrayList<ProductSearchResult.Datum> mProductListResult= new ArrayList<>();
 //    public static ArrayList<ProductSearchResult.Datum> mProductSearchResult= new ArrayList<>();
     public static ArrayList<OrderList.Datum> mOrderList= new ArrayList<>();
-    public static ArrayList<ProductSearchResult.Datum> minDiscount=new ArrayList<>();
 
     public static ArrayList<ProductSearchResult.Datum> datumArrayList = new ArrayList<>();
     public static HashMap<String,ArrayList<ProductSearchResult.Datum>> datumSameCode = new HashMap<String,ArrayList<ProductSearchResult.Datum>>();
