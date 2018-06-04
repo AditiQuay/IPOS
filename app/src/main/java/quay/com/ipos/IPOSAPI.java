@@ -12,6 +12,7 @@ public class IPOSAPI {
     public static String WEB_SERVICE_SEARCH_PRODUCT = "Retail/SearchRetailProduct";
     public static String WEB_SERVICE_ProductDetailUsingBarCode = "Retail/ProductDetailUsingBarCode";
     public static String WEB_SERVICE_RETAIL_CUSTOMER_LIST = "RetailCustomers/RetailCustomerList";
+    public static String WEB_SERVICE_RETAIL_SPINNER_LIST = "RetailCustomers/GetRetailCustomeBaseAddInfo";
     public static String WEB_SERVICE_PRODUCT_MAIN = "ProductCatalog/ProductCatalogMain";
     public static String WEB_SERVICE_PRODUCT_DETAIL = "ProductCatalog/ProductCatalogDetail";
     public static String WEB_SERVICE_PRODUCT_DESCRIPTION = "ProductCatalog/ProductCatalogDescription";

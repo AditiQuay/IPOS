@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 import quay.com.ipos.R;
+import quay.com.ipos.customerInfo.customerAdd.CustomerAddMain;
 import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerInfoAdapter;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.helper.DatabaseHandler;
@@ -74,7 +75,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mContext,AddCustomer.class);
+                Intent i = new Intent(mContext,CustomerAddMain.class);
                 startActivity(i);
             }
         });
@@ -101,7 +102,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         customerInfoAdapter = new CustomerInfoAdapter(mContext, customerModelList, this, this);
         recyclerviewCustomerCard.setAdapter(customerInfoAdapter);
 
-        customerModelList.addAll(dbHelper.getAllOfflineCustomer());
+//        customerModelList.addAll(dbHelper.getAllOfflineCustomer());
         SearchView.SearchAutoComplete searchAutoComplete =
                 (SearchView.SearchAutoComplete) searchViewCatalogue.findViewById(android.support.v7.appcompat.R.id.search_src_text);
 

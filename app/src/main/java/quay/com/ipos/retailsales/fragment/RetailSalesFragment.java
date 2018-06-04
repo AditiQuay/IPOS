@@ -48,6 +48,7 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
+import quay.com.ipos.customerInfo.customerAdd.CustomerAddMain;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.MyAdapterTags;
 import quay.com.ipos.listeners.ScanFilterListener;

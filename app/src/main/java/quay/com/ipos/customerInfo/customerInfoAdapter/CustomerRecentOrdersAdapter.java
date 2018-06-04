@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.customerInfo.customerInfoModal.RecentOrderList;
 import quay.com.ipos.modal.CustomerList;
 
 /**
@@ -17,10 +18,10 @@ import quay.com.ipos.modal.CustomerList;
  */
 
 public class CustomerRecentOrdersAdapter extends RecyclerView.Adapter<CustomerRecentOrdersAdapter.ViewHolder> {
-    private ArrayList<CustomerList.RecentOrder> recentOrders;
+    private ArrayList<RecentOrderList> recentOrders;
     private Context mContext;
 
-    public CustomerRecentOrdersAdapter(Context context, ArrayList<CustomerList.RecentOrder> recentOrders) {
+    public CustomerRecentOrdersAdapter(Context context, ArrayList<RecentOrderList> recentOrders) {
         this.mContext = context;
         this.recentOrders = recentOrders;
     }
@@ -35,9 +36,9 @@ public class CustomerRecentOrdersAdapter extends RecyclerView.Adapter<CustomerRe
 
     @Override
     public void onBindViewHolder(CustomerRecentOrdersAdapter.ViewHolder holder, int position) {
-        CustomerList.RecentOrder recentOrder = recentOrders.get(position);
+        RecentOrderList recentOrder = recentOrders.get(position);
         holder.textViewStoreName.setText(recentOrder.getFromStoreName());
-        holder.textViewStoreAddress.setText(recentOrder.getStoreCity()+", ".concat(recentOrder.getStoreState()));
+        holder.textViewStoreAddress.setText(recentOrder.getStoreCity() + ", ".concat(recentOrder.getStoreState()));
         holder.textViewBillingDate.setText(recentOrder.getBillDate());
         holder.textViewBillingAmount.setText(mContext.getResources().getString(R.string.Rs) + " " + recentOrder.getBillPrice());
     }

@@ -51,7 +51,8 @@ public class Constants {
 
 
     // mandatory or not mandatory
-    public static final String ASTERIK_SIGN = "<font color='#03A9F4'> *</font>";
+    public static final String ASTERIK_SIGN = "<font color='#e64f20'> *</font>";
+    public static final String ASTERIK_SIGN_BLUE = "<font color='#03A9F4'> *</font>";
     public static final String text = "<font color='#03A9F4'> 63%</font>";
 
     public static final int API_METHOD_GET = 0;
@@ -111,6 +112,15 @@ public class Constants {
     public static final String PREF_KEY_SEARCHED_PRODUCT_DATA="SearchedProductData";
     public static final String PREF_KEY_PRODUCT_DATA="ProductData";
     public static final String PREF_KEY_PRODUCT_DETAIL_KEY="ProductDetail";
+
+    //SpinnerListKey
+    public static final String KEY_STATE_LIST = "stateList";
+    public static final String KEY_COUNTRY_LIST = "countryList";
+    public static final String KEY_CITY_LIST = "cityList";
+    public static final String KEY_DESIGNATION_LIST = "designationList";
+    public static final String KEY_COMPANY_LIST = "companyList";
+    public static final String KEY_CUSTOMER_LIST = "customerList";
+    public static final String KEY_RELATION_LIST = "relationshipList";
 
 
 
