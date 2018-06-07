@@ -17,17 +17,25 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
+import io.realm.Realm;
 import quay.com.ipos.R;
+import quay.com.ipos.ddr.modal.DiscountModal;
+import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
-import quay.com.ipos.modal.OrderList;
-import quay.com.ipos.retailsales.adapter.DiscountListAdapter;
-import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.listeners.MyCheckedChangedListener;
+import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.utility.Util;
 
 
-public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements MyCheckedChangedListener {
     private boolean onBind;
 
     private final int VIEW_TYPE_ITEM = 0;
@@ -40,19 +48,21 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<OrderList.Datum> mDataset;
+    ArrayList<RealmNewOrderCart> mDataset;
     RecyclerView mRecyclerView;
     CompoundButton.OnCheckedChangeListener mCheckedChangeListener;
     TextWatcher mTextWatcher;
+    MyCheckedChangedListener myCheckedChangedListener;
 
     public NewOrderListAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                               ArrayList<OrderList.Datum> questionList, CompoundButton.OnCheckedChangeListener mCheckedChangeListener, AdapterListener listener) {
+                               ArrayList<RealmNewOrderCart> questionList, CompoundButton.OnCheckedChangeListener mCheckedChangeListener, AdapterListener listener,MyCheckedChangedListener myCheckedChangedListener) {
         this.mOnClickListener = mClickListener;
         this.mContext = ctx;
         this.mDataset = questionList;
         this.mRecyclerView = mRecycler;
         this.mCheckedChangeListener = mCheckedChangeListener;
         this. listener = listener;
+        this.myCheckedChangedListener=myCheckedChangedListener;
         // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
         // mRecyclerView.getLayoutManager();
         // mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
@@ -75,14 +85,24 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         // });
     }
 
+    @Override
+    public void onDiscount(DiscountModal discountModal, int position, boolean b, String productId, String productCode) {
+
+        myCheckedChangedListener.onDiscount(discountModal,position, b, productId, productCode);
+
+    }
+
     class UserViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvItemName,  tvItemPrice, tvMinus,tvPlus;
-        public TextView tvTotalPrice, tvDiscount, tvDiscountPrice;
+        public TextView tvItemName,  tvItemPrice, tvMinus,tvPlus,tvCheckStock;
+        public TextView tvTotalPrice, tvDiscount, tvDiscountPrice,tvItemStockAvailabilty,tvPoints;
         public ImageView imvInfo,imvProduct,imvClear;
         public LinearLayout llDiscount;
         public CheckBox chkDiscount;
         public EditText etQtySelected;
         public RecyclerView mUserRecyclerView;
+        public ImageView imvOffer;
+        public TextView tvTotalPoints;
+        public LinearLayout llAddMinus;
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -100,6 +120,12 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             tvDiscount =  itemView.findViewById(R.id.tvDiscount);
             tvDiscountPrice =  itemView.findViewById(R.id.tvDiscountPrice);
             llDiscount = itemView.findViewById(R.id.llDiscount);
+            tvItemStockAvailabilty=itemView.findViewById(R.id.tvItemStockAvailabilty);
+            imvOffer=itemView.findViewById(R.id.imvOffer);
+            tvCheckStock=itemView.findViewById(R.id.tvCheckStock);
+            tvPoints=itemView.findViewById(R.id.tvPoints);
+            tvTotalPoints=itemView.findViewById(R.id.tvTotalPoints);
+            llAddMinus=itemView.findViewById(R.id.llAddMinus);
         }
     }
 
@@ -127,101 +153,131 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof NewOrderListAdapter.UserViewHolder) {
             onBind = true;
-            final OrderList.Datum str = mDataset.get(position);
-            AppLog.e(NewOrderListAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
+            final RealmNewOrderCart realmNewOrderCart = mDataset.get(position);
+            Realm realm=Realm.getDefaultInstance();
+            RealmNewOrderCart str=realm.where(RealmNewOrderCart.class).equalTo(RetailSalesEnum.iProductModalId.toString(),realmNewOrderCart.getiProductModalId()).findFirst();
             final NewOrderListAdapter.UserViewHolder userViewHolder = (NewOrderListAdapter.UserViewHolder) holder;
-            userViewHolder.tvItemName.setText(str.getSProductName());
-            userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSProductPrice());
-            userViewHolder.etQtySelected.setText(str.getQty()+"");
-            onBind = false;
 
+            if (str!=null) {
+                if (Util.validateString(str.getsProductName()))
+                    userViewHolder.tvItemName.setText(str.getsProductName());
+                userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + str.getsProductPrice());
+                userViewHolder.etQtySelected.setText(str.getQty() + "");
+                userViewHolder.tvItemStockAvailabilty.setText(str.getsProductStock().substring(0, 1).toUpperCase() + str.getsProductStock().substring(1).toLowerCase());
+                userViewHolder.tvPoints.setText(str.getPoints() + " Pts.");
+                userViewHolder.tvTotalPoints.setText(str.getTotalPoints() + " Pts.");
 
-            Double totalPrice=(Double.parseDouble(str.getSProductPrice())*str.getQty());
-//            str.setTotalPrice(totalPrice);
+                if (str.isFreeItem()) {
+                    userViewHolder.imvOffer.setVisibility(View.GONE);
+                    userViewHolder.tvTotalPrice.setText(" Free " + str.getQty()+" * "+mContext.getResources().getString(R.string.Rs) +" "+str.getsProductPrice());
 
-            if(str.getIsDiscount()) {
-                userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSDiscountPrice());
-                userViewHolder.tvDiscount.setText(str.getSDiscountName());
-//                str.setDiscItemSelected(true);
-                Double discount = (Double.parseDouble(str.getSDiscountPrice())*totalPrice)/100;
-//                str.setDiscount(discount);
+                    userViewHolder.tvTotalPrice.setPaintFlags(userViewHolder.tvTotalPrice.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                    userViewHolder.tvCheckStock.setVisibility(View.GONE);
+                    userViewHolder.llAddMinus.setVisibility(View.GONE);
+                } else {
+                    if (str.isDiscount()) {
+                        userViewHolder.imvOffer.setVisibility(View.VISIBLE);
+                    } else {
+                        userViewHolder.imvOffer.setVisibility(View.GONE);
+                    }
+                    userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + str.getTotalPrice());
 
-                userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+discount+"");
-                userViewHolder.llDiscount.setVisibility(View.GONE);
-            }else {
-//                str.setDiscItemSelected(false);
-//                str.setTotalPrice(totalPrice);
-//                str.setDiscount(0.0);
-                userViewHolder.llDiscount.setVisibility(View.GONE);
-            }
-            if(str.isDiscItemSelected()) {
-                userViewHolder.chkDiscount.setChecked(true);
-                userViewHolder.tvDiscount.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                userViewHolder.tvDiscountPrice.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-            }else {
-                userViewHolder.chkDiscount.setChecked(false);
-
-                userViewHolder.tvDiscount.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                userViewHolder.tvDiscountPrice.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            }
-//            if(str.isEdited()){
-//                userViewHolder.etQtySelected.setEnabled(true);
-//            }else {
-//                userViewHolder.etQtySelected.setEnabled(false);
-//            }
-
-            userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+totalPrice);
-//            IPOSApplication.mProductList.set(position,str);
-//            AppLog.e(RetailSalesAdapter.class.getSimpleName(), "IPOSApplication.mProductList: "+ Util.getCustomGson().toJson(IPOSApplication.mProductList));
-
-            userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
-            userViewHolder.tvMinus.setTag(position);
-
-            userViewHolder.tvPlus.setOnClickListener(mOnClickListener);
-            userViewHolder.tvPlus.setTag(position);
-
-
-            userViewHolder.chkDiscount.setOnCheckedChangeListener(mCheckedChangeListener);
-            userViewHolder.chkDiscount.setTag(position);
-
-
-
-            userViewHolder.imvClear.setOnClickListener(mOnClickListener);
-            userViewHolder.imvClear.setTag(position);
-            userViewHolder.etQtySelected.setTag(position);
-            userViewHolder.etQtySelected.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                    if (str.isCheckStock()) {
+                        userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
+                    } else {
+                        userViewHolder.tvCheckStock.setVisibility(View.GONE);
+                    }
+                    userViewHolder.llAddMinus.setVisibility(View.VISIBLE);
                 }
+                Picasso.get().load(str.getProductImage()).into(userViewHolder.imvProduct);
 
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    if(!onBind) {
-                        if (!charSequence.toString().isEmpty()) {
-                            if (Integer.parseInt(charSequence.toString())<1) {
-                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
-                            }else {
-                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(charSequence.toString()));
-                            }
 
-                        }else {
-                            listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
+                onBind = false;
+
+
+                userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
+                userViewHolder.tvMinus.setTag(position);
+
+                userViewHolder.tvPlus.setOnClickListener(mOnClickListener);
+                userViewHolder.tvPlus.setTag(position);
+
+
+                userViewHolder.chkDiscount.setOnCheckedChangeListener(mCheckedChangeListener);
+                userViewHolder.chkDiscount.setTag(position);
+
+
+                userViewHolder.imvClear.setOnClickListener(mOnClickListener);
+                userViewHolder.imvClear.setTag(position);
+                userViewHolder.etQtySelected.setTag(position);
+                userViewHolder.etQtySelected.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                        if (!onBind) {
+                           /* if (!charSequence.toString().isEmpty()) {
+                                if (Integer.parseInt(charSequence.toString()) < 1) {
+                                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
+                                } else {
+                                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(charSequence.toString()));
+                                }
+
+                            } else {
+                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
+                            }*/
                         }
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable editable) {
+                        if (!onBind) {
+                            if (!editable.toString().isEmpty()) {
+                                if (Integer.parseInt(editable.toString()) < 1) {
+                                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
+                                } else {
+                                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(editable.toString()));
+                                }
+
+                            } else {
+                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
+                            }
+                        }
+                    }
+                });
+                //     Gson gson = new GsonBuilder().create();
+                ///     NewOrderProductsResult.DataBean.DiscountBean discountBean=  gson.fromJson(mDataset.get(position).getDiscount(),NewOrderProductsResult.DataBean.DiscountBean.class);
+
+
+                    ArrayList<DiscountModal> discounts = new ArrayList<>();
+                    // discounts.add(discountBean);
+                if (!str.isFreeItem()) {
+                    try {
+                        JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
+                        for (int k = 0; k < array.length(); k++) {
+                            JSONObject jsonObject = array.optJSONObject(k);
+                            if (jsonObject.has("discountTotal") && jsonObject.optInt("discountTotal") > 0) {
+                                DiscountModal discountBean = new DiscountModal();
+                                discountBean.setDiscountTotal(jsonObject.optInt("discountTotal"));
+                                discountBean.setRule(jsonObject.optString("rule"));
+                                discountBean.setsDiscountDisplayName(jsonObject.optString("sDiscountDisplayName"));
+                                discountBean.setsDiscountName(jsonObject.optString("sDiscountName"));
+                                discounts.add(discountBean);
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }
 
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-
-            userViewHolder.mUserRecyclerView.setHasFixedSize(true);
-            LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-            userViewHolder.mUserRecyclerView.setLayoutManager(mLayoutManager);
-            DiscountNewOrderListAdapter itemListDataAdapter = new DiscountNewOrderListAdapter(mContext,userViewHolder.mUserRecyclerView, mDataset.get(position).getDiscount());
-            userViewHolder.mUserRecyclerView.setAdapter(itemListDataAdapter);
+                userViewHolder.mUserRecyclerView.setHasFixedSize(true);
+                LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+                userViewHolder.mUserRecyclerView.setLayoutManager(mLayoutManager);
+                DiscountNewOrderAdapter itemListDataAdapter = new DiscountNewOrderAdapter(mContext, userViewHolder.mUserRecyclerView, discounts,this,str.getiProductModalId(),str.getProductCode());
+                userViewHolder.mUserRecyclerView.setAdapter(itemListDataAdapter);
+            }
         }
         else if (holder instanceof NewOrderListAdapter.LoadingViewHolder) {
             NewOrderListAdapter.LoadingViewHolder loadingViewHolder = (NewOrderListAdapter.LoadingViewHolder) holder;

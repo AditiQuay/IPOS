@@ -1,19 +1,16 @@
 package quay.com.ipos.ddr.fragment;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +22,6 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -33,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,7 +40,12 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.Sort;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
@@ -56,22 +56,25 @@ import quay.com.ipos.ddr.activity.NewOrderDetailsActivity;
 import quay.com.ipos.ddr.activity.PinnedOrderActivity;
 import quay.com.ipos.ddr.adapter.CustomAdapter;
 import quay.com.ipos.ddr.adapter.NewOrderListAdapter;
+import quay.com.ipos.ddr.modal.DiscountModal;
 import quay.com.ipos.ddr.modal.NOGetEntityBuisnessPlacesModal;
 import quay.com.ipos.ddr.modal.NoGetEntityResultModal;
 import quay.com.ipos.enums.NoGetEntityEnums;
+import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
+import quay.com.ipos.listeners.MyCheckedChangedListener;
+import quay.com.ipos.listeners.MyListenerProduct;
 import quay.com.ipos.listeners.ScannerProductListener;
 
-import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
-import quay.com.ipos.realmbean.RealmController;
+import quay.com.ipos.realmbean.RealmNewOrderCart;
+import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.retailsales.fragment.FullScannerFragment;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
-import quay.com.ipos.ui.MessageDialogFragment;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.SharedPrefUtil;
@@ -81,29 +84,29 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 03-05-2018.
  */
 
-public class NewOrderFragment extends BaseFragment implements ServiceTask.ServiceResultListener ,View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener {
-    private TextView tvMoreDetails,tvItemNo,tvItemQty,tvTotalItemPrice,
-            tvTotalGST,tvTotalItemGSTPrice,tvTotalDiscountDetail,tvTotalDiscountPrice,tvCGSTPrice,tvSGSTPrice,
-            tvLessDetails,tvRoundingOffPrice,tvPay,tvPinCount;
+public class NewOrderFragment extends BaseFragment implements MyCheckedChangedListener,MyListenerProduct,ServiceTask.ServiceResultListener ,View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener {
+    private TextView tvMoreDetails, tvItemNo, tvItemQty, tvTotalItemPrice,
+            tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
+            tvLessDetails, tvRoundingOffPrice, tvPay, tvPinCount;
 
     private FrameLayout flScanner;
     private Fragment scanner_fragment;
-    private LinearLayout llTotalDiscountDetail,ll_item_pay,llTotalGST;
-    private ImageView imvPin,imvRight;
-    private ToggleButton chkBarCode;
+    private LinearLayout llTotalDiscountDetail, ll_item_pay, llTotalGST;
+    private ImageView imvPin, imvRight;
+
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
-    private String TAG= NewOrderFragment.class.getSimpleName();
+    private String TAG = NewOrderFragment.class.getSimpleName();
     private NewOrderListAdapter mNewOrderListAdapter;
     private boolean loading = true;
     int pastVisiblesItems, visibleItemCount, totalItemCount;
     private OrderList mOrderListResult;
     Dialog myDialog;
-    double otcDiscount=0.0;
+    double otcDiscount = 0.0;
     View rootView;
-    private double totalAmount=0;
+    private double totalAmount = 0;
     private boolean isFragmentDisplayed = true;
-//    private ArrayList<ProductList.Datum> mList= new ArrayList<>();
+    private ArrayList<RealmNewOrderCart> mList = new ArrayList<>();
 
     Double afterDiscountPrice;
     ArrayList<NewOrderPinnedResults.Info> mOrderInfoArrayList = new ArrayList<>();
@@ -112,23 +115,24 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
     private TextView tvMessage;
     private AppCompatSpinner spnAddress;
     private Context mContext;
-    private ArrayList<NoGetEntityResultModal.BuisnessPlacesBean> noGetEntityBuisnessPlacesModals=new ArrayList<>();
-    private String entityStateCode="";
+    private ArrayList<NoGetEntityResultModal.BuisnessPlacesBean> noGetEntityBuisnessPlacesModals = new ArrayList<>();
+    private String entityStateCode = "";
     private int businessPlaceCode;
+    private boolean isSync;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.new_order_dashboard_dummy, container, false);
         initializeComponent(rootView);
-        mContext=getActivity();
+        mContext = getActivity();
         myDialog = new Dialog(getActivity());
         setHasOptionsMenu(true);
         Util.hideSoftKeyboard(getActivity());
         return rootView;
     }
 
-    RecyclerView.OnScrollListener listener = new RecyclerView.OnScrollListener(){
+ /*   RecyclerView.OnScrollListener listener = new RecyclerView.OnScrollListener() {
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             if (newState == RecyclerView.TOUCH_SLOP_PAGING || newState != RecyclerView.SCROLL_STATE_IDLE) {
                 hideViews();
@@ -138,15 +142,14 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
             }
         }
     };
-
-
+*/
 
     private void initializeComponent(View rootView) {
-        tvMessage=rootView.findViewById(R.id.tvMessage);
+        tvMessage = rootView.findViewById(R.id.tvMessage);
         flScanner = rootView.findViewById(R.id.flScanner);
-        tvPinCount =  rootView.findViewById(R.id.tvPinCount);
+        tvPinCount = rootView.findViewById(R.id.tvPinCount);
         imvPin = rootView.findViewById(R.id.imvPin);
-        chkBarCode = rootView.findViewById(R.id.chkBarCode);
+
         imvRight = rootView.findViewById(R.id.imvRight);
         tvMoreDetails = rootView.findViewById(R.id.tvMoreDetails);
         tvItemNo = rootView.findViewById(R.id.tvItemNo);
@@ -164,16 +167,16 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
         ll_item_pay = rootView.findViewById(R.id.ll_item_pay);
         tvPay = rootView.findViewById(R.id.tvPay);
         llTotalGST = rootView.findViewById(R.id.llTotalGST);
-        spnAddress=rootView.findViewById(R.id.spnAddress);
-        mRecyclerView =  rootView.findViewById(R.id.recycleView);
+        spnAddress = rootView.findViewById(R.id.spnAddress);
+        mRecyclerView = rootView.findViewById(R.id.recycleView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.addItemDecoration(
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
-        mRecyclerView.addOnScrollListener(listener);
-        llBelowPaymentDetail=rootView.findViewById(R.id.llBelowPaymentDetail);
+      //  mRecyclerView.addOnScrollListener(listener);
+        llBelowPaymentDetail = rootView.findViewById(R.id.llBelowPaymentDetail);
 
         setSpinnerData();
         setListener();
@@ -181,14 +184,14 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
         setTextDefault();
     }
 
-    private void setSpinnerData(){
+    private void setSpinnerData() {
 
         spnAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-                entityStateCode=noGetEntityBuisnessPlacesModals.get(i).getBuisnessLocationStateCode();
-                businessPlaceCode=noGetEntityBuisnessPlacesModals.get(i).getBuisnessPlaceId();
+                entityStateCode = noGetEntityBuisnessPlacesModals.get(i).getBuisnessLocationStateCode();
+                businessPlaceCode = noGetEntityBuisnessPlacesModals.get(i).getBuisnessPlaceId();
             }
 
             @Override
@@ -230,16 +233,17 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
         if (SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity()) != null) {
             String json2 = SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity());
             if (!json2.equalsIgnoreCase(""))
-                mOrderInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<NewOrderPinnedResults.Info>>() {}.getType());
-            if(mOrderInfoArrayList.size()>0){
+                mOrderInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<NewOrderPinnedResults.Info>>() {
+                }.getType());
+            if (mOrderInfoArrayList.size() > 0) {
                 tvMessage.setVisibility(View.GONE);
-                tvPinCount.setText(""+mOrderInfoArrayList.size());
+                tvPinCount.setText("" + mOrderInfoArrayList.size());
                 tvPinCount.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 tvMessage.setVisibility(View.GONE);
                 tvPinCount.setVisibility(View.GONE);
             }
-        }else {
+        } else {
             tvPinCount.setVisibility(View.GONE);
         }
 //        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
@@ -253,12 +257,11 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
 //            }
 //        }else {
         flScanner.setVisibility(View.GONE);
-        chkBarCode.setChecked(false);
+
         closeFragment();
 //            displayFragment();
 //        }
     }
-
 
 
     private void setListener() {
@@ -268,7 +271,7 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
         tvPay.setOnClickListener(this);
         imvRight.setOnClickListener(this);
         // Set the click listener for the button.
-        chkBarCode.setOnClickListener(new View.OnClickListener() {
+       /* chkBarCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
@@ -287,8 +290,9 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
                     }
                 }
             }
-        });
+        });*/
     }
+
     public void closeFragment() {
         // Get the FragmentManager.
         FragmentManager fragmentManager = getChildFragmentManager();
@@ -322,7 +326,7 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
         isFragmentDisplayed = true;
     }
 
-    boolean isBack=false;
+    boolean isBack = false;
 
     @Override
     public void onResume() {
@@ -331,29 +335,23 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
         //You need to add the following line for this solution to work; thanks skayred
         getView().setFocusableInTouchMode(true);
         getView().requestFocus();
-        getView().setOnKeyListener( new View.OnKeyListener()
-        {
+        getView().setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public boolean onKey( View v, int keyCode, KeyEvent event )
-            {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
 
-                if( keyCode == KeyEvent.KEYCODE_BACK )
-                {
-                    if(IPOSApplication.mOrderList.size()>=1) {
-                        Util.showMessageDialog(getActivity(),NewOrderFragment.this, "Do you want to save the Cart?", "YES", "NO", Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (IPOSApplication.mOrderList.size() >= 1) {
+                        Util.showMessageDialog(getActivity(), NewOrderFragment.this, "Do you want to save the Cart?", "YES", "NO", Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
 
                         isBack = true;
-                    }
-
-                    else
-                        isBack =  false;
+                    } else
+                        isBack = false;
 
                 }
                 return isBack;
             }
-        } );
+        });
     }
-
 
 
     @Override
@@ -369,16 +367,16 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
     }
 
 
-    public void onSearchButton(){
+    public void onSearchButton() {
         Intent mIntent = new Intent(getActivity(), AddNewOrderActivity.class);
-        mIntent.putExtra(Constants.businessPlaceCode,businessPlaceCode);
-        mIntent.putExtra(Constants.entityStateCode,entityStateCode);
-        startActivityForResult(mIntent,3);
+        mIntent.putExtra(Constants.businessPlaceCode, businessPlaceCode);
+        mIntent.putExtra(Constants.entityStateCode, entityStateCode);
+        startActivityForResult(mIntent, 3);
     }
 
     private void setAdapter() {
 
-        mNewOrderListAdapter = new NewOrderListAdapter(getActivity(), this, mRecyclerView, IPOSApplication.mOrderList,this,this);
+        mNewOrderListAdapter = new NewOrderListAdapter(getActivity(), this, mRecyclerView, mList, this, this,this);
         mRecyclerView.setAdapter(mNewOrderListAdapter);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -406,23 +404,25 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
         });
     }
 
-    int childPosition= -1;
+    int childPosition = -1;
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==3){
-            if(resultCode == 3){
-                mNewOrderListAdapter.notifyDataSetChanged();
+        if (requestCode == 3) {
+            if (resultCode == 1) {
+
+
                 getProduct();
             }
-        }else if(requestCode==5){
-            if(resultCode == 5){
-                childPosition = data.getIntExtra("pinned_order_position",0);
+        } else if (requestCode == 5) {
+            if (resultCode == 5) {
+                childPosition = data.getIntExtra("pinned_order_position", 0);
                 getProduct();
             }
-        }else if(requestCode==6){
-            if(resultCode == 6){
+        } else if (requestCode == 6) {
+            if (resultCode == 6) {
 //                childPosition = data.getIntExtra("pinned_order_position",0);
 //                getProduct();
                 IPOSApplication.mOrderList.clear();
@@ -439,54 +439,137 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
     }
 
     private void getProduct() {
-        try {
-//            IPOSApplication.mOrderList.clear();
-//            String json = Util.getAssetJsonResponse(getActivity(), "product_list.json");
-//            mOrderListResult = Util.getCustomGson().fromJson(json,OrderList.class);
-            AppLog.e(NewOrderFragment.class.getSimpleName(),"Get Order: "+Util.getCustomGson().toJson(IPOSApplication.mOrderList));
-//            IPOSApplication.mOrderList.addAll(mOrderListResult.getData());
-            setDefaultValues();
-//
-            mNewOrderListAdapter.notifyDataSetChanged();
-            setUpdateValues(IPOSApplication.mOrderList);
-        } catch (Exception e) {
-            e.printStackTrace();
+
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).findAll();
+        mList.clear();
+
+        for (RealmNewOrderCart realmNewOrderCart : realmNewOrderCarts1) {
+            RealmNewOrderCart realmNewOrderCarts = realm.copyFromRealm(realmNewOrderCart);
+
+            mList.add(realmNewOrderCarts);
         }
+
+        //  mList.addAll(realmNewOrderCarts1);
+        mNewOrderListAdapter.notifyDataSetChanged();
+        setCalculatedValues();
+
+    }
+
+    private void setCalculatedValues() {
+
+        tvItemNo.setText("Item 0");
+        tvItemQty.setText("0 Qty");
+        tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+        tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+        tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+        tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+        tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+        tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+        tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+        tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+        tvTotalDiscountDetail.setText("(Item 0)");
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).findAll();
+
+        int qty = 0;
+        double payAmount=0.0;
+        int discountItems = 0;
+        int gst = 0;
+        int totalGST = 0;
+        int cgst = 0;
+        int sgst = 0;
+        double totalItemsAmount = 0.0;
+        double discountPrice = 0.0;
+        int totalPoints = 0;
+        int noOfItems = 0;
+        for (RealmNewOrderCart realmNewOrderCart : realmNewOrderCarts1) {
+            if (!realmNewOrderCart.isFreeItem())
+                noOfItems = noOfItems + 1;
+
+            qty = qty + realmNewOrderCart.getQty();
+            totalItemsAmount = totalItemsAmount + realmNewOrderCart.getTotalPrice();
+            if (realmNewOrderCart.isDiscount() && !realmNewOrderCart.isFreeItem()) {
+                discountItems = discountItems + 1;
+            }
+            if (!realmNewOrderCart.isFreeItem()) {
+                try {
+                    JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
+                    for (int k = 0; k < array.length(); k++) {
+                        JSONObject jsonObject = array.optJSONObject(k);
+                        if (jsonObject.has("discountTotal")) {
+                            discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
+            }
+            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
+            gst = gst + totalGST;
+
+
+
+            cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
+            sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
+
+
+
+
+            totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
+
+        }
+        payAmount = (totalItemsAmount + gst) - discountPrice;
+
+        tvItemNo.setText("Item " + noOfItems);
+        tvItemQty.setText(qty + " Qty");
+        tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalItemsAmount);
+        tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + gst);
+        tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + payAmount);
+        tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + cgst);
+        tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + sgst);
+        tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+        tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " "+discountPrice);
+        tvTotalDiscountDetail.setText("(Item " + discountItems + ")");
+
 
     }
 
     private void setDefaultValues() {
 
         Double totalPrice;
-        for(int i=0 ; i < IPOSApplication.mOrderList.size();i++ )
-        {
+        for (int i = 0; i < IPOSApplication.mOrderList.size(); i++) {
             OrderList.Datum datum = IPOSApplication.mOrderList.get(i);
-            if(datum.getQty()==0)
+            if (datum.getQty() == 0)
                 datum.setQty(1);
-            if(!datum.isDiscItemSelected())
+            if (!datum.isDiscItemSelected())
                 datum.setDiscItemSelected(true);
             totalPrice = (Double.parseDouble(datum.getSProductPrice()) * datum.getQty());
             datum.setTotalPrice(totalPrice);
-            if(datum.getIsDiscount()) {
+            if (datum.getIsDiscount()) {
                 Double discount = Double.parseDouble(datum.getSDiscountPrice()) * totalPrice / 100;
-               // datum.setDiscount(discount);
-            }else {
-              //  datum.setDiscount(0.0);
+                // datum.setDiscount(discount);
+            } else {
+                //  datum.setDiscount(0.0);
             }
-            IPOSApplication.mOrderList.set(i,datum);
+            IPOSApplication.mOrderList.set(i, datum);
         }
     }
 
     OrderList mOrderList = new OrderList();
+
     private void setUpdateValues(ArrayList<OrderList.Datum> mList) {
 
-        AppLog.e(TAG, "IPOSApplication.mProductList:Frag: "+ Util.getCustomGson().toJson(IPOSApplication.mOrderList));
-        if(mList.size()==1 || mList.size() == 0) {
+        if (mList.size() == 1 || mList.size() == 0) {
             tvItemNo.setText("Item " + mList.size() + " item");
-        }else {
-            tvItemNo.setText("Items " + mList.size()+ " item");
+        } else {
+            tvItemNo.setText("Items " + mList.size() + " item");
         }
-        if(mList.size()==0){
+        if (mList.size() == 0) {
             tvItemQty.setText("0 Qty");
             tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
             tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
@@ -497,92 +580,91 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
             tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
             tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
             tvTotalDiscountDetail.setText("(Item 0)");
-        }else {
-
+        } else {
 
 
             int qty = 0;
-            double totalPrice=0.0;
-            double sum=0;
-            double discount=0,discountPrice=0.0, totalGst=0.0, cgst = 0.0, sgst = 0.0;
-            int discountItem=0;
-            int mSelectedpos=0;
-            double totalAfterGSt=0.0;
-            double otcDiscountPerc=0.0;
-            for(int i = 0 ; i < mList.size(); i++ ) {
+            double totalPrice = 0.0;
+            double sum = 0;
+            double discount = 0, discountPrice = 0.0, totalGst = 0.0, cgst = 0.0, sgst = 0.0;
+            int discountItem = 0;
+            int mSelectedpos = 0;
+            double totalAfterGSt = 0.0;
+            double otcDiscountPerc = 0.0;
+            for (int i = 0; i < mList.size(); i++) {
                 OrderList.Datum datum = mList.get(i);
                 qty += mList.get(i).getQty();
                 datum.setTotalQty(qty);
-                totalPrice=mList.get(i).getQty()*Double.parseDouble(mList.get(i).getSProductPrice());
-                sum=totalPrice+sum;
+                totalPrice = mList.get(i).getQty() * Double.parseDouble(mList.get(i).getSProductPrice());
+                sum = totalPrice + sum;
                 datum.setTotalPrice(sum);
-                if(mList.get(i).isDiscItemSelected()){
-                    if(mList.get(i).getIsDiscount()) {
-                        discount = discount+Double.parseDouble(mList.get(i).getSDiscountPrice()) * totalPrice / 100;
-                     //   datum.setDiscount(discount);
+                if (mList.get(i).isDiscItemSelected()) {
+                    if (mList.get(i).getIsDiscount()) {
+                        discount = discount + Double.parseDouble(mList.get(i).getSDiscountPrice()) * totalPrice / 100;
+                        //   datum.setDiscount(discount);
                         discountItem++;
                     }
                 }
-                if(mList.get(i).isDiscSelected()) {
-                    if(!mList.get(i).isDiscItemSelected())
+                if (mList.get(i).isDiscSelected()) {
+                    if (!mList.get(i).isDiscItemSelected())
                         discountItem++;
-                    otcDiscountPerc +=mList.get(i).getOTCDiscount();
-                }else {
-                    otcDiscountPerc =0;
+                    otcDiscountPerc += mList.get(i).getOTCDiscount();
+                } else {
+                    otcDiscountPerc = 0;
                 }
-                totalGst = mList.get(i).getGSTPerc()*sum/100;
-                totalGst +=totalGst;
-                sgst = mList.get(i).getSGST()*sum/100;
-                sgst+=sgst;
-                cgst = mList.get(i).getCGST()*sum/100;
-                cgst+=cgst;
+                totalGst = mList.get(i).getGSTPerc() * sum / 100;
+                totalGst += totalGst;
+                sgst = mList.get(i).getSGST() * sum / 100;
+                sgst += sgst;
+                cgst = mList.get(i).getCGST() * sum / 100;
+                cgst += cgst;
 //                totalPrice += mList.get(i).getTotalPrice();
-                IPOSApplication.mOrderList.set(i,datum);
+                IPOSApplication.mOrderList.set(i, datum);
             }
 
             // Total Qty
-            tvItemQty.setText(qty+" Qty");
+            tvItemQty.setText(qty + " Qty");
             mOrderList.setTotalQty(qty);
 
             // Total price befor discount & gst
-            tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) +" "+sum);
+            tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + sum);
             mOrderList.setTotalPrice(sum);
 
             // discountPrice
-            discountPrice = discount+otcDiscountPerc;
-            tvTotalDiscountPrice.setText("-"+getActivity().getResources().getString(R.string.Rs) +" "+(discountPrice));
+            discountPrice = discount + otcDiscountPerc;
+            tvTotalDiscountPrice.setText("-" + getActivity().getResources().getString(R.string.Rs) + " " + (discountPrice));
             mOrderList.setDiscountPrice(discountPrice);
 
 //            discountItem
-            tvTotalDiscountDetail.setText("(Item "+ discountItem+")");
+            tvTotalDiscountDetail.setText("(Item " + discountItem + ")");
             mOrderList.setDiscountItem(discountItem);
 
 //            totalGst
-            AppLog.e(TAG,"totalGst: "+totalGst);
+            AppLog.e(TAG, "totalGst: " + totalGst);
             tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalGst);
             mOrderList.setTotalGst(totalGst);
 
 //            sgst
-            tvSGSTPrice.setText("+"+getActivity().getResources().getString(R.string.Rs) + " " +sgst);
+            tvSGSTPrice.setText("+" + getActivity().getResources().getString(R.string.Rs) + " " + sgst);
             mOrderList.setSgst(sgst);
 
 //            cgst
-            tvCGSTPrice.setText("+"+getActivity().getResources().getString(R.string.Rs) + " " +cgst);
+            tvCGSTPrice.setText("+" + getActivity().getResources().getString(R.string.Rs) + " " + cgst);
             mOrderList.setCgst(cgst);
 
-            totalAfterGSt = (sum-discount)+(sgst+cgst)-(otcDiscountPerc);
+            totalAfterGSt = (sum - discount) + (sgst + cgst) - (otcDiscountPerc);
 //            double floorValue = Math.round(totalAfterGSt);
 
 
-            double roundOff = totalAfterGSt - Math.floor( totalAfterGSt );
-            double round_off = (Util.round(roundOff,1));
+            double roundOff = totalAfterGSt - Math.floor(totalAfterGSt);
+            double round_off = (Util.round(roundOff, 1));
             tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + round_off);
             mOrderList.setRound_off(round_off);
-            totalAfterGSt = totalAfterGSt +  (Util.round(roundOff,1));
-            totalAmount=Math.round(totalAfterGSt);
-            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " +  totalAmount);
+            totalAfterGSt = totalAfterGSt + (Util.round(roundOff, 1));
+            totalAmount = Math.round(totalAfterGSt);
+            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalAmount);
             mOrderList.setTotalGst(totalAmount);
-            AppLog.e(TAG,"updated: " + Util.getCustomGson().toJson(IPOSApplication.mOrderList));
+            AppLog.e(TAG, "updated: " + Util.getCustomGson().toJson(IPOSApplication.mOrderList));
             mOrderList.setData(IPOSApplication.mOrderList);
         }
     }
@@ -592,7 +674,7 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
     public void onClick(View view) {
         int id = view.getId();
 
-        switch (id){
+        switch (id) {
 //            case R.id.imvQRCode:
 //                ((MainActivity) getActivity()).launchActivity(FullScannerActivity.class);
 //                break;
@@ -628,32 +710,36 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                IPOSApplication.mOrderList.remove(posClear);
-                                mNewOrderListAdapter.notifyItemRemoved(posClear);
-                                mNewOrderListAdapter.notifyItemRangeChanged(posClear,IPOSApplication.mOrderList.size());
 
-                                setUpdateValues(IPOSApplication.mOrderList);
+                                if (mList.get(posClear).isFreeItem())
+                                    deleteItemFree(mList.get(posClear).getiProductModalId());
+                                else {
+                                    deleteItems(mList.get(posClear).getiProductModalId());
+                                }
+
+                                getProduct();
+
                             }
                         }).setNegativeButton("No", null).show();
 
                 break;
             case R.id.tvPay:
-                if (totalAmount>0) {
+                if (totalAmount > 0) {
+                    createOrder();
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
-                    i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
-                    i.putExtra(Constants.Order_List,Util.getCustomGson().toJson(mOrderList));
-                    getActivity().startActivityForResult(i,6);
-                }else {
+                    i.putExtra(RetailSalesEnum.ruleProdecessors.toString(), "P00001");
+                    getActivity().startActivity(i);
+                } else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }
                 break;
             case R.id.imvRight:
-                if (totalAmount>0) {
+                if (totalAmount > 0) {
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
-                    i.putExtra(Constants.TOTAL_AMOUNT,totalAmount+"");
-                    i.putExtra(Constants.Order_List,Util.getCustomGson().toJson(mOrderList));
-                    startActivityForResult(i,6);
-                }else {
+                    i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
+                    i.putExtra(Constants.Order_List, Util.getCustomGson().toJson(mOrderList));
+                    startActivityForResult(i, 6);
+                } else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }
                 break;
@@ -670,37 +756,782 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
     }
 
 
-
     private void setOnClickPlus(View view) {
         Util.hideSoftKeyboard(getActivity());
         Util.animateView(view);
         int posPlus = (int) view.getTag();
-        OrderList.Datum datum1 = IPOSApplication.mOrderList.get(posPlus);
-        int qty1 = datum1.getQty();
-        if(Integer.parseInt(datum1.getSProductPoints())<=qty1){
-            Util.showToast("Quantity limit exceed",getActivity());
-        }else {
-            datum1.setQty(qty1 + 1);
-            IPOSApplication.mOrderList.set(posPlus, datum1);
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmNewOrderCart realmNewOrderCarts = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), mList.get(posPlus).getiProductModalId()).findFirst();
+        Gson gson = new GsonBuilder().create();
+        if (realmNewOrderCarts != null) {
+
+            String strJson = gson.toJson(mList.get(posPlus));
+            try {
+                JSONObject jsonObject = new JSONObject(strJson);
+                jsonObject.put(RetailSalesEnum.isAdded.toString(), true);
+                jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() + 1);
+                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
+
+                int totalPoints = getTotalPoints(realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
+                jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
+                saveResponseLocal(jsonObject, "P00001");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            setCalculatedValues();
+
             mNewOrderListAdapter.notifyItemChanged(posPlus);
-            setUpdateValues(IPOSApplication.mOrderList);
+            calculateOPS(realmNewOrderCarts.getProductCode(), realmNewOrderCarts.getiProductModalId());
+             getProduct();
         }
+    }
+
+
+    private void calculateOPS(String productCode, String productId) {
+        boolean isApplied = false;
+        boolean isUpdateApplied = false;
+        boolean solutionFound = false;
+
+        JSONArray arrayRule = new JSONArray();
+        JSONArray discountArray = new JSONArray();
+        Realm realm = Realm.getDefaultInstance();
+        RealmNewOrderCart realmNewOrderCarts = realm.where(RealmNewOrderCart.class).equalTo(RetailSalesEnum.isFreeItem.toString(), false).equalTo(RetailSalesEnum.iProductModalId.toString(), productId).findFirst();
+
+        if (realmNewOrderCarts != null) {
+            try {
+                JSONArray array = new JSONArray(realmNewOrderCarts.getDiscount());
+
+
+                for (int i = 0; i < array.length(); i++) {
+                    double discount = 0.0;
+                    JSONObject jsonObject = array.getJSONObject(i);
+                    JSONArray array2 = jsonObject.getJSONArray("rule");
+                    ArrayList<JSONObject> myJsonArrayAsList = new ArrayList<JSONObject>();
+                    for (int d = 0; d < array2.length(); d++)
+                        myJsonArrayAsList.add(array2.getJSONObject(d));
+
+                    Collections.sort(myJsonArrayAsList, new Comparator<JSONObject>() {
+                        @Override
+                        public int compare(JSONObject jsonObjectA, JSONObject jsonObjectB) {
+                            int compare = 0;
+                            try {
+                                int keyA = jsonObjectA.getInt("ruleSequence");
+                                int keyB = jsonObjectB.getInt("ruleSequence");
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                    compare = Integer.compare(keyA, keyB);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            return compare;
+                        }
+                    });
+                    JSONArray array1 = new JSONArray();
+                    for (int p = 0; p < myJsonArrayAsList.size(); p++) {
+                        JSONObject object = myJsonArrayAsList.get(p);
+                        array1.put(object);
+                    }
+
+                    arrayRule = array1;
+                    for (int k = 0; k < array1.length(); k++) {
+                        isApplied = false;
+                        JSONObject jsonObject1 = array1.getJSONObject(k);
+                        String sDiscountType = jsonObject1.optString("sDiscountType");
+                        int sDiscountValue = jsonObject1.optInt("sDiscountValue");
+                        String sEligibilityBasedOn = jsonObject1.optString("sEligibilityBasedOn");
+                        int slabFrom = jsonObject1.optInt("slabFrom");
+                        String sDiscountBasedOn = jsonObject1.optString("sDiscountBasedOn");
+                        int slabTO = jsonObject1.optInt("slabTO");
+                        int packSize = jsonObject1.optInt("packSize");
+                        String opsCriteria = jsonObject1.optString("opsCriteria");
+                        String ruleType = jsonObject1.optString("ruleType");
+                        int ruleID = jsonObject1.optInt("ruleID");
+                        int ruleSequence = jsonObject1.optInt("ruleSequence");
+                        int ruleProdecessors = jsonObject1.optInt("ruleProdecessors");
+                        String opsType = jsonObject1.optString("opsType");
+                        boolean isRuleApplied = jsonObject1.optBoolean(RetailSalesEnum.isRuleApplied.toString());
+
+                        if (opsType.equalsIgnoreCase("P")) {
+                            if (ruleType.equalsIgnoreCase("I")) {
+                                if (packSize > 0) {
+
+                                    if (sEligibilityBasedOn.equalsIgnoreCase("Q")) {
+
+                                        isApplied = getQuantityBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+
+                                    } else {
+                                        isApplied = getValueBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+
+                                    }
+
+                                } else {
+
+                                    if (sEligibilityBasedOn.equalsIgnoreCase("Q")) {
+
+                                        discount = getQuantityBasedOnDiscountZeroPacksize(realmNewOrderCarts.getTotalPrice(), sDiscountType, sDiscountValue, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+
+                                        if (discount > 0) {
+                                            isApplied = true;
+                                        }
+                                    } else {
+                                        discount = getValueBasedOnDiscountZeroPacksize(realmNewOrderCarts.getTotalPrice(), sDiscountType, sDiscountValue, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+                                        if (discount > 0) {
+                                            isApplied = true;
+                                        }
+                                    }
+                                }
+
+                            } else {
+
+
+                                boolean isRulApplied = isCheckPrecessorApply(ruleProdecessors, jsonObject);
+                                if (isRulApplied) {
+                                    if (packSize > 0) {
+
+                                        if (sEligibilityBasedOn.equalsIgnoreCase("Q")) {
+
+                                            isApplied = getQuantityBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+
+                                        } else {
+                                            isApplied = getValueBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+
+                                        }
+
+                                    } else {
+
+                                        if (sEligibilityBasedOn.equalsIgnoreCase("Q")) {
+
+                                            discount = getQuantityBasedOnDiscountZeroPacksize(realmNewOrderCarts.getTotalPrice(), sDiscountType, sDiscountValue, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+
+                                            if (discount > 0) {
+                                                isApplied = true;
+                                            }
+                                        } else {
+                                            discount = getValueBasedOnDiscountZeroPacksize(realmNewOrderCarts.getTotalPrice(), sDiscountType, sDiscountValue, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+                                            if (discount > 0) {
+                                                isApplied = true;
+                                            }
+                                        }
+                                    }
+                                } else {
+
+                                    break;
+                                }
+
+
+                            }
+
+                            // getOPSForProduct(sDiscountType,sDiscountValue,sEligibilityBasedOn,slabFrom,sDiscountBasedOn,slabTO,packSize,opsCriteria,ruleType,ruleID,ruleSequence,ruleProdecessors);
+
+
+                        } else if (opsType.equalsIgnoreCase("V")) {
+
+                        } else if (opsType.equalsIgnoreCase("O")) {
+
+                        }
+
+                        if (isApplied) {
+                            isUpdateApplied = true;
+                            jsonObject1.put(RetailSalesEnum.isRuleApplied.toString(), true);
+                            arrayRule.put(k, jsonObject1);
+                        } else {
+                            jsonObject1.put(RetailSalesEnum.isRuleApplied.toString(), false);
+                            arrayRule.put(k, jsonObject1);
+                        }
+
+                    }
+
+                    jsonObject.put(RetailSalesEnum.rule.toString(), arrayRule);
+                    jsonObject.put(RetailSalesEnum.discountTotal.toString(), discount);
+                    discountArray.put(i, jsonObject);
+
+                }
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            if (isUpdateApplied) {
+
+
+                Gson gson = new GsonBuilder().create();
+                String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts));
+                try {
+                    JSONObject jsonObject = new JSONObject(strJson);
+
+                    jsonObject.put(RetailSalesEnum.discount.toString(), discountArray);
+                    saveResponseLocal(jsonObject, "P00001");
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+    }
+
+    private void checkPredecessor(int predecessor, boolean isRuleApplied, int ruleID, int ruleSequence, String ruleType) {
+
+
+    }
+
+    private boolean isCheckPrecessorApply(int predecessor, JSONObject jsonObject) {
+
+        boolean solutionFound = false;
+        try {
+            JSONArray array1 = jsonObject.getJSONArray("rule");
+
+            for (int k = 0; k < array1.length(); k++) {
+
+                JSONObject jsonObject1 = array1.getJSONObject(k);
+                String sDiscountType = jsonObject1.optString("sDiscountType");
+                int sDiscountValue = jsonObject1.optInt("sDiscountValue");
+                String sEligibilityBasedOn = jsonObject1.optString("sEligibilityBasedOn");
+                int slabFrom = jsonObject1.optInt("slabFrom");
+                String sDiscountBasedOn = jsonObject1.optString("sDiscountBasedOn");
+                int slabTO = jsonObject1.optInt("slabTO");
+                int packSize = jsonObject1.optInt("packSize");
+                String opsCriteria = jsonObject1.optString("opsCriteria");
+                String ruleType = jsonObject1.optString("ruleType");
+                int ruleID = jsonObject1.optInt("ruleID");
+                int ruleSequence = jsonObject1.optInt("ruleSequence");
+                int ruleProdecessors = jsonObject1.optInt("ruleProdecessors");
+                String opsType = jsonObject1.optString("opsType");
+                boolean isRuleApplied = false;
+                if (jsonObject1.has(RetailSalesEnum.isRuleApplied.toString())) {
+                    isRuleApplied = jsonObject1.optBoolean(RetailSalesEnum.isRuleApplied.toString());
+                }
+
+                if (predecessor == ruleID) {
+                    if (isRuleApplied) {
+                        solutionFound = true;
+
+                    } else {
+                        solutionFound = false;
+                    }
+
+
+                    // getOPSForProduct(sDiscountType,sDiscountValue,sEligibilityBasedOn,slabFrom,sDiscountBasedOn,slabTO,packSize,opsCriteria,ruleType,ruleID,ruleSequence,ruleProdecessors);
+
+
+                } else if (opsType.equalsIgnoreCase("V")) {
+
+                } else if (opsType.equalsIgnoreCase("O")) {
+
+                }
+
+
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return solutionFound;
+
+    }
+
+    private double getValueBasedOnDiscountZeroPacksize(int totalPrice, String sDiscountType, int sDiscountValue, RealmNewOrderCart realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
+
+        double discount = 0.0;
+        int productQty = realmNewOrderCarts.getQty();
+
+        if (totalPrice >= slabFrom && totalPrice <= slabTO || totalPrice > slabTO) {
+
+            if (sDiscountBasedOn.equalsIgnoreCase("SP")) {
+
+
+                discount = getDiscount(productQty, realmNewOrderCarts.getSalesPrice(), sDiscountType, sDiscountValue);
+
+
+            } else if (sDiscountBasedOn.equalsIgnoreCase("nrv")) {
+                discount = getDiscount(productQty, realmNewOrderCarts.getNrv(), sDiscountType, sDiscountValue);
+
+            } else if (sDiscountBasedOn.equalsIgnoreCase("gpl")) {
+                discount = getDiscount(productQty, realmNewOrderCarts.getGpl(), sDiscountType, sDiscountValue);
+
+            } else if (sDiscountBasedOn.equalsIgnoreCase("mrp")) {
+                discount = getDiscount(productQty, realmNewOrderCarts.getMrp(), sDiscountType, sDiscountValue);
+
+            }
+
+        }
+
+        return discount;
+
+    }
+
+    private boolean getValueBasedOnDiscountItems(boolean isApplied, RealmNewOrderCart realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
+
+        int productQty = realmNewOrderCarts.getsProductPrice();
+
+        if (productQty >= slabFrom && productQty <= slabTO || productQty > slabTO) {
+
+            if (sDiscountBasedOn.equalsIgnoreCase("SP")) {
+                if (opsCriteria.equalsIgnoreCase("L")) {
+                    isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                } else {
+                    isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                }
+
+
+            } else if (sDiscountBasedOn.equalsIgnoreCase("nrv")) {
+                if (opsCriteria.equalsIgnoreCase("L")) {
+                    isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                } else {
+                    isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                }
+            } else if (sDiscountBasedOn.equalsIgnoreCase("gpl")) {
+                if (opsCriteria.equalsIgnoreCase("L")) {
+                    isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                } else {
+                    isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                }
+            } else if (sDiscountBasedOn.equalsIgnoreCase("mrp")) {
+                if (opsCriteria.equalsIgnoreCase("L")) {
+                    isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                } else {
+                    isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                }
+            }
+
+        }
+
+        return isApplied;
+    }
+
+    private double getQuantityBasedOnDiscountZeroPacksize(int totalPrice, String sDiscountType, int sDiscountValue, RealmNewOrderCart realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
+
+        double discount = 0.0;
+        int productQty = realmNewOrderCarts.getQty();
+
+        if (productQty >= slabFrom && productQty <= slabTO || productQty > slabTO) {
+
+            if (sDiscountBasedOn.equalsIgnoreCase("SP")) {
+
+
+                discount = getDiscount(productQty, realmNewOrderCarts.getSalesPrice(), sDiscountType, sDiscountValue);
+
+
+            } else if (sDiscountBasedOn.equalsIgnoreCase("nrv")) {
+                discount = getDiscount(productQty, realmNewOrderCarts.getNrv(), sDiscountType, sDiscountValue);
+
+            } else if (sDiscountBasedOn.equalsIgnoreCase("gpl")) {
+                discount = getDiscount(productQty, realmNewOrderCarts.getGpl(), sDiscountType, sDiscountValue);
+
+            } else if (sDiscountBasedOn.equalsIgnoreCase("mrp")) {
+                discount = getDiscount(productQty, realmNewOrderCarts.getMrp(), sDiscountType, sDiscountValue);
+
+            }
+
+        }
+
+        return discount;
+    }
+
+    private double getDiscount(int productQty, int salesPrice, String sDiscountType, int sDiscountValue) {
+
+        double discount = 0.0;
+        int price = productQty * salesPrice;
+        if (sDiscountType.equalsIgnoreCase("p")) {
+
+            discount = price * sDiscountValue / 100;
+
+
+        } else {
+            discount = price - sDiscountValue;
+        }
+
+        return discount;
+    }
+
+    private boolean getQuantityBasedOnDiscountItems(boolean isApplied, RealmNewOrderCart realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
+
+        int productQty = realmNewOrderCarts.getQty();
+        if (productQty >= slabFrom && productQty <= slabTO || productQty > slabTO) {
+
+            if (sDiscountBasedOn.equalsIgnoreCase("SP")) {
+                if (opsCriteria.equalsIgnoreCase("L")) {
+                    isApplied = getaddLowestFreeItems(realmNewOrderCarts,isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                } else {
+                    isApplied = getaddHighestFreeItems(realmNewOrderCarts,isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                }
+
+
+            } else if (sDiscountBasedOn.equalsIgnoreCase("nrv")) {
+                if (opsCriteria.equalsIgnoreCase("L")) {
+                    isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                } else {
+                    isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                }
+            } else if (sDiscountBasedOn.equalsIgnoreCase("gpl")) {
+                if (opsCriteria.equalsIgnoreCase("L")) {
+                    isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                } else {
+                    isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                }
+            } else if (sDiscountBasedOn.equalsIgnoreCase("mrp")) {
+                if (opsCriteria.equalsIgnoreCase("L")) {
+                    isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                } else {
+                    isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+                }
+            }
+
+        }
+        return isApplied;
+    }
+
+    private boolean getaddHighestFreeItems(RealmNewOrderCart realmNewOrderCarts, boolean isApplied, Realm realm, String opsCriteria, String productCode, int packSize, int slabFrom, int productQty) {
+
+
+        RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.DESCENDING);
+
+
+        int itemsPerFree = productQty / (packSize + slabFrom);
+        int freeItems = 0;
+        if (itemsPerFree > 0) {
+            freeItems = itemsPerFree * packSize;
+            int loopSize = realmNewOrderCarts1.size();
+            if (loopSize == 1) {
+                for (int l = 0; l < loopSize; l++) {
+                    if (freeItems>0) {
+                        for (int m = 0; m < freeItems; m++) {
+                            Gson gson = new GsonBuilder().create();
+                            String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
+                            try {
+                                JSONObject jsonObject = new JSONObject(strJson);
+                                jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
+                                jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
+                                jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
+                                jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
+
+                                saveResponseLocal(jsonObject, "P00001");
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            } else {
+                for (int l = 0; l < loopSize; l++) {
+                    if (freeItems>0) {
+                        int qty = realmNewOrderCarts1.get(l).getQty();
+                        if (qty == freeItems) {
+                            for (int m = 0; m < freeItems; m++) {
+                                Gson gson = new GsonBuilder().create();
+                                String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
+                                try {
+                                    JSONObject jsonObject = new JSONObject(strJson);
+                                    jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
+                                    jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
+                                    jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                    jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
+                                    jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
+
+                                    saveResponseLocal(jsonObject, "P00001");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            freeItems = 0;
+
+                        } else if (qty < freeItems) {
+                            for (int m = 0; m <= qty; m++) {
+                                Gson gson = new GsonBuilder().create();
+                                String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
+                                try {
+                                    JSONObject jsonObject = new JSONObject(strJson);
+                                    jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
+                                    jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
+                                    jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                    jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
+                                    jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
+
+                                    saveResponseLocal(jsonObject, "P00001");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                freeItems = freeItems - 1;
+                            }
+
+
+                        } else if (qty > freeItems) {
+                            int size=freeItems;
+                            for (int m = 0; m <= size; m++) {
+                                Gson gson = new GsonBuilder().create();
+                                String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
+                                try {
+                                    JSONObject jsonObject = new JSONObject(strJson);
+                                    jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
+                                    jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
+                                    jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                    jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
+                                    jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
+
+                                    saveResponseLocal(jsonObject, "P00001");
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                freeItems = freeItems - 1;
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        }else{
+                RealmResults<RealmNewOrderCart> allSorted = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),true).findAll();
+
+                allSorted.deleteAllFromRealm();
+
+            }
+        return isApplied;
+
+    }
+
+    private boolean getaddLowestFreeItems(RealmNewOrderCart realmNewOrderCarts, boolean isApplied, Realm realm, String opsCriteria, String productCode, int packSize, int slabFrom, int productQty) {
+
+
+        RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.ASCENDING);
+
+
+        int loopSize = realmNewOrderCarts1.size();
+        int itemsPerFree = productQty / (packSize + slabFrom);
+        int freeItems = 0;
+        if (itemsPerFree > 0){
+            freeItems = itemsPerFree * packSize;
+        if (loopSize == 1) {
+            for (int l = 0; l < loopSize; l++) {
+                if (freeItems>0) {
+                for (int m = 0; m < freeItems; m++) {
+                    Gson gson = new GsonBuilder().create();
+                    String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
+                    try {
+                        JSONObject jsonObject = new JSONObject(strJson);
+                        jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
+                        jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
+                        jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                        jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                        jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
+                        jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
+
+                        saveResponseLocal(jsonObject, "P00001");
+                        isApplied = true;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            }
+        } else {
+            for (int l = 0; l < loopSize; l++) {
+
+                if (freeItems>0) {
+                    int qty = realmNewOrderCarts1.get(l).getQty();
+                    if (qty == freeItems) {
+                        for (int m = 0; m < freeItems; m++) {
+                            Gson gson = new GsonBuilder().create();
+                            String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
+                            try {
+                                JSONObject jsonObject = new JSONObject(strJson);
+                                jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
+                                jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
+                                jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
+                                jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
+
+                                saveResponseLocal(jsonObject, "P00001");
+                                isApplied = true;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        freeItems = 0;
+
+                    } else if (qty < freeItems) {
+
+                        for (int m = 0; m <= qty; m++) {
+                            Gson gson = new GsonBuilder().create();
+                            String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
+                            try {
+                                JSONObject jsonObject = new JSONObject(strJson);
+                                jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
+                                jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
+                                jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
+                                jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
+
+                                saveResponseLocal(jsonObject, "P00001");
+                                isApplied = true;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            freeItems = freeItems - 1;
+                        }
+
+
+                    } else if (qty > freeItems) {
+                        int size=freeItems;
+                        for (int m = 0; m < size; m++) {
+                            Gson gson = new GsonBuilder().create();
+                            String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
+                            try {
+                                JSONObject jsonObject = new JSONObject(strJson);
+                                jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
+                                jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
+                                jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * (realmNewOrderCarts1.get(l)).getsProductPrice());
+                                jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
+                                jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
+
+                                saveResponseLocal(jsonObject, "P00001");
+                                isApplied = true;
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            freeItems = freeItems - 1;
+                        }
+
+
+                    }
+                }
+            }
+        }
+    }else{
+            Realm realm1=Realm.getDefaultInstance();
+            RealmResults<RealmNewOrderCart> allSorted = realm1.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),true).findAll();
+
+            realm1.beginTransaction();
+            isApplied = true;
+            try {
+                allSorted.deleteAllFromRealm();
+            }catch (Exception e){
+                if (realm1.isInTransaction())
+                realm1.cancelTransaction();
+
+            }finally {
+                if (realm1.isInTransaction())
+                realm1.commitTransaction();
+                if (!realm1.isClosed())
+                realm1.close();
+            }
+
+
+        }
+
+            return isApplied;
+
+    }
+
+
+    private void getOPSForProduct(String sDiscountType, int sDiscountValue, String sEligibilityBasedOn, int slabFrom, String sDiscountBasedOn, int slabTO, int packSize, String opsCriteria, String ruleType, int ruleID, int ruleSequence, int ruleProdecessors) {
+
+
+
+    }
+
+    private int getTotalPoints(RealmNewOrderCart realmNewOrderCarts, int totalPrice){
+        int totalPoints=0;
+        if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("M")){
+            totalPoints=realmNewOrderCarts.getPoints()*totalPrice;
+
+        }else if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("P")){
+            int valuefrom=realmNewOrderCarts.getValueFrom();
+            int valueTo=realmNewOrderCarts.getValueTo();
+            int perPoints=realmNewOrderCarts.getPointsPer();
+            int points=realmNewOrderCarts.getPoints();
+
+            if (totalPrice>=valuefrom && totalPrice<=valueTo){
+                totalPoints=perPoints*totalPrice/points;
+            }else if (totalPrice>valueTo){
+                totalPoints=perPoints*valueTo/points;
+            }
+
+        }else if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("V")){
+            int valuefrom=realmNewOrderCarts.getValueFrom();
+            int valueTo=realmNewOrderCarts.getValueTo();
+            int perPoints=realmNewOrderCarts.getPointsPer();
+            int points=realmNewOrderCarts.getPoints();
+
+            if (totalPrice>=valuefrom && totalPrice<=valueTo){
+                totalPoints=perPoints*totalPrice/points;
+            }else if (totalPrice>valueTo){
+                totalPoints=perPoints*valueTo/points;
+            }
+
+        }
+
+        return totalPoints;
     }
 
     private void setOnClickMinus(View view) {
         Util.hideSoftKeyboard(getActivity());
         Util.animateView(view);
         int posMinus = (int) view.getTag();
-        OrderList.Datum datum = IPOSApplication.mOrderList.get(posMinus);
-        int qty = datum.getQty();
-        if(qty==1){
-            Util.showToast("Cannot purchase with 0 quantity",getActivity());
-            return;
-        }else {
-            datum.setQty(qty - 1);
-            IPOSApplication.mOrderList.set(posMinus, datum);
-            mNewOrderListAdapter.notifyItemChanged(posMinus);
-            setUpdateValues(IPOSApplication.mOrderList);
+
+        Realm realm=Realm.getDefaultInstance();
+        RealmNewOrderCart realmNewOrderCarts=realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),mList.get(posMinus).getiProductModalId()).findFirst();
+
+        Gson gson = new GsonBuilder().create();
+        if (realmNewOrderCarts!=null) {
+if (realmNewOrderCarts.getQty()>1) {
+    String strJson = gson.toJson(mList.get(posMinus));
+    try {
+        JSONObject jsonObject = new JSONObject(strJson);
+        jsonObject.put(RetailSalesEnum.isAdded.toString(), true);
+        jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() - 1);
+        jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() - 1) * realmNewOrderCarts.getsProductPrice());
+
+        int totalPoints=getTotalPoints(realmNewOrderCarts,(realmNewOrderCarts.getQty()-1)*realmNewOrderCarts.getsProductPrice());
+        jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
+        saveResponseLocal(jsonObject, "P00001");
+    } catch (JSONException e) {
+        e.printStackTrace();
+    }
+    setCalculatedValues();
+    mNewOrderListAdapter.notifyItemChanged(posMinus);
+    calculateOPS(realmNewOrderCarts.getProductCode(),realmNewOrderCarts.getiProductModalId());
+
+    getProduct();
+
+}else {
+    Util.showToast("Quantity atleast one or greater than one.");
+}
+
+
         }
     }
 
@@ -743,26 +1574,34 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
 
     @Override
     public void onRowClicked(final int position, final int value) {
-        OrderList.Datum datum1 = IPOSApplication.mOrderList.get(position);
 
-        if ( value<=Integer.parseInt(datum1.getSProductPoints())) {
+        if (position>=0) {
+            Realm realm = Realm.getDefaultInstance();
+            RealmNewOrderCart realmNewOrderCarts = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), mList.get(position).getiProductModalId()).findFirst();
+            Gson gson = new GsonBuilder().create();
+            if (realmNewOrderCarts != null) {
 
-            datum1.setQty(value);
-            IPOSApplication.mOrderList.set(position, datum1);
-            mNewOrderListAdapter.notifyItemChanged(position);
-            setUpdateValues(IPOSApplication.mOrderList);
-        }else {
-            datum1.setQty(Integer.parseInt(datum1.getSProductPoints()));
-            IPOSApplication.mOrderList.set(position, datum1);
-            mNewOrderListAdapter.notifyItemChanged(position);
-            setUpdateValues(IPOSApplication.mOrderList);
-            Util.showToast(datum1.getSProductPoints()+" "+getString(R.string.qty_available),getActivity());
+                String strJson = gson.toJson(mList.get(position));
+                try {
+                    JSONObject jsonObject = new JSONObject(strJson);
+                    jsonObject.put(RetailSalesEnum.qty.toString(), value);
+                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), value * realmNewOrderCarts.getsProductPrice());
+
+                    int totalPoints = getTotalPoints(realmNewOrderCarts, value * realmNewOrderCarts.getsProductPrice());
+                    jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
+                    saveResponseLocal(jsonObject, "P00001");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                setCalculatedValues();
+
+                mNewOrderListAdapter.notifyItemChanged(position);
+                calculateOPS(realmNewOrderCarts.getProductCode(), realmNewOrderCarts.getiProductModalId());
+                getProduct();
+            }
         }
-//        mRecyclerView.post(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }});
         Util.hideSoftKeyboard(getActivity());
     }
 
@@ -957,5 +1796,242 @@ public class NewOrderFragment extends BaseFragment implements ServiceTask.Servic
             Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
 
+    }
+
+
+
+    @Override
+    public void onUpdateCart(int position) {
+
+
+    }
+
+    protected void saveResponseLocal(JSONObject jsonSubmitReq, String orderId) {
+        if (jsonSubmitReq != null) {
+            Realm realm = Realm.getDefaultInstance();
+            if (!realm.isInTransaction())
+                realm.beginTransaction();
+            try {
+               /* if (Util.validateString(orderId)) {
+                    jsonSubmitReq.put(NoGetEntityEnums.OrderId.toString(), orderId);
+                } else {
+                    if (jsonSubmitReq != null && !jsonSubmitReq.has(NoGetEntityEnums.OrderId.toString())) {
+                        UUID randomId = UUID.randomUUID();
+                        String id = String.valueOf(randomId);
+
+                    }
+                }*/
+                jsonSubmitReq.put(NoGetEntityEnums.OrderId.toString(), orderId);
+                if (isSync) {
+                    jsonSubmitReq.put(Constants.ISUPDATE, false);
+                } else {
+                    jsonSubmitReq.put(Constants.ISSYNC, false);
+                }
+
+
+
+                realm.createOrUpdateObjectFromJson(RealmNewOrderCart.class, jsonSubmitReq);
+
+
+            } catch (Exception e) {
+                if (realm.isInTransaction())
+                    realm.cancelTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            } finally {
+                if (realm.isInTransaction())
+                    realm.commitTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            }
+        }
+    }
+
+    protected void saveResponseLocalCreateOrder(JSONObject jsonSubmitReq, String orderId) {
+        if (jsonSubmitReq != null) {
+            Realm realm = Realm.getDefaultInstance();
+            if (!realm.isInTransaction())
+                realm.beginTransaction();
+            try {
+               /* if (Util.validateString(orderId)) {
+                    jsonSubmitReq.put(NoGetEntityEnums.OrderId.toString(), orderId);
+                } else {
+                    if (jsonSubmitReq != null && !jsonSubmitReq.has(NoGetEntityEnums.OrderId.toString())) {
+                        UUID randomId = UUID.randomUUID();
+                        String id = String.valueOf(randomId);
+
+                    }
+                }*/
+                jsonSubmitReq.put(NoGetEntityEnums.OrderId.toString(), orderId);
+                if (isSync) {
+                    jsonSubmitReq.put(Constants.ISUPDATE, false);
+                } else {
+                    jsonSubmitReq.put(Constants.ISSYNC, false);
+                }
+
+
+
+                realm.createOrUpdateObjectFromJson(RealmOrderList.class, jsonSubmitReq);
+
+
+            } catch (Exception e) {
+                if (realm.isInTransaction())
+                    realm.cancelTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            } finally {
+                if (realm.isInTransaction())
+                    realm.commitTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            }
+        }
+    }
+
+
+    private void createOrder(){
+        Realm realm=Realm.getDefaultInstance();
+        RealmResults<RealmNewOrderCart> realmNewOrderCarts1=realm.where(RealmNewOrderCart.class).findAll();
+
+        int qty=0;
+        int discountItems=0;
+        int gst=0;int totalGST=0;
+        int cgst=0;
+        int sgst=0;
+        double totalItemsAmount=0.0;
+        double discountPrice=0.0;
+        int totalPoints=0;
+        String poNumbeer = null;
+
+        for (RealmNewOrderCart realmNewOrderCart:realmNewOrderCarts1){
+            poNumbeer=realmNewOrderCart.getOrderId();
+            qty=qty+realmNewOrderCart.getQty();
+            totalGST=realmNewOrderCart.getGstPerc()*realmNewOrderCart.getTotalPrice()/100;
+            gst=gst+totalGST;
+            if (realmNewOrderCart.isDiscount() && !realmNewOrderCart.isFreeItem()){
+                discountItems=discountItems+1;
+            }
+            totalItemsAmount=totalItemsAmount+realmNewOrderCart.getTotalPrice();
+            cgst=cgst+(realmNewOrderCart.getCgst()*realmNewOrderCart.getTotalPrice()/100);
+            sgst=sgst+(realmNewOrderCart.getSgst()*realmNewOrderCart.getTotalPrice()/100);
+            discountPrice=discountPrice+realmNewOrderCart.getDiscountPrice();
+            totalPoints=totalPoints+realmNewOrderCart.getTotalPoints();
+
+        }
+        totalItemsAmount=totalItemsAmount+totalGST-discountPrice;
+        int noOfItems=realmNewOrderCarts1.size();
+       double totalValueWithTax=totalItemsAmount+totalGST;
+        double totalValueWithoutTax=totalItemsAmount;
+        JSONObject jsonObject=new JSONObject();
+
+
+        try {
+            jsonObject.put("employeeCode","");
+            jsonObject.put("employeeRole","");
+            jsonObject.put("poDate",Util.getCurrentDate());
+            jsonObject.put("poStatus","Pending");
+            jsonObject.put("orderValue",totalItemsAmount);
+            jsonObject.put("discountValue",discountPrice);
+            jsonObject.put("deliveryBy",Util.getCurrentDate());
+            jsonObject.put("orderLoyality",totalPoints);
+            jsonObject.put("accumulatedLoyality",1000);
+            jsonObject.put("totalLoyality",1000+totalPoints);
+            jsonObject.put("businessPlace",businessPlaceCode);
+            jsonObject.put("businessPlaceCode",businessPlaceCode);
+            jsonObject.put("entityID",entityStateCode);
+            jsonObject.put("totalValueWithTax",totalValueWithTax);
+            jsonObject.put("totalCGSTValue",cgst);
+            jsonObject.put("totalIGSTValue",cgst+sgst);
+            jsonObject.put("totalSGSTValue",sgst);
+            jsonObject.put("totalValueWithoutTax",totalValueWithoutTax);
+            jsonObject.put("totalTaxValue",cgst+sgst);
+            jsonObject.put("totalDiscountValue",discountPrice);
+            jsonObject.put("totalRoundingOffValue",tvRoundingOffPrice.getText().toString());
+            jsonObject.put("cartDetail",new JSONArray().toString());
+            jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        saveResponseLocalCreateOrder(jsonObject,poNumbeer);
+
+    }
+
+    private void deleteItems(String productId){
+        Realm realm1=Realm.getDefaultInstance();
+        RealmResults<RealmNewOrderCart> allSorted = realm1.where(RealmNewOrderCart.class).equalTo(RetailSalesEnum.iProductModalId.toString(),productId).or().equalTo(NoGetEntityEnums.parentProductId.toString(), productId).findAll();
+
+        realm1.beginTransaction();
+
+        try {
+            allSorted.deleteAllFromRealm();
+        }catch (Exception e){
+            if (realm1.isInTransaction())
+                realm1.cancelTransaction();
+
+        }finally {
+            if (realm1.isInTransaction())
+                realm1.commitTransaction();
+            if (!realm1.isClosed())
+                realm1.close();
+        }
+
+
+    }
+    private void deleteItemFree(String productId){
+        Realm realm1=Realm.getDefaultInstance();
+        RealmNewOrderCart allSorted = realm1.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), productId).equalTo(RetailSalesEnum.isFreeItem.toString(),true).findFirst();
+
+        realm1.beginTransaction();
+
+        try {
+            allSorted.deleteFromRealm();
+        }catch (Exception e){
+            if (realm1.isInTransaction())
+                realm1.cancelTransaction();
+
+        }finally {
+            if (realm1.isInTransaction())
+                realm1.commitTransaction();
+            if (!realm1.isClosed())
+                realm1.close();
+        }
+    }
+
+
+    private void getCheckBox(DiscountModal discountModal, String productId, int position){
+        Realm realm=Realm.getDefaultInstance();
+        RealmNewOrderCart realmNewOrderCart=realm.where(RealmNewOrderCart.class).equalTo(RetailSalesEnum.iProductModalId.toString(),productId).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findFirst();
+        Gson gson = new GsonBuilder().create();
+
+        try {
+            String responseRealm = gson.toJson(realm.copyFromRealm(realmNewOrderCart));
+            JSONObject jsonObject = new JSONObject(responseRealm);
+          JSONArray array=  new JSONArray(jsonObject.optString("discount").replaceAll("\\\\",""));
+           JSONObject jsonObject1=array.getJSONObject(position);
+            jsonObject1.put("discountTotal",0);
+           // discountModal.setDiscountTotal(0);
+            array.put(position,jsonObject1);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                jsonObject.put(RetailSalesEnum.discount.toString(), array);
+            }
+            saveResponseLocal(jsonObject, realmNewOrderCart.getOrderId());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDiscount(DiscountModal discountModal, int position, boolean b, String productId, String productCode) {
+
+        if (b){
+            calculateOPS(productCode,productId);
+            getProduct();
+
+        }else {
+            getCheckBox(discountModal,productId,position);
+            getProduct();
+        }
     }
 }

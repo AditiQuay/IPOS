@@ -76,6 +76,8 @@ public class Constants {
     public static final int APP_DIALOG_PERMISSION = 2;
     public static final int APP_DIALOG_BACK = 4;
     public static final int DISCOUNT = 2;
+    public static final String ISUPDATE = "isUpdate";
+    public static final String ISSYNC ="isSync" ;
     public static int APP_DIALOG_Pinned_ORDER=3;
 
     public static String UserProfilePic = "http://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png";

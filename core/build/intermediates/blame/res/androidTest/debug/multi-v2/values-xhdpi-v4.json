@@ -1,41 +1,10 @@
 {
     "logs": [
         {
-<<<<<<< HEAD
-<<<<<<< HEAD
             "outputFile": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xhdpi-v4\\values-xhdpi-v4.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xhdpi-v4\\values-xhdpi-v4.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,113",
-                        "endColumns": "57,55",
-                        "endOffsets": "108,164"
-                    }
-                }
-            ]
-        },
-        {
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 036bf0134be73c788045a8081fe7675721a0eeaa
-            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xhdpi-v4\\values-xhdpi-v4.xml",
-            "map": [
-                {
-                    "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xhdpi-v4\\values-xhdpi-v4.xml",
-<<<<<<< HEAD
-=======
->>>>>>> 4a14d675ce14fa9c0cff88239acdc4c44a23e15f
-            "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xhdpi-v4\\values-xhdpi-v4.xml",
-            "map": [
-                {
-                    "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\bundles\\debug\\res\\values-xhdpi-v4\\values-xhdpi-v4.xml",
->>>>>>> 75519d8410b08fb69f097084ebe5587391fe1a84
-=======
->>>>>>> 036bf0134be73c788045a8081fe7675721a0eeaa
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

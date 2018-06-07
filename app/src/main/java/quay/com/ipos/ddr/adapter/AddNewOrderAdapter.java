@@ -1,6 +1,7 @@
 package quay.com.ipos.ddr.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,17 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
 import quay.com.ipos.R;
 import quay.com.ipos.ddr.modal.NewOrderProductsResult;
+import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.listeners.AdapterListener;
+import quay.com.ipos.listeners.MyListenerProduct;
 import quay.com.ipos.modal.OrderList;
+import quay.com.ipos.realmbean.RealmNewOrderCart;
+import quay.com.ipos.retailsales.adapter.DiscountListAdapter;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Util;
 
@@ -40,14 +48,15 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     View.OnClickListener mOnClickListener;
     static Context mContext;
     ArrayList<NewOrderProductsResult.DataBean> mDataset;
-    RecyclerView mRecyclerView;
 
-    public AddNewOrderAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
+
+
+    public AddNewOrderAdapter(Context ctx, View.OnClickListener mClickListener,
                               ArrayList<NewOrderProductsResult.DataBean> questionList,AdapterListener listener) {
         this.mOnClickListener = mClickListener;
         mContext = ctx;
         mDataset = questionList;
-        mRecyclerView = mRecycler;
+
         this.listener = listener;
         // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
         // mRecyclerView.getLayoutManager();
@@ -76,6 +85,8 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 tvMinus,tvPlus,tvOffers,tvReserved,tvAddCart,tvPoints;
         public ImageView imvProduct,imvInfo,imvOffer;
         public EditText etQtySelected;
+        RecyclerView mRecyclerView;
+        public LinearLayout llAdd;
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -85,13 +96,14 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvCheckStock =  itemView.findViewById(R.id.tvCheckStock);
             imvOffer=itemView.findViewById(R.id.imvOffer);
             tvPoints=itemView.findViewById(R.id.tvPoints);
-
+            mRecyclerView = itemView.findViewById(R.id.recycleView);
           //  tvMinus =  itemView.findViewById(R.id.tvMinus);
           //  etQtySelected =  itemView.findViewById(R.id.etQtySelected);
           //  tvPlus =  itemView.findViewById(R.id.tvPlus);
           //  tvOffers =  itemView.findViewById(R.id.tvOffers);
          //   tvReserved =  itemView.findViewById(R.id.tvReserved);
             tvAddCart =  itemView.findViewById(R.id.tvAddCart);
+            llAdd=(LinearLayout) itemView.findViewById(R.id.llAdd);
             imvProduct =  itemView.findViewById(R.id.imvProduct);
             imvInfo = itemView.findViewById(R.id.imvInfo);
          //   etQtySelected =  itemView.findViewById(R.id.etQtySelected);
@@ -123,8 +135,22 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (holder instanceof AddNewOrderAdapter.UserViewHolder) {
             onBind = true;
             NewOrderProductsResult.DataBean str = mDataset.get(position);
-//            AppLog.e(AddNewOrderAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
+
+            Realm realm=Realm.getDefaultInstance();
+            RealmNewOrderCart realmNewOrderCart=realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),str.getIProductModalId()).findFirst();
+
             final AddNewOrderAdapter.UserViewHolder userViewHolder = (AddNewOrderAdapter.UserViewHolder) holder;
+
+            if (realmNewOrderCart!=null){
+                if(realmNewOrderCart.isAdded()){
+                    userViewHolder.tvAddCart.setText("Added");
+                    userViewHolder.llAdd.setBackgroundResource(R.drawable.button_rectangle_light_gray );
+                }else {
+                    userViewHolder.tvAddCart.setText("Add");
+                    userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
+                }
+            }
+
             userViewHolder.tvItemName.setText(str.getSProductName());
             Picasso.get().load(str.getProductImage()).into(userViewHolder.imvProduct);
             userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs)+" "+str.getSProductPrice());
@@ -146,8 +172,10 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.tvCheckStock.setOnClickListener(mOnClickListener);
             userViewHolder.tvCheckStock.setTag(position);
 
-           userViewHolder.tvAddCart.setOnClickListener(mOnClickListener);
-            userViewHolder.tvAddCart.setTag(position);
+
+
+           userViewHolder.llAdd.setOnClickListener(mOnClickListener);
+            userViewHolder.llAdd.setTag(position);
 
          /*   userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
             userViewHolder.tvMinus.setTag(position);
@@ -193,6 +221,19 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
             });
 */
+
+            userViewHolder.mRecyclerView.setHasFixedSize(true);
+            LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+            userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
+
+            ArrayList<NewOrderProductsResult.DataBean.DiscountBean> discountBeans=new ArrayList<>();
+            NewOrderProductsResult.DataBean.DiscountBean discountBean=new NewOrderProductsResult.DataBean.DiscountBean();
+            discountBean.setSDiscountDisplayName(str.getDiscount().size()+" Offers Applied");
+            discountBeans.add(discountBean);
+//            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
+
+            DiscountNewOrderListAdapter itemListDataAdapter = new DiscountNewOrderListAdapter(mContext, userViewHolder.mRecyclerView, discountBeans);
+            userViewHolder.mRecyclerView.setAdapter(itemListDataAdapter);
         }
         else if (holder instanceof AddNewOrderAdapter.LoadingViewHolder) {
             AddNewOrderAdapter.LoadingViewHolder loadingViewHolder = (AddNewOrderAdapter.LoadingViewHolder) holder;
