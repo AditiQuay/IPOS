@@ -33,23 +33,23 @@
                 android:textSize="@dimen/universal_text_size18" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/textViewTitleDesignation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dim_2"
-            android:layout_marginRight="@dimen/dim_2"
-            android:layout_marginTop="@dimen/dim_8"
-            android:alpha="0.7"
-            android:text="Designation *"
-            android:textColor="@color/primary_text_color"
-            android:textSize="@dimen/universal_text_size12" />
-
-        <Spinner
+        <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/designationSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dim_4"
+            android:layout_marginRight="@dimen/dim_4"
+            app:ms_alignLabels="true"
+            app:ms_baseColor="@color/grey"
+            app:ms_enableErrorLabel="false"
+            app:ms_enableFloatingLabel="true"
+            app:ms_errorColor="@color/red"
+            app:ms_floatingLabelColor="@color/grey"
+            app:ms_floatingLabelText="Designation *"
+            app:ms_highlightColor="@color/highlight"
+            app:ms_hint="Designation *"
+            app:ms_hintColor="@color/grey"
+            app:ms_multiline="false" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,28 +64,32 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textViewCompanyTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.7"
-                    android:text="Company *"
-                    android:textColor="@color/primary_text_color"
-                    android:textSize="@dimen/universal_text_size12" />
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/dim_4">
 
 
-                <Spinner
+                <fr.ganfra.materialspinner.MaterialSpinner
                     android:id="@+id/companySpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dim_4" />
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    app:ms_alignLabels="true"
+                    app:ms_baseColor="@color/grey"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_errorColor="@color/red"
+                    app:ms_floatingLabelColor="@color/grey"
+                    app:ms_floatingLabelText="Company *"
+                    app:ms_highlightColor="@color/highlight"
+                    app:ms_hint="Company *"
+                    app:ms_hintColor="@color/grey"
+                    app:ms_multiline="false" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -96,7 +100,7 @@
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/tieGstin"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:hint="GSTIN Number"
                         android:textSize="@dimen/universal_text_size14" />
 
@@ -119,21 +123,24 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textViewCustomerType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.7"
-                    android:text="Customer Type"
-                    android:textColor="@color/primary_text_color"
-                    android:textSize="@dimen/universal_text_size12" />
 
-
-                <Spinner
+                <fr.ganfra.materialspinner.MaterialSpinner
                     android:id="@+id/customerTypeSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dim_4" />
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    app:ms_alignLabels="true"
+                    app:ms_baseColor="@color/grey"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_errorColor="@color/red"
+                    app:ms_floatingLabelColor="@color/grey"
+                    app:ms_floatingLabelText="Customer Type"
+                    app:ms_highlightColor="@color/highlight"
+                    app:ms_hint="Customer Type"
+                    app:ms_hintColor="@color/grey"
+                    app:ms_multiline="false" />
             </LinearLayout>
 
             <LinearLayout
@@ -142,21 +149,24 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textViewRelationShip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:alpha="0.7"
-                    android:text="Relationship"
-                    android:textColor="@color/primary_text_color"
-                    android:textSize="@dimen/universal_text_size12" />
 
-
-                <Spinner
+                <fr.ganfra.materialspinner.MaterialSpinner
                     android:id="@+id/relationShipSpinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dim_4" />
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    app:ms_alignLabels="true"
+                    app:ms_baseColor="@color/grey"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_errorColor="@color/red"
+                    app:ms_floatingLabelColor="@color/grey"
+                    app:ms_floatingLabelText="Relationship"
+                    app:ms_highlightColor="@color/highlight"
+                    app:ms_hint="Relationship"
+                    app:ms_hintColor="@color/grey"
+                    app:ms_multiline="false" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

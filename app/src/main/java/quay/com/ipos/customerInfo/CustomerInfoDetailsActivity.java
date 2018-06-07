@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerRecentOrdersAdapter;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
+import quay.com.ipos.customerInfo.customerInfoModal.RecentOrderList;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
@@ -42,7 +43,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private String customerId;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
-    private ArrayList<CustomerList.RecentOrder> recentOrders = new ArrayList<>();
+    private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();
     private DatabaseHandler db;
 
     @Override
@@ -126,7 +127,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
             JSONArray jsonArray = new JSONArray(customerModel.getRecentOrders());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject3 = jsonArray.getJSONObject(i);
-                CustomerList.RecentOrder recentOrder = new CustomerList.RecentOrder();
+                RecentOrderList recentOrder = new RecentOrderList();
                 recentOrder.setFromStoreName(jsonObject3.optString(CustomerEnum.ColoumnFromStoreName.toString().trim()));
                 recentOrder.setStoreCity(jsonObject3.optString(CustomerEnum.ColoumnStoreCity.toString().trim()));
                 recentOrder.setStoreState(jsonObject3.optString(CustomerEnum.ColoumnStoreState.toString().trim()));

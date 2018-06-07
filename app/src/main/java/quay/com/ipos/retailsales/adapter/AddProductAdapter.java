@@ -11,6 +11,8 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
@@ -116,6 +118,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.tvItemName.setText(str.getSProductName());
             userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
             userViewHolder.tvStock.setText(str.getSProductStock()+"");
+            ImageLoader.getInstance().displayImage(str.getProductImage(),userViewHolder.imvProduct);
             if(str.isAdded()){
                 userViewHolder.tvAdd.setText("Added");
                 userViewHolder.llAdd.setBackgroundResource(R.drawable.button_rectangle_light_gray );

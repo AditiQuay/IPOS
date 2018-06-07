@@ -20,7 +20,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -52,6 +51,7 @@ import quay.com.ipos.adapter.DrawerRoleAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
 import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
+import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerModel;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
@@ -62,11 +62,9 @@ import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
-import quay.com.ipos.login.SplashActivity;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.productCatalogue.ProductMain;
-import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.service.ServiceTask;
@@ -119,35 +117,50 @@ public class MainActivity extends BaseActivity
 
     private DatabaseHandler dbHelper;
     private String customerID;
+    private String customerTitle;
+
+
     private String customerName;
-    private String customerPoints;
+    private String customerFirstName;
+    private String customerLastName;
+    private String customerGender;
+    private String customerBday;
+    private String customerMaritalStatus;
+    private String customerSpouseFirstName;
+    private String customerSpouseLastName;
+    private String customerSpouseDob;
+    private String customerChildSatus;
+    private JSONArray customerChild;
+    private String customerEmail;
+    private String customerEmail2;
     private String customerPhone;
     private String customerPhone2;
     private String customerPhone3;
-    private String customerEmail;
-    private String customerEmail2;
-    private String customerDom;
-    private String customerBday;
-    private String customerGender;
-    private String customerFirstName;
-    private String customerLastName;
-    private String custoemrGstin;
-    private String customerStatus;
-    private String customerDesignation;
-    private String customerCompany;
-    private String customerRelationship;
-    private String cfactor;
     private String customerAddress;
     private String customerState;
     private String customerCity;
     private String customerPin;
+    private String customerCountry;
+    private String customerDesignation;
+    private String customerCompany;
+    private String custoemrGstin;
+    private String customer;
+    private String customerRelationship;
     private String customerImage;
     private String lastBillingDate;
     private String lastBillingAmount;
+    private String customerPoints;
     private String issuggestion;
     private String suggestion;
+    private JSONArray recentOrders;
+    private String cFactore;
+    private String customerType;
+    private String customerCode;
+    private String registeredBusinessPlaceID;
+    private String customerDom;
     private Context mContext;
-
+    private String customerStatus;
+    private ArrayList<CustomerModel> customerModels = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,21 +180,23 @@ public class MainActivity extends BaseActivity
         retailSalesFragment1 = new RetailSalesFragment();
     }
 
-    private void getCustomerData() {
-        int storeId = SharedPrefUtil.getStoreId(Constants.STORE_ID.trim(),0,mContext);
-        AppLog.e(TAG,"StoreId"+storeId);
 
-        CustomerModel loginParams = new CustomerModel();
-        loginParams.setSearchParam("NA");
-        loginParams.setStoreId(String.valueOf(storeId));
+
+    private void getCustomerData() {
+        int storeId = SharedPrefUtil.getStoreId(Constants.STORE_ID.trim(), 0, mContext);
+        AppLog.e(TAG, "StoreId" + storeId);
+
+        CustomerModel customerModel = new CustomerModel();
+        customerModel.setSearchParam("NA");
+        customerModel.setStoreId(String.valueOf(1));
 
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_CUSTOMER_LIST);
         mTask.setApiCallType(Constants.API_METHOD_POST);
-        mTask.setParamObj(loginParams);
+        mTask.setParamObj(customerModel);
         mTask.setListener(this);
-        mTask.setResultType(CustomerModel.class);
+        mTask.setResultType(CustomerServerModel.class);
         mTask.execute();
     }
 
@@ -256,7 +271,7 @@ public class MainActivity extends BaseActivity
 
         Realm realm = Realm.getDefaultInstance();
         RealmUserDetail realmUserDetails = realm.where(RealmUserDetail.class).findFirst();
-        if (realmUserDetails!=null){
+        if (realmUserDetails != null) {
             try {
                 JSONArray jsonArray = new JSONArray(realmUserDetails.getUserMenu());
                 drawerRoleModals = new ArrayList<>();
@@ -280,7 +295,6 @@ public class MainActivity extends BaseActivity
                 e.printStackTrace();
             }
         }
-
 
 
         if (drawerRoleModals.size() > 0)
@@ -362,17 +376,17 @@ public class MainActivity extends BaseActivity
     public void onDialogPositiveClick(Dialog dialog, int mCallType) {
         if (mCallType == Constants.APP_DIALOG_PERMISSION) {
             Util.OpenSetting(MainActivity.this);
-        }else if(mCallType==Constants.APP_DIALOG_BACK){
+        } else if (mCallType == Constants.APP_DIALOG_BACK) {
             doubleBackToExitPressedOnce = true;
-                                exit = true;
-                                finish();
+            exit = true;
+            finish();
             dialog.dismiss();
         }
     }
 
     @Override
     public void onDialogNegetiveClick(Dialog dialog, int mCallType) {
-        if(mCallType==Constants.APP_DIALOG_BACK){
+        if (mCallType == Constants.APP_DIALOG_BACK) {
             doubleBackToExitPressedOnce = false;
             exit = false;
             dialog.dismiss();
@@ -612,7 +626,7 @@ public class MainActivity extends BaseActivity
 
 
             if (mFrag == dashboardFragment) {
-                Util.showMessageDialog(mContext,this, getString(R.string.exit_message), getResources().getString(R.string.yes), getResources().getString(R.string.no), Constants.APP_DIALOG_BACK, "", getSupportFragmentManager());
+                Util.showMessageDialog(mContext, this, getString(R.string.exit_message), getResources().getString(R.string.yes), getResources().getString(R.string.no), Constants.APP_DIALOG_BACK, "", getSupportFragmentManager());
                 if (doubleBackToExitPressedOnce) {
                     super.onBackPressed();
                     return;
@@ -629,6 +643,11 @@ public class MainActivity extends BaseActivity
             }
 
         }
+    }
+
+    @Override
+    public void onDialogCancelClick(Dialog dialog, int mCallType) {
+
     }
 
     private void closeDrawer() {
@@ -781,8 +800,10 @@ public class MainActivity extends BaseActivity
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         if (httpStatusCode == Constants.SUCCESS) {
             if (resultObj != null) {
-                dbHelper.removeAll();
-                fetchCustomerData(serverResponse);
+                if (dbHelper.isCustomerDataEmpty()){
+                    fetchCustomerData(serverResponse);
+                }
+
             }
 
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
@@ -805,48 +826,58 @@ public class MainActivity extends BaseActivity
             JSONArray jsonArray = jsonObject.getJSONArray(Constants.KEY_CUSTOMER.trim());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject object = jsonArray.getJSONObject(i);
-                customerID = String.valueOf(object.optInt(CustomerEnum.ColoumnCustomerID.toString()));
-                customerName = object.optString(CustomerEnum.ColoumnCustomerName.toString());
-                customerPoints = object.optString(CustomerEnum.ColoumnCustomerPoints.toString());
-                customerPhone = object.optString(CustomerEnum.ColoumnCustomerPhone.toString());
-                customerPhone2 = object.optString(CustomerEnum.ColoumnCustomerPhone2.toString());
-                customerPhone3 = object.optString(CustomerEnum.ColoumnCustomerPhone3.toString());
-                customerEmail = object.optString(CustomerEnum.ColoumnCustomerEmail.toString());
-                customerEmail2 = object.optString(CustomerEnum.ColoumnCustomerEmail2.toString());
-                customerDom = object.optString(CustomerEnum.ColoumnCustomerDom.toString());
-                customerBday = object.optString(CustomerEnum.ColoumnCustomerBday.toString());
-                customerGender = object.optString(CustomerEnum.ColoumnCustomerGender.toString());
-                customerFirstName = object.optString(CustomerEnum.ColoumnCustomerFirstName.toString());
-                customerLastName = object.optString(CustomerEnum.ColoumnCustomerLastName.toString());
-                custoemrGstin = object.optString(CustomerEnum.ColoumnCustoemrGstin.toString());
-                customerStatus = object.optString(CustomerEnum.ColoumnCustomerStatus.toString());
-                customerDesignation = object.optString(CustomerEnum.ColoumnCustomerDesignation.toString());
-                customerCompany = object.optString(CustomerEnum.ColoumnCustomerCompany.toString());
-                customerRelationship = object.optString(CustomerEnum.ColoumnCustomerRelationship.toString());
-                cfactor = object.optString(CustomerEnum.ColoumnCfactor.toString());
-                customerAddress = object.optString(CustomerEnum.ColoumnCustomerAddress.toString());
-                customerState = object.optString(CustomerEnum.ColoumnCustomerState.toString());
-                customerCity = object.optString(CustomerEnum.ColoumnCustomerCity.toString());
-                customerPin = object.optString(CustomerEnum.ColoumnCustomerPin.toString());
-                customerImage = object.optString(CustomerEnum.ColoumnCustomerImage.toString());
-                lastBillingDate = object.optString(CustomerEnum.ColoumnLastBillingDate.toString());
-                lastBillingAmount = object.optString(CustomerEnum.ColoumnLastBillingAmount.toString());
-                issuggestion = object.optString(CustomerEnum.ColoumnIsSuggestion.toString());
-                suggestion = object.optString(CustomerEnum.ColoumnSuggestion.toString());
+                customerID = String.valueOf(object.optInt(CustomerEnum.ColoumnCustomerID.toString().trim()));
+                customerTitle = String.valueOf(object.optInt(CustomerEnum.ColoumnCustomerTitle.toString().trim()));
+                customerFirstName = object.optString(CustomerEnum.ColoumnCustomerFirstName.toString().trim());
+                customerLastName = object.optString(CustomerEnum.ColoumnCustomerLastName.toString().trim());
+                customerGender = object.optString(CustomerEnum.ColoumnCustomerGender.toString().trim());
+                customerBday = object.optString(CustomerEnum.ColoumnCustomerBday.toString().trim());
+                customerMaritalStatus = object.optString(CustomerEnum.ColoumnCustomerMaritalStatus.toString().trim());
+                customerSpouseFirstName = object.optString(CustomerEnum.ColoumnCustomerSpouseFirstName.toString().trim());
+                customerSpouseLastName = object.optString(CustomerEnum.ColoumnCustomerSpouseLastName.toString().trim());
+                customerSpouseDob = object.optString(CustomerEnum.ColoumnCustomerSpouseDob.toString().trim());
+                customerChildSatus = object.optString(CustomerEnum.ColoumnCustomerChildStatus.toString().trim());
+                customerChild = object.getJSONArray(CustomerEnum.ColoumnCustomerChild.toString().trim());
+                customerEmail = object.optString(CustomerEnum.ColoumnCustomerEmail.toString().trim());
+                customerEmail2 = object.optString(CustomerEnum.ColoumnCustomerEmail2.toString().trim());
+                customerPhone = object.optString(CustomerEnum.ColoumnCustomerPhone.toString().trim());
+                customerPhone2 = object.optString(CustomerEnum.ColoumnCustomerPhone2.toString().trim());
+                customerPhone3 = object.optString(CustomerEnum.ColoumnCustomerPhone3.toString().trim());
+                customerAddress = object.optString(CustomerEnum.ColoumnCustomerAddress.toString().trim());
+                customerStatus = object.optString(CustomerEnum.ColoumnCustomerCustomerStatus.toString().trim());
+                customerPin = object.optString(CustomerEnum.ColoumnCustomerPin.toString().trim());
+                customerCountry = object.optString(CustomerEnum.ColoumnCustomerCountry.toString().trim());
+                customerDesignation = object.optString(CustomerEnum.ColoumnCustomerDesignation.toString().trim());
+                customerCompany = object.optString(CustomerEnum.ColoumnCustomerCompany.toString().trim());
+                custoemrGstin = object.optString(CustomerEnum.ColoumnCustomerGstin.toString().trim());
+                customer = object.optString(CustomerEnum.ColoumnCustomer.toString().trim());
+                customerRelationship = object.optString(CustomerEnum.ColoumnCustomerRelationship.toString().trim());
+                customerImage = object.optString(CustomerEnum.ColoumnCustomerImage.toString().trim());
+                lastBillingDate = object.optString(CustomerEnum.ColoumnLastBillingDate.toString().trim());
+                lastBillingAmount = object.optString(CustomerEnum.ColoumnLastBillingAmount.toString().trim());
+                issuggestion = object.optString(CustomerEnum.ColoumnIsSuggestion.toString().trim());
+                suggestion = object.optString(CustomerEnum.ColoumnSuggestion.toString().trim());
+                recentOrders = object.getJSONArray(CustomerEnum.ColoumnRecentOrders.toString().trim());
+                customerPoints = object.optString(CustomerEnum.ColoumnCustomerPoint.toString().trim());
+                customerName = object.optString(CustomerEnum.ColoumnCustomerName.toString().trim());
+                customerDom = object.optString(CustomerEnum.ColoumncCustomerDOM.toString().trim());
+                cFactore = object.optString(CustomerEnum.ColoumncFactor.toString().trim());
+                customerState = object.optString(CustomerEnum.ColoumnCustomerState.toString().trim());
+                customerCity = object.optString(CustomerEnum.ColoumnCustomerCity.toString().trim());
+                customerType = object.optString(CustomerEnum.ColoumncType.toString().trim());
 
-                JSONArray recentOrders = object.getJSONArray(CustomerEnum.ColoumnRecentOrders.toString());
                 // inserting note in db and getting
                 // newly inserted note id
 
+                    dbHelper.insertCustomer(customerID, customerTitle, customerName, customerFirstName, customerLastName, customerGender, customerBday, customerMaritalStatus,
+                            customerSpouseFirstName, customerSpouseLastName, customerSpouseDob, customerChildSatus, customerChild.toString(),
+                            customerEmail, customerEmail2, customerPhone, customerPhone2, customerPhone3, customerAddress, customerState, customerCity,
+                            customerPin, customerCountry, customerDesignation, customerCompany, custoemrGstin, customer, customerRelationship,
+                            customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom,"","" ,1);
 
-                long id = dbHelper.insertCustomer(customerID, customerName, customerPoints, customerPhone, customerPhone2, customerPhone3,
-                        customerEmail, customerEmail2, customerDom, customerBday, customerGender, customerFirstName, customerLastName,
-                        custoemrGstin, customerStatus, customerDesignation, customerCompany, customerRelationship, cfactor,
-                        customerAddress, customerState, customerCity, customerPin, customerImage, lastBillingDate,
-                        lastBillingAmount, issuggestion, suggestion, recentOrders.toString(), 1);
 
 //                // get the newly inserted note from db
-                Log.e(TAG, "Newly added Customer***" + id);
+
 //                CustomerModel n = dbHelper.getCustomer(id);
 //                Log.e(TAG,"New Added"+ n);
 //                if (n != null) {

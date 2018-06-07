@@ -1677,6 +1677,11 @@ if (realmNewOrderCarts.getQty()>1) {
     }
 
     @Override
+    public void onDialogCancelClick(Dialog dialog, int mCallType) {
+
+    }
+
+    @Override
     public void setProductOnListener(String mDatum) {
         ArrayList<OrderList.Datum> arrData= new ArrayList<>();
         json = SharedPrefUtil.getString(Constants.Order_List,"",getActivity());

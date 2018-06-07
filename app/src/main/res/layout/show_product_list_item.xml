@@ -148,6 +148,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/llPoints"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -302,6 +303,7 @@
         >
 
         <LinearLayout
+            android:id="@+id/llTotalPoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -352,49 +354,15 @@
         android:background="@drawable/rect_bottom_corner"
         android:scrollbars="none" />
 
-    <LinearLayout
-        android:id="@+id/llDiscount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
 
-        <CheckBox
-            android:id="@+id/chkDiscount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dim_10"
-            android:buttonTint="@color/colorAccentDark"
-            android:checked="true" />
-
-        <quay.com.ipos.ui.CustomTextView
-            android:id="@+id/tvDiscount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:text="Special discount (10%)"
-            android:textColor="@color/colorAccentDark"
-            android:textSize="@dimen/text_size_12sp" />
-
-        <quay.com.ipos.ui.CustomTextView
-            android:id="@+id/tvDiscountPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/dim_10"
-            android:gravity="left"
-            android:text="@string/Rs"
-            android:textColor="@color/colorAccentDark"
-            android:textSize="@dimen/text_size_12sp" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/llOTCDiscount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:alpha="0.8"
+        android:background="@color/coloryPrimary_transulent"
         android:visibility="gone">
 
         <CheckBox
@@ -402,17 +370,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dim_10"
-            android:buttonTint="@color/colorAccentDark"
+            android:buttonTint="@color/colorPrimary"
             android:checked="true" />
 
         <quay.com.ipos.ui.CustomTextView
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:gravity="left"
             android:text="OTC Discount"
-            android:textColor="@color/colorAccentDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_12sp" />
 
         <quay.com.ipos.ui.CustomTextView
@@ -423,7 +392,7 @@
             android:layout_marginRight="@dimen/dim_10"
             android:gravity="left"
             android:text="@string/Rs"
-            android:textColor="@color/colorAccentDark"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_12sp" />
     </LinearLayout>
 </LinearLayout>

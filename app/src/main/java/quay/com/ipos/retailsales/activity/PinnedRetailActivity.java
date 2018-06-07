@@ -196,6 +196,11 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
+    public void onDialogCancelClick(Dialog dialog, int mCallType) {
+
+    }
+
+    @Override
     public void onDialogPositiveClick(Dialog dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_Pinned_ORDER) {
             mInfoArrayList.remove(pinned_pos);

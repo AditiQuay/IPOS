@@ -28,6 +28,7 @@ import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.MyAdapterTags;
 import quay.com.ipos.modal.ProductSearchResult;
+import quay.com.ipos.ui.WrapContentLinearLayoutManager;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Util;
@@ -38,7 +39,7 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 17-04-2018.
  */
 
-public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements AdapterListener,MyAdapterTags {
     private boolean onBind;
 
     private final int VIEW_TYPE_ITEM = 0;
@@ -55,46 +56,48 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     CompoundButton.OnCheckedChangeListener mCheckedChangeListener;
     TextWatcher mTextWatcher;
     MyAdapterTags myAdapterTags;
- //   public RecyclerView mRecyclerView;
+    //   public RecyclerView mRecyclerView;
     public RetailSalesAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
                               ArrayList<ProductSearchResult.Datum> questionList, CompoundButton.OnCheckedChangeListener mCheckedChangeListener, AdapterListener listener,MyAdapterTags myAdapterTags) {
         this.mOnClickListener = mClickListener;
         this.mContext = ctx;
         this.mDataset = questionList;
-    //    this.mRecyclerView = mRecycler;
+        //    this.mRecyclerView = mRecycler;
         this.mCheckedChangeListener = mCheckedChangeListener;
         this. listener = listener;
         mainActivity = (MainActivity) mContext;
         this.myAdapterTags = myAdapterTags;
 
-        // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
-        // mRecyclerView.getLayoutManager();
-        // mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
-        // {
-        // @Override
-        // public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        // super.onScrolled(recyclerView, dx, dy);
-        //
-        // totalItemCount = linearLayoutManager.getItemCount();
-        // lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-        //
-        // if (!isLoading && totalItemCount <= (lastVisibleItem +
-        // visibleThreshold)) {
-        // if (mOnLoadMoreListener != null) {
-        // mOnLoadMoreListener.onLoadMore();
-        // }
-        // isLoading = true;
-        // }
-        // }
-        // });
+    }
+
+    @Override
+    public void onRowClicked(int position) {
+        if(position==23)
+            listener.onRowClicked(position);
+    }
+
+    @Override
+    public void onRowClicked(int position, int value, String tag) {
+
+    }
+
+    @Override
+    public void onRowClicked(int position, int value, String tag, int parentPosition) {
+
+    }
+
+    @Override
+    public void onRowClicked(int position, int value) {
+
+        notifyItemRangeRemoved(value,IPOSApplication.mProductListResult.size());
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvMinus,tvPlus;
-        public TextView tvTotalPrice, tvDiscount, tvDiscountPrice,tvOTCDiscountPrice,tvDiscountedPrice;
+        public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvMinus,tvPlus,tvPoint,tvTotalPoints;
+        public TextView tvTotalPrice, tvOTCDiscountPrice,tvDiscountedPrice;
         public ImageView imvInfo,imvProduct,imvClear;
-        public LinearLayout llDiscount,llOTCDiscount,llEvent;
-        public CheckBox chkDiscount,chkItem,chkOTCDiscount;
+        public LinearLayout llOTCDiscount,llEvent,llTotalPoints,llPoints;
+        public CheckBox chkItem,chkOTCDiscount;
         public EditText etQtySelected;
         public RecyclerView mRecyclerView;
 
@@ -118,11 +121,12 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvMinus =  itemView.findViewById(R.id.tvMinus);
             etQtySelected =  itemView.findViewById(R.id.etQtySelected);
             tvPlus =  itemView.findViewById(R.id.tvPlus);
+            tvPoint =  itemView.findViewById(R.id.tvPoint);
             tvTotalPrice =  itemView.findViewById(R.id.tvTotalPrice);
-            chkDiscount =  itemView.findViewById(R.id.chkDiscount);
-            tvDiscount =  itemView.findViewById(R.id.tvDiscount);
-            tvDiscountPrice =  itemView.findViewById(R.id.tvDiscountPrice);
-            llDiscount = itemView.findViewById(R.id.llDiscount);
+            tvTotalPoints =  itemView.findViewById(R.id.tvTotalPoints);
+            llTotalPoints =  itemView.findViewById(R.id.llTotalPoints);
+            llPoints =  itemView.findViewById(R.id.llPoints);
+
             chkItem = itemView.findViewById(R.id.chkItem);
         }
     }
@@ -156,7 +160,6 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 str = mDataset.get(0);
                 IPOSApplication.isRefreshed=false;
             }
-            Log.e("UserViewHolder","UserViewHolder-------------------------"+position);
             myAdapterTags.onRowClicked(position,0, Constants.DISCOUNT+"");
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             final UserViewHolder  userViewHolder = (UserViewHolder) holder;
@@ -165,73 +168,78 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.tvItemRate.setText(str.getSProductStock()+"");
             userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSalesPrice());
             userViewHolder.etQtySelected.setText(str.getQty()+"");
+
             ImageLoader.getInstance().displayImage(str.getProductImage(),userViewHolder.imvProduct);
-            onBind = false;
-
-            if(str.isItemSelected())
-                userViewHolder.chkItem.setVisibility(View.VISIBLE);
-            else
-                userViewHolder.chkItem.setVisibility(View.GONE);
-
-            if(str.isOTCselected())
-                userViewHolder.chkItem.setChecked(true);
-            else
-                userViewHolder.chkItem.setChecked(false);
 
 
-            if(str.isDiscSelected()) {
-                userViewHolder.chkOTCDiscount.setChecked(true);
-                userViewHolder.llOTCDiscount.setVisibility(View.VISIBLE);
-                userViewHolder.tvOTCDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getOTCDiscount());
-            }
-            else {
-                userViewHolder.llOTCDiscount.setVisibility(View.GONE);
-            }
+
+
 
             Double totalPrice=(str.getSalesPrice()*str.getQty());
+
+            if(str.getPoints()!=null && !str.getPoints().equals("")){
+                userViewHolder.tvPoint.setText(str.getPoints() +" Pts");
+                userViewHolder.tvTotalPoints.setText(getTotalPoints(str,totalPrice)+" Pts");
+            }
+
 //            str.setTotalPrice(totalPrice);
 
-            if(str.getIsDiscount()) {
 //                userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSDiscountPrice());
 //                userViewHolder.tvDiscount.setText(str.getSDiscountName());
 //                Double discount = (str.getSDiscountPrice()*totalPrice)/100;
 //
 //                userViewHolder.tvDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+discount+"");
 //                userViewHolder.llDiscount.setVisibility(View.VISIBLE);
-            }else {
-//                userViewHolder.llDiscount.setVisibility(View.GONE);
-            }
 
 
-            userViewHolder.llDiscount.setVisibility(View.GONE);
-            if(str.isDiscItemSelected()) {
-                userViewHolder.chkDiscount.setChecked(true);
-                userViewHolder.tvDiscount.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                userViewHolder.tvDiscountPrice.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-            }else {
-                userViewHolder.chkDiscount.setChecked(false);
 
-                userViewHolder.tvDiscount.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                userViewHolder.tvDiscountPrice.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            }
-//            if(str.isEdited()){
-//                userViewHolder.etQtySelected.setEnabled(true);
-//            }else {
-//                userViewHolder.etQtySelected.setEnabled(false);
-//            }
+//            userViewHolder.llDiscount.setVisibility(View.GONE);
+
 
 
 
             if(str.isFreeItem()){
+                userViewHolder.imvClear.setVisibility(View.GONE);
+                userViewHolder.tvTotalPoints.setVisibility(View.GONE);
+                userViewHolder.tvPoint.setVisibility(View.GONE);
                 userViewHolder.llEvent.setVisibility(View.GONE);
                 userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" " + str.getSProductPrice());
+                userViewHolder.chkItem.setVisibility(View.GONE);
+                userViewHolder.llOTCDiscount.setVisibility(View.GONE);
+                userViewHolder.llPoints.setVisibility(View.GONE);
+                userViewHolder.llTotalPoints.setVisibility(View.GONE);
             }else {
+                userViewHolder.imvClear.setVisibility(View.VISIBLE);
+                userViewHolder.tvTotalPoints.setVisibility(View.VISIBLE);
+                userViewHolder.tvPoint.setVisibility(View.VISIBLE);
                 userViewHolder.llEvent.setVisibility(View.VISIBLE);
+                userViewHolder.llPoints.setVisibility(View.VISIBLE);
+                userViewHolder.llTotalPoints.setVisibility(View.VISIBLE);
                 userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+totalPrice);
+
+                if(str.isItemSelected())
+                    userViewHolder.chkItem.setVisibility(View.VISIBLE);
+                else
+                    userViewHolder.chkItem.setVisibility(View.GONE);
+
+                if(str.isOTCselected())
+                    userViewHolder.chkItem.setChecked(true);
+                else
+                    userViewHolder.chkItem.setChecked(false);
+
+
+                if(str.isDiscSelected()) {
+                    userViewHolder.chkOTCDiscount.setChecked(true);
+                    userViewHolder.llOTCDiscount.setVisibility(View.VISIBLE);
+                    userViewHolder.tvOTCDiscountPrice.setText("- "+mContext.getResources().getString(R.string.Rs) +" "+str.getOTCDiscount());
+                }
+                else {
+                    userViewHolder.llOTCDiscount.setVisibility(View.GONE);
+                }
             }
 //            IPOSApplication.mProductList.set(position,str);
 //            AppLog.e(RetailSalesAdapter.class.getSimpleName(), "IPOSApplication.mProductList: "+ Util.getCustomGson().toJson(IPOSApplication.mProductList));
-
+            onBind = false;
             userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
             userViewHolder.tvMinus.setTag(position);
 
@@ -241,8 +249,6 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.chkItem.setOnCheckedChangeListener(mCheckedChangeListener);
             userViewHolder.chkItem.setTag(position);
 
-            userViewHolder.chkDiscount.setOnCheckedChangeListener(mCheckedChangeListener);
-            userViewHolder.chkDiscount.setTag(position);
 
             userViewHolder.chkOTCDiscount.setOnCheckedChangeListener(mCheckedChangeListener);
             userViewHolder.chkOTCDiscount.setTag(position);
@@ -282,12 +288,23 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
             userViewHolder.mRecyclerView.setHasFixedSize(true);
-            LinearLayoutManager  mLayoutManager = new LinearLayoutManager(mContext);
-            userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
-//            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
+//            WrapContentLinearLayoutManager mLayoutManager = new WrapContentLinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
 
-            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext, userViewHolder.mRecyclerView, mDataset.get(userViewHolder.getAdapterPosition()).getDiscount(), mDataset.get(userViewHolder.getAdapterPosition()),userViewHolder.getAdapterPosition(),listener);
-            userViewHolder.mRecyclerView.setAdapter(itemListDataAdapter);
+            userViewHolder.mRecyclerView.setLayoutManager(new WrapContentLinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+//            userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
+//            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
+            if(str.getIsDiscount()) {
+                userViewHolder.mRecyclerView.setVisibility(View.VISIBLE);
+                DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext, userViewHolder.mRecyclerView, mDataset.get(userViewHolder.getAdapterPosition()).getDiscount(), mDataset.get(userViewHolder.getAdapterPosition()), userViewHolder.getAdapterPosition(), listener,myAdapterTags);
+                userViewHolder.mRecyclerView.setAdapter(itemListDataAdapter);
+            }else {
+                userViewHolder.mRecyclerView.setVisibility(View.GONE);
+            }
+
+            if(position==getItemCount()-1){
+                listener.onRowClicked(position);
+
+            }
             //setDiscountAdapter(userViewHolder);
         }
         else if (holder instanceof LoadingViewHolder) {
@@ -318,6 +335,41 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemCount() {
         return mDataset == null ? 0 : mDataset.size();
+    }
+
+
+    private double getTotalPoints(ProductSearchResult.Datum str, Double totalPrice){
+        double totalPoints=0;
+        if (str.getPointsBasedOn().equalsIgnoreCase("M")){
+            totalPoints=str.getPoints()*totalPrice;
+
+        }else if (str.getPointsBasedOn().equalsIgnoreCase("P")){
+            int valuefrom=str.getValueFrom();
+            int valueTo=str.getValueTo();
+            int perPoints=str.getPointsPer();
+            int points=str.getPoints();
+
+            if (totalPrice>=valuefrom && totalPrice<=valueTo){
+                totalPoints=perPoints*totalPrice/points;
+            }else if (totalPrice>valueTo){
+                totalPoints=perPoints*valueTo/points;
+            }
+
+        }else if (str.getPointsBasedOn().equalsIgnoreCase("V")){
+            int valuefrom=str.getValueFrom();
+            int valueTo=str.getValueTo();
+            int perPoints=str.getPointsPer();
+            int points=str.getPoints();
+
+            if (totalPrice>=valuefrom && totalPrice<=valueTo){
+                totalPoints=perPoints*totalPrice/points;
+            }else if (totalPrice>valueTo){
+                totalPoints=perPoints*valueTo/points;
+            }
+
+        }
+
+        return totalPoints;
     }
 
 // public void setLoaded() {

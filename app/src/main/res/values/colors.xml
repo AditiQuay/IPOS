@@ -13,6 +13,7 @@
     <color name="colorPrimary_80">#801cade4</color>
     <color name="colorPrimary_90">#901cade4</color>
     <color name="black_trans">#99000000</color>
+    <color name="card">#fbfbfb</color>
 
 
     <color name="app_theme_color">#4C98CF</color>
