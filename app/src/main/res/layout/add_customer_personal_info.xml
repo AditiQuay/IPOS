@@ -14,7 +14,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/card">
 
 
         <LinearLayout
@@ -39,20 +40,23 @@
                     android:textSize="@dimen/universal_text_size18" />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/textViewTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dim_8"
-                android:alpha="0.7"
-                android:text="Title"
-                android:textColor="@color/primary_text_color"
-                android:textSize="@dimen/universal_text_size12" />
-
-            <Spinner
+            <fr.ganfra.materialspinner.MaterialSpinner
                 android:id="@+id/titleSpinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                app:ms_alignLabels="true"
+                app:ms_baseColor="@color/grey"
+                app:ms_enableErrorLabel="false"
+                app:ms_enableFloatingLabel="true"
+                app:ms_errorColor="@color/red"
+                app:ms_floatingLabelColor="@color/grey"
+                app:ms_floatingLabelText="Title *"
+                app:ms_highlightColor="@color/highlight"
+                app:ms_hint="Title *"
+                app:ms_hintColor="@color/grey"
+                app:ms_multiline="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,6 +73,7 @@
                     android:layout_weight="1">
 
                     <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tilFirstName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
@@ -77,7 +82,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="First Name *"
-                            android:textSize="@dimen/universal_text_size14" />
+                            android:textSize="@dimen/universal_text_size16" />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -96,7 +101,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Last Name *"
-                            android:textSize="@dimen/universal_text_size14" />
+                            android:textSize="@dimen/universal_text_size16" />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -115,39 +120,44 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textViewGender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:alpha="0.7"
-                        android:text="Gender *"
-                        android:textColor="@color/primary_text_color"
-                        android:textSize="@dimen/universal_text_size12" />
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/dim_4">
 
 
-                    <Spinner
+                    <fr.ganfra.materialspinner.MaterialSpinner
                         android:id="@+id/genderSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dim_4" />
+                        android:layout_marginLeft="@dimen/dim_4"
+                        android:layout_marginRight="@dimen/dim_4"
+                        app:ms_alignLabels="true"
+                        app:ms_baseColor="@color/grey"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_errorColor="@color/red"
+                        app:ms_floatingLabelColor="@color/grey"
+                        app:ms_floatingLabelText="Gender *"
+                        app:ms_highlightColor="@color/highlight"
+                        app:ms_hint="Gender *"
+                        app:ms_hintColor="@color/grey"
+                        app:ms_multiline="false" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tilDOB"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/tieDOB"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:drawableRight="@drawable/calendar_gray"
                             android:hint="DOB *"
                             android:textSize="@dimen/universal_text_size14" />
@@ -171,21 +181,24 @@
                     android:layout_weight="1"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/textViewMaritalStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:alpha="0.7"
-                        android:text="Married Status *"
-                        android:textColor="@color/primary_text_color"
-                        android:textSize="@dimen/universal_text_size12" />
 
-
-                    <Spinner
+                    <fr.ganfra.materialspinner.MaterialSpinner
                         android:id="@+id/maritalStatusSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dim_4" />
+                        android:layout_marginLeft="@dimen/dim_4"
+                        android:layout_marginRight="@dimen/dim_4"
+                        app:ms_alignLabels="true"
+                        app:ms_baseColor="@color/grey"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_errorColor="@color/red"
+                        app:ms_floatingLabelColor="@color/grey"
+                        app:ms_floatingLabelText="Marital Status *"
+                        app:ms_highlightColor="@color/highlight"
+                        app:ms_hint="Marital Status *"
+                        app:ms_hintColor="@color/grey"
+                        app:ms_multiline="false" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -203,8 +216,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lLayoutTop"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -256,6 +269,7 @@
                             android:orientation="vertical">
 
                             <android.support.design.widget.TextInputLayout
+                               android:id="@+id/tilSpouseFirstName"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
@@ -276,6 +290,7 @@
                             android:orientation="vertical">
 
                             <android.support.design.widget.TextInputLayout
+                               android:id="@+id/tilSpouseLastName"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
@@ -301,18 +316,19 @@
 
                         <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
                             <android.support.design.widget.TextInputLayout
+                                android:id="@+id/tilSpouseDob"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
                                 <android.support.design.widget.TextInputEditText
                                     android:id="@+id/tieSpouseDOB"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:drawableRight="@drawable/calendar_gray"
                                     android:hint="DOB *"
                                     android:textSize="@dimen/universal_text_size14" />
@@ -323,27 +339,28 @@
 
                         <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:paddingBottom="@dimen/dim_4">
 
-                            <TextView
-                                android:id="@+id/textViewChild"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dim_4"
-                                android:alpha="0.7"
-                                android:text="Child *"
-                                android:textColor="@color/primary_text_color"
-                                android:textSize="@dimen/universal_text_size12" />
-
-
-                            <Spinner
+                            <fr.ganfra.materialspinner.MaterialSpinner
                                 android:id="@+id/childSpinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dim_4" />
-
+                                android:layout_marginLeft="@dimen/dim_4"
+                                android:layout_marginRight="@dimen/dim_4"
+                                app:ms_alignLabels="true"
+                                app:ms_baseColor="@color/grey"
+                                app:ms_enableErrorLabel="false"
+                                app:ms_enableFloatingLabel="true"
+                                app:ms_errorColor="@color/red"
+                                app:ms_floatingLabelColor="@color/grey"
+                                app:ms_floatingLabelText="Child *"
+                                app:ms_highlightColor="@color/highlight"
+                                app:ms_hint="Child *"
+                                app:ms_hintColor="@color/grey"
+                                app:ms_multiline="false" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
@@ -391,6 +408,19 @@
                         android:layout_marginTop="@dimen/dim_4"
                         android:overScrollMode="never"
                         android:scrollbars="none" />
+
+                    <Button
+                        android:id="@+id/btnAddChild"
+                        style="@style/styleWhiteTextColor14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="@dimen/dim_16"
+                        android:background="@drawable/button_drawable_blue"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:stateListAnimator="@null"
+                        android:text="AddChild"
+                        android:textAllCaps="false" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

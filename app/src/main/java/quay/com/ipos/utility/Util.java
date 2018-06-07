@@ -744,7 +744,11 @@ public class Util {
 
 //        fragment.show(supportFragmentManager, "scan_results");
     }
+    public static void showMessageDialog(Context mContext,MessageDialog.MessageDialogListener listener, String message, String yesButton, String noButton,String cancel, int mCallType, String Title, FragmentManager supportFragmentManager) {
+        MessageDialog fragment = new MessageDialog(mContext,Title, message,yesButton,noButton,cancel, listener,mCallType);
 
+//        fragment.show(supportFragmentManager, "scan_results");
+    }
 
 
 }

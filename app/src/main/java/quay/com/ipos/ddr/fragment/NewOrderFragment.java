@@ -293,7 +293,10 @@ public class NewOrderFragment extends BaseFragment implements View.OnClickListen
         } );
     }
 
+    @Override
+    public void onDialogCancelClick(Dialog dialog, int mCallType) {
 
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

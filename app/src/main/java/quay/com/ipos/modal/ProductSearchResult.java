@@ -141,7 +141,7 @@ public class ProductSearchResult {
         private boolean isNonCheckOutAdded = false;
         private double OTCDiscount;
         private boolean discSelected = false;
-        private boolean discItemSelected = false;
+
         private boolean ItemSelected = false;
         private boolean OTCselected = false;
         private boolean isEdited = false;
@@ -376,13 +376,6 @@ public class ProductSearchResult {
             this.discSelected = discSelected;
         }
 
-        public boolean isDiscItemSelected() {
-            return discItemSelected;
-        }
-
-        public void setDiscItemSelected(boolean discItemSelected) {
-            this.discItemSelected = discItemSelected;
-        }
 
         // custom methods
         public boolean isItemSelected() {
@@ -460,8 +453,9 @@ public class ProductSearchResult {
 
 
     public class Discount {
-        double discountTotal;
+        double discountTotal=0.0;
         boolean isFreeItem=false;
+        private boolean discItemSelected = false;
         @SerializedName("sDiscountName")
         @Expose
         private String sDiscountName;
@@ -486,6 +480,13 @@ public class ProductSearchResult {
 
         public void setSDiscountDisplayName(String sDiscountDisplayName) {
             this.sDiscountDisplayName = sDiscountDisplayName;
+        }
+        public boolean isDiscItemSelected() {
+            return discItemSelected;
+        }
+
+        public void setDiscItemSelected(boolean discItemSelected) {
+            this.discItemSelected = discItemSelected;
         }
 
         public boolean isFreeItem() {

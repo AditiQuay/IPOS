@@ -80,15 +80,8 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvItemPrice =  itemView.findViewById(R.id.tvItemPrice);
             tvItemStockAvailabilty =  itemView.findViewById(R.id.tvItemStockAvailabilty);
             tvCheckStock =  itemView.findViewById(R.id.tvCheckStock);
-          //  tvMinus =  itemView.findViewById(R.id.tvMinus);
-          //  etQtySelected =  itemView.findViewById(R.id.etQtySelected);
-          //  tvPlus =  itemView.findViewById(R.id.tvPlus);
-          //  tvOffers =  itemView.findViewById(R.id.tvOffers);
-         //   tvReserved =  itemView.findViewById(R.id.tvReserved);
             tvAddCart =  itemView.findViewById(R.id.tvAddCart);
-         //   imvProduct =  itemView.findViewById(R.id.imvProduct);
             imvInfo = itemView.findViewById(R.id.imvInfo);
-         //   etQtySelected =  itemView.findViewById(R.id.etQtySelected);
         }
     }
 
@@ -130,50 +123,9 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
            userViewHolder.tvAddCart.setOnClickListener(mOnClickListener);
             userViewHolder.tvAddCart.setTag(position);
 
-         /*   userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
-            userViewHolder.tvMinus.setTag(position);
-
-            userViewHolder.tvPlus.setOnClickListener(mOnClickListener);
-            userViewHolder.tvPlus.setTag(position);*/
-
             userViewHolder.imvInfo.setOnClickListener(mOnClickListener);
             userViewHolder.imvInfo.setTag(position);
 
-        //    userViewHolder.tvReserved.setOnClickListener(mOnClickListener);
-          //  userViewHolder.tvReserved.setTag(position);
-
-     //       userViewHolder.tvOffers.setOnClickListener(mOnClickListener);
-      //      userViewHolder.tvOffers.setTag(position);
-
-           /* userViewHolder.etQtySelected.setTag(position);
-            userViewHolder.etQtySelected.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    if(!onBind) {
-                        if (!charSequence.toString().isEmpty()) {
-                            if (Integer.parseInt(charSequence.toString())<1) {
-                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
-                            }else {
-                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(charSequence.toString()));
-                            }
-
-                        }else {
-                            listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
-                        }
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-*/
         }
         else if (holder instanceof AddNewOrderAdapter.LoadingViewHolder) {
             AddNewOrderAdapter.LoadingViewHolder loadingViewHolder = (AddNewOrderAdapter.LoadingViewHolder) holder;
@@ -193,8 +145,4 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemCount() {
         return mDataset == null ? 0 : mDataset.size();
     }
-
-// public void setLoaded() {
-// isLoading = false;
-// }
 }

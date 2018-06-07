@@ -195,6 +195,11 @@ public class PinnedOrderActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
+    public void onDialogCancelClick(Dialog dialog, int mCallType) {
+
+    }
+
+    @Override
     public void onDialogPositiveClick(Dialog dialog, int mCallType) {
         if(mCallType==Constants.APP_DIALOG_Pinned_ORDER) {
             mOrderInfoArrayList.remove(pinned_pos);
