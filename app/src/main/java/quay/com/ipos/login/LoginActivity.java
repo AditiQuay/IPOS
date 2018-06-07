@@ -29,7 +29,6 @@ import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.base.RunTimePermissionActivity;
-import quay.com.ipos.customerInfo.customerAdd.CustomerAddMain;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.realmbean.RealmController;
@@ -246,7 +245,6 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         dismissProgress();
         if (httpStatusCode == Constants.SUCCESS) {
             if (resultObj != null) {
-
 
                 LoginResult loginResult = (LoginResult) resultObj;
                 Gson gson = new GsonBuilder().create();

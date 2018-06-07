@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rLayoutProductTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app_background_color"
+        android:paddingBottom="@dimen/dim_8"
+        android:paddingLeft="@dimen/dim_8"
+        android:paddingRight="@dimen/dim_8"
+        android:paddingTop="@dimen/dim_8">
+
+        <TextView
+            android:id="@+id/textViewBillingInfoHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bills &amp; Deliver Sites"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/universal_text_size16" />
+
+        <TextView
+            android:id="@+id/textViewMadatory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="* Mandatory"
+            android:textColor="@color/red"
+            android:textSize="@dimen/universal_text_size13"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/textViewLastUpdated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textViewMadatory"
+            android:layout_marginTop="@dimen/dim_4"
+            android:text="Last Updated : 30 Mar 2018"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/universal_text_size14"
+            tools:ignore="RtlSymmetry" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewBillingInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lLayoutBottom"
+        android:layout_below="@+id/rLayoutProductTitle"
+        android:layout_marginTop="@dimen/dim_4"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+
+
+    <LinearLayout
+        android:id="@+id/lLayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dim_8"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnBillingCancel"
+                style="@style/styleWhiteTextColor14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_40"
+                android:background="@drawable/button_rectangle_grey"
+                android:stateListAnimator="@null"
+                android:text="Cancel"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dim_8"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnBillingsubmit"
+                style="@style/styleWhiteTextColor14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_40"
+                android:background="@drawable/button_drawable_blue"
+                android:backgroundTint="@color/colorPrimary"
+                android:stateListAnimator="@null"
+                android:text="Submit"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

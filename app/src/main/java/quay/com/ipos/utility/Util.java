@@ -86,7 +86,9 @@ public class Util {
     private static TelephonyManager telephonyManager;
 
 
-    /** The typeface cache. */
+    /**
+     * The typeface cache.
+     */
     public static Map<String, Typeface> typefaceCache = new HashMap<String, Typeface>();
 
     public static boolean isJellyBean() {
@@ -121,6 +123,7 @@ public class Util {
         GsonBuilder gb = new GsonBuilder();
         return gb.create();
     }
+
     /*Util for progress dialog*/
     public static ProgressDialog showProgressDialog(Context context, String message) {
         ProgressDialog m_Dialog = new ProgressDialog(context);
@@ -132,13 +135,12 @@ public class Util {
         return m_Dialog;
 
     }
+
     /**
      * Sets the typeface.
      *
-     * @param attrs
-     *            the attrs
-     * @param textView
-     *            the text view
+     * @param attrs    the attrs
+     * @param textView the text view
      */
     public static void setTypeface(AttributeSet attrs, TextView textView) {
         Context context = textView.getContext();
@@ -152,15 +154,14 @@ public class Util {
             try {
 
 
-
 //                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
 //                        context.getString(R.string.assets_fonts_folder) + typefaceName);
-                if(typefaceName==null)
-                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
-                        context.getString(R.string.assets_fonts_folder) + "/TitilliumWeb-Regular.ttf");
+                if (typefaceName == null)
+                    typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
+                            context.getString(R.string.assets_fonts_folder) + "/TitilliumWeb-Regular.ttf");
                 else
                     typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
-                        context.getString(R.string.assets_fonts_folder) + typefaceName);
+                            context.getString(R.string.assets_fonts_folder) + typefaceName);
             } catch (Exception e) {
                 AppLog.v(context.getString(R.string.app_name), e.toString());
 //				AppLog.v(context.getString(R.string.app_name),
@@ -174,6 +175,7 @@ public class Util {
 
         values.recycle();
     }
+
     public static boolean isConnected() {
         ConnectivityManager cm = (ConnectivityManager) mContext
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -201,7 +203,7 @@ public class Util {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 
-    public static void showToast(String message,Context mContext) {
+    public static void showToast(String message, Context mContext) {
         Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
     }
 
@@ -244,8 +246,8 @@ public class Util {
         return new File(path);
     }
 
-    public static String getCurrentTimeStamp(){
-        Long tsLong = System.currentTimeMillis()/1000;
+    public static String getCurrentTimeStamp() {
+        Long tsLong = System.currentTimeMillis() / 1000;
         String ts = tsLong.toString();
         return ts;
     }
@@ -276,7 +278,6 @@ public class Util {
             }
         }
     }
-
 
 
     public static void hideKeyboard(EditText editText) {
@@ -408,7 +409,6 @@ public class Util {
 //    }
 
 
-
     public static String capitalize(final String line) {
         return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
@@ -455,9 +455,6 @@ public class Util {
     }
 
 
-
-
-
     public static int dpToPx(Context context, int dp) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
@@ -474,7 +471,6 @@ public class Util {
     }
 
 
-
     public static String getFormattedDates(String strCurrentDate, String dateFormat1, SimpleDateFormat format3) {
         try {
             SimpleDateFormat format = new SimpleDateFormat(dateFormat1);
@@ -486,6 +482,16 @@ public class Util {
         return null;
     }
 
+    public static String getFormattedDates(Date data) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            Date newDate = data;
+            return format.format(newDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     public static void animateView(View v) {
@@ -548,8 +554,7 @@ public class Util {
     /**
      * Gets the app shared preference.
      *
-     * @param aContext
-     *            the a context
+     * @param aContext the a context
      * @return the app shared preference
      */
 
@@ -587,9 +592,9 @@ public class Util {
 
     /**
      * Cache user.
-     *
-     *  user
-     *            the user
+     * <p>
+     * user
+     * the user
      */
 //    public static void cacheUser(User user) {
 //        Context context = SharekhanApplication.getAppInstance().getApplicationContext();
@@ -637,7 +642,6 @@ public class Util {
 //        }
 //        return user;
 //    }
-
     public static void cacheData(ArrayList<ProductList.Datum> mDatum) {
         Context context = IPOSApplication.getAppInstance().getApplicationContext();
         SharedPreferences sp = getAppSharedPreference(context);
@@ -697,7 +701,7 @@ public class Util {
         return (ArrayList<RealmPinnedResults.Info>) mQuestionList;
     }
 
-        public static void cachePinnedResults(RealmPinnedResults user) {
+    public static void cachePinnedResults(RealmPinnedResults user) {
         Context context = IPOSApplication.getContext();
         SharedPreferences sp = getAppSharedPreference(context);
 
@@ -712,7 +716,7 @@ public class Util {
 
 
     public static RealmPinnedResults getCachedPinnedResults() {
-            RealmPinnedResults user = null;
+        RealmPinnedResults user = null;
         Context context = IPOSApplication.getContext();
         SharedPreferences sp = getAppSharedPreference(context);
 
@@ -728,21 +732,20 @@ public class Util {
     }
 
 
-
-    public static double numberFormat(double number){
-        try{
+    public static double numberFormat(double number) {
+        try {
             NumberFormat nf = NumberFormat.getInstance();
             nf.setMaximumFractionDigits(1);// set as you need
             String myString = nf.format(number);
-            AppLog.e("Util","string : " + myString);
+            AppLog.e("Util", "string : " + myString);
             number = Double.parseDouble(myString);
-        }catch(Exception e){
-            System.out.println("ex="+e);
+        } catch (Exception e) {
+            System.out.println("ex=" + e);
         }
         return number;
     }
 
-    public static void OpenSetting(Context ctx){
+    public static void OpenSetting(Context ctx) {
         Intent intent = new Intent();
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         Uri uri = Uri.fromParts("package", ctx.getPackageName(), null);
@@ -750,12 +753,11 @@ public class Util {
         ctx.startActivity(intent);
     }
 
-    public static void showMessageDialog(Context mContext,MessageDialog.MessageDialogListener listener, String message, String yesButton, String noButton, int mCallType, String Title, FragmentManager supportFragmentManager) {
-        MessageDialog fragment = new MessageDialog(mContext,Title, message,yesButton,noButton, listener,mCallType);
+    public static void showMessageDialog(Context mContext, MessageDialog.MessageDialogListener listener, String message, String yesButton, String noButton, int mCallType, String Title, FragmentManager supportFragmentManager) {
+        MessageDialog fragment = new MessageDialog(mContext, Title, message, yesButton, noButton, listener, mCallType);
 
 //        fragment.show(supportFragmentManager, "scan_results");
     }
-
 
 
 }
