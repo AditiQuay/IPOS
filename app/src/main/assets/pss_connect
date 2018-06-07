@@ -1,0 +1,151 @@
+{
+  "RelationShipName": "McCopy Relation Ship",
+  "psslastUpdated": "2018-06-07",
+  "Relationship": {
+    "pssEntityName": "K.G. Traders",
+    "pssLOBS": [
+      {
+        "pssLobName": "McCoySoudal",
+        "pssLobCode": "1",
+        "pssType": "D"
+      },
+      {
+        "pssLobName": "McCoy 8M",
+        "pssLobCode": "2",
+        "pssType": "D"
+      },
+      {
+        "pssLobName": "McCoy Performance Silicons",
+        "pssLobCode": "3",
+        "pssType": "D"
+      }
+    ],
+    "pssPrincipleContact": [
+      {
+        "pssContactPersonName": "Rajeev Shrivastav ",
+        "pssDesignation": "Regional Manager"
+      },
+      {
+        "pssContactPersonName": "Kapil Sharma",
+        "pssDesignation": "Regional Incharge"
+      },
+      {
+        "pssContactPersonName": "R K Sharma",
+        "pssDesignation": "Area Manager"
+      }
+    ],
+    "pssPrincipleBankpaymentTo": [
+      {
+        "EntityPaytoName": "McCopy",
+        "principleAccountNo": "Abc1234567890",
+        "principleBankName": "Satet banlk Of India",
+        "principleBankBranchName": "Gurgaon cyber city",
+        "principleBankIFSCode": "SBI0001235"
+      },
+      {
+        "EntityPaytoName": "McCopy",
+        "principleAccountNo": "Abc1234567890",
+        "principleBankName": "Satet banlk Of Baroda",
+        "principleBankBranchName": "Delhi Saket center",
+        "principleBankIFSCode": "SBI0001244"
+      }
+    ]
+  },
+  "Business": {
+    "KeyBusinessInfo": {
+      "pssPartenerType": "Distributor",
+      "EntityCompaneyName": "KGM Traders",
+      "EntityCIN": "00011ABC",
+      "EntityPAN": "AIWPJ3425B",
+      "EntityKeyContactperson": "Alok Nath",
+      "EntitykeyContactPosition": "Director"
+    },
+    "BusinessLocation": {
+      "businessState": "delhi",
+      "businessCity": "KGM Traders",
+      "businessPINCode": "110088",
+      "BusinessZone": "East"
+    }
+  },
+  "Contact": {
+    "KeyBusinessContactInfo": {
+      "keyContactEntityEmpPosition": "Director",
+      "KeyContactEntityEmpperson": "Alok Nath",
+      "keyEntityEmpMobile1": "9717409993",
+      "keyEntityEmpMobile2": "9599297029",
+      "keyEntityEmpEmail": "jadhav_vilas84@gmail.com",
+      "keyEntityEmpNote": "this is note for me ..testing purpose"
+    }
+  },
+  "Acount": {
+    "entityAcountHolderName": "KGM Trader",
+    "entityAcountNo": "KYC Trader",
+    "entityAcountType": "Current",
+    "entityBankName": "State Bank of India",
+    "entityBankIFSCode": "SBI0001235",
+    "entityBranchAdddres": "SBI0001235",
+    "isSecurityCheques": true,
+    "cheques": [
+      {
+        "entitydrawnAccount": "003820132",
+        "chequeNo": "0034567",
+        "MaxLimitAmount": "500000"
+      },
+      {
+        "entitydrawnAccount": "003825342",
+        "chequeNo": "0034587",
+        "MaxLimitAmount": "450000"
+      }
+    ]
+  },
+  "BillandDelivery": [
+    {
+      "entityAddressType": "Bill and delivery",
+      "entityBusinessPalceName": "Shop/Store",
+      "entityBusinessPalceAddress": "KGM enterprice , tesst adddress ",
+      "entityBusinessCity": "New Delhi",
+      "entityBusinessState": "Delhi",
+      "entityBusinessGSTIN": "GST12345678",
+      "entityContactPerson": "Sunil Mehra",
+      "entityContactPersonMobile": "888001234"
+    },
+    {
+      "entityAddressType": "delivery To",
+      "entityBusinessPalceName": "Shop/Store",
+      "entityBusinessPalceAddress": "KGM enterprice , tesst adddress ",
+      "entityBusinessCity": "Gurgaon",
+      "entityBusinessState": "Haryana",
+      "entityBusinessGSTIN": "GST123476535",
+      "entityContactPerson": "R k Sharma",
+      "entityContactPersonMobile": "9766251169"
+    }
+  ],
+  "DocumentVoults": [
+    {
+      "Doctype": "Primary Photo",
+      "DocFileBase64": "base64string",
+      "DocFilename": "myphoto.png"
+    },
+    {
+      "Doctype": "PAN CARD",
+      "DocFileBase64": "base64string1",
+      "DocFilename": "myPAN.png"
+    },
+    {
+      "Doctype": "Appoint Form",
+      "DocFileBase64": "base64string1",
+      "DocFilename": "myAppointmentForm.png"
+    },
+    {
+      "Doctype": "Annexure Document",
+      "DocFileBase64": "base64string1",
+      "DocFilename": "myAnnexture.png"
+    },
+    {
+      "Doctype": "Compliance Certificate",
+      "DocFileBase64": "base64string1",
+      "DocFilename": "myCo,mpliancecert.png"
+    }
+  ]
+}
+

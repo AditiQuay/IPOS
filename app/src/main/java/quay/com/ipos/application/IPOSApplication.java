@@ -17,6 +17,7 @@ import java.util.HashMap;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import quay.com.ipos.R;
+import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.modal.ProductListResult;
@@ -81,6 +82,9 @@ public class IPOSApplication extends MultiDexApplication {
         return mContext;
     }
 
+    public static AppDatabase getDatabase() {
+        return AppDatabase.getAppDatabase(mContext);
+    }
 
 }
 
