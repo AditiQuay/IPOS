@@ -3,6 +3,7 @@ package quay.com.ipos.utility;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -120,7 +121,17 @@ public class Util {
         GsonBuilder gb = new GsonBuilder();
         return gb.create();
     }
+    /*Util for progress dialog*/
+    public static ProgressDialog showProgressDialog(Context context, String message) {
+        ProgressDialog m_Dialog = new ProgressDialog(context);
+        m_Dialog.setMessage(message);
+        m_Dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        m_Dialog.setCancelable(false);
+        m_Dialog.setCanceledOnTouchOutside(false);
+        m_Dialog.show();
+        return m_Dialog;
 
+    }
     /**
      * Sets the typeface.
      *

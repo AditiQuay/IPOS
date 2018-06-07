@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
+import quay.com.ipos.customerInfo.customerInfoModal.AddCustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.ChildModel;
 import quay.com.ipos.listeners.ButtonListener;
 
@@ -26,11 +26,11 @@ import quay.com.ipos.listeners.ButtonListener;
 public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdapter.MyView> implements AdapterView.OnItemSelectedListener {
     private Context context;
     private ButtonListener buttonListener;
-    private ArrayList<ChildModel> childModels;
+    private ArrayList<AddCustomerModel.CustomerChildBean> childModels;
     private String[] childGender = {"Male", "Female"};
     private String child = "";
 
-    public CustomerChildAdapter(Context context, ArrayList<ChildModel> childModels, ButtonListener buttonListener) {
+    public CustomerChildAdapter(Context context, ArrayList<AddCustomerModel.CustomerChildBean> childModels, ButtonListener buttonListener) {
         this.context = context;
         this.childModels = childModels;
         this.buttonListener = buttonListener;
@@ -46,10 +46,10 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
 
     @Override
     public void onBindViewHolder(final MyView holder, final int position) {
-        ChildModel model = childModels.get(position);
-        holder.tieChildFirstName.setText(model.getFirstName());
-        holder.tieChildLastName.setText(model.getLastName());
-        holder.tieChildDOB.setText(model.getChildDateOfBirth());
+        AddCustomerModel.CustomerChildBean model = childModels.get(position);
+        holder.tieChildFirstName.setText(model.getCustomerChildFirstName());
+        holder.tieChildLastName.setText(model.getCustomerChildLastName());
+        holder.tieChildDOB.setText(model.getCustomerChildDob());
 
         //Creating the ArrayAdapter instance having the name title list
         ArrayAdapter nameHeading = new ArrayAdapter(context, android.R.layout.simple_spinner_item, childGender);
@@ -72,7 +72,7 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
             @Override
             public void afterTextChanged(Editable s) {
                 buttonListener.onAdd(holder.getAdapterPosition(), holder.tieChildFirstName.getText().toString(), holder.tieChildLastName.getText().toString(),
-                        child,holder.tieChildDOB.getText().toString());
+                        child, holder.tieChildDOB.getText().toString());
             }
         });
         holder.tieChildFirstName.addTextChangedListener(new TextWatcher() {
@@ -89,9 +89,10 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
             @Override
             public void afterTextChanged(Editable s) {
                 buttonListener.onAdd(holder.getAdapterPosition(), holder.tieChildFirstName.getText().toString(), holder.tieChildLastName.getText().toString(),
-                        child,holder.tieChildDOB.getText().toString());
+                        child, holder.tieChildDOB.getText().toString());
             }
         });
+
         holder.tieChildDOB.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -106,7 +107,7 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
             @Override
             public void afterTextChanged(Editable s) {
                 buttonListener.onAdd(holder.getAdapterPosition(), holder.tieChildFirstName.getText().toString(), holder.tieChildLastName.getText().toString(),
-                        child,holder.tieChildDOB.getText().toString());
+                        child, holder.tieChildDOB.getText().toString());
             }
         });
 
@@ -134,6 +135,7 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 
     public class MyView extends RecyclerView.ViewHolder {
         private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDOB;
