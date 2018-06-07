@@ -72,17 +72,7 @@
                         android:paddingRight="@dimen/dim_5"
                         android:textSize="@dimen/text_size_15sp"/>
 
-                    <ToggleButton
-                        android:id="@+id/chkBarCode"
-                        android:layout_width="40dp"
-                        android:visibility="gone"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dim_10"
-                        android:layout_gravity="right|center_vertical"
-                        android:background="@drawable/toggle_selector"
-                        android:textOff=""
-                        android:checked="true"
-                        android:textOn=""/>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -113,11 +103,12 @@
                         android:background="@drawable/full_rectangle">
 
                     <android.support.v7.widget.AppCompatSpinner
-                        android:layout_width="wrap_content"
+                        android:id="@+id/spnAddress"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         style="@android:style/Widget.Holo.Light.Spinner"
-                        android:entries="@array/addressvalue"/>
+                        />
                     </LinearLayout>
                     <FrameLayout
                         style="?attr/actionButtonStyle"

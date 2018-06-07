@@ -10,11 +10,12 @@
         android:background="@color/coloryPrimary_transulent"
         android:orientation="horizontal">
         <CheckBox
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/chkDiscount"
             android:checked="true"
-            android:buttonTint="@color/colorAccentDark"
+            android:buttonTint="@color/colorPrimary"
             android:layout_marginLeft="@dimen/dim_10"/>
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvDiscount"

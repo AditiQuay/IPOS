@@ -170,10 +170,26 @@
                         android:textSize="@dimen/text_size_12sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
                 </LinearLayout>
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvCheckStock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="@string/check_stock"
+                    android:layout_marginTop="@dimen/dim_20"
+                    android:layout_marginBottom="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_5"
+                    android:paddingRight="@dimen/dim_5"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_drawable"
+                    android:textSize="@dimen/text_size_13sp"
+                    app:typeface="Roboto-Regular.ttf" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:orientation="horizontal"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/dim_12"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical">
@@ -270,6 +286,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/llAddMinus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"

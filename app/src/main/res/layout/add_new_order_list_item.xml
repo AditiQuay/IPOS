@@ -22,7 +22,6 @@
 
             <ImageView
                 android:id="@+id/imvProduct"
-                android:src="@drawable/if_light_bulb"
                 android:layout_width="60dp"
                 android:layout_marginTop="8dp"
                 android:layout_gravity="top"
@@ -225,6 +224,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/llAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_gravity="right|center"

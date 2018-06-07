@@ -13,21 +13,24 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.ddr.adapter.AddressListAdapter;
 import quay.com.ipos.ddr.adapter.ItemsDetailListAdapter;
+import quay.com.ipos.realmbean.RealmNewOrderCart;
+import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.SpacesItemDecoration;
 import quay.com.ipos.utility.Util;
 
-/**
- * Created by aditi.bhuranda on 20-04-2018.
- */
+
 
 public class NewOrderDetailsActivity extends BaseActivity implements View.OnClickListener{
     String[] address = {"1/82"};
@@ -42,6 +45,8 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
     private AddressListAdapter addressListAdapter;
     private ArrayList<RecentOrderModal> recentOrderModalArrayList=new ArrayList<>();
     private ArrayList<RecentOrderModal> addressList=new ArrayList<>();
+    TextView tvOrderName,OrderDate,tvStatus,orderValue,orderDiscount,deliverDate,loyaltyPoints,
+            accumulatedPoints,totalPoints,customerName,discount,tvOrderValue;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,21 +66,60 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
         getRecentOrdersData();
         getAddressData();
-        setOrdersData();
+        //setOrdersData();
     }
 
-    private void setOrdersData() {
-        tvTotalQty.setText(mOrderList.getTotalQty()+"");
-        tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+mOrderList.getTotalPrice()+"");
-        tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+mOrderList.getCgst()+"");
-        tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+mOrderList.getSgst()+"");
-        if(mOrderList.getRound_off()==0.0)
-            tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+mOrderList.getRound_off()+"");
-        else
-            tvRoundingOffPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+mOrderList.getRound_off()+"");
+
+    private void setAllData(){
+
+        Realm realm=Realm.getDefaultInstance();
+        RealmOrderList realmOrderLists=realm.where(RealmOrderList.class).equalTo("poNumber","P00001").findFirst();
+
+        if (realmOrderLists!=null){
+
+
+            tvOrderName.setText(realmOrderLists.getPoNumber());
+            OrderDate.setText(realmOrderLists.getPoDate());
+            tvStatus.setText(realmOrderLists.getPoStatus());
+            orderValue.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getOrderValue());
+            orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
+            deliverDate.setText(realmOrderLists.getDeliveryBy());
+            loyaltyPoints.setText(realmOrderLists.getOrderLoyality());
+            accumulatedPoints.setText(realmOrderLists.getAccumulatedLoyality());
+            totalPoints.setText(realmOrderLists.getTotalLoyality());
+            customerName.setText(realmOrderLists.getCustomerName());
+            discount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
+            tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getOrderValue());
+            tvTotalQty.setText(realmOrderLists.getQuantity()+"");
+            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getOrderValue()+"");
+            tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalCGSTValue()+"");
+            tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalSGSTValue()+"");
+            tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalRoundingOffValue()+"");
+
+        }
+
+
+
+
     }
+
 
     private void initializeComponent() {
+
+        tvOrderName = findViewById(R.id.tvOrderName);
+        OrderDate = findViewById(R.id.OrderDate);
+        tvStatus = findViewById(R.id.tvStatus);
+        orderValue = findViewById(R.id.orderValue);
+        orderDiscount = findViewById(R.id.orderDiscount);
+        deliverDate = findViewById(R.id.deliverDate);
+        loyaltyPoints = findViewById(R.id.loyaltyPoints);
+        accumulatedPoints = findViewById(R.id.accumulatedPoints);
+        totalPoints = findViewById(R.id.totalPoints);
+        customerName = findViewById(R.id.customerName);
+        discount = findViewById(R.id.discount);
+        tvOrderValue = findViewById(R.id.tvOrderValue);
+
+
         tvTotalQty = findViewById(R.id.tvTotalQty);
         tvTotalPriceBeforeGst = findViewById(R.id.tvTotalPriceBeforeGst);
         tvCGSTPrice = findViewById(R.id.tvCGSTPrice);

@@ -169,7 +169,6 @@ public class MainActivity extends BaseActivity
         mContext = MainActivity.this;
         if (NetUtil.isNetworkAvailable(mContext)) {
             getCustomerData();
-
         }
         findViewById();
         applyInitValues();
@@ -180,6 +179,7 @@ public class MainActivity extends BaseActivity
 
         retailSalesFragment1 = new RetailSalesFragment();
     }
+
 
 
     private void getCustomerData() {
@@ -643,6 +643,11 @@ public class MainActivity extends BaseActivity
             }
 
         }
+    }
+
+    @Override
+    public void onDialogCancelClick(Dialog dialog, int mCallType) {
+
     }
 
     private void closeDrawer() {
