@@ -183,6 +183,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
 
     @Override
     public void onRowClicked(int position) {
+        customerModelList.addAll(dbHelper.getAllNotes());
         CustomerModel customerInfoModal = customerModelList.get(position);
         Intent i = new Intent(CustomerInfoActivity.this, CustomerInfoDetailsActivity.class);
         i.putExtra("customerID", customerInfoModal.getCustomerID());

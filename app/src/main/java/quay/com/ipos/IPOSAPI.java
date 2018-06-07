@@ -1,12 +1,15 @@
 package quay.com.ipos;
 
+
+import okhttp3.MediaType;
+
 /**
  * API Methods of IPOS
  */
 public class IPOSAPI {
     public static String CONTENT_TYPE = "Content-Type";
     public static String APPLICATION_JSON = "application/json";
-    //  MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+     public static MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     public static String WEB_SERVICE_BASE_URL = "http://13.127.101.233:8087/api/";
     public static String WEB_SERVICE_LOGIN = "Token/GenerateToken";
     public static String WEB_SERVICE_SEARCH_PRODUCT = "Retail/SearchRetailProduct";
@@ -16,5 +19,6 @@ public class IPOSAPI {
     public static String WEB_SERVICE_PRODUCT_MAIN = "ProductCatalog/ProductCatalogMain";
     public static String WEB_SERVICE_PRODUCT_DETAIL = "ProductCatalog/ProductCatalogDetail";
     public static String WEB_SERVICE_PRODUCT_DESCRIPTION = "ProductCatalog/ProductCatalogDescription";
+    public static String WEB_SERVICE_CUSTOMER_DATA = "RetailCustomers/SyncRetailCustomerData";
 
 }

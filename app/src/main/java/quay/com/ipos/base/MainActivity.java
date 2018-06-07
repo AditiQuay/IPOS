@@ -155,10 +155,12 @@ public class MainActivity extends BaseActivity
     private JSONArray recentOrders;
     private String cFactore;
     private String customerType;
+    private String customerCode;
+    private String registeredBusinessPlaceID;
     private String customerDom;
     private Context mContext;
     private String customerStatus;
-
+    private ArrayList<CustomerModel> customerModels = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -173,6 +175,8 @@ public class MainActivity extends BaseActivity
         applyTypeFace();
         setDashBoard();
         dashboardItemFragment = new DashboardItemFragment();
+
+
         retailSalesFragment1 = new RetailSalesFragment();
     }
 
@@ -796,8 +800,10 @@ public class MainActivity extends BaseActivity
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         if (httpStatusCode == Constants.SUCCESS) {
             if (resultObj != null) {
-                dbHelper.removeAll();
-                fetchCustomerData(serverResponse);
+                if (dbHelper.isCustomerDataEmpty()){
+                    fetchCustomerData(serverResponse);
+                }
+
             }
 
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
@@ -862,14 +868,16 @@ public class MainActivity extends BaseActivity
 
                 // inserting note in db and getting
                 // newly inserted note id
-                long id = dbHelper.insertCustomer(customerID, customerTitle, customerName, customerFirstName, customerLastName, customerGender, customerBday, customerMaritalStatus,
-                        customerSpouseFirstName, customerSpouseLastName, customerSpouseDob, customerChildSatus, customerChild.toString(),
-                        customerEmail, customerEmail2, customerPhone, customerPhone2, customerPhone3, customerAddress, customerState, customerCity,
-                        customerPin, customerCountry, customerDesignation, customerCompany, custoemrGstin, customer, customerRelationship,
-                        customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom, 1);
+
+                    dbHelper.insertCustomer(customerID, customerTitle, customerName, customerFirstName, customerLastName, customerGender, customerBday, customerMaritalStatus,
+                            customerSpouseFirstName, customerSpouseLastName, customerSpouseDob, customerChildSatus, customerChild.toString(),
+                            customerEmail, customerEmail2, customerPhone, customerPhone2, customerPhone3, customerAddress, customerState, customerCity,
+                            customerPin, customerCountry, customerDesignation, customerCompany, custoemrGstin, customer, customerRelationship,
+                            customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom,"","" ,1);
+
 
 //                // get the newly inserted note from db
-                Log.e(TAG, "Newly added Customer***" + id);
+
 //                CustomerModel n = dbHelper.getCustomer(id);
 //                Log.e(TAG,"New Added"+ n);
 //                if (n != null) {
@@ -890,6 +898,4 @@ public class MainActivity extends BaseActivity
             e.printStackTrace();
         }
     }
-
-
 }

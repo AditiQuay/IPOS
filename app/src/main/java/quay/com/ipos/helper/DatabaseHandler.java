@@ -8,6 +8,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomerSpinner;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.utility.Util;
+
+import static quay.com.ipos.customerInfo.customerInfoModal.CustomerModel.TABLE_NAME;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -86,7 +89,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL);
 
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + CustomerModel.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + CustomerModel.TABLE_SPINNER);
 
 
@@ -633,8 +636,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(CustomerModel.TABLE_NAME,
-                new String[]{CustomerEnum.ColoumnCustomerID.toString(), CustomerEnum.ColoumnCustomerTitle.toString(), CustomerEnum.ColoumnCustomerName.toString(), CustomerEnum.ColoumnCustomerFirstName.toString(), CustomerEnum.ColoumnCustomerLastName.toString(),
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{CustomerEnum.ColoumnLocalID.toString(), CustomerEnum.ColoumnCustomerID.toString(), CustomerEnum.ColoumnCustomerTitle.toString(), CustomerEnum.ColoumnCustomerName.toString(), CustomerEnum.ColoumnCustomerFirstName.toString(), CustomerEnum.ColoumnCustomerLastName.toString(),
                         CustomerEnum.ColoumnCustomerGender.toString(), CustomerEnum.ColoumnCustomerBday.toString(), CustomerEnum.ColoumnCustomerMaritalStatus.toString(), CustomerEnum.ColoumnCustomerSpouseFirstName.toString(),
                         CustomerEnum.ColoumnCustomerSpouseLastName.toString(), CustomerEnum.ColoumnCustomerSpouseDob.toString(), CustomerEnum.ColoumnCustomerChildStatus.toString(), CustomerEnum.ColoumnCustomerChild.toString(),
                         CustomerEnum.ColoumnCustomerEmail.toString(), CustomerEnum.ColoumnCustomerEmail2.toString(), CustomerEnum.ColoumnCustomerPhone.toString(), CustomerEnum.ColoumnCustomerPhone2.toString(), CustomerEnum.ColoumnCustomerPhone3.toString(), CustomerEnum.ColoumnCustomerAddress.toString(), CustomerEnum.ColoumnCustomerState.toString(), CustomerEnum.ColoumnCustomerCity.toString(), CustomerEnum.ColoumnCustomerPin.toString(), CustomerEnum.ColoumnCustomerCountry.toString(), CustomerEnum.ColoumnCustomerDesignation.toString(), CustomerEnum.ColoumnCustomerCompany.toString(),
@@ -650,6 +653,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // prepare note object
         assert cursor != null;
         CustomerModel note = new CustomerModel(
+                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())),
@@ -689,6 +693,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
                 cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
 
 
@@ -738,6 +744,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                String cfactor,
                                String customerType,
                                String customerDom,
+                               String customerCode,
+                               String registeredBusinessPlaceID,
                                int sync) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
@@ -783,10 +791,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(CustomerEnum.ColoumncFactor.toString(), cfactor);
         values.put(CustomerEnum.ColoumncType.toString(), customerType);
         values.put(CustomerEnum.ColoumncCustomerDOM.toString(), customerDom);
+        values.put(CustomerEnum.ColoumnCustomerCode.toString(), customerCode);
+        values.put(CustomerEnum.ColoumnRegisteredBusinessPlace.toString(), registeredBusinessPlaceID);
         values.put(CustomerEnum.ColoumnIsSync.toString(), sync);
 
         // insert row
-        long id = db.insert(CustomerModel.TABLE_NAME, null, values);
+        long id = db.insert(TABLE_NAME, null, values);
         // close db connection
         db.close();
         // return newly inserted row id
@@ -796,9 +806,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Delete Customer Data
     public void deleteCustomerData(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(CustomerModel.TABLE_NAME, CustomerEnum.ColoumnCustomerID.toString() + " = ?",
+        db.delete(TABLE_NAME, CustomerEnum.ColoumnCustomerID.toString() + " = ?",
                 new String[]{String.valueOf(id)});
         db.close();
+    }
+
+    public int updateServerId(int localId, String serverId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CustomerEnum.ColoumnCustomerID.toString(), serverId);
+        values.put(CustomerEnum.ColoumnIsSync.toString(), 1);
+        // insert row
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnLocalID.toString() + " = ?", new String[]{String.valueOf(localId)});
+
     }
 
     //Update Customer Data
@@ -841,6 +861,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                               String cfactor,
                               String customerType,
                               String customerDom,
+                              String customerCode,
+                              String registeredBusinessPlaceID,
                               int sync) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
@@ -886,9 +908,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(CustomerEnum.ColoumncFactor.toString(), cfactor);
         values.put(CustomerEnum.ColoumncType.toString(), customerType);
         values.put(CustomerEnum.ColoumncCustomerDOM.toString(), customerDom);
+        values.put(CustomerEnum.ColoumnCustomerCode.toString(), customerCode);
+        values.put(CustomerEnum.ColoumnRegisteredBusinessPlace.toString(), registeredBusinessPlaceID);
         values.put(CustomerEnum.ColoumnIsSync.toString(), sync);
         // insert row
-        return db.update(CustomerModel.TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?",
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?",
                 new String[]{customerID});
 
         // return newly inserted row id
@@ -897,7 +921,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //Get Customer Record
     public long getRecordsCount() {
         SQLiteDatabase db = this.getReadableDatabase();
-        long count = DatabaseUtils.queryNumEntries(db, CustomerModel.TABLE_NAME);
+        long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
         db.close();
         return count;
     }
@@ -907,8 +931,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(CustomerModel.TABLE_NAME,
-                new String[]{CustomerEnum.ColoumnCustomerID.toString(),
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{
+                        CustomerEnum.ColoumnLocalID.toString(),
+                        CustomerEnum.ColoumnCustomerID.toString(),
                         CustomerEnum.ColoumnCustomerTitle.toString(),
                         CustomerEnum.ColoumnCustomerName.toString(),
                         CustomerEnum.ColoumnCustomerFirstName.toString(),
@@ -947,6 +973,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         CustomerEnum.ColoumncFactor.toString(),
                         CustomerEnum.ColoumncType.toString(),
                         CustomerEnum.ColoumncCustomerDOM.toString(),
+                        CustomerEnum.ColoumnCustomerCode.toString(),
+                        CustomerEnum.ColoumnRegisteredBusinessPlace.toString(),
                         CustomerEnum.ColoumnIsSync.toString()},
                 CustomerEnum.ColoumnCustomerID.toString() + "=?",
                 new String[]{id}, null, null, null, null);
@@ -956,6 +984,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // prepare note object
         assert cursor != null;
         CustomerModel note = new CustomerModel(
+                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())),
@@ -995,6 +1024,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
                 cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
 
         // close the db connection
@@ -1010,7 +1041,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // db.delete(String tableName, String whereClause, String[] whereArgs);
         // If whereClause is null, it will delete all rows.
         SQLiteDatabase db = this.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
-        db.delete(CustomerModel.TABLE_NAME, null, null);
+        db.delete(TABLE_NAME, null, null);
     }
 
     //Getting Offline customer
@@ -1018,14 +1049,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<CustomerModel> notes = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT  * FROM " + CustomerModel.TABLE_NAME + " where `" + CustomerEnum.ColoumnIsSync.toString() + "`="
-                + "0", null);
+        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABLE_NAME + " WHERE " + CustomerEnum.ColoumnIsSync.toString() + " = "
+                + 0, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 CustomerModel note = new CustomerModel();
-
                 note.setCustomerID(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString()))));
                 note.setCustomerTitle(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())));
                 note.setCustomerName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())));
@@ -1051,21 +1081,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setCustomerCountry(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCountry.toString())));
                 note.setCustomerDesignation(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerDesignation.toString())));
                 note.setCustomerCompany(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCompany.toString())));
-                note.setCustomerGstin(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())));
-                note.setCustomer(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomer.toString())));
+                note.setCustoemrGstin(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())));
                 note.setCustomerRelationship(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerRelationship.toString())));
-                note.setCustomerImage(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerImage.toString())));
-                note.setLastBillingDate(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingDate.toString())));
-                note.setLastBillingAmount(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingAmount.toString())));
-                note.setIssuggestion(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnIsSuggestion.toString())));
-                note.setSuggestion(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnSuggestion.toString())));
-                note.setCustomerPoints(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPoint.toString())));
-                note.setRecentOrders(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRecentOrders.toString())));
                 note.setCustomerStatus(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCustomerStatus.toString())));
                 note.setCfactor(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())));
                 note.setCustomerType(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())));
                 note.setCustomerDom(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())));
-                note.setIsSync(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
+                note.setCustomerCode(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())));
+                note.setRegisteredBusinessPlaceID(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())));
+
+                note.setCustomerChild(new Gson().toJson(note.getCustomerChild()));
                 notes.add(note);
             } while (cursor.moveToNext());
         }
@@ -1077,12 +1102,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return notes;
     }
 
+
+
     //Get All records from customer Database
     public ArrayList<CustomerModel> getAllNotes() {
         ArrayList<CustomerModel> notes = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT  * FROM " + CustomerModel.TABLE_NAME, null);
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT  * FROM " + TABLE_NAME, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -1113,7 +1140,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setCustomerCountry(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCountry.toString())));
                 note.setCustomerDesignation(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerDesignation.toString())));
                 note.setCustomerCompany(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCompany.toString())));
-                note.setCustomerGstin(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())));
+                note.setCustoemrGstin(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())));
                 note.setCustomer(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomer.toString())));
                 note.setCustomerRelationship(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerRelationship.toString())));
                 note.setCustomerImage(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerImage.toString())));
@@ -1127,6 +1154,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setCfactor(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())));
                 note.setCustomerType(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())));
                 note.setCustomerDom(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())));
+                note.setCustomerCode(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())));
+                note.setRegisteredBusinessPlaceID(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())));
                 note.setIsSync(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
                 notes.add(note);
             } while (cursor.moveToNext());
@@ -1140,7 +1169,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Insert Customer Data
-    public long insertSpinnerItems(String cityList,String stateList,String countryList,String designationList,String companyList,String relationshipList) {
+    public long insertSpinnerItems(String cityList, String stateList, String countryList, String designationList, String companyList, String relationshipList, String customerType) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -1152,6 +1181,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(CustomerEnum.ColoumnDesignationList.toString(), designationList);
         values.put(CustomerEnum.ColoumnCompanyList.toString(), companyList);
         values.put(CustomerEnum.ColoumnRelationShipList.toString(), relationshipList);
+        values.put(CustomerEnum.ColoumnTypeList.toString(), customerType);
 
 
         // insert row
@@ -1163,7 +1193,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Get All records from customer Database
-    public CustomerSpinner getCustomerSpinner() {
+    public ArrayList<CustomerSpinner> getCustomerSpinner() {
         ArrayList<CustomerSpinner> notes = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -1173,13 +1203,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 CustomerSpinner note = new CustomerSpinner();
-                note.setCityList(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnCityList.toString()))));
-                note.setStateList(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnStateList.toString()))));
-                note.setCountryList(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnCountryList.toString()))));
-                note.setDesignationList(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnDesignationList.toString()))));
-                note.setCompanyList(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnCompanyList.toString()))));
-                note.setCustomerList(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerList.toString()))));
-                note.setRelationshipList(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnRelationShipList.toString()))));
+                note.setCityList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCityList.toString()))));
+                note.setStateList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnStateList.toString()))));
+                note.setCountryList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCountryList.toString()))));
+                note.setDesignationList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnDesignationList.toString()))));
+                note.setCompanyList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCompanyList.toString()))));
+                note.setRelationshipList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRelationShipList.toString()))));
+                note.setCustomerTypeList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnTypeList.toString()))));
                 notes.add(note);
             } while (cursor.moveToNext());
         }
@@ -1188,7 +1218,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
 
         // return notes list
-        return notes.get(0);
+        return notes;
     }
 
     /**
@@ -1199,5 +1229,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // If whereClause is null, it will delete all rows.
         SQLiteDatabase db = this.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
         db.delete(CustomerModel.TABLE_SPINNER, null, null);
+    }
+    public boolean isCustomerDataEmpty() {
+
+        boolean flag;
+        String quString = "select exists(select * from " + TABLE_NAME + ");";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(quString, null);
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        if (count == 1) {
+            flag = false;
+        } else {
+            flag = true;
+        }
+        cursor.close();
+        db.close();
+
+        return flag;
     }
 }

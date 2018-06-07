@@ -1,5 +1,10 @@
 package quay.com.ipos.customerInfo.customerInfoModal;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
+
 import quay.com.ipos.enums.CustomerEnum;
 
 /**
@@ -9,6 +14,32 @@ import quay.com.ipos.enums.CustomerEnum;
 public class CustomerModel {
     public static final String TABLE_NAME = "customerList";
     public static final String TABLE_SPINNER = "spinnerList";
+
+    public String getRegisteredBusinessPlaceID() {
+        return registeredBusinessPlaceID;
+    }
+
+    public void setRegisteredBusinessPlaceID(String registeredBusinessPlaceID) {
+        this.registeredBusinessPlaceID = registeredBusinessPlaceID;
+    }
+
+    private String registeredBusinessPlaceID;
+
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
+    }
+
+    private String customerCode;
+
+    public int getLocalId() {
+        return localId;
+    }
+
+    private int localId;
 
 
     private String customerID;
@@ -61,13 +92,20 @@ public class CustomerModel {
         this.customerChildSatus = customerChildSatus;
     }
 
-    public String getCustomerChild() {
+    public List<CustomeChildListModel.ChildList> getCustomerChild() {
         return customerChild;
     }
 
-    public void setCustomerChild(String customerChild) {
+    public void setCustomerChild(List<CustomeChildListModel.ChildList> customerChild) {
         this.customerChild = customerChild;
     }
+
+    public void setCustomerChild(String customerChild) {
+        this.customerChild = new Gson().fromJson(customerChild, new TypeToken<List<CustomeChildListModel.ChildList>>() {
+        }.getType());
+
+    }
+
 
     public String getCustomerCountry() {
         return customerCountry;
@@ -75,14 +113,6 @@ public class CustomerModel {
 
     public void setCustomerCountry(String customerCountry) {
         this.customerCountry = customerCountry;
-    }
-
-    public String getCustomerGstin() {
-        return customerGstin;
-    }
-
-    public void setCustomerGstin(String customerGstin) {
-        this.customerGstin = customerGstin;
     }
 
     public String getCustomer() {
@@ -104,7 +134,7 @@ public class CustomerModel {
     private String customerSpouseLastName;
     private String customerSpouseDob;
     private String customerChildSatus;
-    private String customerChild;
+    private List<CustomeChildListModel.ChildList> customerChild;
     private String customerEmail;
     private String customerEmail2;
     private String customerPhone;
@@ -117,7 +147,16 @@ public class CustomerModel {
     private String customerCountry;
     private String customerDesignation;
     private String customerCompany;
-    private String customerGstin;
+
+    public String getCustoemrGstin() {
+        return custoemrGstin;
+    }
+
+    public void setCustoemrGstin(String custoemrGstin) {
+        this.custoemrGstin = custoemrGstin;
+    }
+
+    private String custoemrGstin;
     private String customer;
     private String customerRelationship;
     private String customerImage;
@@ -196,65 +235,70 @@ public class CustomerModel {
         this.customerImage = customerImage;
     }
 
-    public static final String SPINNER_TABLE_CREATE="CREATE TABLE "+TABLE_SPINNER+"("
-            +CustomerEnum.ColoumnStateList+" TEXT,"
-            +CustomerEnum.ColoumnCountryList+" TEXT,"
-            +CustomerEnum.ColoumnCityList+" TEXT,"
-            +CustomerEnum.ColoumnDesignationList+" TEXT,"
-            +CustomerEnum.ColoumnCompanyList+" TEXT,"
-            +CustomerEnum.ColoumnCustomerList+" TEXT,"
-            +CustomerEnum.ColoumnRelationShipList+" TEXT"+")";
+    public static final String SPINNER_TABLE_CREATE = "CREATE TABLE " + TABLE_SPINNER + "("
+            + CustomerEnum.ColoumnCityList + " TEXT,"
+            + CustomerEnum.ColoumnStateList + " TEXT,"
+            + CustomerEnum.ColoumnCountryList + " TEXT,"
+            + CustomerEnum.ColoumnDesignationList + " TEXT,"
+            + CustomerEnum.ColoumnCompanyList + " TEXT,"
+            + CustomerEnum.ColoumnCustomerList + " TEXT,"
+            + CustomerEnum.ColoumnRelationShipList + " TEXT,"
+            + CustomerEnum.ColoumnTypeList + " TEXT" + ")";
 
     // Create table SQL query
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
-                    + CustomerEnum.ColoumnCustomerID + " INTEGER PRIMARY KEY,"
-                    + CustomerEnum.ColoumnCustomerTitle + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerName + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerFirstName + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerLastName + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerGender + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerBday + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerMaritalStatus + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerSpouseFirstName + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerSpouseLastName + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerSpouseDob + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerChildStatus + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerChild + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerEmail + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerEmail2 + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerPhone + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerPhone2 + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerPhone3 + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerAddress + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerState + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerCity + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerPin + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerCountry + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerDesignation + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerCompany + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerGstin + " TEXT,"
-                    + CustomerEnum.ColoumnCustomer + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerRelationship + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerImage + " TEXT,"
-                    + CustomerEnum.ColoumnLastBillingDate + " TEXT,"
-                    + CustomerEnum.ColoumnLastBillingAmount + " TEXT,"
-                    + CustomerEnum.ColoumnIsSuggestion + " TEXT,"
-                    + CustomerEnum.ColoumnSuggestion + " TEXT,"
-                    + CustomerEnum.ColoumnRecentOrders + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerCustomerStatus + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerPoint + " TEXT,"
-                    + CustomerEnum.ColoumncFactor + " TEXT,"
-                    + CustomerEnum.ColoumncType + " TEXT,"
-                    + CustomerEnum.ColoumncCustomerDOM + " TEXT,"
-                    + CustomerEnum.ColoumnIsSync + " INTEGER" + ")";
+                    + CustomerEnum.ColoumnLocalID.toString() + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + CustomerEnum.ColoumnCustomerID.toString() + " INTEGER,"
+                    + CustomerEnum.ColoumnCustomerTitle.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerName.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerFirstName.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerLastName.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerGender.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerBday.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerMaritalStatus.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerSpouseFirstName.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerSpouseLastName.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerSpouseDob.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerChildStatus.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerChild.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerEmail.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerEmail2.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerPhone.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerPhone2.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerPhone3.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerAddress.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerState.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerCity.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerPin.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerCountry.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerDesignation.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerCompany.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerGstin.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomer.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerRelationship.toString()+ " TEXT,"
+                    + CustomerEnum.ColoumnCustomerImage.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnLastBillingDate.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnLastBillingAmount.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnIsSuggestion.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnSuggestion.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnRecentOrders.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerCustomerStatus.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerPoint.toString() + " TEXT,"
+                    + CustomerEnum.ColoumncFactor.toString() + " TEXT,"
+                    + CustomerEnum.ColoumncType.toString() + " TEXT,"
+                    + CustomerEnum.ColoumncCustomerDOM.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnCustomerCode.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnRegisteredBusinessPlace.toString() + " TEXT,"
+                    + CustomerEnum.ColoumnIsSync.toString() + " INTEGER" + ")";
 
 
     public CustomerModel() {
 
     }
 
-    public CustomerModel(String customerID,
+    public CustomerModel(int localId,
+                         String customerID,
                          String customerTitle,
                          String customerName,
                          String customerFirstName,
@@ -293,7 +337,10 @@ public class CustomerModel {
                          String cfactor,
                          String customerType,
                          String customerDom,
+                         String customerCode,
+                         String registeredBusinessPlaceID,
                          int sync) {
+        this.localId = localId;
         this.customerID = customerID;
         this.customerTitle = customerTitle;
         this.customerName = customerName;
@@ -306,7 +353,8 @@ public class CustomerModel {
         this.customerSpouseLastName = customerSpouseLastName;
         this.customerSpouseDob = customerSpouseDob;
         this.customerChildSatus = customerChildSatus;
-        this.customerChild = customerChild;
+        setCustomerChild(customerChild);
+        // this.customerChild = customerChild;
         this.customerEmail = customerEmail;
         this.customerEmail2 = customerEmail2;
         this.customerPhone = customerPhone;
@@ -319,7 +367,7 @@ public class CustomerModel {
         this.customerCountry = customerCountry;
         this.customerDesignation = customerDesignation;
         this.customerCompany = customerCompany;
-        this.customerGstin = customerGstin;
+        this.custoemrGstin = customerGstin;
         this.customer = customer;
         this.customerRelationship = customerRelationship;
         this.customerImage = customerImage;
@@ -333,6 +381,8 @@ public class CustomerModel {
         this.cfactor = cfactor;
         this.customerType = customerType;
         this.customerDom = customerDom;
+        this.customerCode = customerCode;
+        this.registeredBusinessPlaceID = registeredBusinessPlaceID;
         this.isSync = sync;
     }
 

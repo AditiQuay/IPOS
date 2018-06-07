@@ -290,6 +290,7 @@
     <string name="enter_return_amount">Enter Return Amount</string>
     <string name="enter_expiration_date">Expiration Date</string>
     <string name="new_billing_cart_message"><![CDATA[Do you want to save cart & Proceed?]]></string>
+    <string name="form_submitted_successfully">Form submmited succesfully</string>
 
 
 </resources>

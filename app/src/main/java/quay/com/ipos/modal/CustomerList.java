@@ -4,21 +4,69 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayList;
 
 public class CustomerList {
 
     @SerializedName("customer")
     @Expose
-    private List<Customer> customer = null;
+    private ArrayList<Customer> customer = null;
 
-    public List<Customer> getCustomer() {
+    public ArrayList<Customer> getCustomer() {
         return customer;
     }
 
-    public void setCustomer(List<Customer> customer) {
+    public void setCustomer(ArrayList<Customer> customer) {
         this.customer = customer;
     }
+
+    public class ChildResponseModel {
+
+        /**
+         * customerChildFirstName : string
+         * customerChildLastName : string
+         * customerChildGender : string
+         * customerChildDob : string
+         */
+
+        private String customerChildFirstName;
+        private String customerChildLastName;
+        private String customerChildGender;
+        private String customerChildDob;
+
+        public String getCustomerChildFirstName() {
+            return customerChildFirstName;
+        }
+
+        public void setCustomerChildFirstName(String customerChildFirstName) {
+            this.customerChildFirstName = customerChildFirstName;
+        }
+
+        public String getCustomerChildLastName() {
+            return customerChildLastName;
+        }
+
+        public void setCustomerChildLastName(String customerChildLastName) {
+            this.customerChildLastName = customerChildLastName;
+        }
+
+        public String getCustomerChildGender() {
+            return customerChildGender;
+        }
+
+        public void setCustomerChildGender(String customerChildGender) {
+            this.customerChildGender = customerChildGender;
+        }
+
+        public String getCustomerChildDob() {
+            return customerChildDob;
+        }
+
+        public void setCustomerChildDob(String customerChildDob) {
+            this.customerChildDob = customerChildDob;
+        }
+    }
+
     public class Customer {
 
         @SerializedName("customerID")
@@ -47,7 +95,7 @@ public class CustomerList {
         private LastBilling lastBilling;
         @SerializedName("recent_orders")
         @Expose
-        private List<RecentOrder> recentOrders = null;
+        private ArrayList<RecentOrder> recentOrders = null;
 
         public Integer getCustomerID() {
             return customerID;
@@ -113,11 +161,11 @@ public class CustomerList {
             this.lastBilling = lastBilling;
         }
 
-        public List<RecentOrder> getRecentOrders() {
+        public ArrayList<RecentOrder> getRecentOrders() {
             return recentOrders;
         }
 
-        public void setRecentOrders(List<RecentOrder> recentOrders) {
+        public void setRecentOrders(ArrayList<RecentOrder> recentOrders) {
             this.recentOrders = recentOrders;
         }
 
