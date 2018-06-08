@@ -1,5 +1,6 @@
 package quay.com.ipos.customerInfo.customerAdd;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -509,6 +510,9 @@ public class CustomerAddFullFragment extends Fragment implements InitInterface, 
             case R.id.btnCancel:
                 break;
             case R.id.btnFullFragmentSubmit:
+
+
+
                 String title = String.valueOf(titleSpinner.getSelectedItem());
                 String gender = String.valueOf(genderSpinner.getSelectedItem());
                 String maritalStatus = String.valueOf(maritalStatusSpinner.getSelectedItem());
@@ -605,6 +609,8 @@ public class CustomerAddFullFragment extends Fragment implements InitInterface, 
                     companySpinner.setError(getResources().getString(R.string.invalid_company));
                 }
 
+
+
                 if (!isFail) {
 
                     titleSpinner.setEnableErrorLabel(false);
@@ -620,6 +626,10 @@ public class CustomerAddFullFragment extends Fragment implements InitInterface, 
                     maritalStatusSpinner.setEnableErrorLabel(false);
                     designationSpinner.setEnableErrorLabel(false);
                     companySpinner.setEnableErrorLabel(false);
+                    View itemView = recyclerViewChild.getLayoutManager().findContainingItemView(v);
+                    TextInputEditText child = itemView.findViewById(R.id.tieChildFirstName);
+
+
                     sendCustomerData();
 
                 }
