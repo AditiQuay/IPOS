@@ -29,6 +29,7 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
 
@@ -187,7 +188,8 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         CustomerModel customerInfoModal = customerModelList.get(position);
         Intent i = new Intent(CustomerInfoActivity.this, CustomerInfoDetailsActivity.class);
         i.putExtra("customerID", customerInfoModal.getCustomerID());
-        startActivity(i);
+        startActivityForResult(i, Constants.ACT_CUSTOMER);
+//        finish();
 
     }
 
@@ -210,5 +212,26 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     @Override
     public void onInfoListener(int position) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+//        if(requestCode==Constants.ACT_CUSTOMER){
+            if(resultCode==Constants.ACT_CUSTOMER){
+                setResult(Constants.ACT_CUSTOMER,data);
+                finish();
+            }else if (resultCode==Constants.ACT_PAYMENT_NEW_BILLING)
+            {
+                setResult(Constants.ACT_PAYMENT_NEW_BILLING,data);
+                finish();
+            }else if(resultCode==Constants.ACT_PINNED){
+                setResult(Constants.ACT_PINNED,data);
+                finish();
+            }
+            else if (resultCode==0){
+                finish();
+            }
+//        }
     }
 }

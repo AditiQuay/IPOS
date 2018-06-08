@@ -80,7 +80,11 @@ public class Constants {
     public static final int DISCOUNT = 2;
     public static final String CHECK_DISCOUNT = "CHECK_DISCOUNT";
     public static final int ACT_PAYMENT = 100 ;
-    public static final int ACT_PAYMENT_NEW_BILLING = 100 ;
+    public static final int ACT_PAYMENT_NEW_BILLING = 300 ;
+    public static final int ACT_CUSTOMER = 301;
+    public static final String KEY_CUSTOMER_POINTS = "CUSTOMER_POINTS";
+    public static final int ACT_PINNED = 302;
+    public static final String PAYMENT_REQUEST = "payment_request";
     public static int APP_DIALOG_Pinned_ORDER=3;
 
     public static String UserProfilePic = "http://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png";
@@ -127,8 +131,6 @@ public class Constants {
     public static final String KEY_RELATION_LIST = "relationshipList";
 
 
-
-
-
+    public static String Login_result="login_result";
 }
 

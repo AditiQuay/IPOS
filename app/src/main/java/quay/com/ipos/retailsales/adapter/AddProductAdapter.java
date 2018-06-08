@@ -72,13 +72,14 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvItemName, tvItemWeight, tvStock, tvAdd,tvOfferDetail,tvUnitPrice;
+        public TextView tvItemName, tvItemWeight, tvStock, tvAdd,tvOfferDetail,tvUnitPrice,tvPoints;
         public ImageView imvProduct;
         private RelativeLayout llAdd;
 
         public UserViewHolder(View itemView) {
             super(itemView);
             tvItemName =  itemView.findViewById(R.id.tvItemName);
+            tvPoints =  itemView.findViewById(R.id.tvPoints);
             tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
             tvStock =  itemView.findViewById(R.id.tvStock);
             tvAdd =  itemView.findViewById(R.id.tvAdd);
@@ -135,6 +136,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             }else {
                 userViewHolder.tvOfferDetail.setVisibility(View.GONE);
             }
+            userViewHolder.tvPoints.setText(str.getPoints()+"");
             userViewHolder.llAdd.setOnClickListener(mOnClickListener);
             userViewHolder.llAdd.setTag(position);
 

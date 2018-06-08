@@ -60,6 +60,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_mrp = "mrp";
     private static final String KEY_barCodeNumber = "barCodeNumber";
     private static final String KEY_discount = "discount";
+    private static final String KEY_points = "points";
+    private static final String KEY_pointsBasedOn = "pointsBasedOn";
+    private static final String KEY_valueFrom = "valueFrom";
+    private static final String KEY_valueTo = "valueTo";
+    private static final String KEY_pointsPer = "pointsPer";
 
 
     public DatabaseHandler(Context context) {
@@ -73,7 +78,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_productCode + " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName + " TEXT," + KEY_sProductFeature + " TEXT," + KEY_sProductImage + " TEXT," + KEY_sProductPrice + " REAL," + KEY_sProductStock + " INTEGER," + KEY_sProductWeight + " INTEGER," + KEY_isDiscount + " INTEGER," + KEY_gstPerc + " REAL," + KEY_cgst + " REAL," + KEY_sgst + " REAL," + KEY_salesPrice + " REAL," + KEY_nrv + " REAL," + KEY_gpl + " REAL," + KEY_mrp + " REAL," + KEY_barCodeNumber + " TEXT," + KEY_discount + " TEXT" + ")";
+        String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_productCode + " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName + " TEXT," + KEY_sProductFeature + " TEXT," + KEY_sProductImage + " TEXT," + KEY_sProductPrice + " REAL," + KEY_sProductStock + " INTEGER," + KEY_sProductWeight + " INTEGER," + KEY_isDiscount + " INTEGER," + KEY_gstPerc + " REAL," + KEY_cgst + " REAL," + KEY_sgst + " REAL," + KEY_salesPrice + " REAL," + KEY_nrv + " REAL," + KEY_gpl + " REAL," + KEY_mrp + " REAL," + KEY_barCodeNumber + " TEXT," + KEY_discount + " TEXT," + KEY_points+ " INTEGER,"+KEY_pointsBasedOn+ " TEXT,"+KEY_pointsPer+ " INTEGER,"+KEY_valueFrom+ " INTEGER,"+KEY_valueTo+ " INTEGER"+")";
         db.execSQL(CREATE_RETAIL_TABLE);
 
         // create notes table
@@ -137,6 +142,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_mrp, datum.getMrp()); //
         values.put(KEY_barCodeNumber, datum.getBarCodeNumber()); //
         values.put(KEY_discount, Util.getCustomGson().toJson(datum.getDiscount())); //
+        values.put(KEY_points, datum.getPoints()); //
+        values.put(KEY_pointsBasedOn,datum.getPointsBasedOn()); //
+        values.put(KEY_pointsPer, datum.getPointsPer()); //
+        values.put(KEY_valueTo, datum.getValueTo()); //
+        values.put(KEY_valueFrom, datum.getValueFrom()); //
         // Inserting Row
         db.insert(TABLE_RETAIL, null, values);
         db.close(); // Closing database connection
@@ -167,6 +177,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_mrp, datum.getMrp()); //
         values.put(KEY_barCodeNumber, datum.getBarCodeNumber()); //
         values.put(KEY_discount, Util.getCustomGson().toJson(datum.getDiscount())); //
+        values.put(KEY_points, datum.getPoints()); //
+        values.put(KEY_pointsBasedOn,datum.getPointsBasedOn()); //
+        values.put(KEY_pointsPer, datum.getPointsPer()); //
+        values.put(KEY_valueTo, datum.getValueTo()); //
+        values.put(KEY_valueFrom, datum.getValueFrom()); //
         // Inserting Row
         db.insert(TABLE_RETAIL_CART, null, values);
         db.close(); // Closing database connection
@@ -362,6 +377,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 searchResult = Util.getCustomGson().fromJson(cursor.getString(18), new TypeToken<ArrayList<ProductSearchResult.Discount>>() {
                 }.getType());
                 datum.setDiscount(searchResult);
+                datum.setPoints(cursor.getInt(19)); //
+                datum.setPointsBasedOn(cursor.getString(20)); //
+                datum.setPointsPer(cursor.getInt(21)); //
+                datum.setValueTo(cursor.getInt(22)); //
+                datum.setValueFrom(cursor.getInt(23)); //
                 // Adding question to List
                 questionList.add(datum);
             } while (cursor.moveToNext());
@@ -412,6 +432,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 searchResult = Util.getCustomGson().fromJson(cursor.getString(18), new TypeToken<ArrayList<ProductSearchResult.Discount>>() {
                 }.getType());
                 datum.setDiscount(searchResult);
+                datum.setPoints(cursor.getInt(19)); //
+                datum.setPointsBasedOn(cursor.getString(20)); //
+                datum.setPointsPer(cursor.getInt(21)); //
+                datum.setValueTo(cursor.getInt(22)); //
+                datum.setValueFrom(cursor.getInt(23)); //
                 // Adding question to List
                 questionList.add(datum);
             } while (cursor.moveToNext());

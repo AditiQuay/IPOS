@@ -19,8 +19,7 @@
             android:layout_width="65dp"
             android:layout_height="match_parent"
             android:scaleType="centerInside"
-            android:layout_gravity="center"
-            android:src="@drawable/if_light_bulb" />
+            android:layout_gravity="center" />
 
         <ImageView
             android:layout_width="1dp"
