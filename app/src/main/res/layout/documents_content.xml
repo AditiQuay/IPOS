@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -25,118 +23,9 @@
             android:textSize="@dimen/universal_text_size16" />
     </RelativeLayout>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cardViewProduct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dim_8"
-        android:layout_marginLeft="@dimen/dim_8"
-        android:layout_marginRight="@dimen/dim_8"
-        app:cardCornerRadius="@dimen/dim_8"
-        app:cardElevation="0dp"
-        card_view:cardElevation="0dp">
-
-
-        <LinearLayout
-            android:id="@+id/lLayoutBottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/white"
-            android:baselineAligned="false">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:background="@color/grey">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-                    <!---->
-                    <ImageView
-                        android:id="@+id/imageViewProduct"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dim_100"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/place_holder" />
-
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/textViewProductName"
-                    style="@style/stylePrimaryTextColor14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="@dimen/dim_8"
-                    android:lines="2"
-                    android:padding="@dimen/dim_4"
-                    android:paddingTop="@dimen/dim_16"
-                    android:text="Status Approved" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/white"
-                    android:baselineAligned="false">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dim_8"
-                        android:layout_weight="1">
-
-                        <Button
-                            android:id="@+id/btnCancel"
-                            style="@style/styleWhiteTextColor14"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dim_40"
-                            android:padding="@dimen/dim_4"
-                            android:background="@drawable/button_drawable_blue"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:drawableLeft="@drawable/menu_camera"
-                            android:stateListAnimator="@null"
-                            android:text="Camera"
-                            android:textAllCaps="false" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dim_8"
-                        android:layout_weight="1">
-
-                        <Button
-                            android:id="@+id/btnsubmit"
-                            style="@style/styleWhiteTextColor14"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/dim_40"
-                            android:background="@drawable/button_drawable_blue"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:stateListAnimator="@null"
-                            android:text="Submit"
-                            android:textAllCaps="false" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </RelativeLayout>
-        </LinearLayout>
-
-
-    </android.support.v7.widget.CardView>
+    <include layout="@layout/kyc_photo" />
+    <include layout="@layout/kyc_pan"/>
+    <include layout="@layout/kyc_appointment"/>
+    <include layout="@layout/kyc_anexuredocument"/>
+    <include layout="@layout/kyc_compilance_document"/>
 </LinearLayout>

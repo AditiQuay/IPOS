@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +25,7 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.customerInfo.customerInfoModal.AddCustomerModel;
 import quay.com.ipos.listeners.ButtonListener;
+import quay.com.ipos.listeners.MySubmitButton;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
 
@@ -31,7 +33,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 5/31/2018.
  */
 
-public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdapter.MyView> implements AdapterView.OnItemSelectedListener {
+public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdapter.MyView> implements MySubmitButton,AdapterView.OnItemSelectedListener {
     private static final String TAG = CustomerChildAdapter.class.getSimpleName();
     private Context context;
     private ButtonListener buttonListener;
@@ -41,11 +43,12 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
     private DatePickerDialog datePickerDialog;
     private int Year, Month, Day;
     Date currentDateFormat = null;
-
-    public CustomerChildAdapter(Context context, ArrayList<AddCustomerModel.CustomerChildBean> childModels, ButtonListener buttonListener) {
+    MySubmitButton mySubmitButton;
+    public CustomerChildAdapter(Context context, ArrayList<AddCustomerModel.CustomerChildBean> childModels, ButtonListener buttonListener,MySubmitButton mySubmitButton) {
         this.context = context;
         this.childModels = childModels;
         this.buttonListener = buttonListener;
+        this.mySubmitButton = mySubmitButton;
     }
 
     @Override
@@ -69,6 +72,11 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
         holder.childGenderSpinner.setAdapter(nameHeading);
         holder.childGenderSpinner.setOnItemSelectedListener(this);
 
+//        if (holder.tieChildFirstName.getText().toString().equalsIgnoreCase("")){
+//            holder.tilChildfname.setErrorEnabled(true);
+//            holder.tieChildFirstName.setError(context.getResources().getString(R.string.invalid_f_name));
+//            holder.tieChildFirstName.setError("Please enter child first name");
+//        }
 
         holder.tieChildLastName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -83,6 +91,8 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
 
             @Override
             public void afterTextChanged(Editable s) {
+//                holder.tilChildfname.setErrorEnabled(true);
+//                holder.tilChildfname.setError(null);
                 buttonListener.onAdd(holder.getAdapterPosition(), holder.tieChildFirstName.getText().toString(), holder.tieChildLastName.getText().toString(),
                         child, holder.tieChildDOB.getText().toString());
             }
@@ -173,8 +183,14 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
 
     }
 
+    @Override
+    public void onClicked(int position, String firstName, String lastName, String childGender, String childDOB) {
+
+    }
+
 
     public class MyView extends RecyclerView.ViewHolder {
+        private TextInputLayout tilChildfname,tilLastName,tilChildDob;
         private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDOB;
         private MaterialSpinner childGenderSpinner;
 
@@ -183,7 +199,9 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
             tieChildFirstName = itemView.findViewById(R.id.tieChildFirstName);
             tieChildLastName = itemView.findViewById(R.id.tieChildLastName);
             tieChildDOB = itemView.findViewById(R.id.tieChildDOB);
-
+            tilChildfname = itemView.findViewById(R.id.tilChildfname);
+            tilLastName = itemView.findViewById(R.id.tilLastName);
+            tilChildDob = itemView.findViewById(R.id.tilChildDob);
             childGenderSpinner = itemView.findViewById(R.id.childGenderSpinner);
             //Personal
             FontUtil.applyTypeface(tieChildFirstName, FontUtil.getTypeFaceRobotTiteliumRegular(context));

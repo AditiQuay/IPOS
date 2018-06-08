@@ -9,6 +9,9 @@ public class RecentOrderModal {
     private String title;
     private String value;
     private String lessthan;
+    private String discountValue;
+    private String qty;
+
 
     public String getTitle() {
         return title;
@@ -32,5 +35,21 @@ public class RecentOrderModal {
 
     public void setLessthan(String lessthan) {
         this.lessthan = lessthan;
+    }
+
+    public String getDiscountValue() {
+        return discountValue;
+    }
+
+    public void setDiscountValue(String discountValue) {
+        this.discountValue = discountValue;
+    }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
     }
 }

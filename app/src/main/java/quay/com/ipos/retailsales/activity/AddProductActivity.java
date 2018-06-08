@@ -338,7 +338,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 
                     mProductSearchResult = (ProductSearchResult) resultObj;
                     data.addAll(mProductSearchResult.getData());
-
+                    IPOSApplication.datumArrayList.addAll(data);
                     if(databaseHandler.isRetailMasterEmpty()) {
                         for (int i = 0; i < data.size(); i++) {
                             databaseHandler.addProduct(data.get(i));

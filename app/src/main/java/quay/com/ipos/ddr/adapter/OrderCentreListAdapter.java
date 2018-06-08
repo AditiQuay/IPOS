@@ -20,6 +20,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.ddr.modal.OrderCentreModal;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.utility.AppLog;
@@ -40,11 +41,11 @@ public class OrderCentreListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         private int lastVisibleItem, totalItemCount;
         View.OnClickListener mOnClickListener;
         static Context mContext;
-        ArrayList<OrderList.Datum> mDataset;
+        ArrayList<OrderCentreModal> mDataset;
         RecyclerView mRecyclerView;
 
         public OrderCentreListAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                                      ArrayList<OrderList.Datum> orderList) {
+                                      ArrayList<OrderCentreModal> orderList) {
             this.mOnClickListener = mClickListener;
             this.mContext = ctx;
             this.mDataset = orderList;
@@ -111,10 +112,15 @@ public class OrderCentreListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (holder instanceof OrderCentreListAdapter.UserViewHolder) {
-                OrderList.Datum str = mDataset.get(position);
+                OrderCentreModal str = mDataset.get(position);
                 AppLog.e(OrderCentreListAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
                 OrderCentreListAdapter.UserViewHolder userViewHolder = (OrderCentreListAdapter.UserViewHolder) holder;
-                userViewHolder.tvQty.setText("Qty "+str.getQty());
+                userViewHolder.tvQty.setText("Qty "+str.getItemQty());
+                userViewHolder.tvBillingDate.setText(""+str.getModifiedDate());
+                userViewHolder.tvETADate.setText("Eta "+str.getEtaDate());
+                userViewHolder.tvItemNo.setText("Items "+str.getTotalItem());
+                userViewHolder.tvOrderNumber.setText(""+str.getRequestCode());
+                userViewHolder.tvTotalPrice.setText(""+str.getOrderValue());
             }
             else if (holder instanceof OrderCentreListAdapter.LoadingViewHolder) {
                 OrderCentreListAdapter.LoadingViewHolder loadingViewHolder = (OrderCentreListAdapter.LoadingViewHolder) holder;

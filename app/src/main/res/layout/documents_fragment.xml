@@ -3,15 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background_color">
-    <RelativeLayout
+
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_above="@+id/lLayoutBottom">
 
-        <include layout="@layout/documents_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/documents_content" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/lLayoutBottom"

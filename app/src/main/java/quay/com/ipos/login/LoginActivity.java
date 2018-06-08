@@ -31,6 +31,7 @@ import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.LoginResult;
+import quay.com.ipos.partnerConnect.DocumentsFragment;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
@@ -38,6 +39,7 @@ import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
+import quay.com.ipos.utility.Util;
 
 public class LoginActivity extends RunTimePermissionActivity implements InitInterface, View.OnClickListener, View.OnFocusChangeListener, ServiceTask.ServiceResultListener {
 
@@ -238,6 +240,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
             }
 
         }
+
     }
 
     @Override
@@ -249,6 +252,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                 LoginResult loginResult = (LoginResult) resultObj;
                 Gson gson = new GsonBuilder().create();
                 gson.fromJson(serverResponse, LoginResult.class);
+                SharedPrefUtil.putString(Constants.Login_result, Util.getCustomGson().toJson(loginResult),mContext);
                 SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
                 SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().getAccessToken(), mContext);
                 SharedPrefUtil.setStoreID(Constants.STORE_ID.trim(), loginResult.getUserAccess().getWorklocationID(), mContext);

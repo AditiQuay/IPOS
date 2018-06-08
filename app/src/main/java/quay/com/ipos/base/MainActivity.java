@@ -2,7 +2,6 @@ package quay.com.ipos.base;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -189,9 +187,12 @@ public class MainActivity extends BaseActivity
         if (NetUtil.isNetworkAvailable(mContext)) {
             getCustomerData();
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 20dadb84bd324f8271b5a9e12522cbc99e2a853e
         }
         findViewById();
         applyInitValues();
@@ -855,7 +856,7 @@ public class MainActivity extends BaseActivity
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         if (httpStatusCode == Constants.SUCCESS) {
             if (resultObj != null) {
-                if (dbHelper.isCustomerDataEmpty()){
+                if (dbHelper.isCustomerDataEmpty()) {
                     fetchCustomerData(serverResponse);
                 }
 
@@ -924,11 +925,11 @@ public class MainActivity extends BaseActivity
                 // inserting note in db and getting
                 // newly inserted note id
 
-                    dbHelper.insertCustomer(customerID, customerTitle, customerName, customerFirstName, customerLastName, customerGender, customerBday, customerMaritalStatus,
-                            customerSpouseFirstName, customerSpouseLastName, customerSpouseDob, customerChildSatus, customerChild.toString(),
-                            customerEmail, customerEmail2, customerPhone, customerPhone2, customerPhone3, customerAddress, customerState, customerCity,
-                            customerPin, customerCountry, customerDesignation, customerCompany, custoemrGstin, customer, customerRelationship,
-                            customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom,"","" ,1);
+                dbHelper.insertCustomer(customerID, customerTitle, customerName, customerFirstName, customerLastName, customerGender, customerBday, customerMaritalStatus,
+                        customerSpouseFirstName, customerSpouseLastName, customerSpouseDob, customerChildSatus, customerChild.toString(),
+                        customerEmail, customerEmail2, customerPhone, customerPhone2, customerPhone3, customerAddress, customerState, customerCity,
+                        customerPin, customerCountry, customerDesignation, customerCompany, custoemrGstin, customer, customerRelationship,
+                        customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom, "", "", 1);
 
 
 //                // get the newly inserted note from db

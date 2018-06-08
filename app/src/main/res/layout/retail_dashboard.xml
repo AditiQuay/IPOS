@@ -98,6 +98,7 @@
                 android:src="@drawable/ic_action_loyality_white"/>
 
             <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvRedeemPoints"
                 android:layout_width="28dp"
                 android:layout_height="20dp"
                 android:layout_gravity="right|end|top"
@@ -107,9 +108,8 @@
                 android:background="@drawable/yellow_circle"
                 android:gravity="center"
                 android:padding="3dp"
-                android:maxLength="3"
+                android:visibility="gone"
                 android:textColor="@android:color/white"
-                android:text="164"
                 android:textSize="10sp"/>
 
         </FrameLayout>
