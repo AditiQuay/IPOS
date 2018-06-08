@@ -41,28 +41,120 @@
       ]
     },
     "Business": {
+      "partnerType": [
+        {
+          "Type": "Distributor"
+        },
+        {
+          "Type": "Principal"
+        }
+      ],
       "KeyBusinessInfo": [
         {
           "partnerType": "Principal",
           "CompaneyName": "K.G. Traders",
-          "CIN": null,
-          "PAN": null,
+          "CIN": "",
+          "PAN": "",
           "keyContactPerson": "Deepak Kumar",
-          "keyContactPosition": "Traders Description"
-        }
-      ],
-      "BusinessLocation": [
-        {
-          "businessState": "Haryana",
-          "businessCity": "Gurugram",
-          "businessPINCode": "122022",
-          "BusinessZone": null
+          "keyContactPosition": "Traders Description",
+          "BusinessLocation": {
+            "businessState": "Haryana",
+            "businessCity": "Gurugram",
+            "businessPINCode": "122022",
+            "BusinessZone": null
+          }
         }
       ]
     },
-    "Contact": [],
-    "Account": [],
-    "BillandDelivery": [],
-    "DocumentVoults": []
+    "Contact": {
+      "KeyBusinessContactInfo": [
+        {
+          "keyContactEntityEmpPosition": "Programmer",
+          "KeyContactEntityEmpperson": "Vilas Jadhav",
+          "keyEntityEmpMobile1": "9717409993",
+          "keyEntityEmpMobile2": null,
+          "keyEntityEmpEmail": "vilas.jadhav@quayintech.com",
+          "keyEntityEmpNote": null
+        },
+        {
+          "keyContactEntityEmpPosition": "Programmmer",
+          "KeyContactEntityEmpperson": "Niraj Kumar",
+          "keyEntityEmpMobile1": "1234567890",
+          "keyEntityEmpMobile2": null,
+          "keyEntityEmpEmail": "niraj.kumar@quayintech.com",
+          "keyEntityEmpNote": null
+        },
+        {
+          "keyContactEntityEmpPosition": "Programmer",
+          "KeyContactEntityEmpperson": "Deepak Kumar",
+          "keyEntityEmpMobile1": "9876543210",
+          "keyEntityEmpMobile2": null,
+          "keyEntityEmpEmail": "deepak.kumar1@quayintech.com",
+          "keyEntityEmpNote": null
+        }
+      ]
+    },
+    "Account": {
+      "entityAcountHolderName": "K.G. Traders",
+      "entityAcountNo": "0000998821340",
+      "entityAcountType": "Saving",
+      "entityBankName": "Bank Of baroda",
+      "entityBankIFSCode": "BB0001267",
+      "entityBranchAdddres": "New Gurgaon",
+      "isSecurityCheques": true,
+      "cheques": [
+        {
+          "ID": 1,
+          "EntityBankAcHoderID": 3,
+          "entitydrawnAccount": "1234567896",
+          "chequeNo": "9991237",
+          "MaxLimitAmount": 50000
+        },
+        {
+          "ID": 2,
+          "EntityBankAcHoderID": 3,
+          "entitydrawnAccount": "7774523901",
+          "chequeNo": "8881432",
+          "MaxLimitAmount": 10000
+        }
+      ]
+    },
+    "BillandDelivery": {
+      "entityAddressType": "Bill and delivery",
+      "entityBusinessPalceName": "Shop/Store",
+      "entityBusinessPalceAddress": "Sector -21",
+      "entityBusinessCity": "Gurugram",
+      "entityBusinessState": "Haryana",
+      "entityBusinessGSTIN": "",
+      "entityContactPerson": "Sunil Mehra",
+      "entityContactPersonMobile": "888001234"
+    },
+    "DocumentVoults": [
+      {
+        "Doctype": "PAN",
+        "DocFilename": "mypan.png",
+        "DocFileBase64": null
+      },
+      {
+        "Doctype": "IDPHOTO",
+        "DocFilename": "myid.png",
+        "DocFileBase64": null
+      },
+      {
+        "Doctype": "AppointmentForm",
+        "DocFilename": "aptmnt.png",
+        "DocFileBase64": null
+      },
+      {
+        "Doctype": "Annexure",
+        "DocFilename": "anxure.png",
+        "DocFileBase64": null
+      },
+      {
+        "Doctype": "compliance cert",
+        "DocFilename": "cmplCert.png",
+        "DocFileBase64": null
+      }
+    ]
   }
 }

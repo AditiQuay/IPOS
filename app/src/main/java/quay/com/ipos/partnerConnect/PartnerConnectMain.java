@@ -64,6 +64,10 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         getServerData();
     }
 
+    public ViewPager getViewPager() {
+        return viewPager;
+    }
+
     @Override
     public void findViewById() {
         toolbar = findViewById(R.id.appBar);
@@ -155,6 +159,11 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
            /* if (mListener != null) {
                 mListener.onPageSelected(position);
             }*/
+            if (position == 0) {
+                findViewById(R.id.bottom_sheet).setVisibility(View.GONE);
+            } else {
+                findViewById(R.id.bottom_sheet).setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -234,9 +243,9 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
 
         String localData = getLocalData();
-        PCModel pcModel = new Gson().fromJson(localData, PCModel.class);
+        PartnerConnectResponse pcModel = new Gson().fromJson(localData, PartnerConnectResponse.class);
         Log.i("localData", pcModel.toString());
-        pcModelLiveData.setValue(pcModel);
+        pcModelLiveData.setValue(pcModel.response);
     }
 
     private String getLocalData() {

@@ -1,5 +1,6 @@
 package quay.com.ipos.partnerConnect;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,8 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.partnerConnect.model.PCModel;
+import quay.com.ipos.partnerConnect.partnerConnectAdapter.BusinessAdapter;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.ContactInfoAdapter;
 import quay.com.ipos.partnerConnect.partnerConnectModel.ContactModel;
 import quay.com.ipos.utility.FontUtil;
@@ -30,6 +34,7 @@ import quay.com.ipos.utility.FontUtil;
  */
 
 public class ContactFragment extends Fragment implements InitInterface, ButtonListener, View.OnClickListener {
+    private static final String TAG = ContactFragment.class.getSimpleName();
     private View main;
     private TextView textViewLastUpdated, textViewMadatory, textViewContactInfoHeading;
 
@@ -39,7 +44,7 @@ public class ContactFragment extends Fragment implements InitInterface, ButtonLi
     private RecyclerView recyclerViewContactInfo;
     private ArrayList<ContactModel> contactModels = new ArrayList<>();
     private Context mContext;
-    private Button btnContactCancel, btnContactSubmit;
+    private Button btnCancel, btnsubmit;
 
 
     @Nullable
@@ -69,13 +74,14 @@ public class ContactFragment extends Fragment implements InitInterface, ButtonLi
         tieSecondaryMobileNumField = main.findViewById(R.id.tieSecondaryMobileNumField);
         tiekeyEmailField = main.findViewById(R.id.tiekeyEmailField);
         tiekeyNoteField = main.findViewById(R.id.tiekeyNoteField);
-        btnContactCancel = main.findViewById(R.id.btnContactCancel);
-        btnContactSubmit = main.findViewById(R.id.btnContactSubmit);
+        btnCancel = getActivity().findViewById(R.id.btnCancel);
+        btnsubmit = getActivity().findViewById(R.id.btnsubmit);
         textViewContactInfoHeading = main.findViewById(R.id.textViewContactInfoHeading);
 
         recyclerViewContactInfo = main.findViewById(R.id.recyclerViewContactInfo);
-        btnContactCancel.setOnClickListener(this);
-        btnContactSubmit.setOnClickListener(this);
+
+        btnCancel.setOnClickListener(this);
+        btnsubmit.setOnClickListener(this);
     }
 
     @Override
@@ -89,10 +95,10 @@ public class ContactFragment extends Fragment implements InitInterface, ButtonLi
         contactModel.setSecondaryMobile("");
         contactModels.add(contactModel);
 
-        recyclerViewContactInfo.setHasFixedSize(true);
+     //   recyclerViewContactInfo.setHasFixedSize(true);
         recyclerViewContactInfo.setLayoutManager(new LinearLayoutManager(mContext));
-        ContactInfoAdapter contactInfoAdapter = new ContactInfoAdapter(mContext, contactModels, this);
-        recyclerViewContactInfo.setAdapter(contactInfoAdapter);
+       // ContactInfoAdapter contactInfoAdapter = new ContactInfoAdapter(mContext, contactModels, this);
+     //   recyclerViewContactInfo.setAdapter(contactInfoAdapter);
     }
 
     @Override
@@ -138,5 +144,32 @@ public class ContactFragment extends Fragment implements InitInterface, ButtonLi
     @Override
     public void onClick(View v) {
 
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadData();
+    }
+    private void loadData() {
+        PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
+        if (partnerConnectMain != null) {
+            partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
+                @Override
+                public void onChanged(@Nullable PCModel pcModel) {
+                    pcModel = pcModel;
+                    setData(pcModel);
+
+                }
+            });
+        }
+    }
+    private void setData(PCModel pcModel) {
+        if (pcModel == null && pcModel.Business == null) {
+            Log.i(TAG, "pcModel or pcModel.Business is null");
+            return;
+        }
+
+
+        recyclerViewContactInfo.setAdapter(new ContactInfoAdapter(getActivity(), pcModel.Contact.KeyBusinessContactInfo, ContactFragment.this));
     }
 }

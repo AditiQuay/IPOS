@@ -1,34 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background_color">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:paddingBottom="100dp">
 
-        <include layout="@layout/business_content" />
+        <!--<RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <include layout="@layout/business_content" />
 
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/dim_70"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:layout_marginTop="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@drawable/icon_plus"
-        tools:ignore="VectorDrawableCompat" />
-</android.support.design.widget.CoordinatorLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="@dimen/dim_70"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
+            app:backgroundTint="@color/colorPrimary"
+            app:srcCompat="@drawable/icon_plus"
+            tools:ignore="VectorDrawableCompat" />-->
+        <RelativeLayout
+            android:id="@+id/rLayoutProductTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_background_color"
+            android:paddingBottom="@dimen/dim_8"
+            android:paddingLeft="@dimen/dim_8"
+            android:paddingRight="@dimen/dim_8"
+            android:paddingTop="@dimen/dim_8">
+
+            <TextView
+                android:id="@+id/textViewBusinessInfoHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Key Business Info"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/universal_text_size16" />
+
+            <TextView
+                android:id="@+id/textViewMadatory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="* Mandatory"
+                android:textColor="@color/red"
+                android:textSize="@dimen/universal_text_size13"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/textViewLastUpdated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textViewMadatory"
+                android:layout_marginTop="@dimen/dim_4"
+                android:text="Last Updated : 30 Mar 2018"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/universal_text_size14"
+                tools:ignore="RtlSymmetry" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewBusinessInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dim_4"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            tools:listitem="@layout/business_item"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:spanCount="2"
+           />
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>
