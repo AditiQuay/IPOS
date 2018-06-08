@@ -364,7 +364,7 @@ public class Util {
 
     public static String getCurrentDate() {
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         formatedDate = df.format(c.getTime());
         return formatedDate;
     }

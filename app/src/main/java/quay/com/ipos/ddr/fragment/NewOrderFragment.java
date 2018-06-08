@@ -412,8 +412,6 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
         if (requestCode == 3) {
             if (resultCode == 1) {
-
-
                 getProduct();
             }
         } else if (requestCode == 5) {
@@ -423,18 +421,11 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
             }
         } else if (requestCode == 6) {
             if (resultCode == 6) {
-//                childPosition = data.getIntExtra("pinned_order_position",0);
-//                getProduct();
-                IPOSApplication.mOrderList.clear();
-                mNewOrderListAdapter.notifyDataSetChanged();
-                setUpdateValues(IPOSApplication.mOrderList);
+                getProduct();
+
             }
         }
-     /*   if (resultCode == RESULT_OK) {
-            if (requestCode==2000){
-                String scanCode=data.getStringExtra("scancode");
-            }
-        }*/
+
         Util.hideSoftKeyboard(getActivity());
     }
 
@@ -724,21 +715,22 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
                 break;
             case R.id.tvPay:
-                if (totalAmount > 0) {
+                if (mList.size() > 0) {
                     createOrder();
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
-                    i.putExtra(RetailSalesEnum.ruleProdecessors.toString(), "P00001");
-                    getActivity().startActivity(i);
+                    i.putExtra(NoGetEntityEnums.OrderId.toString(), "P00001");
+                    getActivity().startActivityForResult(i,6);
                 } else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }
                 break;
             case R.id.imvRight:
-                if (totalAmount > 0) {
+                if (mList.size()  > 0) {
+                    createOrder();
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
-                    i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
-                    i.putExtra(Constants.Order_List, Util.getCustomGson().toJson(mOrderList));
-                    startActivityForResult(i, 6);
+                    i.putExtra(NoGetEntityEnums.OrderId.toString(), "P00001");
+
+                    getActivity().startActivityForResult(i,6);
                 } else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }
@@ -1867,7 +1859,7 @@ if (realmNewOrderCarts.getQty()>1) {
 
                     }
                 }*/
-                jsonSubmitReq.put(NoGetEntityEnums.OrderId.toString(), orderId);
+                jsonSubmitReq.put(NoGetEntityEnums.poNumber.toString(), orderId);
                 if (isSync) {
                     jsonSubmitReq.put(Constants.ISUPDATE, false);
                 } else {
@@ -1895,70 +1887,159 @@ if (realmNewOrderCarts.getQty()>1) {
 
 
     private void createOrder(){
-        Realm realm=Realm.getDefaultInstance();
-        RealmResults<RealmNewOrderCart> realmNewOrderCarts1=realm.where(RealmNewOrderCart.class).findAll();
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).findAll();
 
-        int qty=0;
-        int discountItems=0;
-        int gst=0;int totalGST=0;
-        int cgst=0;
-        int sgst=0;
-        double totalItemsAmount=0.0;
-        double discountPrice=0.0;
-        int totalPoints=0;
-        String poNumbeer = null;
+        JSONArray arrayCart=new JSONArray();
+        int qty = 0;
+        double payAmount=0.0;
+        int discountItems = 0;
+        int gst = 0;
+        int totalGST = 0;
+        int cgst = 0;
+        int sgst = 0;
+        double totalItemsAmount = 0.0;
+        double discountPrice = 0.0;
+        int totalPoints = 0;
+        int noOfItems = 0;
+        String poNumber = null;
+        for (RealmNewOrderCart realmNewOrderCart : realmNewOrderCarts1) {
 
-        for (RealmNewOrderCart realmNewOrderCart:realmNewOrderCarts1){
-            poNumbeer=realmNewOrderCart.getOrderId();
-            qty=qty+realmNewOrderCart.getQty();
-            totalGST=realmNewOrderCart.getGstPerc()*realmNewOrderCart.getTotalPrice()/100;
-            gst=gst+totalGST;
-            if (realmNewOrderCart.isDiscount() && !realmNewOrderCart.isFreeItem()){
-                discountItems=discountItems+1;
+            JSONObject jsonObjectCartDetail=new JSONObject();
+            if (!realmNewOrderCart.isFreeItem())
+                noOfItems = noOfItems + 1;
+            poNumber=realmNewOrderCart.getOrderId();
+            qty = qty + realmNewOrderCart.getQty();
+            totalItemsAmount = totalItemsAmount + realmNewOrderCart.getTotalPrice();
+            if (realmNewOrderCart.isDiscount() && !realmNewOrderCart.isFreeItem()) {
+                discountItems = discountItems + 1;
             }
-            totalItemsAmount=totalItemsAmount+realmNewOrderCart.getTotalPrice();
-            cgst=cgst+(realmNewOrderCart.getCgst()*realmNewOrderCart.getTotalPrice()/100);
-            sgst=sgst+(realmNewOrderCart.getSgst()*realmNewOrderCart.getTotalPrice()/100);
-            discountPrice=discountPrice+realmNewOrderCart.getDiscountPrice();
-            totalPoints=totalPoints+realmNewOrderCart.getTotalPoints();
+            if (!realmNewOrderCart.isFreeItem()) {
+                try {
+                    JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
+                    for (int k = 0; k < array.length(); k++) {
+                        JSONObject jsonObject = array.optJSONObject(k);
+                        if (jsonObject.has("discountTotal")) {
+                            discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
+            }
+            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
+            gst = gst + totalGST;
+
+
+
+            cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
+            sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
+
+
+
+
+            totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
+            JSONArray scheme=new JSONArray();
+
+            try {
+                JSONArray discountArray = new JSONArray(realmNewOrderCart.getDiscount());
+                for (int k = 0; k < discountArray.length(); k++) {
+                    JSONObject jsonObjectScheme=new JSONObject();
+                    JSONObject jsonObject = discountArray.optJSONObject(k);
+
+                  JSONArray jsonArrayRule=  jsonObject.getJSONArray("rule");
+
+                  for (int m=0;m<jsonArrayRule.length();m++){
+
+                      JSONObject jsonObject1=jsonArrayRule.optJSONObject(m);
+                      if (jsonObject1.optBoolean("isRuleApplied")){
+                          jsonObjectScheme.put("schemeID",k+1);
+                          jsonObjectScheme.put("ruleID",jsonObject1.optString("ruleID"));
+                          jsonObjectScheme.put("discountValue",jsonObject.optString("discountTotal"));
+                          jsonObjectScheme.put("discountPerc",jsonObject1.optString("sDiscountValue"));
+                          jsonObjectScheme.put("oldSchemeID",k+1);
+                          jsonObjectScheme.put("oldRuleID",jsonObject1.optString("ruleID"));
+
+
+                      }
+
+                  }
+                  if (!jsonObjectScheme.toString().equalsIgnoreCase("{}"))
+                    scheme.put(jsonObjectScheme);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+            try {
+                jsonObjectCartDetail.put("oldMaterialCode",realmNewOrderCart.getiProductModalId());
+                jsonObjectCartDetail.put("materialCode",realmNewOrderCart.getiProductModalId());
+                jsonObjectCartDetail.put("materialName",realmNewOrderCart.getsProductName());
+                jsonObjectCartDetail.put("materialValue",realmNewOrderCart.getTotalPrice());
+                jsonObjectCartDetail.put("materialQty",realmNewOrderCart.getQty());
+                jsonObjectCartDetail.put("materialDiscountValue",discountPrice);
+                jsonObjectCartDetail.put("materialUnitValue",realmNewOrderCart.getsProductPrice());
+                jsonObjectCartDetail.put("materialCGSTRate",realmNewOrderCart.getCgst());
+                jsonObjectCartDetail.put("materialCGSTValue",cgst);
+                jsonObjectCartDetail.put("materialSGSTRate",realmNewOrderCart.getSgst());
+                jsonObjectCartDetail.put("materialSGSTValue",sgst);
+                jsonObjectCartDetail.put("materialIGSTRate",realmNewOrderCart.getGstPerc());
+                jsonObjectCartDetail.put("materialIGSTValue",gst);
+                jsonObjectCartDetail.put("scheme",scheme);
+                jsonObjectCartDetail.put("discountValue",discountPrice);
+                jsonObjectCartDetail.put("discountPerc",0);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            arrayCart.put(jsonObjectCartDetail);
 
         }
-        totalItemsAmount=totalItemsAmount+totalGST-discountPrice;
-        int noOfItems=realmNewOrderCarts1.size();
-       double totalValueWithTax=totalItemsAmount+totalGST;
+        payAmount = (totalItemsAmount + gst) - discountPrice;
+
+        double totalValueWithTax=totalItemsAmount+gst;
         double totalValueWithoutTax=totalItemsAmount;
         JSONObject jsonObject=new JSONObject();
 
 
         try {
-            jsonObject.put("employeeCode","");
-            jsonObject.put("employeeRole","");
+            jsonObject.put("employeeCode","6000013");
+            jsonObject.put("employeeRole","user");
             jsonObject.put("poDate",Util.getCurrentDate());
             jsonObject.put("poStatus","Pending");
-            jsonObject.put("orderValue",totalItemsAmount);
+            jsonObject.put("orderValue",payAmount);
             jsonObject.put("discountValue",discountPrice);
             jsonObject.put("deliveryBy",Util.getCurrentDate());
             jsonObject.put("orderLoyality",totalPoints);
-            jsonObject.put("accumulatedLoyality",1000);
-            jsonObject.put("totalLoyality",1000+totalPoints);
+            jsonObject.put("accumulatedLoyality",0);
+            jsonObject.put("totalLoyality",totalPoints);
             jsonObject.put("businessPlace",businessPlaceCode);
             jsonObject.put("businessPlaceCode",businessPlaceCode);
-            jsonObject.put("entityID",entityStateCode);
+            jsonObject.put("entityID","06");
             jsonObject.put("totalValueWithTax",totalValueWithTax);
             jsonObject.put("totalCGSTValue",cgst);
-            jsonObject.put("totalIGSTValue",cgst+sgst);
+            jsonObject.put("totalIGSTValue",gst);
             jsonObject.put("totalSGSTValue",sgst);
             jsonObject.put("totalValueWithoutTax",totalValueWithoutTax);
             jsonObject.put("totalTaxValue",cgst+sgst);
             jsonObject.put("totalDiscountValue",discountPrice);
-            jsonObject.put("totalRoundingOffValue",tvRoundingOffPrice.getText().toString());
-            jsonObject.put("cartDetail",new JSONArray().toString());
-            jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray().toString());
+            jsonObject.put("totalRoundingOffValue",0);
+            jsonObject.put("cartDetail",arrayCart);
+          //  jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray());
+            jsonObject.put("approvalStat",1);
+            jsonObject.put("quantity",qty);
+            jsonObject.put("customerName","");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        saveResponseLocalCreateOrder(jsonObject,poNumbeer);
+        saveResponseLocalCreateOrder(jsonObject,"P00001");
 
     }
 

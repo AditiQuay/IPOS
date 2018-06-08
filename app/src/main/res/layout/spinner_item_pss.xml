@@ -2,10 +2,11 @@
 <quay.com.ipos.ui.CustomTextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/text1"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="50dp"
     android:textSize="16sp"
     android:singleLine="true"
+    android:background="@color/white"
     android:paddingLeft="4dp"
-    android:paddingRight="4dp"
+    android:paddingRight="@dimen/dim_4"
     android:gravity="center_vertical"
     android:textColor="@color/accent_color" />

@@ -319,7 +319,7 @@
                 android:layout_marginRight="@dimen/dim_4"
                 android:layout_marginEnd="@dimen/dim_4"
                 android:gravity="center"
-                android:src="@drawable/ic_shopping_cart" />
+                app:srcCompat="@drawable/ic_shopping_cart" />
 
             <quay.com.ipos.ui.CustomTextView
                 android:layout_width="wrap_content"
@@ -354,7 +354,7 @@
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
                 android:gravity="center"
-                android:src="@drawable/ic_shopping_cart" />
+                app:srcCompat="@drawable/ic_shopping_cart" />
 
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvStoreName"
@@ -498,7 +498,7 @@
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_calendar"
+                app:srcCompat="@drawable/ic_calendar"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 />
@@ -567,7 +567,7 @@
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_calendar"
+                app:srcCompat="@drawable/ic_calendar"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 />

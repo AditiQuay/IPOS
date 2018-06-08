@@ -5,7 +5,7 @@ package quay.com.ipos.enums;
  */
 
 public enum NoGetEntityEnums {
-    parentProductId("parentProductId"),buisnessPlaces("buisnessPlaces"),buisnessPlaceId("buisnessPlaceId"),buisnessPlaceName("buisnessPlaceName"),
+    poNumber("poNumber"),parentProductId("parentProductId"),buisnessPlaces("buisnessPlaces"),buisnessPlaceId("buisnessPlaceId"),buisnessPlaceName("buisnessPlaceName"),
     buisnessLocationStateCode("buisnessLocationStateCode"),data("data"),OrderId("OrderId"),productCode("productCode"),iProductModalId("iProductModalId");
 
     private final String name;

@@ -1,7 +1,5 @@
 package quay.com.ipos.realmbean;
 
-import java.util.List;
-
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -42,7 +40,7 @@ public class RealmNewOrderCart extends RealmObject {
     private String discount;
     private boolean isSync=true;
     private boolean isUpdate=true;
-    private String orderId;
+    private String OrderId;
     private boolean isAdded;
     private int qty;
     private int totalPrice;
@@ -52,6 +50,7 @@ public class RealmNewOrderCart extends RealmObject {
     private boolean isFreeItem;
     private boolean isRuleApplied;
     private String parentProductId;
+
 
 
     public String getiProductModalId() {
@@ -271,11 +270,11 @@ public class RealmNewOrderCart extends RealmObject {
     }
 
     public String getOrderId() {
-        return orderId;
+        return OrderId;
     }
 
     public void setOrderId(String orderId) {
-        this.orderId = orderId;
+        this.OrderId = orderId;
     }
 
     public boolean isAdded() {

@@ -102,6 +102,7 @@
                         android:orientation="vertical">
 
                         <quay.com.ipos.ui.CustomTextView
+                            android:id="@+id/tvNew"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5"
@@ -138,7 +139,7 @@
                             android:id="@+id/tvStoreValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="5"
+                            android:text="0"
                             android:textColor="@color/black" />
 
                         <quay.com.ipos.ui.CustomTextView
@@ -172,7 +173,7 @@
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10"
+                            android:text="0"
                             android:textColor="@color/black" />
 
                         <quay.com.ipos.ui.CustomTextView
@@ -205,7 +206,7 @@
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10"
+                            android:text="0"
                             android:textColor="@color/black" />
 
                         <quay.com.ipos.ui.CustomTextView
@@ -237,7 +238,7 @@
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10"
+                            android:text="0"
                             android:textColor="@color/black" />
 
                         <quay.com.ipos.ui.CustomTextView
