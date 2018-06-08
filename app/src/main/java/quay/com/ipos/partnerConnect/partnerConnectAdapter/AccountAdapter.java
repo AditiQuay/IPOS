@@ -11,10 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.ButtonListener;
+import quay.com.ipos.partnerConnect.model.Cheques;
 import quay.com.ipos.partnerConnect.partnerConnectModel.AccountsModel;
 import quay.com.ipos.utility.FontUtil;
 
@@ -24,7 +26,7 @@ import quay.com.ipos.utility.FontUtil;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> implements AdapterView.OnItemSelectedListener {
     private Context mContext;
-    private ArrayList<AccountsModel> accountsModels;
+    private List<Cheques> accountsModels;
     private String [] accountHolderName = {"KYC Traders"};
     private String[] branchList = {"New Delhi","Gurgaon"};
     private String[] securityCheck = {"Yes","No"};
@@ -34,10 +36,10 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
     String securityCheckText;
     String branchAddText;
     String accountHolder;
-    public AccountAdapter(Context context, ArrayList<AccountsModel> accountsModels, ButtonListener buttonListener) {
+    public AccountAdapter(Context context, List<Cheques> list, ButtonListener buttonListener) {
         this.mContext = context;
         this.buttonListener = buttonListener;
-        this.accountsModels = accountsModels;
+        this.accountsModels = list;
     }
 
     @Override
@@ -50,7 +52,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
 
     @Override
     public void onBindViewHolder(MyView holder, int position) {
-        AccountsModel accountsModel = accountsModels.get(position);
+        Cheques accountsModel = accountsModels.get(position);
 
         //Creating the ArrayAdapter instance having the accounts list
         ArrayAdapter accountAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, accountHolderName);
@@ -77,12 +79,12 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
         holder.securityCheckSpinner.setOnItemSelectedListener(this);
 
 
-        holder.tieAccountField.setText(accountsModel.getAccountHolderName());
-        holder.tieaccounTypeField.setText(accountsModel.getAccountType());
-        holder.tieBankField.setText(accountsModel.getBankName());
-        holder.tieifscField.setText(accountsModel.getIfscCode());
-        holder.tieDrawanOnField.setText(accountsModel.getDrawnOnAccount());
-        holder.tieMaxLimtField.setText(accountsModel.getMaxAmount());
+        holder.tieAccountField.setText("");
+        holder.tieaccounTypeField.setText("");
+        holder.tieBankField.setText("");
+        holder.tieifscField.setText("");
+        holder.tieDrawanOnField.setText("");
+        holder.tieMaxLimtField.setText(accountsModel.MaxLimitAmount);
     }
 
     @Override

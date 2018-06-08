@@ -171,6 +171,7 @@ public class MainActivity extends BaseActivity
     private String customerStatus;
 
     private int mActivePosition = 1;
+    private int currentType = 1;
     private boolean firstTime = true;
     private List<String> mostUsedFunList = new ArrayList<>();
 
@@ -186,6 +187,12 @@ public class MainActivity extends BaseActivity
         if (NetUtil.isNetworkAvailable(mContext)) {
             getCustomerData();
 
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> 20dadb84bd324f8271b5a9e12522cbc99e2a853e
         }
         findViewById();
         applyInitValues();
@@ -422,6 +429,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        currentType = position;
         int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
         int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
         setMenuItemNormal();
@@ -479,12 +487,14 @@ public class MainActivity extends BaseActivity
     }
 
     public void applyMenuBGImage(String ImageName) {
-
-        if (!ImageName.contains("Mostly Used")) {
-            if (!mostUsedFunList.contains(ImageName)) {
-                saveToDatabase(ImageName);
-            } else {
-                update(ImageName);
+        Log.i("currentType", currentType + "");
+        if(currentType==1) {
+            if (!ImageName.contains("Mostly Used")) {
+                if (!mostUsedFunList.contains(ImageName)) {
+                    saveToDatabase(ImageName);
+                } else {
+                    update(ImageName);
+                }
             }
         }
 
@@ -965,7 +975,7 @@ public class MainActivity extends BaseActivity
                                 lvMenu.getAdapter().getItemId(mActivePosition));
 
                     }
-                }, 0);
+                }, 2000);
 
 
                 getMostUsedData();

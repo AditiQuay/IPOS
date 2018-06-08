@@ -1,34 +1,255 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background_color">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:paddingBottom="100dp">
 
-        <include layout="@layout/contact_static_contacts" />
+        <RelativeLayout
+            android:id="@+id/rLayoutKeyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_background_color"
+            android:paddingBottom="@dimen/dim_8"
+            android:paddingLeft="@dimen/dim_8"
+            android:paddingRight="@dimen/dim_8"
+            android:paddingTop="@dimen/dim_8">
+
+            <TextView
+                android:id="@+id/textViewContactInfoHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Key Business Contacts"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/universal_text_size16" />
+
+            <TextView
+                android:id="@+id/textViewMadatory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="* Mandatory"
+                android:textColor="@color/red"
+                android:textSize="@dimen/universal_text_size13" />
+
+            <TextView
+                android:id="@+id/textViewLastUpdated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textViewMadatory"
+                android:layout_marginTop="@dimen/dim_4"
+                android:text="Last Updated : 30 Mar 2018"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/universal_text_size14" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rLayoutKeyTitle"
+            android:layout_marginTop="@dimen/dim_16"
+            app:cardCornerRadius="@dimen/dim_8"
+            app:cardElevation="0dp"
+
+            app:cardPreventCornerOverlap="true">
 
 
-    </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dim_4">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/dim_70"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:layout_marginTop="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@drawable/icon_plus"
-        tools:ignore="VectorDrawableCompat" />
-</android.support.design.widget.CoordinatorLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dim_2"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dim_2">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dim_4"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dim_2"
+                            android:layout_marginRight="@dimen/dim_2"
+                            android:layout_marginTop="@dimen/dim_8"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/dim_2">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/dim_4">
+
+                                <fr.ganfra.materialspinner.MaterialSpinner
+                                    android:id="@+id/keyPositionSpinner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dim_4"
+                                    android:layout_marginRight="@dimen/dim_4"
+                                    app:ms_alignLabels="true"
+                                    app:ms_baseColor="@color/grey"
+                                    app:ms_enableErrorLabel="false"
+                                    app:ms_enableFloatingLabel="true"
+                                    app:ms_errorColor="@color/red"
+                                    app:ms_floatingLabelColor="@color/grey"
+                                    app:ms_floatingLabelText="Key Contact Position *"
+                                    app:ms_highlightColor="@color/highlight"
+                                    app:ms_hint="Key Contact Position *"
+                                    app:ms_hintColor="@color/grey"
+                                    app:ms_multiline="false" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/tilContactPersonName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/tieContactPersonNameField"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:hint="Key Contact Person *"
+                                        android:textSize="@dimen/universal_text_size14" />
+
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dim_2"
+                            android:layout_marginRight="@dimen/dim_2"
+                            android:layout_marginTop="@dimen/dim_8"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/dim_2">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/tilContactMobileNumName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/tieContactMobileNumField"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:hint="Mobile No. *"
+                                        android:textSize="@dimen/universal_text_size14" />
+
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/tilContactSecondaryMobileNumName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/tieSecondaryMobileNumField"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:hint="Secondary Mobile No. *"
+                                        android:textSize="@dimen/universal_text_size14" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dim_2"
+                            android:layout_marginRight="@dimen/dim_2"
+                            android:layout_marginTop="@dimen/dim_8"
+                            android:orientation="vertical"
+                            android:padding="@dimen/dim_2">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:id="@+id/tilkeyEmailName"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/tiekeyEmailField"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:hint="Email *"
+                                    android:textSize="@dimen/universal_text_size14" />
+
+                            </android.support.design.widget.TextInputLayout>
+
+                            <android.support.design.widget.TextInputLayout
+                                android:id="@+id/tilkeyNoteName"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/dim_8">
+
+                                <android.support.design.widget.TextInputEditText
+                                    android:id="@+id/tiekeyNoteField"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:hint="Note"
+                                    android:textSize="@dimen/universal_text_size14" />
+
+                            </android.support.design.widget.TextInputLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewContactInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dim_8"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:spanCount="2"
+            tools:listitem="@layout/contact_info_item"
+            android:scrollbars="none" />
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

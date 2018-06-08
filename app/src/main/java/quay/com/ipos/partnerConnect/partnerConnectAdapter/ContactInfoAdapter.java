@@ -9,12 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.ButtonListener;
+import quay.com.ipos.partnerConnect.model.KeyBusinessContactInfo;
 import quay.com.ipos.partnerConnect.partnerConnectModel.ContactModel;
 import quay.com.ipos.utility.FontUtil;
 
@@ -24,12 +27,12 @@ import quay.com.ipos.utility.FontUtil;
 
 public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.MyView> implements AdapterView.OnItemSelectedListener {
     private Context mContext;
-    private ArrayList<ContactModel> contactModels;
+    private List<KeyBusinessContactInfo> contactModels;
     private ButtonListener buttonListener;
     private String[] contactPosition = {"Director", "Manager", "Executive"};
     private String roleTypeText;
 
-    public ContactInfoAdapter(Context mContext, ArrayList<ContactModel> contactModels, ButtonListener buttonListener) {
+    public ContactInfoAdapter(Context mContext, List<KeyBusinessContactInfo> contactModels, ButtonListener buttonListener) {
         this.mContext = mContext;
         this.buttonListener = buttonListener;
         this.contactModels = contactModels;
@@ -45,7 +48,7 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
 
     @Override
     public void onBindViewHolder(MyView holder, int position) {
-        ContactModel contactModel = contactModels.get(position);
+        KeyBusinessContactInfo contactModel = contactModels.get(position);
 
         //Creating the ArrayAdapter instance having the partnerType list
         ArrayAdapter partnerTypeHeading = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, contactPosition);
@@ -53,9 +56,9 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
         holder.roleTypeSpinner.setAdapter(partnerTypeHeading);
         holder.roleTypeSpinner.setOnItemSelectedListener(this);
 
-        holder.tieNameField.setText(contactModel.getName());
-        holder.tiePrimaryMobileNumber.setText(contactModel.getPrimaryMobile());
-        holder.tieSecondaryMobileNumField.setText(contactModel.getSecondaryMobile());
+        holder.tieNameField.setText(contactModel.KeyContactEntityEmpperson);
+        holder.tiePrimaryMobileNumber.setText(contactModel.keyEntityEmpMobile1);
+        holder.tieSecondaryMobileNumField.setText(contactModel.keyEntityEmpMobile2);
     }
 
     @Override

@@ -48,7 +48,7 @@ public class OrderCentreDetailsActivity extends BaseActivity{
     private ArrayList<UserModal> stringArrayListFlow=new ArrayList<>();
     private WorkFLowUserAdapter workFLowUserAdapter;
     private WorkFLowAdapter workFLowAdapter;
-    private RecyclerView recylerViewFlow;
+    private RecyclerView recylerViewFlow,recycler_view;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {

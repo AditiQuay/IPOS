@@ -171,15 +171,14 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             ImageLoader.getInstance().displayImage(str.getProductImage(),userViewHolder.imvProduct);
 
-
-
-
-
-            Double totalPrice=(str.getSalesPrice()*str.getQty());
+            Double totalPrice=(str.getSProductPrice()*str.getQty());
 
             if(str.getPoints()!=null && !str.getPoints().equals("")){
                 userViewHolder.tvPoint.setText(str.getPoints() +" Pts");
-                userViewHolder.tvTotalPoints.setText(getTotalPoints(str,totalPrice)+" Pts");
+                double points = getTotalPoints(str,totalPrice);
+                userViewHolder.tvTotalPoints.setText(points+" Pts");
+                str.setTotalPoints(points);
+                IPOSApplication.mProductListResult.set(position,str);
             }
 
 //            str.setTotalPrice(totalPrice);
@@ -199,7 +198,6 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
 
             if(str.isFreeItem()){
-                userViewHolder.imvClear.setVisibility(View.GONE);
                 userViewHolder.tvTotalPoints.setVisibility(View.GONE);
                 userViewHolder.tvPoint.setVisibility(View.GONE);
                 userViewHolder.llEvent.setVisibility(View.GONE);
@@ -209,7 +207,6 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.llPoints.setVisibility(View.GONE);
                 userViewHolder.llTotalPoints.setVisibility(View.GONE);
             }else {
-                userViewHolder.imvClear.setVisibility(View.VISIBLE);
                 userViewHolder.tvTotalPoints.setVisibility(View.VISIBLE);
                 userViewHolder.tvPoint.setVisibility(View.VISIBLE);
                 userViewHolder.llEvent.setVisibility(View.VISIBLE);
@@ -338,7 +335,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
 
-    private double getTotalPoints(ProductSearchResult.Datum str, Double totalPrice){
+    private double getTotalPoints(ProductSearchResult.Datum str, double totalPrice){
         double totalPoints=0;
         if (str.getPointsBasedOn().equalsIgnoreCase("M")){
             totalPoints=str.getPoints()*totalPrice;
@@ -350,9 +347,9 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             int points=str.getPoints();
 
             if (totalPrice>=valuefrom && totalPrice<=valueTo){
-                totalPoints=perPoints*totalPrice/points;
+                totalPoints=(perPoints*totalPrice)/points;
             }else if (totalPrice>valueTo){
-                totalPoints=perPoints*valueTo/points;
+                totalPoints=(perPoints*valueTo)/points;
             }
 
         }else if (str.getPointsBasedOn().equalsIgnoreCase("V")){

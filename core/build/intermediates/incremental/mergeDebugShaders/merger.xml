@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\shaders"/></dataSet><dataSet config="debug"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\debug\shaders"/></dataSet></merger>
+=======
+<<<<<<< HEAD
+<merger version="3"><dataSet config="main"><source path="D:\QuayApp\IPOS\core\src\main\shaders"/></dataSet><dataSet config="debug"><source path="D:\QuayApp\IPOS\core\src\debug\shaders"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="main"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\debug\shaders"/></dataSet></merger>
+>>>>>>> 20dadb84bd324f8271b5a9e12522cbc99e2a853e
+>>>>>>> a9a10789966e72fd67210a4c3e5e8df9f5b0c7f1

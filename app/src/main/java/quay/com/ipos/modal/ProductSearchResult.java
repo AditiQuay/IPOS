@@ -118,6 +118,9 @@ public class ProductSearchResult {
         @SerializedName("barCodeNumber")
         @Expose
         private String barCodeNumber;
+        @SerializedName("schemeID")
+        @Expose
+        private String schemeID;
         @SerializedName("discount")
         @Expose
         private ArrayList<Discount> discount = null;
@@ -150,7 +153,24 @@ public class ProductSearchResult {
         private double totalPrice;
         private double discountPrice;
         private int totalQty;
+        private double totalPoints;
         private double totalDiscountPrice;
+
+        public String getSchemeID() {
+            return schemeID;
+        }
+
+        public void setSchemeID(String schemeID) {
+            this.schemeID = schemeID;
+        }
+
+        public double getTotalPoints() {
+            return totalPoints;
+        }
+
+        public void setTotalPoints(double totalPoints) {
+            this.totalPoints = totalPoints;
+        }
 
         public boolean isFreeItem() {
             return isFreeItem;
@@ -453,18 +473,39 @@ public class ProductSearchResult {
 
 
     public class Discount {
+        String parentID;
+        int ruleID;
         double discountTotal=0.0;
         boolean isFreeItem=false;
         private boolean discItemSelected = false;
         @SerializedName("sDiscountName")
         @Expose
         private String sDiscountName;
+        @SerializedName("schemeID")
+        @Expose
+        private String schemeID;
         @SerializedName("sDiscountDisplayName")
         @Expose
         private String sDiscountDisplayName;
         @SerializedName("rule")
         @Expose
         private ArrayList<Rule> rule = null;
+
+        public String getParentID() {
+            return parentID;
+        }
+
+        public void setParentID(String parentID) {
+            this.parentID = parentID;
+        }
+
+        public String getSchemeID() {
+            return schemeID;
+        }
+
+        public void setSchemeID(String schemeID) {
+            this.schemeID = schemeID;
+        }
 
         public String getSDiscountName() {
             return sDiscountName;
@@ -487,6 +528,14 @@ public class ProductSearchResult {
 
         public void setDiscItemSelected(boolean discItemSelected) {
             this.discItemSelected = discItemSelected;
+        }
+
+        public int getRuleID() {
+            return ruleID;
+        }
+
+        public void setRuleID(int ruleID) {
+            this.ruleID = ruleID;
         }
 
         public boolean isFreeItem() {

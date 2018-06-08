@@ -1,5 +1,6 @@
 package quay.com.ipos.partnerConnect;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +17,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.AccountAdapter;
+import quay.com.ipos.partnerConnect.partnerConnectAdapter.ContactInfoAdapter;
 import quay.com.ipos.partnerConnect.partnerConnectModel.AccountsModel;
 import quay.com.ipos.utility.FontUtil;
 
@@ -28,14 +33,15 @@ import quay.com.ipos.utility.FontUtil;
  */
 
 public class AccountFragment extends Fragment implements InitInterface, ButtonListener, View.OnClickListener {
+    private static final String TAG = AccountFragment.class.getSimpleName();
     private TextView textViewLastUpdated, textViewAccountInfoHeading, textViewMadatory;
     private RecyclerView recyclerViewAccountInfo;
     private Button btnAccountCancel;
     private Button btnAccountSubmit;
     private View main;
     private Context mContext;
-    private FloatingActionButton accounFab;
-    private ArrayList<AccountsModel> accountsModels = new ArrayList<>();
+
+    private List<AccountsModel> accountsModels = new ArrayList<>();
 
 
     @Nullable
@@ -58,10 +64,9 @@ public class AccountFragment extends Fragment implements InitInterface, ButtonLi
         recyclerViewAccountInfo = main.findViewById(R.id.recyclerViewAccountInfo);
         btnAccountCancel = main.findViewById(R.id.btnAccountCancel);
         btnAccountSubmit = main.findViewById(R.id.btnAccountSubmit);
-        accounFab = main.findViewById(R.id.accounFab);
 
-        btnAccountCancel.setOnClickListener(this);
-        btnAccountCancel.setOnClickListener(this);
+       /* btnAccountCancel.setOnClickListener(this);
+        btnAccountCancel.setOnClickListener(this);*/
 
     }
 
@@ -84,10 +89,10 @@ public class AccountFragment extends Fragment implements InitInterface, ButtonLi
 
         accountsModels.add(accountsModel);
 
-        recyclerViewAccountInfo.setHasFixedSize(true);
+        //recyclerViewAccountInfo.setHasFixedSize(true);
         recyclerViewAccountInfo.setLayoutManager(new LinearLayoutManager(mContext));
-        AccountAdapter businessAdapter = new AccountAdapter(mContext, accountsModels, this);
-        recyclerViewAccountInfo.setAdapter(businessAdapter);
+        //AccountAdapter businessAdapter = new AccountAdapter(mContext, accountsModels, this);
+        //recyclerViewAccountInfo.setAdapter(businessAdapter);
     }
 
     @Override
@@ -131,5 +136,33 @@ public class AccountFragment extends Fragment implements InitInterface, ButtonLi
             default:
                 break;
         }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadData();
+    }
+    private void loadData() {
+        PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
+        if (partnerConnectMain != null) {
+            partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
+                @Override
+                public void onChanged(@Nullable PCModel pcModel) {
+                    pcModel = pcModel;
+                    setData(pcModel);
+
+                }
+            });
+        }
+    }
+    private void setData(PCModel pcModel) {
+        if (pcModel == null && pcModel.Business == null) {
+            Log.i(TAG, "pcModel or pcModel.Business is null");
+            return;
+        }
+
+
+        recyclerViewAccountInfo.setAdapter(new AccountAdapter(getActivity(), pcModel.Account.cheques, AccountFragment.this));
     }
 }
