@@ -121,6 +121,7 @@ public class Util {
         GsonBuilder gb = new GsonBuilder();
         return gb.create();
     }
+
     /*Util for progress dialog*/
     public static ProgressDialog showProgressDialog(Context context, String message) {
         ProgressDialog m_Dialog = new ProgressDialog(context);
@@ -132,6 +133,7 @@ public class Util {
         return m_Dialog;
 
     }
+
     /**
      * Sets the typeface.
      *
@@ -157,7 +159,7 @@ public class Util {
 //                        context.getString(R.string.assets_fonts_folder) + typefaceName);
                 if(typefaceName==null)
                 typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
-                        context.getString(R.string.assets_fonts_folder) + "/TitilliumWeb-Regular.ttf");
+                        context.getString(R.string.assets_fonts_folder) + "/titilliumwebregular.ttf");
                 else
                     typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
                         context.getString(R.string.assets_fonts_folder) + typefaceName);
@@ -244,8 +246,8 @@ public class Util {
         return new File(path);
     }
 
-    public static String getCurrentTimeStamp(){
-        Long tsLong = System.currentTimeMillis()/1000;
+    public static String getCurrentTimeStamp() {
+        Long tsLong = System.currentTimeMillis() / 1000;
         String ts = tsLong.toString();
         return ts;
     }
@@ -362,7 +364,7 @@ public class Util {
 
     public static String getCurrentDate() {
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         formatedDate = df.format(c.getTime());
         return formatedDate;
     }
@@ -486,6 +488,16 @@ public class Util {
         return null;
     }
 
+    public static String getFormattedDates(Date data) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            Date newDate = data;
+            return format.format(newDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     public static void animateView(View v) {
@@ -548,8 +560,7 @@ public class Util {
     /**
      * Gets the app shared preference.
      *
-     * @param aContext
-     *            the a context
+     * @param aContext the a context
      * @return the app shared preference
      */
 
@@ -587,9 +598,9 @@ public class Util {
 
     /**
      * Cache user.
-     *
-     *  user
-     *            the user
+     * <p>
+     * user
+     * the user
      */
 //    public static void cacheUser(User user) {
 //        Context context = SharekhanApplication.getAppInstance().getApplicationContext();
@@ -697,7 +708,7 @@ public class Util {
         return (ArrayList<RealmPinnedResults.Info>) mQuestionList;
     }
 
-        public static void cachePinnedResults(RealmPinnedResults user) {
+    public static void cachePinnedResults(RealmPinnedResults user) {
         Context context = IPOSApplication.getContext();
         SharedPreferences sp = getAppSharedPreference(context);
 
@@ -712,7 +723,7 @@ public class Util {
 
 
     public static RealmPinnedResults getCachedPinnedResults() {
-            RealmPinnedResults user = null;
+        RealmPinnedResults user = null;
         Context context = IPOSApplication.getContext();
         SharedPreferences sp = getAppSharedPreference(context);
 
@@ -728,21 +739,20 @@ public class Util {
     }
 
 
-
-    public static double numberFormat(double number){
-        try{
+    public static double numberFormat(double number) {
+        try {
             NumberFormat nf = NumberFormat.getInstance();
             nf.setMaximumFractionDigits(1);// set as you need
             String myString = nf.format(number);
-            AppLog.e("Util","string : " + myString);
+            AppLog.e("Util", "string : " + myString);
             number = Double.parseDouble(myString);
-        }catch(Exception e){
-            System.out.println("ex="+e);
+        } catch (Exception e) {
+            System.out.println("ex=" + e);
         }
         return number;
     }
 
-    public static void OpenSetting(Context ctx){
+    public static void OpenSetting(Context ctx) {
         Intent intent = new Intent();
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         Uri uri = Uri.fromParts("package", ctx.getPackageName(), null);
@@ -750,8 +760,8 @@ public class Util {
         ctx.startActivity(intent);
     }
 
-    public static void showMessageDialog(Context mContext,MessageDialog.MessageDialogListener listener, String message, String yesButton, String noButton, int mCallType, String Title, FragmentManager supportFragmentManager) {
-        MessageDialog fragment = new MessageDialog(mContext,Title, message,yesButton,noButton, listener,mCallType);
+    public static void showMessageDialog(Context mContext, MessageDialog.MessageDialogListener listener, String message, String yesButton, String noButton, int mCallType, String Title, FragmentManager supportFragmentManager) {
+        MessageDialog fragment = new MessageDialog(mContext, Title, message, yesButton, noButton, listener, mCallType);
 
 //        fragment.show(supportFragmentManager, "scan_results");
     }
@@ -760,6 +770,7 @@ public class Util {
 
 //        fragment.show(supportFragmentManager, "scan_results");
     }
+
 
 
 }

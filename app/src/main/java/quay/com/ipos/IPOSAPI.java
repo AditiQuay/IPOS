@@ -22,4 +22,9 @@ public class IPOSAPI {
     public static String WEB_SERVICE_PRODUCT_DESCRIPTION = "ProductCatalog/ProductCatalogDescription";
     public static String WEB_SERVICE_CUSTOMER_DATA = "RetailCustomers/SyncRetailCustomerData";
 
+    // NEW ORDER API
+    public static String WEB_SERVICE_NOProductSearch = "PSSNewOrder/NOProductSearch";
+    public static String WEB_SERVICE_NOGetEntityBuisnessPlaces = "PSSNewOrder/NOGetEntityBuisnessPlaces";
+    public static String WEB_SERVICE_NOSubmitOrder = WEB_SERVICE_BASE_URL+"PSSNewOrder/NOSubmitOrder";
+    public static String WEB_SERVICE_NOSummary = WEB_SERVICE_BASE_URL+"PSSNewOrder/NOSummary";
 }

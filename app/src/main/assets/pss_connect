@@ -1,0 +1,68 @@
+{
+  "statusCode": 200,
+  "message": "Success",
+  "response": {
+    "RelationShipName": "Mccoy Relation Ship",
+    "Relationship": {
+      "pssEntityName": "K.G. Traders",
+      "pssLOBS": [
+        {
+          "pssLobName": "McCoy 8M",
+          "pssLobCode": "2",
+          "pssType": "D"
+        },
+        {
+          "pssLobName": "McCoySoudal",
+          "pssLobCode": "1",
+          "pssType": "D"
+        },
+        {
+          "pssLobName": "McCoy Performance Silicons",
+          "pssLobCode": "3",
+          "pssType": "D"
+        }
+      ],
+      "pssPrincipleContact": [
+        {
+          "pssContactPersonName": "Deepak Kumar",
+          "pssDesignation": "Programmer",
+          "keyEntityEmpMobile1": "9876543210",
+          "keyEntityEmpEmail": "deepak.kumar1@quayintech.com"
+        }
+      ],
+      "pssPrincipleBankpaymentTo": [
+        {
+          "EntityPaytoName": "Mccoy",
+          "principleAccountNo": "SBI1234567890",
+          "principleBankName": "Statet Bank Of India",
+          "principleBankBranchName": "Gurgaon",
+          "principleBankIFSCode": "SBI0001265"
+        }
+      ]
+    },
+    "Business": {
+      "KeyBusinessInfo": [
+        {
+          "partnerType": "Principal",
+          "CompaneyName": "K.G. Traders",
+          "CIN": null,
+          "PAN": null,
+          "keyContactPerson": "Deepak Kumar",
+          "keyContactPosition": "Traders Description"
+        }
+      ],
+      "BusinessLocation": [
+        {
+          "businessState": "Haryana",
+          "businessCity": "Gurugram",
+          "businessPINCode": "122022",
+          "BusinessZone": null
+        }
+      ]
+    },
+    "Contact": [],
+    "Account": [],
+    "BillandDelivery": [],
+    "DocumentVoults": []
+  }
+}

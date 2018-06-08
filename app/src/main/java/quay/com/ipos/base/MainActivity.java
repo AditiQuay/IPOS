@@ -2,13 +2,18 @@ package quay.com.ipos.base;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -34,6 +39,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,12 +56,15 @@ import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.adapter.DrawerRoleAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerModel;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
+import quay.com.ipos.data.local.dao.MostUsedFunDao;
+import quay.com.ipos.data.local.entity.MostUsed;
 import quay.com.ipos.ddr.fragment.NewOrderFragment;
 import quay.com.ipos.ddr.fragment.OrderCentreListFragment;
 import quay.com.ipos.enums.CustomerEnum;
@@ -64,6 +74,7 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
+import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.productCatalogue.ProductMain;
 import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
@@ -160,6 +171,12 @@ public class MainActivity extends BaseActivity
     private String customerDom;
     private Context mContext;
     private String customerStatus;
+
+    private int mActivePosition = 1;
+    private boolean firstTime = true;
+    private List<String> mostUsedFunList = new ArrayList<>();
+
+
     private ArrayList<CustomerModel> customerModels = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -169,6 +186,7 @@ public class MainActivity extends BaseActivity
         mContext = MainActivity.this;
         if (NetUtil.isNetworkAvailable(mContext)) {
             getCustomerData();
+
         }
         findViewById();
         applyInitValues();
@@ -178,8 +196,9 @@ public class MainActivity extends BaseActivity
 
 
         retailSalesFragment1 = new RetailSalesFragment();
-    }
 
+
+    }
 
 
     private void getCustomerData() {
@@ -314,6 +333,8 @@ public class MainActivity extends BaseActivity
                 return false;
             }
         });
+
+
         expandableListView1.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
@@ -339,11 +360,12 @@ public class MainActivity extends BaseActivity
 
                 String mainMenu = expandableListTitle.get(groupPosition).toString();
                 String subMenu = expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition);
-
                 applyMenuBGImage(subMenu);
                 return true;
             }
         });
+
+
     }
 
     public void openRetailSalesFragment() {
@@ -459,6 +481,14 @@ public class MainActivity extends BaseActivity
 
     public void applyMenuBGImage(String ImageName) {
 
+        if (!ImageName.contains("Mostly Used")) {
+            if (!mostUsedFunList.contains(ImageName)) {
+                saveToDatabase(ImageName);
+            } else {
+                update(ImageName);
+            }
+        }
+
         switch (ImageName) {
             case "Mostly Used":
 
@@ -536,10 +566,21 @@ public class MainActivity extends BaseActivity
                 break;
             case "Partner Connect":
                 // imageId = R.drawable.insights;
+                Intent intent = new Intent(getApplicationContext(), PartnerConnectMain.class);
+                startActivity(intent);
                 break;
 
 
         }
+
+
+    }
+
+    private void saveToDatabase(String imageName) {
+        MostUsed mostUsed = new MostUsed();
+        mostUsed.funName = imageName;
+        mostUsed.count = 0;
+        insert(mostUsed);
 
 
     }
@@ -781,6 +822,12 @@ public class MainActivity extends BaseActivity
                             childList.add(jsonObject2.optString("name"));
 
                         }
+                        if (j == 0) {
+                            if (mostUsedFunList != null) {
+                                childList.addAll(mostUsedFunList);
+                            }
+                        }
+
                         menuModal.setArrayList(childList);
 
                         expandableListDetail.put(menuModal, childList);
@@ -896,6 +943,95 @@ public class MainActivity extends BaseActivity
 
         } catch (JSONException e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        //  Toast.makeText(mContext, "onWindowFocusChanged", Toast.LENGTH_SHORT).show();
+        try {
+
+
+            if (firstTime) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+
+
+                        Log.i("count", lvMenu.getAdapter().getCount() + "");
+                        lvMenu.performItemClick(
+                                lvMenu.getChildAt(mActivePosition),
+                                mActivePosition,
+                                lvMenu.getAdapter().getItemId(mActivePosition));
+
+                    }
+                }, 0);
+
+
+                getMostUsedData();
+                firstTime = false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void getMostUsedData() {
+        IPOSApplication.getDatabase().mostUsedFunDao().fetchAllDataWITHLIMIT().observe(MainActivity.this, new Observer<List<MostUsed>>() {
+            @Override
+            public void onChanged(@Nullable List<MostUsed> mostUseds) {
+                mostUsedFunList.clear();
+                Log.i("data", new Gson().toJson(mostUseds));
+                for (MostUsed mostUsed : mostUseds) {
+                    mostUsedFunList.add(mostUsed.funName);
+                }
+                Log.i("data", new Gson().toJson(mostUsedFunList));
+            }
+        });
+    }
+
+    public void insert(MostUsed word) {
+        MostUsedFunDao mostUsedFunDao = IPOSApplication.getDatabase().mostUsedFunDao();
+        new insertAsyncTask(mostUsedFunDao).execute(word);
+    }
+
+    public void update(String word) {
+        MostUsedFunDao mostUsedFunDao = IPOSApplication.getDatabase().mostUsedFunDao();
+        new updateAsyncTask(mostUsedFunDao).execute(word);
+    }
+
+    private static class insertAsyncTask extends android.os.AsyncTask<MostUsed, Void, Void> {
+
+        private MostUsedFunDao mAsyncTaskDao;
+
+        insertAsyncTask(MostUsedFunDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final MostUsed... params) {
+            long i = mAsyncTaskDao.saveTask(params[0]);
+            Log.i("insert:", i + "");
+            return null;
+        }
+    }
+
+    private static class updateAsyncTask extends AsyncTask<String, Void, Void> {
+
+        private MostUsedFunDao mAsyncTaskDao;
+
+        updateAsyncTask(MostUsedFunDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final String... params) {
+            long i = mAsyncTaskDao.updateFunction(params[0]);
+            Log.i("update", i + "");
+            return null;
         }
     }
 }

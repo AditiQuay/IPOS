@@ -1,5 +1,6 @@
 package quay.com.ipos.customerInfo.customerAdd;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -494,11 +495,24 @@ public class CustomerAddFullFragment extends Fragment implements InitInterface, 
     }
 
     @Override
+    public void onPartnerAdd(int position, String distributerType, String companyName, String cinNumber, String panNumber, String contactPerson, String contactPosition,String partnerState,String partnerCity,String partnerPinCode,String partnerZone) {
+
+    }
+
+    @Override
+    public void onContactAdd(int position, String role, String name, String primaryMobileNum, String secondaryMobileNum) {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnCancel:
                 break;
             case R.id.btnFullFragmentSubmit:
+
+
+
                 String title = String.valueOf(titleSpinner.getSelectedItem());
                 String gender = String.valueOf(genderSpinner.getSelectedItem());
                 String maritalStatus = String.valueOf(maritalStatusSpinner.getSelectedItem());
@@ -595,6 +609,8 @@ public class CustomerAddFullFragment extends Fragment implements InitInterface, 
                     companySpinner.setError(getResources().getString(R.string.invalid_company));
                 }
 
+
+
                 if (!isFail) {
 
                     titleSpinner.setEnableErrorLabel(false);
@@ -610,6 +626,10 @@ public class CustomerAddFullFragment extends Fragment implements InitInterface, 
                     maritalStatusSpinner.setEnableErrorLabel(false);
                     designationSpinner.setEnableErrorLabel(false);
                     companySpinner.setEnableErrorLabel(false);
+                    View itemView = recyclerViewChild.getLayoutManager().findContainingItemView(v);
+                    TextInputEditText child = itemView.findViewById(R.id.tieChildFirstName);
+
+
                     sendCustomerData();
 
                 }
@@ -796,8 +816,16 @@ public class CustomerAddFullFragment extends Fragment implements InitInterface, 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         if (clicked) {
-            String date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-            tieDOB.setText(date);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR,year);
+            calendar.set(Calendar.MONTH,monthOfYear);
+            calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+            Date date = calendar.getTime();
+
+            String date1 = Util.getFormattedDates(date);
+            Log.e(TAG,"date1"+date1);
+
+            tieDOB.setText(date1);
             tilDOB.setErrorEnabled(false);
             tilDOB.setError(null);
             clicked = false;
@@ -805,8 +833,15 @@ public class CustomerAddFullFragment extends Fragment implements InitInterface, 
         }
 
         if (isSpouseDobClicked) {
-            String date = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
-            tieSpouseDOB.setText(date);
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR,year);
+            calendar.set(Calendar.MONTH,monthOfYear);
+            calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+            Date date = calendar.getTime();
+
+            String date1 = Util.getFormattedDates(date);
+
+            tieSpouseDOB.setText(date1);
             tilSpouseDob.setErrorEnabled(false);
             tilSpouseDob.setError(null);
             isSpouseDobClicked = false;

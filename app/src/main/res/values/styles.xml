@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -625,5 +625,19 @@
         <item name="android:maxHeight">15dp</item>
 
         <item name="android:focusable">false</item>
+    </style>
+
+
+
+
+
+    <style name="fontRegular" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily" tools:ignore="NewApi">@font/titilliumwebregular</item>
+        <item name="android:textColor">@color/dark_grey_color</item>
+    </style>
+
+    <style name="fontSemiBold" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily" tools:ignore="NewApi">@font/titilliumwebsemibold</item>
+        <item name="android:textColor">@color/dark_grey_color</item>
     </style>
 </resources>

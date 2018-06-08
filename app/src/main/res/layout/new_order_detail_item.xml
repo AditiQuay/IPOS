@@ -128,6 +128,7 @@
                 android:text="P0-00001"
                 android:textColor="@color/colorPrimary" />
             <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/OrderDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tvOrderName"
@@ -160,6 +161,7 @@
                     android:background="@drawable/loyalty_white"/>
 
                 <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -196,6 +198,7 @@
                     android:textColor="@color/filter_text_color" />
 
                 <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/orderValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="₹ 1,16,660"
@@ -220,6 +223,7 @@
                     android:textColor="@color/filter_text_color" />
 
                 <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/orderDiscount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="₹ 1,16,660"
@@ -247,6 +251,7 @@
                     android:textColor="@color/filter_text_color" />
 
                 <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/deliverDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="25 Mar 2018"
@@ -314,7 +319,7 @@
                 android:layout_marginRight="@dimen/dim_4"
                 android:layout_marginEnd="@dimen/dim_4"
                 android:gravity="center"
-                android:src="@drawable/ic_shopping_cart" />
+                app:srcCompat="@drawable/ic_shopping_cart" />
 
             <quay.com.ipos.ui.CustomTextView
                 android:layout_width="wrap_content"
@@ -349,7 +354,7 @@
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
                 android:gravity="center"
-                android:src="@drawable/ic_shopping_cart" />
+                app:srcCompat="@drawable/ic_shopping_cart" />
 
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvStoreName"
@@ -412,6 +417,7 @@
                 android:orientation="vertical">
 
                 <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/loyaltyPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="120"
@@ -433,7 +439,8 @@
                 android:orientation="vertical">
 
                 <quay.com.ipos.ui.CustomTextView
-                    android:id="@+id/tvStoreValue"
+
+                    android:id="@+id/accumulatedPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1000"
@@ -457,7 +464,7 @@
                 android:orientation="vertical">
 
                 <quay.com.ipos.ui.CustomTextView
-                    android:id="@+id/tvOnlineValue"
+                    android:id="@+id/totalPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1120"
@@ -491,7 +498,7 @@
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_calendar"
+                app:srcCompat="@drawable/ic_calendar"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 />
@@ -560,7 +567,7 @@
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_calendar"
+                app:srcCompat="@drawable/ic_calendar"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 />

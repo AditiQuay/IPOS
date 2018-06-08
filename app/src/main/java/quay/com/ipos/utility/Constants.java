@@ -78,6 +78,8 @@ public class Constants {
     public static final int APP_DIALOG_BACK = 4;
     public static final int APP_DIALOG_BILLING = 5;
     public static final int DISCOUNT = 2;
+    public static final String ISUPDATE = "isUpdate";
+    public static final String ISSYNC ="isSync" ;
     public static final String CHECK_DISCOUNT = "CHECK_DISCOUNT";
     public static final int ACT_PAYMENT = 100 ;
     public static final int ACT_PAYMENT_NEW_BILLING = 300 ;
@@ -132,5 +134,12 @@ public class Constants {
 
 
     public static String Login_result="login_result";
+    public static final String businessPlaceCode="businessPlaceCode";
+    public static final String entityStateCode="entityStateCode";
+
+
+
+
+
 }
 

@@ -5,15 +5,16 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import quay.com.ipos.R;
-import quay.com.ipos.modal.OrderList;
-import quay.com.ipos.modal.ProductSearchResult;
+import quay.com.ipos.ddr.modal.NewOrderProductsResult;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Util;
 
@@ -33,11 +34,11 @@ public class DiscountNewOrderListAdapter extends RecyclerView.Adapter<RecyclerVi
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<OrderList.Discount> mDataset;
+    List<NewOrderProductsResult.DataBean.DiscountBean> mDataset;
     RecyclerView mRecyclerView;
 
     public DiscountNewOrderListAdapter(Context ctx, RecyclerView mRecycler,
-                                       ArrayList<OrderList.Discount> questionList) {
+                                       List<NewOrderProductsResult.DataBean.DiscountBean> questionList) {
 
         mContext = ctx;
         mDataset = questionList;
@@ -68,12 +69,14 @@ public class DiscountNewOrderListAdapter extends RecyclerView.Adapter<RecyclerVi
     class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView tvDiscountPrice,tvDiscount;
         public LinearLayout llDiscount;
+        public CheckBox chkDiscount;
 
         public UserViewHolder(View itemView) {
             super(itemView);
             tvDiscountPrice =  itemView.findViewById(R.id.tvDiscountPrice);
             tvDiscount=itemView.findViewById(R.id.tvDiscount);
             llDiscount=itemView.findViewById(R.id.llDiscount);
+            chkDiscount=itemView.findViewById(R.id.chkDiscount);
         }
     }
 
@@ -100,10 +103,11 @@ public class DiscountNewOrderListAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof DiscountNewOrderListAdapter.UserViewHolder) {
-            OrderList.Discount str = mDataset.get(position);
-            AppLog.e(DiscountNewOrderListAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
+            NewOrderProductsResult.DataBean.DiscountBean str = mDataset.get(position);
             DiscountNewOrderListAdapter.UserViewHolder userViewHolder = (DiscountNewOrderListAdapter.UserViewHolder) holder;
-            userViewHolder.tvDiscount.setText(str.getSDiscountName());
+            userViewHolder.tvDiscount.setText(str.getSDiscountDisplayName());
+            userViewHolder.chkDiscount.setVisibility(View.INVISIBLE);
+            userViewHolder.tvDiscountPrice.setVisibility(View.INVISIBLE);
 
             if (position==mDataset.size()-1){
                 userViewHolder.llDiscount.setBackgroundResource(R.drawable.rect_bottom_corner_app_trans);

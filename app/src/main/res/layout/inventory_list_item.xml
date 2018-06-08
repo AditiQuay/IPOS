@@ -130,7 +130,6 @@
             android:layout_marginEnd="@dimen/dim_8"
             android:layout_gravity="center"
             android:visibility="gone"
-            android:background="@drawable/ic_click"
             android:contentDescription="TODO" />
 
     </RelativeLayout>

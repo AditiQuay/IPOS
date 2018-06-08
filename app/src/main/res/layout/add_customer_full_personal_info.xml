@@ -80,10 +80,10 @@
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/tieFirstName"
                             android:layout_width="match_parent"
-                            android:inputType="text"
-                            android:editable="true"
                             android:layout_height="wrap_content"
+                            android:editable="true"
                             android:hint="First Name *"
+                            android:inputType="text"
                             android:textSize="@dimen/universal_text_size16" />
 
                     </android.support.design.widget.TextInputLayout>
@@ -162,8 +162,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:clickable="true"
-                            android:editable="false"
                             android:drawableRight="@drawable/calendar_gray"
+                            android:editable="false"
                             android:hint="DOB *"
                             android:inputType="text"
                             android:textSize="@dimen/universal_text_size14" />
@@ -334,10 +334,10 @@
                                 <android.support.design.widget.TextInputEditText
                                     android:id="@+id/tieSpouseDOB"
                                     android:layout_width="match_parent"
-                                    android:clickable="true"
-                                    android:editable="false"
                                     android:layout_height="match_parent"
+                                    android:clickable="true"
                                     android:drawableRight="@drawable/calendar_gray"
+                                    android:editable="false"
                                     android:hint="DOB *"
                                     android:textSize="@dimen/universal_text_size14" />
 
