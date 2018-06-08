@@ -1,5 +1,6 @@
 package quay.com.ipos.ddr.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,10 +12,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
@@ -23,9 +37,12 @@ import quay.com.ipos.dashboard.modal.LowInventoryModal;
 import quay.com.ipos.ddr.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.ddr.adapter.ExpandableListAdapter;
 import quay.com.ipos.ddr.adapter.OrderCentreListAdapter;
+import quay.com.ipos.ddr.modal.OrderCentreModal;
 import quay.com.ipos.modal.OrderList;
+import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.SpacesItemDecoration;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by aditi.bhuranda on 08-05-2018.
@@ -41,12 +58,13 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     private View vNew, vAccepted, vDispatched, vDelivered, vCancelled;
     OrderCentreListAdapter mOrderCentreListAdapter;
 //    private ArrayList<LowInventoryModal> responseList = new ArrayList<>();
-    private ArrayList<OrderList.Datum> orderList= new ArrayList<>();
+    private ArrayList<OrderCentreModal> orderList= new ArrayList<>();
     private int mSelectedpos;
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     ArrayList<String> listDataHeader;
     HashMap<String, ArrayList<OrderList.Datum>> listDataChild;
+    TextView tvNew;
 
     // newInstance constructor for creating fragment with arguments
     public OrderCentreListFragment newInstance(int position) {
@@ -64,14 +82,16 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
 
         initializeComponent(view);
         setAdapter();
+
+        getSummary("");
         return view;
     }
 
     private void setAdapter() {
         mOrderCentreListAdapter = new OrderCentreListAdapter(getActivity(),this,recyclerView, orderList);
         recyclerView.setAdapter(mOrderCentreListAdapter);
-        orderList.addAll(IPOSApplication.mOrderList);
-        mOrderCentreListAdapter.notifyDataSetChanged();
+
+
     }
 
     private void initializeComponent(View view) {
@@ -90,6 +110,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         vDispatched = view.findViewById(R.id.vDispatched);
         vDelivered = view.findViewById(R.id.vDelivered);
         vCancelled = view.findViewById(R.id.vCancelled);
+        tvNew=view.findViewById(R.id.tvNew);
 
         // get the listview
         expListView = (ExpandableListView) view.findViewById(R.id.lvExp);
@@ -271,6 +292,101 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.order_centre));
+    }
+    public void getSummary(String jsonObject) {
+
+
+        final ProgressDialog progressDialog=new ProgressDialog(getActivity());
+        progressDialog.show();
+
+        JSONObject jsonObject1=new JSONObject();
+
+        try {
+            jsonObject1.put("employeeCode","6000013");
+            jsonObject1.put("employeeRole","user");
+            jsonObject1.put("businessCode","1");
+            jsonObject1.put("entityID","1");
+            jsonObject1.put("type","string");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        OkHttpClient okHttpClient = APIClient.getHttpClient();
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
+        String url = IPOSAPI.WEB_SERVICE_NOSummary;
+
+        final Request request = APIClient.getPostRequest(getActivity(), url, requestBody);
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                progressDialog.dismiss();
+
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                progressDialog.dismiss();
+                try {
+                    if (response != null && response.isSuccessful()) {
+
+                        String responseData = response.body().string();
+                        if (responseData != null) {
+
+                            JSONObject jsonObject1=new JSONObject(responseData);
+
+                            JSONArray array=jsonObject1.optJSONArray("data");
+
+
+                            for (int i=0;i<array.length();i++){
+                                JSONObject jsonObject2=array.optJSONObject(i);
+
+                                final int value=jsonObject2.optInt("count");
+
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        tvNew.setText(value+"");
+                                    }
+                                });
+
+                                JSONArray array1=jsonObject2.optJSONArray("model");
+                                for (int k=0;k<array1.length();k++){
+                                    JSONObject jsonObject=array1.optJSONObject(k);
+                                    OrderCentreModal orderCentreModal=new OrderCentreModal();
+
+                                    orderCentreModal.setEtaDate(jsonObject.optString("etaDate"));
+                                    orderCentreModal.setItemQty(jsonObject.optInt("itemQty"));
+                                    orderCentreModal.setModifiedDate(jsonObject.optString("modifiedDate"));
+                                    orderCentreModal.setOrderValue(jsonObject.optInt("orderValue"));
+                                    orderCentreModal.setRequestCode(jsonObject.optString("requestCode"));
+                                    orderCentreModal.setTotalItem(jsonObject.optInt("totalItem"));
+
+                                    orderList.add(orderCentreModal);
+
+                                }
+
+                                setAdapter();
+                            }
+
+
+                        }
+
+
+                    } else {
+
+
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+
+                }
+            }
+        });
     }
 
 }

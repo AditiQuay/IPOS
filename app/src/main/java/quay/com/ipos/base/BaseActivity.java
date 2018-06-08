@@ -99,7 +99,7 @@ public class BaseActivity extends AppCompatActivity {
     public void dismissProgress() {
         if (mProgressDialog != null) {
             mProgressDialog.dismiss();
-            mProgressDialog = null;
+        //    mProgressDialog = null;
         }
     }
 
