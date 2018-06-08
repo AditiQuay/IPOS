@@ -31,6 +31,7 @@ import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.LoginResult;
+import quay.com.ipos.partnerConnect.DocumentsFragment;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
@@ -238,6 +239,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
             }
 
         }
+
     }
 
     @Override
