@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background_color">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/documents_content" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lLayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dim_8"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnCancel"
+                style="@style/styleWhiteTextColor14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_40"
+                android:background="@drawable/button_rectangle_grey"
+                android:stateListAnimator="@null"
+                android:text="Cancel"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dim_8"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnsubmit"
+                style="@style/styleWhiteTextColor14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_40"
+                android:background="@drawable/button_drawable_blue"
+                android:backgroundTint="@color/colorPrimary"
+                android:stateListAnimator="@null"
+                android:text="Submit"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
