@@ -146,7 +146,7 @@ public class Util {
 //                        context.getString(R.string.assets_fonts_folder) + typefaceName);
                 if(typefaceName==null)
                 typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
-                        context.getString(R.string.assets_fonts_folder) + "/TitilliumWeb-Regular.ttf");
+                        context.getString(R.string.assets_fonts_folder) + "/titilliumwebregular.ttf");
                 else
                     typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
                         context.getString(R.string.assets_fonts_folder) + typefaceName);

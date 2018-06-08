@@ -37,13 +37,10 @@ public class RelationShipFragment extends Fragment {
     private TextView mRelationShipName;
     private TextView mtxtPssEntityName;
 
-    private RelOneAdapter relOneAdapter;
-    private RelTwoAdapter relTwoAdapter;
-    private RelThreeAdapter relThreeAdapter;
 
 
     public RelationShipFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -108,7 +105,7 @@ public class RelationShipFragment extends Fragment {
             return;
         }
         Toast.makeText(getActivity(), "I am here", Toast.LENGTH_SHORT).show();
-        mRelationShipName.setText(pcModel.getRelationShipName());
+        mRelationShipName.setText(pcModel.RelationShipName);
         mtxtPssEntityName.setText(pcModel.Relationship.pssEntityName);
         recyclerViewOne.setAdapter(new RelOneAdapter(pcModel.Relationship.pssLOBS));
         recyclerViewTwo.setAdapter(new RelTwoAdapter(pcModel.Relationship.pssPrincipleContact));
