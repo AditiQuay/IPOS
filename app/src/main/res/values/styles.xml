@@ -628,6 +628,9 @@
     </style>
 
 
+
+
+
     <style name="fontRegular" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily" tools:ignore="NewApi">@font/titilliumwebregular</item>
         <item name="android:textColor">@color/dark_grey_color</item>
