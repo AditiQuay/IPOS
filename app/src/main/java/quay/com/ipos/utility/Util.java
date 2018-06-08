@@ -86,9 +86,7 @@ public class Util {
     private static TelephonyManager telephonyManager;
 
 
-    /**
-     * The typeface cache.
-     */
+    /** The typeface cache. */
     public static Map<String, Typeface> typefaceCache = new HashMap<String, Typeface>();
 
     public static boolean isJellyBean() {
@@ -139,8 +137,10 @@ public class Util {
     /**
      * Sets the typeface.
      *
-     * @param attrs    the attrs
-     * @param textView the text view
+     * @param attrs
+     *            the attrs
+     * @param textView
+     *            the text view
      */
     public static void setTypeface(AttributeSet attrs, TextView textView) {
         Context context = textView.getContext();
@@ -154,14 +154,15 @@ public class Util {
             try {
 
 
+
 //                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
 //                        context.getString(R.string.assets_fonts_folder) + typefaceName);
-                if (typefaceName == null)
-                    typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
-                            context.getString(R.string.assets_fonts_folder) + "/TitilliumWeb-Regular.ttf");
+                if(typefaceName==null)
+                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
+                        context.getString(R.string.assets_fonts_folder) + "/titilliumwebregular.ttf");
                 else
                     typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
-                            context.getString(R.string.assets_fonts_folder) + typefaceName);
+                        context.getString(R.string.assets_fonts_folder) + typefaceName);
             } catch (Exception e) {
                 AppLog.v(context.getString(R.string.app_name), e.toString());
 //				AppLog.v(context.getString(R.string.app_name),
@@ -175,7 +176,6 @@ public class Util {
 
         values.recycle();
     }
-
     public static boolean isConnected() {
         ConnectivityManager cm = (ConnectivityManager) mContext
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -203,7 +203,7 @@ public class Util {
         Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 
-    public static void showToast(String message, Context mContext) {
+    public static void showToast(String message,Context mContext) {
         Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
     }
 
@@ -278,6 +278,7 @@ public class Util {
             }
         }
     }
+
 
 
     public static void hideKeyboard(EditText editText) {
@@ -409,6 +410,7 @@ public class Util {
 //    }
 
 
+
     public static String capitalize(final String line) {
         return Character.toUpperCase(line.charAt(0)) + line.substring(1);
     }
@@ -455,6 +457,9 @@ public class Util {
     }
 
 
+
+
+
     public static int dpToPx(Context context, int dp) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
@@ -469,6 +474,7 @@ public class Util {
         res.updateConfiguration(conf, dm);
 
     }
+
 
 
     public static String getFormattedDates(String strCurrentDate, String dateFormat1, SimpleDateFormat format3) {
@@ -642,6 +648,7 @@ public class Util {
 //        }
 //        return user;
 //    }
+
     public static void cacheData(ArrayList<ProductList.Datum> mDatum) {
         Context context = IPOSApplication.getAppInstance().getApplicationContext();
         SharedPreferences sp = getAppSharedPreference(context);
@@ -763,5 +770,7 @@ public class Util {
 
 //        fragment.show(supportFragmentManager, "scan_results");
     }
+
+
 
 }
