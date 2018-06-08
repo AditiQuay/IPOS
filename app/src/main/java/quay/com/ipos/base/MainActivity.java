@@ -171,14 +171,14 @@ public class MainActivity extends BaseActivity
     private String customerDom;
     private Context mContext;
     private String customerStatus;
-<<<<<<< HEAD
+
     private int mActivePosition = 1;
     private boolean firstTime = true;
     private List<String> mostUsedFunList = new ArrayList<>();
 
-=======
+
     private ArrayList<CustomerModel> customerModels = new ArrayList<>();
->>>>>>> 94325d7cb419cdc50621f1a74c8308c8c32cba50
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -187,10 +187,10 @@ public class MainActivity extends BaseActivity
         mContext = MainActivity.this;
         if (NetUtil.isNetworkAvailable(mContext)) {
             getCustomerData();
-<<<<<<< HEAD
 
-=======
->>>>>>> 94325d7cb419cdc50621f1a74c8308c8c32cba50
+
+
+
         }
         findViewById();
         applyInitValues();
@@ -970,7 +970,7 @@ public class MainActivity extends BaseActivity
                                 lvMenu.getAdapter().getItemId(mActivePosition));
 
                     }
-                }, 0);
+                }, 2000);
 
 
                 getMostUsedData();

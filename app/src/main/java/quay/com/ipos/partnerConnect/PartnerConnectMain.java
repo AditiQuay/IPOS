@@ -191,10 +191,15 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             case 0:
                 return RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
             case 1:
-                return RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
+                return new BusinessFragment();
             case 2:
-                return RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
-
+                return new ContactFragment();
+            case 3:
+                return new AccountFragment();
+            case 4:
+                return new BillingAddressFragment();
+            case 5:
+                return new AccountFragment();
             default:
                 return RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
         }
@@ -214,7 +219,8 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             getData();
             return true;
 
-        }if (id == R.id.action_help) {
+        }
+        if (id == R.id.action_help) {
             getServerData();
             return true;
 
@@ -244,17 +250,22 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         call.enqueue(new Callback<PartnerConnectResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectResponse> call, Response<PartnerConnectResponse> response) {
-                Log.i("response", response.body().statusCode+","+response.body().message);
-                Log.i("JsonObject", response.toString() + response.body());
-                if (response.body() != null) {
-                    PartnerConnectResponse response1 = response.body();
-                    if (response1 != null) {
-                        PCModel pcModel = response1.response;
-                        if (pcModel != null) {
-                            pcModelLiveData.setValue(pcModel);
+                try {
+                    Log.i("response", response.body().statusCode + "," + response.body().message);
+                    Log.i("JsonObject", response.toString() + response.body());
+                    if (response.body() != null) {
+                        PartnerConnectResponse response1 = response.body();
+                        if (response1 != null) {
+                            PCModel pcModel = response1.response;
+                            if (pcModel != null) {
+                                pcModelLiveData.setValue(pcModel);
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
             }
 
             @Override
