@@ -1,36 +1,48 @@
 package quay.com.ipos.customerInfo.customerInfoAdapter;
 
+import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
-import quay.com.ipos.customerInfo.customerInfoModal.ChildModel;
+import quay.com.ipos.customerInfo.customerInfoModal.AddCustomerModel;
 import quay.com.ipos.listeners.ButtonListener;
+import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 5/31/2018.
  */
 
 public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdapter.MyView> implements AdapterView.OnItemSelectedListener {
+    private static final String TAG = CustomerChildAdapter.class.getSimpleName();
     private Context context;
     private ButtonListener buttonListener;
-    private ArrayList<ChildModel> childModels;
+    private ArrayList<AddCustomerModel.CustomerChildBean> childModels;
     private String[] childGender = {"Male", "Female"};
     private String child = "";
+    private DatePickerDialog datePickerDialog;
+    private int Year, Month, Day;
+    Date currentDateFormat = null;
 
-    public CustomerChildAdapter(Context context, ArrayList<ChildModel> childModels, ButtonListener buttonListener) {
+    public CustomerChildAdapter(Context context, ArrayList<AddCustomerModel.CustomerChildBean> childModels, ButtonListener buttonListener) {
         this.context = context;
         this.childModels = childModels;
         this.buttonListener = buttonListener;
@@ -46,10 +58,10 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
 
     @Override
     public void onBindViewHolder(final MyView holder, final int position) {
-        ChildModel model = childModels.get(position);
-        holder.tieChildFirstName.setText(model.getFirstName());
-        holder.tieChildLastName.setText(model.getLastName());
-        holder.tieChildDOB.setText(model.getChildDateOfBirth());
+        AddCustomerModel.CustomerChildBean model = childModels.get(position);
+        holder.tieChildFirstName.setText(model.getCustomerChildFirstName());
+        holder.tieChildLastName.setText(model.getCustomerChildLastName());
+        holder.tieChildDOB.setText(model.getCustomerChildDob());
 
         //Creating the ArrayAdapter instance having the name title list
         ArrayAdapter nameHeading = new ArrayAdapter(context, android.R.layout.simple_spinner_item, childGender);
@@ -72,7 +84,7 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
             @Override
             public void afterTextChanged(Editable s) {
                 buttonListener.onAdd(holder.getAdapterPosition(), holder.tieChildFirstName.getText().toString(), holder.tieChildLastName.getText().toString(),
-                        child,holder.tieChildDOB.getText().toString());
+                        child, holder.tieChildDOB.getText().toString());
             }
         });
         holder.tieChildFirstName.addTextChangedListener(new TextWatcher() {
@@ -89,9 +101,10 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
             @Override
             public void afterTextChanged(Editable s) {
                 buttonListener.onAdd(holder.getAdapterPosition(), holder.tieChildFirstName.getText().toString(), holder.tieChildLastName.getText().toString(),
-                        child,holder.tieChildDOB.getText().toString());
+                        child, holder.tieChildDOB.getText().toString());
             }
         });
+
         holder.tieChildDOB.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -106,7 +119,32 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
             @Override
             public void afterTextChanged(Editable s) {
                 buttonListener.onAdd(holder.getAdapterPosition(), holder.tieChildFirstName.getText().toString(), holder.tieChildLastName.getText().toString(),
-                        child,holder.tieChildDOB.getText().toString());
+                        child, holder.tieChildDOB.getText().toString());
+            }
+        });
+        holder.tieChildDOB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager = ((Activity) context).getFragmentManager();
+                datePickerDialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.YEAR, year);
+                        calendar.set(Calendar.MONTH, monthOfYear);
+                        calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        Date date = calendar.getTime();
+
+                        String date1 = Util.getFormattedDates(date);
+                        Log.e(TAG, "date1" + date1);
+                        holder.tieChildDOB.setText(date1);
+                    }
+                }, Year, Month, Day);
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.setAccentColor(context.getResources().getColor(R.color.colorPrimary));
+                datePickerDialog.setTitle("Select Date");
+                datePickerDialog.show(manager, "DatePickerDialog");
             }
         });
 
@@ -135,6 +173,7 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
 
     }
 
+
     public class MyView extends RecyclerView.ViewHolder {
         private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDOB;
         private MaterialSpinner childGenderSpinner;
@@ -146,7 +185,11 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
             tieChildDOB = itemView.findViewById(R.id.tieChildDOB);
 
             childGenderSpinner = itemView.findViewById(R.id.childGenderSpinner);
-
+            //Personal
+            FontUtil.applyTypeface(tieChildFirstName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+            FontUtil.applyTypeface(tieChildLastName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+            FontUtil.applyTypeface(tieChildDOB, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+            FontUtil.applyTypeface(childGenderSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(context));
         }
     }
 }

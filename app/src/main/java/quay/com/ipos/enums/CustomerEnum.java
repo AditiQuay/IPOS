@@ -3,6 +3,7 @@ package quay.com.ipos.enums;
 
 public enum CustomerEnum {
 
+    ColoumnLocalID("localId"),
     ColoumnCustomerID("customerID"),
     ColoumnCustomerTitle("customerTitle"),
     ColoumnCustomerName("customerName"),
@@ -59,7 +60,11 @@ public enum CustomerEnum {
     ColoumnDesignationList("designationList"),
     ColoumnCompanyList("companyList"),
     ColoumnCustomerList("customerList"),
-    ColoumnRelationShipList("relationshipList");
+    ColoumnRelationShipList("relationshipList"),
+    ColoumnTypeList("CustomerTypelist"),
+    ColoumnCustomerCode("customerCode"),
+    ColoumnRegisteredBusinessPlace("registeredBusinessPlaceID");
+
 
 
     private final String name;

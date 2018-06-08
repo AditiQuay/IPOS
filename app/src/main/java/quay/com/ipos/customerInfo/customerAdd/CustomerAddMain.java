@@ -20,8 +20,8 @@ import java.lang.reflect.Type;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.customerInfo.customerInfoAdapter.ViewPagerAdapter;
-import quay.com.ipos.customerInfo.customerInfoModal.CustomerSpinner;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerSpinnerServerModel;
+import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.service.ServiceTask;
@@ -47,7 +47,7 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
         setContentView(R.layout.customer_add_main);
         mContext = CustomerAddMain.this;
         dbHelper = new DatabaseHandler(mContext);
-//        getSpinnerList();
+        getSpinnerList();
         findViewById();
         applyInitValues();
         applyLocalValidation();
@@ -70,9 +70,9 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
 
     @Override
     public void findViewById() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        toolbar = findViewById(R.id.toolbar);
+        viewPager = findViewById(R.id.viewpager);
+        tabLayout = findViewById(R.id.tabs);
     }
 
     @Override
@@ -118,15 +118,17 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
         try {
             JSONObject jsonObject = new JSONObject(serverResponse);
             JSONObject jsonObject1 = jsonObject.getJSONObject("spinnerData");
-            JSONArray cityList = jsonObject1.optJSONArray("cityList");
-            JSONArray stateList = jsonObject.optJSONArray("stateList");
-            JSONArray countryList = jsonObject.optJSONArray("countryList");
-            JSONArray designationList = jsonObject.optJSONArray("designationList");
-            JSONArray companyArray = jsonObject.optJSONArray("companyList");
-            JSONArray relationshipList = jsonObject.optJSONArray("relationshipList");
+            JSONArray cityList = jsonObject1.optJSONArray(CustomerEnum.ColoumnCityList.toString());
+            JSONArray stateList = jsonObject1.optJSONArray(CustomerEnum.ColoumnStateList.toString());
+            JSONArray countryList = jsonObject1.optJSONArray(CustomerEnum.ColoumnCountryList.toString());
+            JSONArray designationList = jsonObject1.optJSONArray(CustomerEnum.ColoumnDesignationList.toString());
+            JSONArray companyArray = jsonObject1.optJSONArray(CustomerEnum.ColoumnCompanyList.toString());
+            JSONArray relationshipList = jsonObject1.optJSONArray(CustomerEnum.ColoumnRelationShipList.toString());
+            JSONArray customerTypeList = jsonObject1.optJSONArray(CustomerEnum.ColoumnTypeList.toString());
 
-            long id = dbHelper.insertSpinnerItems(cityList.toString(), stateList.toString(), countryList.toString(), designationList.toString(), companyArray.toString(), relationshipList.toString());
-            Log.e(TAG, "Newly added Customer***" + id);
+
+            long id = dbHelper.insertSpinnerItems(cityList.toString(), stateList.toString(), countryList.toString(), designationList.toString(), companyArray.toString(), relationshipList.toString(),customerTypeList.toString());
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -141,10 +143,9 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         if (httpStatusCode == Constants.SUCCESS) {
             if (resultObj != null) {
-                dbHelper.removeAll();
+                dbHelper.removeSpinnerList();
                 fetchSpinnerResponse(serverResponse);
             }
-     //       fetchSpinnerResponse(serverResponse);
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
             Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {

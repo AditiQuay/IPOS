@@ -181,7 +181,7 @@
                 android:layout_height="16dp"
                 android:background="@drawable/loyalty_app"/>
             <quay.com.ipos.ui.CustomTextView
-
+                android:id="@+id/discount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -197,6 +197,7 @@
 
 
         <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvOrderValue"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

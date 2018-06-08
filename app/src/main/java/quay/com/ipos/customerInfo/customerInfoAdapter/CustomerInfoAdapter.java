@@ -79,7 +79,9 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
             holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + date1 + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.getLastBillingAmount());
         }
         if (NetUtil.isNetworkAvailable(mContext)) {
-            Picasso.get().load(customerInfoModal.getCustomerImage()).into(holder.imageViewProfileDummy);
+            if (TextUtils.isEmpty(customerInfoModal.getCustomerImage())){
+                Picasso.get().load(customerInfoModal.getCustomerImage()).into(holder.imageViewProfileDummy);
+            }
 
         } else {
             Picasso.get()

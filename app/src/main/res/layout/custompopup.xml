@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <Button
+                <quay.com.ipos.ui.CustomButton
                     android:id="@+id/btnNo"
                     style="@style/styleWhiteTextColor14"
                     android:layout_width="match_parent"
@@ -120,7 +120,7 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <Button
+                <quay.com.ipos.ui.CustomButton
                     android:id="@+id/btnYes"
                     style="@style/styleWhiteTextColor14"
                     android:layout_width="match_parent"

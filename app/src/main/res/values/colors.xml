@@ -36,7 +36,7 @@
     <color name="strip">#8bd3ec</color>
     <color name="side_view">#546893</color>
     <!--Niraj colors end-->
-
+    <color name="app_background_color_card">#f1f1f1</color>
     <color name="sky_blue">#ADD8E6</color>
     <color name="light_blue">#A8ADD8E6</color>
     <color name="survey_background_color">#f2f2f2</color>

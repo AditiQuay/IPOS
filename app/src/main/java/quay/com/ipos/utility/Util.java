@@ -3,6 +3,7 @@ package quay.com.ipos.utility;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -121,6 +122,18 @@ public class Util {
         return gb.create();
     }
 
+    /*Util for progress dialog*/
+    public static ProgressDialog showProgressDialog(Context context, String message) {
+        ProgressDialog m_Dialog = new ProgressDialog(context);
+        m_Dialog.setMessage(message);
+        m_Dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        m_Dialog.setCancelable(false);
+        m_Dialog.setCanceledOnTouchOutside(false);
+        m_Dialog.show();
+        return m_Dialog;
+
+    }
+
     /**
      * Sets the typeface.
      *
@@ -233,8 +246,8 @@ public class Util {
         return new File(path);
     }
 
-    public static String getCurrentTimeStamp(){
-        Long tsLong = System.currentTimeMillis()/1000;
+    public static String getCurrentTimeStamp() {
+        Long tsLong = System.currentTimeMillis() / 1000;
         String ts = tsLong.toString();
         return ts;
     }
@@ -475,6 +488,16 @@ public class Util {
         return null;
     }
 
+    public static String getFormattedDates(Date data) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            Date newDate = data;
+            return format.format(newDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     public static void animateView(View v) {
@@ -537,8 +560,7 @@ public class Util {
     /**
      * Gets the app shared preference.
      *
-     * @param aContext
-     *            the a context
+     * @param aContext the a context
      * @return the app shared preference
      */
 
@@ -576,9 +598,9 @@ public class Util {
 
     /**
      * Cache user.
-     *
-     *  user
-     *            the user
+     * <p>
+     * user
+     * the user
      */
 //    public static void cacheUser(User user) {
 //        Context context = SharekhanApplication.getAppInstance().getApplicationContext();
@@ -686,7 +708,7 @@ public class Util {
         return (ArrayList<RealmPinnedResults.Info>) mQuestionList;
     }
 
-        public static void cachePinnedResults(RealmPinnedResults user) {
+    public static void cachePinnedResults(RealmPinnedResults user) {
         Context context = IPOSApplication.getContext();
         SharedPreferences sp = getAppSharedPreference(context);
 
@@ -701,7 +723,7 @@ public class Util {
 
 
     public static RealmPinnedResults getCachedPinnedResults() {
-            RealmPinnedResults user = null;
+        RealmPinnedResults user = null;
         Context context = IPOSApplication.getContext();
         SharedPreferences sp = getAppSharedPreference(context);
 
@@ -717,21 +739,20 @@ public class Util {
     }
 
 
-
-    public static double numberFormat(double number){
-        try{
+    public static double numberFormat(double number) {
+        try {
             NumberFormat nf = NumberFormat.getInstance();
             nf.setMaximumFractionDigits(1);// set as you need
             String myString = nf.format(number);
-            AppLog.e("Util","string : " + myString);
+            AppLog.e("Util", "string : " + myString);
             number = Double.parseDouble(myString);
-        }catch(Exception e){
-            System.out.println("ex="+e);
+        } catch (Exception e) {
+            System.out.println("ex=" + e);
         }
         return number;
     }
 
-    public static void OpenSetting(Context ctx){
+    public static void OpenSetting(Context ctx) {
         Intent intent = new Intent();
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         Uri uri = Uri.fromParts("package", ctx.getPackageName(), null);
@@ -739,8 +760,13 @@ public class Util {
         ctx.startActivity(intent);
     }
 
-    public static void showMessageDialog(Context mContext,MessageDialog.MessageDialogListener listener, String message, String yesButton, String noButton, int mCallType, String Title, FragmentManager supportFragmentManager) {
-        MessageDialog fragment = new MessageDialog(mContext,Title, message,yesButton,noButton, listener,mCallType);
+    public static void showMessageDialog(Context mContext, MessageDialog.MessageDialogListener listener, String message, String yesButton, String noButton, int mCallType, String Title, FragmentManager supportFragmentManager) {
+        MessageDialog fragment = new MessageDialog(mContext, Title, message, yesButton, noButton, listener, mCallType);
+
+//        fragment.show(supportFragmentManager, "scan_results");
+    }
+    public static void showMessageDialog(Context mContext,MessageDialog.MessageDialogListener listener, String message, String yesButton, String noButton,String cancel, int mCallType, String Title, FragmentManager supportFragmentManager) {
+        MessageDialog fragment = new MessageDialog(mContext,Title, message,yesButton,noButton,cancel, listener,mCallType);
 
 //        fragment.show(supportFragmentManager, "scan_results");
     }

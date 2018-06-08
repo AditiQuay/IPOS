@@ -173,7 +173,7 @@
     <string name="credit">Credit</string>
     <string name="voucher">Voucher</string>
     <string name="wallet">Wallet</string>
-    <string name="enter_cash_amount">Enter Cash Amount</string>
+    <string name="enter_cash_amount">Enter cash amount</string>
     <string name="Rs_0">\u20B9 0.00</string>
     <string name="enter_card_amount">Enter card number</string>
     <string name="select_card_type">Select card type</string>
@@ -187,7 +187,7 @@
     <string name="togglebutton1">ToggleButton1</string>
     <string name="togglebutton2">ToggleButton2</string>
     <string name="resend_otp">Resend OTP</string>
-    <string name="enter_otp">Enter OTP</string>
+    <string name="enter_otp">Please Enter OTP</string>
     <string name="qty_available">quantity available</string>
 
     <string name="proceed_update">Update &amp; Proceed</string>
@@ -206,6 +206,13 @@
         <item>Kirti Nagar, ND</item>
         <item>Saket, ND</item>
         <item>XYZ, ND</item>
+    </string-array>
+    <string-array name="card_type">
+        <item>Master Card</item>
+        <item>Maestro Card</item>
+        <item>RuPay</item>
+        <item>VISA</item>
+        <item>AMEX</item>
     </string-array>
     <string-array name="stores">
         <item>Store 1</item>
@@ -279,6 +286,13 @@
     <string name="invalid_phone">Please enter a valid Phone</string>
     <string name="invalid_age">Age must be between 12 and 60.</string>
     <string name="dateerror">Enter a valid date</string>
+    <string name="points">Points</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="enter_received_amount">Enter Received Amount</string>
+    <string name="enter_return_amount">Enter Return Amount</string>
+    <string name="enter_expiration_date">Expiration Date</string>
+    <string name="new_billing_cart_message"><![CDATA[Do you want to save cart & Proceed?]]></string>
+    <string name="form_submitted_successfully">Form submmited succesfully</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -2,7 +2,11 @@ package quay.com.ipos.enums;
 
 
 public enum RetailSalesEnum {
-
+    discountTotal("discountTotal"),
+    isRuleApplied("isRuleApplied"),
+    isFreeItem("isFreeItem"),
+    totalPoints("totalPoints"),
+    totalPrice("totalPrice"),
     isOTC("isOTC"),
     otcPerc("otcPerc"),
     otcValue("otcValue"),
@@ -61,7 +65,9 @@ public enum RetailSalesEnum {
     Lowest("L"),
     MAX("M"),
     Product("P"),
-    Others("O");
+    Others("O"),
+    isAdded("isAdded"),
+    qty("qty");
 
     private final String name;
 

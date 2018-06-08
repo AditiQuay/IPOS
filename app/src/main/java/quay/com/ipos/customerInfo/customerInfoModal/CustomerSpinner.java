@@ -69,6 +69,16 @@ public class CustomerSpinner {
     private String customerList;
     private String relationshipList;
 
+    public String getCustomerTypeList() {
+        return customerTypeList;
+    }
+
+    public void setCustomerTypeList(String customerTypeList) {
+        this.customerTypeList = customerTypeList;
+    }
+
+    private String customerTypeList;
+
     public CustomerSpinner(){
 
     }

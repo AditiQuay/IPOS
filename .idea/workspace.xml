@@ -5,74 +5,558 @@
       <config />
     </shared>
   </component>
-  <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="ce121b08-c274-4a31-843d-63c11f00d4e1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+    <list default="true" id="6751485b-cba6-4c59-8298-2c2c83c8d01f" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main.zip" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/assets/childArray.Json" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/AddCustomerModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/CityListModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/CompanyListModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/CountryListModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/CustomeChildListModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/CustomerServerRequestModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/CustomerTypeListModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/DesignationListModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/RelationListModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/StateListModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/adapter/CustomAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/adapter/DiscountNewOrderAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/modal/DiscountModal.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/modal/NOGetEntityBuisnessPlacesModal.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/modal/NewOrderProductsResult.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/modal/NoGetEntityResultModal.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/modal/ProductSearchRequest.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/enums/NoGetEntityEnums.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/listeners/MyCheckedChangedListener.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/listeners/MyListenerProduct.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/AccountFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/BillingAddressFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/BusinessFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/ContactFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/partnerConnectAdapter/AccountAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/partnerConnectAdapter/BillingAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/partnerConnectAdapter/BusinessAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/partnerConnectAdapter/ContactInfoAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/partnerConnectModel/AccountsModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/partnerConnectModel/BillingModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/partnerConnectModel/BusinessModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/partnerConnectModel/ContactModel.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/activity/UpcomingShipmentActivity.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/adapter/BarGraphAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/adapter/FastMovingListAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/adapter/InventoryListAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/adapter/LowInventoryListAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/adapter/SchemeListAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/adapter/SpinnerDropDownAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/adapter/TopProductsListAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/adapter/TopStoresListAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/adapter/UpcomingShipmentListAdapter.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/fragment/DashboardItemFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/fragment/McCOYDashboardFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/fragment/PartnerConnectFragment.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/modal/BarGraphModal.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/modal/FastMovingModal.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/modal/InventoryModal.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/modal/LowInventoryModal.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/modal/SchemePerformanceModal.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partner_connect/modal/TopStoresModal.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/realmbean/RealmNewOrderCart.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/realmbean/RealmOrderList.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/service/APIClient.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_badge_blue.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_card.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_card_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_card_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_cash.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_cash_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_cash_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_credit_card.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_credit_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_credit_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_location.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_upi_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_action_upi_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_badge_blue.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_card.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_card_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_card_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_cash.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_cash_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_cash_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_credit_card.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_credit_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_credit_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_location.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_upi_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_action_upi_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_badge_blue.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_card.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_card_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_card_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_cash.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_cash_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_cash_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_credit_card.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_credit_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_credit_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_location.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_upi_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_action_upi_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_badge_blue.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_card.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_card_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_card_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_cash.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_cash_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_cash_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_credit_card.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_credit_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_credit_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_location.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_upi_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_action_upi_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_badge_blue.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_card.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_card_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_card_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_cash.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_cash_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_cash_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_credit_card.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_credit_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_credit_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_upi_gray.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_action_upi_white.png" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/card_selector.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/cash_selector.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/credit_selector.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/gray_white_background_selector.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/gray_white_text_selector.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/item_bg_primary.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/points_selector.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/upi_selector.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/account_content.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/account_info_fragment.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/accounts_item.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/billin_contents.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/billing_address.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/billing_item.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/business_content.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/business_fragment.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/business_item.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/business_location.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/contact_content.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/contact_fragment.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/contact_info_item.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/contact_static_contacts.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_partner_connect.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/new_order_add_list.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/retail_sales_fragment.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/spinner_item_pss.xml" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle____local_aars___D__QuayApp_IPOS_zbar_libs_zbar_jar_unspecified_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_common_1_1_1_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_core_runtime_1_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_common_1_1_1_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_1_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_livedata_core_1_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_runtime_1_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_lifecycle_viewmodel_1_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_persistence_db_1_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_persistence_db_framework_1_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_persistence_room_common_1_1_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__android_arch_persistence_room_runtime_1_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_cardview_v7_26_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_1_0_2.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_constraint_constraint_layout_solver_1_0_2_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_design_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_exifinterface_27_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_multidex_1_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_recyclerview_v7_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_27_1_1_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v13_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_core_3_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_espresso_espresso_idling_resource_3_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_rules_1_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_test_runner_1_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_transition_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_basgeekball_awesome_validation_2_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_getkeepsafe_relinker_relinker_1_2_2.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_3_7_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_ganfra_material_spinner_2_0_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_license_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_license_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_findbugs_jsr305_2_0_1_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_code_gson_gson_2_8_2_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_impl_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_impl_license_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_license_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_license_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_core_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_license_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_license_12_0_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_guava_guava_20_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_nostra13_universalimageloader_universal_image_loader_1_9_5_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp3_okhttp_3_10_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okhttp_okhttp_2_5_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_okio_okio_1_14_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_71828.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_converter_gson_2_4_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_retrofit2_retrofit_2_4_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_wdullaer_materialdatetimepicker_3_6_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_realm_realm_android_library_3_1_3.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__io_realm_realm_annotations_3_1_3_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__net_sf_kxml_kxml2_2_3_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/__local_aars___E__Aditi_Bhuranda_Downloads_iPOS_IPOS_IPOS_zbar_libs_zbar_jar_unspecified_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/android_arch_core_common_1_1_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_common_1_1_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_livedata_core_1_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_runtime_1_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/android_arch_lifecycle_viewmodel_1_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_animated_vector_drawable_26_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_animated_vector_drawable_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_appcompat_v7_26_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_appcompat_v7_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_constraint_constraint_layout_solver_1_0_2_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_exifinterface_27_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_recyclerview_v7_26_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_recyclerview_v7_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_annotations_27_1_1_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_compat_26_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_compat_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_core_ui_26_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_core_ui_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_core_utils_26_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_core_utils_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_fragment_26_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_fragment_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_media_compat_26_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_media_compat_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_v13_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_vector_drawable_26_1_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_android_support_support_vector_drawable_27_1_1.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_basgeekball_awesome_validation_2_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_github_bumptech_glide_glide_3_7_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_github_ceryle_SegmentedButton_v2_0_2.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_github_ganfra_material_spinner_2_0_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_google_code_findbugs_jsr305_2_0_1_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_google_code_gson_gson_2_2_4_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_google_guava_guava_20_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_nostra13_universalimageloader_universal_image_loader_1_9_5_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_squareup_javawriter_2_1_1_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_squareup_okhttp3_okhttp_3_10_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_squareup_okhttp_okhttp_2_5_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_squareup_okio_okio_1_14_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_squareup_picasso_picasso_2_71828.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/com_wdullaer_materialdatetimepicker_3_6_0.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/io_realm_realm_annotations_3_1_3_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/javax_inject_javax_inject_1_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit_junit_4_12_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/net_sf_kxml_kxml2_2_3_0_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_hamcrest_hamcrest_core_1_3_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_hamcrest_hamcrest_integration_1_3_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/org_hamcrest_hamcrest_library_1_3_jar.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/IPOSAPI.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/IPOSAPI.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/application/IPOSApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/application/IPOSApplication.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/MainActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/CustomerInfoActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/CustomerInfoActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddFullFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddFullFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddQuickFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddQuickFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoAdapter/CustomerChildAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoAdapter/CustomerChildAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoAdapter/CustomerInfoAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoAdapter/CustomerInfoAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/CityModel.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/CustomerModel.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/CustomerModel.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/CustomerSpinner.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerInfoModal/CustomerSpinner.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/activity/AddNewOrderActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/activity/AddNewOrderActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/activity/NewOrderDetailsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/activity/NewOrderDetailsActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/activity/PinnedOrderActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/activity/PinnedOrderActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/adapter/AddNewOrderAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/adapter/AddNewOrderAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/adapter/DiscountNewOrderListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/adapter/DiscountNewOrderListAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/adapter/NewOrderListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/adapter/NewOrderListAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/fragment/NewOrderFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ddr/fragment/NewOrderFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/enums/CustomerEnum.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/enums/CustomerEnum.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/enums/RetailSalesEnum.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/enums/RetailSalesEnum.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/listeners/ButtonListener.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/listeners/ButtonListener.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/listeners/MyAdapterTags.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/listeners/MyAdapterTags.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/login/LoginActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/login/LoginActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/CustomerList.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/CustomerList.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/ProductSearchResult.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/modal/ProductSearchResult.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/PaymentModeActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/PaymentModeActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/PinnedRetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/PinnedRetailActivity.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/AddProductAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/AddProductAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/DiscountListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/DiscountListAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/adapter/RetailSalesAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/fragment/RetailSalesFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ui/MessageDialog.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/ui/MessageDialog.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/utility/Constants.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/utility/Constants.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/utility/Util.java" afterPath="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/utility/Util.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/button_border_white.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/button_border_white.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_switch_on.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_switch_on.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/icon_plus.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_plus.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/act_customer_list.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/act_customer_list.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/act_payment_mode.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/act_payment_mode.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/add_contact_info.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/add_contact_info.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/add_customer_full_personal_info.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/add_customer_full_personal_info.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/add_customer_quick_info.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/add_customer_quick_info.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/add_new_order_list_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/add_new_order_list_item.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/bottom_total_cart.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/bottom_total_cart.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/customer_add_full_fragment.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/customer_add_full_fragment.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/customer_child_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/customer_child_item.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/custompopup.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/custompopup.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/dialog_message.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_message.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/discount_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/discount_item.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/new_order_dashboard_dummy.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/new_order_dashboard_dummy.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/new_order_detail_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/new_order_detail_item.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/retail_dashboard.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/retail_dashboard.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/show_new_order_items.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/show_new_order_items.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/show_product_list_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/show_product_list_item.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/spinner_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/spinner_item.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-14-36-40-376.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-14-36-40-376.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-14-45-35-048.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-14-45-35-048.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-18-54-744.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-18-54-744.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-22-15-637.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-22-15-637.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-26-22-005.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-26-22-005.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-27-01-211.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-27-01-211.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-29-30-710.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-29-30-710.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-31-30-486.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-31-30-486.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-32-24-429.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-32-24-429.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-34-41-647.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-34-41-647.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-36-58-627.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-36-58-627.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-38-40-075.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-15-38-40-075.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-16-29-42-553.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-16-29-42-553.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-16-33-27-322.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-16-33-27-322.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-16-51-02-849.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-16-51-02-849.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-16-53-40-457.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-16-53-40-457.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-17-50-11-408.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-17-50-11-408.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-17-56-28-006.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-17-56-28-006.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-04-32-748.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-04-32-748.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-06-33-516.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-06-33-516.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-11-30-446.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-11-30-446.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-16-12-539.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-16-12-539.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-18-40-223.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-18-40-223.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-18-48-696.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-18-48-696.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-25-55-465.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-25-55-465.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-29-45-020.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-29-45-020.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-37-44-668.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-37-44-668.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-39-51-962.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-39-51-962.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-41-16-927.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-41-16-927.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-42-56-816.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-42-56-816.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-45-28-531.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-45-28-531.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-46-56-064.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-46-56-064.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-55-21-868.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-55-21-868.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-58-59-895.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-18-58-59-895.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-19-12-23-721.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-19-12-23-721.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-19-42-37-426.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-07-19-42-37-426.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-09-38-22-722.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-09-38-22-722.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-10-04-18-189.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-10-04-18-189.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-10-04-38-353.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-10-04-38-353.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-10-05-29-051.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-10-05-29-051.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-10-06-13-098.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-10-06-13-098.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-10-07-13-740.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-06-08-10-07-13-740.rawproto" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/generated/source/buildConfig/debug/me/dm7/barcodescanner/core/BuildConfig.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/generated/source/r/debug/me/dm7/barcodescanner/core/R.java" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/attr/R.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/bundles/debug/R.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/bundles/debug/res/values-hdpi-v4/values-hdpi-v4.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/bundles/debug/res/values-xhdpi-v4/values-xhdpi-v4.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/bundles/debug/res/values-xxhdpi-v4/values-xxhdpi-v4.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/bundles/debug/res/values/values.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/BarcodeScannerView.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/BuildConfig.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/CameraHandlerThread$1$1.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/CameraHandlerThread$1.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/CameraHandlerThread.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/CameraPreview$1.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/CameraPreview$2.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/CameraPreview.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/CameraUtils.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/CameraWrapper.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/DisplayUtils.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/IViewFinder.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/R$attr.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/R$color.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/R$integer.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/R$styleable.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/R.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/classes/debug/me/dm7/barcodescanner/core/ViewFinderView.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/incremental/compileDebugAidl/dependency.store" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/incremental/debug-mergeJniLibs/merge-state" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/incremental/mergeDebugAssets/merger.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/incremental/packageDebugResources/merged.dir/values-hdpi-v4/values-hdpi-v4.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/incremental/packageDebugResources/merged.dir/values-xhdpi-v4/values-xhdpi-v4.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/incremental/packageDebugResources/merged.dir/values-xxhdpi-v4/values-xxhdpi-v4.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/incremental/packageDebugResources/merged.dir/values/values.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/incremental/packageDebugResources/merger.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/intermediate-jars/debug/classes.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/intermediate-jars/debug/res.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/javaPrecompile/debug/annotationProcessors.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/manifests/aapt/debug/AndroidManifest.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/manifests/aapt/debug/output.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/manifests/full/debug/AndroidManifest.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/manifests/full/debug/output.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/res/debug/output.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/res/symbol-table-with-package/debug/package-aware-r.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/intermediates/transforms/mergeJniLibs/debug/__content__.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
+      <change beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/core/R$attr.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/core/R$color.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/core/R$integer.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/core/R$styleable.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/core/R.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/zbar/BarcodeFormat.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/zbar/BuildConfig.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/zbar/R$attr.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/zbar/R$color.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/zbar/R$integer.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/zbar/R$styleable.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/zbar/R.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/zbar/Result.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/zbar/ZBarScannerView$1.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/zbar/ZBarScannerView$ResultHandler.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/classes/debug/me/dm7/barcodescanner/zbar/ZBarScannerView.class" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/incremental/debug-mergeJniLibs/merge-state" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/incremental/mergeDebugAssets/merger.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/zbar/build/intermediates/incremental/packageDebugResources/compile-file-map.properties" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/incremental/packageDebugResources/merger.xml" afterPath="$PROJECT_DIR$/zbar/build/intermediates/incremental/packageDebugResources/merger.xml" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/classes.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/arm64-v8a/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/arm64-v8a/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/armeabi-v7a/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/armeabi-v7a/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/armeabi/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/armeabi/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/mips/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/mips/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/mips64/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/mips64/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/x86/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/x86/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/x86_64/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/jni/x86_64/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/debug/res.jar" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/javaPrecompile/debug/annotationProcessors.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/arm64-v8a/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/arm64-v8a/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/armeabi-v7a/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/armeabi-v7a/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/armeabi/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/armeabi/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/mips/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/mips/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/mips64/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/mips64/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/x86/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/x86/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/x86_64/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/debug/x86_64/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/arm64-v8a/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/arm64-v8a/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/armeabi-v7a/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/armeabi-v7a/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/armeabi/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/armeabi/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/mips/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/mips/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/mips64/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/mips64/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/x86/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/x86/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/x86_64/libiconv.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/0/lib/x86_64/libzbarjni.so" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/intermediates/transforms/mergeJniLibs/debug/__content__.json" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/zbar/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/zbar/build/outputs/logs/manifest-merger-debug-report.txt" />
+      <change beforePath="$PROJECT_DIR$/zbar/zbar.iml" afterPath="$PROJECT_DIR$/zbar/zbar.iml" />
     </list>
-    <ignored path="$PROJECT_DIR$/.gradle/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/attr/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/blame/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/bundles/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/classes/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/incremental/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/intermediate-jars/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/javaPrecompile/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/jniLibs/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/manifests/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/res/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/shaders/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/symbols/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/tmp/" />
-    <ignored path="$PROJECT_DIR$/core/build/intermediates/transforms/" />
-    <ignored path="$PROJECT_DIR$/core/build/outputs/" />
-    <ignored path="$PROJECT_DIR$/core/build/tmp/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/assets/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/blame/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/build-info/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/builds/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/check-manifest/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/classes/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/incremental/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/incremental-classes/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/incremental-runtime-classes/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/incremental-verifier/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/instant-run-resources/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/instant-run-support/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/javaPrecompile/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/jniLibs/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/manifests/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/prebuild/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/reload-dex/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/res/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/shaders/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/split-apk/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/splits-support/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/symbols/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/tmp/" />
-    <ignored path="$PROJECT_DIR$/app/build/intermediates/transforms/" />
-    <ignored path="$PROJECT_DIR$/app/build/outputs/" />
-    <ignored path="$PROJECT_DIR$/app/build/tmp/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/attr/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/blame/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/bundles/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/classes/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/incremental/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/intermediate-jars/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/javaPrecompile/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/jniLibs/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/manifests/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/res/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/shaders/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/symbols/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/tmp/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/intermediates/transforms/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/outputs/" />
-    <ignored path="$PROJECT_DIR$/zbar/build/tmp/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -88,141 +572,46 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <projects_view>
-          <tree_state>
-            <expand>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="IPOS" type="f1a62948:ProjectNode" />
-              </path>
-            </expand>
-            <select />
-          </tree_state>
-        </projects_view>
+        <projects_view />
       </state>
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PartnerConnectResponse.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/model/PartnerConnectResponse.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="3" lean-forward="false" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PartnerConnectMain.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/PartnerConnectMain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="38" column="3" lean-forward="false" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
-              <folding>
-                <element signature="e#8865#8866#0" expanded="true" />
-                <element signature="e#8903#8904#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RelationShipFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/RelationShipFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="69" column="47" lean-forward="true" selection-start-line="69" selection-start-column="47" selection-end-line="69" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fragment_relation_ship.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_relation_ship.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-816">
-              <caret line="30" column="47" lean-forward="true" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ipos_font_family.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/font/ipos_font_family.xml">
+    <leaf>
+      <file leaf-file-name="gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+              <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="630" column="0" lean-forward="true" selection-start-line="630" selection-start-column="0" selection-end-line="630" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="titilliumwebsemibold.ttf" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/font/titilliumwebsemibold.ttf">
-          <provider selected="true" editor-type-id="fontseditor">
+      <file leaf-file-name="AndroidManifest.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+          <provider editor-type-id="android-manifest">
             <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1479">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1006">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
     </leaf>
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-        <option value="layoutResourceFile" />
-      </list>
-    </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>customerChild</find>
-      <find>date1</find>
-      <find>recentOrders</find>
-      <find>lastBillingDate</find>
-      <find>textViewProName</find>
-      <find>ColoumnCustomerPoint</find>
-      <find>customerId</find>
-      <find>customerPoints</find>
-      <find>tieFirstName</find>
-      <find>titleSpinner</find>
-      <find>childGenderSpinner</find>
-      <find>CREATE_TABLE</find>
-      <find>getParameters</find>
-      <find>apiToken</find>
-      <find>drawerRoleAdapter</find>
-      <find>textViewMyBusiness</find>
-      <find>VISIBLE</find>
-      <find>mActivePosition</find>
-      <find>10</find>
-      <find>Segm</find>
-      <find>layout</find>
-      <find>expandableListView1</find>
-      <find>navigationViewExpeListViewAdapter</find>
-      <find>expandableListTitle</find>
-      <find>save</find>
-      <find>mostUsedFunList</find>
-      <find>lvMenu</find>
-      <find>Part</find>
-      <find>CardView</find>
-      <find>private</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>public</replace>
-    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -3844,67 +4233,13 @@
         </entry>
       </map>
     </option>
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
     <option name="projectSyncType">
       <map>
         <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
       </map>
-    </option>
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddFullFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/nav_header_ipos.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/adapter/NavigationViewExpeListViewAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/local/entity/MostUsed.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/local/dao/EmployeeDao.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/local/AppDatabase.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/application/IPOSApplication.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/local/dao/MostUsedFunDao.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/adapter/DrawerRoleAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/menu/main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_partner_connect.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/custom_tab.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/adapter/VH.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/DocumentVoults.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/BillandDelivery.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/Acount.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/Cheques.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/KeyBusinessContactInfo.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/BusinessLocation.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/PssPrincipleBankpaymentTo.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/adapter_pc_rel_partner.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/PssLOBS.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/Relationship.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/adapter_pc_rel_customerdetails.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/PssPrincipleContact.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/adapter/RelOneAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/SyncData.java" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/adapter/RelTwoAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/RestService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/URLStorage.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/adapter/RelThreeAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/adapter_pc_rel_three.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/PartnerConnectMain.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/model/PartnerConnectResponse.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/KeyBusinessInfo.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/Business.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/Contact.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/APIService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/PCModel.java" />
-        <option value="$PROJECT_DIR$/app/src/main/assets/pss_connect" />
-        <option value="$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/RelationShipFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_relation_ship.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/font/ipos_font_family.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-      </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
@@ -3912,11 +4247,9 @@
     <option name="width" value="1378" />
     <option name="height" value="735" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator currentView="AndroidView" proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -3930,105 +4263,54 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="ProjectPane" />
-      <pane id="Scratches" />
-      <pane id="AndroidView">
+      <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="IPOS" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="IPOS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IPOS" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="IPOS" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="IPOS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IPOS" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="IPOS" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="ipos" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="IPOS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IPOS" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="IPOS" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="ipos" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="partnerConnect" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="IPOS" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="assets" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="IPOS" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="assets" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="fonts" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="IPOS" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="IPOS" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="IPOS" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-              <item name="styles" type="c431d0b8:AndroidResGroupNode" />
-            </path>
-            <path>
-              <item name="IPOS" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+              <item name="IPOS" type="b2602c69:ProjectViewProjectNode" />
+              <item name="IPOS" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="IPOS" type="58d84e3e:PackageViewProjectNode" />
+              <item name="app" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="settings.github" />
-    <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="device.picker.selection" value="ZY2222WGZZ" />
-    <property name="SearchEverywhereHistoryKey" value="CustomerMo&#9;PSI&#9;JAVA://quay.com.ipos.customerInfo.customerInfoModal.CustomerModel&#10;Data&#9;PSI&#9;JAVA://quay.com.ipos.helper.DatabaseHandler" />
-    <property name="DEBUGGABLE_DEVICE" value="lge-nexus_5-068f0fa5f0e96e3a" />
-    <property name="DEBUGGABLE_PROCESS" value="quay.com.ipos" />
-    <property name="SHOW_ALL_PROCESSES" value="false" />
-    <property name="DEBUGGER_ID" value="Auto" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1528434179678" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
     <property name="show.do.not.ask.upgrade.gradle.plugin" value="3.0.1" />
-    <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\QuayApp\IPOS\app\src\main\res\font" />
-      <recent name="D:\QuayApp\IPOS\app\src\main\java\quay\com\ipos\data\" />
-      <recent name="D:\QuayApp\IPOS\app\src\main\res\layout" />
-      <recent name="D:\QuayApp\IPOS\app\src\main\res\drawable-xxhdpi" />
-      <recent name="D:\QuayApp\IPOS\app\src\main\res\drawable-xhdpi" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="quay.com.ipos.partnerConnect.adapter" />
-      <recent name="quay.com.ipos.data.local.dao" />
-      <recent name="quay.com.ipos.data.local.entity" />
-      <recent name="quay.com.ipos.data.local" />
-    </key>
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="quay.com.ipos.data.remote" />
-      <recent name="quay.com.ipos.partnerConnect.adapter" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -4042,7 +4324,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Android App.PartnerConnectMain">
+  <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -4052,7 +4334,7 @@
       <option name="MAIN_CLASS_NAME" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
+      <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
       <option name="ENV_VARIABLES" />
@@ -4066,101 +4348,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PartnerConnectMain" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false" temporary="true">
-      <module name="app" />
-      <option name="DEPLOY" value="true" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="PM_INSTALL_OPTIONS" value="" />
-      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
-      <option name="MODE" value="specific_activity" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="DEBUGGER_TYPE" value="Auto" />
-      <Auto>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Auto>
-      <Hybrid>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Hybrid>
-      <Java />
-      <Native>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Native>
-      <Profilers>
-        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
-      </Profilers>
-      <option name="DEEP_LINK" value="" />
-      <option name="ACTIVITY_CLASS" value="quay.com.ipos.partnerConnect.PartnerConnectMain" />
-    </configuration>
-    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
-      <module name="" />
-      <option name="DEPLOY" value="true" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="PM_INSTALL_OPTIONS" value="" />
-      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
-      <option name="MODE" value="default_activity" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="DEBUGGER_TYPE" value="Auto" />
-      <Auto>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Auto>
-      <Hybrid>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Hybrid>
-      <Java />
-      <Native>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Native>
-      <Profilers>
-        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
-      </Profilers>
-      <option name="DEEP_LINK" value="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <method>
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" />
-      </method>
-    </configuration>
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="app" />
       <option name="DEPLOY" value="true" />
       <option name="ARTIFACT_NAME" value="" />
@@ -4204,54 +4392,6 @@
       </Profilers>
       <option name="DEEP_LINK" value="" />
       <option name="ACTIVITY_CLASS" value="" />
-    </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="EXTRA_OPTIONS" value="" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
-      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
-      <option name="DEBUGGER_TYPE" value="Auto" />
-      <Auto>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Auto>
-      <Hybrid>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Hybrid>
-      <Java />
-      <Native>
-        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
-        <option name="SHOW_STATIC_VARS" value="true" />
-        <option name="WORKING_DIR" value="" />
-        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
-        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
-      </Native>
-      <Profilers>
-        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
-      </Profilers>
-      <method>
-        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" />
-      </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
@@ -4287,7 +4427,7 @@
       <option name="TEST_OBJECT" value="CLASS" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
       <option name="OUTPUT_DIRECTORY" />
       <option name="ANNOTATION_TYPE" />
       <option name="ENV_VARIABLES" />
@@ -4310,107 +4450,15 @@
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <option name="VM_PARAMETERS" />
     </configuration>
-    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list />
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <method />
-    </configuration>
     <configuration name="&lt;template&gt;" type="JUnit" default="true" selected="false">
       <option name="MAIN_CLASS_NAME" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="JarApplication" factoryName="JAR Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="SCRATCH_FILE_ID" value="0" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="IPOS" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="filePath" />
-      <option name="vmParameters" />
-      <option name="alternativeJrePath" />
-      <option name="programParameters" />
-      <option name="passParentEnvs" value="true" />
-      <option name="workingDirectory" />
-      <option name="isAlternativeJrePathEnabled" value="false" />
-      <envs />
-      <method />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
     </configuration>
     <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
     </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Android App.app" />
-      <item index="1" class="java.lang.String" itemvalue="Android App.PartnerConnectMain" />
-    </list>
-    <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Android App.PartnerConnectMain" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -4420,666 +4468,79 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="ce121b08-c274-4a31-843d-63c11f00d4e1" name="Default" comment="" />
-      <created>1527848754085</created>
+      <changelist id="6751485b-cba6-4c59-8298-2c2c83c8d01f" name="Default" comment="" />
+      <created>1528435561627</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1527848754085</updated>
+      <updated>1528435561627</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-6" y="0" width="1378" height="735" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5030349" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33990896" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7296849" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962063" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.4969651" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49253732" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39966834" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962063" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5030349" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.615257" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.4969651" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39966834" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33990896" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24962063" sideWeight="0.5" order="5" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49253732" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928678" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java</url>
-          <line>702</line>
-          <properties />
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/CustomerInfoDetailsActivity.java</url>
-          <line>129</line>
-          <properties />
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/CustomerInfoDetailsActivity.java</url>
-          <line>126</line>
-          <properties />
-          <option name="timeStamp" value="38" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/CustomerInfoDetailsActivity.java</url>
-          <line>101</line>
-          <properties />
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/CustomerInfoDetailsActivity.java</url>
-          <line>113</line>
-          <properties />
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java</url>
-          <line>912</line>
-          <properties />
-          <option name="timeStamp" value="49" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>144</line>
-          <properties />
-          <option name="timeStamp" value="69" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>60</line>
-          <properties />
-          <option name="timeStamp" value="71" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>62</line>
-          <properties />
-          <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>63</line>
-          <properties />
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java</url>
-          <line>1182</line>
-          <properties />
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java</url>
-          <line>1179</line>
-          <properties />
-          <option name="timeStamp" value="76" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java</url>
-          <line>1175</line>
-          <properties />
-          <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java</url>
-          <line>1174</line>
-          <properties />
-          <option name="timeStamp" value="78" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java</url>
-          <line>1153</line>
-          <properties />
-          <option name="timeStamp" value="79" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java</url>
-          <line>1150</line>
-          <properties />
-          <option name="timeStamp" value="80" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java</url>
-          <line>1151</line>
-          <properties />
-          <option name="timeStamp" value="81" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/helper/DatabaseHandler.java</url>
-          <line>1157</line>
-          <properties />
-          <option name="timeStamp" value="82" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>118</line>
-          <properties />
-          <option name="timeStamp" value="83" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>143</line>
-          <properties />
-          <option name="timeStamp" value="84" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>141</line>
-          <properties />
-          <option name="timeStamp" value="85" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>127</line>
-          <properties />
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>128</line>
-          <properties />
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>130</line>
-          <properties />
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>120</line>
-          <properties />
-          <option name="timeStamp" value="89" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>123</line>
-          <properties />
-          <option name="timeStamp" value="90" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>122</line>
-          <properties />
-          <option name="timeStamp" value="91" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>124</line>
-          <properties />
-          <option name="timeStamp" value="92" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>125</line>
-          <properties />
-          <option name="timeStamp" value="93" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>146</line>
-          <properties />
-          <option name="timeStamp" value="94" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/service/ServiceTask.java</url>
-          <line>237</line>
-          <properties />
-          <option name="timeStamp" value="96" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/customerInfo/customerAdd/CustomerAddMain.java</url>
-          <line>65</line>
-          <properties />
-          <option name="timeStamp" value="104" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/PartnerConnectMain.java</url>
-          <line>101</line>
-          <properties />
-          <option name="timeStamp" value="105" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/PartnerConnectMain.java</url>
-          <line>103</line>
-          <properties />
-          <option name="timeStamp" value="106" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/Contact.java</url>
-          <line>6</line>
-          <properties class="quay.com.ipos.partnerConnect.model.Contact">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="107" />
-        </line-breakpoint>
-      </breakpoints>
-      <breakpoints-dialog>
-        <breakpoints-dialog />
-      </breakpoints-dialog>
-      <option name="time" value="108" />
-    </breakpoint-manager>
+    <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_partner_connect.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/custom_tab.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/adapter/VH.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/adapter_pc_rel_customer_details.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/retailsales/activity/CustomerListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="195" column="28" lean-forward="false" selection-start-line="195" selection-start-column="28" selection-end-line="195" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/Acount.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/BillandDelivery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/BusinessLocation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="55" column="5" lean-forward="false" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/Cheques.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="43" column="5" lean-forward="false" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/DocumentVoults.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="5" lean-forward="true" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/KeyBusinessContactInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="79" column="5" lean-forward="false" selection-start-line="79" selection-start-column="5" selection-end-line="79" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/utility/Util.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="496" column="25" lean-forward="false" selection-start-line="496" selection-start-column="25" selection-end-line="496" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/PssPrincipleContact.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="11" lean-forward="false" selection-start-line="5" selection-start-column="11" selection-end-line="5" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/PssLOBS.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="11" lean-forward="false" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/model/SynResponse.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/model/SpendRequestAttachment.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/SyncData.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/model/AccessTokenRequest.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/model/AccessTokenResponse.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/model/ComplianceDetailsResponse.java" />
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="73" column="64" lean-forward="false" selection-start-line="73" selection-start-column="64" selection-end-line="73" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/adapter_pc_rel_customerdetails.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="31" lean-forward="false" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/constant/ServerRequestKey.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/URLStorage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/application/IPOSApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="80" column="26" lean-forward="false" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/RestService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="43" column="40" lean-forward="false" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="36" lean-forward="false" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="36" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/adapter/RelTwoAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="49" column="53" lean-forward="false" selection-start-line="49" selection-start-column="53" selection-end-line="49" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/adapter/RelOneAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="26" column="57" lean-forward="false" selection-start-line="26" selection-start-column="57" selection-end-line="26" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/adapter_pc_rel_partner.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="41" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="32" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/adapter_pc_rel_three.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="44" lean-forward="false" selection-start-line="24" selection-start-column="44" selection-end-line="24" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/base/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7871">
-          <caret line="555" column="33" lean-forward="false" selection-start-line="555" selection-start-column="33" selection-end-line="555" selection-end-column="33" />
-          <folding>
-            <element signature="method#selectItem#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#onBackPressed#0;class#MainActivity#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/adapter/RelThreeAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="17" column="12" lean-forward="true" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/KeyBusinessInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="25" lean-forward="true" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/Business.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/Contact.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="10" lean-forward="false" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/converter-gson/2.4.0/5da04ef58bc122d13185fd4317ad7bfbc554d881/converter-gson-2.4.0-sources.jar!/retrofit2/converter/gson/GsonResponseBodyConverter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/Relationship.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="25" lean-forward="false" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/model/PartnerConnectResponse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="3" lean-forward="false" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/PartnerConnectMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="38" column="3" lean-forward="false" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
-          <folding>
-            <element signature="e#8865#8866#0" expanded="true" />
-            <element signature="e#8903#8904#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/data/remote/APIService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="23" lean-forward="false" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/pss_connect">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1139">
-          <caret line="67" column="1" lean-forward="false" selection-start-line="67" selection-start-column="1" selection-end-line="67" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/PssPrincipleBankpaymentTo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/model/PCModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/quay/com/ipos/partnerConnect/RelationShipFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="69" column="47" lean-forward="true" selection-start-line="69" selection-start-column="47" selection-end-line="69" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/font/titilliumwebsemibold.ttf">
-      <provider selected="true" editor-type-id="fontseditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/font/titilliumweblight.ttf">
-      <provider selected="true" editor-type-id="fontseditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/font/titilliumwebregular.ttf">
-      <provider selected="true" editor-type-id="fontseditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_relation_ship.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-816">
-          <caret line="30" column="47" lean-forward="true" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/font/ipos_font_family.xml">
+    <entry file="file://$PROJECT_DIR$/gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="630" column="0" lean-forward="true" selection-start-line="630" selection-start-column="0" selection-end-line="630" selection-end-column="0" />
+        <state relative-caret-position="-1479">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1006">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

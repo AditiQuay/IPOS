@@ -76,7 +76,13 @@ public class Constants {
     public static final int API_METHOD_POST = 1;
     public static final int APP_DIALOG_PERMISSION = 2;
     public static final int APP_DIALOG_BACK = 4;
+    public static final int APP_DIALOG_BILLING = 5;
     public static final int DISCOUNT = 2;
+    public static final String ISUPDATE = "isUpdate";
+    public static final String ISSYNC ="isSync" ;
+    public static final String CHECK_DISCOUNT = "CHECK_DISCOUNT";
+    public static final int ACT_PAYMENT = 100 ;
+    public static final int ACT_PAYMENT_NEW_BILLING = 100 ;
     public static int APP_DIALOG_Pinned_ORDER=3;
 
     public static String UserProfilePic = "http://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png";
@@ -121,6 +127,10 @@ public class Constants {
     public static final String KEY_COMPANY_LIST = "companyList";
     public static final String KEY_CUSTOMER_LIST = "customerList";
     public static final String KEY_RELATION_LIST = "relationshipList";
+
+
+    public static final String businessPlaceCode="businessPlaceCode";
+    public static final String entityStateCode="entityStateCode";
 
 
 
