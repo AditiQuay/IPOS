@@ -431,10 +431,10 @@ public class MainActivity extends BaseActivity
         setMenuItemNormal();
         if (mSelectedItemPosition != -1 && mSelectedItemPosition != position) {
             view = lvMenu.getChildAt(position);
-            View borderView = view.findViewById(R.id.viewP);
+//            View borderView = view.findViewById(R.id.viewP);
             TextView textView = view.findViewById(R.id.textViewP);
 
-            borderView.setBackgroundColor(mContext.getResources().getColor(R.color.menu_strip));
+//            borderView.setBackgroundColor(mContext.getResources().getColor(R.color.menu_strip));
             textView.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
             textView.setBackgroundResource(R.drawable.menu_background_select);
             drawerRoleModals.get(position).setSelected(true);
