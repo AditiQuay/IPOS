@@ -623,6 +623,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             if(resultCode == Constants.ACT_PAYMENT_NEW_BILLING){
                 setNewBilling();
             }
+            if(resultCode==200){
+                getProduct();
+            }
             if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
                 mCustomerPoints = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS,0);

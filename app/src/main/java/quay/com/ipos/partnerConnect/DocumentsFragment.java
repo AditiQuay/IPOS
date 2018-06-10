@@ -2,9 +2,13 @@ package quay.com.ipos.partnerConnect;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -18,7 +22,7 @@ import quay.com.ipos.utility.FontUtil;
  * Created by niraj.kumar on 6/8/2018.
  */
 
-public class DocumentsFragment extends AppCompatActivity implements InitInterface, View.OnClickListener {
+public class DocumentsFragment extends Fragment implements InitInterface, View.OnClickListener {
     private View main;
     private Context mContext;
     //Photo variables
@@ -30,87 +34,79 @@ public class DocumentsFragment extends AppCompatActivity implements InitInterfac
     private RelativeLayout rLayoutValidCompilanceDocument, rLayoutValidAppointmentDocument, rLayoutValidDocument, rLayoutValidPanDocument, rLayoutValidPhotoDocument;
     private TextView textViewValidCompilanceDocument, textViewValidAppointmentDocument, textViewValidAnnexureDocument, textViewValidPanDocument, textViewValidPhotoDocument;
 
+
+
+        @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.documents_fragment);
-        mContext = DocumentsFragment.this;
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        main = inflater.inflate(R.layout.documents_fragment, container, false);
+        mContext = getActivity();
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+        return main;
     }
-
-    //    @Nullable
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        main = inflater.inflate(R.layout.documents_fragment, container, false);
-//        findViewById();
-//        applyInitValues();
-//        applyLocalValidation();
-//        applyTypeFace();
-//        return main;
-//    }
 
     @Override
     public void findViewById() {
-        textViewPhotoHeading = findViewById(R.id.textViewPhotoHeading);
-        textViewPanCardHeading = findViewById(R.id.textViewPanCardHeading);
-        textViewAppointmentHeading = findViewById(R.id.textViewAppointmentHeading);
-        textViewAnnexureHeading = findViewById(R.id.textViewAnnexureHeading);
-        textViewCompilanceHeading = findViewById(R.id.textViewCompilanceHeading);
-        textViewDocumentsVaultHeading = findViewById(R.id.textViewDocumentsVaultHeading);
+        textViewPhotoHeading = main.findViewById(R.id.textViewPhotoHeading);
+        textViewPanCardHeading = main.findViewById(R.id.textViewPanCardHeading);
+        textViewAppointmentHeading = main.findViewById(R.id.textViewAppointmentHeading);
+        textViewAnnexureHeading = main.findViewById(R.id.textViewAnnexureHeading);
+        textViewCompilanceHeading = main.findViewById(R.id.textViewCompilanceHeading);
+        textViewDocumentsVaultHeading = main.findViewById(R.id.textViewDocumentsVaultHeading);
 
         //Status
-        textViewPhotoStatus = findViewById(R.id.textViewPhotoStatus);
-        textViewPanStatus = findViewById(R.id.textViewPanStatus);
-        textViewAppointmentStatus = findViewById(R.id.textViewAppointmentStatus);
-        textViewAnnexureStatus = findViewById(R.id.textViewAnnexureStatus);
-        textViewCompilanceStatus = findViewById(R.id.textViewCompilanceStatus);
+        textViewPhotoStatus = main.findViewById(R.id.textViewPhotoStatus);
+        textViewPanStatus = main.findViewById(R.id.textViewPanStatus);
+        textViewAppointmentStatus = main.findViewById(R.id.textViewAppointmentStatus);
+        textViewAnnexureStatus = main.findViewById(R.id.textViewAnnexureStatus);
+        textViewCompilanceStatus = main.findViewById(R.id.textViewCompilanceStatus);
 
 
         //Imageview
-        imageViewphoto = findViewById(R.id.imageViewphoto);
-        imageViewPan = findViewById(R.id.imageViewPan);
-        imageViewAppointment = findViewById(R.id.imageViewAppointment);
-        imageViewAnnexure = findViewById(R.id.imageViewAnnexure);
-        imageViewCompilance = findViewById(R.id.imageViewCompilance);
+        imageViewphoto = main.findViewById(R.id.imageViewphoto);
+        imageViewPan = main.findViewById(R.id.imageViewPan);
+        imageViewAppointment = main.findViewById(R.id.imageViewAppointment);
+        imageViewAnnexure = main.findViewById(R.id.imageViewAnnexure);
+        imageViewCompilance = main.findViewById(R.id.imageViewCompilance);
 
         //Imageview Status
-        imageViewPhotoStatus = findViewById(R.id.imageViewPhotoStatus);
-        imageViewPanStatus = findViewById(R.id.imageViewPanStatus);
-        imageViewAppointmentStatus = findViewById(R.id.imageViewAppointmentStatus);
-        imageViewAnnexureStatus = findViewById(R.id.imageViewAnnexureStatus);
-        imageViewCompilanceStatus = findViewById(R.id.imageViewCompilanceStatus);
+        imageViewPhotoStatus = main.findViewById(R.id.imageViewPhotoStatus);
+        imageViewPanStatus = main.findViewById(R.id.imageViewPanStatus);
+        imageViewAppointmentStatus = main.findViewById(R.id.imageViewAppointmentStatus);
+        imageViewAnnexureStatus = main.findViewById(R.id.imageViewAnnexureStatus);
+        imageViewCompilanceStatus = main.findViewById(R.id.imageViewCompilanceStatus);
 
         //Button camera
-        btnPhotoCamera = findViewById(R.id.btnPhotoCamera);
-        btnPanCamera = findViewById(R.id.btnPanCamera);
-        btnAppointmentCamera = findViewById(R.id.btnAppointmentCamera);
-        btnAnnexureCamera = findViewById(R.id.btnAnnexureCamera);
-        btnCompilanceCamera = findViewById(R.id.btnCompilanceCamera);
+        btnPhotoCamera = main.findViewById(R.id.btnPhotoCamera);
+        btnPanCamera = main.findViewById(R.id.btnPanCamera);
+        btnAppointmentCamera = main.findViewById(R.id.btnAppointmentCamera);
+        btnAnnexureCamera = main.findViewById(R.id.btnAnnexureCamera);
+        btnCompilanceCamera = main.findViewById(R.id.btnCompilanceCamera);
 
         //Button upload
 
-        btnPhotoUpload = findViewById(R.id.btnPhotoUpload);
-        btnPanUpload = findViewById(R.id.btnPanUpload);
-        btnAppointmentUpload = findViewById(R.id.btnAppointmentUpload);
-        btnCompilanceUpload = findViewById(R.id.btnCompilanceUpload);
-        btnAnnexureUpload = findViewById(R.id.btnAnnexureUpload);
+        btnPhotoUpload = main.findViewById(R.id.btnPhotoUpload);
+        btnPanUpload = main.findViewById(R.id.btnPanUpload);
+        btnAppointmentUpload = main.findViewById(R.id.btnAppointmentUpload);
+        btnCompilanceUpload = main.findViewById(R.id.btnCompilanceUpload);
+        btnAnnexureUpload = main.findViewById(R.id.btnAnnexureUpload);
 
         //RelativeLayout
-        rLayoutValidCompilanceDocument = findViewById(R.id.rLayoutValidCompilanceDocument);
-        rLayoutValidAppointmentDocument = findViewById(R.id.rLayoutValidAppointmentDocument);
-        rLayoutValidDocument = findViewById(R.id.rLayoutValidDocument);
-        rLayoutValidPanDocument = findViewById(R.id.rLayoutValidPanDocument);
-        rLayoutValidPhotoDocument = findViewById(R.id.rLayoutValidPhotoDocument);
+        rLayoutValidCompilanceDocument = main.findViewById(R.id.rLayoutValidCompilanceDocument);
+        rLayoutValidAppointmentDocument = main.findViewById(R.id.rLayoutValidAppointmentDocument);
+        rLayoutValidDocument = main.findViewById(R.id.rLayoutValidDocument);
+        rLayoutValidPanDocument = main.findViewById(R.id.rLayoutValidPanDocument);
+        rLayoutValidPhotoDocument = main.findViewById(R.id.rLayoutValidPhotoDocument);
 
         //TextView
-        textViewValidCompilanceDocument = findViewById(R.id.textViewValidCompilanceDocument);
-        textViewValidAppointmentDocument = findViewById(R.id.textViewValidAppointmentDocument);
-        textViewValidAnnexureDocument = findViewById(R.id.textViewValidAnnexureDocument);
-        textViewValidPanDocument = findViewById(R.id.textViewValidPanDocument);
-        textViewValidPhotoDocument = findViewById(R.id.textViewValidPhotoDocument);
+        textViewValidCompilanceDocument = main.findViewById(R.id.textViewValidCompilanceDocument);
+        textViewValidAppointmentDocument = main.findViewById(R.id.textViewValidAppointmentDocument);
+        textViewValidAnnexureDocument = main.findViewById(R.id.textViewValidAnnexureDocument);
+        textViewValidPanDocument = main.findViewById(R.id.textViewValidPanDocument);
+        textViewValidPhotoDocument = main.findViewById(R.id.textViewValidPhotoDocument);
 
 
         //Camera click listner

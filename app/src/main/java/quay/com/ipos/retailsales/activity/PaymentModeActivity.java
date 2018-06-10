@@ -7,6 +7,8 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.PaymentRequest;
@@ -36,7 +39,7 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 30-04-2018.
  */
 
-public class PaymentModeActivity extends AppCompatActivity implements View.OnClickListener, ServiceTask.ServiceResultListener {
+public class PaymentModeActivity extends BaseActivity implements View.OnClickListener, ServiceTask.ServiceResultListener {
     private ImageView imvUserAdd,imvBilling,imvPin;
     private Button btnPayCash,btnPayCard;
     Spinner spinner;
@@ -52,7 +55,7 @@ public class PaymentModeActivity extends AppCompatActivity implements View.OnCli
     private int mCustomerPoints;
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_payment_mode);
 
@@ -143,6 +146,8 @@ public class PaymentModeActivity extends AppCompatActivity implements View.OnCli
                 finish();
             }
         });
+        etReceivedAmount.addTextChangedListener(new MyTextWatcher());
+        etCashAmount.addTextChangedListener(new MyTextWatcher());
 
     }
 
@@ -189,6 +194,7 @@ public class PaymentModeActivity extends AppCompatActivity implements View.OnCli
 
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
+
 
     }
     PaymentRequest paymentRequest = new PaymentRequest();
@@ -400,6 +406,7 @@ public class PaymentModeActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void callServicePayment() {
+
         ServiceTask mServiceTask = new ServiceTask();
         mServiceTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT);
         mServiceTask.setParamObj(paymentRequest);
@@ -411,6 +418,40 @@ public class PaymentModeActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
+        dismissProgress();
+        if(serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT)){
 
+            if(httpStatusCode==200){
+                IPOSApplication.mProductListResult.clear();
+                IPOSApplication.totalAmount=0.0;
+                setResult(200);
+                finish();
+            }
+        }
+    }
+
+    private class MyTextWatcher implements TextWatcher {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            try {
+                double CashAmount = Double.parseDouble(etCashAmount.getText().toString());
+                double ReceivedAmount = Double.parseDouble(etReceivedAmount.getText().toString());
+                double ReturnAmount = ReceivedAmount - CashAmount;
+                etReturnAmount.setText(ReturnAmount+"");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }

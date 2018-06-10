@@ -90,7 +90,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Company Name *"
-                                    android:textSize="@dimen/universal_text_size14" />
+                                    android:textSize="@dimen/universal_text_size14"
+                                    android:focusable="true"
+                                    android:focusableInTouchMode="true"/>
 
                             </android.support.design.widget.TextInputLayout>
                         </LinearLayout>

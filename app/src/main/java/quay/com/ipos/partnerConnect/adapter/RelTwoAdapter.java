@@ -18,8 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.partnerConnect.model.PssLOBS;
 import quay.com.ipos.partnerConnect.model.PssPrincipleContact;
+import quay.com.ipos.utility.ShareWorldUtil;
 
 public class RelTwoAdapter extends RecyclerView.Adapter<RelTwoAdapter.VH> {
     List<PssPrincipleContact> contactList = new ArrayList<>();
@@ -47,6 +49,7 @@ public class RelTwoAdapter extends RecyclerView.Adapter<RelTwoAdapter.VH> {
             @Override
             public void onClick(View view) {
                 try {
+                /*
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "" + contact.keyEntityEmpMobile1));
                     if (ActivityCompat.checkSelfPermission(((Activity) view.getContext()), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         // TODO: Consider calling
@@ -58,7 +61,8 @@ public class RelTwoAdapter extends RecyclerView.Adapter<RelTwoAdapter.VH> {
                         // for ActivityCompat#requestPermissions for more details.
                         ((Activity) view.getContext()).startActivity(intent);
                         return;
-                    }
+                    }*/
+                    ShareWorldUtil.dialNumber(IPOSApplication.getAppInstance(),"9818216321");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
