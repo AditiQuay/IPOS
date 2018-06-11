@@ -1,5 +1,6 @@
 package quay.com.ipos.partnerConnect;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.BillingAdapter;
 import quay.com.ipos.partnerConnect.partnerConnectModel.BillingModel;
 import quay.com.ipos.utility.FontUtil;
@@ -26,86 +28,44 @@ import quay.com.ipos.utility.FontUtil;
  * Created by niraj.kumar on 6/7/2018.
  */
 
-public class BillingAddressFragment extends Fragment implements InitInterface, ButtonListener {
-    private View main;
+public class BillingAddressFragment extends Fragment  {
     private TextView textViewBillingInfoHeading, textViewMadatory, textViewLastUpdated;
-    private RecyclerView recyclerViewBillingInfo;
-    private Button btnBillingCancel, btnBillingsubmit;
-    private ArrayList<BillingModel> billingModels = new ArrayList<>();
+    private RecyclerView recyclerView;
     private Context mContext;
+    private BillingAdapter businessAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        main = inflater.inflate(R.layout.billing_address, container, false);
+        View  view = inflater.inflate(R.layout.billing_address, container, false);
         mContext = getActivity();
-        findViewById();
-        applyInitValues();
-        applyLocalValidation();
-        applyTypeFace();
-        return main;
+        return view;
     }
 
     @Override
-    public void findViewById() {
-        textViewBillingInfoHeading = main.findViewById(R.id.textViewBillingInfoHeading);
-        textViewMadatory = main.findViewById(R.id.textViewMadatory);
-        textViewLastUpdated = main.findViewById(R.id.textViewLastUpdated);
-        recyclerViewBillingInfo = main.findViewById(R.id.recyclerViewBillingInfo);
-        btnBillingCancel = main.findViewById(R.id.btnBillingCancel);
-        btnBillingsubmit = main.findViewById(R.id.btnBillingsubmit);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        textViewBillingInfoHeading = view.findViewById(R.id.textViewBillingInfoHeading);
+        textViewMadatory = view.findViewById(R.id.textViewMadatory);
+        textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
+        recyclerView = view.findViewById(R.id.recyclerView);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        businessAdapter = new BillingAdapter(mContext);
+        recyclerView.setAdapter(businessAdapter);
+
+        loadData();
     }
 
-    @Override
-    public void applyInitValues() {
-        billingModels.clear();
-
-        BillingModel billingModel = new BillingModel();
-        billingModel.setAddressType("");
-        billingModel.setBillingBusinessPlace("");
-        billingModel.setBillingAddress("");
-        billingModel.setBillingCity("");
-        billingModel.setBillingState("");
-        billingModel.setBillingGSTIN("");
-        billingModel.setBillingContactPerson("");
-        billingModel.setBillingContactPersonNumber("");
-        billingModels.add(billingModel);
-
-
-        recyclerViewBillingInfo.setHasFixedSize(false);
-        recyclerViewBillingInfo.setLayoutManager(new LinearLayoutManager(mContext));
-        BillingAdapter businessAdapter = new BillingAdapter(mContext, billingModels, this);
-        recyclerViewBillingInfo.setAdapter(businessAdapter);
+    private void loadData() {
+        PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
+        partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
+            @Override
+            public void onChanged(@Nullable PCModel pcModel) {
+                businessAdapter.loadData(pcModel.BillandDelivery);
+            }
+        });
     }
 
-    @Override
-    public void applyTypeFace() {
-        FontUtil.applyTypeface(textViewBillingInfoHeading, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(textViewMadatory, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(textViewMadatory, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(textViewLastUpdated, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(recyclerViewBillingInfo, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnBillingCancel, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnBillingsubmit, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-    }
 
-    @Override
-    public boolean applyLocalValidation() {
-        return false;
-    }
-
-    @Override
-    public void onAdd(int position, String firstName, String lastName, String childGender, String childDOB) {
-
-    }
-
-    @Override
-    public void onPartnerAdd(int position, String distributerType, String companyName, String cinNumber, String panNumber, String contactPerson, String contactPosition, String partnerState, String partnerCity, String partnerPin, String partnerZone) {
-
-    }
-
-    @Override
-    public void onContactAdd(int position, String role, String name, String primaryMobileNum, String secondaryMobileNum) {
-
-    }
 }

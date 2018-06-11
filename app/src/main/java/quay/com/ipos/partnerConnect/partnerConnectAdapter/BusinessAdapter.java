@@ -2,6 +2,7 @@ package quay.com.ipos.partnerConnect.partnerConnectAdapter;
 
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.ButtonListener;
+import quay.com.ipos.partnerConnect.BusinessFragment;
 import quay.com.ipos.partnerConnect.model.BusinessLocation;
 import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
 import quay.com.ipos.utility.FontUtil;
@@ -27,15 +30,21 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
     private Context context;
     private ButtonListener buttonListener;
 
-    private List<KeyBusinessInfo> businessModels;
+    private List<KeyBusinessInfo> list =new ArrayList<>();
     private String[] partnerType = {"Retailer", "Distributor", "Wholeseller"};
     private String[] partnerKeyPosition = {"Director", "Manager", "Executive"};
     private String partnerTypeText, contactText;
 
-    public BusinessAdapter(Context context, List<KeyBusinessInfo> businessModels, ButtonListener buttonListener) {
+  /*  public BusinessAdapter(Context context, List<KeyBusinessInfo> list, ButtonListener buttonListener) {
         this.context = context;
         this.buttonListener = buttonListener;
-        this.businessModels = businessModels;
+        this.list = list;
+    }*/
+
+    public BusinessAdapter(FragmentActivity activity, BusinessFragment businessFragment) {
+        this.context = activity;
+        this.buttonListener = businessFragment;
+
     }
 
     @Override
@@ -48,7 +57,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyView holder, int position) {
-        KeyBusinessInfo businessModel = businessModels.get(position);
+        KeyBusinessInfo businessModel = list.get(position);
 
         //Creating the ArrayAdapter instance having the partnerType list
         ArrayAdapter partnerTypeHeading = new ArrayAdapter(context, android.R.layout.simple_spinner_item, partnerType);
@@ -81,7 +90,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
 
     @Override
     public int getItemCount() {
-        return businessModels.size();
+        return list.size();
     }
 
     @Override
@@ -156,5 +165,19 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
         }
     }
 
+    public void clearData() {
+        this.list.clear();
+        notifyDataSetChanged();
+    }
 
+    public void loadData(List<KeyBusinessInfo> data) {
+        this.list.clear();
+        this.list.addAll(data);
+        notifyDataSetChanged();
+    }
+    // Insert a new item to the RecyclerView on a predefined position
+    public void insert(int position, KeyBusinessInfo data) {
+        this.list.add(position, data);
+        notifyItemInserted(position);
+    }
 }
