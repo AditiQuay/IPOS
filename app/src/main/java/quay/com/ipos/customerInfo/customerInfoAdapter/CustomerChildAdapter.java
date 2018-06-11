@@ -33,7 +33,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 5/31/2018.
  */
 
-public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdapter.MyView> implements MySubmitButton,AdapterView.OnItemSelectedListener {
+public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdapter.MyView> implements MySubmitButton, AdapterView.OnItemSelectedListener {
     private static final String TAG = CustomerChildAdapter.class.getSimpleName();
     private Context context;
     private ButtonListener buttonListener;
@@ -44,11 +44,25 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
     private int Year, Month, Day;
     Date currentDateFormat = null;
     MySubmitButton mySubmitButton;
-    public CustomerChildAdapter(Context context, ArrayList<AddCustomerModel.CustomerChildBean> childModels, ButtonListener buttonListener,MySubmitButton mySubmitButton) {
+    MyChildValidation myChildValidation;
+    private String firstName;
+    private String lastName;
+    private String dob;
+    public interface MyChildValidation {
+        void childValidated(boolean value);
+
+        void childPreviousValidated(boolean value);
+    }
+
+    boolean isChildFilledFailed = false;
+    boolean isPreviousChildValidated = false;
+
+    public CustomerChildAdapter(Context context, ArrayList<AddCustomerModel.CustomerChildBean> childModels, ButtonListener buttonListener, MySubmitButton mySubmitButton, MyChildValidation myChildValidation) {
         this.context = context;
         this.childModels = childModels;
         this.buttonListener = buttonListener;
         this.mySubmitButton = mySubmitButton;
+        this.myChildValidation = myChildValidation;
     }
 
     @Override
@@ -56,7 +70,7 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.customer_child_item, parent, false);
 
-        return new CustomerChildAdapter.MyView(itemView);
+        return new MyView(itemView);
     }
 
     @Override
@@ -72,15 +86,10 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
         holder.childGenderSpinner.setAdapter(nameHeading);
         holder.childGenderSpinner.setOnItemSelectedListener(this);
 
-//        if (holder.tieChildFirstName.getText().toString().equalsIgnoreCase("")){
-//            holder.tilChildfname.setErrorEnabled(true);
-//            holder.tieChildFirstName.setError(context.getResources().getString(R.string.invalid_f_name));
-//            holder.tieChildFirstName.setError("Please enter child first name");
-//        }
-
         holder.tieChildLastName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
 
             }
 
@@ -91,16 +100,15 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
 
             @Override
             public void afterTextChanged(Editable s) {
-//                holder.tilChildfname.setErrorEnabled(true);
-//                holder.tilChildfname.setError(null);
-                buttonListener.onAdd(holder.getAdapterPosition(), holder.tieChildFirstName.getText().toString(), holder.tieChildLastName.getText().toString(),
-                        child, holder.tieChildDOB.getText().toString());
+                firstName = holder.tieChildFirstName.getText().toString();
+                lastName = holder.tieChildLastName.getText().toString();
+                dob = holder.tieChildDOB.getText().toString();
+                buttonListener.onAdd(holder.getAdapterPosition(),firstName, lastName, child, dob);
             }
         });
         holder.tieChildFirstName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -110,15 +118,16 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
 
             @Override
             public void afterTextChanged(Editable s) {
-                buttonListener.onAdd(holder.getAdapterPosition(), holder.tieChildFirstName.getText().toString(), holder.tieChildLastName.getText().toString(),
-                        child, holder.tieChildDOB.getText().toString());
+                firstName = holder.tieChildFirstName.getText().toString();
+                lastName = holder.tieChildLastName.getText().toString();
+                dob = holder.tieChildDOB.getText().toString();
+                buttonListener.onAdd(holder.getAdapterPosition(),firstName, lastName, child, dob);
             }
         });
 
         holder.tieChildDOB.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
@@ -128,10 +137,13 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
 
             @Override
             public void afterTextChanged(Editable s) {
-                buttonListener.onAdd(holder.getAdapterPosition(), holder.tieChildFirstName.getText().toString(), holder.tieChildLastName.getText().toString(),
-                        child, holder.tieChildDOB.getText().toString());
+                firstName = holder.tieChildFirstName.getText().toString();
+                lastName = holder.tieChildLastName.getText().toString();
+                dob = holder.tieChildDOB.getText().toString();
+                buttonListener.onAdd(holder.getAdapterPosition(),firstName, lastName, child, dob);
             }
         });
+
         holder.tieChildDOB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,8 +162,13 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
                         holder.tieChildDOB.setText(date1);
                     }
                 }, Year, Month, Day);
+                Calendar c1 = Calendar.getInstance();
+                c1.set(1980, 0, 1);
+
                 datePickerDialog.setThemeDark(false);
-                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.showYearPickerFirst(true);
+                datePickerDialog.setMinDate(c1);
+                datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
                 datePickerDialog.setAccentColor(context.getResources().getColor(R.color.colorPrimary));
                 datePickerDialog.setTitle("Select Date");
                 datePickerDialog.show(manager, "DatePickerDialog");
@@ -172,8 +189,10 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
         if (materialSpinner.getId() == R.id.childGenderSpinner) {
             if (selectedSpinner.equalsIgnoreCase("Yes")) {
                 child = selectedSpinner;
+                buttonListener.onAdd(position,firstName, lastName, child, dob);
             } else if (selectedSpinner.equalsIgnoreCase("No")) {
                 child = selectedSpinner;
+                buttonListener.onAdd(position,firstName, lastName, child, dob);
             }
         }
     }
@@ -190,7 +209,6 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
 
 
     public class MyView extends RecyclerView.ViewHolder {
-        private TextInputLayout tilChildfname,tilLastName,tilChildDob;
         private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDOB;
         private MaterialSpinner childGenderSpinner;
 
@@ -199,9 +217,6 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
             tieChildFirstName = itemView.findViewById(R.id.tieChildFirstName);
             tieChildLastName = itemView.findViewById(R.id.tieChildLastName);
             tieChildDOB = itemView.findViewById(R.id.tieChildDOB);
-            tilChildfname = itemView.findViewById(R.id.tilChildfname);
-            tilLastName = itemView.findViewById(R.id.tilLastName);
-            tilChildDob = itemView.findViewById(R.id.tilChildDob);
             childGenderSpinner = itemView.findViewById(R.id.childGenderSpinner);
             //Personal
             FontUtil.applyTypeface(tieChildFirstName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
@@ -210,4 +225,6 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
             FontUtil.applyTypeface(childGenderSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(context));
         }
     }
+
+
 }

@@ -2,19 +2,16 @@ package quay.com.ipos.customerInfo.customerAdd;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -38,11 +34,14 @@ import java.util.ArrayList;
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
+import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomeChildListModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerRequestModel;
+import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.listeners.YourFragmentInterface;
 import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
@@ -56,7 +55,7 @@ import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
  * Created by niraj.kumar on 5/31/2018.
  */
 
-public class CustomerAddQuickFragment extends Fragment implements InitInterface, View.OnFocusChangeListener, ServiceTask.ServiceResultListener, View.OnClickListener, TextWatcher {
+public class CustomerAddQuickFragment extends Fragment implements InitInterface, YourFragmentInterface, View.OnFocusChangeListener, ServiceTask.ServiceResultListener, View.OnClickListener, TextWatcher {
     private static final String TAG = CustomerAddQuickFragment.class.getSimpleName();
     private View main;
     private TextView textViewPersonalHeading;
@@ -77,6 +76,9 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     private String localId;
     private String customerCode;
     private ProgressDialog m_Dialog;
+    YourFragmentInterface yourFragmentInterface;
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
 
     public CustomerAddQuickFragment() {
 
@@ -85,6 +87,11 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Nullable
@@ -148,44 +155,34 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         String childjson = new Gson().toJson(customeChildListModel.customerChildList);
         Log.i("dddd", childjson);
 
+        if (dbHelper.dbHasData(CustomerEnum.ColoumnCustomerPhone.toString(), mobileNumber)) {
+            Toast.makeText(mContext, "Mobile number already exist", Toast.LENGTH_SHORT).show();
+        } else {
+            //Storing data to local DB.
+            long id = dbHelper.insertCustomer(customerId, title, "", firstName, lastName, gender1.trim(), "", "false",
+                    "", "", "", "false", childjson,
+                    "", "", mobileNumber.trim(), "", "", "", "", "",
+                    "", "", "", "", "", "", "",
+                    "", "", "", "", "", "", "", "", "", "", "", "", "1", 0);
 
-        //Storing data to local DB.
-        long id = dbHelper.insertCustomer(customerId, title, "", firstName, lastName, gender1.trim(), "", "false",
-                "", "", "", "false", childjson,
-                "", "", mobileNumber.trim(), "", "", "", "", "",
-                "", "", "", "", "", "", "",
-                "", "", "", "", "", "", "", "", "", "", "", "", "1", 0);
-
-
-//        customerModels.addAll(dbHelper.getAllOfflineCustomer());
-        String accessToken = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN.trim(), "", mContext);
-
-        m_Dialog = Util.showProgressDialog(mContext, "Loading");
-        ServiceTask mTask = new ServiceTask();
-        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_CUSTOMER_DATA);
-        mTask.setApiCallType(Constants.API_METHOD_POST);
-        mTask.setParamObj(dbHelper.getAllOfflineCustomer());
-        mTask.setApiToken("Bearer " + accessToken.trim());
-        mTask.setListener(this);
-        mTask.setResultType(CustomerServerRequestModel[].class);
-        mTask.execute();
+            customerModels.addAll(dbHelper.getAllOfflineCustomer());
+            String accessToken = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN.trim(), "", mContext);
 
 
-    }
+            m_Dialog = Util.showProgressDialog(mContext, "Loading");
+            ServiceTask mTask = new ServiceTask();
+            mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+            mTask.setApiMethod(IPOSAPI.WEB_SERVICE_CUSTOMER_DATA);
+            mTask.setApiCallType(Constants.API_METHOD_POST);
+            mTask.setParamObj(customerModels);
+            mTask.setApiToken("Bearer " + accessToken.trim());
+            mTask.setListener(this);
+            mTask.setResultType(CustomerServerRequestModel[].class);
+            mTask.execute();
+
+        }
 
 
-    @NonNull
-    private SpannableStringBuilder setRedStarToLabel(String text) {
-        String simple = text;
-        String colored = "*";
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-        builder.append(simple);
-        int start = builder.length();
-        builder.append(colored);
-        int end = builder.length();
-        builder.setSpan(new ForegroundColorSpan(Color.RED), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return builder;
     }
 
     @Override
@@ -271,6 +268,8 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 long id = dbHelper.updateServerId(Integer.parseInt(localId), customerCode);
                 Log.e(TAG, "Id***" + id);
             }
+            Intent i = new Intent(mContext, MainActivity.class);
+            startActivity(i);
 
 
         } catch (JSONException e) {
@@ -286,29 +285,36 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
 
         } else if (v == btnsubmit) {
             String title = String.valueOf(titleSpinner.getSelectedItem());
+            String firstName = tieFirstName.getText().toString();
+            String lastName = tieLastName.getText().toString();
             String gender = String.valueOf(genderSpinner.getSelectedItem());
+            String mobileNumber = tieMobileNumber.getText().toString();
 
             boolean isFail = false;
-            if (title.equalsIgnoreCase("null")){
+            if (title.equalsIgnoreCase("null")) {
                 isFail = true;
                 titleSpinner.setEnableErrorLabel(true);
                 titleSpinner.setError(getResources().getString(R.string.invalid_title));
-            }if (gender.equalsIgnoreCase("null")){
+            }
+            if (gender.equalsIgnoreCase("null")) {
                 isFail = true;
                 genderSpinner.setEnableErrorLabel(true);
                 genderSpinner.setError(getResources().getString(R.string.invalid_gender));
-            }if (TextUtils.isEmpty(tieFirstName.getText().toString())){
+            }
+            if (TextUtils.isEmpty(tieFirstName.getText().toString())) {
                 isFail = true;
                 tilFirstName.setErrorEnabled(true);
-                tilFirstName.setError(getResources().getString(R.string.invalid_f_name));
-            }if (TextUtils.isEmpty(tieLastName.getText().toString())){
+                tieFirstName.setError(getResources().getString(R.string.invalid_f_name));
+            }
+            if (TextUtils.isEmpty(tieLastName.getText().toString())) {
                 isFail = true;
                 tilLastName.setErrorEnabled(true);
-                tilLastName.setError(getResources().getString(R.string.invalid_l_name));
-            }if (TextUtils.isEmpty(tieMobileNumber.getText().toString())){
+                tieLastName.setError(getResources().getString(R.string.invalid_l_name));
+            }
+            if (TextUtils.isEmpty(tieMobileNumber.getText().toString())) {
                 isFail = true;
                 tilMobileNumber.setErrorEnabled(true);
-                tilMobileNumber.setError(getResources().getString(R.string.invalid_phone));
+                tieMobileNumber.setError(getResources().getString(R.string.invalid_phone));
             }
             if (!isFail) {
                 titleSpinner.setEnableErrorLabel(false);
@@ -318,6 +324,18 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 tilMobileNumber.setErrorEnabled(false);
                 storeCustomerDataToLocalDb();
             }
+
+
+            sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.clear();
+            editor.putString("title", title);
+            editor.putString("fName", firstName);
+            editor.putString("lastName", lastName);
+            editor.putString("mobileNumber", mobileNumber);
+
+            editor.apply();
+
 
         }
 
@@ -347,5 +365,10 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
             tilMobileNumber.setErrorEnabled(false);
             tilMobileNumber.setError(null);
         }
+    }
+
+    @Override
+    public void fragmentBecameVisible() {
+
     }
 }

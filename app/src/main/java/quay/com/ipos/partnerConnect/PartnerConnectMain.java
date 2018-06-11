@@ -1,7 +1,6 @@
 package quay.com.ipos.partnerConnect;
 
 import android.app.Activity;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,8 +21,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-
-import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
@@ -226,7 +222,10 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                 return new BillingAddressFragment();
             case 5:
                 return new DocumentsFragment();
+<<<<<<< HEAD
+=======
 
+>>>>>>> 9afaf46ef452fa8d57265b088fa0492c3b7de513
             default:
                 return RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
         }
