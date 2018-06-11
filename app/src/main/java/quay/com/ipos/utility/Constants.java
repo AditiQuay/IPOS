@@ -132,6 +132,17 @@ public class Constants {
     public static final String businessPlaceCode="businessPlaceCode";
     public static final String entityStateCode="entityStateCode";
 
+    public static final String entityCode="entityCode";
+    public static final String entityRole="entityRole";
+    public static final String employeeCode="employeeCode";
+    public static final String employeeRole="employeeRole";
+
+    public static final String EmpCode="EmpCode";
+    public static final String UserRole="UserRole";
+    public static final String EntityName="EntityName";
+    public static final String EntityId="EntityId";
+
+
 
 
 

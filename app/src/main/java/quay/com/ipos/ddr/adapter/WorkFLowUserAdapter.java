@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.ddr.modal.UserModal;
+import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.utility.Util;
 
 
@@ -25,11 +26,13 @@ public class WorkFLowUserAdapter extends RecyclerView.Adapter<WorkFLowUserAdapte
     private int lastCheckedPosition = -1;
     SparseBooleanArray mSelectedItems = new SparseBooleanArray();
 
+    MyListener myListener;
 
 
-    public WorkFLowUserAdapter(Context mContext, ArrayList<UserModal> stringArrayList) {
+    public WorkFLowUserAdapter(Context mContext, ArrayList<UserModal> stringArrayList,MyListener myListener) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
+        this.myListener=myListener;
 
 
     }
@@ -55,8 +58,8 @@ public class WorkFLowUserAdapter extends RecyclerView.Adapter<WorkFLowUserAdapte
             holder.imgCD.setBackgroundResource(R.drawable.green_circle);
         }else if ("Rejected".equalsIgnoreCase(stringArrayList.get(position).getUserStatus())){
             holder.imgCD.setBackgroundResource(R.drawable.red_circle);
-        }else if ("".equalsIgnoreCase(stringArrayList.get(position).getUserStatus())){
-           // holder.imgCD.setBackgroundResource(R.drawable.red_circle);
+        }else if ("Pending".equalsIgnoreCase(stringArrayList.get(position).getUserStatus())){
+            holder.imgCD.setBackgroundResource(R.drawable.yellow_circle);
         }else {
 
         }
@@ -88,7 +91,7 @@ public class WorkFLowUserAdapter extends RecyclerView.Adapter<WorkFLowUserAdapte
 
                 notifyDataSetChanged();
 
-
+                myListener.onRowClicked(position);
 
 
             }

@@ -17,13 +17,13 @@
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/imgCart"
-            android:layout_width="60dp"
-            android:layout_height="@dimen/dim_60"
+            android:layout_width="24dp"
+            android:layout_height="@dimen/dim_24"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_gravity="center"
             android:visibility="visible"
-            android:background="@drawable/if_light_bulb"
+            android:background="@drawable/cart_app"
             android:contentDescription="TODO" />
         <View
             android:id="@+id/view"

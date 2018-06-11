@@ -38,6 +38,7 @@ import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
+import quay.com.ipos.utility.Util;
 
 public class LoginActivity extends RunTimePermissionActivity implements InitInterface, View.OnClickListener, View.OnFocusChangeListener, ServiceTask.ServiceResultListener {
 
@@ -253,6 +254,10 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                 SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().getAccessToken(), mContext);
                 SharedPrefUtil.setStoreID(Constants.STORE_ID.trim(), loginResult.getUserAccess().getWorklocationID(), mContext);
 
+                Prefs.putIntegerPrefs(Constants.entityCode.trim(), loginResult.getUserAccess().getEntityId());
+                Prefs.putStringPrefs(Constants.entityRole.trim(), loginResult.getUserAccess().getUserRole());
+                Prefs.putStringPrefs(Constants.employeeCode.trim(), loginResult.getUserAccess().getEmpCode());
+                Prefs.putStringPrefs(Constants.employeeRole.trim(), "distrubutor");
 
                 new RealmController().saveUserDetail(serverResponse);
                 //new  RealmController().saveUserDetail(userdata);

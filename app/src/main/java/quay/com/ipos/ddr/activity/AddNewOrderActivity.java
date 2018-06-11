@@ -59,6 +59,7 @@ import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
@@ -408,12 +409,14 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
     private void searchProductCall(String s) {
 //        showProgress(getResources().getString(R.string.please_wait));
         ProductSearchRequest productSearchRequest = new ProductSearchRequest();
-        productSearchRequest.setEntityCode("1");
-        productSearchRequest.setEntityRole("distributer");
+        productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
+        productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
         productSearchRequest.setEntityStateCode(entityStateCode);
         productSearchRequest.setSearchParam(s);
         productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
         productSearchRequest.setBarCodeNumber("NA");
+        productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
+        productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOProductSearch);
