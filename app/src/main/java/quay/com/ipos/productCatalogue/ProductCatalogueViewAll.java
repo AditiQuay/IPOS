@@ -106,6 +106,7 @@ public class ProductCatalogueViewAll extends BaseActivity implements InitInterfa
         ProductItemModal productItemModal = productItemModals.get(position);
         Intent i = new Intent(mContext, CatalogueSubProduct.class);
         i.putExtra("ProductName", productItemModal.getProductName());
+        i.putExtra("ProductId",productItemModal.getProductId());
         startActivity(i);
     }
 

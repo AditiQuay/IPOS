@@ -1,6 +1,7 @@
 package quay.com.ipos.customerInfo.customerAdd;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -39,10 +40,12 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Context mContext;
+
     private DatabaseHandler dbHelper;
     private String TAG = CustomerAddMain.class.getSimpleName();
     SharedPreferences sharedpreferences;
-    public static final String mypreference = "mypref";
+    public static final String mypreference = "Data";
+    int count;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +53,8 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
         setContentView(R.layout.customer_add_main);
         mContext = CustomerAddMain.this;
         dbHelper = new DatabaseHandler(mContext);
+        Intent i = getIntent();
+        count = i.getIntExtra("Count", 0);
         getSpinnerList();
         findViewById();
         applyInitValues();
@@ -82,10 +87,12 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
                 sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.clear();
+                editor.apply();
+                finish();
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -111,6 +118,9 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
         adapter.addFragment(new CustomerAddQuickFragment(), "QUICK INFO");
         adapter.addFragment(new CustomerAddFullFragment(), "FULL INFO");
         viewPager.setAdapter(adapter);
+        if (count != 0) {
+            viewPager.setCurrentItem(1);
+        }
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

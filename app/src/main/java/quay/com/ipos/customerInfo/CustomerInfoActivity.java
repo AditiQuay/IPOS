@@ -14,10 +14,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +75,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mContext,CustomerAddMain.class);
+                Intent i = new Intent(mContext, CustomerAddMain.class);
                 startActivity(i);
             }
         });
@@ -144,7 +142,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e(TAG,"onResumeCalled***");
+        Log.e(TAG, "onResumeCalled***");
         customerModelList.clear();
         customerModelList.addAll(dbHelper.getAllNotes());
         arrSearlist.addAll(customerModelList);
@@ -154,14 +152,14 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     @Override
     protected void onStart() {
         super.onStart();
-        Log.e(TAG,"onStart***");
+        Log.e(TAG, "onStart***");
 
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.e(TAG,"onResumeCalled***");
+        Log.e(TAG, "onResumeCalled***");
 
     }
 
@@ -209,12 +207,13 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
 
     @Override
     public void onRowClicked(int position) {
-        customerModelList.addAll(dbHelper.getAllNotes());
-        CustomerModel customerInfoModal = customerModelList.get(position);
+        CustomerModel customerInfoModal = arrSearlist.get(position);
+        CustomerModel customerModel = dbHelper.getCustomerMobile(customerInfoModal.getCustomerPhone());
+
         Intent i = new Intent(CustomerInfoActivity.this, CustomerInfoDetailsActivity.class);
-        i.putExtra("customerID", customerInfoModal.getCustomerID());
+        i.putExtra("customerID", customerModel.getCustomerID());
         startActivityForResult(i, Constants.ACT_CUSTOMER);
-//        finish();
+
 
     }
 
@@ -243,20 +242,18 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 //        if(requestCode==Constants.ACT_CUSTOMER){
-            if(resultCode==Constants.ACT_CUSTOMER){
-                setResult(Constants.ACT_CUSTOMER,data);
-                finish();
-            }else if (resultCode==Constants.ACT_PAYMENT_NEW_BILLING)
-            {
-                setResult(Constants.ACT_PAYMENT_NEW_BILLING,data);
-                finish();
-            }else if(resultCode==Constants.ACT_PINNED){
-                setResult(Constants.ACT_PINNED,data);
-                finish();
-            }
-            else if (resultCode==0){
-                finish();
-            }
+        if (resultCode == Constants.ACT_CUSTOMER) {
+            setResult(Constants.ACT_CUSTOMER, data);
+            finish();
+        } else if (resultCode == Constants.ACT_PAYMENT_NEW_BILLING) {
+            setResult(Constants.ACT_PAYMENT_NEW_BILLING, data);
+            finish();
+        } else if (resultCode == Constants.ACT_PINNED) {
+            setResult(Constants.ACT_PINNED, data);
+            finish();
+        } else if (resultCode == 0) {
+            finish();
+        }
 //        }
     }
 }

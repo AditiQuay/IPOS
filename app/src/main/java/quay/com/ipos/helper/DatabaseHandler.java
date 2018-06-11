@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -78,7 +79,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_productCode + " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName + " TEXT," + KEY_sProductFeature + " TEXT," + KEY_sProductImage + " TEXT," + KEY_sProductPrice + " REAL," + KEY_sProductStock + " INTEGER," + KEY_sProductWeight + " INTEGER," + KEY_isDiscount + " INTEGER," + KEY_gstPerc + " REAL," + KEY_cgst + " REAL," + KEY_sgst + " REAL," + KEY_salesPrice + " REAL," + KEY_nrv + " REAL," + KEY_gpl + " REAL," + KEY_mrp + " REAL," + KEY_barCodeNumber + " TEXT," + KEY_discount + " TEXT," + KEY_points+ " INTEGER,"+KEY_pointsBasedOn+ " TEXT,"+KEY_pointsPer+ " INTEGER,"+KEY_valueFrom+ " INTEGER,"+KEY_valueTo+ " INTEGER"+")";
+        String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_productCode + " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName + " TEXT," + KEY_sProductFeature + " TEXT," + KEY_sProductImage + " TEXT," + KEY_sProductPrice + " REAL," + KEY_sProductStock + " INTEGER," + KEY_sProductWeight + " INTEGER," + KEY_isDiscount + " INTEGER," + KEY_gstPerc + " REAL," + KEY_cgst + " REAL," + KEY_sgst + " REAL," + KEY_salesPrice + " REAL," + KEY_nrv + " REAL," + KEY_gpl + " REAL," + KEY_mrp + " REAL," + KEY_barCodeNumber + " TEXT," + KEY_discount + " TEXT," + KEY_points + " INTEGER," + KEY_pointsBasedOn + " TEXT," + KEY_pointsPer + " INTEGER," + KEY_valueFrom + " INTEGER," + KEY_valueTo + " INTEGER" + ")";
         db.execSQL(CREATE_RETAIL_TABLE);
 
         // create notes table
@@ -143,7 +144,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_barCodeNumber, datum.getBarCodeNumber()); //
         values.put(KEY_discount, Util.getCustomGson().toJson(datum.getDiscount())); //
         values.put(KEY_points, datum.getPoints()); //
-        values.put(KEY_pointsBasedOn,datum.getPointsBasedOn()); //
+        values.put(KEY_pointsBasedOn, datum.getPointsBasedOn()); //
         values.put(KEY_pointsPer, datum.getPointsPer()); //
         values.put(KEY_valueTo, datum.getValueTo()); //
         values.put(KEY_valueFrom, datum.getValueFrom()); //
@@ -178,7 +179,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_barCodeNumber, datum.getBarCodeNumber()); //
         values.put(KEY_discount, Util.getCustomGson().toJson(datum.getDiscount())); //
         values.put(KEY_points, datum.getPoints()); //
-        values.put(KEY_pointsBasedOn,datum.getPointsBasedOn()); //
+        values.put(KEY_pointsBasedOn, datum.getPointsBasedOn()); //
         values.put(KEY_pointsPer, datum.getPointsPer()); //
         values.put(KEY_valueTo, datum.getValueTo()); //
         values.put(KEY_valueFrom, datum.getValueFrom()); //
@@ -652,82 +653,81 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //	}
 
 
-    /*
-    * Custoemr List and details CRUD operation
-    *
-    * */
-    //Getting customer detail
-    public CustomerModel getCustomerDetails(String id) {
-        // get readable database as we are not inserting anything
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_NAME,
-                new String[]{CustomerEnum.ColoumnLocalID.toString(), CustomerEnum.ColoumnCustomerID.toString(), CustomerEnum.ColoumnCustomerTitle.toString(), CustomerEnum.ColoumnCustomerName.toString(), CustomerEnum.ColoumnCustomerFirstName.toString(), CustomerEnum.ColoumnCustomerLastName.toString(),
-                        CustomerEnum.ColoumnCustomerGender.toString(), CustomerEnum.ColoumnCustomerBday.toString(), CustomerEnum.ColoumnCustomerMaritalStatus.toString(), CustomerEnum.ColoumnCustomerSpouseFirstName.toString(),
-                        CustomerEnum.ColoumnCustomerSpouseLastName.toString(), CustomerEnum.ColoumnCustomerSpouseDob.toString(), CustomerEnum.ColoumnCustomerChildStatus.toString(), CustomerEnum.ColoumnCustomerChild.toString(),
-                        CustomerEnum.ColoumnCustomerEmail.toString(), CustomerEnum.ColoumnCustomerEmail2.toString(), CustomerEnum.ColoumnCustomerPhone.toString(), CustomerEnum.ColoumnCustomerPhone2.toString(), CustomerEnum.ColoumnCustomerPhone3.toString(), CustomerEnum.ColoumnCustomerAddress.toString(), CustomerEnum.ColoumnCustomerState.toString(), CustomerEnum.ColoumnCustomerCity.toString(), CustomerEnum.ColoumnCustomerPin.toString(), CustomerEnum.ColoumnCustomerCountry.toString(), CustomerEnum.ColoumnCustomerDesignation.toString(), CustomerEnum.ColoumnCustomerCompany.toString(),
-                        CustomerEnum.ColoumnCustomerGstin.toString(), CustomerEnum.ColoumnCustomer.toString(), CustomerEnum.ColoumnCustomerRelationship.toString(), CustomerEnum.ColoumnCustomerImage.toString(), CustomerEnum.ColoumnLastBillingDate.toString(), CustomerEnum.ColoumnLastBillingAmount.toString(), CustomerEnum.ColoumnIsSuggestion.toString(), CustomerEnum.ColoumnSuggestion.toString(),
-                        CustomerEnum.ColoumnCustomerPoint.toString(), CustomerEnum.ColoumnRecentOrders.toString(), CustomerEnum.ColoumnCustomerCustomerStatus.toString(), CustomerEnum.ColoumncFactor.toString(), CustomerEnum.ColoumncType.toString(), CustomerEnum.ColoumncCustomerDOM.toString(), CustomerEnum.ColoumnIsSync.toString()},
-                CustomerEnum.ColoumnCustomerID.toString() + "=?",
-                new String[]{id}, null, null, null, null);
-
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        // prepare note object
-        assert cursor != null;
-        CustomerModel note = new CustomerModel(
-                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerFirstName.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerLastName.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGender.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerBday.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerMaritalStatus.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseFirstName.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseLastName.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseDob.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChildStatus.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChild.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail2.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone2.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone3.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerAddress.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerState.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCity.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPin.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCountry.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerDesignation.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCompany.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomer.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerRelationship.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerImage.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingDate.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingAmount.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnIsSuggestion.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnSuggestion.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPoint.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRecentOrders.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCustomerStatus.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
-                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
-                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
-
-
-        // close the db connection
-        cursor.close();
-
-        return note;
-    }
+//    /*
+//    * Custoemr List and details CRUD operation
+//    *
+//    * */
+//    //Getting customer detail
+//    public CustomerModel getCustomerDetails(String id) {
+//        // get readable database as we are not inserting anything
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.query(TABLE_NAME,
+//                new String[]{CustomerEnum.ColoumnCustomerID.toString(), CustomerEnum.ColoumnCustomerTitle.toString(), CustomerEnum.ColoumnCustomerName.toString(), CustomerEnum.ColoumnCustomerFirstName.toString(), CustomerEnum.ColoumnCustomerLastName.toString(),
+//                        CustomerEnum.ColoumnCustomerGender.toString(), CustomerEnum.ColoumnCustomerBday.toString(), CustomerEnum.ColoumnCustomerMaritalStatus.toString(), CustomerEnum.ColoumnCustomerSpouseFirstName.toString(),
+//                        CustomerEnum.ColoumnCustomerSpouseLastName.toString(), CustomerEnum.ColoumnCustomerSpouseDob.toString(), CustomerEnum.ColoumnCustomerChildStatus.toString(), CustomerEnum.ColoumnCustomerChild.toString(),
+//                        CustomerEnum.ColoumnCustomerEmail.toString(), CustomerEnum.ColoumnCustomerEmail2.toString(), CustomerEnum.ColoumnCustomerPhone.toString(), CustomerEnum.ColoumnCustomerPhone2.toString(), CustomerEnum.ColoumnCustomerPhone3.toString(), CustomerEnum.ColoumnCustomerAddress.toString(), CustomerEnum.ColoumnCustomerState.toString(), CustomerEnum.ColoumnCustomerCity.toString(), CustomerEnum.ColoumnCustomerPin.toString(), CustomerEnum.ColoumnCustomerCountry.toString(), CustomerEnum.ColoumnCustomerDesignation.toString(), CustomerEnum.ColoumnCustomerCompany.toString(),
+//                        CustomerEnum.ColoumnCustomerGstin.toString(), CustomerEnum.ColoumnCustomer.toString(), CustomerEnum.ColoumnCustomerRelationship.toString(), CustomerEnum.ColoumnCustomerImage.toString(), CustomerEnum.ColoumnLastBillingDate.toString(), CustomerEnum.ColoumnLastBillingAmount.toString(), CustomerEnum.ColoumnIsSuggestion.toString(), CustomerEnum.ColoumnSuggestion.toString(),
+//                        CustomerEnum.ColoumnCustomerPoint.toString(), CustomerEnum.ColoumnRecentOrders.toString(), CustomerEnum.ColoumnCustomerCustomerStatus.toString(), CustomerEnum.ColoumncFactor.toString(), CustomerEnum.ColoumncType.toString(), CustomerEnum.ColoumncCustomerDOM.toString(), CustomerEnum.ColoumnIsSync.toString()},
+//                CustomerEnum.ColoumnCustomerID.toString() + "=?",
+//                new String[]{id}, null, null, null, null);
+//
+//
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//
+//        // prepare note object
+//        assert cursor != null;
+//        CustomerModel note = new CustomerModel(
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerFirstName.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerLastName.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGender.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerBday.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerMaritalStatus.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseFirstName.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseLastName.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseDob.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChildStatus.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChild.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail2.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone2.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone3.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerAddress.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerState.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCity.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPin.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCountry.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerDesignation.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCompany.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomer.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerRelationship.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerImage.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingDate.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingAmount.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnIsSuggestion.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnSuggestion.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPoint.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRecentOrders.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCustomerStatus.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
+//                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
+//
+//
+//        // close the db connection
+//        cursor.close();
+//
+//        return note;
+//    }
 
     //Insert Customer Data
     public long insertCustomer(String customerID,
@@ -771,12 +771,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                String customerDom,
                                String customerCode,
                                String registeredBusinessPlaceID,
+                               int customerPointsValue,
                                int sync) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         // `id` and `timestamp` will be inserted automatically.
         // no need to add them
+
         values.put(CustomerEnum.ColoumnCustomerID.toString(), customerID);
         values.put(CustomerEnum.ColoumnCustomerTitle.toString(), customerTitle);
         values.put(CustomerEnum.ColoumnCustomerName.toString(), customerName);
@@ -818,6 +820,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(CustomerEnum.ColoumncCustomerDOM.toString(), customerDom);
         values.put(CustomerEnum.ColoumnCustomerCode.toString(), customerCode);
         values.put(CustomerEnum.ColoumnRegisteredBusinessPlace.toString(), registeredBusinessPlaceID);
+        values.put(CustomerEnum.ColoumnPointsPerValue.toString(), customerPointsValue);
         values.put(CustomerEnum.ColoumnIsSync.toString(), sync);
 
         // insert row
@@ -951,15 +954,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return count;
     }
-
     //Get customer details
-    public CustomerModel getCustomer(String id) {
+    public CustomerModel getCustomerMobile(String id) {
         // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_NAME,
                 new String[]{
-                        CustomerEnum.ColoumnLocalID.toString(),
                         CustomerEnum.ColoumnCustomerID.toString(),
                         CustomerEnum.ColoumnCustomerTitle.toString(),
                         CustomerEnum.ColoumnCustomerName.toString(),
@@ -1001,8 +1002,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         CustomerEnum.ColoumncCustomerDOM.toString(),
                         CustomerEnum.ColoumnCustomerCode.toString(),
                         CustomerEnum.ColoumnRegisteredBusinessPlace.toString(),
+                        CustomerEnum.ColoumnPointsPerValue.toString(),
                         CustomerEnum.ColoumnIsSync.toString()},
-                CustomerEnum.ColoumnCustomerID.toString() + "=?",
+                CustomerEnum.ColoumnCustomerPhone.toString() + "=?",
                 new String[]{id}, null, null, null, null);
 
         if (cursor != null)
@@ -1010,7 +1012,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // prepare note object
         assert cursor != null;
         CustomerModel note = new CustomerModel(
-                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())),
@@ -1052,6 +1053,114 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
+                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())),
+                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
+
+        // close the db connection
+        cursor.close();
+
+        return note;
+    }
+    //Get customer details
+    public CustomerModel getCustomer(String id) {
+        // get readable database as we are not inserting anything
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{
+                        CustomerEnum.ColoumnCustomerID.toString(),
+                        CustomerEnum.ColoumnCustomerTitle.toString(),
+                        CustomerEnum.ColoumnCustomerName.toString(),
+                        CustomerEnum.ColoumnCustomerFirstName.toString(),
+                        CustomerEnum.ColoumnCustomerLastName.toString(),
+                        CustomerEnum.ColoumnCustomerGender.toString(),
+                        CustomerEnum.ColoumnCustomerBday.toString(),
+                        CustomerEnum.ColoumnCustomerMaritalStatus.toString(),
+                        CustomerEnum.ColoumnCustomerSpouseFirstName.toString(),
+                        CustomerEnum.ColoumnCustomerSpouseLastName.toString(),
+                        CustomerEnum.ColoumnCustomerSpouseDob.toString(),
+                        CustomerEnum.ColoumnCustomerChildStatus.toString(),
+                        CustomerEnum.ColoumnCustomerChild.toString(),
+                        CustomerEnum.ColoumnCustomerEmail.toString(),
+                        CustomerEnum.ColoumnCustomerEmail2.toString(),
+                        CustomerEnum.ColoumnCustomerPhone.toString(),
+                        CustomerEnum.ColoumnCustomerPhone2.toString(),
+                        CustomerEnum.ColoumnCustomerPhone3.toString(),
+                        CustomerEnum.ColoumnCustomerAddress.toString(),
+                        CustomerEnum.ColoumnCustomerState.toString(),
+                        CustomerEnum.ColoumnCustomerCity.toString(),
+                        CustomerEnum.ColoumnCustomerPin.toString(),
+                        CustomerEnum.ColoumnCustomerCountry.toString(),
+                        CustomerEnum.ColoumnCustomerDesignation.toString(),
+                        CustomerEnum.ColoumnCustomerCompany.toString(),
+                        CustomerEnum.ColoumnCustomerGstin.toString(),
+                        CustomerEnum.ColoumnCustomer.toString(),
+                        CustomerEnum.ColoumnCustomerRelationship.toString(),
+                        CustomerEnum.ColoumnCustomerImage.toString(),
+                        CustomerEnum.ColoumnLastBillingDate.toString(),
+                        CustomerEnum.ColoumnLastBillingAmount.toString(),
+                        CustomerEnum.ColoumnIsSuggestion.toString(),
+                        CustomerEnum.ColoumnSuggestion.toString(),
+                        CustomerEnum.ColoumnCustomerPoint.toString(),
+                        CustomerEnum.ColoumnRecentOrders.toString(),
+                        CustomerEnum.ColoumnCustomerCustomerStatus.toString(),
+                        CustomerEnum.ColoumncFactor.toString(),
+                        CustomerEnum.ColoumncType.toString(),
+                        CustomerEnum.ColoumncCustomerDOM.toString(),
+                        CustomerEnum.ColoumnCustomerCode.toString(),
+                        CustomerEnum.ColoumnRegisteredBusinessPlace.toString(),
+                        CustomerEnum.ColoumnPointsPerValue.toString(),
+                        CustomerEnum.ColoumnIsSync.toString()},
+                CustomerEnum.ColoumnCustomerID.toString() + "=?",
+                new String[]{id}, null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+        // prepare note object
+        assert cursor != null;
+        CustomerModel note = new CustomerModel(
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerFirstName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerLastName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGender.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerBday.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerMaritalStatus.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseFirstName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseLastName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseDob.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChildStatus.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChild.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail2.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone2.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone3.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerAddress.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerState.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCity.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPin.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCountry.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerDesignation.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCompany.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomer.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerRelationship.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerImage.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingDate.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingAmount.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnIsSuggestion.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnSuggestion.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPoint.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRecentOrders.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCustomerStatus.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
+                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())),
                 cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
 
         // close the db connection
@@ -1082,6 +1191,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 CustomerModel note = new CustomerModel();
+                Log.e("LocalId**", String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString()))));
+                note.setLocalId(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString())));
                 note.setCustomerID(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString()))));
                 note.setCustomerTitle(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())));
                 note.setCustomerName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())));
@@ -1115,7 +1226,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setCustomerDom(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())));
                 note.setCustomerCode(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())));
                 note.setRegisteredBusinessPlaceID(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())));
-
+                note.setPointsPerValue(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())));
                 note.setCustomerChild(new Gson().toJson(note.getCustomerChild()));
                 notes.add(note);
             } while (cursor.moveToNext());
@@ -1132,17 +1243,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String query = "Select * from " + TABLE_NAME + " where " + searchColumn + " = ?";
         return getReadableDatabase().rawQuery(query, new String[]{searchKey}).moveToFirst();
     }
+
     //Get All records from customer Database
     public ArrayList<CustomerModel> getAllNotes() {
         ArrayList<CustomerModel> notes = new ArrayList<>();
 
+
         SQLiteDatabase db = this.getReadableDatabase();
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT  * FROM " + TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABLE_NAME, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 CustomerModel note = new CustomerModel();
+                Log.e("LocalId**", String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString()))));
+
+                note.setLocalId(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString())));
                 note.setCustomerID(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString()))));
                 note.setCustomerTitle(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())));
                 note.setCustomerName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())));
@@ -1184,6 +1300,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setCustomerDom(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())));
                 note.setCustomerCode(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())));
                 note.setRegisteredBusinessPlaceID(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())));
+                note.setPointsPerValue(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())));
                 note.setIsSync(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
                 notes.add(note);
             } while (cursor.moveToNext());
@@ -1258,6 +1375,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
         db.delete(CustomerModel.TABLE_SPINNER, null, null);
     }
+
     public boolean isCustomerDataEmpty() {
 
         boolean flag;

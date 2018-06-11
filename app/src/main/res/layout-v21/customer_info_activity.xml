@@ -37,9 +37,9 @@
             android:layout_marginLeft="@dimen/dim_8"
             android:layout_marginRight="@dimen/dim_8"
             android:alpha="0.7"
+            android:focusedByDefault="false"
             android:elevation="2dp"
             android:inputType="number"
-
             app:iconifiedByDefault="false"
             app:queryHint="Enter Mobile Number" />
 

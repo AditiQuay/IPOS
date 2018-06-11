@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-<<<<<<< HEAD
 import android.support.v7.app.AppCompatActivity;
-=======
->>>>>>> 9afaf46ef452fa8d57265b088fa0492c3b7de513
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,11 +39,7 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
     private TextView textViewValidCompilanceDocument, textViewValidAppointmentDocument, textViewValidAnnexureDocument, textViewValidPanDocument, textViewValidPhotoDocument;
 
 
-<<<<<<< HEAD
-        @Nullable
-=======
     @Nullable
->>>>>>> 9afaf46ef452fa8d57265b088fa0492c3b7de513
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         main = inflater.inflate(R.layout.documents_fragment, container, false);
@@ -90,11 +83,7 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         imageViewCompilanceStatus = main.findViewById(R.id.imageViewCompilanceStatus);
 
         //Button camera
-<<<<<<< HEAD
-        btnPhotoCamera = main.findViewById(R.id.btnPhotoCamera);
-=======
         btnPhotoCamera = main.findViewById(R.id.btnCamContact);
->>>>>>> 9afaf46ef452fa8d57265b088fa0492c3b7de513
         btnPanCamera = main.findViewById(R.id.btnPanCamera);
         btnAppointmentCamera = main.findViewById(R.id.btnAppointmentCamera);
         btnAnnexureCamera = main.findViewById(R.id.btnAnnexureCamera);

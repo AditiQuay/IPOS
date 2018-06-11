@@ -78,6 +78,14 @@
             android:name=".productCatalogue.ProductRangeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".partnerConnect.kyc.KYCActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".partnerConnect.kyc.KYCViewAll"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".productCatalogue.WebViewActivity"
