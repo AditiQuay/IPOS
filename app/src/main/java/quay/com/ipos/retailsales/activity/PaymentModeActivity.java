@@ -88,6 +88,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         totalAmount= IPOSApplication.totalAmount;
         tvPay.setText(getResources().getString(R.string.Rs)+" "+mTotalAmount);
         tvBalance.setText(getResources().getString(R.string.Rs)+" "+totalAmount);
+        etCashAmount.setText(totalAmount+"");
     }
 
     private void findViewbyId() {
@@ -314,7 +315,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     receivedAmt = 0.0;
 
 
-                if(cashAmount>0.0){
+                if(cashAmount>0.0 && cashAmount < IPOSApplication.totalAmount){
                     checkCash = true;
                 }else{
                     checkCash = false;
@@ -337,7 +338,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                if(receivedAmt>0.0 && cashReturnAmt>=0.0 && cashAmount>0.0){
+                if(receivedAmt>0.0 && cashReturnAmt>=0.0 && cashAmount>0.0 && cashAmount>IPOSApplication.totalAmount){
                    totalAmount=totalAmount-cashAmount;
                     tvBalance.setText(totalAmount+"");
                     btnPayCash.setVisibility(View.GONE);
