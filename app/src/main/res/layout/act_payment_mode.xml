@@ -642,6 +642,8 @@
                                 android:layout_gravity="left|center"
                                 android:textSize="14dp"
                                 android:inputType="number"
+                                android:editable="false"
+                                android:enabled="false"
                                 android:padding="5dp"
                                 android:hint="@string/enter_return_amount"
                                 android:textColorHint="@color/grey"

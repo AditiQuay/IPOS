@@ -1,11 +1,16 @@
 package quay.com.ipos.partnerConnect;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+<<<<<<< HEAD
 import android.support.v7.app.AppCompatActivity;
+=======
+>>>>>>> 9afaf46ef452fa8d57265b088fa0492c3b7de513
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +18,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.ShareWorldUtil;
 
 /**
  * Created by niraj.kumar on 6/8/2018.
@@ -35,7 +42,11 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
     private TextView textViewValidCompilanceDocument, textViewValidAppointmentDocument, textViewValidAnnexureDocument, textViewValidPanDocument, textViewValidPhotoDocument;
 
 
+<<<<<<< HEAD
         @Nullable
+=======
+    @Nullable
+>>>>>>> 9afaf46ef452fa8d57265b088fa0492c3b7de513
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         main = inflater.inflate(R.layout.documents_fragment, container, false);
@@ -79,7 +90,11 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         imageViewCompilanceStatus = main.findViewById(R.id.imageViewCompilanceStatus);
 
         //Button camera
+<<<<<<< HEAD
         btnPhotoCamera = main.findViewById(R.id.btnPhotoCamera);
+=======
+        btnPhotoCamera = main.findViewById(R.id.btnCamContact);
+>>>>>>> 9afaf46ef452fa8d57265b088fa0492c3b7de513
         btnPanCamera = main.findViewById(R.id.btnPanCamera);
         btnAppointmentCamera = main.findViewById(R.id.btnAppointmentCamera);
         btnAnnexureCamera = main.findViewById(R.id.btnAnnexureCamera);
@@ -180,15 +195,24 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         btnCompilanceUpload.setOnClickListener(this);
         btnAnnexureUpload.setOnClickListener(this);
         switch (v.getId()) {
-            case R.id.btnPhotoCamera:
+            case R.id.btnCamContact:
+                gotToCamera(v,1);
                 break;
             case R.id.btnPanCamera:
+                gotToCamera(v,2);
+
                 break;
             case R.id.btnAppointmentCamera:
+                gotToCamera(v,3);
+
                 break;
             case R.id.btnAnnexureCamera:
+                gotToCamera(v,4);
+
                 break;
             case R.id.btnCompilanceCamera:
+                gotToCamera(v,5);
+
                 break;
             case R.id.btnPhotoUpload:
                 break;
@@ -201,6 +225,41 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
             case R.id.btnAnnexureUpload:
             default:
                 break;
+        }
+    }
+
+    private void gotToCamera(View v,int reqCode) {
+        ShareWorldUtil.dispatchTakePictureIntent(getActivity(),this, reqCode);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Toast.makeText(mContext, "onActivityResult", Toast.LENGTH_SHORT).show();
+        Bitmap bitmap1 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data, 1);
+        if (bitmap1 != null) {
+            imageViewphoto.setImageBitmap(bitmap1);
+
+        }
+        Bitmap bitmap2 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data,2);
+        if (bitmap2 != null) {
+            imageViewPan.setImageBitmap(bitmap2);
+
+        }
+        Bitmap bitmap3 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data, 3);
+        if (bitmap3 != null) {
+            imageViewAppointment.setImageBitmap(bitmap3);
+
+        }
+        Bitmap bitmap4 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data,4);
+        if (bitmap4 != null) {
+            imageViewAnnexure.setImageBitmap(bitmap4);
+
+        }
+        Bitmap bitmap5 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data, 5);
+        if (bitmap5 != null) {
+            imageViewCompilance.setImageBitmap(bitmap5);
+
         }
     }
 }

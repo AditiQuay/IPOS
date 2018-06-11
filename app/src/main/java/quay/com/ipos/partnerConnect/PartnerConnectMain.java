@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -43,6 +44,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
+    private FloatingActionButton fab;
     private MutableLiveData<PCModel> pcModelLiveData = new MutableLiveData<>();
 
 
@@ -60,14 +62,23 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         getServerData();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     public ViewPager getViewPager() {
         return viewPager;
     }
 
     @Override
     public void findViewById() {
+        fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.appBar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setTitle(getResources().getString(R.string.title_partner_connect));
 
         viewPager = findViewById(R.id.viewPager);
@@ -160,6 +171,12 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             } else {
                 findViewById(R.id.bottom_sheet).setVisibility(View.VISIBLE);
             }
+
+            if (position == 5 || position == 1) {
+                fab.setVisibility(View.GONE);
+            }else {
+                fab.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -205,6 +222,10 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                 return new BillingAddressFragment();
             case 5:
                 return new DocumentsFragment();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 9afaf46ef452fa8d57265b088fa0492c3b7de513
             default:
                 return RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
         }

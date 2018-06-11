@@ -4,18 +4,15 @@ import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.PatternMatcher;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import quay.com.ipos.R;
 import quay.com.ipos.partnerConnect.adapter.RelOneAdapter;
@@ -39,7 +36,6 @@ public class RelationShipFragment extends Fragment {
     private TextView mRelationShipName;
     private TextView mLastUpdate;
     private TextView mtxtPssEntityName;
-
 
 
     public RelationShipFragment() {
@@ -83,23 +79,23 @@ public class RelationShipFragment extends Fragment {
         recyclerViewTwo = view.findViewById(R.id.recyclerViewTwo);
         recyclerViewThree = view.findViewById(R.id.recyclerViewThree);
 
-        getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+       /* getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
-                if (partnerConnectMain.getViewPager()!=null) {
-                    partnerConnectMain.getViewPager().setCurrentItem(2,true);
+                if (partnerConnectMain.getViewPager() != null) {
+                    partnerConnectMain.getViewPager().setCurrentItem(2, true);
                 }
             }
         });
-
+*/
 
         loadData();
 
 
     }
 
-   private void loadData() {
+    private void loadData() {
         PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
         if (partnerConnectMain != null) {
             partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
