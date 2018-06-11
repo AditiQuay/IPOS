@@ -140,7 +140,7 @@
                                     android:layout_height="match_parent"
                                     android:clickable="true"
                                     android:drawableRight="@drawable/calendar_gray"
-                                    android:editable="false"
+                                    android:focusable="false"
                                     android:hint="DOB *"
                                     android:textSize="@dimen/universal_text_size14" />
 

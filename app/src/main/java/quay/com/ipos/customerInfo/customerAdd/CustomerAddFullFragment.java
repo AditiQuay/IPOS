@@ -2,6 +2,8 @@ package quay.com.ipos.customerInfo.customerAdd;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -23,7 +25,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.google.gson.Gson;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -36,6 +37,7 @@ import java.util.List;
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
+import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerChildAdapter;
 import quay.com.ipos.customerInfo.customerInfoModal.AddCustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CityListModel;
@@ -50,19 +52,18 @@ import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MySubmitButton;
+import quay.com.ipos.listeners.YourFragmentInterface;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
-import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
-
 /**
  * Created by niraj.kumar on 5/31/2018.
  */
 
-public class CustomerAddFullFragment extends Fragment implements MySubmitButton,InitInterface, AdapterView.OnItemSelectedListener, ButtonListener, View.OnClickListener, DatePickerDialog.OnDateSetListener, ServiceTask.ServiceResultListener, TextWatcher {
+public class CustomerAddFullFragment extends Fragment implements MySubmitButton, YourFragmentInterface, InitInterface, AdapterView.OnItemSelectedListener, ButtonListener, View.OnClickListener, DatePickerDialog.OnDateSetListener, ServiceTask.ServiceResultListener, TextWatcher, CustomerChildAdapter.MyChildValidation {
     private static final String TAG = CustomerAddFullFragment.class.getSimpleName();
     private View main;
     private TextView textViewMadatory, textViewPersonalHeading, textViewSpouseHeading, textViewChildHeading, textViewChild;
@@ -83,15 +84,14 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
     //Professional information
     private TextView textViewProfessionalHeading;
-    private MaterialSpinner designationSpinner, companySpinner, customerTypeSpinner, relationShipSpinner, childGenderSpinner;
+    private MaterialSpinner designationSpinner, companySpinner, customerTypeSpinner, relationShipSpinner;
     private TextInputEditText tieGstin;
-    private TextInputLayout tilChildDob;
+    private static final String ARG_PARAM1 = "param1";
 
     private RecyclerView recyclerViewChild;
     private CustomerChildAdapter customerChildAdapter;
     private Context mContext;
     private Button btnAddChild;
-    private AwesomeValidation awesomeValidation;
     private Button btnFullFragmentCancel, btnFullFragmentSubmit;
     private DatabaseHandler dbHelper;
     private Calendar calendar;
@@ -107,16 +107,32 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     private ProgressDialog m_Dialog;
     private String message;
     private TextInputLayout tilLastName, tilSpouseDob, tilEmail1, tilMobileNumPrimary;
+    private String[] maritalStatus = {"Unmarried", "Married"};
+    private Bundle bundle;
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
 
+    private TextInputLayout tilChildfname, tilChildDob;
+    private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDob;
+    private MaterialSpinner childGenderSpinner;
 
     public CustomerAddFullFragment() {
 
     }
 
+    // TODO: Rename and change types and number of parameters
+    public static CustomerAddFullFragment newInstance(String param1) {
+        CustomerAddFullFragment fragment = new CustomerAddFullFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.e(TAG, "onCreate method  called");
     }
 
     @Nullable
@@ -124,14 +140,21 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         main = inflater.inflate(R.layout.customer_add_full_fragment, container, false);
         mContext = getActivity();
-        awesomeValidation = new AwesomeValidation(BASIC);
         dbHelper = new DatabaseHandler(mContext);
 
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+
         return main;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e(TAG, "Resume method called");
+
     }
 
     @Override
@@ -190,14 +213,122 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         btnAddChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (childModels.size() <= 2) {
-                    AddCustomerModel.CustomerChildBean model = new AddCustomerModel.CustomerChildBean();
-                    model.setCustomerChildFirstName("");
-                    model.setCustomerChildLastName("");
-                    model.setCustomerChildDob("");
-                    childModels.add(model);
-                    customerChildAdapter.notifyDataSetChanged();
+
+                    boolean isAnyEmpty = false;
+                    for (int i = 0; i < childModels.size(); i++) {
+                        View view = recyclerViewChild.getLayoutManager().findViewByPosition(i);
+                        tilChildfname = view.findViewById(R.id.tilChildfname);
+                        tieChildFirstName = view.findViewById(R.id.tieChildFirstName);
+
+                        tilLastName = view.findViewById(R.id.tilLastName);
+                        tieChildLastName = view.findViewById(R.id.tieChildLastName);
+
+                        tilChildDob = view.findViewById(R.id.tilChildDob);
+                        tieChildDob = view.findViewById(R.id.tieChildDOB);
+                        tieChildFirstName.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                tilChildfname.setErrorEnabled(false);
+                                tilChildfname.setError(null);
+                            }
+                        });
+
+
+                        tieChildLastName.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                tilLastName.setErrorEnabled(false);
+                                tilLastName.setError(null);
+
+                            }
+                        });
+
+
+                        tieChildDob.addTextChangedListener(new TextWatcher() {
+                            @Override
+                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                            }
+
+                            @Override
+                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                            }
+
+                            @Override
+                            public void afterTextChanged(Editable s) {
+                                tilChildDob.setErrorEnabled(false);
+                                tilChildDob.setError(null);
+                            }
+                        });
+
+                        childGenderSpinner = view.findViewById(R.id.childGenderSpinner);
+                        if (tieChildFirstName.getText().toString().isEmpty()) {
+                            tilChildfname.setErrorEnabled(true);
+                            tilChildfname.setError(getResources().getString(R.string.invalid_f_name));
+                            isAnyEmpty = true;
+                            break;
+                        }
+                        if (tieChildLastName.getText().toString().isEmpty()) {
+                            tilLastName.setErrorEnabled(true);
+                            tilLastName.setError(getResources().getString(R.string.invalid_l_name));
+                            isAnyEmpty = true;
+                            break;
+                        }
+                        if (tieChildDob.getText().toString().isEmpty()) {
+                            tilChildDob.setErrorEnabled(true);
+                            tilChildDob.setError(getResources().getString(R.string.dateerror));
+                            isAnyEmpty = true;
+                            break;
+                        }
+                        if (String.valueOf(childGenderSpinner.getSelectedItem()).equalsIgnoreCase("null")) {
+                            childGenderSpinner.setEnableErrorLabel(true);
+                            childGenderSpinner.setError(getResources().getString(R.string.invalid_gender));
+                            isAnyEmpty = true;
+                            break;
+                        }
+                    }
+                    if (!isAnyEmpty) {
+                        tilChildfname.setFocusable(false);
+                        tilLastName.setFocusable(false);
+                        tilChildDob.setFocusable(false);
+
+                        tilChildfname.setError(null);
+                        tilLastName.setError(null);
+                        tilChildDob.setError(null);
+                        childGenderSpinner.setEnableErrorLabel(false);
+
+
+                        AddCustomerModel.CustomerChildBean model = new AddCustomerModel.CustomerChildBean();
+                        model.setCustomerChildFirstName("");
+                        model.setCustomerChildLastName("");
+                        model.setCustomerChildDob("");
+                        model.setCustomerChildGender("");
+                        childModels.add(model);
+                        customerChildAdapter.notifyDataSetChanged();
+                    }
+
 
                 }
             }
@@ -219,10 +350,16 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         tieSpouseDOB.addTextChangedListener(this);
         tieEmail1.addTextChangedListener(this);
         tieMobileNumPrimary.addTextChangedListener(this);
+
+        if (bundle != null) {
+            String value = getArguments().getString("firstName");
+            tieFirstName.setText(value);
+        }
     }
 
     @Override
     public void applyInitValues() {
+
         try {
 
             ArrayList<CustomerSpinner> customerSpinner = dbHelper.getCustomerSpinner();
@@ -355,7 +492,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
             recyclerViewChild.setHasFixedSize(true);
             recyclerViewChild.setLayoutManager(new LinearLayoutManager(mContext));
-            customerChildAdapter = new CustomerChildAdapter(mContext, childModels, this,this);
+            customerChildAdapter = new CustomerChildAdapter(mContext, childModels, this, this, this);
             recyclerViewChild.setAdapter(customerChildAdapter);
         } catch (Exception e) {
             e.printStackTrace();
@@ -449,7 +586,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     model.setCustomerChildDob("");
                     childModels.add(model);
 
-                    customerChildAdapter = new CustomerChildAdapter(mContext, childModels, this,this);
+                    customerChildAdapter = new CustomerChildAdapter(mContext, childModels, this, this, this);
                     recyclerViewChild.setAdapter(customerChildAdapter);
                 } else {
                     lLayoutChild.setVisibility(View.GONE);
@@ -512,7 +649,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             case R.id.btnCancel:
                 break;
             case R.id.btnFullFragmentSubmit:
-//                customerChildAdapter.notifyDataSetChanged();
 
                 String title = String.valueOf(titleSpinner.getSelectedItem());
                 String gender = String.valueOf(genderSpinner.getSelectedItem());
@@ -570,12 +706,113 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                         isFail = true;
                         tilSpouseDob.setErrorEnabled(true);
                         tilSpouseDob.setError(getResources().getString(R.string.dateerror));
-                    }
-                    if (childStatus.equalsIgnoreCase("null")) {
+                    }if (childStatus.equalsIgnoreCase("null")){
                         isFail = true;
-                        childSpinner.setError("Please select child");
                         childSpinner.setEnableErrorLabel(true);
+                        childSpinner.setError("Please select child status");
                     }
+
+
+                    if(childStatus.equalsIgnoreCase("Yes")){
+                        if (childStatus.equalsIgnoreCase("Yes")){
+
+                            for (int i = 0; i < childModels.size(); i++) {
+                                View view = recyclerViewChild.getLayoutManager().findViewByPosition(i);
+                                tilChildfname = view.findViewById(R.id.tilChildfname);
+                                tieChildFirstName = view.findViewById(R.id.tieChildFirstName);
+
+                                tilLastName = view.findViewById(R.id.tilLastName);
+                                tieChildLastName = view.findViewById(R.id.tieChildLastName);
+
+                                tilChildDob = view.findViewById(R.id.tilChildDob);
+                                tieChildDob = view.findViewById(R.id.tieChildDOB);
+
+                                tieChildFirstName.addTextChangedListener(new TextWatcher() {
+                                    @Override
+                                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                    }
+
+                                    @Override
+                                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                                    }
+
+                                    @Override
+                                    public void afterTextChanged(Editable s) {
+                                        tilChildfname.setErrorEnabled(false);
+                                        tilChildfname.setError(null);
+                                    }
+                                });
+
+
+                                tieChildLastName.addTextChangedListener(new TextWatcher() {
+                                    @Override
+                                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                    }
+
+                                    @Override
+                                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                                    }
+
+                                    @Override
+                                    public void afterTextChanged(Editable s) {
+                                        tilLastName.setErrorEnabled(false);
+                                        tilLastName.setError(null);
+
+                                    }
+                                });
+
+
+                                tieChildDob.addTextChangedListener(new TextWatcher() {
+                                    @Override
+                                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                    }
+
+                                    @Override
+                                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                                    }
+
+                                    @Override
+                                    public void afterTextChanged(Editable s) {
+                                        tilChildDob.setErrorEnabled(false);
+                                        tilChildDob.setError(null);
+                                    }
+                                });
+
+                                childGenderSpinner = view.findViewById(R.id.childGenderSpinner);
+                                if (tieChildFirstName.getText().toString().isEmpty()) {
+                                    tilChildfname.setErrorEnabled(true);
+                                    tilChildfname.setError(getResources().getString(R.string.invalid_f_name));
+                                    isFail = true;
+                                    break;
+                                }
+                                if (tieChildLastName.getText().toString().isEmpty()) {
+                                    tilLastName.setErrorEnabled(true);
+                                    tilLastName.setError(getResources().getString(R.string.invalid_l_name));
+                                    isFail = true;
+                                    break;
+                                }
+                                if (tieChildDob.getText().toString().isEmpty()) {
+                                    tilChildDob.setErrorEnabled(true);
+                                    tilChildDob.setError(getResources().getString(R.string.dateerror));
+                                    isFail = true;
+                                    break;
+                                }
+                                if (String.valueOf(childGenderSpinner.getSelectedItem()).equalsIgnoreCase("null")) {
+                                    childGenderSpinner.setEnableErrorLabel(true);
+                                    childGenderSpinner.setError(getResources().getString(R.string.invalid_gender));
+                                    isFail = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
 
                 }
                 if (maritalStatus.equalsIgnoreCase("Unmarried")) {
@@ -624,15 +861,16 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     genderSpinner.setEnableErrorLabel(false);
                     tilDOB.setErrorEnabled(false);
 
+                    tilChildDob.setErrorEnabled(false);
+                    tilChildDob.setError(null);
                     maritalStatusSpinner.setEnableErrorLabel(false);
                     designationSpinner.setEnableErrorLabel(false);
                     companySpinner.setEnableErrorLabel(false);
-                    View itemView = recyclerViewChild.getLayoutManager().findContainingItemView(v);
-                    TextInputEditText child = itemView.findViewById(R.id.tieChildFirstName);
 
 
 
                     sendCustomerData();
+
 
                 }
 
@@ -640,26 +878,36 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             case R.id.tieDOB:
                 //change boolean value
                 clicked = true;
+                Calendar c = Calendar.getInstance();
+                c.set(1980, 0, 1);
                 datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
-                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.showYearPickerFirst(true);
+                datePickerDialog.setMinDate(c);
                 datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
                 datePickerDialog.setTitle("Select Date");
+                datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
                 datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
                 break;
             case R.id.tieSpouseDOB:
                 isSpouseDobClicked = true;
+                Calendar c1 = Calendar.getInstance();
+                c1.set(1980, 0, 1);
+
                 datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
-                datePickerDialog.showYearPickerFirst(false);
+                datePickerDialog.showYearPickerFirst(true);
+                datePickerDialog.setMinDate(c1);
                 datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
                 datePickerDialog.setTitle("Select Date");
+                datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
                 datePickerDialog.show(getActivity().getFragmentManager(), "DatePickerDialog");
             default:
                 break;
 
         }
     }
+
 
     private void sendCustomerData() {
         String dob = tieDOB.getText().toString();
@@ -876,7 +1124,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
     private void fetchResponse(String serverResponse) {
         Toast.makeText(mContext, R.string.form_submitted_successfully, Toast.LENGTH_SHORT).show();
-
+        Intent i = new Intent(mContext, MainActivity.class);
+        startActivity(i);
     }
 
     @Override
@@ -928,6 +1177,54 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
     @Override
     public void onClicked(int position, String firstName, String lastName, String childGender, String childDOB) {
+
+    }
+
+    @Override
+    public void childValidated(boolean value) {
+        if (!value) {
+            sendCustomerData();
+        }
+    }
+
+    @Override
+    public void childPreviousValidated(boolean value) {
+        if (!value) {
+            AddCustomerModel.CustomerChildBean model = new AddCustomerModel.CustomerChildBean();
+            model.setCustomerChildFirstName("");
+            model.setCustomerChildLastName("");
+            model.setCustomerChildDob("");
+            childModels.add(model);
+            customerChildAdapter.notifyDataSetChanged();
+
+        }
+    }
+
+    @Override
+    public void fragmentBecameVisible() {
+
+        sharedpreferences = mContext.getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+        if (sharedpreferences.contains("title")) {
+            String title = sharedpreferences.getString("title", "");
+            for (int i = 0; i < nameTitle.length; i++) {
+                if (nameTitle[i].equalsIgnoreCase(title)) {
+                    titleSpinner.setSelection(i);
+                }
+            }
+        }
+        if (sharedpreferences.contains("fName")) {
+            tieFirstName.setText(sharedpreferences.getString("fName", ""));
+            tieFirstName.setFocusable(false);
+        }
+        if (sharedpreferences.contains("lastName")) {
+            tieLastName.setText(sharedpreferences.getString("lastName", ""));
+            tieLastName.setFocusable(false);
+        }
+        if (sharedpreferences.contains("mobileNumber")) {
+            tieMobileNumPrimary.setText(sharedpreferences.getString("mobileNumber", ""));
+            tieMobileNumPrimary.setFocusable(false);
+        }
 
     }
 }

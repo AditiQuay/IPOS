@@ -24,14 +24,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
-import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerRecentOrdersAdapter;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.RecentOrderList;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
@@ -45,13 +43,13 @@ import quay.com.ipos.utility.Util;
 
 public class CustomerInfoDetailsActivity extends AppCompatActivity implements InitInterface {
     private Toolbar toolbarCustomerInfoDetail;
-    private TextView textViewUserName, textViewMob, textViewEmail, textViewBill, textViewBirthDay, textViewPoints, textViewBillingAddress, textViewSuggestedBy, textViewWarningText, textViewRecentOrder, textViewStoreCount, textViewStoreAddress, textViewDate, textViewAmount, textViewUpdateAndProceed,tvPinCount;
-    private ImageView imvBilling,imvPin;
+    private TextView textViewUserName, textViewMob, textViewEmail, textViewBill, textViewBirthDay, textViewPoints, textViewBillingAddress, textViewSuggestedBy, textViewWarningText, textViewRecentOrder, textViewStoreCount, textViewStoreAddress, textViewDate, textViewAmount, textViewUpdateAndProceed, tvPinCount;
+    private ImageView imvBilling, imvPin;
     private CircleImageView imageViewProfileDummy;
     private LinearLayout lLayoutBottom;
     private Context mContext;
     private String customerId;
-    private int customerPoints=0;
+    private int customerPoints = 0;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
     private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();
@@ -101,9 +99,9 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
             @Override
             public void onClick(View view) {
                 Intent mIntent = new Intent();
-                mIntent.putExtra(Constants.KEY_CUSTOMER,customerId);
-                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS,customerPoints);
-                setResult(Constants.ACT_CUSTOMER,mIntent);
+                mIntent.putExtra(Constants.KEY_CUSTOMER, customerId);
+                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, customerPoints);
+                setResult(Constants.ACT_CUSTOMER, mIntent);
                 finish();
             }
         });
@@ -125,6 +123,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         });
 
     }
+
     private void pinnedUpdate() {
         if (SharedPrefUtil.getString("mInfoArrayList", "", mContext) != null) {
             String json2 = SharedPrefUtil.getString("mInfoArrayList", "", mContext);
@@ -141,6 +140,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
             tvPinCount.setVisibility(View.GONE);
         }
     }
+
     @Override
     public void applyInitValues() {
         setSupportActionBar(toolbarCustomerInfoDetail);
@@ -210,7 +210,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                setResult(0);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -219,7 +219,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        setResult(0);
+        finish();
     }
 
     @Override

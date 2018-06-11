@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -137,6 +138,30 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
                 return false;
             }
         });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(TAG,"onResumeCalled***");
+        customerModelList.clear();
+        customerModelList.addAll(dbHelper.getAllNotes());
+        arrSearlist.addAll(customerModelList);
+        customerInfoAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e(TAG,"onStart***");
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.e(TAG,"onResumeCalled***");
 
     }
 

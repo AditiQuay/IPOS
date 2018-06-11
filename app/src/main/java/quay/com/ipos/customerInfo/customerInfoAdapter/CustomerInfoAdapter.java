@@ -67,7 +67,15 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
     @Override
     public void onBindViewHolder(final CustomerInfoAdapter.ItemViewholder holder, final int position) {
         final CustomerModel customerInfoModal = customerModelList.get(position);
-        holder.textViewUserName.setText(customerInfoModal.getCustomerName());
+        if (!TextUtils.isEmpty(customerInfoModal.getCustomerName())){
+            holder.textViewUserName.setText(customerInfoModal.getCustomerName());
+        }else {
+            String firstName = customerInfoModal.getCustomerFirstName();
+            String lastName = customerInfoModal.getCustomerLastName();
+            String finalName = firstName +" "+lastName;
+            holder.textViewUserName.setText(finalName);
+
+        }
         holder.textViewMob.setText(customerInfoModal.getCustomerPhone());
         holder.textViewEmail.setText(customerInfoModal.getCustomerEmail());
 
@@ -79,8 +87,10 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
             holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + date1 + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.getLastBillingAmount());
         }
         if (NetUtil.isNetworkAvailable(mContext)) {
-            if (TextUtils.isEmpty(customerInfoModal.getCustomerImage())){
+            if (!TextUtils.isEmpty(customerInfoModal.getCustomerImage())){
                 Picasso.get().load(customerInfoModal.getCustomerImage()).into(holder.imageViewProfileDummy);
+            }else {
+                holder.imageViewProfileDummy.setImageResource(R.drawable.placeholder);
             }
 
         } else {

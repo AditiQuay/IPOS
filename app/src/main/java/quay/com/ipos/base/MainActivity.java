@@ -187,12 +187,6 @@ public class MainActivity extends BaseActivity
         if (NetUtil.isNetworkAvailable(mContext)) {
             getCustomerData();
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> 20dadb84bd324f8271b5a9e12522cbc99e2a853e
         }
         findViewById();
         applyInitValues();

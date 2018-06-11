@@ -841,6 +841,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(CustomerEnum.ColoumnCustomerID.toString(), serverId);
         values.put(CustomerEnum.ColoumnIsSync.toString(), 1);
+
         // insert row
         return db.update(TABLE_NAME, values, CustomerEnum.ColoumnLocalID.toString() + " = ?", new String[]{String.valueOf(localId)});
 
@@ -1127,8 +1128,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return notes;
     }
 
-
-
+    public boolean dbHasData(String searchColumn, String searchKey) {
+        String query = "Select * from " + TABLE_NAME + " where " + searchColumn + " = ?";
+        return getReadableDatabase().rawQuery(query, new String[]{searchKey}).moveToFirst();
+    }
     //Get All records from customer Database
     public ArrayList<CustomerModel> getAllNotes() {
         ArrayList<CustomerModel> notes = new ArrayList<>();

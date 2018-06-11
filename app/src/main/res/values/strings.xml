@@ -284,7 +284,7 @@
     <string name="invalid_spouse_f_name">Please enter a valid Spouse First Name</string>
     <string name="invalid_spouse_l_name">Please enter a valid Spouse Last Name</string>
     <string name="invalid_confirm_password">Password does not match</string>
-    <string name="invalid_phone">Please enter a valid Phone</string>
+    <string name="invalid_phone">Mobile number is mandatory</string>
     <string name="invalid_age">Age must be between 12 and 60.</string>
     <string name="dateerror">Enter a valid date</string>
     <string name="points">Points</string>

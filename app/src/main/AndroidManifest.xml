@@ -82,7 +82,12 @@
         <activity
             android:name=".customerInfo.CustomerInfoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        </activity>
 
         <activity
             android:name=".customerInfo.CustomerInfoDetailsActivity"
@@ -126,10 +131,7 @@
             android:name=".retailsales.activity.AddProductActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".partnerConnect.DocumentsFragment"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".retailsales.activity.CustomerDetailActivity"
             android:screenOrientation="portrait"

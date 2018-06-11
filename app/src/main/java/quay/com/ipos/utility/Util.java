@@ -490,7 +490,7 @@ public class Util {
 
     public static String getFormattedDates(Date data) {
         try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             Date newDate = data;
             return format.format(newDate);
         } catch (Exception e) {

@@ -246,9 +246,7 @@ public class CustomerModel {
             + CustomerEnum.ColoumnTypeList + " TEXT" + ")";
 
     // Create table SQL query
-    public static final String CREATE_TABLE =
-            "CREATE TABLE " + TABLE_NAME + "("
-                    + CustomerEnum.ColoumnLocalID.toString() + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+    public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" + CustomerEnum.ColoumnLocalID.toString() + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + CustomerEnum.ColoumnCustomerID.toString() + " INTEGER,"
                     + CustomerEnum.ColoumnCustomerTitle.toString() + " TEXT,"
                     + CustomerEnum.ColoumnCustomerName.toString() + " TEXT,"
@@ -290,7 +288,7 @@ public class CustomerModel {
                     + CustomerEnum.ColoumncCustomerDOM.toString() + " TEXT,"
                     + CustomerEnum.ColoumnCustomerCode.toString() + " TEXT,"
                     + CustomerEnum.ColoumnRegisteredBusinessPlace.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnIsSync.toString() + " INTEGER" + ")";
+                    + CustomerEnum.ColoumnIsSync.toString() + " INTEGER"+")";
 
 
     public CustomerModel() {
