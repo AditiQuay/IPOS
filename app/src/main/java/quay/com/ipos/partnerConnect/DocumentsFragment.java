@@ -7,11 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-<<<<<<< HEAD
 import android.support.v7.app.AppCompatActivity;
-=======
 
->>>>>>> 5111bf8da8448c6f0474585292b2f36b2e2bf642
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +40,6 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
     private TextView textViewValidCompilanceDocument, textViewValidAppointmentDocument, textViewValidAnnexureDocument, textViewValidPanDocument, textViewValidPhotoDocument;
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 5111bf8da8448c6f0474585292b2f36b2e2bf642
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
