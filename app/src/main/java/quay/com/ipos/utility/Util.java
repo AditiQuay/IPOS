@@ -772,5 +772,26 @@ public class Util {
     }
 
 
+    public static boolean checkExpiryYear(String expYear, String expMonth) {
 
+        Calendar calendar = Calendar.getInstance();
+        int thisYear = calendar.get(Calendar.YEAR);
+        int thisMonth = calendar.get(Calendar.MONTH);
+        int expiryYear = Integer.parseInt(expYear);
+        int expiryMonth = Integer.parseInt(expMonth);
+
+        if (expiryYear < thisYear) {
+            return false;
+        }
+        if (expiryYear == thisYear && expiryMonth <= thisMonth) {
+            return false;
+        }
+//        if (expiryYear > thisYear + 15) {
+//            return false;
+//        }
+//        if(expiryYear>=thisYear+15 && expiryMonth>thisMonth){
+//            return false;
+//        }
+        return true;
+    }
 }

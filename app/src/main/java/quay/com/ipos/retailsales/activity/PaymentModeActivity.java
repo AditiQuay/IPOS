@@ -1,5 +1,6 @@
 package quay.com.ipos.retailsales.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.modal.LoginResult;
+import quay.com.ipos.modal.OrderSubmitResult;
 import quay.com.ipos.modal.PaymentRequest;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
@@ -53,6 +55,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     Toolbar toolbar_default;
     private String mCustomerID;
     private int mCustomerPoints;
+    Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         findViewbyId();
         getIntentValues();
         spnCardType();
+        context = IPOSApplication.getContext();
+        arrMonth = context.getResources().getStringArray(R.array.months);
     }
 
 
@@ -88,6 +93,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         totalAmount= IPOSApplication.totalAmount;
         tvPay.setText(getResources().getString(R.string.Rs)+" "+mTotalAmount);
         tvBalance.setText(getResources().getString(R.string.Rs)+" "+totalAmount);
+        etCashAmount.setText(totalAmount+"");
+        etCardAmount.setText(totalAmount+"");
     }
 
     private void findViewbyId() {
@@ -174,6 +181,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
     private void spnCardType() {
 
 
@@ -205,7 +215,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     private ArrayList<PaymentRequest.PaymentDetail> arrPaymentDetail = new ArrayList<>();
     private ArrayList<PaymentRequest.DetailInfo> detailInfo = new ArrayList<>();
     boolean checkCash=false;
-    boolean checkCard=false;
+    boolean checkCardAmt=false, checkCard=false,checkCardExpYear=false,checkCardMonth=false,checkCardDigit=false;
+    String[] arrMonth;
+//    int[] arrMonth = new int[12]{01,02,03,04,05,06,07,08,09,10,11,12};
 
     @Override
     public void onClick(View view) {
@@ -266,33 +278,50 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.llPoints:
                 if(cvPoints.getVisibility()==View.GONE) {
-                    if(totalAmount>0.0)
-                    cvPoints.setVisibility(View.VISIBLE);
+                    if(totalAmount>0.0) {
+                        cvPoints.setVisibility(View.VISIBLE);
+                        llPoints.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                    }
                     else
                         Util.showToast("Balance is empty!",PaymentModeActivity.this);
                 }
-                else
+                else {
                     cvPoints.setVisibility(View.GONE);
+                    llCard.setBackgroundResource(R.drawable.rect_four_white);
+                }
                 break;
             case R.id.llCard:
                 if(cvCard.getVisibility()==View.GONE) {
-                    if (totalAmount > 0.0)
+                    if (totalAmount > 0.0) {
                         cvCard.setVisibility(View.VISIBLE);
+                        llCard.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                    }
                     else
                         Util.showToast("Balance is empty!", PaymentModeActivity.this);
                 }
-                else
-                    cvCard.setVisibility(View.GONE);
+                else {
+                    if(btnPayCard.getVisibility()==View.VISIBLE) {
+                        cvCard.setVisibility(View.GONE);
+                        llCard.setBackgroundResource(R.drawable.rect_four_white);
+                    }
+                }
                 break;
             case R.id.llCash:
                 if(cvCash.getVisibility()==View.GONE) {
-                    if (totalAmount > 0.0)
+                    if (totalAmount > 0.0) {
                         cvCash.setVisibility(View.VISIBLE);
-                    else
+                        llCash.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                    }
+                    else {
                         Util.showToast("Balance is empty!", PaymentModeActivity.this);
+                    }
                 }
-                else
-                    cvCash.setVisibility(View.GONE);
+                else {
+                    if(btnPayCash.getVisibility()==View.VISIBLE) {
+                        cvCash.setVisibility(View.GONE);
+                        llCash.setBackgroundResource(R.drawable.rect_four_white);
+                    }
+                }
                 break;
             case R.id.btnPayCash:
 //                if(mCustomerID!=null){
@@ -314,34 +343,47 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     receivedAmt = 0.0;
 
 
-                if(cashAmount>0.0){
-                    checkCash = true;
+                if(cashAmount>0.0 ){
+                    if(cashAmount <= IPOSApplication.totalAmount) {
+                    }else {
+                        Util.showToast("Please enter correct cash amount",PaymentModeActivity.this);
+                    }
                 }else{
-                    checkCash = false;
                     Util.showToast("Please enter cash amount",PaymentModeActivity.this);
                     return;
                 }
+
                 if(cashReturnAmt>=0.0){
-                    checkCash = true;
                 }else{
-                    checkCash = false;
                     Util.showToast("Please enter return amount",PaymentModeActivity.this);
                     return;
                 }
 
                 if(receivedAmt>0.0){
-                    checkCash = true;
+                    if(receivedAmt >= cashAmount) {
+                    }else {
+                        Util.showToast("Please enter correct received amount",PaymentModeActivity.this);
+                    }
                 }else{
-                    checkCash = false;
                     Util.showToast("Please enter received amount",PaymentModeActivity.this);
                     return;
                 }
 
-                if(receivedAmt>0.0 && cashReturnAmt>=0.0 && cashAmount>0.0){
-                   totalAmount=totalAmount-cashAmount;
+                if(receivedAmt > 0.0 && receivedAmt>=cashAmount && cashReturnAmt >= 0.0 && cashAmount > 0.0 && cashAmount <= IPOSApplication.totalAmount){
+                    totalAmount=totalAmount-cashAmount;
                     tvBalance.setText(totalAmount+"");
                     btnPayCash.setVisibility(View.GONE);
                     llToggle.setVisibility(View.GONE);
+                    etReceivedAmount.setEnabled(false);
+                    checkCash=true;
+                    etCashAmount.setEnabled(false);
+                    if(!checkCard){
+                        etCardAmount.setText(totalAmount+"");
+                        cardAmount=totalAmount;
+                    }
+                }else {
+                    checkCash=false;
+                    Util.showToast("Please enter cash valid details",PaymentModeActivity.this);
                 }
 
                 break;
@@ -349,56 +391,101 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
                 if(!etCardAmount.getText().toString().trim().equalsIgnoreCase("")) {
                     cardAmount = Double.parseDouble(etCardAmount.getText().toString());
-                    checkCard=true;
+                    if(cardAmount <= IPOSApplication.totalAmount) {
+                        checkCardAmt = true;
+                    }else {
+                        checkCardAmt = false;
+                        cardAmount = 0.0;
+                        Util.showToast("Please enter correct card amount",PaymentModeActivity.this);
+                    }
                 }
                 else {
-                    checkCard=false;
+                    checkCardAmt=false;
                     Util.showToast("Please enter cash amount",PaymentModeActivity.this);
                     cardAmount = 0.0;
                 }
+
+
+
                 cardType = spinner.getSelectedItem().toString();
 
                 if(!etLastDigit.getText().toString().trim().equalsIgnoreCase("")) {
                     lastDigit = etLastDigit.getText().toString().trim();
-                    checkCard=true;
+                    if(lastDigit.length()==4){
+                        checkCardDigit=true;
+                    }else {
+                        Util.showToast("Please enter correct last 4-digit",PaymentModeActivity.this);
+                        checkCardDigit=false;
+                    }
+
                 }
                 else {
-                    checkCard=false;
-                    Util.showToast("Please enter lastDigit", PaymentModeActivity.this);
+                    checkCardDigit=false;
+                    Util.showToast("Please enter last 4-digit", PaymentModeActivity.this);
                     lastDigit = "";
                 }
+
                 if(!etExpMonth.getText().toString().trim().equalsIgnoreCase("")) {
                     expMonth = etExpMonth.getText().toString().trim();
-                    checkCard=true;
+                    for(int i = 0 ; i < arrMonth.length; i++){
+                        if(arrMonth[i].equalsIgnoreCase(expMonth)){
+                            checkCardMonth =true;
+                        }
+                    }
+                    if(!checkCardMonth){
+                        Util.showToast("Please enter valid expiry month", PaymentModeActivity.this);
+                    }
                 }
                 else {
                     expMonth = "";
-                    checkCard=false;
+                    checkCardMonth=false;
                     Util.showToast("Please enter expiry month", PaymentModeActivity.this);
                 }
+
+
                 if(!etExpYear.getText().toString().trim().equalsIgnoreCase("")) {
                     expYear = etExpYear.getText().toString().trim();
-                    checkCard=true;
+                    if(Util.checkExpiryYear(expYear,expMonth)){
+                        checkCardExpYear=true;
+                    }else {
+                        Util.showToast("Please enter correct expiry year", PaymentModeActivity.this);
+                        checkCardExpYear = false;
+                    }
+
                 }
                 else {
                     expYear = "";
-                    checkCard=false;
-                    Util.showToast("Please enter expiry year", PaymentModeActivity.this);
-                }
-                if(!etTransID.getText().toString().trim().equalsIgnoreCase("")) {
-                    transID = etTransID.getText().toString().trim();
-                    checkCard=true;
-                }
-                else {
-                    transID = "";
-                    checkCard=false;
+                    checkCardExpYear=false;
                     Util.showToast("Please enter expiry year", PaymentModeActivity.this);
                 }
 
-                if(cardAmount>0.0 && !lastDigit.equalsIgnoreCase("") && !expMonth.equalsIgnoreCase("") && !expYear.equalsIgnoreCase("") && !transID.equalsIgnoreCase("")){
+
+                if(!etTransID.getText().toString().trim().equalsIgnoreCase("")) {
+                    transID = etTransID.getText().toString().trim();
+                }
+                else {
+                    transID = "";
+                    Util.showToast("Please enter expiry year", PaymentModeActivity.this);
+                }
+
+                if(checkCardAmt && checkCardDigit && checkCardMonth && checkCardExpYear && !transID.equalsIgnoreCase("")){
                     totalAmount=totalAmount-cardAmount;
                     tvBalance.setText(totalAmount+"");
                     btnPayCard.setVisibility(View.GONE);
+                    etCardAmount.setEnabled(false);
+                    etExpMonth.setEnabled(false);
+                    etExpYear.setEnabled(false);
+                    spinner.setEnabled(false);
+                    etTransID.setEnabled(false);
+                    etLastDigit.setEnabled(false);
+                    if(!checkCash){
+                        etCashAmount.setText(totalAmount+"");
+                        cashAmount=totalAmount;
+                    }
+                    checkCard=true;
+                }else {
+                    checkCard=false;
+//                    Util.showToast("Please enter card valid details",PaymentModeActivity.this);
                 }
                 break;
         }
@@ -406,26 +493,38 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void callServicePayment() {
-
+        showProgressDialog(R.string.please_wait);
         ServiceTask mServiceTask = new ServiceTask();
         mServiceTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT);
         mServiceTask.setParamObj(paymentRequest);
         mServiceTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
         mServiceTask.setListener(this);
-        mServiceTask.setResultObj(null);
+        mServiceTask.setResultType(OrderSubmitResult.class);
         mServiceTask.execute();
     }
 
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         dismissProgress();
-        if(serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT)){
+        if(serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT)) {
+            try{
+                if (httpStatusCode == 200) {
+                    if (resultObj != null) {
+                        OrderSubmitResult mOrderSubmitResult = (OrderSubmitResult) resultObj;
+                        if (mOrderSubmitResult.getError() == 200) {
+                            IPOSApplication.mProductListResult.clear();
+                            IPOSApplication.totalAmount = 0.0;
+                            setResult(200);
+                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                            finish();
 
-            if(httpStatusCode==200){
-                IPOSApplication.mProductListResult.clear();
-                IPOSApplication.totalAmount=0.0;
-                setResult(200);
-                finish();
+                        } else {
+                            Util.showToast(mOrderSubmitResult.getErrorDescription(), IPOSApplication.getContext());
+                        }
+                    }
+                }
+            }catch (Exception e){
+
             }
         }
     }
@@ -446,8 +545,27 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             try {
                 double CashAmount = Double.parseDouble(etCashAmount.getText().toString());
                 double ReceivedAmount = Double.parseDouble(etReceivedAmount.getText().toString());
-                double ReturnAmount = ReceivedAmount - CashAmount;
+                double ReturnAmount=0.0;
+                if(CashAmount <= totalAmount){
+                    if(ReceivedAmount>=CashAmount)
+                        ReturnAmount = ReceivedAmount - CashAmount;
+
+                }
                 etReturnAmount.setText(ReturnAmount+"");
+
+                if(btnPayCash.getVisibility()==View.GONE){
+                    if(totalAmount>0.0) {
+                        etCardAmount.setText(totalAmount + "");
+                        cardAmount = totalAmount;
+                    }
+                }
+
+                if(btnPayCard.getVisibility()==View.GONE){
+                    if(totalAmount>0.0) {
+                        etCashAmount.setText(totalAmount + "");
+                        cashAmount = totalAmount;
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

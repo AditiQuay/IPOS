@@ -91,6 +91,22 @@ public class RealmController {
         }
 
     }
+    public void saveBusinessPlaces(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateAllFromJson(RealmBusinessPlaces.class, new JSONArray(responseData));
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
     public void saveCustomers(String responseData) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
@@ -177,5 +193,21 @@ public class RealmController {
 
     }
 
+    public void saveOrderCentreSummary(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateAllFromJson(RealmOrderCentreSummary.class, new JSONArray(responseData));
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
 }
 

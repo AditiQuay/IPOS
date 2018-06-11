@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -39,8 +41,12 @@ import quay.com.ipos.ddr.adapter.ExpandableListAdapter;
 import quay.com.ipos.ddr.adapter.OrderCentreListAdapter;
 import quay.com.ipos.ddr.modal.OrderCentreModal;
 import quay.com.ipos.modal.OrderList;
+import quay.com.ipos.realmbean.RealmController;
+import quay.com.ipos.realmbean.RealmOrderCentreSummary;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SpacesItemDecoration;
 import quay.com.ipos.utility.Util;
 
@@ -64,7 +70,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     ExpandableListView expListView;
     ArrayList<String> listDataHeader;
     HashMap<String, ArrayList<OrderList.Datum>> listDataChild;
-    TextView tvNew;
+    TextView tvNew,tvCancelled,tvDelivered,tvAccepted,tvDispatched;
 
     // newInstance constructor for creating fragment with arguments
     public OrderCentreListFragment newInstance(int position) {
@@ -79,12 +85,30 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_centre, container, false);
-
+        clearData();
         initializeComponent(view);
         setAdapter();
 
         getSummary("");
+        setRealmData(1);
         return view;
+    }
+
+    private void clearData(){
+        Realm realm=Realm.getDefaultInstance();
+        RealmResults<RealmOrderCentreSummary> realmOrderCentreSummaries=realm.where(RealmOrderCentreSummary.class).findAll();
+
+        realm.beginTransaction();
+
+        try{
+            realmOrderCentreSummaries.deleteAllFromRealm();
+        }catch (Exception e){
+            realm.cancelTransaction();
+            e.printStackTrace();
+        }finally {
+            realm.commitTransaction();
+            realm.close();
+        }
     }
 
     private void setAdapter() {
@@ -92,6 +116,59 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         recyclerView.setAdapter(mOrderCentreListAdapter);
 
 
+    }
+
+    private void setRealmData(int key){
+        orderList.clear();
+        Realm realm=Realm.getDefaultInstance();
+        RealmResults<RealmOrderCentreSummary> realmOrderCentreSummaries=realm.where(RealmOrderCentreSummary.class).findAll();
+        if (realmOrderCentreSummaries.size()>0){
+            for (RealmOrderCentreSummary realmOrderCentreSummary:realmOrderCentreSummaries){
+
+                if (realmOrderCentreSummary.getId()==1){
+                    tvNew.setText(realmOrderCentreSummary.getCount()+"");
+                }
+                if (realmOrderCentreSummary.getId()==2){
+                    tvAccepted.setText(realmOrderCentreSummary.getCount()+"");
+                }
+                if (realmOrderCentreSummary.getId()==3){
+                    tvDispatched.setText(realmOrderCentreSummary.getCount()+"");
+                }
+                if (realmOrderCentreSummary.getId()==4){
+                    tvDelivered.setText(realmOrderCentreSummary.getCount()+"");
+                }
+                if (realmOrderCentreSummary.getId()==5){
+                    tvCancelled.setText(realmOrderCentreSummary.getCount()+"");
+                }
+
+                if (key==realmOrderCentreSummary.getId()) {
+                    JSONArray array1 = null;
+                    try {
+                        array1 = new JSONArray(realmOrderCentreSummary.getModel());
+                        for (int k = 0; k < array1.length(); k++) {
+                            JSONObject jsonObject = array1.optJSONObject(k);
+                            OrderCentreModal orderCentreModal = new OrderCentreModal();
+
+                            orderCentreModal.setEtaDate(jsonObject.optString("etaDate"));
+                            orderCentreModal.setItemQty(jsonObject.optInt("itemQty"));
+                            orderCentreModal.setModifiedDate(jsonObject.optString("modifiedDate"));
+                            orderCentreModal.setOrderValue(jsonObject.optInt("orderValue"));
+                            orderCentreModal.setRequestCode(jsonObject.optString("requestCode"));
+                            orderCentreModal.setTotalItem(jsonObject.optInt("totalItem"));
+
+                            orderList.add(orderCentreModal);
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+
+            setAdapter();
+        }
     }
 
     private void initializeComponent(View view) {
@@ -111,6 +188,10 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         vDelivered = view.findViewById(R.id.vDelivered);
         vCancelled = view.findViewById(R.id.vCancelled);
         tvNew=view.findViewById(R.id.tvNew);
+        tvAccepted=view.findViewById(R.id.tvAccepted);
+        tvCancelled=view.findViewById(R.id.tvCancelled);
+        tvDelivered=view.findViewById(R.id.tvDelivered);
+        tvDispatched=view.findViewById(R.id.tvDispatched);
 
         // get the listview
         expListView = (ExpandableListView) view.findViewById(R.id.lvExp);
@@ -225,22 +306,27 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         switch (id){
             case R.id.llNew:
                 selectItemNew();
+                setRealmData(1);
                 break;
 
             case R.id.llAccepted:
                 selectItemAccepted();
+                setRealmData(2);
                 break;
 
             case R.id.llDispatched:
                 selectItemDispatched();
+                setRealmData(3);
                 break;
 
             case R.id.llDelivered:
                 selectItemDelivered();
+                setRealmData(4);
                 break;
 
             case R.id.llCancelled:
                 selectItemCancel();
+                setRealmData(5);
                 break;
         }
 
@@ -302,10 +388,10 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         JSONObject jsonObject1=new JSONObject();
 
         try {
-            jsonObject1.put("employeeCode","6000013");
-            jsonObject1.put("employeeRole","user");
+            jsonObject1.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
             jsonObject1.put("businessCode","1");
-            jsonObject1.put("entityID","1");
+            jsonObject1.put("entityID",Prefs.getIntegerPrefs(Constants.entityCode));
             jsonObject1.put("type","string");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -336,38 +422,9 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                             JSONObject jsonObject1=new JSONObject(responseData);
 
                             JSONArray array=jsonObject1.optJSONArray("data");
+                            new RealmController().saveOrderCentreSummary(array.toString());
 
 
-                            for (int i=0;i<array.length();i++){
-                                JSONObject jsonObject2=array.optJSONObject(i);
-
-                                final int value=jsonObject2.optInt("count");
-
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        tvNew.setText(value+"");
-                                    }
-                                });
-
-                                JSONArray array1=jsonObject2.optJSONArray("model");
-                                for (int k=0;k<array1.length();k++){
-                                    JSONObject jsonObject=array1.optJSONObject(k);
-                                    OrderCentreModal orderCentreModal=new OrderCentreModal();
-
-                                    orderCentreModal.setEtaDate(jsonObject.optString("etaDate"));
-                                    orderCentreModal.setItemQty(jsonObject.optInt("itemQty"));
-                                    orderCentreModal.setModifiedDate(jsonObject.optString("modifiedDate"));
-                                    orderCentreModal.setOrderValue(jsonObject.optInt("orderValue"));
-                                    orderCentreModal.setRequestCode(jsonObject.optString("requestCode"));
-                                    orderCentreModal.setTotalItem(jsonObject.optInt("totalItem"));
-
-                                    orderList.add(orderCentreModal);
-
-                                }
-
-                                setAdapter();
-                            }
 
 
                         }

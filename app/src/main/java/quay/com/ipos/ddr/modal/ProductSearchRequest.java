@@ -20,6 +20,8 @@ public class ProductSearchRequest {
     private String searchParam;
     private String businessPlaceCode;
     private String barCodeNumber;
+    private String employeeCode;
+    private String employeeRole;
 
     public String getEntityCode() {
         return entityCode;
@@ -67,5 +69,21 @@ public class ProductSearchRequest {
 
     public void setBarCodeNumber(String barCodeNumber) {
         this.barCodeNumber = barCodeNumber;
+    }
+
+    public String getEmployeeCode() {
+        return employeeCode;
+    }
+
+    public void setEmployeeCode(String employeeCode) {
+        this.employeeCode = employeeCode;
+    }
+
+    public String getEmployeeRole() {
+        return employeeRole;
+    }
+
+    public void setEmployeeRole(String employeeRole) {
+        this.employeeRole = employeeRole;
     }
 }

@@ -5,7 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/backgroundgrey">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recylerViewRoles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="gone">
 
+    </android.support.v7.widget.RecyclerView>
     <LinearLayout
         android:id="@+id/llFLow"
         android:layout_width="match_parent"
@@ -28,6 +35,7 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/arrow_down"/>
             <TextView
+                android:id="@+id/tvWith"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/image"
@@ -46,6 +54,7 @@
 
 
                 <TextView
+                    android:id="@+id/tvDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -53,6 +62,7 @@
                     android:text="25 Mar 2018"
                   />
                 <TextView
+                    android:id="@+id/tvTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -84,14 +94,7 @@
 
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recylerViewRoles"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:visibility="gone">
 
-    </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -238,6 +241,7 @@
                 android:background="@color/backgroundgrey"/>
 
             <LinearLayout
+                android:id="@+id/llDate"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_weight="1"
@@ -523,6 +527,7 @@
                 android:layout_gravity="center_vertical"
                 android:textColor="@color/colorPrimary"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text=" | Kriti Nagar, Delhi"/>
 
             <ImageView

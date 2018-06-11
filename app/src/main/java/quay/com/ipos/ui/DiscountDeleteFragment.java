@@ -31,7 +31,7 @@ public class DiscountDeleteFragment extends DialogFragment
     TextView tvItemName,tvItemWeight,tvItemQty,tvItemPrice,tvDiscount,tvDiscountPrice;
     Button btnNo,btnYes;
     ImageView ImvClose;
-    int points;
+    int points,posChildDeleteItem;
     View.OnClickListener mOnClickListener;
     static DiscountDeleteFragment f;
     ProductSearchResult.Datum datum;
@@ -46,10 +46,11 @@ public class DiscountDeleteFragment extends DialogFragment
         return f;
     }
 
-    public void setDialogInfo(View.OnClickListener mOnClickListener, ProductSearchResult.Datum datum)
+    public void setDialogInfo(View.OnClickListener mOnClickListener, ProductSearchResult.Datum datum, int posChildDeleteItem)
     {
         this.mOnClickListener = mOnClickListener;
         this.datum = datum;
+        this.posChildDeleteItem = posChildDeleteItem;
     }
 
     @Override
@@ -74,9 +75,8 @@ public class DiscountDeleteFragment extends DialogFragment
             tvItemWeight.setText(datum.getSProductWeight() + " gm");
             tvItemQty.setText("Qty " + datum.getQty());
             tvItemPrice.setText(getResources().getString(R.string.Rs) + " " + datum.getSProductPrice());
-//            tvDiscount.setText(datum.getSDiscountName());
-//            Double discount = (datum.getSDiscountPrice() * datum.getSProductPrice()) / 100;
-//            tvDiscountPrice.setText(getResources().getString(R.string.Rs) + discount);
+            tvDiscount.setText(datum.getDiscount().get(posChildDeleteItem).getSDiscountName());
+            tvDiscountPrice.setText("Total: "+getResources().getString(R.string.Rs) + " "+datum.getDiscount().get(posChildDeleteItem).getDiscountTotal());
         }else {
             tvItemName.setText(datum1.getSProductName());
             tvItemWeight.setText(datum1.getSProductWeight() + " gm");

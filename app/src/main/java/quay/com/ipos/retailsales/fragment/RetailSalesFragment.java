@@ -226,43 +226,45 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         setListener();
         setAdapter();
 
-        final GestureDetector mGestureDetector = new GestureDetector(getActivity(),
-                new GestureDetector.SimpleOnGestureListener() {
-
-                    @Override
-                    public boolean onSingleTapUp(MotionEvent e) {
-                        return true;
-                    }
-
-                });
-
-        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-
-            @Override
-            public void onTouchEvent(RecyclerView arg0, MotionEvent arg1) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean arg0) {
-
-            }
-
-            @SuppressWarnings("deprecation")
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView arg0, MotionEvent motionEvent) {
-                View child = arg0.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-
-                if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
-                    Util.hideSoftKeyboard(getActivity());
-                    return true;
-
-                }
-
-                return false;
-            }
-
-        });
+//        final GestureDetector mGestureDetector = new GestureDetector(getActivity(),
+//                new GestureDetector.SimpleOnGestureListener() {
+//
+//                    @Override
+//                    public boolean onSingleTapUp(MotionEvent e) {
+//                        Util.hideSoftKeyboard(getActivity());
+//                        return true;
+//                    }
+//
+//                });
+//
+//        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+//
+//            @Override
+//            public void onTouchEvent(RecyclerView arg0, MotionEvent arg1) {
+//
+//            }
+//
+//            @Override
+//            public void onRequestDisallowInterceptTouchEvent(boolean arg0) {
+//
+//            }
+//
+//            @SuppressWarnings("deprecation")
+//            @Override
+//            public boolean onInterceptTouchEvent(RecyclerView arg0, MotionEvent motionEvent) {
+//                View child = arg0.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+//
+//                if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
+//
+////                    Util.hideSoftKeyboard(getActivity());
+//                    return true;
+//
+//                }
+//
+//                return false;
+//            }
+//
+//        });
 
     }
 
@@ -422,7 +424,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     if (IPOSApplication.mProductListResult.size() >= 1 && !isBack) {
-                        Util.showMessageDialog(mContext,RetailSalesFragment.this, getResources().getString(R.string.save_cart_message), getResources().getString(R.string.yes), getResources().getString(R.string.no), Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
+                        Util.showMessageDialog(mContext,RetailSalesFragment.this, getResources().getString(R.string.save_cart_message), getResources().getString(R.string.yes), getResources().getString(R.string.no),getResources().getString(R.string.cancel), Constants.APP_DIALOG_Cart, "", getActivity().getSupportFragmentManager());
 
                         isBack = true;
                     } else
@@ -877,7 +879,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     @Override
     public void onClick(View view) {
         int id = view.getId();
-
+        Util.hideSoftKeyboard(getActivity());
         switch (id) {
 //            case R.id.imvQRCode:
 //                ((MainActivity) mContext).launchActivity(FullScannerActivity.class);
@@ -1084,10 +1086,14 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //                totalAmount =0.0;
                 break;
             case R.id.imvRight:
-                if (totalAmount > 0) {
+                flScanner.setVisibility(View.GONE);
+                closeFragment();
+                if (IPOSApplication.mProductListResult.size() > 0) {
+                    if(paymentRequest!=null)
+                        SharedPrefUtil.putString(Constants.PAYMENT_REQUEST,Util.getCustomGson().toJson(paymentRequest),getActivity());
                     Intent i = new Intent(mContext, PaymentModeActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
-                    mContext.startActivity(i);
+                    startActivityForResult(i,Constants.ACT_PAYMENT);
                 } else {
                     Util.showToast("Please add atleast one item to proceed.", mContext);
                 }
@@ -1109,6 +1115,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     private void setNewBillingWithoutSave() {
         IPOSApplication.mProductListResult.clear();
         mRetailSalesAdapter.notifyDataSetChanged();
+        setTextDefault();
     }
 
 
@@ -1137,6 +1144,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                         mInfoArrayList = new ArrayList<>();
                     }
                     mInfoArrayList.add(0, mInfo);
+                    Util.showToast("Cart saved successfully", IPOSApplication.getAppInstance());
                 }
 
                 String json = Util.getCustomGson().toJson(mInfoArrayList);
@@ -1424,7 +1432,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         if (!isChecked) {
             FragmentManager fragmentManager = getChildFragmentManager();
             mDiscountDeleteFragment = DiscountDeleteFragment.newInstance();
-            mDiscountDeleteFragment.setDialogInfo(RetailSalesFragment.this, datum);
+            mDiscountDeleteFragment.setDialogInfo(RetailSalesFragment.this, datum,posChildDeleteItem);
             mDiscountDeleteFragment.show(fragmentManager, "Delete Discount");
         } else {
             addDeleteDiscount();
