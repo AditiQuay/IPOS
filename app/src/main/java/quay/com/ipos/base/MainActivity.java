@@ -2,7 +2,6 @@ package quay.com.ipos.base;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,7 +11,6 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -95,6 +93,8 @@ public class MainActivity extends BaseActivity
     private ListView listViewContent;
     private DrawerLayout drawer;
     private FloatingActionButton fab;
+
+    //tes
     private Toolbar toolbar;
     private NavigationView navigationView;
     private ExpandableListView expandableListView1;
@@ -173,11 +173,13 @@ public class MainActivity extends BaseActivity
     private String customerStatus;
 
     private int mActivePosition = 1;
+    private int currentType = 1;
     private boolean firstTime = true;
     private List<String> mostUsedFunList = new ArrayList<>();
 
 
     private ArrayList<CustomerModel> customerModels = new ArrayList<>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -423,6 +425,7 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        currentType = position;
         int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
         int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
         setMenuItemNormal();
@@ -480,12 +483,14 @@ public class MainActivity extends BaseActivity
     }
 
     public void applyMenuBGImage(String ImageName) {
-
-        if (!ImageName.contains("Mostly Used")) {
-            if (!mostUsedFunList.contains(ImageName)) {
-                saveToDatabase(ImageName);
-            } else {
-                update(ImageName);
+        Log.i("currentType", currentType + "");
+        if(currentType==1) {
+            if (!ImageName.contains("Mostly Used")) {
+                if (!mostUsedFunList.contains(ImageName)) {
+                    saveToDatabase(ImageName);
+                } else {
+                    update(ImageName);
+                }
             }
         }
 
@@ -847,7 +852,7 @@ public class MainActivity extends BaseActivity
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         if (httpStatusCode == Constants.SUCCESS) {
             if (resultObj != null) {
-                if (dbHelper.isCustomerDataEmpty()){
+                if (dbHelper.isCustomerDataEmpty()) {
                     fetchCustomerData(serverResponse);
                 }
 
@@ -916,11 +921,11 @@ public class MainActivity extends BaseActivity
                 // inserting note in db and getting
                 // newly inserted note id
 
-                    dbHelper.insertCustomer(customerID, customerTitle, customerName, customerFirstName, customerLastName, customerGender, customerBday, customerMaritalStatus,
-                            customerSpouseFirstName, customerSpouseLastName, customerSpouseDob, customerChildSatus, customerChild.toString(),
-                            customerEmail, customerEmail2, customerPhone, customerPhone2, customerPhone3, customerAddress, customerState, customerCity,
-                            customerPin, customerCountry, customerDesignation, customerCompany, custoemrGstin, customer, customerRelationship,
-                            customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom,"","" ,1);
+                dbHelper.insertCustomer(customerID, customerTitle, customerName, customerFirstName, customerLastName, customerGender, customerBday, customerMaritalStatus,
+                        customerSpouseFirstName, customerSpouseLastName, customerSpouseDob, customerChildSatus, customerChild.toString(),
+                        customerEmail, customerEmail2, customerPhone, customerPhone2, customerPhone3, customerAddress, customerState, customerCity,
+                        customerPin, customerCountry, customerDesignation, customerCompany, custoemrGstin, customer, customerRelationship,
+                        customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom, "", "", 1);
 
 
 //                // get the newly inserted note from db
@@ -966,7 +971,7 @@ public class MainActivity extends BaseActivity
                                 lvMenu.getAdapter().getItemId(mActivePosition));
 
                     }
-                }, 0);
+                }, 5000);
 
 
                 getMostUsedData();

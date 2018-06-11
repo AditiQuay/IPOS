@@ -138,6 +138,8 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }else {
                 userViewHolder.llDiscount.setVisibility(View.VISIBLE);
             }
+
+
             if(position==getItemCount()-1){
                 myAdapterTags.onRowClicked(23);
             }
@@ -184,6 +186,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                     mRule.setApplied(true);
                                     rule.set(i, mRule);
                                     str.setRule(rule);
+                                    str.setRuleID(rule.get(i).getRuleID());
                                     mDataset.set(((UserViewHolder) userViewHolder).getAdapterPosition(), str);
                                     datum.setDiscount(mDataset);
                                     IPOSApplication.mProductListResult.set(retailAdapterPosition, datum);
@@ -206,6 +209,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                                     mRule.setApplied(true);
                                                     rule.set(i - 1, mRule);
                                                     str.setRule(rule);
+                                                    str.setRuleID(rule.get(i).getRuleID());
                                                     mDataset.set(((UserViewHolder) userViewHolder).getAdapterPosition(), str);
                                                     datum.setDiscount(mDataset);
                                                     IPOSApplication.mProductListResult.set(retailAdapterPosition, datum);
@@ -939,6 +943,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 discount.setDiscountTotal(mPriceSelected);
                 discount.setRule(rules);
+                discount.setParentID(minDiscount.get(i).getIProductModalId());
                 discounts.add(discount);
                 ProductSearchResult.Datum datum1 =new ProductSearchResult().new Datum();
                 //    AppLog.e("IPOSApplication.mProductListResult: minDiscount 1-- ",Util.getCustomGson().toJson(minDiscount.get(i)));
@@ -967,6 +972,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 datum1.setSalesPrice(mPriceSelected);
                 datum1.setFreeItem(true);
                 datum1.setSProductPrice(mPriceSelected);
+
                 minDiscount.set(i,datum1);
 //                IPOSApplication.mProductListResult.add( datum1);
             }

@@ -1,8 +1,13 @@
 <component name="libraryTable">
   <library name="com.android.support:support-compat-27.1.1">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/c2f47a5fe735fe5d7f629f10a774bebc/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/c2f47a5fe735fe5d7f629f10a774bebc/jars/classes.jar!/" />
+<<<<<<< HEAD:.idea/libraries/com_android_support_support_compat_27_1_1.xml
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/d27f23190026aa0f9438756c8f2768e0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/d27f23190026aa0f9438756c8f2768e0/jars/classes.jar!/" />
+=======
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/1c00bf9d8d93879909d330ee9901b235/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/1c00bf9d8d93879909d330ee9901b235/jars/classes.jar!/" />
+>>>>>>> 92d3d7af5b0fef4f5fa88648dea6fd3d94f9ca9c:.idea/libraries/com_android_support_support_compat_27_1_1.xml
     </CLASSES>
     <JAVADOC />
     <SOURCES>

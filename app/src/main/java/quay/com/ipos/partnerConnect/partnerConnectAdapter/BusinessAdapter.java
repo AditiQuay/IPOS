@@ -2,7 +2,7 @@ package quay.com.ipos.partnerConnect.partnerConnectAdapter;
 
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +12,14 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.ButtonListener;
-import quay.com.ipos.partnerConnect.partnerConnectModel.BusinessModel;
+import quay.com.ipos.partnerConnect.BusinessFragment;
+import quay.com.ipos.partnerConnect.model.BusinessLocation;
+import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
 import quay.com.ipos.utility.FontUtil;
 
 /**
@@ -26,15 +29,22 @@ import quay.com.ipos.utility.FontUtil;
 public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView> implements AdapterView.OnItemSelectedListener {
     private Context context;
     private ButtonListener buttonListener;
-    private ArrayList<BusinessModel> businessModels;
-    private String[] partnerType = {"Retailer","Distributor", "Wholeseller"};
+
+    private List<KeyBusinessInfo> list =new ArrayList<>();
+    private String[] partnerType = {"Retailer", "Distributor", "Wholeseller"};
     private String[] partnerKeyPosition = {"Director", "Manager", "Executive"};
     private String partnerTypeText, contactText;
 
-    public BusinessAdapter(Context context, ArrayList<BusinessModel> businessModels, ButtonListener buttonListener) {
+  /*  public BusinessAdapter(Context context, List<KeyBusinessInfo> list, ButtonListener buttonListener) {
         this.context = context;
         this.buttonListener = buttonListener;
-        this.businessModels = businessModels;
+        this.list = list;
+    }*/
+
+    public BusinessAdapter(FragmentActivity activity, BusinessFragment businessFragment) {
+        this.context = activity;
+        this.buttonListener = businessFragment;
+
     }
 
     @Override
@@ -47,7 +57,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyView holder, int position) {
-        BusinessModel businessModel = businessModels.get(position);
+        KeyBusinessInfo businessModel = list.get(position);
 
         //Creating the ArrayAdapter instance having the partnerType list
         ArrayAdapter partnerTypeHeading = new ArrayAdapter(context, android.R.layout.simple_spinner_item, partnerType);
@@ -62,21 +72,25 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
         holder.keyContactSpinner.setOnItemSelectedListener(this);
 
 
-        holder.tieCompanyField.setText(businessModel.getPartnerCompanyName());
-        holder.tieCinField.setText(businessModel.getPartnerCinNumber());
-        holder.tiePanField.setText(businessModel.getPartnerPanNumber());
-        holder.tiekeyContactField.setText(businessModel.getPartnerKeyContact());
-        holder.tieStateField.setText(businessModel.getPartnerState());
-        holder.tieCityField.setText(businessModel.getPartnerCity());
-        holder.tiePinCodeField.setText(businessModel.getPartnerPinCode());
-        holder.tieZoneField.setText(businessModel.getPartnerZone());
+        holder.tieCompanyField.setText(businessModel.CompaneyName);
+        holder.tieCinField.setText(businessModel.CIN);
+        holder.tiePanField.setText(businessModel.PAN);
+        holder.tiekeyContactField.setText(businessModel.keyContactPerson);
+        BusinessLocation businessLocation = businessModel.BusinessLocation;
+        if (businessLocation != null) {
+            holder.tieStateField.setText(businessLocation.businessState);
+            holder.tieCityField.setText(businessLocation.businessCity);
+            holder.tiePinCodeField.setText(businessLocation.businessPINCode);
+            holder.tieZoneField.setText(businessLocation.BusinessZone);
+
+        }
 
 
     }
 
     @Override
     public int getItemCount() {
-        return businessModels.size();
+        return list.size();
     }
 
     @Override
@@ -99,7 +113,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
     public class MyView extends RecyclerView.ViewHolder {
         private MaterialSpinner partnerTypeSpinner, keyContactSpinner;
 
-        private TextInputLayout tilCompanyName, tilCinName, tilPanName, tilkeyContactName, tilState, tilCityName, tilPinCodeName, tilZoneName;
+        //  private TextInputLayout tilCompanyName, tilCinName, tilPanName, tilkeyContactName, tilState, tilCityName, tilPinCodeName, tilZoneName;
         private TextInputEditText tieCompanyField, tieCinField, tiePanField, tiekeyContactField, tieStateField, tieCityField, tiePinCodeField, tieZoneField;
 
         private TextView textViewBusinessInfoHeading;
@@ -110,7 +124,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
             keyContactSpinner = itemView.findViewById(R.id.keyContactSpinner);
             textViewBusinessInfoHeading = itemView.findViewById(R.id.textViewBusinessInfoHeading);
             //TextInputLayout
-            tilCompanyName = itemView.findViewById(R.id.tilCompanyName);
+          /*  tilCompanyName = itemView.findViewById(R.id.tilCompanyName);
             tilCinName = itemView.findViewById(R.id.tilCinName);
             tilPanName = itemView.findViewById(R.id.tilPanName);
             tilkeyContactName = itemView.findViewById(R.id.tilkeyContactName);
@@ -118,7 +132,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
             tilCityName = itemView.findViewById(R.id.tilCityName);
             tilPinCodeName = itemView.findViewById(R.id.tilPinCodeName);
             tilZoneName = itemView.findViewById(R.id.tilZoneName);
-
+*/
             //TextInputEdiText
             tieCompanyField = itemView.findViewById(R.id.tieCompanyField);
             tieCinField = itemView.findViewById(R.id.tieCinField);
@@ -133,21 +147,37 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
             //Personal
             FontUtil.applyTypeface(partnerTypeSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(context));
             FontUtil.applyTypeface(keyContactSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tilCompanyName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tilCinName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+          /*   FontUtil.applyTypeface(tilCompanyName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+           FontUtil.applyTypeface(tilCinName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
             FontUtil.applyTypeface(tilPanName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
             FontUtil.applyTypeface(tilkeyContactName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+              FontUtil.applyTypeface(tilState, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+            FontUtil.applyTypeface(tilCityName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+            FontUtil.applyTypeface(tilPinCodeName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+            FontUtil.applyTypeface(tilZoneName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+
+         */
             FontUtil.applyTypeface(tieCompanyField, FontUtil.getTypeFaceRobotTiteliumRegular(context));
             FontUtil.applyTypeface(tieCinField, FontUtil.getTypeFaceRobotTiteliumRegular(context));
             FontUtil.applyTypeface(tiePanField, FontUtil.getTypeFaceRobotTiteliumRegular(context));
             FontUtil.applyTypeface(tiekeyContactField, FontUtil.getTypeFaceRobotTiteliumRegular(context));
             FontUtil.applyTypeface(textViewBusinessInfoHeading, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tilState, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tilCityName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tilPinCodeName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tilZoneName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
         }
     }
 
+    public void clearData() {
+        this.list.clear();
+        notifyDataSetChanged();
+    }
 
+    public void loadData(List<KeyBusinessInfo> data) {
+        this.list.clear();
+        this.list.addAll(data);
+        notifyDataSetChanged();
+    }
+    // Insert a new item to the RecyclerView on a predefined position
+    public void insert(int position, KeyBusinessInfo data) {
+        this.list.add(position, data);
+        notifyItemInserted(position);
+    }
 }

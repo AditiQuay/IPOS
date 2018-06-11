@@ -81,7 +81,6 @@
                             android:id="@+id/tieFirstName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:editable="true"
                             android:hint="First Name *"
                             android:inputType="text"
                             android:textSize="@dimen/universal_text_size16" />
@@ -163,7 +162,7 @@
                             android:layout_height="match_parent"
                             android:clickable="true"
                             android:drawableRight="@drawable/calendar_gray"
-                            android:editable="false"
+                            android:focusable="false"
                             android:hint="DOB *"
                             android:inputType="text"
                             android:textSize="@dimen/universal_text_size14" />
@@ -336,8 +335,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:clickable="true"
+                                    android:focusable="false"
                                     android:drawableRight="@drawable/calendar_gray"
-                                    android:editable="false"
                                     android:hint="DOB *"
                                     android:textSize="@dimen/universal_text_size14" />
 
@@ -421,7 +420,7 @@
                         android:id="@+id/btnAddChild"
                         style="@style/styleWhiteTextColor14"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/dim_40"
                         android:layout_gravity="end"
                         android:layout_marginTop="@dimen/dim_16"
                         android:background="@drawable/button_drawable_blue"

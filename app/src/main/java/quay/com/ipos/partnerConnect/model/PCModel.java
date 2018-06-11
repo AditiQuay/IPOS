@@ -1,5 +1,7 @@
 package quay.com.ipos.partnerConnect.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class PCModel {
@@ -7,11 +9,13 @@ public class PCModel {
     public String RelationShipName;
     public String psslastUpdated;
     public Relationship Relationship;
+
     public Business Business;
-    public List<Contact> Contact;
+    public  Contact Contact;
     public List<DocumentVoults> DocumentVoults;
-    public List<BillandDelivery> BillandDelivery;
-    public List<Acount> Acount;
+    @SerializedName("ddd")
+    public List<BillnDelivery> BillandDelivery;
+    public Account Account;
 
 
 }

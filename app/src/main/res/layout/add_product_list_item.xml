@@ -14,7 +14,6 @@
         android:layout_height="90dp">
         <ImageView
             android:id="@+id/imvProduct"
-            android:src="@drawable/if_light_bulb"
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:scaleType="centerInside"

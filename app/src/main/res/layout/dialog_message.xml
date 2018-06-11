@@ -11,13 +11,12 @@
 
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvDialogTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:padding="@dimen/dim_10"
-            android:text="@string/otc_discount_workflow_approval"
             android:textSize="@dimen/text_size_15sp"
             app:typeface="TitilliumWeb-Bold.ttf"/>
 
@@ -25,16 +24,15 @@
 
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvDialogMessage"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:gravity="center_vertical"
             android:padding="@dimen/dim_10"
-            android:text="@string/otc_approval_details"
             android:textSize="@dimen/text_size_15sp" />
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"

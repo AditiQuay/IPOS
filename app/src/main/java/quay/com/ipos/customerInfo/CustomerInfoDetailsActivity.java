@@ -9,8 +9,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -26,9 +30,11 @@ import quay.com.ipos.customerInfo.customerInfoModal.RecentOrderList;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.modal.CustomerList;
+import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.utility.CircleImageView;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -37,14 +43,18 @@ import quay.com.ipos.utility.Util;
 
 public class CustomerInfoDetailsActivity extends AppCompatActivity implements InitInterface {
     private Toolbar toolbarCustomerInfoDetail;
-    private TextView textViewUserName, textViewMob, textViewEmail, textViewBill, textViewBirthDay, textViewPoints, textViewBillingAddress, textViewSuggestedBy, textViewWarningText, textViewRecentOrder, textViewStoreCount, textViewStoreAddress, textViewDate, textViewAmount, textViewUpdateAndProceed;
+    private TextView textViewUserName, textViewMob, textViewEmail, textViewBill, textViewBirthDay, textViewPoints, textViewBillingAddress, textViewSuggestedBy, textViewWarningText, textViewRecentOrder, textViewStoreCount, textViewStoreAddress, textViewDate, textViewAmount, textViewUpdateAndProceed, tvPinCount;
+    private ImageView imvBilling, imvPin;
     private CircleImageView imageViewProfileDummy;
+    private LinearLayout lLayoutBottom;
     private Context mContext;
     private String customerId;
+    private int customerPoints = 0;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
     private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();
     private DatabaseHandler db;
+    private ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<RealmPinnedResults.Info>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +83,10 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         textViewBirthDay = findViewById(R.id.textViewBirthDay);
         textViewPoints = findViewById(R.id.textViewPoints);
         textViewBillingAddress = findViewById(R.id.textViewBillingAddress);
+        tvPinCount = findViewById(R.id.tvPinCount);
+        imvBilling = findViewById(R.id.imvBilling);
+        imvPin = findViewById(R.id.imvPin);
+        lLayoutBottom = findViewById(R.id.lLayoutBottom);
 
         textViewSuggestedBy = findViewById(R.id.textViewSuggestedBy);
         textViewWarningText = findViewById(R.id.textViewWarningText);
@@ -80,6 +94,51 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         textViewRecentOrder = findViewById(R.id.textViewRecentOrder);
         textViewUpdateAndProceed = findViewById(R.id.textViewUpdateAndProceed);
         recyclerviewRecentOrder = findViewById(R.id.recyclerviewRecentOrder);
+        pinnedUpdate();
+        lLayoutBottom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mIntent = new Intent();
+                mIntent.putExtra(Constants.KEY_CUSTOMER, customerId);
+                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, customerPoints);
+                setResult(Constants.ACT_CUSTOMER, mIntent);
+                finish();
+            }
+        });
+        imvBilling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mIntent = new Intent();
+                setResult(Constants.ACT_PAYMENT_NEW_BILLING, mIntent);
+                finish();
+            }
+        });
+        imvPin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent mIntent = new Intent();
+                setResult(Constants.ACT_PINNED, mIntent);
+                finish();
+            }
+        });
+
+    }
+
+    private void pinnedUpdate() {
+        if (SharedPrefUtil.getString("mInfoArrayList", "", mContext) != null) {
+            String json2 = SharedPrefUtil.getString("mInfoArrayList", "", mContext);
+            if (!json2.equalsIgnoreCase(""))
+                mInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<RealmPinnedResults.Info>>() {
+                }.getType());
+            if (mInfoArrayList.size() > 0) {
+                tvPinCount.setText("" + mInfoArrayList.size());
+                tvPinCount.setVisibility(View.VISIBLE);
+            } else {
+                tvPinCount.setVisibility(View.GONE);
+            }
+        } else {
+            tvPinCount.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -112,6 +171,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         }
         if (Util.validateString(customerModel.getCustomerPoints())) {
             textViewPoints.setText(customerModel.getCustomerPoints() + getResources().getString(R.string.text_points));
+            customerPoints = Integer.parseInt(customerModel.getCustomerPoints());
         }
         textViewBill.setText(getResources().getString(R.string.text_Last_Billing) + customerModel.getLastBillingDate() + " | " + getResources().getString(R.string.Rs) + " " + customerModel.getLastBillingAmount());
 
@@ -154,6 +214,12 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
     @Override

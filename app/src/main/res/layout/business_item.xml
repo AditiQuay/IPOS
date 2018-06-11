@@ -4,7 +4,7 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/cardViewProduct"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="@dimen/dim_8"
     android:orientation="vertical">
 
@@ -90,7 +90,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Company Name *"
-                                    android:textSize="@dimen/universal_text_size14" />
+                                    android:textSize="@dimen/universal_text_size14"
+                                    android:focusable="true"
+                                    android:focusableInTouchMode="true"/>
 
                             </android.support.design.widget.TextInputLayout>
                         </LinearLayout>
@@ -198,9 +200,9 @@
                                 app:ms_enableFloatingLabel="true"
                                 app:ms_errorColor="@color/red"
                                 app:ms_floatingLabelColor="@color/grey"
-                                app:ms_floatingLabelText="Partner Type *"
+                                app:ms_floatingLabelText="Key Contact Person *"
                                 app:ms_highlightColor="@color/highlight"
-                                app:ms_hint="Partner Type *"
+                                app:ms_hint="Key Contact Person *"
                                 app:ms_hintColor="@color/grey"
                                 app:ms_multiline="false" />
 

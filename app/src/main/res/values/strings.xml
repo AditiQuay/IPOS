@@ -94,6 +94,7 @@
 
     <string name="toolbar_title_catalogue_product_details">PRODUCT CATALOGUE</string>
     <string name="toolbar_title_customer_screen">Customer Information</string>
+    <string name="toolbar_title_payment_screen">Payment Mode</string>
     <string name="toolbar_title_customer_screen_details">Customer Details</string>
     <string-array name="navigation_drawer_items_array">
         <item>Dashboard &amp; Insight</item>
@@ -101,6 +102,20 @@
         <item>Stock &amp; Price</item>
         <item>Loyalty Program</item>
         <item>Partner Connect</item>
+    </string-array>
+    <string-array name="months">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
     </string-array>
 
     <string name="title_partner_connect">Partner Connect</string>
@@ -175,7 +190,7 @@
     <string name="wallet">Wallet</string>
     <string name="enter_cash_amount">Enter cash amount</string>
     <string name="Rs_0">\u20B9 0.00</string>
-    <string name="enter_card_amount">Enter card number</string>
+    <string name="enter_card_amount">Enter card amount</string>
     <string name="select_card_type">Select card type</string>
     <string name="enter_last_digit">Enter last 4 digits</string>
     <string name="enter_transaction_number">Enter transaction number</string>
@@ -283,7 +298,7 @@
     <string name="invalid_spouse_f_name">Please enter a valid Spouse First Name</string>
     <string name="invalid_spouse_l_name">Please enter a valid Spouse Last Name</string>
     <string name="invalid_confirm_password">Password does not match</string>
-    <string name="invalid_phone">Please enter a valid Phone</string>
+    <string name="invalid_phone">Mobile number is mandatory</string>
     <string name="invalid_age">Age must be between 12 and 60.</string>
     <string name="dateerror">Enter a valid date</string>
     <string name="points">Points</string>

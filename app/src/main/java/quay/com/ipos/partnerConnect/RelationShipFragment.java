@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import quay.com.ipos.R;
 import quay.com.ipos.partnerConnect.adapter.RelOneAdapter;
@@ -35,8 +34,8 @@ public class RelationShipFragment extends Fragment {
     private PCModel pcModel;
 
     private TextView mRelationShipName;
+    private TextView mLastUpdate;
     private TextView mtxtPssEntityName;
-
 
 
     public RelationShipFragment() {
@@ -74,18 +73,29 @@ public class RelationShipFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRelationShipName = view.findViewById(R.id.mRelationShipName);
+        mLastUpdate = view.findViewById(R.id.mLastUpdate);
         mtxtPssEntityName = view.findViewById(R.id.mtxtPssEntityName);
         recyclerViewOne = view.findViewById(R.id.recyclerViewOne);
         recyclerViewTwo = view.findViewById(R.id.recyclerViewTwo);
         recyclerViewThree = view.findViewById(R.id.recyclerViewThree);
 
+       /* getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
+                if (partnerConnectMain.getViewPager() != null) {
+                    partnerConnectMain.getViewPager().setCurrentItem(2, true);
+                }
+            }
+        });
+*/
 
         loadData();
 
 
     }
 
-   private void loadData() {
+    private void loadData() {
         PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
         if (partnerConnectMain != null) {
             partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
@@ -104,8 +114,9 @@ public class RelationShipFragment extends Fragment {
             Log.i("pcModel", "is null");
             return;
         }
-        Toast.makeText(getActivity(), "I am here", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "I am here", Toast.LENGTH_SHORT).show();
         mRelationShipName.setText(pcModel.RelationShipName);
+        mLastUpdate.setText(pcModel.psslastUpdated);
         mtxtPssEntityName.setText(pcModel.Relationship.pssEntityName);
         recyclerViewOne.setAdapter(new RelOneAdapter(pcModel.Relationship.pssLOBS));
         recyclerViewTwo.setAdapter(new RelTwoAdapter(pcModel.Relationship.pssPrincipleContact));

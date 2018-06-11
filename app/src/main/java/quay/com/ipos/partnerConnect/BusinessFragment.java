@@ -1,5 +1,6 @@
 package quay.com.ipos.partnerConnect;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,19 +8,31 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.data.remote.model.PartnerConnectResponse;
 import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.partnerConnect.adapter.RelOneAdapter;
+import quay.com.ipos.partnerConnect.adapter.RelThreeAdapter;
+import quay.com.ipos.partnerConnect.adapter.RelTwoAdapter;
+import quay.com.ipos.partnerConnect.model.Business;
+import quay.com.ipos.partnerConnect.model.BusinessLocation;
+import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
+import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.BusinessAdapter;
 import quay.com.ipos.partnerConnect.partnerConnectModel.BusinessModel;
 import quay.com.ipos.utility.FontUtil;
@@ -29,7 +42,8 @@ import quay.com.ipos.utility.FontUtil;
  */
 
 public class BusinessFragment extends Fragment implements InitInterface, ButtonListener, View.OnClickListener {
-    private View main;
+    private static final String TAG = BusinessFragment.class.getSimpleName();
+    private View view;
     private RelativeLayout rLayoutProductTitle;
     private TextView textViewBusinessInfoHeading, textViewMadatory, textViewLastUpdated;
     private RecyclerView recyclerViewBusinessInfo;
@@ -37,39 +51,119 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
     private Button btnCancel, btnsubmit;
     private Context mContext;
     private ArrayList<BusinessModel> businessModels = new ArrayList<>();
+    private View fab;
+    private Button btnAdd;
+    PCModel mpcModel;
+    private BusinessAdapter businessAdapter;
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        main = inflater.inflate(R.layout.business_fragment, container, false);
+        view = inflater.inflate(R.layout.business_fragment, container, false);
         mContext = getActivity();
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
-        return main;
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadData();
+        getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "hhh", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadData() {
+        PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
+        if (partnerConnectMain != null) {
+            partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
+                @Override
+                public void onChanged(@Nullable PCModel pcModel) {
+                    mpcModel = pcModel;
+                    setData(pcModel);
+
+                }
+            });
+        }
+    }
+
+    private void setData(PCModel pcModel) {
+        if (pcModel == null && pcModel.Business == null && pcModel.Business.KeyBusinessInfo == null) {
+            Log.i(TAG, "pcModel or pcModel.Business is null");
+            return;
+        }
+        List<KeyBusinessInfo> data = pcModel.Business.KeyBusinessInfo;
+        //  businessAdapter = new BusinessAdapter(getActivity(), pcModel.Business.KeyBusinessInfo, BusinessFragment.this);
+        //     recyclerViewBusinessInfo.setAdapter(businessAdapter);
+
+        businessAdapter.loadData(data);
     }
 
     @Override
     public void findViewById() {
-        rLayoutProductTitle = main.findViewById(R.id.rLayoutProductTitle);
-        textViewBusinessInfoHeading = main.findViewById(R.id.textViewPersonalHeading);
-        textViewMadatory = main.findViewById(R.id.textViewMadatory);
-        textViewLastUpdated = main.findViewById(R.id.textViewLastUpdated);
-        recyclerViewBusinessInfo = main.findViewById(R.id.recyclerViewBusinessInfo);
-        lLayoutBottom = main.findViewById(R.id.lLayoutBottom);
-        btnCancel = main.findViewById(R.id.btnCancel);
-        btnsubmit = main.findViewById(R.id.btnsubmit);
+        btnAdd = view.findViewById(R.id.btnAdd);
+        rLayoutProductTitle = view.findViewById(R.id.rLayoutProductTitle);
+        textViewBusinessInfoHeading = view.findViewById(R.id.textViewPersonalHeading);
+        textViewMadatory = view.findViewById(R.id.textViewMadatory);
+        textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
+        recyclerViewBusinessInfo = view.findViewById(R.id.recyclerViewBusinessInfo);
+        lLayoutBottom = view.findViewById(R.id.lLayoutBottom);
+        btnCancel = getActivity().findViewById(R.id.btnCancel);
+        btnsubmit = getActivity().findViewById(R.id.btnsubmit);
+        fab = getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClick(view);
+            }
+        });
+        businessAdapter = new BusinessAdapter(getActivity(), BusinessFragment.this);
+        recyclerViewBusinessInfo.setAdapter(businessAdapter);
 
-        btnCancel.setOnClickListener(this);
-        btnsubmit.setOnClickListener(this);
+        try {
+            btnCancel.setOnClickListener(this);
+            btnsubmit.setOnClickListener(this);
+            fab.setOnClickListener(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewField();
+            }
+        });
+
+        view.findViewById(R.id.btnClearAll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (businessAdapter != null) {
+                    businessAdapter.clearData();
+                }
+            }
+        });
+
     }
 
     @Override
     public void applyInitValues() {
 
-        businessModels.clear();
+      /*  businessModels.clear();
 
         BusinessModel businessModel = new BusinessModel();
         businessModel.setPartnerType("");
@@ -82,13 +176,9 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
         businessModel.setPartnerCity("");
         businessModel.setPartnerPinCode("");
         businessModel.setPartnerZone("");
-        businessModels.add(businessModel);
+        businessModels.add(businessModel);*/
 
 
-        recyclerViewBusinessInfo.setHasFixedSize(true);
-        recyclerViewBusinessInfo.setLayoutManager(new LinearLayoutManager(mContext));
-        BusinessAdapter businessAdapter = new BusinessAdapter(mContext, businessModels, this);
-        recyclerViewBusinessInfo.setAdapter(businessAdapter);
     }
 
     @Override
@@ -137,6 +227,33 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.fab:
+                addNewField();
+                break;
+
+        }
+    }
+
+    private void addNewField() {
+        if (mpcModel != null) {
+            Toast.makeText(getActivity(), "hhhvv", Toast.LENGTH_SHORT).show();
+
+            BusinessLocation businessLocation = new BusinessLocation();
+            KeyBusinessInfo keyBusinessInfo = new KeyBusinessInfo();
+            keyBusinessInfo.BusinessLocation = businessLocation;
+            if (mpcModel.Business.KeyBusinessInfo != null) {
+                mpcModel.Business.KeyBusinessInfo.add(keyBusinessInfo);
+            }
+          //  businessAdapter.loadData(mpcModel.Business.KeyBusinessInfo);
+
+
+            PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
+            if (connectMain != null) {
+             //   Toast.makeText(connectMain, "hhh", Toast.LENGTH_SHORT).show();
+                connectMain.getPcModelData().setValue(mpcModel);
+            }
+        }
 
     }
 }

@@ -1,16 +1,15 @@
 package quay.com.ipos.partnerConnect;
 
 import android.app.Activity;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,8 +21,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-
-import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
@@ -47,6 +44,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
+    private FloatingActionButton fab;
     private MutableLiveData<PCModel> pcModelLiveData = new MutableLiveData<>();
 
 
@@ -65,9 +63,22 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    public ViewPager getViewPager() {
+        return viewPager;
+    }
+
+    @Override
     public void findViewById() {
+        fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.appBar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setTitle(getResources().getString(R.string.title_partner_connect));
 
         viewPager = findViewById(R.id.viewPager);
@@ -155,6 +166,17 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
            /* if (mListener != null) {
                 mListener.onPageSelected(position);
             }*/
+            if (position == 0) {
+                findViewById(R.id.bottom_sheet).setVisibility(View.GONE);
+            } else {
+                findViewById(R.id.bottom_sheet).setVisibility(View.VISIBLE);
+            }
+
+            if (position == 5 || position == 1) {
+                fab.setVisibility(View.GONE);
+            }else {
+                fab.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -191,9 +213,15 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             case 0:
                 return RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
             case 1:
-                return RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
+                return new BusinessFragment();
             case 2:
-                return RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
+                return new ContactFragment();
+            case 3:
+                return new AccountFragment();
+            case 4:
+                return new BillingAddressFragment();
+            case 5:
+                return new DocumentsFragment();
 
             default:
                 return RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
@@ -214,7 +242,8 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             getData();
             return true;
 
-        }if (id == R.id.action_help) {
+        }
+        if (id == R.id.action_help) {
             getServerData();
             return true;
 
@@ -228,9 +257,9 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
 
         String localData = getLocalData();
-        PCModel pcModel = new Gson().fromJson(localData, PCModel.class);
+        PartnerConnectResponse pcModel = new Gson().fromJson(localData, PartnerConnectResponse.class);
         Log.i("localData", pcModel.toString());
-        pcModelLiveData.setValue(pcModel);
+        pcModelLiveData.setValue(pcModel.response);
     }
 
     private String getLocalData() {
@@ -244,17 +273,22 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         call.enqueue(new Callback<PartnerConnectResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectResponse> call, Response<PartnerConnectResponse> response) {
-                Log.i("response", response.body().statusCode+","+response.body().message);
-                Log.i("JsonObject", response.toString() + response.body());
-                if (response.body() != null) {
-                    PartnerConnectResponse response1 = response.body();
-                    if (response1 != null) {
-                        PCModel pcModel = response1.response;
-                        if (pcModel != null) {
-                            pcModelLiveData.setValue(pcModel);
+                try {
+                    Log.i("response", response.body().statusCode + "," + response.body().message);
+                    Log.i("JsonObject", response.toString() + response.body());
+                    if (response.body() != null) {
+                        PartnerConnectResponse response1 = response.body();
+                        if (response1 != null) {
+                            PCModel pcModel = response1.response;
+                            if (pcModel != null) {
+                                pcModelLiveData.setValue(pcModel);
+                            }
                         }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+
             }
 
             @Override

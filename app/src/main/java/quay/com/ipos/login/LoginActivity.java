@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -29,8 +30,10 @@ import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.base.RunTimePermissionActivity;
+import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.modal.LoginResult;
+import quay.com.ipos.partnerConnect.DocumentsFragment;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
@@ -39,9 +42,13 @@ import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
+import quay.com.ipos.utility.Util;
+
+import static quay.com.ipos.customerInfo.customerInfoModal.CustomerModel.TABLE_NAME;
 
 public class LoginActivity extends RunTimePermissionActivity implements InitInterface, View.OnClickListener, View.OnFocusChangeListener, ServiceTask.ServiceResultListener {
 
+    private static final String TAG = LoginActivity.class.getSimpleName();
     private TextView textViewWelcome;
     private EditText editTextEmail, editTextPassword;
     private Button btnLogin;
@@ -237,8 +244,8 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                 getDeviceInformation();
                 hideKeyboard();
             }
-
         }
+
     }
 
     @Override
@@ -250,6 +257,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                 LoginResult loginResult = (LoginResult) resultObj;
                 Gson gson = new GsonBuilder().create();
                 gson.fromJson(serverResponse, LoginResult.class);
+                SharedPrefUtil.putString(Constants.Login_result, Util.getCustomGson().toJson(loginResult),mContext);
                 SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
                 SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().getAccessToken(), mContext);
                 SharedPrefUtil.setStoreID(Constants.STORE_ID.trim(), loginResult.getUserAccess().getWorklocationID(), mContext);

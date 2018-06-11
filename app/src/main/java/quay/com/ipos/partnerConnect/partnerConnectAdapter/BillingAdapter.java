@@ -11,29 +11,31 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.ButtonListener;
+import quay.com.ipos.partnerConnect.model.BillnDelivery;
 import quay.com.ipos.partnerConnect.partnerConnectModel.BillingModel;
 
 /**
  * Created by niraj.kumar on 6/7/2018.
  */
 
-public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> implements AdapterView.OnItemSelectedListener {
+public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView>  {
     private String[] addressType = {"Bill & Deliver"};
     private String[] businessPlace = {"Shop / Store"};
     private String[] state = {"New Delhi"};
     String addressTypeText, businessPlaceText, stateText;
-    private ArrayList<BillingModel> billingModels;
+    private List<BillnDelivery> list=new ArrayList<>();
     private Context mContext;
     private ButtonListener buttonListener;
 
-    public BillingAdapter(Context context, ArrayList<BillingModel> billingModels, ButtonListener buttonListener) {
+    public BillingAdapter(Context context) {
         this.mContext = context;
         this.buttonListener = buttonListener;
-        this.billingModels = billingModels;
+        this.list = new ArrayList<>();
     }
 
     @Override
@@ -46,43 +48,43 @@ public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> 
 
     @Override
     public void onBindViewHolder(MyView holder, int position) {
-        BillingModel billingModel = billingModels.get(position);
+        BillnDelivery billnDelivery = list.get(position);
 
 
         //Creating the ArrayAdapter instance having the addressType list
         ArrayAdapter addressAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, addressType);
         addressAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.addressTypeSpinner.setAdapter(addressAdapter);
-        holder.addressTypeSpinner.setOnItemSelectedListener(this);
+       // holder.addressTypeSpinner.setOnItemSelectedListener(this);
 
 
         //Creating the ArrayAdapter instance having the BusinessPlace list
         ArrayAdapter businessPlaceAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, businessPlace);
         businessPlaceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.businessPlaceSpinner.setAdapter(businessPlaceAdapter);
-        holder.businessPlaceSpinner.setOnItemSelectedListener(this);
+       // holder.businessPlaceSpinner.setOnItemSelectedListener(this);
 
 
         //Creating the ArrayAdapter instance having the state list
         ArrayAdapter stateAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, state);
         businessPlaceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.stateSpinner.setAdapter(businessPlaceAdapter);
-        holder.stateSpinner.setOnItemSelectedListener(this);
+       // holder.stateSpinner.setOnItemSelectedListener(this);
 
-        holder.tieAddress.setText(billingModel.getBillingAddress());
-        holder.tieCity.setText(billingModel.getBillingCity());
-        holder.tieGstin.setText(billingModel.getBillingGSTIN());
-        holder.tieContactPerson.setText(billingModel.getBillingContactPerson());
-        holder.tieContactPersonNumber.setText(billingModel.getBillingContactPersonNumber());
+        holder.tieAddress.setText(billnDelivery.mBusinessAddress);
+        holder.tieCity.setText(billnDelivery.mCity);
+        holder.tieGstin.setText(billnDelivery.mGSTIN);
+        holder.tieContactPerson.setText(billnDelivery.mContact);
+        holder.tieContactPersonNumber.setText(billnDelivery.mMobile);
 
     }
 
     @Override
     public int getItemCount() {
-        return billingModels.size();
+        return list.size();
     }
 
-    @Override
+  /*  @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         MaterialSpinner materialSpinner = (MaterialSpinner) parent;
         String selectedSpinner = String.valueOf(materialSpinner.getSelectedItem());
@@ -94,11 +96,12 @@ public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> 
         } else if (materialSpinner.getId() == R.id.stateSpinner) {
             stateText = selectedSpinner;
         }
-    }
+    }*/
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
 
+    public void loadData(List<BillnDelivery> list) {
+      //  this.list = list;
+      //  notifyDataSetChanged();
     }
 
     public class MyView extends RecyclerView.ViewHolder {
