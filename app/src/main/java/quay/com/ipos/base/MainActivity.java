@@ -971,7 +971,7 @@ public class MainActivity extends BaseActivity
                                 lvMenu.getAdapter().getItemId(mActivePosition));
 
                     }
-                }, 2000);
+                }, 5000);
 
 
                 getMostUsedData();

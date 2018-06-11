@@ -79,7 +79,7 @@ public class RelationShipFragment extends Fragment {
         recyclerViewTwo = view.findViewById(R.id.recyclerViewTwo);
         recyclerViewThree = view.findViewById(R.id.recyclerViewThree);
 
-        getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+       /* getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
@@ -88,7 +88,7 @@ public class RelationShipFragment extends Fragment {
                 }
             }
         });
-
+*/
 
         loadData();
 

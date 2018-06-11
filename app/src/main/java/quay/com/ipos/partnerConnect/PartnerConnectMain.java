@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -47,6 +48,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar toolbar;
+    private FloatingActionButton fab;
     private MutableLiveData<PCModel> pcModelLiveData = new MutableLiveData<>();
 
 
@@ -64,14 +66,23 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         getServerData();
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     public ViewPager getViewPager() {
         return viewPager;
     }
 
     @Override
     public void findViewById() {
+        fab = findViewById(R.id.fab);
         toolbar = findViewById(R.id.appBar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setTitle(getResources().getString(R.string.title_partner_connect));
 
         viewPager = findViewById(R.id.viewPager);
@@ -163,6 +174,12 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                 findViewById(R.id.bottom_sheet).setVisibility(View.GONE);
             } else {
                 findViewById(R.id.bottom_sheet).setVisibility(View.VISIBLE);
+            }
+
+            if (position == 5 || position == 1) {
+                fab.setVisibility(View.GONE);
+            }else {
+                fab.setVisibility(View.VISIBLE);
             }
         }
 

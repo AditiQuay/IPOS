@@ -14,7 +14,7 @@ public class PCModel {
     public  Contact Contact;
     public List<DocumentVoults> DocumentVoults;
     @SerializedName("ddd")
-    public List<BillandDelivery> BillandDelivery;
+    public List<BillnDelivery> BillandDelivery;
     public Account Account;
 
 

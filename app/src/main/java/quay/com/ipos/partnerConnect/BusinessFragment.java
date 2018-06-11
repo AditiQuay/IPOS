@@ -17,8 +17,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
@@ -49,8 +51,10 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
     private Button btnCancel, btnsubmit;
     private Context mContext;
     private ArrayList<BusinessModel> businessModels = new ArrayList<>();
-    private View fab ;
-    PCModel pcModel;
+    private View fab;
+    private Button btnAdd;
+    PCModel mpcModel;
+    private BusinessAdapter businessAdapter;
 
 
     @Override
@@ -75,6 +79,12 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadData();
+        getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "hhh", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void loadData() {
@@ -83,7 +93,7 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
             partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
                 @Override
                 public void onChanged(@Nullable PCModel pcModel) {
-                    pcModel = pcModel;
+                    mpcModel = pcModel;
                     setData(pcModel);
 
                 }
@@ -92,17 +102,20 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
     }
 
     private void setData(PCModel pcModel) {
-        if (pcModel == null && pcModel.Business == null) {
+        if (pcModel == null && pcModel.Business == null && pcModel.Business.KeyBusinessInfo == null) {
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }
+        List<KeyBusinessInfo> data = pcModel.Business.KeyBusinessInfo;
+        //  businessAdapter = new BusinessAdapter(getActivity(), pcModel.Business.KeyBusinessInfo, BusinessFragment.this);
+        //     recyclerViewBusinessInfo.setAdapter(businessAdapter);
 
-
-        recyclerViewBusinessInfo.setAdapter(new BusinessAdapter(getActivity(), pcModel.Business.KeyBusinessInfo, BusinessFragment.this));
+        businessAdapter.loadData(data);
     }
 
     @Override
     public void findViewById() {
+        btnAdd = view.findViewById(R.id.btnAdd);
         rLayoutProductTitle = view.findViewById(R.id.rLayoutProductTitle);
         textViewBusinessInfoHeading = view.findViewById(R.id.textViewPersonalHeading);
         textViewMadatory = view.findViewById(R.id.textViewMadatory);
@@ -111,7 +124,15 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
         lLayoutBottom = view.findViewById(R.id.lLayoutBottom);
         btnCancel = getActivity().findViewById(R.id.btnCancel);
         btnsubmit = getActivity().findViewById(R.id.btnsubmit);
-        fab = getActivity().findViewById(R.id.btnsubmit);
+        fab = getActivity().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClick(view);
+            }
+        });
+        businessAdapter = new BusinessAdapter(getActivity(), BusinessFragment.this);
+        recyclerViewBusinessInfo.setAdapter(businessAdapter);
 
         try {
             btnCancel.setOnClickListener(this);
@@ -121,12 +142,28 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
             e.printStackTrace();
         }
 
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewField();
+            }
+        });
+
+        view.findViewById(R.id.btnClearAll).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (businessAdapter != null) {
+                    businessAdapter.clearData();
+                }
+            }
+        });
+
     }
 
     @Override
     public void applyInitValues() {
 
-        businessModels.clear();
+      /*  businessModels.clear();
 
         BusinessModel businessModel = new BusinessModel();
         businessModel.setPartnerType("");
@@ -139,7 +176,7 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
         businessModel.setPartnerCity("");
         businessModel.setPartnerPinCode("");
         businessModel.setPartnerZone("");
-        businessModels.add(businessModel);
+        businessModels.add(businessModel);*/
 
 
     }
@@ -199,18 +236,22 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
     }
 
     private void addNewField() {
-        if (pcModel != null) {
+        if (mpcModel != null) {
+            Toast.makeText(getActivity(), "hhhvv", Toast.LENGTH_SHORT).show();
+
             BusinessLocation businessLocation = new BusinessLocation();
             KeyBusinessInfo keyBusinessInfo = new KeyBusinessInfo();
             keyBusinessInfo.BusinessLocation = businessLocation;
-            if(pcModel.Business.KeyBusinessInfo!=null){
-                pcModel.Business.KeyBusinessInfo.add(keyBusinessInfo);
+            if (mpcModel.Business.KeyBusinessInfo != null) {
+                mpcModel.Business.KeyBusinessInfo.add(keyBusinessInfo);
             }
+          //  businessAdapter.loadData(mpcModel.Business.KeyBusinessInfo);
+
 
             PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
-            if (connectMain!=null) {
-
-                connectMain.getPcModelData().setValue(pcModel);
+            if (connectMain != null) {
+             //   Toast.makeText(connectMain, "hhh", Toast.LENGTH_SHORT).show();
+                connectMain.getPcModelData().setValue(mpcModel);
             }
         }
 
