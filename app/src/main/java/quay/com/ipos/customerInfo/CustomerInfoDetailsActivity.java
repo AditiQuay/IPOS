@@ -52,8 +52,8 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private CircleImageView imageViewProfileDummy;
     private LinearLayout lLayoutBottom;
     private Context mContext;
-    private String customerId,mCustomerEmail, mCustomerCode;
-    private int customerPoints = 0, customerPointsPer=0;
+    private String customerId,mCustomerEmail;
+    private double customerPoints = 0, customerPointsPer=0;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
     private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();
@@ -162,6 +162,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
         toolbarCustomerInfoDetail.setTitle(getResources().getString(R.string.toolbar_title_customer_screen_details));
         toolbarCustomerInfoDetail.setTitleTextColor(getResources().getColor(R.color.white));
 
@@ -197,7 +198,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         }
         if (Util.validateString(customerModel.getCustomerPoints())) {
             textViewPoints.setText(customerModel.getCustomerPoints() + getResources().getString(R.string.text_points));
-            customerPoints = Integer.parseInt(customerModel.getCustomerPoints());
+            customerPoints = Double.parseDouble(customerModel.getCustomerPoints());
         }
         if (TextUtils.isEmpty(customerModel.getLastBillingDate())) {
             textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + " " + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerModel.getLastBillingAmount());

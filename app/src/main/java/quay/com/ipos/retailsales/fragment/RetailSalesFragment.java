@@ -21,11 +21,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -43,7 +41,6 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
-import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
@@ -53,8 +50,6 @@ import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.MyAdapterTags;
 import quay.com.ipos.listeners.ScanFilterListener;
 import quay.com.ipos.listeners.ScannerProductListener;
-import quay.com.ipos.modal.CustomerPointsRedeemRequest;
-import quay.com.ipos.modal.OrderSubmitResult;
 import quay.com.ipos.modal.PaymentRequest;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.modal.ProductListResult;
@@ -64,7 +59,6 @@ import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
-import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
@@ -73,7 +67,6 @@ import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.ui.WrapContentLinearLayoutManager;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
-import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
@@ -88,7 +81,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
     ProductListResult productListResult = null;
     private MainActivity mainActivity;
-    int mCustomerPoints,mCustomerPointsPer=0;
+    double mCustomerPoints,mCustomerPointsPer=0;
     String mCustomerID,mCustomerEmail;
     private ArrayList<PaymentRequest.CartDetail> cartDetail = new ArrayList<>();
     private ArrayList<PaymentRequest.Scheme> scheme = new ArrayList<>();
@@ -290,6 +283,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountDetail.setText("(Item 0)");
         IPOSApplication.mProductListResult.clear();
+        IPOSApplication.totalAmount = 0.0;
+        IPOSApplication.totalpointsToRedeem = 0.0;
+        IPOSApplication.isClicked=false;
+        IPOSApplication.isRefreshed = false;
         flScanner.setVisibility(View.GONE);
 //        chkBarCode.setChecked(false);
 //        closeFragment();
@@ -635,8 +632,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             }
             if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
-                mCustomerPoints = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS,0);
-                mCustomerPointsPer = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
+                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
                 mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
                 tvRedeemPoints.setText(mCustomerPoints+"");
@@ -644,8 +641,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         }else if(requestCode==Constants.ACT_CUSTOMER){
             if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
-                mCustomerPoints = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS,0);
-                mCustomerPointsPer = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
+                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
                 mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
                 tvRedeemPoints.setText(mCustomerPoints+"");

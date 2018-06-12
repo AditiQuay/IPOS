@@ -33,6 +33,7 @@ public class IPOSApplication extends MultiDexApplication {
     public static boolean isRefreshed=false;
     public static boolean isClicked=false;
     public static double totalAmount = 0.0;
+    public static double totalpointsToRedeem = 0.0;
     public static ArrayList<ProductSearchResult.Datum> mProductListResult= new ArrayList<>();
 //    public static ArrayList<ProductSearchResult.Datum> mProductSearchResult= new ArrayList<>();
     public static ArrayList<OrderList.Datum> mOrderList= new ArrayList<>();
