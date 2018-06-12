@@ -4,20 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.view.MotionEvent;
 
-import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.ui.CustomProgressDialog;
 
 import static quay.com.ipos.utility.Util.getStringRes;
 
-
 /**
- * The Class BaseFragment.
+ * Created by aditi.bhuranda on 11-06-2018.
  */
 
-public class BaseFragment extends Fragment {
+public class BaseDialogFragment  extends DialogFragment {
     protected Fragment fragmentCurrent;
     protected Activity mActivity;
     public boolean isReplaced = false;
@@ -79,9 +77,9 @@ public class BaseFragment extends Fragment {
         _progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         _progressDialog.setCancelable(true);
         if (null != _progressDialog) {
-          //  _progressDialog.setMessage(getResources().getString(message));
+            //  _progressDialog.setMessage(getResources().getString(message));
             if (!_progressDialog.isShowing())
-            _progressDialog.show();
+                _progressDialog.show();
         }
     }
 

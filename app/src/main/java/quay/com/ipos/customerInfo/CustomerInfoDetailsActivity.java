@@ -52,8 +52,8 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private CircleImageView imageViewProfileDummy;
     private LinearLayout lLayoutBottom;
     private Context mContext;
-    private String customerId;
-    private int customerPoints = 0;
+    private String customerId,mCustomerEmail, mCustomerCode;
+    private int customerPoints = 0, customerPointsPer=0;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
     private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();
@@ -111,6 +111,8 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
                 Intent mIntent = new Intent();
                 mIntent.putExtra(Constants.KEY_CUSTOMER, customerId);
                 mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, customerPoints);
+                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_PER,customerPointsPer);
+                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL,mCustomerEmail);
                 setResult(Constants.ACT_CUSTOMER, mIntent);
                 finish();
             }
@@ -188,6 +190,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         }
         if (Util.validateString(customerModel.getCustomerEmail())) {
             textViewEmail.setText(customerModel.getCustomerEmail());
+            mCustomerEmail = customerModel.getCustomerEmail();
         }
         if (Util.validateString(customerModel.getCustomerBday())) {
             textViewBirthDay.setText(getResources().getString(R.string.text_birthday) + customerModel.getCustomerBday() + ")");
@@ -207,6 +210,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         String state = customerModel.getCustomerState();
         String city = customerModel.getCustomerCity();
         String pin = customerModel.getCustomerPin();
+        customerPointsPer = customerModel.getCustomerPointsPerValue();
         String finalAddress = address + ", " + state + ", " + city + ", " + pin;
         textViewBillingAddress.setText(finalAddress);
         textViewWarningText.setText(customerModel.getSuggestion());
