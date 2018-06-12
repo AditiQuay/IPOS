@@ -214,8 +214,6 @@
     <string name="an_offer">An Offer</string>
     <string-array name="ordervalue">
         <item>KGM Traders</item>
-        <item>ABC Traders</item>
-        <item>XYZ Traders</item>
     </string-array>
     <string-array name="addressvalue">
         <item>Kirti Nagar, ND</item>

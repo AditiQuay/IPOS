@@ -31,6 +31,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Documents Vault"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/universal_text_size16" />
             </RelativeLayout>
@@ -45,9 +46,8 @@
                 android:overScrollMode="never"
                 android:scrollbars="none"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:listitem="@layout/documents_view_all"
                 tools:spanCount="2" />
-
-            <include layout="@layout/documents_view_all" />
 
 
         </LinearLayout>

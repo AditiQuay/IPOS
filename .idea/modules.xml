@@ -4,10 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IPOS.iml" filepath="$PROJECT_DIR$/IPOS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-<<<<<<< HEAD
-      <module fileurl="file://C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\app.iml" filepath="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\app.iml" />
-=======
->>>>>>> 0e93ad3c4211451d75394f818d60da1883fd91ae
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/zbar/zbar.iml" filepath="$PROJECT_DIR$/zbar/zbar.iml" />
     </modules>

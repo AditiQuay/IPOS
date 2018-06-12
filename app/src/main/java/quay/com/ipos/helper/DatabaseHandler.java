@@ -771,7 +771,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                String customerDom,
                                String customerCode,
                                String registeredBusinessPlaceID,
-                               int customerPointsValue,
+                               double customerPointsValue,
                                int sync) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
@@ -1053,7 +1053,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
-                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())),
                 cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
 
         // close the db connection
@@ -1160,7 +1160,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
-                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())),
                 cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
 
         // close the db connection
@@ -1226,7 +1226,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setCustomerDom(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())));
                 note.setCustomerCode(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())));
                 note.setRegisteredBusinessPlaceID(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())));
-                note.setPointsPerValue(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())));
+                note.setPointsPerValue(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())));
                 note.setCustomerChild(new Gson().toJson(note.getCustomerChild()));
                 notes.add(note);
             } while (cursor.moveToNext());
@@ -1300,7 +1300,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setCustomerDom(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())));
                 note.setCustomerCode(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())));
                 note.setRegisteredBusinessPlaceID(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())));
-                note.setPointsPerValue(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())));
+                note.setPointsPerValue(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())));
                 note.setIsSync(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
                 notes.add(note);
             } while (cursor.moveToNext());
