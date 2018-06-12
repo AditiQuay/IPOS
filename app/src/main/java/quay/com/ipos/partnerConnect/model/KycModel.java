@@ -5,6 +5,10 @@ package quay.com.ipos.partnerConnect.model;
  */
 
 public class KycModel {
-    private String documentName;
+    public int documentId;
+    public String documentName;
+    public String approvalStatus;
+    public String productUrl;
+    public String message;
 
 }

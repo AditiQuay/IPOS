@@ -53,7 +53,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private LinearLayout lLayoutBottom;
     private Context mContext;
     private String customerId,mCustomerEmail, mCustomerCode;
-    private int customerPoints = 0, customerPointsPer=0;
+    private double customerPoints = 0, customerPointsPer=0;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
     private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();

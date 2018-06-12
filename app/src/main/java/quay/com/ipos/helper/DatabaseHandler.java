@@ -1238,11 +1238,40 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return notes list
         return notes;
     }
+    public boolean checkIfRecordExist(String searchKey)
+    {
+        try
+        {
+            SQLiteDatabase db=this.getReadableDatabase();
+            Cursor cursor=db.rawQuery("SELECT "+searchKey+" FROM "+TABLE_NAME+" WHERE "+searchKey+"='",null);
+            if (cursor.moveToFirst())
+            {
+                db.close();
+                Log.d("Record  Already Exists", "Table is:"+TABLE_NAME+" ColumnName:"+searchKey);
+                return true;//record Exists
 
-    public boolean dbHasData(String searchColumn, String searchKey) {
-        String query = "Select * from " + TABLE_NAME + " where " + searchColumn + " = ?";
-        return getReadableDatabase().rawQuery(query, new String[]{searchKey}).moveToFirst();
+            }
+            db.close();
+        }
+        catch(Exception errorException)
+        {
+            Log.d("Exception occured", "Exception occured "+errorException);
+            // db.close();
+        }
+        return false;
     }
+
+//    public boolean dbHasData(String searchColumn, String searchKey) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = null;
+//        String query = "Select * from " + TABLE_NAME + " where " + searchColumn + " = ?";
+//        cursor = db.rawQuery(query,new String[]{searchKey});
+//        cursor.moveToFirst();
+//        db.close();
+//        return dbHasData;
+//    }
+//
 
     //Get All records from customer Database
     public ArrayList<CustomerModel> getAllNotes() {
