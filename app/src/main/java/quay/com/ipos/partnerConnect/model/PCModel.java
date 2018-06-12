@@ -6,16 +6,23 @@ import java.util.List;
 
 public class PCModel {
 
-    public String RelationShipName;
     public String psslastUpdated;
-    public Relationship Relationship;
 
+    public String RelationShipName;
+    public Relationship Relationship;
     public Business Business;
-    public  Contact Contact;
+
+
+    @SerializedName("Contact")
+    public Contact contactDetail;
+    @SerializedName("DocumentVoults")
     public List<DocumentVoults> DocumentVoults;
-    @SerializedName("ddd")
+
+    @SerializedName("BillandDelivery")
     public List<BillnDelivery> BillandDelivery;
-    public Account Account;
+
+
+    public List<Account> Account;
 
 
 }

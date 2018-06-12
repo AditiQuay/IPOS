@@ -1,12 +1,15 @@
 package quay.com.ipos.partnerConnect;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +19,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.partnerConnect.model.DocumentVoults;
+import quay.com.ipos.partnerConnect.model.PCModel;
+import quay.com.ipos.utility.Base64Util;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.ShareWorldUtil;
 
@@ -26,6 +34,7 @@ import quay.com.ipos.utility.ShareWorldUtil;
  */
 
 public class DocumentsFragment extends Fragment implements InitInterface, View.OnClickListener {
+    private static final String TAG = DocumentsFragment.class.getSimpleName();
     private View main;
     private Context mContext;
     //Photo variables
@@ -36,6 +45,11 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
     private ImageView imageViewPhotoStatus, imageViewPanStatus, imageViewAppointmentStatus, imageViewAnnexureStatus, imageViewCompilanceStatus;
     private RelativeLayout rLayoutValidCompilanceDocument, rLayoutValidAppointmentDocument, rLayoutValidDocument, rLayoutValidPanDocument, rLayoutValidPhotoDocument;
     private TextView textViewValidCompilanceDocument, textViewValidAppointmentDocument, textViewValidAnnexureDocument, textViewValidPanDocument, textViewValidPhotoDocument;
+    DocumentVoults docPan;
+    DocumentVoults docPhoto;
+    DocumentVoults docAppointment;
+    DocumentVoults docAnnexure;
+    DocumentVoults docCompliance;
 
 
     @Nullable
@@ -48,6 +62,12 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         applyLocalValidation();
         applyTypeFace();
         return main;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        loadData();
     }
 
     @Override
@@ -184,22 +204,22 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         btnAnnexureUpload.setOnClickListener(this);
         switch (v.getId()) {
             case R.id.btnCamContact:
-                gotToCamera(v,1);
+                gotToCamera(v, 1);
                 break;
             case R.id.btnPanCamera:
-                gotToCamera(v,2);
+                gotToCamera(v, 2);
 
                 break;
             case R.id.btnAppointmentCamera:
-                gotToCamera(v,3);
+                gotToCamera(v, 3);
 
                 break;
             case R.id.btnAnnexureCamera:
-                gotToCamera(v,4);
+                gotToCamera(v, 4);
 
                 break;
             case R.id.btnCompilanceCamera:
-                gotToCamera(v,5);
+                gotToCamera(v, 5);
 
                 break;
             case R.id.btnPhotoUpload:
@@ -216,8 +236,8 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         }
     }
 
-    private void gotToCamera(View v,int reqCode) {
-        ShareWorldUtil.dispatchTakePictureIntent(getActivity(),this, reqCode);
+    private void gotToCamera(View v, int reqCode) {
+        ShareWorldUtil.dispatchTakePictureIntent(getActivity(), this, reqCode);
     }
 
     @Override
@@ -227,27 +247,192 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         Bitmap bitmap1 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data, 1);
         if (bitmap1 != null) {
             imageViewphoto.setImageBitmap(bitmap1);
+            if (docPhoto != null) {
+                new ConvertFromBitmap(bitmap1, docPhoto).execute();
+            } else {
+                Log.e("doc", "is null");
+            }
+
 
         }
-        Bitmap bitmap2 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data,2);
+        Bitmap bitmap2 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data, 2);
         if (bitmap2 != null) {
             imageViewPan.setImageBitmap(bitmap2);
+            if (docPan != null) {
+                new ConvertFromBitmap(bitmap2, docPan).execute();
+            } else {
+                Log.e("docPan", "is null");
+            }
 
         }
         Bitmap bitmap3 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data, 3);
         if (bitmap3 != null) {
             imageViewAppointment.setImageBitmap(bitmap3);
+            if (docAppointment != null) {
+                new ConvertFromBitmap(bitmap3, docAppointment).execute();
+            } else {
+                Log.e("docAppointment", "is null");
+            }
 
         }
-        Bitmap bitmap4 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data,4);
+        Bitmap bitmap4 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data, 4);
         if (bitmap4 != null) {
             imageViewAnnexure.setImageBitmap(bitmap4);
+            if (docAnnexure != null) {
+                new ConvertFromBitmap(bitmap4, docAnnexure).execute();
+            } else {
+                Log.e("docAnnexure", "is null");
+            }
+
 
         }
         Bitmap bitmap5 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data, 5);
         if (bitmap5 != null) {
             imageViewCompilance.setImageBitmap(bitmap5);
+            if (docCompliance != null) {
+                new ConvertFromBitmap(bitmap5, docCompliance).execute();
+            } else {
+                Log.e("docCompliance", "is null");
+            }
 
+
+        }
+    }
+
+
+    private void loadData() {
+        PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
+        if (partnerConnectMain != null) {
+            partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
+                @Override
+                public void onChanged(@Nullable PCModel pcModel) {
+                    pcModel = pcModel;
+                    setData(pcModel);
+
+                }
+            });
+        }
+    }
+
+    /*  {
+          "Doctype": "PAN",
+              "DocFilename": "mypan.png",
+              "DocFileBase64": null
+      },
+      {
+          "Doctype": "IDPHOTO",
+              "DocFilename": "myid.png",
+              "DocFileBase64": null
+      },
+      {
+          "Doctype": "AppointmentForm",
+              "DocFilename": "aptmnt.png",
+              "DocFileBase64": null
+      },
+      {
+          "Doctype": "Annexure",
+              "DocFilename": "anxure.png",
+              "DocFileBase64": null
+      },
+      {
+          "Doctype": "compliance cert",
+              "DocFilename": "cmplCert.png",
+              "DocFileBase64": null
+      }*/
+    private void setData(PCModel pcModel) {
+        if (pcModel == null && pcModel.DocumentVoults == null) {
+            Log.i(TAG, "pcModel or pcModel.Business is null");
+            return;
+        } else {
+            Log.i("data", new Gson().toJson(pcModel.DocumentVoults));
+        }
+        for (DocumentVoults documentVoult : pcModel.DocumentVoults) {
+            if (documentVoult.Doctype.contains("PAN")) {
+                docPan = documentVoult;
+
+            }
+            if (documentVoult.Doctype.contains("IDPHOTO")) {
+                docPhoto = documentVoult;
+
+            }
+            if (documentVoult.Doctype.contains("AppointmentForm")) {
+                docAppointment = documentVoult;
+
+            }
+            if (documentVoult.Doctype.contains("Annexure")) {
+                docAnnexure = documentVoult;
+
+            }
+            if (documentVoult.Doctype.contains("compliance cert")) {
+                docCompliance = documentVoult;
+            }
+        }
+
+        if (docPhoto != null && docPhoto.DocFileBase64 != null) {
+            new ConvertToBitmap(docPhoto.DocFileBase64, imageViewphoto).execute();
+        }
+        if (docCompliance != null && docCompliance.DocFileBase64 != null) {
+            new ConvertToBitmap(docCompliance.DocFileBase64, imageViewCompilance).execute();
+        }
+        if (docPan != null && docPan.DocFileBase64 != null) {
+            new ConvertToBitmap(docPan.DocFileBase64, imageViewPan).execute();
+        }
+        if (docAnnexure != null && docAnnexure.DocFileBase64 != null) {
+            new ConvertToBitmap(docAnnexure.DocFileBase64, imageViewAnnexure).execute();
+        }
+        if (docAppointment != null && docAppointment.DocFileBase64 != null) {
+            new ConvertToBitmap(docAppointment.DocFileBase64, imageViewAppointment).execute();
+        }
+
+        //  recyclerViewAccountInfo.setAdapter(new AccountAdapter(getActivity(), pcModel.Account.cheques, AccountFragment.this));
+    }
+
+    public class ConvertToBitmap extends AsyncTask<Void, Void, Bitmap> {
+        private String stringBase64;
+        private ImageView imageViewPan;
+
+        public ConvertToBitmap(String stringBase64, ImageView imageViewPan) {
+            this.stringBase64 = stringBase64;
+            this.imageViewPan = imageViewPan;
+        }
+
+        @Override
+        protected Bitmap doInBackground(Void... voids) {
+
+            return Base64Util.StringToBitMap(stringBase64);
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            if (bitmap != null) {
+                imageViewPan.setImageBitmap(bitmap);
+
+            }
+        }
+    }
+
+    public class ConvertFromBitmap extends AsyncTask<Void, Void, String> {
+        private Bitmap bitmap1;
+        private DocumentVoults documentVoults;
+
+        public ConvertFromBitmap(Bitmap bitmap1, DocumentVoults voults) {
+            this.bitmap1 = bitmap1;
+            this.documentVoults = voults;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            return Base64Util.BitMapToString(bitmap1);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s != null) {
+                documentVoults.DocFileBase64 = s;
+                Log.i("string", s);
+            }
         }
     }
 }

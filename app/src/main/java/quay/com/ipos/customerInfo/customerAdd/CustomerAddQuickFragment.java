@@ -25,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
-import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -117,7 +116,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         tieMobileNumber = main.findViewById(R.id.tieMobileNumber);
         textViewMadatory = main.findViewById(R.id.textViewMadatory);
         btnCancel = main.findViewById(R.id.btnCancel);
-        btnsubmit = main.findViewById(R.id.btnsubmit);
+        btnsubmit = main.findViewById(R.id.btnSubmit);
 
         btnCancel.setOnClickListener(this);
         btnsubmit.setOnClickListener(this);

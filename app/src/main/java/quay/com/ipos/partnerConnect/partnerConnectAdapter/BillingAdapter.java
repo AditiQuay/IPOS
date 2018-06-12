@@ -2,8 +2,9 @@ package quay.com.ipos.partnerConnect.partnerConnectAdapter;
 
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,31 +12,48 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
-import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.partnerConnect.model.BillnDelivery;
-import quay.com.ipos.partnerConnect.partnerConnectModel.BillingModel;
 
 /**
  * Created by niraj.kumar on 6/7/2018.
  */
 
-public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView>  {
-    private String[] addressType = {"Bill & Deliver"};
-    private String[] businessPlace = {"Shop / Store"};
-    private String[] state = {"New Delhi"};
-    String addressTypeText, businessPlaceText, stateText;
-    private List<BillnDelivery> list=new ArrayList<>();
+public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> {
+    private String[] addressTypeArray = {"Bill & Deliver"};
+    private String[] businessTypeArray = {"Shop / Store"};
+
+
+    private List<BillnDelivery> list = new ArrayList<>();
     private Context mContext;
-    private ButtonListener buttonListener;
+
+    private List<String> addressList = new ArrayList<>();
+    private List<String> businessList = new ArrayList<>();
+
+    private ArrayAdapter addressAdapter;
+    private ArrayAdapter businessPlaceAdapter;
+
 
     public BillingAdapter(Context context) {
         this.mContext = context;
-        this.buttonListener = buttonListener;
+
         this.list = new ArrayList<>();
+
+        //Creating the ArrayAdapter instance having the addressTypeArray list
+        addressAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, addressTypeArray);
+        addressAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //Creating the ArrayAdapter instance having the BusinessPlace list
+        businessPlaceAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, businessTypeArray);
+        businessPlaceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
+        addressList = Arrays.asList(addressTypeArray);
+        businessList = Arrays.asList(businessTypeArray);
     }
 
     @Override
@@ -43,40 +61,48 @@ public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.billing_item, parent, false);
 
-        return new BillingAdapter.MyView(itemView);
+        return new BillingAdapter.MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
     }
 
     @Override
     public void onBindViewHolder(MyView holder, int position) {
-        BillnDelivery billnDelivery = list.get(position);
+        try {
 
 
-        //Creating the ArrayAdapter instance having the addressType list
-        ArrayAdapter addressAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, addressType);
-        addressAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.addressTypeSpinner.setAdapter(addressAdapter);
-       // holder.addressTypeSpinner.setOnItemSelectedListener(this);
+            holder.spinnerAddressType.setAdapter(addressAdapter);
+            holder.spinnerBusinessType.setAdapter(businessPlaceAdapter);
 
 
-        //Creating the ArrayAdapter instance having the BusinessPlace list
-        ArrayAdapter businessPlaceAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, businessPlace);
-        businessPlaceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.businessPlaceSpinner.setAdapter(businessPlaceAdapter);
-       // holder.businessPlaceSpinner.setOnItemSelectedListener(this);
+            // magic code for editText
+            holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition(), holder);
+            holder.editAddress.setText(list.get(holder.getAdapterPosition()).mBusinessAddress);
+            holder.editMobile.setText(list.get(holder.getAdapterPosition()).mMobile);
+            holder.editGstin.setText(list.get(holder.getAdapterPosition()).mGSTIN);
+            holder.editContactPerson.setText(list.get(holder.getAdapterPosition()).mContactPerson);
+            holder.editCity.setText(list.get(holder.getAdapterPosition()).mCity);
+            holder.editState.setText(list.get(holder.getAdapterPosition()).mState);
 
+            // magic code for spinner
+            holder.myCustomSpinnerListener.updatePosition(holder.getAdapterPosition());
 
-        //Creating the ArrayAdapter instance having the state list
-        ArrayAdapter stateAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, state);
-        businessPlaceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.stateSpinner.setAdapter(businessPlaceAdapter);
-       // holder.stateSpinner.setOnItemSelectedListener(this);
+            String mAddressType = list.get(holder.getAdapterPosition()).mAddressType;
+            if (mAddressType != null) {
+                if (addressList.contains(mAddressType)) {
+                    int index = addressList.indexOf(mAddressType);
+                    holder.spinnerAddressType.setSelection(index + 1);
+                }
+            }
 
-        holder.tieAddress.setText(billnDelivery.mBusinessAddress);
-        holder.tieCity.setText(billnDelivery.mCity);
-        holder.tieGstin.setText(billnDelivery.mGSTIN);
-        holder.tieContactPerson.setText(billnDelivery.mContact);
-        holder.tieContactPersonNumber.setText(billnDelivery.mMobile);
-
+            String mBusinessType = list.get(holder.getAdapterPosition()).mBusinessType;
+            if (mBusinessType != null) {
+                if (businessList.contains(mBusinessType)) {
+                    int index = businessList.indexOf(mBusinessType);
+                    holder.spinnerBusinessType.setSelection(index + 1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -84,46 +110,138 @@ public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> 
         return list.size();
     }
 
-  /*  @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        MaterialSpinner materialSpinner = (MaterialSpinner) parent;
-        String selectedSpinner = String.valueOf(materialSpinner.getSelectedItem());
-
-        if (materialSpinner.getId() == R.id.addressTypeSpinner) {
-            addressTypeText = selectedSpinner;
-        } else if (materialSpinner.getId() == R.id.businessPlaceSpinner) {
-            businessPlaceText = selectedSpinner;
-        } else if (materialSpinner.getId() == R.id.stateSpinner) {
-            stateText = selectedSpinner;
-        }
-    }*/
-
 
     public void loadData(List<BillnDelivery> list) {
-      //  this.list = list;
-      //  notifyDataSetChanged();
+        if (list != null) {
+            this.list = list;
+            notifyDataSetChanged();
+        }
     }
 
     public class MyView extends RecyclerView.ViewHolder {
-        private MaterialSpinner addressTypeSpinner, businessPlaceSpinner, stateSpinner;
-        private TextInputLayout tilAddress, tilCity, tilGstin, tilContactPerson, tilContactPersonNumber;
-        private TextInputEditText tieAddress, tieCity, tieGstin, tieContactPerson, tieContactPersonNumber;
+        private MaterialSpinner spinnerAddressType, spinnerBusinessType;
+        private TextInputEditText editState, editAddress, editCity, editGstin, editContactPerson, editMobile;
 
-        public MyView(View itemView) {
+        public MyCustomEditTextListener myCustomEditTextListener;
+        public MyCustomSpinnerListener myCustomSpinnerListener;
+
+
+        public MyView(View itemView, MyCustomEditTextListener myCustomEditTextListener, MyCustomSpinnerListener myCustomSpinnerListener) {
             super(itemView);
-            addressTypeSpinner = itemView.findViewById(R.id.addressTypeSpinner);
-            businessPlaceSpinner = itemView.findViewById(R.id.businessPlaceSpinner);
-            stateSpinner = itemView.findViewById(R.id.stateSpinner);
-            tilAddress = itemView.findViewById(R.id.tilAddress);
-            tilCity = itemView.findViewById(R.id.tilCity);
-            tilGstin = itemView.findViewById(R.id.tilGstin);
-            tilContactPerson = itemView.findViewById(R.id.tilContactPerson);
-            tilContactPersonNumber = itemView.findViewById(R.id.tilContactPersonNumber);
-            tieAddress = itemView.findViewById(R.id.tieAddress);
-            tieCity = itemView.findViewById(R.id.tieCity);
-            tieGstin = itemView.findViewById(R.id.tieGstin);
-            tieContactPerson = itemView.findViewById(R.id.tieContactPerson);
-            tieContactPersonNumber = itemView.findViewById(R.id.tieContactPersonNumber);
+            spinnerAddressType = itemView.findViewById(R.id.spinnerAddressType);
+            spinnerBusinessType = itemView.findViewById(R.id.spinnerBusinessType);
+
+            editState = itemView.findViewById(R.id.editState);
+            editAddress = itemView.findViewById(R.id.editAddress);
+            editCity = itemView.findViewById(R.id.editCity);
+            editGstin = itemView.findViewById(R.id.editGstin);
+            editContactPerson = itemView.findViewById(R.id.editContactPerson);
+            editMobile = itemView.findViewById(R.id.editMobile);
+
+
+            //magic code for editText
+            this.myCustomEditTextListener = myCustomEditTextListener;
+            this.editAddress.addTextChangedListener(myCustomEditTextListener);
+            this.editCity.addTextChangedListener(myCustomEditTextListener);
+            this.editGstin.addTextChangedListener(myCustomEditTextListener);
+            this.editContactPerson.addTextChangedListener(myCustomEditTextListener);
+            this.editMobile.addTextChangedListener(myCustomEditTextListener);
+            this.editState.addTextChangedListener(myCustomEditTextListener);
+
+            //magic code for spinner
+            this.myCustomSpinnerListener = myCustomSpinnerListener;
+            this.spinnerAddressType.setOnItemSelectedListener(myCustomSpinnerListener);
+            this.spinnerBusinessType.setOnItemSelectedListener(myCustomSpinnerListener);
+
+        }
+    }
+
+    private class MyCustomEditTextListener implements TextWatcher {
+        private int position;
+        private MyView holder;
+
+        public void updatePosition(int position, MyView holder) {
+            this.position = position;
+            this.holder = holder;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            // no op
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            try {
+
+                if (holder.editAddress != null) {
+                    if (holder.editAddress.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mBusinessAddress = charSequence.toString();
+                    }
+                }
+                if (holder.editMobile != null) {
+                    if (holder.editMobile.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mMobile = charSequence.toString();
+                    }
+                }
+                if (holder.editState != null) {
+                    if (holder.editState.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mState = charSequence.toString();
+                    }
+                }
+                if (holder.editCity != null) {
+                    if (holder.editCity.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mCity = charSequence.toString();
+                    }
+                }
+                if (holder.editContactPerson != null) {
+                    if (holder.editContactPerson.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mContactPerson = charSequence.toString();
+                    }
+                }
+                if (holder.editGstin != null) {
+                    if (holder.editGstin.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mGSTIN = charSequence.toString();
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+            // no op
+        }
+    }
+
+    private class MyCustomSpinnerListener implements AdapterView.OnItemSelectedListener {
+        private int position;
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            switch (adapterView.getId()) {
+                case R.id.spinnerAddressType:
+                    if (i != -1)
+                        list.get(position).mAddressType = addressList.get(i);
+                    break;
+                case R.id.spinnerBusinessType:
+                    if (i != -1)
+                        list.get(position).mBusinessType = addressList.get(i);
+                    break;
+            }
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+
+        public void updatePosition(int position) {
+            this.position = position;
         }
     }
 }

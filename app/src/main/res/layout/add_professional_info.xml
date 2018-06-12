@@ -98,7 +98,7 @@
                     android:layout_height="match_parent">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/tieGstin"
+                        android:id="@+id/editGstin"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="GSTIN Number"

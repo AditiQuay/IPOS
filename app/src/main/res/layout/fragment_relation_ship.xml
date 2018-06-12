@@ -102,7 +102,7 @@
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
                     android:paddingTop="16dp"
-                    android:text="Customer Details"
+                    android:text="Contact Details"
                     android:textColor="@color/app_theme_color"
                     android:textSize="16sp" />
 

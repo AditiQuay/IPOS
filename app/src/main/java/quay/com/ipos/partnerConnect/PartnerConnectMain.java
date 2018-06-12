@@ -1,7 +1,6 @@
 package quay.com.ipos.partnerConnect;
 
 import android.app.Activity;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,15 +19,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
-
-import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
+import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.utility.Util;
@@ -50,12 +48,15 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
     private Toolbar toolbar;
     private FloatingActionButton fab;
     private MutableLiveData<PCModel> pcModelLiveData = new MutableLiveData<>();
+    private View btnCancel,btnsubmit;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
+
+
         setContentView(R.layout.activity_partner_connect);
 
         findViewById();
@@ -83,8 +84,9 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        toolbar.setTitle(getResources().getString(R.string.title_partner_connect));
-
+        getSupportActionBar().setTitle(getResources().getString(R.string.title_partner_connect));
+        btnsubmit = findViewById(R.id.btnSubmit);
+        btnCancel = findViewById(R.id.btnCancel);
         viewPager = findViewById(R.id.viewPager);
 
 
@@ -94,7 +96,23 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         createTabIcons();
+
+
+        btnsubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateDataToWS();
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
+
+
 
     @Override
     public void applyInitValues() {
@@ -277,6 +295,10 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         call.enqueue(new Callback<PartnerConnectResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectResponse> call, Response<PartnerConnectResponse> response) {
+                if (response.code() != 200) {
+                    Toast.makeText(PartnerConnectMain.this, "Code:"+response.code()+", Message:"+response.message(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 try {
                     Log.i("response", response.body().statusCode + "," + response.body().message);
                     Log.i("JsonObject", response.toString() + response.body());
@@ -297,6 +319,8 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
             @Override
             public void onFailure(Call<PartnerConnectResponse> call, Throwable t) {
+                Toast.makeText(PartnerConnectMain.this, " Message:"+t.getMessage(), Toast.LENGTH_SHORT).show();
+
                 Log.e(TAG, "ERROR OCCURED");
                 Log.i("JsonObject", t.toString());
                 t.printStackTrace();
@@ -307,5 +331,37 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
     public MutableLiveData<PCModel> getPcModelData() {
         return pcModelLiveData;
+    }
+
+
+    private void updateDataToWS() {
+        Log.i("updateData", new Gson().toJson(getPcModelData().getValue()));
+        Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).updatePartnerConnectData(getPcModelData().getValue());
+        call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
+            @Override
+            public void onResponse(Call<PartnerConnectUpdateResponse> call, Response<PartnerConnectUpdateResponse> response) {
+                try {
+                    Log.i("response", response.body().statusCode + "," + response.body().message);
+                    Log.i("JsonObject", response.toString() + response.body());
+                    if (response.body() != null) {
+                        PartnerConnectUpdateResponse response1 = response.body();
+                        if (response1 != null) {
+                            Log.i("updateDataResponse", new Gson().toJson(response1));
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<PartnerConnectUpdateResponse> call, Throwable t) {
+                Log.e(TAG, "ERROR OCCURED");
+                Log.i("JsonObject", t.toString());
+                t.printStackTrace();
+            }
+        });
+
     }
 }

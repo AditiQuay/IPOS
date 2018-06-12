@@ -41,7 +41,7 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/btnsubmit"
+            android:id="@+id/btnSubmit"
             style="@style/styleWhiteTextColor14"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dim_40"

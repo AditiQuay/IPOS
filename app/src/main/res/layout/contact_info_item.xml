@@ -80,12 +80,12 @@
                             android:orientation="vertical">
 
                             <android.support.design.widget.TextInputLayout
-                                android:id="@+id/tilName"
+                                android:id="@+id/editNameInput"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
                                 <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/tieNameField"
+                                    android:id="@+id/editName"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Name *"
@@ -111,12 +111,12 @@
                             android:orientation="vertical">
 
                             <android.support.design.widget.TextInputLayout
-                                android:id="@+id/tilPrimaryMobileNo"
+                                android:id="@+id/editMobileInput"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
                                 <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/tiePrimaryMobileNumber"
+                                    android:id="@+id/editMobile"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Primary Mobile No *"
@@ -132,12 +132,12 @@
                             android:orientation="vertical">
 
                             <android.support.design.widget.TextInputLayout
-                                android:id="@+id/tilSecondaryMobileNum"
+                                android:id="@+id/editMobile2Input"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
                                 <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/tieSecondaryMobileNumberField"
+                                    android:id="@+id/editMobile2"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Secondary Mobile No. *"

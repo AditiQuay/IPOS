@@ -103,7 +103,7 @@ public class CustomerSpinnerServerModel {
         @SerializedName("CompaneyCode")
         @Expose
         private String companeyCode;
-        @SerializedName("CompaneyName")
+        @SerializedName("mCompanyName")
         @Expose
         private String companeyName;
         @SerializedName("Active")

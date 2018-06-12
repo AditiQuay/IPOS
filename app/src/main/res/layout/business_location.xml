@@ -92,7 +92,7 @@
                                 android:layout_height="match_parent">
 
                                 <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/tieStateField"
+                                    android:id="@+id/editState"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="State *"
@@ -113,7 +113,7 @@
                                 android:layout_height="match_parent">
 
                                 <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/tieCityField"
+                                    android:id="@+id/editCity"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="City *"
@@ -144,7 +144,7 @@
                                 android:layout_height="match_parent">
 
                                 <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/tiePinCodeField"
+                                    android:id="@+id/editPinCode"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Pin Code *"
@@ -165,7 +165,7 @@
                                 android:layout_height="match_parent">
 
                                 <android.support.design.widget.TextInputEditText
-                                    android:id="@+id/tieZoneField"
+                                    android:id="@+id/editZone"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Zone *"
