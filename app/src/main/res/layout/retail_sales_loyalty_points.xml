@@ -252,7 +252,7 @@
                     android:textSize="@dimen/text_size_18sp"
                     android:hint="@string/enter_otp"
                     android:textColor="@color/accent_color"
-                    android:inputType="text" />
+                    android:inputType="textNoSuggestions" />
 
             </LinearLayout>
 

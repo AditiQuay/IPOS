@@ -9,6 +9,12 @@ public class PaymentRequest {
     @SerializedName("customerID")
     @Expose
     private String customerID;
+    @SerializedName("pointsToRedeem")
+    @Expose
+    private double pointsToRedeem;
+    @SerializedName("pointsToRedeemValue")
+    @Expose
+    private double pointsToRedeemValue;
     @SerializedName("freeItemQty")
     @Expose
     private int freeItemQty;
@@ -63,6 +69,22 @@ public class PaymentRequest {
     @SerializedName("entityID")
     @Expose
     private String entityID;
+
+    public double getPointsToRedeem() {
+        return pointsToRedeem;
+    }
+
+    public void setPointsToRedeem(double pointsToRedeem) {
+        this.pointsToRedeem = pointsToRedeem;
+    }
+
+    public double getPointsToRedeemValue() {
+        return pointsToRedeemValue;
+    }
+
+    public void setPointsToRedeemValue(double pointsToRedeemValue) {
+        this.pointsToRedeemValue = pointsToRedeemValue;
+    }
 
     public String getEntityID() {
         return entityID;

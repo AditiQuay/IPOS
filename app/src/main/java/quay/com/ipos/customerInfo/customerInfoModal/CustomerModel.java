@@ -142,7 +142,7 @@ public class CustomerModel {
     private String customerCountry;
     private String customerDesignation;
     private String customerCompany;
-    private int customerPointsPerValue;
+    private double customerPointsPerValue;
 
     public double getPointsPerValue() {
         return pointsPerValue;
@@ -303,7 +303,7 @@ public class CustomerModel {
             + CustomerEnum.ColoumncCustomerDOM.toString() + " TEXT,"
             + CustomerEnum.ColoumnCustomerCode.toString() + " TEXT,"
             + CustomerEnum.ColoumnRegisteredBusinessPlace.toString() + " TEXT,"
-            + CustomerEnum.ColoumnPointsPerValue.toString() + " INTEGER,"
+            + CustomerEnum.ColoumnPointsPerValue.toString() + " REAL,"
             + CustomerEnum.ColoumnIsSync.toString() + " INTEGER" + ")";
 
 
@@ -353,7 +353,7 @@ public class CustomerModel {
             String customerDom,
             String customerCode,
             String registeredBusinessPlaceID,
-            int customerPointsPerValue,
+            double customerPointsPerValue,
             int sync) {
         this.customerID = customerID;
         this.customerTitle = customerTitle;
@@ -604,11 +604,11 @@ public class CustomerModel {
     }
 
 
-    public int getCustomerPointsPerValue() {
+    public double getCustomerPointsPerValue() {
         return customerPointsPerValue;
     }
 
-    public void setCustomerPointsPerValue(int customerPointsPerValue) {
+    public void setCustomerPointsPerValue(double customerPointsPerValue) {
         this.customerPointsPerValue = customerPointsPerValue;
     }
 }
