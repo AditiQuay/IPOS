@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:alpha="0.7"
-                android:src="@drawable/ic_action_close_blue" />
+                android:src="@drawable/ic_action_close_white" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -214,6 +214,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lLayoutView"
             android:paddingTop="@dimen/dim_5"
+            android:visibility="gone"
             android:background="@color/white"
             android:orientation="vertical">
             <LinearLayout
@@ -251,7 +252,7 @@
                     android:textSize="@dimen/text_size_18sp"
                     android:hint="@string/enter_otp"
                     android:textColor="@color/accent_color"
-                    android:inputType="number" />
+                    android:inputType="textNoSuggestions" />
 
             </LinearLayout>
 

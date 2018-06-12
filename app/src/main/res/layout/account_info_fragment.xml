@@ -53,6 +53,226 @@
                 tools:ignore="RtlSymmetry" />
         </RelativeLayout>
 
+        <android.support.v7.widget.CardView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/dim_8"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="true">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/dim_4">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dim_2"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dim_2">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dim_4"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dim_2"
+                            android:layout_marginRight="@dimen/dim_2"
+                            android:layout_marginTop="@dimen/dim_8"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/dim_2">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/dim_4">
+
+                                <!-- <fr.ganfra.materialspinner.MaterialSpinner
+                                     android:id="@+id/accounHolderSpinner"
+                                     android:layout_width="match_parent"
+                                     android:layout_height="wrap_content"
+                                     android:layout_marginLeft="@dimen/dim_4"
+                                     android:layout_marginRight="@dimen/dim_4"
+                                     app:ms_alignLabels="true"
+                                     app:ms_baseColor="@color/grey"
+                                     app:ms_enableErrorLabel="false"
+                                     app:ms_enableFloatingLabel="true"
+                                     app:ms_errorColor="@color/red"
+                                     app:ms_floatingLabelColor="@color/grey"
+                                     app:ms_floatingLabelText="Partner Type *"
+                                     app:ms_highlightColor="@color/highlight"
+                                     app:ms_hint="Partner Type *"
+                                     app:ms_hintColor="@color/grey"
+                                     app:ms_multiline="false" />-->
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/tilAccountNameInput"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/editAccountHolderName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:fontFamily="@font/titilliumwebregular"
+                                        android:hint="Account No *"
+                                        android:textSize="@dimen/universal_text_size14" />
+
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/tilAccountName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/editAccountNo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:fontFamily="@font/titilliumwebregular"
+                                        android:hint="Account No *"
+                                        android:textSize="@dimen/universal_text_size14" />
+
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dim_2"
+                            android:layout_marginRight="@dimen/dim_2"
+                            android:layout_marginTop="@dimen/dim_8"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/dim_2">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/tilAccountType"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/editAccountType"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:fontFamily="@font/titilliumwebregular"
+                                        android:hint="Account Type *"
+                                        android:textSize="@dimen/universal_text_size14" />
+
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/tilBankName"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/editBankName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:fontFamily="@font/titilliumwebregular"
+                                        android:hint="Bank Name *"
+                                        android:textSize="@dimen/universal_text_size14" />
+
+                                </android.support.design.widget.TextInputLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dim_2"
+                            android:layout_marginRight="@dimen/dim_2"
+                            android:layout_marginTop="@dimen/dim_8"
+                            android:orientation="horizontal"
+                            android:padding="@dimen/dim_2">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/tilifscCode"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/editIFSCCode"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:fontFamily="@font/titilliumwebregular"
+                                        android:hint="IFSC Code *"
+                                        android:textSize="@dimen/universal_text_size14" />
+
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/dim_4">
+
+
+                                <android.support.design.widget.TextInputLayout
+                                    android:id="@+id/branchAddressSpinnerInput"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+                                    <android.support.design.widget.TextInputEditText
+                                        android:id="@+id/editBranchAddress"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:fontFamily="@font/titilliumwebregular"
+                                        android:hint="Branch Address *"
+                                        android:textSize="@dimen/universal_text_size14" />
+
+                                </android.support.design.widget.TextInputLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewAccountInfo"
             android:layout_width="match_parent"

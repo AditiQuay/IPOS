@@ -233,7 +233,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         //Contact info
         textViewContactHeading = main.findViewById(R.id.textViewContactHeading);
         tiePinCode = main.findViewById(R.id.tiePinCode);
-        tieAddress = main.findViewById(R.id.tieAddress);
+        tieAddress = main.findViewById(R.id.editAddress);
         tieMobileNumSecondary = main.findViewById(R.id.tieMobileNumSecondary);
         tieMobileNumPrimary = main.findViewById(R.id.tieMobileNumPrimary);
         tilSecondaryMobileNumber = main.findViewById(R.id.tilSecondaryMobileNumber);
@@ -241,7 +241,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         tieEmail2 = main.findViewById(R.id.tieEmail2);
         tieEmail1 = main.findViewById(R.id.tieEmail1);
         countrySpinner = main.findViewById(R.id.countrySpinner);
-        stateSpinner = main.findViewById(R.id.stateSpinner);
+        stateSpinner = main.findViewById(R.id.editState);
         citySpinner = main.findViewById(R.id.citySpinner);
 
         //Professional info
@@ -250,7 +250,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         companySpinner = main.findViewById(R.id.companySpinner);
         customerTypeSpinner = main.findViewById(R.id.customerTypeSpinner);
         relationShipSpinner = main.findViewById(R.id.relationShipSpinner);
-        tieGstin = main.findViewById(R.id.tieGstin);
+        tieGstin = main.findViewById(R.id.editGstin);
 
         recyclerViewChild = main.findViewById(R.id.recyclerViewChild);
         btnAddChild = main.findViewById(R.id.btnAddChild);
@@ -643,7 +643,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 CityListModel[] cityListModels = new Gson().fromJson(customerSpinner.get(0).getCityList(), CityListModel[].class);
                 cityName = cityListModels[position].getCityName();
 
-            } else if (materialSpinner.getId() == R.id.stateSpinner) {
+            } else if (materialSpinner.getId() == R.id.editState) {
 
                 ArrayList<CustomerSpinner> customerSpinner = dbHelper.getCustomerSpinner();
                 StateListModel[] stateListModel = new Gson().fromJson(customerSpinner.get(0).getStateList(), StateListModel[].class);

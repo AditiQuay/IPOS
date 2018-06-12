@@ -1,10 +1,16 @@
 package quay.com.ipos.partnerConnect.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class BusinessLocation {
-    public String businessPINCode;
-    public String BusinessZone;
-    public String businessState;
-    public String businessCity;
+    @SerializedName("businessPINCode")
+    public String mPINCode;
+    @SerializedName("BusinessZone")
+    public String mZone;
+    @SerializedName("businessState")
+    public String mState;
+    @SerializedName("businessCity")
+    public String mCity;
 
 
 }

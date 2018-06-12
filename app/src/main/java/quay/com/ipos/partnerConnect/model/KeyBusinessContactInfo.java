@@ -1,22 +1,27 @@
 package quay.com.ipos.partnerConnect.model;
 
+import java.util.List;
+
 public class KeyBusinessContactInfo {
-    public String keyContactEntityEmpPosition;
+    public String keyEmpName;
 
-    public String keyEntityEmpEmail;
+    public String keyDesignation;
 
-    public String KeyContactEntityEmpperson;
+    public String keyMobile;
 
-    public String keyEntityEmpMobile1;
+    public String keyMobile2;
 
-    public String keyEntityEmpMobile2;
+    public String keyEmail;
 
-    public String keyEntityEmpNote;
+    public String keyEmpNote;
 
-   /* "keyContactEntityEmpPosition": "Programmer",
-            "KeyContactEntityEmpperson": "Vilas Jadhav",
-            "keyEntityEmpMobile1": "9717409993",
-            "keyEntityEmpMobile2": null,
-            "keyEntityEmpEmail": "vilas.jadhav@quayintech.com",
-            "keyEntityEmpNote": null*/
+    public List<NewContact> NewContact;
+
+     /*          "keyEmpName": "Alok Sharma",
+                "keyDesignation": "Director",
+                "keyMobile": "8880023456",
+                "keyMobile2": "8880023457",
+                "keyEmail": "alok@kgm.com",
+                "keyEmpNote": "added contacts for my test",
+                "NewContact": [*/
 }

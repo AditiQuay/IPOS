@@ -29,11 +29,14 @@ import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
+import quay.com.ipos.modal.CustomerPointsRedeemRequest;
+import quay.com.ipos.modal.CustomerPointsRedeemResult;
 import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.OrderSubmitResult;
 import quay.com.ipos.modal.PaymentRequest;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
@@ -43,19 +46,25 @@ import quay.com.ipos.utility.Util;
 
 public class PaymentModeActivity extends BaseActivity implements View.OnClickListener, ServiceTask.ServiceResultListener {
     private ImageView imvUserAdd,imvBilling,imvPin;
-    private Button btnPayCash,btnPayCard;
+    double points=0,pointsPer=0, points1=0;
+    Double points2=0.0;
+    String mCustomerEmail="";
+    private Button btnPayCash,btnPayCard,buttonSendOtp,buttonVerify,buttonRedeem;
     Spinner spinner;
-    private EditText etCashAmount,etReceivedAmount,etReturnAmount,etCardAmount,etLastDigit,etExpMonth,etExpYear,etTransID;
-    private TextView tvPay,tvRedeemPoints,tvBalance;
-    private LinearLayout llCash,llCard,llPoints,llPrintReceipt,llToggle;
+    private EditText etCashAmount,etReceivedAmount,etReturnAmount,etCardAmount,etLastDigit,etExpMonth,etExpYear,etTransID,etPointToRedeem,etRedeemValue,etOTP;
+    private TextView tvPay,tvRedeemPoints,tvBalance,tvAvailablePoints,tvResendOTP;
+    private LinearLayout llCash,llCard,llPoints,llPrintReceipt,llToggle,llVerifyRedeem;
     private CardView cvCash,cvCard,cvPoints;
     private String mTotalAmount;
     private double totalAmount;
     private Menu menu1;
     Toolbar toolbar_default;
-    private String mCustomerID;
-    private int mCustomerPoints;
+    private String mCustomerID="";
+    private double mCustomerPoints;
+    double redeemValue=0;
     Context context;
+    private double mCustomerPointsPer=0;
+    boolean sendOTP=false,sendVerify = false,sendRedeem=false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -113,6 +122,16 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         spinner = (Spinner) findViewById(R.id.spnCardType);
         btnPayCash=findViewById(R.id.btnPayCash);
         btnPayCard=findViewById(R.id.btnPayCard);
+        buttonRedeem=findViewById(R.id.buttonRedeem);
+        buttonVerify=findViewById(R.id.buttonVerify);
+        buttonSendOtp=findViewById(R.id.buttonSendOtp);
+        llVerifyRedeem=findViewById(R.id.llVerifyRedeem);
+        etPointToRedeem=findViewById(R.id.etPointToRedeem);
+        etRedeemValue=findViewById(R.id.etRedeemValue);
+        etOTP=findViewById(R.id.etOTP);
+        tvResendOTP=findViewById(R.id.tvResendOTP);
+        tvRedeemPoints=findViewById(R.id.tvRedeemPoints);
+        tvAvailablePoints=findViewById(R.id.tvAvailablePoints);
         etCashAmount=findViewById(R.id.etCashAmount);
         etReceivedAmount=findViewById(R.id.etReceivedAmount);
         etReturnAmount=findViewById(R.id.etReturnAmount);
@@ -124,7 +143,6 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         tvBalance=findViewById(R.id.tvBalance);
         imvUserAdd=findViewById(R.id.imvUserAdd);
         imvBilling=findViewById(R.id.imvBilling);
-        tvRedeemPoints=findViewById(R.id.tvRedeemPoints);
         llCash=findViewById(R.id.llCash);
         llCard = findViewById(R.id.llCard);
         llPoints = findViewById(R.id.llPoints);
@@ -138,6 +156,13 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         btnPayCash.setOnClickListener(this);
         btnPayCard.setOnClickListener(this);
         llPrintReceipt.setOnClickListener(this);
+        buttonSendOtp.setOnClickListener(this);
+//        }else {
+//            Util.showToast("No points to redeem", getActivity() );
+//        }
+        tvResendOTP.setOnClickListener(this);
+        buttonRedeem.setOnClickListener(this);
+        buttonVerify.setOnClickListener(this);
         imvUserAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,7 +180,34 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         });
         etReceivedAmount.addTextChangedListener(new MyTextWatcher());
         etCashAmount.addTextChangedListener(new MyTextWatcher());
+        etPointToRedeem.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!charSequence.toString().trim().equals("")) {
+                    points2 = Double.parseDouble(charSequence.toString());
+                    if(points1>=points2) {
+                        redeemValue = points1 * pointsPer;
+                        etRedeemValue.setText(redeemValue + "");
+                        sendRedeem = false;
+                    }else {
+                        Util.showToast("Points exceeded!",PaymentModeActivity.this);
+                        sendRedeem = true;
+                    }
+                }else {
+                    etRedeemValue.setText(0 + "");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     @Override
@@ -164,7 +216,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         if(requestCode==Constants.ACT_CUSTOMER){
             if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
-                mCustomerPoints = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
+                mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
                 tvRedeemPoints.setText(mCustomerPoints+"");
             }
@@ -277,17 +331,47 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 }
                 break;
             case R.id.llPoints:
-                if(cvPoints.getVisibility()==View.GONE) {
-                    if(totalAmount>0.0) {
-                        cvPoints.setVisibility(View.VISIBLE);
-                        llPoints.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+
+                if(!mCustomerID.equalsIgnoreCase("")) {
+
+                    if (cvPoints.getVisibility() == View.GONE) {
+                        if (totalAmount > 0.0) {
+                            cvPoints.setVisibility(View.VISIBLE);
+                            llPoints.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                            tvAvailablePoints.setText(mCustomerPoints + "");
+                            if(IPOSApplication.totalpointsToRedeemValue == 0) {
+                                points = mCustomerPoints;
+                                pointsPer = mCustomerPointsPer;
+                                redeemValue = points * pointsPer;
+                                if (totalAmount >= redeemValue) {
+                                    points1 = redeemValue / pointsPer;
+                                    redeemValue = points1 * pointsPer;
+                                } else {
+                                    points1 = totalAmount / pointsPer;
+                                    redeemValue = points1 * pointsPer;
+                                }
+//                            if(totalAmount>)
+                                etPointToRedeem.setText(points1 + "");
+                                etRedeemValue.setText(redeemValue + "");
+                            }else {
+                                etPointToRedeem.setText(IPOSApplication.totalpointsToRedeem + "");
+                                etRedeemValue.setText(IPOSApplication.totalpointsToRedeemValue + "");
+                                buttonSendOtp.setEnabled(false);
+                                llVerifyRedeem.setVisibility(View.GONE);
+                                buttonSendOtp.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                                Util.showToast("Redeem already applied!", PaymentModeActivity.this);
+                            }
+                        } else
+                            Util.showToast("Balance is empty!", PaymentModeActivity.this);
+                    } else {
+                        if (buttonRedeem.getVisibility() == View.VISIBLE) {
+                            cvPoints.setVisibility(View.GONE);
+                            llPoints.setBackgroundResource(R.drawable.rect_four_white);
+                        }
+
                     }
-                    else
-                        Util.showToast("Balance is empty!",PaymentModeActivity.this);
-                }
-                else {
-                    cvPoints.setVisibility(View.GONE);
-                    llCard.setBackgroundResource(R.drawable.rect_four_white);
+                }else {
+                    Util.showToast("Please select customer first.", PaymentModeActivity.this);
                 }
                 break;
             case R.id.llCard:
@@ -488,8 +572,106 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 //                    Util.showToast("Please enter card valid details",PaymentModeActivity.this);
                 }
                 break;
+            case R.id.buttonSendOtp:
+
+                if (!etPointToRedeem.getText().toString().equalsIgnoreCase("")) {
+                    if(points1>=points2) {
+                        if (!sendOTP)
+                            if (points1 > 0) {
+                                if (redeemValue > 0) {
+                                    sendOTP = true;
+                                    etPointToRedeem.setEnabled(false);
+                                    etRedeemValue.setEnabled(false);
+                                    sendOTPtoServer();
+                                } else
+                                    Util.showToast("No points to redeem", PaymentModeActivity.this);
+                            } else {
+                                Util.showToast("No points to redeem", PaymentModeActivity.this);
+                            }
+                    }else {
+                        Util.showToast("Points exceeded!", PaymentModeActivity.this);
+                    }
+                } else {
+                    Util.showToast("Enter points to redeem", PaymentModeActivity.this);
+                }
+
+                break;
+            case R.id.tvResendOTP:
+                if(!sendVerify){
+                    if(redeemValue>0) {
+                        sendOTP = true;
+                        etPointToRedeem.setEnabled(false);
+                        etRedeemValue.setEnabled(false);
+                        sendOTPtoServer();
+                    }else
+                        Util.showToast("No points to redeem", PaymentModeActivity.this );
+                }else {
+                    Util.showToast("ID already verified!", PaymentModeActivity.this );
+                }
+                break;
+            case R.id.buttonVerify:
+                if(!sendVerify)
+                    if(redeemValue>0){
+                        sendVerify = true;
+                        if(!etOTP.getText().toString().trim().equalsIgnoreCase(""))
+                            if(etOTP.getText().toString().trim().length()>=4) {
+                                sendOTPtoServer();
+                                sendVerify = true;
+                            }
+                            else
+                                Util.showToast("Please enter valid otp", PaymentModeActivity.this );
+                        else
+                            Util.showToast("Please enter otp", PaymentModeActivity.this );
+                    }else {
+                        Util.showToast("No points to redeem", PaymentModeActivity.this );
+                    }
+                break;
+            case R.id.buttonRedeem:
+                if(!sendRedeem)
+                    if(redeemValue>0){
+                        sendRedeem=true;
+                        if(sendRedeem){
+                            sendRedeem =false;
+                            Util.showToast("Redeem points successfully", PaymentModeActivity.this);
+                            llVerifyRedeem.setVisibility(View.VISIBLE);
+                            IPOSApplication.totalpointsToRedeem = points1;
+                            IPOSApplication.totalpointsToRedeemValue = redeemValue;
+//                            mRedeemListener.redeem(points1,redeemValue);
+//                            f.dismiss();
+                            buttonRedeem.setVisibility(View.GONE);
+                        }else {
+                            sendRedeem =false;
+                        }
+                    }else {
+
+                    }
+                break;
         }
 
+    }
+
+    private void sendOTPtoServer() {
+        CustomerPointsRedeemRequest customerPointsRedeemRequest = new CustomerPointsRedeemRequest();
+        customerPointsRedeemRequest.setCustomerId(mCustomerID);
+        customerPointsRedeemRequest.setEmailId("aditi.bhuranda@quayintech.com");
+        customerPointsRedeemRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode.trim()));
+        customerPointsRedeemRequest.setPointsRedeemValue(redeemValue);
+        customerPointsRedeemRequest.setPointsToRedeem(points1);
+        if(sendVerify)
+            customerPointsRedeemRequest.setRequestOTP(etOTP.getText().toString());
+        else
+            customerPointsRedeemRequest.setRequestOTP("");
+        showProgressDialog(R.string.please_wait);
+        ServiceTask mServiceTask = new ServiceTask();
+        if(sendVerify)
+            mServiceTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_ValidateCustomerPointsRedeemRequest);
+        else
+            mServiceTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_CustomerPointsRedeemRequest);
+        mServiceTask.setParamObj(customerPointsRedeemRequest);
+        mServiceTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+        mServiceTask.setListener(this);
+        mServiceTask.setResultType(CustomerPointsRedeemResult.class);
+        mServiceTask.execute();
     }
 
     private void callServicePayment() {
@@ -543,16 +725,17 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         @Override
         public void afterTextChanged(Editable editable) {
             try {
-                double CashAmount = Double.parseDouble(etCashAmount.getText().toString());
-                double ReceivedAmount = Double.parseDouble(etReceivedAmount.getText().toString());
-                double ReturnAmount=0.0;
-                if(CashAmount <= totalAmount){
-                    if(ReceivedAmount>=CashAmount)
-                        ReturnAmount = ReceivedAmount - CashAmount;
+                if(btnPayCash.getVisibility()==View.VISIBLE) {
+                    double CashAmount = Double.parseDouble(etCashAmount.getText().toString());
+                    double ReceivedAmount = Double.parseDouble(etReceivedAmount.getText().toString());
+                    double ReturnAmount = 0.0;
+                    if (CashAmount <= totalAmount) {
+                        if (ReceivedAmount >= CashAmount)
+                            ReturnAmount = ReceivedAmount - CashAmount;
 
+                    }
+                    etReturnAmount.setText(ReturnAmount + "");
                 }
-                etReturnAmount.setText(ReturnAmount+"");
-
                 if(btnPayCash.getVisibility()==View.GONE){
                     if(totalAmount>0.0) {
                         etCardAmount.setText(totalAmount + "");

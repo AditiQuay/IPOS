@@ -2,8 +2,7 @@ package quay.com.ipos.data.remote.model;
 
 import quay.com.ipos.partnerConnect.model.PCModel;
 
-public class PartnerConnectResponse {
-
+public class PartnerConnectUpdateResponse {
     public int statusCode;
     public int error;
     public String errorDescription;

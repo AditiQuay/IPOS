@@ -9,7 +9,7 @@ public class CompanyListModel {
     /**
      * ID : 2
      * CompaneyCode : Crystal1
-     * CompaneyName : Crystal Crop Protection LTD
+     * mCompanyName : Crystal Crop Protection LTD
      * Active : true
      * CreateDate : 2018-06-03T14:13:21.56
      * CreatedBy : null

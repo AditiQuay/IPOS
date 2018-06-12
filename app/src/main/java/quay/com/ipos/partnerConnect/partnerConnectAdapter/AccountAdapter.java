@@ -2,8 +2,9 @@ package quay.com.ipos.partnerConnect.partnerConnectAdapter;
 
 import android.content.Context;
 import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,35 +12,39 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
-import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.partnerConnect.model.Cheques;
-import quay.com.ipos.partnerConnect.partnerConnectModel.AccountsModel;
-import quay.com.ipos.utility.FontUtil;
 
 /**
  * Created by niraj.kumar on 6/7/2018.
  */
 
-public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> implements AdapterView.OnItemSelectedListener {
+public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView>  {
     private Context mContext;
-    private List<Cheques> accountsModels;
-    private String [] accountHolderName = {"KYC Traders"};
-    private String[] branchList = {"New Delhi","Gurgaon"};
-    private String[] securityCheck = {"Yes","No"};
-    private String[] chequeNumber={"002463","983458","093234"};
-    private ButtonListener buttonListener;
+    private List<Cheques> list;
+
+
+    private String[] securityCheck = {"Yes", "No"};
+    private List<String> mSecurityChequesList = new ArrayList<>();
     String checkNumberText;
     String securityCheckText;
     String branchAddText;
     String accountHolder;
-    public AccountAdapter(Context context, List<Cheques> list, ButtonListener buttonListener) {
+
+    private ArrayAdapter securityAdapter;
+
+    public AccountAdapter(Context context) {
         this.mContext = context;
-        this.buttonListener = buttonListener;
-        this.accountsModels = list;
+        this.list = new ArrayList<>();
+        //Creating the ArrayAdapter instance having the securityCheck list
+        securityAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, securityCheck);
+        securityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        mSecurityChequesList = Arrays.asList(securityCheck);
     }
 
     @Override
@@ -47,112 +52,167 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.accounts_item, parent, false);
 
-        return new AccountAdapter.MyView(itemView);
+
+        return new AccountAdapter.MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
+
     }
 
     @Override
     public void onBindViewHolder(MyView holder, int position) {
-        Cheques accountsModel = accountsModels.get(position);
-
-        //Creating the ArrayAdapter instance having the accounts list
-        ArrayAdapter accountAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, accountHolderName);
-        accountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.accounHolderSpinner.setAdapter(accountAdapter);
-        holder.accounHolderSpinner.setOnItemSelectedListener(this);
-
-        //Creating the ArrayAdapter instance having the branch list
-        ArrayAdapter branchAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, branchList);
-        branchAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.branchAddressSpinner.setAdapter(branchAdapter);
-        holder.branchAddressSpinner.setOnItemSelectedListener(this);
-
-        //Creating the ArrayAdapter instance having the securityCheck list
-        ArrayAdapter securityAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, securityCheck);
-        securityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.securityCheckSpinner.setAdapter(securityAdapter);
-        holder.securityCheckSpinner.setOnItemSelectedListener(this);
-
-        //Creating the ArrayAdapter instance having the securityCheck list
-        ArrayAdapter chequeNumAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, chequeNumber);
-        chequeNumAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.securityCheckSpinner.setAdapter(chequeNumAdapter);
-        holder.securityCheckSpinner.setOnItemSelectedListener(this);
+        Cheques accountsModel = list.get(position);
+        holder.spinnerSecurityCheque.setAdapter(securityAdapter);
 
 
-        holder.tieAccountField.setText("");
-        holder.tieaccounTypeField.setText("");
-        holder.tieBankField.setText("");
-        holder.tieifscField.setText("");
-        holder.tieDrawanOnField.setText("");
-        holder.tieMaxLimtField.setText(accountsModel.MaxLimitAmount);
+        // magic code for editText
+        holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition(), holder);
+        holder.editChequeNo.setText(list.get(holder.getAdapterPosition()).mChequeNo);
+        holder.editMaxLimit.setText(list.get(holder.getAdapterPosition()).mMaxLimitAmount);
+        holder.editDrawnAccountNo.setText(list.get(holder.getAdapterPosition()).mDrawnAccountNo);
+
+        // magic code for spinner
+        holder.myCustomSpinnerListener.updatePosition(holder.getAdapterPosition());
+
+        String mAddressType = list.get(holder.getAdapterPosition()).mSecurityCheque;
+        if (mAddressType != null) {
+            if (mSecurityChequesList.contains(mAddressType)) {
+                int index = mSecurityChequesList.indexOf(mAddressType);
+                holder.spinnerSecurityCheque.setSelection(index + 1);
+            }
+        }
+
+
+
+
     }
 
     @Override
     public int getItemCount() {
-        return accountsModels.size();
+        return list.size();
     }
 
-    @Override
+
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         MaterialSpinner materialSpinner = (MaterialSpinner) parent;
         String selectedSpinner = String.valueOf(materialSpinner.getSelectedItem());
 
-        if (materialSpinner.getId() == R.id.chequeNumSpinner) {
+        if (materialSpinner.getId() == R.id.editChequeNo) {
             checkNumberText = selectedSpinner;
-        } else if (materialSpinner.getId() == R.id.securityCheckSpinner) {
+        } else if (materialSpinner.getId() == R.id.spinnerSecurityCheque) {
             securityCheckText = selectedSpinner;
-        }else if (materialSpinner.getId()==R.id.branchAddressSpinner){
+        } else if (materialSpinner.getId() == R.id.editBranchAddress) {
             branchAddText = selectedSpinner;
-        }else if (materialSpinner.getId()==R.id.accounHolderSpinner){
-            accountHolder= selectedSpinner;
+        } else if (materialSpinner.getId() == R.id.editAccountHolderName) {
+            accountHolder = selectedSpinner;
         }
     }
 
-    @Override
+
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
-    public class MyView extends RecyclerView.ViewHolder {
-        private MaterialSpinner chequeNumSpinner,securityCheckSpinner,branchAddressSpinner,accounHolderSpinner;
-        private TextInputLayout tilMaxLimit,tilDrawnOnName,tilifscCode,tilBankName,tilAccountType,tilAccountName;
-        private TextInputEditText tieMaxLimtField,tieDrawanOnField,tieifscField,tieBankField,tieaccounTypeField,tieAccountField;
-        public MyView(View itemView) {
-            super(itemView);
-            chequeNumSpinner = itemView.findViewById(R.id.chequeNumSpinner);
-            securityCheckSpinner = itemView.findViewById(R.id.securityCheckSpinner);
-            branchAddressSpinner = itemView.findViewById(R.id.branchAddressSpinner);
-            accounHolderSpinner = itemView.findViewById(R.id.accounHolderSpinner);
-            tilMaxLimit = itemView.findViewById(R.id.tilMaxLimit);
-            tilDrawnOnName = itemView.findViewById(R.id.tilDrawnOnName);
-            tilifscCode = itemView.findViewById(R.id.tilifscCode);
-            tilBankName = itemView.findViewById(R.id.tilBankName);
-            tilAccountType = itemView.findViewById(R.id.tilAccountType);
-            tilAccountName = itemView.findViewById(R.id.tilAccountName);
-            tieMaxLimtField = itemView.findViewById(R.id.tieMaxLimtField);
-            tieDrawanOnField = itemView.findViewById(R.id.tieDrawanOnField);
-            tieifscField = itemView.findViewById(R.id.tieifscField);
-            tieBankField = itemView.findViewById(R.id.tieBankField);
-            tieaccounTypeField = itemView.findViewById(R.id.tieaccounTypeField);
-            tieAccountField = itemView.findViewById(R.id.tieAccountField);
+    public void loadData(List<Cheques> chequesList) {
+        this.list = chequesList;
+        notifyDataSetChanged();
+    }
 
-            //Personal
-            FontUtil.applyTypeface(chequeNumSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(securityCheckSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(branchAddressSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(accounHolderSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tilMaxLimit, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tilDrawnOnName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tilifscCode, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tilBankName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tilAccountType, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tilAccountName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tieMaxLimtField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tieDrawanOnField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tieifscField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tieBankField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tieaccounTypeField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-            FontUtil.applyTypeface(tieAccountField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+    public class MyView extends RecyclerView.ViewHolder {
+        private MaterialSpinner spinnerSecurityCheque;
+        private TextInputEditText editChequeNo, editMaxLimit, editDrawnAccountNo;
+        public MyCustomEditTextListener myCustomEditTextListener;
+        public MyCustomSpinnerListener myCustomSpinnerListener;
+
+
+        public MyView(View itemView, MyCustomEditTextListener myCustomEditTextListener, MyCustomSpinnerListener myCustomSpinnerListener) {
+            super(itemView);
+            spinnerSecurityCheque = itemView.findViewById(R.id.spinnerSecurityCheque);
+            editDrawnAccountNo = itemView.findViewById(R.id.editDrawnAccountNo);
+            editChequeNo = itemView.findViewById(R.id.editChequeNo);
+            editMaxLimit = itemView.findViewById(R.id.editMaxLimit);
+
+            //magic code for editText
+            this.myCustomEditTextListener = myCustomEditTextListener;
+            this.editChequeNo.addTextChangedListener(myCustomEditTextListener);
+            this.editMaxLimit.addTextChangedListener(myCustomEditTextListener);
+            this.editDrawnAccountNo.addTextChangedListener(myCustomEditTextListener);
+
+            //magic code for spinner
+            this.myCustomSpinnerListener = myCustomSpinnerListener;
+            this.spinnerSecurityCheque.setOnItemSelectedListener(myCustomSpinnerListener);
+
+
+        }
+    }
+
+    private class MyCustomEditTextListener implements TextWatcher {
+        private int position;
+        private MyView holder;
+
+        public void updatePosition(int position, MyView holder) {
+            this.position = position;
+            this.holder = holder;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            // no op
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            try {
+
+                if (holder.editChequeNo != null) {
+                    if (holder.editChequeNo.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mChequeNo = charSequence.toString();
+                    }
+                }
+                if (holder.editDrawnAccountNo != null) {
+                    if (holder.editDrawnAccountNo.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mDrawnAccountNo = charSequence.toString();
+                    }
+                }
+                if (holder.editMaxLimit != null) {
+                    if (holder.editMaxLimit.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mMaxLimitAmount = charSequence.toString();
+                    }
+                }
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+            // no op
+        }
+    }
+
+    private class MyCustomSpinnerListener implements AdapterView.OnItemSelectedListener {
+        private int position;
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            switch (adapterView.getId()) {
+                case R.id.spinnerSecurityCheque:
+                    if (i != -1)
+                        list.get(position).mSecurityCheque = mSecurityChequesList.get(i);
+                    break;
+
+            }
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+
+        public void updatePosition(int position) {
+            this.position = position;
         }
     }
 }

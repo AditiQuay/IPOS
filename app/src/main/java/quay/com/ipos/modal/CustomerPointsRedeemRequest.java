@@ -13,10 +13,10 @@ public class CustomerPointsRedeemRequest {
     private String emailId;
     @SerializedName("pointsToRedeem")
     @Expose
-    private Integer pointsToRedeem;
+    private Double pointsToRedeem;
     @SerializedName("pointsRedeemValue")
     @Expose
-    private Integer pointsRedeemValue;
+    private Double pointsRedeemValue;
     @SerializedName("employeeCode")
     @Expose
     private String employeeCode;
@@ -40,19 +40,19 @@ public class CustomerPointsRedeemRequest {
         this.emailId = emailId;
     }
 
-    public Integer getPointsToRedeem() {
+    public Double getPointsToRedeem() {
         return pointsToRedeem;
     }
 
-    public void setPointsToRedeem(Integer pointsToRedeem) {
+    public void setPointsToRedeem(Double pointsToRedeem) {
         this.pointsToRedeem = pointsToRedeem;
     }
 
-    public Integer getPointsRedeemValue() {
+    public Double getPointsRedeemValue() {
         return pointsRedeemValue;
     }
 
-    public void setPointsRedeemValue(Integer pointsRedeemValue) {
+    public void setPointsRedeemValue(Double pointsRedeemValue) {
         this.pointsRedeemValue = pointsRedeemValue;
     }
 

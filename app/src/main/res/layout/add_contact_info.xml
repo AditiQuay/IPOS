@@ -124,7 +124,7 @@
             android:layout_marginTop="@dimen/dim_8">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/tieAddress"
+                android:id="@+id/editAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Address"
@@ -175,7 +175,7 @@
                 android:orientation="vertical">
 
                 <fr.ganfra.materialspinner.MaterialSpinner
-                    android:id="@+id/stateSpinner"
+                    android:id="@+id/editState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dim_4"
