@@ -12,6 +12,9 @@ public class UserModal {
     private String userStatus;
     private String userDateStatus;
     private String level;
+    private String flag;
+    private String comment;
+    private String date;
 
     public String getId() {
         return id;
@@ -51,6 +54,30 @@ public class UserModal {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
 

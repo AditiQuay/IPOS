@@ -65,9 +65,17 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
     }
 
     @Override
-    public void onBindViewHolder(final CustomerInfoAdapter.ItemViewholder holder, final int position) {
+    public void onBindViewHolder(final CustomerInfoAdapter.ItemViewholder holder,  int position) {
         final CustomerModel customerInfoModal = customerModelList.get(position);
-        holder.textViewUserName.setText(customerInfoModal.getCustomerName());
+        if (!TextUtils.isEmpty(customerInfoModal.getCustomerName())){
+            holder.textViewUserName.setText(customerInfoModal.getCustomerName());
+        }else {
+            String firstName = customerInfoModal.getCustomerFirstName();
+            String lastName = customerInfoModal.getCustomerLastName();
+            String finalName = firstName +" "+lastName;
+            holder.textViewUserName.setText(finalName);
+
+        }
         holder.textViewMob.setText(customerInfoModal.getCustomerPhone());
         holder.textViewEmail.setText(customerInfoModal.getCustomerEmail());
 
@@ -79,8 +87,10 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
             holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + date1 + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.getLastBillingAmount());
         }
         if (NetUtil.isNetworkAvailable(mContext)) {
-            if (TextUtils.isEmpty(customerInfoModal.getCustomerImage())){
+            if (!TextUtils.isEmpty(customerInfoModal.getCustomerImage())){
                 Picasso.get().load(customerInfoModal.getCustomerImage()).into(holder.imageViewProfileDummy);
+            }else {
+                holder.imageViewProfileDummy.setImageResource(R.drawable.placeholder);
             }
 
         } else {
@@ -116,13 +126,16 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
 //            e.printStackTrace();
 //        }
 
-        String bDate = Util.getFormattedDates(customerInfoModal.getCustomerBday(), Constants.formatDate, Constants.format14);
-        AppLog.e(TAG, "Date 1" + bDate);
 
 
-        holder.textViewCake.setText(mContext.getResources().getString(R.string.text_birthday) + bDate + ")");
+        if (customerInfoModal.getCustomerBday().equalsIgnoreCase("null")|| TextUtils.isEmpty(customerInfoModal.getCustomerBday())){
+            holder.textViewCake.setText(mContext.getResources().getString(R.string.text_birthday) + " " + ")");
+        }else {
+            String bDate = Util.getFormattedDates(customerInfoModal.getCustomerBday(), Constants.formatDate, Constants.format14);
+            holder.textViewCake.setText(mContext.getResources().getString(R.string.text_birthday) + bDate + ")");
+        }
+
         holder.textViewProName.setText(customerInfoModal.getCustomerPoints() + mContext.getResources().getString(R.string.text_points));
-
         Log.e("CustomerInforAdapter", "Recent Orders" + customerInfoModal.getRecentOrders());
         // apply click events
         applyClickEvents(holder, position);

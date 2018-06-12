@@ -68,6 +68,7 @@ import quay.com.ipos.listeners.ScannerProductListener;
 
 import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
+import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.retailsales.fragment.FullScannerFragment;
@@ -77,6 +78,7 @@ import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
@@ -119,6 +121,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
     private String entityStateCode = "";
     private int businessPlaceCode;
     private boolean isSync;
+    private String strPlace;
 
 
     @Override
@@ -189,7 +192,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
         spnAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+                strPlace=noGetEntityBuisnessPlacesModals.get(i).getBuisnessPlaceName();
                 entityStateCode = noGetEntityBuisnessPlacesModals.get(i).getBuisnessLocationStateCode();
                 businessPlaceCode = noGetEntityBuisnessPlacesModals.get(i).getBuisnessPlaceId();
             }
@@ -201,9 +204,9 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
         });
 //        showProgressDialog(mContext,R.string.msg_load_default);
         NOGetEntityBuisnessPlacesModal noGetEntityBuisnessPlacesModal = new NOGetEntityBuisnessPlacesModal();
-        noGetEntityBuisnessPlacesModal.setEntityCode("1");
-        noGetEntityBuisnessPlacesModal.setEntityRole("distributer");
-        noGetEntityBuisnessPlacesModal.setEntityType("manager");
+        noGetEntityBuisnessPlacesModal.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
+        noGetEntityBuisnessPlacesModal.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
+        noGetEntityBuisnessPlacesModal.setEntityType(Prefs.getStringPrefs(Constants.entityRole));
 
 
         ServiceTask mTask = new ServiceTask();
@@ -419,7 +422,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                 childPosition = data.getIntExtra("pinned_order_position", 0);
                 getProduct();
             }
-        } else if (requestCode == 6) {
+        } else if (requestCode == 601) {
             if (resultCode == 6) {
                 getProduct();
 
@@ -719,7 +722,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                     createOrder();
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
                     i.putExtra(NoGetEntityEnums.OrderId.toString(), "P00001");
-                    getActivity().startActivityForResult(i,6);
+                  startActivityForResult(i,601);
                 } else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }
@@ -730,7 +733,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
                     i.putExtra(NoGetEntityEnums.OrderId.toString(), "P00001");
 
-                    getActivity().startActivityForResult(i,6);
+                    startActivityForResult(i,601);
                 } else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }
@@ -1756,9 +1759,11 @@ if (realmNewOrderCarts.getQty()>1) {
         if (httpStatusCode == Constants.SUCCESS) {
 
             if (Util.validateString(serverResponse)){
+
                 try {
                     JSONObject jsonObject=new JSONObject(serverResponse);
                     JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
+                    new RealmController().saveBusinessPlaces(array.toString());
                     for (int i=0;i<array.length();i++){
                         NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
                         JSONObject jsonObject1=array.optJSONObject(i);
@@ -2009,8 +2014,8 @@ if (realmNewOrderCarts.getQty()>1) {
 
 
         try {
-            jsonObject.put("employeeCode","6000013");
-            jsonObject.put("employeeRole","user");
+            jsonObject.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
             jsonObject.put("poDate",Util.getCurrentDate());
             jsonObject.put("poStatus","Pending");
             jsonObject.put("orderValue",payAmount);
@@ -2019,9 +2024,9 @@ if (realmNewOrderCarts.getQty()>1) {
             jsonObject.put("orderLoyality",totalPoints);
             jsonObject.put("accumulatedLoyality",0);
             jsonObject.put("totalLoyality",totalPoints);
-            jsonObject.put("businessPlace",businessPlaceCode);
+            jsonObject.put("businessPlace",strPlace);
             jsonObject.put("businessPlaceCode",businessPlaceCode);
-            jsonObject.put("entityID","06");
+            jsonObject.put("entityID",Prefs.getIntegerPrefs(Constants.entityCode));
             jsonObject.put("totalValueWithTax",totalValueWithTax);
             jsonObject.put("totalCGSTValue",cgst);
             jsonObject.put("totalIGSTValue",gst);
@@ -2034,7 +2039,7 @@ if (realmNewOrderCarts.getQty()>1) {
           //  jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray());
             jsonObject.put("approvalStat",1);
             jsonObject.put("quantity",qty);
-            jsonObject.put("customerName","");
+            jsonObject.put("customerName",Prefs.getStringPrefs(Constants.EntityName));
         } catch (JSONException e) {
             e.printStackTrace();
         }

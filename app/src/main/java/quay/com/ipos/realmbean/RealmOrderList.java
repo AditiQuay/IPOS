@@ -46,7 +46,7 @@ public class RealmOrderList extends RealmObject {
     private int totalTaxValue;
     private String approvalStat;
     private int orderValue;
-    private int businessPlace;
+    private String businessPlace;
     private String employeeCode;
     private String poDate;
     private int totalCGSTValue;
@@ -104,11 +104,11 @@ public class RealmOrderList extends RealmObject {
         this.orderValue = orderValue;
     }
 
-    public int getBusinessPlace() {
+    public String getBusinessPlace() {
         return businessPlace;
     }
 
-    public void setBusinessPlace(int businessPlace) {
+    public void setBusinessPlace(String businessPlace) {
         this.businessPlace = businessPlace;
     }
 

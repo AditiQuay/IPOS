@@ -50,7 +50,7 @@
             android:paddingRight="@dimen/dim_10"
             android:paddingTop="@dimen/dim_6"
             android:paddingBottom="@dimen/dim_6"
-            android:text="117"
+            android:text="0"
             tools:ignore="RtlSymmetry" />
 
     </RelativeLayout>

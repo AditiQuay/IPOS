@@ -57,7 +57,7 @@ public class MessageDialog extends Dialog
         TextView tvMessageOK = dialogView.findViewById(R.id.tvMessageOK);
         TextView tvMessageNO = dialogView.findViewById(R.id.tvMessageNO);
         TextView tvMessageCancel = dialogView.findViewById(R.id.tvMessageCancel);
-
+        tvMessageCancel.setVisibility(View.GONE);
 
         if(Util.validateString(mTitle))
             tvDialogTitle.setText(mTitle);

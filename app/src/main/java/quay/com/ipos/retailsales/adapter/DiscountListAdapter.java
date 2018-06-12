@@ -138,6 +138,8 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }else {
                 userViewHolder.llDiscount.setVisibility(View.VISIBLE);
             }
+
+
             if(position==getItemCount()-1){
                 myAdapterTags.onRowClicked(23);
             }

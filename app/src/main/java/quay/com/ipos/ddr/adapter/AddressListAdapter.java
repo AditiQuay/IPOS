@@ -5,21 +5,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.modal.RecentOrderModal;
-
+import quay.com.ipos.realmbean.RealmBusinessPlaces;
 
 
 public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.SurveyViewHolder> {
     private Context mContext;
-    private ArrayList<RecentOrderModal> stringArrayList;
+    private ArrayList<RealmBusinessPlaces> stringArrayList;
     private OnItemSelecteListener mListener;
 
-    public AddressListAdapter(Context mContext, ArrayList<RecentOrderModal> stringArrayList) {
+    public AddressListAdapter(Context mContext, ArrayList<RealmBusinessPlaces> stringArrayList) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
 
@@ -35,7 +36,14 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
     public void onBindViewHolder(SurveyViewHolder holder, int position) {
 
 
-        holder.textViewHouseNo.setText(stringArrayList.get(position).getTitle());
+
+        holder.textViewHouseNo.setText(stringArrayList.get(position).getBuisnessPlaceName());
+        holder.textViewName.setText(stringArrayList.get(position).getHeader());
+        if (stringArrayList.get(position).isSelected())
+        holder.radio.setChecked(true);
+        else {
+            holder.radio.setChecked(false);
+        }
 
 
 
@@ -56,11 +64,14 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textViewHouseNo;
+        private TextView textViewHouseNo,textViewName;
 
+        private RadioButton radio;
         public SurveyViewHolder(View itemView) {
             super(itemView);
             textViewHouseNo = itemView.findViewById(R.id.textViewHouseNo);
+            textViewName=itemView.findViewById(R.id.textViewName);
+            radio=itemView.findViewById(R.id.radio);
 
         }
     }

@@ -129,8 +129,6 @@ public class MainActivity extends BaseActivity
     private DatabaseHandler dbHelper;
     private String customerID;
     private String customerTitle;
-
-
     private String customerName;
     private String customerFirstName;
     private String customerLastName;
@@ -171,9 +169,10 @@ public class MainActivity extends BaseActivity
     private String customerDom;
     private Context mContext;
     private String customerStatus;
+    private double customerPointsPerValue;
 
     private int mActivePosition = 1;
-    private int currentType = 1;
+    private int currentType = -1;
     private boolean firstTime = true;
     private List<String> mostUsedFunList = new ArrayList<>();
 
@@ -484,7 +483,7 @@ public class MainActivity extends BaseActivity
 
     public void applyMenuBGImage(String ImageName) {
         Log.i("currentType", currentType + "");
-        if(currentType==1) {
+        if (currentType == 1) {
             if (!ImageName.contains("Mostly Used")) {
                 if (!mostUsedFunList.contains(ImageName)) {
                     saveToDatabase(ImageName);
@@ -827,7 +826,8 @@ public class MainActivity extends BaseActivity
                             childList.add(jsonObject2.optString("name"));
 
                         }
-                        if (j == 0) {
+
+                        if (j == 0 && currentType == 1) {
                             if (mostUsedFunList != null) {
                                 childList.addAll(mostUsedFunList);
                             }
@@ -917,6 +917,8 @@ public class MainActivity extends BaseActivity
                 customerState = object.optString(CustomerEnum.ColoumnCustomerState.toString().trim());
                 customerCity = object.optString(CustomerEnum.ColoumnCustomerCity.toString().trim());
                 customerType = object.optString(CustomerEnum.ColoumncType.toString().trim());
+                customerPointsPerValue = object.optDouble(CustomerEnum.ColoumnPointsPerValue.toString().trim());
+
 
                 // inserting note in db and getting
                 // newly inserted note id
@@ -925,7 +927,7 @@ public class MainActivity extends BaseActivity
                         customerSpouseFirstName, customerSpouseLastName, customerSpouseDob, customerChildSatus, customerChild.toString(),
                         customerEmail, customerEmail2, customerPhone, customerPhone2, customerPhone3, customerAddress, customerState, customerCity,
                         customerPin, customerCountry, customerDesignation, customerCompany, custoemrGstin, customer, customerRelationship,
-                        customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom, "", "", 1);
+                        customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom, "", "", customerPointsPerValue, 1);
 
 
 //                // get the newly inserted note from db
@@ -963,7 +965,6 @@ public class MainActivity extends BaseActivity
                     @Override
                     public void run() {
 
-
                         Log.i("count", lvMenu.getAdapter().getCount() + "");
                         lvMenu.performItemClick(
                                 lvMenu.getChildAt(mActivePosition),
@@ -971,7 +972,7 @@ public class MainActivity extends BaseActivity
                                 lvMenu.getAdapter().getItemId(mActivePosition));
 
                     }
-                }, 2000);
+                }, 5000);
 
 
                 getMostUsedData();

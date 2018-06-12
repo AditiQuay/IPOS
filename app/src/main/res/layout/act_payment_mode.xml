@@ -272,14 +272,14 @@
                             android:layout_height="wrap_content"
                             android:text="@string/retail"
                             android:textColor="@color/white"/>
-                        <ToggleButton
+                        <!--<ToggleButton
                             android:layout_width="38dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dim_8"
                             android:layout_marginRight="@dimen/dim_8"
                             android:background="@drawable/toggle_selector"
                             android:textOff=""
-                            android:textOn=""/>
+                            android:textOn=""/>-->
 
                     </LinearLayout>
 
@@ -331,6 +331,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+
+                        android:padding="@dimen/dim_10"
                         android:background="@drawable/gray_white_background_selector"
                         android:layout_gravity="center"
                         android:orientation="vertical">
@@ -343,7 +345,6 @@
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/card"
                             android:textSize="@dimen/dim_14"
                             android:id="@+id/tvCard"
@@ -356,6 +357,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+
+                        android:padding="@dimen/dim_10"
                         android:background="@drawable/gray_white_background_selector"
                         android:layout_gravity="center"
                         android:orientation="vertical">
@@ -368,7 +371,6 @@
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/points"
                             android:textSize="@dimen/dim_14"
                             android:textColor="@drawable/gray_white_text_selector"/>
@@ -379,6 +381,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+
+                        android:padding="@dimen/dim_10"
                         android:layout_gravity="center"
                         android:background="@drawable/gray_white_background_selector"
                         android:orientation="vertical">
@@ -391,7 +395,6 @@
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/upi"
                             android:textSize="@dimen/dim_14"
                             android:textColor="@drawable/gray_white_text_selector"/>
@@ -402,6 +405,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:padding="@dimen/dim_10"
                         android:layout_gravity="center"
                         android:background="@drawable/gray_white_background_selector"
                         android:orientation="vertical">
@@ -414,7 +418,6 @@
                         <quay.com.ipos.ui.CustomTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
                             android:text="@string/credit"
                             android:textSize="@dimen/dim_14"
                             android:textColor="@drawable/gray_white_text_selector"/>
@@ -529,7 +532,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="@string/cod"
                                     android:textColor="@color/colorPrimary" />
-                                <ToggleButton
+                                <!--<ToggleButton
                                     android:id="@+id/toggleCOD"
                                     android:layout_width="38dp"
                                     android:layout_height="wrap_content"
@@ -538,7 +541,7 @@
                                     android:background="@drawable/toggle_selector"
                                     android:checked="true"
                                     android:textOff=""
-                                    android:textOn=""/>
+                                    android:textOn=""/>-->
 
                             </LinearLayout>
                             <quay.com.ipos.ui.CustomButton
@@ -724,6 +727,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginTop="@dimen/dim_10"
+                            android:layout_marginBottom="@dimen/dim_5"
                             android:background="@color/backgroundgrey"/>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -768,26 +772,26 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <quay.com.ipos.ui.CustomTextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:padding="@dimen/dim_8"
-                                android:layout_centerVertical="true"
-                                android:text="@string/select_card_type"
-                                android:textColor="@color/filter_text_color"
-                                android:textSize="@dimen/dim_16"
-                                />
-                            <Spinner
+
+                            <fr.ganfra.materialspinner.MaterialSpinner
                                 android:id="@+id/spnCardType"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:gravity="left|center"
+                                android:layout_marginLeft="@dimen/dim_4"
+                                android:layout_marginRight="@dimen/dim_4"
                                 android:entries="@array/card_type"
-                                android:spinnerMode="dropdown"
-                                android:padding="8dp"
                                 android:background="@null"
-                                />
-
+                                app:ms_alignLabels="true"
+                                app:ms_baseColor="@color/white"
+                                app:ms_enableErrorLabel="false"
+                                app:ms_enableFloatingLabel="true"
+                                app:ms_errorColor="@color/red"
+                                app:ms_floatingLabelColor="@color/grey"
+                                app:ms_floatingLabelText="@string/select_card_type"
+                                app:ms_highlightColor="@color/highlight"
+                                app:ms_hint="@string/select_card_type"
+                                app:ms_hintColor="@color/grey"
+                                app:ms_multiline="false" />
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
@@ -1146,6 +1150,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/lLayoutView"
                             android:paddingTop="@dimen/dim_5"
+                            android:visibility="gone"
                             android:background="@color/white"
                             android:orientation="vertical">
                             <LinearLayout
@@ -1184,7 +1189,7 @@
                                         android:textSize="@dimen/text_size_18sp"
                                         android:hint="0 0 0 0"
                                         android:textColor="@color/dark_text_color"
-                                        android:inputType="number" />
+                                        android:inputType="textNoSuggestions" />
                                     <View
                                         android:layout_width="match_parent"
                                         android:layout_height="1dp"

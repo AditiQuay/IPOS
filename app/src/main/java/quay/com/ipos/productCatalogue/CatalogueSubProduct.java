@@ -44,6 +44,7 @@ import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.CatalogueSubCatalogueFragmentAdapter;
 import quay.com.ipos.productCatalogue.productCatalogueHelper.ProductCatalogueUtils;
 import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
+import quay.com.ipos.productCatalogue.productModal.CatalogueRequestModel;
 import quay.com.ipos.productCatalogue.productModal.CatalogueServerModel;
 import quay.com.ipos.productCatalogue.productModal.ProductCatalogueServerModal;
 import quay.com.ipos.productCatalogue.productModal.ProductSectionModal;
@@ -77,7 +78,7 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
             Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-
+    private int productId;
     private int clickedPosition;
 
     @Override
@@ -87,6 +88,8 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
         mContext = CatalogueSubProduct.this;
         Intent i = getIntent();
         productName = i.getStringExtra("ProductName");
+        productId = i.getIntExtra("ProductId",0);
+
         findViewById();
         applyInitValues();
         applyTypeFace();
@@ -98,16 +101,16 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
         int storeId = SharedPrefUtil.getStoreId(Constants.STORE_ID.trim(), 0, mContext);
         AppLog.e(TAG, "StoreId" + storeId);
 
-        CatalogueModal catalogueSubProductParam = new CatalogueModal();
-        catalogueSubProductParam.setCompanyName("Quay");
-        catalogueSubProductParam.setProductId("1");
-        catalogueSubProductParam.setStoreID(String.valueOf(storeId));
+        CatalogueRequestModel catalogueRequestModel = new CatalogueRequestModel();
+        catalogueRequestModel.setCompanyName("Quay");
+        catalogueRequestModel.setProductId(String.valueOf(productId));
+        catalogueRequestModel.setStoreID(String.valueOf(storeId));
 
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL.trim());
         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_PRODUCT_DETAIL.trim());
         mTask.setApiCallType(Constants.API_METHOD_POST);
-        mTask.setParamObj(catalogueSubProductParam);
+        mTask.setParamObj(catalogueRequestModel);
         mTask.setListener(this);
         mTask.setResultType(CatalogueServerModel.class);
         mTask.execute();

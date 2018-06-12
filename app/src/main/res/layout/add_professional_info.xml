@@ -101,6 +101,7 @@
                         android:id="@+id/editGstin"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:lines="1"
                         android:hint="GSTIN Number"
                         android:textSize="@dimen/universal_text_size14" />
 

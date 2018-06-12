@@ -14,6 +14,7 @@ import quay.com.ipos.enums.CustomerEnum;
 public class CustomerModel {
     public static final String TABLE_NAME = "customerList";
     public static final String TABLE_SPINNER = "spinnerList";
+    public static final String KEY_LOCALID = "localId";
 
     public String getRegisteredBusinessPlaceID() {
         return registeredBusinessPlaceID;
@@ -34,12 +35,6 @@ public class CustomerModel {
     }
 
     private String customerCode;
-
-    public int getLocalId() {
-        return localId;
-    }
-
-    private int localId;
 
 
     private String customerID;
@@ -147,6 +142,17 @@ public class CustomerModel {
     private String customerCountry;
     private String customerDesignation;
     private String customerCompany;
+    private double customerPointsPerValue;
+
+    public double getPointsPerValue() {
+        return pointsPerValue;
+    }
+
+    public void setPointsPerValue(double pointsPerValue) {
+        this.pointsPerValue = pointsPerValue;
+    }
+
+    private double pointsPerValue;
 
     public String getCustoemrGstin() {
         return custoemrGstin;
@@ -207,6 +213,15 @@ public class CustomerModel {
 
     private int isSync;
 
+    public int getLocalId() {
+        return localId;
+    }
+
+    public void setLocalId(int localId) {
+        this.localId = localId;
+    }
+
+    private int localId;
     private String searchParam;
     private String storeId;
 
@@ -246,101 +261,100 @@ public class CustomerModel {
             + CustomerEnum.ColoumnTypeList + " TEXT" + ")";
 
     // Create table SQL query
-    public static final String CREATE_TABLE =
-            "CREATE TABLE " + TABLE_NAME + "("
-                    + CustomerEnum.ColoumnLocalID.toString() + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + CustomerEnum.ColoumnCustomerID.toString() + " INTEGER,"
-                    + CustomerEnum.ColoumnCustomerTitle.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerName.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerFirstName.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerLastName.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerGender.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerBday.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerMaritalStatus.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerSpouseFirstName.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerSpouseLastName.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerSpouseDob.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerChildStatus.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerChild.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerEmail.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerEmail2.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerPhone.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerPhone2.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerPhone3.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerAddress.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerState.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerCity.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerPin.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerCountry.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerDesignation.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerCompany.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerGstin.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomer.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerRelationship.toString()+ " TEXT,"
-                    + CustomerEnum.ColoumnCustomerImage.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnLastBillingDate.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnLastBillingAmount.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnIsSuggestion.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnSuggestion.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnRecentOrders.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerCustomerStatus.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerPoint.toString() + " TEXT,"
-                    + CustomerEnum.ColoumncFactor.toString() + " TEXT,"
-                    + CustomerEnum.ColoumncType.toString() + " TEXT,"
-                    + CustomerEnum.ColoumncCustomerDOM.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnCustomerCode.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnRegisteredBusinessPlace.toString() + " TEXT,"
-                    + CustomerEnum.ColoumnIsSync.toString() + " INTEGER" + ")";
+    public static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "(" + KEY_LOCALID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + CustomerEnum.ColoumnCustomerID.toString() + " INTEGER,"
+            + CustomerEnum.ColoumnCustomerTitle.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerName.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerFirstName.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerLastName.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerGender.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerBday.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerMaritalStatus.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerSpouseFirstName.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerSpouseLastName.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerSpouseDob.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerChildStatus.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerChild.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerEmail.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerEmail2.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerPhone.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerPhone2.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerPhone3.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerAddress.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerState.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerCity.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerPin.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerCountry.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerDesignation.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerCompany.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerGstin.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomer.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerRelationship.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerImage.toString() + " TEXT,"
+            + CustomerEnum.ColoumnLastBillingDate.toString() + " TEXT,"
+            + CustomerEnum.ColoumnLastBillingAmount.toString() + " TEXT,"
+            + CustomerEnum.ColoumnIsSuggestion.toString() + " TEXT,"
+            + CustomerEnum.ColoumnSuggestion.toString() + " TEXT,"
+            + CustomerEnum.ColoumnRecentOrders.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerCustomerStatus.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerPoint.toString() + " TEXT,"
+            + CustomerEnum.ColoumncFactor.toString() + " TEXT,"
+            + CustomerEnum.ColoumncType.toString() + " TEXT,"
+            + CustomerEnum.ColoumncCustomerDOM.toString() + " TEXT,"
+            + CustomerEnum.ColoumnCustomerCode.toString() + " TEXT,"
+            + CustomerEnum.ColoumnRegisteredBusinessPlace.toString() + " TEXT,"
+            + CustomerEnum.ColoumnPointsPerValue.toString() + " REAL,"
+            + CustomerEnum.ColoumnIsSync.toString() + " INTEGER" + ")";
 
 
     public CustomerModel() {
 
     }
 
-    public CustomerModel(int localId,
-                         String customerID,
-                         String customerTitle,
-                         String customerName,
-                         String customerFirstName,
-                         String customerLastName,
-                         String customerGender,
-                         String customerBday,
-                         String customerMaritalStatus,
-                         String customerSpouseFirstName,
-                         String customerSpouseLastName,
-                         String customerSpouseDob,
-                         String customerChildSatus,
-                         String customerChild,
-                         String customerEmail,
-                         String customerEmail2,
-                         String customerPhone,
-                         String customerPhone2,
-                         String customerPhone3,
-                         String customerAddress,
-                         String customerState,
-                         String customerCity,
-                         String customerPin,
-                         String customerCountry,
-                         String customerDesignation,
-                         String customerCompany,
-                         String customerGstin,
-                         String customer,
-                         String customerRelationship,
-                         String customerImage,
-                         String lastBillingDate,
-                         String lastBillingAmount,
-                         String issuggestion,
-                         String suggestion,
-                         String customerPoints,
-                         String recent_orders,
-                         String customerStatus,
-                         String cfactor,
-                         String customerType,
-                         String customerDom,
-                         String customerCode,
-                         String registeredBusinessPlaceID,
-                         int sync) {
-        this.localId = localId;
+    public CustomerModel(
+            String customerID,
+            String customerTitle,
+            String customerName,
+            String customerFirstName,
+            String customerLastName,
+            String customerGender,
+            String customerBday,
+            String customerMaritalStatus,
+            String customerSpouseFirstName,
+            String customerSpouseLastName,
+            String customerSpouseDob,
+            String customerChildSatus,
+            String customerChild,
+            String customerEmail,
+            String customerEmail2,
+            String customerPhone,
+            String customerPhone2,
+            String customerPhone3,
+            String customerAddress,
+            String customerState,
+            String customerCity,
+            String customerPin,
+            String customerCountry,
+            String customerDesignation,
+            String customerCompany,
+            String customerGstin,
+            String customer,
+            String customerRelationship,
+            String customerImage,
+            String lastBillingDate,
+            String lastBillingAmount,
+            String issuggestion,
+            String suggestion,
+            String customerPoints,
+            String recent_orders,
+            String customerStatus,
+            String cfactor,
+            String customerType,
+            String customerDom,
+            String customerCode,
+            String registeredBusinessPlaceID,
+            double customerPointsPerValue,
+            int sync) {
         this.customerID = customerID;
         this.customerTitle = customerTitle;
         this.customerName = customerName;
@@ -383,6 +397,7 @@ public class CustomerModel {
         this.customerDom = customerDom;
         this.customerCode = customerCode;
         this.registeredBusinessPlaceID = registeredBusinessPlaceID;
+        this.customerPointsPerValue = customerPointsPerValue;
         this.isSync = sync;
     }
 
@@ -589,4 +604,11 @@ public class CustomerModel {
     }
 
 
+    public double getCustomerPointsPerValue() {
+        return customerPointsPerValue;
+    }
+
+    public void setCustomerPointsPerValue(double customerPointsPerValue) {
+        this.customerPointsPerValue = customerPointsPerValue;
+    }
 }

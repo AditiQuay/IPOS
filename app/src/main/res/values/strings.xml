@@ -103,6 +103,20 @@
         <item>Loyalty Program</item>
         <item>Partner Connect</item>
     </string-array>
+    <string-array name="months">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
 
     <string name="title_partner_connect">Partner Connect</string>
 
@@ -200,8 +214,6 @@
     <string name="an_offer">An Offer</string>
     <string-array name="ordervalue">
         <item>KGM Traders</item>
-        <item>ABC Traders</item>
-        <item>XYZ Traders</item>
     </string-array>
     <string-array name="addressvalue">
         <item>Kirti Nagar, ND</item>
@@ -246,13 +258,14 @@
     <string name="delete_item_message">Do you want to Delete this Item?</string>
     <string name="confirm_action">Confirm action</string>
     <string name="redeem_cannot_applied">Redeem cannot be applied with empty list</string>
+    <string name="redeem_customer_not_authorised">Please select customer first.</string>
     <string name="pinned_empty">Pinned List is empty</string>
     <string name="sending_otp">Sending OTP</string>
     <string name="add_item">Add Item</string>
     <string name="pinned_retail">Retail Pinned</string>
     <string name="product_not_found">Product not found</string>
     <string name="product_added_successfully">Product added Successfully</string>
-    <string name="save_cart_message">\"Do you want to save the Cart?\"</string>
+    <string name="save_cart_message">Do you want to save the Cart?</string>
     <string name="exit_message">Do you want to Exit?</string>
     <string name="pinned_message">Do you want to remove this pinned Item?</string>
 
@@ -284,7 +297,7 @@
     <string name="invalid_spouse_f_name">Please enter a valid Spouse First Name</string>
     <string name="invalid_spouse_l_name">Please enter a valid Spouse Last Name</string>
     <string name="invalid_confirm_password">Password does not match</string>
-    <string name="invalid_phone">Please enter a valid Phone</string>
+    <string name="invalid_phone">Mobile number is mandatory</string>
     <string name="invalid_age">Age must be between 12 and 60.</string>
     <string name="dateerror">Enter a valid date</string>
     <string name="points">Points</string>

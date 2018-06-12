@@ -73,25 +73,26 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         }else {
             data = databaseHandler.getAllProduct();
             IPOSApplication.datumArrayList.addAll(data);
-
+            arrSearchlist.addAll(data);
         }
 
         setAdapter();
     }
 
     private void setAdapter() {
-        for (int i = 0 ; i < IPOSApplication.mProductListResult.size();i++){
-            for (int j = 0 ; j < data.size(); j++)
-            {
-                if (IPOSApplication.mProductListResult.get(i).getIProductModalId().equalsIgnoreCase(data.get(j).getIProductModalId())){
-                    ProductSearchResult.Datum datum = data.get(j);
-                    count++;
-                    datum.setAdded(true);
-                    data.set(j,datum);
-                }
+        if(IPOSApplication.mProductListResult.size()>0)
+            for (int i = 0 ; i < IPOSApplication.mProductListResult.size();i++){
+                for (int j = 0 ; j < data.size(); j++)
+                {
+                    if (IPOSApplication.mProductListResult.get(i).getIProductModalId().equalsIgnoreCase(data.get(j).getIProductModalId())){
+                        ProductSearchResult.Datum datum = data.get(j);
+                        count++;
+                        datum.setAdded(true);
+                        data.set(j,datum);
+                    }
 
+                }
             }
-        }
         mAddProductAdapter = new AddProductAdapter(this,this,mRecyclerView,arrSearchlist);
         mRecyclerView.setAdapter(mAddProductAdapter);
     }
@@ -228,28 +229,28 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                 int pos = (int) view.getTag();
                 if( IPOSApplication.mProductListResult.size()>0) {
                     for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
-                            if (arrSearchlist.get(pos).getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(i).getIProductModalId())) {
-                                ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
-                                if (mProductSearchResultData.isAdded()) {
-                                    mProductSearchResultData.setAdded(false);
-                                    count--;
-                                    mProductSearchResultData.setQty(mProductSearchResultData.getQty() - 1);
-                                    IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
-                                    arrSearchlist.set(pos, mProductSearchResultData);
+                        if (arrSearchlist.get(pos).getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(i).getIProductModalId())) {
+                            ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
+                            if (mProductSearchResultData.isAdded()) {
+                                mProductSearchResultData.setAdded(false);
+                                count--;
+                                mProductSearchResultData.setQty(mProductSearchResultData.getQty() - 1);
+                                IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
+                                arrSearchlist.set(pos, mProductSearchResultData);
 
-                                    Util.showToast(getString(R.string.product_removed_successfully), AddProductActivity.this);
-                                } else {
-                                    mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 1);
-                                    mProductSearchResultData.setAdded(true);
-                                    count++;
-                                    IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
-                                    arrSearchlist.set(pos, mProductSearchResultData);
-                                    Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
-                                }
-                                found = true;
+                                Util.showToast(getString(R.string.product_removed_successfully), AddProductActivity.this);
                             } else {
-//                            IPOSApplication.mProductSearchResult.add(0,arrSearchlist.get(pos));
+                                mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 1);
+                                mProductSearchResultData.setAdded(true);
+                                count++;
+                                IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
+                                arrSearchlist.set(pos, mProductSearchResultData);
+                                Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
                             }
+                            found = true;
+                        } else {
+//                            IPOSApplication.mProductSearchResult.add(0,arrSearchlist.get(pos));
+                        }
                     }
                     if(!found){
                         ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
@@ -338,6 +339,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 
                     mProductSearchResult = (ProductSearchResult) resultObj;
                     data.addAll(mProductSearchResult.getData());
+                    arrSearchlist.addAll(data);
                     IPOSApplication.datumArrayList.addAll(data);
                     if(databaseHandler.isRetailMasterEmpty()) {
                         for (int i = 0; i < data.size(); i++) {

@@ -1,13 +1,14 @@
 package quay.com.ipos.customerInfo.customerAdd;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomerSpinnerServerModel;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.listeners.YourFragmentInterface;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
@@ -38,8 +40,12 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Context mContext;
+
     private DatabaseHandler dbHelper;
     private String TAG = CustomerAddMain.class.getSimpleName();
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "Data";
+    int count;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +53,8 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
         setContentView(R.layout.customer_add_main);
         mContext = CustomerAddMain.this;
         dbHelper = new DatabaseHandler(mContext);
+        Intent i = getIntent();
+        count = i.getIntExtra("Count", 0);
         getSpinnerList();
         findViewById();
         applyInitValues();
@@ -79,7 +87,12 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.clear();
+                editor.apply();
                 finish();
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -100,11 +113,31 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+    private void setupViewPager(final ViewPager viewPager) {
+        final ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new CustomerAddQuickFragment(), "QUICK INFO");
         adapter.addFragment(new CustomerAddFullFragment(), "FULL INFO");
         viewPager.setAdapter(adapter);
+        if (count != 0) {
+            viewPager.setCurrentItem(1);
+        }
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                YourFragmentInterface fragment = (YourFragmentInterface) adapter.instantiateItem(viewPager, position);
+                fragment.fragmentBecameVisible();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override
@@ -127,7 +160,7 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
             JSONArray customerTypeList = jsonObject1.optJSONArray(CustomerEnum.ColoumnTypeList.toString());
 
 
-            long id = dbHelper.insertSpinnerItems(cityList.toString(), stateList.toString(), countryList.toString(), designationList.toString(), companyArray.toString(), relationshipList.toString(),customerTypeList.toString());
+            long id = dbHelper.insertSpinnerItems(cityList.toString(), stateList.toString(), countryList.toString(), designationList.toString(), companyArray.toString(), relationshipList.toString(), customerTypeList.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
