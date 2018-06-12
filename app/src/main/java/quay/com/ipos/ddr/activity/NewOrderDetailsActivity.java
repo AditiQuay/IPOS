@@ -1,5 +1,6 @@
 package quay.com.ipos.ddr.activity;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -9,6 +10,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -21,6 +24,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -42,10 +46,12 @@ import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.ddr.adapter.AddressListAdapter;
 import quay.com.ipos.ddr.adapter.ItemsDetailListAdapter;
+import quay.com.ipos.realmbean.RealmBusinessPlaces;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SpacesItemDecoration;
 import quay.com.ipos.utility.Util;
 
@@ -60,12 +66,15 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
     private NewOrderItemsDetailListAdapter recentOrdersListAdapter;
     private AddressListAdapter addressListAdapter;
     private ArrayList<RecentOrderModal> recentOrderModalArrayList=new ArrayList<>();
-    private ArrayList<RecentOrderModal> addressList=new ArrayList<>();
-    TextView tvOrderName,OrderDate,tvStatus,orderValue,orderDiscount,deliverDate,loyaltyPoints,
+    private ArrayList<RealmBusinessPlaces> addressList=new ArrayList<>();
+    TextView tvOrderName,OrderDate,tvStatus,orderValue,orderDiscount,loyaltyPoints,
             accumulatedPoints,totalPoints,customerName,discount,tvOrderValue;
     private String jsonObjectsubmit;
     private JSONObject jsonObjectSubmitJson;
     private String poNumber;
+    private LinearLayout llAccept,llCancel,llDate;
+    private TextView deliverDate;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,15 +84,53 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         setHeader();
         initializeComponent();
 
-        addressListAdapter = new AddressListAdapter(this, recentOrderModalArrayList);
+        addressListAdapter = new AddressListAdapter(this, addressList);
         recycler_viewAddress.setAdapter(addressListAdapter);
         getRecentOrdersData();
         setAllData();
 
-        getAddressData();
+
+        llDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dateDialogfrom();
+            }
+        });
+      //  getAddressData();
         //setOrdersData();
     }
+    public  void dateDialogfrom() {
+        final Calendar c = Calendar.getInstance();
 
+        int y = c.get(Calendar.YEAR);
+        int m = c.get(Calendar.MONTH);
+        int d = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog dp = new DatePickerDialog(mContext,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        String erg = year+"";
+                        erg += "-" + String.valueOf(monthOfYear + 1);
+                        erg += "-" + String.valueOf(dayOfMonth);
+
+                        try {
+                            jsonObjectSubmitJson.put("deliveryBy",erg);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        deliverDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
+
+                    }
+
+                }, y, m, d);
+        dp.setTitle("Calender");
+        dp.show();
+
+
+    }
 
     private void prepareData(Realm realm, RealmOrderList realmOrderLists){
         Gson gson = new GsonBuilder().create();
@@ -137,9 +184,18 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
                         String responseData = response.body().string();
                         if (responseData != null) {
                             deleteItems(poNumber);
-                            JSONObject jsonObject1=new JSONObject(responseData);
-                            Util.showToast(jsonObject1.optString("message"));
+                            final JSONObject jsonObject1=new JSONObject(responseData);
 
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Util.showToast(jsonObject1.optString("message"));
+                                    Intent mIntent = new Intent();
+                                    setResult(6,mIntent);
+                                    finish();
+                                }
+                            });
 
                         }
 
@@ -172,15 +228,16 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             poNumber=realmOrderLists.getPoNumber();
             prepareData(realm,realmOrderLists);
             tvOrderName.setText(realmOrderLists.getPoNumber());
-            OrderDate.setText(realmOrderLists.getPoDate());
+            OrderDate.setText(Util.getFormattedDates(realmOrderLists.getPoDate(),Constants.format6,Constants.format2));
             tvStatus.setText(realmOrderLists.getPoStatus());
             orderValue.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getOrderValue());
             orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
-            deliverDate.setText(realmOrderLists.getDeliveryBy());
+            deliverDate.setText(Util.getFormattedDates(realmOrderLists.getDeliveryBy(),Constants.format6,Constants.format2));
+           // deliverDate.setText(realmOrderLists.getDeliveryBy());
             loyaltyPoints.setText(realmOrderLists.getOrderLoyality()+"");
             accumulatedPoints.setText(realmOrderLists.getAccumulatedLoyality()+"");
             totalPoints.setText(realmOrderLists.getTotalLoyality()+"");
-            customerName.setText(realmOrderLists.getCustomerName());
+            customerName.setText(Prefs.getStringPrefs(Constants.EntityName));
             discount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
             tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getOrderValue());
             tvTotalQty.setText(realmOrderLists.getQuantity()+"");
@@ -188,7 +245,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalCGSTValue()+"");
             tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalSGSTValue()+"");
             tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalRoundingOffValue()+"");
-
+            getAddressData(realmOrderLists.getBusinessPlaceCode()+"");
             try {
                 JSONArray arrayCart=new JSONArray(realmOrderLists.getCartDetail());
 
@@ -218,7 +275,10 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
 
     private void initializeComponent() {
-
+        deliverDate=findViewById(R.id.deliverDate);
+        llDate=findViewById(R.id.llDate);
+        llAccept=findViewById(R.id.llAccept);
+        llCancel=findViewById(R.id.llCancel);
         tvOrderName = findViewById(R.id.tvOrderName);
         OrderDate = findViewById(R.id.OrderDate);
         tvStatus = findViewById(R.id.tvStatus);
@@ -254,6 +314,22 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recycler_viewAddress.setLayoutManager(mLayoutManager5);
         recycler_viewAddress.addItemDecoration(new SpacesItemDecoration(10));
+        llAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitLoginRequest(jsonObjectSubmitJson.toString());
+
+            }
+        });
+        llCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteItems(poNumber);
+                Intent mIntent = new Intent();
+                setResult(6,mIntent);
+                finish();
+            }
+        });
     }
 
 
@@ -283,11 +359,21 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
     }
 
 
-    private void getAddressData() {
-        for (int i = 0; i < address.length; i++) {
-            RecentOrderModal recentOrderModal = new RecentOrderModal();
-            recentOrderModal.setTitle(address[i]);
-            addressList.add(recentOrderModal);
+    private void getAddressData(String businesplaceCode) {
+
+        Realm realm=Realm.getDefaultInstance();
+        RealmResults<RealmBusinessPlaces> realmBusinessPlaces=realm.where(RealmBusinessPlaces.class).findAll();
+        for (int i = 0; i < realmBusinessPlaces.size(); i++) {
+            RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
+            realmBusinessPlaces1.setHeader("Shopping Details "+(i+1));
+            realmBusinessPlaces1.setBuisnessPlaceName(realmBusinessPlaces.get(i).getBuisnessPlaceName());
+            realmBusinessPlaces1.setBuisnessPlaceId(realmBusinessPlaces.get(i).getBuisnessPlaceId());
+            realmBusinessPlaces1.setBuisnessLocationStateCode(realmBusinessPlaces.get(i).getBuisnessLocationStateCode());
+            if (businesplaceCode.equalsIgnoreCase(realmBusinessPlaces.get(i).getBuisnessPlaceId()+"")){
+                realmBusinessPlaces1.setSelected(true);
+                addressList.add(realmBusinessPlaces1);
+            }
+
 
         }
         addressListAdapter.notifyDataSetChanged();
@@ -298,7 +384,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         int id = view.getId();
 
         switch (id){
-            case R.id.btnAccept:
+            case R.id.llAccept:
                 submitLoginRequest(jsonObjectSubmitJson.toString());
 //                Intent mIntent = new Intent(this,OrderCentreDetailsActivity.class);
 //                startActivity(mIntent);
@@ -309,7 +395,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
                 setResult(6,mIntent);
                 finish();
                 break;
-            case R.id.btnCancel:
+            case R.id.llCancel:
                 deleteItems(poNumber);
 
 //                Intent mIntent = new Intent(this,OrderCentreDetailsActivity.class);

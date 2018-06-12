@@ -15,18 +15,20 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.ddr.adapter.AddressListAdapter;
 import quay.com.ipos.ddr.adapter.ItemsDetailListAdapter;
 import quay.com.ipos.ddr.adapter.WorkFLowUserAdapter;
 import quay.com.ipos.ddr.modal.UserModal;
+import quay.com.ipos.realmbean.RealmBusinessPlaces;
 import quay.com.ipos.utility.SpacesItemDecoration;
 
 /**
  * Created by ankush.bansal on 20-04-2018.
  */
 
-public class OrderCentreWorkFlowDetailsActivity extends BaseActivity{
+public class OrderCentreWorkFlowDetailsActivity extends BaseActivity implements MyListener{
     String[] address = {"1/82"};
     String[] items={"SoudaFoam 1k","SoudaFoam Pro"};
     String[] user={"KGM Traders","McCoy"};
@@ -36,7 +38,7 @@ public class OrderCentreWorkFlowDetailsActivity extends BaseActivity{
     private AddressListAdapter addressListAdapter;
     private ArrayList<RecentOrderModal> arrSearchList=new ArrayList<>();
     private ArrayList<RecentOrderModal> recentOrderModalArrayList=new ArrayList<>();
-    private ArrayList<RecentOrderModal> addressList=new ArrayList<>();
+    private ArrayList<RealmBusinessPlaces> addressList=new ArrayList<>();
     private ArrayList<UserModal> stringArrayListRoles=new ArrayList<>();
     private WorkFLowUserAdapter workFLowUserAdapter;
 
@@ -71,17 +73,17 @@ public class OrderCentreWorkFlowDetailsActivity extends BaseActivity{
         //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recycler_viewAddress.setLayoutManager(mLayoutManager5);
         recycler_viewAddress.addItemDecoration(new SpacesItemDecoration(10));
-        addressListAdapter = new AddressListAdapter(this, recentOrderModalArrayList);
+        addressListAdapter = new AddressListAdapter(this, addressList);
         recycler_viewAddress.setAdapter(addressListAdapter);
         recylerViewRoles = findViewById(R.id.recylerViewRoles);
         recylerViewRoles.setVisibility(View.VISIBLE);
-        workFLowUserAdapter = new WorkFLowUserAdapter(mContext, stringArrayListRoles);
+        workFLowUserAdapter = new WorkFLowUserAdapter(mContext, stringArrayListRoles,this);
         recylerViewRoles.addItemDecoration(new SpacesItemDecoration(10));
         recylerViewRoles.setAdapter(workFLowUserAdapter);
         recylerViewRoles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         getRecentOrdersData();
-        getAddressData();
+        //getAddressData();
         getuserData();
     }
 
@@ -118,7 +120,7 @@ public class OrderCentreWorkFlowDetailsActivity extends BaseActivity{
     }
 
 
-    private void getAddressData() {
+   /* private void getAddressData() {
         for (int i = 0; i < address.length; i++) {
             RecentOrderModal recentOrderModal = new RecentOrderModal();
             recentOrderModal.setTitle(address[i]);
@@ -127,7 +129,7 @@ public class OrderCentreWorkFlowDetailsActivity extends BaseActivity{
 
         }
         addressListAdapter.notifyDataSetChanged();
-    }
+    }*/
 
     private void getuserData() {
         for (int i = 0; i < user.length; i++) {
@@ -144,4 +146,13 @@ public class OrderCentreWorkFlowDetailsActivity extends BaseActivity{
         workFLowUserAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onRowClicked(int position) {
+
+    }
+
+    @Override
+    public void onRowClicked(int position, int value) {
+
+    }
 }

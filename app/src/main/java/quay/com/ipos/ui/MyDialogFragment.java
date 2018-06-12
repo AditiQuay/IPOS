@@ -14,19 +14,30 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Type;
+
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
+import quay.com.ipos.base.BaseDialogFragment;
+import quay.com.ipos.modal.CustomerPointsRedeemRequest;
+import quay.com.ipos.modal.OrderSubmitResult;
+import quay.com.ipos.service.ServiceTask;
+import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.Util;
 
-public class MyDialogFragment extends DialogFragment
+public class MyDialogFragment extends BaseDialogFragment implements View.OnClickListener,ServiceTask.ServiceResultListener
 {
     TextView tvRedeemPoints,tvResendOTP;
     ImageView imageViewCancel;
     EditText etPointToRedeem,etRedeemValue,etOTP;
     Button buttonSendOtp,buttonVerify,buttonRedeem;
     LinearLayout llVerifyRedeem;
-    int points;
+    int points=0,pointsPer=0, points1;
+    String mCustomerEmail,mCustomerID;
     View.OnClickListener mOnClickListener;
     static MyDialogFragment f;
+    double redeemValue;
     //private View pic;
 //    public MyDialogFragment()
 //    {
@@ -44,16 +55,20 @@ public class MyDialogFragment extends DialogFragment
         return f;
     }
 
-    public void setDialogInfo(View.OnClickListener mOnClickListener)
+    public void setDialogInfo(View.OnClickListener mOnClickListener, int points, int pointsPer, String mCustomerEmail, String mCustomerID)
     {
-       this.mOnClickListener = mOnClickListener;
+        this.mOnClickListener = mOnClickListener;
+        this.points = points;
+        this.pointsPer = pointsPer;
+        this.mCustomerID = mCustomerID;
+        this.mCustomerEmail = mCustomerEmail;
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
         final View view = getActivity().getLayoutInflater().inflate(R.layout.retail_sales_loyalty_points, new LinearLayout(getActivity()), false);
-        points = getArguments().getInt("points",0);
+//        points = getArguments().getInt("points",0);
         imageViewCancel = view.findViewById(R.id.imageViewCancel);
         tvRedeemPoints = view.findViewById(R.id.tvRedeemPoints);
         etPointToRedeem = view.findViewById(R.id.etPointToRedeem);
@@ -81,9 +96,11 @@ public class MyDialogFragment extends DialogFragment
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(!charSequence.toString().trim().equals("")) {
-                    points = Integer.parseInt(charSequence.toString());
-                    double redeemValue = points * 0.1;
-                    etRedeemValue.setText(redeemValue + "");
+                    points1 = Integer.parseInt(charSequence.toString());
+                    if(points1<=points) {
+                        redeemValue = points1 * pointsPer;
+                        etRedeemValue.setText(redeemValue + "");
+                    }
                 }else {
                     etRedeemValue.setText(0 + "");
                 }
@@ -94,16 +111,63 @@ public class MyDialogFragment extends DialogFragment
 
             }
         });
-        double redeemValue = points*0.1;
+        redeemValue = points*pointsPer;
         etRedeemValue.setText(redeemValue+"");
-        buttonSendOtp.setOnClickListener(mOnClickListener);
-        buttonRedeem.setOnClickListener(mOnClickListener);
-        buttonVerify.setOnClickListener(mOnClickListener);
+
+
+//        Bundle mBundle = new Bundle();
+////        mBundle.putInt(Constants.KEY_CUSTOMER_POINTS_EMAIL,points);
+//        mBundle.putInt(Constants.KEY_CUSTOMER_POINTS,points1);
+//        buttonSendOtp.setTag(mBundle);
+//        if(redeemValue>0){
+        buttonSendOtp.setOnClickListener(this);
+//        }else {
+//            Util.showToast("No points to redeem", getActivity() );
+//        }
+
+        buttonRedeem.setOnClickListener(this);
+        buttonVerify.setOnClickListener(this);
         // Build dialog
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         builder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         builder.setContentView(view);
         return builder;
+    }
+    private void sendOTPtoServer() {
+        CustomerPointsRedeemRequest customerPointsRedeemRequest = new CustomerPointsRedeemRequest();
+        customerPointsRedeemRequest.setCustomerId(mCustomerID);
+        customerPointsRedeemRequest.setEmailId("aditi.bhuranda@quayintech.com");
+        customerPointsRedeemRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode.trim()));
+        customerPointsRedeemRequest.setPointsRedeemValue((int)redeemValue);
+        customerPointsRedeemRequest.setPointsToRedeem(points1);
+        showProgressDialog(R.string.please_wait);
+        ServiceTask mServiceTask = new ServiceTask();
+        mServiceTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT);
+        mServiceTask.setParamObj(customerPointsRedeemRequest);
+        mServiceTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+        mServiceTask.setListener(this);
+        mServiceTask.setResultType(null);
+        mServiceTask.execute();
+    }
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+
+        switch (id){
+            case R.id.buttonSendOtp:
+                if(redeemValue>0){
+//                    sendOTPtoServer();
+                }else {
+                    Util.showToast("No points to redeem", getActivity() );
+                }
+
+                break;
+        }
+    }
+
+    @Override
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
+
     }
 }

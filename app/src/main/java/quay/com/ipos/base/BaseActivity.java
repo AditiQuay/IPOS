@@ -21,7 +21,7 @@ import static quay.com.ipos.utility.Util.getStringRes;
 public class BaseActivity extends AppCompatActivity {
     //Save the path as a string value
 
-    protected Context mContext;
+    public static Context mContext;
     private ProgressDialog mProgressDialog;
     public boolean isReplaced = false;
 

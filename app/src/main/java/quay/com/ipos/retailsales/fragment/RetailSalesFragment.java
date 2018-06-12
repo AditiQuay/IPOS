@@ -43,6 +43,7 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zbar.ZBarScannerView;
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
@@ -52,6 +53,8 @@ import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.MyAdapterTags;
 import quay.com.ipos.listeners.ScanFilterListener;
 import quay.com.ipos.listeners.ScannerProductListener;
+import quay.com.ipos.modal.CustomerPointsRedeemRequest;
+import quay.com.ipos.modal.OrderSubmitResult;
 import quay.com.ipos.modal.PaymentRequest;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.modal.ProductListResult;
@@ -61,6 +64,7 @@ import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
+import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
@@ -69,6 +73,7 @@ import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.ui.WrapContentLinearLayoutManager;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
@@ -83,8 +88,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
     ProductListResult productListResult = null;
     private MainActivity mainActivity;
-    int mCustomerPoints;
-    String mCustomerID;
+    int mCustomerPoints,mCustomerPointsPer=0;
+    String mCustomerID,mCustomerEmail;
     private ArrayList<PaymentRequest.CartDetail> cartDetail = new ArrayList<>();
     private ArrayList<PaymentRequest.Scheme> scheme = new ArrayList<>();
     /**
@@ -631,6 +636,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
                 mCustomerPoints = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPointsPer = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
+                mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
                 tvRedeemPoints.setText(mCustomerPoints+"");
             }
@@ -638,6 +645,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
                 mCustomerPoints = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPointsPer = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
+                mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
                 tvRedeemPoints.setText(mCustomerPoints+"");
             }
@@ -1026,10 +1035,13 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     Util.showToast(getString(R.string.redeem_cannot_applied), mContext);
 
                 break;
-            case R.id.buttonSendOtp:
-                AppLog.e(TAG, "buttonSendOtp click");
-                Util.showToast(getString(R.string.sending_otp), mContext);
-                break;
+//            case R.id.buttonSendOtp:
+//                AppLog.e(TAG, "buttonSendOtp click");
+////                Util.showToast(getString(R.string.sending_otp), mContext);
+//                Bundle mBundle = new Bundle();,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+//                mBundle.getInt(Constants.KEY_CUSTOMER_POINTS);
+//                sendOTPtoServer();
+//                break;
             case R.id.buttonRedeem:
 
                 break;
@@ -1104,6 +1116,23 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 break;
         }
     }
+
+//    private void sendOTPtoServer() {
+//        CustomerPointsRedeemRequest customerPointsRedeemRequest = new CustomerPointsRedeemRequest();
+//        customerPointsRedeemRequest.setCustomerId(mCustomerID);
+//        customerPointsRedeemRequest.setEmailId(mCustomerEmail);
+//        customerPointsRedeemRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode.trim()));
+//        customerPointsRedeemRequest.setPointsRedeemValue(mCustomerPoints);
+//        customerPointsRedeemRequest
+//        showProgressDialog(R.string.please_wait);
+//        ServiceTask mServiceTask = new ServiceTask();
+//        mServiceTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT);
+//        mServiceTask.setParamObj(customerPointsRedeemRequest);
+//        mServiceTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+//        mServiceTask.setListener(this);
+//        mServiceTask.setResultType(OrderSubmitResult.class);
+//        mServiceTask.execute();
+//    }
 
     private void setNewBilling() {
         if(IPOSApplication.mProductListResult.size()>0){
@@ -1488,10 +1517,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         }
     }
 
-    /**
-     * The Points.
-     */
-    int points = 500;
+
 
     /**
      * Show redeem loyalty popup.
@@ -1499,13 +1525,13 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
      * @param v the v
      */
     public void showRedeemLoyaltyPopup(View v) {
-        Bundle args = new Bundle();
-        args.putInt("points", points);
+//        Bundle args = new Bundle();
+//        args.putInt("points", points);
 
         FragmentManager fragmentManager = getChildFragmentManager();
         MyDialogFragment mMyDialogFragment = MyDialogFragment.newInstance();
-        mMyDialogFragment.setDialogInfo(this);
-        mMyDialogFragment.setArguments(args);
+        mMyDialogFragment.setDialogInfo(this,mCustomerPoints,mCustomerPointsPer,mCustomerEmail,mCustomerID);
+//        mMyDialogFragment.setArguments(args);
         mMyDialogFragment.show(fragmentManager, "Redeem");
 
     }

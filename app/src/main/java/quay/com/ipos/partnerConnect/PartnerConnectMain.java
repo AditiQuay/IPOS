@@ -222,10 +222,6 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                 return new BillingAddressFragment();
             case 5:
                 return new DocumentsFragment();
-<<<<<<< HEAD
-=======
-
->>>>>>> 9afaf46ef452fa8d57265b088fa0492c3b7de513
             default:
                 return RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
         }

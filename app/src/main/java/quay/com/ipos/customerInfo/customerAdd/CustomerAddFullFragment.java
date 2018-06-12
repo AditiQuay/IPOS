@@ -54,6 +54,7 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MySubmitButton;
 import quay.com.ipos.listeners.YourFragmentInterface;
 import quay.com.ipos.service.ServiceTask;
+import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.SharedPrefUtil;
@@ -110,7 +111,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     private String[] maritalStatus = {"Unmarried", "Married"};
     private Bundle bundle;
     SharedPreferences sharedpreferences;
-    public static final String mypreference = "mypref";
+    public static final String mypreference = "Data";
 
     private TextInputLayout tilChildfname, tilChildDob;
     private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDob;
@@ -133,6 +134,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e(TAG, "onCreate method  called");
+
+
     }
 
     @Nullable
@@ -141,13 +144,47 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         main = inflater.inflate(R.layout.customer_add_full_fragment, container, false);
         mContext = getActivity();
         dbHelper = new DatabaseHandler(mContext);
-
+        AppLog.e(TAG, "onCreateView Called");
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+        setData();
 
         return main;
+    }
+    public void setData(){
+        sharedpreferences = mContext.getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+        if (sharedpreferences.contains("title")) {
+            String title = sharedpreferences.getString("title", "");
+            for (int i = 0; i < nameTitle.length; i++) {
+                if (titleSpinner.getItemAtPosition(i).equals(title)) {
+                    titleSpinner.setSelection(i);
+                }
+            }
+        }
+        if (sharedpreferences.contains("firstName")) {
+            tieFirstName.setText(sharedpreferences.getString("firstName", ""));
+            tieFirstName.setFocusable(false);
+        }
+        if (sharedpreferences.contains("lastName")) {
+            tieLastName.setText(sharedpreferences.getString("lastName", ""));
+            tieLastName.setFocusable(false);
+        }
+        if (sharedpreferences.contains("MobileNumber")) {
+            tieMobileNumPrimary.setText(sharedpreferences.getString("MobileNumber", ""));
+            tieMobileNumPrimary.setFocusable(false);
+        }
+        if (sharedpreferences.contains("email")) {
+            tieEmail1.setText(sharedpreferences.getString("email", ""));
+            tieEmail1.setFocusable(false);
+        }
+        if (sharedpreferences.contains("bDay")) {
+            tieDOB.setText(sharedpreferences.getString("bDay", ""));
+            tieDOB.setFocusable(false);
+            tieDOB.setClickable(false);
+        }
     }
 
     @Override
@@ -706,15 +743,16 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                         isFail = true;
                         tilSpouseDob.setErrorEnabled(true);
                         tilSpouseDob.setError(getResources().getString(R.string.dateerror));
-                    }if (childStatus.equalsIgnoreCase("null")){
+                    }
+                    if (childStatus.equalsIgnoreCase("null")) {
                         isFail = true;
                         childSpinner.setEnableErrorLabel(true);
                         childSpinner.setError("Please select child status");
                     }
 
 
-                    if(childStatus.equalsIgnoreCase("Yes")){
-                        if (childStatus.equalsIgnoreCase("Yes")){
+                    if (childStatus.equalsIgnoreCase("Yes")) {
+                        if (childStatus.equalsIgnoreCase("Yes")) {
 
                             for (int i = 0; i < childModels.size(); i++) {
                                 View view = recyclerViewChild.getLayoutManager().findViewByPosition(i);
@@ -826,12 +864,12 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     tilSpouseLastName.setError(null);
                     childSpinner.setError(null);
                 }
-                if (TextUtils.isEmpty(tieEmail1.getText().toString())) {
+                if (TextUtils.isEmpty(tieEmail1.getText().toString()) && Util.isValidEmaillId(tieEmail1.getText().toString())) {
                     isFail = true;
                     tilEmail1.setErrorEnabled(true);
                     tilEmail1.setError(getResources().getString(R.string.invalid_email));
                 }
-                if (TextUtils.isEmpty(tieMobileNumPrimary.getText().toString())) {
+                if (tieMobileNumPrimary.getText().toString().length() < 10 || tieMobileNumPrimary.getText().toString().length() > 10) {
                     isFail = true;
                     tilMobileNumPrimary.setErrorEnabled(true);
                     tilMobileNumPrimary.setError(getResources().getString(R.string.invalid_phone));
@@ -866,7 +904,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     maritalStatusSpinner.setEnableErrorLabel(false);
                     designationSpinner.setEnableErrorLabel(false);
                     companySpinner.setEnableErrorLabel(false);
-
 
 
                     sendCustomerData();
@@ -1208,22 +1245,32 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         if (sharedpreferences.contains("title")) {
             String title = sharedpreferences.getString("title", "");
             for (int i = 0; i < nameTitle.length; i++) {
-                if (nameTitle[i].equalsIgnoreCase(title)) {
+                if (titleSpinner.getItemAtPosition(i).equals(title)) {
                     titleSpinner.setSelection(i);
+                    break;
                 }
             }
         }
-        if (sharedpreferences.contains("fName")) {
-            tieFirstName.setText(sharedpreferences.getString("fName", ""));
+        if (sharedpreferences.contains("firstName")) {
+            tieFirstName.setText(sharedpreferences.getString("firstName", ""));
             tieFirstName.setFocusable(false);
         }
         if (sharedpreferences.contains("lastName")) {
             tieLastName.setText(sharedpreferences.getString("lastName", ""));
             tieLastName.setFocusable(false);
         }
-        if (sharedpreferences.contains("mobileNumber")) {
-            tieMobileNumPrimary.setText(sharedpreferences.getString("mobileNumber", ""));
+        if (sharedpreferences.contains("MobileNumber")) {
+            tieMobileNumPrimary.setText(sharedpreferences.getString("MobileNumber", ""));
             tieMobileNumPrimary.setFocusable(false);
+        }
+        if (sharedpreferences.contains("email")) {
+            tieEmail1.setText(sharedpreferences.getString("email", ""));
+            tieEmail1.setFocusable(false);
+        }
+        if (sharedpreferences.contains("bDay")) {
+            tieDOB.setText(sharedpreferences.getString("bDay", ""));
+            tieDOB.setFocusable(false);
+            tieDOB.setClickable(false);
         }
 
     }

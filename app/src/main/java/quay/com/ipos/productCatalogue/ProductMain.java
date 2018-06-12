@@ -2,7 +2,6 @@ package quay.com.ipos.productCatalogue;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,7 +31,6 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductMainSectionAdapter;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.SearchedItemsAdapter;
 import quay.com.ipos.productCatalogue.productCatalogueHelper.ProductCatalogueUtils;
-import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 import quay.com.ipos.productCatalogue.productModal.ProductCatalogueServerModal;
 import quay.com.ipos.productCatalogue.productModal.ProductItemModal;
 import quay.com.ipos.productCatalogue.productModal.ProductSectionModal;
@@ -130,7 +128,6 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
             recyclerviewFilter.setAdapter(searchedItemsAdapter);
 
 
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -169,7 +166,7 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
         recyclerviewCategory.setHasFixedSize(true);
         recyclerviewCategory.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
-        if (ProductCatalogueUtils.getProductSectionModals(mContext)!=null){
+        if (ProductCatalogueUtils.getProductSectionModals(mContext) != null) {
             productMainSectionAdapter = new ProductMainSectionAdapter(mContext, ProductCatalogueUtils.getProductSectionModals(mContext));
             recyclerviewCategory.setAdapter(null);
             recyclerviewCategory.setAdapter(productMainSectionAdapter);
@@ -181,7 +178,7 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
         recyclerviewFilter.setHasFixedSize(true);
         recyclerviewFilter.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
-        if (ProductCatalogueUtils.getSearchedItems(mContext)!=null){
+        if (ProductCatalogueUtils.getSearchedItems(mContext) != null) {
             searchedItemsAdapter = new SearchedItemsAdapter(mContext, ProductCatalogueUtils.getSearchedItems(mContext));
             recyclerviewFilter.setAdapter(null);
             recyclerviewFilter.setAdapter(searchedItemsAdapter);
@@ -273,10 +270,10 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
             disableSwipeToRefresh();
 
             if (resultObj != null) {
-                if (productSectionModals.size()>0){
+                if (productSectionModals.size() > 0) {
                     productSectionModals.clear();
                 }
-                if (singleItem.size()>0){
+                if (singleItem.size() > 0) {
                     singleItem.clear();
                 }
                 getServerData(serverResponse);
