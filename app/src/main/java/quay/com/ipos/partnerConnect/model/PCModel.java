@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class PCModel {
-
+    public int EntityID;//": 1
     public String psslastUpdated;
 
     public String RelationShipName;

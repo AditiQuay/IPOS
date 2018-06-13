@@ -135,6 +135,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:hint="Key Contact Person *"
+                                        android:inputType="textCapWords"
+                                        android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -166,6 +168,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:hint="Mobile No. *"
+                                        android:maxLines="1"
+                                        android:inputType="phone"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -187,6 +191,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:hint="Secondary Mobile No. *"
+                                        android:maxLines="1"
+                                        android:inputType="phone"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -213,6 +219,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Email *"
+                                    android:maxLines="1"
+                                    android:inputType="textEmailAddress"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
@@ -228,6 +236,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Note"
+                                    android:maxLines="3"
+                                    android:inputType="text"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>

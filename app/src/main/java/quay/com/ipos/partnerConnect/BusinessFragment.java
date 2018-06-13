@@ -107,7 +107,7 @@ public class BusinessFragment extends Fragment implements InitInterface, View.On
     }
 
     private void setData(PCModel pcModel) {
-        if (pcModel == null && pcModel.Business == null && pcModel.Business.KeyBusinessInfo == null) {
+        if (pcModel == null || pcModel.Business == null || pcModel.Business.KeyBusinessInfo == null) {
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }

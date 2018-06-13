@@ -200,6 +200,9 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
                 case R.id.spinnerSecurityCheque:
                     if (i != -1)
                         list.get(position).mSecurityCheque = mSecurityChequesList.get(i);
+                    else
+                        list.get(position).mSecurityCheque = "";
+
                     break;
 
             }

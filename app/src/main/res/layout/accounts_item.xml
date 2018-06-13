@@ -94,6 +94,8 @@
                                         android:layout_height="match_parent"
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Drawn on A/c *"
+                                        android:inputType="number"
+                                        android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -155,6 +157,7 @@
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Max Limit Amount *"
                                         android:maxLines="1"
+                                        android:inputType="number"
                                         android:textSize="@dimen/universal_text_size16" />
 
                                 </android.support.design.widget.TextInputLayout>

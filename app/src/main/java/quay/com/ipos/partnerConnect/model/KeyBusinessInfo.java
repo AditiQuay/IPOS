@@ -1,11 +1,17 @@
 package quay.com.ipos.partnerConnect.model;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 public class KeyBusinessInfo {
+    public String sync;
     public int id;
+
+    @NonNull
     @SerializedName("partnerType")
     public String mPartnerType;
+
     @SerializedName("CompaneyName")
     public String mCompanyName;
     @SerializedName("CIN")

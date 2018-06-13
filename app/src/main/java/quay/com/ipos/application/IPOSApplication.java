@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -88,6 +89,10 @@ public class IPOSApplication extends MultiDexApplication {
         return AppDatabase.getAppDatabase(mContext);
     }
 
+
+    public static void showToast(String message) {
+        Toast.makeText(getContext(), ""+message, Toast.LENGTH_SHORT).show();
+    }
 }
 
 

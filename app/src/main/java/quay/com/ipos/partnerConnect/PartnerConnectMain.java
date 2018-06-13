@@ -29,7 +29,14 @@ import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
 import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.partnerConnect.model.Account;
+import quay.com.ipos.partnerConnect.model.BillnDelivery;
+import quay.com.ipos.partnerConnect.model.Cheques;
+import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
+import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.partnerConnect.model.PCModel;
+import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,7 +55,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
     private Toolbar toolbar;
     private FloatingActionButton fab;
     private MutableLiveData<PCModel> pcModelLiveData = new MutableLiveData<>();
-    private View btnCancel,btnsubmit;
+    private View btnCancel, btnsubmit;
 
 
     @Override
@@ -111,7 +118,6 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             }
         });
     }
-
 
 
     @Override
@@ -196,7 +202,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
             if (position == 5 || position == 1) {
                 fab.setVisibility(View.GONE);
-            }else {
+            } else {
                 fab.setVisibility(View.VISIBLE);
             }
         }
@@ -290,12 +296,20 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
     }
 
     private String getServerData() {
-        Call<PartnerConnectResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).loadPartnerConnectData();
+        int entityCode = Prefs.getIntegerPrefs(Constants.entityCode);
+        Log.i(TAG + "entityCode", entityCode + "");
+
+        if (entityCode == 0) {
+            entityCode = 1;
+            Log.i(TAG, "entityCode Hardcoded if entityCode is 0" + entityCode + "");
+        }
+
+        Call<PartnerConnectResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).loadPartnerConnectData(entityCode + "");
         call.enqueue(new Callback<PartnerConnectResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectResponse> call, Response<PartnerConnectResponse> response) {
                 if (response.code() != 200) {
-                    Toast.makeText(PartnerConnectMain.this, "Code:"+response.code()+", Message:"+response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PartnerConnectMain.this, "Code:" + response.code() + ", Message:" + response.message(), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try {
@@ -318,7 +332,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
             @Override
             public void onFailure(Call<PartnerConnectResponse> call, Throwable t) {
-                Toast.makeText(PartnerConnectMain.this, " Message:"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PartnerConnectMain.this, " Message:" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
                 Log.e(TAG, "ERROR OCCURED");
                 Log.i("JsonObject", t.toString());
@@ -334,12 +348,20 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
 
     private void updateDataToWS() {
+        if (!validateData()) {
+            return;
+        }
+
         Log.i("updateData", new Gson().toJson(getPcModelData().getValue()));
         Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).updatePartnerConnectData(getPcModelData().getValue());
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectUpdateResponse> call, Response<PartnerConnectUpdateResponse> response) {
+                if (response.code() != 200)
+                    IPOSApplication.showToast("Code:" + response.code() + " message:" + response.message());
                 try {
+
+                    IPOSApplication.showToast("Code:" + response.code() + " message:" + response.message());
                     Log.i("response", response.body().statusCode + "," + response.body().message);
                     Log.i("JsonObject", response.toString() + response.body());
                     if (response.body() != null) {
@@ -363,4 +385,338 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         });
 
     }
+
+    private boolean validateData() {
+
+
+        PCModel pcModel = getPcModelData().getValue();
+        if (pcModel == null) {
+            String error = "pcModel is null";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+
+
+        if (pcModel.Business == null) {
+            String error = "Business is null";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+
+
+        if (pcModel.Business.KeyBusinessInfo == null) {
+            String error = "Business KeyBusinessInfo is null";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+
+        //validate business info
+        for (KeyBusinessInfo keyBusinessInfo : pcModel.Business.KeyBusinessInfo) {
+
+
+            if (keyBusinessInfo.mPartnerType == null || keyBusinessInfo.mPartnerType.isEmpty()) {
+                String error = "Business -> PartnerType is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.mCompanyName == null || keyBusinessInfo.mCompanyName.isEmpty()) {
+                Log.i(TAG, "mCompanyName:" + keyBusinessInfo.mCompanyName);
+                String error = "Business -> CompanyName is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.mCIN == null || keyBusinessInfo.mCIN.isEmpty()) {
+                Log.i(TAG, "mCIN:" + keyBusinessInfo.mCIN);
+                String error = "Business -> CIN is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.mPAN == null || keyBusinessInfo.mPAN.isEmpty()) {
+                String error = "Business -> PAN is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+
+            if (keyBusinessInfo.mContactPerson == null || keyBusinessInfo.mContactPerson.isEmpty()) {
+                String error = "Business -> ContactPerson is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.mContactPosition == null || keyBusinessInfo.mContactPosition.isEmpty()) {
+                String error = "BusinessInfo -> ContactPosition is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.BusinessLocation == null) {
+                String error = "Business -> BusinessLocation is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.BusinessLocation.mState == null || keyBusinessInfo.BusinessLocation.mState.isEmpty()) {
+                String error = "Business -> State is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.BusinessLocation.mPINCode == null || keyBusinessInfo.BusinessLocation.mPINCode.isEmpty() || keyBusinessInfo.BusinessLocation.mPINCode.length() < 6) {
+                String error = "Business -> PINCode is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.BusinessLocation.mCity == null || keyBusinessInfo.BusinessLocation.mCity.isEmpty()) {
+                String error = "Business -> City is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+
+            if (keyBusinessInfo.BusinessLocation.mZone == null || keyBusinessInfo.BusinessLocation.mZone.isEmpty()) {
+                String error = "Business -> Zone is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+
+        }
+
+
+        //validation of contact
+        if (pcModel.contactDetail == null) {
+            String error = "Contact -> ContactDetail is required!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+        if (pcModel.contactDetail.KeyBusinessContactInfo == null) {
+            String error = "Contact -> ContactInfo is required!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+        if (pcModel.contactDetail.KeyBusinessContactInfo.keyDesignation == null || pcModel.contactDetail.KeyBusinessContactInfo.keyDesignation.isEmpty()) {
+            String error = "Contact -> Contact Position is required!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+        if (pcModel.contactDetail.KeyBusinessContactInfo.keyEmpName == null || pcModel.contactDetail.KeyBusinessContactInfo.keyEmpName.isEmpty()) {
+            String error = "Contact -> Contact Person Name is required!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+        if (pcModel.contactDetail.KeyBusinessContactInfo.keyMobile == null || pcModel.contactDetail.KeyBusinessContactInfo.keyMobile.isEmpty()) {
+            String error = "Contact -> Primary Mobile No. is required!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+        if (pcModel.contactDetail.KeyBusinessContactInfo.keyMobile2 == null || pcModel.contactDetail.KeyBusinessContactInfo.keyMobile2.isEmpty()) {
+            String error = "Contact -> Secondary Mobile No. is required!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+        if (pcModel.contactDetail.KeyBusinessContactInfo.keyEmail == null || pcModel.contactDetail.KeyBusinessContactInfo.keyEmail.isEmpty()) {
+            String error = "Contact -> Email is required!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+
+        if (pcModel.contactDetail.KeyBusinessContactInfo.NewContact == null) {
+            String error = "Contact Other -> Contact Other is required!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+        for (NewContact newContact : pcModel.contactDetail.KeyBusinessContactInfo.NewContact) {
+            if (newContact.Role == null || newContact.Role.isEmpty()) {
+                String error = "Contact Other -> Role is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (newContact.Name == null || newContact.Name.isEmpty()) {
+                String error = "Contact Other -> Name is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+
+            if (newContact.PrimaryMobile == null || newContact.PrimaryMobile.isEmpty()) {
+                String error = "Contact Other -> Primary Mobile is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (newContact.SecondaryMobile == null || newContact.SecondaryMobile.isEmpty()) {
+                String error = "Contact Other -> Secondary Mobile is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+
+           /* if (newContact.Email == null || newContact.Email.isEmpty()) {
+                String error = "Contact Other -> Email is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }*/
+
+        }
+        //validation of account
+        if (pcModel.Account == null) {
+            String error = "Account -> Account data is required!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+        for (Account account : pcModel.Account) {
+            if (account.mAccountHolderName == null || account.mAccountHolderName.isEmpty()) {
+                String error = "Account -> Account Holder Name is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (account.mAccountNo == null || account.mAccountNo.isEmpty()) {
+                String error = "Account -> Account No. is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (account.mAccountType == null || account.mAccountType.isEmpty()) {
+                String error = "Account -> Account Type is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (account.mBankName == null || account.mBankName.isEmpty()) {
+                String error = "Account -> Bank Name is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (account.mIFSCCode == null || account.mIFSCCode.isEmpty()) {
+                String error = "Account -> IFSCCode is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (account.mBranchAdddres == null || account.mBranchAdddres.isEmpty()) {
+                String error = "Account -> mBranch Address is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (account.cheques != null) {
+                for (Cheques cheque : account.cheques) {
+                    if (cheque.mSecurityCheque == null || cheque.mSecurityCheque.isEmpty()) {
+                        String error = "Account ->   Security Cheque is required!";
+                        Log.e(TAG, error);
+                        IPOSApplication.showToast(error);
+                        return false;
+                    }
+
+                    if (cheque.mSecurityCheque.contains("Yes")) {
+                        if (cheque.mDrawnAccountNo == null || cheque.mDrawnAccountNo.isEmpty()) {
+                            String error = "Account ->   DrawnAccountNo is required!";
+                            Log.e(TAG, error);
+                            IPOSApplication.showToast(error);
+                            return false;
+                        }
+                        if (cheque.mMaxLimitAmount == null || cheque.mMaxLimitAmount.isEmpty()) {
+                            String error = "Account ->   MaxLimitAmount is required!";
+                            Log.e(TAG, error);
+                            IPOSApplication.showToast(error);
+                            return false;
+                        }
+                        if (cheque.mChequeNo == null || cheque.mChequeNo.isEmpty()) {
+                            String error = "Account ->  ChequeNo is required!";
+                            Log.e(TAG, error);
+                            IPOSApplication.showToast(error);
+                            return false;
+                        }
+                    }
+                }
+
+
+            }
+        }
+
+        //validation of Bill and Delivery
+        if (pcModel.BillandDelivery == null) {
+            String error = "Bill & Delivery ->  Bill & Delivery data is required!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+
+        for (BillnDelivery billnDelivery : pcModel.BillandDelivery) {
+            if (billnDelivery.mAddressType == null || billnDelivery.mAddressType.isEmpty()) {
+                String error = "Bill & Delivery ->  AddressType data is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (billnDelivery.mBusinessType == null || billnDelivery.mBusinessType.isEmpty()) {
+                String error = "Bill & Delivery -> BusinessType is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (billnDelivery.mBusinessAddress == null || billnDelivery.mBusinessAddress.isEmpty()) {
+                String error = "Bill & Delivery -> Address is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (billnDelivery.mCity == null || billnDelivery.mCity.isEmpty()) {
+                String error = "Bill & Delivery -> City is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (billnDelivery.mState == null || billnDelivery.mState.isEmpty()) {
+                String error = "Bill & Delivery -> State is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (billnDelivery.mGSTIN == null || billnDelivery.mGSTIN.isEmpty()) {
+                String error = "Bill & Delivery -> GSTIN is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (billnDelivery.mContactPerson == null || billnDelivery.mContactPerson.isEmpty()) {
+                String error = "Bill & Delivery -> Contact Person is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (billnDelivery.mMobile == null || billnDelivery.mMobile.isEmpty()) {
+                String error = "Bill & Delivery -> Contact Number is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+        }
+
+
+        return true;
+    }
+
+
 }

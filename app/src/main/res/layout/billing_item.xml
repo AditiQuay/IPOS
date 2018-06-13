@@ -153,6 +153,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="City *"
+                                android:inputType="textCapWords"
+                                android:maxLines="1"
+                                android:fontFamily="@font/titilliumwebregular"
                                 android:textSize="@dimen/universal_text_size14" />
 
                         </android.support.design.widget.TextInputLayout>
@@ -175,7 +178,10 @@
                                 android:id="@+id/editState"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:hint="City *"
+                                android:hint="State *"
+                                android:inputType="textCapWords"
+                                android:maxLines="1"
+                                android:fontFamily="@font/titilliumwebregular"
                                 android:textSize="@dimen/universal_text_size14" />
 
                         </android.support.design.widget.TextInputLayout>
@@ -207,6 +213,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="GSTIN *"
+                                android:inputType="textCapCharacters"
+                                android:maxLength="15"
+                                android:maxLines="1"
+                                android:fontFamily="@font/titilliumwebregular"
                                 android:textSize="@dimen/universal_text_size14" />
 
                         </android.support.design.widget.TextInputLayout>
@@ -228,7 +238,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="Contact Person *"
-                                android:textSize="@dimen/universal_text_size14" />
+                                android:textSize="@dimen/universal_text_size14"
+                                android:inputType="textPersonName"
+                                android:maxLines="1"/>
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -259,7 +271,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="Contact Person Number *"
-                                android:textSize="@dimen/universal_text_size14" />
+                                android:textSize="@dimen/universal_text_size14"
+                                android:inputType="phone"
+                                android:maxLines="1"/>
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
