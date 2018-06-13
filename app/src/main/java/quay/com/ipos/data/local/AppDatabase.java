@@ -5,6 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
+import android.widget.Toast;
 
 
 import quay.com.ipos.data.local.dao.MostUsedFunDao;

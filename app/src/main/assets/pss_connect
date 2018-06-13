@@ -1,258 +1,176 @@
 {
   "statusCode": 200,
   "response": {
+    "Account": [
+      {
+        "BankDetailRowId": 6,
+        "EntityID": 1,
+        "isSecurityCheques": true,
+        "entityAcountHolderName": "K.G. Traders",
+        "entityAcountNo": "000087654321",
+        "entityAcountType": "Saving",
+        "entityBankName": "Bank Of baroda",
+        "entityBranchAdddres": "New Gurgaon",
+        "entityBankIFSCode": "BB0001763"
+      }
+    ],
+    "BillandDelivery": [
+      {
+        "ID": 7,
+        "entityAddressType": "Bill \u0026 Deliver",
+        "entityBusinessPalceAddress": "Sector -21",
+        "entityBusinessType": "Shop / Store",
+        "entityBusinessCity": "Gurugram",
+        "entityContactPerson": "Vilas Mehra",
+        "entityBusinessGSTIN": "QWAQWAQW1133",
+        "entityContactPersonMobile": "888001234",
+        "entityBusinessState": "Haryana"
+      },
+      {
+        "ID": 8,
+        "entityAddressType": "Bill \u0026 Deliver",
+        "entityBusinessPalceAddress": "Sector -21",
+        "entityBusinessType": "Shop / Store",
+        "entityBusinessCity": "Gurugram",
+        "entityContactPerson": "Sunil Mehra",
+        "entityBusinessGSTIN": "GO GO 133",
+        "entityContactPersonMobile": "888001234",
+        "entityBusinessState": "Haryana"
+      }
+    ],
+    "Business": {
+      "KeyBusinessInfo": [
+        {
+          "BusinessLocation": {
+            "businessCity": "Gurugram",
+            "businessPINCode": "122022",
+            "businessState": "Haryana",
+            "BusinessZone": "South"
+          },
+          "id": 0,
+          "CIN": "SDQWET1233",
+          "CompaneyName": "K.G. Traders",
+          "keyContactPerson": "Deepak Kumar",
+          "keyContactPosition": "Manager",
+          "PAN": "DISK1312P",
+          "partnerType": "Principal"
+        }
+      ]
+    },
+    "DocumentVoults": [
+      {
+        "DocFilename": "mypan.png",
+        "Doctype": "PAN",
+        "ID": 1
+      },
+      {
+        "DocFilename": "myid.png",
+        "Doctype": "IDPHOTO",
+        "ID": 2
+      },
+      {
+        "DocFilename": "aptmnt.png",
+        "Doctype": "AppointmentForm",
+        "ID": 3
+      },
+      {
+        "DocFilename": "anxure.png",
+        "Doctype": "Annexure",
+        "ID": 4
+      },
+      {
+        "DocFilename": "cmplCert.png",
+        "Doctype": "compliance cert",
+        "ID": 5
+      }
+    ],
+    "EntityID": 1,
     "RelationShipName": "Mccoy Relation Ship",
     "Relationship": {
       "pssEntityName": "K.G. Traders",
       "pssLOBS": [
         {
-          "pssLobName": "McCoy 8M",
           "pssLobCode": "2",
+          "pssLobName": "McCoy 8M",
           "pssType": "Distributor"
         },
         {
-          "pssLobName": "McCoySoudal",
           "pssLobCode": "1",
+          "pssLobName": "McCoySoudal",
           "pssType": "Distributor"
         },
         {
-          "pssLobName": "McCoy Performance Silicons",
           "pssLobCode": "3",
+          "pssLobName": "McCoy Performance Silicons",
           "pssType": "Distributor"
-        }
-      ],
-      "pssPrincipleContact": [
-        {
-          "pssContactPersonName": "Deepak Kumar",
-          "pssDesignation": "Programmer",
-          "keyEntityEmpMobile1": "9876543210",
-          "keyEntityEmpEmail": "deepak.kumar1@quayintech.com"
         }
       ],
       "pssPrincipleBankpaymentTo": [
         {
           "EntityPaytoName": "Mccoy",
           "principleAccountNo": "SBI1234567890",
-          "principleBankName": "Statet Bank Of India",
           "principleBankBranchName": "Gurgaon",
-          "principleBankIFSCode": "SBI0001265"
-        }
-      ]
-    },
-    "Business": {
-      "partnerType": [
-        {
-          "BussinessName": "Dealer",
-          "BusinessTypeID": "DL"
-        },
-        {
-          "BussinessName": "Distributor",
-          "BusinessTypeID": "D"
-        },
-        {
-          "BussinessName": "Retailer",
-          "BusinessTypeID": "R"
+          "principleBankIFSCode": "SBI0001265",
+          "principleBankName": "Statet Bank Of India"
         }
       ],
-      "KeyBusinessInfo": [
+      "pssPrincipleContact": [
         {
-          "partnerType": "Principal",
-          "CompaneyName": "K.G. Traders",
-          "CIN": "",
-          "PAN": "",
-          "keyContactPerson": "Deepak Kumar",
-          "keyContactPosition": "Traders Description",
-          "BusinessLocation": {
-            "businessState": "Haryana",
-            "businessCity": "Gurugram",
-            "businessPINCode": "122022",
-            "BusinessZone": null
-          }
+          "keyEntityEmpEmail": "deepak.kumar1@quayintech.com",
+          "keyEntityEmpMobile1": "9876543210",
+          "pssContactPersonName": "Deepak Kumar",
+          "pssDesignation": "Programmer"
         }
       ]
     },
     "Contact": {
       "KeyBusinessContactInfo": {
-        "keyEmpName": "Alok Sharma",
-        "keyDesignation": "Director",
-        "keyMobile": "8880023456",
-        "keyMobile2": "8880023457",
-        "keyEmail": "alok@kgm.com",
-        "keyEmpNote": "added contacts for my test",
         "NewContact": [
           {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "Ram Verma",
-            "PrimaryMobile": "9717409994",
-            "SecondaryMobile": "9617409994",
-            "Email": "ram@kgm.com"
-          },
-          {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "kk verma",
-            "PrimaryMobile": "9717409995",
-            "SecondaryMobile": "9617409995",
-            "Email": "kk@kgm.com"
-          },
-          {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "mm sharma",
-            "PrimaryMobile": "9717409996",
-            "SecondaryMobile": "9617409996",
-            "Email": "mm@kgm.com"
-          },
-          {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "GG Rao",
-            "PrimaryMobile": "9717409997",
-            "SecondaryMobile": "9617409997",
-            "Email": "gg.rao@kgm.com"
-          },
-          {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "K Sagar",
-            "PrimaryMobile": "9717409998",
-            "SecondaryMobile": "9617409998",
-            "Email": "k.sagar@kgm.com"
-          },
-          {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "SK Raja",
-            "PrimaryMobile": "9717409999",
-            "SecondaryMobile": "9617409999",
-            "Email": "Sk.Raja@kgm.com"
-          },
-          {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "RSK",
-            "PrimaryMobile": "9717410000",
-            "SecondaryMobile": "9617410000",
-            "Email": "RSK@gmail.com"
-          },
-          {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "Niraj kohali",
-            "PrimaryMobile": "9717410001",
-            "SecondaryMobile": "9617410001",
-            "Email": "rirajj@kgm.com"
-          },
-          {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "Ankush Chaudhari",
-            "PrimaryMobile": "9717410002",
-            "SecondaryMobile": "9617410002",
-            "Email": "Ac@kgm.com"
-          },
-          {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "A Araja",
-            "PrimaryMobile": "9717410003",
-            "SecondaryMobile": "9617410003",
-            "Email": "A.raja@kgm.com"
-          },
-          {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "dd sharma",
-            "PrimaryMobile": "9717410004",
-            "SecondaryMobile": "9617410004",
-            "Email": "dd.sharma@kgm.com"
-          },
-          {
-            "RoleID": "3",
-            "Role": "User",
-            "Name": "Op Sharma",
-            "PrimaryMobile": "9717410005",
-            "SecondaryMobile": "9617410005",
-            "Email": "op.sharma@kgm.com"
-          }
-        ]
-      }
-    },
-    "Account": [
-      {
-        "entityAcountHolderName": "K.G. Traders",
-        "entityAcountNo": "0000998821340",
-        "entityAcountType": "Saving",
-        "entityBankName": "Bank Of baroda",
-        "entityBankIFSCode": "BB0001267",
-        "entityBranchAdddres": "New Gurgaon",
-        "isSecurityCheques": true,
-        "cheques": [
-          {
+            "Email": "ram@kgm.com",
             "ID": 3,
-            "EntityBankAcHoderID": 3,
-            "entitydrawnAccount": "1234567896",
-            "chequeNo": "9991237",
-            "MaxLimitAmount": 50000,
-            "CreateDate": null,
-            "CreatedBy": null,
-            "ModifiedBy": null,
-            "ModifiedDate": null
+            "Name": "Ram Verma",
+            "PrimaryMobile": "9560703193",
+            "Role": "Director",
+            "RoleID": "3",
+            "SecondaryMobile": "9660701245"
           },
           {
+            "Email": "kk@kgm.com",
             "ID": 4,
-            "EntityBankAcHoderID": 3,
-            "entitydrawnAccount": "7774523901",
-            "chequeNo": "8881432",
-            "MaxLimitAmount": 10000,
-            "CreateDate": null,
-            "CreatedBy": null,
-            "ModifiedBy": null,
-            "ModifiedDate": null
+            "Name": "kk verma",
+            "PrimaryMobile": "9717409993",
+            "Role": "Director",
+            "RoleID": "3",
+            "SecondaryMobile": "9707645462"
+          },
+          {
+            "Email": "mm@kgm.com",
+            "ID": 5,
+            "Name": "mm sharma",
+            "PrimaryMobile": "9560703193",
+            "Role": "Director",
+            "RoleID": "3",
+            "SecondaryMobile": "9560703193"
+          },
+          {
+            "Email": "gg.rao@kgm.com",
+            "ID": 6,
+            "Name": "GG Rao",
+            "PrimaryMobile": "9560703193",
+            "Role": "Director",
+            "RoleID": "3",
+            "SecondaryMobile": "9560703193"
           }
-        ]
+        ],
+        "keyDesignation": "Director",
+        "keyEmail": "alok@kgm.com",
+        "keyEmpName": "Deepak Sharma",
+        "keyEmpNote": "added contacts for my test",
+        "keyMobile": "8880023456",
+        "keyMobile2": "8880023457"
       }
-    ],
-    "BillandDelivery": [
-      {
-        "entityAddressType": "Bill and delivery",
-        "entityBusinessPalceName": "Shop/Store",
-        "entityBusinessPalceAddress": "Sector -21",
-        "entityBusinessCity": "Gurugram",
-        "entityBusinessState": "Haryana",
-        "entityBusinessGSTIN": "",
-        "entityContactPerson": "Sunil Mehra",
-        "entityContactPersonMobile": "888001234"
-      }
-    ],
-    "DocumentVoults": [
-      {
-        "Doctype": "PAN",
-        "DocFilename": "mypan.png",
-        "DocFileBase64": null
-      },
-      {
-        "Doctype": "IDPHOTO",
-        "DocFilename": "myid.png",
-        "DocFileBase64": null
-      },
-      {
-        "Doctype": "AppointmentForm",
-        "DocFilename": "aptmnt.png",
-        "DocFileBase64": null
-      },
-      {
-        "Doctype": "Annexure",
-        "DocFilename": "anxure.png",
-        "DocFileBase64": null
-      },
-      {
-        "Doctype": "compliance cert",
-        "DocFilename": "cmplCert.png",
-        "DocFileBase64": null
-      }
-    ]
+    }
   },
   "message": "success"
 }

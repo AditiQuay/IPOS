@@ -3,10 +3,13 @@ package quay.com.ipos.partnerConnect.model;
 import com.google.gson.annotations.SerializedName;
 
 public class BillnDelivery {
+
+    public int ID;
+
     @SerializedName("entityAddressType")
     public String mAddressType;
 
-    @SerializedName("entityBusinessPalceName")
+    @SerializedName("entityBusinessType")
     public String mBusinessType;
 
 

@@ -28,17 +28,24 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
 
     private String roleTypeText;
     private List<String> listPosition = new ArrayList<>();
-    private String[] partnerKeyPosition = {"Director", "Manager", "Executive"};
+
+   /* 1 SuperAdmin NULL
+2 Admin NULL
+3 User NULL
+4 Approver NULL
+5 Management NULL*/
+    private int[] roleID = {1,2,3,4,5};
+    private String[] roleArray = {"SuperAdmin", "Admin", "User","Approver","Management"};
     private ArrayAdapter partnerTypeHeading;
 
 
     public ContactInfoAdapter(Context mContext, List<NewContact> contactModels) {
         this.mContext = mContext;
-        listPosition = Arrays.asList(partnerKeyPosition);
+        listPosition = Arrays.asList(roleArray);
         this.list = contactModels;
 
         //Creating the ArrayAdapter instance having the mPartnerType list
-        partnerTypeHeading = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item,partnerKeyPosition );
+        partnerTypeHeading = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, roleArray);
         partnerTypeHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
     }
 
@@ -61,8 +68,8 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
        // magic code for editText
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition(), holder);
         holder.editName.setText(list.get(holder.getAdapterPosition()).Name);
-        holder.editMobile.setText(list.get(holder.getAdapterPosition()).Name);
-        holder.editMobile2.setText(list.get(holder.getAdapterPosition()).Name);
+        holder.editMobile.setText(list.get(holder.getAdapterPosition()).PrimaryMobile);
+        holder.editMobile2.setText(list.get(holder.getAdapterPosition()).SecondaryMobile);
 
         // magic code for spinner
         holder.myCustomSpinnerListener.updatePosition(holder.getAdapterPosition());

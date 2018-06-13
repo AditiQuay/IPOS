@@ -8,4 +8,5 @@ public class Business {
     public List<KeyBusinessInfo> KeyBusinessInfo;
 
 
+
 }
