@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -34,11 +35,10 @@ import java.util.ArrayList;
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
-import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomeChildListModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerRequestModel;
-import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.YourFragmentInterface;
@@ -55,7 +55,7 @@ import static com.basgeekball.awesomevalidation.ValidationStyle.BASIC;
  * Created by niraj.kumar on 5/31/2018.
  */
 
-public class CustomerAddQuickFragment extends Fragment implements InitInterface, YourFragmentInterface, View.OnFocusChangeListener, ServiceTask.ServiceResultListener, View.OnClickListener, TextWatcher {
+public class CustomerAddQuickFragment extends Fragment implements InitInterface, YourFragmentInterface, View.OnFocusChangeListener, ServiceTask.ServiceResultListener, View.OnClickListener, TextWatcher, AdapterView.OnItemSelectedListener {
     private static final String TAG = CustomerAddQuickFragment.class.getSimpleName();
     private View main;
     private TextView textViewPersonalHeading;
@@ -78,7 +78,8 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     private ProgressDialog m_Dialog;
     YourFragmentInterface yourFragmentInterface;
     SharedPreferences sharedpreferences;
-    public static final String mypreference = "mypref";
+    public static final String mypreference = "Data";
+    SharedPreferences.Editor editor;
 
     public CustomerAddQuickFragment() {
 
@@ -101,6 +102,8 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         mContext = getActivity();
         mAwesomeValidation = new AwesomeValidation(BASIC);
         dbHelper = new DatabaseHandler(mContext);
+        sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
 
         findViewById();
         applyInitValues();
@@ -124,7 +127,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         tieMobileNumber = main.findViewById(R.id.tieMobileNumber);
         textViewMadatory = main.findViewById(R.id.textViewMadatory);
         btnCancel = main.findViewById(R.id.btnCancel);
-        btnsubmit = main.findViewById(R.id.btnsubmit);
+        btnsubmit = main.findViewById(R.id.btnSubmit);
 
         btnCancel.setOnClickListener(this);
         btnsubmit.setOnClickListener(this);
@@ -133,10 +136,12 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         tieFirstName.addTextChangedListener(this);
         tieLastName.addTextChangedListener(this);
         tieMobileNumber.addTextChangedListener(this);
+
+        titleSpinner.setOnItemSelectedListener(this);
     }
 
     private void storeCustomerDataToLocalDb() {
-        String customerId = "0";
+        String customerId = " ";
         String title = String.valueOf(titleSpinner.getSelectedItem());
         String firstName = tieFirstName.getText().toString();
         String lastName = tieLastName.getText().toString();
@@ -155,15 +160,13 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         String childjson = new Gson().toJson(customeChildListModel.customerChildList);
         Log.i("dddd", childjson);
 
-        if (dbHelper.dbHasData(CustomerEnum.ColoumnCustomerPhone.toString(), mobileNumber)) {
-            Toast.makeText(mContext, "Mobile number already exist", Toast.LENGTH_SHORT).show();
-        } else {
+        if (!dbHelper.checkIfRecordExist(mobileNumber)) {
             //Storing data to local DB.
-            long id = dbHelper.insertCustomer(customerId, title, "", firstName, lastName, gender1.trim(), "", "false",
+            dbHelper.insertCustomer(customerId, title, "", firstName, lastName, gender1.trim(), "", "false",
                     "", "", "", "false", childjson,
                     "", "", mobileNumber.trim(), "", "", "", "", "",
                     "", "", "", "", "", "", "",
-                    "", "", "", "", "", "", "", "", "", "", "", "", "1", 0);
+                    "", "", "", "", "", "", "", "", "", "", "", "", "1", 0, 0);
 
             customerModels.addAll(dbHelper.getAllOfflineCustomer());
             String accessToken = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN.trim(), "", mContext);
@@ -180,8 +183,11 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
             mTask.setResultType(CustomerServerRequestModel[].class);
             mTask.execute();
 
-        }
 
+        } else {
+            Toast.makeText(mContext, "Mobile number already exist", Toast.LENGTH_SHORT).show();
+
+        }
 
     }
 
@@ -268,7 +274,8 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 long id = dbHelper.updateServerId(Integer.parseInt(localId), customerCode);
                 Log.e(TAG, "Id***" + id);
             }
-            Intent i = new Intent(mContext, MainActivity.class);
+
+            Intent i = new Intent(mContext, CustomerInfoActivity.class);
             startActivity(i);
 
 
@@ -280,10 +287,10 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     @Override
     public void onClick(View v) {
         if (v == btnCancel) {
-            dbHelper.getAllOfflineCustomer();
 
 
         } else if (v == btnsubmit) {
+
             String title = String.valueOf(titleSpinner.getSelectedItem());
             String firstName = tieFirstName.getText().toString();
             String lastName = tieLastName.getText().toString();
@@ -316,6 +323,15 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 tilMobileNumber.setErrorEnabled(true);
                 tieMobileNumber.setError(getResources().getString(R.string.invalid_phone));
             }
+            if (!TextUtils.isEmpty(tieMobileNumber.getText().toString())) {
+                if (tieMobileNumber.getText().toString().length() < 10 || tieMobileNumber.getText().toString().length() > 10) {
+                    isFail = true;
+                    tilMobileNumber.setErrorEnabled(true);
+                    tieMobileNumber.setError("Please enter correct mobile number");
+
+                }
+            }
+
             if (!isFail) {
                 titleSpinner.setEnableErrorLabel(false);
                 genderSpinner.setEnableErrorLabel(false);
@@ -323,18 +339,9 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 tilLastName.setErrorEnabled(false);
                 tilMobileNumber.setErrorEnabled(false);
                 storeCustomerDataToLocalDb();
+            } else {
+                Toast.makeText(mContext, "Please enter all the required fields", Toast.LENGTH_SHORT).show();
             }
-
-
-            sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.clear();
-            editor.putString("title", title);
-            editor.putString("fName", firstName);
-            editor.putString("lastName", lastName);
-            editor.putString("mobileNumber", mobileNumber);
-
-            editor.apply();
 
 
         }
@@ -351,24 +358,50 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
 
     }
 
+
     @Override
     public void afterTextChanged(Editable s) {
         if (s == tieFirstName.getEditableText()) {
             tilFirstName.setError(null);
             tilFirstName.setErrorEnabled(false);
+            editor.putString("firstName", tieFirstName.getText().toString());
+            editor.apply();
         }
         if (s == tieLastName.getEditableText()) {
             tilLastName.setError(null);
             tilLastName.setErrorEnabled(false);
+            editor.putString("lastName", tieLastName.getText().toString());
+            editor.apply();
         }
         if (s == tieMobileNumber.getEditableText()) {
             tilMobileNumber.setErrorEnabled(false);
             tilMobileNumber.setError(null);
+            editor.putString("MobileNumber", tieMobileNumber.getText().toString());
+            editor.apply();
         }
     }
 
     @Override
     public void fragmentBecameVisible() {
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        MaterialSpinner materialSpinner = (MaterialSpinner) parent;
+        String selectedSpinner = String.valueOf(materialSpinner.getSelectedItem());
+        if (materialSpinner.getId() == R.id.titleSpinner) {
+            editor.putString("title", selectedSpinner);
+            editor.apply();
+        }if (materialSpinner.getId()==R.id.genderSpinner){
+            editor.putString("gender",selectedSpinner);
+            editor.apply();
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 }

@@ -5,105 +5,81 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import quay.com.ipos.R;
-import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.partnerConnect.model.Account;
+import quay.com.ipos.partnerConnect.model.Cheques;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.AccountAdapter;
-import quay.com.ipos.partnerConnect.partnerConnectAdapter.ContactInfoAdapter;
-import quay.com.ipos.partnerConnect.partnerConnectModel.AccountsModel;
-import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.EqualSpacingItemDecoration;
 
-/**
- * Created by niraj.kumar on 6/7/2018.
- */
-
-public class AccountFragment extends Fragment implements InitInterface, ButtonListener, View.OnClickListener {
+public class AccountFragment extends Fragment implements InitInterface, View.OnClickListener {
     private static final String TAG = AccountFragment.class.getSimpleName();
     private TextView textViewLastUpdated, textViewAccountInfoHeading, textViewMadatory;
     private RecyclerView recyclerViewAccountInfo;
-    private Button btnAccountCancel;
-    private Button btnAccountSubmit;
-    private View main;
+
+    private View view;
     private Context mContext;
+    private AccountAdapter adapter;
 
-    private List<AccountsModel> accountsModels = new ArrayList<>();
-
+    private EditText editAccountHolderName, editAccountNo, editAccountType;
+    private EditText editIFSCCode, editBankName, editBranchAddress;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        main = inflater.inflate(R.layout.account_info_fragment, container, false);
+        view = inflater.inflate(R.layout.account_info_fragment, container, false);
         mContext = getActivity();
         findViewById();
         applyInitValues();
         applyTypeFace();
         applyLocalValidation();
-        return main;
+        return view;
     }
 
     @Override
     public void findViewById() {
-        textViewMadatory = main.findViewById(R.id.textViewMadatory);
-        textViewAccountInfoHeading = main.findViewById(R.id.textViewAccountInfoHeading);
-        textViewLastUpdated = main.findViewById(R.id.textViewLastUpdated);
-        recyclerViewAccountInfo = main.findViewById(R.id.recyclerViewAccountInfo);
-        btnAccountCancel = main.findViewById(R.id.btnAccountCancel);
-        btnAccountSubmit = main.findViewById(R.id.btnAccountSubmit);
+        textViewMadatory = view.findViewById(R.id.textViewMadatory);
+        textViewAccountInfoHeading = view.findViewById(R.id.textViewAccountInfoHeading);
+        textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
+        recyclerViewAccountInfo = view.findViewById(R.id.recyclerViewAccountInfo);
 
-       /* btnAccountCancel.setOnClickListener(this);
-        btnAccountCancel.setOnClickListener(this);*/
+        editAccountHolderName = view.findViewById(R.id.editAccountHolderName);
+        editAccountNo = view.findViewById(R.id.editAccountNo);
+        editAccountType = view.findViewById(R.id.editAccountType);
+        editBranchAddress = view.findViewById(R.id.editBranchAddress);
+        editIFSCCode = view.findViewById(R.id.editIFSCCode);
+        editBankName = view.findViewById(R.id.editBankName);
 
     }
 
     @Override
     public void applyInitValues() {
 
-        accountsModels.clear();
 
-        AccountsModel accountsModel = new AccountsModel();
-        accountsModel.setAccountHolderName("");
-        accountsModel.setAccountNumber("");
-        accountsModel.setAccountType("");
-        accountsModel.setBankName("");
-        accountsModel.setIfscCode("");
-        accountsModel.setBranchAddress("");
-        accountsModel.setSecurityCheck("");
-        accountsModel.setDrawnOnAccount("");
-        accountsModel.setChequeNumber("");
-        accountsModel.setMaxAmount("");
-
-        accountsModels.add(accountsModel);
-
-        //recyclerViewAccountInfo.setHasFixedSize(true);
         recyclerViewAccountInfo.setLayoutManager(new LinearLayoutManager(mContext));
-        //AccountAdapter businessAdapter = new AccountAdapter(mContext, accountsModels, this);
-        //recyclerViewAccountInfo.setAdapter(businessAdapter);
+        recyclerViewAccountInfo.addItemDecoration(new EqualSpacingItemDecoration(16)); // 16px. In practice, you'll want to use getDimensionPixelSize
+        adapter = new AccountAdapter(mContext);
+        recyclerViewAccountInfo.setAdapter(adapter);
     }
 
     @Override
     public void applyTypeFace() {
-        FontUtil.applyTypeface(textViewLastUpdated, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(textViewLastUpdated, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(textViewAccountInfoHeading, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(textViewMadatory, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(recyclerViewAccountInfo, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnAccountCancel, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnAccountSubmit, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+
     }
 
     @Override
@@ -111,31 +87,10 @@ public class AccountFragment extends Fragment implements InitInterface, ButtonLi
         return false;
     }
 
-    @Override
-    public void onAdd(int position, String firstName, String lastName, String childGender, String childDOB) {
-
-    }
-
-    @Override
-    public void onPartnerAdd(int position, String distributerType, String companyName, String cinNumber, String panNumber, String contactPerson, String contactPosition, String partnerState, String partnerCity, String partnerPin, String partnerZone) {
-
-    }
-
-    @Override
-    public void onContactAdd(int position, String role, String name, String primaryMobileNum, String secondaryMobileNum) {
-
-    }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnAccountCancel:
 
-                break;
-            case R.id.btnAccountSubmit:
-            default:
-                break;
-        }
     }
 
     @Override
@@ -143,6 +98,7 @@ public class AccountFragment extends Fragment implements InitInterface, ButtonLi
         super.onViewCreated(view, savedInstanceState);
         loadData();
     }
+
     private void loadData() {
         PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
         if (partnerConnectMain != null) {
@@ -156,13 +112,80 @@ public class AccountFragment extends Fragment implements InitInterface, ButtonLi
             });
         }
     }
+
+    Account account;
+
     private void setData(PCModel pcModel) {
         if (pcModel == null && pcModel.Business == null) {
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }
 
+        account = pcModel.Account.get(0);
+        if (account != null) {
+            editAccountType.setText(account.mAccountType);
+            editAccountNo.setText(account.mAccountNo);
+            editAccountHolderName.setText(account.mAccountHolderName);
+            editBranchAddress.setText(account.mBranchAdddres);
+            editBankName.setText(account.mBankName);
+            editIFSCCode.setText(account.mIFSCCode);
 
-        recyclerViewAccountInfo.setAdapter(new AccountAdapter(getActivity(), pcModel.Account.cheques, AccountFragment.this));
+            //setListner
+            editAccountHolderName.addTextChangedListener(generalTextWatcher);
+            editAccountNo.addTextChangedListener(generalTextWatcher);
+            editAccountType.addTextChangedListener(generalTextWatcher);
+            editBranchAddress.addTextChangedListener(generalTextWatcher);
+            editBankName.addTextChangedListener(generalTextWatcher);
+            editIFSCCode.addTextChangedListener(generalTextWatcher);
+
+
+            List<Cheques> chequesList = account.cheques;
+            if (chequesList != null)
+                adapter.loadData(chequesList);
+        }
     }
+
+    private TextWatcher generalTextWatcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int start, int before,
+                                  int count) {
+            if (account == null) {
+                return;
+            }
+
+            if (editAccountType.getText().hashCode() == charSequence.hashCode()) {
+                account.mAccountType = charSequence.toString();
+            } else if (editAccountHolderName.getText().hashCode() == charSequence.hashCode()) {
+                account.mAccountHolderName = charSequence.toString();
+
+            } else if (editAccountNo.getText().hashCode() == charSequence.hashCode()) {
+                account.mAccountNo = charSequence.toString();
+
+            } else if (editBankName.getText().hashCode() == charSequence.hashCode()) {
+                account.mBankName = charSequence.toString();
+
+            } else if (editBranchAddress.getText().hashCode() == charSequence.hashCode()) {
+                account.mBranchAdddres = charSequence.toString();
+
+            } else if (editIFSCCode.getText().hashCode() == charSequence.hashCode()) {
+                account.mIFSCCode = charSequence.toString();
+
+            }
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+
+    };
+
 }

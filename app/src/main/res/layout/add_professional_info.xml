@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
-                android:text="Professioanl Information"
+                android:text="Professional Information"
                 android:textColor="@color/black"
                 android:textSize="@dimen/universal_text_size18" />
         </RelativeLayout>
@@ -98,9 +98,10 @@
                     android:layout_height="match_parent">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/tieGstin"
+                        android:id="@+id/editGstin"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:lines="1"
                         android:hint="GSTIN Number"
                         android:textSize="@dimen/universal_text_size14" />
 

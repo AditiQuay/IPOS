@@ -10,95 +10,93 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
-import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.partnerConnect.model.KeyBusinessContactInfo;
 import quay.com.ipos.partnerConnect.model.PCModel;
-import quay.com.ipos.partnerConnect.partnerConnectAdapter.BusinessAdapter;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.ContactInfoAdapter;
-import quay.com.ipos.partnerConnect.partnerConnectModel.ContactModel;
+import quay.com.ipos.utility.EqualSpacingItemDecoration;
 import quay.com.ipos.utility.FontUtil;
 
 /**
  * Created by niraj.kumar on 6/7/2018.
  */
 
-public class ContactFragment extends Fragment implements InitInterface, ButtonListener, View.OnClickListener {
+public class ContactFragment extends Fragment implements InitInterface, View.OnClickListener {
     private static final String TAG = ContactFragment.class.getSimpleName();
-    private View main;
+    private View view;
     private TextView textViewLastUpdated, textViewMadatory, textViewContactInfoHeading;
 
     private MaterialSpinner keyPositionSpinner;
     private TextInputLayout tilContactPersonName, tilContactMobileNumName, tilContactSecondaryMobileNumName, tilkeyEmailName, tilkeyNoteName;
-    private TextInputEditText tieContactPersonNameField, tieContactMobileNumField, tieSecondaryMobileNumField, tiekeyEmailField, tiekeyNoteField;
+    private TextInputEditText editContactPerson, editMoible, editMobile2, editEmail, editNote;
     private RecyclerView recyclerViewContactInfo;
-    private ArrayList<ContactModel> contactModels = new ArrayList<>();
+
     private Context mContext;
-    private Button btnCancel, btnsubmit;
+    private List<String> listPosition = new ArrayList<>();
+    private String[] partnerKeyPosition = {"Director", "Manager", "Executive"};
 
-
+    private KeyBusinessContactInfo contactInfo;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        main = inflater.inflate(R.layout.contact_fragment, container, false);
+        view = inflater.inflate(R.layout.contact_fragment, container, false);
         mContext = getActivity();
+
+
+        listPosition = Arrays.asList(partnerKeyPosition);
+
+
+
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
-        return main;
+        return view;
     }
 
     @Override
     public void findViewById() {
-        textViewMadatory = main.findViewById(R.id.textViewMadatory);
-        textViewLastUpdated = main.findViewById(R.id.textViewLastUpdated);
-        keyPositionSpinner = main.findViewById(R.id.keyPositionSpinner);
-        tilContactPersonName = main.findViewById(R.id.tilContactPersonName);
-        tilContactMobileNumName = main.findViewById(R.id.tilContactMobileNumName);
-        tilContactSecondaryMobileNumName = main.findViewById(R.id.tilContactSecondaryMobileNumName);
-        tilkeyEmailName = main.findViewById(R.id.tilkeyEmailName);
-        tilkeyNoteName = main.findViewById(R.id.tilkeyNoteName);
-        tieContactPersonNameField = main.findViewById(R.id.tieContactPersonNameField);
-        tieContactMobileNumField = main.findViewById(R.id.tieContactMobileNumField);
-        tieSecondaryMobileNumField = main.findViewById(R.id.tieSecondaryMobileNumField);
-        tiekeyEmailField = main.findViewById(R.id.tiekeyEmailField);
-        tiekeyNoteField = main.findViewById(R.id.tiekeyNoteField);
-        btnCancel = getActivity().findViewById(R.id.btnCancel);
-        btnsubmit = getActivity().findViewById(R.id.btnsubmit);
-        textViewContactInfoHeading = main.findViewById(R.id.textViewContactInfoHeading);
+        textViewMadatory = view.findViewById(R.id.textViewMadatory);
+        textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
+        keyPositionSpinner = view.findViewById(R.id.keyPositionSpinner);
+        tilContactPersonName = view.findViewById(R.id.tilContactPersonName);
+        tilContactMobileNumName = view.findViewById(R.id.tilContactMobileNumName);
+        tilContactSecondaryMobileNumName = view.findViewById(R.id.tilContactSecondaryMobileNumName);
+        tilkeyEmailName = view.findViewById(R.id.tilkeyEmailName);
+        tilkeyNoteName = view.findViewById(R.id.tilkeyNoteName);
+        editContactPerson = view.findViewById(R.id.editContactPerson);
+        editMoible = view.findViewById(R.id.editMoible);
+        editMobile2 = view.findViewById(R.id.editMobile2);
+        editEmail = view.findViewById(R.id.editEmail);
+        editNote = view.findViewById(R.id.editNote);
+        textViewContactInfoHeading = view.findViewById(R.id.textViewContactInfoHeading);
 
-        recyclerViewContactInfo = main.findViewById(R.id.recyclerViewContactInfo);
+        recyclerViewContactInfo = view.findViewById(R.id.recyclerViewContactInfo);
 
-        btnCancel.setOnClickListener(this);
-        btnsubmit.setOnClickListener(this);
     }
 
     @Override
     public void applyInitValues() {
-        contactModels.clear();
 
-        ContactModel contactModel = new ContactModel();
-        contactModel.setRole("");
-        contactModel.setName("");
-        contactModel.setPrimaryMobile("");
-        contactModel.setSecondaryMobile("");
-        contactModels.add(contactModel);
-
-     //   recyclerViewContactInfo.setHasFixedSize(true);
         recyclerViewContactInfo.setLayoutManager(new LinearLayoutManager(mContext));
-       // ContactInfoAdapter contactInfoAdapter = new ContactInfoAdapter(mContext, contactModels, this);
-     //   recyclerViewContactInfo.setAdapter(contactInfoAdapter);
+        recyclerViewContactInfo.addItemDecoration(new EqualSpacingItemDecoration(16)); // 16px. In practice, you'll want to use getDimensionPixelSize
+
     }
 
     @Override
@@ -111,12 +109,12 @@ public class ContactFragment extends Fragment implements InitInterface, ButtonLi
         FontUtil.applyTypeface(tilContactSecondaryMobileNumName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(tilkeyEmailName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(tilkeyNoteName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tieContactPersonNameField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tieContactPersonNameField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tieContactMobileNumField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tieSecondaryMobileNumField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tiekeyEmailField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(tiekeyNoteField, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(editContactPerson, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(editContactPerson, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(editMoible, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(editMobile2, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(editEmail, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(editNote, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(recyclerViewContactInfo, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(textViewContactInfoHeading, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
     }
@@ -126,20 +124,7 @@ public class ContactFragment extends Fragment implements InitInterface, ButtonLi
         return false;
     }
 
-    @Override
-    public void onAdd(int position, String firstName, String lastName, String childGender, String childDOB) {
 
-    }
-
-    @Override
-    public void onPartnerAdd(int position, String distributerType, String companyName, String cinNumber, String panNumber, String contactPerson, String contactPosition, String partnerState, String partnerCity, String partnerPin, String partnerZone) {
-
-    }
-
-    @Override
-    public void onContactAdd(int position, String role, String name, String primaryMobileNum, String secondaryMobileNum) {
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -164,12 +149,108 @@ public class ContactFragment extends Fragment implements InitInterface, ButtonLi
         }
     }
     private void setData(PCModel pcModel) {
-        if (pcModel == null && pcModel.Business == null) {
-            Log.i(TAG, "pcModel or pcModel.Business is null");
-            return;
+        try {
+
+            if (pcModel == null && pcModel.contactDetail == null) {
+                Log.i(TAG, "pcModel or pcModel.Business is null");
+                return;
+            }
+
+            contactInfo = pcModel.contactDetail.KeyBusinessContactInfo;
+
+
+
+
+
+
+            ArrayAdapter partnerTypeHeading = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, partnerKeyPosition);
+            partnerTypeHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            keyPositionSpinner.setAdapter(partnerTypeHeading);
+
+            if (contactInfo.keyDesignation != null) {
+                if (listPosition.contains(contactInfo.keyDesignation)) {
+                    int index = listPosition.indexOf(contactInfo.keyDesignation);
+                    keyPositionSpinner.setSelection(index + 1);
+                }
+            }
+
+
+
+
+            keyPositionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    if (i == -1) {
+                        return;
+                    }
+                        try {
+
+                            String partnerType = listPosition.get(i);
+                            Log.i("mPartnerType", partnerType);
+                            contactInfo.keyDesignation = partnerType;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+               /* updatePosition(position);
+                businessModel.mPartnerType = null;*/
+                }
+            });
+
+            editContactPerson.setText(contactInfo.keyEmpName);
+            editMoible.setText(contactInfo.keyMobile);
+            editMobile2.setText(contactInfo.keyMobile2);
+            editEmail.setText(contactInfo.keyEmail);
+            editNote.setText(contactInfo.keyEmpNote);
+
+
+            editContactPerson.addTextChangedListener(generalTextWatcher);
+            editMoible.addTextChangedListener(generalTextWatcher);
+            editMobile2.addTextChangedListener(generalTextWatcher);
+            editEmail.addTextChangedListener(generalTextWatcher);
+            editNote.addTextChangedListener(generalTextWatcher);
+
+            recyclerViewContactInfo.setAdapter(new ContactInfoAdapter(getActivity(), pcModel.contactDetail.KeyBusinessContactInfo.NewContact));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         }
+
+
+
+    private TextWatcher generalTextWatcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int start, int before,
+                                  int count) {
+
+            if (editContactPerson.getText().hashCode() == charSequence.hashCode())
+            {
+                contactInfo.keyEmpName = charSequence.toString();
+            }
+            else if (editMoible.getText().hashCode() == charSequence.hashCode())
+            {
+                contactInfo.keyMobile = charSequence.toString();
+
+            }
         }
 
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
 
-        recyclerViewContactInfo.setAdapter(new ContactInfoAdapter(getActivity(), pcModel.Contact.KeyBusinessContactInfo, ContactFragment.this));
-    }
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+
+    };
 }

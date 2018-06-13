@@ -78,7 +78,7 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
             Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-
+    private int productId;
     private int clickedPosition;
 
     @Override
@@ -88,6 +88,8 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
         mContext = CatalogueSubProduct.this;
         Intent i = getIntent();
         productName = i.getStringExtra("ProductName");
+        productId = i.getIntExtra("ProductId",0);
+
         findViewById();
         applyInitValues();
         applyTypeFace();
@@ -101,7 +103,7 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
 
         CatalogueRequestModel catalogueRequestModel = new CatalogueRequestModel();
         catalogueRequestModel.setCompanyName("Quay");
-        catalogueRequestModel.setProductId("1");
+        catalogueRequestModel.setProductId(String.valueOf(productId));
         catalogueRequestModel.setStoreID(String.valueOf(storeId));
 
         ServiceTask mTask = new ServiceTask();

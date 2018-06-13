@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,38 +14,45 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.ButtonListener;
-import quay.com.ipos.partnerConnect.BusinessFragment;
 import quay.com.ipos.partnerConnect.model.BusinessLocation;
 import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
-import quay.com.ipos.utility.FontUtil;
 
 /**
  * Created by niraj.kumar on 6/7/2018.
  */
 
-public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView> implements AdapterView.OnItemSelectedListener {
+public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView> {
     private Context context;
     private ButtonListener buttonListener;
 
-    private List<KeyBusinessInfo> list =new ArrayList<>();
-    private String[] partnerType = {"Retailer", "Distributor", "Wholeseller"};
+    private List<KeyBusinessInfo> list = new ArrayList<>();
+    private String[] partnerType = {"Retailer", "Distributor", "Dealer", "Principal"};
     private String[] partnerKeyPosition = {"Director", "Manager", "Executive"};
-    private String partnerTypeText, contactText;
 
-  /*  public BusinessAdapter(Context context, List<KeyBusinessInfo> list, ButtonListener buttonListener) {
-        this.context = context;
-        this.buttonListener = buttonListener;
-        this.list = list;
-    }*/
+    private List<String> listPartner = new ArrayList<>();
+    private List<String> listPosition = new ArrayList<>();
 
-    public BusinessAdapter(FragmentActivity activity, BusinessFragment businessFragment) {
+    private ArrayAdapter partnerTypeHeading;
+    private ArrayAdapter contactPosition;
+
+    public BusinessAdapter(FragmentActivity activity) {
         this.context = activity;
-        this.buttonListener = businessFragment;
+        listPartner = Arrays.asList(partnerType);
+        listPosition = Arrays.asList(partnerKeyPosition);
+
+        //Creating the ArrayAdapter instance having the mPartnerType list
+        partnerTypeHeading = new ArrayAdapter(context, android.R.layout.simple_spinner_item, partnerType);
+        partnerTypeHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //Creating the ArrayAdapter instance having the mPartnerType list
+        contactPosition = new ArrayAdapter(context, android.R.layout.simple_spinner_item, partnerKeyPosition);
+        contactPosition.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
     }
 
@@ -51,41 +60,53 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
     public MyView onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.business_item, parent, false);
+        // return new BusinessAdapter.MyView(itemView);
+        return new BusinessAdapter.MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
 
-        return new BusinessAdapter.MyView(itemView);
     }
 
     @Override
-    public void onBindViewHolder(MyView holder, int position) {
-        KeyBusinessInfo businessModel = list.get(position);
-
-        //Creating the ArrayAdapter instance having the partnerType list
-        ArrayAdapter partnerTypeHeading = new ArrayAdapter(context, android.R.layout.simple_spinner_item, partnerType);
-        partnerTypeHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.partnerTypeSpinner.setAdapter(partnerTypeHeading);
-        holder.partnerTypeSpinner.setOnItemSelectedListener(this);
-
-        //Creating the ArrayAdapter instance having the partnerType list
-        ArrayAdapter contactPosition = new ArrayAdapter(context, android.R.layout.simple_spinner_item, partnerKeyPosition);
-        contactPosition.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.keyContactSpinner.setAdapter(contactPosition);
-        holder.keyContactSpinner.setOnItemSelectedListener(this);
+    public void onBindViewHolder(final MyView holder, final int position) {
+        try {
 
 
-        holder.tieCompanyField.setText(businessModel.CompaneyName);
-        holder.tieCinField.setText(businessModel.CIN);
-        holder.tiePanField.setText(businessModel.PAN);
-        holder.tiekeyContactField.setText(businessModel.keyContactPerson);
-        BusinessLocation businessLocation = businessModel.BusinessLocation;
-        if (businessLocation != null) {
-            holder.tieStateField.setText(businessLocation.businessState);
-            holder.tieCityField.setText(businessLocation.businessCity);
-            holder.tiePinCodeField.setText(businessLocation.businessPINCode);
-            holder.tieZoneField.setText(businessLocation.BusinessZone);
+            holder.partnerTypeSpinner.setAdapter(partnerTypeHeading);
+            holder.keyContactSpinner.setAdapter(contactPosition);
 
+
+            // magic code for editText
+            holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition(), holder);
+            holder.editContactPerson.setText(list.get(holder.getAdapterPosition()).mContactPerson);
+            holder.editCompanyName.setText(list.get(holder.getAdapterPosition()).mCompanyName);
+            holder.editPAN.setText(list.get(holder.getAdapterPosition()).mPAN);
+            holder.editCIN.setText(list.get(holder.getAdapterPosition()).mCIN);
+            holder.editPinCode.setText(list.get(holder.getAdapterPosition()).BusinessLocation.mPINCode);
+            holder.editCity.setText(list.get(holder.getAdapterPosition()).BusinessLocation.mCity);
+            holder.editState.setText(list.get(holder.getAdapterPosition()).BusinessLocation.mState);
+            holder.editZone.setText(list.get(holder.getAdapterPosition()).BusinessLocation.mZone);
+
+
+            // magic code for spinner
+            holder.myCustomSpinnerListener.updatePosition(holder.getAdapterPosition());
+
+            String mPartnerType = list.get(holder.getAdapterPosition()).mPartnerType;
+            if (mPartnerType != null) {
+                if (listPartner.contains(mPartnerType)) {
+                    int index = listPartner.indexOf(mPartnerType);
+                    holder.partnerTypeSpinner.setSelection(index + 1);
+                }
+            }
+
+            String mContactPosition = list.get(holder.getAdapterPosition()).mContactPosition;
+            if (mContactPosition != null) {
+                if (listPosition.contains(mContactPosition)) {
+                    int index = listPosition.indexOf(mContactPosition);
+                    holder.keyContactSpinner.setSelection(index + 1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
     }
 
     @Override
@@ -93,75 +114,49 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
         return list.size();
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        MaterialSpinner materialSpinner = (MaterialSpinner) parent;
-        String selectedSpinner = String.valueOf(materialSpinner.getSelectedItem());
-        if (materialSpinner.getId() == R.id.partnerTypeSpinner) {
-            partnerTypeText = selectedSpinner;
-        } else if (materialSpinner.getId() == R.id.keyContactSpinner) {
-            contactText = selectedSpinner;
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
 
     public class MyView extends RecyclerView.ViewHolder {
         private MaterialSpinner partnerTypeSpinner, keyContactSpinner;
-
-        //  private TextInputLayout tilCompanyName, tilCinName, tilPanName, tilkeyContactName, tilState, tilCityName, tilPinCodeName, tilZoneName;
-        private TextInputEditText tieCompanyField, tieCinField, tiePanField, tiekeyContactField, tieStateField, tieCityField, tiePinCodeField, tieZoneField;
-
+        private TextInputEditText editCompanyName, editCIN, editPAN, editContactPerson, editState, editCity, editPinCode, editZone;
         private TextView textViewBusinessInfoHeading;
+        public MyCustomEditTextListener myCustomEditTextListener;
+        public MyCustomSpinnerListener myCustomSpinnerListener;
 
-        public MyView(View itemView) {
+
+        public MyView(View itemView, MyCustomEditTextListener myCustomEditTextListener, MyCustomSpinnerListener myCustomSpinnerListener) {
             super(itemView);
-            partnerTypeSpinner = itemView.findViewById(R.id.partnerTypeSpinner);
-            keyContactSpinner = itemView.findViewById(R.id.keyContactSpinner);
+            partnerTypeSpinner = itemView.findViewById(R.id.spinnerPartnerType);
+            keyContactSpinner = itemView.findViewById(R.id.spinnerKeyContact);
             textViewBusinessInfoHeading = itemView.findViewById(R.id.textViewBusinessInfoHeading);
-            //TextInputLayout
-          /*  tilCompanyName = itemView.findViewById(R.id.tilCompanyName);
-            tilCinName = itemView.findViewById(R.id.tilCinName);
-            tilPanName = itemView.findViewById(R.id.tilPanName);
-            tilkeyContactName = itemView.findViewById(R.id.tilkeyContactName);
-            tilState = itemView.findViewById(R.id.tilState);
-            tilCityName = itemView.findViewById(R.id.tilCityName);
-            tilPinCodeName = itemView.findViewById(R.id.tilPinCodeName);
-            tilZoneName = itemView.findViewById(R.id.tilZoneName);
-*/
+
             //TextInputEdiText
-            tieCompanyField = itemView.findViewById(R.id.tieCompanyField);
-            tieCinField = itemView.findViewById(R.id.tieCinField);
-            tiePanField = itemView.findViewById(R.id.tiePanField);
-            tiekeyContactField = itemView.findViewById(R.id.tiekeyContactField);
-            tieStateField = itemView.findViewById(R.id.tieStateField);
-            tieCityField = itemView.findViewById(R.id.tieCityField);
-            tiePinCodeField = itemView.findViewById(R.id.tiePinCodeField);
-            tieZoneField = itemView.findViewById(R.id.tieZoneField);
+            editCompanyName = itemView.findViewById(R.id.editCompanyName);
+            editCIN = itemView.findViewById(R.id.editCIN);
+            editPAN = itemView.findViewById(R.id.editPAN);
+            editContactPerson = itemView.findViewById(R.id.editContactPerson);
+            editState = itemView.findViewById(R.id.editState);
+            editCity = itemView.findViewById(R.id.editCity);
+            editPinCode = itemView.findViewById(R.id.editPinCode);
+            editZone = itemView.findViewById(R.id.editZone);
 
 
-            //Personal
-            FontUtil.applyTypeface(partnerTypeSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(keyContactSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-          /*   FontUtil.applyTypeface(tilCompanyName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-           FontUtil.applyTypeface(tilCinName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tilPanName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tilkeyContactName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-              FontUtil.applyTypeface(tilState, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tilCityName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tilPinCodeName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tilZoneName, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+            //magic code for editText
+            this.myCustomEditTextListener = myCustomEditTextListener;
+            this.editCompanyName.addTextChangedListener(myCustomEditTextListener);
+            this.editCIN.addTextChangedListener(myCustomEditTextListener);
+            this.editPAN.addTextChangedListener(myCustomEditTextListener);
+            this.editContactPerson.addTextChangedListener(myCustomEditTextListener);
+            this.editState.addTextChangedListener(myCustomEditTextListener);
+            this.editCity.addTextChangedListener(myCustomEditTextListener);
+            this.editPinCode.addTextChangedListener(myCustomEditTextListener);
+            this.editZone.addTextChangedListener(myCustomEditTextListener);
 
-         */
-            FontUtil.applyTypeface(tieCompanyField, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tieCinField, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tiePanField, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(tiekeyContactField, FontUtil.getTypeFaceRobotTiteliumRegular(context));
-            FontUtil.applyTypeface(textViewBusinessInfoHeading, FontUtil.getTypeFaceRobotTiteliumRegular(context));
+            //magic code for spinner
+            this.myCustomSpinnerListener = myCustomSpinnerListener;
+            this.partnerTypeSpinner.setOnItemSelectedListener(myCustomSpinnerListener);
+            this.keyContactSpinner.setOnItemSelectedListener(myCustomSpinnerListener);
+
+
         }
     }
 
@@ -170,14 +165,119 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
         notifyDataSetChanged();
     }
 
-    public void loadData(List<KeyBusinessInfo> data) {
-        this.list.clear();
-        this.list.addAll(data);
+    public void loadData(List<KeyBusinessInfo> newData) {
+        this.list = newData;
         notifyDataSetChanged();
     }
+
     // Insert a new item to the RecyclerView on a predefined position
     public void insert(int position, KeyBusinessInfo data) {
         this.list.add(position, data);
         notifyItemInserted(position);
     }
+
+    private class MyCustomEditTextListener implements TextWatcher {
+        private int position;
+        private MyView holder;
+
+        public void updatePosition(int position, MyView holder) {
+            this.position = position;
+            this.holder = holder;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            // no op
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            try {
+
+                if (holder.editCompanyName != null) {
+                    if (holder.editCompanyName.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mCompanyName = charSequence.toString();
+                    }
+                }
+                if (holder.editCIN != null) {
+                    if (holder.editCIN.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mCIN = charSequence.toString();
+                    }
+                }
+                if (holder.editPAN != null) {
+                    if (holder.editPAN.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mPAN = charSequence.toString();
+                    }
+                }
+                if (holder.editContactPerson != null) {
+                    if (holder.editContactPerson.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mContactPerson = charSequence.toString();
+                    }
+                }
+
+
+                //business Location
+
+                if (holder.editCity != null) {
+                    if (holder.editCity.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).BusinessLocation.mCity = charSequence.toString();
+                    }
+                }
+
+                if (holder.editState != null) {
+                    if (holder.editState.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).BusinessLocation.mState = charSequence.toString();
+                    }
+                }
+                if (holder.editZone != null) {
+                    if (holder.editZone.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).BusinessLocation.mZone = charSequence.toString();
+                    }
+                }
+                if (holder.editPinCode != null) {
+                    if (holder.editZone.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).BusinessLocation.mPINCode = charSequence.toString();
+                    }
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+            // no op
+        }
+    }
+
+    private class MyCustomSpinnerListener implements AdapterView.OnItemSelectedListener {
+        private int position;
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            switch (adapterView.getId()) {
+                case R.id.spinnerPartnerType:
+                    if (i != -1)
+                        list.get(position).mPartnerType = listPartner.get(i);
+                    break;
+                case R.id.spinnerKeyContact:
+                    if (i != -1)
+                        list.get(position).mContactPosition = listPosition.get(i);
+                    break;
+            }
+
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+
+        public void updatePosition(int position) {
+            this.position = position;
+        }
+    }
+
 }

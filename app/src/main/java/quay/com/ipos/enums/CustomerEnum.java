@@ -63,6 +63,7 @@ public enum CustomerEnum {
     ColoumnRelationShipList("relationshipList"),
     ColoumnTypeList("CustomerTypelist"),
     ColoumnCustomerCode("customerCode"),
+    ColoumnPointsPerValue("pointsPerValue"),
     ColoumnRegisteredBusinessPlace("registeredBusinessPlaceID");
 
 

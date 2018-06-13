@@ -48,6 +48,7 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
     private String firstName;
     private String lastName;
     private String dob;
+    private Calendar calendar;
     public interface MyChildValidation {
         void childValidated(boolean value);
 
@@ -63,6 +64,7 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
         this.buttonListener = buttonListener;
         this.mySubmitButton = mySubmitButton;
         this.myChildValidation = myChildValidation;
+        calendar = Calendar.getInstance();
     }
 
     @Override
@@ -165,9 +167,13 @@ public class CustomerChildAdapter extends RecyclerView.Adapter<CustomerChildAdap
                 Calendar c1 = Calendar.getInstance();
                 c1.set(1980, 0, 1);
 
+                Calendar maximunDate = Calendar.getInstance();
+                maximunDate.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(true);
                 datePickerDialog.setMinDate(c1);
+                datePickerDialog.setMaxDate(maximunDate);
                 datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
                 datePickerDialog.setAccentColor(context.getResources().getColor(R.color.colorPrimary));
                 datePickerDialog.setTitle("Select Date");

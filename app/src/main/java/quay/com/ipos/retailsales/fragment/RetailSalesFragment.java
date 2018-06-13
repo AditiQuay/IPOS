@@ -21,11 +21,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -78,13 +76,13 @@ import static quay.com.ipos.application.IPOSApplication.totalAmount;
 /**
  * Created by aditi.bhuranda on 16-04-2018.
  */
-public class RetailSalesFragment extends BaseFragment implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialog.MessageDialogListener,ScannerProductListener,ScanFilterListener,MyAdapterTags {
+public class RetailSalesFragment extends BaseFragment implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialog.MessageDialogListener,ScannerProductListener,ScanFilterListener,MyAdapterTags,MyDialogFragment.RedeemListener {
 
 
     ProductListResult productListResult = null;
     private MainActivity mainActivity;
-    int mCustomerPoints;
-    String mCustomerID;
+    double mCustomerPoints,mCustomerPointsPer=0;
+    String mCustomerID="",mCustomerEmail="";
     private ArrayList<PaymentRequest.CartDetail> cartDetail = new ArrayList<>();
     private ArrayList<PaymentRequest.Scheme> scheme = new ArrayList<>();
     /**
@@ -93,13 +91,13 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //    ArrayList<ProductListResult.Datum> arrSearchlist = new ArrayList<>();
     private TextView tvRight1, tvMoreDetails, tvItemNo, tvItemQty, tvTotalItemPrice,
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
-            tvLessDetails, tvRoundingOffPrice, tvTotalDiscount, tvPay, tvOTCDiscount,tvRedeemPoints, tvApplyOTC, tvApplyOTC2, tvPinCount;
+            tvLessDetails, tvRoundingOffPrice, tvTotalDiscount, tvPay, tvOTCDiscount,tvRedeemPoints, tvApplyOTC, tvApplyOTC2, tvPinCount,tvTotalPoints,tvTotalRedeemValue;
     private FrameLayout flScanner,flScanLayout;
     private ToggleButton tbPerc, tbRs;
     private EditText etDiscountAmt;
     private CheckBox chkOTC;
     private Fragment scanner_fragment;
-    private LinearLayout llTotalDiscountDetail, ll_item_pay, llOTCSelect, llTotalGST, llOTCConfirmation;
+    private LinearLayout llTotalDiscountDetail, ll_item_pay, llOTCSelect, llTotalGST, llOTCConfirmation,llRedeem;
     private ImageView imvDicount, imvGlobe,imvBilling, imvUserAdd, imvPin, imvRedeem, imvRight, imvClearOTC, imvBarcode,imvStatus;
     //    private ToggleButton chkBarCode;
     private LinearLayoutManager mLayoutManager;
@@ -167,6 +165,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         myDialog = new Dialog(getActivity());
         setHasOptionsMenu(true);
         Util.hideSoftKeyboard(getActivity());
+        if(IPOSApplication.mProductListResult.size() == 0){
+            onSearchButton();
+        }
         try {
             LocalBroadcastManager.getInstance(getActivity()).registerReceiver(listener,
                     new IntentFilter("CUSTOM_ACTION"));
@@ -182,6 +183,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         flScanner = rootView.findViewById(R.id.flScanner);
         flScanLayout = rootView.findViewById(R.id.flScanLayout);
         imvUserAdd = rootView.findViewById(R.id.imvUserAdd);
+        llRedeem = rootView.findViewById(R.id.llRedeem);
+        tvTotalPoints = rootView.findViewById(R.id.tvTotalPoints);
+        tvTotalRedeemValue = rootView.findViewById(R.id.tvTotalRedeemValue);
         tvRedeemPoints = rootView.findViewById(R.id.tvRedeemPoints);
         imvPin = rootView.findViewById(R.id.imvPin);
         imvRedeem = rootView.findViewById(R.id.imvRedeem);
@@ -285,6 +289,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountDetail.setText("(Item 0)");
         IPOSApplication.mProductListResult.clear();
+        IPOSApplication.totalAmount = 0.0;
+        IPOSApplication.totalpointsToRedeem = 0.0;
+        IPOSApplication.totalpointsToRedeemValue = 0.0;
+        IPOSApplication.isClicked=false;
+        IPOSApplication.isRefreshed = false;
         flScanner.setVisibility(View.GONE);
 //        chkBarCode.setChecked(false);
 //        closeFragment();
@@ -630,14 +639,18 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             }
             if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
-                mCustomerPoints = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
+                mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
                 tvRedeemPoints.setText(mCustomerPoints+"");
             }
         }else if(requestCode==Constants.ACT_CUSTOMER){
             if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
-                mCustomerPoints = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
+                mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
                 tvRedeemPoints.setText(mCustomerPoints+"");
             }
@@ -835,10 +848,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             tvTotalItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + sum);
             paymentRequest.setTotalValueWithoutTax(sum);
             tvTotalDiscountPrice.setText("-" + mContext.getResources().getString(R.string.Rs) + " " + (discount + otcDiscountPerc));
-            tvTotalDiscount.setText(mContext.getResources().getString(R.string.Rs) + " " + (discount + otcDiscountPerc));
+            tvTotalDiscount.setText(mContext.getResources().getString(R.string.Rs) + " " + (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue));
             paymentRequest.setTotalDiscountValue((discount + otcDiscountPerc));
             tvTotalDiscountDetail.setText("(Item " + discountItem + ")");
-
+            paymentRequest.setPointsToRedeem(IPOSApplication.totalpointsToRedeem);
+            paymentRequest.setPointsToRedeemValue(IPOSApplication.totalpointsToRedeemValue);
 
             AppLog.e(RetailSalesFragment.class.getSimpleName(), "totalGst: " + totalGst);
             tvTotalItemGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + totalGst);
@@ -849,7 +863,12 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             paymentRequest.setTotalSGSTValue(sgst);
             tvCGSTPrice.setText("+" + mContext.getResources().getString(R.string.Rs) + " " + cgst);
             paymentRequest.setTotalCGSTValue(cgst);
-            totalAfterGSt = (sum - discount) + (sgst + cgst) - (otcDiscountPerc);
+            if(IPOSApplication.totalpointsToRedeemValue>0)
+            {
+                totalAfterGSt = ((sum - discount) - IPOSApplication.totalpointsToRedeemValue) + (sgst + cgst) - (otcDiscountPerc);
+            }
+            else
+                totalAfterGSt = (sum - discount) + (sgst + cgst) - (otcDiscountPerc);
 //            double floorValue = Math.round(totalAfterGSt);
 
 
@@ -1021,15 +1040,21 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             case R.id.imvRedeem:
 
                 if (IPOSApplication.mProductListResult.size() > 0)
-                    showRedeemLoyaltyPopup(rootView);
+                    if(!mCustomerID.equalsIgnoreCase(""))
+                        showRedeemLoyaltyPopup(rootView);
+                    else
+                        Util.showToast(getString(R.string.redeem_customer_not_authorised), mContext);
                 else
                     Util.showToast(getString(R.string.redeem_cannot_applied), mContext);
 
                 break;
-            case R.id.buttonSendOtp:
-                AppLog.e(TAG, "buttonSendOtp click");
-                Util.showToast(getString(R.string.sending_otp), mContext);
-                break;
+//            case R.id.buttonSendOtp:
+//                AppLog.e(TAG, "buttonSendOtp click");
+////                Util.showToast(getString(R.string.sending_otp), mContext);
+//                Bundle mBundle = new Bundle();,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+//                mBundle.getInt(Constants.KEY_CUSTOMER_POINTS);
+//                sendOTPtoServer();
+//                break;
             case R.id.buttonRedeem:
 
                 break;
@@ -1104,6 +1129,23 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 break;
         }
     }
+
+//    private void sendOTPtoServer() {
+//        CustomerPointsRedeemRequest customerPointsRedeemRequest = new CustomerPointsRedeemRequest();
+//        customerPointsRedeemRequest.setCustomerId(mCustomerID);
+//        customerPointsRedeemRequest.setEmailId(mCustomerEmail);
+//        customerPointsRedeemRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode.trim()));
+//        customerPointsRedeemRequest.setPointsRedeemValue(mCustomerPoints);
+//        customerPointsRedeemRequest
+//        showProgressDialog(R.string.please_wait);
+//        ServiceTask mServiceTask = new ServiceTask();
+//        mServiceTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT);
+//        mServiceTask.setParamObj(customerPointsRedeemRequest);
+//        mServiceTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+//        mServiceTask.setListener(this);
+//        mServiceTask.setResultType(OrderSubmitResult.class);
+//        mServiceTask.execute();
+//    }
 
     private void setNewBilling() {
         if(IPOSApplication.mProductListResult.size()>0){
@@ -1488,10 +1530,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         }
     }
 
-    /**
-     * The Points.
-     */
-    int points = 500;
+
 
     /**
      * Show redeem loyalty popup.
@@ -1499,13 +1538,13 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
      * @param v the v
      */
     public void showRedeemLoyaltyPopup(View v) {
-        Bundle args = new Bundle();
-        args.putInt("points", points);
+//        Bundle args = new Bundle();
+//        args.putInt("points", points);
 
         FragmentManager fragmentManager = getChildFragmentManager();
         MyDialogFragment mMyDialogFragment = MyDialogFragment.newInstance();
-        mMyDialogFragment.setDialogInfo(this);
-        mMyDialogFragment.setArguments(args);
+        mMyDialogFragment.setDialogInfo(this,mCustomerPoints,mCustomerPointsPer,mCustomerEmail,mCustomerID,this);
+//        mMyDialogFragment.setArguments(args);
         mMyDialogFragment.show(fragmentManager, "Redeem");
 
     }
@@ -1749,6 +1788,21 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         super.onAttach(context);
         if (context instanceof MainActivity) {
             mainActivity = (MainActivity) context;
+        }
+    }
+
+    @Override
+    public void redeem(double pointsToRedeem, double pointsToRedeemValue) {
+        if(pointsToRedeemValue>0.0){
+            llRedeem.setVisibility(View.VISIBLE);
+            tvTotalPoints.setText("("+pointsToRedeem+")");
+            tvTotalRedeemValue.setText("- "+getActivity().getResources().getString(R.string.Rs) + " "+pointsToRedeemValue);
+            IPOSApplication.totalpointsToRedeem = pointsToRedeem;
+            IPOSApplication.totalpointsToRedeemValue = pointsToRedeemValue;
+        }else {
+            IPOSApplication.totalpointsToRedeemValue=0;
+            IPOSApplication.totalpointsToRedeem=0;
+            llRedeem.setVisibility(View.GONE);
         }
     }
 }

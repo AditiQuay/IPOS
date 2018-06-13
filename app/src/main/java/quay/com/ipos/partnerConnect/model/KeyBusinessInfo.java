@@ -1,16 +1,41 @@
 package quay.com.ipos.partnerConnect.model;
 
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class KeyBusinessInfo {
-    public String partnerType;
-    public String CompaneyName;
-    public String CIN;
-    public String PAN;
-    public String keyContactPerson;
-    public String keyContactPosition;
+    public int id;
+    @SerializedName("partnerType")
+    public String mPartnerType;
+    @SerializedName("CompaneyName")
+    public String mCompanyName;
+    @SerializedName("CIN")
+    public String mCIN;
+    @SerializedName("PAN")
+    public String mPAN;
+    @SerializedName("keyContactPerson")
+    public String mContactPerson;
+    @SerializedName("keyContactPosition")
+    public String mContactPosition;
 
 
     // private List<BusinessLocation> BusinessLocation;
     public BusinessLocation BusinessLocation;
+
+    public int getId() {
+        return id;
+    }
+
+
+    /* "partnerType": "Principal",
+             "mCompanyName": "K.G. Traders",
+             "CIN": "",
+             "PAN": "",
+             "keyContactPerson": "Deepak Kumar",
+             "keyContactPosition": "Traders Description",
+             "BusinessLocation": {
+        "businessState": "Haryana",
+                "businessCity": "Gurugram",
+                "businessPINCode": "122022",
+                "BusinessZone": null
+    }*/
 }

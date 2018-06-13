@@ -10,6 +10,8 @@ import android.view.MotionEvent;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.ui.CustomProgressDialog;
 
+import static quay.com.ipos.utility.Util.getStringRes;
+
 
 /**
  * The Class BaseFragment.
@@ -93,6 +95,11 @@ public class BaseFragment extends Fragment {
             _progressDialog.setMessage(messageText);
             _progressDialog.show();
         }
+    }
+
+    public void showProgressDialog(int msgId) {
+        String message = getStringRes(msgId);
+        showProgressDialog(message);
     }
 
     /**

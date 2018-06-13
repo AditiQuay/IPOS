@@ -34,6 +34,7 @@ import quay.com.ipos.partnerConnect.model.BusinessLocation;
 import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.BusinessAdapter;
+import quay.com.ipos.partnerConnect.partnerConnectAdapter.OnItemChangeListener;
 import quay.com.ipos.partnerConnect.partnerConnectModel.BusinessModel;
 import quay.com.ipos.utility.FontUtil;
 
@@ -41,20 +42,21 @@ import quay.com.ipos.utility.FontUtil;
  * Created by niraj.kumar on 6/7/2018.
  */
 
-public class BusinessFragment extends Fragment implements InitInterface, ButtonListener, View.OnClickListener {
+public class BusinessFragment extends Fragment implements InitInterface, View.OnClickListener {
     private static final String TAG = BusinessFragment.class.getSimpleName();
     private View view;
     private RelativeLayout rLayoutProductTitle;
     private TextView textViewBusinessInfoHeading, textViewMadatory, textViewLastUpdated;
     private RecyclerView recyclerViewBusinessInfo;
     private LinearLayout lLayoutBottom;
-    private Button btnCancel, btnsubmit;
     private Context mContext;
-    private ArrayList<BusinessModel> businessModels = new ArrayList<>();
+
     private View fab;
     private Button btnAdd;
     PCModel mpcModel;
     private BusinessAdapter businessAdapter;
+
+
 
 
     @Override
@@ -72,6 +74,7 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+
         return view;
     }
 
@@ -90,9 +93,11 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
     private void loadData() {
         PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
         if (partnerConnectMain != null) {
+
             partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
                 @Override
                 public void onChanged(@Nullable PCModel pcModel) {
+
                     mpcModel = pcModel;
                     setData(pcModel);
 
@@ -106,11 +111,10 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }
-        List<KeyBusinessInfo> data = pcModel.Business.KeyBusinessInfo;
-        //  businessAdapter = new BusinessAdapter(getActivity(), pcModel.Business.KeyBusinessInfo, BusinessFragment.this);
-        //     recyclerViewBusinessInfo.setAdapter(businessAdapter);
 
+        List<KeyBusinessInfo> data = pcModel.Business.KeyBusinessInfo;
         businessAdapter.loadData(data);
+
     }
 
     @Override
@@ -122,8 +126,6 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
         textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
         recyclerViewBusinessInfo = view.findViewById(R.id.recyclerViewBusinessInfo);
         lLayoutBottom = view.findViewById(R.id.lLayoutBottom);
-        btnCancel = getActivity().findViewById(R.id.btnCancel);
-        btnsubmit = getActivity().findViewById(R.id.btnsubmit);
         fab = getActivity().findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,12 +133,10 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
                 onClick(view);
             }
         });
-        businessAdapter = new BusinessAdapter(getActivity(), BusinessFragment.this);
+        businessAdapter = new BusinessAdapter(getActivity());
         recyclerViewBusinessInfo.setAdapter(businessAdapter);
 
         try {
-            btnCancel.setOnClickListener(this);
-            btnsubmit.setOnClickListener(this);
             fab.setOnClickListener(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -163,20 +163,6 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
     @Override
     public void applyInitValues() {
 
-      /*  businessModels.clear();
-
-        BusinessModel businessModel = new BusinessModel();
-        businessModel.setPartnerType("");
-        businessModel.setPartnerCompanyName("");
-        businessModel.setPartnerCinNumber("");
-        businessModel.setPartnerPanNumber("");
-        businessModel.setPartnerKeyContact("");
-        businessModel.setPartnerContactPosition("");
-        businessModel.setPartnerState("");
-        businessModel.setPartnerCity("");
-        businessModel.setPartnerPinCode("");
-        businessModel.setPartnerZone("");
-        businessModels.add(businessModel);*/
 
 
     }
@@ -190,8 +176,6 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
         FontUtil.applyTypeface(textViewLastUpdated, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(recyclerViewBusinessInfo, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(lLayoutBottom, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnCancel, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnsubmit, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
     }
 
     @Override
@@ -199,31 +183,7 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
         return false;
     }
 
-    @Override
-    public void onAdd(int position, String firstName, String lastName, String childGender, String childDOB) {
 
-    }
-
-    @Override
-    public void onPartnerAdd(int position, String distributerType, String companyName, String cinNumber, String panNumber, String contactPerson, String contactPosition, String partnerState, String partnerCity, String partnerPinCode, String partnerZone) {
-        BusinessModel model = new BusinessModel();
-        model.setPartnerType(distributerType);
-        model.setPartnerCompanyName(companyName);
-        model.setPartnerCinNumber(cinNumber);
-        model.setPartnerPanNumber(panNumber);
-        model.setPartnerKeyContact(contactPerson);
-        model.setPartnerContactPosition(contactPosition);
-        model.setPartnerState(partnerState);
-        model.setPartnerCity(partnerCity);
-        model.setPartnerPinCode(partnerPinCode);
-        model.setPartnerZone(partnerZone);
-        businessModels.set(position, model);
-    }
-
-    @Override
-    public void onContactAdd(int position, String role, String name, String primaryMobileNum, String secondaryMobileNum) {
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -240,8 +200,11 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
             Toast.makeText(getActivity(), "hhhvv", Toast.LENGTH_SHORT).show();
 
             BusinessLocation businessLocation = new BusinessLocation();
+
             KeyBusinessInfo keyBusinessInfo = new KeyBusinessInfo();
+            keyBusinessInfo.id = mpcModel.Business.KeyBusinessInfo.size() + 1;
             keyBusinessInfo.BusinessLocation = businessLocation;
+
             if (mpcModel.Business.KeyBusinessInfo != null) {
                 mpcModel.Business.KeyBusinessInfo.add(keyBusinessInfo);
             }
@@ -256,4 +219,5 @@ public class BusinessFragment extends Fragment implements InitInterface, ButtonL
         }
 
     }
+
 }

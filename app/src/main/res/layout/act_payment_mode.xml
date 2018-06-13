@@ -673,7 +673,7 @@
                     android:background="@drawable/button_border_white"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="4dp"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:layout_margin="@dimen/dim_10"
                     android:layout_marginTop="@dimen/dim_8"
                     android:padding="@dimen/dim_4">
@@ -1150,6 +1150,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/lLayoutView"
                             android:paddingTop="@dimen/dim_5"
+                            android:visibility="gone"
                             android:background="@color/white"
                             android:orientation="vertical">
                             <LinearLayout
@@ -1188,7 +1189,7 @@
                                         android:textSize="@dimen/text_size_18sp"
                                         android:hint="0 0 0 0"
                                         android:textColor="@color/dark_text_color"
-                                        android:inputType="number" />
+                                        android:inputType="textNoSuggestions" />
                                     <View
                                         android:layout_width="match_parent"
                                         android:layout_height="1dp"

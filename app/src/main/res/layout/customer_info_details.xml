@@ -274,8 +274,7 @@
                                 android:layout_toEndOf="@+id/imageViewUser"
                                 android:layout_toRightOf="@+id/imageViewUser"
                                 android:paddingLeft="@dimen/dim_8"
-                                android:paddingRight="@dimen/dim_8"
-                                android:text="Ramesh" />
+                                android:paddingRight="@dimen/dim_8" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -304,8 +303,7 @@
                                 android:layout_toEndOf="@+id/imageViewMob"
                                 android:layout_toRightOf="@+id/imageViewMob"
                                 android:paddingLeft="@dimen/dim_8"
-                                android:paddingRight="@dimen/dim_8"
-                                android:text="9999999999" />
+                                android:paddingRight="@dimen/dim_8" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -334,8 +332,7 @@
                                 android:layout_toEndOf="@+id/imageViewEmail"
                                 android:layout_toRightOf="@+id/imageViewEmail"
                                 android:paddingLeft="@dimen/dim_8"
-                                android:paddingRight="@dimen/dim_8"
-                                android:text="ram.verma@gmail.com" />
+                                android:paddingRight="@dimen/dim_8" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -364,8 +361,7 @@
                                 android:layout_toEndOf="@+id/imageViewBill"
                                 android:layout_toRightOf="@+id/imageViewBill"
                                 android:paddingLeft="@dimen/dim_8"
-                                android:paddingRight="@dimen/dim_8"
-                                android:text="ramesh@gmail.com" />
+                                android:paddingRight="@dimen/dim_8" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -395,8 +391,7 @@
                                 android:layout_toRightOf="@+id/imageViewCake"
                                 android:gravity="center_vertical"
                                 android:paddingLeft="@dimen/dim_8"
-                                android:paddingStart="@dimen/dim_8"
-                                android:text="Wish Birthday (28th Feb)" />
+                                android:paddingStart="@dimen/dim_8" />
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -488,8 +483,7 @@
                 android:layout_marginRight="@dimen/dim_16"
                 android:layout_marginTop="@dimen/dim_10"
                 android:paddingLeft="@dimen/dim_4"
-                android:paddingRight="@dimen/dim_4"
-                android:text="Billing: 456, Sector 40, Gurugram, Haryana, 122015" />
+                android:paddingRight="@dimen/dim_4" />
 
             <RelativeLayout
                 android:id="@+id/rLayoutSuggest"
@@ -566,8 +560,7 @@
                         android:includeFontPadding="false"
                         android:lines="2"
                         android:paddingLeft="@dimen/dim_8"
-                        android:paddingStart="@dimen/dim_8"
-                        android:text="Trizole was  out of stock on last billing. Its now available." />
+                        android:paddingStart="@dimen/dim_8" />
                 </LinearLayout>
 
 

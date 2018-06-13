@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.IPOSAPI;
@@ -54,6 +56,7 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MySubmitButton;
 import quay.com.ipos.listeners.YourFragmentInterface;
 import quay.com.ipos.service.ServiceTask;
+import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.SharedPrefUtil;
@@ -79,7 +82,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     private ArrayList<AddCustomerModel.CustomerChildBean> childModels = new ArrayList<>();
     //ContactInformation
     private TextView textViewContactHeading;
-    private TextInputEditText tiePinCode, tieAddress, tieMobileNumSecondary, tieMobileNumPrimary, tieChildDOB, tieEmail2, tieEmail1;
+    private TextInputEditText tiePinCode, tieAddress, tieMobileNumPrimary, tieChildDOB, tieEmail2, tieEmail1;
     private MaterialSpinner countrySpinner, stateSpinner, citySpinner;
 
     //Professional information
@@ -110,10 +113,10 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     private String[] maritalStatus = {"Unmarried", "Married"};
     private Bundle bundle;
     SharedPreferences sharedpreferences;
-    public static final String mypreference = "mypref";
+    public static final String mypreference = "Data";
 
-    private TextInputLayout tilChildfname, tilChildDob;
-    private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDob;
+    private TextInputLayout tilChildfname, tilChildDob, tilSecondaryMobileNumber, tilEmail2;
+    private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDob, tieMobileNumSecondary;
     private MaterialSpinner childGenderSpinner;
 
     public CustomerAddFullFragment() {
@@ -133,6 +136,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e(TAG, "onCreate method  called");
+
+
     }
 
     @Nullable
@@ -141,13 +146,49 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         main = inflater.inflate(R.layout.customer_add_full_fragment, container, false);
         mContext = getActivity();
         dbHelper = new DatabaseHandler(mContext);
-
+        calendar = Calendar.getInstance();
+        AppLog.e(TAG, "onCreateView Called");
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+        setData();
 
         return main;
+    }
+
+    public void setData() {
+        sharedpreferences = mContext.getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+        if (sharedpreferences.contains("title")) {
+            String title = sharedpreferences.getString("title", "");
+            for (int i = 0; i < nameTitle.length; i++) {
+                if (nameTitle[i].toString().equalsIgnoreCase(title)) {
+                    titleSpinner.setSelection(i, false);
+                }
+            }
+        }
+        if (sharedpreferences.contains("firstName")) {
+            tieFirstName.setText(sharedpreferences.getString("firstName", ""));
+            tieFirstName.setFocusable(false);
+        }
+        if (sharedpreferences.contains("lastName")) {
+            tieLastName.setText(sharedpreferences.getString("lastName", ""));
+            tieLastName.setFocusable(false);
+        }
+        if (sharedpreferences.contains("MobileNumber")) {
+            tieMobileNumPrimary.setText(sharedpreferences.getString("MobileNumber", ""));
+            tieMobileNumPrimary.setFocusable(false);
+        }
+        if (sharedpreferences.contains("email")) {
+            tieEmail1.setText(sharedpreferences.getString("email", ""));
+            tieEmail1.setFocusable(false);
+        }
+        if (sharedpreferences.contains("bDay")) {
+            tieDOB.setText(sharedpreferences.getString("bDay", ""));
+            tieDOB.setFocusable(false);
+            tieDOB.setClickable(false);
+        }
     }
 
     @Override
@@ -169,6 +210,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         tilDOB = main.findViewById(R.id.tilDOB);
         tieDOB = main.findViewById(R.id.tieDOB);
         tilSpouseDob = main.findViewById(R.id.tilSpouseDob);
+        tilEmail2 = main.findViewById(R.id.tilEmail2);
         tilMobileNumPrimary = main.findViewById(R.id.tilMobileNumPrimary);
         tieChildDOB = main.findViewById(R.id.tieChildDOB);
         genderSpinner = main.findViewById(R.id.genderSpinner);
@@ -191,13 +233,15 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         //Contact info
         textViewContactHeading = main.findViewById(R.id.textViewContactHeading);
         tiePinCode = main.findViewById(R.id.tiePinCode);
-        tieAddress = main.findViewById(R.id.tieAddress);
+        tieAddress = main.findViewById(R.id.editAddress);
         tieMobileNumSecondary = main.findViewById(R.id.tieMobileNumSecondary);
         tieMobileNumPrimary = main.findViewById(R.id.tieMobileNumPrimary);
+        tilSecondaryMobileNumber = main.findViewById(R.id.tilSecondaryMobileNumber);
+        tieMobileNumSecondary = main.findViewById(R.id.tieMobileNumSecondary);
         tieEmail2 = main.findViewById(R.id.tieEmail2);
         tieEmail1 = main.findViewById(R.id.tieEmail1);
         countrySpinner = main.findViewById(R.id.countrySpinner);
-        stateSpinner = main.findViewById(R.id.stateSpinner);
+        stateSpinner = main.findViewById(R.id.editState);
         citySpinner = main.findViewById(R.id.citySpinner);
 
         //Professional info
@@ -206,7 +250,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         companySpinner = main.findViewById(R.id.companySpinner);
         customerTypeSpinner = main.findViewById(R.id.customerTypeSpinner);
         relationShipSpinner = main.findViewById(R.id.relationShipSpinner);
-        tieGstin = main.findViewById(R.id.tieGstin);
+        tieGstin = main.findViewById(R.id.editGstin);
 
         recyclerViewChild = main.findViewById(R.id.recyclerViewChild);
         btnAddChild = main.findViewById(R.id.btnAddChild);
@@ -355,6 +399,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             String value = getArguments().getString("firstName");
             tieFirstName.setText(value);
         }
+        tieMobileNumSecondary.addTextChangedListener(this);
+        tieEmail2.addTextChangedListener(this);
     }
 
     @Override
@@ -597,7 +643,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 CityListModel[] cityListModels = new Gson().fromJson(customerSpinner.get(0).getCityList(), CityListModel[].class);
                 cityName = cityListModels[position].getCityName();
 
-            } else if (materialSpinner.getId() == R.id.stateSpinner) {
+            } else if (materialSpinner.getId() == R.id.editState) {
 
                 ArrayList<CustomerSpinner> customerSpinner = dbHelper.getCustomerSpinner();
                 StateListModel[] stateListModel = new Gson().fromJson(customerSpinner.get(0).getStateList(), StateListModel[].class);
@@ -706,15 +752,16 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                         isFail = true;
                         tilSpouseDob.setErrorEnabled(true);
                         tilSpouseDob.setError(getResources().getString(R.string.dateerror));
-                    }if (childStatus.equalsIgnoreCase("null")){
+                    }
+                    if (childStatus.equalsIgnoreCase("null")) {
                         isFail = true;
                         childSpinner.setEnableErrorLabel(true);
                         childSpinner.setError("Please select child status");
                     }
 
 
-                    if(childStatus.equalsIgnoreCase("Yes")){
-                        if (childStatus.equalsIgnoreCase("Yes")){
+                    if (childStatus.equalsIgnoreCase("Yes")) {
+                        if (childStatus.equalsIgnoreCase("Yes")) {
 
                             for (int i = 0; i < childModels.size(); i++) {
                                 View view = recyclerViewChild.getLayoutManager().findViewByPosition(i);
@@ -826,12 +873,23 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     tilSpouseLastName.setError(null);
                     childSpinner.setError(null);
                 }
+
                 if (TextUtils.isEmpty(tieEmail1.getText().toString())) {
+                    isFail = true;
+                    tilEmail1.setErrorEnabled(true);
+                    tilEmail1.setError("Email is required");
+                }
+                if (!isEmailValid(tieEmail1.getText().toString())) {
                     isFail = true;
                     tilEmail1.setErrorEnabled(true);
                     tilEmail1.setError(getResources().getString(R.string.invalid_email));
                 }
                 if (TextUtils.isEmpty(tieMobileNumPrimary.getText().toString())) {
+                    isFail = true;
+                    tilMobileNumPrimary.setErrorEnabled(true);
+                    tieMobileNumPrimary.setError(getResources().getString(R.string.invalid_phone));
+                }
+                if (tieMobileNumPrimary.getText().toString().length() < 10 || tieMobileNumPrimary.getText().toString().length() > 10) {
                     isFail = true;
                     tilMobileNumPrimary.setErrorEnabled(true);
                     tilMobileNumPrimary.setError(getResources().getString(R.string.invalid_phone));
@@ -867,23 +925,46 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     designationSpinner.setEnableErrorLabel(false);
                     companySpinner.setEnableErrorLabel(false);
 
+                    boolean isNotValidated = false;
+                    if (!TextUtils.isEmpty(tieMobileNumSecondary.getText().toString())) {
+                        if (tieMobileNumSecondary.getText().toString().length() < 10 || tieMobileNumSecondary.getText().toString().length() > 10) {
+                            isNotValidated = true;
+                            tilSecondaryMobileNumber.setErrorEnabled(true);
+                            tilSecondaryMobileNumber.setError(getResources().getString(R.string.invalid_phone));
+
+                        }
+                    }
+                    if (!TextUtils.isEmpty(tieEmail2.getText().toString())) {
+                        if (!isEmailValid(tieEmail2.getText().toString())) {
+                            isNotValidated = true;
+                            tilEmail2.setErrorEnabled(true);
+                            tilEmail2.setError(getResources().getString(R.string.invalid_email));
+                        }
+                    }
+                    if (!isNotValidated) {
+                        sendCustomerData();
+                    }
 
 
-                    sendCustomerData();
-
-
+                } else {
+                    Toast.makeText(mContext, "Please enter all the required fields", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
             case R.id.tieDOB:
                 //change boolean value
                 clicked = true;
-                Calendar c = Calendar.getInstance();
-                c.set(1980, 0, 1);
+                Calendar minDate = Calendar.getInstance();
+                minDate.set(1980, 0, 1);
+
+                Calendar maxDate = Calendar.getInstance();
+                maxDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
                 datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(true);
-                datePickerDialog.setMinDate(c);
+                datePickerDialog.setMinDate(minDate);
+                datePickerDialog.setMaxDate(maxDate);
                 datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
                 datePickerDialog.setTitle("Select Date");
                 datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
@@ -894,10 +975,14 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 Calendar c1 = Calendar.getInstance();
                 c1.set(1980, 0, 1);
 
+                Calendar maximunDate = Calendar.getInstance();
+                maximunDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
                 datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(true);
                 datePickerDialog.setMinDate(c1);
+                datePickerDialog.setMaxDate(maximunDate);
                 datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
                 datePickerDialog.setTitle("Select Date");
                 datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
@@ -908,6 +993,19 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         }
     }
 
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
+    }
 
     private void sendCustomerData() {
         String dob = tieDOB.getText().toString();
@@ -1087,8 +1185,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, monthOfYear);
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            Date date = calendar.getTime();
 
+            Date date = calendar.getTime();
             String date1 = Util.getFormattedDates(date);
 
             tieSpouseDOB.setText(date1);
@@ -1173,6 +1271,14 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             tilMobileNumPrimary.setErrorEnabled(false);
             tilMobileNumPrimary.setError(null);
         }
+        if (s == tieMobileNumSecondary.getEditableText()) {
+            tilSecondaryMobileNumber.setErrorEnabled(false);
+            tilSecondaryMobileNumber.setError(null);
+        }
+        if (s == tieEmail2.getEditableText()) {
+            tilEmail2.setErrorEnabled(false);
+            tilEmail2.setError(null);
+        }
     }
 
     @Override
@@ -1202,28 +1308,56 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
     @Override
     public void fragmentBecameVisible() {
+        sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+//        String title = sharedpreferences.getString("title", "");
+//        if (title.equalsIgnoreCase("Mr.")) {
+//            titleSpinner.setSelection(0);
+//            titleSpinner.setClickable(false);
+//        }
+//        if (title.equalsIgnoreCase("Mrs.")) {
+//            titleSpinner.setSelection(1);
+//            titleSpinner.setClickable(false);
+//            titleSpinner.setEnabled(false);
+//        }
+//        if (title.equalsIgnoreCase("Miss.")) {
+//            titleSpinner.setSelection(1);
+//            titleSpinner.setClickable(false);
+//            titleSpinner.setEnabled(false);
+//        }
+//
+//        String gender = sharedpreferences.getString("gender", "");
+//        if (gender.equalsIgnoreCase("Male")) {
+//            genderSpinner.setSelection(0);
+//            genderSpinner.setClickable(false);
+//            genderSpinner.setEnabled(false);
+//        }
+//        if (gender.equalsIgnoreCase("Female")) {
+//            genderSpinner.setSelection(1);
+//            genderSpinner.setClickable(false);
+//            genderSpinner.setEnabled(false);
+//        }
 
-        sharedpreferences = mContext.getSharedPreferences(mypreference,
-                Context.MODE_PRIVATE);
-        if (sharedpreferences.contains("title")) {
-            String title = sharedpreferences.getString("title", "");
-            for (int i = 0; i < nameTitle.length; i++) {
-                if (nameTitle[i].equalsIgnoreCase(title)) {
-                    titleSpinner.setSelection(i);
-                }
-            }
-        }
-        if (sharedpreferences.contains("fName")) {
-            tieFirstName.setText(sharedpreferences.getString("fName", ""));
+
+        if (sharedpreferences.contains("firstName")) {
+            tieFirstName.setText(sharedpreferences.getString("firstName", ""));
             tieFirstName.setFocusable(false);
         }
         if (sharedpreferences.contains("lastName")) {
             tieLastName.setText(sharedpreferences.getString("lastName", ""));
             tieLastName.setFocusable(false);
         }
-        if (sharedpreferences.contains("mobileNumber")) {
-            tieMobileNumPrimary.setText(sharedpreferences.getString("mobileNumber", ""));
+        if (sharedpreferences.contains("MobileNumber")) {
+            tieMobileNumPrimary.setText(sharedpreferences.getString("MobileNumber", ""));
             tieMobileNumPrimary.setFocusable(false);
+        }
+        if (sharedpreferences.contains("email")) {
+            tieEmail1.setText(sharedpreferences.getString("email", ""));
+            tieEmail1.setFocusable(false);
+        }
+        if (sharedpreferences.contains("bDay")) {
+            tieDOB.setText(sharedpreferences.getString("bDay", ""));
+            tieDOB.setFocusable(false);
+            tieDOB.setClickable(false);
         }
 
     }

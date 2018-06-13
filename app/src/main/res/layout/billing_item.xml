@@ -1,291 +1,275 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/cardViewProduct"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dim_8"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/dim_8"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="true"
+    card_view:cardElevation="0dp">
 
-    <android.support.v4.widget.NestedScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dim_4">
 
-        <android.support.v7.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/dim_8"
-            app:cardElevation="0dp"
-            app:cardPreventCornerOverlap="true"
-            card_view:cardElevation="0dp">
+            android:layout_marginRight="@dimen/dim_2"
+            android:orientation="horizontal"
+            android:padding="@dimen/dim_2">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/dim_4">
+                android:layout_marginTop="@dimen/dim_4"
+                android:orientation="vertical">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_2"
                     android:layout_marginRight="@dimen/dim_2"
+                    android:layout_marginTop="@dimen/dim_8"
                     android:orientation="horizontal"
                     android:padding="@dimen/dim_2">
 
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/dim_4">
+
+                        <fr.ganfra.materialspinner.MaterialSpinner
+                            android:id="@+id/spinnerAddressType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dim_4"
+                            android:layout_marginRight="@dimen/dim_4"
+                            app:ms_alignLabels="true"
+                            app:ms_baseColor="@color/grey"
+                            app:ms_enableErrorLabel="false"
+                            app:ms_enableFloatingLabel="true"
+                            app:ms_errorColor="@color/red"
+                            app:ms_floatingLabelColor="@color/grey"
+                            app:ms_floatingLabelText="Address Type *"
+                            app:ms_highlightColor="@color/highlight"
+                            app:ms_hint="Address Type *"
+                            app:ms_hintColor="@color/grey"
+                            app:ms_multiline="false" />
+                    </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dim_4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
-
-                        <LinearLayout
+                        <fr.ganfra.materialspinner.MaterialSpinner
+                            android:id="@+id/spinnerBusinessType"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dim_2"
-                            android:layout_marginRight="@dimen/dim_2"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/dim_2">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:paddingBottom="@dimen/dim_4">
-
-                                <fr.ganfra.materialspinner.MaterialSpinner
-                                    android:id="@+id/addressTypeSpinner"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dim_4"
-                                    android:layout_marginRight="@dimen/dim_4"
-                                    app:ms_alignLabels="true"
-                                    app:ms_baseColor="@color/grey"
-                                    app:ms_enableErrorLabel="false"
-                                    app:ms_enableFloatingLabel="true"
-                                    app:ms_errorColor="@color/red"
-                                    app:ms_floatingLabelColor="@color/grey"
-                                    app:ms_floatingLabelText="Address Type *"
-                                    app:ms_highlightColor="@color/highlight"
-                                    app:ms_hint="Address Type *"
-                                    app:ms_hintColor="@color/grey"
-                                    app:ms_multiline="false" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <fr.ganfra.materialspinner.MaterialSpinner
-                                    android:id="@+id/businessPlaceSpinner"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dim_4"
-                                    android:layout_marginRight="@dimen/dim_4"
-                                    app:ms_alignLabels="true"
-                                    app:ms_baseColor="@color/grey"
-                                    app:ms_enableErrorLabel="false"
-                                    app:ms_enableFloatingLabel="true"
-                                    app:ms_errorColor="@color/red"
-                                    app:ms_floatingLabelColor="@color/grey"
-                                    app:ms_floatingLabelText="Business Place"
-                                    app:ms_highlightColor="@color/highlight"
-                                    app:ms_hint="Business Place"
-                                    app:ms_hintColor="@color/grey"
-                                    app:ms_multiline="false" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dim_2"
-                            android:layout_marginRight="@dimen/dim_2"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/dim_2">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/tilAddress"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                    <android.support.design.widget.TextInputEditText
-                                        android:id="@+id/tieAddress"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:hint="Address *"
-                                        android:textSize="@dimen/universal_text_size14" />
-
-                                </android.support.design.widget.TextInputLayout>
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dim_2"
-                            android:layout_marginRight="@dimen/dim_2"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/dim_2">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/tilCity"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                    <android.support.design.widget.TextInputEditText
-                                        android:id="@+id/tieCity"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:hint="City *"
-                                        android:textSize="@dimen/universal_text_size14" />
-
-                                </android.support.design.widget.TextInputLayout>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:paddingBottom="@dimen/dim_4">
-
-                                <fr.ganfra.materialspinner.MaterialSpinner
-                                    android:id="@+id/stateSpinner"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dim_4"
-                                    android:layout_marginRight="@dimen/dim_4"
-                                    app:ms_alignLabels="true"
-                                    app:ms_baseColor="@color/grey"
-                                    app:ms_enableErrorLabel="false"
-                                    app:ms_enableFloatingLabel="true"
-                                    app:ms_errorColor="@color/red"
-                                    app:ms_floatingLabelColor="@color/grey"
-                                    app:ms_floatingLabelText="State *"
-                                    app:ms_highlightColor="@color/highlight"
-                                    app:ms_hint="State *"
-                                    app:ms_hintColor="@color/grey"
-                                    app:ms_multiline="false" />
-
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dim_2"
-                            android:layout_marginRight="@dimen/dim_2"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/dim_2">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/tilGstin"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                    <android.support.design.widget.TextInputEditText
-                                        android:id="@+id/tieGstin"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:hint="GSTIN *"
-                                        android:textSize="@dimen/universal_text_size14" />
-
-                                </android.support.design.widget.TextInputLayout>
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/tilContactPerson"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                    <android.support.design.widget.TextInputEditText
-                                        android:id="@+id/tieContactPerson"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:hint="Contact Person *"
-                                        android:textSize="@dimen/universal_text_size14" />
-
-                                </android.support.design.widget.TextInputLayout>
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dim_2"
-                            android:layout_marginRight="@dimen/dim_2"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:orientation="horizontal"
-                            android:padding="@dimen/dim_2">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <android.support.design.widget.TextInputLayout
-                                    android:id="@+id/tilContactPersonNumber"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                    <android.support.design.widget.TextInputEditText
-                                        android:id="@+id/tieContactPersonNumber"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:hint="Contact Person Number *"
-                                        android:textSize="@dimen/universal_text_size14" />
-
-                                </android.support.design.widget.TextInputLayout>
-                            </LinearLayout>
-
-
-                        </LinearLayout>
+                            android:layout_marginLeft="@dimen/dim_4"
+                            android:layout_marginRight="@dimen/dim_4"
+                            app:ms_alignLabels="true"
+                            app:ms_baseColor="@color/grey"
+                            app:ms_enableErrorLabel="false"
+                            app:ms_enableFloatingLabel="true"
+                            app:ms_errorColor="@color/red"
+                            app:ms_floatingLabelColor="@color/grey"
+                            app:ms_floatingLabelText="Business Place"
+                            app:ms_highlightColor="@color/highlight"
+                            app:ms_hint="Business Place"
+                            app:ms_hintColor="@color/grey"
+                            app:ms_multiline="false" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_2"
+                    android:layout_marginRight="@dimen/dim_2"
+                    android:layout_marginTop="@dimen/dim_8"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dim_2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/editAddressInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/editAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="Address *"
+                                android:textSize="@dimen/universal_text_size14" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_2"
+                    android:layout_marginRight="@dimen/dim_2"
+                    android:layout_marginTop="@dimen/dim_8"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dim_2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/tilCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/editCity"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="City *"
+                                android:textSize="@dimen/universal_text_size14" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/dim_4">
+
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/tilState"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/editState"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="City *"
+                                android:textSize="@dimen/universal_text_size14" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_2"
+                    android:layout_marginRight="@dimen/dim_2"
+                    android:layout_marginTop="@dimen/dim_8"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dim_2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/tilGstin"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/editGstin"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="GSTIN *"
+                                android:textSize="@dimen/universal_text_size14" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/tilContactPerson"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/editContactPerson"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="Contact Person *"
+                                android:textSize="@dimen/universal_text_size14" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_2"
+                    android:layout_marginRight="@dimen/dim_2"
+                    android:layout_marginTop="@dimen/dim_8"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dim_2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/tilContactPersonNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <android.support.design.widget.TextInputEditText
+                                android:id="@+id/editMobile"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:hint="Contact Person Number *"
+                                android:textSize="@dimen/universal_text_size14" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
             </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-    </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
+    </LinearLayout>
 
 
-</LinearLayout>
+</android.support.v7.widget.CardView>
 
