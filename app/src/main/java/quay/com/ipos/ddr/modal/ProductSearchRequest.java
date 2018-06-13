@@ -22,7 +22,7 @@ public class ProductSearchRequest {
     private String barCodeNumber;
     private String employeeCode;
     private String employeeRole;
-
+    private String moduleType;
     public String getEntityCode() {
         return entityCode;
     }
@@ -85,5 +85,13 @@ public class ProductSearchRequest {
 
     public void setEmployeeRole(String employeeRole) {
         this.employeeRole = employeeRole;
+    }
+
+    public String getModuleType() {
+        return moduleType;
+    }
+
+    public void setModuleType(String moduleType) {
+        this.moduleType = moduleType;
     }
 }
