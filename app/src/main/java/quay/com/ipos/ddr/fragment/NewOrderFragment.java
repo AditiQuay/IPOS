@@ -1205,10 +1205,11 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 
 
         RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.ASCENDING);
+        long   sum     = realmNewOrderCarts1.sum(RetailSalesEnum.qty.toString()).longValue();
 
-
+        int countt= (int) sum;
         int loopSize = realmNewOrderCarts1.size();
-        int itemsPerFree = productQty / (packSize + slabFrom);
+        int itemsPerFree = countt / (packSize + slabFrom);
         int freeItems = 0;
         if (itemsPerFree > 0){
             freeItems = itemsPerFree * packSize;
