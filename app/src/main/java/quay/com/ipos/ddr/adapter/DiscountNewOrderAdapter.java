@@ -126,11 +126,7 @@ public class DiscountNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.V
             userViewHolder.tvDiscount.setText(str.getsDiscountDisplayName());
             userViewHolder.tvDiscountPrice.setText(str.getDiscountTotal()+"");
             if (str.issDiscountStrikeOut()){
-                if (userViewHolder.chkDiscount.isChecked())
                 userViewHolder.chkDiscount.setChecked(false);
-                else {
-                    userViewHolder.chkDiscount.setChecked(true);
-                }
                 userViewHolder.tvDiscountPrice.setPaintFlags(userViewHolder.tvDiscountPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             }else {
                 if (userViewHolder.chkDiscount.isChecked())
