@@ -507,7 +507,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                     JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
                     for (int k = 0; k < array.length(); k++) {
                         JSONObject jsonObject = array.optJSONObject(k);
-                        if (jsonObject.has("discountTotal")) {
+                        if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
                             discountPrice = discountPrice + jsonObject.optInt("discountTotal");
                         }
                     }
@@ -1092,12 +1092,16 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 
         RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.DESCENDING);
 
+        long   sum     = realmNewOrderCarts1.sum(RetailSalesEnum.qty.toString()).longValue();
 
-        int itemsPerFree = productQty / (packSize + slabFrom);
+        int countt= (int) sum;
+        int loopSize = realmNewOrderCarts1.size();
+        int itemsPerFree = countt / (packSize + slabFrom);
+
         int freeItems = 0;
         if (itemsPerFree > 0) {
             freeItems = itemsPerFree * packSize;
-            int loopSize = realmNewOrderCarts1.size();
+
             if (loopSize == 1) {
                 for (int l = 0; l < loopSize; l++) {
                     if (freeItems>0) {
@@ -1972,7 +1976,8 @@ if (realmNewOrderCarts.getQty()>1) {
             JSONObject jsonObject = new JSONObject(responseRealm);
           JSONArray array=  new JSONArray(jsonObject.optString("discount").replaceAll("\\\\",""));
            JSONObject jsonObject1=array.getJSONObject(position);
-            jsonObject1.put("discountTotal",0);
+            jsonObject1.put("discountTotalStrike",true);
+          //  jsonObject1.put("discountTotal",0);
            // discountModal.setDiscountTotal(0);
             array.put(position,jsonObject1);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -2074,6 +2079,7 @@ if (realmNewOrderCarts.getQty()>1) {
         productSearchRequest.setSearchParam("NA");
         productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
         productSearchRequest.setBarCodeNumber(s);
+        productSearchRequest.setModuleType("NO");
         productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
         productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
         ServiceTask mTask = new ServiceTask();
