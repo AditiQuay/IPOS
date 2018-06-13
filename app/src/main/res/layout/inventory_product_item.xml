@@ -33,9 +33,13 @@
 
             <EditText
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@null"
-                android:text="hjshjshjs"
-                android:layout_height="match_parent" />
+                android:fontFamily="@font/titilliumwebregular"
+                android:paddingLeft="@dimen/dim_8"
+                android:text="Batch Number"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/dim_14" />
 
         </LinearLayout>
 
@@ -54,8 +58,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
-                android:text="Quantity" />
+                android:text="Quantity"
+                android:textSize="@dimen/dim_14" />
 
         </LinearLayout>
 

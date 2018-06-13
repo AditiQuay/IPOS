@@ -449,7 +449,7 @@
                                 android:layout_toRightOf="@+id/imageViewBadge"
                                 android:paddingLeft="@dimen/dim_8"
                                 android:paddingStart="@dimen/dim_8"
-                                android:text="500 Pts." />
+                                android:text="0 Pts." />
                         </RelativeLayout>
 
 

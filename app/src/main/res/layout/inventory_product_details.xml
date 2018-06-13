@@ -42,15 +42,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="Billo"
                 tools:ignore="RtlSymmetry" />
 
             <ImageView
+                android:id="@+id/imgArrowLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_action_arrow_left_white" />
 
             <ImageView
+                android:id="@+id/imgArrowRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -62,6 +65,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dim_4"
             android:gravity="center">
 
             <TextView
@@ -70,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center_vertical"
                 android:text="Qty 1"
                 tools:ignore="RtlSymmetry" />
@@ -82,6 +87,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_toRightOf="@+id/textViewProductQuantity"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="|"
                 tools:ignore="RtlSymmetry" />
 
@@ -93,6 +99,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_toRightOf="@+id/textViewBorder"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="Balance 1"
                 tools:ignore="RtlSymmetry" />
         </LinearLayout>
@@ -103,12 +110,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rLayoutProductTitle"
+        android:layout_marginLeft="@dimen/dim_4"
+        android:layout_marginRight="@dimen/dim_4"
         android:padding="@dimen/dim_8">
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/switchBatchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/titilliumwebregular"
             android:text="Batch Number"
             app:switchPadding="@dimen/dim_8" />
 
@@ -126,6 +136,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rLayoutBatchNumber"
+        android:layout_marginLeft="@dimen/dim_4"
+        android:layout_marginRight="@dimen/dim_4"
         android:orientation="vertical">
 
         <LinearLayout
@@ -145,6 +157,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/button_tint_gray"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:stateListAnimator="@null"
                     android:text="Normal"
                     android:textAllCaps="false" />
@@ -162,6 +175,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/button_tint_gray"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:stateListAnimator="@null"
                     android:text="Defeat"
                     android:textAllCaps="false" />
@@ -179,6 +193,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimary"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:stateListAnimator="@null"
                     android:text="Leakage"
                     android:textAllCaps="false" />
@@ -203,6 +218,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/button_tint_gray"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:stateListAnimator="@null"
                     android:text="Others"
                     android:textAllCaps="false" />
@@ -233,16 +249,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rLayoutBtn"
+        android:layout_marginLeft="@dimen/dim_4"
+        android:layout_marginRight="@dimen/dim_4"
         android:paddingBottom="@dimen/dim_8"
         android:paddingTop="@dimen/dim_8">
 
         <EditText
+            android:id="@+id/batchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dim_8"
             android:layout_toLeftOf="@+id/btnAdd"
-            android:background="@drawable/drawable_blue" />
+            android:background="@drawable/drawable_blue"
+            android:fontFamily="@font/titilliumwebregular" />
 
         <Button
             android:id="@+id/btnAdd"
@@ -251,19 +271,76 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:backgroundTint="@color/colorPrimary"
+            android:fontFamily="@font/titilliumwebregular"
             android:stateListAnimator="@null"
             android:text="Add"
             android:textAllCaps="false" />
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerviewProduct"
+        android:id="@+id/recyclerviewBatch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_sheet"
         android:layout_below="@+id/editTextBatchNumber"
+        android:layout_marginLeft="@dimen/dim_4"
+        android:layout_marginRight="@dimen/dim_4"
         android:overScrollMode="never"
         android:padding="@dimen/dim_8"
         android:scrollbars="none"
         tools:listitem="@layout/inventory_product_item" />
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:baselineAligned="false"
+        android:clickable="true"
+        android:clipToPadding="true">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/dim_4">
+
+            <Button
+                android:id="@+id/btnCancel"
+                style="@style/styleWhiteTextColor14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_40"
+                android:background="@color/colorPrimary"
+                android:drawableRight="@drawable/ic_action_arrow_down_white"
+                android:fontFamily="@font/titilliumwebregular"
+                android:stateListAnimator="@null"
+                android:text="Action"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/dim_4">
+
+            <Button
+                android:id="@+id/btnSubmit"
+                style="@style/styleWhiteTextColor14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_40"
+                android:background="@drawable/button_drawable_blue"
+                android:backgroundTint="@color/colorPrimary"
+                android:fontFamily="@font/titilliumwebregular"
+                android:stateListAnimator="@null"
+                android:text="Save &amp; close"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </RelativeLayout>
