@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import quay.com.ipos.R;
+import quay.com.ipos.inventory.adapter.InventoryGRNStepsAdapter;
 import quay.com.ipos.listeners.InitInterface;
 
 /**
