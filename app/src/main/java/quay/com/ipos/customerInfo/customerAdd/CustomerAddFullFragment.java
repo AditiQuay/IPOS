@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.IPOSAPI;
@@ -80,7 +82,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     private ArrayList<AddCustomerModel.CustomerChildBean> childModels = new ArrayList<>();
     //ContactInformation
     private TextView textViewContactHeading;
-    private TextInputEditText tiePinCode, tieAddress, tieMobileNumSecondary, tieMobileNumPrimary, tieChildDOB, tieEmail2, tieEmail1;
+    private TextInputEditText tiePinCode, tieAddress, tieMobileNumPrimary, tieChildDOB, tieEmail2, tieEmail1;
     private MaterialSpinner countrySpinner, stateSpinner, citySpinner;
 
     //Professional information
@@ -113,8 +115,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     SharedPreferences sharedpreferences;
     public static final String mypreference = "Data";
 
-    private TextInputLayout tilChildfname, tilChildDob;
-    private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDob;
+    private TextInputLayout tilChildfname, tilChildDob, tilSecondaryMobileNumber, tilEmail2;
+    private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDob, tieMobileNumSecondary;
     private MaterialSpinner childGenderSpinner;
 
     public CustomerAddFullFragment() {
@@ -144,6 +146,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         main = inflater.inflate(R.layout.customer_add_full_fragment, container, false);
         mContext = getActivity();
         dbHelper = new DatabaseHandler(mContext);
+        calendar = Calendar.getInstance();
         AppLog.e(TAG, "onCreateView Called");
         findViewById();
         applyInitValues();
@@ -153,14 +156,15 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
         return main;
     }
-    public void setData(){
+
+    public void setData() {
         sharedpreferences = mContext.getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
         if (sharedpreferences.contains("title")) {
             String title = sharedpreferences.getString("title", "");
             for (int i = 0; i < nameTitle.length; i++) {
-                if (titleSpinner.getItemAtPosition(i).equals(title)) {
-                    titleSpinner.setSelection(i);
+                if (nameTitle[i].toString().equalsIgnoreCase(title)) {
+                    titleSpinner.setSelection(i, false);
                 }
             }
         }
@@ -206,6 +210,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         tilDOB = main.findViewById(R.id.tilDOB);
         tieDOB = main.findViewById(R.id.tieDOB);
         tilSpouseDob = main.findViewById(R.id.tilSpouseDob);
+        tilEmail2 = main.findViewById(R.id.tilEmail2);
         tilMobileNumPrimary = main.findViewById(R.id.tilMobileNumPrimary);
         tieChildDOB = main.findViewById(R.id.tieChildDOB);
         genderSpinner = main.findViewById(R.id.genderSpinner);
@@ -231,6 +236,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         tieAddress = main.findViewById(R.id.editAddress);
         tieMobileNumSecondary = main.findViewById(R.id.tieMobileNumSecondary);
         tieMobileNumPrimary = main.findViewById(R.id.tieMobileNumPrimary);
+        tilSecondaryMobileNumber = main.findViewById(R.id.tilSecondaryMobileNumber);
+        tieMobileNumSecondary = main.findViewById(R.id.tieMobileNumSecondary);
         tieEmail2 = main.findViewById(R.id.tieEmail2);
         tieEmail1 = main.findViewById(R.id.tieEmail1);
         countrySpinner = main.findViewById(R.id.countrySpinner);
@@ -392,6 +399,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             String value = getArguments().getString("firstName");
             tieFirstName.setText(value);
         }
+        tieMobileNumSecondary.addTextChangedListener(this);
+        tieEmail2.addTextChangedListener(this);
     }
 
     @Override
@@ -864,10 +873,21 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     tilSpouseLastName.setError(null);
                     childSpinner.setError(null);
                 }
-                if (TextUtils.isEmpty(tieEmail1.getText().toString()) && Util.isValidEmaillId(tieEmail1.getText().toString())) {
+
+                if (TextUtils.isEmpty(tieEmail1.getText().toString())) {
+                    isFail = true;
+                    tilEmail1.setErrorEnabled(true);
+                    tilEmail1.setError("Email is required");
+                }
+                if (!isEmailValid(tieEmail1.getText().toString())) {
                     isFail = true;
                     tilEmail1.setErrorEnabled(true);
                     tilEmail1.setError(getResources().getString(R.string.invalid_email));
+                }
+                if (TextUtils.isEmpty(tieMobileNumPrimary.getText().toString())) {
+                    isFail = true;
+                    tilMobileNumPrimary.setErrorEnabled(true);
+                    tieMobileNumPrimary.setError(getResources().getString(R.string.invalid_phone));
                 }
                 if (tieMobileNumPrimary.getText().toString().length() < 10 || tieMobileNumPrimary.getText().toString().length() > 10) {
                     isFail = true;
@@ -905,22 +925,46 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     designationSpinner.setEnableErrorLabel(false);
                     companySpinner.setEnableErrorLabel(false);
 
+                    boolean isNotValidated = false;
+                    if (!TextUtils.isEmpty(tieMobileNumSecondary.getText().toString())) {
+                        if (tieMobileNumSecondary.getText().toString().length() < 10 || tieMobileNumSecondary.getText().toString().length() > 10) {
+                            isNotValidated = true;
+                            tilSecondaryMobileNumber.setErrorEnabled(true);
+                            tilSecondaryMobileNumber.setError(getResources().getString(R.string.invalid_phone));
 
-                    sendCustomerData();
+                        }
+                    }
+                    if (!TextUtils.isEmpty(tieEmail2.getText().toString())) {
+                        if (!isEmailValid(tieEmail2.getText().toString())) {
+                            isNotValidated = true;
+                            tilEmail2.setErrorEnabled(true);
+                            tilEmail2.setError(getResources().getString(R.string.invalid_email));
+                        }
+                    }
+                    if (!isNotValidated) {
+                        sendCustomerData();
+                    }
 
 
+                } else {
+                    Toast.makeText(mContext, "Please enter all the required fields", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
             case R.id.tieDOB:
                 //change boolean value
                 clicked = true;
-                Calendar c = Calendar.getInstance();
-                c.set(1980, 0, 1);
+                Calendar minDate = Calendar.getInstance();
+                minDate.set(1980, 0, 1);
+
+                Calendar maxDate = Calendar.getInstance();
+                maxDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
                 datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(true);
-                datePickerDialog.setMinDate(c);
+                datePickerDialog.setMinDate(minDate);
+                datePickerDialog.setMaxDate(maxDate);
                 datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
                 datePickerDialog.setTitle("Select Date");
                 datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
@@ -931,10 +975,14 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 Calendar c1 = Calendar.getInstance();
                 c1.set(1980, 0, 1);
 
+                Calendar maximunDate = Calendar.getInstance();
+                maximunDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
                 datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
                 datePickerDialog.setThemeDark(false);
                 datePickerDialog.showYearPickerFirst(true);
                 datePickerDialog.setMinDate(c1);
+                datePickerDialog.setMaxDate(maximunDate);
                 datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
                 datePickerDialog.setTitle("Select Date");
                 datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
@@ -945,6 +993,19 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         }
     }
 
+    public static boolean isEmailValid(String email) {
+        boolean isValid = false;
+
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = email;
+
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
+    }
 
     private void sendCustomerData() {
         String dob = tieDOB.getText().toString();
@@ -1124,8 +1185,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             calendar.set(Calendar.YEAR, year);
             calendar.set(Calendar.MONTH, monthOfYear);
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            Date date = calendar.getTime();
 
+            Date date = calendar.getTime();
             String date1 = Util.getFormattedDates(date);
 
             tieSpouseDOB.setText(date1);
@@ -1210,6 +1271,14 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             tilMobileNumPrimary.setErrorEnabled(false);
             tilMobileNumPrimary.setError(null);
         }
+        if (s == tieMobileNumSecondary.getEditableText()) {
+            tilSecondaryMobileNumber.setErrorEnabled(false);
+            tilSecondaryMobileNumber.setError(null);
+        }
+        if (s == tieEmail2.getEditableText()) {
+            tilEmail2.setErrorEnabled(false);
+            tilEmail2.setError(null);
+        }
     }
 
     @Override
@@ -1239,18 +1308,36 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
     @Override
     public void fragmentBecameVisible() {
+        sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+//        String title = sharedpreferences.getString("title", "");
+//        if (title.equalsIgnoreCase("Mr.")) {
+//            titleSpinner.setSelection(0);
+//            titleSpinner.setClickable(false);
+//        }
+//        if (title.equalsIgnoreCase("Mrs.")) {
+//            titleSpinner.setSelection(1);
+//            titleSpinner.setClickable(false);
+//            titleSpinner.setEnabled(false);
+//        }
+//        if (title.equalsIgnoreCase("Miss.")) {
+//            titleSpinner.setSelection(1);
+//            titleSpinner.setClickable(false);
+//            titleSpinner.setEnabled(false);
+//        }
+//
+//        String gender = sharedpreferences.getString("gender", "");
+//        if (gender.equalsIgnoreCase("Male")) {
+//            genderSpinner.setSelection(0);
+//            genderSpinner.setClickable(false);
+//            genderSpinner.setEnabled(false);
+//        }
+//        if (gender.equalsIgnoreCase("Female")) {
+//            genderSpinner.setSelection(1);
+//            genderSpinner.setClickable(false);
+//            genderSpinner.setEnabled(false);
+//        }
 
-        sharedpreferences = mContext.getSharedPreferences(mypreference,
-                Context.MODE_PRIVATE);
-        if (sharedpreferences.contains("title")) {
-            String title = sharedpreferences.getString("title", "");
-            for (int i = 0; i < nameTitle.length; i++) {
-                if (titleSpinner.getItemAtPosition(i).equals(title)) {
-                    titleSpinner.setSelection(i);
-                    break;
-                }
-            }
-        }
+
         if (sharedpreferences.contains("firstName")) {
             tieFirstName.setText(sharedpreferences.getString("firstName", ""));
             tieFirstName.setFocusable(false);

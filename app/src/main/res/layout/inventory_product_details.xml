@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextAppearance="@style/Toolbar.TitleText" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:id="@+id/rLayoutProductTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appBarLay"
+        android:background="@color/toolbar_blue"
+        android:orientation="vertical"
+        android:padding="@dimen/dim_8">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/textViewProductName"
+                style="@style/styleWhiteTextColor16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Billo"
+                tools:ignore="RtlSymmetry" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_arrow_left_white" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dim_4"
+                android:src="@drawable/ic_arrow_white" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textViewProductQuantity"
+                style="@style/styleWhiteTextColor16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_vertical"
+                android:text="Qty 1"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/textViewBorder"
+                style="@style/styleWhiteTextColor16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_toRightOf="@+id/textViewProductQuantity"
+                android:text="|"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/textViewProductBalance"
+                style="@style/styleWhiteTextColor16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_toRightOf="@+id/textViewBorder"
+                android:text="Balance 1"
+                tools:ignore="RtlSymmetry" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rLayoutBatchNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rLayoutProductTitle"
+        android:padding="@dimen/dim_8">
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switchBatchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Batch Number"
+            app:switchPadding="@dimen/dim_8" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switchBarCodeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="Barcode"
+            app:switchPadding="@dimen/dim_8" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/rLayoutBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rLayoutBatchNumber"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/lLayoutBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnNormal"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/button_tint_gray"
+                    android:stateListAnimator="@null"
+                    android:text="Normal"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnDefeat"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/button_tint_gray"
+                    android:stateListAnimator="@null"
+                    android:text="Defeat"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnLeakage"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:stateListAnimator="@null"
+                    android:text="Leakage"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnOthers"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/button_tint_gray"
+                    android:stateListAnimator="@null"
+                    android:text="Others"
+                    android:textAllCaps="false" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/editTextBatchNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rLayoutBtn"
+        android:paddingBottom="@dimen/dim_8"
+        android:paddingTop="@dimen/dim_8">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dim_8"
+            android:layout_toLeftOf="@+id/btnAdd"
+            android:background="@drawable/drawable_blue" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            style="@style/styleWhiteTextColor14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:stateListAnimator="@null"
+            android:text="Add"
+            android:textAllCaps="false" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerviewProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextBatchNumber"
+        android:overScrollMode="never"
+        android:padding="@dimen/dim_8"
+        android:scrollbars="none"
+        tools:listitem="@layout/inventory_product_item" />
+
+</RelativeLayout>

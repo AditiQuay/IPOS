@@ -39,7 +39,6 @@ import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomeChildListModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerRequestModel;
-import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.YourFragmentInterface;
@@ -161,15 +160,13 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         String childjson = new Gson().toJson(customeChildListModel.customerChildList);
         Log.i("dddd", childjson);
 
-        if (dbHelper.dbHasData(CustomerEnum.ColoumnCustomerPhone.toString(), mobileNumber)) {
-            Toast.makeText(mContext, "Mobile number already exist", Toast.LENGTH_SHORT).show();
-        } else {
+        if (!dbHelper.checkIfRecordExist(mobileNumber)) {
             //Storing data to local DB.
-            long id = dbHelper.insertCustomer(customerId, title, "", firstName, lastName, gender1.trim(), "", "false",
+            dbHelper.insertCustomer(customerId, title, "", firstName, lastName, gender1.trim(), "", "false",
                     "", "", "", "false", childjson,
                     "", "", mobileNumber.trim(), "", "", "", "", "",
                     "", "", "", "", "", "", "",
-                    "", "", "", "", "", "", "", "", "", "", "", "", "1", 0,0);
+                    "", "", "", "", "", "", "", "", "", "", "", "", "1", 0, 0);
 
             customerModels.addAll(dbHelper.getAllOfflineCustomer());
             String accessToken = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN.trim(), "", mContext);
@@ -186,8 +183,11 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
             mTask.setResultType(CustomerServerRequestModel[].class);
             mTask.execute();
 
-        }
 
+        } else {
+            Toast.makeText(mContext, "Mobile number already exist", Toast.LENGTH_SHORT).show();
+
+        }
 
     }
 
@@ -287,7 +287,6 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     @Override
     public void onClick(View v) {
         if (v == btnCancel) {
-            dbHelper.getAllOfflineCustomer();
 
 
         } else if (v == btnsubmit) {
@@ -319,11 +318,20 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 tilLastName.setErrorEnabled(true);
                 tieLastName.setError(getResources().getString(R.string.invalid_l_name));
             }
-            if (tieMobileNumber.getText().toString().length() < 10 || tieMobileNumber.getText().toString().length() > 10) {
+            if (TextUtils.isEmpty(tieMobileNumber.getText().toString())) {
                 isFail = true;
                 tilMobileNumber.setErrorEnabled(true);
                 tieMobileNumber.setError(getResources().getString(R.string.invalid_phone));
             }
+            if (!TextUtils.isEmpty(tieMobileNumber.getText().toString())) {
+                if (tieMobileNumber.getText().toString().length() < 10 || tieMobileNumber.getText().toString().length() > 10) {
+                    isFail = true;
+                    tilMobileNumber.setErrorEnabled(true);
+                    tieMobileNumber.setError("Please enter correct mobile number");
+
+                }
+            }
+
             if (!isFail) {
                 titleSpinner.setEnableErrorLabel(false);
                 genderSpinner.setEnableErrorLabel(false);
@@ -331,6 +339,8 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 tilLastName.setErrorEnabled(false);
                 tilMobileNumber.setErrorEnabled(false);
                 storeCustomerDataToLocalDb();
+            } else {
+                Toast.makeText(mContext, "Please enter all the required fields", Toast.LENGTH_SHORT).show();
             }
 
 
@@ -382,6 +392,9 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         String selectedSpinner = String.valueOf(materialSpinner.getSelectedItem());
         if (materialSpinner.getId() == R.id.titleSpinner) {
             editor.putString("title", selectedSpinner);
+            editor.apply();
+        }if (materialSpinner.getId()==R.id.genderSpinner){
+            editor.putString("gender",selectedSpinner);
             editor.apply();
         }
 

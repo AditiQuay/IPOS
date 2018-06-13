@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
-                android:text="Professioanl Information"
+                android:text="Professional Information"
                 android:textColor="@color/black"
                 android:textSize="@dimen/universal_text_size18" />
         </RelativeLayout>

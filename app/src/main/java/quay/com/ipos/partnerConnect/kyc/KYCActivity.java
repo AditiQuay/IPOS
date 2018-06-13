@@ -76,6 +76,7 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
             case R.id.BtnViewAll:
                 Intent i = new Intent(mContext, KYCViewAll.class);
                 startActivity(i);
+
             default:
                 break;
         }

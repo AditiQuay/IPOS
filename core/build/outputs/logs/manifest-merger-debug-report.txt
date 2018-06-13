@@ -1,5 +1,6 @@
 -- Merging decision tree log ---
 manifest
+<<<<<<< HEAD
 ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
@@ -11,3 +12,16 @@ INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 		ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:11-69
 application
 ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+=======
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+	package
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:70-106
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:11-69
+application
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+>>>>>>> 8449c4fa5d1cd8e82a23a69fc75fd0af98421495
