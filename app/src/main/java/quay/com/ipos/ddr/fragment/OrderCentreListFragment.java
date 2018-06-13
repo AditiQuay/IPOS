@@ -36,6 +36,7 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
+import quay.com.ipos.ddr.activity.AddNewOrderActivity;
 import quay.com.ipos.ddr.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.ddr.adapter.ExpandableListAdapter;
 import quay.com.ipos.ddr.adapter.OrderCentreListAdapter;
@@ -90,7 +91,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         setAdapter();
 
         getSummary("");
-        setRealmData(1);
+
         return view;
     }
 
@@ -234,6 +235,8 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
 //                    AppLog.e(TAG, "item:: " + arg0.getChildPosition(child));
 //                    selectPinned(arg0.getChildPosition(child));
                     Intent mIntent = new Intent(getActivity(),OrderCentreDetailsActivity.class);
+                    mIntent.putExtra("etaDate",orderList.get(mSelectedpos).getEtaDate().replace("PO",""));
+                    mIntent.putExtra("requestCode",orderList.get(mSelectedpos).getRequestCode().replace("PO",""));
                     getActivity().startActivity(mIntent);
                     return true;
 
@@ -254,6 +257,8 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         // setting list adapter
         expListView.setAdapter(listAdapter);
     }
+
+
 
 
     /*
@@ -424,6 +429,13 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                             JSONArray array=jsonObject1.optJSONArray("data");
                             new RealmController().saveOrderCentreSummary(array.toString());
 
+
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setRealmData(1);
+                                }
+                            });
 
 
 

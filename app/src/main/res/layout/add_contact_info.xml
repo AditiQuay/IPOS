@@ -89,6 +89,7 @@
                         android:layout_height="wrap_content"
                         android:lines="1"
                         android:maxLength="10"
+                        android:inputType="number"
                         android:hint="Mobile Number Primary *"
                         android:textSize="@dimen/universal_text_size16" />
 
@@ -110,6 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="10"
+                        android:inputType="number"
                         android:lines="1"
                         android:hint="Mobile Number Secondary"
                         android:textSize="@dimen/universal_text_size16" />
@@ -210,6 +212,7 @@
                 android:orientation="vertical">
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilPinCode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -217,6 +220,7 @@
                         android:id="@+id/tiePinCode"
                         android:layout_width="match_parent"
                         android:lines="1"
+                        android:maxLength="6"
                         android:inputType="number"
                         android:layout_height="match_parent"
                         android:hint="Pincode"

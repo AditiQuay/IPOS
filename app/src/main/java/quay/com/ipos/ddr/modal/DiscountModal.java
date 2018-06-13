@@ -10,6 +10,7 @@ public class DiscountModal {
     private String sDiscountName;
     private String rule;
     private String sDiscountDisplayName;
+    private boolean sDiscountStrikeOut;
 
     public double getDiscountTotal() {
         return discountTotal;
@@ -41,5 +42,13 @@ public class DiscountModal {
 
     public void setsDiscountDisplayName(String sDiscountDisplayName) {
         this.sDiscountDisplayName = sDiscountDisplayName;
+    }
+
+    public boolean issDiscountStrikeOut() {
+        return sDiscountStrikeOut;
+    }
+
+    public void setsDiscountStrikeOut(boolean sDiscountStrikeOut) {
+        this.sDiscountStrikeOut = sDiscountStrikeOut;
     }
 }

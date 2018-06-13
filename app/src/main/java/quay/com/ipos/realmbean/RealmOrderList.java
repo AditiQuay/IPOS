@@ -70,6 +70,7 @@ public class RealmOrderList extends RealmObject {
     private int totalSGSTValue;
     private int totalIGSTValue;
     private String cartDetail;
+    private String discount;
 
 
     public boolean isIsSync() {
@@ -303,5 +304,13 @@ public class RealmOrderList extends RealmObject {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
     }
 }

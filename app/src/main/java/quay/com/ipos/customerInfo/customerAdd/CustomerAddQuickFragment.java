@@ -40,6 +40,8 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomeChildListModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerRequestModel;
 import quay.com.ipos.helper.DatabaseHandler;
+import quay.com.ipos.inventory.activity.InventoryGRNStepsActivity;
+import quay.com.ipos.inventory.activity.InventoryStepsActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.YourFragmentInterface;
 import quay.com.ipos.modal.CustomerList;
@@ -287,7 +289,8 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     @Override
     public void onClick(View v) {
         if (v == btnCancel) {
-
+        Intent i = new Intent(mContext,InventoryGRNStepsActivity.class);
+        startActivity(i);
 
         } else if (v == btnsubmit) {
 

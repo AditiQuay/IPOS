@@ -1,16 +1,23 @@
 package quay.com.ipos.ddr.fragment;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -58,7 +65,9 @@ import quay.com.ipos.ddr.adapter.CustomAdapter;
 import quay.com.ipos.ddr.adapter.NewOrderListAdapter;
 import quay.com.ipos.ddr.modal.DiscountModal;
 import quay.com.ipos.ddr.modal.NOGetEntityBuisnessPlacesModal;
+import quay.com.ipos.ddr.modal.NewOrderProductsResult;
 import quay.com.ipos.ddr.modal.NoGetEntityResultModal;
+import quay.com.ipos.ddr.modal.ProductSearchRequest;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
@@ -66,6 +75,7 @@ import quay.com.ipos.listeners.MyCheckedChangedListener;
 import quay.com.ipos.listeners.MyListenerProduct;
 import quay.com.ipos.listeners.ScannerProductListener;
 
+import quay.com.ipos.listeners.SendScannerBarcodeListener;
 import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.realmbean.RealmController;
@@ -73,10 +83,8 @@ import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.retailsales.fragment.FullScannerFragment;
 import quay.com.ipos.service.ServiceTask;
-import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
-import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
@@ -86,11 +94,12 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 03-05-2018.
  */
 
-public class NewOrderFragment extends BaseFragment implements MyCheckedChangedListener,MyListenerProduct,ServiceTask.ServiceResultListener ,View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener {
+public class NewOrderFragment extends BaseFragment implements SendScannerBarcodeListener,MyCheckedChangedListener,MyListenerProduct,ServiceTask.ServiceResultListener ,View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener {
     private TextView tvMoreDetails, tvItemNo, tvItemQty, tvTotalItemPrice,
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
             tvLessDetails, tvRoundingOffPrice, tvPay, tvPinCount;
 
+    RelativeLayout flScanLayout;
     private FrameLayout flScanner;
     private Fragment scanner_fragment;
     private LinearLayout llTotalDiscountDetail, ll_item_pay, llTotalGST;
@@ -122,6 +131,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
     private int businessPlaceCode;
     private boolean isSync;
     private String strPlace;
+    private ImageView imvStatus;
 
 
     @Override
@@ -132,6 +142,14 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
         myDialog = new Dialog(getActivity());
         setHasOptionsMenu(true);
         Util.hideSoftKeyboard(getActivity());
+
+        closeFragment();
+        try {
+            LocalBroadcastManager.getInstance(getActivity()).registerReceiver(listener,
+                    new IntentFilter("BarcodeScan"));
+        }catch (Exception e){
+
+        }
         return rootView;
     }
 
@@ -150,6 +168,9 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
     private void initializeComponent(View rootView) {
         tvMessage = rootView.findViewById(R.id.tvMessage);
         flScanner = rootView.findViewById(R.id.flScanner);
+
+        flScanLayout = rootView.findViewById(R.id.flScanLayout);
+        imvStatus = rootView.findViewById(R.id.imvStatus);
         tvPinCount = rootView.findViewById(R.id.tvPinCount);
         imvPin = rootView.findViewById(R.id.imvPin);
 
@@ -184,7 +205,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
         setSpinnerData();
         setListener();
         setAdapter();
-        setTextDefault();
+
     }
 
     private void setSpinnerData() {
@@ -220,51 +241,6 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
     }
 
-    private void setTextDefault() {
-        tvItemNo.setText("Item 0");
-        tvItemQty.setText("0 Qty");
-        tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalDiscountDetail.setText("(Item 0)");
-        IPOSApplication.mOrderList.clear();
-        if (SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity()) != null) {
-            String json2 = SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity());
-            if (!json2.equalsIgnoreCase(""))
-                mOrderInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<NewOrderPinnedResults.Info>>() {
-                }.getType());
-            if (mOrderInfoArrayList.size() > 0) {
-                tvMessage.setVisibility(View.GONE);
-                tvPinCount.setText("" + mOrderInfoArrayList.size());
-                tvPinCount.setVisibility(View.VISIBLE);
-            } else {
-                tvMessage.setVisibility(View.GONE);
-                tvPinCount.setVisibility(View.GONE);
-            }
-        } else {
-            tvPinCount.setVisibility(View.GONE);
-        }
-//        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            flScanner.setVisibility(View.GONE);
-//            chkBarCode.setChecked(false);
-//            boolean request = ((MainActivity) getActivity()).launchActivity(false);
-//            if(request && ((MainActivity) getActivity()).CameraPermission )
-//            {
-//                setTextDefault();
-//            }
-//        }else {
-        flScanner.setVisibility(View.GONE);
-
-        closeFragment();
-//            displayFragment();
-//        }
-    }
 
 
     private void setListener() {
@@ -294,13 +270,39 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                 }
             }
         });*/
+
+
+        flScanLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ((MainActivity) mContext).launchActivity(true);
+//                    chkBarCode.setChecked(false);
+                    flScanner.setVisibility(View.GONE);
+                } else {
+
+                    if (flScanner.getVisibility() == View.GONE) {
+                        flScanner.setVisibility(View.VISIBLE);
+                        imvStatus.setBackgroundResource(R.drawable.circle_activate);
+//                        chkBarCode.setChecked(true);
+                        displayFragment();
+                    } else {
+                        imvStatus.setBackgroundResource(R.drawable.circle_disabled);
+                        flScanner.setVisibility(View.GONE);
+                        closeFragment();
+//                        chkBarCode.setChecked(false);
+                    }
+                }
+            }
+        });
     }
 
     public void closeFragment() {
         // Get the FragmentManager.
         FragmentManager fragmentManager = getChildFragmentManager();
         // Check to see if the fragment is already showing.
-        FullScannerFragment simpleFragment = (FullScannerFragment) fragmentManager
+        NewOrderScannerFragment simpleFragment = (NewOrderScannerFragment) fragmentManager
                 .findFragmentById(R.id.scanner_fragment);
         if (simpleFragment != null) {
             // Create and commit the transaction to remove the fragment.
@@ -313,7 +315,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
     }
 
     public void displayFragment() {
-        FullScannerFragment simpleFragment = FullScannerFragment.newInstance();
+        NewOrderScannerFragment simpleFragment = NewOrderScannerFragment.newInstance();
         // TODO: Get the FragmentManager and start a transaction.
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
@@ -334,6 +336,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
     @Override
     public void onResume() {
         super.onResume();
+        getProduct();
         ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.new_orders));
         //You need to add the following line for this solution to work; thanks skayred
         getView().setFocusableInTouchMode(true);
@@ -354,6 +357,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                 return isBack;
             }
         });
+
     }
 
 
@@ -449,6 +453,16 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
         mNewOrderListAdapter.notifyDataSetChanged();
         setCalculatedValues();
 
+
+        if (mList.isEmpty()){
+            tvMessage.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+            // onSearchButton();
+        }else{
+            tvMessage.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void setCalculatedValues() {
@@ -493,7 +507,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                     JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
                     for (int k = 0; k < array.length(); k++) {
                         JSONObject jsonObject = array.optJSONObject(k);
-                        if (jsonObject.has("discountTotal")) {
+                        if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
                             discountPrice = discountPrice + jsonObject.optInt("discountTotal");
                         }
                     }
@@ -533,135 +547,9 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
     }
 
-    private void setDefaultValues() {
-
-        Double totalPrice;
-        for (int i = 0; i < IPOSApplication.mOrderList.size(); i++) {
-            OrderList.Datum datum = IPOSApplication.mOrderList.get(i);
-            if (datum.getQty() == 0)
-                datum.setQty(1);
-            if (!datum.isDiscItemSelected())
-                datum.setDiscItemSelected(true);
-            totalPrice = (Double.parseDouble(datum.getSProductPrice()) * datum.getQty());
-            datum.setTotalPrice(totalPrice);
-            if (datum.getIsDiscount()) {
-                Double discount = Double.parseDouble(datum.getSDiscountPrice()) * totalPrice / 100;
-                // datum.setDiscount(discount);
-            } else {
-                //  datum.setDiscount(0.0);
-            }
-            IPOSApplication.mOrderList.set(i, datum);
-        }
-    }
-
-    OrderList mOrderList = new OrderList();
-
-    private void setUpdateValues(ArrayList<OrderList.Datum> mList) {
-
-        if (mList.size() == 1 || mList.size() == 0) {
-            tvItemNo.setText("Item " + mList.size() + " item");
-        } else {
-            tvItemNo.setText("Items " + mList.size() + " item");
-        }
-        if (mList.size() == 0) {
-            tvItemQty.setText("0 Qty");
-            tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvTotalDiscountDetail.setText("(Item 0)");
-        } else {
 
 
-            int qty = 0;
-            double totalPrice = 0.0;
-            double sum = 0;
-            double discount = 0, discountPrice = 0.0, totalGst = 0.0, cgst = 0.0, sgst = 0.0;
-            int discountItem = 0;
-            int mSelectedpos = 0;
-            double totalAfterGSt = 0.0;
-            double otcDiscountPerc = 0.0;
-            for (int i = 0; i < mList.size(); i++) {
-                OrderList.Datum datum = mList.get(i);
-                qty += mList.get(i).getQty();
-                datum.setTotalQty(qty);
-                totalPrice = mList.get(i).getQty() * Double.parseDouble(mList.get(i).getSProductPrice());
-                sum = totalPrice + sum;
-                datum.setTotalPrice(sum);
-                if (mList.get(i).isDiscItemSelected()) {
-                    if (mList.get(i).getIsDiscount()) {
-                        discount = discount + Double.parseDouble(mList.get(i).getSDiscountPrice()) * totalPrice / 100;
-                        //   datum.setDiscount(discount);
-                        discountItem++;
-                    }
-                }
-                if (mList.get(i).isDiscSelected()) {
-                    if (!mList.get(i).isDiscItemSelected())
-                        discountItem++;
-                    otcDiscountPerc += mList.get(i).getOTCDiscount();
-                } else {
-                    otcDiscountPerc = 0;
-                }
-                totalGst = mList.get(i).getGSTPerc() * sum / 100;
-                totalGst += totalGst;
-                sgst = mList.get(i).getSGST() * sum / 100;
-                sgst += sgst;
-                cgst = mList.get(i).getCGST() * sum / 100;
-                cgst += cgst;
-//                totalPrice += mList.get(i).getTotalPrice();
-                IPOSApplication.mOrderList.set(i, datum);
-            }
 
-            // Total Qty
-            tvItemQty.setText(qty + " Qty");
-            mOrderList.setTotalQty(qty);
-
-            // Total price befor discount & gst
-            tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + sum);
-            mOrderList.setTotalPrice(sum);
-
-            // discountPrice
-            discountPrice = discount + otcDiscountPerc;
-            tvTotalDiscountPrice.setText("-" + getActivity().getResources().getString(R.string.Rs) + " " + (discountPrice));
-            mOrderList.setDiscountPrice(discountPrice);
-
-//            discountItem
-            tvTotalDiscountDetail.setText("(Item " + discountItem + ")");
-            mOrderList.setDiscountItem(discountItem);
-
-//            totalGst
-            AppLog.e(TAG, "totalGst: " + totalGst);
-            tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalGst);
-            mOrderList.setTotalGst(totalGst);
-
-//            sgst
-            tvSGSTPrice.setText("+" + getActivity().getResources().getString(R.string.Rs) + " " + sgst);
-            mOrderList.setSgst(sgst);
-
-//            cgst
-            tvCGSTPrice.setText("+" + getActivity().getResources().getString(R.string.Rs) + " " + cgst);
-            mOrderList.setCgst(cgst);
-
-            totalAfterGSt = (sum - discount) + (sgst + cgst) - (otcDiscountPerc);
-//            double floorValue = Math.round(totalAfterGSt);
-
-
-            double roundOff = totalAfterGSt - Math.floor(totalAfterGSt);
-            double round_off = (Util.round(roundOff, 1));
-            tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + round_off);
-            mOrderList.setRound_off(round_off);
-            totalAfterGSt = totalAfterGSt + (Util.round(roundOff, 1));
-            totalAmount = Math.round(totalAfterGSt);
-            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalAmount);
-            mOrderList.setTotalGst(totalAmount);
-            AppLog.e(TAG, "updated: " + Util.getCustomGson().toJson(IPOSApplication.mOrderList));
-            mOrderList.setData(IPOSApplication.mOrderList);
-        }
-    }
 
 
     @Override
@@ -673,19 +561,23 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 //                ((MainActivity) getActivity()).launchActivity(FullScannerActivity.class);
 //                break;
             case R.id.tvMoreDetails:
+                Util.animateView(view);
                 llTotalDiscountDetail.setVisibility(View.VISIBLE);
                 llTotalGST.setVisibility(View.GONE);
                 break;
             case R.id.tvLessDetails:
+                Util.animateView(view);
                 llTotalDiscountDetail.setVisibility(View.GONE);
                 llTotalGST.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.tvMinus:
+                Util.animateView(view);
                 setOnClickMinus(view);
                 break;
 
             case R.id.tvPlus:
+                Util.animateView(view);
                 setOnClickPlus(view);
                 break;
 
@@ -696,6 +588,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
 
             case R.id.imvClear:
+                Util.animateView(view);
                 final int posClear = (int) view.getTag();
                 (
                         new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
@@ -718,6 +611,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
                 break;
             case R.id.tvPay:
+                Util.animateView(view);
                 if (mList.size() > 0) {
                     createOrder();
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
@@ -728,6 +622,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                 }
                 break;
             case R.id.imvRight:
+                Util.animateView(view);
                 if (mList.size()  > 0) {
                     createOrder();
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
@@ -738,14 +633,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                     Util.showToast("Please add atleast one item to proceed.");
                 }
                 break;
-            case R.id.btnNo:
-                mDiscountDeleteFragment.dismiss();
-                addDeleteDiscount();
-                break;
 
-            case R.id.btnYes:
-                setDeleteDiscount();
-                break;
 
         }
     }
@@ -1204,12 +1092,16 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
         RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.DESCENDING);
 
+        long   sum     = realmNewOrderCarts1.sum(RetailSalesEnum.qty.toString()).longValue();
 
-        int itemsPerFree = productQty / (packSize + slabFrom);
+        int countt= (int) sum;
+        int loopSize = realmNewOrderCarts1.size();
+        int itemsPerFree = countt / (packSize + slabFrom);
+
         int freeItems = 0;
         if (itemsPerFree > 0) {
             freeItems = itemsPerFree * packSize;
-            int loopSize = realmNewOrderCarts1.size();
+
             if (loopSize == 1) {
                 for (int l = 0; l < loopSize; l++) {
                     if (freeItems>0) {
@@ -1257,7 +1149,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                             freeItems = 0;
 
                         } else if (qty < freeItems) {
-                            for (int m = 0; m <= qty; m++) {
+                            for (int m = 0; m < qty; m++) {
                                 Gson gson = new GsonBuilder().create();
                                 String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                                 try {
@@ -1279,7 +1171,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
                         } else if (qty > freeItems) {
                             int size=freeItems;
-                            for (int m = 0; m <= size; m++) {
+                            for (int m = 0; m < size; m++) {
                                 Gson gson = new GsonBuilder().create();
                                 String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                                 try {
@@ -1317,10 +1209,11 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
 
         RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.ASCENDING);
+        long   sum     = realmNewOrderCarts1.sum(RetailSalesEnum.qty.toString()).longValue();
 
-
+        int countt= (int) sum;
         int loopSize = realmNewOrderCarts1.size();
-        int itemsPerFree = productQty / (packSize + slabFrom);
+        int itemsPerFree = countt / (packSize + slabFrom);
         int freeItems = 0;
         if (itemsPerFree > 0){
             freeItems = itemsPerFree * packSize;
@@ -1377,7 +1270,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
                     } else if (qty < freeItems) {
 
-                        for (int m = 0; m <= qty; m++) {
+                        for (int m = 0; m < qty; m++) {
                             Gson gson = new GsonBuilder().create();
                             String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                             try {
@@ -1531,33 +1424,6 @@ if (realmNewOrderCarts.getQty()>1) {
     }
 
 
-    int posDeleteItem=0;
-    DiscountDeleteFragment mDiscountDeleteFragment;
-    private void setDeleteDiscount() {
-        OrderList.Datum datum = IPOSApplication.mOrderList.get(posDeleteItem);
-        if (!datum.isDiscItemSelected()) {
-            datum.setDiscItemSelected(true);
-        }
-        else {
-            datum.setDiscItemSelected(false);
-        }
-        IPOSApplication.mOrderList.set(posDeleteItem, datum);
-        mNewOrderListAdapter.notifyItemChanged(posDeleteItem);
-        setUpdateValues(IPOSApplication.mOrderList);
-        mDiscountDeleteFragment.dismiss();
-    }
-
-    private void addDeleteDiscount() {
-        OrderList.Datum datum = IPOSApplication.mOrderList.get(posDeleteItem);
-        if (!datum.isDiscItemSelected()) {
-            datum.setDiscItemSelected(true);
-        }
-
-        IPOSApplication.mOrderList.set(posDeleteItem, datum);
-        mNewOrderListAdapter.notifyItemChanged(posDeleteItem);
-        setUpdateValues(IPOSApplication.mOrderList);
-        mDiscountDeleteFragment.dismiss();
-    }
 
 
     @Override
@@ -1678,42 +1544,15 @@ if (realmNewOrderCarts.getQty()>1) {
 
     @Override
     public void setProductOnListener(String mDatum) {
-        ArrayList<OrderList.Datum> arrData= new ArrayList<>();
+     /*   ArrayList<OrderList.Datum> arrData= new ArrayList<>();
         json = SharedPrefUtil.getString(Constants.Order_List,"",getActivity());
         arrData = Util.getCustomGson().fromJson(json, new TypeToken<ArrayList<OrderList.Datum>>(){}.getType());
         IPOSApplication.mOrderList.add(arrData.get(0));
         mNewOrderListAdapter.notifyDataSetChanged();
-
+*/
     }
 
 
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-        int id = compoundButton.getId();
-        switch (id) {
-
-            case R.id.chkDiscount:
-                if (compoundButton.isPressed()) {
-                    posDeleteItem = (int) compoundButton.getTag();
-                    mRecyclerView.post(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            OrderList.Datum datum = IPOSApplication.mOrderList.get(posDeleteItem);
-                            if(datum.isDiscItemSelected()) {
-                                FragmentManager fragmentManager = getChildFragmentManager();
-                                mDiscountDeleteFragment = DiscountDeleteFragment.newInstance();
-                                mDiscountDeleteFragment.setDialogInfoOrder(NewOrderFragment.this,datum);
-                                mDiscountDeleteFragment.show(fragmentManager, "Delete Discount");
-                            }else {
-                                addDeleteDiscount();
-                            }
-                        }
-                    });
-                }
-                break;
-        }
-    }
     private void showViews() {
         // TODO uncomment this Hide Footer in android when Scrolling
         llBelowPaymentDetail.animate().alpha(1.0f).translationY(0).setInterpolator(new DecelerateInterpolator(1.4f)).setListener(new Animator.AnimatorListener() {
@@ -1756,47 +1595,84 @@ if (realmNewOrderCarts.getQty()>1) {
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
      //   hideProgressDialog();
-        if (httpStatusCode == Constants.SUCCESS) {
 
-            if (Util.validateString(serverResponse)){
+        if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_NOProductSearch)){
 
-                try {
-                    JSONObject jsonObject=new JSONObject(serverResponse);
-                    JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
-                    new RealmController().saveBusinessPlaces(array.toString());
-                    for (int i=0;i<array.length();i++){
-                        NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
-                        JSONObject jsonObject1=array.optJSONObject(i);
-                        noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
-                        noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
-                        noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
-                        noGetEntityBuisnessPlacesModals.add(noGetEntityBuisnessPlacesModal);
+            if (isAdded()) {
+                if (httpStatusCode == Constants.SUCCESS) {
 
+                    if (Util.validateString(serverResponse)) {
 
+                        try {
+                            JSONObject jsonObject = new JSONObject(serverResponse);
+                            addBarcodeScanProduct(jsonObject.optString("iProductModalId"), jsonObject.optString("productCode"), serverResponse);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Util.showToast("Product Scanned Successfully");
+                        imvStatus.setBackgroundResource(R.drawable.circle_disabled);
+                        flScanner.setVisibility(View.GONE);
+                        closeFragment();
 
                     }
 
-                    CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss,R.id.text1,noGetEntityBuisnessPlacesModals);
-                    adapter.setDropDownViewResource(R.layout.spinner_item_pss);
-                    spnAddress.setAdapter(adapter);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+                } else if (httpStatusCode == Constants.BAD_REQUEST) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }else {
+            if (httpStatusCode == Constants.SUCCESS) {
+
+                if (Util.validateString(serverResponse)){
+
+                    try {
+                        JSONObject jsonObject=new JSONObject(serverResponse);
+                        JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
+                        new RealmController().saveBusinessPlaces(array.toString());
+                        for (int i=0;i<array.length();i++){
+                            NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
+                            JSONObject jsonObject1=array.optJSONObject(i);
+                            noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
+                            noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
+                            noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
+                            noGetEntityBuisnessPlacesModals.add(noGetEntityBuisnessPlacesModal);
+
+
+
+                        }
+
+                        CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss,R.id.text1,noGetEntityBuisnessPlacesModals);
+                        adapter.setDropDownViewResource(R.layout.spinner_item_pss);
+                        spnAddress.setAdapter(adapter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
+
+            } else if (httpStatusCode == Constants.BAD_REQUEST) {
+                Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+                Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+                Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+                Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+                Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
             }
-
-
-        } else if (httpStatusCode == Constants.BAD_REQUEST) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
+
 
     }
 
@@ -2090,7 +1966,7 @@ if (realmNewOrderCarts.getQty()>1) {
     }
 
 
-    private void getCheckBox(DiscountModal discountModal, String productId, int position){
+    private void getCheckBox(DiscountModal discountModal, String productId, int position,boolean strike){
         Realm realm=Realm.getDefaultInstance();
         RealmNewOrderCart realmNewOrderCart=realm.where(RealmNewOrderCart.class).equalTo(RetailSalesEnum.iProductModalId.toString(),productId).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findFirst();
         Gson gson = new GsonBuilder().create();
@@ -2100,7 +1976,8 @@ if (realmNewOrderCarts.getQty()>1) {
             JSONObject jsonObject = new JSONObject(responseRealm);
           JSONArray array=  new JSONArray(jsonObject.optString("discount").replaceAll("\\\\",""));
            JSONObject jsonObject1=array.getJSONObject(position);
-            jsonObject1.put("discountTotal",0);
+            jsonObject1.put("discountTotalStrike",strike);
+          //  jsonObject1.put("discountTotal",0);
            // discountModal.setDiscountTotal(0);
             array.put(position,jsonObject1);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -2117,12 +1994,107 @@ if (realmNewOrderCarts.getQty()>1) {
     public void onDiscount(DiscountModal discountModal, int position, boolean b, String productId, String productCode) {
 
         if (b){
+            getCheckBox(discountModal,productId,position,false);
             calculateOPS(productCode,productId);
             getProduct();
 
         }else {
-            getCheckBox(discountModal,productId,position);
+            getCheckBox(discountModal,productId,position,true);
             getProduct();
         }
     }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+    }
+
+
+    private void addBarcodeScanProduct(String productId,String productCode,String json){
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmNewOrderCart realmNewOrderCarts = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), productId).findFirst();
+        Gson gson = new GsonBuilder().create();
+        if (realmNewOrderCarts != null) {
+
+            String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts));
+            try {
+                JSONObject jsonObject = new JSONObject(strJson);
+                jsonObject.put(RetailSalesEnum.isAdded.toString(), true);
+                jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() + 1);
+                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
+
+                int totalPoints = getTotalPoints(realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
+                jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
+                saveResponseLocal(jsonObject, "P00001");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            setCalculatedValues();
+            calculateOPS(realmNewOrderCarts.getProductCode(), realmNewOrderCarts.getiProductModalId());
+            getProduct();
+        }else {
+            try {
+                JSONObject jsonObject=new JSONObject(json);
+                jsonObject.put(RetailSalesEnum.isAdded.toString(),true);
+                jsonObject.put(RetailSalesEnum.qty.toString(),1);
+                jsonObject.put(RetailSalesEnum.totalPrice.toString(),jsonObject.optDouble("SProductPrice"));
+              //  int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
+            //    jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
+                saveResponseLocal(jsonObject,"P00001");
+                calculateOPS(productId,productCode);
+                getProduct();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    private BroadcastReceiver listener = new BroadcastReceiver() {
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            if (intent != null &&intent.getAction()!=null) {
+                if (intent.getAction().equalsIgnoreCase("BarcodeScan")) {
+                    String data = intent.getStringExtra("messageScan");
+                    //  Log.e( "Received data : ", data);
+
+                    searchProductCall(data);
+
+                }
+            }
+        }
+    };
+
+    @Override
+    public void onScanBarcode(String title, FragmentActivity activity) {
+        mContext=activity;
+
+
+    }
+
+    private void searchProductCall(String s) {
+//        showProgress(getResources().getString(R.string.please_wait));
+        ProductSearchRequest productSearchRequest = new ProductSearchRequest();
+        productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
+        productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
+        productSearchRequest.setEntityStateCode(entityStateCode);
+        productSearchRequest.setSearchParam("NA");
+        productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
+        productSearchRequest.setBarCodeNumber(s);
+        productSearchRequest.setModuleType("NO");
+        productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
+        productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOProductSearch);
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(productSearchRequest);
+        mTask.setListener(this);
+        mTask.setResultType(NewOrderProductsResult.class);
+        if(Util.isConnected())
+            mTask.execute();
+        else
+            Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
+    }
+
+
 }

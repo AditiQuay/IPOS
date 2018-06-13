@@ -129,6 +129,8 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         dp.setTitle("Calender");
         dp.show();
 
+        dp.getDatePicker().setMinDate(System.currentTimeMillis());
+
 
     }
 
@@ -317,6 +319,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         llAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Util.animateView(view);
                 submitLoginRequest(jsonObjectSubmitJson.toString());
 
             }
@@ -324,6 +327,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         llCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Util.animateView(view);
                 deleteItems(poNumber);
                 Intent mIntent = new Intent();
                 setResult(6,mIntent);
@@ -383,31 +387,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
     public void onClick(View view) {
         int id = view.getId();
 
-        switch (id){
-            case R.id.llAccept:
-                submitLoginRequest(jsonObjectSubmitJson.toString());
-//                Intent mIntent = new Intent(this,OrderCentreDetailsActivity.class);
-//                startActivity(mIntent);
-//                Intent mIntent = new Intent();
-//                setResult(6,mIntent);
-//                finish();
-                Intent mIntent = new Intent();
-                setResult(6,mIntent);
-                finish();
-                break;
-            case R.id.llCancel:
-                deleteItems(poNumber);
 
-//                Intent mIntent = new Intent(this,OrderCentreDetailsActivity.class);
-//                startActivity(mIntent);
-//                Intent mIntent = new Intent();
-//                setResult(6,mIntent);
-//                finish();
-                Intent mIntent1 = new Intent();
-                setResult(6,mIntent1);
-                finish();
-                break;
-        }
     }
 
 

@@ -169,7 +169,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 if (str.isFreeItem()) {
                     userViewHolder.imvOffer.setVisibility(View.GONE);
-                    userViewHolder.tvTotalPrice.setText(" Free " + str.getQty()+" * "+mContext.getResources().getString(R.string.Rs) +" "+str.getsProductPrice());
+                    userViewHolder.tvTotalPrice.setText(" Free " + str.getQty()+" x "+mContext.getResources().getString(R.string.Rs) +" "+str.getsProductPrice());
 
                     userViewHolder.tvTotalPrice.setPaintFlags(userViewHolder.tvTotalPrice.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                     userViewHolder.tvCheckStock.setVisibility(View.GONE);
@@ -264,6 +264,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                 discountBean.setRule(jsonObject.optString("rule"));
                                 discountBean.setsDiscountDisplayName(jsonObject.optString("sDiscountDisplayName"));
                                 discountBean.setsDiscountName(jsonObject.optString("sDiscountName"));
+                                discountBean.setsDiscountStrikeOut(jsonObject.optBoolean("discountTotalStrike"));
                                 discounts.add(discountBean);
                             }
                         }

@@ -16,6 +16,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
@@ -67,9 +68,11 @@ import quay.com.ipos.ddr.fragment.NewOrderFragment;
 import quay.com.ipos.ddr.fragment.OrderCentreListFragment;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
+import quay.com.ipos.inventory.fragment.InventoryFragment;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
+import quay.com.ipos.listeners.SendScannerBarcodeListener;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
@@ -87,7 +90,7 @@ import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ServiceTask.ServiceResultListener, InitInterface, FilterListener, MessageDialog.MessageDialogListener, AdapterView.OnItemClickListener, ScanFilterListener {
+        implements SendScannerBarcodeListener,NavigationView.OnNavigationItemSelectedListener, ServiceTask.ServiceResultListener, InitInterface, FilterListener, MessageDialog.MessageDialogListener, AdapterView.OnItemClickListener, ScanFilterListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -105,7 +108,7 @@ public class MainActivity extends BaseActivity
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null;
+    private Fragment dashboardFragment = null,inventaortFragment=null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
     private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
@@ -114,6 +117,7 @@ public class MainActivity extends BaseActivity
     private TextView textViewMyBusiness, textViewAccount;
     private TextView textViewP, textViewI, textViewM;
     public static DashboardItemFragment dashboardItemFragment;
+    public static NewOrderFragment newOrderScannerFragment;
     private int preMenu = -1;
     private View view1;
     private ArrayList<Integer> inMenu = new ArrayList<>();
@@ -194,7 +198,7 @@ public class MainActivity extends BaseActivity
         applyTypeFace();
         setDashBoard();
         dashboardItemFragment = new DashboardItemFragment();
-
+        newOrderScannerFragment=new NewOrderFragment();
 
         retailSalesFragment1 = new RetailSalesFragment();
 
@@ -517,6 +521,18 @@ public class MainActivity extends BaseActivity
             case "Manage Store":
 
                 break;
+
+            case "Inventory In/Out":
+                inventaortFragment = new InventoryFragment();
+                replaceFragment(inventaortFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.inventory));
+                menu1.findItem(R.id.action_notification).setVisible(false);
+                menu1.findItem(R.id.action_search).setVisible(false);
+
+                drawer.closeDrawer(GravityCompat.START);
+
+                break;
             case "Manage Business":
 
                 break;
@@ -563,9 +579,10 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case "Stock & Price":
-                //   imageId = R.drawable.insights;
+                              //   imageId = R.drawable.insights;
                 break;
             case "Loyalty Program":
+
                 //  imageId = R.drawable.insights;
                 break;
             case "Partner Connect":
@@ -1007,6 +1024,11 @@ public class MainActivity extends BaseActivity
     public void update(String word) {
         MostUsedFunDao mostUsedFunDao = IPOSApplication.getDatabase().mostUsedFunDao();
         new updateAsyncTask(mostUsedFunDao).execute(word);
+    }
+
+    @Override
+    public void onScanBarcode(String title, FragmentActivity activity) {
+        newOrderScannerFragment.onScanBarcode(title, activity);
     }
 
     private static class insertAsyncTask extends android.os.AsyncTask<MostUsed, Void, Void> {
