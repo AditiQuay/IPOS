@@ -264,6 +264,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                 discountBean.setRule(jsonObject.optString("rule"));
                                 discountBean.setsDiscountDisplayName(jsonObject.optString("sDiscountDisplayName"));
                                 discountBean.setsDiscountName(jsonObject.optString("sDiscountName"));
+                                discountBean.setsDiscountStrikeOut(jsonObject.optBoolean("discountTotalStrike"));
                                 discounts.add(discountBean);
                             }
                         }

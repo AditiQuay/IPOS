@@ -129,6 +129,8 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         dp.setTitle("Calender");
         dp.show();
 
+        dp.getDatePicker().setMinDate(System.currentTimeMillis());
+
 
     }
 

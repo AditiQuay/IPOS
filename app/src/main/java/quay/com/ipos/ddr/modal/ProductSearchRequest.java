@@ -86,12 +86,4 @@ public class ProductSearchRequest {
     public void setEmployeeRole(String employeeRole) {
         this.employeeRole = employeeRole;
     }
-
-    public String getModuleType() {
-        return moduleType;
-    }
-
-    public void setModuleType(String moduleType) {
-        this.moduleType = moduleType;
-    }
 }

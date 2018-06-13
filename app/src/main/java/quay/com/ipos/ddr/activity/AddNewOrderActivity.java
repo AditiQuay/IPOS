@@ -419,6 +419,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
         productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
         productSearchRequest.setEntityStateCode(entityStateCode);
         productSearchRequest.setSearchParam(s);
+        productSearchRequest.setModuleType("NO");
         productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
         productSearchRequest.setBarCodeNumber("NA");
         productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
