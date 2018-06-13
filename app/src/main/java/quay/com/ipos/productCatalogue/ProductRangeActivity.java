@@ -240,6 +240,7 @@ public class ProductRangeActivity extends BaseActivity implements View.OnClickLi
                 if (realmNewOrderCarts != null) {
                     realm.beginTransaction();
                     try {
+
                         realmNewOrderCarts.deleteFromRealm();
                         RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).findAll();
 

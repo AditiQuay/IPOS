@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -33,17 +34,25 @@ public class InventoryGRNStepsAdapter extends RecyclerView.Adapter<InventoryGRNS
 
     @Override
     public void onBindViewHolder(@NonNull ItemView holder, int position) {
-
+        InventoryGRNModel inventoryGRNModel = inventoryGRNModels.get(position);
+        holder.grnQtyCount.setText(inventoryGRNModel.grnQty);
+        holder.apQtyCount.setText(inventoryGRNModel.apQTY);
+        holder.balanceQtyCount.setText(inventoryGRNModel.value);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return inventoryGRNModels.size();
     }
 
     public class ItemView extends RecyclerView.ViewHolder {
+        private TextView grnQtyCount,apQtyCount,balanceQtyCount;
         public ItemView(View itemView) {
             super(itemView);
+            grnQtyCount = itemView.findViewById(R.id.grnQtyCount);
+            apQtyCount = itemView.findViewById(R.id.apQtyCount);
+            balanceQtyCount = itemView.findViewById(R.id.balanceQtyCount);
+
         }
     }
 }

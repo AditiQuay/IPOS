@@ -31,6 +31,7 @@ import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.enums.NoGetEntityEnums;
+import quay.com.ipos.inventory.activity.InventoryGRNStepsActivity;
 import quay.com.ipos.inventory.activity.InventoryStepsActivity;
 import quay.com.ipos.inventory.adapter.CustomAdapter;
 import quay.com.ipos.inventory.modal.NOGetEntityBuisnessPlacesModal;
@@ -99,7 +100,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(getActivity(), InventoryStepsActivity.class);
+                Intent i=new Intent(getActivity(), InventoryGRNStepsActivity.class);
                 startActivity(i);
             }
         });

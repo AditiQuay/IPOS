@@ -22,6 +22,15 @@ public class ProductSearchRequest {
     private String barCodeNumber;
     private String employeeCode;
     private String employeeRole;
+
+    public String getModuleType() {
+        return moduleType;
+    }
+
+    public void setModuleType(String moduleType) {
+        this.moduleType = moduleType;
+    }
+
     private String moduleType;
     public String getEntityCode() {
         return entityCode;
