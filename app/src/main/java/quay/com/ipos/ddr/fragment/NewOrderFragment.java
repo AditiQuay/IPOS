@@ -1,16 +1,20 @@
 package quay.com.ipos.ddr.fragment;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -58,7 +62,9 @@ import quay.com.ipos.ddr.adapter.CustomAdapter;
 import quay.com.ipos.ddr.adapter.NewOrderListAdapter;
 import quay.com.ipos.ddr.modal.DiscountModal;
 import quay.com.ipos.ddr.modal.NOGetEntityBuisnessPlacesModal;
+import quay.com.ipos.ddr.modal.NewOrderProductsResult;
 import quay.com.ipos.ddr.modal.NoGetEntityResultModal;
+import quay.com.ipos.ddr.modal.ProductSearchRequest;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
@@ -66,6 +72,7 @@ import quay.com.ipos.listeners.MyCheckedChangedListener;
 import quay.com.ipos.listeners.MyListenerProduct;
 import quay.com.ipos.listeners.ScannerProductListener;
 
+import quay.com.ipos.listeners.SendScannerBarcodeListener;
 import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.realmbean.RealmController;
@@ -73,10 +80,8 @@ import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.retailsales.fragment.FullScannerFragment;
 import quay.com.ipos.service.ServiceTask;
-import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
-import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
@@ -86,11 +91,12 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 03-05-2018.
  */
 
-public class NewOrderFragment extends BaseFragment implements MyCheckedChangedListener,MyListenerProduct,ServiceTask.ServiceResultListener ,View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener {
+public class NewOrderFragment extends BaseFragment implements SendScannerBarcodeListener,MyCheckedChangedListener,MyListenerProduct,ServiceTask.ServiceResultListener ,View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener {
     private TextView tvMoreDetails, tvItemNo, tvItemQty, tvTotalItemPrice,
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
             tvLessDetails, tvRoundingOffPrice, tvPay, tvPinCount;
 
+    RelativeLayout flScanLayout;
     private FrameLayout flScanner;
     private Fragment scanner_fragment;
     private LinearLayout llTotalDiscountDetail, ll_item_pay, llTotalGST;
@@ -122,6 +128,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
     private int businessPlaceCode;
     private boolean isSync;
     private String strPlace;
+    private ImageView imvStatus;
 
 
     @Override
@@ -133,7 +140,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
         setHasOptionsMenu(true);
         Util.hideSoftKeyboard(getActivity());
 
-
+        closeFragment();
         return rootView;
     }
 
@@ -152,7 +159,9 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
     private void initializeComponent(View rootView) {
         tvMessage = rootView.findViewById(R.id.tvMessage);
         flScanner = rootView.findViewById(R.id.flScanner);
-        flScanner.setVisibility(View.GONE);
+
+        flScanLayout = rootView.findViewById(R.id.flScanLayout);
+        imvStatus = rootView.findViewById(R.id.imvStatus);
         tvPinCount = rootView.findViewById(R.id.tvPinCount);
         imvPin = rootView.findViewById(R.id.imvPin);
 
@@ -252,6 +261,32 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                 }
             }
         });*/
+
+
+        flScanLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ((MainActivity) mContext).launchActivity(true);
+//                    chkBarCode.setChecked(false);
+                    flScanner.setVisibility(View.GONE);
+                } else {
+
+                    if (flScanner.getVisibility() == View.GONE) {
+                        flScanner.setVisibility(View.VISIBLE);
+                        imvStatus.setBackgroundResource(R.drawable.circle_activate);
+//                        chkBarCode.setChecked(true);
+                        displayFragment();
+                    } else {
+                        imvStatus.setBackgroundResource(R.drawable.circle_disabled);
+                        flScanner.setVisibility(View.GONE);
+                        closeFragment();
+//                        chkBarCode.setChecked(false);
+                    }
+                }
+            }
+        });
     }
 
     public void closeFragment() {
@@ -271,7 +306,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
     }
 
     public void displayFragment() {
-        FullScannerFragment simpleFragment = FullScannerFragment.newInstance();
+        NewOrderScannerFragment simpleFragment = NewOrderScannerFragment.newInstance();
         // TODO: Get the FragmentManager and start a transaction.
         FragmentManager fragmentManager = getChildFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
@@ -1546,47 +1581,81 @@ if (realmNewOrderCarts.getQty()>1) {
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
      //   hideProgressDialog();
-        if (httpStatusCode == Constants.SUCCESS) {
 
-            if (Util.validateString(serverResponse)){
+        if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_NOProductSearch)){
 
-                try {
-                    JSONObject jsonObject=new JSONObject(serverResponse);
-                    JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
-                    new RealmController().saveBusinessPlaces(array.toString());
-                    for (int i=0;i<array.length();i++){
-                        NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
-                        JSONObject jsonObject1=array.optJSONObject(i);
-                        noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
-                        noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
-                        noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
-                        noGetEntityBuisnessPlacesModals.add(noGetEntityBuisnessPlacesModal);
+            if (isAdded()) {
+                if (httpStatusCode == Constants.SUCCESS) {
 
+                    if (Util.validateString(serverResponse)) {
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(serverResponse);
+                            addBarcodeScanProduct(jsonObject.optString("iProductModalId"), jsonObject.optString("productCode"), serverResponse);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
 
                     }
 
-                    CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss,R.id.text1,noGetEntityBuisnessPlacesModals);
-                    adapter.setDropDownViewResource(R.layout.spinner_item_pss);
-                    spnAddress.setAdapter(adapter);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+                } else if (httpStatusCode == Constants.BAD_REQUEST) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                }
+            }
+        }else {
+            if (httpStatusCode == Constants.SUCCESS) {
+
+                if (Util.validateString(serverResponse)){
+
+                    try {
+                        JSONObject jsonObject=new JSONObject(serverResponse);
+                        JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
+                        new RealmController().saveBusinessPlaces(array.toString());
+                        for (int i=0;i<array.length();i++){
+                            NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
+                            JSONObject jsonObject1=array.optJSONObject(i);
+                            noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
+                            noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
+                            noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
+                            noGetEntityBuisnessPlacesModals.add(noGetEntityBuisnessPlacesModal);
+
+
+
+                        }
+
+                        CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss,R.id.text1,noGetEntityBuisnessPlacesModals);
+                        adapter.setDropDownViewResource(R.layout.spinner_item_pss);
+                        spnAddress.setAdapter(adapter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
+
+            } else if (httpStatusCode == Constants.BAD_REQUEST) {
+                Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+                Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+                Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+                Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+                Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
             }
-
-
-        } else if (httpStatusCode == Constants.BAD_REQUEST) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
-            Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
+
 
     }
 
@@ -1920,4 +1989,78 @@ if (realmNewOrderCarts.getQty()>1) {
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 
     }
+
+
+    private void addBarcodeScanProduct(String productId,String productCode,String json){
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmNewOrderCart realmNewOrderCarts = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), productId).findFirst();
+        Gson gson = new GsonBuilder().create();
+        if (realmNewOrderCarts != null) {
+
+            String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts));
+            try {
+                JSONObject jsonObject = new JSONObject(strJson);
+                jsonObject.put(RetailSalesEnum.isAdded.toString(), true);
+                jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() + 1);
+                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
+
+                int totalPoints = getTotalPoints(realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
+                jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
+                saveResponseLocal(jsonObject, "P00001");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            setCalculatedValues();
+            calculateOPS(realmNewOrderCarts.getProductCode(), realmNewOrderCarts.getiProductModalId());
+            getProduct();
+        }else {
+            try {
+                JSONObject jsonObject=new JSONObject(json);
+                jsonObject.put(RetailSalesEnum.isAdded.toString(),true);
+                jsonObject.put(RetailSalesEnum.qty.toString(),1);
+                jsonObject.put(RetailSalesEnum.totalPrice.toString(),jsonObject.optDouble("SProductPrice"));
+              //  int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
+            //    jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
+                saveResponseLocal(jsonObject,"P00001");
+                calculateOPS(productId,productCode);
+                getProduct();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onScanBarcode(String title, FragmentActivity activity) {
+        mContext=activity;
+        searchProductCall(title);
+
+    }
+
+    private void searchProductCall(String s) {
+//        showProgress(getResources().getString(R.string.please_wait));
+        ProductSearchRequest productSearchRequest = new ProductSearchRequest();
+        productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
+        productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
+        productSearchRequest.setEntityStateCode(entityStateCode);
+        productSearchRequest.setSearchParam("NA");
+        productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
+        productSearchRequest.setBarCodeNumber(s);
+        productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
+        productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOProductSearch);
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(productSearchRequest);
+        mTask.setListener(this);
+        mTask.setResultType(NewOrderProductsResult.class);
+        if(Util.isConnected())
+            mTask.execute();
+        else
+            Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
+    }
+
+
 }

@@ -28,6 +28,7 @@ import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
+import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.ScannerProductListener;
 import quay.com.ipos.modal.CommonParams;
@@ -55,7 +56,7 @@ public class FullScannerFragment extends BaseFragment implements
     DatabaseHandler databaseHandler;
     public ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
     private ProductSearchResult productListResult;
-
+    private MainActivity mainActivity;
 
     public static FullScannerFragment newInstance() {
         return new FullScannerFragment();

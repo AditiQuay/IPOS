@@ -16,6 +16,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
@@ -71,6 +72,7 @@ import quay.com.ipos.inventory.fragment.InventoryFragment;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
+import quay.com.ipos.listeners.SendScannerBarcodeListener;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
@@ -88,7 +90,7 @@ import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ServiceTask.ServiceResultListener, InitInterface, FilterListener, MessageDialog.MessageDialogListener, AdapterView.OnItemClickListener, ScanFilterListener {
+        implements SendScannerBarcodeListener,NavigationView.OnNavigationItemSelectedListener, ServiceTask.ServiceResultListener, InitInterface, FilterListener, MessageDialog.MessageDialogListener, AdapterView.OnItemClickListener, ScanFilterListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -115,6 +117,7 @@ public class MainActivity extends BaseActivity
     private TextView textViewMyBusiness, textViewAccount;
     private TextView textViewP, textViewI, textViewM;
     public static DashboardItemFragment dashboardItemFragment;
+    public static NewOrderFragment newOrderScannerFragment;
     private int preMenu = -1;
     private View view1;
     private ArrayList<Integer> inMenu = new ArrayList<>();
@@ -195,7 +198,7 @@ public class MainActivity extends BaseActivity
         applyTypeFace();
         setDashBoard();
         dashboardItemFragment = new DashboardItemFragment();
-
+        newOrderScannerFragment=new NewOrderFragment();
 
         retailSalesFragment1 = new RetailSalesFragment();
 
@@ -1017,6 +1020,11 @@ public class MainActivity extends BaseActivity
     public void update(String word) {
         MostUsedFunDao mostUsedFunDao = IPOSApplication.getDatabase().mostUsedFunDao();
         new updateAsyncTask(mostUsedFunDao).execute(word);
+    }
+
+    @Override
+    public void onScanBarcode(String title, FragmentActivity activity) {
+        newOrderScannerFragment.onScanBarcode(title, activity);
     }
 
     private static class insertAsyncTask extends android.os.AsyncTask<MostUsed, Void, Void> {
