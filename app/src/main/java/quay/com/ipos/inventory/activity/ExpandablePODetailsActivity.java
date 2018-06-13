@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import io.realm.Realm;
@@ -71,35 +72,36 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         setHeader();
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-        HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
+        LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<String, List<String>>();
 
         List<String> cricket = new ArrayList<String>();
         cricket.add("India");
-        cricket.add("Pakistan");
-        cricket.add("Australia");
-        cricket.add("England");
-        cricket.add("South Africa");
+
 
         List<String> football = new ArrayList<String>();
         football.add("Brazil");
-        football.add("Spain");
-        football.add("Germany");
-        football.add("Netherlands");
-        football.add("Italy");
+
 
         List<String> basketball = new ArrayList<String>();
         basketball.add("United States");
-        basketball.add("Spain");
-        basketball.add("Argentina");
-        basketball.add("France");
-        basketball.add("Russia");
 
+
+        List<String> a = new ArrayList<String>();
+        a.add("United States");
+
+        List<String> v = new ArrayList<String>();
+        v.add("United States");
+
+        List<String> c = new ArrayList<String>();
+        c.add("United States");
+        List<String> d = new ArrayList<String>();
+        d.add("United States");
         expandableListDetail.put("PO# 1800001", cricket);
         expandableListDetail.put("Items details | 4 Items| 23 Qty", football);
-        expandableListDetail.put("INCO Terms", basketball);
-        expandableListDetail.put("Payment Terms", basketball);
-        expandableListDetail.put("Terms & Condition", basketball);
-        expandableListDetail.put("Attachments", basketball);
+        expandableListDetail.put("INCO Terms", a);
+        expandableListDetail.put("Payment Terms", v);
+        expandableListDetail.put("Terms & Condition", c);
+        expandableListDetail.put("Attachments", d);
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);

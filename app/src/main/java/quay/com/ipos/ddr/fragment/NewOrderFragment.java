@@ -132,6 +132,8 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
         myDialog = new Dialog(getActivity());
         setHasOptionsMenu(true);
         Util.hideSoftKeyboard(getActivity());
+
+
         return rootView;
     }
 
@@ -150,6 +152,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
     private void initializeComponent(View rootView) {
         tvMessage = rootView.findViewById(R.id.tvMessage);
         flScanner = rootView.findViewById(R.id.flScanner);
+        flScanner.setVisibility(View.GONE);
         tvPinCount = rootView.findViewById(R.id.tvPinCount);
         imvPin = rootView.findViewById(R.id.imvPin);
 
@@ -184,7 +187,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
         setSpinnerData();
         setListener();
         setAdapter();
-        setTextDefault();
+
     }
 
     private void setSpinnerData() {
@@ -220,51 +223,6 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
     }
 
-    private void setTextDefault() {
-        tvItemNo.setText("Item 0");
-        tvItemQty.setText("0 Qty");
-        tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalDiscountDetail.setText("(Item 0)");
-        IPOSApplication.mOrderList.clear();
-        if (SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity()) != null) {
-            String json2 = SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", getActivity());
-            if (!json2.equalsIgnoreCase(""))
-                mOrderInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<NewOrderPinnedResults.Info>>() {
-                }.getType());
-            if (mOrderInfoArrayList.size() > 0) {
-                tvMessage.setVisibility(View.GONE);
-                tvPinCount.setText("" + mOrderInfoArrayList.size());
-                tvPinCount.setVisibility(View.VISIBLE);
-            } else {
-                tvMessage.setVisibility(View.GONE);
-                tvPinCount.setVisibility(View.GONE);
-            }
-        } else {
-            tvPinCount.setVisibility(View.GONE);
-        }
-//        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            flScanner.setVisibility(View.GONE);
-//            chkBarCode.setChecked(false);
-//            boolean request = ((MainActivity) getActivity()).launchActivity(false);
-//            if(request && ((MainActivity) getActivity()).CameraPermission )
-//            {
-//                setTextDefault();
-//            }
-//        }else {
-        flScanner.setVisibility(View.GONE);
-
-        closeFragment();
-//            displayFragment();
-//        }
-    }
 
 
     private void setListener() {
@@ -334,6 +292,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
     @Override
     public void onResume() {
         super.onResume();
+        getProduct();
         ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.new_orders));
         //You need to add the following line for this solution to work; thanks skayred
         getView().setFocusableInTouchMode(true);
@@ -354,6 +313,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                 return isBack;
             }
         });
+
     }
 
 
@@ -449,6 +409,16 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
         mNewOrderListAdapter.notifyDataSetChanged();
         setCalculatedValues();
 
+
+        if (mList.isEmpty()){
+            tvMessage.setVisibility(View.VISIBLE);
+            mRecyclerView.setVisibility(View.GONE);
+            // onSearchButton();
+        }else{
+            tvMessage.setVisibility(View.GONE);
+            mRecyclerView.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void setCalculatedValues() {
@@ -533,135 +503,9 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
     }
 
-    private void setDefaultValues() {
-
-        Double totalPrice;
-        for (int i = 0; i < IPOSApplication.mOrderList.size(); i++) {
-            OrderList.Datum datum = IPOSApplication.mOrderList.get(i);
-            if (datum.getQty() == 0)
-                datum.setQty(1);
-            if (!datum.isDiscItemSelected())
-                datum.setDiscItemSelected(true);
-            totalPrice = (Double.parseDouble(datum.getSProductPrice()) * datum.getQty());
-            datum.setTotalPrice(totalPrice);
-            if (datum.getIsDiscount()) {
-                Double discount = Double.parseDouble(datum.getSDiscountPrice()) * totalPrice / 100;
-                // datum.setDiscount(discount);
-            } else {
-                //  datum.setDiscount(0.0);
-            }
-            IPOSApplication.mOrderList.set(i, datum);
-        }
-    }
-
-    OrderList mOrderList = new OrderList();
-
-    private void setUpdateValues(ArrayList<OrderList.Datum> mList) {
-
-        if (mList.size() == 1 || mList.size() == 0) {
-            tvItemNo.setText("Item " + mList.size() + " item");
-        } else {
-            tvItemNo.setText("Items " + mList.size() + " item");
-        }
-        if (mList.size() == 0) {
-            tvItemQty.setText("0 Qty");
-            tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-            tvTotalDiscountDetail.setText("(Item 0)");
-        } else {
 
 
-            int qty = 0;
-            double totalPrice = 0.0;
-            double sum = 0;
-            double discount = 0, discountPrice = 0.0, totalGst = 0.0, cgst = 0.0, sgst = 0.0;
-            int discountItem = 0;
-            int mSelectedpos = 0;
-            double totalAfterGSt = 0.0;
-            double otcDiscountPerc = 0.0;
-            for (int i = 0; i < mList.size(); i++) {
-                OrderList.Datum datum = mList.get(i);
-                qty += mList.get(i).getQty();
-                datum.setTotalQty(qty);
-                totalPrice = mList.get(i).getQty() * Double.parseDouble(mList.get(i).getSProductPrice());
-                sum = totalPrice + sum;
-                datum.setTotalPrice(sum);
-                if (mList.get(i).isDiscItemSelected()) {
-                    if (mList.get(i).getIsDiscount()) {
-                        discount = discount + Double.parseDouble(mList.get(i).getSDiscountPrice()) * totalPrice / 100;
-                        //   datum.setDiscount(discount);
-                        discountItem++;
-                    }
-                }
-                if (mList.get(i).isDiscSelected()) {
-                    if (!mList.get(i).isDiscItemSelected())
-                        discountItem++;
-                    otcDiscountPerc += mList.get(i).getOTCDiscount();
-                } else {
-                    otcDiscountPerc = 0;
-                }
-                totalGst = mList.get(i).getGSTPerc() * sum / 100;
-                totalGst += totalGst;
-                sgst = mList.get(i).getSGST() * sum / 100;
-                sgst += sgst;
-                cgst = mList.get(i).getCGST() * sum / 100;
-                cgst += cgst;
-//                totalPrice += mList.get(i).getTotalPrice();
-                IPOSApplication.mOrderList.set(i, datum);
-            }
 
-            // Total Qty
-            tvItemQty.setText(qty + " Qty");
-            mOrderList.setTotalQty(qty);
-
-            // Total price befor discount & gst
-            tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + sum);
-            mOrderList.setTotalPrice(sum);
-
-            // discountPrice
-            discountPrice = discount + otcDiscountPerc;
-            tvTotalDiscountPrice.setText("-" + getActivity().getResources().getString(R.string.Rs) + " " + (discountPrice));
-            mOrderList.setDiscountPrice(discountPrice);
-
-//            discountItem
-            tvTotalDiscountDetail.setText("(Item " + discountItem + ")");
-            mOrderList.setDiscountItem(discountItem);
-
-//            totalGst
-            AppLog.e(TAG, "totalGst: " + totalGst);
-            tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalGst);
-            mOrderList.setTotalGst(totalGst);
-
-//            sgst
-            tvSGSTPrice.setText("+" + getActivity().getResources().getString(R.string.Rs) + " " + sgst);
-            mOrderList.setSgst(sgst);
-
-//            cgst
-            tvCGSTPrice.setText("+" + getActivity().getResources().getString(R.string.Rs) + " " + cgst);
-            mOrderList.setCgst(cgst);
-
-            totalAfterGSt = (sum - discount) + (sgst + cgst) - (otcDiscountPerc);
-//            double floorValue = Math.round(totalAfterGSt);
-
-
-            double roundOff = totalAfterGSt - Math.floor(totalAfterGSt);
-            double round_off = (Util.round(roundOff, 1));
-            tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + round_off);
-            mOrderList.setRound_off(round_off);
-            totalAfterGSt = totalAfterGSt + (Util.round(roundOff, 1));
-            totalAmount = Math.round(totalAfterGSt);
-            tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalAmount);
-            mOrderList.setTotalGst(totalAmount);
-            AppLog.e(TAG, "updated: " + Util.getCustomGson().toJson(IPOSApplication.mOrderList));
-            mOrderList.setData(IPOSApplication.mOrderList);
-        }
-    }
 
 
     @Override
@@ -673,19 +517,23 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 //                ((MainActivity) getActivity()).launchActivity(FullScannerActivity.class);
 //                break;
             case R.id.tvMoreDetails:
+                Util.animateView(view);
                 llTotalDiscountDetail.setVisibility(View.VISIBLE);
                 llTotalGST.setVisibility(View.GONE);
                 break;
             case R.id.tvLessDetails:
+                Util.animateView(view);
                 llTotalDiscountDetail.setVisibility(View.GONE);
                 llTotalGST.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.tvMinus:
+                Util.animateView(view);
                 setOnClickMinus(view);
                 break;
 
             case R.id.tvPlus:
+                Util.animateView(view);
                 setOnClickPlus(view);
                 break;
 
@@ -696,6 +544,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
 
             case R.id.imvClear:
+                Util.animateView(view);
                 final int posClear = (int) view.getTag();
                 (
                         new AlertDialog.Builder(getActivity())).setTitle("Confirm action")
@@ -718,6 +567,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
 
                 break;
             case R.id.tvPay:
+                Util.animateView(view);
                 if (mList.size() > 0) {
                     createOrder();
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
@@ -728,6 +578,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                 }
                 break;
             case R.id.imvRight:
+                Util.animateView(view);
                 if (mList.size()  > 0) {
                     createOrder();
                     Intent i = new Intent(getActivity(), NewOrderDetailsActivity.class);
@@ -738,14 +589,7 @@ public class NewOrderFragment extends BaseFragment implements MyCheckedChangedLi
                     Util.showToast("Please add atleast one item to proceed.");
                 }
                 break;
-            case R.id.btnNo:
-                mDiscountDeleteFragment.dismiss();
-                addDeleteDiscount();
-                break;
 
-            case R.id.btnYes:
-                setDeleteDiscount();
-                break;
 
         }
     }
@@ -1531,33 +1375,6 @@ if (realmNewOrderCarts.getQty()>1) {
     }
 
 
-    int posDeleteItem=0;
-    DiscountDeleteFragment mDiscountDeleteFragment;
-    private void setDeleteDiscount() {
-        OrderList.Datum datum = IPOSApplication.mOrderList.get(posDeleteItem);
-        if (!datum.isDiscItemSelected()) {
-            datum.setDiscItemSelected(true);
-        }
-        else {
-            datum.setDiscItemSelected(false);
-        }
-        IPOSApplication.mOrderList.set(posDeleteItem, datum);
-        mNewOrderListAdapter.notifyItemChanged(posDeleteItem);
-        setUpdateValues(IPOSApplication.mOrderList);
-        mDiscountDeleteFragment.dismiss();
-    }
-
-    private void addDeleteDiscount() {
-        OrderList.Datum datum = IPOSApplication.mOrderList.get(posDeleteItem);
-        if (!datum.isDiscItemSelected()) {
-            datum.setDiscItemSelected(true);
-        }
-
-        IPOSApplication.mOrderList.set(posDeleteItem, datum);
-        mNewOrderListAdapter.notifyItemChanged(posDeleteItem);
-        setUpdateValues(IPOSApplication.mOrderList);
-        mDiscountDeleteFragment.dismiss();
-    }
 
 
     @Override
@@ -1678,42 +1495,15 @@ if (realmNewOrderCarts.getQty()>1) {
 
     @Override
     public void setProductOnListener(String mDatum) {
-        ArrayList<OrderList.Datum> arrData= new ArrayList<>();
+     /*   ArrayList<OrderList.Datum> arrData= new ArrayList<>();
         json = SharedPrefUtil.getString(Constants.Order_List,"",getActivity());
         arrData = Util.getCustomGson().fromJson(json, new TypeToken<ArrayList<OrderList.Datum>>(){}.getType());
         IPOSApplication.mOrderList.add(arrData.get(0));
         mNewOrderListAdapter.notifyDataSetChanged();
-
+*/
     }
 
 
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-        int id = compoundButton.getId();
-        switch (id) {
-
-            case R.id.chkDiscount:
-                if (compoundButton.isPressed()) {
-                    posDeleteItem = (int) compoundButton.getTag();
-                    mRecyclerView.post(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            OrderList.Datum datum = IPOSApplication.mOrderList.get(posDeleteItem);
-                            if(datum.isDiscItemSelected()) {
-                                FragmentManager fragmentManager = getChildFragmentManager();
-                                mDiscountDeleteFragment = DiscountDeleteFragment.newInstance();
-                                mDiscountDeleteFragment.setDialogInfoOrder(NewOrderFragment.this,datum);
-                                mDiscountDeleteFragment.show(fragmentManager, "Delete Discount");
-                            }else {
-                                addDeleteDiscount();
-                            }
-                        }
-                    });
-                }
-                break;
-        }
-    }
     private void showViews() {
         // TODO uncomment this Hide Footer in android when Scrolling
         llBelowPaymentDetail.animate().alpha(1.0f).translationY(0).setInterpolator(new DecelerateInterpolator(1.4f)).setListener(new Animator.AnimatorListener() {
@@ -2124,5 +1914,10 @@ if (realmNewOrderCarts.getQty()>1) {
             getCheckBox(discountModal,productId,position);
             getProduct();
         }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
     }
 }

@@ -26,6 +26,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:orientation="horizontal">
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -83,21 +84,24 @@
                     android:background="@color/colorPrimaryDark">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1.2"
+                        android:gravity="center"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:background="@drawable/full_rectangle">
                         <android.support.v7.widget.AppCompatSpinner
-                            android:layout_width="wrap_content"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             style="@android:style/Widget.Holo.Light.Spinner"
-                            android:layout_weight="1"
                             android:entries="@array/ordervalue"/>
                     </LinearLayout>
                     <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_height="35dp"
+                        android:layout_weight="1.2"
+                        android:gravity="center"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dim_12"
                         android:background="@drawable/full_rectangle">
@@ -106,39 +110,38 @@
                         android:id="@+id/spnAddress"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         style="@android:style/Widget.Holo.Light.Spinner"
                         />
                     </LinearLayout>
-                    <FrameLayout
+                    <RelativeLayout
                         style="?attr/actionButtonStyle"
                         android:layout_width="0dp"
                         android:id="@+id/flScanLayout"
                         android:layout_marginRight="@dimen/dim_5"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.5"
                         android:clipToPadding="false"
                         android:focusable="true">
 
                         <ImageView
                             android:id="@+id/imvBarcode"
-                            android:layout_width="wrap_content"
+                            android:layout_width="30dp"
                             android:layout_gravity="center"
-                            android:layout_height="wrap_content"
+                            android:layout_height="30dp"
                             android:src="@drawable/ic_action_qr_code1"/>
 
                         <ImageView
                             android:id="@+id/imvStatus"
                             android:layout_width="14dp"
                             android:layout_height="14dp"
+                            android:layout_alignParentRight="true"
                             android:layout_gravity="right|end|top"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="8dp"
+                            android:layout_marginRight="4dp"
                             android:background="@drawable/circle_disabled"
                             android:gravity="center"
                             android:padding="3dp"/>
 
-                    </FrameLayout>
+                    </RelativeLayout>
                 </LinearLayout>
 
             </LinearLayout>

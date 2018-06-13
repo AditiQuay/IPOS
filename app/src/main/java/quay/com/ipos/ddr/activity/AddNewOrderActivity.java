@@ -91,6 +91,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
 
         getIntentValues();
         initializeComponent();
+        searchProductCall("b");
         Realm realm=Realm.getDefaultInstance();
         RealmResults<RealmNewOrderCart> realmNewOrderCarts1=realm.where(RealmNewOrderCart.class).findAll();
 
@@ -100,7 +101,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
             if (realmNewOrderCarts1.size()>0){
                 llAccept.setVisibility(View.VISIBLE);
             }else {
-                llAccept.setVisibility(View.GONE);
+                llAccept.setVisibility(View.VISIBLE);
             }
         }
         setAdapter();
@@ -147,7 +148,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         toolbar.setTitle("New Order");
-        // toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.back));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,7 +196,12 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                searchProductCall(charSequence.toString());
+                if (!charSequence.toString().equalsIgnoreCase("")){
+                    searchProductCall(charSequence.toString());
+                }else {
+                    searchProductCall("b");
+                }
+
 
             }
 
@@ -250,7 +256,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
                             if (realmNewOrderCarts1.size()>0){
                                 llAccept.setVisibility(View.VISIBLE);
                             }else {
-                                llAccept.setVisibility(View.GONE);
+                                llAccept.setVisibility(View.VISIBLE);
                             }
                         }
                     }catch (Exception e){
@@ -286,7 +292,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
                         if (realmNewOrderCarts1.size()>0){
                             llAccept.setVisibility(View.VISIBLE);
                         }else {
-                            llAccept.setVisibility(View.GONE);
+                            llAccept.setVisibility(View.VISIBLE);
                         }
 
                     }
@@ -438,7 +444,8 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
 
 
         if (httpStatusCode == Constants.SUCCESS) {
-
+            dataBeans.clear();
+            arrData.clear();
             if (Util.validateString(serverResponse)){
 
                 NewOrderProductsResult noGetEntityResultModal=(NewOrderProductsResult)resultObj;
@@ -446,9 +453,6 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
 
 
                 for (int i=0;i<arrData.size();i++){
-
-
-
                     dataBeans.addAll(arrData.get(0).getData());
                 }
 

@@ -48,8 +48,9 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
         final String expandedListText = (String) getChild(listPosition, expandedListPosition);
-
-        if (listPosition==0){
+        String listTitle = (String) getGroup(listPosition);
+        convertView=null;
+        if (listTitle.contains("PO#")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -57,7 +58,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
 
             }
-        }else if (listPosition==1){
+        }else  if (listTitle.equalsIgnoreCase("Items details | 4 Items| 23 Qty")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -83,7 +84,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 ItemsDetailsPOListAdapter itemListDataAdapter = new ItemsDetailsPOListAdapter(context, discounts);
                 recycler_view.setAdapter(itemListDataAdapter);
             }
-        }else if (listPosition==2){
+        }else  if (listTitle.equalsIgnoreCase("INCO Terms")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -117,7 +118,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 INCOTermsPOListAdapter itemListDataAdapter = new INCOTermsPOListAdapter(context, discounts);
                 recycler_view.setAdapter(itemListDataAdapter);
             }
-        }else if (listPosition==3){
+        }else  if (listTitle.equalsIgnoreCase("Payment Terms")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -141,7 +142,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 recycler_view.setAdapter(itemListDataAdapter);
 
             }
-        }else if (listPosition==4){
+        }else  if (listTitle.equalsIgnoreCase("Terms & Condition")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -160,7 +161,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 TermsPOListAdapter itemListDataAdapter = new TermsPOListAdapter(context, discounts);
                 recycler_view.setAdapter(itemListDataAdapter);
             }
-        }else if (listPosition==5){
+        }else  if (listTitle.equalsIgnoreCase("Attachments")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
