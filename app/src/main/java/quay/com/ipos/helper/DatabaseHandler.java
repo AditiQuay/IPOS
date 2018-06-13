@@ -1343,7 +1343,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Insert Customer Data
-    public long insertSpinnerItems(String cityList, String stateList, String countryList, String designationList, String companyList, String relationshipList, String customerType) {
+    public void insertSpinnerItems(String cityList, String stateList, String countryList, String designationList, String companyList, String relationshipList, String customerType) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -1363,7 +1363,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // close db connection
         db.close();
         // return newly inserted row id
-        return id;
     }
 
     //Get All records from customer Database
