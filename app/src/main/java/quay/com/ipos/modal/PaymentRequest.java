@@ -23,7 +23,7 @@ public class PaymentRequest {
     private String employeeCode;
     @SerializedName("employeeRole")
     @Expose
-    private String employeeRole="user";
+    private String employeeRole="";
     @SerializedName("orderValue")
     @Expose
     private Double orderValue;
@@ -68,7 +68,7 @@ public class PaymentRequest {
     private ArrayList<PaymentDetail> paymentDetail = new ArrayList<>();
     @SerializedName("entityID")
     @Expose
-    private String entityID;
+    private Integer entityID;
 
     public double getPointsToRedeem() {
         return pointsToRedeem;
@@ -86,11 +86,11 @@ public class PaymentRequest {
         this.pointsToRedeemValue = pointsToRedeemValue;
     }
 
-    public String getEntityID() {
+    public Integer getEntityID() {
         return entityID;
     }
 
-    public void setEntityID(String entityID) {
+    public void setEntityID(Integer entityID) {
         this.entityID = entityID;
     }
 

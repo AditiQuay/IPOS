@@ -1,7 +1,9 @@
 package quay.com.ipos.retailsales.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
@@ -29,6 +31,8 @@ import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
+import quay.com.ipos.helper.DatabaseHandler;
+import quay.com.ipos.modal.BillingSync;
 import quay.com.ipos.modal.CustomerPointsRedeemRequest;
 import quay.com.ipos.modal.CustomerPointsRedeemResult;
 import quay.com.ipos.modal.LoginResult;
@@ -57,6 +61,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     private CardView cvCash,cvCard,cvPoints;
     private String mTotalAmount;
     private double totalAmount;
+    DatabaseHandler db;
     private Menu menu1;
     Toolbar toolbar_default;
     private String mCustomerID="";
@@ -64,19 +69,49 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     double redeemValue=0;
     Context context;
     private double mCustomerPointsPer=0;
+    PaymentRequest paymentRequest = new PaymentRequest();
+    double cashAmount,receivedAmt,cashReturnAmt,cardAmount;
+    String lastDigit,expMonth,expYear,transID,cardType;
+    String json,json1;
+    LoginResult loginResult ;
+    private ArrayList<PaymentRequest.PaymentDetail> arrPaymentDetail = new ArrayList<>();
+    private ArrayList<PaymentRequest.DetailInfo> detailInfo = new ArrayList<>();
+    boolean checkCash=false;
+    boolean checkCardAmt=false, checkCard=false,checkCardExpYear=false,checkCardMonth=false,checkCardDigit=false;
+    String[] arrMonth;
     boolean sendOTP=false,sendVerify = false,sendRedeem=false;
+    //1 means data is synced and 0 means data is not synced
+    public static final int NAME_SYNCED_WITH_SERVER = 1;
+    public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
+    //a broadcast to know weather the data is synced or not
+    public static final String DATA_SAVED_BROADCAST = "ipos.datasaved";
+    //Broadcast receiver to know the sync status
+    private BroadcastReceiver broadcastReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_payment_mode);
 
-
+        db = new DatabaseHandler(PaymentModeActivity.this);
         findViewbyId();
         getIntentValues();
         spnCardType();
         context = IPOSApplication.getContext();
         arrMonth = context.getResources().getStringArray(R.array.months);
+
+        //the broadcast receiver to update sync status
+//        broadcastReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//
+//                //loading the names again
+////                loadNames();
+//            }
+//        };
+//
+//        //registering the broadcast receiver to update sync status
+//        registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
     }
 
 
@@ -261,17 +296,17 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
 
     }
-    PaymentRequest paymentRequest = new PaymentRequest();
-    double cashAmount,receivedAmt,cashReturnAmt,cardAmount;
-    String lastDigit,expMonth,expYear,transID,cardType;
-    String json,json1;
-    LoginResult loginResult ;
-    private ArrayList<PaymentRequest.PaymentDetail> arrPaymentDetail = new ArrayList<>();
-    private ArrayList<PaymentRequest.DetailInfo> detailInfo = new ArrayList<>();
-    boolean checkCash=false;
-    boolean checkCardAmt=false, checkCard=false,checkCardExpYear=false,checkCardMonth=false,checkCardDigit=false;
-    String[] arrMonth;
-//    int[] arrMonth = new int[12]{01,02,03,04,05,06,07,08,09,10,11,12};
+
+    //saving the name to local storage
+    private void saveBillToLocalStorage(PaymentRequest paymentRequest, int status) {
+        BillingSync billingSync = new BillingSync();
+        billingSync.setBilling(Util.getCustomGson().toJson(paymentRequest));
+        billingSync.setCustomerID(paymentRequest.getCustomerID());
+        billingSync.setOrderDateTime(Util.getCurrentDate() + Util.getCurrentTime());
+        billingSync.setOrderTimestamp(Util.getCurrentTimeStamp());
+        billingSync.setSync(status);
+        db.addRetailBilling(billingSync);
+    }
 
     @Override
     public void onClick(View view) {
@@ -295,13 +330,16 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         if(loginResult.getUserAccess()!=null){
                             paymentRequest.setBusinessPlace(loginResult.getUserAccess().getStoreName());
                             paymentRequest.setBusinessPlaceCode(loginResult.getUserAccess().getWorklocationID());
-                            paymentRequest.setEmployeeCode(loginResult.getUserAccess().getRoleCode()+"");
-                            paymentRequest.setEmployeeRole("user");
-                            paymentRequest.setEntityID("1");
+                            paymentRequest.setEmployeeCode(loginResult.getUserAccess().getEmpCode()+"");
+                            paymentRequest.setEmployeeRole(loginResult.getUserAccess().getUserRole());
+                            paymentRequest.setEntityID(loginResult.getUserAccess().getEntityId());
 
                         }
                         PaymentRequest.PaymentDetail paymentDetail=new PaymentRequest().new PaymentDetail();
                         PaymentRequest.DetailInfo mDetailInfo=new PaymentRequest().new DetailInfo();
+                        detailInfo.clear();
+                        arrPaymentDetail.clear();
+
                         if(checkCash) {
                             paymentDetail.setPaymentType("cash");
                             arrPaymentDetail.add(paymentDetail);
@@ -575,8 +613,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             case R.id.buttonSendOtp:
 
                 if (!etPointToRedeem.getText().toString().equalsIgnoreCase("")) {
-                    if(points1>=points2) {
-                        if (!sendOTP)
+                    if (!sendOTP)
+                        if(points1>=points2) {
                             if (points1 > 0) {
                                 if (redeemValue > 0) {
                                     sendOTP = true;
@@ -588,9 +626,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                             } else {
                                 Util.showToast("No points to redeem", PaymentModeActivity.this);
                             }
-                    }else {
-                        Util.showToast("Points exceeded!", PaymentModeActivity.this);
-                    }
+                        }else {
+                            Util.showToast("Points exceeded!", PaymentModeActivity.this);
+                        }
                 } else {
                     Util.showToast("Enter points to redeem", PaymentModeActivity.this);
                 }
@@ -653,7 +691,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     private void sendOTPtoServer() {
         CustomerPointsRedeemRequest customerPointsRedeemRequest = new CustomerPointsRedeemRequest();
         customerPointsRedeemRequest.setCustomerId(mCustomerID);
-        customerPointsRedeemRequest.setEmailId("aditi.bhuranda@quayintech.com");
+        customerPointsRedeemRequest.setEmailId(mCustomerEmail);
         customerPointsRedeemRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode.trim()));
         customerPointsRedeemRequest.setPointsRedeemValue(redeemValue);
         customerPointsRedeemRequest.setPointsToRedeem(points1);

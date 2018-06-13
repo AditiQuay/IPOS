@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerSpinner;
 import quay.com.ipos.enums.CustomerEnum;
+import quay.com.ipos.modal.BillingSync;
+import quay.com.ipos.modal.PaymentRequest;
 import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.utility.Util;
 
@@ -34,6 +36,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Retail table name
     public static final String TABLE_RETAIL = "RetailTable";
     public static final String TABLE_RETAIL_CART = "RetailTableCart";
+    public static final String TABLE_RETAIL_BILLING = "RetailBilling";
 
     // OpnionTable table name
 //	public static final String TABLE_OPINION = "OpnionTable";
@@ -65,7 +68,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_pointsBasedOn = "pointsBasedOn";
     private static final String KEY_valueFrom = "valueFrom";
     private static final String KEY_valueTo = "valueTo";
+    private static final String KEY_conversionFactor = "conversionFactor";
+    private static final String KEY_hsnCode = "hsnCode";
+    private static final String KEY_hsnName = "hsnName";
+    private static final String KEY_categoryName = "categoryName";
+    private static final String KEY_subCategoryName = "subCategoryName";
     private static final String KEY_pointsPer = "pointsPer";
+    private static final String KEY_brandName = "brandName";
+    private static final String KEY_customerID = "customerID";
+    private static final String KEY_billing = "billing";
+    private static final String KEY_sync = "sync";
+    private static final String KEY_date_time = "date_time";
+    private static final String KEY_timestamp = "timestamp";
 
 
     public DatabaseHandler(Context context) {
@@ -73,14 +87,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     ProductSearchResult mProductSearchResult = new ProductSearchResult();
+    BillingSync billingSync = new BillingSync();
 //	OpinionPollListResult mOpinionPollListResult = new OpinionPollListResult();
 //	LearnTestResult mLearnTestResult = new LearnTestResult();
 
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_productCode + " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName + " TEXT," + KEY_sProductFeature + " TEXT," + KEY_sProductImage + " TEXT," + KEY_sProductPrice + " REAL," + KEY_sProductStock + " INTEGER," + KEY_sProductWeight + " INTEGER," + KEY_isDiscount + " INTEGER," + KEY_gstPerc + " REAL," + KEY_cgst + " REAL," + KEY_sgst + " REAL," + KEY_salesPrice + " REAL," + KEY_nrv + " REAL," + KEY_gpl + " REAL," + KEY_mrp + " REAL," + KEY_barCodeNumber + " TEXT," + KEY_discount + " TEXT," + KEY_points + " INTEGER," + KEY_pointsBasedOn + " TEXT," + KEY_pointsPer + " INTEGER," + KEY_valueFrom + " INTEGER," + KEY_valueTo + " INTEGER" + ")";
+        String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_productCode + " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName + " TEXT," + KEY_sProductFeature + " TEXT," + KEY_sProductImage + " TEXT," + KEY_sProductPrice + " REAL," + KEY_sProductStock + " INTEGER," + KEY_sProductWeight + " INTEGER," + KEY_isDiscount + " INTEGER," + KEY_gstPerc + " REAL," + KEY_cgst + " REAL," + KEY_sgst + " REAL," + KEY_salesPrice + " REAL," + KEY_nrv + " REAL," + KEY_gpl + " REAL," + KEY_mrp + " REAL," + KEY_barCodeNumber + " TEXT," + KEY_discount + " TEXT," + KEY_points + " INTEGER," + KEY_pointsBasedOn + " TEXT," + KEY_pointsPer + " INTEGER," + KEY_valueFrom + " INTEGER," + KEY_valueTo + " INTEGER,"+KEY_conversionFactor + " INTEGER,"+KEY_hsnCode + " TEXT,"+KEY_hsnName + " TEXT,"+KEY_categoryName + " TEXT,"+KEY_subCategoryName + " TEXT,"+KEY_brandName + " TEXT" + ")";
         db.execSQL(CREATE_RETAIL_TABLE);
+
+
+        String CREATE_TABLE_BILLING = "CREATE TABLE " + TABLE_RETAIL_BILLING +"(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+ KEY_customerID + " TEXT," + KEY_billing + " TEXT," + KEY_date_time + " TEXT," + KEY_timestamp + " TEXT,"+KEY_sync + " TINYINT"+ ")";
+//        db.execSQL(CREATE_TABLE_BILLING);
+
 
         // create notes table
         db.execSQL(CustomerModel.CREATE_TABLE);
@@ -93,6 +113,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL_BILLING);
 
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
@@ -116,6 +137,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * All CRUD(Create, Read, Update, Delete) Operations
      */
+
+
 
 //	// Adding new contact
     public void addProduct(ProductSearchResult.Datum datum) {
@@ -148,6 +171,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_pointsPer, datum.getPointsPer()); //
         values.put(KEY_valueTo, datum.getValueTo()); //
         values.put(KEY_valueFrom, datum.getValueFrom()); //
+        values.put(KEY_conversionFactor, datum.getConversionFactor()); //
+        values.put(KEY_hsnCode, datum.getHsnCode()); //
+        values.put(KEY_hsnName, datum.getHsnName()); //
+        values.put(KEY_categoryName, datum.getCategoryName()); //
+        values.put(KEY_subCategoryName, datum.getSubCategoryName()); //
+        values.put(KEY_brandName, datum.getBrandName()); //
         // Inserting Row
         db.insert(TABLE_RETAIL, null, values);
         db.close(); // Closing database connection
@@ -183,6 +212,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_pointsPer, datum.getPointsPer()); //
         values.put(KEY_valueTo, datum.getValueTo()); //
         values.put(KEY_valueFrom, datum.getValueFrom()); //
+        values.put(KEY_conversionFactor, datum.getConversionFactor()); //
+        values.put(KEY_hsnCode, datum.getHsnCode()); //
+        values.put(KEY_hsnName, datum.getHsnName()); //
+        values.put(KEY_categoryName, datum.getCategoryName()); //
+        values.put(KEY_subCategoryName, datum.getSubCategoryName()); //
+        values.put(KEY_brandName, datum.getBrandName()); //
         // Inserting Row
         db.insert(TABLE_RETAIL_CART, null, values);
         db.close(); // Closing database connection
@@ -314,10 +349,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //	}
 //
 
-    public boolean isRetailMasterEmpty() {
+    public boolean isRetailMasterEmpty(String TableName) {
 
         boolean flag;
-        String quString = "select exists(select * from " + TABLE_RETAIL + ");";
+        String quString = "select exists(select * from " + TableName + ");";
 
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.rawQuery(quString, null);
@@ -337,7 +372,74 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     ArrayList<ProductSearchResult.Discount> searchResult = new ArrayList<>();
     ArrayList<ProductSearchResult.SProductFeature> productFeatures = new
             ArrayList<>();
+//    ArrayList<BillingSync> billingSyncList = new ArrayList<>();
 
+    public void addRetailBilling(BillingSync billingSync){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(KEY_customerID, billingSync.getCustomerID());
+        values.put(KEY_billing, billingSync.getBilling());
+        values.put(KEY_date_time, billingSync.getOrderDateTime());
+        values.put(KEY_timestamp, billingSync.getOrderTimestamp());
+        values.put(KEY_sync, billingSync.getSync());
+        // Inserting Row
+        db.insert(TABLE_RETAIL_BILLING, null, values);
+        db.close(); // Closing database connection
+    }
+
+    /*
+    * this method is for getting all the unsynced name
+    * so that we can sync it with database
+    * */
+    public ArrayList<BillingSync> getUnSyncedRetailOrders() {
+        ArrayList<BillingSync> billingSyncs = new ArrayList<BillingSync>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_sync + " = 0;";
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                BillingSync datum = billingSync;
+                datum.setCustomerID(cursor.getString(1));
+                datum.setBilling(cursor.getString(2));
+                datum.setOrderDateTime(cursor.getString(3));
+                datum.setOrderTimestamp(cursor.getString(4));
+                datum.setSync(cursor.getInt(5));
+                billingSyncs.add(datum);
+            } while (cursor.moveToNext());
+        }
+
+        // return question List
+        return billingSyncs;
+    }
+
+    public  ArrayList<BillingSync> getBillingProduct(){
+        ArrayList<BillingSync> billingSyncs = new ArrayList<BillingSync>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_RETAIL_BILLING;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                BillingSync datum = billingSync;
+                datum.setCustomerID(cursor.getString(1));
+                datum.setBilling(cursor.getString(2));
+                datum.setOrderDateTime(cursor.getString(3));
+                datum.setOrderTimestamp(cursor.getString(4));
+                datum.setSync(cursor.getInt(5));
+                billingSyncs.add(datum);
+            } while (cursor.moveToNext());
+        }
+
+        // return question List
+        return billingSyncs;
+    }
     //	// Getting All Questionaire
     public ArrayList<ProductSearchResult.Datum> getAllQuestionaIdByQuestionId(String questionId) {
         ArrayList<ProductSearchResult.Datum> questionList = new ArrayList<ProductSearchResult.Datum>();
@@ -383,6 +485,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 datum.setPointsPer(cursor.getInt(21)); //
                 datum.setValueTo(cursor.getInt(22)); //
                 datum.setValueFrom(cursor.getInt(23)); //
+                datum.setConversionFactor(cursor.getInt(24)); //
+                datum.setHsnCode(cursor.getString(25)); //
+                datum.setHsnName(cursor.getString(26)); //
+                datum.setCategoryName(cursor.getString(27)); //
+                datum.setSubCategoryName(cursor.getString(28)); //
+                datum.setBrandName(cursor.getString(29)); //
                 // Adding question to List
                 questionList.add(datum);
             } while (cursor.moveToNext());
@@ -391,6 +499,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return question List
         return questionList;
     }
+
+
 
     //
 //	// Getting All Questionaire
@@ -438,6 +548,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 datum.setPointsPer(cursor.getInt(21)); //
                 datum.setValueTo(cursor.getInt(22)); //
                 datum.setValueFrom(cursor.getInt(23)); //
+                datum.setConversionFactor(cursor.getInt(24)); //
+                datum.setHsnCode(cursor.getString(25)); //
+                datum.setHsnName(cursor.getString(26)); //
+                datum.setCategoryName(cursor.getString(27)); //
+                datum.setSubCategoryName(cursor.getString(28)); //
+                datum.setBrandName(cursor.getString(29)); //
                 // Adding question to List
                 questionList.add(datum);
             } while (cursor.moveToNext());
@@ -565,22 +681,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		return contactList;
 //	}
 //
-//	// Updating single contact
-//	public int updateAnswer(ContestQuestionResult.QuestionList questionaire, int questionId) {
-//		SQLiteDatabase db = this.getWritableDatabase();
-//
-//		ContentValues values = new ContentValues();
-//		// values.put(KEY_QUESTION, questionaire.getQuestion()); // questionaire
-//		// Question
-//		// values.put(KEY_CATEGORY, questionaire.getQuestionCategory()); //
-//		// questionaire Category
-//		values.put(KEY_OPTION_ANSWER, questionaire.getAnswer());
-//
-//		// updating row
-//		// return the number of rows affected
-//		return db.update(TABLE_QUESTION, values, KEY_ID + " = ?", new String[] { questionId + "" });
-//		// new String[] { String.valueOf(questionaire.getQuesId()) });
-//	}
+	// Updating single contact
+	public int updateSync(int status, String customerID) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		// values.put(KEY_QUESTION, questionaire.getQuestion()); // questionaire
+		// Question
+		// values.put(KEY_CATEGORY, questionaire.getQuestionCategory()); //
+		// questionaire Category
+		values.put(KEY_sync, status);
+
+		// updating row
+		// return the number of rows affected
+		return db.update(TABLE_RETAIL_BILLING, values, KEY_customerID + " = ?", new String[] { customerID + "" });
+		// new String[] { String.valueOf(questionaire.getQuesId()) });
+	}
 //
 //	// Updating single contact
 //	public int updateTestAnswer(LearnTestResult.QuestionList questionaire, int questionId) {

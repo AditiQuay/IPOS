@@ -231,7 +231,7 @@ public class FullScannerFragment extends BaseFragment implements
             e.printStackTrace();
         }
 
-        if(databaseHandler.isRetailMasterEmpty()) {
+        if(databaseHandler.isRetailMasterEmpty(databaseHandler.TABLE_RETAIL)) {
             callScanService(rawResult.getContents(),getActivity());
         }else {
             data = databaseHandler.getAllProduct();
