@@ -91,7 +91,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         setAdapter();
 
         getSummary("");
-        setRealmData(1);
+
         return view;
     }
 
@@ -429,6 +429,13 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                             JSONArray array=jsonObject1.optJSONArray("data");
                             new RealmController().saveOrderCentreSummary(array.toString());
 
+
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setRealmData(1);
+                                }
+                            });
 
 
 

@@ -1,5 +1,6 @@
 -- Merging decision tree log ---
 manifest
+<<<<<<< HEAD
 ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
@@ -11,3 +12,16 @@ INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\Andr
 		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:11-69
 application
 ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+=======
+ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+	package
+		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:70-106
+		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:11-69
+application
+ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+>>>>>>> b20f972924e281629fe5acc78c2512f22b4f5310
