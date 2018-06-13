@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by mertsimsek on 19/05/2017.
@@ -18,7 +19,7 @@ import retrofit2.http.POST;
 public interface APIService {
 
     @GET(URLStorage.PARTNER_CONNECT_API)
-    Call<PartnerConnectResponse> loadPartnerConnectData();
+    Call<PartnerConnectResponse> loadPartnerConnectData(@Query("strEntityId") String strEntityId);
 
 
     @POST(URLStorage.PARTNER_CONNECT_UPDATE_API)

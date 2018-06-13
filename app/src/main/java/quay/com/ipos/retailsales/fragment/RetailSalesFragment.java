@@ -1518,6 +1518,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         IPOSApplication.mProductListResult.set(posDeleteItem, datum);
         mRetailSalesAdapter.notifyItemChanged(posDeleteItem);
         setUpdateValues(IPOSApplication.mProductListResult);
+        if(mDiscountDeleteFragment!=null)
         mDiscountDeleteFragment.dismiss();
     }
 

@@ -7,6 +7,12 @@ public class PartnerConnectUpdateResponse {
     public int error;
     public String errorDescription;
     public String message;
-    public PCModel response;
+    public boolean response;
+
+   /* {
+        "statusCode": 200,
+            "response": true,
+            "message": "success"
+    }*/
 
 }

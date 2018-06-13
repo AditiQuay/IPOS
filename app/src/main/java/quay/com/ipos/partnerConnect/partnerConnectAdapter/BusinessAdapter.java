@@ -235,7 +235,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
                     }
                 }
                 if (holder.editPinCode != null) {
-                    if (holder.editZone.getText().hashCode() == charSequence.hashCode()) {
+                    if (holder.editPinCode.getText().hashCode() == charSequence.hashCode()) {
                         list.get(position).BusinessLocation.mPINCode = charSequence.toString();
                     }
                 }
@@ -261,10 +261,14 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
                 case R.id.spinnerPartnerType:
                     if (i != -1)
                         list.get(position).mPartnerType = listPartner.get(i);
+                    else
+                        list.get(position).mPartnerType = "";
                     break;
                 case R.id.spinnerKeyContact:
                     if (i != -1)
                         list.get(position).mContactPosition = listPosition.get(i);
+                    else
+                        list.get(position).mContactPosition = "";
                     break;
             }
 

@@ -11,7 +11,7 @@ public class Base64Util {
     public static String BitMapToString(Bitmap bitmap){
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, baos);
             byte[] arr = baos.toByteArray();
             String result = Base64.encodeToString(arr, Base64.DEFAULT);
             return result;

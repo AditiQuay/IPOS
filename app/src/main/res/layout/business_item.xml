@@ -89,11 +89,12 @@
                                     android:id="@+id/editCompanyName"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:hint="Company Name *"
-                                    android:fontFamily="@font/titilliumwebregular"
-                                    android:textSize="@dimen/universal_text_size14"
                                     android:focusable="true"
-                                    android:focusableInTouchMode="true"/>
+                                    android:focusableInTouchMode="true"
+                                    android:fontFamily="@font/titilliumwebregular"
+                                    android:hint="Company Name *"
+                                    android:maxLines="1"
+                                    android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
                         </LinearLayout>
@@ -125,6 +126,9 @@
                                     android:layout_height="match_parent"
                                     android:fontFamily="@font/titilliumwebregular"
                                     android:hint="CIN *"
+                                    android:inputType="textCapCharacters"
+                                    android:maxLength="21"
+                                    android:maxLines="1"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
@@ -145,8 +149,11 @@
                                     android:id="@+id/editPAN"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:hint="PAN *"
                                     android:fontFamily="@font/titilliumwebregular"
+                                    android:hint="PAN *"
+                                    android:maxLines="1"
+                                    android:inputType="textCapCharacters"
+                                    android:maxLength="10"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
@@ -180,6 +187,7 @@
                                     android:layout_height="match_parent"
                                     android:fontFamily="@font/titilliumwebregular"
                                     android:hint="Key Contact Person"
+                                    android:maxLines="1"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
@@ -206,7 +214,7 @@
                                 app:ms_floatingLabelColor="@color/grey"
                                 app:ms_floatingLabelText="Key Contact Person *"
                                 app:ms_highlightColor="@color/highlight"
-                                app:ms_hint="Key Contact Person *"
+                                app:ms_hint="Key Contact Position *"
                                 app:ms_hintColor="@color/grey"
                                 app:ms_multiline="false" />
 
@@ -312,8 +320,10 @@
                                         android:id="@+id/editState"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:hint="State *"
                                         android:fontFamily="@font/titilliumwebregular"
+                                        android:inputType="textCapWords"
+                                        android:hint="State *"
+                                        android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -334,8 +344,11 @@
                                         android:id="@+id/editCity"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:hint="City *"
                                         android:fontFamily="@font/titilliumwebregular"
+                                        android:hint="City *"
+                                        android:inputType="textCapWords"
+
+                                        android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -367,10 +380,13 @@
 
                                     <android.support.design.widget.TextInputEditText
                                         android:id="@+id/editPinCode"
-                                        android:fontFamily="@font/titilliumwebregular"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
+                                        android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Pin Code *"
+                                        android:inputType="number"
+                                        android:maxLength="6"
+                                        android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -389,10 +405,13 @@
 
                                     <android.support.design.widget.TextInputEditText
                                         android:id="@+id/editZone"
-                                        android:fontFamily="@font/titilliumwebregular"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
+                                        android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Zone *"
+                                        android:inputType="textCapWords"
+
+                                        android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size16" />
 
                                 </android.support.design.widget.TextInputLayout>

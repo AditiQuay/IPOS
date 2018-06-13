@@ -134,8 +134,10 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
 
             if(str.getDiscountTotal()<=0.0){
+                userViewHolder.chkDiscount.setChecked(false);
                 userViewHolder.llDiscount.setVisibility(View.GONE);
             }else {
+                userViewHolder.chkDiscount.setChecked(true);
                 userViewHolder.llDiscount.setVisibility(View.VISIBLE);
             }
 

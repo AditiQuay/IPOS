@@ -69,7 +69,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="@dimen/dim_4">
-
+                <LinearLayout
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_width="0px"
+                    android:layout_height="0px"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -101,23 +105,7 @@
                                 android:orientation="vertical"
                                 android:paddingBottom="@dimen/dim_4">
 
-                                <!-- <fr.ganfra.materialspinner.MaterialSpinner
-                                     android:id="@+id/accounHolderSpinner"
-                                     android:layout_width="match_parent"
-                                     android:layout_height="wrap_content"
-                                     android:layout_marginLeft="@dimen/dim_4"
-                                     android:layout_marginRight="@dimen/dim_4"
-                                     app:ms_alignLabels="true"
-                                     app:ms_baseColor="@color/grey"
-                                     app:ms_enableErrorLabel="false"
-                                     app:ms_enableFloatingLabel="true"
-                                     app:ms_errorColor="@color/red"
-                                     app:ms_floatingLabelColor="@color/grey"
-                                     app:ms_floatingLabelText="Partner Type *"
-                                     app:ms_highlightColor="@color/highlight"
-                                     app:ms_hint="Partner Type *"
-                                     app:ms_hintColor="@color/grey"
-                                     app:ms_multiline="false" />-->
+
                                 <android.support.design.widget.TextInputLayout
                                     android:id="@+id/tilAccountNameInput"
                                     android:layout_width="match_parent"
@@ -128,7 +116,9 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:fontFamily="@font/titilliumwebregular"
-                                        android:hint="Account No *"
+                                        android:hint="Partner Type *"
+                                        android:inputType="textCapWords"
+                                        android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -151,6 +141,8 @@
                                         android:layout_height="match_parent"
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Account No *"
+                                        android:inputType="number"
+                                        android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -205,6 +197,7 @@
                                         android:layout_height="match_parent"
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Bank Name *"
+                                        android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -238,6 +231,8 @@
                                         android:layout_height="match_parent"
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="IFSC Code *"
+                                        android:maxLines="1"
+                                        android:inputType="textCapCharacters"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>

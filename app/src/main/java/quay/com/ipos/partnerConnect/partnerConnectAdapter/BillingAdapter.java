@@ -25,7 +25,7 @@ import quay.com.ipos.partnerConnect.model.BillnDelivery;
 
 public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> {
     private String[] addressTypeArray = {"Bill & Deliver"};
-    private String[] businessTypeArray = {"Shop / Store"};
+    private String[] businessTypeArray = {"Shop/Store","Warehouse"};
 
 
     private List<BillnDelivery> list = new ArrayList<>();
@@ -226,10 +226,14 @@ public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> 
                 case R.id.spinnerAddressType:
                     if (i != -1)
                         list.get(position).mAddressType = addressList.get(i);
+                    else
+                        list.get(position).mAddressType = "";
                     break;
                 case R.id.spinnerBusinessType:
                     if (i != -1)
-                        list.get(position).mBusinessType = addressList.get(i);
+                        list.get(position).mBusinessType = businessList.get(i);
+                    else
+                        list.get(position).mBusinessType = "";
                     break;
             }
 

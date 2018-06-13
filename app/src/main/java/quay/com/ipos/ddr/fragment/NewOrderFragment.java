@@ -4,9 +4,11 @@ import android.Manifest;
 import android.animation.Animator;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -141,6 +144,12 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         Util.hideSoftKeyboard(getActivity());
 
         closeFragment();
+        try {
+            LocalBroadcastManager.getInstance(getActivity()).registerReceiver(listener,
+                    new IntentFilter("BarcodeScan"));
+        }catch (Exception e){
+
+        }
         return rootView;
     }
 
@@ -293,7 +302,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         // Get the FragmentManager.
         FragmentManager fragmentManager = getChildFragmentManager();
         // Check to see if the fragment is already showing.
-        FullScannerFragment simpleFragment = (FullScannerFragment) fragmentManager
+        NewOrderScannerFragment simpleFragment = (NewOrderScannerFragment) fragmentManager
                 .findFragmentById(R.id.scanner_fragment);
         if (simpleFragment != null) {
             // Create and commit the transaction to remove the fragment.
@@ -498,7 +507,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                     JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
                     for (int k = 0; k < array.length(); k++) {
                         JSONObject jsonObject = array.optJSONObject(k);
-                        if (jsonObject.has("discountTotal")) {
+                        if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
                             discountPrice = discountPrice + jsonObject.optInt("discountTotal");
                         }
                     }
@@ -1083,12 +1092,16 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 
         RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.DESCENDING);
 
+        long   sum     = realmNewOrderCarts1.sum(RetailSalesEnum.qty.toString()).longValue();
 
-        int itemsPerFree = productQty / (packSize + slabFrom);
+        int countt= (int) sum;
+        int loopSize = realmNewOrderCarts1.size();
+        int itemsPerFree = countt / (packSize + slabFrom);
+
         int freeItems = 0;
         if (itemsPerFree > 0) {
             freeItems = itemsPerFree * packSize;
-            int loopSize = realmNewOrderCarts1.size();
+
             if (loopSize == 1) {
                 for (int l = 0; l < loopSize; l++) {
                     if (freeItems>0) {
@@ -1136,7 +1149,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                             freeItems = 0;
 
                         } else if (qty < freeItems) {
-                            for (int m = 0; m <= qty; m++) {
+                            for (int m = 0; m < qty; m++) {
                                 Gson gson = new GsonBuilder().create();
                                 String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                                 try {
@@ -1158,7 +1171,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 
                         } else if (qty > freeItems) {
                             int size=freeItems;
-                            for (int m = 0; m <= size; m++) {
+                            for (int m = 0; m < size; m++) {
                                 Gson gson = new GsonBuilder().create();
                                 String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                                 try {
@@ -1196,10 +1209,11 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 
 
         RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.ASCENDING);
+        long   sum     = realmNewOrderCarts1.sum(RetailSalesEnum.qty.toString()).longValue();
 
-
+        int countt= (int) sum;
         int loopSize = realmNewOrderCarts1.size();
-        int itemsPerFree = productQty / (packSize + slabFrom);
+        int itemsPerFree = countt / (packSize + slabFrom);
         int freeItems = 0;
         if (itemsPerFree > 0){
             freeItems = itemsPerFree * packSize;
@@ -1256,7 +1270,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 
                     } else if (qty < freeItems) {
 
-                        for (int m = 0; m <= qty; m++) {
+                        for (int m = 0; m < qty; m++) {
                             Gson gson = new GsonBuilder().create();
                             String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                             try {
@@ -1595,7 +1609,10 @@ if (realmNewOrderCarts.getQty()>1) {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
+                        Util.showToast("Product Scanned Successfully");
+                        imvStatus.setBackgroundResource(R.drawable.circle_disabled);
+                        flScanner.setVisibility(View.GONE);
+                        closeFragment();
 
                     }
 
@@ -1949,7 +1966,7 @@ if (realmNewOrderCarts.getQty()>1) {
     }
 
 
-    private void getCheckBox(DiscountModal discountModal, String productId, int position){
+    private void getCheckBox(DiscountModal discountModal, String productId, int position,boolean strike){
         Realm realm=Realm.getDefaultInstance();
         RealmNewOrderCart realmNewOrderCart=realm.where(RealmNewOrderCart.class).equalTo(RetailSalesEnum.iProductModalId.toString(),productId).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findFirst();
         Gson gson = new GsonBuilder().create();
@@ -1959,7 +1976,8 @@ if (realmNewOrderCarts.getQty()>1) {
             JSONObject jsonObject = new JSONObject(responseRealm);
           JSONArray array=  new JSONArray(jsonObject.optString("discount").replaceAll("\\\\",""));
            JSONObject jsonObject1=array.getJSONObject(position);
-            jsonObject1.put("discountTotal",0);
+            jsonObject1.put("discountTotalStrike",strike);
+          //  jsonObject1.put("discountTotal",0);
            // discountModal.setDiscountTotal(0);
             array.put(position,jsonObject1);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -1976,11 +1994,12 @@ if (realmNewOrderCarts.getQty()>1) {
     public void onDiscount(DiscountModal discountModal, int position, boolean b, String productId, String productCode) {
 
         if (b){
+            getCheckBox(discountModal,productId,position,false);
             calculateOPS(productCode,productId);
             getProduct();
 
         }else {
-            getCheckBox(discountModal,productId,position);
+            getCheckBox(discountModal,productId,position,true);
             getProduct();
         }
     }
@@ -2030,11 +2049,25 @@ if (realmNewOrderCarts.getQty()>1) {
             }
         }
     }
+    private BroadcastReceiver listener = new BroadcastReceiver() {
+        @Override
+        public void onReceive( Context context, Intent intent ) {
+            if (intent != null &&intent.getAction()!=null) {
+                if (intent.getAction().equalsIgnoreCase("BarcodeScan")) {
+                    String data = intent.getStringExtra("messageScan");
+                    //  Log.e( "Received data : ", data);
+
+                    searchProductCall(data);
+
+                }
+            }
+        }
+    };
 
     @Override
     public void onScanBarcode(String title, FragmentActivity activity) {
         mContext=activity;
-        searchProductCall(title);
+
 
     }
 
@@ -2047,6 +2080,7 @@ if (realmNewOrderCarts.getQty()>1) {
         productSearchRequest.setSearchParam("NA");
         productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
         productSearchRequest.setBarCodeNumber(s);
+        productSearchRequest.setModuleType("NO");
         productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
         productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
         ServiceTask mTask = new ServiceTask();

@@ -1,6 +1,7 @@
 package quay.com.ipos.ddr.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class DiscountNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.V
     private final int VIEW_TYPE_LOADING = 1;
 
     // private OnLoadMoreListener mOnLoadMoreListener;
-
+    private boolean onBind;
     private boolean isLoading;
     private int visibleThreshold = 5;
     private int lastVisibleItem, totalItemCount;
@@ -118,12 +119,23 @@ public class DiscountNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof DiscountNewOrderAdapter.UserViewHolder) {
+            onBind = true;
             final DiscountModal str = mDataset.get(position);
 
             final DiscountNewOrderAdapter.UserViewHolder userViewHolder = (DiscountNewOrderAdapter.UserViewHolder) holder;
             userViewHolder.tvDiscount.setText(str.getsDiscountDisplayName());
-
             userViewHolder.tvDiscountPrice.setText(str.getDiscountTotal()+"");
+            if (str.issDiscountStrikeOut()){
+                userViewHolder.chkDiscount.setChecked(false);
+                userViewHolder.tvDiscountPrice.setPaintFlags(userViewHolder.tvDiscountPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            }else {
+                if (userViewHolder.chkDiscount.isChecked())
+                    userViewHolder.chkDiscount.setChecked(false);
+                else {
+                    userViewHolder.chkDiscount.setChecked(true);
+                }
+            }
+            onBind = false;
 
 
 
@@ -136,7 +148,11 @@ public class DiscountNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.V
             userViewHolder.chkDiscount.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    myCheckedChangedListener.onDiscount(str,position,b,productId,productCode);
+                    if(!onBind) {
+                        myCheckedChangedListener.onDiscount(str, position, b, productId, productCode);
+                    }
+
+
                 }
             });
 

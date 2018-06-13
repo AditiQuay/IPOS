@@ -6,6 +6,10 @@ import java.util.List;
 
 public class Account {
 
+    public int BankDetailRowId;
+    public int EntityID;
+
+
     @SerializedName("entityAcountHolderName")
     public String mAccountHolderName;
 

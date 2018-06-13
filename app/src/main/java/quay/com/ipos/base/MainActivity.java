@@ -521,6 +521,18 @@ public class MainActivity extends BaseActivity
             case "Manage Store":
 
                 break;
+
+            case "Inventory In/Out":
+                inventaortFragment = new InventoryFragment();
+                replaceFragment(inventaortFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.inventory));
+                menu1.findItem(R.id.action_notification).setVisible(false);
+                menu1.findItem(R.id.action_search).setVisible(false);
+
+                drawer.closeDrawer(GravityCompat.START);
+
+                break;
             case "Manage Business":
 
                 break;
@@ -567,15 +579,7 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case "Stock & Price":
-                inventaortFragment = new InventoryFragment();
-                replaceFragment(inventaortFragment, containerId);
-                drawer.closeDrawer(GravityCompat.START);
-                toolbar.setTitle(getString(R.string.inventory));
-                menu1.findItem(R.id.action_notification).setVisible(false);
-                menu1.findItem(R.id.action_search).setVisible(false);
-
-                drawer.closeDrawer(GravityCompat.START);
-                //   imageId = R.drawable.insights;
+                              //   imageId = R.drawable.insights;
                 break;
             case "Loyalty Program":
 

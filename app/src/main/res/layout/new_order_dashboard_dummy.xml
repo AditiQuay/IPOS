@@ -157,6 +157,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_above="@+id/llBelowPaymentDetail"
                 android:orientation="vertical">
 
 
@@ -175,7 +177,7 @@
                 android:background="@color/backgroundgrey"
                 android:layout_height="150dp">
 
-                <fragment android:name="quay.com.ipos.retailsales.fragment.FullScannerFragment"
+                <fragment android:name="quay.com.ipos.ddr.fragment.NewOrderScannerFragment"
                     android:id="@+id/scanner_fragment"
                     android:layout_weight="1"
                     android:layout_width="match_parent"

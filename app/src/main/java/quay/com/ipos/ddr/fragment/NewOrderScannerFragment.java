@@ -236,16 +236,18 @@ public class NewOrderScannerFragment extends BaseFragment implements
         }
        // callScanService(rawResult.getContents(),getActivity());
 
-        mainActivity.onScanBarcode(rawResult.getContents(),getActivity());
-        mScannerView.resumeCameraPreview(this);
+      //  mainActivity.onScanBarcode(rawResult.getContents(),getActivity());
 
-      /*  Intent intent = new Intent("CUSTOM_ACTION");
+
+       Intent intent = new Intent("BarcodeScan");
         // You can also include some extra data.
-        intent.putExtra("message", "This is my message!");
+        intent.putExtra("messageScan", rawResult.getContents());
         try {
             LocalBroadcastManager.getInstance(getActivity()).sendBroadcast(intent);
         }catch (Exception e){
-        }*/
+        }
+
+        mScannerView.resumeCameraPreview(this);
     }
 
 

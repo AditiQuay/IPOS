@@ -75,10 +75,6 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".productCatalogue.ProductRangeActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".inventory.InventoryProduct"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -181,6 +177,10 @@
 
         <activity
             android:name=".inventory.activity.InventoryWorkFlowActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".productCatalogue.ProductRangeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
