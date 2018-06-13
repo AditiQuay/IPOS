@@ -169,7 +169,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 if (str.isFreeItem()) {
                     userViewHolder.imvOffer.setVisibility(View.GONE);
-                    userViewHolder.tvTotalPrice.setText(" Free " + str.getQty()+" * "+mContext.getResources().getString(R.string.Rs) +" "+str.getsProductPrice());
+                    userViewHolder.tvTotalPrice.setText(" Free " + str.getQty()+" x "+mContext.getResources().getString(R.string.Rs) +" "+str.getsProductPrice());
 
                     userViewHolder.tvTotalPrice.setPaintFlags(userViewHolder.tvTotalPrice.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                     userViewHolder.tvCheckStock.setVisibility(View.GONE);

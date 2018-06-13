@@ -160,7 +160,7 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
             JSONArray customerTypeList = jsonObject1.optJSONArray(CustomerEnum.ColoumnTypeList.toString());
 
 
-            long id = dbHelper.insertSpinnerItems(cityList.toString(), stateList.toString(), countryList.toString(), designationList.toString(), companyArray.toString(), relationshipList.toString(), customerTypeList.toString());
+            dbHelper.insertSpinnerItems(cityList.toString(), stateList.toString(), countryList.toString(), designationList.toString(), companyArray.toString(), relationshipList.toString(), customerTypeList.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();

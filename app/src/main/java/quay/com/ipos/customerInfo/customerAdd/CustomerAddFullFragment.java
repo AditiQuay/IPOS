@@ -30,6 +30,7 @@ import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -115,9 +116,13 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     SharedPreferences sharedpreferences;
     public static final String mypreference = "Data";
 
-    private TextInputLayout tilChildfname, tilChildDob, tilSecondaryMobileNumber, tilEmail2;
+    private TextInputLayout tilChildfname, tilChildDob, tilSecondaryMobileNumber, tilEmail2, tilPinCode;
     private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDob, tieMobileNumSecondary;
     private MaterialSpinner childGenderSpinner;
+    private List<String> listPosition = new ArrayList<>();
+    private List<String> genderPosition = new ArrayList<>();
+    private TextInputLayout tilGstn;
+    ArrayList<CustomerSpinner> customerSpinner = new ArrayList<>();
 
     public CustomerAddFullFragment() {
 
@@ -146,6 +151,9 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         main = inflater.inflate(R.layout.customer_add_full_fragment, container, false);
         mContext = getActivity();
         dbHelper = new DatabaseHandler(mContext);
+
+        listPosition = Arrays.asList(nameTitle);
+        genderPosition = Arrays.asList(genderTitle);
         calendar = Calendar.getInstance();
         AppLog.e(TAG, "onCreateView Called");
         findViewById();
@@ -158,34 +166,49 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     }
 
     public void setData() {
-        sharedpreferences = mContext.getSharedPreferences(mypreference,
-                Context.MODE_PRIVATE);
-        if (sharedpreferences.contains("title")) {
-            String title = sharedpreferences.getString("title", "");
-            for (int i = 0; i < nameTitle.length; i++) {
-                if (nameTitle[i].toString().equalsIgnoreCase(title)) {
-                    titleSpinner.setSelection(i, false);
-                }
+        sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        String title = sharedpreferences.getString("title", "");
+        String gender = sharedpreferences.getString("gender", "");
+        String firstName = sharedpreferences.getString("firstName","");
+        String lastName = sharedpreferences.getString("lastName","");
+        String MobileNumber = sharedpreferences.getString("MobileNumber","");
+        String email = sharedpreferences.getString("email","");
+        String bDay = sharedpreferences.getString("bDay","");
+        if (!TextUtils.isEmpty(title)) {
+            if (listPosition.contains(title)) {
+                int index = listPosition.indexOf(title);
+                titleSpinner.setSelection(index + 1);
+                titleSpinner.setEnabled(false);
+            } else {
+                titleSpinner.setEnabled(true);
             }
         }
-        if (sharedpreferences.contains("firstName")) {
-            tieFirstName.setText(sharedpreferences.getString("firstName", ""));
+        if (!TextUtils.isEmpty(gender)) {
+            if (genderPosition.contains(gender)) {
+                int index = genderPosition.indexOf(gender);
+                genderSpinner.setSelection(index + 1);
+                titleSpinner.setSelection(index + 1);
+                titleSpinner.setEnabled(false);
+            }
+        }
+        if (!TextUtils.isEmpty(firstName)) {
+            tieFirstName.setText(firstName);
             tieFirstName.setFocusable(false);
         }
-        if (sharedpreferences.contains("lastName")) {
-            tieLastName.setText(sharedpreferences.getString("lastName", ""));
+        if (!TextUtils.isEmpty(lastName)) {
+            tieLastName.setText(lastName);
             tieLastName.setFocusable(false);
         }
-        if (sharedpreferences.contains("MobileNumber")) {
-            tieMobileNumPrimary.setText(sharedpreferences.getString("MobileNumber", ""));
+        if (!TextUtils.isEmpty(MobileNumber)) {
+            tieMobileNumPrimary.setText(MobileNumber);
             tieMobileNumPrimary.setFocusable(false);
         }
-        if (sharedpreferences.contains("email")) {
-            tieEmail1.setText(sharedpreferences.getString("email", ""));
+        if (!TextUtils.isEmpty(email)) {
+            tieEmail1.setText(email);
             tieEmail1.setFocusable(false);
         }
-        if (sharedpreferences.contains("bDay")) {
-            tieDOB.setText(sharedpreferences.getString("bDay", ""));
+        if (!TextUtils.isEmpty(bDay)) {
+            tieDOB.setText(bDay);
             tieDOB.setFocusable(false);
             tieDOB.setClickable(false);
         }
@@ -220,8 +243,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         tilSpouseFirstName = main.findViewById(R.id.tilSpouseFirstName);
         tilSpouseLastName = main.findViewById(R.id.tilSpouseLastName);
         tilSpouseDob = main.findViewById(R.id.tilSpouseDob);
-        tilChildDob = main.findViewById(R.id.tilChildDob);
-        tilChildDob = main.findViewById(R.id.tilChildDob);
         tilEmail1 = main.findViewById(R.id.tilEmail1);
         textViewSpouseHeading = main.findViewById(R.id.textViewSpouseHeading);
         tieSpouseFirstName = main.findViewById(R.id.tieSpouseFirstName);
@@ -230,6 +251,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         tieSpouseDOB = main.findViewById(R.id.tieSpouseDOB);
         textViewChildHeading = main.findViewById(R.id.textViewChildHeading);
         childGenderSpinner = main.findViewById(R.id.childGenderSpinner);
+        tilPinCode = main.findViewById(R.id.tilPinCode);
         //Contact info
         textViewContactHeading = main.findViewById(R.id.textViewContactHeading);
         tiePinCode = main.findViewById(R.id.tiePinCode);
@@ -250,6 +272,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         companySpinner = main.findViewById(R.id.companySpinner);
         customerTypeSpinner = main.findViewById(R.id.customerTypeSpinner);
         relationShipSpinner = main.findViewById(R.id.relationShipSpinner);
+        tilGstn = main.findViewById(R.id.tilGstn);
         tieGstin = main.findViewById(R.id.editGstin);
 
         recyclerViewChild = main.findViewById(R.id.recyclerViewChild);
@@ -399,16 +422,84 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             String value = getArguments().getString("firstName");
             tieFirstName.setText(value);
         }
-        tieMobileNumSecondary.addTextChangedListener(this);
+        tieMobileNumSecondary.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String mobileSecondary = tieMobileNumSecondary.getText().toString();
+                if (mobileSecondary.length() < 10 || mobileSecondary.length() > 10) {
+                    tilSecondaryMobileNumber.setErrorEnabled(true);
+                    tilSecondaryMobileNumber.setError(getResources().getString(R.string.invalid_phone));
+                } else {
+                    tilSecondaryMobileNumber.setErrorEnabled(false);
+                    tilSecondaryMobileNumber.setError(getResources().getString(R.string.invalid_phone));
+                }
+
+
+            }
+        });
         tieEmail2.addTextChangedListener(this);
+
+        tiePinCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (tiePinCode.getText().toString().length() < 6) {
+                    tilPinCode.setErrorEnabled(true);
+                    tilPinCode.setError("Please enter a valid pin code");
+                } else {
+                    tilPinCode.setErrorEnabled(false);
+                    tilPinCode.setError(null);
+                }
+            }
+        });
+        tieGstin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (tieGstin.getText().toString().length() > 15 || tieGstin.getText().toString().length() < 15) {
+                    tilGstn.setErrorEnabled(true);
+                    tilGstn.setError("Please enter a valid GSTN number");
+                } else {
+                    tilGstn.setErrorEnabled(false);
+                    tilGstn.setError(null);
+                }
+            }
+        });
     }
 
     @Override
     public void applyInitValues() {
 
         try {
-
-            ArrayList<CustomerSpinner> customerSpinner = dbHelper.getCustomerSpinner();
+            customerSpinner.addAll(dbHelper.getCustomerSpinner());
 
             tilDOB.setError(null);
             tilDOB.setErrorEnabled(false);
@@ -906,6 +997,25 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     companySpinner.setError(getResources().getString(R.string.invalid_company));
                 }
 
+                if (!TextUtils.isEmpty(tiePinCode.getText().toString())) {
+                    if (tiePinCode.getText().toString().length() < 6 || tiePinCode.getText().toString().length() > 6) {
+                        tilPinCode.setErrorEnabled(true);
+                        tiePinCode.setError("Please enter a valid pin code");
+                    }
+                }
+                if (!TextUtils.isEmpty(tieGstin.getText().toString())) {
+                    if (tieGstin.getText().toString().length() < 15 || tieGstin.getText().toString().length() > 15) {
+                        tilGstn.setErrorEnabled(true);
+                        tilGstn.setError("Please enter a valid GSTN number");
+                    }
+                }
+                if (!TextUtils.isEmpty(tieMobileNumSecondary.getText().toString())) {
+                    if (tieMobileNumSecondary.getText().toString().length() < 10 || tieMobileNumSecondary.getText().toString().length() > 10) {
+                        tilSecondaryMobileNumber.setErrorEnabled(true);
+                        tilSecondaryMobileNumber.setError(getResources().getString(R.string.invalid_phone));
+
+                    }
+                }
 
                 if (!isFail) {
 
@@ -919,8 +1029,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     genderSpinner.setEnableErrorLabel(false);
                     tilDOB.setErrorEnabled(false);
 
-                    tilChildDob.setErrorEnabled(false);
-                    tilChildDob.setError(null);
+
                     maritalStatusSpinner.setEnableErrorLabel(false);
                     designationSpinner.setEnableErrorLabel(false);
                     companySpinner.setEnableErrorLabel(false);
@@ -941,6 +1050,21 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                             tilEmail2.setError(getResources().getString(R.string.invalid_email));
                         }
                     }
+                    if (!TextUtils.isEmpty(tiePinCode.getText().toString())) {
+                        if (tiePinCode.getText().toString().length() < 6 || tiePinCode.getText().toString().length() > 6) {
+                            isNotValidated = true;
+                            tilPinCode.setErrorEnabled(true);
+                            tilPinCode.setError("Please enter a valid pin code");
+                        }
+                    }
+                    if (!TextUtils.isEmpty(tieGstin.getText().toString())) {
+                        if (tieGstin.getText().toString().length() < 15 || tieGstin.getText().toString().length() > 15) {
+                            isNotValidated = true;
+                            tilGstn.setErrorEnabled(true);
+                            tilGstn.setError("Please enter a valid GSTN number");
+                        }
+                    }
+
                     if (!isNotValidated) {
                         sendCustomerData();
                     }
@@ -1221,6 +1345,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     }
 
     private void fetchResponse(String serverResponse) {
+        Log.e(TAG, "Response**" + serverResponse);
         Toast.makeText(mContext, R.string.form_submitted_successfully, Toast.LENGTH_SHORT).show();
         Intent i = new Intent(mContext, MainActivity.class);
         startActivity(i);
@@ -1309,33 +1434,25 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     @Override
     public void fragmentBecameVisible() {
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-//        String title = sharedpreferences.getString("title", "");
-//        if (title.equalsIgnoreCase("Mr.")) {
-//            titleSpinner.setSelection(0);
-//            titleSpinner.setClickable(false);
-//        }
-//        if (title.equalsIgnoreCase("Mrs.")) {
-//            titleSpinner.setSelection(1);
-//            titleSpinner.setClickable(false);
-//            titleSpinner.setEnabled(false);
-//        }
-//        if (title.equalsIgnoreCase("Miss.")) {
-//            titleSpinner.setSelection(1);
-//            titleSpinner.setClickable(false);
-//            titleSpinner.setEnabled(false);
-//        }
-//
-//        String gender = sharedpreferences.getString("gender", "");
-//        if (gender.equalsIgnoreCase("Male")) {
-//            genderSpinner.setSelection(0);
-//            genderSpinner.setClickable(false);
-//            genderSpinner.setEnabled(false);
-//        }
-//        if (gender.equalsIgnoreCase("Female")) {
-//            genderSpinner.setSelection(1);
-//            genderSpinner.setClickable(false);
-//            genderSpinner.setEnabled(false);
-//        }
+        String title = sharedpreferences.getString("title", "");
+        String gender = sharedpreferences.getString("gender", "");
+        if (!TextUtils.isEmpty(title)) {
+            if (listPosition.contains(title)) {
+                int index = listPosition.indexOf(title);
+                titleSpinner.setSelection(index + 1);
+                titleSpinner.setEnabled(false);
+            } else {
+                titleSpinner.setEnabled(true);
+            }
+        }
+        if (!TextUtils.isEmpty(gender)) {
+            if (genderPosition.contains(gender)) {
+                int index = genderPosition.indexOf(gender);
+                genderSpinner.setSelection(index + 1);
+                titleSpinner.setSelection(index + 1);
+                titleSpinner.setEnabled(false);
+            }
+        }
 
 
         if (sharedpreferences.contains("firstName")) {

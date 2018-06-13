@@ -802,10 +802,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                                 mScheme.setDiscountValue(discounts.get(j).getDiscountTotal());
                                 mScheme.setRuleID(discounts.get(j).getRule().get(k).getRuleID());
                                 mScheme.setDiscountPerc(discounts.get(j).getRule().get(k).getSDiscountValue());
+                                scheme.add(mScheme);
                             }
 
                         }
-                        scheme.add(mScheme);
+
                     }
                     cart_detail.setScheme(scheme);
                     if (datum.isDiscSelected()) {

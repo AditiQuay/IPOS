@@ -99,7 +99,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
         String CREATE_TABLE_BILLING = "CREATE TABLE " + TABLE_RETAIL_BILLING +"(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+ KEY_customerID + " TEXT," + KEY_billing + " TEXT," + KEY_date_time + " TEXT," + KEY_timestamp + " TEXT,"+KEY_sync + " TINYINT"+ ")";
-//        db.execSQL(CREATE_TABLE_BILLING);
+        db.execSQL(CREATE_TABLE_BILLING);
 
 
         // create notes table
@@ -113,7 +113,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL);
-//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL_BILLING);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL_BILLING);
 
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
@@ -394,7 +394,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<BillingSync> getUnSyncedRetailOrders() {
         ArrayList<BillingSync> billingSyncs = new ArrayList<BillingSync>();
         // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_sync + " = 0;";
+        String selectQuery = "SELECT * FROM " + TABLE_RETAIL_BILLING + " WHERE " + KEY_sync + " = 0;";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -1459,7 +1459,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //Insert Customer Data
-    public long insertSpinnerItems(String cityList, String stateList, String countryList, String designationList, String companyList, String relationshipList, String customerType) {
+    public void insertSpinnerItems(String cityList, String stateList, String countryList, String designationList, String companyList, String relationshipList, String customerType) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -1479,7 +1479,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // close db connection
         db.close();
         // return newly inserted row id
-        return id;
     }
 
     //Get All records from customer Database

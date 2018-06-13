@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -17,6 +18,8 @@ import quay.com.ipos.realmbean.RealmBusinessPlaces;
 
 public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.SurveyViewHolder> {
     private Context mContext;
+    private static RadioButton lastChecked = null;
+    private static int lastCheckedPos = 0;
     private ArrayList<RealmBusinessPlaces> stringArrayList;
     private OnItemSelecteListener mListener;
 
@@ -39,11 +42,40 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
 
         holder.textViewHouseNo.setText(stringArrayList.get(position).getBuisnessPlaceName());
         holder.textViewName.setText(stringArrayList.get(position).getHeader());
-        if (stringArrayList.get(position).isSelected())
-        holder.radio.setChecked(true);
-        else {
-            holder.radio.setChecked(false);
+       // if (stringArrayList.get(position).isSelected())
+        holder.radio.setChecked(stringArrayList.get(position).isSelected());
+        holder.radio.setTag(position);
+        if (stringArrayList.get(position).isSelected()){
+            lastChecked = holder.radio;
+            lastCheckedPos = 0;
         }
+        holder.radio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RadioButton cb = (RadioButton)view;
+                int clickedPos = (Integer) cb.getTag();
+                if(cb.isChecked())
+                {
+                    if(lastChecked != null)
+                    {
+                        lastChecked.setChecked(false);
+                        stringArrayList.get(lastCheckedPos).setSelected(false);
+                    }
+
+                    lastChecked = cb;
+                    lastCheckedPos = clickedPos;
+                }
+                else
+                    lastChecked = null;
+
+                stringArrayList.get(clickedPos).setSelected(cb.isChecked());
+            }
+        });
+
+
+      //  else {
+       //     holder.radio.setChecked(false);
+      //  }
 
 
 

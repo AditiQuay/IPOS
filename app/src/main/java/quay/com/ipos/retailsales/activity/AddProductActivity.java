@@ -82,6 +82,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 
         setAdapter();
         updateItem();
+
     }
 
     private void setAdapter() {
@@ -307,9 +308,13 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.llAccept:
 
-                Intent mIntent1 = new Intent();
-                setResult(1, mIntent1);
-                onBackPressed();
+                if(count>0) {
+                    Intent mIntent1 = new Intent();
+                    setResult(1, mIntent1);
+                    onBackPressed();
+                }else {
+                    Util.showToast(getString(R.string.product_not_added),AddProductActivity.this);
+                }
                 break;
         }
 
