@@ -228,13 +228,42 @@
         </LinearLayout>
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/editTextBatchNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rLayoutBtn"
+        android:paddingBottom="@dimen/dim_8"
+        android:paddingTop="@dimen/dim_8">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dim_8"
+            android:layout_toLeftOf="@+id/btnAdd"
+            android:background="@drawable/drawable_blue" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            style="@style/styleWhiteTextColor14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:stateListAnimator="@null"
+            android:text="Add"
+            android:textAllCaps="false" />
+    </RelativeLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerviewProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rLayoutBtn"
+        android:layout_below="@+id/editTextBatchNumber"
         android:overScrollMode="never"
         android:padding="@dimen/dim_8"
-        android:scrollbars="none" />
+        android:scrollbars="none"
+        tools:listitem="@layout/inventory_product_item" />
 
 </RelativeLayout>

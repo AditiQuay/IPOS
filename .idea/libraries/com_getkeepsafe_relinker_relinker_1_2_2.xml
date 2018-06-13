@@ -1,13 +1,8 @@
 <component name="libraryTable">
   <library name="com.getkeepsafe.relinker:relinker-1.2.2">
     <CLASSES>
-<<<<<<< HEAD
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/relinker-1.2.2.aar/4709e60cc35bfa831f392e7bc722414e/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/relinker-1.2.2.aar/4709e60cc35bfa831f392e7bc722414e/res" />
-=======
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/relinker-1.2.2.aar/7a413967cd1fae24ec984df8f49fcdac/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/relinker-1.2.2.aar/7a413967cd1fae24ec984df8f49fcdac/jars/classes.jar!/" />
->>>>>>> 66147366ee07d72388cf5d11f356cb6d7fe29a0f
     </CLASSES>
     <JAVADOC />
     <SOURCES>
