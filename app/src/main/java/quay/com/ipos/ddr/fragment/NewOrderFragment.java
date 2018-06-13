@@ -1149,7 +1149,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                             freeItems = 0;
 
                         } else if (qty < freeItems) {
-                            for (int m = 0; m <= qty; m++) {
+                            for (int m = 0; m < qty; m++) {
                                 Gson gson = new GsonBuilder().create();
                                 String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                                 try {
@@ -1171,7 +1171,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 
                         } else if (qty > freeItems) {
                             int size=freeItems;
-                            for (int m = 0; m <= size; m++) {
+                            for (int m = 0; m < size; m++) {
                                 Gson gson = new GsonBuilder().create();
                                 String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                                 try {
@@ -1270,7 +1270,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 
                     } else if (qty < freeItems) {
 
-                        for (int m = 0; m <= qty; m++) {
+                        for (int m = 0; m < qty; m++) {
                             Gson gson = new GsonBuilder().create();
                             String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                             try {
@@ -1966,7 +1966,7 @@ if (realmNewOrderCarts.getQty()>1) {
     }
 
 
-    private void getCheckBox(DiscountModal discountModal, String productId, int position){
+    private void getCheckBox(DiscountModal discountModal, String productId, int position,boolean strike){
         Realm realm=Realm.getDefaultInstance();
         RealmNewOrderCart realmNewOrderCart=realm.where(RealmNewOrderCart.class).equalTo(RetailSalesEnum.iProductModalId.toString(),productId).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findFirst();
         Gson gson = new GsonBuilder().create();
@@ -1976,7 +1976,7 @@ if (realmNewOrderCarts.getQty()>1) {
             JSONObject jsonObject = new JSONObject(responseRealm);
           JSONArray array=  new JSONArray(jsonObject.optString("discount").replaceAll("\\\\",""));
            JSONObject jsonObject1=array.getJSONObject(position);
-            jsonObject1.put("discountTotalStrike",true);
+            jsonObject1.put("discountTotalStrike",strike);
           //  jsonObject1.put("discountTotal",0);
            // discountModal.setDiscountTotal(0);
             array.put(position,jsonObject1);
@@ -1994,11 +1994,12 @@ if (realmNewOrderCarts.getQty()>1) {
     public void onDiscount(DiscountModal discountModal, int position, boolean b, String productId, String productCode) {
 
         if (b){
+            getCheckBox(discountModal,productId,position,false);
             calculateOPS(productCode,productId);
             getProduct();
 
         }else {
-            getCheckBox(discountModal,productId,position);
+            getCheckBox(discountModal,productId,position,true);
             getProduct();
         }
     }
