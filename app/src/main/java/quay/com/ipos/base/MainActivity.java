@@ -67,6 +67,7 @@ import quay.com.ipos.ddr.fragment.NewOrderFragment;
 import quay.com.ipos.ddr.fragment.OrderCentreListFragment;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
+import quay.com.ipos.inventory.fragment.InventoryFragment;
 import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
@@ -105,7 +106,7 @@ public class MainActivity extends BaseActivity
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-    private Fragment dashboardFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null;
+    private Fragment dashboardFragment = null,inventaortFragment=null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
     private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
@@ -564,9 +565,18 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case "Stock & Price":
+                inventaortFragment = new InventoryFragment();
+                replaceFragment(inventaortFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.inventory));
+                menu1.findItem(R.id.action_notification).setVisible(false);
+                menu1.findItem(R.id.action_search).setVisible(false);
+
+                drawer.closeDrawer(GravityCompat.START);
                 //   imageId = R.drawable.insights;
                 break;
             case "Loyalty Program":
+
                 //  imageId = R.drawable.insights;
                 break;
             case "Partner Connect":

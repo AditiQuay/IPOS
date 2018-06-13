@@ -386,7 +386,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         switch (id){
             case R.id.llAccept:
                 submitLoginRequest(jsonObjectSubmitJson.toString());
-//                Intent mIntent = new Intent(this,OrderCentreDetailsActivity.class);
+//                Intent mIntent = new Intent(this,InventoryWorkFlowActivity.class);
 //                startActivity(mIntent);
 //                Intent mIntent = new Intent();
 //                setResult(6,mIntent);
@@ -398,7 +398,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             case R.id.llCancel:
                 deleteItems(poNumber);
 
-//                Intent mIntent = new Intent(this,OrderCentreDetailsActivity.class);
+//                Intent mIntent = new Intent(this,InventoryWorkFlowActivity.class);
 //                startActivity(mIntent);
 //                Intent mIntent = new Intent();
 //                setResult(6,mIntent);

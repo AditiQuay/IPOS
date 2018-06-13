@@ -1,23 +1,28 @@
 package quay.com.ipos.ddr.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import io.realm.Realm;
@@ -31,8 +36,12 @@ import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.ddr.adapter.CustomAdapter;
 import quay.com.ipos.ddr.adapter.NewOrderItemsDetailListAdapter;
 import quay.com.ipos.ddr.adapter.WorkFLowAdapter;
+import quay.com.ipos.ddr.modal.NOGetEntityBuisnessPlacesModal;
+import quay.com.ipos.ddr.modal.NoGetEntityResultModal;
+import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.ddr.adapter.AddressListAdapter;
@@ -41,9 +50,11 @@ import quay.com.ipos.ddr.adapter.WorkFLowUserAdapter;
 import quay.com.ipos.ddr.modal.UserModal;
 import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
+import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.service.APIClient;
+import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SpacesItemDecoration;
@@ -53,7 +64,7 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 20-04-2018.
  */
 
-public class OrderCentreDetailsActivity extends BaseActivity implements MyListener{
+public class OrderCentreDetailsActivity extends BaseActivity implements MyListener,ServiceTask.ServiceResultListener{
     String[] address = {"1/82"};
     String[] items={"SoudaFoam 1k","SoudaFoam Pro"};
     String[] user={"KGM Traders","McCoy"};
@@ -83,6 +94,10 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     private boolean isBack=false;
     LinearLayout llbottom_buttons;
     private LinearLayout llAccept,llCancel;
+    private String requestId,etaDate;
+    private TextView tvEtaDate;
+    private String businessCode;
+    private String entityStateCode;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -94,6 +109,9 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         menu_item_container.setVisibility(View.GONE);
 
         intitiateView();
+
+        tvEtaDate.setText("Eta - "+Util.getFormattedDates(etaDate.split(" ")[0],Constants.formatDate,Constants.format2));
+
         getOrderCentre();
         toolbarTtile=findViewById(R.id.toolbarTtile);
         toolbarTtile.setText(getString(R.string.order_centre));
@@ -191,6 +209,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     }
 
     private void intitiateView(){
+        tvEtaDate=findViewById(R.id.tvEtaDate);
         llAccept=findViewById(R.id.llAccept);
         llCancel=findViewById(R.id.llCancel);
         tvAccept=findViewById(R.id.btnAccept);
@@ -229,6 +248,12 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 createOrder(3);
             }
         });
+
+        Intent i=getIntent();
+        if (i!=null){
+            requestId=i.getStringExtra("requestCode");
+            etaDate=i.getStringExtra("etaDate");
+        }
     }
 
 
@@ -271,23 +296,20 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     }
 
 
-    private void getAddressData(String businessPlaceCode) {
+    private void getAddressData(String businessPlaceCode,JSONObject jsonObject1,int i) {
+        RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
+        realmBusinessPlaces1.setHeader("Shopping Details "+(i+1));
+        realmBusinessPlaces1.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
+        realmBusinessPlaces1.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
+        realmBusinessPlaces1.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
+        if (businessPlaceCode.equalsIgnoreCase(realmBusinessPlaces1.getBuisnessPlaceId()+"")) {
+            entityStateCode = realmBusinessPlaces1.getBuisnessLocationStateCode();
+            businessPlaceCode = realmBusinessPlaces1.getBuisnessPlaceId()+"";
+            realmBusinessPlaces1.setSelected(true);
 
-        Realm realm=Realm.getDefaultInstance();
-        RealmResults<RealmBusinessPlaces> realmBusinessPlaces=realm.where(RealmBusinessPlaces.class).findAll();
-        for (int i = 0; i < realmBusinessPlaces.size(); i++) {
-            RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
-            realmBusinessPlaces1.setHeader("Shopping Details "+(i+1));
-            realmBusinessPlaces1.setBuisnessPlaceName(realmBusinessPlaces.get(i).getBuisnessPlaceName());
-            realmBusinessPlaces1.setBuisnessPlaceId(realmBusinessPlaces.get(i).getBuisnessPlaceId());
-            realmBusinessPlaces1.setBuisnessLocationStateCode(realmBusinessPlaces.get(i).getBuisnessLocationStateCode());
-            if (businessPlaceCode.equalsIgnoreCase(realmBusinessPlaces.get(i).getBuisnessPlaceId()+"")) {
-                realmBusinessPlaces1.setSelected(true);
-
-            }
-            addressList.add(realmBusinessPlaces1);
         }
-        addressListAdapter.notifyDataSetChanged();
+        addressList.add(realmBusinessPlaces1);
+
     }
 
 
@@ -333,6 +355,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 tvStatus.setText("Pending");
             }
 
+
             orderValue.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("orderValue"));
             orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("discountValue"));
           //  deliverDate.setText(jsonObject.optString("deliveryBy"));
@@ -346,7 +369,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("orderValue"));
             getFlow(jsonObject.optString("listspendRequestHistoryPhaseModel")+"");
 
-            getAddressData(jsonObject.optString("businessPlaceCode"));
+            businessCode=jsonObject.optString("businessPlaceCode");
+            callServiceAddress();
             try {
                 JSONArray arrayCart= null;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
@@ -385,14 +409,14 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         JSONObject jsonObject1=new JSONObject();
 
         try {
-            jsonObject1.put("employeeCode","1");
-            jsonObject1.put("employeeRole","user");
-            jsonObject1.put("businessPlaceCode","1");
-            jsonObject1.put("entityRole","manager");
-            jsonObject1.put("entityCode","1");
-            jsonObject1.put("searchParam","18000001");
+            jsonObject1.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
+            jsonObject1.put("businessPlaceCode","NA");
+            jsonObject1.put("entityRole",Prefs.getStringPrefs(Constants.entityRole));
+            jsonObject1.put("entityCode",Prefs.getIntegerPrefs(Constants.entityCode));
+            jsonObject1.put("searchParam",requestId);
             jsonObject1.put("barCodeNumber","string");
-            jsonObject1.put("entityStateCode","06");
+            jsonObject1.put("entityStateCode","NA");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -426,8 +450,9 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
                         String responseData = response.body().string();
                         if (responseData != null) {
+                            JSONObject jsonObject=new JSONObject(responseData);
                             serverResponse=responseData;
-
+                           // saveResponseLocalCreateOrder(jsonObject,requestId);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -608,8 +633,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
 
         try {
-            jsonObject.put("employeeCode","6000013");
-            jsonObject.put("employeeRole","user");
+            jsonObject.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
             jsonObject.put("poDate",Util.getCurrentDate());
             jsonObject.put("poStatus","Pending");
             jsonObject.put("orderValue",payAmount);
@@ -635,6 +660,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             jsonObject.put("quantity",qty);
             jsonObject.put("customerName","");
             jsonObject.put("discount",new JSONArray());
+            jsonObject.put("poNumber",poNumber);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -713,4 +739,136 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         });
     }
 
+    protected void saveResponseLocalCreateOrder(JSONObject jsonSubmitReq, String orderId) {
+        if (jsonSubmitReq != null) {
+            Realm realm = Realm.getDefaultInstance();
+            if (!realm.isInTransaction())
+                realm.beginTransaction();
+            try {
+               /* if (Util.validateString(orderId)) {
+                    jsonSubmitReq.put(NoGetEntityEnums.OrderId.toString(), orderId);
+                } else {
+                    if (jsonSubmitReq != null && !jsonSubmitReq.has(NoGetEntityEnums.OrderId.toString())) {
+                        UUID randomId = UUID.randomUUID();
+                        String id = String.valueOf(randomId);
+
+                    }
+                }*/
+                jsonSubmitReq.put(NoGetEntityEnums.poNumber.toString(), orderId);
+
+
+
+
+                realm.createOrUpdateObjectFromJson(RealmOrderList.class, jsonSubmitReq);
+
+
+            } catch (Exception e) {
+                if (realm.isInTransaction())
+                    realm.cancelTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            } finally {
+                if (realm.isInTransaction())
+                    realm.commitTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            }
+        }
+    }
+
+    private void callServiceAddress(){
+        NOGetEntityBuisnessPlacesModal noGetEntityBuisnessPlacesModal = new NOGetEntityBuisnessPlacesModal();
+        noGetEntityBuisnessPlacesModal.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
+        noGetEntityBuisnessPlacesModal.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
+        noGetEntityBuisnessPlacesModal.setEntityType(Prefs.getStringPrefs(Constants.entityRole));
+
+
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOGetEntityBuisnessPlaces);
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(noGetEntityBuisnessPlacesModal);
+        mTask.setListener(this);
+        mTask.setResultType(NoGetEntityResultModal.class);
+        mTask.execute();
+    }
+
+    @Override
+    public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
+        //   hideProgressDialog();
+        if (httpStatusCode == Constants.SUCCESS) {
+
+            if (Util.validateString(serverResponse)){
+                Realm realm=Realm.getDefaultInstance();
+                RealmResults<RealmBusinessPlaces> realmBusinessPlaces=realm.where(RealmBusinessPlaces.class).findAll();
+
+                addressListAdapter.notifyDataSetChanged();
+                try {
+                    JSONObject jsonObject=new JSONObject(serverResponse);
+                    JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
+                    new RealmController().saveBusinessPlaces(array.toString());
+                    for (int i=0;i<array.length();i++){
+                        JSONObject jsonObject1=array.optJSONObject(i);
+
+                        getAddressData(businessCode,jsonObject1,i);
+
+
+                    }
+                    addressListAdapter.notifyDataSetChanged();
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+
+        } else if (httpStatusCode == Constants.BAD_REQUEST) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+            Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    public void onSearchButton() {
+        Intent mIntent = new Intent(OrderCentreDetailsActivity.this, AddNewOrderActivity.class);
+        mIntent.putExtra(Constants.businessPlaceCode, businessCode);
+        mIntent.putExtra(Constants.entityStateCode, entityStateCode);
+        startActivityForResult(mIntent, 3);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem menu12 = menu.findItem(R.id.action_notification);
+        menu12.setVisible(false);
+
+
+
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_search) {
+            onSearchButton();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }

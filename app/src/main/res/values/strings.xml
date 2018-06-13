@@ -317,6 +317,11 @@
     <string name="pc_tab_4">Account</string>
     <string name="pc_tab_5"><![CDATA[Bill & Delivery]]></string>
     <string name="pc_tab_6">Documents</string>
+    <string name="pr">PR</string>
+    <string name="po">PO</string>
+    <string name="grn">GRN</string>
+    <string name="inv">INV</string>
+    <string name="pmt">PMT</string>
 
 
 </resources>
