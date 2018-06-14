@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.partnerConnect.adapter.KYCViewAllAdapter;
 
 /**
  * Created by niraj.kumar on 6/12/2018.
