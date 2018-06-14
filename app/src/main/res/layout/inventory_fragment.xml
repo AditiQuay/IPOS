@@ -127,7 +127,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:layout_margin="8dp"
+            android:background="@color/white"
             android:orientation="vertical">
 
 
@@ -135,7 +136,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:background="@color/white">
+                android:background="@drawable/rect_four_white">
 
 
                <TextView
@@ -170,6 +171,8 @@
                         />
                 </LinearLayout>
             </LinearLayout>
+
+            <include layout="@layout/view_layout_without_dot"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -209,6 +212,7 @@
                         />
                 </LinearLayout>
             </LinearLayout>
+            <include layout="@layout/view_layout_without_dot"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -248,6 +252,7 @@
                         />
                 </LinearLayout>
             </LinearLayout>
+            <include layout="@layout/view_layout_without_dot"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -285,6 +290,7 @@
                         />
                 </RelativeLayout>
             </LinearLayout>
+            <include layout="@layout/view_layout_without_dot"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -313,6 +319,7 @@
                         />
                 </LinearLayout>
             </LinearLayout>
+            <include layout="@layout/view_layout_without_dot"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -342,21 +349,26 @@
                         />
                 </LinearLayout>
             </LinearLayout>
+            <include layout="@layout/view_layout_without_dot"/>
         </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
+            android:background="@color/white"
             android:layout_alignParentBottom="true"
             android:padding="12dp">
 
             <LinearLayout
                 android:id="@+id/btnNext"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_round_app"
                 android:gravity="center"
+                android:padding="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 android:layout_alignParentRight="true">
 
                 <quay.com.ipos.ui.CustomTextView
