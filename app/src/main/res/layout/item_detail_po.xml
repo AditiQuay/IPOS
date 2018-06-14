@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/ipos_line_black"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
