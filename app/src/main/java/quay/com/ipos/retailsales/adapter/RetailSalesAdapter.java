@@ -94,7 +94,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvMinus,tvPlus,tvPoint,tvTotalPoints;
-        public TextView tvTotalPrice, tvOTCDiscountPrice,tvDiscountedPrice;
+        public TextView tvTotalPrice, tvOTCDiscountPrice,tvDiscountedPrice,tvFreeItems;
         public ImageView imvInfo,imvProduct,imvClear;
         public LinearLayout llOTCDiscount,llEvent,llTotalPoints,llPoints,llInnerItem;
         public CheckBox chkItem,chkOTCDiscount;
@@ -116,6 +116,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
             tvItemRate =  itemView.findViewById(R.id.tvItemRate);
             tvItemPrice =  itemView.findViewById(R.id.tvItemPrice);
+            tvFreeItems =  itemView.findViewById(R.id.tvFreeItems);
             imvInfo =  itemView.findViewById(R.id.imvInfo);
             imvProduct =  itemView.findViewById(R.id.imvProduct);
             imvClear =  itemView.findViewById(R.id.imvClear);
@@ -207,7 +208,9 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.llOTCDiscount.setVisibility(View.GONE);
                 userViewHolder.llPoints.setVisibility(View.GONE);
                 userViewHolder.llTotalPoints.setVisibility(View.GONE);
+                userViewHolder.tvFreeItems.setVisibility(View.VISIBLE);
             }else {
+                userViewHolder.tvFreeItems.setVisibility(View.GONE);
                 userViewHolder.tvTotalPoints.setVisibility(View.VISIBLE);
                 userViewHolder.tvPoint.setVisibility(View.VISIBLE);
                 userViewHolder.llEvent.setVisibility(View.VISIBLE);

@@ -25,12 +25,14 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.modal.CommonParams;
+import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.retailsales.adapter.AddProductAdapter;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.SpacesItemDecoration;
 import quay.com.ipos.utility.Util;
 
@@ -55,6 +57,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     private TextView tvClear;
     private LinearLayout llAccept,llSize,llAdded;
     DatabaseHandler databaseHandler;
+    LoginResult loginResult;
     /**
      * The data.
      */
@@ -68,8 +71,9 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         initializeComponent();
         databaseHandler = new DatabaseHandler(this);
 //        databaseHandler.deleteTable(DatabaseHandler.TABLE_RETAIL);
-        if(databaseHandler.isRetailMasterEmpty()) {
-            searchProductCall("1");
+        if(databaseHandler.isRetailMasterEmpty(databaseHandler.TABLE_RETAIL)) {
+            loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",AddProductActivity.this),LoginResult.class);
+            searchProductCall(loginResult.getUserAccess().getWorklocationID()+"");
         }else {
             data = databaseHandler.getAllProduct();
             IPOSApplication.datumArrayList.addAll(data);
@@ -77,6 +81,8 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         }
 
         setAdapter();
+        updateItem();
+
     }
 
     private void setAdapter() {
@@ -146,9 +152,9 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                     mAddProductAdapter.notifyDataSetChanged();
                 }
                 else {
-                    arrSearchlist.clear();
+//                    arrSearchlist.clear();
                     mAddProductAdapter.notifyDataSetChanged();
-                    tvItemSize.setVisibility(View.GONE);
+//                    tvItemSize.setVisibility(View.GONE);
                 }
             }
 
@@ -278,6 +284,9 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 
             case R.id.tvClear:
                 searchView.setText("");
+                arrSearchlist.clear();
+                arrSearchlist.addAll(data);
+                mAddProductAdapter.notifyDataSetChanged();
                 break;
 
             case R.id.imvClearAdded:
@@ -299,9 +308,13 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.llAccept:
 
-                Intent mIntent1 = new Intent();
-                setResult(1, mIntent1);
-                onBackPressed();
+                if(count>0) {
+                    Intent mIntent1 = new Intent();
+                    setResult(1, mIntent1);
+                    onBackPressed();
+                }else {
+                    Util.showToast(getString(R.string.product_not_added),AddProductActivity.this);
+                }
                 break;
         }
 
@@ -340,8 +353,9 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                     mProductSearchResult = (ProductSearchResult) resultObj;
                     data.addAll(mProductSearchResult.getData());
                     arrSearchlist.addAll(data);
+                    setAdapter();
                     IPOSApplication.datumArrayList.addAll(data);
-                    if(databaseHandler.isRetailMasterEmpty()) {
+                    if(databaseHandler.isRetailMasterEmpty(databaseHandler.TABLE_RETAIL)) {
                         for (int i = 0; i < data.size(); i++) {
                             databaseHandler.addProduct(data.get(i));
                         }
@@ -368,14 +382,14 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                         }
                     }else {
                         tvClear.setVisibility(View.GONE);
-                        llSize.setVisibility(View.GONE);
-                        arrSearchlist.clear();
+//                        llSize.setVisibility(View.GONE);
+//                        arrSearchlist.clear();
                     }
                 }
                 else {
                     tvClear.setVisibility(View.GONE);
                     llSize.setVisibility(View.GONE);
-                    arrSearchlist.clear();
+//                    arrSearchlist.clear();
                 }
 
                 mAddProductAdapter.notifyDataSetChanged();

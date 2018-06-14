@@ -40,11 +40,17 @@
 
     <ExpandableListView
         android:id="@+id/expandableListView"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="0.5dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/SliderDots"
+        android:layout_marginLeft="@dimen/dim_8"
+        android:layout_marginRight="@dimen/dim_8"
+        android:layout_marginTop="8dp"
+        android:background="@null"
+        android:divider="@color/app_background_color"
+        android:dividerHeight="@dimen/dim_8"
+        android:groupIndicator="@null"
+        android:scrollbars="none" />
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

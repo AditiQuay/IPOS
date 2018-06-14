@@ -1,9 +1,12 @@
 package quay.com.ipos.retailsales.activity;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -20,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -29,12 +33,15 @@ import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
+import quay.com.ipos.helper.DatabaseHandler;
+import quay.com.ipos.modal.BillingSync;
 import quay.com.ipos.modal.CustomerPointsRedeemRequest;
 import quay.com.ipos.modal.CustomerPointsRedeemResult;
 import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.OrderSubmitResult;
 import quay.com.ipos.modal.PaymentRequest;
 import quay.com.ipos.service.ServiceTask;
+import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
@@ -57,6 +64,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     private CardView cvCash,cvCard,cvPoints;
     private String mTotalAmount;
     private double totalAmount;
+    DatabaseHandler db;
     private Menu menu1;
     Toolbar toolbar_default;
     private String mCustomerID="";
@@ -64,19 +72,54 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     double redeemValue=0;
     Context context;
     private double mCustomerPointsPer=0;
+    PaymentRequest paymentRequest = new PaymentRequest();
+    double cashAmount,receivedAmt,cashReturnAmt,cardAmount;
+    String lastDigit,expMonth,expYear,transID,cardType;
+    String json,json1;
+    LoginResult loginResult ;
+    private ArrayList<PaymentRequest.PaymentDetail> arrPaymentDetail = new ArrayList<>();
+    private ArrayList<PaymentRequest.DetailInfo> detailInfo = new ArrayList<>();
+    boolean checkCash=false;
+    boolean checkCardAmt=false, checkCard=false,checkCardExpYear=false,checkCardMonth=false,checkCardDigit=false;
+    String[] arrMonth;
     boolean sendOTP=false,sendVerify = false,sendRedeem=false;
+    //1 means data is synced and 0 means data is not synced
+    public static final int NAME_SYNCED_WITH_SERVER = 1;
+    public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
+    //a broadcast to know weather the data is synced or not
+    public static final String DATA_SAVED_BROADCAST = "ipos.datasaved";
+    //Broadcast receiver to know the sync status
+    private BroadcastReceiver broadcastReceiver;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_payment_mode);
 
-
+        db = new DatabaseHandler(PaymentModeActivity.this);
         findViewbyId();
         getIntentValues();
         spnCardType();
         context = IPOSApplication.getContext();
         arrMonth = context.getResources().getStringArray(R.array.months);
+
+        //the broadcast receiver to update sync status
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+
+                //loading the names again
+//                loadNames();
+                AppLog.e("tag","onReceive");
+            }
+        };
+        try {
+            LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
+        }catch (Exception e){
+
+        }
+        //registering the broadcast receiver to update sync status
+        ;
     }
 
 
@@ -92,6 +135,24 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         return true;
     }
 
+    protected void onPostResume() {
+        super.onPostResume();
+
+        try {
+            LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
+        }catch (Exception e){
+
+        }
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        try{
+            unregisterReceiver(broadcastReceiver);
+        } catch (Exception e){
+            // already unregistered
+        }
+    }
 
     private void getIntentValues(){
         Intent intent=getIntent();
@@ -261,17 +322,17 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
 
     }
-    PaymentRequest paymentRequest = new PaymentRequest();
-    double cashAmount,receivedAmt,cashReturnAmt,cardAmount;
-    String lastDigit,expMonth,expYear,transID,cardType;
-    String json,json1;
-    LoginResult loginResult ;
-    private ArrayList<PaymentRequest.PaymentDetail> arrPaymentDetail = new ArrayList<>();
-    private ArrayList<PaymentRequest.DetailInfo> detailInfo = new ArrayList<>();
-    boolean checkCash=false;
-    boolean checkCardAmt=false, checkCard=false,checkCardExpYear=false,checkCardMonth=false,checkCardDigit=false;
-    String[] arrMonth;
-//    int[] arrMonth = new int[12]{01,02,03,04,05,06,07,08,09,10,11,12};
+
+    //saving the name to local storage
+    private void saveBillToLocalStorage(PaymentRequest paymentRequest, int status) {
+        BillingSync billingSync = new BillingSync();
+        billingSync.setBilling(Util.getCustomGson().toJson(paymentRequest));
+        billingSync.setCustomerID(mCustomerID);
+        billingSync.setOrderDateTime(Util.getCurrentDate() + Util.getCurrentTime());
+        billingSync.setOrderTimestamp(Util.getCurrentTimeStamp());
+        billingSync.setSync(status);
+        db.addRetailBilling(billingSync);
+    }
 
     @Override
     public void onClick(View view) {
@@ -295,13 +356,16 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         if(loginResult.getUserAccess()!=null){
                             paymentRequest.setBusinessPlace(loginResult.getUserAccess().getStoreName());
                             paymentRequest.setBusinessPlaceCode(loginResult.getUserAccess().getWorklocationID());
-                            paymentRequest.setEmployeeCode(loginResult.getUserAccess().getRoleCode()+"");
-                            paymentRequest.setEmployeeRole("user");
-                            paymentRequest.setEntityID("1");
+                            paymentRequest.setEmployeeCode(loginResult.getUserAccess().getEmpCode()+"");
+                            paymentRequest.setEmployeeRole(loginResult.getUserAccess().getUserRole());
+                            paymentRequest.setEntityID(loginResult.getUserAccess().getEntityId());
 
                         }
                         PaymentRequest.PaymentDetail paymentDetail=new PaymentRequest().new PaymentDetail();
                         PaymentRequest.DetailInfo mDetailInfo=new PaymentRequest().new DetailInfo();
+                        detailInfo.clear();
+                        arrPaymentDetail.clear();
+
                         if(checkCash) {
                             paymentDetail.setPaymentType("cash");
                             arrPaymentDetail.add(paymentDetail);
@@ -324,7 +388,16 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         }
                         paymentRequest.setCustomerID(mCustomerID);
                         paymentRequest.setPaymentDetail(arrPaymentDetail);
-                        callServicePayment();
+                        if(Util.isConnected())
+                            callServicePayment();
+                        else {
+                            IPOSApplication.mProductListResult.clear();
+                            IPOSApplication.totalAmount = 0.0;
+                            setResult(200);
+                            Util.showToast("Order Placed Successfully", IPOSApplication.getContext());
+                            finish();
+                            saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
+                        }
                     }
                 }else {
                     Util.showToast("Balance is still left!",PaymentModeActivity.this);
@@ -575,8 +648,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             case R.id.buttonSendOtp:
 
                 if (!etPointToRedeem.getText().toString().equalsIgnoreCase("")) {
-                    if(points1>=points2) {
-                        if (!sendOTP)
+                    if (!sendOTP)
+                        if(points1>=points2) {
                             if (points1 > 0) {
                                 if (redeemValue > 0) {
                                     sendOTP = true;
@@ -588,9 +661,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                             } else {
                                 Util.showToast("No points to redeem", PaymentModeActivity.this);
                             }
-                    }else {
-                        Util.showToast("Points exceeded!", PaymentModeActivity.this);
-                    }
+                        }else {
+                            Util.showToast("Points exceeded!", PaymentModeActivity.this);
+                        }
                 } else {
                     Util.showToast("Enter points to redeem", PaymentModeActivity.this);
                 }
@@ -653,7 +726,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     private void sendOTPtoServer() {
         CustomerPointsRedeemRequest customerPointsRedeemRequest = new CustomerPointsRedeemRequest();
         customerPointsRedeemRequest.setCustomerId(mCustomerID);
-        customerPointsRedeemRequest.setEmailId("aditi.bhuranda@quayintech.com");
+        customerPointsRedeemRequest.setEmailId(mCustomerEmail);
         customerPointsRedeemRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode.trim()));
         customerPointsRedeemRequest.setPointsRedeemValue(redeemValue);
         customerPointsRedeemRequest.setPointsToRedeem(points1);
@@ -690,7 +763,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         dismissProgress();
         if(serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT)) {
             try{
-                if (httpStatusCode == 200) {
+                if (httpStatusCode == Constants.SUCCESS) {
                     if (resultObj != null) {
                         OrderSubmitResult mOrderSubmitResult = (OrderSubmitResult) resultObj;
                         if (mOrderSubmitResult.getError() == 200) {
@@ -698,12 +771,24 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                             IPOSApplication.totalAmount = 0.0;
                             setResult(200);
                             Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                            saveBillToLocalStorage(paymentRequest, NAME_SYNCED_WITH_SERVER);
                             finish();
 
                         } else {
+                            saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                             Util.showToast(mOrderSubmitResult.getErrorDescription(), IPOSApplication.getContext());
                         }
                     }
+                }else if (httpStatusCode == Constants.BAD_REQUEST) {
+                    Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+                    Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+                    Toast.makeText(context, context.getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+                    Toast.makeText(context, context.getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+                    Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
                 }
             }catch (Exception e){
 

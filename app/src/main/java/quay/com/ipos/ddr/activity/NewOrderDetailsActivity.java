@@ -375,10 +375,10 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             realmBusinessPlaces1.setBuisnessLocationStateCode(realmBusinessPlaces.get(i).getBuisnessLocationStateCode());
             if (businesplaceCode.equalsIgnoreCase(realmBusinessPlaces.get(i).getBuisnessPlaceId()+"")){
                 realmBusinessPlaces1.setSelected(true);
-                addressList.add(realmBusinessPlaces1);
+
             }
 
-
+            addressList.add(realmBusinessPlaces1);
         }
         addressListAdapter.notifyDataSetChanged();
     }

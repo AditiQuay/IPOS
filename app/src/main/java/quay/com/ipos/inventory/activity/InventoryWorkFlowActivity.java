@@ -108,11 +108,10 @@ public class InventoryWorkFlowActivity extends BaseActivity implements MyListene
 
         intitiateView();
 
-        tvEtaDate.setText("Eta - "+Util.getFormattedDates(etaDate.split(" ")[0],Constants.formatDate,Constants.format2));
 
         getOrderCentre();
         toolbarTtile=findViewById(R.id.toolbarTtile);
-        toolbarTtile.setText(getString(R.string.order_centre));
+        toolbarTtile.setText("Inventory");
         btnAccept=findViewById(R.id.btnAccept);
         btnAccept.setText(getString(R.string.accept));
 

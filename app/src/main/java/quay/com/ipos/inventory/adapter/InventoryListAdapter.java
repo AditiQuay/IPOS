@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.activity.ExpandablePODetailsActivity;
+import quay.com.ipos.inventory.activity.InventoryWorkFlowActivity;
 import quay.com.ipos.inventory.modal.InventoryModel;
 
 
@@ -38,7 +39,15 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
 
 
 
-        holder.tvPoNumber.setText(stringArrayList.get(position).getId());
+        holder.tvPoNumber.setText(stringArrayList.get(position).getPoNumber());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(mContext, ExpandablePODetailsActivity.class);
+                mContext.startActivity(i);
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,12 +76,13 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvPoNumber;
+        private TextView tvPoNumber,tvOpen;
 
         private RadioButton radio;
         public SurveyViewHolder(View itemView) {
             super(itemView);
             tvPoNumber = itemView.findViewById(R.id.tvPoNumber);
+            tvOpen=itemView.findViewById(R.id.tvOpen);
 
 
         }

@@ -6,6 +6,12 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class PaymentRequest {
+    @SerializedName("orderTimestamp")
+    @Expose
+    private String orderTimestamp;
+    @SerializedName("orderDateTime")
+    @Expose
+    private String orderDateTime;
     @SerializedName("customerID")
     @Expose
     private String customerID;
@@ -23,7 +29,7 @@ public class PaymentRequest {
     private String employeeCode;
     @SerializedName("employeeRole")
     @Expose
-    private String employeeRole="user";
+    private String employeeRole="";
     @SerializedName("orderValue")
     @Expose
     private Double orderValue;
@@ -68,7 +74,23 @@ public class PaymentRequest {
     private ArrayList<PaymentDetail> paymentDetail = new ArrayList<>();
     @SerializedName("entityID")
     @Expose
-    private String entityID;
+    private Integer entityID;
+
+    public String getOrderTimestamp() {
+        return orderTimestamp;
+    }
+
+    public void setOrderTimestamp(String orderTimestamp) {
+        this.orderTimestamp = orderTimestamp;
+    }
+
+    public String getOrderDateTime() {
+        return orderDateTime;
+    }
+
+    public void setOrderDateTime(String orderDateTime) {
+        this.orderDateTime = orderDateTime;
+    }
 
     public double getPointsToRedeem() {
         return pointsToRedeem;
@@ -86,11 +108,11 @@ public class PaymentRequest {
         this.pointsToRedeemValue = pointsToRedeemValue;
     }
 
-    public String getEntityID() {
+    public Integer getEntityID() {
         return entityID;
     }
 
-    public void setEntityID(String entityID) {
+    public void setEntityID(Integer entityID) {
         this.entityID = entityID;
     }
 
