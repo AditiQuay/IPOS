@@ -59,7 +59,7 @@
             android:id="@+id/recyclerViewBusinessInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim_4"
+            android:layout_marginTop="0dp"
             android:nestedScrollingEnabled="false"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             tools:listitem="@layout/business_item"

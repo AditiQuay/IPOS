@@ -81,6 +81,7 @@ import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.productCatalogue.ProductMain;
+import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.service.ServiceTask;
@@ -1123,6 +1124,7 @@ public class MainActivity extends BaseActivity
 
                     DatabaseHandler dbHelper = new DatabaseHandler(mContext);
                     dbHelper.removeAll();
+                    new RealmController().clearRealm();
 
                     new AsyncTask<Void, Void, Void>() {
                         @Override
