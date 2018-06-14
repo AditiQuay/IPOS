@@ -61,7 +61,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = layoutInflater.inflate(R.layout.expandable_po_items, null);
+                convertView = layoutInflater.inflate(R.layout.item_detail_po, null);
 
                 ArrayList<RealmBusinessPlaces> discounts=new ArrayList<>();
                 RealmBusinessPlaces realmBusinessPlaces1=new RealmBusinessPlaces();
@@ -87,7 +87,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = layoutInflater.inflate(R.layout.expandable_po_items, null);
+                convertView = layoutInflater.inflate(R.layout.expandable_inco_terms_item, null);
                 ArrayList<RealmBusinessPlaces> discounts=new ArrayList<>();
                 RealmBusinessPlaces realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("Loading");
@@ -121,7 +121,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = layoutInflater.inflate(R.layout.expandable_po_items, null);
+                convertView = layoutInflater.inflate(R.layout.payment_terms_items, null);
 
                 ArrayList<RealmBusinessPlaces> discounts=new ArrayList<>();
                 RealmBusinessPlaces realmBusinessPlaces1=new RealmBusinessPlaces();
@@ -216,7 +216,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_group, null);
+            convertView = layoutInflater.inflate(R.layout.inventory_group_item, null);
         }
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.textViewGroupName);

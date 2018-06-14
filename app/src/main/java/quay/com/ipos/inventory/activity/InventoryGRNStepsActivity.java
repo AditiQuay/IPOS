@@ -1,6 +1,7 @@
 package quay.com.ipos.inventory.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -35,16 +36,16 @@ import quay.com.ipos.utility.SpacesItemDecoration;
 public class InventoryGRNStepsActivity extends AppCompatActivity implements InitInterface, View.OnClickListener {
 
     String[] address = {"1/82"};
-    String[] items={"PO180001","PO180002"};
-    String[] user={"KGM Traders","McCoy"};
+    String[] items = {"PO180001", "PO180002"};
+    String[] user = {"KGM Traders", "McCoy"};
 
-    private RecyclerView recycler_viewRecentOrders, recycleview,recylerViewRoles;
+    private RecyclerView recycler_viewRecentOrders, recycleview, recylerViewRoles;
     private ItemsDetailListAdapter recentOrdersListAdapter;
     private InventoryListAdapter inventoryListAdapter;
-    private ArrayList<RecentOrderModal> arrSearchList=new ArrayList<>();
-    private ArrayList<InventoryModel> inventoryModels=new ArrayList<>();
-    private ArrayList<RealmBusinessPlaces> addressList=new ArrayList<>();
-    private ArrayList<UserModal> stringArrayListRoles=new ArrayList<>();
+    private ArrayList<RecentOrderModal> arrSearchList = new ArrayList<>();
+    private ArrayList<InventoryModel> inventoryModels = new ArrayList<>();
+    private ArrayList<RealmBusinessPlaces> addressList = new ArrayList<>();
+    private ArrayList<UserModal> stringArrayListRoles = new ArrayList<>();
     private WorkFLowUserAdapter workFLowUserAdapter;
 
 
@@ -76,15 +77,15 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
 
         getRecentOrdersData();
 
-        final RelativeLayout rlTab=findViewById(R.id.rlTab);
-        final RelativeLayout llgrnn=findViewById(R.id.llgrnn);
+        final RelativeLayout rlTab = findViewById(R.id.rlTab);
+        final RelativeLayout llgrnn = findViewById(R.id.llgrnn);
         final TextView tvGrn = findViewById(R.id.tvGrn);
-        LinearLayout lLayoutGrn=findViewById(R.id.lLayoutGrn);
+        LinearLayout lLayoutGrn = findViewById(R.id.lLayoutGrn);
 
-        final TextView tvPO=findViewById(R.id.tvPO);
-        LinearLayout poLayout=findViewById(R.id.poLayout);
+        final TextView tvPO = findViewById(R.id.tvPO);
+        LinearLayout poLayout = findViewById(R.id.poLayout);
 
-        final RelativeLayout rLayoutMain=findViewById(R.id.rLayoutMain);
+//        final RelativeLayout rLayoutMain = findViewById(R.id.rLayoutMain);
         poLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +95,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
                 recycleviewCard.setVisibility(View.GONE);
                 rlTab.setVisibility(View.GONE);
                 llgrnn.setVisibility(View.GONE);
-                rLayoutMain.setVisibility(View.GONE);
+//                rLayoutMain.setVisibility(View.GONE);
             }
         });
 
@@ -107,11 +108,12 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
                 recycleviewCard.setVisibility(View.VISIBLE);
                 rlTab.setVisibility(View.VISIBLE);
                 llgrnn.setVisibility(View.VISIBLE);
-                rLayoutMain.setVisibility(View.VISIBLE);
+//                rLayoutMain.setVisibility(View.VISIBLE);
             }
         });
 
     }
+
     private void getRecentOrdersData() {
         for (int i = 0; i < items.length; i++) {
             InventoryModel inventoryModel = new InventoryModel();
@@ -170,12 +172,17 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     @Override
     public void onClick(View v) {
         if (v == textViewAdd) {
-            InventoryGRNModel inventoryGRNModel = new InventoryGRNModel();
-            inventoryGRNModel.grnQty = "1";
-            inventoryGRNModel.apQTY = "2";
-            inventoryGRNModel.value = "26,480";
-            inventoryGRNModels.add(inventoryGRNModel);
-            kycViewAllAdapter.notifyDataSetChanged();
+
+            Intent i = new Intent(mContext, InventoryGRNDetails.class);
+            startActivity(i);
+
+//
+//            InventoryGRNModel inventoryGRNModel = new InventoryGRNModel();
+//            inventoryGRNModel.grnQty = "1";
+//            inventoryGRNModel.apQTY = "2";
+//            inventoryGRNModel.value = "26,480";
+//            inventoryGRNModels.add(inventoryGRNModel);
+//            kycViewAllAdapter.notifyDataSetChanged();
         }
     }
 }

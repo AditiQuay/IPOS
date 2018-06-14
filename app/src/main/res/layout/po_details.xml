@@ -3,14 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp">
+
+
+    >
+
 
     <LinearLayout
         android:id="@+id/includeCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
+        android:background="@drawable/rectangle_child_white"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ipos_line_black"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
                     android:layout_weight="1"
-                    android:padding="4dp"
+                    android:padding="8dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -52,13 +62,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="4dp"
-                    android:background="@color/app_theme_color"/>
+                    android:background="@drawable/ipos_line_black"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
                     android:layout_weight="1"
-                    android:padding="4dp"
+                    android:padding="8dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -81,13 +91,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="4dp"
-                    android:background="@color/app_theme_color"/>
+                    android:background="@drawable/ipos_line_black"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
                     android:layout_weight="1"
-                    android:padding="4dp"
+                    android:padding="8dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -110,7 +120,7 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/app_theme_color"/>
+                android:background="@drawable/ipos_line_black"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -120,7 +130,7 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="4dp"
+                    android:padding="8dp"
                     android:gravity="start|center_vertical"
                     android:layout_weight="1"
                     android:visibility="invisible"
@@ -147,13 +157,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="4dp"
-                    android:background="@color/app_theme_color"/>
+                    android:background="@drawable/ipos_line_black"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
                     android:layout_weight="1"
-                    android:padding="4dp"
+                    android:padding="8dp"
                     android:visibility="visible"
                     android:orientation="vertical">
 
@@ -177,13 +187,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="4dp"
-                    android:background="@color/app_theme_color"/>
+                    android:background="@drawable/ipos_line_black"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
                     android:layout_weight="1"
-                    android:padding="4dp"
+                    android:padding="8dp"
                     android:visibility="visible"
                     android:orientation="vertical">
 
@@ -215,14 +225,14 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="4dp"
-            android:background="@color/app_theme_color"/>
+            android:background="@drawable/ipos_line_black"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start|center_vertical"
             android:layout_weight="1"
-            android:padding="4dp"
+            android:padding="8dp"
             android:visibility="visible"
             android:orientation="vertical">
 
@@ -246,13 +256,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="4dp"
-            android:background="@color/app_theme_color"/>
+            android:background="@drawable/ipos_line_black"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start|center_vertical"
             android:layout_weight="1"
-            android:padding="4dp"
+            android:padding="8dp"
             android:visibility="visible"
             android:orientation="vertical">
 
@@ -276,13 +286,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="4dp"
-            android:background="@color/app_theme_color"/>
+            android:background="@drawable/ipos_line_black"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start|center_vertical"
             android:layout_weight="1"
-            android:padding="4dp"
+            android:padding="8dp"
             android:visibility="visible"
             android:orientation="vertical">
 
@@ -306,13 +316,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="4dp"
-            android:background="@color/app_theme_color"/>
+            android:background="@drawable/ipos_line_black"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start|center_vertical"
             android:layout_weight="1"
-            android:padding="4dp"
+            android:padding="8dp"
             android:visibility="visible"
             android:orientation="vertical">
 
@@ -336,13 +346,13 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="4dp"
-            android:background="@color/app_theme_color"/>
+            android:background="@drawable/ipos_line_black"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="start|center_vertical"
             android:layout_weight="1"
-            android:padding="4dp"
+            android:padding="8dp"
             android:visibility="visible"
             android:orientation="vertical">
 
@@ -362,6 +372,19 @@
                 android:textColor="@color/dashboard_textcolor" />
 
         </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/rLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/items"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/dim_6">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_6"
+                android:background="@color/app_background_color" />
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

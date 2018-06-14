@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="40dp"
+    android:background="@color/white"
     >
 
     <LinearLayout
@@ -23,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:padding="8dp"
                 android:text="Advance"
                 />
 
@@ -31,26 +33,28 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/app_theme_color"/>
+                android:background="@drawable/ipos_line_black"/>
 
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="8dp"
                 android:gravity="center"
                 android:text="20%"
                 />
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/app_theme_color"/>
+                android:background="@drawable/ipos_line_black"/>
             <TextView
                 android:id="@+id/tvGst"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:padding="8dp"
                 android:text="Invoice Due"
                 />
 
@@ -62,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="4dp"
-            android:background="@color/app_theme_color"/>
+            android:background="@drawable/ipos_line_black"/>
 
 
 
