@@ -152,7 +152,7 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
     private void sendOTPtoServer() {
         CustomerPointsRedeemRequest customerPointsRedeemRequest = new CustomerPointsRedeemRequest();
         customerPointsRedeemRequest.setCustomerId(mCustomerID);
-        customerPointsRedeemRequest.setEmailId("aditi.bhuranda@quayintech.com");
+        customerPointsRedeemRequest.setEmailId(mCustomerEmail);
         customerPointsRedeemRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode.trim()));
         customerPointsRedeemRequest.setPointsRedeemValue(redeemValue);
         customerPointsRedeemRequest.setPointsToRedeem(points1);

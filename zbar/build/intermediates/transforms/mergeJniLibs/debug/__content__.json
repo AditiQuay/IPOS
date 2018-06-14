@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 [{"name":"resources","index":0,"scopes":["PROJECT"],"types":["NATIVE_LIBS"],"format":"DIRECTORY","present":true}]
+=======
+[{"name":"resources","index":0,"scopes":["PROJECT"],"types":["NATIVE_LIBS"],"format":"DIRECTORY","present":false}]
+>>>>>>> 27b9cbc77b1de27323162a5985575cd1681040e9

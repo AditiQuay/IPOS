@@ -118,9 +118,9 @@ public class ProductSearchResult {
         @SerializedName("barCodeNumber")
         @Expose
         private String barCodeNumber;
-        @SerializedName("schemeID")
-        @Expose
-        private String schemeID;
+//        @SerializedName("schemeID")
+//        @Expose
+//        private String schemeID;
         @SerializedName("discount")
         @Expose
         private ArrayList<Discount> discount = null;
@@ -139,6 +139,7 @@ public class ProductSearchResult {
         @SerializedName("pointsPer")
         @Expose
         private Integer pointsPer;
+
         private String PriceSelected;
         private boolean isAdded = false;
         private boolean isNonCheckOutAdded = false;
@@ -156,13 +157,79 @@ public class ProductSearchResult {
         private double totalPoints;
         private double totalDiscountPrice;
 
-        public String getSchemeID() {
-            return schemeID;
+        @SerializedName("conversionFactor")
+        @Expose
+        private Integer conversionFactor;
+        @SerializedName("hsnCode")
+        @Expose
+        private String hsnCode;
+        @SerializedName("hsnName")
+        @Expose
+        private String hsnName;
+        @SerializedName("categoryName")
+        @Expose
+        private String categoryName;
+        @SerializedName("subCategoryName")
+        @Expose
+        private String subCategoryName;
+        @SerializedName("brandName")
+        @Expose
+        private String brandName;
+
+        public Integer getConversionFactor() {
+            return conversionFactor;
         }
 
-        public void setSchemeID(String schemeID) {
-            this.schemeID = schemeID;
+        public void setConversionFactor(Integer conversionFactor) {
+            this.conversionFactor = conversionFactor;
         }
+
+        public String getHsnCode() {
+            return hsnCode;
+        }
+
+        public void setHsnCode(String hsnCode) {
+            this.hsnCode = hsnCode;
+        }
+
+        public String getHsnName() {
+            return hsnName;
+        }
+
+        public void setHsnName(String hsnName) {
+            this.hsnName = hsnName;
+        }
+
+        public String getCategoryName() {
+            return categoryName;
+        }
+
+        public void setCategoryName(String categoryName) {
+            this.categoryName = categoryName;
+        }
+
+        public String getSubCategoryName() {
+            return subCategoryName;
+        }
+
+        public void setSubCategoryName(String subCategoryName) {
+            this.subCategoryName = subCategoryName;
+        }
+
+        public String getBrandName() {
+            return brandName;
+        }
+
+        public void setBrandName(String brandName) {
+            this.brandName = brandName;
+        }
+//        public String getSchemeID() {
+//            return schemeID;
+//        }
+//
+//        public void setSchemeID(String schemeID) {
+//            this.schemeID = schemeID;
+//        }
 
         public double getTotalPoints() {
             return totalPoints;

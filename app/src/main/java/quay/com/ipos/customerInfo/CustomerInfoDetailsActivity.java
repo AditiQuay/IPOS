@@ -52,7 +52,6 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private CircleImageView imageViewProfileDummy;
     private LinearLayout lLayoutBottom;
     private Context mContext;
-//    private String customerId,mCustomerEmail, mCustomerCode;
     private String customerId,mCustomerEmail;
     private double customerPoints = 0, customerPointsPer=0;
     private RecyclerView recyclerviewRecentOrder;

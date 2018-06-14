@@ -67,8 +67,8 @@ import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.local.dao.MostUsedFunDao;
 import quay.com.ipos.data.local.entity.MostUsed;
-import quay.com.ipos.ddr.fragment.NewOrderFragment;
-import quay.com.ipos.ddr.fragment.OrderCentreListFragment;
+import quay.com.ipos.pss_order.fragment.NewOrderFragment;
+import quay.com.ipos.pss_order.fragment.OrderCentreListFragment;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.inventory.fragment.InventoryFragment;
@@ -131,6 +131,10 @@ public class MainActivity extends BaseActivity
     int mSelectedItemPosition;
     ArrayList<DrawerRoleModal> drawerRoleModals = new ArrayList<>();
     private DrawerRoleAdapter drawerRoleAdapter;
+    //a broadcast to know weather the data is synced or not
+    public static final String DATA_SAVED_BROADCAST = "ipos.datasaved";
+    //Broadcast receiver to know the sync status
+    private BroadcastReceiver broadcastReceiver;
 
     public static RetailSalesFragment retailSalesFragment1;
 
@@ -205,11 +209,42 @@ public class MainActivity extends BaseActivity
         newOrderScannerFragment = new NewOrderFragment();
 
         retailSalesFragment1 = new RetailSalesFragment();
+        //the broadcast receiver to update sync status
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
 
+                //loading the names again
+//                loadNames();
+                AppLog.e("tag","onReceive");
+            }
+        };
+        try {
+            LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
+        }catch (Exception e){
+
+        }
 
     }
 
+    protected void onPostResume() {
+        super.onPostResume();
 
+        try {
+            LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
+        }catch (Exception e){
+
+        }
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        try{
+            unregisterReceiver(broadcastReceiver);
+        } catch (Exception e){
+            // already unregistered
+        }
+    }
     private void getCustomerData() {
         int storeId = SharedPrefUtil.getStoreId(Constants.STORE_ID.trim(), 0, mContext);
         AppLog.e(TAG, "StoreId" + storeId);

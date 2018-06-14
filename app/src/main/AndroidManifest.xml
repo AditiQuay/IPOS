@@ -78,6 +78,11 @@
             android:name=".inventory.InventoryProduct"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".inventory.activity.InventoryGRNDetails"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".partnerConnect.kyc.KYCActivity"
             android:screenOrientation="portrait"
@@ -132,7 +137,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="quay.com.ipos.ddr.activity.PinnedOrderActivity"
+            android:name="quay.com.ipos.pss_order.activity.PinnedOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -158,15 +163,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ddr.activity.NewOrderDetailsActivity"
+            android:name=".pss_order.activity.NewOrderDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ddr.activity.OrderCentreDetailsActivity"
+            android:name=".pss_order.activity.OrderCentreDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="quay.com.ipos.ddr.activity.AddNewOrderActivity"
+            android:name="quay.com.ipos.pss_order.activity.AddNewOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -218,6 +223,11 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"></meta-data>
         </provider>
+        <receiver android:name=".ui.NetworkStateChecker">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

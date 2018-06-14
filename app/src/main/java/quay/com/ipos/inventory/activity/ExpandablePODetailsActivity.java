@@ -72,19 +72,18 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         setHeader();
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        expandableListView.setChildDivider(getResources().getDrawable(R.color.white));
+
         LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<String, List<String>>();
 
         List<String> cricket = new ArrayList<String>();
         cricket.add("India");
 
-
         List<String> football = new ArrayList<String>();
         football.add("Brazil");
 
-
         List<String> basketball = new ArrayList<String>();
         basketball.add("United States");
-
 
         List<String> a = new ArrayList<String>();
         a.add("United States");
@@ -96,6 +95,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         c.add("United States");
         List<String> d = new ArrayList<String>();
         d.add("United States");
+
         expandableListDetail.put("PO# 1800001", cricket);
         expandableListDetail.put("Items details | 4 Items| 23 Qty", football);
         expandableListDetail.put("INCO Terms", a);

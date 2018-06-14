@@ -114,7 +114,19 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+<<<<<<< HEAD
     <orderEntry type="library" name="Gradle: __local_aars__:D.\QuayApp\IPOS\zbar\libs\zbar.jar:unspecified@jar" level="project" />
+=======
+<<<<<<< HEAD
+    <orderEntry type="library" name="__local_aars__:E.\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\libs\zbar.jar:unspecified@jar" level="project" />
+=======
+<<<<<<< HEAD
+    <orderEntry type="library" name="__local_aars__:C.\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\libs\zbar.jar:unspecified@jar" level="project" />
+=======
+    <orderEntry type="library" name="__local_aars__:C.\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\libs\zbar.jar:unspecified@jar" level="project" />
+>>>>>>> 5bdee9d85d97a1be7ef294da10eb6f7013580b77
+>>>>>>> 396b493c8b0431a2266ff23ea95b1822680b2299
+>>>>>>> 4d3aa568d077cc9acd3935c6777f193b54a4f5bb
     <orderEntry type="module" module-name="core" />
   </component>
 </module>
