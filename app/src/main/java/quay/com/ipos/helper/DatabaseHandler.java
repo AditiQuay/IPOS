@@ -23,6 +23,7 @@ import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.utility.Util;
 
 import static quay.com.ipos.customerInfo.customerInfoModal.CustomerModel.TABLE_NAME;
+import static quay.com.ipos.customerInfo.customerInfoModal.CustomerModel.TABLE_SPINNER;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -117,7 +118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + CustomerModel.TABLE_SPINNER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SPINNER);
 
 
         // Create tables again
@@ -1293,6 +1294,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // If whereClause is null, it will delete all rows.
         SQLiteDatabase db = this.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
         db.delete(TABLE_NAME, null, null);
+        db.delete(TABLE_SPINNER, null, null);
     }
 
     //Getting Offline customer
@@ -1475,7 +1477,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
         // insert row
-        long id = db.insert(CustomerModel.TABLE_SPINNER, null, values);
+        long id = db.insert(TABLE_SPINNER, null, values);
         // close db connection
         db.close();
         // return newly inserted row id
@@ -1486,7 +1488,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ArrayList<CustomerSpinner> notes = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT  * FROM " + CustomerModel.TABLE_SPINNER, null);
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT  * FROM " + TABLE_SPINNER, null);
 
         // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
@@ -1517,7 +1519,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // db.delete(String tableName, String whereClause, String[] whereArgs);
         // If whereClause is null, it will delete all rows.
         SQLiteDatabase db = this.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
-        db.delete(CustomerModel.TABLE_SPINNER, null, null);
+        db.delete(TABLE_SPINNER, null, null);
     }
 
     public boolean isCustomerDataEmpty() {
@@ -1539,4 +1541,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return flag;
     }
+
+
+    /**
+     * Remove all users and groups from database.
+     */
+
 }

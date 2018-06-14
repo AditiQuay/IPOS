@@ -216,12 +216,12 @@ public class MainActivity extends BaseActivity
 
                 //loading the names again
 //                loadNames();
-                AppLog.e("tag","onReceive");
+                AppLog.e("tag", "onReceive");
             }
         };
         try {
             LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -232,19 +232,21 @@ public class MainActivity extends BaseActivity
 
         try {
             LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
+
     @Override
     protected void onStop() {
         super.onStop();
-        try{
+        try {
             unregisterReceiver(broadcastReceiver);
-        } catch (Exception e){
+        } catch (Exception e) {
             // already unregistered
         }
     }
+
     private void getCustomerData() {
         int storeId = SharedPrefUtil.getStoreId(Constants.STORE_ID.trim(), 0, mContext);
         AppLog.e(TAG, "StoreId" + storeId);
@@ -779,6 +781,10 @@ public class MainActivity extends BaseActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == R.id.action_logout) {
+            funLogout();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -1107,35 +1113,41 @@ public class MainActivity extends BaseActivity
         new Thread() {
             @Override
             public void run() {
+                try {
 
-                //clear all data in database
-                AppDatabase.getAppDatabase(mContext).clearAllTables();
-                //clear all sharedPreferences
-                SharedPrefUtil.clearSharedPreferences(mContext);
+                    //clear all data in database
+                    AppDatabase.getAppDatabase(mContext).clearAllTables();
+                    //clear all sharedPreferences
+                    SharedPrefUtil.clearSharedPreferences(mContext);
 
 
-                new AsyncTask<Void, Void, Void>() {
-                    @Override
-                    protected Void doInBackground(Void... params) {
-                        {
-                            try {
-                                FirebaseInstanceId.getInstance().deleteInstanceId();
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                    DatabaseHandler dbHelper = new DatabaseHandler(mContext);
+                    dbHelper.removeAll();
+
+                    new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            {
+                                try {
+                                    FirebaseInstanceId.getInstance().deleteInstanceId();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
+                            return null;
                         }
-                        return null;
-                    }
 
-                    @Override
-                    protected void onPostExecute(Void result) {
-                        //call your activity where you want to land after log out
-                        finishAffinity();
-                        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
-                        startActivity(intent);
-                    }
-                }.execute();
-
+                        @Override
+                        protected void onPostExecute(Void result) {
+                            //call your activity where you want to land after log out
+                            finishAffinity();
+                            Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+                            startActivity(intent);
+                        }
+                    }.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }.start();
     }
