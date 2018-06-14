@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="D:\QuayApp\IPOS\core\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="D:\QuayApp\IPOS\core\src\debug\jniLibs"/></dataSet></merger>
-=======
-<merger version="3"><dataSet config="main"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\debug\jniLibs"/></dataSet></merger>
->>>>>>> 550f58e5af47dc0858c00ad844f3bd1ae5cf7679
