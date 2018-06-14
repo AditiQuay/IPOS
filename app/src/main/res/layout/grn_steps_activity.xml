@@ -43,7 +43,6 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
                     android:orientation="vertical"
                     android:padding="8dp">
 
@@ -223,17 +222,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dim_4"
-                    android:background="@color/white"
+                    android:background="@drawable/white_background"
                     android:paddingLeft="@dimen/dim_4"
+                    android:visibility="gone"
                     android:paddingRight="@dimen/dim_4"
-                    android:paddingTop="@dimen/dim_4"
-                    android:visibility="gone">
+                    android:paddingTop="@dimen/dim_4">
 
                     <RelativeLayout
                         android:id="@+id/grnHeading"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/dim_1">
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:id="@+id/tvPoNumber"
@@ -241,22 +239,23 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/titilliumwebregular"
                             android:text="PO180001"
-                            android:textColor="@color/textColorPrimary"
+                            android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/dim_14"
                             android:visibility="visible" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:id="@+id/tvOpen"
+                            android:layout_width="70dp"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:fontFamily="@font/titilliumwebregular"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/rect_one_side_round_grey"
+                            android:gravity="center"
+                            android:padding="8dp"
                             android:text="open"
-                            android:textColor="@color/textColorPrimary"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/dim_14"
                             android:visibility="visible" />
-
                     </RelativeLayout>
 
                     <RelativeLayout
@@ -264,9 +263,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/grnHeading"
-                        android:layout_marginTop="@dimen/dim_4">
+                        android:layout_marginTop="@dimen/dim_8">
 
-                        <include layout="@layout/view_layout" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dim_1"
+                            android:background="@color/grey" />
+
 
                     </RelativeLayout>
 
@@ -285,9 +288,10 @@
                     android:id="@+id/llgrnn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dim_4"
-                    android:padding="@dimen/dim_8"
-                    android:visibility="gone">
+                    android:layout_margin="@dimen/dim_4"
+                    android:visibility="gone"
+                    android:background="@drawable/white_background"
+                    android:padding="@dimen/dim_8">
 
                     <TextView
                         android:id="@+id/tvGrnNumberCount"
@@ -296,7 +300,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/titilliumwebregular"
                         android:text="GRN (0)"
-                        android:textColor="@color/textColorPrimary"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/dim_14"
                         android:visibility="visible" />
 
@@ -306,6 +310,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:background="@drawable/button_drawable_blue"
+                        android:drawableLeft="@drawable/add_white"
+                        android:drawablePadding="@dimen/dim_4"
                         android:fontFamily="@font/titilliumwebregular"
                         android:paddingBottom="@dimen/dim_4"
                         android:paddingLeft="8dp"
@@ -318,18 +324,6 @@
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/rLayoutView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/grnHeading"
-                    android:padding="@dimen/dim_4">
-
-                    <include
-                        android:id="@+id/view"
-                        layout="@layout/view_layout" />
-
-                </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycleviewCard"

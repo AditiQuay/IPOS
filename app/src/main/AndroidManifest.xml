@@ -78,6 +78,11 @@
             android:name=".inventory.InventoryProduct"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".inventory.activity.InventoryGRNDetails"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".partnerConnect.kyc.KYCActivity"
             android:screenOrientation="portrait"

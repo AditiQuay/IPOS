@@ -26,11 +26,11 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     private Button btnSubmit, btnCancel, btnAdd, btnOthers, btnLeakage, btnDefeat, btnNormal;
     private RecyclerView recyclerviewBatch;
     private EditText batchEditText;
-    private SwitchCompat switchBarCodeButton, switchBatchButton;
+    private SwitchCompat switchBatchButton;
     private RelativeLayout rLayoutBatchNumber;
     private TextView textViewProductBalance, textViewProductQuantity;
     private Toolbar toolbar;
-    private ImageView imgArrowLeft, imgArrowRight;
+    private ImageView imgArrowLeft, imgArrowRight,imvBarcode;
     private Context mContext;
     private LinearLayoutManager layoutManager;
 
@@ -61,7 +61,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         //
         recyclerviewBatch = findViewById(R.id.recyclerviewBatch);
         batchEditText = findViewById(R.id.batchEditText);
-        switchBarCodeButton = findViewById(R.id.switchBarCodeButton);
+        imvBarcode = findViewById(R.id.imvBarcode);
         switchBatchButton = findViewById(R.id.switchBatchButton);
         rLayoutBatchNumber = findViewById(R.id.rLayoutBatchNumber);
         textViewProductQuantity = findViewById(R.id.textViewProductQuantity);
