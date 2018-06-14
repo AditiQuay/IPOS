@@ -329,7 +329,8 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                     double slabFrom = rule.get(i).getSlabFrom();
                     double slabTo = rule.get(i).getSlabTO();
-                    if(totalPrice>=slabFrom && totalPrice <= slabTo){
+                    if(totalPrice>=slabFrom && totalPrice <= slabTo)
+                    {
                         // Qty in range of SLAB from - SLAB to
                         if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("MRP")){
                             // Discount Based on MRP

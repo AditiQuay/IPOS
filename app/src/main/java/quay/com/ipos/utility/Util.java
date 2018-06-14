@@ -147,19 +147,16 @@ public class Util {
         TypedArray values = context.obtainStyledAttributes(attrs, R.styleable.CustomTextView);
         String typefaceName = values.getString(R.styleable.CustomTextView_typeface);
 
-        if (typefaceCache.containsKey(typefaceName)) {
-            textView.setTypeface(typefaceCache.get(typefaceName));
-        } else {
+//        if (typefaceCache.containsKey(typefaceName)) {
+//            textView.setTypeface(typefaceCache.get(typefaceName));
+//        } else {
             Typeface typeface;
             try {
-
-
-
 //                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
 //                        context.getString(R.string.assets_fonts_folder) + typefaceName);
                 if(typefaceName==null)
                 typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
-                        context.getString(R.string.assets_fonts_folder) + "/titilliumwebregular.ttf");
+                        context.getString(R.string.assets_fonts_folder) + "/TitilliumWeb-Regular.ttf");
                 else
                     typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
                         context.getString(R.string.assets_fonts_folder) + typefaceName);
@@ -172,7 +169,7 @@ public class Util {
 
             typefaceCache.put(typefaceName, typeface);
             textView.setTypeface(typeface);
-        }
+//        }
 
         values.recycle();
     }

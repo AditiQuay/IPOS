@@ -70,7 +70,7 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
         if(billingSyncs.size()>0)
             for (int i = 0 ; i < billingSyncs.size() ; i++){
                 BillingSync billingSync = billingSyncs.get(i);
-                PaymentRequest paymentRequest = Util.getCustomGson().fromJson(billingSync.getBilling(),PaymentRequest.class);
+                paymentRequest = Util.getCustomGson().fromJson(billingSync.getBilling(),PaymentRequest.class);
                 paymentRequest.setOrderDateTime(billingSync.getOrderDateTime());
                 paymentRequest.setOrderTimestamp(billingSync.getOrderTimestamp());
                 callServicePayment();
@@ -107,14 +107,19 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
                     }
                 }
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
+            editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
             Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+            editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
             Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+            editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
             Toast.makeText(context, context.getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+            editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
             Toast.makeText(context, context.getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+            editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
             Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
     }

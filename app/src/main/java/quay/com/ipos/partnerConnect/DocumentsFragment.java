@@ -3,7 +3,9 @@ package quay.com.ipos.partnerConnect;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -51,6 +53,21 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
     DocumentVoults docAnnexure;
     DocumentVoults docCompliance;
 
+
+    private int mApprovedResId = R.drawable.green_signal;
+    private int mUnApprovedResId = R.drawable.red_signal;
+
+    private Drawable mDrawableApproved;
+    private Drawable mDrawableUnApproved;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Resources resources = getResources();
+        mDrawableApproved = resources.getDrawable(mApprovedResId);
+        mDrawableUnApproved = resources.getDrawable(mUnApprovedResId);
+    }
 
     @Nullable
     @Override
@@ -363,25 +380,56 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
                 docAnnexure = documentVoult;
 
             }
-            if (documentVoult.Doctype.contains("compliance cert")) {
+            if (documentVoult.Doctype.contains("compliance")) {
                 docCompliance = documentVoult;
             }
         }
 
-        if (docPhoto != null && docPhoto.DocFileBase64 != null) {
-            new ConvertToBitmap(docPhoto.DocFileBase64, imageViewphoto).execute();
+        if (docPhoto != null) {
+
+            if (docPhoto.isApproved) {
+                imageViewPhotoStatus.setImageDrawable(mDrawableApproved);
+            } else {
+                imageViewPhotoStatus.setImageDrawable(mDrawableUnApproved);
+            }
+            if (docPhoto.DocFileBase64 != null)
+                new ConvertToBitmap(docPhoto.DocFileBase64, imageViewphoto).execute();
         }
-        if (docCompliance != null && docCompliance.DocFileBase64 != null) {
-            new ConvertToBitmap(docCompliance.DocFileBase64, imageViewCompilance).execute();
+        if (docCompliance != null) {
+            if (docCompliance.isApproved) {
+                imageViewCompilanceStatus.setImageResource(mApprovedResId);
+            } else {
+                imageViewCompilanceStatus.setImageResource(mUnApprovedResId);
+            }
+            if (docCompliance.DocFileBase64 != null)
+                new ConvertToBitmap(docCompliance.DocFileBase64, imageViewCompilance).execute();
         }
-        if (docPan != null && docPan.DocFileBase64 != null) {
-            new ConvertToBitmap(docPan.DocFileBase64, imageViewPan).execute();
+        if (docPan != null) {
+            if (docPan.isApproved) {
+                imageViewPanStatus.setImageResource(mApprovedResId);
+            } else {
+                imageViewPanStatus.setImageResource(mUnApprovedResId);
+            }
+            if (docPan.DocFileBase64 != null)
+                new ConvertToBitmap(docPan.DocFileBase64, imageViewPan).execute();
         }
-        if (docAnnexure != null && docAnnexure.DocFileBase64 != null) {
-            new ConvertToBitmap(docAnnexure.DocFileBase64, imageViewAnnexure).execute();
+        if (docAnnexure != null) {
+            if (docAnnexure.isApproved) {
+                imageViewAnnexureStatus.setImageResource(mApprovedResId);
+            } else {
+                imageViewAnnexureStatus.setImageResource(mUnApprovedResId);
+            }
+            if (docAnnexure.DocFileBase64 != null)
+                new ConvertToBitmap(docAnnexure.DocFileBase64, imageViewAnnexure).execute();
         }
-        if (docAppointment != null && docAppointment.DocFileBase64 != null) {
-            new ConvertToBitmap(docAppointment.DocFileBase64, imageViewAppointment).execute();
+        if (docAppointment != null) {
+            if (docAppointment.isApproved) {
+                imageViewAppointmentStatus.setImageResource(mApprovedResId);
+            } else {
+                imageViewAppointmentStatus.setImageResource(mUnApprovedResId);
+            }
+            if (docAppointment.DocFileBase64 != null)
+                new ConvertToBitmap(docAppointment.DocFileBase64, imageViewAppointment).execute();
         }
 
         //  recyclerViewAccountInfo.setAdapter(new AccountAdapter(getActivity(), pcModel.Account.cheques, AccountFragment.this));

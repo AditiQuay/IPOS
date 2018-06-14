@@ -14,11 +14,17 @@ import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 public class RealmController {
 
 
-    public void clearRealm(Context context) {
+    public void clearRealm() {
 
         Realm realm = Realm.getDefaultInstance();
         try {
             realm.beginTransaction();
+            realm.delete(RealmBusinessPlaces.class);
+            realm.delete(RealmNewOrderCart.class);
+            realm.delete(RealmOrderCentreSummary.class);
+            realm.delete(RealmCustomerInfoModal.class);
+            realm.delete(RealmOrderList.class);
+            realm.delete(RealmUserDetail.class);
 
            /* Prefs.clearValue(AppConstants.UserId);
             Prefs.clearValue(AppConstants.Login_Status);

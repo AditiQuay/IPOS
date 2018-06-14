@@ -25,10 +25,7 @@
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 0e93ad3c4211451d75394f818d60da1883fd91ae
+
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
@@ -48,6 +45,5 @@
       </state>
     </states>
   </component>
-=======
->>>>>>> 20dadb84bd324f8271b5a9e12522cbc99e2a853e
+
 </project>
