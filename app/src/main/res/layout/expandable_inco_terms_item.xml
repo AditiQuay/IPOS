@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+       >
 
 
 
@@ -28,21 +28,21 @@
                 android:text="QTY"
                 />
 
-
-
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/ipos_line_black"/>
+
+
 
             <TextView
                 android:id="@+id/price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="UNIT PRICE"
-                android:padding="8dp"
+                android:text="SUPPLIER"
                 android:gravity="center"
+                android:padding="@dimen/dim_8"
                 />
             <View
                 android:layout_width="1dp"
@@ -53,7 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="AMOUNT"
+                android:text="ME"
                 android:padding="8dp"
                 android:gravity="center"
                 />
@@ -68,7 +68,7 @@
                 android:layout_weight="1"
                 android:padding="8dp"
                 android:gravity="center"
-                android:text="GST"
+                android:text="AMOUNT"
                 />
 
 
@@ -84,7 +84,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dim_8">
 
     </android.support.v7.widget.RecyclerView>
 

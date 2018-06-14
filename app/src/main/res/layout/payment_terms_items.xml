@@ -4,10 +4,47 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Type"
+            android:padding="8dp"
+            android:gravity="center"
+            />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/ipos_line_black"/>
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Milestone"
+            android:padding="8dp"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/ipos_line_black"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:layout_marginTop="8dp">
 
 
 
@@ -18,29 +55,16 @@
             android:layout_centerInParent="true">
 
 
-            <TextView
-                android:id="@+id/tvQty"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="QTY"
-                />
 
 
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/ipos_line_black"/>
 
             <TextView
                 android:id="@+id/price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="UNIT PRICE"
+                android:text="Details"
                 android:padding="8dp"
                 android:gravity="center"
                 />
@@ -53,9 +77,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="AMOUNT"
-                android:padding="8dp"
+                android:text="%"
                 android:gravity="center"
+                android:padding="8dp"
                 />
             <View
                 android:layout_width="1dp"
@@ -66,9 +90,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="8dp"
                 android:gravity="center"
-                android:text="GST"
+                android:padding="8dp"
+                android:text="Invoice Due"
                 />
 
 
@@ -81,10 +105,12 @@
         android:layout_height="1dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/ipos_line_black"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp">
 
     </android.support.v7.widget.RecyclerView>
 

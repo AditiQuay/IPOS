@@ -7,4 +7,5 @@
     android:singleLine="true"
     android:gravity="center_vertical"
     android:padding="@dimen/dim_10"
+    android:background="@color/white"
     android:textColor="@color/accent_color" />

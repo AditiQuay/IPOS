@@ -72,6 +72,8 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         setHeader();
 
         expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
+        expandableListView.setChildDivider(getResources().getDrawable(R.color.white));
+
         LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<String, List<String>>();
 
         List<String> cricket = new ArrayList<String>();
