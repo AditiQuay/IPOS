@@ -17,7 +17,6 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import quay.com.ipos.R;
-import quay.com.ipos.ddr.adapter.*;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {

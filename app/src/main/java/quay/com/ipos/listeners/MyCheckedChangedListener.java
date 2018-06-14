@@ -1,6 +1,6 @@
 package quay.com.ipos.listeners;
 
-import quay.com.ipos.ddr.modal.DiscountModal;
+import quay.com.ipos.pss_order.modal.DiscountModal;
 
 /**
  * Created by ankush.bansal on 07-06-2018.

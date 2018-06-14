@@ -132,7 +132,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="quay.com.ipos.ddr.activity.PinnedOrderActivity"
+            android:name="quay.com.ipos.pss_order.activity.PinnedOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -158,15 +158,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ddr.activity.NewOrderDetailsActivity"
+            android:name=".pss_order.activity.NewOrderDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ddr.activity.OrderCentreDetailsActivity"
+            android:name=".pss_order.activity.OrderCentreDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="quay.com.ipos.ddr.activity.AddNewOrderActivity"
+            android:name="quay.com.ipos.pss_order.activity.AddNewOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 

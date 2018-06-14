@@ -733,9 +733,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //	}
 //
 //	// Deleting single question
-    public void deleteRetailTable(ProductSearchResult.Datum datum) {
+    public void deleteRetailBillingTable(ProductSearchResult.Datum datum) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_RETAIL, KEY_iProductModalId + " = ?", new String[]{String.valueOf(datum.getIProductModalId())});
+        db.delete(TABLE_RETAIL, KEY_timestamp + " = ?", new String[]{String.valueOf(datum.getIProductModalId())});
         db.close();
     }
 
