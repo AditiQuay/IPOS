@@ -40,7 +40,10 @@
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".retailsales.activity.OutboxActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".partnerConnect.PartnerConnectMain"
             android:label="@string/title_partner_connect"

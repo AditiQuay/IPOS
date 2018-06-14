@@ -24,15 +24,24 @@ import quay.com.ipos.utility.Util;
 
 public class NetworkStateChecker extends BroadcastReceiver implements ServiceTask.ServiceResultListener{
 
+    public interface NetworkStateCheckerListener{
+        void updateList();
+    }
     //context and database helper object
     private Context context;
     private DatabaseHandler db;
     ArrayList<BillingSync> billingSyncs = new ArrayList<>();
+    ArrayList<BillingSync> billingSyncs1 = new ArrayList<>();
     PaymentRequest paymentRequest;
+    NetworkStateCheckerListener networkStateCheckerListener;
 
     //1 means data is synced and 0 means data is not synced
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
+
+    public void setListener(NetworkStateCheckerListener listener) {
+        networkStateCheckerListener = listener;
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -102,32 +111,43 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
                         } else {
 
                             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-                            Util.showToast(mOrderSubmitResult.getErrorDescription(), IPOSApplication.getContext());
+//                            Util.showToast(mOrderSubmitResult.getErrorDescription(), IPOSApplication.getContext());
                         }
                     }
                 }
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-            Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-            Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-            Toast.makeText(context, context.getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, context.getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-            Toast.makeText(context, context.getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, context.getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.CONNECTION_OUT) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-            Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void editBillToLocalStorage(PaymentRequest paymentRequest, int status) {
 
         if(!db.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL_BILLING)) {
-            db.updateSync(status, paymentRequest.getCustomerID());
+            billingSyncs1 = db.getAllRetailBillingOrders();
+            for (int i = 0 ; i < billingSyncs1.size() ; i++) {
+                if (paymentRequest.getOrderTimestamp().equalsIgnoreCase(billingSyncs1.get(i).getOrderTimestamp())){
+                    db.updateSync(status, paymentRequest.getCustomerID());
+                }else {
+
+                }
+            }
+
+            if(status==NAME_SYNCED_WITH_SERVER){
+                db.deleteRetailBillingTable(paymentRequest.getOrderTimestamp());
+            }
             AppLog.e("tag","RetailMaster Not Empty");
         }else {
             AppLog.e("tag","RetailMasterEmpty");

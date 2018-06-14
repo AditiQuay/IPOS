@@ -416,6 +416,32 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return billingSyncs;
     }
 
+    public ArrayList<BillingSync> getAllRetailBillingOrders() {
+        ArrayList<BillingSync> billingSyncs = new ArrayList<BillingSync>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_RETAIL_BILLING ;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                BillingSync datum = billingSync;
+                datum.setCustomerID(cursor.getString(1));
+                datum.setBilling(cursor.getString(2));
+                datum.setOrderDateTime(cursor.getString(3));
+                datum.setOrderTimestamp(cursor.getString(4));
+                datum.setSync(cursor.getInt(5));
+                billingSyncs.add(datum);
+            } while (cursor.moveToNext());
+        }
+
+        // return question List
+        return billingSyncs;
+    }
+
+
     public  ArrayList<BillingSync> getBillingProduct(){
         ArrayList<BillingSync> billingSyncs = new ArrayList<BillingSync>();
         // Select All Query
@@ -733,9 +759,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //	}
 //
 //	// Deleting single question
-    public void deleteRetailBillingTable(ProductSearchResult.Datum datum) {
+    public void deleteRetailBillingTable(String timestamp) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_RETAIL, KEY_timestamp + " = ?", new String[]{String.valueOf(datum.getIProductModalId())});
+        db.delete(TABLE_RETAIL, KEY_timestamp + " = ?", new String[]{timestamp});
         db.close();
     }
 

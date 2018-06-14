@@ -307,7 +307,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
 
     }
-
+ArrayList<BillingSync> billingSyncs = new ArrayList<>();
     //saving the name to local storage
     private void saveBillToLocalStorage(PaymentRequest paymentRequest, int status) {
         BillingSync billingSync = new BillingSync();
@@ -316,7 +316,18 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         billingSync.setOrderDateTime(Util.getCurrentDate() + Util.getCurrentTime());
         billingSync.setOrderTimestamp(Util.getCurrentTimeStamp());
         billingSync.setSync(status);
-        db.addRetailBilling(billingSync);
+        billingSyncs = db.getAllRetailBillingOrders();
+        for (int i = 0 ; i < billingSyncs.size() ; i++) {
+            if (!billingSync.getOrderTimestamp().equalsIgnoreCase(billingSyncs.get(i).getOrderTimestamp())){
+                db.addRetailBilling(billingSync);
+            }else {
+
+            }
+        }
+
+        if(status==NAME_SYNCED_WITH_SERVER){
+            db.deleteRetailBillingTable(billingSync.getOrderTimestamp());
+        }
     }
 
     @Override
@@ -396,6 +407,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         if (Util.isConnected())
                             callServicePayment();
                         else {
+//                            db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
                             saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                             IPOSApplication.mProductListResult.clear();
                             IPOSApplication.totalAmount = 0.0;
@@ -809,6 +821,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                             setResult(200);
                             Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
                             saveBillToLocalStorage(paymentRequest, NAME_SYNCED_WITH_SERVER);
+
                             finish();
 
                         } else {
