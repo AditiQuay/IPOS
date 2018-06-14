@@ -2,19 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-<<<<<<< HEAD
     android:background="@color/white"
     android:orientation="vertical">
 
-=======
-    android:orientation="vertical"
-    android:background="@color/white">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/ipos_line_black"/>
->>>>>>> 27b9cbc77b1de27323162a5985575cd1681040e9
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

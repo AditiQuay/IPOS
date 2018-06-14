@@ -322,6 +322,7 @@
     <string name="grn">GRN</string>
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
+    <string name="save_close"><![CDATA[Save & Close]]></string>
 
 
 </resources>

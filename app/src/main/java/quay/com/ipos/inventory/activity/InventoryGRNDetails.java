@@ -1,12 +1,14 @@
 package quay.com.ipos.inventory.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +16,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.ddr.activity.WorkFlowActivity;
 import quay.com.ipos.inventory.adapter.CustomGrnTermsExpandableListAdapter;
 import quay.com.ipos.listeners.InitInterface;
 
@@ -21,17 +24,20 @@ import quay.com.ipos.listeners.InitInterface;
  * Created by niraj.kumar on 6/14/2018.
  */
 
-public class InventoryGRNDetails extends AppCompatActivity implements InitInterface {
+public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener {
     private ExpandableListView expandableListView;
     private CustomGrnTermsExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
     HashMap<String, List<String>> expandableListDetail;
     private Toolbar toolbar;
+    private Button btnAction, btnSave;
+    private Context mContext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grn_expandable);
+        mContext = InventoryGRNDetails.this;
         findViewById();
         applyInitValues();
         applyLocalValidation();
@@ -41,8 +47,13 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     public void findViewById() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        expandableListView = (ExpandableListView) findViewById(R.id.grnTermsView);
+        btnAction = findViewById(R.id.btnAction);
+        btnSave = findViewById(R.id.btnAction);
+        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
         expandableListView.setChildDivider(getResources().getDrawable(R.color.white));
+
+        btnSave.setOnClickListener(this);
+        btnAction.setOnClickListener(this);
     }
 
     @Override
@@ -63,7 +74,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
 
         LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<String, List<String>>();
-        List<String> ItemDetails = new ArrayList<String>();
+        List<String> ItemDetails = new ArrayList<>();
         ItemDetails.add("United States");
 
 
@@ -73,16 +84,16 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         expandableListDetail.put("INCO Terms", ItemDetails);
         expandableListDetail.put("Attachments", ItemDetails);
 
-        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
         expandableListAdapter = new CustomGrnTermsExpandableListAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Expanded.",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),
+//                        expandableListTitle.get(groupPosition) + " List Expanded.",
+//                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -90,9 +101,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(getApplicationContext(),
-                        expandableListTitle.get(groupPosition) + " List Collapsed.",
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(),
+//                        expandableListTitle.get(groupPosition) + " List Collapsed.",
+//                        Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -122,5 +133,19 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     public boolean applyLocalValidation() {
         return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnAction:
+                Intent i = new Intent(mContext, WorkFlowActivity.class);
+                startActivity(i);
+                break;
+            case R.id.btnSave:
+            default:
+                break;
+
+        }
     }
 }
