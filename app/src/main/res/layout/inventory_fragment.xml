@@ -159,6 +159,7 @@
                         />
 
                     <Switch
+                        android:id="@+id/swchInventory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12dp"
@@ -200,6 +201,7 @@
                         />
 
                     <Switch
+                        android:id="@+id/swchType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12dp"
@@ -240,6 +242,7 @@
                         />
 
                     <Switch
+                        android:id="@+id/swchPOAvailable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12dp"
@@ -274,6 +277,7 @@
                     android:layout_weight="1">
 
                     <EditText
+                        android:id="@+id/edtPoNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="PO1800001"
@@ -311,6 +315,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
                     <EditText
+                        android:id="@+id/edtDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="15 May 2018"
@@ -341,6 +346,7 @@
                     android:layout_weight="1">
 
                     <EditText
+                        android:id="@+id/edtSupplier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Agro chemicals"

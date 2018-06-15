@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/llTermsC"
     android:orientation="vertical">
     <View
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
         android:layout_marginTop="4dp"
         android:background="@drawable/ipos_line_black"/>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_viewTerms"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

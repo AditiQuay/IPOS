@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -50,6 +51,7 @@ import quay.com.ipos.realmbean.RealmBusinessPlaces;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.service.APIClient;
+import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SpacesItemDecoration;
@@ -57,7 +59,7 @@ import quay.com.ipos.utility.Util;
 
 
 
-public class NewOrderDetailsActivity extends BaseActivity implements View.OnClickListener{
+public class NewOrderDetailsActivity extends BaseActivity implements View.OnClickListener,MyDialogFragment.RedeemListener{
     String[] address = {"1/82"};
 
     TextView tvTotalQty,tvTotalPriceBeforeGst,tvCGSTPrice,tvSGSTPrice,tvRoundingOffPrice,btnAccept,btnCancel;
@@ -72,7 +74,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
     private String jsonObjectsubmit;
     private JSONObject jsonObjectSubmitJson;
     private String poNumber;
-    private LinearLayout llAccept,llCancel,llDate;
+    private LinearLayout llAccept,llCancel,llDate,llRedeem;
     private TextView deliverDate;
 
 
@@ -277,6 +279,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
 
     private void initializeComponent() {
+        llRedeem=findViewById(R.id.llRedeem);
         deliverDate=findViewById(R.id.deliverDate);
         llDate=findViewById(R.id.llDate);
         llAccept=findViewById(R.id.llAccept);
@@ -334,6 +337,13 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
                 finish();
             }
         });
+
+        llRedeem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                redeemDialog();
+            }
+        });
     }
 
 
@@ -369,7 +379,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         RealmResults<RealmBusinessPlaces> realmBusinessPlaces=realm.where(RealmBusinessPlaces.class).findAll();
         for (int i = 0; i < realmBusinessPlaces.size(); i++) {
             RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
-            realmBusinessPlaces1.setHeader("Shopping Details "+(i+1));
+            realmBusinessPlaces1.setHeader("Shipping Details "+(i+1));
             realmBusinessPlaces1.setBuisnessPlaceName(realmBusinessPlaces.get(i).getBuisnessPlaceName());
             realmBusinessPlaces1.setBuisnessPlaceId(realmBusinessPlaces.get(i).getBuisnessPlaceId());
             realmBusinessPlaces1.setBuisnessLocationStateCode(realmBusinessPlaces.get(i).getBuisnessLocationStateCode());
@@ -412,6 +422,20 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
                 realm1.close();
         }
 
+
+    }
+
+
+    private void redeemDialog(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        MyDialogFragment mMyDialogFragment = MyDialogFragment.newInstance();
+        mMyDialogFragment.setDialogInfo(this,100,1,"","",this);
+//        mMyDialogFragment.setArguments(args);
+        mMyDialogFragment.show(fragmentManager, "Redeem");
+    }
+
+    @Override
+    public void redeem(double pointsToRedeem, double pointsToRedeemValue) {
 
     }
 }

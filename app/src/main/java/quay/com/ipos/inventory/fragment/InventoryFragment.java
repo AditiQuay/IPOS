@@ -1,6 +1,7 @@
 package quay.com.ipos.inventory.fragment;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,10 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,12 +28,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseFragment;
+import quay.com.ipos.ddr.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.inventory.activity.InventoryGRNStepsActivity;
 import quay.com.ipos.inventory.activity.InventoryStepsActivity;
@@ -40,6 +52,7 @@ import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
+import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
@@ -54,6 +67,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
             tvLessDetails, tvRoundingOffPrice, tvPay, tvPinCount;
 
+    Switch swchInventory,swchType,swchPOAvailable;
     private FrameLayout flScanner;
     private Fragment scanner_fragment;
     private LinearLayout llTotalDiscountDetail, ll_item_pay, llTotalGST;
@@ -86,6 +100,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     private boolean isSync;
     private String strPlace;
     private LinearLayout btnNext;
+    private EditText edtPoNumber,edtDate,edtSupplier;
 
 
     @Override
@@ -101,6 +116,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(getActivity(), InventoryGRNStepsActivity.class);
+                i.putExtra("request",prepareJson().toString());
                 startActivity(i);
             }
         });
@@ -121,11 +137,52 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
 
     private void initializeComponent(View rootView) {
 
+        swchInventory=rootView.findViewById(R.id.swchInventory);
+        swchPOAvailable=rootView.findViewById(R.id.swchPOAvailable);
+        swchType=rootView.findViewById(R.id.swchType);
+        edtSupplier=rootView.findViewById(R.id.edtSupplier);
+        edtDate=rootView.findViewById(R.id.edtDate);
+        edtPoNumber=rootView.findViewById(R.id.edtPoNumber);
         spnAddress=rootView.findViewById(R.id.spnAddress);
 
         setSpinnerData();
 
+
+
+
     }
+
+    private JSONObject prepareJson(){
+        boolean bswitchInventory=false,bswchPOAvailable=false,bswchType=false;
+        if (swchInventory.isChecked()){
+            bswitchInventory=true;
+        }
+        if (swchType.isChecked()){
+            bswchType=true;
+        }
+        if (swchPOAvailable.isChecked()){
+            bswchPOAvailable=true;
+        }
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject.put("",bswitchInventory);
+            jsonObject.put("",bswchType);
+            jsonObject.put("",bswchPOAvailable);
+            jsonObject.put("",edtDate.getText().toString());
+            jsonObject.put("",edtPoNumber.getText().toString());
+            jsonObject.put("",edtSupplier.getText().toString());
+            jsonObject.put("",strPlace);
+            jsonObject.put("",entityStateCode);
+            jsonObject.put("",businessPlaceCode);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+     return jsonObject;
+
+    }
+
+
 
     private void setSpinnerData() {
 

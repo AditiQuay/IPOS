@@ -52,6 +52,7 @@ import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
+import quay.com.ipos.realmbean.RealmOrderCentre;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
@@ -298,7 +299,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
     private void getAddressData(String businessPlaceCode,JSONObject jsonObject1,int i) {
         RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
-        realmBusinessPlaces1.setHeader("Shopping Details "+(i+1));
+        realmBusinessPlaces1.setHeader("Shipping Details "+(i+1));
         realmBusinessPlaces1.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
         realmBusinessPlaces1.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
         realmBusinessPlaces1.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
@@ -358,6 +359,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
             orderValue.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("orderValue"));
             orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("discountValue"));
+            discount.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("discountValue"));
+            tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("orderValue"));
           //  deliverDate.setText(jsonObject.optString("deliveryBy"));
             deliverDate.setText(Util.getFormattedDates(jsonObject.optString("deliveryBy"),Constants.formatDate,Constants.format2));
 
@@ -365,8 +368,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             accumulatedPoints.setText(jsonObject.optInt("accumulatedLoyality")+"");
             totalPoints.setText(jsonObject.optInt("totalLoyality")+"");
             customerName.setText(jsonObject.optString("customerName"));
-            discount.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("discountValue"));
-            tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("orderValue"));
+
             getFlow(jsonObject.optString("listspendRequestHistoryPhaseModel")+"");
 
             businessCode=jsonObject.optString("businessPlaceCode");
@@ -398,11 +400,17 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         }
        recentOrdersListAdapter.notifyDataSetChanged();
 
-
+        getProduct();
 
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        getProduct();
+    }
 
     public void getOrderCentre() {
         final ProgressDialog progressDialog=new ProgressDialog(OrderCentreDetailsActivity.this);
@@ -416,7 +424,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             jsonObject1.put("entityCode",Prefs.getIntegerPrefs(Constants.entityCode));
             jsonObject1.put("searchParam",requestId);
             jsonObject1.put("barCodeNumber","string");
-            jsonObject1.put("entityStateCode","NA");
+            jsonObject1.put("moduleType","NO");
+            jsonObject1.put("entityStateCode","06");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -452,6 +461,19 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                         if (responseData != null) {
                             JSONObject jsonObject=new JSONObject(responseData);
                             serverResponse=responseData;
+                           JSONArray array= jsonObject.optJSONArray("cartDetail");
+                           for (int i=0;i<array.length();i++){
+                               JSONObject jsonObject2=array.optJSONObject(i);
+                               jsonObject2.put("iProductModalId",jsonObject2.optString("materialCode"));
+                               jsonObject2.put("sProductName",jsonObject2.optString("materialName"));
+                               jsonObject2.put("sProductPrice",jsonObject2.optString("materialUnitValue"));
+                               jsonObject2.put("cgst",jsonObject2.optString("materialCGSTRate"));
+                               jsonObject2.put("sgst",jsonObject2.optString("materialSGSTRate"));
+                               jsonObject2.put("gstPerc",jsonObject2.optString("materialIGSTRate"));
+                               saveResponseLocal(jsonObject2,jsonObject.optString("poNumber"));
+
+
+                           }
                            // saveResponseLocalCreateOrder(jsonObject,requestId);
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -478,6 +500,41 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 }
             }
         });
+    }
+    protected void saveResponseLocal(JSONObject jsonSubmitReq, String orderId) {
+        if (jsonSubmitReq != null) {
+            Realm realm = Realm.getDefaultInstance();
+            if (!realm.isInTransaction())
+                realm.beginTransaction();
+            try {
+               /* if (Util.validateString(orderId)) {
+                    jsonSubmitReq.put(NoGetEntityEnums.OrderId.toString(), orderId);
+                } else {
+                    if (jsonSubmitReq != null && !jsonSubmitReq.has(NoGetEntityEnums.OrderId.toString())) {
+                        UUID randomId = UUID.randomUUID();
+                        String id = String.valueOf(randomId);
+
+                    }
+                }*/
+                jsonSubmitReq.put(NoGetEntityEnums.OrderId.toString(), orderId);
+
+
+
+                realm.createOrUpdateObjectFromJson(RealmOrderCentre.class, jsonSubmitReq);
+
+
+            } catch (Exception e) {
+                if (realm.isInTransaction())
+                    realm.cancelTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            } finally {
+                if (realm.isInTransaction())
+                    realm.commitTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            }
+        }
     }
 
 
@@ -512,7 +569,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
     private void createOrder(int status){
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).findAll();
+        RealmResults<RealmOrderCentre> realmNewOrderCarts1 = realm.where(RealmOrderCentre.class).findAll();
 
         JSONArray arrayCart=new JSONArray();
         int qty = 0;
@@ -527,7 +584,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         int totalPoints = 0;
         int noOfItems = 0;
         String poNumber = null;
-        for (RealmNewOrderCart realmNewOrderCart : realmNewOrderCarts1) {
+        for (RealmOrderCentre realmNewOrderCart : realmNewOrderCarts1) {
 
             JSONObject jsonObjectCartDetail=new JSONObject();
             if (!realmNewOrderCart.isFreeItem())
@@ -614,7 +671,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 jsonObjectCartDetail.put("materialSGSTValue",sgst);
                 jsonObjectCartDetail.put("materialIGSTRate",realmNewOrderCart.getGstPerc());
                 jsonObjectCartDetail.put("materialIGSTValue",gst);
-                jsonObjectCartDetail.put("scheme",scheme);
+                jsonObjectCartDetail.put("scheme",new JSONArray());
                 jsonObjectCartDetail.put("discountValue",discountPrice);
                 jsonObjectCartDetail.put("discountPerc",0);
             } catch (JSONException e) {
@@ -658,7 +715,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             //  jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray());
             jsonObject.put("approvalStat",status);
             jsonObject.put("quantity",qty);
-            jsonObject.put("customerName","");
+            jsonObject.put("customerName",customerName.getText().toString());
             jsonObject.put("discount",new JSONArray());
             jsonObject.put("poNumber",poNumber);
         } catch (JSONException e) {
@@ -838,9 +895,10 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
     }
     public void onSearchButton() {
-        Intent mIntent = new Intent(OrderCentreDetailsActivity.this, AddNewOrderActivity.class);
+        Intent mIntent = new Intent(OrderCentreDetailsActivity.this, AddOrderCentreActivity.class);
         mIntent.putExtra(Constants.businessPlaceCode, businessCode);
         mIntent.putExtra(Constants.entityStateCode, entityStateCode);
+        mIntent.putExtra("poNumber",poNumber);
         startActivityForResult(mIntent, 3);
     }
     @Override
@@ -855,6 +913,11 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -870,5 +933,117 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void getProduct() {
+
+
+        double discountPrice=0;
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).findAll();
+
+
+        for (RealmNewOrderCart realmNewOrderCart : realmNewOrderCarts1) {
+            RealmNewOrderCart realmNewOrderCarts = realm.copyFromRealm(realmNewOrderCart);
+            RecentOrderModal recentOrderModal=new RecentOrderModal();
+            recentOrderModal.setTitle(realmNewOrderCarts.getsProductName());
+            recentOrderModal.setQty(""+realmNewOrderCarts.getQty());
+
+            recentOrderModal.setValue(""+realmNewOrderCarts.getTotalPrice());
+
+            if (!realmNewOrderCarts.isFreeItem()) {
+                try {
+                    JSONArray array = new JSONArray(realmNewOrderCarts.getDiscount());
+                    for (int k = 0; k < array.length(); k++) {
+                        JSONObject jsonObject = array.optJSONObject(k);
+                        if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
+                            discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                discountPrice = discountPrice + realmNewOrderCarts.getTotalPrice();
+            }
+            recentOrderModal.setDiscountValue(""+discountPrice);
+
+            recentOrderModalArrayList.add(recentOrderModal);
+
+
+        }
+
+        //  mList.addAll(realmNewOrderCarts1);
+        recentOrdersListAdapter.notifyDataSetChanged();
+        setCalculatedValues();
+
+
+
+    }
+
+    private void setCalculatedValues() {
+
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<RealmOrderCentre> realmNewOrderCarts1 = realm.where(RealmOrderCentre.class).findAll();
+
+        if (realmNewOrderCarts1!=null){
+        int qty = 0;
+        double payAmount = 0.0;
+        int discountItems = 0;
+        int gst = 0;
+        int totalGST = 0;
+        int cgst = 0;
+        int sgst = 0;
+        double totalItemsAmount = 0.0;
+        double discountPrice = 0.0;
+        int totalPoints = 0;
+        int noOfItems = 0;
+        for (RealmOrderCentre realmNewOrderCart : realmNewOrderCarts1) {
+            if (!realmNewOrderCart.isFreeItem())
+                noOfItems = noOfItems + 1;
+
+            qty = qty + realmNewOrderCart.getQty();
+            totalItemsAmount = totalItemsAmount + realmNewOrderCart.getTotalPrice();
+            if (realmNewOrderCart.isDiscount() && !realmNewOrderCart.isFreeItem()) {
+                discountItems = discountItems + 1;
+            }
+            if (!realmNewOrderCart.isFreeItem()) {
+                try {
+                    JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
+                    for (int k = 0; k < array.length(); k++) {
+                        JSONObject jsonObject = array.optJSONObject(k);
+                        if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
+                            discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
+            }
+            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
+            gst = gst + totalGST;
+
+
+            cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
+            sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
+
+
+            totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
+
+        }
+        payAmount = (totalItemsAmount + gst) - discountPrice;
+
+
+        orderValue.setText(getResources().getString(R.string.Rs) + " " + totalItemsAmount);
+        orderDiscount.setText(getResources().getString(R.string.Rs) + " " + discountPrice);
+        discount.setText(getResources().getString(R.string.Rs) + " " + discountPrice);
+        tvOrderValue.setText(getResources().getString(R.string.Rs) + " " + payAmount);
+
+    }
+
+
     }
 }
