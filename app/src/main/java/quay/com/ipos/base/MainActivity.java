@@ -38,12 +38,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -62,6 +64,7 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerModel;
 import quay.com.ipos.dashboard.fragment.DashboardFragment;
 import quay.com.ipos.dashboard.fragment.DashboardItemFragment;
 import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
+import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.local.dao.MostUsedFunDao;
 import quay.com.ipos.data.local.entity.MostUsed;
 import quay.com.ipos.pss_order.fragment.NewOrderFragment;
@@ -73,10 +76,12 @@ import quay.com.ipos.listeners.FilterListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
 import quay.com.ipos.listeners.SendScannerBarcodeListener;
+import quay.com.ipos.login.SplashActivity;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.productCatalogue.ProductMain;
+import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.service.ServiceTask;
@@ -90,7 +95,7 @@ import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 public class MainActivity extends BaseActivity
-        implements SendScannerBarcodeListener,NavigationView.OnNavigationItemSelectedListener, ServiceTask.ServiceResultListener, InitInterface, FilterListener, MessageDialog.MessageDialogListener, AdapterView.OnItemClickListener, ScanFilterListener {
+        implements SendScannerBarcodeListener, NavigationView.OnNavigationItemSelectedListener, ServiceTask.ServiceResultListener, InitInterface, FilterListener, MessageDialog.MessageDialogListener, AdapterView.OnItemClickListener, ScanFilterListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -108,7 +113,7 @@ public class MainActivity extends BaseActivity
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
     private Class<?> mClss;
-    private Fragment dashboardFragment = null,inventaortFragment=null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null;
+    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
     private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
@@ -202,7 +207,7 @@ public class MainActivity extends BaseActivity
         applyTypeFace();
         setDashBoard();
         dashboardItemFragment = new DashboardItemFragment();
-        newOrderScannerFragment=new NewOrderFragment();
+        newOrderScannerFragment = new NewOrderFragment();
 
         retailSalesFragment1 = new RetailSalesFragment();
         //the broadcast receiver to update sync status
@@ -212,12 +217,12 @@ public class MainActivity extends BaseActivity
 
                 //loading the names again
 //                loadNames();
-                AppLog.e("tag","onReceive");
+                AppLog.e("tag", "onReceive");
             }
         };
         try {
             LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -228,19 +233,21 @@ public class MainActivity extends BaseActivity
 
         try {
             LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
+
     @Override
     protected void onStop() {
         super.onStop();
-        try{
+        try {
             unregisterReceiver(broadcastReceiver);
-        } catch (Exception e){
+        } catch (Exception e) {
             // already unregistered
         }
     }
+
     private void getCustomerData() {
         int storeId = SharedPrefUtil.getStoreId(Constants.STORE_ID.trim(), 0, mContext);
         AppLog.e(TAG, "StoreId" + storeId);
@@ -614,7 +621,7 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case "Stock & Price":
-                              //   imageId = R.drawable.insights;
+                //   imageId = R.drawable.insights;
                 break;
             case "Loyalty Program":
 
@@ -773,6 +780,10 @@ public class MainActivity extends BaseActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == R.id.action_logout) {
+            funLogout();
             return true;
         }
 
@@ -1097,4 +1108,50 @@ public class MainActivity extends BaseActivity
             return null;
         }
     }
+
+
+    private void funLogout() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+
+                    //clear all data in database
+                    AppDatabase.getAppDatabase(mContext).clearAllTables();
+                    //clear all sharedPreferences
+                    SharedPrefUtil.clearSharedPreferences(mContext);
+
+
+                    DatabaseHandler dbHelper = new DatabaseHandler(mContext);
+                    dbHelper.removeAll();
+                    new RealmController().clearRealm();
+
+                    new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            {
+                                try {
+                                    FirebaseInstanceId.getInstance().deleteInstanceId();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            return null;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Void result) {
+                            //call your activity where you want to land after log out
+                            finishAffinity();
+                            Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
+                            startActivity(intent);
+                        }
+                    }.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
+
 }

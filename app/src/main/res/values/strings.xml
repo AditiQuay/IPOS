@@ -6,6 +6,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_outbox">Outbox</string>
+    <string name="action_logout">Logout</string>
     <string name="msg_load_default">Loading...</string>
     <string name="assets_fonts_folder">fonts</string>
     <string name="mandatory">mandatory</string>
@@ -323,6 +324,7 @@
     <string name="grn">GRN</string>
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
+    <string name="save_close"><![CDATA[Save & Close]]></string>
 
 
 </resources>

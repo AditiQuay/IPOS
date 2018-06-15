@@ -99,22 +99,22 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         if(httpStatusCode == Constants.SUCCESS){
-                if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT)) {
-                    if (resultObj != null) {
-                        OrderSubmitResult mOrderSubmitResult = (OrderSubmitResult) resultObj;
-                        if (mOrderSubmitResult.getError() == 200) {
-                            IPOSApplication.mProductListResult.clear();
-                            IPOSApplication.totalAmount = 0.0;
+            if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT)) {
+                if (resultObj != null) {
+                    OrderSubmitResult mOrderSubmitResult = (OrderSubmitResult) resultObj;
+                    if (mOrderSubmitResult.getError() == 200) {
+                        IPOSApplication.mProductListResult.clear();
+                        IPOSApplication.totalAmount = 0.0;
 //                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
-                            editBillToLocalStorage(paymentRequest, NAME_SYNCED_WITH_SERVER);
+                        editBillToLocalStorage(paymentRequest, NAME_SYNCED_WITH_SERVER);
 
-                        } else {
+                    } else {
 
-                            editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
+                        editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
 //                            Util.showToast(mOrderSubmitResult.getErrorDescription(), IPOSApplication.getContext());
-                        }
                     }
                 }
+            }
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
 //            Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
@@ -134,23 +134,27 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
     }
 
     private void editBillToLocalStorage(PaymentRequest paymentRequest, int status) {
+        try {
+            if(!db.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL_BILLING)) {
+                billingSyncs1 = db.getAllRetailBillingOrders();
+                for (int i = 0 ; i < billingSyncs1.size() ; i++) {
+                    if (paymentRequest.getOrderTimestamp().equalsIgnoreCase(billingSyncs1.get(i).getOrderTimestamp())){
+                        db.updateSync(status, paymentRequest.getCustomerID());
+                    }else {
 
-        if(!db.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL_BILLING)) {
-            billingSyncs1 = db.getAllRetailBillingOrders();
-            for (int i = 0 ; i < billingSyncs1.size() ; i++) {
-                if (paymentRequest.getOrderTimestamp().equalsIgnoreCase(billingSyncs1.get(i).getOrderTimestamp())){
-                    db.updateSync(status, paymentRequest.getCustomerID());
-                }else {
-
+                    }
                 }
-            }
 
-            if(status==NAME_SYNCED_WITH_SERVER){
-                db.deleteRetailBillingTable(paymentRequest.getOrderTimestamp());
+                if (status == NAME_SYNCED_WITH_SERVER) {
+                    db.deleteRetailBillingTable(paymentRequest.getOrderTimestamp());
+                }
+
+                AppLog.e("tag","RetailMaster Not Empty");
+            }else {
+                AppLog.e("tag","RetailMasterEmpty");
             }
-            AppLog.e("tag","RetailMaster Not Empty");
-        }else {
-            AppLog.e("tag","RetailMasterEmpty");
+        }catch (Exception e){
+
         }
     }
 }

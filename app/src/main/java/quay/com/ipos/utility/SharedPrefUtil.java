@@ -249,4 +249,12 @@ public final class SharedPrefUtil {
         SharedPreferences pref = context.getSharedPreferences(SharedPrefUtil.IPOS_PERF, Context.MODE_PRIVATE);
         return pref;
     }
+
+    public static void clearSharedPreferences(Context mContext){
+        SharedPreferences pref = mContext.getSharedPreferences(SharedPrefUtil.IPOS_PERF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.commit();
+    }
+
 }

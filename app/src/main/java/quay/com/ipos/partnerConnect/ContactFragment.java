@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.KeyBusinessContactInfo;
+import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.ContactInfoAdapter;
 import quay.com.ipos.utility.EqualSpacingItemDecoration;
@@ -50,8 +52,11 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
     private Context mContext;
     private List<String> listPosition = new ArrayList<>();
     private String[] partnerKeyPosition = {"Director", "Manager", "Executive"};
+    private Button btnAdd;
+    PCModel mpcModel;
 
     private KeyBusinessContactInfo contactInfo;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,7 +65,6 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
 
 
         listPosition = Arrays.asList(partnerKeyPosition);
-
 
 
         findViewById();
@@ -72,6 +76,7 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
 
     @Override
     public void findViewById() {
+        btnAdd = view.findViewById(R.id.btnAdd);
         textViewMadatory = view.findViewById(R.id.textViewMadatory);
         textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
         keyPositionSpinner = view.findViewById(R.id.keyPositionSpinner);
@@ -88,6 +93,14 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
         textViewContactInfoHeading = view.findViewById(R.id.textViewContactInfoHeading);
 
         recyclerViewContactInfo = view.findViewById(R.id.recyclerViewContactInfo);
+
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewField();
+            }
+        });
 
     }
 
@@ -125,29 +138,31 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
     }
 
 
-
     @Override
     public void onClick(View v) {
 
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadData();
     }
+
     private void loadData() {
         PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
         if (partnerConnectMain != null) {
             partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
                 @Override
                 public void onChanged(@Nullable PCModel pcModel) {
-                    pcModel = pcModel;
+                    mpcModel = pcModel;
                     setData(pcModel);
 
                 }
             });
         }
     }
+
     private void setData(PCModel pcModel) {
         try {
 
@@ -157,10 +172,6 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
             }
 
             contactInfo = pcModel.contactDetail.KeyBusinessContactInfo;
-
-
-
-
 
 
             ArrayAdapter partnerTypeHeading = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, partnerKeyPosition);
@@ -175,29 +186,27 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
             }
 
 
-
-
             keyPositionSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     if (i == -1) {
+                        contactInfo.keyDesignation = "";
                         return;
                     }
-                        try {
+                    try {
 
-                            String partnerType = listPosition.get(i);
-                            Log.i("mPartnerType", partnerType);
-                            contactInfo.keyDesignation = partnerType;
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        String partnerType = listPosition.get(i);
+                        Log.i("mPartnerType", partnerType);
+                        contactInfo.keyDesignation = partnerType;
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+                }
 
 
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
-               /* updatePosition(position);
-                businessModel.mPartnerType = null;*/
+
                 }
             });
 
@@ -219,8 +228,7 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
         } catch (Exception e) {
             e.printStackTrace();
         }
-         }
-
+    }
 
 
     private TextWatcher generalTextWatcher = new TextWatcher() {
@@ -229,13 +237,16 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
         public void onTextChanged(CharSequence charSequence, int start, int before,
                                   int count) {
 
-            if (editContactPerson.getText().hashCode() == charSequence.hashCode())
-            {
+            if (editContactPerson.getText().hashCode() == charSequence.hashCode()) {
                 contactInfo.keyEmpName = charSequence.toString();
-            }
-            else if (editMoible.getText().hashCode() == charSequence.hashCode())
-            {
+            } else if (editMoible.getText().hashCode() == charSequence.hashCode()) {
                 contactInfo.keyMobile = charSequence.toString();
+
+            } else if (editMobile2.getText().hashCode() == charSequence.hashCode()) {
+                contactInfo.keyMobile2 = charSequence.toString();
+
+            } else if (editEmail.getText().hashCode() == charSequence.hashCode()) {
+                contactInfo.keyEmail = charSequence.toString();
 
             }
         }
@@ -253,4 +264,29 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
         }
 
     };
+
+    private void addNewField() {
+        if (mpcModel != null && mpcModel.contactDetail != null) {
+            if (mpcModel.contactDetail.KeyBusinessContactInfo != null) {
+                if (mpcModel.contactDetail.KeyBusinessContactInfo.NewContact != null) {
+                    NewContact newContact = new NewContact();
+                    newContact.ID = 0;
+                    newContact.RoleID = "";
+                    newContact.Name = "";
+                    newContact.Role = "";
+                    newContact.PrimaryMobile = "";
+                    newContact.SecondaryMobile = "";
+                    newContact.Email = "";
+                    mpcModel.contactDetail.KeyBusinessContactInfo.NewContact.add(newContact);
+
+                    PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
+                    if (connectMain != null) {
+                        connectMain.getPcModelData().setValue(mpcModel);
+                    }
+                }
+            }
+        }
+
+
+    }
 }

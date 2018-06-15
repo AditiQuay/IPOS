@@ -76,6 +76,10 @@
             android:name=".login.McCoyLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ddr.activity.WorkFlowActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".inventory.InventoryProduct"
