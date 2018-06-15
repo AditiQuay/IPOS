@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    tools:background="@color/app_background_color"
+    tools:context=".ddrsales.DDROrderCenterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+
+            android:layout_marginTop="16dp"
+            android:background="@drawable/customer_half_rect">
+
+            <RelativeLayout
+                android:id="@+id/boxContainerTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/ipos_block_txt1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/btnViewAll"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/order_center"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="25dp"
+                    android:text="Order Summary"
+                    android:textColor="@color/app_blue"
+                    android:textSize="15sp" />
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/btnViewAll"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="5dp">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="5dp"
+                        android:text="View All"
+                        android:textColor="#ffff"
+                        android:textSize="14sp" />
+                </android.support.v7.widget.CardView>
+            </RelativeLayout>
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                style="@style/TabStyle"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_below="@+id/boxContainerTitle"
+                android:minHeight="60dp"
+
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@color/app_blue"
+                app:tabIndicatorHeight="4dp"
+                app:tabMode="fixed" />
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/blockImmediate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ipos_block_txt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/ddr_rect_white"
+                android:drawableLeft="@drawable/cart"
+                android:gravity="center_vertical"
+                android:paddingBottom="2dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:text="New Order"
+                android:textColor="@color/ipos_block_title_color"
+
+
+                android:textSize="@dimen/b2b_text_body" />
+
+
+            <quay.com.ipos.utility.RecyclerViewEmptySupport
+                android:id="@+id/mRecyclerViewImmediate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="10dp"
+                tools:itemCount="3" />
+
+            <TextView
+                android:id="@+id/listEmptyImmediate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:text="@string/listEmptyNewOrder"
+                android:visibility="gone"
+                tools:visibility="visible"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blockUpcoming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/ddr_rect_white"
+                    android:drawableLeft="@drawable/cart"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/stringAccepted"
+                    android:textColor="@color/ipos_block_title_color"
+
+                    android:textSize="@dimen/b2b_text_body" />
+
+
+            </RelativeLayout>
+
+
+            <quay.com.ipos.utility.RecyclerViewEmptySupport
+                android:id="@+id/mRecyclerViewUpcoming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="10dp" />
+
+            <TextView
+                android:id="@+id/listEmptyUpcomingEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:text="@string/listEmptyAccepted"
+                android:visibility="gone"
+                tools:visibility="visible"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blockPending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/ddr_rect_white"
+                android:drawableLeft="@drawable/cart"
+                android:gravity="center_vertical"
+                android:paddingBottom="2dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:text="@string/Dispatched"
+                android:textColor="@color/ipos_block_title_color"
+
+                android:textSize="@dimen/b2b_text_body" />
+
+
+            <quay.com.ipos.utility.RecyclerViewEmptySupport
+                android:id="@+id/mRecyclerViewPending"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="10dp" />
+
+            <TextView
+                android:id="@+id/listEmptyPending"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:text="@string/listEmptyDispatched"
+                android:visibility="gone"
+                tools:visibility="visible"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blockDone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:background="@drawable/ddr_rect_white"
+                android:drawableLeft="@drawable/cart"
+                android:gravity="center_vertical"
+                android:paddingBottom="2dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:text="@string/string_delivered"
+                android:textColor="@color/ipos_block_title_color"
+
+                android:textSize="@dimen/b2b_text_body" />
+
+
+            <quay.com.ipos.utility.RecyclerViewEmptySupport
+                android:id="@+id/mRecyclerViewDone"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:clipToPadding="true"
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="200dp" />
+
+            <TextView
+                android:id="@+id/listEmptyDone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:text="@string/listEmptyDeliverd"
+                android:visibility="gone"
+                tools:visibility="visible"
+
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

@@ -10,10 +10,13 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <permission android:name="android.permission.CALL_PRIVILEGED"
+
+    <permission
+        android:name="android.permission.CALL_PRIVILEGED"
         android:protectionLevel="signature|privileged" />
 
-    <uses-feature android:name="android.hardware.camera"
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <application
@@ -43,16 +46,53 @@
 
         <activity
             android:name=".partnerConnect.PartnerConnectMain"
-            android:label="@string/title_partner_connect"
             android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_partner_connect"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden"
-            >
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <!-- ***** DDR Sales ****** -->
+        <activity
+            android:name=".ddrsales.DDROrderCenterActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_b2b_order_center"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ddrsales.DDRListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_b2b_ddr_select"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>  <activity
+            android:name=".ddrsales.DDRAddProductActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_b2bsales"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+
+        <!-- &&&&& DDR Sales &&&&&& -->
+
 
         <activity
             android:name=".customerInfo.customerAdd.CustomerAddMain"
@@ -100,11 +140,11 @@
         <activity
             android:name=".customerInfo.CustomerInfoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <activity

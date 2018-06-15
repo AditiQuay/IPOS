@@ -640,4 +640,9 @@
         <item name="android:fontFamily" tools:ignore="NewApi">@font/titilliumwebsemibold</item>
         <item name="android:textColor">@color/dark_grey_color</item>
     </style>
+
+    <style name="TabStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:paddingStart">0dip</item>
+        <item name="android:paddingEnd">0dip</item>
+    </style>
 </resources>

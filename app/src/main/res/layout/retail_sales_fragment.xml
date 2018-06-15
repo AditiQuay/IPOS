@@ -24,7 +24,7 @@
         android:scrollbars="none"
         android:layout_margin="@dimen/dim_12"
         android:layout_above="@id/llBelowPaymentDetail"
-        android:layout_below="@+id/flScanner"
+        android:layout_below="@id/flScanner"
         android:layout_marginTop="@dimen/dim_1" />
 
     <LinearLayout
