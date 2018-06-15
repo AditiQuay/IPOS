@@ -5,6 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_outbox">Outbox</string>
     <string name="action_logout">Logout</string>
     <string name="msg_load_default">Loading...</string>
     <string name="assets_fonts_folder">fonts</string>
@@ -325,6 +326,7 @@
     <string name="grn">GRN</string>
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
+<<<<<<< HEAD
     <string name="listEmptyNewOrder">No New Order</string>
     <string name="listEmptyDeliverd">No Deliver Item</string>
     <string name="string_delivered">Delivered Items</string>
@@ -338,6 +340,9 @@
     <string name="ddrb2bDelivered">Delivered</string>
     <string name="ddrb2bCancelled">Cancelled</string>
     <string name="title_b2bsales">B2B Sales</string>
+=======
+    <string name="save_close"><![CDATA[Save & Close]]></string>
+>>>>>>> 4d30a98117f2e3b150d94280da0e24c463178681
 
 
 </resources>

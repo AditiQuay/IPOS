@@ -307,16 +307,32 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
 
     }
-
+    ArrayList<BillingSync> billingSyncs = new ArrayList<>();
     //saving the name to local storage
     private void saveBillToLocalStorage(PaymentRequest paymentRequest, int status) {
         BillingSync billingSync = new BillingSync();
         billingSync.setBilling(Util.getCustomGson().toJson(paymentRequest));
         billingSync.setCustomerID(mCustomerID);
-        billingSync.setOrderDateTime(Util.getCurrentDate() + Util.getCurrentTime());
+        billingSync.setOrderDateTime(Util.getCurrentDate() +" "+ Util.getCurrentTime());
         billingSync.setOrderTimestamp(Util.getCurrentTimeStamp());
         billingSync.setSync(status);
-        db.addRetailBilling(billingSync);
+        try {
+//        db.addRetailBilling(billingSync);
+        billingSyncs = db.getAllRetailBillingOrders();
+        for (int i = 0 ; i < billingSyncs.size() ; i++) {
+            if (!billingSync.getOrderTimestamp().equalsIgnoreCase(billingSyncs.get(i).getOrderTimestamp())){
+                db.addRetailBilling(billingSync);
+            }else {
+
+            }
+        }
+
+            if (status == NAME_SYNCED_WITH_SERVER) {
+                db.deleteRetailBillingTable(billingSync.getOrderTimestamp());
+            }
+        }catch (Exception e){
+
+        }
     }
 
     @Override
@@ -396,6 +412,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         if (Util.isConnected())
                             callServicePayment();
                         else {
+//                            db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
                             saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                             IPOSApplication.mProductListResult.clear();
                             IPOSApplication.totalAmount = 0.0;
@@ -804,6 +821,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     if (resultObj != null) {
                         OrderSubmitResult mOrderSubmitResult = (OrderSubmitResult) resultObj;
                         if (mOrderSubmitResult.getError() == 200) {
+
                             IPOSApplication.mProductListResult.clear();
                             IPOSApplication.totalAmount = 0.0;
                             setResult(200);
@@ -814,11 +832,17 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         } else {
                             saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                             Util.showToast(mOrderSubmitResult.getErrorDescription(), IPOSApplication.getContext());
+                            IPOSApplication.mProductListResult.clear();
+                            IPOSApplication.totalAmount = 0.0;
+                            setResult(200);
+                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                            finish();
                         }
                     }
                 }else if (httpStatusCode == Constants.BAD_REQUEST) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+
                 } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
@@ -833,7 +857,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
                 }
             }catch (Exception e){
-
+                System.out.println(e);
             }
         }
     }

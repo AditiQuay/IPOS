@@ -43,7 +43,10 @@
             android:name=".login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".retailsales.activity.OutboxActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".partnerConnect.PartnerConnectMain"
             android:configChanges="orientation|keyboardHidden"
@@ -111,6 +114,10 @@
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".login.McCoyLoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ddr.activity.WorkFlowActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
