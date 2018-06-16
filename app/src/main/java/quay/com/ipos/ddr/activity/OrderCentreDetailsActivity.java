@@ -84,7 +84,6 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     private ArrayList<RecentOrderModal> arrSearchList = new ArrayList<>();
     private ArrayList<RecentOrderModal> recentOrderModalArrayList = new ArrayList<>();
     private ArrayList<RealmBusinessPlaces> addressList = new ArrayList<>();
-
     private ArrayList<UserModal> stringArrayListRoles = new ArrayList<>();
     private ArrayList<UserModal> stringArrayListFlow = new ArrayList<>();
     private WorkFLowUserAdapter workFLowUserAdapter;

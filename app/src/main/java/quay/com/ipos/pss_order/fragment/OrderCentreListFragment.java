@@ -111,8 +111,6 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     private void setAdapter() {
         mOrderCentreListAdapter = new OrderCentreListAdapter(getActivity(),this,recyclerView, orderList);
         recyclerView.setAdapter(mOrderCentreListAdapter);
-
-
     }
 
     private void setRealmData(int key){

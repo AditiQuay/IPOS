@@ -62,6 +62,7 @@ import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.FontManager;
+import quay.com.ipos.ui.InformationDialog;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.ui.MyDialogFragment;
@@ -295,6 +296,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         IPOSApplication.totalpointsToRedeemValue = 0.0;
         IPOSApplication.isClicked=false;
         IPOSApplication.isRefreshed = false;
+        mCustomerID="";
+        mCustomerPointsPer=0.0;
+        mCustomerPoints=0.0;
+        mCustomerEmail="";
+        tvRedeemPoints.setText(mCustomerPoints+"");
         flScanner.setVisibility(View.GONE);
 //        chkBarCode.setChecked(false);
 //        closeFragment();
@@ -924,6 +930,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //            case R.id.imvQRCode:
 //                ((MainActivity) mContext).launchActivity(FullScannerActivity.class);
 //                break;
+            case R.id.imvInfo:
+                int infoPos = (int) view.getTag();
+               new  InformationDialog(mContext,IPOSApplication.mProductListResult.get(infoPos));
+                break;
             case R.id.tvMoreDetails:
                 llTotalDiscountDetail.setVisibility(View.VISIBLE);
                 llTotalGST.setVisibility(View.GONE);
@@ -1125,6 +1135,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                         SharedPrefUtil.putString(Constants.PAYMENT_REQUEST,Util.getCustomGson().toJson(paymentRequest),getActivity());
                     Intent i = new Intent(mContext, PaymentModeActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
+                    i.putExtra(Constants.KEY_CUSTOMER,mCustomerID);
+                    i.putExtra(Constants.KEY_CUSTOMER_POINTS_PER,mCustomerPointsPer);
+                    i.putExtra(Constants.KEY_CUSTOMER_POINTS,mCustomerPoints);
+                    i.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL,mCustomerEmail);
                     startActivityForResult(i,Constants.ACT_PAYMENT);
                 } else {
                     Util.showToast("Please add atleast one item to proceed.", mContext);

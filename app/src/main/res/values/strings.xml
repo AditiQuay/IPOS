@@ -325,6 +325,21 @@
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
     <string name="save_close"><![CDATA[Save & Close]]></string>
-
+    <string name="hsn">HSN</string>
+    <string name="gst_perc">GST%</string>
+    <string name="mrp">MRP</string>
+    <string name="nrv">NRV</string>
+    <string name="gpl">GPL</string>
+    <string name="sales_price">Sales Price</string>
+    <string name="sub_category">Sub Category</string>
+    <string name="brand">Brand</string>
+    <string name="sgst_perc">SGST %</string>
+    <string name="cgst_perc">CGST %</string>
+    <string name="redeem_voucher_details">Redeem Voucher Details</string>
+    <string name="category">Category</string>
+    <string name="tnc"><![CDATA[hereby acknowledge that I have read and understood the T&C as provided in the app.]]></string>
+    <string name="redemption_request_summary">Redemption Request Summary</string>
+    <string name="issued">Issued</string>
+    <string name="new_redemption_request">New Redemption Request</string>
 
 </resources>

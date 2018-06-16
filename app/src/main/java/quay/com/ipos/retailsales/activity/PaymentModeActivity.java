@@ -35,6 +35,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
+import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.modal.BillingSync;
 import quay.com.ipos.modal.CustomerPointsRedeemRequest;
@@ -71,7 +72,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     private Menu menu1;
     Toolbar toolbar_default;
     private String mCustomerID="";
-    private double mCustomerPoints;
+    private double mCustomerPoints=0;
     double redeemValue=0;
     Context context;
     private double mCustomerPointsPer=0;
@@ -128,7 +129,17 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         Intent intent=getIntent();
         if (intent!=null){
             mTotalAmount=intent.getStringExtra(Constants.TOTAL_AMOUNT);
-
+            mCustomerID = intent.getStringExtra(Constants.KEY_CUSTOMER);
+            if(!mCustomerEmail.equalsIgnoreCase("")) {
+                mCustomerPoints = intent.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS, 0);
+                mCustomerPointsPer = intent.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER, 0);
+                mCustomerEmail = intent.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
+                tvRedeemPoints.setVisibility(View.VISIBLE);
+                tvRedeemPoints.setText(mCustomerPoints + "");
+            }else {
+                mCustomerID = "";
+                tvRedeemPoints.setVisibility(View.GONE);
+            }
         }
         totalAmount= IPOSApplication.totalAmount;
         tvPay.setText(getResources().getString(R.string.Rs)+" "+mTotalAmount);
@@ -308,6 +319,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
     }
     ArrayList<BillingSync> billingSyncs = new ArrayList<>();
+
     //saving the name to local storage
     private void saveBillToLocalStorage(PaymentRequest paymentRequest, int status) {
         BillingSync billingSync = new BillingSync();
@@ -317,19 +329,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         billingSync.setOrderTimestamp(Util.getCurrentTimeStamp());
         billingSync.setSync(status);
         try {
-//        db.addRetailBilling(billingSync);
-        billingSyncs = db.getAllRetailBillingOrders();
-        for (int i = 0 ; i < billingSyncs.size() ; i++) {
-            if (!billingSync.getOrderTimestamp().equalsIgnoreCase(billingSyncs.get(i).getOrderTimestamp())){
+//            billingSyncs = db.getAllRetailBillingOrders();
+            if(!db.checkIfBillingRecordExist(billingSync.getOrderTimestamp())) {
                 db.addRetailBilling(billingSync);
-            }else {
-
             }
-        }
-
-            if (status == NAME_SYNCED_WITH_SERVER) {
-                db.deleteRetailBillingTable(billingSync.getOrderTimestamp());
-            }
+//            billingSyncs = db.getAllRetailBillingOrders();
         }catch (Exception e){
 
         }
@@ -409,6 +413,23 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                             paymentRequest.setCustomerID(mCustomerID);
 
                         paymentRequest.setPaymentDetail(arrPaymentDetail);
+                        if(mCustomerID.equalsIgnoreCase("") && mCustomerID.equalsIgnoreCase("NA")){
+
+                        }else {
+                            String loyalty="";
+                            int points=0;
+                            CustomerModel customerModel = db.getCustomer(mCustomerID);
+                            if(customerModel!=null){
+                                if(!customerModel.getCustomerPoints().equalsIgnoreCase("")){
+                                    loyalty = customerModel.getCustomerPoints();
+                                    points = paymentRequest.getOrderLoyality()+ Integer.parseInt(loyalty);
+                                    db.updateCustomerPoints(points+"",mCustomerID);
+                                }else {
+                                    db.updateCustomerPoints(paymentRequest.getOrderLoyality().toString(),mCustomerID);
+                                }
+                            }
+//                            db.updateCustomerPoints(paymentRequest.getOrderLoyality().toString(),mCustomerID);
+                        }
                         if (Util.isConnected())
                             callServicePayment();
                         else {

@@ -359,7 +359,7 @@
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
                 android:gravity="center"
-                app:srcCompat="@drawable/ic_shopping_cart" />
+                app:srcCompat="@drawable/ic_action_badge_blue" />
 
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvStoreName"
@@ -551,6 +551,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_viewAddress"
             android:layout_width="match_parent"
+            android:visibility="visible"
             android:layout_height="match_parent">
 
 
