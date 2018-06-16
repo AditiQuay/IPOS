@@ -1,6 +1,8 @@
 package quay.com.ipos.retailsales.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.modal.BillingSync;
 import quay.com.ipos.modal.Name;
@@ -24,7 +27,7 @@ public class OutboxActivity extends BaseActivity implements NetworkStateChecker.
 
     private ListView listViewNames;
     DatabaseHandler db;
-
+    private Toolbar toolbar;
     //List to store all the names
     private ArrayList<BillingSync> names;
 
@@ -32,6 +35,16 @@ public class OutboxActivity extends BaseActivity implements NetworkStateChecker.
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outbox_list);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+        toolbar.setTitle("Retail Outbox");
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+
 
         listViewNames = findViewById(R.id.listViewNames);
         NetworkStateChecker networkStateChecker = new NetworkStateChecker();
@@ -42,6 +55,17 @@ public class OutboxActivity extends BaseActivity implements NetworkStateChecker.
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Util.hideSoftKeyboard(OutboxActivity.this);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     void update(){
         names = new ArrayList<>();
         names = db.getUnSyncedRetailOrders();
@@ -49,6 +73,7 @@ public class OutboxActivity extends BaseActivity implements NetworkStateChecker.
             nameAdapter = new NameAdapter(this, names);
             listViewNames.setAdapter(nameAdapter);
         }else {
+            db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
             Util.showToast("No Outbox list available", IPOSApplication.getAppInstance());
             finish();
         }
