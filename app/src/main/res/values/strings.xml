@@ -93,6 +93,7 @@
     <string name="ok_button">Ok</string>
     <string name="cancel_button">Cancel</string>
 
+    <string name="toolBar_title_kyc_activity">KYC</string>
     <string name="toolbar_title_catalogue_product_details">PRODUCT CATALOGUE</string>
     <string name="toolbar_title_customer_screen">Customer Information</string>
     <string name="toolbar_title_payment_screen">Payment Mode</string>
@@ -120,6 +121,7 @@
     </string-array>
 
     <string name="title_partner_connect">Partner Connect</string>
+    <string name="title_kyc_connect">KYC</string>
 
     <string name="total_discount">Total Discount</string>
     <string name="rounding_off">Rounding off</string>

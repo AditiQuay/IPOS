@@ -16,7 +16,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import quay.com.ipos.R;
-import quay.com.ipos.ddr.activity.WorkFlowActivity;
 import quay.com.ipos.inventory.adapter.CustomGrnTermsExpandableListAdapter;
 import quay.com.ipos.listeners.InitInterface;
 
@@ -139,7 +138,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnAction:
-                Intent i = new Intent(mContext, WorkFlowActivity.class);
+                Intent i = new Intent(mContext, InventoryWorkFlowActivity.class);
                 startActivity(i);
                 break;
             case R.id.btnSave:

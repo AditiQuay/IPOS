@@ -289,8 +289,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     @Override
     public void onClick(View v) {
         if (v == btnCancel) {
-        Intent i = new Intent(mContext,InventoryGRNStepsActivity.class);
-        startActivity(i);
+
 
         } else if (v == btnsubmit) {
 

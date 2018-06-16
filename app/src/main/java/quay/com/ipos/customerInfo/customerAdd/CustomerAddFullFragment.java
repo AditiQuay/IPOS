@@ -252,7 +252,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         textViewChildHeading = main.findViewById(R.id.textViewChildHeading);
         childGenderSpinner = main.findViewById(R.id.childGenderSpinner);
         tilPinCode = main.findViewById(R.id.tilPinCode);
-        //Contact info
+        //KycContact info
         textViewContactHeading = main.findViewById(R.id.textViewContactHeading);
         tiePinCode = main.findViewById(R.id.tiePinCode);
         tieAddress = main.findViewById(R.id.editAddress);
@@ -613,7 +613,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 companySpinner.setOnItemSelectedListener(this);
             }
 
-            //Creating the ArrayAdapter instance having the Relationship list name list
+            //Creating the ArrayAdapter instance having the KycRelationship list name list
             if (customerSpinner != null && customerSpinner.size() > 0) {
                 RelationListModel[] relationListModels = new Gson().fromJson(customerSpinner.get(0).getRelationshipList(), RelationListModel[].class);
                 String[] relationShipArray = new String[relationListModels.length];
@@ -656,7 +656,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         FontUtil.applyTypeface(textViewChild, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
 
-        //Contact
+        //KycContact
         FontUtil.applyTypeface(textViewContactHeading, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(tiePinCode, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(tieAddress, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));

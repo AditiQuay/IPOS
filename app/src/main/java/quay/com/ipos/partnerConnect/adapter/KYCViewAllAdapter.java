@@ -37,7 +37,7 @@ public class KYCViewAllAdapter extends RecyclerView.Adapter<KYCViewAllAdapter.It
         LayoutInflater layoutInflater =
                 LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.documents_view_all, parent, false);
-        return new KYCViewAllAdapter.ItemViewHolder(view);
+        return new ItemViewHolder(view);
     }
 
     @Override

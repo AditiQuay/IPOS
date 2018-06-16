@@ -40,8 +40,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <include
-        layout="@layout/layout_pc_bottomsheet" />
+    <include layout="@layout/layout_pc_bottomsheet" />
 
 
     <android.support.design.widget.FloatingActionButton
@@ -49,13 +48,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        app:layout_anchorGravity="top|end"
         android:layout_marginBottom="@dimen/fab_margin_pc"
         android:layout_marginLeft="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
         android:visibility="visible"
         app:backgroundTint="@color/colorPrimary"
         app:layout_anchor="@+id/bottom_sheet"
+        app:layout_anchorGravity="top|end"
         app:srcCompat="@drawable/icon_plus"
         tools:ignore="VectorDrawableCompat" />
 

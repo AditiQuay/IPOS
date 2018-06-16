@@ -6,6 +6,7 @@ android {
         applicationId "quay.com.ipos"
         minSdkVersion 19
         targetSdkVersion 26
+        multiDexEnabled true
         versionCode 1
         vectorDrawables.useSupportLibrary = true
         versionName "1.0"

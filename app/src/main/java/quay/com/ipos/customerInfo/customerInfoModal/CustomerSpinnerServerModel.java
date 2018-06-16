@@ -279,7 +279,7 @@ public class CustomerSpinnerServerModel {
         @SerializedName("Company")
         @Expose
         private String company;
-        @SerializedName("Relationship")
+        @SerializedName("KycRelationship")
         @Expose
         private String relationship;
         @SerializedName("Cfactor")

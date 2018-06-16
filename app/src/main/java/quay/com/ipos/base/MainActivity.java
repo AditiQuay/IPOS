@@ -32,6 +32,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -67,8 +68,6 @@ import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.local.dao.MostUsedFunDao;
 import quay.com.ipos.data.local.entity.MostUsed;
-import quay.com.ipos.pss_order.fragment.NewOrderFragment;
-import quay.com.ipos.pss_order.fragment.OrderCentreListFragment;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.inventory.fragment.InventoryFragment;
@@ -80,7 +79,10 @@ import quay.com.ipos.login.SplashActivity;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
+import quay.com.ipos.partnerConnect.kyc.KYCActivity;
 import quay.com.ipos.productCatalogue.ProductMain;
+import quay.com.ipos.pss_order.fragment.NewOrderFragment;
+import quay.com.ipos.pss_order.fragment.OrderCentreListFragment;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
@@ -187,6 +189,7 @@ public class MainActivity extends BaseActivity
     private int mActivePosition = 1;
     private int currentType = -1;
     private boolean firstTime = true;
+    private ImageView imgView;
     private List<String> mostUsedFunList = new ArrayList<>();
 
 
@@ -285,6 +288,14 @@ public class MainActivity extends BaseActivity
         navigationView = findViewById(R.id.nav_view);
         listViewContent = findViewById(R.id.listViewContent);
         lvMenu = findViewById(R.id.lvMenu);
+        imgView = findViewById(R.id.imgView);
+        imgView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,KYCActivity.class);
+                startActivity(intent);
+            }
+        });
 
         imageViewProfileDummy = findViewById(R.id.imageViewProfileDummy);
 
@@ -575,7 +586,7 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
 
                 break;
-            case "Manage Business":
+            case "Manage KycBusiness":
 
                 break;
             case "Insights & Analytics":

@@ -1,4 +1,4 @@
-package quay.com.ipos.ddr.activity;
+package quay.com.ipos.pss_order.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -36,13 +36,13 @@ import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.ddr.adapter.AddressListAdapter;
-import quay.com.ipos.ddr.adapter.NewOrderItemsDetailListAdapter;
-import quay.com.ipos.ddr.adapter.WorkFLowAdapter;
-import quay.com.ipos.ddr.adapter.WorkFLowUserAdapter;
-import quay.com.ipos.ddr.modal.NOGetEntityBuisnessPlacesModal;
-import quay.com.ipos.ddr.modal.NoGetEntityResultModal;
-import quay.com.ipos.ddr.modal.UserModal;
+import quay.com.ipos.pss_order.adapter.AddressListAdapter;
+import quay.com.ipos.pss_order.adapter.NewOrderItemsDetailListAdapter;
+import quay.com.ipos.pss_order.adapter.WorkFLowAdapter;
+import quay.com.ipos.pss_order.adapter.WorkFLowUserAdapter;
+import quay.com.ipos.pss_order.modal.NOGetEntityBuisnessPlacesModal;
+import quay.com.ipos.pss_order.modal.NoGetEntityResultModal;
+import quay.com.ipos.pss_order.modal.UserModal;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.modal.RecentOrderModal;
