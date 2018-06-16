@@ -326,7 +326,7 @@
     <string name="grn">GRN</string>
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
-<<<<<<< HEAD
+
     <string name="listEmptyNewOrder">No New Order</string>
     <string name="listEmptyDeliverd">No Deliver Item</string>
     <string name="string_delivered">Delivered Items</string>
@@ -340,9 +340,9 @@
     <string name="ddrb2bDelivered">Delivered</string>
     <string name="ddrb2bCancelled">Cancelled</string>
     <string name="title_b2bsales">B2B Sales</string>
-=======
+
     <string name="save_close"><![CDATA[Save & Close]]></string>
->>>>>>> 4d30a98117f2e3b150d94280da0e24c463178681
+    <string name="ddr_b2b_search_hint">Enter DDR Code/Name</string>
 
 
 </resources>

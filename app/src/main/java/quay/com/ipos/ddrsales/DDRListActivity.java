@@ -9,15 +9,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
@@ -25,10 +31,12 @@ import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
 import quay.com.ipos.ddrsales.adapter.DDRAdapter;
 import quay.com.ipos.ddrsales.model.DDR;
+import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.DisplayUtils;
 import quay.com.ipos.utility.DividerItemDecoration;
 import quay.com.ipos.utility.EqualSpacingItemDecoration;
 import quay.com.ipos.utility.Prefs;
@@ -45,9 +53,14 @@ public class DDRListActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private MutableLiveData<PCModel> pcModelLiveData = new MutableLiveData<>();
     private RecyclerView recyclerView;
+    private TextView tvClear;
+    private EditText searchView;
+
     private DDRAdapter ddrAdapter;
 
     List<DDR> ddrList = new ArrayList<>();
+    List<DDR> filterDDRList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -63,52 +76,78 @@ public class DDRListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.title_b2b_ddr_select));
 
+        searchView = findViewById(R.id.searchView);
+        tvClear = findViewById(R.id.tvClear);
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new EqualSpacingItemDecoration(16));
+        recyclerView.addItemDecoration(new EqualSpacingItemDecoration(DisplayUtils.dip2px(activity,16)));
 
 
-        DDR ddr1 = new DDR("A12123", "Argo Care", "New Delhi", "Delhi", 10000, 200, 500);
+        DDR ddr1 = new DDR("A12123", "Argo Care", "New Delhi", "Delhi", 1006679900, 200, 500);
         DDR ddr2 = new DDR("B12123", "Berco Electrical", "Tilak Nagar", "Delhi", 10000, 200, 0);
         DDR ddr3 = new DDR("C12123", "Shopper Stop", "Gurgaon", "Haryana", 10000, 200, 500);
         ddrList.add(ddr1);
         ddrList.add(ddr2);
         ddrList.add(ddr3);
 
-        ddrAdapter = new DDRAdapter(activity, ddrList, new DDRAdapter.OnDDRSelectListener() {
+        filterDDRList.addAll(ddrList);
+
+        ddrAdapter = new DDRAdapter(activity, filterDDRList, new DDRAdapter.OnDDRSelectListener() {
             @Override
             public void onSelect(DDR ddr) {
-                Intent mIntent = new Intent(activity, DDRAddProductActivity.class);
+                Intent mIntent = new Intent(activity, DDRCartActivity.class);
+                mIntent.putExtra("ddr", ddr);
                 startActivityForResult(mIntent, 1);
             }
         });
         recyclerView.setAdapter(ddrAdapter);
 
+
+
+
+        searchView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.toString().trim().length()>0)
+                {
+                    if(ddrList.size()>0) {
+                        //tvClear.setVisibility(View.VISIBLE);
+                        //llSize.setVisibility(View.VISIBLE);
+                        filter(charSequence.toString(), ddrList);
+                    }else {
+                       // tvClear.setVisibility(View.GONE);
+                        //llSize.setVisibility(View.GONE);
+                    }
+
+                    ddrAdapter.notifyDataSetChanged();
+                }
+                else {
+//                    arrSearchlist.clear();
+                    ddrAdapter.notifyDataSetChanged();
+//                    tvItemSize.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
     }
+
+
+
+
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
-        if (requestCode == 1) {
-            if (resultCode == 1) {
-                IPOSApplication.isClicked = true;
-                if (IPOSApplication.mProductListResult.size() > 0) {
-                    for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
-                        if (!IPOSApplication.mProductListResult.get(i).isAdded()) {
-                            IPOSApplication.mProductListResult.remove(i);
-                            i--;
-                        }
-                    }
-                }
-
-              //  getProduct();
-                IPOSApplication.isClicked = true;
-            }
-        }
-    }
-        @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
@@ -206,6 +245,28 @@ public class DDRListActivity extends AppCompatActivity {
         return pcModelLiveData;
     }
 
+    private void filter(String charText, List<DDR> responseList) {
+        if (filterDDRList != null && responseList != null) {
+            charText = charText.toLowerCase(Locale.getDefault());
+            filterDDRList.clear();
+            if (charText.length() == 0) {
+                filterDDRList.addAll(responseList);
+            } else {
+                for (DDR wp : responseList) {
+                    if (wp.mDDRName != null) {
 
+                        if (wp.mDDRName.toLowerCase(Locale.getDefault()).contains(charText)) {
+                            filterDDRList.add(wp);
+                        }
+                    }if (wp.mDDRCode != null) {
+
+                        if (wp.mDDRCode.toLowerCase(Locale.getDefault()).contains(charText)) {
+                            filterDDRList.add(wp);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 

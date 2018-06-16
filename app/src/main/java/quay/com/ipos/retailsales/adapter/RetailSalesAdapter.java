@@ -44,7 +44,6 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
-    private MainActivity mainActivity;
     // private OnLoadMoreListener mOnLoadMoreListener;
     private AdapterListener listener;
     private boolean isLoading;
@@ -65,7 +64,6 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         //    this.mRecyclerView = mRecycler;
         this.mCheckedChangeListener = mCheckedChangeListener;
         this. listener = listener;
-        mainActivity = (MainActivity) mContext;
         this.myAdapterTags = myAdapterTags;
 
     }

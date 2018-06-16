@@ -10,6 +10,7 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
         android:theme="@style/AppTheme.AppBarOverlay">
 
 
@@ -22,6 +23,9 @@
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:titleTextAppearance="@style/Toolbar.TitleText"
             app:titleTextColor="@color/white" />
+
+
+        <include layout="@layout/ddr_search_bar" />
 
 
     </android.support.design.widget.AppBarLayout>
@@ -46,7 +50,6 @@
 
 
     </RelativeLayout>
-
 
 
 </android.support.design.widget.CoordinatorLayout>

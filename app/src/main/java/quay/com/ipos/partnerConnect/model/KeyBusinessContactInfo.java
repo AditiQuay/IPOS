@@ -17,11 +17,5 @@ public class KeyBusinessContactInfo {
 
     public List<NewContact> NewContact;
 
-     /*          "keyEmpName": "Alok Sharma",
-                "keyDesignation": "Director",
-                "keyMobile": "8880023456",
-                "keyMobile2": "8880023457",
-                "keyEmail": "alok@kgm.com",
-                "keyEmpNote": "added contacts for my test",
-                "NewContact": [*/
+
 }
