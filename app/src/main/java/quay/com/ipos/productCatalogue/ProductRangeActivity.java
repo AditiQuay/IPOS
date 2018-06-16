@@ -56,7 +56,7 @@ import quay.com.ipos.utility.Util;
 
 public class ProductRangeActivity extends BaseActivity implements View.OnClickListener, AdapterListener, ServiceTask.ServiceResultListener {
 
-    private static final String TAG = quay.com.ipos.retailsales.activity.AddProductActivity.class.getSimpleName();
+    private static final String TAG = ProductRangeActivity.class.getSimpleName();
     ArrayList<OrderList.Datum> arrSearlist = new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;
