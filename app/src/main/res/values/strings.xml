@@ -355,5 +355,8 @@
     <string name="issued">Issued</string>
     <string name="new_redemption_request">New Redemption Request</string>
 
+    <string name="title_b2b_order_center">B2B Order Center</string>
+    <string name="title_b2b_ddr_select">B2B DDR Select</string>
+
 
 </resources>
