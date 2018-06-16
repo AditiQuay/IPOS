@@ -71,6 +71,7 @@ public class NewOrderProductsResult {
         private boolean isCheckStock;
         private boolean isStockDisplay;
         private List<DiscountBean> discount;
+        private double accumulatedLoyality;
 
         public String getProductCode() {
             return productCode;
@@ -270,6 +271,14 @@ public class NewOrderProductsResult {
 
         public void setDiscount(List<DiscountBean> discount) {
             this.discount = discount;
+        }
+
+        public double getAccumulatedLoyality() {
+            return accumulatedLoyality;
+        }
+
+        public void setAccumulatedLoyality(double accumulatedLoyality) {
+            this.accumulatedLoyality = accumulatedLoyality;
         }
 
         public static class DiscountBean {

@@ -44,7 +44,6 @@ import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.ddr.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.inventory.activity.InventoryGRNStepsActivity;
-import quay.com.ipos.inventory.activity.InventoryStepsActivity;
 import quay.com.ipos.inventory.adapter.CustomAdapter;
 import quay.com.ipos.inventory.modal.NOGetEntityBuisnessPlacesModal;
 import quay.com.ipos.inventory.modal.NoGetEntityResultModal;
@@ -117,6 +116,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             public void onClick(View view) {
                 Intent i=new Intent(getActivity(), InventoryGRNStepsActivity.class);
                 i.putExtra("request",prepareJson().toString());
+                i.putExtra("businessPlaceId",businessPlaceCode);
                 startActivity(i);
             }
         });
@@ -169,11 +169,12 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             jsonObject.put("",bswchType);
             jsonObject.put("",bswchPOAvailable);
             jsonObject.put("",edtDate.getText().toString());
-            jsonObject.put("",edtPoNumber.getText().toString());
+            jsonObject.put("poNumber",edtPoNumber.getText().toString());
             jsonObject.put("",edtSupplier.getText().toString());
             jsonObject.put("",strPlace);
             jsonObject.put("",entityStateCode);
-            jsonObject.put("",businessPlaceCode);
+            jsonObject.put("businessPlaceId",businessPlaceCode);
+            jsonObject.put("empCode",Prefs.getStringPrefs(Constants.employeeCode));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -208,7 +209,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
 
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOGetEntityBuisnessPlaces);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOGetBusinessPlaces);
         mTask.setApiCallType(Constants.API_METHOD_POST);
         mTask.setParamObj(noGetEntityBuisnessPlacesModal);
         mTask.setListener(this);

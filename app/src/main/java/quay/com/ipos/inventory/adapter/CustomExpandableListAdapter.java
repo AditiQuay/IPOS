@@ -1,8 +1,11 @@
+/*
 package quay.com.ipos.inventory.adapter;
 
+*/
 /**
  * Created by ankush.bansal on 12-06-2018.
- */
+ *//*
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -235,4 +238,4 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
     }
-}
+}*/

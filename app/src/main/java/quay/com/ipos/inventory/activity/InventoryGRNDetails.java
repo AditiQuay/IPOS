@@ -14,7 +14,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import quay.com.ipos.R;
-import quay.com.ipos.inventory.adapter.CustomExpandableListAdapter;
 import quay.com.ipos.inventory.adapter.CustomGrnTermsExpandableListAdapter;
 import quay.com.ipos.listeners.InitInterface;
 

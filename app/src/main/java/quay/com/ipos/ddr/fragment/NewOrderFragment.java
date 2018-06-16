@@ -81,7 +81,6 @@ import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderList;
-import quay.com.ipos.retailsales.fragment.FullScannerFragment;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
@@ -1596,7 +1595,7 @@ if (realmNewOrderCarts.getQty()>1) {
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
      //   hideProgressDialog();
 
-        if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_NOProductSearch)){
+        if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH)){
 
             if (isAdded()) {
                 if (httpStatusCode == Constants.SUCCESS) {
@@ -1784,12 +1783,14 @@ if (realmNewOrderCarts.getQty()>1) {
         int totalPoints = 0;
         int noOfItems = 0;
         String poNumber = null;
+        double accumulatedPoints=0;
         for (RealmNewOrderCart realmNewOrderCart : realmNewOrderCarts1) {
 
             JSONObject jsonObjectCartDetail=new JSONObject();
             if (!realmNewOrderCart.isFreeItem())
                 noOfItems = noOfItems + 1;
             poNumber=realmNewOrderCart.getOrderId();
+            accumulatedPoints=realmNewOrderCart.getAccumulatedLoyality();
             qty = qty + realmNewOrderCart.getQty();
             totalItemsAmount = totalItemsAmount + realmNewOrderCart.getTotalPrice();
             if (realmNewOrderCart.isDiscount() && !realmNewOrderCart.isFreeItem()) {
@@ -1898,7 +1899,7 @@ if (realmNewOrderCarts.getQty()>1) {
             jsonObject.put("discountValue",discountPrice);
             jsonObject.put("deliveryBy",Util.getCurrentDate());
             jsonObject.put("orderLoyality",totalPoints);
-            jsonObject.put("accumulatedLoyality",0);
+            jsonObject.put("accumulatedLoyality",accumulatedPoints);
             jsonObject.put("totalLoyality",totalPoints);
             jsonObject.put("businessPlace",strPlace);
             jsonObject.put("businessPlaceCode",businessPlaceCode);
@@ -2085,7 +2086,7 @@ if (realmNewOrderCarts.getQty()>1) {
         productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOProductSearch);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH);
         mTask.setApiCallType(Constants.API_METHOD_POST);
         mTask.setParamObj(productSearchRequest);
         mTask.setListener(this);

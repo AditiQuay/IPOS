@@ -418,7 +418,7 @@ public class ProductRangeActivity extends BaseActivity implements View.OnClickLi
         productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOProductSearch);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH);
         mTask.setApiCallType(Constants.API_METHOD_POST);
         mTask.setParamObj(productSearchRequest);
         mTask.setListener(this);

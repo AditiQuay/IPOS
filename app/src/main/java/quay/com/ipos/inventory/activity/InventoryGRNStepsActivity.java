@@ -31,7 +31,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
-import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.inventory.adapter.InventoryGRNStepsAdapter;
 import quay.com.ipos.inventory.adapter.InventoryListAdapter;
 import quay.com.ipos.inventory.adapter.ItemsDetailListAdapter;
@@ -40,6 +39,7 @@ import quay.com.ipos.inventory.modal.InventoryGRNModel;
 import quay.com.ipos.inventory.modal.InventoryModel;
 import quay.com.ipos.inventory.modal.UserModal;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 import quay.com.ipos.realmbean.RealmController;
@@ -53,7 +53,7 @@ import quay.com.ipos.utility.SpacesItemDecoration;
  * Created by niraj.kumar on 6/13/2018.
  */
 
-public class InventoryGRNStepsActivity extends AppCompatActivity implements InitInterface, View.OnClickListener {
+public class InventoryGRNStepsActivity extends AppCompatActivity implements InitInterface, View.OnClickListener,MyListener {
 
     String[] address = {"1/82"};
     String[] items={"PO180001","PO180002"};
@@ -76,7 +76,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     private Context mContext;
     private ArrayList<InventoryGRNModel> inventoryGRNModels = new ArrayList<>();
     private InventoryGRNStepsAdapter kycViewAllAdapter;
-    private  String requestJson;
+    private  String requestJson,busineesPlaceId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,7 +93,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         recycleview.setLayoutManager(mLayoutManager5);
         recycleview.addItemDecoration(new SpacesItemDecoration(10));
-        inventoryListAdapter = new InventoryListAdapter(this, inventoryModels);
+        inventoryListAdapter = new InventoryListAdapter(this, inventoryModels,this);
         recycleview.setAdapter(inventoryListAdapter);
 
         getRecentOrdersData();
@@ -133,6 +133,8 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
             }
         });
 
+        getPODetails();
+
     }
     private void getRecentOrdersData() {
         for (int i = 0; i < items.length; i++) {
@@ -149,6 +151,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         Intent i=getIntent();
         if (i!=null)
         requestJson=i.getStringExtra("request");
+        busineesPlaceId=i.getStringExtra("businessPlaceId");
 
 
     }
@@ -300,6 +303,18 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     }
 
 
+    @Override
+    public void onRowClicked(int position) {
+        Intent i=new Intent(mContext, ExpandablePODetailsActivity.class);
+        i.putExtra("poNumber",inventoryModels.get(position).getPoNumber());
+        i.putExtra("businessPlaceId",busineesPlaceId);
+        mContext.startActivity(i);
+    }
+
+    @Override
+    public void onRowClicked(int position, int value) {
+
+    }
 }
 
 

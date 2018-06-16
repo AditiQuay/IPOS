@@ -11,15 +11,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.inventory.modal.POItemDetail;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 
 
 public class ItemsDetailsPOListAdapter extends RecyclerView.Adapter<ItemsDetailsPOListAdapter.SurveyViewHolder> {
     private Context mContext;
-    private ArrayList<RealmBusinessPlaces> stringArrayList;
+    private ArrayList<POItemDetail> stringArrayList;
     private OnItemSelecteListener mListener;
 
-    public ItemsDetailsPOListAdapter(Context mContext, ArrayList<RealmBusinessPlaces> stringArrayList) {
+    public ItemsDetailsPOListAdapter(Context mContext, ArrayList<POItemDetail> stringArrayList) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
 
@@ -36,7 +37,12 @@ public class ItemsDetailsPOListAdapter extends RecyclerView.Adapter<ItemsDetails
 
 
 
-        holder.tvQty.setText(stringArrayList.get(position).getHeader());
+        holder.tvPoNumber.setText(stringArrayList.get(position).getTitle());
+        holder.tvAmount.setText(stringArrayList.get(position).getPoItemAmount()+"");
+        holder.tvGst.setText(stringArrayList.get(position).getPoItemIGSTValue()+"");
+        holder.tvQty.setText(stringArrayList.get(position).getPoItemQty()+"");
+        holder.price.setText(stringArrayList.get(position).getPoItemUnitPrice()+"");
+
 
 
 
@@ -58,12 +64,16 @@ public class ItemsDetailsPOListAdapter extends RecyclerView.Adapter<ItemsDetails
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvQty,textViewName;
+        private TextView tvQty,textViewName,price,tvAmount,tvGst,tvPoNumber;
 
         private RadioButton radio;
         public SurveyViewHolder(View itemView) {
             super(itemView);
             tvQty = itemView.findViewById(R.id.tvQty);
+            price = itemView.findViewById(R.id.price);
+            tvAmount = itemView.findViewById(R.id.tvAmount);
+            tvGst = itemView.findViewById(R.id.tvGst);
+            tvPoNumber = itemView.findViewById(R.id.tvPoNumber);
 
 
         }

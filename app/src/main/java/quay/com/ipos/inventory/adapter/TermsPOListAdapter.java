@@ -11,15 +11,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.inventory.modal.POTermsCondition;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 
 
 public class TermsPOListAdapter extends RecyclerView.Adapter<TermsPOListAdapter.SurveyViewHolder> {
     private Context mContext;
-    private ArrayList<RealmBusinessPlaces> stringArrayList;
+    private ArrayList<POTermsCondition> stringArrayList;
     private OnItemSelecteListener mListener;
 
-    public TermsPOListAdapter(Context mContext, ArrayList<RealmBusinessPlaces> stringArrayList) {
+    public TermsPOListAdapter(Context mContext, ArrayList<POTermsCondition> stringArrayList) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
 
@@ -36,7 +37,7 @@ public class TermsPOListAdapter extends RecyclerView.Adapter<TermsPOListAdapter.
 
 
 
-        holder.text1.setText(stringArrayList.get(position).getHeader());
+        holder.text1.setText((position+1)+" "+stringArrayList.get(position).getpOTermsAndConditionDetail());
 
 
 

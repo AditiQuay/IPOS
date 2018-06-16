@@ -1,3 +1,4 @@
+/*
 package quay.com.ipos.inventory.activity;
 
 import android.os.Bundle;
@@ -22,9 +23,11 @@ import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 import quay.com.ipos.utility.SpacesItemDecoration;
 
+*/
 /**
  * Created by ankush.bansal on 20-04-2018.
- */
+ *//*
+
 
 public class InventoryStepsActivity extends BaseActivity implements MyListener{
     String[] address = {"1/82"};
@@ -93,7 +96,8 @@ public class InventoryStepsActivity extends BaseActivity implements MyListener{
     }
 
 
-   /* private void getAddressData() {
+   */
+/* private void getAddressData() {
         for (int i = 0; i < address.length; i++) {
             RecentOrderModal recentOrderModal = new RecentOrderModal();
             recentOrderModal.setTitle(address[i]);
@@ -102,7 +106,8 @@ public class InventoryStepsActivity extends BaseActivity implements MyListener{
 
         }
         addressListAdapter.notifyDataSetChanged();
-    }*/
+    }*//*
+
 
 
 
@@ -116,3 +121,4 @@ public class InventoryStepsActivity extends BaseActivity implements MyListener{
 
     }
 }
+*/

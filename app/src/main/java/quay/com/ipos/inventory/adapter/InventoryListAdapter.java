@@ -15,6 +15,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.inventory.activity.ExpandablePODetailsActivity;
 import quay.com.ipos.inventory.activity.InventoryWorkFlowActivity;
 import quay.com.ipos.inventory.modal.InventoryModel;
+import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.realmbean.RealmPOInventory;
 
 
@@ -22,10 +23,12 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
     private Context mContext;
     private ArrayList<RealmPOInventory> stringArrayList;
     private OnItemSelecteListener mListener;
+    MyListener myListener;
 
-    public InventoryListAdapter(Context mContext, ArrayList<RealmPOInventory> stringArrayList) {
+    public InventoryListAdapter(Context mContext, ArrayList<RealmPOInventory> stringArrayList, MyListener myListener) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
+        this.myListener=myListener;
 
     }
 
@@ -36,7 +39,7 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
     }
 
     @Override
-    public void onBindViewHolder(final SurveyViewHolder holder, int position) {
+    public void onBindViewHolder(final SurveyViewHolder holder, final int position) {
 
 
 
@@ -50,20 +53,14 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(mContext, ExpandablePODetailsActivity.class);
-                i.putExtra("poNumber",stringArrayList.get(holder.getAdapterPosition()).getPoNumber());
-                mContext.startActivity(i);
+                myListener.onRowClicked(position);
+
             }
         });
 
-        holder.tvOpen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(mContext, ExpandablePODetailsActivity.class);
-                i.putExtra("poNumber",stringArrayList.get(holder.getAdapterPosition()).getPoNumber());
-                mContext.startActivity(i);
-            }
-        });
+
+
+
 
 
 
