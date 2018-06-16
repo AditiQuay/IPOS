@@ -16,6 +16,9 @@ public class NOGetEntityBuisnessPlacesModal {
     private String entityCode;
     private String entityType;
     private String entityRole;
+    private String empCode;
+    private String businessPlaceId;
+    private String poNumber;
 
     public String getEntityCode() {
         return entityCode;
@@ -39,5 +42,29 @@ public class NOGetEntityBuisnessPlacesModal {
 
     public void setEntityRole(String entityRole) {
         this.entityRole = entityRole;
+    }
+
+    public String getEmpCode() {
+        return empCode;
+    }
+
+    public void setEmpCode(String empCode) {
+        this.empCode = empCode;
+    }
+
+    public String getBusinessPlaceId() {
+        return businessPlaceId;
+    }
+
+    public void setBusinessPlaceId(String businessPlaceId) {
+        this.businessPlaceId = businessPlaceId;
+    }
+
+    public String getPoNumber() {
+        return poNumber;
+    }
+
+    public void setPoNumber(String poNumber) {
+        this.poNumber = poNumber;
     }
 }

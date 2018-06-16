@@ -18,12 +18,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -56,11 +58,12 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     double points=0,pointsPer=0, points1=0;
     Double points2=0.0;
     String mCustomerEmail="";
+    ToggleButton toggleCOD;
     private Button btnPayCash,btnPayCard,buttonSendOtp,buttonVerify,buttonRedeem;
     Spinner spinner;
     private EditText etCashAmount,etReceivedAmount,etReturnAmount,etCardAmount,etLastDigit,etExpMonth,etExpYear,etTransID,etPointToRedeem,etRedeemValue,etOTP;
     private TextView tvPay,tvRedeemPoints,tvBalance,tvAvailablePoints,tvResendOTP;
-    private LinearLayout llCash,llCard,llPoints,llPrintReceipt,llToggle,llVerifyRedeem;
+    private LinearLayout llCash,llCard,llPoints,llPrintReceipt,llToggle,llVerifyRedeem,llCashReceived;
     private CardView cvCash,cvCard,cvPoints;
     private String mTotalAmount;
     private double totalAmount;
@@ -74,7 +77,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     private double mCustomerPointsPer=0;
     PaymentRequest paymentRequest = new PaymentRequest();
     double cashAmount,receivedAmt,cashReturnAmt,cardAmount;
-    String lastDigit,expMonth,expYear,transID,cardType;
+    String lastDigit="",expMonth="",expYear="",transID="",cardType="";
     String json,json1;
     LoginResult loginResult ;
     private ArrayList<PaymentRequest.PaymentDetail> arrPaymentDetail = new ArrayList<>();
@@ -86,10 +89,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     //1 means data is synced and 0 means data is not synced
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
-    //a broadcast to know weather the data is synced or not
-    public static final String DATA_SAVED_BROADCAST = "ipos.datasaved";
-    //Broadcast receiver to know the sync status
-    private BroadcastReceiver broadcastReceiver;
+
+    private boolean sendCOD= false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,21 +104,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         context = IPOSApplication.getContext();
         arrMonth = context.getResources().getStringArray(R.array.months);
 
-        //the broadcast receiver to update sync status
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
 
-                //loading the names again
-//                loadNames();
-                AppLog.e("tag","onReceive");
-            }
-        };
-        try {
-            LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
-        }catch (Exception e){
-
-        }
         //registering the broadcast receiver to update sync status
         ;
     }
@@ -135,24 +122,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         return true;
     }
 
-    protected void onPostResume() {
-        super.onPostResume();
 
-        try {
-            LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
-        }catch (Exception e){
-
-        }
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        try{
-            unregisterReceiver(broadcastReceiver);
-        } catch (Exception e){
-            // already unregistered
-        }
-    }
 
     private void getIntentValues(){
         Intent intent=getIntent();
@@ -179,7 +149,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         toolbar_default.setTitleTextColor(getResources().getColor(R.color.white));
 
         tvPay=findViewById(R.id.tvPay);
+        llCashReceived=findViewById(R.id.llCashReceived);
         llToggle=findViewById(R.id.llToggle);
+        toggleCOD=findViewById(R.id.toggleCOD);
         spinner = (Spinner) findViewById(R.id.spnCardType);
         btnPayCash=findViewById(R.id.btnPayCash);
         btnPayCard=findViewById(R.id.btnPayCard);
@@ -269,6 +241,19 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
             }
         });
+
+        toggleCOD.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    sendCOD=true;
+                    llCashReceived.setVisibility(View.GONE);
+                }else {
+                    sendCOD=false;
+                    llCashReceived.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override
@@ -322,97 +307,134 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
 
     }
-
+    ArrayList<BillingSync> billingSyncs = new ArrayList<>();
     //saving the name to local storage
     private void saveBillToLocalStorage(PaymentRequest paymentRequest, int status) {
         BillingSync billingSync = new BillingSync();
         billingSync.setBilling(Util.getCustomGson().toJson(paymentRequest));
         billingSync.setCustomerID(mCustomerID);
-        billingSync.setOrderDateTime(Util.getCurrentDate() + Util.getCurrentTime());
+        billingSync.setOrderDateTime(Util.getCurrentDate() +" "+ Util.getCurrentTime());
         billingSync.setOrderTimestamp(Util.getCurrentTimeStamp());
         billingSync.setSync(status);
-        db.addRetailBilling(billingSync);
+        try {
+//        db.addRetailBilling(billingSync);
+        billingSyncs = db.getAllRetailBillingOrders();
+        for (int i = 0 ; i < billingSyncs.size() ; i++) {
+            if (!billingSync.getOrderTimestamp().equalsIgnoreCase(billingSyncs.get(i).getOrderTimestamp())){
+                db.addRetailBilling(billingSync);
+            }else {
+
+            }
+        }
+
+            if (status == NAME_SYNCED_WITH_SERVER) {
+                db.deleteRetailBillingTable(billingSync.getOrderTimestamp());
+            }
+        }catch (Exception e){
+
+        }
     }
 
     @Override
     public void onClick(View view) {
 
         int id = view.getId();
-        switch (id){
+        switch (id) {
             case R.id.llPrintReceipt:
 
-                if( SharedPrefUtil.getString(Constants.Login_result,"",PaymentModeActivity.this)!=null){
-                    json1 =  SharedPrefUtil.getString(Constants.Login_result,"",PaymentModeActivity.this);
+                if (SharedPrefUtil.getString(Constants.Login_result, "", PaymentModeActivity.this) != null) {
+                    json1 = SharedPrefUtil.getString(Constants.Login_result, "", PaymentModeActivity.this);
 
-                    loginResult = Util.getCustomGson().fromJson(json1,LoginResult.class);
+                    loginResult = Util.getCustomGson().fromJson(json1, LoginResult.class);
                 }
-                if(totalAmount==0.0){
-                    if( SharedPrefUtil.getString(Constants.PAYMENT_REQUEST,"",PaymentModeActivity.this)!=null){
-                        json =  SharedPrefUtil.getString(Constants.PAYMENT_REQUEST,"",PaymentModeActivity.this);
+                if (totalAmount == 0.0) {
+                    if (SharedPrefUtil.getString(Constants.PAYMENT_REQUEST, "", PaymentModeActivity.this) != null) {
+                        json = SharedPrefUtil.getString(Constants.PAYMENT_REQUEST, "", PaymentModeActivity.this);
 
-                        paymentRequest = Util.getCustomGson().fromJson(json,PaymentRequest.class);
+                        paymentRequest = Util.getCustomGson().fromJson(json, PaymentRequest.class);
                     }
-                    if(paymentRequest!=null && loginResult!=null){
-                        if(loginResult.getUserAccess()!=null){
+                    if (paymentRequest != null && loginResult != null) {
+                        if (loginResult.getUserAccess() != null) {
                             paymentRequest.setBusinessPlace(loginResult.getUserAccess().getStoreName());
                             paymentRequest.setBusinessPlaceCode(loginResult.getUserAccess().getWorklocationID());
-                            paymentRequest.setEmployeeCode(loginResult.getUserAccess().getEmpCode()+"");
+                            paymentRequest.setEmployeeCode(loginResult.getUserAccess().getEmpCode() + "");
                             paymentRequest.setEmployeeRole(loginResult.getUserAccess().getUserRole());
                             paymentRequest.setEntityID(loginResult.getUserAccess().getEntityId());
 
                         }
-                        PaymentRequest.PaymentDetail paymentDetail=new PaymentRequest().new PaymentDetail();
-                        PaymentRequest.DetailInfo mDetailInfo=new PaymentRequest().new DetailInfo();
+                        PaymentRequest.PaymentDetail paymentDetail = new PaymentRequest().new PaymentDetail();
+                        PaymentRequest.DetailInfo mDetailInfo = new PaymentRequest().new DetailInfo();
                         detailInfo.clear();
                         arrPaymentDetail.clear();
 
-                        if(checkCash) {
+                        if (checkCash) {
                             paymentDetail.setPaymentType("cash");
                             arrPaymentDetail.add(paymentDetail);
                             mDetailInfo.setTotalAmt(cashAmount);
-                            mDetailInfo.setCashReceivedAmt(receivedAmt);
-                            mDetailInfo.setCashReturnAmt(cashReturnAmt);
-                            detailInfo.add(mDetailInfo);
-                            paymentDetail.setDetailInfo(detailInfo);
-                        }
-                        if(checkCard){
-                            paymentDetail.setPaymentType("card");
-                            arrPaymentDetail.add(paymentDetail);
+                            if (sendCOD) {
+                                mDetailInfo.setCashReceivedAmt(0.0);
+                                mDetailInfo.setCashReturnAmt(0.0);
+                            } else {
+                                mDetailInfo.setCashReceivedAmt(receivedAmt);
+                                mDetailInfo.setCashReturnAmt(cashReturnAmt);
+                            }
+                            mDetailInfo.setCashIsCOD(sendCOD);
                             mDetailInfo.setCardPaymentAmt(cardAmount);
-                            mDetailInfo.setCardExpirationDate(expMonth+"/"+expYear);
+                            mDetailInfo.setCardExpirationDate(expMonth + "/" + expYear);
                             mDetailInfo.setCardLastDigits(lastDigit);
                             mDetailInfo.setCardType(cardType);
                             mDetailInfo.setCardTxnId(transID);
                             detailInfo.add(mDetailInfo);
                             paymentDetail.setDetailInfo(detailInfo);
                         }
-                        paymentRequest.setCustomerID(mCustomerID);
+                        if (checkCard) {
+                            paymentDetail.setPaymentType("card");
+                            arrPaymentDetail.add(paymentDetail);
+                            mDetailInfo.setTotalAmt(0.0);
+                            mDetailInfo.setCashReceivedAmt(0.0);
+                            mDetailInfo.setCashReturnAmt(0.0);
+                            mDetailInfo.setCashIsCOD(false);
+                            mDetailInfo.setCardPaymentAmt(cardAmount);
+                            mDetailInfo.setCardExpirationDate(expMonth + "/" + expYear);
+                            mDetailInfo.setCardLastDigits(lastDigit);
+                            mDetailInfo.setCardType(cardType);
+                            mDetailInfo.setCardTxnId(transID);
+                            detailInfo.add(mDetailInfo);
+                            paymentDetail.setDetailInfo(detailInfo);
+                        }
+
+                        if(mCustomerID.equalsIgnoreCase(""))
+                            paymentRequest.setCustomerID("NA");
+                        else
+                            paymentRequest.setCustomerID(mCustomerID);
+
                         paymentRequest.setPaymentDetail(arrPaymentDetail);
-                        if(Util.isConnected())
+                        if (Util.isConnected())
                             callServicePayment();
                         else {
+//                            db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
+                            saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                             IPOSApplication.mProductListResult.clear();
                             IPOSApplication.totalAmount = 0.0;
                             setResult(200);
                             Util.showToast("Order Placed Successfully", IPOSApplication.getContext());
                             finish();
-                            saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                         }
                     }
-                }else {
-                    Util.showToast("Balance is still left!",PaymentModeActivity.this);
+                } else {
+                    Util.showToast("Balance is still left!", PaymentModeActivity.this);
                 }
                 break;
             case R.id.llPoints:
 
-                if(!mCustomerID.equalsIgnoreCase("")) {
+                if (!mCustomerID.equalsIgnoreCase("")) {
 
                     if (cvPoints.getVisibility() == View.GONE) {
                         if (totalAmount > 0.0) {
                             cvPoints.setVisibility(View.VISIBLE);
                             llPoints.setBackgroundResource(R.drawable.button_rectangle_light_gray);
                             tvAvailablePoints.setText(mCustomerPoints + "");
-                            if(IPOSApplication.totalpointsToRedeemValue == 0) {
+                            if (IPOSApplication.totalpointsToRedeemValue == 0) {
                                 points = mCustomerPoints;
                                 pointsPer = mCustomerPointsPer;
                                 redeemValue = points * pointsPer;
@@ -426,7 +448,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 //                            if(totalAmount>)
                                 etPointToRedeem.setText(points1 + "");
                                 etRedeemValue.setText(redeemValue + "");
-                            }else {
+                            } else {
                                 etPointToRedeem.setText(IPOSApplication.totalpointsToRedeem + "");
                                 etRedeemValue.setText(IPOSApplication.totalpointsToRedeemValue + "");
                                 buttonSendOtp.setEnabled(false);
@@ -443,38 +465,34 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         }
 
                     }
-                }else {
+                } else {
                     Util.showToast("Please select customer first.", PaymentModeActivity.this);
                 }
                 break;
             case R.id.llCard:
-                if(cvCard.getVisibility()==View.GONE) {
+                if (cvCard.getVisibility() == View.GONE) {
                     if (totalAmount > 0.0) {
                         cvCard.setVisibility(View.VISIBLE);
                         llCard.setBackgroundResource(R.drawable.button_rectangle_light_gray);
-                    }
-                    else
+                    } else
                         Util.showToast("Balance is empty!", PaymentModeActivity.this);
-                }
-                else {
-                    if(btnPayCard.getVisibility()==View.VISIBLE) {
+                } else {
+                    if (btnPayCard.getVisibility() == View.VISIBLE) {
                         cvCard.setVisibility(View.GONE);
                         llCard.setBackgroundResource(R.drawable.rect_four_white);
                     }
                 }
                 break;
             case R.id.llCash:
-                if(cvCash.getVisibility()==View.GONE) {
+                if (cvCash.getVisibility() == View.GONE) {
                     if (totalAmount > 0.0) {
                         cvCash.setVisibility(View.VISIBLE);
                         llCash.setBackgroundResource(R.drawable.button_rectangle_light_gray);
-                    }
-                    else {
+                    } else {
                         Util.showToast("Balance is empty!", PaymentModeActivity.this);
                     }
-                }
-                else {
-                    if(btnPayCash.getVisibility()==View.VISIBLE) {
+                } else {
+                    if (btnPayCash.getVisibility() == View.VISIBLE) {
                         cvCash.setVisibility(View.GONE);
                         llCash.setBackgroundResource(R.drawable.rect_four_white);
                     }
@@ -486,63 +504,99 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 //                }else {
 //                    Util.showToast("Customer is not selected",PaymentModeActivity.this);
 //                }
-                if(!etCashAmount.getText().toString().trim().equalsIgnoreCase(""))
-                    cashAmount = Double.parseDouble(etCashAmount.getText().toString());
-                else
-                    cashAmount = 0.0;
-                if(!etReturnAmount.getText().toString().trim().equalsIgnoreCase(""))
-                    cashReturnAmt = Double.parseDouble(etReturnAmount.getText().toString());
-                else
-                    cashReturnAmt = 0.0;
-                if(!etReceivedAmount.getText().toString().trim().equalsIgnoreCase(""))
-                    receivedAmt = Double.parseDouble(etReceivedAmount.getText().toString());
-                else
-                    receivedAmt = 0.0;
+                if (sendCOD) {
+                    if (!etCashAmount.getText().toString().trim().equalsIgnoreCase(""))
+                        cashAmount = Double.parseDouble(etCashAmount.getText().toString());
+                    else
+                        cashAmount = 0.0;
+                    llCashReceived.setVisibility(View.GONE);
 
-
-                if(cashAmount>0.0 ){
-                    if(cashAmount <= IPOSApplication.totalAmount) {
-                    }else {
-                        Util.showToast("Please enter correct cash amount",PaymentModeActivity.this);
+                    if (cashAmount > 0.0) {
+                        if (cashAmount <= IPOSApplication.totalAmount) {
+                        } else {
+                            Util.showToast("Please enter correct cash amount", PaymentModeActivity.this);
+                        }
+                    } else {
+                        Util.showToast("Please enter cash amount", PaymentModeActivity.this);
+                        return;
                     }
-                }else{
-                    Util.showToast("Please enter cash amount",PaymentModeActivity.this);
-                    return;
-                }
 
-                if(cashReturnAmt>=0.0){
-                }else{
-                    Util.showToast("Please enter return amount",PaymentModeActivity.this);
-                    return;
-                }
-
-                if(receivedAmt>0.0){
-                    if(receivedAmt >= cashAmount) {
-                    }else {
-                        Util.showToast("Please enter correct received amount",PaymentModeActivity.this);
+                    if (cashAmount > 0.0 && cashAmount <= IPOSApplication.totalAmount) {
+                        totalAmount = totalAmount - cashAmount;
+                        tvBalance.setText(totalAmount + "");
+                        btnPayCash.setVisibility(View.GONE);
+                        llToggle.setVisibility(View.VISIBLE);
+                        toggleCOD.setEnabled(false);
+                        checkCash = true;
+                        etCashAmount.setEnabled(false);
+                        if (!checkCard) {
+                            etCardAmount.setText(totalAmount + "");
+                            cardAmount = totalAmount;
+                        }
+                    } else {
+                        checkCash = false;
+                        Util.showToast("Please enter cash valid details", PaymentModeActivity.this);
                     }
-                }else{
-                    Util.showToast("Please enter received amount",PaymentModeActivity.this);
-                    return;
-                }
 
-                if(receivedAmt > 0.0 && receivedAmt>=cashAmount && cashReturnAmt >= 0.0 && cashAmount > 0.0 && cashAmount <= IPOSApplication.totalAmount){
-                    totalAmount=totalAmount-cashAmount;
-                    tvBalance.setText(totalAmount+"");
-                    btnPayCash.setVisibility(View.GONE);
-                    llToggle.setVisibility(View.GONE);
-                    etReceivedAmount.setEnabled(false);
-                    checkCash=true;
-                    etCashAmount.setEnabled(false);
-                    if(!checkCard){
-                        etCardAmount.setText(totalAmount+"");
-                        cardAmount=totalAmount;
-                    }
                 }else {
-                    checkCash=false;
-                    Util.showToast("Please enter cash valid details",PaymentModeActivity.this);
-                }
+                    llCashReceived.setVisibility(View.VISIBLE);
+                    if (!etCashAmount.getText().toString().trim().equalsIgnoreCase(""))
+                        cashAmount = Double.parseDouble(etCashAmount.getText().toString());
+                    else
+                        cashAmount = 0.0;
+                    if (!etReturnAmount.getText().toString().trim().equalsIgnoreCase(""))
+                        cashReturnAmt = Double.parseDouble(etReturnAmount.getText().toString());
+                    else
+                        cashReturnAmt = 0.0;
+                    if (!etReceivedAmount.getText().toString().trim().equalsIgnoreCase(""))
+                        receivedAmt = Double.parseDouble(etReceivedAmount.getText().toString());
+                    else
+                        receivedAmt = 0.0;
 
+
+                    if (cashAmount > 0.0) {
+                        if (cashAmount <= IPOSApplication.totalAmount) {
+                        } else {
+                            Util.showToast("Please enter correct cash amount", PaymentModeActivity.this);
+                        }
+                    } else {
+                        Util.showToast("Please enter cash amount", PaymentModeActivity.this);
+                        return;
+                    }
+
+                    if (cashReturnAmt >= 0.0) {
+                    } else {
+                        Util.showToast("Please enter return amount", PaymentModeActivity.this);
+                        return;
+                    }
+
+                    if (receivedAmt > 0.0) {
+                        if (receivedAmt >= cashAmount) {
+                        } else {
+                            Util.showToast("Please enter correct received amount", PaymentModeActivity.this);
+                        }
+                    } else {
+                        Util.showToast("Please enter received amount", PaymentModeActivity.this);
+                        return;
+                    }
+
+                    if (receivedAmt > 0.0 && receivedAmt >= cashAmount && cashReturnAmt >= 0.0 && cashAmount > 0.0 && cashAmount <= IPOSApplication.totalAmount) {
+                        totalAmount = totalAmount - cashAmount;
+                        tvBalance.setText(totalAmount + "");
+                        btnPayCash.setVisibility(View.GONE);
+                        llToggle.setVisibility(View.GONE);
+                        etReceivedAmount.setEnabled(false);
+                        checkCash = true;
+                        etCashAmount.setEnabled(false);
+                        if (!checkCard) {
+                            etCardAmount.setText(totalAmount + "");
+                            cardAmount = totalAmount;
+                        }
+                    } else {
+                        checkCash = false;
+                        Util.showToast("Please enter cash valid details", PaymentModeActivity.this);
+                    }
+                }
                 break;
             case R.id.btnPayCard:
 
@@ -767,6 +821,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     if (resultObj != null) {
                         OrderSubmitResult mOrderSubmitResult = (OrderSubmitResult) resultObj;
                         if (mOrderSubmitResult.getError() == 200) {
+
                             IPOSApplication.mProductListResult.clear();
                             IPOSApplication.totalAmount = 0.0;
                             setResult(200);
@@ -777,21 +832,32 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         } else {
                             saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                             Util.showToast(mOrderSubmitResult.getErrorDescription(), IPOSApplication.getContext());
+                            IPOSApplication.mProductListResult.clear();
+                            IPOSApplication.totalAmount = 0.0;
+                            setResult(200);
+                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                            finish();
                         }
                     }
                 }else if (httpStatusCode == Constants.BAD_REQUEST) {
+                    saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+
                 } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+                    saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
                 } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+                    saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
                 } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+                    saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
                 } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+                    saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
                 }
             }catch (Exception e){
-
+                System.out.println(e);
             }
         }
     }

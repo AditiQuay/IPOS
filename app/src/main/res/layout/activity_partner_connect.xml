@@ -4,17 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".partnerConnect.PartnerConnectMain">
-    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".partnerConnect.PartnerConnectMain">-->
 
-    <!-- <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:orientation="vertical">-->
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -50,14 +40,9 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!-- </LinearLayout>
- -->
-
     <include
-
         layout="@layout/layout_pc_bottomsheet" />
 
-    <!--</RelativeLayout>-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

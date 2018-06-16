@@ -1,6 +1,7 @@
 package quay.com.ipos.realmbean;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by ankush.bansal on 15-06-2018.
@@ -8,11 +9,13 @@ import io.realm.RealmObject;
 
 public class RealmPOInventory extends RealmObject {
 
+    @PrimaryKey
     private String poNumber;
     private String id;
     private String date;
     private double value;
     private String company;
+    private String poStatus;
 
     public String getPoNumber() {
         return poNumber;
@@ -52,5 +55,13 @@ public class RealmPOInventory extends RealmObject {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public String getPoStatus() {
+        return poStatus;
+    }
+
+    public void setPoStatus(String poStatus) {
+        this.poStatus = poStatus;
     }
 }

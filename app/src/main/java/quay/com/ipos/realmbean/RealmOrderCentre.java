@@ -50,7 +50,7 @@ public class RealmOrderCentre extends RealmObject {
     private boolean isFreeItem;
     private boolean isRuleApplied;
     private String parentProductId;
-
+    private double accumulatedLoyality;
 
 
     public String getiProductModalId() {
@@ -347,6 +347,14 @@ public class RealmOrderCentre extends RealmObject {
 
     public void setParentProductId(String parentProductId) {
         this.parentProductId = parentProductId;
+    }
+
+    public double getAccumulatedLoyality() {
+        return accumulatedLoyality;
+    }
+
+    public void setAccumulatedLoyality(double accumulatedLoyality) {
+        this.accumulatedLoyality = accumulatedLoyality;
     }
 }
 

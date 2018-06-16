@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="16dp">
+
+            <TextView
+                android:id="@+id/textDDRName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/titilliumwebregular"
+                android:text="Care Argo"
+                android:textColor="@color/dark_grey_color"
+                android:textSize="@dimen/b2b_text_body" />
+
+            <TextView
+                android:id="@+id/textDDRCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/titilliumwebregular"
+                android:text="A1234567"
+                android:textColor="@color/dark_grey_color"
+                android:textSize="@dimen/b2b_text_body" />
+
+
+            <TextView
+                android:id="@+id/textDDRAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/titilliumwebregular"
+                android:text="Care Argo"
+                android:textColor="@color/dark_grey_color"
+                android:textSize="@dimen/b2b_text_body" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textDDRCreditLimitHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="Credit Limit:"
+
+                    android:textColor="@color/dark_grey_color"
+                    android:textSize="@dimen/b2b_text_body" />
+
+                <TextView
+                    android:id="@+id/textDDRCreditLimit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/textDDRCreditLimitHint"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="Rs .1000"
+                    android:textColor="@color/dark_grey_color"
+                    android:textSize="@dimen/b2b_text_body" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textDDRNonDueHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="Non Due:"
+                    android:textColor="@color/dark_grey_color"
+                    android:textSize="@dimen/b2b_text_body" />
+
+                <TextView
+                    android:id="@+id/textDDRNonDue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/textDDRNonDueHint"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="Rs. 1000"
+                    android:textColor="@color/dark_grey_color"
+                    android:textSize="@dimen/b2b_text_body" />
+
+                <TextView
+                    android:id="@+id/textDDROverDueHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/textDDRNonDue"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text=" | Over Due:"
+                    android:textColor="@color/dark_grey_color"
+                    android:textSize="@dimen/b2b_text_body" />
+
+                <TextView
+                    android:id="@+id/textDDROverDue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/textDDROverDueHint"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="Rs. 200"
+                    android:textColor="@color/dark_grey_color"
+                    android:textSize="@dimen/b2b_text_body" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/mDDROverDueIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="#E4BE01"
+            android:src="@drawable/pc_rel_email" />
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

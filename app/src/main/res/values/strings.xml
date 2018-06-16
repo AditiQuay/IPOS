@@ -5,6 +5,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_outbox">Outbox</string>
+    <string name="action_logout">Logout</string>
     <string name="msg_load_default">Loading...</string>
     <string name="assets_fonts_folder">fonts</string>
     <string name="mandatory">mandatory</string>
@@ -119,6 +121,8 @@
     </string-array>
 
     <string name="title_partner_connect">Partner Connect</string>
+    <string name="title_b2b_order_center">B2B Order Center</string>
+    <string name="title_b2b_ddr_select">Select DDR Center</string>
 
     <string name="total_discount">Total Discount</string>
     <string name="rounding_off">Rounding off</string>
@@ -322,6 +326,20 @@
     <string name="grn">GRN</string>
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
+    <string name="listEmptyNewOrder">No New Order</string>
+    <string name="listEmptyDeliverd">No Deliver Item</string>
+    <string name="string_delivered">Delivered Items</string>
+    <string name="listEmptyDispatched">No Dispatched Item</string>
+    <string name="Dispatched">Dispatched</string>
+    <string name="listEmptyAccepted">No Accepted Item</string>
+    <string name="stringAccepted">Accepted</string>
+    <string name="ddrb2bNew">New</string>
+    <string name="ddrb2bAccepted">Accepted</string>
+    <string name="ddrb2bDispatched">Dispatched</string>
+    <string name="ddrb2bDelivered">Delivered</string>
+    <string name="ddrb2bCancelled">Cancelled</string>
+    <string name="title_b2bsales">B2B Sales</string>
+    <string name="save_close"><![CDATA[Save & Close]]></string>
 
 
 </resources>

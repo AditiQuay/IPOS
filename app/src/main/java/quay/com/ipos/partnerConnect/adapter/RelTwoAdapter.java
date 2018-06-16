@@ -62,7 +62,7 @@ public class RelTwoAdapter extends RecyclerView.Adapter<RelTwoAdapter.VH> {
                         ((Activity) view.getContext()).startActivity(intent);
                         return;
                     }*/
-                    ShareWorldUtil.dialNumber(IPOSApplication.getAppInstance(),"9818216321");
+                    ShareWorldUtil.dialNumber(IPOSApplication.getAppInstance(),""+contact.keyEntityEmpMobile1);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

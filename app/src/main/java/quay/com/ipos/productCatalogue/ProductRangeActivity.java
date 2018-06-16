@@ -35,9 +35,9 @@ import io.realm.Sort;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.ddr.adapter.AddNewOrderAdapter;
-import quay.com.ipos.ddr.modal.NewOrderProductsResult;
-import quay.com.ipos.ddr.modal.ProductSearchRequest;
+import quay.com.ipos.pss_order.adapter.AddNewOrderAdapter;
+import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
+import quay.com.ipos.pss_order.modal.ProductSearchRequest;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
@@ -56,7 +56,7 @@ import quay.com.ipos.utility.Util;
 
 public class ProductRangeActivity extends BaseActivity implements View.OnClickListener, AdapterListener, ServiceTask.ServiceResultListener {
 
-    private static final String TAG = quay.com.ipos.retailsales.activity.AddProductActivity.class.getSimpleName();
+    private static final String TAG = ProductRangeActivity.class.getSimpleName();
     ArrayList<OrderList.Datum> arrSearlist = new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;

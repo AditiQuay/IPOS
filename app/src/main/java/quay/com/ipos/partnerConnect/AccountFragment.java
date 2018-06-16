@@ -22,6 +22,7 @@ import java.util.List;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.Account;
+import quay.com.ipos.partnerConnect.model.BillnDelivery;
 import quay.com.ipos.partnerConnect.model.Cheques;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.AccountAdapter;
@@ -39,8 +40,13 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
     private EditText editAccountHolderName, editAccountNo, editAccountType;
     private EditText editIFSCCode, editBankName, editBranchAddress;
 
+    private View btnAdd;
+    private PCModel mpcModel;
+
+
     @Nullable
     @Override
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.account_info_fragment, container, false);
         mContext = getActivity();
@@ -53,6 +59,7 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
 
     @Override
     public void findViewById() {
+        btnAdd = view.findViewById(R.id.btnAdd);
         textViewMadatory = view.findViewById(R.id.textViewMadatory);
         textViewAccountInfoHeading = view.findViewById(R.id.textViewAccountInfoHeading);
         textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
@@ -64,6 +71,14 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
         editBranchAddress = view.findViewById(R.id.editBranchAddress);
         editIFSCCode = view.findViewById(R.id.editIFSCCode);
         editBankName = view.findViewById(R.id.editBankName);
+
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addNewField();
+            }
+        });
 
     }
 
@@ -105,7 +120,7 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
             partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
                 @Override
                 public void onChanged(@Nullable PCModel pcModel) {
-                    pcModel = pcModel;
+                    mpcModel = pcModel;
                     setData(pcModel);
 
                 }
@@ -188,4 +203,25 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
 
     };
 
+    private void addNewField() {
+        if (mpcModel != null && mpcModel.Account != null) {
+            if (mpcModel.Account.size() > 0) {
+                if (mpcModel.Account.get(0) != null) {
+                    Account account = mpcModel.Account.get(0);
+                    if (account.cheques != null) {
+                        Cheques cheques = new Cheques();
+                        cheques.mSecurityCheque = "Yes";
+                        account.cheques.add(cheques);
+
+                        PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
+                        if (connectMain != null) {
+                            connectMain.getPcModelData().setValue(mpcModel);
+                        }
+
+                    }
+                }
+            }
+
+        }
+    }
 }

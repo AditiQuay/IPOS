@@ -6,6 +6,7 @@
     <color name="colorAccentDark">#556892</color>
     <color name="app_background_color">#eeeeee</color>
     <color name="colorAccentGreen">#70bf1a</color>
+    <color name="colorAccentRed">#ff0000</color>
     <color name="dark_text_color">#132E67</color>
     <color name="color_text">#91cdeb</color>
 

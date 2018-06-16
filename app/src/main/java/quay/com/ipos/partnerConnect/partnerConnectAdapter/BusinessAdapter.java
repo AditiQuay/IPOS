@@ -20,7 +20,6 @@ import java.util.List;
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.ButtonListener;
-import quay.com.ipos.partnerConnect.model.BusinessLocation;
 import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
 
 /**
@@ -70,8 +69,8 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
         try {
 
 
-            holder.partnerTypeSpinner.setAdapter(partnerTypeHeading);
-            holder.keyContactSpinner.setAdapter(contactPosition);
+            //holder.editPartnerType.setAdapter(partnerTypeHeading);
+            // holder.editKeyContactPos.setAdapter(contactPosition);
 
 
             // magic code for editText
@@ -80,6 +79,9 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
             holder.editCompanyName.setText(list.get(holder.getAdapterPosition()).mCompanyName);
             holder.editPAN.setText(list.get(holder.getAdapterPosition()).mPAN);
             holder.editCIN.setText(list.get(holder.getAdapterPosition()).mCIN);
+            holder.editPartnerType.setText(list.get(holder.getAdapterPosition()).mPartnerType);
+            holder.editKeyContactPos.setText(list.get(holder.getAdapterPosition()).mContactPosition);
+
             holder.editPinCode.setText(list.get(holder.getAdapterPosition()).BusinessLocation.mPINCode);
             holder.editCity.setText(list.get(holder.getAdapterPosition()).BusinessLocation.mCity);
             holder.editState.setText(list.get(holder.getAdapterPosition()).BusinessLocation.mState);
@@ -93,7 +95,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
             if (mPartnerType != null) {
                 if (listPartner.contains(mPartnerType)) {
                     int index = listPartner.indexOf(mPartnerType);
-                    holder.partnerTypeSpinner.setSelection(index + 1);
+                    holder.editPartnerType.setSelection(index + 1);
                 }
             }
 
@@ -101,7 +103,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
             if (mContactPosition != null) {
                 if (listPosition.contains(mContactPosition)) {
                     int index = listPosition.indexOf(mContactPosition);
-                    holder.keyContactSpinner.setSelection(index + 1);
+                    holder.editKeyContactPos.setSelection(index + 1);
                 }
             }
         } catch (Exception e) {
@@ -116,7 +118,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
 
 
     public class MyView extends RecyclerView.ViewHolder {
-        private MaterialSpinner partnerTypeSpinner, keyContactSpinner;
+        private TextInputEditText editPartnerType, editKeyContactPos;
         private TextInputEditText editCompanyName, editCIN, editPAN, editContactPerson, editState, editCity, editPinCode, editZone;
         private TextView textViewBusinessInfoHeading;
         public MyCustomEditTextListener myCustomEditTextListener;
@@ -125,8 +127,8 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
 
         public MyView(View itemView, MyCustomEditTextListener myCustomEditTextListener, MyCustomSpinnerListener myCustomSpinnerListener) {
             super(itemView);
-            partnerTypeSpinner = itemView.findViewById(R.id.spinnerPartnerType);
-            keyContactSpinner = itemView.findViewById(R.id.spinnerKeyContact);
+            editPartnerType = itemView.findViewById(R.id.editPartnerType);
+            editKeyContactPos = itemView.findViewById(R.id.editKeyContactPos);
             textViewBusinessInfoHeading = itemView.findViewById(R.id.textViewBusinessInfoHeading);
 
             //TextInputEdiText
@@ -150,11 +152,13 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
             this.editCity.addTextChangedListener(myCustomEditTextListener);
             this.editPinCode.addTextChangedListener(myCustomEditTextListener);
             this.editZone.addTextChangedListener(myCustomEditTextListener);
+            this.editPartnerType.addTextChangedListener(myCustomEditTextListener);
+            this.editKeyContactPos.addTextChangedListener(myCustomEditTextListener);
 
             //magic code for spinner
             this.myCustomSpinnerListener = myCustomSpinnerListener;
-            this.partnerTypeSpinner.setOnItemSelectedListener(myCustomSpinnerListener);
-            this.keyContactSpinner.setOnItemSelectedListener(myCustomSpinnerListener);
+            //   this.editPartnerType.setOnItemSelectedListener(myCustomSpinnerListener);
+            //    this.editKeyContactPos.setOnItemSelectedListener(myCustomSpinnerListener);
 
 
         }
@@ -214,6 +218,16 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
                         list.get(position).mContactPerson = charSequence.toString();
                     }
                 }
+                if (holder.editPartnerType != null) {
+                    if (holder.editPartnerType.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mPartnerType = charSequence.toString();
+                    }
+                }
+                if (holder.editKeyContactPos != null) {
+                    if (holder.editKeyContactPos.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).mContactPosition = charSequence.toString();
+                    }
+                }
 
 
                 //business Location
@@ -258,18 +272,18 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             switch (adapterView.getId()) {
-                case R.id.spinnerPartnerType:
+              /*  case R.id.editPartnerType:
                     if (i != -1)
                         list.get(position).mPartnerType = listPartner.get(i);
                     else
                         list.get(position).mPartnerType = "";
                     break;
-                case R.id.spinnerKeyContact:
+                case R.id.editKeyContactPos:
                     if (i != -1)
                         list.get(position).mContactPosition = listPosition.get(i);
                     else
                         list.get(position).mContactPosition = "";
-                    break;
+                    break;*/
             }
 
         }

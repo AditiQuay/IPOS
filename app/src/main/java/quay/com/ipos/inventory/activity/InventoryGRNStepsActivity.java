@@ -87,7 +87,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
-
+        getIntents();
         recycleview = (RecyclerView) findViewById(R.id.recycleview);
         GridLayoutManager mLayoutManager5 = new GridLayoutManager(this, 1);
         //   recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
@@ -96,7 +96,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         inventoryListAdapter = new InventoryListAdapter(this, inventoryModels,this);
         recycleview.setAdapter(inventoryListAdapter);
 
-        getRecentOrdersData();
+        //getRecentOrdersData();
 
         final RelativeLayout rlTab=findViewById(R.id.rlTab);
         final RelativeLayout llgrnn=findViewById(R.id.llgrnn);
@@ -106,7 +106,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         final TextView tvPO=findViewById(R.id.tvPO);
         LinearLayout poLayout=findViewById(R.id.poLayout);
 
-        final RelativeLayout rLayoutMain=findViewById(R.id.rLayoutMain);
+   //     final RelativeLayout rLayoutMain=findViewById(R.id.rLayoutMain);
         poLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +116,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
                 recycleviewCard.setVisibility(View.GONE);
                 rlTab.setVisibility(View.GONE);
                 llgrnn.setVisibility(View.GONE);
-                rLayoutMain.setVisibility(View.GONE);
+              //  rLayoutMain.setVisibility(View.GONE);
             }
         });
 
@@ -129,7 +129,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
                 recycleviewCard.setVisibility(View.VISIBLE);
                 rlTab.setVisibility(View.VISIBLE);
                 llgrnn.setVisibility(View.VISIBLE);
-                rLayoutMain.setVisibility(View.VISIBLE);
+             //   rLayoutMain.setVisibility(View.VISIBLE);
             }
         });
 
@@ -151,6 +151,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         Intent i=getIntent();
         if (i!=null)
         requestJson=i.getStringExtra("request");
+        assert i != null;
         busineesPlaceId=i.getStringExtra("businessPlaceId");
 
 
@@ -248,17 +249,19 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
                         String responseData = response.body().string();
                         if (responseData != null) {
 
-                            JSONObject jsonObject=new JSONObject();
-                            JSONArray array=jsonObject.optJSONArray("array");
+                            JSONObject jsonObject=new JSONObject(responseData);
+                            JSONArray array=jsonObject.optJSONArray("pODetails");
 
                             for (int i=0;i<array.length();i++){
                                 JSONObject jsonObject2=array.optJSONObject(i);
-                                jsonObject2.put("poNumber",jsonObject2.optString("poNumber"));
-                                jsonObject2.put("id",jsonObject2.optString(""));
-                                jsonObject2.put("date",jsonObject2.optString(""));
-                                jsonObject2.put("value",jsonObject2.optString(""));
-                                jsonObject2.put("company",jsonObject2.optString(""));
-                                new RealmController().savePODetails(jsonObject2.toString());
+                                JSONObject jsonObject3=new JSONObject();
+                                jsonObject3.put("poNumber",jsonObject2.optString("poNumber"));
+                                jsonObject3.put("id",jsonObject2.optString("supplierCode"));
+                                jsonObject3.put("date",jsonObject2.optString("poDate"));
+                                jsonObject3.put("value",jsonObject2.optString("poValue"));
+                                jsonObject3.put("company",jsonObject2.optString("supplierName"));
+                                jsonObject3.put("poStatus",jsonObject2.optString("poStatus"));
+                                new RealmController().savePODetails(jsonObject3.toString());
                             }
 
                             // saveResponseLocalCreateOrder(jsonObject,requestId);

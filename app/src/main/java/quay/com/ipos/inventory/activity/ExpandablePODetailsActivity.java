@@ -44,7 +44,7 @@ import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.ddr.activity.OrderCentreDetailsActivity;
+import quay.com.ipos.pss_order.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.inventory.adapter.AddressListAdapter;
 import quay.com.ipos.inventory.adapter.AttachmentsPOListAdapter;
@@ -332,30 +332,41 @@ public class ExpandablePODetailsActivity extends BaseActivity {
                     poItemDetail.setPoItemAmount(jsonObject1.optDouble("poItemAmount"));
                     poItemDetail.setPoItemUnitPrice(jsonObject1.optDouble("poItemUnitPrice"));
                     poItemDetail.setPoItemIGSTValue(jsonObject1.optDouble("poItemIGSTValue"));
+                    poItemDetail.setTitle(jsonObject1.optString("materialName"));
                     poItemDetails.add(poItemDetail);
-
-
                 }
 
 
 
-            JSONArray jsonArray=jsonObject.optJSONArray("POIncoTerms");
+            JSONArray jsonArray=jsonObject.optJSONArray("pOIncoTerms");
 
 
+                double total=0;
             for (int j = 0; j < jsonArray.length(); j++) {
 
                 JSONObject jsonObject1 = jsonArray.optJSONObject(j);
 
                 POIncoTerms poIncoTerms1=new POIncoTerms();
-                poIncoTerms1.setPoIncoDetail(jsonObject1.optString("poItemQty"));
-                poIncoTerms1.setPoPayAmount(jsonObject1.optDouble("poItemAmount"));
-                poIncoTerms1.setPoPayByReceiver(jsonObject1.optBoolean("poItemUnitPrice"));
-                poIncoTerms1.setPoPayBySender(jsonObject1.optBoolean("poItemIGSTValue"));
+                poIncoTerms1.setPoIncoDetail(jsonObject1.optString("poIncoDetail"));
+                poIncoTerms1.setPoPayAmount(jsonObject1.optDouble("poPayAmount"));
+                poIncoTerms1.setPoPayByReceiver(jsonObject1.optBoolean("poPayByReceiver"));
+                poIncoTerms1.setPoPayBySender(jsonObject1.optBoolean("poPayBySender"));
                 poIncoTerms.add(poIncoTerms1);
+
+                total=total+jsonObject1.optDouble("poPayAmount");
+
 
 
             }
-            JSONArray jsonArray1=jsonObject.optJSONArray("POPaymentTerms");
+            POIncoTerms poIncoTerms2=new POIncoTerms();
+            poIncoTerms2.setPoIncoDetail("Total");
+            poIncoTerms2.setPoPayAmount(total);
+            poIncoTerms2.setPoPayByReceiver(false);
+            poIncoTerms2.setPoPayBySender(false);
+            poIncoTerms.add(poIncoTerms2);
+
+
+            JSONArray jsonArray1=jsonObject.optJSONArray("pOPaymentTerms");
 
 
             for (int j = 0; j < jsonArray1.length(); j++) {
@@ -372,7 +383,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
 
             }
 
-            JSONArray jsonArray2=jsonObject.optJSONArray("POTermsAndCondition");
+            JSONArray jsonArray2=jsonObject.optJSONArray("pOTermsAndConditions");
 
 
             for (int j = 0; j < jsonArray2.length(); j++) {
@@ -380,15 +391,15 @@ public class ExpandablePODetailsActivity extends BaseActivity {
                 JSONObject jsonObject1 = jsonArray2.optJSONObject(j);
 
                 POTermsCondition termsCondition=new POTermsCondition();
-                termsCondition.setpOTermsAndConditionDetail(jsonObject1.optString("poPaymentTermsDetail"));
-                termsCondition.setpOTermsAndConditionSrNo(jsonObject1.optInt("poPaymentTermsInvoiceDue"));
+                termsCondition.setpOTermsAndConditionDetail(jsonObject1.optString("pOTermsAndConditionDetail"));
+                termsCondition.setpOTermsAndConditionSrNo(jsonObject1.optInt("pOTermsAndConditionSrNo"));
 
                 poTermsConditions.add(termsCondition);
 
 
             }
 
-            JSONArray jsonArray3=jsonObject.optJSONArray("POAttachment");
+            JSONArray jsonArray3=jsonObject.optJSONArray("pOAttachments");
 
 
             for (int j = 0; j < jsonArray3.length(); j++) {
@@ -396,9 +407,9 @@ public class ExpandablePODetailsActivity extends BaseActivity {
                 JSONObject jsonObject1 = jsonArray3.optJSONObject(j);
 
                 POAttachments poAttachments1=new POAttachments();
-                poAttachments1.setpOAttachmentName(jsonObject1.optString("poPaymentTermsDetail"));
-                poAttachments1.setpOAttachmentType(jsonObject1.optString("poPaymentTermsInvoiceDue"));
-                poAttachments1.setpOAttachmentUrl(jsonObject1.optString("poPaymentTermsInvoiceDue"));
+                poAttachments1.setpOAttachmentName(jsonObject1.optString("pOAttachmentName"));
+                poAttachments1.setpOAttachmentType(jsonObject1.optString("pOAttachmentType"));
+                poAttachments1.setpOAttachmentUrl(jsonObject1.optString("pOAttachmentUrl"));
 
                 poAttachments.add(poAttachments1);
 
@@ -431,7 +442,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         try {
             jsonObject1.put("empCode",Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject1.put("businessPlaceId",businessPlaceId);
-            jsonObject1.put("poNumber",poNumber);
+            jsonObject1.put("poNumber",poNumber.replace("PO",""));
 
         } catch (JSONException e) {
             e.printStackTrace();

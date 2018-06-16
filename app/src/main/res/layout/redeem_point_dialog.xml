@@ -86,7 +86,7 @@
                 android:drawablePadding="@dimen/dim_5"
                 app:typeface="Roboto-Regular.ttf"
                 android:textColor="@color/white"
-                android:text="500 Pts" />
+                android:text="" />
         </RelativeLayout>
 
         <LinearLayout
@@ -190,8 +190,8 @@
                 android:textSize="@dimen/text_size_15sp"
                 android:textColor="@color/white"
                 android:layout_weight="1"
-                android:paddingTop="@dimen/dim_10"
-                android:paddingBottom="@dimen/dim_10"
+                android:paddingTop="@dimen/dim_4"
+                android:paddingBottom="@dimen/dim_4"
                 app:typeface="TitilliumWeb-SemiBold.ttf"
                 android:background="@drawable/button_drawable"
                 android:text="Get OTP" />

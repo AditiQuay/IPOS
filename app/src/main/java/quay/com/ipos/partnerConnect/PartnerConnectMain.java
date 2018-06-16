@@ -194,7 +194,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
            /* if (mListener != null) {
                 mListener.onPageSelected(position);
             }*/
-            if (position == 0) {
+            if (position == 0 || position == 1) {
                 findViewById(R.id.bottom_sheet).setVisibility(View.GONE);
             } else {
                 findViewById(R.id.bottom_sheet).setVisibility(View.VISIBLE);
@@ -357,8 +357,10 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectUpdateResponse> call, Response<PartnerConnectUpdateResponse> response) {
-                if (response.code() != 200)
+                if (response.code() != 200) {
                     IPOSApplication.showToast("Code:" + response.code() + " message:" + response.message());
+                    return;
+                }
                 try {
 
                     IPOSApplication.showToast("Code:" + response.code() + " message:" + response.message());
@@ -398,7 +400,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         }
 
 
-        if (pcModel.Business == null) {
+       /* if (pcModel.Business == null) {
             String error = "Business is null";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
@@ -411,10 +413,10 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
-        }
+        }*/
 
         //validate business info
-        for (KeyBusinessInfo keyBusinessInfo : pcModel.Business.KeyBusinessInfo) {
+      /*  for (KeyBusinessInfo keyBusinessInfo : pcModel.Business.KeyBusinessInfo) {
 
 
             if (keyBusinessInfo.mPartnerType == null || keyBusinessInfo.mPartnerType.isEmpty()) {
@@ -489,7 +491,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             }
 
         }
-
+*/
 
         //validation of contact
         if (pcModel.contactDetail == null) {
@@ -529,40 +531,40 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             return false;
         }
         if (pcModel.contactDetail.KeyBusinessContactInfo.keyEmail == null || pcModel.contactDetail.KeyBusinessContactInfo.keyEmail.isEmpty()) {
-            String error = "Contact -> Email is required!";
+            String error = "Contact-> Email is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
 
         if (pcModel.contactDetail.KeyBusinessContactInfo.NewContact == null) {
-            String error = "Contact Other -> Contact Other is required!";
+            String error = "Contact-> Contact Other is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
         for (NewContact newContact : pcModel.contactDetail.KeyBusinessContactInfo.NewContact) {
             if (newContact.Role == null || newContact.Role.isEmpty()) {
-                String error = "Contact Other -> Role is required!";
+                String error = "Contact-> Role is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (newContact.Name == null || newContact.Name.isEmpty()) {
-                String error = "Contact Other -> Name is required!";
+                String error = "Contact-> Name is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
 
             if (newContact.PrimaryMobile == null || newContact.PrimaryMobile.isEmpty()) {
-                String error = "Contact Other -> Primary Mobile is required!";
+                String error = "Contact-> Primary Mobile is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (newContact.SecondaryMobile == null || newContact.SecondaryMobile.isEmpty()) {
-                String error = "Contact Other -> Secondary Mobile is required!";
+                String error = "Contact-> Secondary Mobile is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
