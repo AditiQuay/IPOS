@@ -56,7 +56,7 @@ import quay.com.ipos.utility.Util;
 
 public class ProductRangeActivity extends BaseActivity implements View.OnClickListener, AdapterListener, ServiceTask.ServiceResultListener {
 
-    private static final String TAG = quay.com.ipos.retailsales.activity.AddProductActivity.class.getSimpleName();
+    private static final String TAG = ProductRangeActivity.class.getSimpleName();
     ArrayList<OrderList.Datum> arrSearlist = new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;
@@ -418,7 +418,7 @@ public class ProductRangeActivity extends BaseActivity implements View.OnClickLi
         productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOProductSearch);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH);
         mTask.setApiCallType(Constants.API_METHOD_POST);
         mTask.setParamObj(productSearchRequest);
         mTask.setListener(this);

@@ -5,6 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="action_outbox">Outbox</string>
     <string name="action_logout">Logout</string>
     <string name="msg_load_default">Loading...</string>
     <string name="assets_fonts_folder">fonts</string>
@@ -325,7 +326,39 @@
     <string name="grn">GRN</string>
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
+    <string name="listEmptyNewOrder">No New Order</string>
+    <string name="listEmptyDeliverd">No Deliver Item</string>
+    <string name="string_delivered">Delivered Items</string>
+    <string name="listEmptyDispatched">No Dispatched Item</string>
+    <string name="Dispatched">Dispatched</string>
+    <string name="listEmptyAccepted">No Accepted Item</string>
+    <string name="stringAccepted">Accepted</string>
+    <string name="ddrb2bNew">New</string>
+    <string name="ddrb2bAccepted">Accepted</string>
+    <string name="ddrb2bDispatched">Dispatched</string>
+    <string name="ddrb2bDelivered">Delivered</string>
+    <string name="ddrb2bCancelled">Cancelled</string>
+    <string name="title_b2bsales">B2B Sales</string>
     <string name="save_close"><![CDATA[Save & Close]]></string>
+    <string name="hsn">HSN</string>
+    <string name="gst_perc">GST%</string>
+    <string name="mrp">MRP</string>
+    <string name="nrv">NRV</string>
+    <string name="gpl">GPL</string>
+    <string name="sales_price">Sales Price</string>
+    <string name="sub_category">Sub Category</string>
+    <string name="brand">Brand</string>
+    <string name="sgst_perc">SGST %</string>
+    <string name="cgst_perc">CGST %</string>
+    <string name="redeem_voucher_details">Redeem Voucher Details</string>
+    <string name="category">Category</string>
+    <string name="tnc"><![CDATA[hereby acknowledge that I have read and understood the T&C as provided in the app.]]></string>
+    <string name="redemption_request_summary">Redemption Request Summary</string>
+    <string name="issued">Issued</string>
+    <string name="new_redemption_request">New Redemption Request</string>
+
+    <string name="title_b2b_order_center">B2B Order Center</string>
+    <string name="title_b2b_ddr_select">B2B DDR Select</string>
 
 
 </resources>

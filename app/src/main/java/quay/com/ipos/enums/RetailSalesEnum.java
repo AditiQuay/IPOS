@@ -2,6 +2,7 @@ package quay.com.ipos.enums;
 
 
 public enum RetailSalesEnum {
+    accumulatedLoyality("accumulatedLoyality"),
     discountTotal("discountTotal"),
     isRuleApplied("isRuleApplied"),
     isFreeItem("isFreeItem"),

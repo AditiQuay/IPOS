@@ -11,15 +11,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.inventory.modal.POIncoTerms;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 
 
 public class INCOTermsPOListAdapter extends RecyclerView.Adapter<INCOTermsPOListAdapter.SurveyViewHolder> {
     private Context mContext;
-    private ArrayList<RealmBusinessPlaces> stringArrayList;
+    private ArrayList<POIncoTerms> stringArrayList;
     private OnItemSelecteListener mListener;
 
-    public INCOTermsPOListAdapter(Context mContext, ArrayList<RealmBusinessPlaces> stringArrayList) {
+    public INCOTermsPOListAdapter(Context mContext, ArrayList<POIncoTerms> stringArrayList) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
 
@@ -36,7 +37,17 @@ public class INCOTermsPOListAdapter extends RecyclerView.Adapter<INCOTermsPOList
 
 
 
-        holder.tvQty.setText(stringArrayList.get(position).getHeader());
+        holder.tvQty.setText(stringArrayList.get(position).getPoIncoDetail());
+
+        holder.tvGst.setText(stringArrayList.get(position).getPoPayAmount()+"");
+        if (stringArrayList.get(position).isPoPayBySender()){
+            holder.sender.setChecked(true);
+        }
+        if (stringArrayList.get(position).isPoPayByReceiver()){
+            holder.reciver.setChecked(true);
+        }
+
+
 
 
 
@@ -58,12 +69,16 @@ public class INCOTermsPOListAdapter extends RecyclerView.Adapter<INCOTermsPOList
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvQty,textViewName;
+        private TextView tvQty,tvGst;
+        RadioButton sender,reciver;
 
-        private RadioButton radio;
+
         public SurveyViewHolder(View itemView) {
             super(itemView);
             tvQty = itemView.findViewById(R.id.tvQty);
+            tvGst = itemView.findViewById(R.id.tvGst);
+            sender = itemView.findViewById(R.id.sender);
+            reciver = itemView.findViewById(R.id.reciver);
 
 
         }

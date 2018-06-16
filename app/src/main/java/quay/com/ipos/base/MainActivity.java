@@ -68,6 +68,9 @@ import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.local.dao.MostUsedFunDao;
 import quay.com.ipos.data.local.entity.MostUsed;
+import quay.com.ipos.ddrsales.DDROrderCenterActivity;
+import quay.com.ipos.pss_order.fragment.NewOrderFragment;
+import quay.com.ipos.pss_order.fragment.OrderCentreListFragment;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.inventory.fragment.InventoryFragment;
@@ -571,6 +574,12 @@ public class MainActivity extends BaseActivity
                 menu1.findItem(R.id.action_search).setVisible(true);
                 break;
 
+            case "DDR Sales (B2B)":
+                Intent intentDDR = new Intent(mContext, DDROrderCenterActivity.class);
+                startActivity(intentDDR);
+
+                break;
+
             case "Manage Store":
 
                 break;
@@ -579,7 +588,7 @@ public class MainActivity extends BaseActivity
                 inventaortFragment = new InventoryFragment();
                 replaceFragment(inventaortFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
-                toolbar.setTitle(getString(R.string.inventory));
+                toolbar.setTitle("Inventory");
                 menu1.findItem(R.id.action_notification).setVisible(false);
                 menu1.findItem(R.id.action_search).setVisible(false);
 

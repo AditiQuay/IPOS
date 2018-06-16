@@ -507,7 +507,14 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">normal</item>
     </style>
-
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">#FFC107</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <!-- Used for the background -->
+        <item name="android:background">#4CAF50</item>
+    </style>
     <style name="DialogThemeNoTitle" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@color/transparent</item>
@@ -639,5 +646,10 @@
     <style name="fontSemiBold" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily" tools:ignore="NewApi">@font/titilliumwebsemibold</item>
         <item name="android:textColor">@color/dark_grey_color</item>
+    </style>
+
+    <style name="TabStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:paddingStart">0dip</item>
+        <item name="android:paddingEnd">0dip</item>
     </style>
 </resources>

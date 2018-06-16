@@ -8,6 +8,7 @@ android {
         targetSdkVersion 26
         multiDexEnabled true
         versionCode 1
+        multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

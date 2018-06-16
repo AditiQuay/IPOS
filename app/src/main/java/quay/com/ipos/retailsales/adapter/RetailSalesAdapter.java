@@ -245,6 +245,9 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.llInnerItem.setOnClickListener(mOnClickListener);
             userViewHolder.llInnerItem.setTag(position);
 
+            userViewHolder.imvInfo.setOnClickListener(mOnClickListener);
+            userViewHolder.imvInfo.setTag(position);
+
             userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
             userViewHolder.tvMinus.setTag(position);
 

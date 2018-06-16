@@ -56,11 +56,13 @@ import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.retailsales.activity.AddProductActivity;
+import quay.com.ipos.retailsales.activity.OutboxActivity;
 import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
 import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
 import quay.com.ipos.ui.DiscountDeleteFragment;
 import quay.com.ipos.ui.FontManager;
+import quay.com.ipos.ui.InformationDialog;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.ui.MyDialogFragment;
@@ -294,6 +296,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         IPOSApplication.totalpointsToRedeemValue = 0.0;
         IPOSApplication.isClicked=false;
         IPOSApplication.isRefreshed = false;
+        mCustomerID="";
+        mCustomerPointsPer=0.0;
+        mCustomerPoints=0.0;
+        mCustomerEmail="";
+        tvRedeemPoints.setText(mCustomerPoints+"");
         flScanner.setVisibility(View.GONE);
 //        chkBarCode.setChecked(false);
 //        closeFragment();
@@ -520,9 +527,14 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         switch (item.getItemId()) {
 
             case R.id.action_search:
-                // Do onlick on menu action here
+                // Do onClick on menu action here
                 onSearchButton();
                 return true;
+
+            case  R.id.action_outbox:
+                // Do onClick on menu action here
+                onOutBoxButton();
+                break;
         }
         return false;
     }
@@ -534,6 +546,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     public void onSearchButton() {
         Intent mIntent = new Intent(mContext, AddProductActivity.class);
         startActivityForResult(mIntent, 1);
+    }
+
+    public void onOutBoxButton() {
+        Intent mIntent = new Intent(mContext, OutboxActivity.class);
+        startActivity(mIntent);
     }
 
     private void setAdapter() {
@@ -783,8 +800,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //                            discountItem++;
                         freeItemCount++;
                         cart_detail.setIsFreeItem(true);
-
 //                            mScheme.setSchemeID(discounts.get(j).getSchemeID());
+                    }else {
+                        cart_detail.setIsFreeItem(false);
                     }
                     for (int j = 0; j < discounts.size(); j++) {
                         discount = discount + discounts.get(j).getDiscountTotal();
@@ -793,6 +811,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                         if(discounts.get(j).getDiscountTotal()>0.0){
                             discountItem++;
                             cart_detail.setDiscountValue(discounts.get(j).getDiscountTotal());
+                        }else {
+                            cart_detail.setDiscountValue(0.0);
                         }
 
                         for(int k = 0 ; k< discounts.get(j).getRule().size();k++)
@@ -819,6 +839,12 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //                    }else {
 ////                        discount = discount + mList.get(i);
 //                    }
+                }else {
+                    cart_detail.setIsFreeItem(false);
+                    cart_detail.setDiscountValue(0.0);
+                    scheme.clear();
+                    cart_detail.setScheme(scheme);
+
                 }
 
                 totalGst = mList.get(i).getGstPerc() * sum / 100;
@@ -904,6 +930,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //            case R.id.imvQRCode:
 //                ((MainActivity) mContext).launchActivity(FullScannerActivity.class);
 //                break;
+            case R.id.imvInfo:
+                int infoPos = (int) view.getTag();
+               new  InformationDialog(mContext,IPOSApplication.mProductListResult.get(infoPos));
+                break;
             case R.id.tvMoreDetails:
                 llTotalDiscountDetail.setVisibility(View.VISIBLE);
                 llTotalGST.setVisibility(View.GONE);
@@ -1105,6 +1135,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                         SharedPrefUtil.putString(Constants.PAYMENT_REQUEST,Util.getCustomGson().toJson(paymentRequest),getActivity());
                     Intent i = new Intent(mContext, PaymentModeActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
+                    i.putExtra(Constants.KEY_CUSTOMER,mCustomerID);
+                    i.putExtra(Constants.KEY_CUSTOMER_POINTS_PER,mCustomerPointsPer);
+                    i.putExtra(Constants.KEY_CUSTOMER_POINTS,mCustomerPoints);
+                    i.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL,mCustomerEmail);
                     startActivityForResult(i,Constants.ACT_PAYMENT);
                 } else {
                     Util.showToast("Please add atleast one item to proceed.", mContext);

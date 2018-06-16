@@ -31,7 +31,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
-
+    public static boolean onBind = true;
     // private OnLoadMoreListener mOnLoadMoreListener;
 
     private boolean isLoading;
@@ -113,6 +113,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof AddProductAdapter.UserViewHolder) {
+
             ProductSearchResult.Datum str = mDataset.get(position);
 //            AppLog.e(AddProductAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             AddProductAdapter.UserViewHolder userViewHolder = (AddProductAdapter.UserViewHolder) holder;
@@ -137,6 +138,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.tvOfferDetail.setVisibility(View.GONE);
             }
             userViewHolder.tvPoints.setText(str.getPoints()+"");
+            onBind = false;
             userViewHolder.llAdd.setOnClickListener(mOnClickListener);
             userViewHolder.llAdd.setTag(position);
 

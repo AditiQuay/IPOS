@@ -1,5 +1,8 @@
 package quay.com.ipos.pss_order.activity;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +14,10 @@ import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -24,6 +31,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -36,6 +44,7 @@ import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.ddr.activity.AddOrderCentreActivity;
 import quay.com.ipos.pss_order.adapter.AddressListAdapter;
 import quay.com.ipos.pss_order.adapter.NewOrderItemsDetailListAdapter;
 import quay.com.ipos.pss_order.adapter.WorkFLowAdapter;
@@ -49,6 +58,7 @@ import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
+import quay.com.ipos.realmbean.RealmOrderCentre;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
@@ -57,69 +67,84 @@ import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SpacesItemDecoration;
 import quay.com.ipos.utility.Util;
 
+import static quay.com.ipos.utility.Util.dateDialogfrom;
+
 /**
  * Created by aditi.bhuranda on 20-04-2018.
  */
 
-public class OrderCentreDetailsActivity extends BaseActivity implements MyListener, ServiceTask.ServiceResultListener {
+public class OrderCentreDetailsActivity extends BaseActivity implements MyListener,ServiceTask.ServiceResultListener{
     String[] address = {"1/82"};
-    String[] items = {"SoudaFoam 1k", "SoudaFoam Pro"};
-    String[] user = {"KGM Traders", "McCoy"};
-    private TextView toolbarTtile, btnAccept;
+    String[] items={"SoudaFoam 1k","SoudaFoam Pro"};
+    String[] user={"KGM Traders","McCoy"};
+    private TextView toolbarTtile,btnAccept;
     private RelativeLayout rlETA;
     private View viewETA;
     LinearLayout menu_item_container;
-    GridLayoutManager mLayoutManager4, mLayoutManager5;
-    private RecyclerView recycler_viewRecentOrders, recycler_viewAddress, recylerViewRoles;
+    GridLayoutManager mLayoutManager4,mLayoutManager5;
+    private RecyclerView recycler_viewRecentOrders,recycler_viewAddress,recylerViewRoles;
     private NewOrderItemsDetailListAdapter recentOrdersListAdapter;
     private AddressListAdapter addressListAdapter;
-    private ArrayList<RecentOrderModal> arrSearchList = new ArrayList<>();
-    private ArrayList<RecentOrderModal> recentOrderModalArrayList = new ArrayList<>();
-    private ArrayList<RealmBusinessPlaces> addressList = new ArrayList<>();
+    private ArrayList<RecentOrderModal> arrSearchList=new ArrayList<>();
+    private ArrayList<RecentOrderModal> recentOrderModalArrayList=new ArrayList<>();
+    private ArrayList<RealmBusinessPlaces> addressList=new ArrayList<>();
 
-    private ArrayList<UserModal> stringArrayListRoles = new ArrayList<>();
-    private ArrayList<UserModal> stringArrayListFlow = new ArrayList<>();
+    private ArrayList<UserModal> stringArrayListRoles=new ArrayList<>();
+    private ArrayList<UserModal> stringArrayListFlow=new ArrayList<>();
     private WorkFLowUserAdapter workFLowUserAdapter;
     private WorkFLowAdapter workFLowAdapter;
     private RecyclerView recylerViewFlow;
-    TextView tvOrderName, OrderDate, tvStatus, orderValue, orderDiscount, deliverDate, loyaltyPoints,
-            accumulatedPoints, totalPoints, customerName, discount, tvOrderValue, tvWith, tvDate, tvTime,
-            tvAccept, tvCancel;
+    TextView tvOrderName,OrderDate,tvStatus,orderValue,orderDiscount,deliverDate,loyaltyPoints,
+            accumulatedPoints,totalPoints,customerName,discount,tvOrderValue,tvWith,tvDate,tvTime,
+    tvAccept,tvCancel;
     private String serverResponse;
     private String poNumber;
-    private LinearLayout llDetails, llFlow;
-    private boolean isBack = false;
+    private LinearLayout llDetails,llFlow;
+    private boolean isBack=false;
     LinearLayout llbottom_buttons;
-    private LinearLayout llAccept, llCancel;
-    private String requestId, etaDate;
+    private LinearLayout llAccept,llCancel,llDate;
+    private String requestId,etaDate;
     private TextView tvEtaDate;
     private String businessCode;
     private String entityStateCode;
 
+    private double dAccumulatedPoints;
+    private double perPoints=0;
+    private TextView tvResendOTP;
+    private LinearLayout llRedeemValue;
+    private EditText etRedeemValue;
+    double pointstoRedeem = 0;
+    private LinearLayout llVerifyRedeem;
+    private LinearLayout lLayoutView;
+    private Button buttonSendOtp;
+    private TextView btnEdit;
+    private String erg;
+
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_center_detail);
 
         setHeader();
-        menu_item_container = findViewById(R.id.menu_item_container);
+        menu_item_container=findViewById(R.id.menu_item_container);
         menu_item_container.setVisibility(View.GONE);
 
         intitiateView();
 
-        tvEtaDate.setText("Eta - " + Util.getFormattedDates(etaDate.split(" ")[0], Constants.formatDate, Constants.format2));
+        tvEtaDate.setText("Eta - "+Util.getFormattedDates(etaDate.split(" ")[0],Constants.formatDate,Constants.format2));
 
         getOrderCentre();
-        toolbarTtile = findViewById(R.id.toolbarTtile);
+        toolbarTtile=findViewById(R.id.toolbarTtile);
         toolbarTtile.setText(getString(R.string.order_centre));
-        btnAccept = findViewById(R.id.btnAccept);
+        btnAccept=findViewById(R.id.btnAccept);
         btnAccept.setText(getString(R.string.accept));
 
-        rlETA = findViewById(R.id.rlETA);
+        rlETA= findViewById(R.id.rlETA);
         rlETA.setVisibility(View.VISIBLE);
-        viewETA = findViewById(R.id.viewETA);
+        viewETA=findViewById(R.id.viewETA);
         viewETA.setVisibility(View.VISIBLE);
-
+        llDate=findViewById(R.id.llDate);
 
         //work flow
         recylerViewFlow = (RecyclerView) findViewById(R.id.recylerViewFlow);
@@ -143,7 +168,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
 
         // address
-        recycler_viewAddress = findViewById(R.id.recycler_viewAddress);
+        recycler_viewAddress =  findViewById(R.id.recycler_viewAddress);
         mLayoutManager5 = new GridLayoutManager(this, 1);
         recycler_viewAddress.setLayoutManager(mLayoutManager5);
         recycler_viewAddress.addItemDecoration(new SpacesItemDecoration(10));
@@ -155,22 +180,22 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         recylerViewRoles.setVisibility(View.VISIBLE);
 
         //user flow
-        workFLowUserAdapter = new WorkFLowUserAdapter(mContext, stringArrayListRoles, this);
+        workFLowUserAdapter = new WorkFLowUserAdapter(mContext, stringArrayListRoles,this);
         recylerViewRoles.addItemDecoration(new SpacesItemDecoration(10));
         recylerViewRoles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recylerViewRoles.setAdapter(workFLowUserAdapter);
 
 
-        if (serverResponse != null)
-            setAllData(serverResponse);
+        if (serverResponse!=null)
+        setAllData(serverResponse);
 
-        llFlow = (LinearLayout) findViewById(R.id.llFLow);
-        llDetails = (LinearLayout) findViewById(R.id.llDetails);
-        LinearLayout llRetailer = (LinearLayout) findViewById(R.id.llRetailer);
-        // LinearLayout llPartner=(LinearLayout)findViewById(R.id.llPartner);
-        final LinearLayout menu_item_container = (LinearLayout) findViewById(R.id.menu_item_container);
-        final ImageView imgArrow = (ImageView) findViewById(R.id.imgArrow);
-        LinearLayout llbottom_buttons = (LinearLayout) findViewById(R.id.llbottom_buttons);
+        llFlow=(LinearLayout)findViewById(R.id.llFLow);
+      llDetails=(LinearLayout)findViewById(R.id.llDetails);
+        LinearLayout llRetailer=(LinearLayout)findViewById(R.id.llRetailer);
+       // LinearLayout llPartner=(LinearLayout)findViewById(R.id.llPartner);
+        final LinearLayout menu_item_container=(LinearLayout)findViewById(R.id.menu_item_container);
+        final ImageView imgArrow=(ImageView)findViewById(R.id.imgArrow);
+        LinearLayout llbottom_buttons=(LinearLayout)findViewById(R.id.llbottom_buttons);
         llbottom_buttons.setVisibility(View.VISIBLE);
 
         llRetailer.setOnClickListener(new View.OnClickListener() {
@@ -198,22 +223,63 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     /*    getRecentOrdersData();
         getAddressData();
         getuserData();*/
-        //   getFlow();
+     //   getFlow();
 //        getRecentOrdersData();
 //        getAddressData();
 //        getuserData();
 
+        llDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             //   dateDialogfrom();
+            }
+        });
+
+
     }
 
-    private void intitiateView() {
-        tvEtaDate = findViewById(R.id.tvEtaDate);
-        llAccept = findViewById(R.id.llAccept);
-        llCancel = findViewById(R.id.llCancel);
-        tvAccept = findViewById(R.id.btnAccept);
-        tvCancel = findViewById(R.id.btnCancel);
+    public  void dateDialogfrom() {
+        final Calendar c = Calendar.getInstance();
+
+        int y = c.get(Calendar.YEAR);
+        int m = c.get(Calendar.MONTH);
+        int d = c.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog dp = new DatePickerDialog(OrderCentreDetailsActivity.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                         erg = year+"";
+                        erg += "-" + String.valueOf(monthOfYear + 1);
+                        erg += "-" + String.valueOf(dayOfMonth);
+
+
+                        deliverDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
+
+                    }
+
+                }, y, m, d);
+        dp.setTitle("Calender");
+        dp.show();
+
+        dp.getDatePicker().setMinDate(System.currentTimeMillis());
+
+
+    }
+
+    private void intitiateView(){
+        btnEdit=findViewById(R.id.btnEdit);
+        btnEdit.setVisibility(View.VISIBLE);
+        tvEtaDate=findViewById(R.id.tvEtaDate);
+        llAccept=findViewById(R.id.llAccept);
+        llCancel=findViewById(R.id.llCancel);
+        tvAccept=findViewById(R.id.btnAccept);
+        tvCancel=findViewById(R.id.btnCancel);
         tvAccept.setText("Accept");
         tvCancel.setText("Reject");
-        llbottom_buttons = findViewById(R.id.llbottom_buttons);
+        llbottom_buttons=findViewById(R.id.llbottom_buttons);
         llbottom_buttons.setVisibility(View.VISIBLE);
         tvOrderName = findViewById(R.id.tvOrderName);
         OrderDate = findViewById(R.id.OrderDate);
@@ -230,7 +296,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         tvWith = findViewById(R.id.tvWith);
         tvDate = findViewById(R.id.tvDate);
         tvTime = findViewById(R.id.tvTime);
-
+        llRedeemValue=findViewById(R.id.llRedeem);
 
         llAccept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,12 +312,30 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             }
         });
 
-        Intent i = getIntent();
-        if (i != null) {
-            requestId = i.getStringExtra("requestCode");
-            etaDate = i.getStringExtra("etaDate");
+        Intent i=getIntent();
+        if (i!=null){
+            requestId=i.getStringExtra("requestCode");
+            etaDate=i.getStringExtra("etaDate");
         }
+
+        llRedeemValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogOTP(OrderCentreDetailsActivity.this,dAccumulatedPoints);
+            }
+        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(OrderCentreDetailsActivity.this,EditOrderCentreActivity.class);
+                i.putExtra("poNumber",poNumber);
+                startActivityForResult(i,3);
+            }
+        });
     }
+
+
 
 
     public void setHeader() {
@@ -263,11 +347,11 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             @Override
             public void onClick(View view) {
 
-                if (!isBack) {
+                if (!isBack){
                     llDetails.setVisibility(View.VISIBLE);
                     llFlow.setVisibility(View.GONE);
-                    isBack = true;
-                } else {
+                    isBack=true;
+                }else {
                     finish();
                 }
             }
@@ -292,15 +376,15 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     }
 
 
-    private void getAddressData(String businessPlaceCode, JSONObject jsonObject1, int i) {
+    private void getAddressData(String businessPlaceCode,JSONObject jsonObject1,int i) {
         RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
-        realmBusinessPlaces1.setHeader("Shopping Details " + (i + 1));
+        realmBusinessPlaces1.setHeader("Shipping Details "+(i+1));
         realmBusinessPlaces1.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
         realmBusinessPlaces1.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
         realmBusinessPlaces1.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
-        if (businessPlaceCode.equalsIgnoreCase(realmBusinessPlaces1.getBuisnessPlaceId() + "")) {
+        if (businessPlaceCode.equalsIgnoreCase(realmBusinessPlaces1.getBuisnessPlaceId()+"")) {
             entityStateCode = realmBusinessPlaces1.getBuisnessLocationStateCode();
-            businessPlaceCode = realmBusinessPlaces1.getBuisnessPlaceId() + "";
+            businessPlaceCode = realmBusinessPlaces1.getBuisnessPlaceId()+"";
             realmBusinessPlaces1.setSelected(true);
 
         }
@@ -309,18 +393,20 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     }
 
 
+
+
     private void getFlow(String listspendRequestHistoryPhaseModel) {
         try {
-            JSONArray arrayCart = new JSONArray(listspendRequestHistoryPhaseModel);
+            JSONArray arrayCart=new JSONArray(listspendRequestHistoryPhaseModel);
 
-            for (int p = 0; p < arrayCart.length(); p++) {
-                JSONObject jsonObject = arrayCart.optJSONObject(p);
-                JSONObject jsonObject1 = jsonObject.getJSONObject("listSpendRequestHistoryModel");
-                UserModal userModal = new UserModal();
+            for (int p=0;p<arrayCart.length();p++){
+                JSONObject jsonObject=arrayCart.optJSONObject(p);
+                JSONObject jsonObject1=jsonObject.getJSONObject("listSpendRequestHistoryModel");
+                UserModal userModal=new UserModal();
                 userModal.setId(jsonObject.optString("positionStatus"));
-                userModal.setUserDateStatus("" + jsonObject1.optString("header"));
-                userModal.setUserName("" + jsonObject.optString("phaseName"));
-                userModal.setUserStatus("" + jsonObject1.optString("status"));
+                userModal.setUserDateStatus(""+jsonObject1.optString("header"));
+                userModal.setUserName(""+jsonObject.optString("phaseName"));
+                userModal.setUserStatus(""+jsonObject1.optString("status"));
                 userModal.setComment(jsonObject1.optString("comment"));
                 userModal.setFlag(jsonObject1.optString("flag"));
                 userModal.setDate(jsonObject1.optString("date"));
@@ -336,54 +422,56 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         workFLowUserAdapter.notifyDataSetChanged();
         workFLowAdapter.notifyDataSetChanged();
     }
-
-    private void setAllData(String serverResponse) {
+    private void setAllData(String serverResponse){
 
 
         try {
-            JSONObject jsonObject = new JSONObject(serverResponse);
-            poNumber = jsonObject.optString("poNumber");
+            JSONObject jsonObject=new JSONObject(serverResponse);
+            poNumber=jsonObject.optString("poNumber");
             tvOrderName.setText(jsonObject.optString("poNumber"));
-            OrderDate.setText(Util.getFormattedDates(jsonObject.optString("poDate"), Constants.formatDate, Constants.format2));
-            //    OrderDate.setText(jsonObject.optString("poDate"));
-            if (jsonObject.optString("poStatus").equalsIgnoreCase("1")) {
+            OrderDate.setText(Util.getFormattedDates(jsonObject.optString("poDate"),Constants.formatDate,Constants.format2));
+        //    OrderDate.setText(jsonObject.optString("poDate"));
+            if (jsonObject.optString("poStatus").equalsIgnoreCase("1")){
                 tvStatus.setText("Pending");
             }
 
 
-            orderValue.setText(getResources().getString(R.string.Rs) + " " + jsonObject.optInt("orderValue"));
-            orderDiscount.setText(getResources().getString(R.string.Rs) + " " + jsonObject.optInt("discountValue"));
-            //  deliverDate.setText(jsonObject.optString("deliveryBy"));
-            deliverDate.setText(Util.getFormattedDates(jsonObject.optString("deliveryBy"), Constants.formatDate, Constants.format2));
+            orderValue.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("orderValue"));
+            orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("discountValue"));
+            discount.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("discountValue"));
+            tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("orderValue"));
+          //  deliverDate.setText(jsonObject.optString("deliveryBy"));
+            deliverDate.setText(Util.getFormattedDates(jsonObject.optString("deliveryBy"),Constants.formatDate,Constants.format2));
 
-            loyaltyPoints.setText(jsonObject.optInt("orderLoyality") + "");
-            accumulatedPoints.setText(jsonObject.optInt("accumulatedLoyality") + "");
-            totalPoints.setText(jsonObject.optInt("totalLoyality") + "");
+            erg=Util.getFormattedDates(jsonObject.optString("deliveryBy"),Constants.formatDate,Constants.format1);
+            loyaltyPoints.setText(jsonObject.optInt("orderLoyality")+"");
+            accumulatedPoints.setText(jsonObject.optDouble("accumulatedLoyality")+"");
+            dAccumulatedPoints=jsonObject.optDouble("accumulatedLoyality");
+            totalPoints.setText(jsonObject.optInt("totalLoyality")+"");
             customerName.setText(jsonObject.optString("customerName"));
-            discount.setText(getResources().getString(R.string.Rs) + " " + jsonObject.optInt("discountValue"));
-            tvOrderValue.setText(getResources().getString(R.string.Rs) + " " + jsonObject.optInt("orderValue"));
-            getFlow(jsonObject.optString("listspendRequestHistoryPhaseModel") + "");
 
-            businessCode = jsonObject.optString("businessPlaceCode");
+            getFlow(jsonObject.optString("listspendRequestHistoryPhaseModel")+"");
+
+            businessCode=jsonObject.optString("businessPlaceCode");
             callServiceAddress();
             try {
-                JSONArray arrayCart = null;
+                JSONArray arrayCart= null;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                     arrayCart = new JSONArray(jsonObject.optString("cartDetail"));
                 }
 
-                for (int p = 0; p < arrayCart.length(); p++) {
-                    JSONObject jsonObject1 = arrayCart.optJSONObject(p);
-                    RecentOrderModal recentOrderModal = new RecentOrderModal();
+              /*  for (int p=0;p<arrayCart.length();p++){
+                    JSONObject jsonObject1=arrayCart.optJSONObject(p);
+                    RecentOrderModal recentOrderModal=new RecentOrderModal();
                     recentOrderModal.setTitle(jsonObject1.optString("materialName"));
-                    recentOrderModal.setQty("" + jsonObject1.optInt("materialQty"));
-                    recentOrderModal.setDiscountValue("" + jsonObject1.optInt("materialDiscountValue"));
-                    recentOrderModal.setValue("" + jsonObject1.optInt("materialValue"));
+                    recentOrderModal.setQty(""+jsonObject1.optInt("materialQty"));
+                    recentOrderModal.setDiscountValue(""+jsonObject1.optInt("materialDiscountValue"));
+                    recentOrderModal.setValue(""+jsonObject1.optInt("materialValue"));
 
                     recentOrderModalArrayList.add(recentOrderModal);
 
 
-                }
+                }*/
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -391,25 +479,34 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        recentOrdersListAdapter.notifyDataSetChanged();
+       recentOrdersListAdapter.notifyDataSetChanged();
+
+        getProduct();
 
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        getProduct();
+    }
 
     public void getOrderCentre() {
-        final ProgressDialog progressDialog = new ProgressDialog(OrderCentreDetailsActivity.this);
-        JSONObject jsonObject1 = new JSONObject();
+        final ProgressDialog progressDialog=new ProgressDialog(OrderCentreDetailsActivity.this);
+        JSONObject jsonObject1=new JSONObject();
 
         try {
-            jsonObject1.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("employeeRole", Prefs.getStringPrefs(Constants.employeeRole));
-            jsonObject1.put("businessPlaceCode", "NA");
-            jsonObject1.put("entityRole", Prefs.getStringPrefs(Constants.entityRole));
-            jsonObject1.put("entityCode", Prefs.getIntegerPrefs(Constants.entityCode));
-            jsonObject1.put("searchParam", requestId);
-            jsonObject1.put("barCodeNumber", "string");
-            jsonObject1.put("entityStateCode", "NA");
+            jsonObject1.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
+            jsonObject1.put("businessPlaceCode","NA");
+            jsonObject1.put("entityRole",Prefs.getStringPrefs(Constants.entityRole));
+            jsonObject1.put("entityCode",Prefs.getIntegerPrefs(Constants.entityCode));
+            jsonObject1.put("searchParam",requestId);
+            jsonObject1.put("barCodeNumber","string");
+            jsonObject1.put("moduleType","NO");
+            jsonObject1.put("entityStateCode","06");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -443,9 +540,22 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
                         String responseData = response.body().string();
                         if (responseData != null) {
-                            JSONObject jsonObject = new JSONObject(responseData);
-                            serverResponse = responseData;
-                            // saveResponseLocalCreateOrder(jsonObject,requestId);
+                            JSONObject jsonObject=new JSONObject(responseData);
+                            serverResponse=responseData;
+                           JSONArray array= jsonObject.optJSONArray("cartDetail");
+                           for (int i=0;i<array.length();i++){
+                               JSONObject jsonObject2=array.optJSONObject(i);
+                               jsonObject2.put("iProductModalId",jsonObject2.optString("materialCode"));
+                               jsonObject2.put("sProductName",jsonObject2.optString("materialName"));
+                               jsonObject2.put("sProductPrice",jsonObject2.optString("materialUnitValue"));
+                               jsonObject2.put("cgst",jsonObject2.optString("materialCGSTRate"));
+                               jsonObject2.put("sgst",jsonObject2.optString("materialSGSTRate"));
+                               jsonObject2.put("gstPerc",jsonObject2.optString("materialIGSTRate"));
+                               saveResponseLocal(jsonObject2,jsonObject.optString("poNumber"));
+
+
+                           }
+                           // saveResponseLocalCreateOrder(jsonObject,requestId);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -460,32 +570,69 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                     } else {
 
 
+
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
 
 
+
                 }
             }
         });
+    }
+    protected void saveResponseLocal(JSONObject jsonSubmitReq, String orderId) {
+        if (jsonSubmitReq != null) {
+            Realm realm = Realm.getDefaultInstance();
+            if (!realm.isInTransaction())
+                realm.beginTransaction();
+            try {
+               /* if (Util.validateString(orderId)) {
+                    jsonSubmitReq.put(NoGetEntityEnums.OrderId.toString(), orderId);
+                } else {
+                    if (jsonSubmitReq != null && !jsonSubmitReq.has(NoGetEntityEnums.OrderId.toString())) {
+                        UUID randomId = UUID.randomUUID();
+                        String id = String.valueOf(randomId);
+
+                    }
+                }*/
+                jsonSubmitReq.put(NoGetEntityEnums.OrderId.toString(), orderId);
+
+
+
+                realm.createOrUpdateObjectFromJson(RealmOrderCentre.class, jsonSubmitReq);
+
+
+            } catch (Exception e) {
+                if (realm.isInTransaction())
+                    realm.cancelTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            } finally {
+                if (realm.isInTransaction())
+                    realm.commitTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            }
+        }
     }
 
 
     @Override
     public void onRowClicked(int position) {
-        isBack = false;
+        isBack=false;
         llDetails.setVisibility(View.GONE);
         llFlow.setVisibility(View.VISIBLE);
 
-        String date = stringArrayListRoles.get(position).getDate();
-        String header = stringArrayListRoles.get(position).getUserDateStatus();
+        String date=stringArrayListRoles.get(position).getDate();
+        String header=stringArrayListRoles.get(position).getUserDateStatus();
 
         tvWith.setText(header);
-        if (Util.validateString(Html.fromHtml(date).toString())) {
+        if (Util.validateString(Html.fromHtml(date).toString())){
             tvDate.setText(Html.fromHtml(date).toString().split(" ")[0]);
             tvTime.setText(Html.fromHtml(date).toString().split(" ")[1]);
-        } else {
+        }else {
             tvDate.setText("");
             tvTime.setText("");
         }
@@ -497,15 +644,17 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     public void onRowClicked(int position, int value) {
 
 
+
+
     }
 
-    private void createOrder(int status) {
+    private void createOrder(int status){
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).findAll();
+        RealmResults<RealmOrderCentre> realmNewOrderCarts1 = realm.where(RealmOrderCentre.class).equalTo("OrderId",poNumber).findAll();
 
-        JSONArray arrayCart = new JSONArray();
+        JSONArray arrayCart=new JSONArray();
         int qty = 0;
-        double payAmount = 0.0;
+        double payAmount=0.0;
         int discountItems = 0;
         int gst = 0;
         int totalGST = 0;
@@ -516,12 +665,12 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         int totalPoints = 0;
         int noOfItems = 0;
         String poNumber = null;
-        for (RealmNewOrderCart realmNewOrderCart : realmNewOrderCarts1) {
+        for (RealmOrderCentre realmNewOrderCart : realmNewOrderCarts1) {
 
-            JSONObject jsonObjectCartDetail = new JSONObject();
+            JSONObject jsonObjectCartDetail=new JSONObject();
             if (!realmNewOrderCart.isFreeItem())
                 noOfItems = noOfItems + 1;
-            poNumber = realmNewOrderCart.getOrderId();
+            poNumber=realmNewOrderCart.getOrderId();
             qty = qty + realmNewOrderCart.getQty();
             totalItemsAmount = totalItemsAmount + realmNewOrderCart.getTotalPrice();
             if (realmNewOrderCart.isDiscount() && !realmNewOrderCart.isFreeItem()) {
@@ -539,38 +688,41 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            } else {
+            }else {
                 discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
             }
             totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
             gst = gst + totalGST;
 
 
+
             cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
             sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
 
 
+
+
             totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
-            JSONArray scheme = new JSONArray();
+            JSONArray scheme=new JSONArray();
 
             try {
                 JSONArray discountArray = new JSONArray(realmNewOrderCart.getDiscount());
                 for (int k = 0; k < discountArray.length(); k++) {
-                    JSONObject jsonObjectScheme = new JSONObject();
+                    JSONObject jsonObjectScheme=new JSONObject();
                     JSONObject jsonObject = discountArray.optJSONObject(k);
 
-                    JSONArray jsonArrayRule = jsonObject.getJSONArray("rule");
+                    JSONArray jsonArrayRule=  jsonObject.getJSONArray("rule");
 
-                    for (int m = 0; m < jsonArrayRule.length(); m++) {
+                    for (int m=0;m<jsonArrayRule.length();m++){
 
-                        JSONObject jsonObject1 = jsonArrayRule.optJSONObject(m);
-                        if (jsonObject1.optBoolean("isRuleApplied")) {
-                            jsonObjectScheme.put("schemeID", k + 1);
-                            jsonObjectScheme.put("ruleID", jsonObject1.optString("ruleID"));
-                            jsonObjectScheme.put("discountValue", jsonObject.optString("discountTotal"));
-                            jsonObjectScheme.put("discountPerc", jsonObject1.optString("sDiscountValue"));
-                            jsonObjectScheme.put("oldSchemeID", k + 1);
-                            jsonObjectScheme.put("oldRuleID", jsonObject1.optString("ruleID"));
+                        JSONObject jsonObject1=jsonArrayRule.optJSONObject(m);
+                        if (jsonObject1.optBoolean("isRuleApplied")){
+                            jsonObjectScheme.put("schemeID",k+1);
+                            jsonObjectScheme.put("ruleID",jsonObject1.optString("ruleID"));
+                            jsonObjectScheme.put("discountValue",jsonObject.optString("discountTotal"));
+                            jsonObjectScheme.put("discountPerc",jsonObject1.optString("sDiscountValue"));
+                            jsonObjectScheme.put("oldSchemeID",k+1);
+                            jsonObjectScheme.put("oldRuleID",jsonObject1.optString("ruleID"));
 
 
                         }
@@ -584,23 +736,25 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             }
 
 
+
+
             try {
-                jsonObjectCartDetail.put("oldMaterialCode", realmNewOrderCart.getiProductModalId());
-                jsonObjectCartDetail.put("materialCode", realmNewOrderCart.getiProductModalId());
-                jsonObjectCartDetail.put("materialName", realmNewOrderCart.getsProductName());
-                jsonObjectCartDetail.put("materialValue", realmNewOrderCart.getTotalPrice());
-                jsonObjectCartDetail.put("materialQty", realmNewOrderCart.getQty());
-                jsonObjectCartDetail.put("materialDiscountValue", discountPrice);
-                jsonObjectCartDetail.put("materialUnitValue", realmNewOrderCart.getsProductPrice());
-                jsonObjectCartDetail.put("materialCGSTRate", realmNewOrderCart.getCgst());
-                jsonObjectCartDetail.put("materialCGSTValue", cgst);
-                jsonObjectCartDetail.put("materialSGSTRate", realmNewOrderCart.getSgst());
-                jsonObjectCartDetail.put("materialSGSTValue", sgst);
-                jsonObjectCartDetail.put("materialIGSTRate", realmNewOrderCart.getGstPerc());
-                jsonObjectCartDetail.put("materialIGSTValue", gst);
-                jsonObjectCartDetail.put("scheme", new JSONArray());
-                jsonObjectCartDetail.put("discountValue", discountPrice);
-                jsonObjectCartDetail.put("discountPerc", 0);
+                jsonObjectCartDetail.put("oldMaterialCode",realmNewOrderCart.getiProductModalId());
+                jsonObjectCartDetail.put("materialCode",realmNewOrderCart.getiProductModalId());
+                jsonObjectCartDetail.put("materialName",realmNewOrderCart.getsProductName());
+                jsonObjectCartDetail.put("materialValue",realmNewOrderCart.getTotalPrice());
+                jsonObjectCartDetail.put("materialQty",realmNewOrderCart.getQty());
+                jsonObjectCartDetail.put("materialDiscountValue",discountPrice);
+                jsonObjectCartDetail.put("materialUnitValue",realmNewOrderCart.getsProductPrice());
+                jsonObjectCartDetail.put("materialCGSTRate",realmNewOrderCart.getCgst());
+                jsonObjectCartDetail.put("materialCGSTValue",cgst);
+                jsonObjectCartDetail.put("materialSGSTRate",realmNewOrderCart.getSgst());
+                jsonObjectCartDetail.put("materialSGSTValue",sgst);
+                jsonObjectCartDetail.put("materialIGSTRate",realmNewOrderCart.getGstPerc());
+                jsonObjectCartDetail.put("materialIGSTValue",gst);
+                jsonObjectCartDetail.put("scheme",new JSONArray());
+                jsonObjectCartDetail.put("discountValue",discountPrice);
+                jsonObjectCartDetail.put("discountPerc",0);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -611,40 +765,40 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         }
         payAmount = (totalItemsAmount + gst) - discountPrice;
 
-        double totalValueWithTax = totalItemsAmount + gst;
-        double totalValueWithoutTax = totalItemsAmount;
-        JSONObject jsonObject = new JSONObject();
+        double totalValueWithTax=totalItemsAmount+gst;
+        double totalValueWithoutTax=totalItemsAmount;
+        JSONObject jsonObject=new JSONObject();
 
 
         try {
-            jsonObject.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject.put("employeeRole", Prefs.getStringPrefs(Constants.employeeRole));
-            jsonObject.put("poDate", Util.getCurrentDate());
-            jsonObject.put("poStatus", "Pending");
-            jsonObject.put("orderValue", payAmount);
-            jsonObject.put("discountValue", discountPrice);
-            jsonObject.put("deliveryBy", Util.getCurrentDate());
-            jsonObject.put("orderLoyality", totalPoints);
-            jsonObject.put("accumulatedLoyality", 0);
-            jsonObject.put("totalLoyality", totalPoints);
-            jsonObject.put("businessPlace", "Store 4 ,noida , sector 56 ,Noida ,UP ,180090");
-            jsonObject.put("businessPlaceCode", "1");
-            jsonObject.put("entityID", "1");
-            jsonObject.put("totalValueWithTax", totalValueWithTax);
-            jsonObject.put("totalCGSTValue", cgst);
-            jsonObject.put("totalIGSTValue", gst);
-            jsonObject.put("totalSGSTValue", sgst);
-            jsonObject.put("totalValueWithoutTax", totalValueWithoutTax);
-            jsonObject.put("totalTaxValue", cgst + sgst);
-            jsonObject.put("totalDiscountValue", discountPrice);
-            jsonObject.put("totalRoundingOffValue", 0);
-            jsonObject.put("cartDetail", arrayCart);
+            jsonObject.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
+            jsonObject.put("poDate",Util.getCurrentDate());
+            jsonObject.put("poStatus","Pending");
+            jsonObject.put("orderValue",payAmount);
+            jsonObject.put("discountValue",discountPrice);
+            jsonObject.put("deliveryBy",erg);
+            jsonObject.put("orderLoyality",totalPoints);
+            jsonObject.put("accumulatedLoyality",dAccumulatedPoints);
+            jsonObject.put("totalLoyality",totalPoints);
+            jsonObject.put("businessPlace","Store 4 ,noida , sector 56 ,Noida ,UP ,180090");
+            jsonObject.put("businessPlaceCode","1");
+            jsonObject.put("entityID","1");
+            jsonObject.put("totalValueWithTax",totalValueWithTax);
+            jsonObject.put("totalCGSTValue",cgst);
+            jsonObject.put("totalIGSTValue",gst);
+            jsonObject.put("totalSGSTValue",sgst);
+            jsonObject.put("totalValueWithoutTax",totalValueWithoutTax);
+            jsonObject.put("totalTaxValue",cgst+sgst);
+            jsonObject.put("totalDiscountValue",discountPrice);
+            jsonObject.put("totalRoundingOffValue",0);
+            jsonObject.put("cartDetail",arrayCart);
             //  jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray());
-            jsonObject.put("approvalStat", status);
-            jsonObject.put("quantity", qty);
-            jsonObject.put("customerName", "");
-            jsonObject.put("discount", new JSONArray());
-            jsonObject.put("poNumber", poNumber);
+            jsonObject.put("approvalStat",status);
+            jsonObject.put("quantity",qty);
+            jsonObject.put("customerName",customerName.getText().toString());
+            jsonObject.put("discount",new JSONArray());
+            jsonObject.put("poNumber",poNumber);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -652,14 +806,13 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
 
     }
-
     public void submitRequest(String jsonObject1) {
-        final ProgressDialog progressDialog = new ProgressDialog(OrderCentreDetailsActivity.this);
+        final ProgressDialog progressDialog=new ProgressDialog(OrderCentreDetailsActivity.this);
 
-        JSONObject jsonObject = null;
+        JSONObject jsonObject= null;
         try {
             jsonObject = new JSONObject(serverResponse);
-            jsonObject.put("discount", new JSONArray());
+            jsonObject.put("discount",new JSONArray());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -693,7 +846,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                         String responseData = response.body().string();
                         if (responseData != null) {
 
-                            final JSONObject jsonObject1 = new JSONObject(responseData);
+                            final JSONObject jsonObject1=new JSONObject(responseData);
 
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -702,6 +855,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                                     finish();
                                 }
                             });
+
 
 
                         }
@@ -715,6 +869,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
                 } catch (Exception e) {
                     e.printStackTrace();
+
 
 
                 }
@@ -740,6 +895,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 jsonSubmitReq.put(NoGetEntityEnums.poNumber.toString(), orderId);
 
 
+
+
                 realm.createOrUpdateObjectFromJson(RealmOrderList.class, jsonSubmitReq);
 
 
@@ -757,9 +914,9 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         }
     }
 
-    private void callServiceAddress() {
+    private void callServiceAddress(){
         NOGetEntityBuisnessPlacesModal noGetEntityBuisnessPlacesModal = new NOGetEntityBuisnessPlacesModal();
-        noGetEntityBuisnessPlacesModal.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode) + "");
+        noGetEntityBuisnessPlacesModal.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
         noGetEntityBuisnessPlacesModal.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
         noGetEntityBuisnessPlacesModal.setEntityType(Prefs.getStringPrefs(Constants.entityRole));
 
@@ -779,19 +936,19 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         //   hideProgressDialog();
         if (httpStatusCode == Constants.SUCCESS) {
 
-            if (Util.validateString(serverResponse)) {
-                Realm realm = Realm.getDefaultInstance();
-                RealmResults<RealmBusinessPlaces> realmBusinessPlaces = realm.where(RealmBusinessPlaces.class).findAll();
+            if (Util.validateString(serverResponse)){
+                Realm realm=Realm.getDefaultInstance();
+                RealmResults<RealmBusinessPlaces> realmBusinessPlaces=realm.where(RealmBusinessPlaces.class).findAll();
 
                 addressListAdapter.notifyDataSetChanged();
                 try {
-                    JSONObject jsonObject = new JSONObject(serverResponse);
-                    JSONArray array = jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
+                    JSONObject jsonObject=new JSONObject(serverResponse);
+                    JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
                     new RealmController().saveBusinessPlaces(array.toString());
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject jsonObject1 = array.optJSONObject(i);
+                    for (int i=0;i<array.length();i++){
+                        JSONObject jsonObject1=array.optJSONObject(i);
 
-                        getAddressData(businessCode, jsonObject1, i);
+                        getAddressData(businessCode,jsonObject1,i);
 
 
                     }
@@ -818,39 +975,355 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         }
 
     }
-
     public void onSearchButton() {
-        Intent mIntent = new Intent(OrderCentreDetailsActivity.this, AddNewOrderActivity.class);
+        Intent mIntent = new Intent(OrderCentreDetailsActivity.this, AddOrderCentreActivity.class);
         mIntent.putExtra(Constants.businessPlaceCode, businessCode);
         mIntent.putExtra(Constants.entityStateCode, entityStateCode);
+        mIntent.putExtra("poNumber",poNumber);
         startActivityForResult(mIntent, 3);
     }
 
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+    protected void onResume() {
+        super.onResume();
 
-        MenuItem menu12 = menu.findItem(R.id.action_notification);
-        menu12.setVisible(false);
-
-
-        return true;
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            onSearchButton();
-            return true;
+    private void getProduct() {
+
+
+        double discountPrice=0;
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<RealmOrderCentre> realmNewOrderCarts1 = realm.where(RealmOrderCentre.class).equalTo("OrderId",poNumber).findAll();
+
+
+        for (RealmOrderCentre realmNewOrderCart : realmNewOrderCarts1) {
+            RealmOrderCentre realmNewOrderCarts = realm.copyFromRealm(realmNewOrderCart);
+            RecentOrderModal recentOrderModal=new RecentOrderModal();
+            recentOrderModal.setTitle(realmNewOrderCarts.getsProductName());
+            recentOrderModal.setQty(""+realmNewOrderCarts.getQty());
+
+            recentOrderModal.setValue(""+realmNewOrderCarts.getTotalPrice());
+
+            if (!realmNewOrderCarts.isFreeItem()) {
+                try {
+                    JSONArray array = new JSONArray(realmNewOrderCarts.getDiscount());
+                    for (int k = 0; k < array.length(); k++) {
+                        JSONObject jsonObject = array.optJSONObject(k);
+                        if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
+                            discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }else {
+                discountPrice = discountPrice + realmNewOrderCarts.getTotalPrice();
+            }
+            recentOrderModal.setDiscountValue(""+discountPrice);
+
+            recentOrderModalArrayList.add(recentOrderModal);
+
+
         }
 
-        return super.onOptionsItemSelected(item);
+        //  mList.addAll(realmNewOrderCarts1);
+        recentOrdersListAdapter.notifyDataSetChanged();
+        setCalculatedValues();
+
+
+
     }
+
+    private void setCalculatedValues() {
+
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<RealmOrderCentre> realmNewOrderCarts1 = realm.where(RealmOrderCentre.class).equalTo("OrderId",poNumber).findAll();
+
+        if (realmNewOrderCarts1!=null){
+        int qty = 0;
+        double payAmount = 0.0;
+        int discountItems = 0;
+        int gst = 0;
+        int totalGST = 0;
+        int cgst = 0;
+        int sgst = 0;
+        double totalItemsAmount = 0.0;
+        double discountPrice = 0.0;
+        int totalPoints = 0;
+        int noOfItems = 0;
+        for (RealmOrderCentre realmNewOrderCart : realmNewOrderCarts1) {
+            if (!realmNewOrderCart.isFreeItem())
+                noOfItems = noOfItems + 1;
+
+            qty = qty + realmNewOrderCart.getQty();
+            totalItemsAmount = totalItemsAmount + realmNewOrderCart.getTotalPrice();
+            if (realmNewOrderCart.isDiscount() && !realmNewOrderCart.isFreeItem()) {
+                discountItems = discountItems + 1;
+            }
+            if (!realmNewOrderCart.isFreeItem()) {
+                try {
+                    JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
+                    for (int k = 0; k < array.length(); k++) {
+                        JSONObject jsonObject = array.optJSONObject(k);
+                        if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
+                            discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
+            }
+            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
+            gst = gst + totalGST;
+
+
+            cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
+            sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
+
+
+            totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
+
+        }
+        payAmount = (totalItemsAmount + gst) - discountPrice;
+
+
+        orderValue.setText(getResources().getString(R.string.Rs) + " " + totalItemsAmount);
+        orderDiscount.setText(getResources().getString(R.string.Rs) + " " + discountPrice);
+        discount.setText(getResources().getString(R.string.Rs) + " " + discountPrice);
+        tvOrderValue.setText(getResources().getString(R.string.Rs) + " " + payAmount);
+
+    }
+
+
+    }
+
+
+    public void showDialogOTP(Activity activity, final double dAccumulatedPoints){
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.redeem_point_dialog);
+        ImageView imageViewCancel=(ImageView)dialog.findViewById(R.id.imageViewCancel);
+        final EditText etOTP=(EditText)dialog.findViewById(R.id.etOTP);
+        lLayoutView=(LinearLayout)dialog.findViewById(R.id.lLayoutView);
+        llVerifyRedeem=(LinearLayout)dialog.findViewById(R.id.llVerifyRedeem);
+        llRedeemValue=(LinearLayout)dialog.findViewById(R.id.llRedeemValue);
+        etRedeemValue=(EditText)dialog.findViewById(R.id.etRedeemValue);
+        TextView tvRedeemPoints = (TextView) dialog.findViewById(R.id.tvRedeemPoints);
+        tvResendOTP=(TextView)dialog.findViewById(R.id.tvResendOTP);
+        tvRedeemPoints.setText(dAccumulatedPoints+"");
+        buttonSendOtp=(Button)dialog.findViewById(R.id.buttonSendOtp);
+        EditText etPointToRedeem=dialog.findViewById(R.id.etPointToRedeem);
+        if (Util.validateString(etPointToRedeem.getText().toString()))
+            pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
+        Button buttonSendOtp = (Button) dialog.findViewById(R.id.buttonSendOtp);
+        Button buttonVerify = (Button) dialog.findViewById(R.id.buttonVerify);
+        final double finalPointstoRedeem = pointstoRedeem;
+        tvResendOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dAccumulatedPoints>0 && finalPointstoRedeem >0 && finalPointstoRedeem<=dAccumulatedPoints){
+                    getOTP(finalPointstoRedeem);
+                }else {
+                    Util.showToast("please check your available points");
+                }
+            }
+        });
+
+        buttonVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Util.validateString(etOTP.getText().toString())) {
+                    getVerifyOTP(etOTP.getText().toString(), finalPointstoRedeem);
+                    dialog.dismiss();
+                } else {
+                    Util.showToast("please enter otp");
+                }
+            }
+        });
+        buttonSendOtp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (dAccumulatedPoints>0 && finalPointstoRedeem >0 && finalPointstoRedeem<=dAccumulatedPoints){
+                    getOTP(finalPointstoRedeem);
+                }else {
+                    Util.showToast("please check your available points");
+                }
+
+            }
+        });
+
+        imageViewCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    public void getOTP(final double pointsToRedeem) {
+        final ProgressDialog progressDialog=new ProgressDialog(OrderCentreDetailsActivity.this);
+        JSONObject jsonObject1=new JSONObject();
+
+        try {
+            jsonObject1.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
+            jsonObject1.put("entityRole",Prefs.getStringPrefs(Constants.entityRole));
+            jsonObject1.put("entityCode",Prefs.getIntegerPrefs(Constants.entityCode));
+            jsonObject1.put("pointsToRedeem",pointsToRedeem);
+            jsonObject1.put("emailId",Prefs.getStringPrefs("email"));
+            jsonObject1.put("requestOtp","NO");
+            jsonObject1.put("entityStateCode","06");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialog.show();
+        OkHttpClient okHttpClient = APIClient.getHttpClient();
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
+        String url = IPOSAPI.WEB_SERVICE_NOPointsRedeem;
+
+        final Request request = APIClient.getPostRequest(this, url, requestBody);
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+
+                progressDialog.dismiss();
+                //  dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                // dismissProgress();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                });
+                try {
+                    if (response != null && response.isSuccessful()) {
+
+                        String responseData = response.body().string();
+                        if (responseData != null) {
+                            final JSONObject jsonObject=new JSONObject(responseData);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Util.showToast(jsonObject.optString("message"));
+                                    perPoints=jsonObject.optDouble("pointsPer");
+                                    tvResendOTP.setEnabled(false);
+                                    llRedeemValue.setVisibility(View.VISIBLE);
+                                    etRedeemValue.setText((perPoints*pointstoRedeem)+"");
+                                    llVerifyRedeem.setVisibility(View.VISIBLE);
+                                    lLayoutView.setVisibility(View.GONE);
+                                    buttonSendOtp.setVisibility(View.GONE);
+                                }
+                            });
+                        }
+
+
+                    } else {
+                        tvResendOTP.setEnabled(true);
+
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+
+                }
+            }
+        });
+    }
+
+    public void getVerifyOTP(final String code,double pointsToRedeem) {
+        final ProgressDialog progressDialog=new ProgressDialog(OrderCentreDetailsActivity.this);
+        JSONObject jsonObject1=new JSONObject();
+
+        try {
+            jsonObject1.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
+            jsonObject1.put("entityRole",Prefs.getStringPrefs(Constants.entityRole));
+            jsonObject1.put("entityCode",Prefs.getIntegerPrefs(Constants.entityCode));
+            jsonObject1.put("pointsToRedeem",pointsToRedeem);
+            jsonObject1.put("emailId",Prefs.getStringPrefs("email"));
+            jsonObject1.put("requestOtp",code);
+            jsonObject1.put("entityStateCode","06");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialog.show();
+        OkHttpClient okHttpClient = APIClient.getHttpClient();
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
+        String url = IPOSAPI.WEB_SERVICE_ValidateNOCustomerRedeemPoint;
+
+        final Request request = APIClient.getPostRequest(this, url, requestBody);
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+
+                progressDialog.dismiss();
+                //  dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                // dismissProgress();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                });
+                try {
+                    if (response != null && response.isSuccessful()) {
+
+                        String responseData = response.body().string();
+                        if (responseData != null) {
+                            final JSONObject jsonObject=new JSONObject(responseData);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Util.showToast(jsonObject.optString("message"));
+
+                                }
+                            });
+                        }
+
+
+                    } else {
+
+
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+
+                }
+            }
+        });
+    }
+
 }

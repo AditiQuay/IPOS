@@ -25,11 +25,26 @@ public class IPOSAPI {
     public static String WEB_SERVICE_CUSTOMER_DATA = "RetailCustomers/SyncRetailCustomerData";
 
     // NEW ORDER API
-    public static String WEB_SERVICE_NOProductSearch = "PSSNewOrder/NOProductSearch";
+    public static String WEB_SERVICE_NOPRODUCTSEARCH = "PSSNewOrder/NOProductSearch";
     public static String WEB_SERVICE_NOGetEntityBuisnessPlaces = "PSSNewOrder/NOGetEntityBuisnessPlaces";
     public static String WEB_SERVICE_NOSubmitOrder = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOSubmitOrder";
     public static String WEB_SERVICE_NOSummary = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOSummary";
     public static String WEB_SERVICE_NOOrderDetail = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOOrderDetail";
     public static String WEB_SERVICE_NOTransaction = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOTransaction";
+    public static String WEB_SERVICE_NOSubmitOrder = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOSubmitOrder";
+    public static String WEB_SERVICE_NOSummary = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOSummary";
+    public static String WEB_SERVICE_NOOrderDetail = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOOrderDetail";
+    public static String WEB_SERVICE_NOTransaction = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOTransaction";
     public static String WEB_SERVICE_KYS_PSS_DETAIL = WEB_SERVICE_BASE_URL + "PSSConnects/KYCPssdetailList";
+}
+
+    //inventory
+    public static String WEB_SERVICE_INventoryPONUMBERS = WEB_SERVICE_BASE_URL + "Inventory/GetPOSummary";
+    public static String WEB_SERVICE_NOGetBusinessPlaces = "Inventory/GetBusinessPlaces";
+    public static String WEB_SERVICE_GetPOSummaryDetail = WEB_SERVICE_BASE_URL + "Inventory/GetPOSummaryDetail";
+    public static String WEB_SERVICE_GetPOInfo = WEB_SERVICE_BASE_URL + "Inventory/GetPOInfo";
+
+    //redeem
+    public static String WEB_SERVICE_NOPointsRedeem = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOPointsRedeem";
+    public static String WEB_SERVICE_ValidateNOCustomerRedeemPoint = WEB_SERVICE_BASE_URL + "PSSNewOrder/ValidateNOCustomerRedeemPoint";
 }
