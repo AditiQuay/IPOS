@@ -35,13 +35,13 @@ import io.realm.Sort;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.pss_order.adapter.AddNewOrderAdapter;
+import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
+import quay.com.ipos.pss_order.modal.ProductSearchRequest;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.OrderList;
-import quay.com.ipos.pss_order.adapter.AddNewOrderAdapter;
-import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
-import quay.com.ipos.pss_order.modal.ProductSearchRequest;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.FontManager;
@@ -53,7 +53,7 @@ import quay.com.ipos.utility.Util;
 
 public class AddNewOrderActivity extends BaseActivity implements View.OnClickListener,AdapterListener,ServiceTask.ServiceResultListener{
 
-    private static final String TAG = AddNewOrderActivity.class.getSimpleName();
+    private static final String TAG = quay.com.ipos.retailsales.activity.AddProductActivity.class.getSimpleName();
     ArrayList<OrderList.Datum> arrSearlist= new ArrayList<>();
     private EditText searchView;
     private RecyclerView mRecyclerView;
@@ -78,7 +78,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
 
         getIntentValues();
         initializeComponent();
-        searchProductCall("b");
+        searchProductCall("NA");
         Realm realm=Realm.getDefaultInstance();
         RealmResults<RealmNewOrderCart> realmNewOrderCarts1=realm.where(RealmNewOrderCart.class).findAll();
 
@@ -266,6 +266,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
                         jsonObject.put(RetailSalesEnum.totalPrice.toString(),dataBeans.get(pos).getSProductPrice());
                         int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
                         jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
+                        jsonObject.put(RetailSalesEnum.accumulatedLoyality.toString(),dataBeans.get(pos).getAccumulatedLoyality());
                         saveResponseLocal(jsonObject,"P00001");
                         calculateOPS(dataBeans.get(pos).getProductCode(),dataBeans.get(pos).getIProductModalId());
                     } catch (JSONException e) {
@@ -408,12 +409,12 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
         productSearchRequest.setSearchParam(s);
         productSearchRequest.setModuleType("NO");
         productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
-        productSearchRequest.setBarCodeNumber("NA");
+        productSearchRequest.setBarCodeNumber("All");
         productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
         productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOProductSearch);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH);
         mTask.setApiCallType(Constants.API_METHOD_POST);
         mTask.setParamObj(productSearchRequest);
         mTask.setListener(this);

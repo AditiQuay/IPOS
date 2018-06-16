@@ -60,7 +60,7 @@ public class BusinessAdapter extends RecyclerView.Adapter<BusinessAdapter.MyView
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.business_item, parent, false);
         // return new BusinessAdapter.MyView(itemView);
-        return new BusinessAdapter.MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
+        return new MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
 
     }
 

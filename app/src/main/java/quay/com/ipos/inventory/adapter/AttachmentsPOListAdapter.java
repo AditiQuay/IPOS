@@ -11,15 +11,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.inventory.modal.POAttachments;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 
 
 public class AttachmentsPOListAdapter extends RecyclerView.Adapter<AttachmentsPOListAdapter.SurveyViewHolder> {
     private Context mContext;
-    private ArrayList<RealmBusinessPlaces> stringArrayList;
+    private ArrayList<POAttachments> stringArrayList;
     private OnItemSelecteListener mListener;
 
-    public AttachmentsPOListAdapter(Context mContext, ArrayList<RealmBusinessPlaces> stringArrayList) {
+    public AttachmentsPOListAdapter(Context mContext, ArrayList<POAttachments> stringArrayList) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
 
@@ -36,7 +37,7 @@ public class AttachmentsPOListAdapter extends RecyclerView.Adapter<AttachmentsPO
 
 
 
-        holder.tvtitle.setText(stringArrayList.get(position).getHeader());
+        holder.tvtitle.setText(stringArrayList.get(position).getpOAttachmentName());
 
 
 

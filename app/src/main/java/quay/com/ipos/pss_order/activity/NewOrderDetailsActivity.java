@@ -1,15 +1,22 @@
 package quay.com.ipos.pss_order.activity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -43,6 +50,7 @@ import quay.com.ipos.realmbean.RealmBusinessPlaces;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.service.APIClient;
+import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SpacesItemDecoration;
@@ -50,7 +58,7 @@ import quay.com.ipos.utility.Util;
 
 
 
-public class NewOrderDetailsActivity extends BaseActivity implements View.OnClickListener{
+public class NewOrderDetailsActivity extends BaseActivity implements View.OnClickListener,MyDialogFragment.RedeemListener{
     String[] address = {"1/82"};
 
     TextView tvTotalQty,tvTotalPriceBeforeGst,tvCGSTPrice,tvSGSTPrice,tvRoundingOffPrice,btnAccept,btnCancel;
@@ -65,9 +73,17 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
     private String jsonObjectsubmit;
     private JSONObject jsonObjectSubmitJson;
     private String poNumber;
-    private LinearLayout llAccept,llCancel,llDate;
+    private LinearLayout llAccept,llCancel,llDate,llRedeem;
     private TextView deliverDate;
-
+    private double dAccumulatedPoints;
+    private double perPoints=0;
+    private TextView tvResendOTP;
+    private LinearLayout llRedeemValue;
+    private EditText etRedeemValue;
+    double pointstoRedeem = 0;
+    private LinearLayout llVerifyRedeem;
+    private LinearLayout lLayoutView;
+    private Button buttonSendOtp;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -231,6 +247,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
            // deliverDate.setText(realmOrderLists.getDeliveryBy());
             loyaltyPoints.setText(realmOrderLists.getOrderLoyality()+"");
             accumulatedPoints.setText(realmOrderLists.getAccumulatedLoyality()+"");
+            dAccumulatedPoints=realmOrderLists.getAccumulatedLoyality();
             totalPoints.setText(realmOrderLists.getTotalLoyality()+"");
             customerName.setText(Prefs.getStringPrefs(Constants.EntityName));
             discount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
@@ -270,6 +287,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
 
     private void initializeComponent() {
+        llRedeem=findViewById(R.id.llRedeem);
         deliverDate=findViewById(R.id.deliverDate);
         llDate=findViewById(R.id.llDate);
         llAccept=findViewById(R.id.llAccept);
@@ -327,6 +345,13 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
                 finish();
             }
         });
+
+        llRedeem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDialogOTP(NewOrderDetailsActivity.this,dAccumulatedPoints);
+            }
+        });
     }
 
 
@@ -362,7 +387,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         RealmResults<RealmBusinessPlaces> realmBusinessPlaces=realm.where(RealmBusinessPlaces.class).findAll();
         for (int i = 0; i < realmBusinessPlaces.size(); i++) {
             RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
-            realmBusinessPlaces1.setHeader("Shopping Details "+(i+1));
+            realmBusinessPlaces1.setHeader("Shipping Details "+(i+1));
             realmBusinessPlaces1.setBuisnessPlaceName(realmBusinessPlaces.get(i).getBuisnessPlaceName());
             realmBusinessPlaces1.setBuisnessPlaceId(realmBusinessPlaces.get(i).getBuisnessPlaceId());
             realmBusinessPlaces1.setBuisnessLocationStateCode(realmBusinessPlaces.get(i).getBuisnessLocationStateCode());
@@ -407,4 +432,240 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
 
     }
+
+
+    private void redeemDialog(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        MyDialogFragment mMyDialogFragment = MyDialogFragment.newInstance();
+        mMyDialogFragment.setDialogInfo(this,100,1,"","",this);
+//        mMyDialogFragment.setArguments(args);
+        mMyDialogFragment.show(fragmentManager, "Redeem");
+    }
+
+    @Override
+    public void redeem(double pointsToRedeem, double pointsToRedeemValue) {
+
+    }
+
+    public void showDialogOTP(Activity activity, final double dAccumulatedPoints){
+        final Dialog dialog = new Dialog(activity);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.redeem_point_dialog);
+        ImageView imageViewCancel=(ImageView)dialog.findViewById(R.id.imageViewCancel);
+        final EditText etOTP=(EditText)dialog.findViewById(R.id.etOTP);
+        lLayoutView=(LinearLayout)dialog.findViewById(R.id.lLayoutView);
+        llVerifyRedeem=(LinearLayout)dialog.findViewById(R.id.llVerifyRedeem);
+        llRedeemValue=(LinearLayout)dialog.findViewById(R.id.llRedeemValue);
+        etRedeemValue=(EditText)dialog.findViewById(R.id.etRedeemValue);
+        TextView tvRedeemPoints = (TextView) dialog.findViewById(R.id.tvRedeemPoints);
+         tvResendOTP=(TextView)dialog.findViewById(R.id.tvResendOTP); 
+        tvRedeemPoints.setText(dAccumulatedPoints+"");
+        buttonSendOtp=(Button)dialog.findViewById(R.id.buttonSendOtp);
+        EditText etPointToRedeem=dialog.findViewById(R.id.etPointToRedeem);
+        if (Util.validateString(etPointToRedeem.getText().toString()))
+            pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
+        Button buttonSendOtp = (Button) dialog.findViewById(R.id.buttonSendOtp);
+        Button buttonVerify = (Button) dialog.findViewById(R.id.buttonVerify);
+        final double finalPointstoRedeem = pointstoRedeem;
+        tvResendOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (dAccumulatedPoints>0 && finalPointstoRedeem >0 && finalPointstoRedeem<=dAccumulatedPoints){
+                    getOTP(finalPointstoRedeem);
+                }else {
+                    Util.showToast("please check your available points");
+                }
+            }
+        });
+
+        buttonVerify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Util.validateString(etOTP.getText().toString())) {
+                    getVerifyOTP(etOTP.getText().toString(), finalPointstoRedeem);
+                    dialog.dismiss();
+                } else {
+                    Util.showToast("please enter otp");
+                }
+            }
+        });
+        buttonSendOtp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (dAccumulatedPoints>0 && finalPointstoRedeem >0 && finalPointstoRedeem<=dAccumulatedPoints){
+                    getOTP(finalPointstoRedeem);
+                }else {
+                    Util.showToast("please check your available points");
+                }
+
+            }
+        });
+
+        imageViewCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    public void getOTP(final double pointsToRedeem) {
+        final ProgressDialog progressDialog=new ProgressDialog(NewOrderDetailsActivity.this);
+        JSONObject jsonObject1=new JSONObject();
+
+        try {
+            jsonObject1.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
+            jsonObject1.put("entityRole",Prefs.getStringPrefs(Constants.entityRole));
+            jsonObject1.put("entityCode",Prefs.getIntegerPrefs(Constants.entityCode));
+            jsonObject1.put("pointsToRedeem",pointsToRedeem);
+            jsonObject1.put("emailId",Prefs.getStringPrefs("email"));
+            jsonObject1.put("requestOtp","NO");
+            jsonObject1.put("entityStateCode","06");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialog.show();
+        OkHttpClient okHttpClient = APIClient.getHttpClient();
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
+        String url = IPOSAPI.WEB_SERVICE_NOPointsRedeem;
+
+        final Request request = APIClient.getPostRequest(this, url, requestBody);
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+
+                progressDialog.dismiss();
+                //  dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                // dismissProgress();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                });
+                try {
+                    if (response != null && response.isSuccessful()) {
+
+                        String responseData = response.body().string();
+                        if (responseData != null) {
+                            final JSONObject jsonObject=new JSONObject(responseData);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Util.showToast(jsonObject.optString("message"));
+                                    perPoints=jsonObject.optDouble("pointsPer");
+                                    tvResendOTP.setEnabled(false);
+                                    llRedeemValue.setVisibility(View.VISIBLE);
+                                    etRedeemValue.setText((perPoints*pointstoRedeem)+"");
+                                    llVerifyRedeem.setVisibility(View.VISIBLE);
+                                    lLayoutView.setVisibility(View.GONE);
+                                    buttonSendOtp.setVisibility(View.GONE);
+                                }
+                            });
+                        }
+
+
+                    } else {
+                        tvResendOTP.setEnabled(true);
+
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+
+                }
+            }
+        });
+    }
+
+    public void getVerifyOTP(final String code,double pointsToRedeem) {
+        final ProgressDialog progressDialog=new ProgressDialog(NewOrderDetailsActivity.this);
+        JSONObject jsonObject1=new JSONObject();
+
+        try {
+            jsonObject1.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
+            jsonObject1.put("entityRole",Prefs.getStringPrefs(Constants.entityRole));
+            jsonObject1.put("entityCode",Prefs.getIntegerPrefs(Constants.entityCode));
+            jsonObject1.put("pointsToRedeem",pointsToRedeem);
+            jsonObject1.put("emailId",Prefs.getStringPrefs("email"));
+            jsonObject1.put("requestOtp",code);
+            jsonObject1.put("entityStateCode","06");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialog.show();
+        OkHttpClient okHttpClient = APIClient.getHttpClient();
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
+        String url = IPOSAPI.WEB_SERVICE_ValidateNOCustomerRedeemPoint;
+
+        final Request request = APIClient.getPostRequest(this, url, requestBody);
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+
+                progressDialog.dismiss();
+                //  dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                // dismissProgress();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                });
+                try {
+                    if (response != null && response.isSuccessful()) {
+
+                        String responseData = response.body().string();
+                        if (responseData != null) {
+                            final JSONObject jsonObject=new JSONObject(responseData);
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Util.showToast(jsonObject.optString("message"));
+
+                                }
+                            });
+                        }
+
+
+                    } else {
+
+
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+
+                }
+            }
+        });
+    }
+
 }

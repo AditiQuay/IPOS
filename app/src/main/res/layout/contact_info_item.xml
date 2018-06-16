@@ -89,6 +89,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Name *"
+                                    android:enabled="false"
+                                    android:focusable="false"
                                     android:maxLines="1"
                                     android:inputType="textPersonName"
                                     android:textSize="@dimen/universal_text_size14" />
@@ -122,6 +124,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Primary Mobile No *"
+                                    android:enabled="false"
+                                    android:focusable="false"
                                     android:inputType="phone"
                                     android:maxLines="1"
                                     android:textSize="@dimen/universal_text_size14" />
@@ -145,6 +149,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Secondary Mobile No. *"
+                                    android:enabled="false"
+                                    android:focusable="false"
                                     android:maxLines="1"
                                     android:inputType="phone"
                                     android:textSize="@dimen/universal_text_size14" />

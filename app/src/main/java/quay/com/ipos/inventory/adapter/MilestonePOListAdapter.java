@@ -11,15 +11,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.inventory.modal.POPaymentTerms;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 
 
 public class MilestonePOListAdapter extends RecyclerView.Adapter<MilestonePOListAdapter.SurveyViewHolder> {
     private Context mContext;
-    private ArrayList<RealmBusinessPlaces> stringArrayList;
+    private ArrayList<POPaymentTerms> stringArrayList;
     private OnItemSelecteListener mListener;
 
-    public MilestonePOListAdapter(Context mContext, ArrayList<RealmBusinessPlaces> stringArrayList) {
+    public MilestonePOListAdapter(Context mContext, ArrayList<POPaymentTerms> stringArrayList) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
 
@@ -36,7 +37,9 @@ public class MilestonePOListAdapter extends RecyclerView.Adapter<MilestonePOList
 
 
 
-        holder.tvQty.setText(stringArrayList.get(position).getHeader());
+        holder.tvQty.setText(stringArrayList.get(position).getPoPaymentTermsDetail());
+        holder.percent.setText(stringArrayList.get(position).getPoPaymentTermsPer()+"");
+        holder.tvGst.setText(stringArrayList.get(position).getPoPaymentTermsInvoiceDue());
 
 
 
@@ -58,12 +61,15 @@ public class MilestonePOListAdapter extends RecyclerView.Adapter<MilestonePOList
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvQty,textViewName;
+        private TextView tvQty,percent,tvGst;
 
         private RadioButton radio;
         public SurveyViewHolder(View itemView) {
             super(itemView);
             tvQty = itemView.findViewById(R.id.tvQty);
+            percent = itemView.findViewById(R.id.percent);
+            tvGst = itemView.findViewById(R.id.tvGst);
+
 
 
         }

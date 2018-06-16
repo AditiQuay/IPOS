@@ -1,5 +1,6 @@
 package quay.com.ipos.data.remote.model;
 
+import quay.com.ipos.partnerConnect.model.KycCardModel;
 import quay.com.ipos.partnerConnect.model.PCModel;
 
 public class PartnerConnectResponse {

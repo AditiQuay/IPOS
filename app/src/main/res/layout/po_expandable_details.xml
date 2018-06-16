@@ -34,11 +34,309 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+       >
+
+
+
+
+
+            <RelativeLayout
+                android:id="@+id/POHashitems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@color/white"
+                android:layout_margin="@dimen/dim_4">
+
+                <ImageView
+                    android:layout_width="@dimen/dim_30"
+                    android:layout_height="@dimen/dim_30"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10" />
+
+                <TextView
+                    android:id="@+id/tvHeaderPoNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageViewGroupIcon"
+                    android:layout_toRightOf="@+id/imageViewGroupIcon"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:text="PO# 1800023"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/universal_text_size14" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.7"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/ic_action_arrow_right_blue" />
+
+            </RelativeLayout>
+
+        <include layout="@layout/po_details"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/POitemsDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dim_4">
+
+            <ImageView
+                android:layout_width="@dimen/dim_30"
+                android:layout_height="@dimen/dim_30"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10" />
+
+            <TextView
+                android:id="@+id/tvHeaderPOItemDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageViewGroupIcon"
+                android:layout_toRightOf="@+id/imageViewGroupIcon"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:text="Items Details | 4 Items | Qty 3 "
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/universal_text_size14" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:src="@drawable/ic_action_arrow_right_blue" />
+
+        </RelativeLayout>
+        <include layout="@layout/item_detail_po"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/POIncoTerms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dim_4">
+
+            <ImageView
+                android:layout_width="@dimen/dim_30"
+                android:layout_height="@dimen/dim_30"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10" />
+
+            <TextView
+                android:id="@+id/tvHeaderPOIncoTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageViewGroupIcon"
+                android:layout_toRightOf="@+id/imageViewGroupIcon"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:text="INCO terms"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/universal_text_size14" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:src="@drawable/ic_action_arrow_right_blue" />
+
+        </RelativeLayout>
+        <include layout="@layout/expandable_inco_terms_item"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/POPaymentTerms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dim_4">
+
+            <ImageView
+                android:layout_width="@dimen/dim_30"
+                android:layout_height="@dimen/dim_30"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10" />
+
+            <TextView
+                android:id="@+id/tvHeaderPOPaymentTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageViewGroupIcon"
+                android:layout_toRightOf="@+id/imageViewGroupIcon"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:text="Payment Terms"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/universal_text_size14" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:src="@drawable/ic_action_arrow_right_blue" />
+
+        </RelativeLayout>
+        <include layout="@layout/payment_terms_items"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/POTermsandCondition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dim_4">
+
+            <ImageView
+                android:layout_width="@dimen/dim_30"
+                android:layout_height="@dimen/dim_30"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10" />
+
+            <TextView
+                android:id="@+id/tvHeaderPOTermsCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageViewGroupIcon"
+                android:layout_toRightOf="@+id/imageViewGroupIcon"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:text="Terms &amp; Condition"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/universal_text_size14" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:src="@drawable/ic_action_arrow_right_blue" />
+
+        </RelativeLayout>
+
+        <include layout="@layout/expandable_po_items"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/POAttachment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dim_4">
+
+            <ImageView
+                android:layout_width="@dimen/dim_30"
+                android:layout_height="@dimen/dim_30"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10" />
+
+            <TextView
+                android:id="@+id/tvHeaderPOAttachement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageViewGroupIcon"
+                android:layout_toRightOf="@+id/imageViewGroupIcon"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:text="Attachments"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/universal_text_size14" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:src="@drawable/ic_action_arrow_right_blue" />
+
+        </RelativeLayout>
+
+        <include layout="@layout/attachments_po_items"
+            android:visibility="gone"/>
         <ExpandableListView
             android:id="@+id/expandableListView"
             android:layout_width="match_parent"
@@ -47,11 +345,13 @@
             android:layout_marginLeft="@dimen/dim_8"
             android:layout_marginRight="@dimen/dim_8"
             android:layout_marginTop="8dp"
+            android:visibility="gone"
             android:background="@null"
             android:divider="@color/app_background_color"
             android:dividerHeight="@dimen/dim_8"
             android:groupIndicator="@null"
             android:scrollbars="none" />
 
-    </RelativeLayout>
+    </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

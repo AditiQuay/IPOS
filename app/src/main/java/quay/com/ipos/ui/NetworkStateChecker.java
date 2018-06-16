@@ -76,14 +76,17 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
 
     private void sendDataToServer() {
         AppLog.e("tag","sendDataToServer");
-        if(billingSyncs.size()>0)
-            for (int i = 0 ; i < billingSyncs.size() ; i++){
+        if(billingSyncs.size()>0) {
+            for (int i = 0; i < billingSyncs.size(); i++) {
                 BillingSync billingSync = billingSyncs.get(i);
-                paymentRequest = Util.getCustomGson().fromJson(billingSync.getBilling(),PaymentRequest.class);
+                paymentRequest = Util.getCustomGson().fromJson(billingSync.getBilling(), PaymentRequest.class);
                 paymentRequest.setOrderDateTime(billingSync.getOrderDateTime());
                 paymentRequest.setOrderTimestamp(billingSync.getOrderTimestamp());
                 callServicePayment();
             }
+        }else {
+            db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
+        }
     }
 
     private void callServicePayment() {
@@ -103,8 +106,8 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
                 if (resultObj != null) {
                     OrderSubmitResult mOrderSubmitResult = (OrderSubmitResult) resultObj;
                     if (mOrderSubmitResult.getError() == 200) {
-                        IPOSApplication.mProductListResult.clear();
-                        IPOSApplication.totalAmount = 0.0;
+//                        IPOSApplication.mProductListResult.clear();
+//                        IPOSApplication.totalAmount = 0.0;
 //                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
                         editBillToLocalStorage(paymentRequest, NAME_SYNCED_WITH_SERVER);
 
@@ -137,17 +140,23 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
         try {
             if(!db.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL_BILLING)) {
                 billingSyncs1 = db.getAllRetailBillingOrders();
-                for (int i = 0 ; i < billingSyncs1.size() ; i++) {
-                    if (paymentRequest.getOrderTimestamp().equalsIgnoreCase(billingSyncs1.get(i).getOrderTimestamp())){
-                        db.updateSync(status, paymentRequest.getCustomerID());
-                    }else {
-
-                    }
+                if(billingSyncs1.size()>0) {
+//                    for (int i = 0; i < billingSyncs1.size(); i++) {
+                    if(db.checkIfBillingRecordExist(paymentRequest.getOrderTimestamp()))
+                        db.updateSync(status, paymentRequest.getOrderTimestamp());
+//                            if (paymentRequest.getOrderTimestamp().equalsIgnoreCase(billingSyncs1.get(i).getOrderTimestamp())) {
+//                                db.updateSync(status, paymentRequest.getOrderTimestamp());
+//                            } else {
+//
+//                            }
+//                    }
+                }else {
+                    db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
                 }
-
-                if (status == NAME_SYNCED_WITH_SERVER) {
-                    db.deleteRetailBillingTable(paymentRequest.getOrderTimestamp());
-                }
+                billingSyncs1 = db.getAllRetailBillingOrders();
+//                if (status == NAME_SYNCED_WITH_SERVER) {
+//                    db.deleteRetailBillingTable(paymentRequest.getOrderTimestamp());
+//                }
 
                 AppLog.e("tag","RetailMaster Not Empty");
             }else {
@@ -156,5 +165,6 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
         }catch (Exception e){
 
         }
+        networkStateCheckerListener.updateList();
     }
 }

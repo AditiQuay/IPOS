@@ -48,12 +48,12 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
     }
 
     @Override
-    public AccountAdapter.MyView onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MyView onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.accounts_item, parent, false);
 
 
-        return new AccountAdapter.MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
+        return new MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
 
     }
 

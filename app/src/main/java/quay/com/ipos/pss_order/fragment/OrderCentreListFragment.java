@@ -35,7 +35,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.base.MainActivity;
 //import quay.com.ipos.pss_order.activity.OrderCentreDetailsActivity;
-import quay.com.ipos.ddr.activity.OrderCentreDetailsActivity;
+import quay.com.ipos.pss_order.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.pss_order.adapter.ExpandableListAdapter;
 import quay.com.ipos.pss_order.adapter.OrderCentreListAdapter;
 import quay.com.ipos.pss_order.modal.OrderCentreModal;
@@ -111,8 +111,6 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     private void setAdapter() {
         mOrderCentreListAdapter = new OrderCentreListAdapter(getActivity(),this,recyclerView, orderList);
         recyclerView.setAdapter(mOrderCentreListAdapter);
-
-
     }
 
     private void setRealmData(int key){

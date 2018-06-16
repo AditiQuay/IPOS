@@ -1,9 +1,14 @@
+/*
 package quay.com.ipos.inventory.adapter;
 
+*/
 /**
  * Created by ankush.bansal on 12-06-2018.
- */
+ *//*
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,11 +19,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import quay.com.ipos.R;
+import quay.com.ipos.ddr.adapter.*;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
@@ -50,8 +52,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                              boolean isLastChild, View convertView, ViewGroup parent) {
         final String expandedListText = (String) getChild(listPosition, expandedListPosition);
         String listTitle = (String) getGroup(listPosition);
-        convertView = null;
-        if (listTitle.contains("PO#")) {
+        convertView=null;
+        if (listTitle.contains("PO#")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -59,83 +61,83 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
 
             }
-        } else if (listTitle.equalsIgnoreCase("Items details | 4 Items| 23 Qty")) {
+        }else  if (listTitle.equalsIgnoreCase("Items details | 4 Items| 23 Qty")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = layoutInflater.inflate(R.layout.item_detail_po, null);
 
-                ArrayList<RealmBusinessPlaces> discounts = new ArrayList<>();
-                RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
+                ArrayList<RealmBusinessPlaces> discounts=new ArrayList<>();
+                RealmBusinessPlaces realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("5");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("3");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("3");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("10");
                 discounts.add(realmBusinessPlaces1);
-                RecyclerView recycler_view = convertView.findViewById(R.id.recycler_view);
+                RecyclerView recycler_view=convertView.findViewById(R.id.recycler_view);
                 recycler_view.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
                 recycler_view.setLayoutManager(mLayoutManager);
                 ItemsDetailsPOListAdapter itemListDataAdapter = new ItemsDetailsPOListAdapter(context, discounts);
                 recycler_view.setAdapter(itemListDataAdapter);
             }
-        } else if (listTitle.equalsIgnoreCase("INCO Terms")) {
+        }else  if (listTitle.equalsIgnoreCase("INCO Terms")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = layoutInflater.inflate(R.layout.expandable_inco_terms_item, null);
-                ArrayList<RealmBusinessPlaces> discounts = new ArrayList<>();
-                RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
+                ArrayList<RealmBusinessPlaces> discounts=new ArrayList<>();
+                RealmBusinessPlaces realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("Loading");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("Shipping");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("Unload");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("Toll");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("E-Way Bill");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("Unload 1");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("Total");
                 discounts.add(realmBusinessPlaces1);
-                RecyclerView recycler_view = convertView.findViewById(R.id.recycler_view);
+                RecyclerView recycler_view=convertView.findViewById(R.id.recycler_view);
                 recycler_view.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
                 recycler_view.setLayoutManager(mLayoutManager);
                 INCOTermsPOListAdapter itemListDataAdapter = new INCOTermsPOListAdapter(context, discounts);
                 recycler_view.setAdapter(itemListDataAdapter);
             }
-        } else if (listTitle.equalsIgnoreCase("Payment Terms")) {
+        }else  if (listTitle.equalsIgnoreCase("Payment Terms")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = layoutInflater.inflate(R.layout.payment_terms_items, null);
 
-                ArrayList<RealmBusinessPlaces> discounts = new ArrayList<>();
-                RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
+                ArrayList<RealmBusinessPlaces> discounts=new ArrayList<>();
+                RealmBusinessPlaces realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("Advance");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("On Delivery");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("After Delivery");
                 discounts.add(realmBusinessPlaces1);
-                RecyclerView recycler_view = convertView.findViewById(R.id.recycler_view);
+                RecyclerView recycler_view=convertView.findViewById(R.id.recycler_view);
                 recycler_view.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
                 recycler_view.setLayoutManager(mLayoutManager);
@@ -143,39 +145,39 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 recycler_view.setAdapter(itemListDataAdapter);
 
             }
-        } else if (listTitle.equalsIgnoreCase("Terms & Condition")) {
+        }else  if (listTitle.equalsIgnoreCase("Terms & Condition")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = layoutInflater.inflate(R.layout.expandable_po_items, null);
-                ArrayList<RealmBusinessPlaces> discounts = new ArrayList<>();
-                RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
+                ArrayList<RealmBusinessPlaces> discounts=new ArrayList<>();
+                RealmBusinessPlaces realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("1. Lorem Ipsum is simply dummy text of the printing and typesetting industry");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("2. Lorem Ipsum is simply dummy text of the printing and typesetting industry");
                 discounts.add(realmBusinessPlaces1);
-                RecyclerView recycler_view = convertView.findViewById(R.id.recycler_view);
+                RecyclerView recycler_view=convertView.findViewById(R.id.recycler_view);
                 recycler_view.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
                 recycler_view.setLayoutManager(mLayoutManager);
                 TermsPOListAdapter itemListDataAdapter = new TermsPOListAdapter(context, discounts);
                 recycler_view.setAdapter(itemListDataAdapter);
             }
-        } else if (listTitle.equalsIgnoreCase("Attachments")) {
+        }else  if (listTitle.equalsIgnoreCase("Attachments")){
             if (convertView == null) {
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = layoutInflater.inflate(R.layout.expandable_po_items, null);
 
-                ArrayList<RealmBusinessPlaces> discounts = new ArrayList<>();
-                RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
+                ArrayList<RealmBusinessPlaces> discounts=new ArrayList<>();
+                RealmBusinessPlaces realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("PO Copy");
                 discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
+                realmBusinessPlaces1=new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("Batch Details");
                 discounts.add(realmBusinessPlaces1);
-                RecyclerView recycler_view = convertView.findViewById(R.id.recycler_view);
+                RecyclerView recycler_view=convertView.findViewById(R.id.recycler_view);
                 recycler_view.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
                 recycler_view.setLayoutManager(mLayoutManager);
@@ -183,6 +185,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 recycler_view.setAdapter(itemListDataAdapter);
             }
         }
+
+
 
 
         return convertView;
@@ -234,4 +238,4 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
     }
-}
+}*/

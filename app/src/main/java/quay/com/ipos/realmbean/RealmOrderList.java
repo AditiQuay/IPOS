@@ -57,7 +57,7 @@ public class RealmOrderList extends RealmObject {
     private int businessPlaceCode;
     private String deliveryBy;
     private String totalRoundingOffValue;
-    private int accumulatedLoyality;
+    private double accumulatedLoyality;
     private String employeeRole;
     private int orderLoyality;
 
@@ -193,11 +193,11 @@ public class RealmOrderList extends RealmObject {
         this.totalRoundingOffValue = totalRoundingOffValue;
     }
 
-    public int getAccumulatedLoyality() {
+    public double getAccumulatedLoyality() {
         return accumulatedLoyality;
     }
 
-    public void setAccumulatedLoyality(int accumulatedLoyality) {
+    public void setAccumulatedLoyality(double accumulatedLoyality) {
         this.accumulatedLoyality = accumulatedLoyality;
     }
 

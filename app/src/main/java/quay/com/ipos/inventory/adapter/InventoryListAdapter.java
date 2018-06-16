@@ -15,16 +15,20 @@ import quay.com.ipos.R;
 import quay.com.ipos.inventory.activity.ExpandablePODetailsActivity;
 import quay.com.ipos.inventory.activity.InventoryWorkFlowActivity;
 import quay.com.ipos.inventory.modal.InventoryModel;
+import quay.com.ipos.listeners.MyListener;
+import quay.com.ipos.realmbean.RealmPOInventory;
 
 
 public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdapter.SurveyViewHolder> {
     private Context mContext;
-    private ArrayList<InventoryModel> stringArrayList;
+    private ArrayList<RealmPOInventory> stringArrayList;
     private OnItemSelecteListener mListener;
+    MyListener myListener;
 
-    public InventoryListAdapter(Context mContext, ArrayList<InventoryModel> stringArrayList) {
+    public InventoryListAdapter(Context mContext, ArrayList<RealmPOInventory> stringArrayList, MyListener myListener) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
+        this.myListener=myListener;
 
     }
 
@@ -35,27 +39,28 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
     }
 
     @Override
-    public void onBindViewHolder(SurveyViewHolder holder, int position) {
+    public void onBindViewHolder(final SurveyViewHolder holder, final int position) {
 
 
 
         holder.tvPoNumber.setText(stringArrayList.get(position).getPoNumber());
+        holder.tvTitle.setText(stringArrayList.get(position).getCompany());
+        holder.tvDate.setText(stringArrayList.get(position).getDate());
+        holder.tvOrderNumber.setText(stringArrayList.get(position).getId());
+        holder.tvValue.setText(stringArrayList.get(position).getValue()+"");
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(mContext, ExpandablePODetailsActivity.class);
-                mContext.startActivity(i);
+                myListener.onRowClicked(position);
+
             }
         });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(mContext, ExpandablePODetailsActivity.class);
-                mContext.startActivity(i);
-            }
-        });
+
+
+
 
 
 
@@ -76,13 +81,17 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvPoNumber,tvOpen;
+        private TextView tvPoNumber,tvOpen,tvOrderNumber,tvTitle,tvValue,tvDate;
 
         private RadioButton radio;
         public SurveyViewHolder(View itemView) {
             super(itemView);
             tvPoNumber = itemView.findViewById(R.id.tvPoNumber);
             tvOpen=itemView.findViewById(R.id.tvOpen);
+            tvOrderNumber=itemView.findViewById(R.id.tvOrderNumber);
+            tvTitle=itemView.findViewById(R.id.tvTitle);
+            tvValue=itemView.findViewById(R.id.tvValue);
+            tvDate=itemView.findViewById(R.id.tvDate);
 
 
         }
