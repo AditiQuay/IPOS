@@ -53,7 +53,7 @@ public class NameAdapter extends BaseAdapter {
         //queued icon 
         //else displaying synced icon 
         if (name.getSync() == 0)
-            imageViewStatus.setBackgroundResource(R.drawable.ic_action_close_white);
+            imageViewStatus.setBackgroundResource(R.drawable.ic_action_cloud_off_white);
         else
             imageViewStatus.setBackgroundResource(R.drawable.ic_action_check);
  

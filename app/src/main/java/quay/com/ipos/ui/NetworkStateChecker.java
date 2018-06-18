@@ -165,6 +165,8 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
         }catch (Exception e){
 
         }
-        networkStateCheckerListener.updateList();
+
+        if(networkStateCheckerListener!=null)
+            networkStateCheckerListener.updateList();
     }
 }
