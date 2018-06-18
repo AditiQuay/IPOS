@@ -999,10 +999,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
     }
 
     private boolean getaddHighestFreeItems(RealmNewOrderCart realmNewOrderCarts, boolean isApplied, Realm realm, String opsCriteria, String productCode, int packSize, int slabFrom, int productQty) {
-
-
         RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.DESCENDING);
-
 
         int itemsPerFree = productQty / (packSize + slabFrom);
         int freeItems = 0;
