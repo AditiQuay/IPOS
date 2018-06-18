@@ -61,7 +61,7 @@ public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> 
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.billing_item, parent, false);
 
-        return new BillingAdapter.MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
+        return new MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
     }
 
     @Override

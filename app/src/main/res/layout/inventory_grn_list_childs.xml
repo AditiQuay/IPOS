@@ -46,6 +46,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/dim_4"
             android:layout_marginTop="8dp">
 
             <LinearLayout

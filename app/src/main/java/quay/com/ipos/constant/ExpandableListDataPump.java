@@ -103,7 +103,7 @@ public class ExpandableListDataPump {
         expandableListDetail.put("Mostly Used",MostlyUsed);
         expandableListDetail.put("Billing & Cash", Billing);
         expandableListDetail.put("Manage Store", ManageStore);
-        expandableListDetail.put("Manage Business", ManageBusiness);
+        expandableListDetail.put("Manage KycBusiness", ManageBusiness);
         expandableListDetail.put("Insights & Analytics", Insight);*/
 
         AppLog.e("tag", Util.getCustomGson().toJson(expandableListDetail));

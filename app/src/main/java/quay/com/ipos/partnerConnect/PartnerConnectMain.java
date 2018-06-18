@@ -351,8 +351,10 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         if (!validateData()) {
             return;
         }
+        PCModel pcModel = new PCModel();
+        pcModel.setLog(getPcModelData().getValue());
 
-        Log.i("updateData", new Gson().toJson(getPcModelData().getValue()));
+        Log.i("updateData pcModel", new Gson().toJson(pcModel));
         Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).updatePartnerConnectData(getPcModelData().getValue());
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
@@ -580,44 +582,44 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         }
         //validation of account
         if (pcModel.Account == null) {
-            String error = "Account -> Account data is required!";
+            String error = "KycAccount -> KycAccount data is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
         for (Account account : pcModel.Account) {
             if (account.mAccountHolderName == null || account.mAccountHolderName.isEmpty()) {
-                String error = "Account -> Account Holder Name is required!";
+                String error = "KycAccount -> KycAccount Holder Name is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (account.mAccountNo == null || account.mAccountNo.isEmpty()) {
-                String error = "Account -> Account No. is required!";
+                String error = "KycAccount -> KycAccount No. is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (account.mAccountType == null || account.mAccountType.isEmpty()) {
-                String error = "Account -> Account Type is required!";
+                String error = "KycAccount -> KycAccount Type is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (account.mBankName == null || account.mBankName.isEmpty()) {
-                String error = "Account -> Bank Name is required!";
+                String error = "KycAccount -> Bank Name is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (account.mIFSCCode == null || account.mIFSCCode.isEmpty()) {
-                String error = "Account -> IFSCCode is required!";
+                String error = "KycAccount -> IFSCCode is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (account.mBranchAdddres == null || account.mBranchAdddres.isEmpty()) {
-                String error = "Account -> mBranch Address is required!";
+                String error = "KycAccount -> mBranch Address is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
@@ -625,7 +627,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             if (account.cheques != null) {
                 for (Cheques cheque : account.cheques) {
                     if (cheque.mSecurityCheque == null || cheque.mSecurityCheque.isEmpty()) {
-                        String error = "Account ->   Security Cheque is required!";
+                        String error = "KycAccount ->   Security Cheque is required!";
                         Log.e(TAG, error);
                         IPOSApplication.showToast(error);
                         return false;
@@ -633,19 +635,19 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
                     if (cheque.mSecurityCheque.contains("Yes")) {
                         if (cheque.mDrawnAccountNo == null || cheque.mDrawnAccountNo.isEmpty()) {
-                            String error = "Account ->   DrawnAccountNo is required!";
+                            String error = "KycAccount ->   DrawnAccountNo is required!";
                             Log.e(TAG, error);
                             IPOSApplication.showToast(error);
                             return false;
                         }
                         if (cheque.mMaxLimitAmount == null || cheque.mMaxLimitAmount.isEmpty()) {
-                            String error = "Account ->   MaxLimitAmount is required!";
+                            String error = "KycAccount ->   MaxLimitAmount is required!";
                             Log.e(TAG, error);
                             IPOSApplication.showToast(error);
                             return false;
                         }
                         if (cheque.mChequeNo == null || cheque.mChequeNo.isEmpty()) {
-                            String error = "Account ->  ChequeNo is required!";
+                            String error = "KycAccount ->  ChequeNo is required!";
                             Log.e(TAG, error);
                             IPOSApplication.showToast(error);
                             return false;

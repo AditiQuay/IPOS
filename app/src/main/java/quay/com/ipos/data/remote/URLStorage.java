@@ -6,4 +6,7 @@ public class URLStorage {
     //@Query("sort") String sort  "api/PSSConnects/getPssConnectDetail?strEntityId=1";
     public static final String PARTNER_CONNECT_API = "api/PSSConnects/getPssConnectDetail";
     public static final String PARTNER_CONNECT_UPDATE_API = "api/PSSConnects/UpdatePssdetail";
+
+    public static final String KYC_PARTNER_API = "api/PSSConnects/getPssRequesttDetail";
+    public static final String KYC_PARTNER_ACCEPT = "api/PSSConnects/KyCAccept";
 }

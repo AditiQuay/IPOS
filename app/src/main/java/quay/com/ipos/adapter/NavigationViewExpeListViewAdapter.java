@@ -190,7 +190,7 @@ public class NavigationViewExpeListViewAdapter extends BaseExpandableListAdapter
 //            case "Manage Store":
 //                imageId = R.drawable.store;
 //                break;
-//            case "Manage Business":
+//            case "Manage KycBusiness":
 //                imageId = R.drawable.business;
 //                break;
 //            case "Insights & Analytics":

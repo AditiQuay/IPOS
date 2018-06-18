@@ -23,6 +23,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
@@ -32,6 +34,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -81,7 +84,10 @@ import quay.com.ipos.login.SplashActivity;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
+import quay.com.ipos.partnerConnect.kyc.KYCActivity;
 import quay.com.ipos.productCatalogue.ProductMain;
+import quay.com.ipos.pss_order.fragment.NewOrderFragment;
+import quay.com.ipos.pss_order.fragment.OrderCentreListFragment;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
@@ -96,7 +102,7 @@ import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 public class MainActivity extends BaseActivity
-        implements SendScannerBarcodeListener, NavigationView.OnNavigationItemSelectedListener, ServiceTask.ServiceResultListener, InitInterface, FilterListener, MessageDialog.MessageDialogListener, AdapterView.OnItemClickListener, ScanFilterListener {
+        implements DrawerRoleAdapter.OnRoleSelectionListener, SendScannerBarcodeListener, NavigationView.OnNavigationItemSelectedListener, ServiceTask.ServiceResultListener, InitInterface, FilterListener, MessageDialog.MessageDialogListener, ScanFilterListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private String[] mNavigationDrawerItemTitles;
     private ListView listViewContent;
@@ -113,12 +119,12 @@ public class MainActivity extends BaseActivity
     private int lastExpandedGroup;
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
-    private Class<?> mClss;
+  //  private Class<?> mClss;
     private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
-    private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
-    private View viewM, viewI, viewP;
+  //  private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
+  //  private View viewM, viewI, viewP;
     private CircleImageView imageViewProfileDummy;
     private TextView textViewMyBusiness, textViewAccount;
     private TextView textViewP, textViewI, textViewM;
@@ -129,9 +135,10 @@ public class MainActivity extends BaseActivity
     private ArrayList<Integer> inMenu = new ArrayList<>();
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private int count = 0;
-    private ListView lvMenu;
+    private RecyclerView lvMenu;
+    private List<DrawerRoleModal> drawerRoleModals = new ArrayList<>();
+
     int mSelectedItemPosition;
-    ArrayList<DrawerRoleModal> drawerRoleModals = new ArrayList<>();
     private DrawerRoleAdapter drawerRoleAdapter;
     //a broadcast to know weather the data is synced or not
     public static final String DATA_SAVED_BROADCAST = "ipos.datasaved";
@@ -188,6 +195,7 @@ public class MainActivity extends BaseActivity
     private int mActivePosition = 1;
     private int currentType = -1;
     private boolean firstTime = true;
+    private ImageView imgView;
     private List<String> mostUsedFunList = new ArrayList<>();
 
 
@@ -286,6 +294,15 @@ public class MainActivity extends BaseActivity
         navigationView = findViewById(R.id.nav_view);
         listViewContent = findViewById(R.id.listViewContent);
         lvMenu = findViewById(R.id.lvMenu);
+        lvMenu.setLayoutManager(new LinearLayoutManager(this));
+        imgView = findViewById(R.id.imgView);
+        imgView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, KYCActivity.class);
+                startActivity(intent);
+            }
+        });
 
         imageViewProfileDummy = findViewById(R.id.imageViewProfileDummy);
 
@@ -364,23 +381,27 @@ public class MainActivity extends BaseActivity
         }
 
 
-        if (drawerRoleModals.size() > 0)
-            drawerRoleModals.get(0).setSelected(true);
-        drawerRoleAdapter = new DrawerRoleAdapter(this, R.layout.drawer_role_item, drawerRoleModals);
+        if (drawerRoleModals.size() > 1)
+            drawerRoleModals.get(1).setSelected(true);
+
+
+        drawerRoleAdapter = new DrawerRoleAdapter(this, drawerRoleModals, this);
         lvMenu.setAdapter(drawerRoleAdapter);
-        lvMenu.setOnItemClickListener(this);
 
 
         expandableListDetail = ExpandableListDataPump.getData();
         expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
-        navigationViewExpeListViewAdapter = new NavigationViewExpeListViewAdapter(this, expandableListTitle, expandableListDetail);
+      /*  navigationViewExpeListViewAdapter = new NavigationViewExpeListViewAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView1.setAdapter(navigationViewExpeListViewAdapter);
         expandableListView1.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 return false;
             }
-        });
+        });*/
+        if (drawerRoleModals.size() > 1) {
+            onRoleSelected(drawerRoleModals.get(1),1);
+        }
 
 
         expandableListView1.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
@@ -469,7 +490,7 @@ public class MainActivity extends BaseActivity
         retailSalesFragment1.onUpdate(title, MainActivity.this);
     }
 
-    @Override
+   /* @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         currentType = position;
         int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
@@ -493,7 +514,7 @@ public class MainActivity extends BaseActivity
         expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
         navigationViewExpeListViewAdapter = new NavigationViewExpeListViewAdapter(this, expandableListTitle, expandableListDetail);
         expandableListView1.setAdapter(navigationViewExpeListViewAdapter);
-    }
+    }*/
 
     private void setMenuItemNormal() {
         int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
@@ -582,7 +603,7 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
 
                 break;
-            case "Manage Business":
+            case "Manage KycBusiness":
 
                 break;
             case "Insights & Analytics":
@@ -1028,23 +1049,7 @@ public class MainActivity extends BaseActivity
         super.onWindowFocusChanged(hasFocus);
         //  Toast.makeText(mContext, "onWindowFocusChanged", Toast.LENGTH_SHORT).show();
         try {
-
-
             if (firstTime) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        Log.i("count", lvMenu.getAdapter().getCount() + "");
-                        lvMenu.performItemClick(
-                                lvMenu.getChildAt(mActivePosition),
-                                mActivePosition,
-                                lvMenu.getAdapter().getItemId(mActivePosition));
-
-                    }
-                }, 5000);
-
-
                 getMostUsedData();
                 firstTime = false;
             }
@@ -1082,6 +1087,37 @@ public class MainActivity extends BaseActivity
     @Override
     public void onScanBarcode(String title, FragmentActivity activity) {
         newOrderScannerFragment.onScanBarcode(title, activity);
+    }
+
+    @Override
+    public void onRoleSelected(DrawerRoleModal drawerRoleModal, int position) {
+        try {
+            currentType = position;
+           // int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+          //  int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+           // setMenuItemNormal();
+           // if (mSelectedItemPosition != -1 && mSelectedItemPosition != position) {
+              //  view = lvMenu.getChildAt(position);
+              //  View borderView = view.findViewById(R.id.viewP);
+               // TextView textView = view.findViewById(R.id.textViewP);
+
+              //  borderView.setBackgroundColor(mContext.getResources().getColor(R.color.menu_strip));
+             //   textView.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
+            //    textView.setBackgroundResource(R.drawable.menu_background_select);
+             //   drawerRoleModals.get(position).setSelected(true);
+
+           // }
+            mSelectedItemPosition = position;
+            //drawerRoleAdapter.notifyDataSetChanged();
+
+            expandableListDetail = expandableDataonClick(drawerRoleModals.get(position).name);
+            expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
+            navigationViewExpeListViewAdapter = new NavigationViewExpeListViewAdapter(this, expandableListTitle, expandableListDetail);
+            expandableListView1.setAdapter(navigationViewExpeListViewAdapter);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private static class insertAsyncTask extends android.os.AsyncTask<MostUsed, Void, Void> {

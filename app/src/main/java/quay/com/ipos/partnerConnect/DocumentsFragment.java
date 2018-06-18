@@ -432,7 +432,7 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
                 new ConvertToBitmap(docAppointment.DocFileBase64, imageViewAppointment).execute();
         }
 
-        //  recyclerViewAccountInfo.setAdapter(new AccountAdapter(getActivity(), pcModel.Account.cheques, AccountFragment.this));
+        //  recyclerViewAccountInfo.setAdapter(new AccountAdapter(getActivity(), pcModel.KycAccount.cheques, KycAccountFragment.this));
     }
 
     public class ConvertToBitmap extends AsyncTask<Void, Void, Bitmap> {
