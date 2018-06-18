@@ -377,11 +377,11 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
 
     @Override
     public void onRowClicked(int position) {
-//        KycPSSDetailsModel kycPSSDetailsModel = kycPSSDetailsModels.get(position);
-//        Intent i = new Intent(mContext, KYCMain.class);
-//        i.putExtra("EntityCode", entityCode);
-//        i.putExtra("RequestCode", kycPSSDetailsModel.getREQUEST_CODE());
-//        startActivity(i);
+        KycPSSDetailsModel kycPSSDetailsModel = kycPSSDetailsModels.get(position);
+        Intent i = new Intent(mContext, KYCMain.class);
+        i.putExtra("EntityCode", entityCode);
+        i.putExtra("RequestCode", kycPSSDetailsModel.getREQUEST_CODE());
+        startActivity(i);
     }
 
     @Override

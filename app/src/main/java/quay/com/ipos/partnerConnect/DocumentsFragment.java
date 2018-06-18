@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +24,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.io.File;
+import java.io.InputStream;
+
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.DocumentVoults;
@@ -31,12 +35,15 @@ import quay.com.ipos.utility.Base64Util;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.ShareWorldUtil;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
  * Created by niraj.kumar on 6/8/2018.
  */
 
 public class DocumentsFragment extends Fragment implements InitInterface, View.OnClickListener {
     private static final String TAG = DocumentsFragment.class.getSimpleName();
+    private static final int PICKFILE_RESULT_CODE = 11;
     private View main;
     private Context mContext;
     //Photo variables
@@ -240,6 +247,7 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
 
                 break;
             case R.id.btnPhotoUpload:
+                onAttachFileClicked();
                 break;
             case R.id.btnPanUpload:
                 break;
@@ -260,7 +268,28 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Toast.makeText(mContext, "onActivityResult", Toast.LENGTH_SHORT).show();
+        if (requestCode == PICKFILE_RESULT_CODE && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            File f = new File(uri.getPath());
+            long size = f.length();
+            String FilePath = data.getData().getPath();
+            Log.i(TAG, "FilePath:" + FilePath + " , File Length:" + size);
+
+           // imageViewphoto.setImageURI(uri);
+
+            String s = getBase64StringNew(uri, (int) size);
+            if(s!=null) {
+                Log.i(TAG, "getBase64StringNew:" + s);
+                new ConvertToBitmap(s, imageViewphoto).execute();
+                docPhoto.DocFileBase64 = s;
+            }
+
+
+
+            return;
+        }
+
+
         Bitmap bitmap1 = ShareWorldUtil.onCameraResult(requestCode, resultCode, data, 1);
         if (bitmap1 != null) {
             imageViewphoto.setImageBitmap(bitmap1);
@@ -482,5 +511,53 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
                 Log.i("string", s);
             }
         }
+    }
+
+    private void onAttachFileClicked() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICKFILE_RESULT_CODE);
+    }
+
+   /* @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        switch (requestCode) {
+            case PICKFILE_RESULT_CODE:
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                  //  uriArrayList.add(uri);
+                  //  updateSize();
+                    String FilePath = data.getData().getPath();
+                  //  Toast.makeText(this, "FilePath" + FilePath, Toast.LENGTH_SHORT).show();
+                    // textFile.setText(FilePath);
+                    //updateSize();
+                }
+                break;
+
+        }
+    }*/
+
+    private String getBase64StringNew(Uri uri, int filelength) {
+        String imageStr = null;
+        try {
+            InputStream inputStream = getActivity().getContentResolver().openInputStream(uri);
+
+           /* InputStream finput = new FileInputStream(file);
+            byte[] imageBytes = new byte[(int)file.length()];
+            finput.read(imageBytes, 0, imageBytes.length);
+            finput.close();
+            String imageStr = Base64.encodeBase64String(imageBytes);*/
+
+            //InputStream finput = new FileInputStream(file);
+            byte[] byteFileArray = new byte[filelength];
+            inputStream.read(byteFileArray, 0, byteFileArray.length);
+            inputStream.close();
+            imageStr = android.util.Base64.encodeToString(byteFileArray, android.util.Base64.NO_WRAP);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return imageStr;
     }
 }

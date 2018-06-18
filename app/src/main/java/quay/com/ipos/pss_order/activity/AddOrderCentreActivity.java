@@ -1,4 +1,4 @@
-package quay.com.ipos.ddr.activity;
+package quay.com.ipos.pss_order.activity;
 
 import android.content.Intent;
 import android.graphics.Typeface;

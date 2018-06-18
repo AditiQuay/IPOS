@@ -294,8 +294,8 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                 }
 
 
-                    Intent i = new Intent(mContext, MainActivity.class);
-                    startActivity(i);
+                Intent i = new Intent(mContext, MainActivity.class);
+                startActivity(i);
             }
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
             Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();

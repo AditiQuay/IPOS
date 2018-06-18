@@ -118,7 +118,7 @@ public class ProductSearchResult {
         @SerializedName("barCodeNumber")
         @Expose
         private String barCodeNumber;
-//        @SerializedName("schemeID")
+        //        @SerializedName("schemeID")
 //        @Expose
 //        private String schemeID;
         @SerializedName("discount")

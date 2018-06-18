@@ -241,6 +241,16 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             tvOrderName.setText(realmOrderLists.getPoNumber());
             OrderDate.setText(Util.getFormattedDates(realmOrderLists.getPoDate(),Constants.format6,Constants.format2));
             tvStatus.setText(realmOrderLists.getPoStatus());
+            if (realmOrderLists.getPoStatus().equalsIgnoreCase("1")){
+                tvStatus.setText("Submitted");
+            }else if (realmOrderLists.getPoStatus().equalsIgnoreCase("2")){
+                tvStatus.setText("Approved");
+            }else if (realmOrderLists.getPoStatus().equalsIgnoreCase("3")){
+                tvStatus.setText("Rejected");
+            }else if (realmOrderLists.getPoStatus().equalsIgnoreCase("0")){
+                tvStatus.setText("Pending");
+            }
+
             orderValue.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getOrderValue());
             orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
             deliverDate.setText(Util.getFormattedDates(realmOrderLists.getDeliveryBy(),Constants.format6,Constants.format2));

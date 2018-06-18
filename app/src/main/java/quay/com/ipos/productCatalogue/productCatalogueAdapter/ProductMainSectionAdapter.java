@@ -28,7 +28,7 @@ import quay.com.ipos.utility.VerticalSpaceItemDecoration;
  * Created by niraj.kumar on 4/25/2018.
  */
 
-public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainSectionAdapter.ItemRowHolder> implements Filterable {
+public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainSectionAdapter.ItemRowHolder>{
     private ArrayList<ProductSectionModal> productSectionModals;
     private Context mContext;
 
@@ -90,12 +90,6 @@ public class ProductMainSectionAdapter extends RecyclerView.Adapter<ProductMainS
     public int getItemCount() {
         return (null != productSectionModals ? productSectionModals.size() : 0);
     }
-
-    @Override
-    public Filter getFilter() {
-        return null;
-    }
-
 
     public class ItemRowHolder extends RecyclerView.ViewHolder {
 

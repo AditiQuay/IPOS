@@ -124,6 +124,9 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     private TextInputLayout tilGstn;
     ArrayList<CustomerSpinner> customerSpinner = new ArrayList<>();
 
+    public static final String quickPreference = "QuickData";
+    SharedPreferences.Editor quickEditor;
+    private SharedPreferences quickSharedPreferences;
     public CustomerAddFullFragment() {
 
     }
@@ -151,9 +154,12 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         main = inflater.inflate(R.layout.customer_add_full_fragment, container, false);
         mContext = getActivity();
         dbHelper = new DatabaseHandler(mContext);
+        quickSharedPreferences = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
+        quickEditor = quickSharedPreferences.edit();
 
         listPosition = Arrays.asList(nameTitle);
         genderPosition = Arrays.asList(genderTitle);
+
         calendar = Calendar.getInstance();
         AppLog.e(TAG, "onCreateView Called");
         findViewById();
@@ -493,6 +499,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 }
             }
         });
+        titleSpinner.setOnItemSelectedListener(this);
+        genderSpinner.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -691,7 +699,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         try {
 
-
             MaterialSpinner materialSpinner = (MaterialSpinner) parent;
             String selectedSpinner = String.valueOf(materialSpinner.getSelectedItem());
             if (materialSpinner.getId() == R.id.maritalStatusSpinner) {
@@ -748,6 +755,12 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 countryCode = countryListModel[position].getCountryCode();
 
 
+            }else if (materialSpinner.getId()== R.id.titleSpinner){
+                quickEditor.putString("title", selectedSpinner);
+                quickEditor.apply();
+            }else if (materialSpinner.getId()==R.id.genderSpinner){
+                quickEditor.putString("gender",selectedSpinner);
+                quickEditor.apply();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1367,10 +1380,14 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         if (s == tieFirstName.getEditableText()) {
             tilFirstName.setErrorEnabled(false);
             tilFirstName.setError(null);
+            quickEditor.putString("firstName",tieFirstName.getText().toString());
+            quickEditor.apply();
         }
         if (s == tieLastName.getEditableText()) {
             tilLastName.setErrorEnabled(false);
             tilLastName.setError(null);
+            quickEditor.putString("lastName",tieLastName.getText().toString());
+            quickEditor.apply();
         }
         if (s == tieDOB.getEditableText()) {
             tilDOB.setErrorEnabled(false);
@@ -1395,6 +1412,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         if (s == tieMobileNumPrimary.getEditableText()) {
             tilMobileNumPrimary.setErrorEnabled(false);
             tilMobileNumPrimary.setError(null);
+            quickEditor.putString("mobileNumber",tieMobileNumPrimary.getText().toString());
+            quickEditor.apply();
         }
         if (s == tieMobileNumSecondary.getEditableText()) {
             tilSecondaryMobileNumber.setErrorEnabled(false);

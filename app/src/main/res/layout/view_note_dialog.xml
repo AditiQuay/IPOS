@@ -40,7 +40,7 @@
                 android:layout_marginRight="@dimen/dim_5"
                 android:gravity="top"
                 android:padding="@dimen/dim_2"
-                android:src="@drawable/ic_action_closee" />
+                android:src="@drawable/ic_action_close" />
         </RelativeLayout>
 
 
@@ -70,7 +70,7 @@
                     android:id="@+id/tieMessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="false"
+                    android:cursorVisible="true"
                     android:hint="Write a note..."
                     android:inputType="text"
                     android:lines="3"
@@ -97,7 +97,7 @@
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btnAccept"
+                    android:id="@+id/btnSubmit"
                     style="@style/styleWhiteTextColor14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

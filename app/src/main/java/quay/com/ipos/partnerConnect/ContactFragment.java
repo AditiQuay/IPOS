@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,6 +30,7 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.KeyBusinessContactInfo;
+import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
 import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.ContactInfoAdapter;
@@ -170,10 +172,23 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
                 Log.i(TAG, "pcModel or pcModel.Business is null");
                 return;
             }
+            if (pcModel.contactDetail.KeyBusinessContactInfo == null) {
+                Log.i(TAG, "KeyBusinessContactInfo is null");
+                KeyBusinessContactInfo KeyBusinessContactInfo = new KeyBusinessContactInfo();
+                KeyBusinessContactInfo.NewContact = new ArrayList<>();
+                NewContact newContact = new NewContact();
+                newContact.Name = "";
+                newContact.PrimaryMobile = "";
+                newContact.SecondaryMobile = "";
+                KeyBusinessContactInfo.NewContact.add(newContact);
+
+                pcModel.contactDetail.KeyBusinessContactInfo = KeyBusinessContactInfo;
+            } else {
+                Log.i(TAG, "KeyBusinessContactInfo is not null");
+
+            }
 
             contactInfo = pcModel.contactDetail.KeyBusinessContactInfo;
-
-
             ArrayAdapter partnerTypeHeading = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, partnerKeyPosition);
             partnerTypeHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             keyPositionSpinner.setAdapter(partnerTypeHeading);
@@ -247,6 +262,9 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
 
             } else if (editEmail.getText().hashCode() == charSequence.hashCode()) {
                 contactInfo.keyEmail = charSequence.toString();
+
+            } else if (editNote.getText().hashCode() == charSequence.hashCode()) {
+                contactInfo.keyEmpNote = charSequence.toString();
 
             }
         }

@@ -101,8 +101,9 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public EditText etQtySelected;
         public RecyclerView mUserRecyclerView;
         public ImageView imvOffer;
-        public TextView tvTotalPoints;
-        public LinearLayout llAddMinus;
+        public TextView tvTotalPoints,tvStocks;
+        public LinearLayout llAddMinus,llStocks,llRefreshStocks;
+
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -126,6 +127,9 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             tvPoints=itemView.findViewById(R.id.tvPoints);
             tvTotalPoints=itemView.findViewById(R.id.tvTotalPoints);
             llAddMinus=itemView.findViewById(R.id.llAddMinus);
+            llStocks=itemView.findViewById(R.id.llStocks);
+            tvStocks=itemView.findViewById(R.id.tvStocks);
+            llRefreshStocks=itemView.findViewById(R.id.llRefreshStocks);
         }
     }
 
@@ -155,7 +159,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             onBind = true;
             final RealmNewOrderCart realmNewOrderCart = mDataset.get(position);
             Realm realm=Realm.getDefaultInstance();
-            RealmNewOrderCart str=realm.where(RealmNewOrderCart.class).equalTo(RetailSalesEnum.iProductModalId.toString(),realmNewOrderCart.getiProductModalId()).findFirst();
+            final RealmNewOrderCart str=realm.where(RealmNewOrderCart.class).equalTo(RetailSalesEnum.iProductModalId.toString(),realmNewOrderCart.getiProductModalId()).findFirst();
             final NewOrderListAdapter.UserViewHolder userViewHolder = (NewOrderListAdapter.UserViewHolder) holder;
 
             if (str!=null) {
@@ -193,6 +197,22 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
                 onBind = false;
+
+                if (mDataset.get(holder.getAdapterPosition()).isCheckStockClick()) {
+                    userViewHolder.llStocks.setVisibility(View.VISIBLE);
+                    userViewHolder.tvStocks.setText(mDataset.get(holder.getAdapterPosition()).getmCheckStock() + "");
+                    userViewHolder.tvCheckStock.setVisibility(View.GONE);
+                }else {
+                    userViewHolder.llStocks.setVisibility(View.GONE);
+                    userViewHolder.tvStocks.setText(str.getmCheckStock() + "");
+                    userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
+                }
+
+
+                userViewHolder.llRefreshStocks.setOnClickListener(mOnClickListener);
+                userViewHolder.llRefreshStocks.setTag(position);
+                userViewHolder.tvCheckStock.setOnClickListener(mOnClickListener);
+                userViewHolder.tvCheckStock.setTag(position);
 
 
                 userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
