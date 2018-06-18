@@ -932,7 +932,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //                break;
             case R.id.imvInfo:
                 int infoPos = (int) view.getTag();
-               new  InformationDialog(mContext,IPOSApplication.mProductListResult.get(infoPos));
+                new  InformationDialog(mContext,IPOSApplication.mProductListResult.get(infoPos));
                 break;
             case R.id.tvMoreDetails:
                 llTotalDiscountDetail.setVisibility(View.VISIBLE);
@@ -1115,6 +1115,14 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
+                                for(int j = 0 ; j < IPOSApplication.mProductListResult.size() ; j++) {
+                                    if (IPOSApplication.mProductListResult.get(posClear).getParentProductID() != null && !IPOSApplication.mProductListResult.get(posClear).getParentProductID().equalsIgnoreCase("")){
+                                        if (IPOSApplication.mProductListResult.get(j).getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(posClear).getIProductModalId())) {
+                                            IPOSApplication.mProductListResult.remove(j);
+                                        }
+                                    }
+                                }
                                 IPOSApplication.mProductListResult.remove(posClear);
                                 mRetailSalesAdapter.notifyDataSetChanged();
 //                                mRetailSalesAdapter.notifyItemRangeChanged(posClear, IPOSApplication.mProductListResult.size());
@@ -1553,7 +1561,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         mRetailSalesAdapter.notifyItemChanged(posDeleteItem);
         setUpdateValues(IPOSApplication.mProductListResult);
         if(mDiscountDeleteFragment!=null)
-        mDiscountDeleteFragment.dismiss();
+            mDiscountDeleteFragment.dismiss();
     }
 
     @Override

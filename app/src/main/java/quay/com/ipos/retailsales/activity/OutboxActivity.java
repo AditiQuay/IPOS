@@ -3,7 +3,9 @@ package quay.com.ipos.retailsales.activity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -24,7 +26,7 @@ import quay.com.ipos.utility.Util;
 
 public class OutboxActivity extends BaseActivity implements NetworkStateChecker.NetworkStateCheckerListener{
     NameAdapter nameAdapter;
-
+    TextView tvNoItemAvailable;
     private ListView listViewNames;
     DatabaseHandler db;
     private Toolbar toolbar;
@@ -36,6 +38,7 @@ public class OutboxActivity extends BaseActivity implements NetworkStateChecker.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outbox_list);
         toolbar = findViewById(R.id.toolbar);
+        tvNoItemAvailable = findViewById(R.id.tvNoItemAvailable);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,13 +72,19 @@ public class OutboxActivity extends BaseActivity implements NetworkStateChecker.
     void update(){
         names = new ArrayList<>();
         names = db.getUnSyncedRetailOrders();
+        nameAdapter = new NameAdapter(this, names);
+        listViewNames.setAdapter(nameAdapter);
         if(names.size()>0) {
-            nameAdapter = new NameAdapter(this, names);
-            listViewNames.setAdapter(nameAdapter);
+            nameAdapter.notifyDataSetChanged();
+            tvNoItemAvailable.setVisibility(View.GONE);
+            listViewNames.setVisibility(View.VISIBLE);
         }else {
             db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
+            nameAdapter.notifyDataSetChanged();
             Util.showToast("No Outbox list available", IPOSApplication.getAppInstance());
-            finish();
+//            finish();
+            tvNoItemAvailable.setVisibility(View.VISIBLE);
+            listViewNames.setVisibility(View.GONE);
         }
     }
 

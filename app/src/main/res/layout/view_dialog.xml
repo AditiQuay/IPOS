@@ -40,7 +40,7 @@
                 android:layout_marginRight="@dimen/dim_5"
                 android:gravity="top"
                 android:padding="@dimen/dim_2"
-                android:src="@drawable/ic_action_closee" />
+                android:src="@drawable/ic_action_close" />
         </RelativeLayout>
 
 

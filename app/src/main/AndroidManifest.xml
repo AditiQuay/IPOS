@@ -63,6 +63,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_partner_connect"
             android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
 
@@ -95,7 +96,6 @@
             android:label="@string/title_b2bsales"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />

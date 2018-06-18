@@ -17,13 +17,13 @@ import quay.com.ipos.modal.BillingSync;
 import quay.com.ipos.modal.Name;
 
 public class NameAdapter extends BaseAdapter {
- 
+
     //storing all the names in the list
     private ArrayList<BillingSync> names;
- 
+
     //context object
     private Context context;
- 
+
     //constructor 
     public NameAdapter(Context context, ArrayList<BillingSync> names) {
 //        super(context, resource, names);
@@ -34,29 +34,29 @@ public class NameAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        
+
         //getting the layoutinflater 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        
+
         //getting listview itmes
         View listViewItem = inflater.inflate(R.layout.outbox_list_item, null, true);
         TextView textViewName = (TextView) listViewItem.findViewById(R.id.textViewName);
         ImageView imageViewStatus = (ImageView) listViewItem.findViewById(R.id.imageViewStatus);
- 
+
         //getting the current name 
         BillingSync name = names.get(position);
- 
+
         //setting the name to textview
         textViewName.setText(name.getOrderDateTime());
- 
+
         //if the synced status is 0 displaying 
         //queued icon 
         //else displaying synced icon 
         if (name.getSync() == 0)
-            imageViewStatus.setBackgroundResource(R.drawable.ic_action_close_white);
+            imageViewStatus.setBackgroundResource(R.drawable.ic_action_cloud_off_white);
         else
             imageViewStatus.setBackgroundResource(R.drawable.ic_action_check);
- 
+
         return listViewItem;
     }
 
