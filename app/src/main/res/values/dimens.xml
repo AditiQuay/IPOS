@@ -1081,6 +1081,6 @@
 
     <dimen name="txtProgressSize">12dp</dimen>
     <dimen name="text_size_14sp">14sp</dimen>
-    <dimen name="tab_label">14sp</dimen>
+    <dimen name="tab_label">12dp</dimen>
     <dimen name="b2b_text_body">14sp</dimen>
 </resources>
