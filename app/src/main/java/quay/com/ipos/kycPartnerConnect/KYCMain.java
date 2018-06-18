@@ -51,7 +51,6 @@ import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
 import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.partnerConnect.RelationShipFragment;
 import quay.com.ipos.partnerConnect.model.Account;
 import quay.com.ipos.partnerConnect.model.BillnDelivery;
@@ -61,13 +60,10 @@ import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
-import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static quay.com.ipos.utility.Constants.employeeCode;
 
 /**
  * Created by niraj.kumar on 6/3/2018.
@@ -489,7 +485,7 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
             Log.i(TAG, "entityCode Hardcoded if entityCode is 0" + entityCode + "");
         }
 
-        Call<PartnerConnectResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).kycConnectData(entity, requestCode);
+         Call<PartnerConnectResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).kycConnectData(entity, requestCode);
         call.enqueue(new Callback<PartnerConnectResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectResponse> call, Response<PartnerConnectResponse> response) {
@@ -505,7 +501,8 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
                         if (response1 != null) {
                             PCModel pcModel = response1.response;
                             if (pcModel != null) {
-                                Log.e(TAG, "pcDataContact" + new Gson().toJson(pcModel.contactDetail));
+                                Log.e(TAG, "pcModel" + new Gson().toJson(pcModel));
+                                Log.e(TAG, "pcDataContact" + new Gson().toJson(pcModel.Contact));
                                 pcModelLiveData.setValue(pcModel);
                             }
                         }
@@ -525,6 +522,21 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
                 t.printStackTrace();
             }
         });
+/*
+        Call<JSONObject> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).kycConnectData1(entity, requestCode);
+        call.enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+
+                Log.e(TAG, "response" + response.body().toString());
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONObject> call, Throwable t) {
+
+            }
+        });*/
         return "";
     }
 
@@ -689,56 +701,56 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
 */
 
         //validation of contact
-        if (pcModel.contactDetail == null) {
+        if (pcModel.Contact == null) {
             String error = "Contact -> ContactDetail is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.contactDetail.KeyBusinessContactInfo == null) {
+        if (pcModel.Contact.KeyBusinessContactInfo == null) {
             String error = "Contact -> ContactInfo is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.contactDetail.KeyBusinessContactInfo.keyDesignation == null || pcModel.contactDetail.KeyBusinessContactInfo.keyDesignation.isEmpty()) {
+        if (pcModel.Contact.KeyBusinessContactInfo.keyDesignation == null || pcModel.Contact.KeyBusinessContactInfo.keyDesignation.isEmpty()) {
             String error = "Contact -> Contact Position is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.contactDetail.KeyBusinessContactInfo.keyEmpName == null || pcModel.contactDetail.KeyBusinessContactInfo.keyEmpName.isEmpty()) {
+        if (pcModel.Contact.KeyBusinessContactInfo.keyEmpName == null || pcModel.Contact.KeyBusinessContactInfo.keyEmpName.isEmpty()) {
             String error = "Contact -> Contact Person Name is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.contactDetail.KeyBusinessContactInfo.keyMobile == null || pcModel.contactDetail.KeyBusinessContactInfo.keyMobile.isEmpty()) {
+        if (pcModel.Contact.KeyBusinessContactInfo.keyMobile == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile.isEmpty()) {
             String error = "Contact -> Primary Mobile No. is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.contactDetail.KeyBusinessContactInfo.keyMobile2 == null || pcModel.contactDetail.KeyBusinessContactInfo.keyMobile2.isEmpty()) {
+        if (pcModel.Contact.KeyBusinessContactInfo.keyMobile2 == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile2.isEmpty()) {
             String error = "Contact -> Secondary Mobile No. is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.contactDetail.KeyBusinessContactInfo.keyEmail == null || pcModel.contactDetail.KeyBusinessContactInfo.keyEmail.isEmpty()) {
+        if (pcModel.Contact.KeyBusinessContactInfo.keyEmail == null || pcModel.Contact.KeyBusinessContactInfo.keyEmail.isEmpty()) {
             String error = "Contact-> Email is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
 
-        if (pcModel.contactDetail.KeyBusinessContactInfo.NewContact == null) {
+        if (pcModel.Contact.KeyBusinessContactInfo.NewContact == null) {
             String error = "Contact-> Contact Other is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        for (NewContact newContact : pcModel.contactDetail.KeyBusinessContactInfo.NewContact) {
+        for (NewContact newContact : pcModel.Contact.KeyBusinessContactInfo.NewContact) {
             if (newContact.Role == null || newContact.Role.isEmpty()) {
                 String error = "Contact-> Role is required!";
                 Log.e(TAG, error);

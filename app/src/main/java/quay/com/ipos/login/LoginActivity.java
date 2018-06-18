@@ -265,11 +265,6 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
                     SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().getAccessToken(), mContext);
                     SharedPrefUtil.setStoreID(Constants.STORE_ID.trim(), loginResult.getUserAccess().getWorklocationID(), mContext);
-                LoginResult loginResult = (LoginResult) resultObj;
-                SharedPrefUtil.putString(Constants.Login_result, Util.getCustomGson().toJson(loginResult), mContext);
-                SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
-                SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().getAccessToken(), mContext);
-                SharedPrefUtil.setStoreID(Constants.STORE_ID.trim(), loginResult.getUserAccess().getWorklocationID(), mContext);
 
                     Prefs.putIntegerPrefs(Constants.entityCode.trim(), loginResult.getUserAccess().getEntityId());
                     Prefs.putStringPrefs(Constants.entityRole.trim(), loginResult.getUserAccess().getUserRole());

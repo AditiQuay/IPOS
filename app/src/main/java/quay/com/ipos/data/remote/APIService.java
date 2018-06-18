@@ -25,6 +25,9 @@ public interface APIService {
     @GET(URLStorage.KYC_PARTNER_API)
     Call<PartnerConnectResponse> kycConnectData(@Query("strEntityId") String strEntityId,@Query("RequestCode")String requestCode);
 
+    @GET(URLStorage.KYC_PARTNER_API)
+    Call<JSONObject> kycConnectData1(@Query("strEntityId") String strEntityId,@Query("RequestCode")String requestCode);
+
     @POST(URLStorage.KYC_PARTNER_ACCEPT)
     Call<PartnerConnectUpdateResponse> kycConnectUpdateData(@Body JSONObject jsonObject);
 

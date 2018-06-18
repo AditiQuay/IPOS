@@ -267,7 +267,7 @@
             android:layout_margin="10dp"
             android:background="#fff"
             android:fontFamily="@font/titilliumwebregular"
-            android:visibility="visible"
+            android:visibility="gone"
             android:text="Add" />
 
     </LinearLayout>

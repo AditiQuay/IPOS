@@ -35,6 +35,14 @@ public class DocumentVoults {
             "DocFilename": "mypan.png",
             "DocFileBase64": null
     },*/
+  public DocumentVoults(int EntiId,String mDocType){
+      this.EntityId = EntiId;
+      this.Doctype = mDocType;
+      this.RequestNo = "0";
+      this.isApproved = false;
+      this.DocFileBase64 = "";
+      this.DocFilename = "";
 
+  }
 
 }

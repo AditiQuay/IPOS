@@ -166,12 +166,12 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
     private void setData(PCModel PCModel) {
         try {
 
-            if (PCModel == null && PCModel.contactDetail == null) {
+            if (PCModel == null && PCModel.Contact == null) {
                 Log.i(TAG, "PCModel or PCModel.Business is null");
                 return;
             }
 
-            contactInfo = PCModel.contactDetail.KeyBusinessContactInfo;
+            contactInfo = PCModel.Contact.KeyBusinessContactInfo;
 
 
             ArrayAdapter partnerTypeHeading = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, partnerKeyPosition);
@@ -223,7 +223,7 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
             editEmail.addTextChangedListener(generalTextWatcher);
             editNote.addTextChangedListener(generalTextWatcher);
 
-            recyclerViewContactInfo.setAdapter(new KycContactInfoAdapter(getActivity(), PCModel.contactDetail.KeyBusinessContactInfo.NewContact));
+            recyclerViewContactInfo.setAdapter(new KycContactInfoAdapter(getActivity(), PCModel.Contact.KeyBusinessContactInfo.NewContact));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -266,9 +266,9 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
     };
 
     private void addNewField() {
-        if (mpcModel != null && mpcModel.contactDetail != null) {
-            if (mpcModel.contactDetail.KeyBusinessContactInfo != null) {
-                if (mpcModel.contactDetail.KeyBusinessContactInfo.NewContact != null) {
+        if (mpcModel != null && mpcModel.Contact != null) {
+            if (mpcModel.Contact.KeyBusinessContactInfo != null) {
+                if (mpcModel.Contact.KeyBusinessContactInfo.NewContact != null) {
                     NewContact newContact = new NewContact();
                     newContact.ID = 0;
                     newContact.RoleID = "";
@@ -277,7 +277,7 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
                     newContact.PrimaryMobile = "";
                     newContact.SecondaryMobile = "";
                     newContact.Email = "";
-                    mpcModel.contactDetail.KeyBusinessContactInfo.NewContact.add(newContact);
+                    mpcModel.Contact.KeyBusinessContactInfo.NewContact.add(newContact);
 
                     KYCMain connectMain = (KYCMain) getActivity();
                     if (connectMain != null) {
