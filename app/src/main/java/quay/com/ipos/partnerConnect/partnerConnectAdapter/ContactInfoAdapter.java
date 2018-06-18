@@ -190,8 +190,14 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             switch(adapterView.getId()) {
                 case R.id.roleTypeSpinner:
-                    if(i!=-1)
-                    list.get(position).Role = listPosition.get(i);
+                    if(i!=-1) {
+                        list.get(position).Role = listPosition.get(i);
+                        list.get(position).RoleID = roleID[i]+"";
+                    }else {
+                        list.get(position).RoleID =  "";
+                        list.get(position).Role = "";
+                    }
+
                     break;
             }
 

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -123,31 +124,31 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
 
     private void createTabIcons() {
 
-        RelativeLayout tabOne = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab_b2b_order_center, null);
+        LinearLayout tabOne = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab_b2b_order_center, null);
         TextView tabTextTitleOne = tabOne.findViewById(R.id.tabTitle);
         tabTextTitleOne.setText(getResources().getString(R.string.ddrb2bNew));
 //        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.pc_relationship_white, 0, 0);
         tabLayout.addTab(tabLayout.newTab().setCustomView(tabOne));
 
-        RelativeLayout tabTwo = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab_b2b_order_center, null);
+        LinearLayout tabTwo = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab_b2b_order_center, null);
         TextView tabTextTitleTwo = tabTwo.findViewById(R.id.tabTitle);
         tabTextTitleTwo.setText(getResources().getString(R.string.ddrb2bAccepted));
         //   tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.pc_business_white, 0, 0);
         tabLayout.addTab(tabLayout.newTab().setCustomView(tabTwo));
 
-        RelativeLayout tabThree = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab_b2b_order_center, null);
+        LinearLayout tabThree = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab_b2b_order_center, null);
         TextView tabTextTitleThree = tabThree.findViewById(R.id.tabTitle);
         tabTextTitleThree.setText(getResources().getString(R.string.ddrb2bDispatched));
         //  tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.pc_contact_white, 0, 0);
         tabLayout.addTab(tabLayout.newTab().setCustomView(tabThree));
 
-        RelativeLayout tabFour = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab_b2b_order_center, null);
+        LinearLayout tabFour = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab_b2b_order_center, null);
         TextView tabTextTitleFour = tabFour.findViewById(R.id.tabTitle);
         tabTextTitleFour.setText(getResources().getString(R.string.ddrb2bDelivered));
         //   tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.pc_bank_white, 0, 0);
         tabLayout.addTab(tabLayout.newTab().setCustomView(tabFour));
 
-        RelativeLayout tabFive = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab_b2b_order_center, null);
+        LinearLayout tabFive = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab_b2b_order_center, null);
         TextView tabTextTitleFive = tabFive.findViewById(R.id.tabTitle);
         tabTextTitleFive.setText(getResources().getString(R.string.ddrb2bCancelled));
         //    tabFive.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.pc_billing_white, 0, 0);

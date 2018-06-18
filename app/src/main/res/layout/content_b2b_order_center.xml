@@ -69,7 +69,6 @@
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/tabs"
-                style="@style/TabStyle"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_below="@+id/boxContainerTitle"
@@ -78,7 +77,12 @@
                 app:tabGravity="fill"
                 app:tabIndicatorColor="@color/app_blue"
                 app:tabIndicatorHeight="4dp"
-                app:tabMode="fixed" />
+                app:tabMode="fixed"
+                app:tabPaddingStart="0dp"
+                app:tabPaddingEnd="0dp"
+                app:tabPaddingTop="0dp"
+                app:tabPaddingBottom="0dp"
+                />
 
 
         </RelativeLayout>

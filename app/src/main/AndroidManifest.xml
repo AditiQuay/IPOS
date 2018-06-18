@@ -58,14 +58,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
         <activity
             android:name=".kycPartnerConnect.KYCMain"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_partner_connect"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-=======
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
 
         <!-- ***** DDR Sales ****** -->
         <activity
@@ -239,10 +237,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity
+      <!--  <activity
             android:name=".inventory.activity.InventoryStepsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".pss_order.activity.EditOrderCentreActivity"
             android:screenOrientation="portrait"
