@@ -65,6 +65,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
 
+
         <!-- ***** DDR Sales ****** -->
         <activity
             android:name=".ddrsales.DDROrderCenterActivity"

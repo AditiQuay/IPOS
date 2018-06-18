@@ -4,6 +4,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -45,6 +46,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,6 +55,12 @@ import java.util.Comparator;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
@@ -60,6 +68,7 @@ import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.pss_order.activity.AddNewOrderActivity;
 import quay.com.ipos.pss_order.activity.NewOrderDetailsActivity;
+import quay.com.ipos.pss_order.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.pss_order.activity.PinnedOrderActivity;
 import quay.com.ipos.pss_order.adapter.CustomAdapter;
 import quay.com.ipos.pss_order.adapter.NewOrderListAdapter;
@@ -81,6 +90,7 @@ import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderList;
+import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
@@ -131,6 +141,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
     private boolean isSync;
     private String strPlace;
     private ImageView imvStatus;
+    private int postionCheckStock;
 
 
     @Override
@@ -584,7 +595,14 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
             case R.id.imvPin:
                 cachedPinned(true);
                 break;
-
+            case R.id.llRefreshStocks:
+                final int posDeleteCheckStock = (int) view.getTag();
+                RealmNewOrderCart realmNewOrderCart=mList.get(posDeleteCheckStock);
+                realmNewOrderCart.setmCheckStock(0);
+                realmNewOrderCart.setCheckStockClick(false);
+                mList.set(posDeleteCheckStock,realmNewOrderCart);
+                mNewOrderListAdapter.notifyItemChanged(posDeleteCheckStock);
+                break;
 
             case R.id.imvClear:
                 Util.animateView(view);
@@ -628,6 +646,17 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                     i.putExtra(NoGetEntityEnums.OrderId.toString(), "P00001");
 
                     startActivityForResult(i,601);
+                } else {
+                    Util.showToast("Please add atleast one item to proceed.");
+                }
+                break;
+            case R.id.tvCheckStock:
+                Util.animateView(view);
+
+                final int posCheck = (int) view.getTag();
+                postionCheckStock=posCheck;
+                if (mList.size()  > 0) {
+                  getCheckStockAPI(mList.get(posCheck).getiProductModalId());
                 } else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }
@@ -2096,6 +2125,85 @@ if (realmNewOrderCarts.getQty()>1) {
         else
             Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
     }
+    public void getCheckStockAPI(String productId) {
+        final ProgressDialog progressDialog=new ProgressDialog(getActivity());
+        JSONObject jsonObject1=new JSONObject();
 
+        try {
+            jsonObject1.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
+            jsonObject1.put("businessPlaceCode",businessPlaceCode);
+            jsonObject1.put("entityRole",Prefs.getStringPrefs(Constants.entityRole));
+            jsonObject1.put("entityCode",Prefs.getIntegerPrefs(Constants.entityCode));
+            jsonObject1.put("searchParam",productId);
+            jsonObject1.put("barCodeNumber","string");
+            jsonObject1.put("moduleType","NO");
+            jsonObject1.put("entityStateCode",entityStateCode);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialog.show();
+        OkHttpClient okHttpClient = APIClient.getHttpClient();
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
+        String url = IPOSAPI.WEB_SERVICE_CheckStock;
+
+        final Request request = APIClient.getPostRequest(getActivity(), url, requestBody);
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+
+                progressDialog.dismiss();
+                //  dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                // dismissProgress();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                });
+                try {
+                    if (response != null && response.isSuccessful()) {
+
+                        String responseData = response.body().string();
+                        if (responseData != null) {
+                            final JSONObject jsonObject=new JSONObject(responseData);
+
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    RealmNewOrderCart realmNewOrderCart=mList.get(postionCheckStock);
+                                    realmNewOrderCart.setmCheckStock(jsonObject.optInt("stockQty"));
+                                    realmNewOrderCart.setCheckStockClick(true);
+                                    mList.set(postionCheckStock,realmNewOrderCart);
+                                    mNewOrderListAdapter.notifyItemChanged(postionCheckStock);
+                                }
+                            });
+
+
+
+                        }
+
+
+                    } else {
+
+
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+
+                }
+            }
+        });
+    }
 
 }
