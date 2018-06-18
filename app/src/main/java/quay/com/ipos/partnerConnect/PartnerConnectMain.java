@@ -351,8 +351,10 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         if (!validateData()) {
             return;
         }
+        PCModel pcModel = new PCModel();
+        pcModel.setLog(getPcModelData().getValue());
 
-        Log.i("updateData", new Gson().toJson(getPcModelData().getValue()));
+        Log.i("updateData pcModel", new Gson().toJson(pcModel));
         Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).updatePartnerConnectData(getPcModelData().getValue());
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override

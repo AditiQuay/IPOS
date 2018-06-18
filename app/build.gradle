@@ -15,7 +15,7 @@ android {
     }
 
     // Specifies two flavor dimensions.
- /*   flavorDimensions "tier"
+   /* flavorDimensions "tier"
     productFlavors {
         dev {
             dimension "tier"
