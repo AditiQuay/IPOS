@@ -77,8 +77,8 @@ import static quay.com.ipos.application.IPOSApplication.isClicked;
 import static quay.com.ipos.application.IPOSApplication.totalAmount;
 
 
-public class DDRPreInvoiceActivity extends BaseActivity implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener,ScanFilterListener,MyAdapterTags,MyDialogFragment.RedeemListener {
-    private static final String TAG = DDRPreInvoiceActivity.class.getSimpleName();
+public class DDRInvoicePreviewActivity extends BaseActivity implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener,ScanFilterListener,MyAdapterTags,MyDialogFragment.RedeemListener {
+    private static final String TAG = DDRInvoicePreviewActivity.class.getSimpleName();
     private Activity activity;
     private Toolbar toolbar;
     private TextView mDDRDetails;
@@ -474,7 +474,7 @@ public class DDRPreInvoiceActivity extends BaseActivity implements  View.OnClick
 //                                        etDiscountAmt.setText("");
 //                                    }
 //                                }).show();
-                        Util.showMessageDialog(mContext,DDRPreInvoiceActivity.this, "Please enter valid discount percentage", "OK", null, Constants.APP_DIALOG_OTC, "", getSupportFragmentManager());
+                        Util.showMessageDialog(mContext,DDRInvoicePreviewActivity.this, "Please enter valid discount percentage", "OK", null, Constants.APP_DIALOG_OTC, "", getSupportFragmentManager());
                     }
             }
         });

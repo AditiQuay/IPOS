@@ -50,10 +50,13 @@ import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static quay.com.ipos.utility.Constants.employeeCode;
 
 /**
  * Created by niraj.kumar on 6/3/2018.
@@ -370,6 +373,7 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
                         if (response1 != null) {
                             PCModel pcModel = response1.response;
                             if (pcModel != null) {
+
                                 pcModelLiveData.setValue(pcModel);
                             }
                         }

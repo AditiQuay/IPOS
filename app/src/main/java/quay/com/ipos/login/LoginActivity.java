@@ -252,8 +252,8 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
             if (resultObj != null) {
 
                 LoginResult loginResult = (LoginResult) resultObj;
-                Gson gson = new GsonBuilder().create();
-                gson.fromJson(serverResponse, LoginResult.class);
+             //   Gson gson = new GsonBuilder().create();
+             //   gson.fromJson(serverResponse, LoginResult.class);
                 SharedPrefUtil.putString(Constants.Login_result, Util.getCustomGson().toJson(loginResult), mContext);
                 SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
                 SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().getAccessToken(), mContext);
