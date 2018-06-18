@@ -1,13 +1,23 @@
 -- Merging decision tree log ---
 manifest
+<<<<<<< HEAD
 ADDED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
+=======
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
+>>>>>>> 9e1adc31b211d6aa0965d56af253edb55c14f5c7
 	package
-		ADDED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:3:70-106
-		INJECTED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml
-		INJECTED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:70-106
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
 application
+<<<<<<< HEAD
 ADDED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
+=======
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
+>>>>>>> 9e1adc31b211d6aa0965d56af253edb55c14f5c7

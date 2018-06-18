@@ -1,10 +1,13 @@
 package quay.com.ipos.kycPartnerConnect;
 
+import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -43,7 +47,7 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
     private TextView textViewPhotoHeading, textViewDocumentsVaultHeading, textViewPanCardHeading, textViewAppointmentHeading, textViewAnnexureHeading, textViewCompilanceHeading;
     private TextView textViewPhotoStatus, textViewPanStatus, textViewAppointmentStatus, textViewAnnexureStatus, textViewCompilanceStatus;
     private ImageView imageViewphoto, imageViewPan, imageViewAppointment, imageViewAnnexure, imageViewCompilance;
-    private Button btnPhotoCamera, btnPhotoView, btnPanCamera, btnPanView, btnAppointmentView,  btnCompilanceView, btnAnnexureView;
+    private Button btnPhotoCamera, btnPhotoView, btnPanCamera, btnPanView, btnAppointmentView, btnCompilanceView, btnAnnexureView;
     private ImageView imageViewPhotoStatus, imageViewPanStatus, imageViewAppointmentStatus, imageViewAnnexureStatus, imageViewCompilanceStatus;
     private RelativeLayout rLayoutValidCompilanceDocument, rLayoutValidAppointmentDocument, rLayoutValidDocument, rLayoutValidPanDocument, rLayoutValidPhotoDocument;
     private TextView textViewValidCompilanceDocument, textViewValidAppointmentDocument, textViewValidAnnexureDocument, textViewValidPanDocument, textViewValidPhotoDocument;
@@ -59,6 +63,7 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
 
     private Drawable mDrawableApproved;
     private Drawable mDrawableUnApproved;
+    private Dialog myDialog;
 
 
     @Override
@@ -67,6 +72,8 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
         Resources resources = getResources();
         mDrawableApproved = resources.getDrawable(mApprovedResId);
         mDrawableUnApproved = resources.getDrawable(mUnApprovedResId);
+
+
     }
 
     @Nullable
@@ -74,6 +81,8 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         main = inflater.inflate(R.layout.kyc_documents_fragment, container, false);
         mContext = getActivity();
+        myDialog = new Dialog(mContext);
+        myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         findViewById();
         applyInitValues();
         applyLocalValidation();
@@ -189,18 +198,55 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
         btnAnnexureView.setOnClickListener(this);
         switch (v.getId()) {
             case R.id.btnPhotoView:
+                if (docPhoto != null) {
+                    openImageDialog(docPhoto.DocFileBase64);
+                }
                 break;
             case R.id.btnPanView:
+                if (docPan != null) {
+                    openImageDialog(docPan.DocFileBase64);
+                }
                 break;
             case R.id.btnAppointmentView:
+                if (docAppointment != null) {
+                    openImageDialog(docAppointment.DocFileBase64);
+                }
                 break;
             case R.id.btnCompilanceView:
+                if (docCompliance != null) {
+                    openImageDialog(docCompliance.DocFileBase64);
+                }
                 break;
             case R.id.btnAnnexureView:
+                if (docAnnexure != null) {
+                    openImageDialog(docAnnexure.DocFileBase64);
+                }
             default:
                 break;
         }
     }
+
+    private void openImageDialog(String docFileBase64) {
+        ImageView ImvClose, imgDocumentPreview;
+
+        myDialog.setContentView(R.layout.view_dialog);
+        ImvClose = myDialog.findViewById(R.id.ImvClose);
+        imgDocumentPreview = myDialog.findViewById(R.id.imgDocumentPreview);
+        new ConvertToBitmap(docFileBase64, imgDocumentPreview).execute();
+
+        ImvClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
+
+
+    }
+
 
     private void gotToCamera(View v, int reqCode) {
         ShareWorldUtil.dispatchTakePictureIntent(getActivity(), this, reqCode);

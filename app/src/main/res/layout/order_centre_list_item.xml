@@ -154,7 +154,7 @@
                     android:layout_gravity="center"
                     android:singleLine="true"
                     android:textSize="10sp"
-                    android:text="ETA"
+                    android:text=""
                     android:textColor="@color/filter_text_color"
                     />
                 <quay.com.ipos.ui.CustomTextView

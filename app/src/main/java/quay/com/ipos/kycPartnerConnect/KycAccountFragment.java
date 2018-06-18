@@ -47,7 +47,7 @@ public class KycAccountFragment extends Fragment implements InitInterface, View.
     @Override
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.account_info_fragment, container, false);
+        view = inflater.inflate(R.layout.kyc_account_info_fragment, container, false);
         mContext = getActivity();
         findViewById();
         applyInitValues();

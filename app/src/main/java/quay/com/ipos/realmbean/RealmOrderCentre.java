@@ -51,7 +51,8 @@ public class RealmOrderCentre extends RealmObject {
     private boolean isRuleApplied;
     private String parentProductId;
     private double accumulatedLoyality;
-
+    private int mCheckStock;
+    private boolean checkStockClick;
 
     public String getiProductModalId() {
         return iProductModalId;
@@ -355,6 +356,22 @@ public class RealmOrderCentre extends RealmObject {
 
     public void setAccumulatedLoyality(double accumulatedLoyality) {
         this.accumulatedLoyality = accumulatedLoyality;
+    }
+
+    public int getmCheckStock() {
+        return mCheckStock;
+    }
+
+    public void setmCheckStock(int mCheckStock) {
+        this.mCheckStock = mCheckStock;
+    }
+
+    public boolean isCheckStockClick() {
+        return checkStockClick;
+    }
+
+    public void setCheckStockClick(boolean checkStockClick) {
+        this.checkStockClick = checkStockClick;
     }
 }
 

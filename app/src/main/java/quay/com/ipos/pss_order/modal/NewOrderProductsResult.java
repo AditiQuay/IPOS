@@ -45,7 +45,8 @@ public class NewOrderProductsResult {
          * isCheckStock : true
          * isStockDisplay : true
          */
-
+        private int mCheckStock;
+        private boolean checkStockClick;
         private String productCode;
         private String iProductModalId;
         private String sProductName;
@@ -72,6 +73,7 @@ public class NewOrderProductsResult {
         private boolean isStockDisplay;
         private List<DiscountBean> discount;
         private double accumulatedLoyality;
+
 
         public String getProductCode() {
             return productCode;
@@ -279,6 +281,22 @@ public class NewOrderProductsResult {
 
         public void setAccumulatedLoyality(double accumulatedLoyality) {
             this.accumulatedLoyality = accumulatedLoyality;
+        }
+
+        public int getmCheckStock() {
+            return mCheckStock;
+        }
+
+        public void setmCheckStock(int mCheckStock) {
+            this.mCheckStock = mCheckStock;
+        }
+
+        public boolean isCheckStockClick() {
+            return checkStockClick;
+        }
+
+        public void setCheckStockClick(boolean checkStockClick) {
+            this.checkStockClick = checkStockClick;
         }
 
         public static class DiscountBean {

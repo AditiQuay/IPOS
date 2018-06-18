@@ -144,8 +144,10 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
             if (genderPosition.contains(gender)) {
                 int index = genderPosition.indexOf(gender);
                 genderSpinner.setSelection(index + 1);
-                titleSpinner.setSelection(index + 1);
-                titleSpinner.setEnabled(false);
+                genderSpinner.setSelection(index + 1);
+                genderSpinner.setEnabled(false);
+            } else {
+                genderSpinner.setEnabled(true);
             }
         }
         if (!TextUtils.isEmpty(firstName)) {

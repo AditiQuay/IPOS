@@ -102,8 +102,8 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
         public EditText etQtySelected;
         public RecyclerView mUserRecyclerView;
         public ImageView imvOffer;
-        public TextView tvTotalPoints;
-        public LinearLayout llAddMinus;
+        public TextView tvTotalPoints,tvStocks;
+        public LinearLayout llAddMinus,llStocks,llRefreshStocks;
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -127,6 +127,9 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
             tvPoints=itemView.findViewById(R.id.tvPoints);
             tvTotalPoints=itemView.findViewById(R.id.tvTotalPoints);
             llAddMinus=itemView.findViewById(R.id.llAddMinus);
+            llStocks=itemView.findViewById(R.id.llStocks);
+            tvStocks=itemView.findViewById(R.id.tvStocks);
+            llRefreshStocks=itemView.findViewById(R.id.llRefreshStocks);
         }
     }
 
@@ -185,6 +188,16 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
 
                     if (str.isCheckStock()) {
                         userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
+                        if (mDataset.get(holder.getAdapterPosition()).isCheckStockClick()) {
+                            userViewHolder.llStocks.setVisibility(View.VISIBLE);
+                            userViewHolder.tvStocks.setText(mDataset.get(holder.getAdapterPosition()).getmCheckStock() + "");
+                            userViewHolder.tvCheckStock.setVisibility(View.GONE);
+                        }else {
+                            userViewHolder.llStocks.setVisibility(View.GONE);
+                            userViewHolder.tvStocks.setText(str.getmCheckStock() + "");
+                            userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
+                        }
+
                     } else {
                         userViewHolder.tvCheckStock.setVisibility(View.GONE);
                     }
@@ -195,6 +208,13 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
 
                 onBind = false;
 
+
+
+
+                userViewHolder.llRefreshStocks.setOnClickListener(mOnClickListener);
+                userViewHolder.llRefreshStocks.setTag(position);
+                userViewHolder.tvCheckStock.setOnClickListener(mOnClickListener);
+                userViewHolder.tvCheckStock.setTag(position);
 
                 userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
                 userViewHolder.tvMinus.setTag(position);

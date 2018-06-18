@@ -52,7 +52,7 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
     private Context mContext;
     private List<String> listPosition = new ArrayList<>();
     private String[] partnerKeyPosition = {"Director", "Manager", "Executive"};
-    private Button btnAdd;
+//    private Button btnAdd;
     PCModel mpcModel;
 
     private KeyBusinessContactInfo contactInfo;
@@ -60,7 +60,7 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.contact_fragment, container, false);
+        view = inflater.inflate(R.layout.kyc_contact_fragment, container, false);
         mContext = getActivity();
 
 
@@ -76,10 +76,12 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
 
     @Override
     public void findViewById() {
-        btnAdd = view.findViewById(R.id.btnAdd);
+//        btnAdd = view.findViewById(R.id.btnAdd);
         textViewMadatory = view.findViewById(R.id.textViewMadatory);
         textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
         keyPositionSpinner = view.findViewById(R.id.keyPositionSpinner);
+        keyPositionSpinner.setEnabled(false);
+
         tilContactPersonName = view.findViewById(R.id.tilContactPersonName);
         tilContactMobileNumName = view.findViewById(R.id.tilContactMobileNumName);
         tilContactSecondaryMobileNumName = view.findViewById(R.id.tilContactSecondaryMobileNumName);
@@ -95,12 +97,12 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
         recyclerViewContactInfo = view.findViewById(R.id.recyclerViewContactInfo);
 
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNewField();
-            }
-        });
+//        btnAdd.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                addNewField();
+//            }
+//        });
 
     }
 
