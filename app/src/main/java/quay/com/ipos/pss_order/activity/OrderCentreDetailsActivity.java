@@ -196,7 +196,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         final LinearLayout menu_item_container=(LinearLayout)findViewById(R.id.menu_item_container);
         final ImageView imgArrow=(ImageView)findViewById(R.id.imgArrow);
         LinearLayout llbottom_buttons=(LinearLayout)findViewById(R.id.llbottom_buttons);
-        llbottom_buttons.setVisibility(View.VISIBLE);
+
 
         llRetailer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -427,6 +427,12 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
         try {
             JSONObject jsonObject=new JSONObject(serverResponse);
+
+            if (jsonObject.optString("isApprover").equalsIgnoreCase("1")){
+                llbottom_buttons.setVisibility(View.VISIBLE);
+            }else {
+                llbottom_buttons.setVisibility(View.GONE);
+            }
             poNumber=jsonObject.optString("poNumber");
             tvOrderName.setText(jsonObject.optString("poNumber"));
             OrderDate.setText(Util.getFormattedDates(jsonObject.optString("poDate"),Constants.formatDate,Constants.format2));

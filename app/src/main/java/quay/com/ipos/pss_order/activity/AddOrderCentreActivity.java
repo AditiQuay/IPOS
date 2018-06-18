@@ -1,5 +1,6 @@
 package quay.com.ipos.ddr.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -24,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,6 +34,12 @@ import java.util.Comparator;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.realm.Sort;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
@@ -42,7 +50,9 @@ import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.OrderList;
+import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderCentre;
+import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
@@ -70,6 +80,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
     private boolean isSync;
     private LinearLayout llAccept;
     private String poNumber;
+    private int postionCheckStock;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -301,13 +312,32 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                 setResult(1, mIntent1);
                 onBackPressed();
                 break;
+            case R.id.llRefreshStocks:
+                final int posDeleteCheckStock = (int) view.getTag();
+                NewOrderProductsResult.DataBean realmNewOrderCart=dataBeans.get(posDeleteCheckStock);
+                realmNewOrderCart.setmCheckStock(0);
+                realmNewOrderCart.setCheckStockClick(false);
+                dataBeans.set(posDeleteCheckStock,realmNewOrderCart);
+                mAddOrderCentreAdapter.notifyItemChanged(posDeleteCheckStock);
+                break;
+            case R.id.tvCheckStock:
+                Util.animateView(view);
+
+                final int posCheck = (int) view.getTag();
+                postionCheckStock=posCheck;
+                if (dataBeans.size()  > 0) {
+                    getCheckStockAPI(dataBeans.get(posCheck).getIProductModalId());
+                } else {
+                    Util.showToast("Please add atleast one item to proceed.");
+                }
+                break;
         }
 
     }
     private int getTotalPoints(NewOrderProductsResult.DataBean realmNewOrderCarts, int totalPrice){
         int totalPoints=0;
         if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("M")){
-            totalPoints=realmNewOrderCarts.getPoints()*totalPrice;
+            totalPoints=realmNewOrderCarts.getPoints();
 
         }else if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("P")){
             int valuefrom=realmNewOrderCarts.getValueFrom();
@@ -1221,5 +1251,84 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
 
     }
 
+    public void getCheckStockAPI(String productId) {
+        final ProgressDialog progressDialog=new ProgressDialog(AddOrderCentreActivity.this);
+        JSONObject jsonObject1=new JSONObject();
 
+        try {
+            jsonObject1.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
+            jsonObject1.put("businessPlaceCode",businessPlaceCode);
+            jsonObject1.put("entityRole",Prefs.getStringPrefs(Constants.entityRole));
+            jsonObject1.put("entityCode",Prefs.getIntegerPrefs(Constants.entityCode));
+            jsonObject1.put("searchParam",productId);
+            jsonObject1.put("barCodeNumber","string");
+            jsonObject1.put("moduleType","NO");
+            jsonObject1.put("entityStateCode",entityStateCode);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialog.show();
+        OkHttpClient okHttpClient = APIClient.getHttpClient();
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
+        String url = IPOSAPI.WEB_SERVICE_CheckStock;
+
+        final Request request = APIClient.getPostRequest(AddOrderCentreActivity.this, url, requestBody);
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+
+                progressDialog.dismiss();
+                //  dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                // dismissProgress();
+
+                AddOrderCentreActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                });
+                try {
+                    if (response != null && response.isSuccessful()) {
+
+                        String responseData = response.body().string();
+                        if (responseData != null) {
+                            final JSONObject jsonObject=new JSONObject(responseData);
+
+                            AddOrderCentreActivity.this.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    NewOrderProductsResult.DataBean realmNewOrderCart=dataBeans.get(postionCheckStock);
+                                    realmNewOrderCart.setmCheckStock(jsonObject.optInt("stockQty"));
+                                    realmNewOrderCart.setCheckStockClick(true);
+                                    dataBeans.set(postionCheckStock,realmNewOrderCart);
+                                    mAddOrderCentreAdapter.notifyItemChanged(postionCheckStock);
+                                }
+                            });
+
+
+
+                        }
+
+
+                    } else {
+
+
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+
+                }
+            }
+        });
+    }
 }

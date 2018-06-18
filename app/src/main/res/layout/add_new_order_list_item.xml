@@ -185,7 +185,70 @@
                     android:textColor="@color/white"
                     android:background="@drawable/button_drawable"
                     android:textSize="@dimen/text_size_13sp"
+                    android:visibility="visible"
                     app:typeface="Roboto-Regular.ttf" />
+
+                <LinearLayout
+                    android:id="@+id/llStocks"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:layout_marginTop="@dimen/dim_12"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical">
+
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvStocks"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.4"
+                        android:text="0"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:background="@color/dashboard_textcolor"
+                        />
+
+                    <View
+                        android:layout_width="@dimen/dim_1"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"/>
+
+                    <LinearLayout
+                        android:id="@+id/llRefreshStocks"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:background="@drawable/button_rectangle_primary"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:background="@drawable/baseline_refresh_white_18dp"
+                            />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="@dimen/dim_1"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"/>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:background="@drawable/button_rectangle_primary"
+
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"
+                            android:background="@drawable/rectangle_white"/>
+                        />
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 

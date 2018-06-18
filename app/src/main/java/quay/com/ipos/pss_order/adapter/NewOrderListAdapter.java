@@ -188,6 +188,16 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                     if (str.isCheckStock()) {
                         userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
+                        if (mDataset.get(holder.getAdapterPosition()).isCheckStockClick()) {
+                            userViewHolder.llStocks.setVisibility(View.VISIBLE);
+                            userViewHolder.tvStocks.setText(mDataset.get(holder.getAdapterPosition()).getmCheckStock() + "");
+                            userViewHolder.tvCheckStock.setVisibility(View.GONE);
+                        }else {
+                            userViewHolder.llStocks.setVisibility(View.GONE);
+                            userViewHolder.tvStocks.setText(str.getmCheckStock() + "");
+                            userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
+                        }
+
                     } else {
                         userViewHolder.tvCheckStock.setVisibility(View.GONE);
                     }
@@ -198,15 +208,6 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 onBind = false;
 
-                if (mDataset.get(holder.getAdapterPosition()).isCheckStockClick()) {
-                    userViewHolder.llStocks.setVisibility(View.VISIBLE);
-                    userViewHolder.tvStocks.setText(mDataset.get(holder.getAdapterPosition()).getmCheckStock() + "");
-                    userViewHolder.tvCheckStock.setVisibility(View.GONE);
-                }else {
-                    userViewHolder.llStocks.setVisibility(View.GONE);
-                    userViewHolder.tvStocks.setText(str.getmCheckStock() + "");
-                    userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
-                }
 
 
                 userViewHolder.llRefreshStocks.setOnClickListener(mOnClickListener);

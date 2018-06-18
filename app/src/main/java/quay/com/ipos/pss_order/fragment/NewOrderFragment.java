@@ -68,7 +68,6 @@ import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.pss_order.activity.AddNewOrderActivity;
 import quay.com.ipos.pss_order.activity.NewOrderDetailsActivity;
-import quay.com.ipos.pss_order.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.pss_order.activity.PinnedOrderActivity;
 import quay.com.ipos.pss_order.adapter.CustomAdapter;
 import quay.com.ipos.pss_order.adapter.NewOrderListAdapter;
@@ -142,6 +141,9 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
     private String strPlace;
     private ImageView imvStatus;
     private int postionCheckStock;
+    private LinearLayout llArrows;
+    private ImageView imgArrow;
+    private boolean isArrowCLick=false;
 
 
     @Override
@@ -176,6 +178,8 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 */
 
     private void initializeComponent(View rootView) {
+        llArrows=rootView.findViewById(R.id.llArrows);
+        imgArrow=rootView.findViewById(R.id.imgArrow);
         tvMessage = rootView.findViewById(R.id.tvMessage);
         flScanner = rootView.findViewById(R.id.flScanner);
 
@@ -259,6 +263,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         imvPin.setOnClickListener(this);
         tvPay.setOnClickListener(this);
         imvRight.setOnClickListener(this);
+        llArrows.setOnClickListener(this);
         // Set the click listener for the button.
        /* chkBarCode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -581,6 +586,21 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                 llTotalGST.setVisibility(View.VISIBLE);
                 break;
 
+            case R.id.llArrows:
+                if (!isArrowCLick) {
+                    isArrowCLick=true;
+                    imgArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
+                    Util.animateView(view);
+                    llTotalDiscountDetail.setVisibility(View.VISIBLE);
+                    llTotalGST.setVisibility(View.GONE);
+                }else {
+                    isArrowCLick=false;
+                    imgArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
+                    Util.animateView(view);
+                    llTotalDiscountDetail.setVisibility(View.GONE);
+                    llTotalGST.setVisibility(View.VISIBLE);
+                }
+                break;
             case R.id.tvMinus:
                 Util.animateView(view);
                 setOnClickMinus(view);
@@ -684,7 +704,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                 jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() + 1);
                 jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
 
-                int totalPoints = getTotalPoints(realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
+                int totalPoints = getTotalPoints((realmNewOrderCarts.getQty() + 1), realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
                 saveResponseLocal(jsonObject, "P00001");
             } catch (JSONException e) {
@@ -1379,10 +1399,10 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 
     }
 
-    private int getTotalPoints(RealmNewOrderCart realmNewOrderCarts, int totalPrice){
+    private int getTotalPoints(int i, RealmNewOrderCart realmNewOrderCarts, int totalPrice){
         int totalPoints=0;
         if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("M")){
-            totalPoints=realmNewOrderCarts.getPoints()*totalPrice;
+            totalPoints=realmNewOrderCarts.getPoints()*i ;
 
         }else if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("P")){
             int valuefrom=realmNewOrderCarts.getValueFrom();
@@ -1431,7 +1451,7 @@ if (realmNewOrderCarts.getQty()>1) {
         jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() - 1);
         jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() - 1) * realmNewOrderCarts.getsProductPrice());
 
-        int totalPoints=getTotalPoints(realmNewOrderCarts,(realmNewOrderCarts.getQty()-1)*realmNewOrderCarts.getsProductPrice());
+        int totalPoints=getTotalPoints((realmNewOrderCarts.getQty()-1),realmNewOrderCarts,(realmNewOrderCarts.getQty()-1)*realmNewOrderCarts.getsProductPrice());
         jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
         saveResponseLocal(jsonObject, "P00001");
     } catch (JSONException e) {
@@ -1476,7 +1496,7 @@ if (realmNewOrderCarts.getQty()>1) {
                     jsonObject.put(RetailSalesEnum.qty.toString(), value);
                     jsonObject.put(RetailSalesEnum.totalPrice.toString(), value * realmNewOrderCarts.getsProductPrice());
 
-                    int totalPoints = getTotalPoints(realmNewOrderCarts, value * realmNewOrderCarts.getsProductPrice());
+                    int totalPoints = getTotalPoints(value, realmNewOrderCarts, value * realmNewOrderCarts.getsProductPrice());
                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
                     saveResponseLocal(jsonObject, "P00001");
                 } catch (JSONException e) {
@@ -2054,7 +2074,7 @@ if (realmNewOrderCarts.getQty()>1) {
                 jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() + 1);
                 jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
 
-                int totalPoints = getTotalPoints(realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
+                int totalPoints = getTotalPoints((realmNewOrderCarts.getQty() + 1), realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
                 saveResponseLocal(jsonObject, "P00001");
             } catch (JSONException e) {

@@ -74,11 +74,11 @@ public class AddOrderCentreAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     class UserViewHolder extends RecyclerView.ViewHolder {
         public TextView tvItemName, tvItemPrice, tvItemStockAvailabilty, tvCheckStock,
-                tvMinus,tvPlus,tvOffers,tvReserved,tvAddCart,tvPoints;
+                tvMinus,tvPlus,tvOffers,tvReserved,tvAddCart,tvPoints,tvStocks;
         public ImageView imvProduct,imvInfo,imvOffer;
         public EditText etQtySelected;
         RecyclerView mRecyclerView;
-        public LinearLayout llAdd;
+        public LinearLayout llAdd,llStocks,llRefreshStocks;
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -98,6 +98,9 @@ public class AddOrderCentreAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             llAdd=(LinearLayout) itemView.findViewById(R.id.llAdd);
             imvProduct =  itemView.findViewById(R.id.imvProduct);
             imvInfo = itemView.findViewById(R.id.imvInfo);
+            llStocks=itemView.findViewById(R.id.llStocks);
+            tvStocks=itemView.findViewById(R.id.tvStocks);
+            llRefreshStocks=itemView.findViewById(R.id.llRefreshStocks);
          //   etQtySelected =  itemView.findViewById(R.id.etQtySelected);
         }
     }
@@ -155,11 +158,28 @@ public class AddOrderCentreAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             }
             if (str.isIsCheckStock()){
                 userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
+                if (mDataset.get(holder.getAdapterPosition()).isCheckStockClick()) {
+                    userViewHolder.llStocks.setVisibility(View.VISIBLE);
+                    userViewHolder.tvStocks.setText(mDataset.get(holder.getAdapterPosition()).getmCheckStock() + "");
+                    userViewHolder.tvCheckStock.setVisibility(View.GONE);
+                }else {
+                    userViewHolder.llStocks.setVisibility(View.GONE);
+                    userViewHolder.tvStocks.setText(str.getmCheckStock() + "");
+                    userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
+                }
             }else {
                 userViewHolder.tvCheckStock.setVisibility(View.GONE);
             }
           //  userViewHolder.etQtySelected.setText(str.getQty()+"");
             onBind = false;
+
+
+
+
+            userViewHolder.llRefreshStocks.setOnClickListener(mOnClickListener);
+            userViewHolder.llRefreshStocks.setTag(position);
+            userViewHolder.tvCheckStock.setOnClickListener(mOnClickListener);
+            userViewHolder.tvCheckStock.setTag(position);
 
             userViewHolder.tvCheckStock.setOnClickListener(mOnClickListener);
             userViewHolder.tvCheckStock.setTag(position);

@@ -595,11 +595,9 @@ public class MainActivity extends BaseActivity
             case "Inventory In/Out":
                 inventaortFragment = new InventoryFragment();
                 replaceFragment(inventaortFragment, containerId);
-                drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle("Inventory");
                 menu1.findItem(R.id.action_notification).setVisible(false);
                 menu1.findItem(R.id.action_search).setVisible(false);
-
                 drawer.closeDrawer(GravityCompat.START);
 
                 break;

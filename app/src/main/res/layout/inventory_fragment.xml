@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundgrey">
+    android:background="@color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -156,6 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="In"
+                        android:textSize="@dimen/dim_12"
                         />
 
                     <Switch
@@ -169,6 +170,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Out"
+                        android:textSize="@dimen/dim_12"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -184,7 +186,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
                     android:text="Transaction Type"
                     />
 
@@ -192,12 +194,14 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:gravity="center">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Purchase"
+                        android:textSize="@dimen/dim_12"
                         />
 
                     <Switch
@@ -206,10 +210,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12dp"
                         android:layout_marginLeft="12dp"
+
                         android:checked="true"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/dim_12"
                         android:text="Transfer"
                         />
                 </LinearLayout>
@@ -239,6 +245,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Yes"
+                        android:textSize="@dimen/dim_12"
                         />
 
                     <Switch
@@ -252,113 +259,124 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="No"
+                        android:textSize="@dimen/dim_12"
                         />
                 </LinearLayout>
             </LinearLayout>
             <include layout="@layout/view_layout_without_dot"/>
+
             <LinearLayout
+                android:id="@+id/llPOVisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:background="@color/white">
+                android:visibility="gone"
 
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="PO Number"
-                    />
-
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1">
-
-                    <EditText
-                        android:id="@+id/edtPoNumber"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text=""
-                        android:hint="Enter Po Number"
-                        android:textSize="@dimen/dim_14"
-                        android:background="@color/transparent"
-                        />
-
-                    <ImageView
-                        android:id="@+id/imgSearch"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_gravity="end"
-                        android:background="@drawable/ic_action_search_"
-                        />
-                </RelativeLayout>
-            </LinearLayout>
-            <include layout="@layout/view_layout_without_dot"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:background="@color/white">
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="PO Date"
-                    />
-
-
+                android:orientation="vertical">
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
-                    <EditText
-                        android:id="@+id/edtDate"
-                        android:layout_width="wrap_content"
+                    android:padding="8dp"
+                    android:background="@color/white">
+
+
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text=""
-
-                        android:textSize="@dimen/dim_14"
-                        android:background="@color/transparent"
+                        android:layout_weight="1"
+                        android:text="PO Number"
                         />
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edtPoNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:hint="Enter Po Number"
+                            android:textSize="@dimen/dim_14"
+                            android:background="@color/transparent"
+                            />
+
+                        <ImageView
+                            android:id="@+id/imgSearch"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="end"
+                            android:background="@drawable/ic_action_search_"
+                            />
+                    </RelativeLayout>
                 </LinearLayout>
-            </LinearLayout>
-            <include layout="@layout/view_layout_without_dot"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:background="@color/white">
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Supplier Name"
-                    />
-
-
+                <include layout="@layout/view_layout_without_dot"/>
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1">
+                    android:padding="8dp"
+                    android:background="@color/white">
 
-                    <EditText
-                        android:id="@+id/edtSupplier"
-                        android:layout_width="wrap_content"
+
+                    <TextView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text=""
-                        android:textSize="@dimen/dim_14"
-                        android:background="@color/transparent"
+                        android:layout_weight="1"
+                        android:text="PO Date"
                         />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+                        <EditText
+                            android:id="@+id/edtDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+
+                            android:textSize="@dimen/dim_14"
+                            android:background="@color/transparent"
+                            />
+                    </LinearLayout>
                 </LinearLayout>
+                <include layout="@layout/view_layout_without_dot"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:background="@color/white">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Supplier Name"
+                        />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edtSupplier"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="@dimen/dim_14"
+                            android:background="@color/transparent"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <include layout="@layout/view_layout_without_dot"/>
             </LinearLayout>
-            <include layout="@layout/view_layout_without_dot"/>
+
         </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 
