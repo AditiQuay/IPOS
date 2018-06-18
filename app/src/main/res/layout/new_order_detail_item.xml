@@ -492,6 +492,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/dim_8"
+android:visibility="visible"
         android:background="@color/white">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -533,12 +534,13 @@
                 android:text=" | Kriti Nagar, Delhi"/>
 
             <ImageView
+                android:id="@+id/imgShipArrow"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
-                android:src="@drawable/ic_action_arrow"
+                android:background="@drawable/baseline_keyboard_arrow_down_black_18dp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 />
@@ -610,7 +612,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
-                android:src="@drawable/ic_action_arrow"
+                android:background="@drawable/baseline_keyboard_arrow_down_black_18dp"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 />
@@ -621,10 +623,61 @@
         <include layout="@layout/view_layout_without_dot"/>
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="Product"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="Qty"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="Price"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_viewItems"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 

@@ -11,6 +11,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -84,6 +86,9 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
     private LinearLayout llVerifyRedeem;
     private LinearLayout lLayoutView;
     private Button buttonSendOtp;
+    private boolean isShipArrow,isItemDetailsArrow;
+    private ImageView imgShipArrow,arrow;
+    private LinearLayout llbottom_buttons;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,7 +143,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         dp.setTitle("Calender");
         dp.show();
 
-        dp.getDatePicker().setMinDate(System.currentTimeMillis());
+        dp.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
 
 
     }
@@ -236,6 +241,9 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         RealmOrderList realmOrderLists=realm.where(RealmOrderList.class).equalTo("poNumber","P00001").findFirst();
 
         if (realmOrderLists!=null){
+            double redeeem=0;
+            if (etRedeemValue!=null && Util.validateString(etRedeemValue.getText().toString()))
+            redeeem= Double.parseDouble(etRedeemValue.getText().toString());
             poNumber=realmOrderLists.getPoNumber();
             prepareData(realm,realmOrderLists);
             tvOrderName.setText(realmOrderLists.getPoNumber());
@@ -251,19 +259,20 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
                 tvStatus.setText("Pending");
             }
 
-            orderValue.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getOrderValue());
+
+            orderValue.setText(getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getOrderValue()-redeeem));
             orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
             deliverDate.setText(Util.getFormattedDates(realmOrderLists.getDeliveryBy(),Constants.format6,Constants.format2));
            // deliverDate.setText(realmOrderLists.getDeliveryBy());
             loyaltyPoints.setText(realmOrderLists.getOrderLoyality()+"");
-            accumulatedPoints.setText(realmOrderLists.getAccumulatedLoyality()+"");
+            accumulatedPoints.setText((realmOrderLists.getAccumulatedLoyality()-redeeem)+"");
             dAccumulatedPoints=realmOrderLists.getAccumulatedLoyality();
-            totalPoints.setText(realmOrderLists.getTotalLoyality()+"");
+            totalPoints.setText((realmOrderLists.getAccumulatedLoyality()+realmOrderLists.getOrderLoyality())+"");
             customerName.setText(Prefs.getStringPrefs(Constants.EntityName));
             discount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
-            tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getOrderValue());
+            tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getOrderValue()-redeeem));
             tvTotalQty.setText(realmOrderLists.getQuantity()+"");
-            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getOrderValue()+"");
+            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getOrderValue()-(realmOrderLists.getTotalCGSTValue()+realmOrderLists.getTotalSGSTValue()))+"");
             tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalCGSTValue()+"");
             tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalSGSTValue()+"");
             tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalRoundingOffValue()+"");
@@ -271,6 +280,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             try {
                 JSONArray arrayCart=new JSONArray(realmOrderLists.getCartDetail());
 
+                recentOrderModalArrayList.clear();
                 for (int p=0;p<arrayCart.length();p++){
                     JSONObject jsonObject=arrayCart.optJSONObject(p);
                     RecentOrderModal recentOrderModal=new RecentOrderModal();
@@ -297,6 +307,10 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
 
     private void initializeComponent() {
+        llbottom_buttons=findViewById(R.id.llbottom_buttons);
+        llbottom_buttons.setVisibility(View.VISIBLE);
+        arrow=findViewById(R.id.arrow);
+        imgShipArrow=findViewById(R.id.imgShipArrow);
         llRedeem=findViewById(R.id.llRedeem);
         deliverDate=findViewById(R.id.deliverDate);
         llDate=findViewById(R.id.llDate);
@@ -360,6 +374,35 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             @Override
             public void onClick(View view) {
                 showDialogOTP(NewOrderDetailsActivity.this,dAccumulatedPoints);
+            }
+        });
+
+        imgShipArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isShipArrow){
+                    isShipArrow=true;
+                    recycler_viewAddress.setVisibility(View.GONE);
+                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
+                }else {
+                    recycler_viewAddress.setVisibility(View.VISIBLE);
+                    isShipArrow=false;
+                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
+                }
+            }
+        });
+        arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isItemDetailsArrow){
+                    isItemDetailsArrow=true;
+                    recycler_viewRecentOrders.setVisibility(View.GONE);
+                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
+                }else {
+                    recycler_viewRecentOrders.setVisibility(View.VISIBLE);
+                    isItemDetailsArrow=false;
+                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
+                }
             }
         });
     }
@@ -472,17 +515,37 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
          tvResendOTP=(TextView)dialog.findViewById(R.id.tvResendOTP); 
         tvRedeemPoints.setText(dAccumulatedPoints+"");
         buttonSendOtp=(Button)dialog.findViewById(R.id.buttonSendOtp);
-        EditText etPointToRedeem=dialog.findViewById(R.id.etPointToRedeem);
-        if (Util.validateString(etPointToRedeem.getText().toString()))
-            pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
+        final EditText etPointToRedeem=dialog.findViewById(R.id.etPointToRedeem);
+
         Button buttonSendOtp = (Button) dialog.findViewById(R.id.buttonSendOtp);
         Button buttonVerify = (Button) dialog.findViewById(R.id.buttonVerify);
         final double finalPointstoRedeem = pointstoRedeem;
+
+        etPointToRedeem.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (Util.validateString(etPointToRedeem.getText().toString()))
+                    pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
+                etRedeemValue.setText((perPoints*pointstoRedeem)+"");
+            }
+        });
         tvResendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (dAccumulatedPoints>0 && finalPointstoRedeem >0 && finalPointstoRedeem<=dAccumulatedPoints){
-                    getOTP(finalPointstoRedeem);
+                if (Util.validateString(etPointToRedeem.getText().toString()))
+                    pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
+                if (dAccumulatedPoints>0 && pointstoRedeem >0 && pointstoRedeem<=dAccumulatedPoints){
+                    getOTP(pointstoRedeem);
                 }else {
                     Util.showToast("please check your available points");
                 }
@@ -492,8 +555,10 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         buttonVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (Util.validateString(etPointToRedeem.getText().toString()))
+                    pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
                 if (Util.validateString(etOTP.getText().toString())) {
-                    getVerifyOTP(etOTP.getText().toString(), finalPointstoRedeem);
+                    getVerifyOTP(etOTP.getText().toString(), pointstoRedeem);
                     dialog.dismiss();
                 } else {
                     Util.showToast("please enter otp");
@@ -504,8 +569,10 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             @Override
             public void onClick(View v) {
 
-                if (dAccumulatedPoints>0 && finalPointstoRedeem >0 && finalPointstoRedeem<=dAccumulatedPoints){
-                    getOTP(finalPointstoRedeem);
+                if (Util.validateString(etPointToRedeem.getText().toString()))
+                    pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
+                if (dAccumulatedPoints>0 && pointstoRedeem >0 && pointstoRedeem<=dAccumulatedPoints){
+                    getOTP(pointstoRedeem);
                 }else {
                     Util.showToast("please check your available points");
                 }
