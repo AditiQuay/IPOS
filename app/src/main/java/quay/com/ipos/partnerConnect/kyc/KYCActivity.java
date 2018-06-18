@@ -308,6 +308,7 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.lLayoutNew:
+                setRealmData("New");
                 lLayoutNew.setBackgroundResource(R.drawable.card_selector_kyc);
                 lLayoutInprocess.setBackgroundResource(0);
                 lLayoutVerified.setBackgroundResource(0);
@@ -318,13 +319,11 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
 
                 break;
             case R.id.lLayoutInprocess:
+                setRealmData("In Process");
                 lLayoutInprocess.setBackgroundResource(R.drawable.card_selector_kyc);
                 lLayoutNew.setBackgroundResource(0);
                 lLayoutVerified.setBackgroundResource(0);
                 lLayoutAllPartners.setBackgroundResource(0);
-
-                textViewNewCount.setTextColor(getResources().getColor(R.color.grey));
-                textViewNew.setTextColor(getResources().getColor(R.color.grey));
 
                 textViewInProcessCount.setTextColor(getResources().getColor(R.color.white));
                 textViewInProcess.setTextColor(getResources().getColor(R.color.white));
@@ -336,10 +335,7 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
                 lLayoutInprocess.setBackgroundResource(0);
                 lLayoutAllPartners.setBackgroundResource(0);
 
-                textViewInProcessCount.setTextColor(getResources().getColor(R.color.grey));
-                textViewInProcess.setTextColor(getResources().getColor(R.color.grey));
-
-                textViewVerifiedCount.getResources().getColor(R.color.white);
+                textViewVerifiedCount.setTextColor(getResources().getColor(R.color.white));
                 textViewVerified.setTextColor(getResources().getColor(R.color.white));
 
                 break;
@@ -349,11 +345,8 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
                 lLayoutInprocess.setBackgroundResource(0);
                 lLayoutVerified.setBackgroundResource(0);
 
-                textViewVerifiedCount.setTextColor(getResources().getColor(R.color.grey));
-                textViewVerified.setTextColor(getResources().getColor(R.color.grey));
-
-                textViewVerifiedCount.getResources().getColor(R.color.white);
-                textViewAllPartners.getResources().getColor(R.color.white);
+                textViewAllPartnersCount.setTextColor(getResources().getColor(R.color.white));
+                textViewAllPartners.setTextColor(getResources().getColor(R.color.white));
 
                 break;
             case R.id.BtnViewAll:

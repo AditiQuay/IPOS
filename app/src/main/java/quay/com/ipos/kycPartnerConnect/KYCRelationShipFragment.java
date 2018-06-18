@@ -67,7 +67,7 @@ public class KYCRelationShipFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_relation_ship, container, false);
+        return inflater.inflate(R.layout.kyc_fragment_relation_ship, container, false);
     }
 
     @Override

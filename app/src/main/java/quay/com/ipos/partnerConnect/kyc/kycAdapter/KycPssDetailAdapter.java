@@ -24,7 +24,7 @@ import quay.com.ipos.partnerConnect.kyc.model.KycPSSDetailsModel;
 public class KycPssDetailAdapter extends RecyclerView.Adapter<KycPssDetailAdapter.ItemViewHolder> {
     private Context mContext;
     private ArrayList<KycPSSDetailsModel> kycPSSDetailsModels;
-    private MyListener myListene
+    private MyListener myListener;
 
     public KycPssDetailAdapter(Context context, ArrayList<KycPSSDetailsModel> kycPSSDetailsModels, MyListener myListener) {
         this.mContext = context;

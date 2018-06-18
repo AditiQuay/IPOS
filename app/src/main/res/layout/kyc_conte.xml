@@ -94,7 +94,7 @@
                     android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center"
                     android:text="1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/grey"
                     android:textSize="@dimen/universal_text_size14" />
 
                 <TextView
@@ -105,7 +105,7 @@
                     android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center"
                     android:text="New"
-                    android:textColor="@color/white"
+                    android:textColor="@color/grey"
                     android:textSize="@dimen/universal_text_size14" />
             </LinearLayout>
 

@@ -20,6 +20,9 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.regex.Matcher;
@@ -248,6 +251,13 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         dismissProgress();
+        try {
+            JSONObject jsonObject = new JSONObject(serverResponse);
+            String code = jsonObject.getString("Code");
+            String message = jsonObject.getString("UserAccess");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         if (httpStatusCode == Constants.SUCCESS) {
             if (resultObj != null) {
 
