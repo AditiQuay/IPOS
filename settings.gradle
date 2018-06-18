@@ -1,1 +1,1 @@
-include ':app',':zbar',':core', ':ddrsales'
+include ':app',':zbar',':core'
