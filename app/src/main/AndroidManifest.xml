@@ -58,14 +58,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
         <activity
             android:name=".kycPartnerConnect.KYCMain"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_partner_connect"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden">
-=======
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+
 
         <!-- ***** DDR Sales ****** -->
         <activity
@@ -95,7 +94,6 @@
             android:label="@string/title_b2bsales"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden">
->>>>>>> 4c00ec72009569882d30bcbd1a832831a405fff6
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />

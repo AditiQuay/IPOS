@@ -15,7 +15,7 @@
             android:orientation="vertical"
             android:paddingBottom="100dp">
 
-            <include layout="@layout/documents_content" />
+            <include layout="@layout/kyc_documents_content" />
 
 
         </RelativeLayout>
