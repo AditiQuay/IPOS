@@ -240,9 +240,9 @@
                                  app:ms_enableFloatingLabel="true"
                                  app:ms_errorColor="@color/red"
                                  app:ms_floatingLabelColor="@color/grey"
-                                 app:ms_floatingLabelText="Key Contact Person *"
+                                 app:ms_floatingLabelText="KycContacttact Person *"
                                  app:ms_highlightColor="@color/highlight"
-                                 app:ms_hint="Key Contact Position *"
+                                 app:ms_hint="KycContacttact Position *"
                                  app:ms_hintColor="@color/grey"
                                  app:ms_multiline="false" />-->
                             <android.support.design.widget.TextInputLayout

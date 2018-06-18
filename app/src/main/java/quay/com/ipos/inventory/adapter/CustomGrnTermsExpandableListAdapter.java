@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.inventory.modal.POAttachments;
+import quay.com.ipos.inventory.modal.POIncoTerms;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 
 /**
@@ -116,28 +118,10 @@ public class CustomGrnTermsExpandableListAdapter extends BaseExpandableListAdapt
                 LayoutInflater layoutInflater = (LayoutInflater) this.context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = layoutInflater.inflate(R.layout.expandable_inco_terms_item, null);
-                ArrayList<RealmBusinessPlaces> discounts = new ArrayList<>();
+                ArrayList<POIncoTerms> discounts = new ArrayList<>();
                 RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("Loading");
-                discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
-                realmBusinessPlaces1.setHeader("Shipping");
-                discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
-                realmBusinessPlaces1.setHeader("Unload");
-                discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
-                realmBusinessPlaces1.setHeader("Toll");
-                discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
-                realmBusinessPlaces1.setHeader("E-Way Bill");
-                discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
-                realmBusinessPlaces1.setHeader("Unload 1");
-                discounts.add(realmBusinessPlaces1);
-                realmBusinessPlaces1 = new RealmBusinessPlaces();
-                realmBusinessPlaces1.setHeader("Total");
-                discounts.add(realmBusinessPlaces1);
+
                 RecyclerView recycler_view = convertView.findViewById(R.id.recycler_view);
                 recycler_view.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);
@@ -151,13 +135,13 @@ public class CustomGrnTermsExpandableListAdapter extends BaseExpandableListAdapt
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = layoutInflater.inflate(R.layout.expandable_po_items, null);
 
-                ArrayList<RealmBusinessPlaces> discounts = new ArrayList<>();
+                ArrayList<POAttachments> discounts = new ArrayList<>();
                 RealmBusinessPlaces realmBusinessPlaces1 = new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("PO Copy");
-                discounts.add(realmBusinessPlaces1);
+             /*   discounts.add(realmBusinessPlaces1);
                 realmBusinessPlaces1 = new RealmBusinessPlaces();
                 realmBusinessPlaces1.setHeader("Batch Details");
-                discounts.add(realmBusinessPlaces1);
+                discounts.add(realmBusinessPlaces1);*/
                 RecyclerView recycler_view = convertView.findViewById(R.id.recycler_view);
                 recycler_view.setHasFixedSize(true);
                 LinearLayoutManager mLayoutManager = new LinearLayoutManager(context);

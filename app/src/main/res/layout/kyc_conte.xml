@@ -45,6 +45,7 @@
                     android:layout_marginTop="@dimen/dim_4"
                     android:layout_toRightOf="@+id/iconiv"
                     android:alpha="0.7"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="KYC Updates"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/universal_text_size16" />
@@ -59,6 +60,7 @@
                     android:backgroundTint="@color/colorPrimary"
                     android:drawableLeft="@drawable/view_all"
                     android:drawablePadding="@dimen/dim_4"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:stateListAnimator="@null"
                     android:text="View All"
                     android:textAllCaps="false" />
@@ -73,23 +75,26 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginTop="@dimen/dim_4"
-            android:background="@drawable/card_strip_kyc"
-            android:padding="@dimen/dim_8">
+            android:background="@drawable/card_strip_kyc">
 
             <LinearLayout
+                android:id="@+id/lLayoutNew"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:background="@drawable/card_selector_kyc"
+                android:orientation="vertical"
+                android:padding="@dimen/dim_8">
 
                 <TextView
                     android:id="@+id/textViewNewCount"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center"
                     android:text="1"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/universal_text_size14" />
 
                 <TextView
@@ -97,17 +102,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center"
                     android:text="New"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/universal_text_size14" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lLayoutInprocess"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/dim_8">
 
                 <TextView
                     android:id="@+id/textViewInProcessCount"
@@ -115,6 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="1"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/universal_text_size14" />
@@ -125,22 +134,26 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="In Process"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/universal_text_size14" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lLayoutVerified"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/dim_8">
 
                 <TextView
                     android:id="@+id/textViewVerifiedCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="1"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/universal_text_size14" />
@@ -150,22 +163,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="Verified"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/universal_text_size14" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lLayoutAllPartners"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/dim_8">
 
                 <TextView
                     android:id="@+id/textViewAllPartnersCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="1"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/universal_text_size14" />
@@ -175,7 +192,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="All Partners"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="All Request"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/universal_text_size14" />
             </LinearLayout>

@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import quay.com.ipos.utility.NumberFormatEditText;
 import java.util.List;
 
 import quay.com.ipos.R;
@@ -19,11 +19,13 @@ public class DDRAdapter extends RecyclerView.Adapter<DDRAdapter.ViewHolder> {
     private List<DDR> mDDRList;
     private LayoutInflater layoutInflater;
     private OnDDRSelectListener listener;
+    private String rs;
 
     public DDRAdapter(Context context, List<DDR> mDDRList, OnDDRSelectListener listener) {
         this.listener = listener;
         this.layoutInflater = LayoutInflater.from(context);
         this.mDDRList = mDDRList;
+        this.rs = context.getString(R.string.Rs) + " ";
 
     }
 
@@ -36,13 +38,13 @@ public class DDRAdapter extends RecyclerView.Adapter<DDRAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DDR ddr = mDDRList.get(position);
+        final DDR ddr = mDDRList.get(position);
         holder.textDDRCode.setText(ddr.mDDRCode);
         holder.textDDRName.setText(ddr.mDDRName);
         holder.textDDRAddress.setText(ddr.mDDRAddress1 + " | " + ddr.mDDRAddress2);
-        holder.textDDRCreditLimit.setText(ddr.mDDRCreditLimit + "");
-        holder.textDDRNonDue.setText(ddr.mDDRNonDue + "");
-        holder.textDDROverDue.setText(ddr.mDDROverDue + "");
+        holder.textDDRCreditLimit.setText(rs + NumberFormatEditText.getText(ddr.mDDRCreditLimit + ""));
+        holder.textDDRNonDue.setText(rs +NumberFormatEditText.getText( ddr.mDDRNonDue+""));
+        holder.textDDROverDue.setText(rs + NumberFormatEditText.getText(ddr.mDDROverDue + ""));
         if (ddr.mDDROverDue > 0) {
             holder.mDDROverDueIndicator.setVisibility(View.VISIBLE);
         } else {
@@ -54,7 +56,9 @@ public class DDRAdapter extends RecyclerView.Adapter<DDRAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (listener != null) {
+                    listener.onSelect(ddr);
+                }
             }
         });
     }

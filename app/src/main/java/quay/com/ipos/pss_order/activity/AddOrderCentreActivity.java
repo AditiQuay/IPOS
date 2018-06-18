@@ -1,4 +1,4 @@
-package quay.com.ipos.pss_order.activity;
+package quay.com.ipos.ddr.activity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -35,14 +35,14 @@ import io.realm.Sort;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.pss_order.adapter.AddNewOrderAdapter;
+import quay.com.ipos.pss_order.adapter.AddOrderCentreAdapter;
 import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
 import quay.com.ipos.pss_order.modal.ProductSearchRequest;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.OrderList;
-import quay.com.ipos.realmbean.RealmNewOrderCart;
+import quay.com.ipos.realmbean.RealmOrderCentre;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
@@ -61,7 +61,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
     private LinearLayoutManager mLayoutManager;
     private OrderList mOrderListResult;
     private TextView tvItemSize,tvNoItemAvailable;
-    private AddNewOrderAdapter mAddNewOrderAdapter;
+    private AddOrderCentreAdapter mAddOrderCentreAdapter;
     private TextView tvClear,tvItemAddedSize;
     private String entityStateCode="";
     private int businessPlaceCode;
@@ -69,6 +69,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
     ArrayList<NewOrderProductsResult.DataBean> dataBeans= new ArrayList<>();
     private boolean isSync;
     private LinearLayout llAccept;
+    private String poNumber;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -78,8 +79,9 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
 
         getIntentValues();
         initializeComponent();
+        searchProductCall("NA");
         Realm realm=Realm.getDefaultInstance();
-        RealmResults<RealmNewOrderCart> realmNewOrderCarts1=realm.where(RealmNewOrderCart.class).findAll();
+        RealmResults<RealmOrderCentre> realmNewOrderCarts1=realm.where(RealmOrderCentre.class).findAll();
 
         if (realmNewOrderCarts1!=null){
             tvItemAddedSize.setText(realmNewOrderCarts1.size()+"");
@@ -90,7 +92,9 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                 llAccept.setVisibility(View.GONE);
             }
         }
+
         setAdapter();
+
     //    getProduct();
 //            setDefaultValues();
     }
@@ -99,6 +103,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
 
         Intent i=getIntent();
         if (i!=null){
+            poNumber=i.getStringExtra("poNumber");
             entityStateCode=i.getStringExtra(Constants.entityStateCode);
             businessPlaceCode=i.getIntExtra(Constants.businessPlaceCode,0);
         }
@@ -127,8 +132,8 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
 
     }*/
     private void setAdapter() {
-        mAddNewOrderAdapter = new AddNewOrderAdapter(this,this,dataBeans,this);
-        mRecyclerView.setAdapter(mAddNewOrderAdapter);
+        mAddOrderCentreAdapter = new AddOrderCentreAdapter(this,this,dataBeans,this);
+        mRecyclerView.setAdapter(mAddOrderCentreAdapter);
     }
     public void setHeader() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -205,7 +210,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
 
 //            Util.cacheData(arrData);
             SharedPrefUtil.putString(Constants.Order_List,Util.getCustomGson().toJson(arrData),this);
-            mAddNewOrderAdapter.notifyDataSetChanged();
+            mAddOrderCentreAdapter.notifyDataSetChanged();
 //            setUpdateValues(IPOSApplication.mOrderList);
         } catch (Exception e) {
             e.printStackTrace();
@@ -224,13 +229,13 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                 Util.hideSoftKeyboard(AddOrderCentreActivity.this);
                 int pos = (int) view.getTag();
                 Realm realm=Realm.getDefaultInstance();
-               RealmNewOrderCart realmNewOrderCarts=realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),dataBeans.get(pos).getIProductModalId()).findFirst();
+               RealmOrderCentre realmNewOrderCarts=realm.where(RealmOrderCentre.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),dataBeans.get(pos).getIProductModalId()).findFirst();
                 Gson gson = new GsonBuilder().create();
                 if (realmNewOrderCarts!=null) {
                     realm.beginTransaction();
                     try {
                         realmNewOrderCarts.deleteFromRealm();
-                        RealmResults<RealmNewOrderCart> realmNewOrderCarts1=realm.where(RealmNewOrderCart.class).findAll();
+                        RealmResults<RealmOrderCentre> realmNewOrderCarts1=realm.where(RealmOrderCentre.class).findAll();
 
                         if (realmNewOrderCarts1!=null){
                             tvItemAddedSize.setText(realmNewOrderCarts1.size()+"");
@@ -260,13 +265,13 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                         jsonObject.put(RetailSalesEnum.totalPrice.toString(),dataBeans.get(pos).getSProductPrice());
                         int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
                         jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
-                        saveResponseLocal(jsonObject,"P00001");
+                        saveResponseLocal(jsonObject,poNumber);
                         calculateOPS(dataBeans.get(pos).getProductCode(),dataBeans.get(pos).getIProductModalId());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     Realm realm1=Realm.getDefaultInstance();
-                    RealmResults<RealmNewOrderCart> realmNewOrderCarts1=realm1.where(RealmNewOrderCart.class).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAll();
+                    RealmResults<RealmOrderCentre> realmNewOrderCarts1=realm1.where(RealmOrderCentre.class).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAll();
 
                     if (realmNewOrderCarts1!=null){
                         tvItemAddedSize.setText(realmNewOrderCarts1.size()+"");
@@ -279,7 +284,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                     }
                 }
 
-                mAddNewOrderAdapter.notifyItemChanged(pos);
+                mAddOrderCentreAdapter.notifyItemChanged(pos);
 
 
 
@@ -356,7 +361,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
 //            public void run() {
 //
 //            }});
-        mAddNewOrderAdapter.notifyItemChanged(position);
+        mAddOrderCentreAdapter.notifyItemChanged(position);
         Util.hideSoftKeyboard(this);*/
     }
 
@@ -371,7 +376,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
         }else {
             datum1.setQty(qty1 + 1);
             arrSearlist.set(posPlus, datum1);
-            mAddNewOrderAdapter.notifyItemChanged(posPlus);
+            mAddOrderCentreAdapter.notifyItemChanged(posPlus);
 
         }
     }
@@ -388,7 +393,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
         }else {
             datum.setQty(qty - 1);
             arrSearlist.set(posMinus, datum);
-            mAddNewOrderAdapter.notifyItemChanged(posMinus);
+            mAddOrderCentreAdapter.notifyItemChanged(posMinus);
 
         }
     }
@@ -400,13 +405,14 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
         productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
         productSearchRequest.setEntityStateCode(entityStateCode);
         productSearchRequest.setSearchParam(s);
-        productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
-        productSearchRequest.setBarCodeNumber("NA");
+        productSearchRequest.setBusinessPlaceCode("1");
+        productSearchRequest.setBarCodeNumber("All");
+        productSearchRequest.setModuleType("NO");
         productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
         productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOProductSearch);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH);
         mTask.setApiCallType(Constants.API_METHOD_POST);
         mTask.setParamObj(productSearchRequest);
         mTask.setListener(this);
@@ -463,7 +469,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                 arrData.clear();
             }
             tvItemSize.setText("Showing "+dataBeans.size() + " Products");
-            mAddNewOrderAdapter.notifyDataSetChanged();
+            mAddOrderCentreAdapter.notifyDataSetChanged();
 
             if(dataBeans.size()==0){
                 tvNoItemAvailable.setVisibility(View.VISIBLE);
@@ -508,7 +514,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
 
 
 
-                realm.createOrUpdateObjectFromJson(RealmNewOrderCart.class, jsonSubmitReq);
+                realm.createOrUpdateObjectFromJson(RealmOrderCentre.class, jsonSubmitReq);
 
 
             } catch (Exception e) {
@@ -533,7 +539,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
         JSONArray arrayRule=new JSONArray();
         JSONArray discountArray=new JSONArray();
         Realm realm=Realm.getDefaultInstance();
-        RealmNewOrderCart realmNewOrderCarts=realm.where(RealmNewOrderCart.class).equalTo(RetailSalesEnum.isFreeItem.toString(),false).equalTo(RetailSalesEnum.iProductModalId.toString(),productId).findFirst();
+        RealmOrderCentre realmNewOrderCarts=realm.where(RealmOrderCentre.class).equalTo(RetailSalesEnum.isFreeItem.toString(),false).equalTo(RetailSalesEnum.iProductModalId.toString(),productId).findFirst();
 
         if (realmNewOrderCarts!=null){
             try {
@@ -710,7 +716,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                     JSONObject jsonObject=new JSONObject(strJson);
 
                     jsonObject.put(RetailSalesEnum.discount.toString(),discountArray);
-                    saveResponseLocal(jsonObject,"P00001");
+                    saveResponseLocal(jsonObject,poNumber);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -792,7 +798,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
 
     }
 
-    private double getValueBasedOnDiscountZeroPacksize(int totalPrice, String sDiscountType, int sDiscountValue, RealmNewOrderCart realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
+    private double getValueBasedOnDiscountZeroPacksize(int totalPrice, String sDiscountType, int sDiscountValue, RealmOrderCentre realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
 
         double discount=0.0;
         int productQty=  realmNewOrderCarts.getQty();
@@ -824,7 +830,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
 
     }
 
-    private boolean getValueBasedOnDiscountItems(boolean isApplied, RealmNewOrderCart realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
+    private boolean getValueBasedOnDiscountItems(boolean isApplied, RealmOrderCentre realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
 
         int productQty = realmNewOrderCarts.getsProductPrice();
 
@@ -870,7 +876,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
 
         return isApplied;
     }
-    private double getQuantityBasedOnDiscountZeroPacksize(int totalPrice, String sDiscountType, int sDiscountValue, RealmNewOrderCart realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
+    private double getQuantityBasedOnDiscountZeroPacksize(int totalPrice, String sDiscountType, int sDiscountValue, RealmOrderCentre realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
 
         double discount=0.0;
         int productQty=  realmNewOrderCarts.getQty();
@@ -918,7 +924,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
     }
 
 
-    private boolean getQuantityBasedOnDiscountItems(boolean isApplied, RealmNewOrderCart realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
+    private boolean getQuantityBasedOnDiscountItems(boolean isApplied, RealmOrderCentre realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
 
         int productQty = realmNewOrderCarts.getQty();
         if (productQty >= slabFrom && productQty <= slabTO || productQty > slabTO) {
@@ -963,10 +969,10 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
         return isApplied;
     }
 
-    private boolean getaddHighestFreeItems(RealmNewOrderCart realmNewOrderCarts, boolean isApplied, Realm realm, String opsCriteria, String productCode, int packSize, int slabFrom, int productQty) {
+    private boolean getaddHighestFreeItems(RealmOrderCentre realmNewOrderCarts, boolean isApplied, Realm realm, String opsCriteria, String productCode, int packSize, int slabFrom, int productQty) {
 
 
-        RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.DESCENDING);
+        RealmResults<RealmOrderCentre> realmNewOrderCarts1 = realm.where(RealmOrderCentre.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.DESCENDING);
 
 
         int itemsPerFree = productQty / (packSize + slabFrom);
@@ -989,7 +995,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                saveResponseLocal(jsonObject, "P00001");
+                                saveResponseLocal(jsonObject, poNumber);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -1013,7 +1019,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, "P00001");
+                                    saveResponseLocal(jsonObject, poNumber);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -1033,7 +1039,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, "P00001");
+                                    saveResponseLocal(jsonObject, poNumber);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -1055,7 +1061,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, "P00001");
+                                    saveResponseLocal(jsonObject, poNumber);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -1068,7 +1074,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                 }
             }
         }else{
-            RealmResults<RealmNewOrderCart> allSorted = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),true).findAll();
+            RealmResults<RealmOrderCentre> allSorted = realm.where(RealmOrderCentre.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),true).findAll();
 
             allSorted.deleteAllFromRealm();
 
@@ -1077,10 +1083,10 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
 
     }
 
-    private boolean getaddLowestFreeItems(RealmNewOrderCart realmNewOrderCarts, boolean isApplied, Realm realm, String opsCriteria, String productCode, int packSize, int slabFrom, int productQty) {
+    private boolean getaddLowestFreeItems(RealmOrderCentre realmNewOrderCarts, boolean isApplied, Realm realm, String opsCriteria, String productCode, int packSize, int slabFrom, int productQty) {
 
 
-        RealmResults<RealmNewOrderCart> realmNewOrderCarts1 = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.ASCENDING);
+        RealmResults<RealmOrderCentre> realmNewOrderCarts1 = realm.where(RealmOrderCentre.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.ASCENDING);
 
 
         int loopSize = realmNewOrderCarts1.size();
@@ -1103,7 +1109,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                saveResponseLocal(jsonObject, "P00001");
+                                saveResponseLocal(jsonObject, poNumber);
                                 isApplied = true;
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -1130,7 +1136,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, "P00001");
+                                    saveResponseLocal(jsonObject, poNumber);
                                     isApplied = true;
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -1153,7 +1159,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, "P00001");
+                                    saveResponseLocal(jsonObject, poNumber);
                                     isApplied = true;
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -1176,7 +1182,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, "P00001");
+                                    saveResponseLocal(jsonObject, poNumber);
                                     isApplied = true;
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -1191,7 +1197,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
             }
         }else{
             Realm realm1=Realm.getDefaultInstance();
-            RealmResults<RealmNewOrderCart> allSorted = realm1.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),true).findAll();
+            RealmResults<RealmOrderCentre> allSorted = realm1.where(RealmOrderCentre.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),true).findAll();
 
             realm1.beginTransaction();
             isApplied = true;

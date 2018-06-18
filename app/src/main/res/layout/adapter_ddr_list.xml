@@ -3,12 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="8dp"
+
+    android:background="#fff">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fff">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,13 +41,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/titilliumwebregular"
-                android:text="Care Argo"
-                android:textColor="@color/dark_grey_color"
+                android:text="Town Namw | City Name"
+                android:textColor="@color/ddr_light_grey"
                 android:textSize="@dimen/b2b_text_body" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
 
                 <TextView
                     android:id="@+id/textDDRCreditLimitHint"
@@ -54,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="Credit Limit:"
+                    android:text="Credit Limit: "
 
                     android:textColor="@color/dark_grey_color"
                     android:textSize="@dimen/b2b_text_body" />
@@ -124,7 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="#E4BE01"
+            android:background="@drawable/ddr_warning_bg"
             android:src="@drawable/pc_rel_email" />
     </RelativeLayout>
 

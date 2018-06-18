@@ -2,7 +2,6 @@ package quay.com.ipos.service;
 
 import android.content.Context;
 
-
 import org.json.JSONObject;
 
 import java.util.Iterator;
@@ -27,7 +26,7 @@ public class APIClient {
     }
 
     public static Request getRequest(Context context, String url) {
-        String authKey = SharedPrefUtil.getString(Constants.ACCESS_TOKEN,"",context);
+        String authKey = SharedPrefUtil.getString(Constants.ACCESS_TOKEN, "", context);
         return new Request.Builder()
                 .header(IPOSAPI.CONTENT_TYPE, IPOSAPI.APPLICATION_JSON)
                 .header(Constants.ACCESS_TOKEN, authKey)
@@ -35,8 +34,16 @@ public class APIClient {
                 .build();
     }
 
+    public static Request getKycRequest(Context context, String url) {
+        String authKey = SharedPrefUtil.getString(Constants.ACCESS_TOKEN, "", context);
+        return new Request.Builder()
+                .header(IPOSAPI.CONTENT_TYPE, IPOSAPI.APPLICATION_JSON)
+                .url(url)
+                .build();
+    }
+
     public static Request getPostRequest(Context context, String url, RequestBody requestBody) {
-        String authKey = SharedPrefUtil.getString(Constants.ACCESS_TOKEN,"",context);
+        String authKey = SharedPrefUtil.getString(Constants.ACCESS_TOKEN, "", context);
         return new Request.Builder()
                 .header(IPOSAPI.CONTENT_TYPE, IPOSAPI.APPLICATION_JSON)
                 .header(Constants.ACCESS_TOKEN, authKey)
@@ -46,7 +53,7 @@ public class APIClient {
     }
 
     public static Request getPutRequest(Context context, String url, RequestBody requestBody) {
-        String authKey = SharedPrefUtil.getString(Constants.ACCESS_TOKEN,"",context);
+        String authKey = SharedPrefUtil.getString(Constants.ACCESS_TOKEN, "", context);
         return new Request.Builder()
                 .header(IPOSAPI.CONTENT_TYPE, IPOSAPI.APPLICATION_JSON)
                 .header(Constants.ACCESS_TOKEN, authKey)
@@ -56,7 +63,7 @@ public class APIClient {
     }
 
     public static Request deleteRequest(Context context, String url) {
-        String authKey = SharedPrefUtil.getString(Constants.ACCESS_TOKEN,"",context);
+        String authKey = SharedPrefUtil.getString(Constants.ACCESS_TOKEN, "", context);
         return new Request.Builder()
                 .header(IPOSAPI.CONTENT_TYPE, IPOSAPI.APPLICATION_JSON)
                 .header(Constants.ACCESS_TOKEN, authKey)

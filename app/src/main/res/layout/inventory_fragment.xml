@@ -159,6 +159,7 @@
                         />
 
                     <Switch
+                        android:id="@+id/swchInventory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12dp"
@@ -200,6 +201,7 @@
                         />
 
                     <Switch
+                        android:id="@+id/swchType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12dp"
@@ -240,6 +242,7 @@
                         />
 
                     <Switch
+                        android:id="@+id/swchPOAvailable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="12dp"
@@ -274,14 +277,17 @@
                     android:layout_weight="1">
 
                     <EditText
+                        android:id="@+id/edtPoNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PO1800001"
+                        android:text=""
+                        android:hint="Enter Po Number"
                         android:textSize="@dimen/dim_14"
                         android:background="@color/transparent"
                         />
 
                     <ImageView
+                        android:id="@+id/imgSearch"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_alignParentRight="true"
@@ -311,9 +317,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
                     <EditText
+                        android:id="@+id/edtDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="15 May 2018"
+                        android:text=""
+
                         android:textSize="@dimen/dim_14"
                         android:background="@color/transparent"
                         />
@@ -341,9 +349,10 @@
                     android:layout_weight="1">
 
                     <EditText
+                        android:id="@+id/edtSupplier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Agro chemicals"
+                        android:text=""
                         android:textSize="@dimen/dim_14"
                         android:background="@color/transparent"
                         />

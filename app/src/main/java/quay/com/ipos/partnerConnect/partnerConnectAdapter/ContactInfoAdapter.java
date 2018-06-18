@@ -54,7 +54,7 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.contact_info_item, parent, false);
 
-        return new ContactInfoAdapter.MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
+        return new MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
     }
 
     @Override
