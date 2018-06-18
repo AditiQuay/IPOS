@@ -276,8 +276,8 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     //new  RealmController().saveUserDetail(userdata);
 
 
-//                    Intent i = new Intent(mContext, MainActivity.class);
-//                    startActivity(i);
+                    Intent i = new Intent(mContext, MainActivity.class);
+                    startActivity(i);
                     searchProductCall(loginResult.getUserAccess().getWorklocationID()+"");
                 }
             }else if(serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT)){
@@ -285,6 +285,9 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
                     ProductSearchResult  mProductSearchResult = (ProductSearchResult) resultObj;
                     data.addAll(mProductSearchResult.getData());
+                    SharedPrefUtil.putBoolean(Constants.isOTC, mProductSearchResult.getIsOTC(), mContext);
+                    SharedPrefUtil.putInt(Constants.otcPerc, mProductSearchResult.getOtcPerc(), mContext);
+                    SharedPrefUtil.putInt(Constants.otcValue, mProductSearchResult.getOtcValue(), mContext);
 //                    IPOSApplication.datumArrayList.addAll(data);
                     if(db.isRetailMasterEmpty(db.TABLE_RETAIL)) {
                         for (int i = 0; i < data.size(); i++) {
@@ -294,8 +297,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                 }
 
 
-                Intent i = new Intent(mContext, MainActivity.class);
-                startActivity(i);
+
             }
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
             Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();

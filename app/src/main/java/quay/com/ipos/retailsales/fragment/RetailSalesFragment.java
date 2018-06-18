@@ -78,7 +78,7 @@ import static quay.com.ipos.application.IPOSApplication.totalAmount;
 /**
  * Created by aditi.bhuranda on 16-04-2018.
  */
-public class RetailSalesFragment extends BaseFragment implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialog.MessageDialogListener,ScannerProductListener,ScanFilterListener,MyAdapterTags,MyDialogFragment.RedeemListener {
+public class RetailSalesFragment extends BaseFragment implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener ,MessageDialog.MessageDialogListener,ScannerProductListener,ScanFilterListener,MyAdapterTags,MyDialogFragment.RedeemListener,PaymentModeActivity.RefreshListener {
 
 
     ProductListResult productListResult = null;
@@ -148,6 +148,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     private String json;
     private ZBarScannerView mScannerView;
     private Context mContext;
+    PaymentModeActivity paymentModeActivity;
+    PaymentModeActivity.RefreshListener mRefreshListener;
 
     /**
      * On create view view.
@@ -161,10 +163,12 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = getView() != null ? getView() : inflater.inflate(R.layout.retail_dashboard, container, false);
         mainActivity = (MainActivity) getActivity();
+        paymentModeActivity = new PaymentModeActivity();
         mContext = getActivity();
         initializeComponent(rootView);
         setTextDefault();
         myDialog = new Dialog(getActivity());
+        paymentModeActivity.setRefreshListener(mRefreshListener);
         setHasOptionsMenu(true);
         Util.hideSoftKeyboard(getActivity());
         if(IPOSApplication.mProductListResult.size() == 0){
@@ -461,8 +465,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
      * The Dialog otc.
      */
     Dialog dialogOTC;
-
+    int otcDiscountCheckPerc=0,otcDiscountCheckValue=0;
+    boolean isOTCCheck=false;
     private void dialogOTCTask() {
+
         dialogOTC = new Dialog(mContext);
         dialogOTC.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogOTC.getWindow().setBackgroundDrawable(
@@ -471,6 +477,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         // Include dialog.xml file
         dialogOTC.setContentView(R.layout.otc_discount);
         dialogOTC.show();
+        dialogOTC.setCancelable(false);
         imvClearOTC = dialogOTC.findViewById(R.id.imvClearOTC);
         etDiscountAmt = dialogOTC.findViewById(R.id.etDiscountAmt);
         tbRs = dialogOTC.findViewById(R.id.tbRs);
@@ -500,6 +507,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //                                    }
 //                                }).show();
                         Util.showMessageDialog(mContext,RetailSalesFragment.this, "Please enter valid discount percentage", "OK", null, Constants.APP_DIALOG_OTC, "", getActivity().getSupportFragmentManager());
+                    }else if(Integer.parseInt(etDiscountAmt.getText().toString())<=otcDiscountCheckPerc) {
+
+                    }else {
+                        etDiscountAmt.setEnabled(true);
+                        Util.showToast("Please enter valid discount value", mContext);
                     }
             }
         });
@@ -507,10 +519,13 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         tbRs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tbPerc.setChecked(false);
-                tbRs.setChecked(true);
-                tbRs.setTextColor(mContext.getResources().getColor(R.color.white));
-                tbPerc.setTextColor(mContext.getResources().getColor(R.color.accent_color));
+                if (!etDiscountAmt.getText().toString().trim().equalsIgnoreCase(""))
+                    if (Integer.parseInt(etDiscountAmt.getText().toString()) <= otcDiscountCheckValue) {
+                        tbPerc.setChecked(false);
+                        tbRs.setChecked(true);
+                        tbRs.setTextColor(mContext.getResources().getColor(R.color.white));
+                        tbPerc.setTextColor(mContext.getResources().getColor(R.color.accent_color));
+                    }
             }
         });
     }
@@ -834,12 +849,19 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                         discountItem++;
                         otcDiscountPerc += datum.getOTCDiscount();
                     } else {
-                        otcDiscountPerc = 0;
+                        otcDiscountPerc += 0;
                     }
 //                    }else {
 ////                        discount = discount + mList.get(i);
 //                    }
                 }else {
+                    if (datum.isDiscSelected()) {
+//                        if (!discounts.get(j).isDiscItemSelected())
+                        discountItem++;
+                        otcDiscountPerc += datum.getOTCDiscount();
+                    } else {
+                        otcDiscountPerc += 0;
+                    }
                     cart_detail.setIsFreeItem(false);
                     cart_detail.setDiscountValue(0.0);
                     scheme.clear();
@@ -986,6 +1008,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 break;
 
             case R.id.tvApplyOTC:
+
                 if (!etDiscountAmt.getText().toString().trim().equals("")) {
                     if (tbPerc.isChecked()) {
                         if (Integer.parseInt(etDiscountAmt.getText().toString()) > 100) {
@@ -1001,10 +1024,13 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                                             etDiscountAmt.setEnabled(true);
                                         }
                                     }).show();
-                        } else {
+                        } else if(Integer.parseInt(etDiscountAmt.getText().toString())<=otcDiscountCheckPerc) {
                             etDiscountAmt.setEnabled(false);
                             tvApplyOTC.setBackgroundResource(R.drawable.button_rectangle_grey);
                             llOTCConfirmation.setVisibility(View.VISIBLE);
+                        }else {
+                            etDiscountAmt.setEnabled(true);
+                            Util.showToast("Please enter valid discount value", mContext);
                         }
                     } else {
                         etDiscountAmt.setEnabled(false);
@@ -1013,7 +1039,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     }
                 } else {
                     etDiscountAmt.setEnabled(true);
-                    Util.showToast("Please enter Discount Value", mContext);
+                    Util.showToast("Please enter discount value", mContext);
                 }
                 break;
             case R.id.tvApplyOTC2:
@@ -1161,6 +1187,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                         SharedPrefUtil.putString(Constants.PAYMENT_REQUEST,Util.getCustomGson().toJson(paymentRequest),getActivity());
                     Intent i = new Intent(mContext, PaymentModeActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
+                    i.putExtra(Constants.KEY_CUSTOMER,mCustomerID);
+                    i.putExtra(Constants.KEY_CUSTOMER_POINTS_PER,mCustomerPointsPer);
+                    i.putExtra(Constants.KEY_CUSTOMER_POINTS,mCustomerPoints);
+                    i.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL,mCustomerEmail);
                     startActivityForResult(i,Constants.ACT_PAYMENT);
                 } else {
                     Util.showToast("Please add atleast one item to proceed.", mContext);
@@ -1193,8 +1223,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     private void setNewBilling() {
         if(IPOSApplication.mProductListResult.size()>0){
             Util.showMessageDialog(mContext,RetailSalesFragment.this, getResources().getString(R.string.new_billing_cart_message), getResources().getString(R.string.yes), getResources().getString(R.string.no),getResources().getString(R.string.cancel), Constants.APP_DIALOG_BILLING, "", getActivity().getSupportFragmentManager());
+
         }else {
             Util.showToast("List is empty", mContext);
+            setTextDefault();
         }
     }
     private void setNewBillingWithoutSave() {
@@ -1302,16 +1334,22 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     }
 
     private void setOTCDiscount() {
-
-        for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
-            if (IPOSApplication.mProductListResult.get(i).isOTCselected())
-                isOTC = true;
-        }
-        if (isOTC) {
-            dialogOTCTask();
-            mRecyclerView.setVisibility(View.GONE);
-        } else {
-            Util.showToast("Please select atleast one Item", mContext);
+        otcDiscountCheckPerc = SharedPrefUtil.getInt( Constants.otcPerc, 0,mContext);
+        otcDiscountCheckValue = SharedPrefUtil.getInt( Constants.otcValue, 0,mContext);
+        isOTCCheck = SharedPrefUtil.getBoolean( Constants.isOTC, false,mContext);
+        if(isOTCCheck) {
+            for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
+                if (IPOSApplication.mProductListResult.get(i).isOTCselected())
+                    isOTC = true;
+            }
+            if (isOTC) {
+                dialogOTCTask();
+                mRecyclerView.setVisibility(View.GONE);
+            } else {
+                Util.showToast("Please select atleast one Item", mContext);
+            }
+        }else {
+            Util.showToast("OTC not available", mContext);
         }
     }
 
@@ -1741,6 +1779,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             dialog.dismiss();
             IPOSApplication.mProductListResult.clear();
             mRetailSalesAdapter.notifyDataSetChanged();
+            setTextDefault();
+            getProduct();
         }
     }
 
@@ -1762,6 +1802,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         }else if(mCallType == Constants.APP_DIALOG_BILLING) {
             setNewBillingWithoutSave();
             dialog.dismiss();
+            setTextDefault();
+            getProduct();
         }
 
     }
@@ -1848,5 +1890,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             IPOSApplication.totalpointsToRedeem=0;
             llRedeem.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void refresh() {
+        getProduct();
+        setTextDefault();
     }
 }

@@ -151,5 +151,9 @@ public class Constants {
 
 
     public static String KEY_CUSTOMER_POINTS_EMPCODE="POINTS_EMPCODE";
+    public static String isOTC="isOTC";
+    public static String otcPerc="otcPerc";
+    public static String otcValue="otcValue";
+
 }
 

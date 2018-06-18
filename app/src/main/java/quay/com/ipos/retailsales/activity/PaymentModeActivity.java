@@ -90,8 +90,14 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     //1 means data is synced and 0 means data is not synced
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
-
+    RefreshListener mRefreshListener;
     private boolean sendCOD= false;
+    public interface RefreshListener{
+        void refresh();
+    }
+    public void setRefreshListener(RefreshListener mRefreshListener){
+        this.mRefreshListener = mRefreshListener;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,7 +136,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         if (intent!=null){
             mTotalAmount=intent.getStringExtra(Constants.TOTAL_AMOUNT);
             mCustomerID = intent.getStringExtra(Constants.KEY_CUSTOMER);
-            if(!mCustomerEmail.equalsIgnoreCase("")) {
+            if(!mCustomerID.equalsIgnoreCase("") && mCustomerID != null) {
                 mCustomerPoints = intent.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS, 0);
                 mCustomerPointsPer = intent.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER, 0);
                 mCustomerEmail = intent.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
@@ -163,7 +169,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         llCashReceived=findViewById(R.id.llCashReceived);
         llToggle=findViewById(R.id.llToggle);
         toggleCOD=findViewById(R.id.toggleCOD);
-        spinner = (Spinner) findViewById(R.id.spnCardType);
+        spinner =  findViewById(R.id.spnCardType);
         btnPayCash=findViewById(R.id.btnPayCash);
         btnPayCard=findViewById(R.id.btnPayCard);
         buttonRedeem=findViewById(R.id.buttonRedeem);
@@ -179,6 +185,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         etCashAmount=findViewById(R.id.etCashAmount);
         etReceivedAmount=findViewById(R.id.etReceivedAmount);
         etReturnAmount=findViewById(R.id.etReturnAmount);
+        etReturnAmount.setEnabled(false);
         etCardAmount=findViewById(R.id.etCardAmount);
         etExpYear=findViewById(R.id.etExpYear);
         etLastDigit=findViewById(R.id.etLastDigit);
@@ -337,6 +344,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         }catch (Exception e){
 
         }
+//        mRefreshListener.refresh();
     }
 
     @Override

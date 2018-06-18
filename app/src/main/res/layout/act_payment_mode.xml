@@ -479,7 +479,7 @@
                     app:cardCornerRadius="10dp"
                     app:cardElevation="4dp"
                     android:layout_margin="@dimen/dim_10"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/dim_8"
                     android:padding="@dimen/dim_4">
 
@@ -651,6 +651,7 @@
                                     android:layout_gravity="left|center"
                                     android:textSize="14dp"
                                     android:inputType="number"
+                                    android:focusable="true"
                                     android:editable="false"
                                     android:enabled="false"
                                     android:padding="5dp"
