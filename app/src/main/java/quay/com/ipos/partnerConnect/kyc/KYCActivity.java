@@ -281,7 +281,6 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
 
             }
 
-
             setAdapter();
         }
     }
@@ -330,6 +329,7 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
 
                 break;
             case R.id.lLayoutVerified:
+                setRealmData("Verified");
                 lLayoutVerified.setBackgroundResource(R.drawable.card_selector_kyc);
                 lLayoutNew.setBackgroundResource(0);
                 lLayoutInprocess.setBackgroundResource(0);

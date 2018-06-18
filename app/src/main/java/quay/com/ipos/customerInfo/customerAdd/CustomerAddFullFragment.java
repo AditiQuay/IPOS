@@ -59,9 +59,11 @@ import quay.com.ipos.listeners.YourFragmentInterface;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.DividerItemDecoration;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
+import quay.com.ipos.utility.VerticalSpaceItemDecoration;
 
 /**
  * Created by niraj.kumar on 5/31/2018.
@@ -637,8 +639,15 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
             recyclerViewChild.setHasFixedSize(true);
             recyclerViewChild.setLayoutManager(new LinearLayoutManager(mContext));
+            //add ItemDecoration
+//            recyclerViewChild.addItemDecoration(new VerticalSpaceItemDecoration(VERTICAL_ITEM_SPACE));
+//            or
+//            recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
+            //or
+            recyclerViewChild.addItemDecoration(new DividerItemDecoration(getActivity(), R.drawable.divider));
             customerChildAdapter = new CustomerChildAdapter(mContext, childModels, this, this, this);
             recyclerViewChild.setAdapter(customerChildAdapter);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
