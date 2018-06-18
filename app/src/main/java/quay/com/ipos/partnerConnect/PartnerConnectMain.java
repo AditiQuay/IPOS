@@ -328,7 +328,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                                     Log.e(TAG, "empId is null");
                                     return;
                                 }
-                                pcModel.empCode =empId;
+                                pcModel.empCode = empId;
                                 pcModelLiveData.setValue(pcModel);
                             }
                         }
@@ -581,12 +581,12 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                 return false;
             }
 
-           /* if (newContact.Email == null || newContact.Email.isEmpty()) {
-                String error = "Contact Other -> Email is required!";
+            if (newContact.Email == null || newContact.Email.isEmpty()) {
+                String error = "Contact-> Email is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
-            }*/
+            }
 
         }
         //validation of account

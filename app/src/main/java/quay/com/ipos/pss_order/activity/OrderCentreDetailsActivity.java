@@ -127,24 +127,24 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         setContentView(R.layout.activity_order_center_detail);
 
         setHeader();
-        menu_item_container=findViewById(R.id.menu_item_container);
+        menu_item_container = findViewById(R.id.menu_item_container);
         menu_item_container.setVisibility(View.GONE);
 
         intitiateView();
 
-        tvEtaDate.setText("Eta - "+Util.getFormattedDates(etaDate.split(" ")[0],Constants.formatDate,Constants.format2));
+        tvEtaDate.setText("Eta - " + Util.getFormattedDates(etaDate.split(" ")[0], Constants.formatDate, Constants.format2));
 
         getOrderCentre();
-        toolbarTtile=findViewById(R.id.toolbarTtile);
+        toolbarTtile = findViewById(R.id.toolbarTtile);
         toolbarTtile.setText(getString(R.string.order_centre));
-        btnAccept=findViewById(R.id.btnAccept);
+        btnAccept = findViewById(R.id.btnAccept);
         btnAccept.setText(getString(R.string.accept));
 
-        rlETA= findViewById(R.id.rlETA);
+        rlETA = findViewById(R.id.rlETA);
         rlETA.setVisibility(View.VISIBLE);
-        viewETA=findViewById(R.id.viewETA);
+        viewETA = findViewById(R.id.viewETA);
         viewETA.setVisibility(View.VISIBLE);
-        llDate=findViewById(R.id.llDate);
+        llDate = findViewById(R.id.llDate);
 
         //work flow
         recylerViewFlow = (RecyclerView) findViewById(R.id.recylerViewFlow);
@@ -168,7 +168,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         recycler_viewRecentOrders.setAdapter(recentOrdersListAdapter);
 
         // address
-        recycler_viewAddress =  findViewById(R.id.recycler_viewAddress);
+        recycler_viewAddress = findViewById(R.id.recycler_viewAddress);
         mLayoutManager5 = new GridLayoutManager(this, 1);
         recycler_viewAddress.setLayoutManager(mLayoutManager5);
         recycler_viewAddress.addItemDecoration(new SpacesItemDecoration(10));
@@ -180,22 +180,22 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         recylerViewRoles.setVisibility(View.VISIBLE);
 
         //user flow
-        workFLowUserAdapter = new WorkFLowUserAdapter(mContext, stringArrayListRoles,this);
+        workFLowUserAdapter = new WorkFLowUserAdapter(mContext, stringArrayListRoles, this);
         recylerViewRoles.addItemDecoration(new SpacesItemDecoration(10));
         recylerViewRoles.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recylerViewRoles.setAdapter(workFLowUserAdapter);
 
 
-        if (serverResponse!=null)
-        setAllData(serverResponse);
+        if (serverResponse != null)
+            setAllData(serverResponse);
 
-        llFlow=(LinearLayout)findViewById(R.id.llFLow);
-      llDetails=(LinearLayout)findViewById(R.id.llDetails);
-        LinearLayout llRetailer=(LinearLayout)findViewById(R.id.llRetailer);
-       // LinearLayout llPartner=(LinearLayout)findViewById(R.id.llPartner);
-        final LinearLayout menu_item_container=(LinearLayout)findViewById(R.id.menu_item_container);
-        final ImageView imgArrow=(ImageView)findViewById(R.id.imgArrow);
-        LinearLayout llbottom_buttons=(LinearLayout)findViewById(R.id.llbottom_buttons);
+        llFlow = (LinearLayout) findViewById(R.id.llFLow);
+        llDetails = (LinearLayout) findViewById(R.id.llDetails);
+        LinearLayout llRetailer = (LinearLayout) findViewById(R.id.llRetailer);
+        // LinearLayout llPartner=(LinearLayout)findViewById(R.id.llPartner);
+        final LinearLayout menu_item_container = (LinearLayout) findViewById(R.id.menu_item_container);
+        final ImageView imgArrow = (ImageView) findViewById(R.id.imgArrow);
+        LinearLayout llbottom_buttons = (LinearLayout) findViewById(R.id.llbottom_buttons);
         llbottom_buttons.setVisibility(View.VISIBLE);
 
         llRetailer.setOnClickListener(new View.OnClickListener() {
@@ -223,7 +223,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     /*    getRecentOrdersData();
         getAddressData();
         getuserData();*/
-     //   getFlow();
+        //   getFlow();
 //        getRecentOrdersData();
 //        getAddressData();
 //        getuserData();
@@ -231,10 +231,14 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         llDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             //   dateDialogfrom();
+                //   dateDialogfrom();
             }
         });
 
+        Intent i = getIntent();
+        if (i!=null){
+        poNumber = i.getStringExtra("poNumber");
+    }
 
     }
 
