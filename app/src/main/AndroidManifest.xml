@@ -64,10 +64,6 @@
             android:label="@string/title_partner_connect"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
-<<<<<<< HEAD
-
-=======
->>>>>>> 2750692370af6a92e35db832a57300961b66ce8d
 
         <!-- ***** DDR Sales ****** -->
         <activity

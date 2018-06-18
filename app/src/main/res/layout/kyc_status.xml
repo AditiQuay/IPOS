@@ -137,7 +137,6 @@
                             android:layout_alignParentRight="true"
                             android:layout_below="@+id/textViewKycPendingSince"
                             android:fontFamily="@font/titilliumwebregular"
-                            android:text="6 April 18 11:00"
                             android:textColor="@color/grey"
                             android:textSize="@dimen/universal_text_size12" />
 

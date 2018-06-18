@@ -72,7 +72,7 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        main = inflater.inflate(R.layout.documents_fragment, container, false);
+        main = inflater.inflate(R.layout.kyc_documents_fragment, container, false);
         mContext = getActivity();
         findViewById();
         applyInitValues();

@@ -27,19 +27,13 @@ public class IPOSAPI {
     // NEW ORDER API
     public static String WEB_SERVICE_NOPRODUCTSEARCH = "PSSNewOrder/NOProductSearch";
     public static String WEB_SERVICE_NOGetEntityBuisnessPlaces = "PSSNewOrder/NOGetEntityBuisnessPlaces";
-<<<<<<< HEAD
 
-=======
->>>>>>> 2750692370af6a92e35db832a57300961b66ce8d
     public static String WEB_SERVICE_NOSubmitOrder = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOSubmitOrder";
     public static String WEB_SERVICE_NOSummary = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOSummary";
     public static String WEB_SERVICE_NOOrderDetail = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOOrderDetail";
     public static String WEB_SERVICE_NOTransaction = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOTransaction";
     public static String WEB_SERVICE_KYS_PSS_DETAIL = WEB_SERVICE_BASE_URL + "PSSConnects/KYCPssdetailList";
-<<<<<<< HEAD
     public static String WEB_SERVICE_KYC_PSS_REJECT = WEB_SERVICE_BASE_URL+"PSSConnects/KyCReject";
-=======
->>>>>>> 2750692370af6a92e35db832a57300961b66ce8d
 
 
     //inventory
