@@ -84,12 +84,12 @@
                 android:layout_height="14dp"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right|end|top"
-                android:layout_marginRight="10dp"
                 android:layout_marginLeft="@dimen/dim_8"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/circle_disabled"
                 android:gravity="center"
-                android:padding="3dp"/>
+                android:padding="3dp" />
 
         </RelativeLayout>
     </android.support.design.widget.AppBarLayout>
@@ -104,5 +104,23 @@
         <include layout="@layout/ddr_dashboard" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary">
 
+        <TextView
+            android:id="@+id/bntNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/titilliumwebregular"
+            android:padding="10dp"
+            android:text="Next"
+            android:textColor="#fff"
+            android:textSize="14sp" />
+    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

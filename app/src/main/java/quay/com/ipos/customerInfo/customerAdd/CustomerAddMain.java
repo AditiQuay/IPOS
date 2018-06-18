@@ -43,8 +43,10 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
 
     private DatabaseHandler dbHelper;
     private String TAG = CustomerAddMain.class.getSimpleName();
-    SharedPreferences sharedpreferences;
+    SharedPreferences sharedpreferences, quickPref;
     public static final String mypreference = "Data";
+    public static final String quickPreference = "QuickData";
+
     int count;
 
     @Override
@@ -91,6 +93,11 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.clear();
                 editor.apply();
+
+                quickPref = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor1 = quickPref.edit();
+                editor1.clear();
+                editor1.apply();
                 finish();
 
                 return true;

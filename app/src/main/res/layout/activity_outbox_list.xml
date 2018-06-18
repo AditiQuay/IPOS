@@ -86,5 +86,14 @@
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"></ListView>
 
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tvNoItemAvailable"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone"
+            android:text="@string/no_item_available"/>
+
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -44,7 +44,6 @@ import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.ddr.activity.AddOrderCentreActivity;
 import quay.com.ipos.pss_order.adapter.AddressListAdapter;
 import quay.com.ipos.pss_order.adapter.NewOrderItemsDetailListAdapter;
 import quay.com.ipos.pss_order.adapter.WorkFLowAdapter;
@@ -235,6 +234,10 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             }
         });
 
+        Intent i=getIntent();
+        if (i!=null){
+            poNumber=i.getStringExtra("poNumber");
+        }
 
     }
 
@@ -991,7 +994,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
     }
     public void onSearchButton() {
-        Intent mIntent = new Intent(OrderCentreDetailsActivity.this, AddOrderCentreActivity.class);
+        Intent mIntent = new Intent(OrderCentreDetailsActivity.this, quay.com.ipos.pss_order.activity.AddOrderCentreActivity.class);
         mIntent.putExtra(Constants.businessPlaceCode, businessCode);
         mIntent.putExtra(Constants.entityStateCode, entityStateCode);
         mIntent.putExtra("poNumber",poNumber);

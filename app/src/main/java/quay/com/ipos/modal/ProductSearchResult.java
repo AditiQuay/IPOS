@@ -54,7 +54,7 @@ public class ProductSearchResult {
     }
 
     public class Datum {
-
+        String parentProductID;
         @SerializedName("sProductFeature")
         @Expose
         private List<SProductFeature> sProductFeature = null;
@@ -118,7 +118,7 @@ public class ProductSearchResult {
         @SerializedName("barCodeNumber")
         @Expose
         private String barCodeNumber;
-//        @SerializedName("schemeID")
+        //        @SerializedName("schemeID")
 //        @Expose
 //        private String schemeID;
         @SerializedName("discount")
@@ -156,6 +156,14 @@ public class ProductSearchResult {
         private int totalQty;
         private double totalPoints;
         private double totalDiscountPrice;
+
+        public String getParentProductID() {
+            return parentProductID;
+        }
+
+        public void setParentProductID(String parentProductID) {
+            this.parentProductID = parentProductID;
+        }
 
         @SerializedName("conversionFactor")
         @Expose

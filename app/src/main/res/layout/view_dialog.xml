@@ -28,8 +28,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_toLeftOf="@+id/ImvClose"
                 android:alpha="0.7"
-                android:gravity="center"
-                android:text="Pan Card" />
+                android:gravity="center" />
 
             <ImageView
                 android:id="@+id/ImvClose"
@@ -40,7 +39,7 @@
                 android:layout_marginRight="@dimen/dim_5"
                 android:gravity="top"
                 android:padding="@dimen/dim_2"
-                android:src="@drawable/ic_action_closee" />
+                android:src="@drawable/ic_action_close" />
         </RelativeLayout>
 
 
@@ -58,7 +57,7 @@
             android:layout_height="@dimen/dim_150"
             android:background="@color/colorPrimary_100"
             android:orientation="vertical"
-            android:padding="@dimen/dim_16">
+            android:padding="@dimen/dim_8">
 
             <ImageView
                 android:id="@+id/imgDocumentPreview"
@@ -66,84 +65,10 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="top"
-                android:layout_marginRight="@dimen/dim_5"
                 android:gravity="top"
                 android:padding="@dimen/dim_2"
+                android:scaleType="fitCenter"
                 android:src="@drawable/profile_thumb" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lLayoutView"
-            android:orientation="horizontal"
-            android:padding="@dimen/dim_16">
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/tilMessage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/tieMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:hint="Message"
-                    android:inputType="text"
-                    android:lines="3"
-                    android:textSize="@dimen/universal_text_size16" />
-
-            </android.support.design.widget.TextInputLayout>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/llName"
-            android:layout_margin="@dimen/dim_16"
-            android:layout_marginTop="@dimen/dim_16">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/dim_10"
-                android:layout_weight="1">
-
-                <Button
-                    android:id="@+id/btnReject"
-                    style="@style/styleWhiteTextColor14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:background="@drawable/button_rectangle_grey"
-                    android:text="reject"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white" />
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_10"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <Button
-                    android:id="@+id/btnAccept"
-                    style="@style/styleWhiteTextColor14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:background="@drawable/button_rectangle_primary"
-                    android:text="accept"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white" />
-            </LinearLayout>
         </LinearLayout>
 
 

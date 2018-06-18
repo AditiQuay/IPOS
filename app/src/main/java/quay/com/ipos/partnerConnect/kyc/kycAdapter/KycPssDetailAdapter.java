@@ -45,7 +45,7 @@ public class KycPssDetailAdapter extends RecyclerView.Adapter<KycPssDetailAdapte
     public void onBindViewHolder(@NonNull ItemViewHolder holder, final int position) {
         KycPSSDetailsModel kycPSSDetailsModel = kycPSSDetailsModels.get(position);
         holder.textViewKycNumber.setText(kycPSSDetailsModel.getREQUEST_CODE());
-        holder.textViewKycPendingTime.setText(kycPSSDetailsModel.getCREATED_DATE());
+//        holder.textViewKycPendingTime.setText(kycPSSDetailsModel.getCREATED_DATE());
 
         StringTokenizer tokens = new StringTokenizer(kycPSSDetailsModel.getSectionChanged(), "|");
         String first = tokens.nextToken();// this will contain "Fruit"

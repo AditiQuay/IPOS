@@ -176,11 +176,17 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
                 Log.i(TAG, "KeyBusinessContactInfo is null");
                 KeyBusinessContactInfo KeyBusinessContactInfo = new KeyBusinessContactInfo();
                 KeyBusinessContactInfo.NewContact = new ArrayList<>();
+                NewContact newContact = new NewContact();
+                newContact.Name = "";
+                newContact.PrimaryMobile = "";
+                newContact.SecondaryMobile = "";
+                KeyBusinessContactInfo.NewContact.add(newContact);
+
                 pcModel.contactDetail.KeyBusinessContactInfo = KeyBusinessContactInfo;
             } else {
-                  Log.i(TAG, "KeyBusinessContactInfo is not null");
+                Log.i(TAG, "KeyBusinessContactInfo is not null");
 
-                }
+            }
 
             contactInfo = pcModel.contactDetail.KeyBusinessContactInfo;
             ArrayAdapter partnerTypeHeading = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, partnerKeyPosition);
@@ -256,6 +262,9 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
 
             } else if (editEmail.getText().hashCode() == charSequence.hashCode()) {
                 contactInfo.keyEmail = charSequence.toString();
+
+            } else if (editNote.getText().hashCode() == charSequence.hashCode()) {
+                contactInfo.keyEmpNote = charSequence.toString();
 
             }
         }

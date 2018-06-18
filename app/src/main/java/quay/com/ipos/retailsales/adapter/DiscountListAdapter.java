@@ -245,18 +245,18 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     userViewHolder.tvDiscountPrice.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                 } else {
 
-                        ProductSearchResult.Discount mDiscount = mDataset.get(((UserViewHolder) userViewHolder).getAdapterPosition());
-                        if(mDiscount.getDiscountTotal()!=0.0 )
-                            mDiscount.setDiscountTotal(value);
-                        else {
-                            mDiscount.setDiscountTotal(value);
-                        }
-                        mDataset.set(((UserViewHolder) userViewHolder).getAdapterPosition(), mDiscount);
+                    ProductSearchResult.Discount mDiscount = mDataset.get(((UserViewHolder) userViewHolder).getAdapterPosition());
+                    if(mDiscount.getDiscountTotal()!=0.0 )
+                        mDiscount.setDiscountTotal(value);
+                    else {
+                        mDiscount.setDiscountTotal(value);
+                    }
+                    mDataset.set(((UserViewHolder) userViewHolder).getAdapterPosition(), mDiscount);
 
-                        datum.setDiscount(mDataset);
-                        IPOSApplication.mProductListResult.set(retailAdapterPosition, datum);
+                    datum.setDiscount(mDataset);
+                    IPOSApplication.mProductListResult.set(retailAdapterPosition, datum);
 
-                        ((UserViewHolder) userViewHolder).tvDiscountPrice.setText(" - "+mContext.getResources().getString(R.string.Rs) +mDataset.get(position).getDiscountTotal() + "");
+                    ((UserViewHolder) userViewHolder).tvDiscountPrice.setText(" - "+mContext.getResources().getString(R.string.Rs) +mDataset.get(position).getDiscountTotal() + "");
 
                     userViewHolder.chkDiscount.setChecked(false);
 
@@ -394,12 +394,15 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                             totalQty1 = totalQty1 + IPOSApplication.mProductListResult.get(h).getQty();
                         }
 
-
-                        if(IPOSApplication.mProductListResult.get(h).isFreeItem()){
-                            totalFreeItems++;
-                            mTotalFreeArr.add( IPOSApplication.mProductListResult.get(h));
+                        if(this.datum.getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(h).getIProductModalId())) {
+                            if (IPOSApplication.mProductListResult.get(h).isFreeItem()) {
+                                totalFreeItems++;
+                                mTotalFreeArr.add(IPOSApplication.mProductListResult.get(h));
+                            }
+                        }else {
+                            if (IPOSApplication.mProductListResult.get(h).isFreeItem())
+                                totalFreeItems++;
                         }
-
                     }
 
                 }
@@ -440,7 +443,9 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                             isFreeNotApplied = false;
                             if(mTotalFreeArr.size()>0) {
                                 for (int k = 0; k < totalFreeItems; k++) {
-                                    IPOSApplication.mProductListResult.remove(mTotalFreeArr.get(k));
+                                    if(mTotalFreeArr.get(k).getParentProductID()!=null && !mTotalFreeArr.get(k).getParentProductID().equalsIgnoreCase(""))
+                                        if(this.datum.getIProductModalId().equalsIgnoreCase(mTotalFreeArr.get(k).getIProductModalId()))
+                                            IPOSApplication.mProductListResult.remove(mTotalFreeArr.get(k));
                                 }
                                 adapterListener.onRowClicked(-1);
                             }
@@ -978,6 +983,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 //    AppLog.e("IPOSApplication.mProductListResult: minDiscount 1-- ",Util.getCustomGson().toJson(minDiscount.get(i)));
                 //  AppLog.e("IPOSApplication.mProductListResult: datum 2--",Util.getCustomGson().toJson(datum));
                 datum1.setSProductName(minDiscount.get(i).getSProductName());
+                datum1.setParentProductID(minDiscount.get(i).getIProductModalId());
                 datum1.setBarCodeNumber(minDiscount.get(i).getBarCodeNumber());
                 datum1.setCgst(minDiscount.get(i).getCgst());
                 datum1.setSgst(minDiscount.get(i).getSgst());

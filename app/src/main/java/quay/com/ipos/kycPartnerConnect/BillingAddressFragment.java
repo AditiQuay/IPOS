@@ -33,7 +33,7 @@ public class BillingAddressFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.billing_address, container, false);
+        View view = inflater.inflate(R.layout.kyc_billing_address, container, false);
         mContext = getActivity();
         return view;
     }

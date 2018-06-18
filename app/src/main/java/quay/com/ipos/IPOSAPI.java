@@ -27,6 +27,7 @@ public class IPOSAPI {
     // NEW ORDER API
     public static String WEB_SERVICE_NOPRODUCTSEARCH = "PSSNewOrder/NOProductSearch";
     public static String WEB_SERVICE_NOGetEntityBuisnessPlaces = "PSSNewOrder/NOGetEntityBuisnessPlaces";
+
     public static String WEB_SERVICE_NOSubmitOrder = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOSubmitOrder";
     public static String WEB_SERVICE_NOSummary = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOSummary";
     public static String WEB_SERVICE_NOOrderDetail = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOOrderDetail";

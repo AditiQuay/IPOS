@@ -413,7 +413,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                             paymentRequest.setCustomerID(mCustomerID);
 
                         paymentRequest.setPaymentDetail(arrPaymentDetail);
-                        if(mCustomerID.equalsIgnoreCase("") && mCustomerID.equalsIgnoreCase("NA")){
+                        if(mCustomerID.equalsIgnoreCase("") || mCustomerID.equalsIgnoreCase("NA")){
 
                         }else {
                             String loyalty="";
