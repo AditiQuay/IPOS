@@ -20,20 +20,22 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.base.RunTimePermissionActivity;
+import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.modal.CommonParams;
 import quay.com.ipos.modal.LoginResult;
+import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
@@ -52,6 +54,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
     private TextView textViewForgotPassword, textViewMainTitle;
     private String sAppVersion, sDeviceType, sDeviceModel, sDeviceVersion, sDeviceIMEI;
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
+    DatabaseHandler db;
     private final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
     /**
      * Code used in requesting runtime permissions.
@@ -71,7 +74,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mContext = LoginActivity.this;
-
+        db = new DatabaseHandler(this);
         findViewById();
         applyInitValues();
         applyTypeFace();
@@ -251,35 +254,53 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         dismissProgress();
-        try {
-            JSONObject jsonObject = new JSONObject(serverResponse);
-            String code = jsonObject.getString("Code");
-            String message = jsonObject.getString("UserAccess");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
         if (httpStatusCode == Constants.SUCCESS) {
-            if (resultObj != null) {
+            if(serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_LOGIN)) {
+                if (resultObj != null) {
 
+                    LoginResult loginResult = (LoginResult) resultObj;
+                    Gson gson = new GsonBuilder().create();
+                    gson.fromJson(serverResponse, LoginResult.class);
+                    SharedPrefUtil.putString(Constants.Login_result, Util.getCustomGson().toJson(loginResult), mContext);
+                    SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
+                    SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().getAccessToken(), mContext);
+                    SharedPrefUtil.setStoreID(Constants.STORE_ID.trim(), loginResult.getUserAccess().getWorklocationID(), mContext);
                 LoginResult loginResult = (LoginResult) resultObj;
-                Gson gson = new GsonBuilder().create();
-                gson.fromJson(serverResponse, LoginResult.class);
                 SharedPrefUtil.putString(Constants.Login_result, Util.getCustomGson().toJson(loginResult), mContext);
                 SharedPrefUtil.putBoolean(Constants.ISLOGGEDIN.trim(), true, mContext);
                 SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().getAccessToken(), mContext);
                 SharedPrefUtil.setStoreID(Constants.STORE_ID.trim(), loginResult.getUserAccess().getWorklocationID(), mContext);
 
-                Prefs.putIntegerPrefs(Constants.entityCode.trim(), loginResult.getUserAccess().getEntityId());
-                Prefs.putStringPrefs(Constants.entityRole.trim(), loginResult.getUserAccess().getUserRole());
-                Prefs.putStringPrefs(Constants.employeeCode.trim(), loginResult.getUserAccess().getEmpCode());
-                Prefs.putStringPrefs("email", loginResult.getUserAccess().getUserEmailID());
-                Prefs.putStringPrefs(Constants.employeeRole.trim(), "distrubutor");
+                    Prefs.putIntegerPrefs(Constants.entityCode.trim(), loginResult.getUserAccess().getEntityId());
+                    Prefs.putStringPrefs(Constants.entityRole.trim(), loginResult.getUserAccess().getUserRole());
+                    Prefs.putStringPrefs(Constants.employeeCode.trim(), loginResult.getUserAccess().getEmpCode());
+                    Prefs.putStringPrefs("email", loginResult.getUserAccess().getUserEmailID());
+                    Prefs.putStringPrefs(Constants.employeeRole.trim(), "distrubutor");
 
-                new RealmController().saveUserDetail(serverResponse);
-                //new  RealmController().saveUserDetail(userdata);
+                    new RealmController().saveUserDetail(serverResponse);
+                    //new  RealmController().saveUserDetail(userdata);
+
+
+//                    Intent i = new Intent(mContext, MainActivity.class);
+//                    startActivity(i);
+                    searchProductCall(loginResult.getUserAccess().getWorklocationID()+"");
+                }
+            }else if(serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT)){
+                if(resultObj!=null){
+                    ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
+                    ProductSearchResult  mProductSearchResult = (ProductSearchResult) resultObj;
+                    data.addAll(mProductSearchResult.getData());
+//                    IPOSApplication.datumArrayList.addAll(data);
+                    if(db.isRetailMasterEmpty(db.TABLE_RETAIL)) {
+                        for (int i = 0; i < data.size(); i++) {
+                            db.addProduct(data.get(i));
+                        }
+                    }
+                }
+
+
                 Intent i = new Intent(mContext, MainActivity.class);
                 startActivity(i);
-
             }
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
             Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
@@ -294,6 +315,23 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         }
 
 
+    }
+    private void searchProductCall(String s) {
+//        showProgress(getResources().getString(R.string.please_wait));
+        CommonParams mCommonParams = new CommonParams();
+        mCommonParams.setStoreId(s);
+        mCommonParams.setSearchParam("NA");
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT);
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(mCommonParams);
+        mTask.setListener(this);
+        mTask.setResultType(ProductSearchResult.class);
+        if(Util.isConnected())
+            mTask.execute();
+        else
+            Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
     }
 
     @Override

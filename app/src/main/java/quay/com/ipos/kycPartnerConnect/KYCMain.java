@@ -61,10 +61,13 @@ import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static quay.com.ipos.utility.Constants.employeeCode;
 
 /**
  * Created by niraj.kumar on 6/3/2018.
@@ -72,7 +75,7 @@ import retrofit2.Response;
 
 public class KYCMain extends AppCompatActivity implements InitInterface,
         RelationShipFragment.OnFragmentInteractionListener, View.OnClickListener {
-    private static final String TAG = PartnerConnectMain.class.getSimpleName();
+    private static final String TAG = KYCMain.class.getSimpleName();
     private Activity activity;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -502,6 +505,7 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
                         if (response1 != null) {
                             PCModel pcModel = response1.response;
                             if (pcModel != null) {
+                                Log.e(TAG, "pcDataContact" + new Gson().toJson(pcModel.contactDetail));
                                 pcModelLiveData.setValue(pcModel);
                             }
                         }

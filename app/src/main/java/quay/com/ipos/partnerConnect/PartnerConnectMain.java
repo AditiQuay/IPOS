@@ -42,6 +42,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static quay.com.ipos.utility.Constants.employeeCode;
+
 /**
  * Created by niraj.kumar on 6/3/2018.
  */
@@ -320,6 +322,13 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                         if (response1 != null) {
                             PCModel pcModel = response1.response;
                             if (pcModel != null) {
+                                String empId = Prefs.getStringPrefs(employeeCode);
+                                Log.i(TAG, "empId" + empId);
+                                if (empId == null) {
+                                    Log.e(TAG, "empId is null");
+                                    return;
+                                }
+                                pcModel.empCode = empId;
                                 pcModelLiveData.setValue(pcModel);
                             }
                         }
@@ -572,12 +581,12 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                 return false;
             }
 
-           /* if (newContact.Email == null || newContact.Email.isEmpty()) {
-                String error = "Contact Other -> Email is required!";
+            if (newContact.Email == null || newContact.Email.isEmpty()) {
+                String error = "Contact-> Email is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
-            }*/
+            }
 
         }
         //validation of account

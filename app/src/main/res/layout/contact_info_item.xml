@@ -89,10 +89,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Name *"
-                                    android:enabled="false"
-                                    android:focusable="false"
-                                    android:maxLines="1"
                                     android:inputType="textPersonName"
+                                    android:maxLines="1"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
@@ -124,8 +122,6 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Primary Mobile No *"
-                                    android:enabled="false"
-                                    android:focusable="false"
                                     android:inputType="phone"
                                     android:maxLines="1"
                                     android:textSize="@dimen/universal_text_size14" />
@@ -149,17 +145,36 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:hint="Secondary Mobile No. *"
-                                    android:enabled="false"
-                                    android:focusable="false"
-                                    android:maxLines="1"
                                     android:inputType="phone"
+                                    android:maxLines="1"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
 
                         </LinearLayout>
+
+
                     </LinearLayout>
 
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/editEmailInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dim_2"
+                        android:layout_marginRight="@dimen/dim_2"
+                        android:layout_marginTop="8dp">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/editEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Email *"
+                            android:fontFamily="@font/titilliumwebregular"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:textSize="@dimen/universal_text_size14" />
+
+                    </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
             </LinearLayout>

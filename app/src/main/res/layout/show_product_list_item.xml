@@ -68,8 +68,7 @@
                         android:textColor="@color/dashboard_textcolor"
                         android:singleLine="true"
                         android:text="Missileefsdss"
-                        android:textSize="@dimen/text_size_14sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                        android:textSize="@dimen/text_size_14sp" />
 
                     <View
                         android:layout_width="@dimen/dim_1"
@@ -90,8 +89,7 @@
                         android:textColor="@color/dashboard_textcolor"
                         android:singleLine="true"
                         android:text="500 gm"
-                        android:textSize="@dimen/text_size_14sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                        android:textSize="@dimen/text_size_14sp" />
 
 
                 </LinearLayout>
@@ -118,8 +116,7 @@
                         android:text="225"
                         android:textColor="@color/dashboard_textcolor"
 
-                        android:textSize="@dimen/text_size_14sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                        android:textSize="@dimen/text_size_14sp" />
 
                     <View
                         android:layout_width="@dimen/dim_1"
@@ -141,8 +138,7 @@
                         android:text="250"
                         android:textColor="@color/dashboard_textcolor"
 
-                        android:textSize="@dimen/text_size_14sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                        android:textSize="@dimen/text_size_14sp"/>
 
                 </LinearLayout>
 
@@ -170,8 +166,7 @@
                         android:text="50 Pts."
                         android:textColor="@color/dark_green"
 
-                        android:textSize="@dimen/text_size_14sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                        android:textSize="@dimen/text_size_14sp"/>
 
 
                 </LinearLayout>
@@ -250,8 +245,7 @@
                         android:paddingBottom="2dp"
                         android:text="-"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_21sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                        android:textSize="@dimen/text_size_21sp" />
 
                     <quay.com.ipos.ui.CustomEditText
                         android:id="@+id/etQtySelected"
@@ -268,8 +262,7 @@
                         android:paddingTop="@dimen/dim_6"
                         android:text="1"
                         android:textColor="@color/dashboard_textcolor"
-                        android:textSize="@dimen/text_size_12sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                        android:textSize="@dimen/text_size_12sp" />
 
                     <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvPlus"
@@ -282,8 +275,7 @@
                         android:paddingBottom="2dp"
                         android:text="+"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/text_size_21sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                        android:textSize="@dimen/text_size_21sp" />
 
                 </LinearLayout>
 
@@ -328,8 +320,7 @@
                 android:gravity="right"
                 android:text="250 Pts."
                 android:textColor="@color/dashboard_textcolor"
-                android:textSize="@dimen/text_size_14sp"
-                app:typeface="TitilliumWeb-SemiBold.ttf" />
+                android:textSize="@dimen/text_size_14sp"/>
         </LinearLayout>
 
         <quay.com.ipos.ui.CustomTextView
@@ -344,8 +335,7 @@
             android:text="Free"
             android:textColor="@color/green"
             android:visibility="gone"
-            android:textSize="@dimen/text_size_14sp"
-            app:typeface="TitilliumWeb-SemiBold.ttf" />
+            android:textSize="@dimen/text_size_14sp"/>
 
 
         <quay.com.ipos.ui.CustomTextView
@@ -360,8 +350,7 @@
             android:gravity="right"
             android:text="@string/Rs"
             android:textColor="@color/dashboard_textcolor"
-            android:textSize="@dimen/dim_14"
-            app:typeface="TitilliumWeb-SemiBold.ttf" />
+            android:textSize="@dimen/dim_14"/>
 
     </RelativeLayout>
 

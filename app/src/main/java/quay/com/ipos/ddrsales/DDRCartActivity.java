@@ -57,7 +57,6 @@ import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 
-import quay.com.ipos.retailsales.activity.AddProductActivity;
 import quay.com.ipos.retailsales.activity.OutboxActivity;
 import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
@@ -89,6 +88,7 @@ public class DDRCartActivity extends BaseActivity implements  View.OnClickListen
     private MainActivity mainActivity;
     double mCustomerPoints,mCustomerPointsPer=0;
     String mCustomerID="",mCustomerEmail="";
+    private View bntNext;
     private ArrayList<PaymentRequest.CartDetail> cartDetail = new ArrayList<>();
     private ArrayList<PaymentRequest.Scheme> scheme = new ArrayList<>();
     /**
@@ -167,6 +167,7 @@ public class DDRCartActivity extends BaseActivity implements  View.OnClickListen
         mDdr = (DDR) getIntent().getSerializableExtra("ddr");
         mDDRDetails =  findViewById(R.id.mDDRDetails);
         mDDRDetailsIcon = findViewById(R.id.mDDRDetailsIcon);
+        bntNext = findViewById(R.id.bntNext);
 
         if (mDdr != null) {
             mDDRDetails.setText(mDdr.mDDRCode + " - " + mDdr.mDDRName);
@@ -201,6 +202,16 @@ public class DDRCartActivity extends BaseActivity implements  View.OnClickListen
         }catch (Exception e){
 
         }
+
+        bntNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, DDRInvoicePreviewActivity.class);
+                intent.putExtra("ddr", mDdr);
+                startActivity(intent);
+
+            }
+        });
         
     }
 
