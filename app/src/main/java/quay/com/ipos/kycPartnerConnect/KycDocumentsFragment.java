@@ -43,7 +43,7 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
     private TextView textViewPhotoHeading, textViewDocumentsVaultHeading, textViewPanCardHeading, textViewAppointmentHeading, textViewAnnexureHeading, textViewCompilanceHeading;
     private TextView textViewPhotoStatus, textViewPanStatus, textViewAppointmentStatus, textViewAnnexureStatus, textViewCompilanceStatus;
     private ImageView imageViewphoto, imageViewPan, imageViewAppointment, imageViewAnnexure, imageViewCompilance;
-    private Button btnPhotoCamera, btnPhotoUpload, btnPanCamera, btnPanUpload, btnAppointmentCamera, btnAppointmentUpload, btnAnnexureCamera, btnCompilanceCamera, btnCompilanceUpload, btnAnnexureUpload;
+    private Button btnPhotoCamera, btnPhotoView, btnPanCamera, btnPanView, btnAppointmentView,  btnCompilanceView, btnAnnexureView;
     private ImageView imageViewPhotoStatus, imageViewPanStatus, imageViewAppointmentStatus, imageViewAnnexureStatus, imageViewCompilanceStatus;
     private RelativeLayout rLayoutValidCompilanceDocument, rLayoutValidAppointmentDocument, rLayoutValidDocument, rLayoutValidPanDocument, rLayoutValidPhotoDocument;
     private TextView textViewValidCompilanceDocument, textViewValidAppointmentDocument, textViewValidAnnexureDocument, textViewValidPanDocument, textViewValidPhotoDocument;
@@ -72,7 +72,7 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        main = inflater.inflate(R.layout.documents_fragment, container, false);
+        main = inflater.inflate(R.layout.kyc_documents_fragment, container, false);
         mContext = getActivity();
         findViewById();
         applyInitValues();
@@ -118,20 +118,13 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
         imageViewAnnexureStatus = main.findViewById(R.id.imageViewAnnexureStatus);
         imageViewCompilanceStatus = main.findViewById(R.id.imageViewCompilanceStatus);
 
-        //Button camera
-        btnPhotoCamera = main.findViewById(R.id.btnCamContact);
-        btnPanCamera = main.findViewById(R.id.btnPanCamera);
-        btnAppointmentCamera = main.findViewById(R.id.btnAppointmentCamera);
-        btnAnnexureCamera = main.findViewById(R.id.btnAnnexureCamera);
-        btnCompilanceCamera = main.findViewById(R.id.btnCompilanceCamera);
-
         //Button upload
 
-        btnPhotoUpload = main.findViewById(R.id.btnPhotoUpload);
-        btnPanUpload = main.findViewById(R.id.btnPanUpload);
-        btnAppointmentUpload = main.findViewById(R.id.btnAppointmentUpload);
-        btnCompilanceUpload = main.findViewById(R.id.btnCompilanceUpload);
-        btnAnnexureUpload = main.findViewById(R.id.btnAnnexureUpload);
+        btnPhotoView = main.findViewById(R.id.btnPhotoView);
+        btnPanView = main.findViewById(R.id.btnPanView);
+        btnAppointmentView = main.findViewById(R.id.btnAppointmentView);
+        btnCompilanceView = main.findViewById(R.id.btnCompilanceView);
+        btnAnnexureView = main.findViewById(R.id.btnAnnexureView);
 
         //RelativeLayout
         rLayoutValidCompilanceDocument = main.findViewById(R.id.rLayoutValidCompilanceDocument);
@@ -148,19 +141,12 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
         textViewValidPhotoDocument = main.findViewById(R.id.textViewValidPhotoDocument);
 
 
-        //Camera click listner
-        btnPhotoCamera.setOnClickListener(this);
-        btnPanCamera.setOnClickListener(this);
-        btnAppointmentCamera.setOnClickListener(this);
-        btnAnnexureCamera.setOnClickListener(this);
-        btnCompilanceCamera.setOnClickListener(this);
-
         //Upload button click listner
-        btnPhotoUpload.setOnClickListener(this);
-        btnPanUpload.setOnClickListener(this);
-        btnAppointmentUpload.setOnClickListener(this);
-        btnCompilanceUpload.setOnClickListener(this);
-        btnAnnexureUpload.setOnClickListener(this);
+        btnPhotoView.setOnClickListener(this);
+        btnPanView.setOnClickListener(this);
+        btnAppointmentView.setOnClickListener(this);
+        btnCompilanceView.setOnClickListener(this);
+        btnAnnexureView.setOnClickListener(this);
 
 
     }
@@ -186,17 +172,6 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
         FontUtil.applyTypeface(textViewAnnexureStatus, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(textViewCompilanceStatus, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
-        FontUtil.applyTypeface(btnPhotoCamera, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnPanCamera, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnAppointmentCamera, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnAnnexureCamera, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnCompilanceCamera, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-
-        FontUtil.applyTypeface(btnPhotoUpload, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnPanUpload, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnAppointmentUpload, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnCompilanceUpload, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(btnAnnexureUpload, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
     }
 
     @Override
@@ -206,48 +181,22 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
 
     @Override
     public void onClick(View v) {
-
-        btnPhotoCamera.setOnClickListener(this);
-        btnPanCamera.setOnClickListener(this);
-        btnAppointmentCamera.setOnClickListener(this);
-        btnAnnexureCamera.setOnClickListener(this);
-        btnCompilanceCamera.setOnClickListener(this);
-
         //Upload button click listner
-        btnPhotoUpload.setOnClickListener(this);
-        btnPanUpload.setOnClickListener(this);
-        btnAppointmentUpload.setOnClickListener(this);
-        btnCompilanceUpload.setOnClickListener(this);
-        btnAnnexureUpload.setOnClickListener(this);
+        btnPhotoView.setOnClickListener(this);
+        btnPanView.setOnClickListener(this);
+        btnAppointmentView.setOnClickListener(this);
+        btnCompilanceView.setOnClickListener(this);
+        btnAnnexureView.setOnClickListener(this);
         switch (v.getId()) {
-            case R.id.btnCamContact:
-                gotToCamera(v, 1);
+            case R.id.btnPhotoView:
                 break;
-            case R.id.btnPanCamera:
-                gotToCamera(v, 2);
-
+            case R.id.btnPanView:
                 break;
-            case R.id.btnAppointmentCamera:
-                gotToCamera(v, 3);
-
+            case R.id.btnAppointmentView:
                 break;
-            case R.id.btnAnnexureCamera:
-                gotToCamera(v, 4);
-
+            case R.id.btnCompilanceView:
                 break;
-            case R.id.btnCompilanceCamera:
-                gotToCamera(v, 5);
-
-                break;
-            case R.id.btnPhotoUpload:
-                break;
-            case R.id.btnPanUpload:
-                break;
-            case R.id.btnAppointmentUpload:
-                break;
-            case R.id.btnCompilanceUpload:
-                break;
-            case R.id.btnAnnexureUpload:
+            case R.id.btnAnnexureView:
             default:
                 break;
         }

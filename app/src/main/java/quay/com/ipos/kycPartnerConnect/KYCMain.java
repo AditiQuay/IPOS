@@ -2,6 +2,7 @@ package quay.com.ipos.kycPartnerConnect;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,6 +20,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,6 +39,12 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.data.remote.RestService;
@@ -48,6 +58,7 @@ import quay.com.ipos.partnerConnect.model.BillnDelivery;
 import quay.com.ipos.partnerConnect.model.Cheques;
 import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.partnerConnect.model.PCModel;
+import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
@@ -75,6 +86,7 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
     private int entityCode;
     private String requestCode;
     private Dialog myDialog;
+    private String employeeCode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,7 +99,7 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
         Intent i = getIntent();
         entityCode = i.getIntExtra("EntityCode", 0);
         requestCode = i.getStringExtra("RequestCode");
-
+        employeeCode = Prefs.getStringPrefs(Constants.employeeCode.trim());
         findViewById();
         applyInitValues();
         applyTypeFace();
@@ -244,14 +256,12 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnReject) {
-            TextView textViewTitle;
             ImageView ImvClose;
-            TextInputLayout tilMessage;
-            TextInputEditText tieMessage;
-            Button btnAccept;
+            final TextInputLayout tilMessage;
+            final TextInputEditText tieMessage;
+            Button btnSubmit;
 
             myDialog.setContentView(R.layout.view_note_dialog);
-            textViewTitle = myDialog.findViewById(R.id.textViewTitle);
             ImvClose = myDialog.findViewById(R.id.ImvClose);
             ImvClose.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -260,14 +270,136 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
                 }
             });
             tilMessage = myDialog.findViewById(R.id.tilMessage);
-            btnAccept = myDialog.findViewById(R.id.btnAccept);
-            btnAccept.setOnClickListener(this);
+            tieMessage = myDialog.findViewById(R.id.tieMessage);
+            tieMessage.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    tilMessage.setErrorEnabled(false);
+                    tilMessage.setError(null);
+                }
+            });
+            btnSubmit = myDialog.findViewById(R.id.btnSubmit);
+            btnSubmit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (TextUtils.isEmpty(tieMessage.getText().toString())) {
+                        tilMessage.setErrorEnabled(true);
+                        tilMessage.setError("Please write a Note.");
+                    } else {
+                        postRejection(employeeCode, requestCode, tieMessage.getText().toString());
+
+                    }
+                }
+            });
 
 
             myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             myDialog.show();
 
         }
+    }
+
+    public void postRejection(String employeeCode, String requestCode, String message) {
+        final ProgressDialog progressDialog = new ProgressDialog(activity);
+        progressDialog.show();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("empCode", employeeCode);
+            jsonObject.put("jsutification", message);
+            jsonObject.put("requestCode", requestCode);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpClient okHttpClient = APIClient.getHttpClient();
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject.toString());
+        String url = IPOSAPI.WEB_SERVICE_KYC_PSS_REJECT;
+
+
+        final Request request = APIClient.getPostRequest(activity, url, requestBody);
+        okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onFailure(okhttp3.Call call, final IOException e) {
+                Log.e(TAG, "Exception::" + e.getMessage());
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onResponse(okhttp3.Call call, final okhttp3.Response response) throws IOException {
+                Log.e(TAG, "Response****" + response);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                });
+                try {
+                    if (response != null && response.isSuccessful()) {
+
+                        String responseData = response.body().string();
+                        if (responseData != null) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show();
+                                    myDialog.dismiss();
+                                }
+                            });
+                        }
+                    } else if (response.code() == Constants.BAD_REQUEST) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.INTERNAL_SERVER_ERROR) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.URL_NOT_FOUND) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.UNAUTHORIZE_ACCESS) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.CONNECTION_OUT) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(activity, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+                }
+            }
+        });
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
@@ -407,9 +539,9 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
 //        }
         JSONObject object = new JSONObject();
         try {
-            object.put("empCode","1");
-            object.put("jsutification","dhjdh");
-            object.put("requestCode","sksnks");
+            object.put("empCode", employeeCode.trim());
+            object.put("jsutification", "");
+            object.put("requestCode", requestCode);
             object.put("pssRespnce", new JSONObject(new Gson().toJson(getPcModelData().getValue())));
 
         } catch (JSONException e) {

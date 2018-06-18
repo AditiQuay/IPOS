@@ -31,6 +31,8 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.IPOSAPI;
@@ -40,7 +42,6 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomeChildListModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerRequestModel;
 import quay.com.ipos.helper.DatabaseHandler;
-import quay.com.ipos.inventory.activity.InventoryGRNStepsActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.YourFragmentInterface;
 import quay.com.ipos.modal.CustomerList;
@@ -79,8 +80,12 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     private ProgressDialog m_Dialog;
     YourFragmentInterface yourFragmentInterface;
     SharedPreferences sharedpreferences;
+    SharedPreferences quickPref;
     public static final String mypreference = "Data";
+    public static final String quickPreference = "QuickData";
     SharedPreferences.Editor editor;
+    private List<String> titlePosition = new ArrayList<>();
+    private List<String> genderPosition = new ArrayList<>();
 
     public CustomerAddQuickFragment() {
 
@@ -106,14 +111,56 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
+        titlePosition = Arrays.asList(nameTitle);
+        genderPosition = Arrays.asList(genderTitle);
+
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+        setData();
 
         return main;
     }
 
+    public void setData() {
+        quickPref = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
+        String title = quickPref.getString("title", "");
+        String gender = quickPref.getString("gender", "");
+        String firstName = quickPref.getString("firstName", "");
+        String lastName = quickPref.getString("lastName", "");
+        String MobileNumber = quickPref.getString("mobileNumber", "");
+
+        if (!TextUtils.isEmpty(title)) {
+            if (titlePosition.contains(title)) {
+                int index = titlePosition.indexOf(title);
+                titleSpinner.setSelection(index + 1);
+                titleSpinner.setEnabled(false);
+            } else {
+                titleSpinner.setEnabled(true);
+            }
+        }
+        if (!TextUtils.isEmpty(gender)) {
+            if (genderPosition.contains(gender)) {
+                int index = genderPosition.indexOf(gender);
+                genderSpinner.setSelection(index + 1);
+                titleSpinner.setSelection(index + 1);
+                titleSpinner.setEnabled(false);
+            }
+        }
+        if (!TextUtils.isEmpty(firstName)) {
+            tieFirstName.setText(firstName);
+            tieFirstName.setFocusable(false);
+        }
+        if (!TextUtils.isEmpty(lastName)) {
+            tieLastName.setText(lastName);
+            tieLastName.setFocusable(false);
+        }
+        if (!TextUtils.isEmpty(MobileNumber)) {
+            tieMobileNumber.setText(MobileNumber);
+            tieMobileNumber.setFocusable(false);
+        }
+    }
 
     @Override
     public void findViewById() {
@@ -384,6 +431,43 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
 
     @Override
     public void fragmentBecameVisible() {
+        quickPref = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
+        String title = quickPref.getString("title", "");
+        String gender = quickPref.getString("gender", "");
+        String firstName = quickPref.getString("firstName", "");
+        String lastName = quickPref.getString("lastName", "");
+        String mobileNumber = quickPref.getString("mobileNumber", "");
+
+        if (!TextUtils.isEmpty(title)) {
+            if (titlePosition.contains(title)) {
+                int index = titlePosition.indexOf(title);
+                titleSpinner.setSelection(index + 1);
+                titleSpinner.setEnabled(false);
+            } else {
+                titleSpinner.setEnabled(true);
+            }
+        }
+        if (!TextUtils.isEmpty(gender)) {
+            if (genderPosition.contains(gender)) {
+                int index = genderPosition.indexOf(gender);
+                genderSpinner.setSelection(index + 1);
+                titleSpinner.setSelection(index + 1);
+                titleSpinner.setEnabled(false);
+            }
+        }
+        if (quickPref.contains("firstName")) {
+            tieFirstName.setText(firstName);
+            tieFirstName.setFocusable(false);
+        }
+        if (quickPref.contains("lastName")) {
+            tieLastName.setText(lastName);
+            tieLastName.setFocusable(false);
+        }
+        if (quickPref.contains("mobileNumber")) {
+            tieMobileNumber.setText(mobileNumber);
+            tieMobileNumber.setFocusable(false);
+        }
+
 
     }
 
@@ -394,8 +478,9 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         if (materialSpinner.getId() == R.id.titleSpinner) {
             editor.putString("title", selectedSpinner);
             editor.apply();
-        }if (materialSpinner.getId()==R.id.genderSpinner){
-            editor.putString("gender",selectedSpinner);
+        }
+        if (materialSpinner.getId() == R.id.genderSpinner) {
+            editor.putString("gender", selectedSpinner);
             editor.apply();
         }
 

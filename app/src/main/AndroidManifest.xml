@@ -65,6 +65,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
+
         <!-- ***** DDR Sales ****** -->
         <activity
             android:name=".ddrsales.DDROrderCenterActivity"
@@ -249,10 +250,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <!--  <activity
-              android:name=".inventory.activity.InventoryStepsActivity"
-              android:screenOrientation="portrait"
-              android:theme="@style/AppTheme.NoActionBar" />-->
+      <!--  <activity
+            android:name=".inventory.activity.InventoryStepsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".pss_order.activity.EditOrderCentreActivity"
             android:screenOrientation="portrait"

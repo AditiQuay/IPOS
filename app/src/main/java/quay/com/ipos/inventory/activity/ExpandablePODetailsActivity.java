@@ -442,7 +442,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         try {
             jsonObject1.put("empCode",Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject1.put("businessPlaceId",businessPlaceId);
-            jsonObject1.put("poNumber",poNumber.replace("PO",""));
+            jsonObject1.put("poNumber",poNumber);
 
         } catch (JSONException e) {
             e.printStackTrace();

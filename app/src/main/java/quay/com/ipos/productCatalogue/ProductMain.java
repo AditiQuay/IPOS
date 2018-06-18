@@ -51,7 +51,6 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
     private SwipeRefreshLayout swipeToRefresh;
     ArrayList<ProductSectionModal> productSectionModals = new ArrayList<>();
     private ArrayList<ProductItemModal> singleItem = new ArrayList<>();
-
     private SearchView searchViewCatalogue;
     private SearchedItemsAdapter searchedItemsAdapter;
     private ProductMainSectionAdapter productMainSectionAdapter;
@@ -86,17 +85,17 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
 
     private void getServerData(String response) {
         try {
+
             // Creating JSONObject from String
             JSONObject jsonObjMain = new JSONObject(response);
             // Creating JSONArray from JSONObject
             JSONArray jsonArray = jsonObjMain.optJSONArray(ProductCatalogueEnum.info.toString());
-
+            ArrayList<ProductItemModal> productItemModals = new ArrayList<>();
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 ProductSectionModal dm = new ProductSectionModal();
                 dm.setHeaderTitle(jsonObject.optString(ProductCatalogueEnum.section.toString()));
                 dm.setSectionProduct(jsonObject.optString(ProductCatalogueEnum.sectionProduct.toString()));
-
 
                 JSONArray jsonArray3 = jsonObject.optJSONArray(ProductCatalogueEnum.sectionItems.toString());
                 singleItem = new ArrayList<>();
@@ -108,6 +107,7 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
                     productItemModal.setProductUrl(jsonObject1.optString(ProductCatalogueEnum.productMainUrl.toString()));
                     productItemModal.setCount(jsonObject1.optString(ProductCatalogueEnum.count.toString()));
                     singleItem.add(productItemModal);
+                    productItemModals.add(productItemModal);
                 }
                 dm.setProductItemModals(singleItem);
                 productSectionModals.add(dm);
@@ -117,7 +117,7 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
 
 
             ProductCatalogueUtils.saveProductData(mContext, productSectionModals);
-            ProductCatalogueUtils.saveSearchedProductData(mContext, singleItem);
+            ProductCatalogueUtils.saveSearchedProductData(mContext, productItemModals);
 
             productMainSectionAdapter = new ProductMainSectionAdapter(mContext, ProductCatalogueUtils.getProductSectionModals(mContext));
             recyclerviewCategory.setAdapter(null);
@@ -178,13 +178,14 @@ public class ProductMain extends Fragment implements InitInterface, SwipeRefresh
         recyclerviewFilter.setHasFixedSize(true);
         recyclerviewFilter.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
+        getProductList();
         if (ProductCatalogueUtils.getSearchedItems(mContext) != null) {
             searchedItemsAdapter = new SearchedItemsAdapter(mContext, ProductCatalogueUtils.getSearchedItems(mContext));
             recyclerviewFilter.setAdapter(null);
             recyclerviewFilter.setAdapter(searchedItemsAdapter);
         }
 
-        getProductList();
+
         SearchView.SearchAutoComplete searchAutoComplete =
                 (SearchView.SearchAutoComplete) searchViewCatalogue.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchAutoComplete.setTextColor(getResources().getColor(R.color.colorPrimary));
