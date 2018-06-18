@@ -326,6 +326,7 @@
     <string name="grn">GRN</string>
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
+
     <string name="listEmptyNewOrder">No New Order</string>
     <string name="listEmptyDeliverd">No Deliver Item</string>
     <string name="string_delivered">Delivered Items</string>
@@ -339,6 +340,11 @@
     <string name="ddrb2bDelivered">Delivered</string>
     <string name="ddrb2bCancelled">Cancelled</string>
     <string name="title_b2bsales">B2B Sales</string>
+
+
+
+    <string name="ddr_b2b_search_hint">Enter DDR Code/Name</string>
+
     <string name="save_close"><![CDATA[Save & Close]]></string>
     <string name="hsn">HSN</string>
     <string name="gst_perc">GST%</string>
@@ -359,6 +365,7 @@
 
     <string name="title_b2b_order_center">B2B Order Center</string>
     <string name="title_b2b_ddr_select">B2B DDR Select</string>
+>>>>>>> e32676fa4b060634a0e31b9753a3564f5c8ad2f1
 
 
 </resources>

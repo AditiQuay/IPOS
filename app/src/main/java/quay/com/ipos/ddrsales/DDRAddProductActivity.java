@@ -1,10 +1,12 @@
 package quay.com.ipos.ddrsales;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -23,6 +25,7 @@ import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.modal.CommonParams;
 import quay.com.ipos.modal.LoginResult;
@@ -42,22 +45,26 @@ import quay.com.ipos.utility.Util;
 public class DDRAddProductActivity extends BaseActivity implements View.OnClickListener, ServiceTask.ServiceResultListener{
 
     private static final String TAG = DDRAddProductActivity.class.getSimpleName();
-    /**
-     * The Array searchlist.
-     */
-    ArrayList<ProductSearchResult.Datum> arrSearchlist= new ArrayList<>();
-    //    public ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
+    private Activity activity;
+    private Toolbar toolbar;
+    private TextView mDDRDetails;
+    private ImageView mDDRDetailsIcon;
+    private TextView tvClear;
     private EditText searchView;
     private RecyclerView mRecyclerView;
+
+    ArrayList<ProductSearchResult.Datum> arrSearchlist= new ArrayList<>();
+
     private LinearLayoutManager mLayoutManager;
-    private ImageView imvClearAdded,imvBack;
+    private ImageView imvClearAdded;
     private ProductListResult mProductListResult;
     private TextView tvItemSize,tvNoItemAvailable,tvItemAddedSize;
     private AddProductAdapter mAddProductAdapter;
-    private TextView tvClear;
     private LinearLayout llAccept,llSize,llAdded;
     DatabaseHandler databaseHandler;
     LoginResult loginResult;
+
+    private DDR mDdr;
     /**
      * The data.
      */
@@ -66,11 +73,32 @@ public class DDRAddProductActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activity = this;
         setContentView(R.layout.activity_ddr_add_product);
 
+        toolbar = findViewById(R.id.appBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        mDdr = (DDR) getIntent().getSerializableExtra("ddr");
+        mDDRDetails =  findViewById(R.id.mDDRDetails);
+        mDDRDetailsIcon = findViewById(R.id.mDDRDetailsIcon);
+
+        if (mDdr != null) {
+            mDDRDetails.setText(mDdr.mDDRCode +" - "+ mDdr.mDDRName);
+            mDDRDetailsIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(activity, ""+mDdr.mDDRCode +" - "+ mDdr.mDDRName, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
         initializeComponent();
+
         databaseHandler = new DatabaseHandler(this);
-//        databaseHandler.deleteTable(DatabaseHandler.TABLE_RETAIL);
         if(databaseHandler.isRetailMasterEmpty(databaseHandler.TABLE_RETAIL)) {
             loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",DDRAddProductActivity.this),LoginResult.class);
             searchProductCall(loginResult.getUserAccess().getWorklocationID()+"");
@@ -108,7 +136,6 @@ public class DDRAddProductActivity extends BaseActivity implements View.OnClickL
         imvClearAdded = findViewById(R.id.imvClearAdded);
         tvItemAddedSize = findViewById(R.id.tvItemAddedSize);
         llAccept = findViewById(R.id.llAccept);
-        imvBack = findViewById(R.id.imvBack);
         llAdded = findViewById(R.id.llAdded);
         llSize = findViewById(R.id.llSize);
         searchView = findViewById(R.id.searchView);
@@ -119,7 +146,6 @@ public class DDRAddProductActivity extends BaseActivity implements View.OnClickL
         tvClear = findViewById(R.id.tvClear);
         tvNoItemAvailable = findViewById(R.id.tvNoItemAvailable);
         imvClearAdded.setOnClickListener(this);
-        imvBack.setOnClickListener(this);
         tvClear.setOnClickListener(this);
         llAccept.setOnClickListener(this);
         Typeface iconFont = FontManager.getTypeface(this, FontManager.FONTAWESOME);
@@ -184,25 +210,6 @@ public class DDRAddProductActivity extends BaseActivity implements View.OnClickL
     }
 
 
-//    private void getProduct() {
-//        try {
-//            arrData.clear();
-//            String json = Util.getAssetJsonResponse(this, "product_list.json");
-//            mProductListResult = Util.getCustomGson().fromJson(json,ProductList.class);
-//            AppLog.e(RetailSalesAdapter.class.getSimpleName(),Util.getCustomGson().toJson(mProductListResult));
-//            arrData.addAll(mProductListResult.getData());
-////            setDefaultValues();
-//
-////            Util.cacheData(arrData);
-//            SharedPrefUtil.putString(Constants.Product_List,Util.getCustomGson().toJson(arrData),this);
-//            mAddProductAdapter.notifyDataSetChanged();
-////            setUpdateValues(IPOSApplication.mProductListResult);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-
     private void filter(String charText, ArrayList<ProductSearchResult.Datum> responseList) {
         if (arrSearchlist != null && responseList != null) {
             charText = charText.toLowerCase(Locale.getDefault());
@@ -255,7 +262,7 @@ public class DDRAddProductActivity extends BaseActivity implements View.OnClickL
                             }
                             found = true;
                         } else {
-//                            IPOSApplication.mProductSearchResult.add(0,arrSearchlist.get(pos));
+
                         }
                     }
                     if(!found){
@@ -275,7 +282,7 @@ public class DDRAddProductActivity extends BaseActivity implements View.OnClickL
                     IPOSApplication.mProductListResult.add(0,mProductSearchResultData);
                     Util.showToast(getString(R.string.product_added_successfully),DDRAddProductActivity.this);
                 }
-//                AppLog.e(TAG,"click" + Util.getCustomGson().toJson(IPOSApplication.mProductSearchResult));
+
 
                 updateItem();
                 mAddProductAdapter.notifyItemChanged(pos);

@@ -445,7 +445,7 @@ public class FullScannerFragment extends BaseFragment implements
         }
     }
 
-    void onResumeCamera(){
+    public void onResumeCamera(){
         if(mScannerView!=null)
             mScannerView.resumeCameraPreview(this);
     }

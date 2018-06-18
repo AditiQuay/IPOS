@@ -64,7 +64,10 @@
             android:label="@string/title_partner_connect"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden"/>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2750692370af6a92e35db832a57300961b66ce8d
 
         <!-- ***** DDR Sales ****** -->
         <activity
@@ -88,8 +91,19 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>  <activity
+        </activity>
+        <activity
             android:name=".ddrsales.DDRAddProductActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_b2bsales"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>  <activity
+            android:name=".ddrsales.DDRCartActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_b2bsales"
             android:theme="@style/AppTheme.NoActionBar"
@@ -226,10 +240,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity
+      <!--  <activity
             android:name=".inventory.activity.InventoryStepsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".pss_order.activity.EditOrderCentreActivity"
             android:screenOrientation="portrait"

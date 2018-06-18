@@ -23,8 +23,19 @@ public class PCModel {
 
     public List<Account> Account;
 
+
+
     @SerializedName("DocumentVoults")
     public List<DocumentVoults> DocumentVoults;
 
 
+    public void setLog(PCModel value) {
+        this.EntityID = value.EntityID;
+        this.Relationship = value.Relationship;
+        this.Business = value.Business;
+        this.contactDetail = value.contactDetail;
+        this.BillandDelivery = value.BillandDelivery;
+        this.Account = value.Account;
+
+    }
 }

@@ -1,6 +1,8 @@
 package quay.com.ipos.ddrsales.model;
 
-public class DDR {
+import java.io.Serializable;
+
+public class DDR  implements Serializable{
     public String mDDRCode;
     public String mDDRName;
     public String mDDRAddress1;

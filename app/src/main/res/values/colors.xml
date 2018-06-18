@@ -142,5 +142,6 @@
     <color name="coloryPrimary_transulent">#305CBFE8</color>
     <color name="red_transulent">#30e64f20</color>
     <color name="dashboard_textcolor">#848484</color>
+    <color name="ddr_light_grey">#AEAEAE</color>
 </resources>
 

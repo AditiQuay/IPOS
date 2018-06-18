@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundgrey"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/abc_action_bar_default_height_material"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:titleTextColor="@color/white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp">
+
+            <TextView
+                android:id="@+id/mDDRDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/titilliumwebregular"
+
+                android:paddingRight="50dp"
+                android:text="A1234 - Sample"
+                android:textColor="#fff"
+                android:textSize="@dimen/b2b_text_body" />
+
+            <ImageView
+                android:id="@+id/mDDRDetailsIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/titilliumwebregular"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:src="@drawable/info_white"
+                android:textSize="@dimen/b2b_text_body" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="16dp">
+
+            <include
+                layout="@layout/ddr_search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_toLeftOf="@+id/imvBarcode" />
+
+            <ImageView
+                android:id="@+id/imvBarcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dp"
+                android:paddingRight="16dp"
+                android:src="@drawable/ic_action_qr_code1" />
+
+            <ImageView
+                android:id="@+id/imvStatus"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right|end|top"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="@dimen/dim_8"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circle_disabled"
+                android:gravity="center"
+                android:padding="3dp"/>
+
+        </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        >
+
+        <include layout="@layout/ddr_dashboard" />
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
