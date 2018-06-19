@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/backgroundgrey">
 
@@ -480,8 +479,7 @@
                     android:text="@string/Rs"
                     android:paddingLeft="@dimen/dim_5"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp"
-                    app:typeface="TitilliumWeb-SemiBold.ttf" />
+                    android:textSize="@dimen/text_size_15sp" />
 
                 <quay.com.ipos.ui.CustomTextView
                     android:layout_width="wrap_content"
@@ -491,8 +489,7 @@
                     android:layout_marginLeft="@dimen/dim_10"
                     android:text="@string/sale_value"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp"
-                    app:typeface="TitilliumWeb-SemiBold.ttf" />
+                    android:textSize="@dimen/text_size_15sp"/>
 
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvPay"
@@ -504,8 +501,7 @@
                     android:paddingLeft="@dimen/dim_10"
                     android:text="@string/Rs"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp"
-                    app:typeface="TitilliumWeb-SemiBold.ttf" />
+                    android:textSize="@dimen/text_size_15sp" />
 
                 <ImageView
                     android:id="@+id/imvRight"
@@ -541,8 +537,7 @@
                     android:text="@string/select_all"
                     android:paddingLeft="@dimen/dim_5"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp"
-                    app:typeface="Roboto-Regular.ttf" />
+                    android:textSize="@dimen/text_size_15sp"/>
 
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvOTCDiscount"
@@ -553,8 +548,7 @@
                     android:paddingLeft="@dimen/dim_10"
                     android:text="@string/otc_discount"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp"
-                    app:typeface="Roboto-Regular.ttf" />
+                    android:textSize="@dimen/text_size_15sp" />
 
                 <TextView
                     android:id="@+id/tvRight1"

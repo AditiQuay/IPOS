@@ -127,8 +127,8 @@
     <string name="total_discount">Total Discount</string>
     <string name="rounding_off">Rounding off</string>
     <string name="less_details">Less Details</string>
-    <string name="select_all">SELECT ALL</string>
-    <string name="otc_discount">OTC DISCOUNT</string>
+    <string name="select_all">Select All</string>
+    <string name="otc_discount">OTC Discount</string>
     <string name="cgst">CGST</string>
     <string name="sgst">SGST</string>
     <string name="otc_discount_details">OTC Discount Details</string>
@@ -366,6 +366,10 @@
     <string name="title_b2b_order_center">B2B Order Center</string>
     <string name="title_b2b_ddr_select">B2B DDR Select</string>
     <string name="no_item_available">No Item Available</string>
+    <string name="auto">Auto</string>
+    <string name="manual">Manual</string>
+    <string name="stock_update">Stock Update</string>
+    <string name="retail_product">Retail Product</string>
 
 
 </resources>

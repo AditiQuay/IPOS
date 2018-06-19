@@ -32,7 +32,9 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.DocumentVoults;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.utility.Base64Util;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.ShareWorldUtil;
 
 import static android.app.Activity.RESULT_OK;
@@ -67,6 +69,8 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
     private Drawable mDrawableApproved;
     private Drawable mDrawableUnApproved;
 
+    private int mEntityId;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +78,8 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         Resources resources = getResources();
         mDrawableApproved = resources.getDrawable(mApprovedResId);
         mDrawableUnApproved = resources.getDrawable(mUnApprovedResId);
+        mEntityId = Prefs.getIntegerPrefs(Constants.entityCode.trim());
+
     }
 
     @Nullable
@@ -275,15 +281,14 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
             String FilePath = data.getData().getPath();
             Log.i(TAG, "FilePath:" + FilePath + " , File Length:" + size);
 
-           // imageViewphoto.setImageURI(uri);
+            // imageViewphoto.setImageURI(uri);
 
             String s = getBase64StringNew(uri, (int) size);
-            if(s!=null) {
+            if (s != null) {
                 Log.i(TAG, "getBase64StringNew:" + s);
                 new ConvertToBitmap(s, imageViewphoto).execute();
                 docPhoto.DocFileBase64 = s;
             }
-
 
 
             return;
@@ -392,25 +397,45 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         } else {
             Log.i("data", new Gson().toJson(pcModel.DocumentVoults));
         }
-        for (DocumentVoults documentVoult : pcModel.DocumentVoults) {
-            if (documentVoult.Doctype.contains("PAN")) {
-                docPan = documentVoult;
 
-            }
-            if (documentVoult.Doctype.contains("IDPHOTO")) {
-                docPhoto = documentVoult;
+        if (pcModel.DocumentVoults.size() == 0) {
+            docPhoto = new DocumentVoults(mEntityId, "IDPHOTO");
+            docPan = new DocumentVoults(mEntityId, "PAN");
+            docAppointment = new DocumentVoults(mEntityId, "AppointmentForm");
+            docAnnexure = new DocumentVoults(mEntityId, "Annexure");
+            docCompliance = new DocumentVoults(mEntityId, "compliance");
 
-            }
-            if (documentVoult.Doctype.contains("AppointmentForm")) {
-                docAppointment = documentVoult;
+            pcModel.DocumentVoults.add(docPhoto);
+            pcModel.DocumentVoults.add(docPan);
+            pcModel.DocumentVoults.add(docAppointment);
+            pcModel.DocumentVoults.add(docAnnexure);
+            pcModel.DocumentVoults.add(docCompliance);
 
-            }
-            if (documentVoult.Doctype.contains("Annexure")) {
-                docAnnexure = documentVoult;
 
-            }
-            if (documentVoult.Doctype.contains("compliance")) {
-                docCompliance = documentVoult;
+        }else {
+
+
+            for (DocumentVoults documentVoult : pcModel.DocumentVoults) {
+                if (documentVoult.Doctype.contains("IDPHOTO")) {
+                    docPhoto = documentVoult;
+
+                }
+                if (documentVoult.Doctype.contains("PAN")) {
+                    docPan = documentVoult;
+
+                }
+
+                if (documentVoult.Doctype.contains("AppointmentForm")) {
+                    docAppointment = documentVoult;
+
+                }
+                if (documentVoult.Doctype.contains("Annexure")) {
+                    docAnnexure = documentVoult;
+
+                }
+                if (documentVoult.Doctype.contains("compliance")) {
+                    docCompliance = documentVoult;
+                }
             }
         }
 

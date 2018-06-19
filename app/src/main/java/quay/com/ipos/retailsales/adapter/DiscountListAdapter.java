@@ -286,30 +286,30 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("MRP")){
                             // Discount Based on MRP
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getMrp()*rule.get(i).getSDiscountValue())/100;
+                                value = ((this.datum.getMrp()*this.datum.getQty())*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getMrp()-rule.get(i).getSDiscountValue();
+                                value = (this.datum.getMrp()*this.datum.getQty())-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("SP")){
                             // Discount Based on SP
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getSalesPrice()*rule.get(i).getSDiscountValue())/100;
+                                value = ((this.datum.getSalesPrice()*this.datum.getQty())*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getSalesPrice()-rule.get(i).getSDiscountValue();
+                                value = (this.datum.getSalesPrice()*this.datum.getQty())-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("NRV")){
                             // Discount Based on NRV
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getNrv()*rule.get(i).getSDiscountValue())/100;
+                                value = ((this.datum.getNrv()*this.datum.getQty())*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getNrv()-rule.get(i).getSDiscountValue();
+                                value = (this.datum.getNrv()*this.datum.getQty())-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("GPL")){
                             // Discount Based on GPL
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getGpl()*rule.get(i).getSDiscountValue())/100;
+                                value = ((this.datum.getGpl()*this.datum.getQty())*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getGpl()-rule.get(i).getSDiscountValue();
+                                value = (this.datum.getGpl()*this.datum.getQty())-rule.get(i).getSDiscountValue();
                             }
                         }
 
@@ -335,30 +335,30 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("MRP")){
                             // Discount Based on MRP
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getMrp()*rule.get(i).getSDiscountValue())/100;
+                                value = (totalPrice*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getMrp()-rule.get(i).getSDiscountValue();
+                                value = totalPrice-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("SP")){
                             // Discount Based on SP
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getSalesPrice()*rule.get(i).getSDiscountValue())/100;
+                                value = (totalPrice*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getSalesPrice()-rule.get(i).getSDiscountValue();
+                                value = totalPrice-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("NRV")){
                             // Discount Based on NRV
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getNrv()*rule.get(i).getSDiscountValue())/100;
+                                value = (totalPrice*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getNrv()-rule.get(i).getSDiscountValue();
+                                value = totalPrice-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("GPL")){
                             // Discount Based on GPL
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getGpl()*rule.get(i).getSDiscountValue())/100;
+                                value = (totalPrice*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getGpl()-rule.get(i).getSDiscountValue();
+                                value = totalPrice-rule.get(i).getSDiscountValue();
                             }
                         }
 
@@ -484,30 +484,30 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("MRP")){
                             // Discount Based on MRP
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getMrp()*rule.get(i).getSDiscountValue())/100;
+                                value = ((this.datum.getMrp()*this.datum.getQty())*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getMrp()-rule.get(i).getSDiscountValue();
+                                value = (this.datum.getMrp()*this.datum.getQty())-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("SP")){
                             // Discount Based on SP
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getSalesPrice()*rule.get(i).getSDiscountValue())/100;
+                                value = ((this.datum.getSalesPrice()*this.datum.getQty())*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getSalesPrice()-rule.get(i).getSDiscountValue();
+                                value = (this.datum.getSalesPrice()*this.datum.getQty())-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("NRV")){
                             // Discount Based on NRV
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getNrv()*rule.get(i).getSDiscountValue())/100;
+                                value = ((this.datum.getNrv()*this.datum.getQty())*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getNrv()-rule.get(i).getSDiscountValue();
+                                value = (this.datum.getNrv()*this.datum.getQty())-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("GPL")){
                             // Discount Based on GPL
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getGpl()*rule.get(i).getSDiscountValue())/100;
+                                value = ((this.datum.getGpl()*this.datum.getQty())*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getGpl()-rule.get(i).getSDiscountValue();
+                                value = (this.datum.getGpl()*this.datum.getQty())-rule.get(i).getSDiscountValue();
                             }
                         }
 
@@ -525,30 +525,30 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("MRP")){
                             // Discount Based on MRP
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getMrp()*rule.get(i).getSDiscountValue())/100;
+                                value = (totalPrice*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getMrp()-rule.get(i).getSDiscountValue();
+                                value = totalPrice-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("SP")){
                             // Discount Based on SP
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getSalesPrice()*rule.get(i).getSDiscountValue())/100;
+                                value = (totalPrice*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getSalesPrice()-rule.get(i).getSDiscountValue();
+                                value = totalPrice-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("NRV")){
                             // Discount Based on NRV
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getNrv()*rule.get(i).getSDiscountValue())/100;
+                                value = (totalPrice*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getNrv()-rule.get(i).getSDiscountValue();
+                                value = totalPrice-rule.get(i).getSDiscountValue();
                             }
                         }else if(rule.get(i).getSDiscountBasedOn().equalsIgnoreCase("GPL")){
                             // Discount Based on GPL
                             if(rule.get(i).getSDiscountType().equalsIgnoreCase("P")){
-                                value = (this.datum.getGpl()*rule.get(i).getSDiscountValue())/100;
+                                value = (totalPrice*rule.get(i).getSDiscountValue())/100;
                             }else if(rule.get(i).getSDiscountType().equalsIgnoreCase("V")){
-                                value = this.datum.getGpl()-rule.get(i).getSDiscountValue();
+                                value = totalPrice-rule.get(i).getSDiscountValue();
                             }
                         }
 
@@ -688,16 +688,16 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         switch (rule.get(i).getSDiscountBasedOn())
         {
             case "MRP":
-                iPriceValue =  datum.getMrp();
+                iPriceValue =  datum.getMrp() * datum.getQty();
                 break;
             case "GPL":
-                iPriceValue =  datum.getGpl();
+                iPriceValue =  datum.getGpl() * datum.getQty();
                 break;
             case "NRV":
-                iPriceValue =  datum.getNrv();
+                iPriceValue =  datum.getNrv() * datum.getQty();
                 break;
             case "SP":
-                iPriceValue =  datum.getSalesPrice();
+                iPriceValue =  datum.getSalesPrice() * datum.getQty();
                 break;
         }
         value = getDiscountType(iPriceValue,i);

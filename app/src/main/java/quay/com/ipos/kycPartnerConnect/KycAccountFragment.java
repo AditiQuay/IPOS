@@ -47,7 +47,7 @@ public class KycAccountFragment extends Fragment implements InitInterface, View.
     @Override
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.account_info_fragment, container, false);
+        view = inflater.inflate(R.layout.kyc_account_info_fragment, container, false);
         mContext = getActivity();
         findViewById();
         applyInitValues();
@@ -132,9 +132,12 @@ public class KycAccountFragment extends Fragment implements InitInterface, View.
     private void setData(PCModel pcModel) {
         if (pcModel == null && pcModel.Business == null) {
             Log.i(TAG, "pcModel or pcModel.Business is null");
+
             return;
         }
-
+        if (pcModel.Account.size() == 0) {
+            return;
+        }
         account = pcModel.Account.get(0);
         if (account != null) {
             editAccountType.setText(account.mAccountType);

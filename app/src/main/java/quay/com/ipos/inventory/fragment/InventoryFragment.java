@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +102,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     private int businessPlaceCode;
     private boolean isSync;
     private String strPlace;
-    private LinearLayout btnNext;
+    private LinearLayout btnNext,llPOVisible;
     private EditText edtPoNumber,edtDate,edtSupplier;
     private ImageView imgSearch;
 
@@ -153,6 +154,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
         edtPoNumber=rootView.findViewById(R.id.edtPoNumber);
         spnAddress=rootView.findViewById(R.id.spnAddress);
         imgSearch=rootView.findViewById(R.id.imgSearch);
+        llPOVisible=rootView.findViewById(R.id.llPOVisible);
         setSpinnerData();
 
         edtPoNumber.addTextChangedListener(new TextWatcher() {
@@ -182,6 +184,16 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             }
         });
 
+        swchPOAvailable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    llPOVisible.setVisibility(View.GONE);
+                }else {
+                    llPOVisible.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
     }
 
@@ -266,17 +278,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     }
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
 
-            case R.id.action_search:
-                // Do onlick on menu action here
-
-                return true;
-        }
-        return false;
-    }
 
 
 

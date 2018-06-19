@@ -21,7 +21,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.utility.FontUtil;
 
-public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.MyView>  {
+public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.MyView> {
     private Context mContext;
     private List<NewContact> list = new ArrayList<>();
 
@@ -29,13 +29,13 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
     private String roleTypeText;
     private List<String> listPosition = new ArrayList<>();
 
-   /* 1 SuperAdmin NULL
-2 Admin NULL
-3 User NULL
-4 Approver NULL
-5 Management NULL*/
-    private int[] roleID = {1,2,3,4,5};
-    private String[] roleArray = {"SuperAdmin", "Admin", "User","Approver","Management"};
+    /* 1 SuperAdmin NULL
+ 2 Admin NULL
+ 3 User NULL
+ 4 Approver NULL
+ 5 Management NULL*/
+    private int[] roleID = {1, 2, 3, 4, 5};
+    private String[] roleArray = {"SuperAdmin", "Admin", "User", "Approver", "Management"};
     private ArrayAdapter partnerTypeHeading;
 
 
@@ -62,10 +62,7 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
         NewContact contactModel = list.get(position);
 
 
-
-
-
-       // magic code for editText
+        // magic code for editText
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition(), holder);
         holder.editName.setText(list.get(holder.getAdapterPosition()).Name);
         holder.editMobile.setText(list.get(holder.getAdapterPosition()).PrimaryMobile);
@@ -80,7 +77,7 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
                 holder.roleTypeSpinner.setSelection(index + 1);
             }
         }
-      //  holder.roleTypeSpinner.setSelection(list.get(holder.getAdapterPosition()).Name);
+        //  holder.roleTypeSpinner.setSelection(list.get(holder.getAdapterPosition()).Name);
 
 
     }
@@ -91,11 +88,10 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
     }
 
 
-
     public class MyView extends RecyclerView.ViewHolder {
         private MaterialSpinner roleTypeSpinner;
         private TextInputLayout editNameInput, editMobileInput, editMobile2Input;
-        private TextInputEditText editName, editMobile, editMobile2;
+        private TextInputEditText editName, editMobile, editMobile2, editEmail;
 
         public MyCustomEditTextListener myCustomEditTextListener;
         public MyCustomSpinnerListener myCustomSpinnerListener;
@@ -112,12 +108,14 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
             editName = itemView.findViewById(R.id.editName);
             editMobile = itemView.findViewById(R.id.editMobile);
             editMobile2 = itemView.findViewById(R.id.editMobile2);
+            editEmail = itemView.findViewById(R.id.editEmail);
 
             //magic code for editText
             this.myCustomEditTextListener = myCustomEditTextListener;
             this.editName.addTextChangedListener(myCustomEditTextListener);
             this.editMobile.addTextChangedListener(myCustomEditTextListener);
             this.editMobile2.addTextChangedListener(myCustomEditTextListener);
+            this.editEmail.addTextChangedListener(myCustomEditTextListener);
 
             //magic code for spinner
             this.myCustomSpinnerListener = myCustomSpinnerListener;
@@ -169,6 +167,11 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
                         list.get(position).SecondaryMobile = charSequence.toString();
                     }
                 }
+                if (holder.editEmail != null) {
+                    if (holder.editEmail.getText().hashCode() == charSequence.hashCode()) {
+                        list.get(position).Email = charSequence.toString();
+                    }
+                }
              /*if (holder.editName.getText().hashCode() == charSequence.hashCode()) {
                 list.get(position).Name = charSequence.toString();
              }*/
@@ -186,15 +189,16 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
 
     private class MyCustomSpinnerListener implements AdapterView.OnItemSelectedListener {
         private int position;
+
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            switch(adapterView.getId()) {
+            switch (adapterView.getId()) {
                 case R.id.roleTypeSpinner:
-                    if(i!=-1) {
+                    if (i != -1) {
                         list.get(position).Role = listPosition.get(i);
-                        list.get(position).RoleID = roleID[i]+"";
-                    }else {
-                        list.get(position).RoleID =  "";
+                        list.get(position).RoleID = roleID[i] + "";
+                    } else {
+                        list.get(position).RoleID = "";
                         list.get(position).Role = "";
                     }
 

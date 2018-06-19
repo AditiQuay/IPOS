@@ -350,13 +350,15 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
 
+
+
         int id = view.getId();
         switch (id) {
+
             case R.id.llPrintReceipt:
 
                 if (SharedPrefUtil.getString(Constants.Login_result, "", PaymentModeActivity.this) != null) {
                     json1 = SharedPrefUtil.getString(Constants.Login_result, "", PaymentModeActivity.this);
-
                     loginResult = Util.getCustomGson().fromJson(json1, LoginResult.class);
                 }
                 if (totalAmount == 0.0) {
@@ -497,6 +499,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 } else {
                     Util.showToast("Please select customer first.", PaymentModeActivity.this);
                 }
+                if(cvCash.getVisibility()==View.GONE && cvCard.getVisibility()==View.GONE && cvPoints.getVisibility()==View.GONE){
+                    cvPoints.setVisibility(View.VISIBLE);
+                    llPoints.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+
+                }
                 break;
             case R.id.llCard:
                 if (cvCard.getVisibility() == View.GONE) {
@@ -510,6 +517,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         cvCard.setVisibility(View.GONE);
                         llCard.setBackgroundResource(R.drawable.rect_four_white);
                     }
+                }
+                if(cvCash.getVisibility()==View.GONE && cvCard.getVisibility()==View.GONE && cvPoints.getVisibility()==View.GONE){
+                    cvCard.setVisibility(View.VISIBLE);
+                    llCard.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+
                 }
                 break;
             case R.id.llCash:
@@ -525,6 +537,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         cvCash.setVisibility(View.GONE);
                         llCash.setBackgroundResource(R.drawable.rect_four_white);
                     }
+                }
+                if(cvCash.getVisibility()==View.GONE && cvCard.getVisibility()==View.GONE && cvPoints.getVisibility()==View.GONE){
+                    cvCash.setVisibility(View.VISIBLE);
+                    llCash.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+
                 }
                 break;
             case R.id.btnPayCash:

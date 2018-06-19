@@ -214,15 +214,17 @@
                 android:layout_alignParentBottom="true">
 
                 <LinearLayout
+                    android:id="@+id/llArrows"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:gravity="center"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/circle_white">
                     <ImageView
+                        android:id="@+id/imgArrow"
                         android:layout_width="@dimen/dim_20"
                         android:layout_height="@dimen/dim_20"
-                        android:src="@drawable/arrow_down"
+                        android:background="@drawable/baseline_keyboard_arrow_up_black_18dp"
                         />
 
                 </LinearLayout>

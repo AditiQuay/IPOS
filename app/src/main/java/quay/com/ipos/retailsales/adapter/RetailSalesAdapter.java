@@ -94,7 +94,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvMinus,tvPlus,tvPoint,tvTotalPoints;
         public TextView tvTotalPrice, tvOTCDiscountPrice,tvDiscountedPrice,tvFreeItems;
         public ImageView imvInfo,imvProduct,imvClear;
-        public LinearLayout llOTCDiscount,llEvent,llTotalPoints,llPoints,llInnerItem;
+        public LinearLayout llOTCDiscount,llEvent,llTotalPoints,llPoints,llInnerItem,llStock,llName;
         public CheckBox chkItem,chkOTCDiscount;
         public EditText etQtySelected;
         public RecyclerView mRecyclerView;
@@ -105,6 +105,8 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mRecyclerView = itemView.findViewById(R.id.recycleView);
 
             llEvent = itemView.findViewById(R.id.llEvent);
+            llName = itemView.findViewById(R.id.llName);
+            llStock = itemView.findViewById(R.id.llStock);
             llInnerItem = itemView.findViewById(R.id.llInnerItem);
             llOTCDiscount = itemView.findViewById(R.id.llOTCDiscount);
             tvOTCDiscountPrice = itemView.findViewById(R.id.tvOTCDiscountPrice);
@@ -207,7 +209,9 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.llPoints.setVisibility(View.GONE);
                 userViewHolder.llTotalPoints.setVisibility(View.GONE);
                 userViewHolder.tvFreeItems.setVisibility(View.VISIBLE);
+                userViewHolder.imvClear.setVisibility(View.GONE);
             }else {
+                userViewHolder.imvClear.setVisibility(View.VISIBLE);
                 userViewHolder.tvFreeItems.setVisibility(View.GONE);
                 userViewHolder.tvTotalPoints.setVisibility(View.VISIBLE);
                 userViewHolder.tvPoint.setVisibility(View.VISIBLE);
@@ -242,6 +246,12 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             userViewHolder.llInnerItem.setOnClickListener(mOnClickListener);
             userViewHolder.llInnerItem.setTag(position);
+
+            userViewHolder.llName.setOnClickListener(mOnClickListener);
+            userViewHolder.llName.setTag(position);
+
+            userViewHolder.llStock.setOnClickListener(mOnClickListener);
+            userViewHolder.llStock.setTag(position);
 
             userViewHolder.imvInfo.setOnClickListener(mOnClickListener);
             userViewHolder.imvInfo.setTag(position);

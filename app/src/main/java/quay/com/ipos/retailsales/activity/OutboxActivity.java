@@ -24,7 +24,7 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 14-06-2018.
  */
 
-public class OutboxActivity extends BaseActivity implements NetworkStateChecker.NetworkStateCheckerListener{
+public class OutboxActivity extends BaseActivity {
     NameAdapter nameAdapter;
     TextView tvNoItemAvailable;
     private ListView listViewNames;
@@ -32,6 +32,10 @@ public class OutboxActivity extends BaseActivity implements NetworkStateChecker.
     private Toolbar toolbar;
     //List to store all the names
     private ArrayList<BillingSync> names;
+    private static OutboxActivity mainActivityRunningInstance;
+    public static OutboxActivity  getInstace(){
+        return mainActivityRunningInstance;
+    }
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -48,10 +52,8 @@ public class OutboxActivity extends BaseActivity implements NetworkStateChecker.
         toolbar.setTitle("Retail Outbox");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
-
+        mainActivityRunningInstance =this;
         listViewNames = findViewById(R.id.listViewNames);
-        NetworkStateChecker networkStateChecker = new NetworkStateChecker();
-        networkStateChecker.setListener(this);
         //initializing views and objects
         db = new DatabaseHandler(this);
         update();
@@ -69,7 +71,7 @@ public class OutboxActivity extends BaseActivity implements NetworkStateChecker.
         return super.onOptionsItemSelected(item);
     }
 
-    void update(){
+   public void update(){
         names = new ArrayList<>();
         names = db.getUnSyncedRetailOrders();
         nameAdapter = new NameAdapter(this, names);
@@ -88,8 +90,13 @@ public class OutboxActivity extends BaseActivity implements NetworkStateChecker.
         }
     }
 
-    @Override
-    public void updateList() {
-        update();
-    }
+//    public void updateUI(final String str) {
+//        MainActivity.this.runOnUiThread(new Runnable() {
+//            public void run() {
+//                //use findFragmentById for fragments defined in XML ((SimpleFragment)getSupportFragmentManager().findFragmentByTag(fragmentTag)).updateUI(str);
+//            }
+//        });
+//    }
+
+
 }

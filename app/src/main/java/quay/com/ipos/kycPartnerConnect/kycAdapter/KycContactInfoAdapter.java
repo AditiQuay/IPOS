@@ -52,7 +52,7 @@ public class KycContactInfoAdapter extends RecyclerView.Adapter<KycContactInfoAd
     @Override
     public MyView onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.contact_info_item, parent, false);
+                .inflate(R.layout.kyc_contact_info_item, parent, false);
 
         return new MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
     }
