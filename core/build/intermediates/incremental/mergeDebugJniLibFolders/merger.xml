@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <<<<<<< HEAD
+<merger version="3"><dataSet config="main"><source path="D:\QuayApp\IPOS\core\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="D:\QuayApp\IPOS\core\src\debug\jniLibs"/></dataSet></merger>
+=======
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\debug\jniLibs"/></dataSet></merger>
 =======
 <<<<<<< HEAD
@@ -16,3 +19,4 @@
 >>>>>>> 03f9f643ed45ec59168994ee6f4844895cdff20a
 >>>>>>> 34a92317aee999ef422d73ba6e1f92859c5d8b47
 >>>>>>> 2c6cac64bf30ae4629020d6b83ea21acec889ed2
+>>>>>>> 9e1adc31b211d6aa0965d56af253edb55c14f5c7

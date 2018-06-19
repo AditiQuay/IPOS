@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import quay.com.ipos.R;
 import quay.com.ipos.partnerConnect.model.BillnDelivery;
@@ -35,7 +36,39 @@ public class BillingAddressFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.billing_address, container, false);
         mContext = getActivity();
+
+
         return view;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            onResume();
+        }
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if (!getUserVisibleHint())
+        {
+            return;
+        }
+
+        PartnerConnectMain mainActivity = (PartnerConnectMain)getActivity();
+        mainActivity.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Do what you want
+                addNewField();
+                //Toast.makeText(getActivity(), "Add Billing Fragment", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -67,6 +100,10 @@ public class BillingAddressFragment extends Fragment {
             @Override
             public void onChanged(@Nullable PCModel pcModel) {
                 mpcModel = pcModel;
+                if (pcModel.BillandDelivery != null && pcModel.BillandDelivery.size() == 0) {
+                    BillnDelivery billnDelivery = new BillnDelivery();
+                    pcModel.BillandDelivery.add(billnDelivery);
+                }
                 businessAdapter.loadData(pcModel.BillandDelivery);
             }
         });
