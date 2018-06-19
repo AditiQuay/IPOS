@@ -552,6 +552,7 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
         JSONObject object = new JSONObject();
         try {
             object.put("empCode", employeeCode.trim());
+            //
             object.put("jsutification", "");
             object.put("requestCode", requestCode);
             object.put("pssRespnce", new JSONObject(new Gson().toJson(getPcModelData().getValue())));
