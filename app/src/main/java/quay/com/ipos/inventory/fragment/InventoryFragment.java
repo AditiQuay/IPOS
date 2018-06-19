@@ -123,6 +123,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                     Intent i = new Intent(getActivity(), InventoryGRNStepsActivity.class);
                     i.putExtra("request", prepareJson().toString());
                     i.putExtra("businessPlaceId", businessPlaceCode + "");
+                    i.putExtra("poNumber",edtPoNumber.getText().toString().trim());
                     startActivity(i);
                 }else{
                     Util.showToast("Please Enter Po Number");

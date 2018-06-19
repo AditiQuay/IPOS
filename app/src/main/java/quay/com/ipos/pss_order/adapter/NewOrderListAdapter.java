@@ -24,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.realm.Realm;
 import quay.com.ipos.R;
@@ -230,6 +232,8 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 userViewHolder.imvClear.setOnClickListener(mOnClickListener);
                 userViewHolder.imvClear.setTag(position);
                 userViewHolder.etQtySelected.setTag(position);
+                final Timer[] timer = new Timer[1];
+
                 userViewHolder.etQtySelected.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -253,18 +257,26 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
 
                     @Override
-                    public void afterTextChanged(Editable editable) {
+                    public void afterTextChanged(final Editable editable) {
                         if (!onBind) {
-                            if (!editable.toString().isEmpty()) {
-                                if (Integer.parseInt(editable.toString()) < 1) {
-                                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
-                                } else {
-                                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(editable.toString()));
-                                }
+                            timer[0] = new Timer();
+                            timer[0].schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    if (!editable.toString().isEmpty()) {
+                                        if (Integer.parseInt(editable.toString()) < 1) {
+                                            listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
+                                        } else {
+                                            listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(editable.toString()));
+                                        }
 
-                            } else {
-                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
-                            }
+                                    } else {
+                                        listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
+                                    }
+                                    // do your actual work here
+                                }
+                            }, 600);
+
                         }
                     }
                 });

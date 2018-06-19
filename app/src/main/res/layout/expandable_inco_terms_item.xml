@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/llIncoTerms"
-    android:background="@color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:layout_margin="@dimen/dim_4"
+    android:orientation="vertical">
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/ipos_line_black"/>
+        android:background="@drawable/ipos_line_black" />
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       >
-
-
+        android:layout_height="wrap_content">
 
 
         <LinearLayout
@@ -31,14 +31,12 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="QTY"
-                />
+                android:text="QTY" />
 
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/ipos_line_black"/>
-
+                android:background="@drawable/ipos_line_black" />
 
 
             <TextView
@@ -46,47 +44,49 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="SUPPLIER"
                 android:gravity="center"
                 android:padding="@dimen/dim_8"
-                />
+                android:text="SUPPLIER" />
+
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/ipos_line_black"/>
+                android:background="@drawable/ipos_line_black" />
+
             <TextView
                 android:id="@+id/tvAmount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ME"
-                android:padding="8dp"
                 android:gravity="center"
-                />
+                android:padding="8dp"
+                android:text="ME" />
+
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/ipos_line_black"/>
+                android:background="@drawable/ipos_line_black" />
+
             <TextView
                 android:id="@+id/tvGst"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="8dp"
                 android:gravity="center"
-                android:text="AMOUNT"
-                />
-
+                android:padding="8dp"
+                android:text="AMOUNT" />
 
 
         </LinearLayout>
 
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/ipos_line_black"/>
+        android:background="@drawable/ipos_line_black" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_viewInco"
         android:layout_width="match_parent"

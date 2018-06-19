@@ -1,10 +1,15 @@
 package quay.com.ipos.customerInfo;
 
+import android.app.Dialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,9 +18,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +59,8 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
 
     private DatabaseHandler dbHelper;
     private FloatingActionButton fab;
+    String paymentModeClicked;
+    private Dialog myDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +69,13 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         mContext = CustomerInfoActivity.this;
         listener = CustomerInfoActivity.this;
         dbHelper = new DatabaseHandler(this);
+
+        myDialog = new Dialog(this);
+        myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        Intent i = getIntent();
+        paymentModeClicked = i.getStringExtra("paymentMode");
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         findViewById();
         applyInitValues();
@@ -77,6 +94,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
             public void onClick(View v) {
                 Intent i = new Intent(mContext, CustomerAddMain.class);
                 startActivity(i);
+                finish();
             }
         });
     }
@@ -212,6 +230,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
 
         Intent i = new Intent(CustomerInfoActivity.this, CustomerInfoDetailsActivity.class);
         i.putExtra("customerID", customerModel.getCustomerID());
+        i.putExtra("paymentModeClicked",paymentModeClicked);
         startActivityForResult(i, Constants.ACT_CUSTOMER);
 
 
@@ -235,7 +254,38 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
 
     @Override
     public void onInfoListener(int position) {
+        CustomerModel customerModel = dbHelper.getAllNotes().get(position);
 
+        ImageView ImvClose;
+        TextView textViewCustomerPoints,textViewCustomerTotalPoints,textViewTotalRedeemPoints,textViewTotalAdjustedPoints,textViewTotalExpirePoints,textViewTotalReversePoints;
+
+
+        myDialog.setContentView(R.layout.view_info_dialog);
+        ImvClose = myDialog.findViewById(R.id.imvClose);
+        textViewCustomerPoints = myDialog.findViewById(R.id.textViewCustomerPoints);
+        textViewCustomerTotalPoints = myDialog.findViewById(R.id.textViewCustomerTotalPoints);
+        textViewTotalRedeemPoints = myDialog.findViewById(R.id.textViewTotalRedeemPoints);
+        textViewTotalAdjustedPoints = myDialog.findViewById(R.id.textViewTotalAdjustedPoints);
+        textViewTotalExpirePoints = myDialog.findViewById(R.id.textViewTotalExpirePoints);
+        textViewTotalReversePoints = myDialog.findViewById(R.id.textViewTotalReversePoints);
+
+        textViewCustomerPoints.setText(customerModel.getCustomerPoints()+"");
+        textViewCustomerTotalPoints.setText(customerModel.getPointsPerValue()+"");
+        textViewTotalRedeemPoints.setText(customerModel.getCustomerRedeemPoints()+"");
+        textViewTotalAdjustedPoints.setText(customerModel.getCustomerAdjustPoints()+"");
+        textViewTotalExpirePoints.setText(customerModel.getCustomerExpirePoints()+"");
+        textViewTotalReversePoints.setText(customerModel.getCustomerReversePoints()+"");
+
+
+        ImvClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
     }
 
     @Override

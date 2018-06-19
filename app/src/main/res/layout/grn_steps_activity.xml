@@ -268,7 +268,7 @@
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/dim_1"
-                            android:background="@color/grey" />
+                            android:background="@color/app_background_color" />
 
 
                     </RelativeLayout>
@@ -276,10 +276,140 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/rLayoutView"
-                        android:layout_marginTop="@dimen/dim_4">
+                        android:layout_below="@+id/rLayoutView">
 
-                        <include layout="@layout/view_layout_tab" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/poCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/titilliumwebregular"
+                                android:text="13" />
+
+                            <TextView
+                                android:id="@+id/poQtyCountHeading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/titilliumwebregular"
+                                android:text="PO QTY" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dim_2"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/dim_8"
+                                android:background="@color/colorPrimary"
+                                android:foregroundGravity="bottom"
+                                android:visibility="invisible" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/colorPrimary_100"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:id="@+id/grnCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/titilliumwebregular"
+                                android:text="0" />
+
+                            <TextView
+                                android:id="@+id/grnQtyCountHeading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/titilliumwebregular"
+                                android:text="GRN QTY" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dim_2"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/dim_8"
+                                android:background="@color/colorPrimary"
+                                android:foregroundGravity="bottom" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/apCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/titilliumwebregular"
+                                android:text="0" />
+
+                            <TextView
+                                android:id="@+id/apQtyCountHeading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/titilliumwebregular"
+                                android:text="AP QTY" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dim_2"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/dim_8"
+                                android:background="@color/colorPrimary"
+                                android:foregroundGravity="bottom"
+                                android:visibility="invisible" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/balanceQtyCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/titilliumwebregular"
+                                android:text="0" />
+
+                            <TextView
+                                android:id="@+id/balanceQtyCountHeading"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:fontFamily="@font/titilliumwebregular"
+                                android:text="Balance QTY" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dim_2"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/dim_8"
+                                android:background="@color/colorPrimary"
+                                android:foregroundGravity="bottom"
+                                android:visibility="invisible" />
+
+                        </LinearLayout>
                     </LinearLayout>
 
                 </RelativeLayout>

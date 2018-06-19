@@ -109,7 +109,7 @@ public class OrderCentreListAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 userViewHolder.tvETADate.setText("Eta "+str.getEtaDate());
                 userViewHolder.tvItemNo.setText("Items "+str.getTotalItem());
                 userViewHolder.tvOrderNumber.setText(""+str.getRequestCode());
-                userViewHolder.tvTotalPrice.setText(""+str.getOrderValue());
+                userViewHolder.tvTotalPrice.setText(mContext.getString(R.string.Rs)+" "+str.getOrderValue());
             }
             else if (holder instanceof OrderCentreListAdapter.LoadingViewHolder) {
                 OrderCentreListAdapter.LoadingViewHolder loadingViewHolder = (OrderCentreListAdapter.LoadingViewHolder) holder;
