@@ -173,7 +173,7 @@
             <include layout="@layout/new_order_detail_item" />
 
             <include layout="@layout/bottom_total_cart"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
 
 
         </LinearLayout>

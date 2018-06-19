@@ -1,14 +1,8 @@
 -- Merging decision tree log ---
 manifest
-<<<<<<< HEAD
 ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-=======
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
->>>>>>> 42235244793d0074ba76a3337b449a59eb5cf1d5
 	package
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:70-106
 		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml
@@ -16,8 +10,4 @@ INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\Andr
 	xmlns:android
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
 application
-<<<<<<< HEAD
 ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
-=======
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
->>>>>>> 42235244793d0074ba76a3337b449a59eb5cf1d5

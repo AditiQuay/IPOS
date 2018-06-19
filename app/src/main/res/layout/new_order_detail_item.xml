@@ -204,7 +204,7 @@
                     android:id="@+id/orderValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="₹ 1,16,660"
+                    android:text="₹ 0"
                     android:textColor="@color/black" />
             </LinearLayout>
             <View
@@ -229,7 +229,7 @@
                     android:id="@+id/orderDiscount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="₹ 1,16,660"
+                    android:text="₹ 0"
                     android:textColor="@color/black" />
 
 
@@ -426,7 +426,7 @@
                     android:id="@+id/loyaltyPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="120"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <quay.com.ipos.ui.CustomTextView
@@ -449,7 +449,7 @@
                     android:id="@+id/accumulatedPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1000"
+                    android:text="0"
                     android:gravity="center"
                     android:textColor="@color/black" />
 
@@ -473,7 +473,7 @@
                     android:id="@+id/totalPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1120"
+                    android:text="0"
                     android:textColor="@color/black" />
 
                 <quay.com.ipos.ui.CustomTextView
@@ -492,7 +492,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/dim_8"
-android:visibility="visible"
         android:background="@color/white">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -633,12 +632,14 @@ android:visibility="visible"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:layout_margin="8dp"
+                android:gravity="start">
 
                 <quay.com.ipos.ui.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
+                    android:layout_marginLeft="@dimen/dim_16"
                     android:text="Product"/>
 
 
@@ -647,12 +648,14 @@ android:visibility="visible"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_margin="8dp">
 
                 <quay.com.ipos.ui.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
+                    android:layout_marginLeft="12dp"
                     android:text="Qty"/>
 
 
@@ -661,12 +664,15 @@ android:visibility="visible"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:layout_margin="@dimen/dim_8"
+
+                android:gravity="end">
 
                 <quay.com.ipos.ui.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
+                    android:layout_marginRight="8dp"
                     android:text="Price"/>
 
 

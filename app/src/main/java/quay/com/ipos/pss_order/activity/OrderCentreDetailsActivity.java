@@ -109,7 +109,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
     private double dAccumulatedPoints;
     private double perPoints=0;
-    private TextView tvResendOTP;
+    private TextView tvResendOTP,tvTotalQty,tvTotalPriceBeforeGst,tvCGSTPrice,tvSGSTPrice,tvRoundingOffPrice;
     private LinearLayout llRedeemValue;
     private EditText etRedeemValue;
     double pointstoRedeem = 0;
@@ -118,7 +118,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     private Button buttonSendOtp;
     private TextView btnEdit;
     private String erg;
-
+    private boolean isShipArrow,isItemDetailsArrow;
+    private ImageView imgShipArrow,arrow;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -127,7 +128,6 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
         setHeader();
         menu_item_container=findViewById(R.id.menu_item_container);
-        menu_item_container.setVisibility(View.GONE);
 
         intitiateView();
 
@@ -273,6 +273,13 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     }
 
     private void intitiateView(){
+        tvTotalQty = findViewById(R.id.tvTotalQty);
+        tvTotalPriceBeforeGst = findViewById(R.id.tvTotalPriceBeforeGst);
+        tvCGSTPrice = findViewById(R.id.tvCGSTPrice);
+        tvSGSTPrice = findViewById(R.id.tvSGSTPrice);
+        tvRoundingOffPrice = findViewById(R.id.tvRoundingOffPrice);
+        arrow=findViewById(R.id.arrow);
+        imgShipArrow=findViewById(R.id.imgShipArrow);
         btnEdit=findViewById(R.id.btnEdit);
         btnEdit.setVisibility(View.VISIBLE);
         tvEtaDate=findViewById(R.id.tvEtaDate);
@@ -334,6 +341,34 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 Intent i=new Intent(OrderCentreDetailsActivity.this,EditOrderCentreActivity.class);
                 i.putExtra("poNumber",poNumber);
                 startActivityForResult(i,3);
+            }
+        });
+        imgShipArrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isShipArrow){
+                    isShipArrow=true;
+                    recycler_viewAddress.setVisibility(View.GONE);
+                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
+                }else {
+                    recycler_viewAddress.setVisibility(View.VISIBLE);
+                    isShipArrow=false;
+                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
+                }
+            }
+        });
+        arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!isItemDetailsArrow){
+                    isItemDetailsArrow=true;
+                    recycler_viewRecentOrders.setVisibility(View.GONE);
+                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
+                }else {
+                    recycler_viewRecentOrders.setVisibility(View.VISIBLE);
+                    isItemDetailsArrow=false;
+                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
+                }
             }
         });
     }
@@ -440,13 +475,13 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             tvOrderName.setText(jsonObject.optString("poNumber"));
             OrderDate.setText(Util.getFormattedDates(jsonObject.optString("poDate"),Constants.formatDate,Constants.format2));
         //    OrderDate.setText(jsonObject.optString("poDate"));
-            if (jsonObject.optString("poStatus").equalsIgnoreCase("1")){
+            if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("1")){
                 tvStatus.setText("Submitted");
-            }else if (jsonObject.optString("poStatus").equalsIgnoreCase("2")){
+            }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("2")){
                 tvStatus.setText("Approved");
-            }else if (jsonObject.optString("poStatus").equalsIgnoreCase("3")){
+            }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("3")){
                 tvStatus.setText("Rejected");
-            }else if (jsonObject.optString("poStatus").equalsIgnoreCase("0")){
+            }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("0")){
                 tvStatus.setText("Pending");
             }
 
@@ -465,6 +500,13 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             totalPoints.setText(jsonObject.optInt("totalLoyality")+"");
             customerName.setText(jsonObject.optString("customerName"));
 
+
+
+            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("totalValueWithoutTax")+"");
+            tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("totalCGSTValue")+"");
+            tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("totalSGSTValue")+"");
+            tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+"0"+"");
+
             getFlow(jsonObject.optString("listspendRequestHistoryPhaseModel")+"");
 
             businessCode=jsonObject.optString("businessPlaceCode");
@@ -474,7 +516,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
                     arrayCart = new JSONArray(jsonObject.optString("cartDetail"));
                 }
-
+                tvTotalQty.setText(arrayCart.length()+"");
               /*  for (int p=0;p<arrayCart.length();p++){
                     JSONObject jsonObject1=arrayCart.optJSONObject(p);
                     RecentOrderModal recentOrderModal=new RecentOrderModal();
@@ -958,11 +1000,12 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 Realm realm=Realm.getDefaultInstance();
                 RealmResults<RealmBusinessPlaces> realmBusinessPlaces=realm.where(RealmBusinessPlaces.class).findAll();
 
-                addressListAdapter.notifyDataSetChanged();
+
+                addressList.clear();
                 try {
                     JSONObject jsonObject=new JSONObject(serverResponse);
                     JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
-                    new RealmController().saveBusinessPlaces(array.toString());
+                 //   new RealmController().saveBusinessPlaces(array.toString());
                     for (int i=0;i<array.length();i++){
                         JSONObject jsonObject1=array.optJSONObject(i);
 
@@ -970,7 +1013,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
 
                     }
-                    addressListAdapter.notifyDataSetChanged();
+                    addressListAdapter = new AddressListAdapter(this, addressList);
+                    recycler_viewAddress.setAdapter(addressListAdapter);
 
 
                 } catch (JSONException e) {
@@ -1018,6 +1062,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         RealmResults<RealmOrderCentre> realmNewOrderCarts1 = realm.where(RealmOrderCentre.class).equalTo("OrderId",poNumber).findAll();
 
 
+        double discountPart=0;
         for (RealmOrderCentre realmNewOrderCart : realmNewOrderCarts1) {
             RealmOrderCentre realmNewOrderCarts = realm.copyFromRealm(realmNewOrderCart);
             RecentOrderModal recentOrderModal=new RecentOrderModal();
@@ -1034,18 +1079,21 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                             JSONObject jsonObject = array.optJSONObject(k);
                             if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
                                 discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                                discountPart=jsonObject.optInt("discountTotal");
                             }
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 } else {
+                    discountPart=realmNewOrderCarts.getTotalPrice();
                     discountPrice = discountPrice + realmNewOrderCarts.getTotalPrice();
                 }
             }else {
+                discountPart=realmNewOrderCarts.getDiscountPrice();
                 discountPrice = discountPrice + realmNewOrderCarts.getDiscountPrice();
             }
-            recentOrderModal.setDiscountValue(""+discountPrice);
+            recentOrderModal.setDiscountValue(""+discountPart);
 
             recentOrderModalArrayList.add(recentOrderModal);
 
@@ -1117,14 +1165,18 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
 
         }
-        payAmount = (totalItemsAmount + gst) - discountPrice;
+        payAmount = (totalItemsAmount + cgst+sgst) - discountPrice;
 
 
-        orderValue.setText(getResources().getString(R.string.Rs) + " " + totalItemsAmount);
+        orderValue.setText(getResources().getString(R.string.Rs) + " " + (payAmount));
         orderDiscount.setText(getResources().getString(R.string.Rs) + " " + discountPrice);
         discount.setText(getResources().getString(R.string.Rs) + " " + discountPrice);
         tvOrderValue.setText(getResources().getString(R.string.Rs) + " " + payAmount);
-
+            tvTotalQty.setText(qty+"");
+            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+(totalItemsAmount-discountPrice)+"");
+            tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+cgst+"");
+            tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+sgst+"");
+            tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+"0"+"");
     }
 
 
