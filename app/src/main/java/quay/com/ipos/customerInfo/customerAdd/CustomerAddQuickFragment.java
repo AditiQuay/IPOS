@@ -45,6 +45,7 @@ import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.YourFragmentInterface;
 import quay.com.ipos.modal.CustomerList;
+import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
@@ -86,7 +87,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     SharedPreferences.Editor editor;
     private List<String> titlePosition = new ArrayList<>();
     private List<String> genderPosition = new ArrayList<>();
-
+    private String paymentModeClicked;
     public CustomerAddQuickFragment() {
 
     }
@@ -94,6 +95,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -106,6 +108,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         main = inflater.inflate(R.layout.customer_add_quick_fragment, container, false);
         mContext = getActivity();
+
         mAwesomeValidation = new AwesomeValidation(BASIC);
         dbHelper = new DatabaseHandler(mContext);
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
@@ -324,10 +327,27 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 long id = dbHelper.updateServerId(Integer.parseInt(localId), customerCode);
                 Log.e(TAG, "Id***" + id);
             }
+            sharedpreferences =  mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+            String payment = sharedpreferences.getString("paymentModeClicked","");
+            if (payment.equalsIgnoreCase("clicked")){
+                Intent i = new Intent(mContext, PaymentModeActivity.class);
+                startActivity(i);
+                getActivity().finish();
 
-            Intent i = new Intent(mContext, CustomerInfoActivity.class);
-            startActivity(i);
+                sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.clear();
+                editor.apply();
+            }else {
+                Intent i = new Intent(mContext, CustomerInfoActivity.class);
+                startActivity(i);
+                getActivity().finish();
 
+                sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.clear();
+                editor.apply();
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();

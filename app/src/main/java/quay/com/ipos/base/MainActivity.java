@@ -191,6 +191,10 @@ public class MainActivity extends BaseActivity
     private Context mContext;
     private String customerStatus;
     private double customerPointsPerValue;
+    private double customerRedeemPoints;
+    private double customerAdjustPoints;
+    private double customerExpirePoints;
+    private double customerReversePoints;
 
     private int mActivePosition = 1;
     private int currentType = -1;
@@ -1007,7 +1011,10 @@ public class MainActivity extends BaseActivity
                 customerCity = object.optString(CustomerEnum.ColoumnCustomerCity.toString().trim());
                 customerType = object.optString(CustomerEnum.ColoumncType.toString().trim());
                 customerPointsPerValue = object.optDouble(CustomerEnum.ColoumnPointsPerValue.toString().trim());
-
+                customerRedeemPoints = object.optDouble(CustomerEnum.ColumnRedeemPoints.toString().trim());
+                customerAdjustPoints = object.optDouble(CustomerEnum.ColumnAdjustedPoints.toString().trim());
+                customerExpirePoints = object.optDouble(CustomerEnum.ColumnExpirePoints.toString().trim());
+                customerReversePoints = object.optDouble(CustomerEnum.CoulmnReversePoints.toString().trim());
 
                 // inserting note in db and getting
                 // newly inserted note id
@@ -1016,7 +1023,7 @@ public class MainActivity extends BaseActivity
                         customerSpouseFirstName, customerSpouseLastName, customerSpouseDob, customerChildSatus, customerChild.toString(),
                         customerEmail, customerEmail2, customerPhone, customerPhone2, customerPhone3, customerAddress, customerState, customerCity,
                         customerPin, customerCountry, customerDesignation, customerCompany, custoemrGstin, customer, customerRelationship,
-                        customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom, "", "", customerPointsPerValue, 1);
+                        customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom, "", "", customerPointsPerValue,1);
 
 
 //                // get the newly inserted note from db

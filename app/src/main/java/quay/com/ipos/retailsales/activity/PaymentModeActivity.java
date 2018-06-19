@@ -90,7 +90,6 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     //1 means data is synced and 0 means data is not synced
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
-
     private boolean sendCOD= false;
 
     @Override
@@ -211,6 +210,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onClick(View view) {
                 Intent mIntent = new Intent(PaymentModeActivity.this, CustomerInfoActivity.class);
+                mIntent.putExtra("paymentMode","clicked");
                 startActivityForResult(mIntent,Constants.ACT_CUSTOMER);
             }
         });

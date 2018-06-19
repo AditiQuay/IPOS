@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/cardViewProduct"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/white_background"
-    android:padding="@dimen/dim_4">
+    android:layout_marginTop="@dimen/dim_4"
+    android:maxHeight="@dimen/dim_200"
+    app:cardCornerRadius="@dimen/dim_4"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="true"
+    card_view:cardElevation="0dp">
 
-    <LinearLayout
-        android:id="@+id/includeCardView"
+    <RelativeLayout
+        android:id="@+id/rlTab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/dim_4">
+        android:layout_margin="@dimen/dim_4"
+        android:background="@drawable/white_background"
+        android:paddingLeft="@dimen/dim_4"
+        android:paddingTop="@dimen/dim_4">
 
         <RelativeLayout
             android:id="@+id/grnHeading"
@@ -18,169 +27,67 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvPoNumber"
+                android:id="@+id/tvGrnNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:fontFamily="@font/titilliumwebregular"
-                android:text="GRN181900001"
-                android:textColor="@color/textColorPrimary"
+                android:text="GRN18000001"
+                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/dim_14"
                 android:visibility="visible" />
 
             <TextView
+                android:id="@+id/grnDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dim_12"
+                android:layout_toLeftOf="@+id/tvOpen"
                 android:fontFamily="@font/titilliumwebregular"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:text="open"
-                android:textColor="@color/textColorPrimary"
+                android:text="18-May-2018"
+                android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/dim_14"
                 android:visibility="visible" />
 
+            <TextView
+                android:id="@+id/tvOpen"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/rect_one_side_round_grey"
+                android:gravity="center"
+                android:padding="8dp"
+                android:text="open"
+                android:textColor="@color/white"
+                android:textSize="@dimen/dim_14"
+                android:visibility="visible" />
         </RelativeLayout>
-
-        <include layout="@layout/view_layout" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:id="@+id/rLayoutView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dim_4"
-            android:layout_marginTop="8dp">
+            android:layout_below="@+id/grnHeading"
+            android:layout_marginTop="@dimen/dim_8">
 
-            <LinearLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/billing" />
-
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:id="@+id/grnQtyCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:text="0" />
-
-                    <TextView
-                        android:id="@+id/grnQtyCountHeading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:text="GRN QTY" />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/apQtyCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:text="0" />
-
-                    <TextView
-                        android:id="@+id/apQtyCountHeading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:text="AP QTY" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dim_2"
-                        android:layout_gravity="bottom"
-                        android:layout_marginTop="@dimen/dim_4"
-                        android:background="@color/colorPrimary"
-                        android:foregroundGravity="bottom"
-                        android:visibility="invisible" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/balanceQtyCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:text="0" />
-
-                    <TextView
-                        android:id="@+id/balanceQtyCountHeading"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:text="Value" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dim_2"
-                        android:layout_gravity="bottom"
-                        android:layout_marginTop="@dimen/dim_4"
-                        android:background="@color/colorPrimary"
-                        android:foregroundGravity="bottom"
-                        android:visibility="invisible" />
-
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/ic_action_attachement" />
-
-
-                </RelativeLayout>
-
-            </LinearLayout>
+                android:layout_height="@dimen/dim_0.5"
+                android:background="@color/app_background_color" />
 
 
         </RelativeLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rLayoutView">
 
-</RelativeLayout>
+            <include layout="@layout/grn_card" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
