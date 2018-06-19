@@ -23,15 +23,5 @@ public class Cheques {
     public String ModifiedDate;
 
 
-    /* " {
-                        "ID": 3,
-                        "EntityBankAcHoderID": 3,
-                        "entitydrawnAccount": "1234567896",
-                        "chequeNo": "9991237",
-                        "MaxLimitAmount": 50000,
-                        "CreateDate": null,
-                        "CreatedBy": null,
-                        "ModifiedBy": null,
-                        "ModifiedDate": null
-                    },*/
+
 }

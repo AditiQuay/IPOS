@@ -37,6 +37,7 @@ import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.Util;
+import quay.com.ipos.utility.ValidateUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -202,7 +203,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             }
 
             if (position == 5 || position == 1) {
-               // fab.setVisibility(View.GONE);
+                 fab.setVisibility(View.GONE);
             } else {
                 fab.setVisibility(View.VISIBLE);
             }
@@ -530,18 +531,18 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo.keyMobile == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile.isEmpty()) {
+        if (pcModel.Contact.KeyBusinessContactInfo.keyMobile == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile.isEmpty()  || !ValidateUtils.isValidMobile(pcModel.Contact.KeyBusinessContactInfo.keyMobile)) {
             String error = "Contact -> Primary Mobile No. is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo.keyMobile2 == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile2.isEmpty()) {
+        /*if (pcModel.Contact.KeyBusinessContactInfo.keyMobile2 == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile2.isEmpty()) {
             String error = "Contact -> Secondary Mobile No. is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
-        }
+        }*/
         if (pcModel.Contact.KeyBusinessContactInfo.keyEmail == null || pcModel.Contact.KeyBusinessContactInfo.keyEmail.isEmpty()) {
             String error = "Contact-> Email is required!";
             Log.e(TAG, error);
@@ -569,18 +570,18 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                 return false;
             }
 
-            if (newContact.PrimaryMobile == null || newContact.PrimaryMobile.isEmpty()) {
+            if (newContact.PrimaryMobile == null || newContact.PrimaryMobile.isEmpty() || !ValidateUtils.isValidMobile(newContact.PrimaryMobile)) {
                 String error = "Contact-> Primary Mobile is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
-            if (newContact.SecondaryMobile == null || newContact.SecondaryMobile.isEmpty()) {
+          /*  if (newContact.SecondaryMobile == null || newContact.SecondaryMobile.isEmpty() || ValidateUtils.isValidMobile(newContact.SecondaryMobile)) {
                 String error = "Contact-> Secondary Mobile is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
-            }
+            }*/
 
             if (newContact.Email == null || newContact.Email.isEmpty()) {
                 String error = "Contact-> Email is required!";
@@ -592,44 +593,44 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         }
         //validation of account
         if (pcModel.Account == null) {
-            String error = "KycAccount -> KycAccount data is required!";
+            String error = "Account -> Account data is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
         for (Account account : pcModel.Account) {
             if (account.mAccountHolderName == null || account.mAccountHolderName.isEmpty()) {
-                String error = "KycAccount -> KycAccount Holder Name is required!";
+                String error = "Account -> Account Holder Name is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (account.mAccountNo == null || account.mAccountNo.isEmpty()) {
-                String error = "KycAccount -> KycAccount No. is required!";
+                String error = "Account -> Account No. is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (account.mAccountType == null || account.mAccountType.isEmpty()) {
-                String error = "KycAccount -> KycAccount Type is required!";
+                String error = "Account -> Account Type is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (account.mBankName == null || account.mBankName.isEmpty()) {
-                String error = "KycAccount -> Bank Name is required!";
+                String error = "Account -> Bank Name is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (account.mIFSCCode == null || account.mIFSCCode.isEmpty()) {
-                String error = "KycAccount -> IFSCCode is required!";
+                String error = "Account -> IFSCCode is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
             }
             if (account.mBranchAdddres == null || account.mBranchAdddres.isEmpty()) {
-                String error = "KycAccount -> mBranch Address is required!";
+                String error = "Account -> mBranch Address is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
@@ -637,7 +638,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             if (account.cheques != null) {
                 for (Cheques cheque : account.cheques) {
                     if (cheque.mSecurityCheque == null || cheque.mSecurityCheque.isEmpty()) {
-                        String error = "KycAccount ->   Security Cheque is required!";
+                        String error = "Account ->   Security Cheque is required!";
                         Log.e(TAG, error);
                         IPOSApplication.showToast(error);
                         return false;
@@ -645,19 +646,19 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
                     if (cheque.mSecurityCheque.contains("Yes")) {
                         if (cheque.mDrawnAccountNo == null || cheque.mDrawnAccountNo.isEmpty()) {
-                            String error = "KycAccount ->   DrawnAccountNo is required!";
+                            String error = "Account ->   DrawnAccountNo is required!";
                             Log.e(TAG, error);
                             IPOSApplication.showToast(error);
                             return false;
                         }
                         if (cheque.mMaxLimitAmount == null || cheque.mMaxLimitAmount.isEmpty()) {
-                            String error = "KycAccount ->   MaxLimitAmount is required!";
+                            String error = "Account ->   MaxLimitAmount is required!";
                             Log.e(TAG, error);
                             IPOSApplication.showToast(error);
                             return false;
                         }
                         if (cheque.mChequeNo == null || cheque.mChequeNo.isEmpty()) {
-                            String error = "KycAccount ->  ChequeNo is required!";
+                            String error = "Account ->  ChequeNo is required!";
                             Log.e(TAG, error);
                             IPOSApplication.showToast(error);
                             return false;

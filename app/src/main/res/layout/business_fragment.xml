@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/app_background_color"
-            android:paddingBottom="@dimen/dim_8"
+            android:paddingBottom="@dimen/dim_4"
             android:paddingLeft="@dimen/dim_8"
             android:paddingRight="@dimen/dim_8"
             android:paddingTop="@dimen/dim_8">

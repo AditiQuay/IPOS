@@ -56,7 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rLayoutKeyTitle"
-            android:layout_marginTop="@dimen/dim_16"
+            android:layout_marginLeft="@dimen/dim_8"
+            android:layout_marginRight="@dimen/dim_8"
             app:cardCornerRadius="@dimen/dim_8"
             app:cardElevation="0dp"
 
@@ -190,7 +191,7 @@
                                         android:id="@+id/editMobile2"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:hint="Secondary Mobile No. *"
+                                        android:hint="Secondary Mobile No."
                                         android:maxLines="1"
                                         android:inputType="phone"
                                         android:textSize="@dimen/universal_text_size14" />

@@ -94,8 +94,7 @@
                                         android:layout_height="match_parent"
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Drawn on A/c *"
-                                        android:enabled="false"
-                                        android:focusable="false"
+
                                         android:inputType="number"
                                         android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
@@ -132,8 +131,7 @@
                                         android:id="@+id/editChequeNo"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:enabled="false"
-                                        android:focusable="false"
+
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Cheque Number *"
                                         android:maxLines="1"
@@ -158,12 +156,10 @@
                                         android:id="@+id/editMaxLimit"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:enabled="false"
-                                        android:focusable="false"
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Max Limit Amount *"
-                                        android:maxLines="1"
                                         android:inputType="number"
+                                        android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size16" />
 
                                 </android.support.design.widget.TextInputLayout>

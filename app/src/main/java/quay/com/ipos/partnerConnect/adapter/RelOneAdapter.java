@@ -16,9 +16,10 @@ import quay.com.ipos.partnerConnect.model.PssLOBS;
 public class RelOneAdapter extends RecyclerView.Adapter<RelOneAdapter.VH> {
     private List<PssLOBS> pssLOBS = new ArrayList<>();
 
-    public  RelOneAdapter(List<PssLOBS> pssLOBS){
+    public RelOneAdapter(List<PssLOBS> pssLOBS) {
         this.pssLOBS = pssLOBS;
     }
+
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,7 +33,7 @@ public class RelOneAdapter extends RecyclerView.Adapter<RelOneAdapter.VH> {
     public void onBindViewHolder(@NonNull VH holder, int position) {
         PssLOBS lobs = pssLOBS.get(position);
         holder.mtxt1.setText(lobs.pssType);
-        holder.mtxt2.setText(lobs.pssLobName);
+        holder.mtxt2.setText(lobs.pssLobName + " | " + lobs.pssLobCode);
 
     }
 

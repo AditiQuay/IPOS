@@ -43,7 +43,6 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
     private static final String TAG = PartnerConnectMain.class.getSimpleName();
     private Activity activity;
     private TabLayout tabLayout;
-
     private Toolbar toolbar;
     private FloatingActionButton fab;
     private MutableLiveData<PCModel> pcModelLiveData = new MutableLiveData<>();
@@ -87,7 +86,7 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
 
         tabLayout = findViewById(R.id.tabs);
 
-        createTabIcons();
+       // createTabIcons();
 
 
         btnViewAll.setOnClickListener(new View.OnClickListener() {

@@ -70,12 +70,7 @@ public class KycBusinessFragment extends Fragment implements InitInterface, View
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadData();
-        getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "hhh", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     private void loadData() {
@@ -183,7 +178,7 @@ public class KycBusinessFragment extends Fragment implements InitInterface, View
 
     private void addNewField() {
         if (mpcModel != null) {
-            Toast.makeText(getActivity(), "hhhvv", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getActivity(), "hhhvv", Toast.LENGTH_SHORT).show();
 
             BusinessLocation businessLocation = new BusinessLocation();
 
@@ -199,7 +194,7 @@ public class KycBusinessFragment extends Fragment implements InitInterface, View
 
             KYCMain connectMain = (KYCMain) getActivity();
             if (connectMain != null) {
-                //   Toast.makeText(connectMain, "hhh", Toast.LENGTH_SHORT).show();
+
                 connectMain.getPcModelData().setValue(mpcModel);
             }
         }
