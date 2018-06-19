@@ -63,6 +63,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     public static final String mypreference = "Data";
     private SharedPreferences.Editor editor;
     private RelativeLayout rLayoutContent;
+    private String paymentModeClicked;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +73,8 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         db = new DatabaseHandler(mContext);
         Intent i = getIntent();
         customerId = i.getStringExtra("customerID");
+        paymentModeClicked = i.getStringExtra("paymentModeClicked");
+
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
@@ -298,6 +301,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
 
                 Intent i = new Intent(mContext, CustomerAddMain.class);
                 i.putExtra("Count", 1);
+                i.putExtra("paymentModeClicked",paymentModeClicked);
                 startActivity(i);
                 break;
         }

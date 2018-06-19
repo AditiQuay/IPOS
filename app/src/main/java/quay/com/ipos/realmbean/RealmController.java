@@ -1,12 +1,11 @@
 package quay.com.ipos.realmbean;
 
-import android.content.Context;
-
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import io.realm.Realm;
+import quay.com.ipos.inventory.modal.GRNListModel;
 import quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails;
 import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 //import quay.com.ipos.modal.PinnedResult;
@@ -249,6 +248,7 @@ public class RealmController {
         }
 
     }
+
 
     public void saveGRNDetails(String responseData) {
         Realm realm = Realm.getDefaultInstance();

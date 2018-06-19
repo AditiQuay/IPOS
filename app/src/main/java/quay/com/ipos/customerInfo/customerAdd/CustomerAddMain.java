@@ -48,6 +48,7 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
     public static final String quickPreference = "QuickData";
 
     int count;
+    String paymentModeClicked;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +58,14 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
         dbHelper = new DatabaseHandler(mContext);
         Intent i = getIntent();
         count = i.getIntExtra("Count", 0);
+        paymentModeClicked = i.getStringExtra("paymentModeClicked");
+        sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("paymentModeClicked",paymentModeClicked);
+        editor.apply();
+
+
         getSpinnerList();
         findViewById();
         applyInitValues();
@@ -99,6 +108,8 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
                 editor1.clear();
                 editor1.apply();
                 finish();
+
+
 
                 return true;
         }

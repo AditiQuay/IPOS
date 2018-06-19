@@ -64,8 +64,12 @@ public enum CustomerEnum {
     ColoumnTypeList("CustomerTypelist"),
     ColoumnCustomerCode("customerCode"),
     ColoumnPointsPerValue("pointsPerValue"),
-    ColoumnRegisteredBusinessPlace("registeredBusinessPlaceID");
+    ColoumnRegisteredBusinessPlace("registeredBusinessPlaceID"),
 
+    ColumnRedeemPoints("customerRedeemPoints"),
+    ColumnAdjustedPoints("customerAdjustPoints"),
+    ColumnExpirePoints("customerExpirePoints"),
+    CoulmnReversePoints("customerReversePoints");
 
 
     private final String name;

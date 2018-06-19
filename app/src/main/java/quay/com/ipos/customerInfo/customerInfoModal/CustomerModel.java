@@ -144,6 +144,44 @@ public class CustomerModel {
     private String customerCompany;
     private double customerPointsPerValue;
 
+    public double getCustomerRedeemPoints() {
+        return customerRedeemPoints;
+    }
+
+    public void setCustomerRedeemPoints(double customerRedeemPoints) {
+        this.customerRedeemPoints = customerRedeemPoints;
+    }
+
+    public double getCustomerAdjustPoints() {
+        return customerAdjustPoints;
+    }
+
+    public void setCustomerAdjustPoints(double customerAdjustPoints) {
+        this.customerAdjustPoints = customerAdjustPoints;
+    }
+
+    public double getCustomerExpirePoints() {
+        return customerExpirePoints;
+    }
+
+    public void setCustomerExpirePoints(double customerExpirePoints) {
+        this.customerExpirePoints = customerExpirePoints;
+    }
+
+    public double getCustomerReversePoints() {
+        return customerReversePoints;
+    }
+
+    public void setCustomerReversePoints(double customerReversePoints) {
+        this.customerReversePoints = customerReversePoints;
+    }
+
+    private double customerRedeemPoints;
+    private double customerAdjustPoints;
+    private double customerExpirePoints;
+    private double customerReversePoints;
+
+
     public double getPointsPerValue() {
         return pointsPerValue;
     }
