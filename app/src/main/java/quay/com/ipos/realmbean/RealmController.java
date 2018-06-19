@@ -249,5 +249,22 @@ public class RealmController {
 
     }
 
+
+    public void saveGRNDetails(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateObjectFromJson(RealmGRNDetails.class, responseData);
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
 }
 

@@ -319,11 +319,13 @@
                     android:background="@color/white"
                     android:gravity="center"
                     android:inputType="number"
+                    android:focusedByDefault="true"
                     android:paddingBottom="@dimen/dim_6"
                     android:paddingLeft="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
                     android:paddingTop="@dimen/dim_6"
                     android:text="1333"
+                    android:maxLength="4"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/text_size_12sp"
                     app:typeface="TitilliumWeb-SemiBold.ttf" />
