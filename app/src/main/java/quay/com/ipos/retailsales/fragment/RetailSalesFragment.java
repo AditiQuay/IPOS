@@ -1681,6 +1681,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
      */
     @Override
     public void onRowClicked(final int position, final int value) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
         ProductSearchResult.Datum datum1 = IPOSApplication.mProductListResult.get(position);
 
         if (value <= datum1.getSProductStock()) {
@@ -1704,6 +1707,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             setUpdateValues(IPOSApplication.mProductListResult);
             Util.showToast(datum1.getSProductStock() + " " + getString(R.string.qty_available), mContext);
         }
+
+            }
+        });
 //        mRecyclerView.post(new Runnable() {
 //            @Override
 //            public void run() {
