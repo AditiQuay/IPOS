@@ -62,10 +62,7 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.kyc_contact_fragment, container, false);
         mContext = getActivity();
-
-
         listPosition = Arrays.asList(partnerKeyPosition);
-
 
         findViewById();
         applyInitValues();
@@ -95,7 +92,6 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
         textViewContactInfoHeading = view.findViewById(R.id.textViewContactInfoHeading);
 
         recyclerViewContactInfo = view.findViewById(R.id.recyclerViewContactInfo);
-
 
 //        btnAdd.setOnClickListener(new View.OnClickListener() {
 //            @Override
