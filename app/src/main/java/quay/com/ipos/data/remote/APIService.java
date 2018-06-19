@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
 import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
+import quay.com.ipos.kycPartnerConnect.KYCAcceptData;
 import quay.com.ipos.partnerConnect.model.KycCardResponse;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import retrofit2.Call;
@@ -29,7 +30,7 @@ public interface APIService {
     Call<JSONObject> kycConnectData1(@Query("strEntityId") String strEntityId,@Query("RequestCode")String requestCode);
 
     @POST(URLStorage.KYC_PARTNER_ACCEPT)
-    Call<PartnerConnectUpdateResponse> kycConnectUpdateData(@Body JSONObject jsonObject);
+    Call<PartnerConnectUpdateResponse> kycConnectUpdateData(@Body KYCAcceptData jsonObject);
 
 
     @POST(URLStorage.PARTNER_CONNECT_UPDATE_API)
