@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -54,6 +55,9 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
         applyInitValues();
         applyTypeFace();
         applyLocalValidation();
+
+
+
         return view;
     }
 
@@ -81,7 +85,35 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
         });
 
     }
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            onResume();
+        }
+    }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if (!getUserVisibleHint())
+        {
+            return;
+        }
+
+        PartnerConnectMain mainActivity = (PartnerConnectMain)getActivity();
+        mainActivity.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Do what you want
+                addNewField();
+               // Toast.makeText(getActivity(), "Add Account Fragment", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     @Override
     public void applyInitValues() {
 

@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,14 +26,12 @@ import quay.com.ipos.listeners.InitInterface;
  */
 
 public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener {
-    private ExpandableListView expandableListView;
-    private CustomGrnTermsExpandableListAdapter expandableListAdapter;
-    List<String> expandableListTitle;
-    HashMap<String, List<String>> expandableListDetail;
     private Toolbar toolbar;
     private Button btnAction, btnSave;
     private Context mContext;
-
+    private RelativeLayout rGrn,rTransporter,rItemsDetails,rIncco,rAttachment;
+    private LinearLayout lGrn,lItemsDetails,llIncoTerms,llTermsC;
+    private RelativeLayout lTransporter;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +47,25 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     public void findViewById() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         btnAction = findViewById(R.id.btnAction);
-        btnSave = findViewById(R.id.btnAction);
-        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-        expandableListView.setChildDivider(getResources().getDrawable(R.color.white));
+        btnSave = findViewById(R.id.btnSave);
+
+        rGrn = findViewById(R.id.rGrn);
+        rTransporter = findViewById(R.id.rTransporter);
+        rItemsDetails = findViewById(R.id.rItemsDetails);
+        rIncco = findViewById(R.id.rIncco);
+        rAttachment = findViewById(R.id.rAttachment);
+
+        rGrn.setOnClickListener(this);
+        rTransporter.setOnClickListener(this);
+        rItemsDetails.setOnClickListener(this);
+        rIncco.setOnClickListener(this);
+        rAttachment.setOnClickListener(this);
+
+        lGrn = findViewById(R.id.lGrn);
+        lTransporter = findViewById(R.id.lTransporter);
+        lItemsDetails = findViewById(R.id.lItemsDetails);
+        llIncoTerms = findViewById(R.id.llIncoTerms);
+        llTermsC = findViewById(R.id.llTermsC);
 
         btnSave.setOnClickListener(this);
         btnAction.setOnClickListener(this);
@@ -71,57 +87,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             getSupportActionBar().setDisplayShowCustomEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-
-        LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<String, List<String>>();
-        List<String> ItemDetails = new ArrayList<>();
-        ItemDetails.add("United States");
-
-
-        expandableListDetail.put("GRN", ItemDetails);
-        expandableListDetail.put("Transporter", ItemDetails);
-        expandableListDetail.put("Item details", ItemDetails);
-        expandableListDetail.put("INCO Terms", ItemDetails);
-        expandableListDetail.put("Attachments", ItemDetails);
-
-        expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
-        expandableListAdapter = new CustomGrnTermsExpandableListAdapter(this, expandableListTitle, expandableListDetail);
-        expandableListView.setAdapter(expandableListAdapter);
-        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-//                Toast.makeText(getApplicationContext(),
-//                        expandableListTitle.get(groupPosition) + " List Expanded.",
-//                        Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-//                Toast.makeText(getApplicationContext(),
-//                        expandableListTitle.get(groupPosition) + " List Collapsed.",
-//                        Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-             /*   Toast.makeText(
-                        getApplicationContext(),
-                        expandableListTitle.get(groupPosition)
-                                + " -> "
-                                + expandableListDetail.get(
-                                expandableListTitle.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT
-                ).show();*/
-                return false;
-            }
-        });
     }
 
     @Override
@@ -142,6 +107,47 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 startActivity(i);
                 break;
             case R.id.btnSave:
+
+                break;
+            case R.id.rGrn:
+                lGrn.setVisibility(View.VISIBLE);
+                lTransporter.setVisibility(View.GONE);
+                lItemsDetails.setVisibility(View.GONE);
+                llIncoTerms.setVisibility(View.GONE);
+                llTermsC.setVisibility(View.GONE);
+
+                break;
+            case R.id.rTransporter:
+                lTransporter.setVisibility(View.VISIBLE);
+                lGrn.setVisibility(View.GONE);
+                lItemsDetails.setVisibility(View.GONE);
+                llIncoTerms.setVisibility(View.GONE);
+                llTermsC.setVisibility(View.GONE);
+
+                break;
+            case R.id.rItemsDetails:
+                lItemsDetails.setVisibility(View.VISIBLE);
+                lGrn.setVisibility(View.GONE);
+                lTransporter.setVisibility(View.GONE);
+                llIncoTerms.setVisibility(View.GONE);
+                llTermsC.setVisibility(View.GONE);
+
+                break;
+            case R.id.rIncco:
+                llIncoTerms.setVisibility(View.VISIBLE);
+                lItemsDetails.setVisibility(View.GONE);
+                lGrn.setVisibility(View.GONE);
+                lTransporter.setVisibility(View.GONE);
+                llTermsC.setVisibility(View.GONE);
+
+                break;
+            case R.id.rAttachment:
+                llTermsC.setVisibility(View.VISIBLE);
+                lGrn.setVisibility(View.GONE);
+                lTransporter.setVisibility(View.GONE);
+                llIncoTerms.setVisibility(View.GONE);
+                lItemsDetails.setVisibility(View.GONE);
+
             default:
                 break;
 

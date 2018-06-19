@@ -1,13 +1,11 @@
 package quay.com.ipos.partnerConnect.model;
 
-import android.support.annotation.NonNull;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class PCModel {
-    @NonNull
+
     public String empCode;
     public int EntityID;//": 1
     public String psslastUpdated;
@@ -19,7 +17,7 @@ public class PCModel {
 
 
     @SerializedName("Contact")
-    public Contact contactDetail;
+    public Contact Contact;
 
     @SerializedName("BillandDelivery")
     public List<BillnDelivery> BillandDelivery;
@@ -40,7 +38,7 @@ public class PCModel {
         this.RelationShipName = value.RelationShipName;
         this.Relationship = value.Relationship;
         this.Business = value.Business;
-        this.contactDetail = value.contactDetail;
+        this.Contact = value.Contact;
         this.BillandDelivery = value.BillandDelivery;
         this.Account = value.Account;
 

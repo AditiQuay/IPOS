@@ -132,9 +132,12 @@ public class KycAccountFragment extends Fragment implements InitInterface, View.
     private void setData(PCModel pcModel) {
         if (pcModel == null && pcModel.Business == null) {
             Log.i(TAG, "pcModel or pcModel.Business is null");
+
             return;
         }
-
+        if (pcModel.Account.size() == 0) {
+            return;
+        }
         account = pcModel.Account.get(0);
         if (account != null) {
             editAccountType.setText(account.mAccountType);

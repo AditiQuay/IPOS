@@ -203,12 +203,16 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     @Override
     public void onClick(View v) {
         if (v == textViewAdd) {
-            InventoryGRNModel inventoryGRNModel = new InventoryGRNModel();
-            inventoryGRNModel.grnQty = "1";
-            inventoryGRNModel.apQTY = "2";
-            inventoryGRNModel.value = "26,480";
-            inventoryGRNModels.add(inventoryGRNModel);
-            kycViewAllAdapter.notifyDataSetChanged();
+            Intent i = new Intent(mContext,InventoryGRNDetails.class);
+            startActivity(i);
+
+//
+//            InventoryGRNModel inventoryGRNModel = new InventoryGRNModel();
+//            inventoryGRNModel.grnQty = "1";
+//            inventoryGRNModel.apQTY = "2";
+//            inventoryGRNModel.value = "26,480";
+//            inventoryGRNModels.add(inventoryGRNModel);
+//            kycViewAllAdapter.notifyDataSetChanged();
         }
     }
 

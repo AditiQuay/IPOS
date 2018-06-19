@@ -28,9 +28,9 @@ import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
+import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.KeyBusinessContactInfo;
-import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
 import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.ContactInfoAdapter;
@@ -69,13 +69,42 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
         listPosition = Arrays.asList(partnerKeyPosition);
 
 
+
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
         return view;
     }
+    @Override
+    public void setUserVisibleHint(boolean visible)
+    {
+        super.setUserVisibleHint(visible);
+        if (visible && isResumed())
+        {
+            onResume();
+        }
+    }
 
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if (!getUserVisibleHint())
+        {
+            return;
+        }
+
+        PartnerConnectMain mainActivity = (PartnerConnectMain)getActivity();
+        mainActivity.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Do what you want
+                //Toast.makeText(getActivity(), "Add Contact Fragment", Toast.LENGTH_SHORT).show();
+                addNewField();
+            }
+        });
+    }
     @Override
     public void findViewById() {
         btnAdd = view.findViewById(R.id.btnAdd);
@@ -168,11 +197,11 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
     private void setData(PCModel pcModel) {
         try {
 
-            if (pcModel == null && pcModel.contactDetail == null) {
+            if (pcModel == null && pcModel.Contact == null) {
                 Log.i(TAG, "pcModel or pcModel.Business is null");
                 return;
             }
-            if (pcModel.contactDetail.KeyBusinessContactInfo == null) {
+            if (pcModel.Contact.KeyBusinessContactInfo == null) {
                 Log.i(TAG, "KeyBusinessContactInfo is null");
                 KeyBusinessContactInfo KeyBusinessContactInfo = new KeyBusinessContactInfo();
                 KeyBusinessContactInfo.NewContact = new ArrayList<>();
@@ -182,13 +211,13 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
                 newContact.SecondaryMobile = "";
                 KeyBusinessContactInfo.NewContact.add(newContact);
 
-                pcModel.contactDetail.KeyBusinessContactInfo = KeyBusinessContactInfo;
+                pcModel.Contact.KeyBusinessContactInfo = KeyBusinessContactInfo;
             } else {
                 Log.i(TAG, "KeyBusinessContactInfo is not null");
 
             }
 
-            contactInfo = pcModel.contactDetail.KeyBusinessContactInfo;
+            contactInfo = pcModel.Contact.KeyBusinessContactInfo;
             ArrayAdapter partnerTypeHeading = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, partnerKeyPosition);
             partnerTypeHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             keyPositionSpinner.setAdapter(partnerTypeHeading);
@@ -238,7 +267,7 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
             editEmail.addTextChangedListener(generalTextWatcher);
             editNote.addTextChangedListener(generalTextWatcher);
 
-            recyclerViewContactInfo.setAdapter(new ContactInfoAdapter(getActivity(), pcModel.contactDetail.KeyBusinessContactInfo.NewContact));
+            recyclerViewContactInfo.setAdapter(new ContactInfoAdapter(getActivity(), pcModel.Contact.KeyBusinessContactInfo.NewContact));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -284,9 +313,9 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
     };
 
     private void addNewField() {
-        if (mpcModel != null && mpcModel.contactDetail != null) {
-            if (mpcModel.contactDetail.KeyBusinessContactInfo != null) {
-                if (mpcModel.contactDetail.KeyBusinessContactInfo.NewContact != null) {
+        if (mpcModel != null && mpcModel.Contact != null) {
+            if (mpcModel.Contact.KeyBusinessContactInfo != null) {
+                if (mpcModel.Contact.KeyBusinessContactInfo.NewContact != null) {
                     NewContact newContact = new NewContact();
                     newContact.ID = 0;
                     newContact.RoleID = "";
@@ -295,7 +324,7 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
                     newContact.PrimaryMobile = "";
                     newContact.SecondaryMobile = "";
                     newContact.Email = "";
-                    mpcModel.contactDetail.KeyBusinessContactInfo.NewContact.add(newContact);
+                    mpcModel.Contact.KeyBusinessContactInfo.NewContact.add(newContact);
 
                     PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
                     if (connectMain != null) {

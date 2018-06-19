@@ -28,7 +28,6 @@ import java.util.regex.Pattern;
 
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
-import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.helper.DatabaseHandler;
@@ -255,7 +254,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         dismissProgress();
         if (httpStatusCode == Constants.SUCCESS) {
-            if(serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_LOGIN)) {
+            if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_LOGIN)) {
                 if (resultObj != null) {
 
                     LoginResult loginResult = (LoginResult) resultObj;
@@ -278,15 +277,15 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
 
 //                    Intent i = new Intent(mContext, MainActivity.class);
 //                    startActivity(i);
-                    searchProductCall(loginResult.getUserAccess().getWorklocationID()+"");
+                    searchProductCall(loginResult.getUserAccess().getWorklocationID() + "");
                 }
-            }else if(serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT)){
-                if(resultObj!=null){
-                    ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
-                    ProductSearchResult  mProductSearchResult = (ProductSearchResult) resultObj;
+            } else if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT)) {
+                if (resultObj != null) {
+                    ArrayList<ProductSearchResult.Datum> data = new ArrayList<>();
+                    ProductSearchResult mProductSearchResult = (ProductSearchResult) resultObj;
                     data.addAll(mProductSearchResult.getData());
 //                    IPOSApplication.datumArrayList.addAll(data);
-                    if(db.isRetailMasterEmpty(db.TABLE_RETAIL)) {
+                    if (db.isRetailMasterEmpty(db.TABLE_RETAIL)) {
                         for (int i = 0; i < data.size(); i++) {
                             db.addProduct(data.get(i));
                         }
@@ -311,6 +310,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
 
 
     }
+
     private void searchProductCall(String s) {
 //        showProgress(getResources().getString(R.string.please_wait));
         CommonParams mCommonParams = new CommonParams();
@@ -323,7 +323,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         mTask.setParamObj(mCommonParams);
         mTask.setListener(this);
         mTask.setResultType(ProductSearchResult.class);
-        if(Util.isConnected())
+        if (Util.isConnected())
             mTask.execute();
         else
             Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
