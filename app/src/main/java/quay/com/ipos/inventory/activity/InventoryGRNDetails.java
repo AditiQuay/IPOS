@@ -17,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,17 +47,19 @@ import quay.com.ipos.inventory.modal.GrnItemQtyModel;
 import quay.com.ipos.inventory.modal.POPaymentTerms;
 import quay.com.ipos.inventory.modal.POTermsCondition;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmGRNDetails;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 6/14/2018.
  */
 
-public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener {
+public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener ,MyListener{
     private static final String TAG = InventoryGRNDetails.class.getSimpleName();
     private Toolbar toolbar;
     private Button btnAction, btnSave;
@@ -86,6 +91,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     boolean isItemDetailsClick = false;
     boolean isInccoClick = false;
     boolean isAttachmentClick = false;
+    private String transporterEWayBillValidityDate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -154,6 +160,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     }
 
+
+    private void setOnTextChangesListener(){
+
+    }
+
     @Override
     public void applyInitValues() {
         setSupportActionBar(toolbar);
@@ -194,7 +205,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 startActivity(i);
                 break;
             case R.id.btnSave:
-
+                submitGRNDetails();
                 break;
             case R.id.rGrn:
                 if (isGrnClick) {
@@ -312,7 +323,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 poQty.setText(realmGRNDetails.getPoQty()+"");
                 openQty.setText(realmGRNDetails.getOpenQty()+"");
                 balanceQty.setText(realmGRNDetails.getBalanceQty()+"");
-
+                transporterEWayBillValidityDate=realmGRNDetails.getTransporterEWayBillValidityDate();
 
                 etName.setText(realmGRNDetails.getTransporterName());
                 etLrn.setText(realmGRNDetails.getTransporterLRName());
@@ -335,6 +346,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     grnItemQtyModel.setInQty(jsonObject1.optDouble("inQty"));
                     grnItemQtyModel.setApQty(jsonObject1.optDouble("apQty"));
                     grnItemQtyModel.setBalanceQty(jsonObject1.optDouble("balanceQty"));
+                    grnItemQtyModel.setgRNItemInfoDetails(jsonObject1.optJSONObject("gRNItemInfoDetails").toString());
                     grnListModels.add(grnItemQtyModel);
                 }
 
@@ -524,7 +536,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     private void setItemDetails() {
         recycler_viewItemDetail.setLayoutManager(new LinearLayoutManager(mContext));
-        itemListDataAdapter = new InventoryGrnItemsListAdapter(mContext, grnListModels);
+        itemListDataAdapter = new InventoryGrnItemsListAdapter(mContext, grnListModels,this);
         recycler_viewItemDetail.setAdapter(itemListDataAdapter);
     }
 
@@ -558,5 +570,231 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         rvAttachment.setLayoutManager(new LinearLayoutManager(mContext));
         inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments);
         rvAttachment.setAdapter(inventoryAttachmentAdapter);
+    }
+
+
+    private void createJson(){
+        JSONObject jsonObject=new JSONObject();
+        JSONArray poDetails=new JSONArray();
+
+        try {
+
+            for (int j = 0; j < grnListModels.size(); j++) {
+
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("materialCode",grnListModels.get(j).getMaterialCode());
+                jsonObject1.put("materialName",grnListModels.get(j).getMaterialName());
+                jsonObject1.put("openQty",grnListModels.get(j).getOpenQty());
+                jsonObject1.put("inQty",grnListModels.get(j).getInQty());
+                jsonObject1.put("apQty",grnListModels.get(j).getApQty());
+                jsonObject1.put("balanceQty",grnListModels.get(j).getBalanceQty());
+                jsonObject1.put("gRNItemInfoDetails",grnListModels.get(j).getgRNItemInfoDetails());
+
+                poDetails.put(jsonObject1);
+            }
+
+            JSONArray IncoTermsArray = new JSONArray();
+            for (int j = 0; j < grnInccoTermsModels.size(); j++) {
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("grnIncoDetail",grnInccoTermsModels.get(j).getGrnIncoDetail());
+                jsonObject1.put("grnPayBySender",grnInccoTermsModels.get(j).isGrnPayBySender());
+                jsonObject1.put("grnPayByReceiver",grnInccoTermsModels.get(j).isGrnPayByReceiver());
+                jsonObject1.put("grnPayAmount",grnInccoTermsModels.get(j).getGrnPayAmount());
+
+                IncoTermsArray.put(jsonObject1);
+            }
+
+            JSONArray jsonArrayAttachments = new JSONArray();
+            for (int j = 0; j < grnAttachments.size(); j++) {
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("grnAttachmentName",grnAttachments.get(j).getGrnAttachmentName());
+                jsonObject1.put("grnAttachmentUrl",grnAttachments.get(j).getGrnAttachmentUrl());
+                jsonObject1.put("grnAttachmentType",grnAttachments.get(j).getGrnAttachmentType());
+
+                jsonArrayAttachments.put(jsonObject1);
+            }
+
+
+            jsonObject.put("poNumber",poNumber);
+            jsonObject.put("grnNumber",grnNumber.getText().toString());
+            jsonObject.put("receivedDate",et_received_date.getText().toString());
+            jsonObject.put("totalItems",et_totalItems.getText().toString());
+            jsonObject.put("value",et_value.getText().toString());
+            jsonObject.put("poQty",poQty.getText().toString());
+            jsonObject.put("openQty",openQty.getText().toString());
+            jsonObject.put("balanceQty",balanceQty.getText().toString());
+            jsonObject.put("transporterName",etName.getText().toString());
+            jsonObject.put("transporterLRName",etLrn.getText().toString());
+            jsonObject.put("transporterTruckNumber",etTrackNumber1.getText().toString());
+            jsonObject.put("transporterEWayBillNumber",etEwayBill.getText().toString());
+            jsonObject.put("transporterEWayBillValidityDate",transporterEWayBillValidityDate);
+            jsonObject.put("transporterDriverName",etDriverName.getText().toString());
+            jsonObject.put("transporterDriverMobileNumber",driverMobileNumber.getText().toString());
+            jsonObject.put("transporterAddress",etAddress.getText().toString());
+            jsonObject.put("poItemDetails",poDetails);
+            jsonObject.put("poIncoTerms",IncoTermsArray);
+            jsonObject.put("poPaymentTermsType",new JSONArray());
+            jsonObject.put("poTermsAndConditions",new JSONArray());
+            jsonObject.put("poAttachments",jsonArrayAttachments);
+            jsonObject.put("employeeCode","");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        new RealmController().saveGRNDetails(jsonObject.toString());
+
+    }
+
+
+    public void submitGRNDetails() {
+
+        createJson();
+        final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        JSONObject jsonObject1 = new JSONObject();
+
+
+     /*   //show
+        Realm realm=Realm.getDefaultInstance();
+        RealmGRNDetails realmGRNDetails=realm.where(RealmGRNDetails.class).equalTo("grnNumber",grnNumber.getText().toString()).findFirst();
+        Gson gson= new GsonBuilder().create();
+        String json=gson.toJson(realmGRNDetails);
+
+        JSONObject jsonObject=new JSONObject(json);
+
+      JSONArray  array=  jsonObject.getJSONArray("poItemDetails");
+
+       JSONObject jsonObject2= array.getJSONObject(position);
+
+       JSONObject jsonObject3=jsonObject2.getJSONObject("gRnItemInfoDetails");
+
+       //----------------------------------------------------show end
+       //update-----start
+
+
+        JSONArray jsArryBatch=new JSONArray();
+
+        JSONObject position=new JSONObject();
+        position.put("tabTitle",,"");
+        jsArryBatch.put(position);
+        jsonObject3.put("data",jsArryBatch);
+        jsonObject2.put("gRnItemInfoDetails",jsonObject2);
+
+        new RealmController().saveGRNDetails(jsonObject2.toString());*/
+
+        progressDialog.show();
+        OkHttpClient okHttpClient = APIClient.getHttpClient();
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, "");
+        String url = IPOSAPI.WEB_SERVICE_GET_GRN_SUMMARY_DETAIL;
+
+        final Request request = APIClient.getPostRequest(this, url, requestBody);
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                //  dismissProgress();
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                // dismissProgress();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                });
+                try {
+                    if (response != null && response.isSuccessful()) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
+                                Log.e(TAG,"Response***"+response.body().toString());
+                            }
+                        });
+
+                        final String responseData = response.body().string();
+                        if (responseData != null) {
+
+                            //saveResponseLocalCreateOrder(jsonObject,requestId);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Util.showToast("Save Successfully");
+                                }
+                            });
+
+                        }
+
+                    } else if (response.code() == Constants.BAD_REQUEST) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.INTERNAL_SERVER_ERROR) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.URL_NOT_FOUND) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.UNAUTHORIZE_ACCESS) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.CONNECTION_OUT) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+                }
+            }
+        });
+    }
+
+
+    @Override
+    public void onRowClicked(int position) {
+        createJson();
+    }
+
+    @Override
+    public void onRowClicked(int position, int value) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        getExpandableData();
     }
 }

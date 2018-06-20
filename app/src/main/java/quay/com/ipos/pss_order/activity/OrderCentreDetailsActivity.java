@@ -477,12 +477,24 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         //    OrderDate.setText(jsonObject.optString("poDate"));
             if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("1")){
                 tvStatus.setText("Submitted");
+                btnEdit.setVisibility(View.GONE);
+                llDate.setEnabled(false);
+                btnEdit.setEnabled(false);
+                llRedeemValue.setEnabled(false);
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("2")){
                 llbottom_buttons.setVisibility(View.GONE);
+                btnEdit.setVisibility(View.GONE);
                 tvStatus.setText("Approved");
+                llDate.setEnabled(false);
+                btnEdit.setEnabled(false);
+                llRedeemValue.setEnabled(false);
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("3")){
-                llbottom_buttons.setVisibility(View.VISIBLE);
+                llbottom_buttons.setVisibility(View.GONE);
+                btnEdit.setVisibility(View.GONE);
                 tvStatus.setText("Rejected");
+                llDate.setEnabled(false);
+                btnEdit.setEnabled(false);
+                llRedeemValue.setEnabled(false);
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("0")){
                 tvStatus.setText("Pending");
             }

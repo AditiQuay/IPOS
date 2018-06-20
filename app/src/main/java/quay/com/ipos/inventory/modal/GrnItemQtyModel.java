@@ -11,6 +11,7 @@ public class GrnItemQtyModel {
     private double inQty;
     private double apQty;
     private double balanceQty;
+    private String gRNItemInfoDetails;
 
     public String getMaterialCode() {
         return materialCode;
@@ -58,5 +59,13 @@ public class GrnItemQtyModel {
 
     public void setBalanceQty(double balanceQty) {
         this.balanceQty = balanceQty;
+    }
+
+    public String getgRNItemInfoDetails() {
+        return gRNItemInfoDetails;
+    }
+
+    public void setgRNItemInfoDetails(String gRNItemInfoDetails) {
+        this.gRNItemInfoDetails = gRNItemInfoDetails;
     }
 }

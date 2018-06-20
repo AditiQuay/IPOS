@@ -161,7 +161,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }else {
+                }else if (key==6){
                     JSONArray array1 = null;
                     try {
                         array1 = new JSONArray(realmOrderCentreSummary.getModel());
