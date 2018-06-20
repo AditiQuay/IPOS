@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,21 +33,14 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
-import quay.com.ipos.inventory.adapter.AttachmentsPOListAdapter;
-import quay.com.ipos.inventory.adapter.INCOTermsPOListAdapter;
 import quay.com.ipos.inventory.adapter.InventoryAttachmentAdapter;
 import quay.com.ipos.inventory.adapter.InventoryGrnInccoAdapter;
 import quay.com.ipos.inventory.adapter.InventoryGrnItemsListAdapter;
-import quay.com.ipos.inventory.adapter.ItemsDetailsPOListAdapter;
 import quay.com.ipos.inventory.adapter.MilestonePOListAdapter;
 import quay.com.ipos.inventory.adapter.TermsPOListAdapter;
-import quay.com.ipos.inventory.modal.GRNListModel;
 import quay.com.ipos.inventory.modal.GrnAttachment;
 import quay.com.ipos.inventory.modal.GrnInccoTermsModel;
 import quay.com.ipos.inventory.modal.GrnItemQtyModel;
-import quay.com.ipos.inventory.modal.POAttachments;
-import quay.com.ipos.inventory.modal.POIncoTerms;
-import quay.com.ipos.inventory.modal.POItemDetail;
 import quay.com.ipos.inventory.modal.POPaymentTerms;
 import quay.com.ipos.inventory.modal.POTermsCondition;
 import quay.com.ipos.listeners.InitInterface;
@@ -61,6 +55,7 @@ import quay.com.ipos.utility.Prefs;
  */
 
 public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener {
+    private static final String TAG = InventoryGRNDetails.class.getSimpleName();
     private Toolbar toolbar;
     private Button btnAction, btnSave;
     private Context mContext;
@@ -68,7 +63,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     private LinearLayout lGrn, lItemsDetails, llIncoTerms, llTermsC;
     private RelativeLayout lTransporter;
 
-    private RecyclerView recycler_viewItemDetail, recycler_viewInco, recycler_viewPayment, recycler_viewTerms, recycler_viewAttachment;
+    private RecyclerView recycler_viewItemDetail, rvIncco, recycler_viewPayment, recycler_viewTerms, rvAttachment;
     //Inventory Grn
     InventoryGrnItemsListAdapter itemListDataAdapter;
     InventoryGrnInccoAdapter inventoryGrnInccoAdapter;
@@ -91,6 +86,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     boolean isItemDetailsClick = false;
     boolean isInccoClick = false;
     boolean isAttachmentClick = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,8 +149,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         etEwayBill = findViewById(R.id.etEwayBill);
 
         recycler_viewItemDetail = findViewById(R.id.recycler_viewItemDetails);
-        recycler_viewInco = findViewById(R.id.recycler_viewInco);
-        recycler_viewAttachment = findViewById(R.id.recycler_viewAttachment);
+        rvIncco = findViewById(R.id.rvIncco);
+        rvAttachment = findViewById(R.id.rvAttachment);
 
     }
 
@@ -177,7 +173,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
 
         //Getting GRN details from server
-//        getGRNDetails();
+        getGRNDetails();
     }
 
     @Override
@@ -201,14 +197,15 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
                 break;
             case R.id.rGrn:
-                if (isGrnClick){
+                if (isGrnClick) {
                     lGrn.setVisibility(View.GONE);
                     lTransporter.setVisibility(View.GONE);
                     lItemsDetails.setVisibility(View.GONE);
                     llIncoTerms.setVisibility(View.GONE);
                     llTermsC.setVisibility(View.GONE);
+
                     isGrnClick = false;
-                }else {
+                } else {
                     lGrn.setVisibility(View.VISIBLE);
                     lTransporter.setVisibility(View.GONE);
                     lItemsDetails.setVisibility(View.GONE);
@@ -219,35 +216,81 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
                 break;
             case R.id.rTransporter:
-                lTransporter.setVisibility(View.VISIBLE);
-                lGrn.setVisibility(View.GONE);
-                lItemsDetails.setVisibility(View.GONE);
-                llIncoTerms.setVisibility(View.GONE);
-                llTermsC.setVisibility(View.GONE);
+                if (isTransporterClick) {
+                    lTransporter.setVisibility(View.GONE);
+                    lGrn.setVisibility(View.GONE);
+                    lItemsDetails.setVisibility(View.GONE);
+                    llIncoTerms.setVisibility(View.GONE);
+                    llTermsC.setVisibility(View.GONE);
+                    isTransporterClick = false;
+                } else {
+                    lTransporter.setVisibility(View.VISIBLE);
+                    lGrn.setVisibility(View.GONE);
+                    lItemsDetails.setVisibility(View.GONE);
+                    llIncoTerms.setVisibility(View.GONE);
+                    llTermsC.setVisibility(View.GONE);
+                    isTransporterClick = true;
+                }
+
 
                 break;
             case R.id.rItemsDetails:
-                lItemsDetails.setVisibility(View.VISIBLE);
-                lGrn.setVisibility(View.GONE);
-                lTransporter.setVisibility(View.GONE);
-                llIncoTerms.setVisibility(View.GONE);
-                llTermsC.setVisibility(View.GONE);
+                if (isItemDetailsClick) {
+                    lItemsDetails.setVisibility(View.GONE);
+                    lGrn.setVisibility(View.GONE);
+                    lTransporter.setVisibility(View.GONE);
+                    llIncoTerms.setVisibility(View.GONE);
+                    llTermsC.setVisibility(View.GONE);
+
+                    isItemDetailsClick = false;
+                } else {
+                    lItemsDetails.setVisibility(View.VISIBLE);
+                    lGrn.setVisibility(View.GONE);
+                    lTransporter.setVisibility(View.GONE);
+                    llIncoTerms.setVisibility(View.GONE);
+                    llTermsC.setVisibility(View.GONE);
+                    isItemDetailsClick = true;
+                }
+
 
                 break;
             case R.id.rIncco:
-                llIncoTerms.setVisibility(View.VISIBLE);
-                lItemsDetails.setVisibility(View.GONE);
-                lGrn.setVisibility(View.GONE);
-                lTransporter.setVisibility(View.GONE);
-                llTermsC.setVisibility(View.GONE);
+                if (isInccoClick) {
+                    llIncoTerms.setVisibility(View.GONE);
+                    lItemsDetails.setVisibility(View.GONE);
+                    lGrn.setVisibility(View.GONE);
+                    lTransporter.setVisibility(View.GONE);
+                    llTermsC.setVisibility(View.GONE);
+                    isInccoClick = false;
+                } else {
+                    llIncoTerms.setVisibility(View.VISIBLE);
+                    lItemsDetails.setVisibility(View.GONE);
+                    lGrn.setVisibility(View.GONE);
+                    lTransporter.setVisibility(View.GONE);
+                    llTermsC.setVisibility(View.GONE);
+                    isInccoClick = true;
+                }
+
 
                 break;
             case R.id.rAttachment:
-                llTermsC.setVisibility(View.VISIBLE);
-                lGrn.setVisibility(View.GONE);
-                lTransporter.setVisibility(View.GONE);
-                llIncoTerms.setVisibility(View.GONE);
-                lItemsDetails.setVisibility(View.GONE);
+                if (isAttachmentClick) {
+                    llTermsC.setVisibility(View.GONE);
+                    lGrn.setVisibility(View.GONE);
+                    lTransporter.setVisibility(View.GONE);
+                    llIncoTerms.setVisibility(View.GONE);
+                    lItemsDetails.setVisibility(View.GONE);
+
+                    isAttachmentClick = false;
+                } else {
+                    llTermsC.setVisibility(View.VISIBLE);
+                    lGrn.setVisibility(View.GONE);
+                    lTransporter.setVisibility(View.GONE);
+                    llIncoTerms.setVisibility(View.GONE);
+                    lItemsDetails.setVisibility(View.GONE);
+
+                    isAttachmentClick = true;
+                }
 
             default:
                 break;
@@ -257,21 +300,18 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
 
     private void getExpandableData() {
-
-
-
         Realm realm = Realm.getDefaultInstance();
-        RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).equalTo("grnNumber", "123").findFirst();
-
+//        RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).eualTo("grnNumber", poNumber)q.findFirst();
+        RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
         if (realmGRNDetails != null) {
             try {
                 grnNumber.setText(realmGRNDetails.getGrnNumber());
                 et_received_date.setText(realmGRNDetails.getReceivedDate());
-                et_totalItems.setText(realmGRNDetails.getTotalItems());
-                et_value.setText(realmGRNDetails.getValue());
-                poQty.setText(realmGRNDetails.getPoQty());
-                openQty.setText(realmGRNDetails.getOpenQty());
-                balanceQty.setText(realmGRNDetails.getBalanceQty());
+                et_totalItems.setText(realmGRNDetails.getTotalItems()+"");
+                et_value.setText(realmGRNDetails.getValue()+"");
+                poQty.setText(realmGRNDetails.getPoQty()+"");
+                openQty.setText(realmGRNDetails.getOpenQty()+"");
+                balanceQty.setText(realmGRNDetails.getBalanceQty()+"");
 
 
                 etName.setText(realmGRNDetails.getTransporterName());
@@ -301,7 +341,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
                 //Incco terms
                 JSONArray jsonArray = new JSONArray(realmGRNDetails.getPoIncoTerms());
-                double total = 0;
                 for (int j = 0; j < jsonArray.length(); j++) {
                     JSONObject jsonObject1 = jsonArray.optJSONObject(j);
                     GrnInccoTermsModel grnInccoTermsModel = new GrnInccoTermsModel();
@@ -310,7 +349,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     grnInccoTermsModel.setGrnPayByReceiver(jsonObject1.optBoolean("grnPayByReceiver"));
                     grnInccoTermsModel.setGrnPayAmount(jsonObject1.optDouble("grnPayAmount"));
                     grnInccoTermsModels.add(grnInccoTermsModel);
-                    total = total + jsonObject1.optDouble("poPayAmount");
                 }
 
 //                POIncoTerms poIncoTerms2 = new POIncoTerms();
@@ -376,7 +414,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("businessPlaceId", businessPlaceId);
+            jsonObject1.put("businessPlaceId", "1");
             jsonObject1.put("poNumber", poNumber);
             jsonObject1.put("isGRN", false);
             jsonObject1.put("isGRNOrQC", "grn");
@@ -388,14 +426,20 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         progressDialog.show();
         OkHttpClient okHttpClient = APIClient.getHttpClient();
         RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
-        String url = IPOSAPI.WEB_SERVICE_GetPOSummaryDetail;
+        String url = IPOSAPI.WEB_SERVICE_GET_GRN_SUMMARY_DETAIL;
 
         final Request request = APIClient.getPostRequest(this, url, requestBody);
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, final IOException e) {
 
-                progressDialog.dismiss();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 //  dismissProgress();
             }
 
@@ -411,6 +455,13 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 });
                 try {
                     if (response != null && response.isSuccessful()) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
+                                Log.e(TAG,"Response***"+response.body().toString());
+                            }
+                        });
 
                         final String responseData = response.body().string();
                         if (responseData != null) {
@@ -472,21 +523,15 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     }
 
     private void setItemDetails() {
-
-        recycler_viewItemDetail.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-        recycler_viewItemDetail.setLayoutManager(mLayoutManager);
+        recycler_viewItemDetail.setLayoutManager(new LinearLayoutManager(mContext));
         itemListDataAdapter = new InventoryGrnItemsListAdapter(mContext, grnListModels);
         recycler_viewItemDetail.setAdapter(itemListDataAdapter);
     }
 
     private void setIncoTerms() {
-
-        recycler_viewInco.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-        recycler_viewInco.setLayoutManager(mLayoutManager);
+        rvIncco.setLayoutManager(new LinearLayoutManager(mContext));
         inventoryGrnInccoAdapter = new InventoryGrnInccoAdapter(mContext, grnInccoTermsModels);
-        recycler_viewInco.setAdapter(inventoryGrnInccoAdapter);
+        rvIncco.setAdapter(inventoryGrnInccoAdapter);
     }
 
     private void setPaymentTerms() {
@@ -500,7 +545,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     private void setTermsCondition() {
 
-
         recycler_viewTerms = findViewById(R.id.recycler_viewTerms);
         recycler_viewTerms.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
@@ -511,10 +555,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
 
     private void setAttahcments() {
-        recycler_viewAttachment.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-        recycler_viewAttachment.setLayoutManager(mLayoutManager);
+        rvAttachment.setLayoutManager(new LinearLayoutManager(mContext));
         inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments);
-        recycler_viewAttachment.setAdapter(inventoryAttachmentAdapter);
+        rvAttachment.setAdapter(inventoryAttachmentAdapter);
     }
 }

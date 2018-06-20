@@ -63,6 +63,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:src="@drawable/summary"
                     android:layout_centerVertical="true"
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10" />
@@ -116,6 +117,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:src="@drawable/shipment"
                     android:layout_centerVertical="true"
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10" />
@@ -169,6 +171,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
+                    android:src="@drawable/detail"
                     android:layout_centerVertical="true"
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10" />
@@ -221,6 +224,7 @@
                     android:layout_height="@dimen/dim_30"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
+                    android:src="@drawable/order_summary"
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
                     android:paddingEnd="@dimen/dim_10"
@@ -257,8 +261,8 @@
             </RelativeLayout>
 
             <include
-                layout="@layout/expandable_inco_terms_item"
-                android:visibility="gone" />
+                layout="@layout/grn_incco"
+                android:visibility="gone"/>
 
             <RelativeLayout
                 android:id="@+id/rAttachment"
@@ -273,6 +277,7 @@
                     android:layout_width="@dimen/dim_30"
                     android:layout_height="@dimen/dim_30"
                     android:layout_alignParentLeft="true"
+                    android:src="@drawable/attachment"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
@@ -310,7 +315,7 @@
             </RelativeLayout>
 
             <include
-                layout="@layout/expandable_po_items"
+                layout="@layout/grn_attachment"
                 android:visibility="gone" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

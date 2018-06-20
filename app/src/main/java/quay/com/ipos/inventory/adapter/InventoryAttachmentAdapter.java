@@ -36,7 +36,7 @@ public class InventoryAttachmentAdapter extends RecyclerView.Adapter<InventoryAt
 
     @Override
     public void onBindViewHolder(@NonNull ItemView holder, int position) {
-        GrnAttachment grnAttachment = new GrnAttachment();
+        GrnAttachment grnAttachment = grnAttachments.get(position);
         holder.tvtitle.setText(grnAttachment.getGrnAttachmentName());
 
     }

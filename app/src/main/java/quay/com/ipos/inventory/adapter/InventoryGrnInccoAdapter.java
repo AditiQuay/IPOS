@@ -35,7 +35,7 @@ public class InventoryGrnInccoAdapter extends RecyclerView.Adapter<InventoryGrnI
 
     @Override
     public void onBindViewHolder(@NonNull ItemView holder, int position) {
-        GrnInccoTermsModel grnInccoTermsModel = new GrnInccoTermsModel();
+        GrnInccoTermsModel grnInccoTermsModel = grnInccoTermsModels.get(position);
         holder.tvDetailName.setText(grnInccoTermsModel.getGrnIncoDetail());
         holder.tvPayAmount.setText(grnInccoTermsModel.getGrnPayAmount()+"");
         if (grnInccoTermsModel.isGrnPayBySender()){
