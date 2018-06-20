@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.arch.lifecycle.MutableLiveData;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -22,6 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
@@ -59,6 +64,11 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
     private MutableLiveData<PCModel> pcModelLiveData = new MutableLiveData<>();
     private View btnCancel, btnsubmit;
 
+    private String filename = "SampleFile.txt";
+    private String filepath = "IPOSFileStorage";
+    File myExternalFile;
+    String myData = "";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +84,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         applyLocalValidation();
 
         getServerData();
+        initFile();
     }
 
     @Override
@@ -366,6 +377,8 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
         Log.i("updateData pcModel", new Gson().toJson(pcModel));
         Log.i("updateData pcModel", new Gson().toJson(getPcModelData().getValue()));
+        writeFile(new Gson().toJson(getPcModelData().getValue()));
+
         Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).updatePartnerConnectData(getPcModelData().getValue());
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
@@ -375,8 +388,9 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                     return;
                 }
                 try {
+                    Log.i(TAG,"Code:" + response.code() + " message:" + response.message());
 
-                    IPOSApplication.showToast("Code:" + response.code() + " message:" + response.message());
+                    IPOSApplication.showToast("Data Updated.");
                     Log.i("response", response.body().statusCode + "," + response.body().message);
                     Log.i("JsonObject", response.toString() + response.body());
                     if (response.body() != null) {
@@ -734,4 +748,41 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
     }
 
 
+   void initFile(){
+        if (!isExternalStorageAvailable() || isExternalStorageReadOnly()) {
+            //saveButton.setEnabled(false);
+            Log.i(TAG,"External Storage Not Available");
+        }
+        else {
+            myExternalFile = new File(getExternalFilesDir(filepath), filename);
+        }
+    }
+    void writeFile(String data){
+        try {
+            FileOutputStream fos = new FileOutputStream(myExternalFile);
+            fos.write(data.getBytes());
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+      //  inputText.setText("");
+       Log.i(TAG,"SampleFile.txt saved to External Storage...");
+
+    }
+
+    private static boolean isExternalStorageReadOnly() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
+
+    private static boolean isExternalStorageAvailable() {
+        String extStorageState = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(extStorageState)) {
+            return true;
+        }
+        return false;
+    }
 }

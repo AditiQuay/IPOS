@@ -116,7 +116,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:fontFamily="@font/titilliumwebregular"
-                                        android:hint="Partner Type *"
+                                        android:hint="Account Holder Name *"
                                         android:inputType="textCapWords"
                                         android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
@@ -162,9 +162,10 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:paddingBottom="@dimen/dim_4">
 
-                                <android.support.design.widget.TextInputLayout
+                               <!-- <android.support.design.widget.TextInputLayout
                                     android:id="@+id/tilAccountType"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent">
@@ -177,7 +178,25 @@
                                         android:hint="Account Type *"
                                         android:textSize="@dimen/universal_text_size14" />
 
-                                </android.support.design.widget.TextInputLayout>
+                                </android.support.design.widget.TextInputLayout>-->
+                                <fr.ganfra.materialspinner.MaterialSpinner
+                                    android:id="@+id/spinnerAccountType"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="@dimen/dim_4"
+                                    android:layout_marginRight="@dimen/dim_4"
+                                    app:ms_alignLabels="true"
+                                    app:ms_baseColor="@color/grey"
+                                    app:ms_enableErrorLabel="false"
+                                    app:ms_enableFloatingLabel="true"
+                                    app:ms_errorColor="@color/red"
+                                    app:ms_floatingLabelColor="@color/grey"
+                                    app:ms_floatingLabelText="Key Contact Position *"
+                                    app:ms_highlightColor="@color/highlight"
+                                    app:ms_hint="Key Contact Position *"
+                                    app:ms_hintColor="@color/grey"
+                                    app:ms_multiline="false" />
+
                             </LinearLayout>
 
                             <LinearLayout

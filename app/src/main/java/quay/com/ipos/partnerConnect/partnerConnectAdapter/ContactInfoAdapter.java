@@ -67,6 +67,7 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
         holder.editName.setText(list.get(holder.getAdapterPosition()).Name);
         holder.editMobile.setText(list.get(holder.getAdapterPosition()).PrimaryMobile);
         holder.editMobile2.setText(list.get(holder.getAdapterPosition()).SecondaryMobile);
+        holder.editEmail.setText(list.get(holder.getAdapterPosition()).Email);
 
         // magic code for spinner
         holder.myCustomSpinnerListener.updatePosition(holder.getAdapterPosition());
@@ -78,7 +79,7 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
             }
         }
 
-        if (contactModel.ID > 0) {
+        if (contactModel.ID == 0  && position!=0) {
             holder.btnRemove.setVisibility(View.VISIBLE);
         }else {
             holder.btnRemove.setVisibility(View.GONE);
@@ -88,7 +89,7 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
             @Override
             public void onClick(View view) {
                 list.remove(position);
-
+                notifyDataSetChanged();
             }
         });
         //  holder.roleTypeSpinner.setSelection(list.get(holder.getAdapterPosition()).Name);

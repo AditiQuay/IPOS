@@ -74,6 +74,7 @@
                                     app:ms_highlightColor="@color/highlight"
                                     app:ms_hint="Security Check *"
                                     app:ms_hintColor="@color/grey"
+
                                     app:ms_multiline="false" />
                             </LinearLayout>
 
