@@ -46,6 +46,7 @@ import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SpacesItemDecoration;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by aditi.bhuranda on 08-05-2018.
@@ -437,7 +438,12 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
 
 
                     } else {
-
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Util.showToast("Something Went Wrong");
+                            }
+                        });
 
 
                     }

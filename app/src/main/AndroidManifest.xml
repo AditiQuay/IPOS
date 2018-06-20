@@ -271,7 +271,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ddr.activity.AddOrderCentreActivity"
+            android:name=".pss_order.activity.AddOrderCentreActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
