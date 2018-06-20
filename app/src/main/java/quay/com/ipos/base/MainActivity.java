@@ -32,10 +32,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -71,8 +69,6 @@ import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.local.dao.MostUsedFunDao;
 import quay.com.ipos.data.local.entity.MostUsed;
 import quay.com.ipos.ddrsales.DDROrderCenterActivity;
-import quay.com.ipos.pss_order.fragment.NewOrderFragment;
-import quay.com.ipos.pss_order.fragment.OrderCentreListFragment;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.inventory.fragment.InventoryFragment;
@@ -119,12 +115,12 @@ public class MainActivity extends BaseActivity
     private int lastExpandedGroup;
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
-  //  private Class<?> mClss;
+    //  private Class<?> mClss;
     private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
-  //  private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
-  //  private View viewM, viewI, viewP;
+    //  private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
+    //  private View viewM, viewI, viewP;
     private CircleImageView imageViewProfileDummy;
     private TextView textViewMyBusiness, textViewAccount;
     private TextView textViewP, textViewI, textViewM;
@@ -404,7 +400,7 @@ public class MainActivity extends BaseActivity
             }
         });*/
         if (drawerRoleModals.size() > 1) {
-            onRoleSelected(drawerRoleModals.get(1),1);
+            onRoleSelected(drawerRoleModals.get(1), 1);
         }
 
 
@@ -1023,7 +1019,7 @@ public class MainActivity extends BaseActivity
                         customerSpouseFirstName, customerSpouseLastName, customerSpouseDob, customerChildSatus, customerChild.toString(),
                         customerEmail, customerEmail2, customerPhone, customerPhone2, customerPhone3, customerAddress, customerState, customerCity,
                         customerPin, customerCountry, customerDesignation, customerCompany, custoemrGstin, customer, customerRelationship,
-                        customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom, "", "", customerPointsPerValue,1);
+                        customerImage, lastBillingDate, lastBillingAmount, issuggestion, suggestion, customerPoints, recentOrders.toString(), customerStatus, cFactore, customerType, customerDom, "", "", customerPointsPerValue, customerRedeemPoints, customerAdjustPoints, customerExpirePoints, customerReversePoints, 1);
 
 
 //                // get the newly inserted note from db
@@ -1098,20 +1094,20 @@ public class MainActivity extends BaseActivity
     public void onRoleSelected(DrawerRoleModal drawerRoleModal, int position) {
         try {
             currentType = position;
-           // int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
-          //  int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
-           // setMenuItemNormal();
-           // if (mSelectedItemPosition != -1 && mSelectedItemPosition != position) {
-              //  view = lvMenu.getChildAt(position);
-              //  View borderView = view.findViewById(R.id.viewP);
-               // TextView textView = view.findViewById(R.id.textViewP);
+            // int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
+            //  int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());
+            // setMenuItemNormal();
+            // if (mSelectedItemPosition != -1 && mSelectedItemPosition != position) {
+            //  view = lvMenu.getChildAt(position);
+            //  View borderView = view.findViewById(R.id.viewP);
+            // TextView textView = view.findViewById(R.id.textViewP);
 
-              //  borderView.setBackgroundColor(mContext.getResources().getColor(R.color.menu_strip));
-             //   textView.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
+            //  borderView.setBackgroundColor(mContext.getResources().getColor(R.color.menu_strip));
+            //   textView.setLayoutParams(new RelativeLayout.LayoutParams(SelectSize, SelectSize));
             //    textView.setBackgroundResource(R.drawable.menu_background_select);
-             //   drawerRoleModals.get(position).setSelected(true);
+            //   drawerRoleModals.get(position).setSelected(true);
 
-           // }
+            // }
             mSelectedItemPosition = position;
             //drawerRoleAdapter.notifyDataSetChanged();
 
