@@ -602,7 +602,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                            JSONArray array= jsonObject.optJSONArray("cartDetail");
                            for (int i=0;i<array.length();i++){
                                JSONObject jsonObject2=array.optJSONObject(i);
-                               jsonObject2.put("iProductModalId",jsonObject2.optString("materialCode"));
+                               jsonObject2.put("productCode",jsonObject2.optString("productCode"));
+                               jsonObject2.put("iProductModalId",jsonObject2.optString("iProductModalId"));
                                jsonObject2.put("sProductName",jsonObject2.optString("materialName"));
                                jsonObject2.put("sProductPrice",jsonObject2.optString("materialUnitValue"));
                                jsonObject2.put("cgst",jsonObject2.optString("materialCGSTRate"));
@@ -611,6 +612,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                                jsonObject2.put("qty",jsonObject2.optInt("materialQty"));
                                jsonObject2.put("discountPrice",jsonObject2.optInt("materialDiscountValue"));
                                jsonObject2.put("totalPrice",jsonObject2.optInt("materialValue"));
+                               jsonObject2.put("isFreeItem",jsonObject2.optBoolean("isFreeItem"));
                                saveResponseLocal(jsonObject2,jsonObject.optString("poNumber"));
 
 
@@ -628,6 +630,12 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
 
                     } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Util.showToast("Something Went Wrong");
+                            }
+                        });
 
 
 
@@ -725,6 +733,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         int totalPoints = 0;
         int noOfItems = 0;
         String poNumber = null;
+        double discountPartiItem=0;
         for (RealmOrderCentre realmNewOrderCart : realmNewOrderCarts1) {
 
             JSONObject jsonObjectCartDetail=new JSONObject();
@@ -741,8 +750,9 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                     JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
                     for (int k = 0; k < array.length(); k++) {
                         JSONObject jsonObject = array.optJSONObject(k);
-                        if (jsonObject.has("discountTotal")) {
+                        if (jsonObject.has("discountTotal")  && !jsonObject.optBoolean("discountTotalStrike") ) {
                             discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                            discountPartiItem=discountPartiItem+jsonObject.optInt("discountTotal");
                         }
                     }
                 } catch (JSONException e) {
@@ -750,6 +760,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 }
             }else {
                 discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
+                discountPartiItem=realmNewOrderCart.getTotalPrice();
             }
             totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
             gst = gst + totalGST;
@@ -800,11 +811,11 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
             try {
                 jsonObjectCartDetail.put("oldMaterialCode",realmNewOrderCart.getiProductModalId());
-                jsonObjectCartDetail.put("materialCode",realmNewOrderCart.getiProductModalId());
+                jsonObjectCartDetail.put("materialCode",realmNewOrderCart.getiProductModalId().replace("free",""));
                 jsonObjectCartDetail.put("materialName",realmNewOrderCart.getsProductName());
                 jsonObjectCartDetail.put("materialValue",realmNewOrderCart.getTotalPrice());
                 jsonObjectCartDetail.put("materialQty",realmNewOrderCart.getQty());
-                jsonObjectCartDetail.put("materialDiscountValue",discountPrice);
+                jsonObjectCartDetail.put("materialDiscountValue",discountPartiItem);
                 jsonObjectCartDetail.put("materialUnitValue",realmNewOrderCart.getsProductPrice());
                 jsonObjectCartDetail.put("materialCGSTRate",realmNewOrderCart.getCgst());
                 jsonObjectCartDetail.put("materialCGSTValue",cgst);
@@ -812,6 +823,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 jsonObjectCartDetail.put("materialSGSTValue",sgst);
                 jsonObjectCartDetail.put("materialIGSTRate",realmNewOrderCart.getGstPerc());
                 jsonObjectCartDetail.put("materialIGSTValue",gst);
+                jsonObjectCartDetail.put("productCode",realmNewOrderCart.getProductCode());
+                jsonObjectCartDetail.put("isFreeItem",realmNewOrderCart.isFreeItem());
                 jsonObjectCartDetail.put("scheme",new JSONArray());
                 jsonObjectCartDetail.put("discountValue",discountPrice);
                 jsonObjectCartDetail.put("discountPerc",0);
@@ -878,7 +891,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         }
         progressDialog.show();
         OkHttpClient okHttpClient = APIClient.getHttpClient();
-        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject.toString());
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
         String url = IPOSAPI.WEB_SERVICE_NOTransaction;
 
         final Request request = APIClient.getPostRequest(this, url, requestBody);
@@ -922,7 +935,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
 
                     } else {
-                        finish();
+                        //finish();
 
 
                     }
@@ -1056,7 +1069,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
     private void getProduct() {
 
-
+        recentOrderModalArrayList.clear();
         double discountPrice=0;
         Realm realm = Realm.getDefaultInstance();
         RealmResults<RealmOrderCentre> realmNewOrderCarts1 = realm.where(RealmOrderCentre.class).equalTo("OrderId",poNumber).findAll();
@@ -1068,6 +1081,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             RecentOrderModal recentOrderModal=new RecentOrderModal();
             recentOrderModal.setTitle(realmNewOrderCarts.getsProductName());
             recentOrderModal.setQty(""+realmNewOrderCarts.getQty());
+            recentOrderModal.setFreeItem(realmNewOrderCarts.isFreeItem());
 
             recentOrderModal.setValue(""+realmNewOrderCarts.getTotalPrice());
 
@@ -1079,7 +1093,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                             JSONObject jsonObject = array.optJSONObject(k);
                             if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
                                 discountPrice = discountPrice + jsonObject.optInt("discountTotal");
-                                discountPart=jsonObject.optInt("discountTotal");
+                                discountPart=discountPart+jsonObject.optInt("discountTotal");
                             }
                         }
                     } catch (JSONException e) {

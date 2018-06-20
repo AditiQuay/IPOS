@@ -203,6 +203,7 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
                     }
                     userViewHolder.llAddMinus.setVisibility(View.VISIBLE);
                 }
+                if (str.getProductImage()!=null && !str.getProductImage().equalsIgnoreCase(""))
                 Picasso.get().load(str.getProductImage()).into(userViewHolder.imvProduct);
 
 

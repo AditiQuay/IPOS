@@ -290,6 +290,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
                     recentOrderModal.setDiscountValue(""+jsonObject.optInt("materialDiscountValue"));
                     recentOrderModal.setValue(""+jsonObject.optInt("materialValue"));
 
+                    recentOrderModal.setFreeItem(jsonObject.optBoolean("isFreeItem"));
                     recentOrderModalArrayList.add(recentOrderModal);
 
                     recentOrdersListAdapter.notifyDataSetChanged();
@@ -436,7 +437,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
 
     private void getAddressData(String businesplaceCode) {
-
+        addressList.clear();
         Realm realm=Realm.getDefaultInstance();
         RealmResults<RealmBusinessPlaces> realmBusinessPlaces=realm.where(RealmBusinessPlaces.class).findAll();
         for (int i = 0; i < realmBusinessPlaces.size(); i++) {
