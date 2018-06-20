@@ -50,7 +50,7 @@
                         android:text="@string/order_summary"
                         android:textColor="@color/colorPrimary" />
                     <LinearLayout
-
+                        android:id="@+id/btnViewAll"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"

@@ -69,6 +69,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     ArrayList<String> listDataHeader;
     HashMap<String, ArrayList<OrderList.Datum>> listDataChild;
     TextView tvNew,tvCancelled,tvDelivered,tvAccepted,tvDispatched;
+    private LinearLayout btnViewAll;
 
     // newInstance constructor for creating fragment with arguments
     public OrderCentreListFragment newInstance(int position) {
@@ -118,7 +119,9 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         orderList.clear();
         Realm realm=Realm.getDefaultInstance();
         RealmResults<RealmOrderCentreSummary> realmOrderCentreSummaries=realm.where(RealmOrderCentreSummary.class).findAll();
+        orderList.clear();
         if (realmOrderCentreSummaries.size()>0){
+
             for (RealmOrderCentreSummary realmOrderCentreSummary:realmOrderCentreSummaries){
 
                 if (realmOrderCentreSummary.getId()==1){
@@ -158,6 +161,27 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                }else if (key==6){
+                    JSONArray array1 = null;
+                    try {
+                        array1 = new JSONArray(realmOrderCentreSummary.getModel());
+                        for (int k = 0; k < array1.length(); k++) {
+                            JSONObject jsonObject = array1.optJSONObject(k);
+                            OrderCentreModal orderCentreModal = new OrderCentreModal();
+
+                            orderCentreModal.setEtaDate(jsonObject.optString("etaDate"));
+                            orderCentreModal.setItemQty(jsonObject.optInt("itemQty"));
+                            orderCentreModal.setModifiedDate(jsonObject.optString("modifiedDate"));
+                            orderCentreModal.setOrderValue(jsonObject.optInt("orderValue"));
+                            orderCentreModal.setRequestCode(jsonObject.optString("requestCode"));
+                            orderCentreModal.setTotalItem(jsonObject.optInt("totalItem"));
+
+                            orderList.add(orderCentreModal);
+
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
 
             }
@@ -168,6 +192,8 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     }
 
     private void initializeComponent(View view) {
+        btnViewAll=view.findViewById(R.id.btnViewAll);
+        btnViewAll.setOnClickListener(this);
         recyclerView = view.findViewById(R.id.recycler_view);
         GridLayoutManager mLayoutManager2 = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(mLayoutManager2);
@@ -327,6 +353,14 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
             case R.id.llCancelled:
                 selectItemCancel();
                 setRealmData(5);
+                break;
+            case R.id.btnViewAll:
+                vNew.setVisibility(View.VISIBLE);
+                vAccepted.setVisibility(View.VISIBLE);
+                vDelivered.setVisibility(View.VISIBLE);
+                vDispatched.setVisibility(View.VISIBLE);
+                vCancelled.setVisibility(View.VISIBLE);
+                setRealmData(6);
                 break;
         }
 

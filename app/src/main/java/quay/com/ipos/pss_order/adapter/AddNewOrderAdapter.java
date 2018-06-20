@@ -22,6 +22,7 @@ import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by aditi.bhuranda on 04-05-2018.
@@ -149,7 +150,7 @@ public class AddNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             userViewHolder.tvItemName.setText(str.getSProductName());
             Picasso.get().load(str.getProductImage()).into(userViewHolder.imvProduct);
-            userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs)+" "+str.getSProductPrice());
+            userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs)+" "+ Util.indianNumberFormat(str.getSProductPrice()));
             userViewHolder.tvItemStockAvailabilty.setText(str.getSProductStock().substring(0,1).toUpperCase()+str.getSProductStock().substring(1).toLowerCase());
             userViewHolder.tvPoints.setText(str.getPoints()+ " Pts.");
             if (str.isIsDiscount()){

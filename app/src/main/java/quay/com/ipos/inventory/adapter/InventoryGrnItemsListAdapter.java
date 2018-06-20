@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.modal.GrnItemQtyModel;
+import quay.com.ipos.listeners.MyListener;
 
 /**
  * Created by niraj.kumar on 6/20/2018.
@@ -20,9 +21,11 @@ import quay.com.ipos.inventory.modal.GrnItemQtyModel;
 public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<InventoryGrnItemsListAdapter.ItmeViewHolder> {
     private Context mContext;
     private ArrayList<GrnItemQtyModel> grnItemQtyModels;
-    public InventoryGrnItemsListAdapter(Context mContext, ArrayList<GrnItemQtyModel>grnItemQtyModels){
+    MyListener myListener;
+    public InventoryGrnItemsListAdapter(Context mContext, ArrayList<GrnItemQtyModel>grnItemQtyModels,MyListener myListener){
         this.mContext = mContext;
         this.grnItemQtyModels = grnItemQtyModels;
+        this.myListener=myListener;
     }
 
     @NonNull
@@ -33,13 +36,22 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItmeViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ItmeViewHolder holder, int position) {
             GrnItemQtyModel grnItemQtyModel = grnItemQtyModels.get(position);
             holder.tvMaterialName.setText(grnItemQtyModel.getMaterialName());
             holder.tvOpenQty.setText(grnItemQtyModel.getOpenQty()+"");
             holder.tvInQty.setText(grnItemQtyModel.getInQty()+"");
             holder.tvApQty.setText(grnItemQtyModel.getApQty()+"");
             holder.tvBalanceQty.setText(grnItemQtyModel.getBalanceQty()+"");
+
+            holder.item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    myListener.onRowClicked(holder.getAdapterPosition());
+                }
+            });
+
+
     }
 
     @Override
@@ -48,9 +60,11 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
     }
 
     public class ItmeViewHolder extends RecyclerView.ViewHolder {
+        private final View item;
         private TextView tvMaterialName,tvOpenQty,tvInQty,tvApQty,tvBalanceQty;
         public ItmeViewHolder(View itemView) {
             super(itemView);
+            item=itemView;
             tvMaterialName = itemView.findViewById(R.id.tvMaterialName);
             tvOpenQty = itemView.findViewById(R.id.tvOpenQty);
             tvInQty = itemView.findViewById(R.id.tvInQty);
