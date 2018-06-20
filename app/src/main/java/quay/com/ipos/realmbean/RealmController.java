@@ -1,12 +1,11 @@
 package quay.com.ipos.realmbean;
 
-import android.content.Context;
-
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import io.realm.Realm;
+import quay.com.ipos.inventory.modal.GRNListModel;
 import quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails;
 import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 //import quay.com.ipos.modal.PinnedResult;
@@ -238,6 +237,24 @@ public class RealmController {
         realm.beginTransaction();
         try {
             realm.createOrUpdateObjectFromJson(RealmPOInventory.class, responseData);
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
+
+
+    public void saveGRNDetails(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateObjectFromJson(RealmGRNDetails.class, responseData);
         } catch (Exception e) {
             if (realm.isInTransaction())
                 realm.cancelTransaction();

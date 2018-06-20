@@ -82,6 +82,8 @@ public class DiscountDeleteFragment extends DialogFragment
         // Build dialog
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        builder.setCancelable(false);
+        builder.setCanceledOnTouchOutside(false);
         builder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         builder.setContentView(view);
         return builder;

@@ -1,7 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lItemsDetails"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rectangle_child_white"
+    android:layout_margin="@dimen/dim_4"
     android:orientation="vertical">
 
     <LinearLayout
@@ -122,11 +124,18 @@
         android:layout_marginTop="4dp"
         android:background="@drawable/ipos_line_black" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_viewItemDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dim_8">
 
+    </android.support.v7.widget.RecyclerView>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:visibility="gone"
         android:padding="@dimen/dim_4">
 
         <TextView

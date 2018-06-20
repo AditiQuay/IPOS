@@ -550,17 +550,22 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
 //            return;
 //        }
         JSONObject object = new JSONObject();
+        KYCAcceptData kycAcceptData = new KYCAcceptData();
         try {
             object.put("empCode", employeeCode.trim());
+            //
             object.put("jsutification", "");
             object.put("requestCode", requestCode);
             object.put("pssRespnce", new JSONObject(new Gson().toJson(getPcModelData().getValue())));
-
+            kycAcceptData.empCode = employeeCode.trim();
+            kycAcceptData.jsutification ="";
+            kycAcceptData.requestCode =requestCode;
+            kycAcceptData.pssRespnce =  getPcModelData().getValue();
         } catch (JSONException e) {
             e.printStackTrace();
         }
         Log.i("updateData", new Gson().toJson(getPcModelData().getValue()));
-        Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).kycConnectUpdateData(object);
+        Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).kycConnectUpdateData(kycAcceptData);
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectUpdateResponse> call, Response<PartnerConnectUpdateResponse> response) {

@@ -21,6 +21,8 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
@@ -72,6 +74,8 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onRowClicked(int position) {
         if(position==23)
             listener.onRowClicked(position);
+
+        ((MainActivity) mContext).onResume();
     }
 
     @Override
@@ -91,7 +95,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvMinus,tvPlus,tvPoint,tvTotalPoints;
+        public TextView tvItemName,  tvItemRate, tvItemPrice, tvMinus,tvPlus,tvPoint,tvTotalPoints;
         public TextView tvTotalPrice, tvOTCDiscountPrice,tvDiscountedPrice,tvFreeItems;
         public ImageView imvInfo,imvProduct,imvClear;
         public LinearLayout llOTCDiscount,llEvent,llTotalPoints,llPoints,llInnerItem,llStock,llName;
@@ -113,7 +117,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             tvDiscountedPrice = itemView.findViewById(R.id.tvDiscountedPrice);
             chkOTCDiscount = itemView.findViewById(R.id.chkOTCDiscount);
             tvItemName =  itemView.findViewById(R.id.tvItemName);
-            tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
+//            tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
             tvItemRate =  itemView.findViewById(R.id.tvItemRate);
             tvItemPrice =  itemView.findViewById(R.id.tvItemPrice);
             tvFreeItems =  itemView.findViewById(R.id.tvFreeItems);
@@ -165,10 +169,10 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             myAdapterTags.onRowClicked(position,0, Constants.DISCOUNT+"");
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             final UserViewHolder  userViewHolder = (UserViewHolder) holder;
-            userViewHolder.tvItemName.setText(str.getSProductName());
-            userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
+            userViewHolder.tvItemName.setText(str.getSProductName() + " " +str.getSProductWeight() + " gm");
+//            userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
             userViewHolder.tvItemRate.setText(str.getSProductStock()+"");
-            userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSProductPrice());
+            userViewHolder.tvItemPrice.setText(Util.getIndianNumberFormat(str.getSProductPrice()+""));
             userViewHolder.etQtySelected.setText(str.getQty()+"");
 
             ImageLoader.getInstance().displayImage(str.getProductImage(),userViewHolder.imvProduct);
@@ -203,7 +207,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.tvTotalPoints.setVisibility(View.GONE);
                 userViewHolder.tvPoint.setVisibility(View.GONE);
                 userViewHolder.llEvent.setVisibility(View.GONE);
-                userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" " + str.getSProductPrice());
+                userViewHolder.tvTotalPrice.setText(Util.getIndianNumberFormat( str.getSProductPrice()+""));
                 userViewHolder.chkItem.setVisibility(View.GONE);
                 userViewHolder.llOTCDiscount.setVisibility(View.GONE);
                 userViewHolder.llPoints.setVisibility(View.GONE);
@@ -218,7 +222,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.llEvent.setVisibility(View.VISIBLE);
                 userViewHolder.llPoints.setVisibility(View.VISIBLE);
                 userViewHolder.llTotalPoints.setVisibility(View.VISIBLE);
-                userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+totalPrice);
+                userViewHolder.tvTotalPrice.setText(Util.getIndianNumberFormat(totalPrice+""));
 
                 if(str.isItemSelected())
                     userViewHolder.chkItem.setVisibility(View.VISIBLE);
@@ -234,7 +238,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if(str.isDiscSelected()) {
                     userViewHolder.chkOTCDiscount.setChecked(true);
                     userViewHolder.llOTCDiscount.setVisibility(View.VISIBLE);
-                    userViewHolder.tvOTCDiscountPrice.setText("- "+mContext.getResources().getString(R.string.Rs) +" "+str.getOTCDiscount());
+                    userViewHolder.tvOTCDiscountPrice.setText("- "+Util.getIndianNumberFormat(str.getOTCDiscount()+""));
                 }
                 else {
                     userViewHolder.llOTCDiscount.setVisibility(View.GONE);
@@ -275,6 +279,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             userViewHolder.etQtySelected.setTag(position);
             final int[] qty = {0};
+            final Timer[] timer = new Timer[1];
             userViewHolder.etQtySelected.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -288,9 +293,13 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
 
                 @Override
-                public void afterTextChanged(Editable editable) {
+                public void afterTextChanged(final Editable editable) {
 
                     if(!onBind) {
+                        timer[0] = new Timer();
+                        timer[0].schedule(new TimerTask() {
+                            @Override
+                            public void run() {
                         if (!editable.toString().isEmpty()) {
                             qty[0] = Integer.parseInt(editable.toString());
                             if (qty[0]<1) {
@@ -304,6 +313,8 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
                             qty[0] = 0;
                         }
+                            }
+                        }, 600);
                     }
 //                    userViewHolder.etQtySelected.postDelayed(new Runnable() {
 //                        @Override

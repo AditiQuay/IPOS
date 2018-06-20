@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -56,6 +57,7 @@ import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MySubmitButton;
 import quay.com.ipos.listeners.YourFragmentInterface;
+import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
@@ -63,7 +65,6 @@ import quay.com.ipos.utility.DividerItemDecoration;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
-import quay.com.ipos.utility.VerticalSpaceItemDecoration;
 
 /**
  * Created by niraj.kumar on 5/31/2018.
@@ -129,6 +130,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     public static final String quickPreference = "QuickData";
     SharedPreferences.Editor quickEditor;
     private SharedPreferences quickSharedPreferences;
+
     public CustomerAddFullFragment() {
 
     }
@@ -177,11 +179,11 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         String title = sharedpreferences.getString("title", "");
         String gender = sharedpreferences.getString("gender", "");
-        String firstName = sharedpreferences.getString("firstName","");
-        String lastName = sharedpreferences.getString("lastName","");
-        String MobileNumber = sharedpreferences.getString("MobileNumber","");
-        String email = sharedpreferences.getString("email","");
-        String bDay = sharedpreferences.getString("bDay","");
+        String firstName = sharedpreferences.getString("firstName", "");
+        String lastName = sharedpreferences.getString("lastName", "");
+        String MobileNumber = sharedpreferences.getString("MobileNumber", "");
+        String email = sharedpreferences.getString("email", "");
+        String bDay = sharedpreferences.getString("bDay", "");
         if (!TextUtils.isEmpty(title)) {
             if (listPosition.contains(title)) {
                 int index = listPosition.indexOf(title);
@@ -405,6 +407,9 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     }
 
 
+                }else {
+                    Toast.makeText(mContext,"You are not allow to add more then 3 childred details",Toast.LENGTH_SHORT).show();
+                    btnAddChild.setBackgroundColor(Color.GRAY);
                 }
             }
         });
@@ -764,11 +769,11 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 countryCode = countryListModel[position].getCountryCode();
 
 
-            }else if (materialSpinner.getId()== R.id.titleSpinner){
+            } else if (materialSpinner.getId() == R.id.titleSpinner) {
                 quickEditor.putString("title", selectedSpinner);
                 quickEditor.apply();
-            }else if (materialSpinner.getId()==R.id.genderSpinner){
-                quickEditor.putString("gender",selectedSpinner);
+            } else if (materialSpinner.getId() == R.id.genderSpinner) {
+                quickEditor.putString("gender", selectedSpinner);
                 quickEditor.apply();
             }
         } catch (Exception e) {
@@ -1369,8 +1374,27 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     private void fetchResponse(String serverResponse) {
         Log.e(TAG, "Response**" + serverResponse);
         Toast.makeText(mContext, R.string.form_submitted_successfully, Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(mContext, MainActivity.class);
-        startActivity(i);
+
+        sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        String payment = sharedpreferences.getString("paymentModeClicked", "");
+        if (payment.equalsIgnoreCase("clicked")) {
+            Intent i = new Intent(mContext, PaymentModeActivity.class);
+            startActivity(i);
+            getActivity().finish();
+
+            sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.clear();
+            editor.apply();
+        } else {
+            Intent i = new Intent(mContext, MainActivity.class);
+            startActivity(i);
+            sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.clear();
+            editor.apply();
+        }
+
     }
 
     @Override
@@ -1389,13 +1413,13 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         if (s == tieFirstName.getEditableText()) {
             tilFirstName.setErrorEnabled(false);
             tilFirstName.setError(null);
-            quickEditor.putString("firstName",tieFirstName.getText().toString());
+            quickEditor.putString("firstName", tieFirstName.getText().toString());
             quickEditor.apply();
         }
         if (s == tieLastName.getEditableText()) {
             tilLastName.setErrorEnabled(false);
             tilLastName.setError(null);
-            quickEditor.putString("lastName",tieLastName.getText().toString());
+            quickEditor.putString("lastName", tieLastName.getText().toString());
             quickEditor.apply();
         }
         if (s == tieDOB.getEditableText()) {
@@ -1421,7 +1445,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         if (s == tieMobileNumPrimary.getEditableText()) {
             tilMobileNumPrimary.setErrorEnabled(false);
             tilMobileNumPrimary.setError(null);
-            quickEditor.putString("mobileNumber",tieMobileNumPrimary.getText().toString());
+            quickEditor.putString("mobileNumber", tieMobileNumPrimary.getText().toString());
             quickEditor.apply();
         }
         if (s == tieMobileNumSecondary.getEditableText()) {

@@ -52,7 +52,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private CircleImageView imageViewProfileDummy;
     private LinearLayout lLayoutBottom;
     private Context mContext;
-    private String customerId,mCustomerEmail;
+    private String customerId="",mCustomerEmail="";
     private double customerPoints = 0, customerPointsPer=0;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
@@ -63,6 +63,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     public static final String mypreference = "Data";
     private SharedPreferences.Editor editor;
     private RelativeLayout rLayoutContent;
+    private String paymentModeClicked;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,6 +73,8 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         db = new DatabaseHandler(mContext);
         Intent i = getIntent();
         customerId = i.getStringExtra("customerID");
+        paymentModeClicked = i.getStringExtra("paymentModeClicked");
+
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
@@ -108,13 +111,18 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         lLayoutBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mIntent = new Intent();
-                mIntent.putExtra(Constants.KEY_CUSTOMER, customerId);
-                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, customerPoints);
-                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_PER,customerPointsPer);
-                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL,mCustomerEmail);
-                setResult(Constants.ACT_CUSTOMER, mIntent);
-                finish();
+                if(!mCustomerEmail.trim().equalsIgnoreCase("")) {
+                    Intent mIntent = new Intent();
+                    mIntent.putExtra(Constants.KEY_CUSTOMER, customerId);
+                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, customerPoints);
+                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_PER, customerPointsPer);
+                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL, mCustomerEmail);
+                    setResult(Constants.ACT_CUSTOMER, mIntent);
+                    finish();
+                }
+                else
+                    Util.showToast(getString(R.string.redeem_customer_email_not_authorised), mContext);
+
             }
         });
         imvBilling.setOnClickListener(new View.OnClickListener() {
@@ -298,6 +306,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
 
                 Intent i = new Intent(mContext, CustomerAddMain.class);
                 i.putExtra("Count", 1);
+                i.putExtra("paymentModeClicked",paymentModeClicked);
                 startActivity(i);
                 break;
         }

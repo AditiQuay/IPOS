@@ -370,6 +370,8 @@
     <string name="manual">Manual</string>
     <string name="stock_update">Stock Update</string>
     <string name="retail_product">Retail Product</string>
+    <string name="redeem_customer_email_not_authorised">Please update customer email ID</string>
+    <string name="redeem_customer_points_not_sufficient">Customer points not sufficient</string>
 
 
 </resources>

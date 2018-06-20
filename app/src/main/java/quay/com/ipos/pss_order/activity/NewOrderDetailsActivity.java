@@ -89,6 +89,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
     private boolean isShipArrow,isItemDetailsArrow;
     private ImageView imgShipArrow,arrow;
     private LinearLayout llbottom_buttons;
+    double dTotalAmount=0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -258,7 +259,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             }else if (realmOrderLists.getPoStatus().equalsIgnoreCase("0")){
                 tvStatus.setText("Pending");
             }
-
+            dTotalAmount=realmOrderLists.getOrderValue();
 
             orderValue.setText(getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getOrderValue()-redeeem));
             orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
@@ -272,7 +273,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             discount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
             tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getOrderValue()-redeeem));
             tvTotalQty.setText(realmOrderLists.getQuantity()+"");
-            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getOrderValue()-(realmOrderLists.getTotalCGSTValue()+realmOrderLists.getTotalSGSTValue()))+"");
+            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getTotalValueWithoutTax()-realmOrderLists.getDiscountValue()));
             tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalCGSTValue()+"");
             tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalSGSTValue()+"");
             tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalRoundingOffValue()+"");
@@ -534,9 +535,14 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable editable) {
+
                 if (Util.validateString(etPointToRedeem.getText().toString()))
                     pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
+                if (pointstoRedeem<=dAccumulatedPoints)
                 etRedeemValue.setText((perPoints*pointstoRedeem)+"");
+                else {
+                    Util.showToast("please check your available points");
+                }
             }
         });
         tvResendOTP.setOnClickListener(new View.OnClickListener() {
@@ -722,6 +728,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    setAllData();
                                     Util.showToast(jsonObject.optString("message"));
 
                                 }

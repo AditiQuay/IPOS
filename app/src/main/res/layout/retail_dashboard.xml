@@ -15,17 +15,38 @@
         android:layout_gravity="center_vertical"
         android:background="@color/colorPrimaryDark">
 
-        <ImageView
-            android:id="@+id/imvUserAdd"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
+        <FrameLayout
+            android:id="@+id/flCustomer"
+            style="?attr/actionButtonStyle"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/transparent"
-            android:src="@drawable/ic_action_add_person"/>
 
+            android:layout_marginRight="@dimen/dim_5"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/imvUserAdd"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_add_person"/>
+
+            <ImageView
+                android:id="@+id/imvTick"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:layout_gravity="right|end|top"
+                android:layout_marginRight="-8dp"
+                android:layout_marginLeft="@dimen/dim_8"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"
+                android:src="@drawable/ic_action_check_yellow"
+                android:gravity="center"
+                android:padding="3dp"/>
+
+        </FrameLayout>
         <FrameLayout
             style="?attr/actionButtonStyle"
             android:layout_width="0dp"
@@ -83,6 +104,7 @@
             android:src="@drawable/ic_action_discount_white"/>
 
         <FrameLayout
+            android:id="@+id/flRedeem"
             style="?attr/actionButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -99,7 +121,7 @@
 
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvRedeemPoints"
-                android:layout_width="28dp"
+                android:layout_width="32dp"
                 android:layout_height="20dp"
                 android:layout_gravity="right|end|top"
                 android:layout_marginRight="-10dp"

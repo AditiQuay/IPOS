@@ -20,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -55,19 +56,20 @@ import quay.com.ipos.utility.Util;
  */
 
 public class PaymentModeActivity extends BaseActivity implements View.OnClickListener, ServiceTask.ServiceResultListener {
-    private ImageView imvUserAdd,imvBilling,imvPin;
+    private ImageView imvUserAdd,imvBilling,imvPin,imvTick;
     double points=0,pointsPer=0, points1=0;
     Double points2=0.0;
     String mCustomerEmail="";
     ToggleButton toggleCOD;
     private Button btnPayCash,btnPayCard,buttonSendOtp,buttonVerify,buttonRedeem;
     Spinner spinner;
+    FrameLayout flCustomer;
     private EditText etCashAmount,etReceivedAmount,etReturnAmount,etCardAmount,etLastDigit,etExpMonth,etExpYear,etTransID,etPointToRedeem,etRedeemValue,etOTP;
     private TextView tvPay,tvRedeemPoints,tvBalance,tvAvailablePoints,tvResendOTP;
     private LinearLayout llCash,llCard,llPoints,llPrintReceipt,llToggle,llVerifyRedeem,llCashReceived;
     private CardView cvCash,cvCard,cvPoints;
-    private String mTotalAmount;
-    private double totalAmount;
+    private String mTotalAmount="";
+    private double totalAmount=0.0;
     DatabaseHandler db;
     private Menu menu1;
     Toolbar toolbar_default;
@@ -90,14 +92,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     //1 means data is synced and 0 means data is not synced
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
-    RefreshListener mRefreshListener;
     private boolean sendCOD= false;
-    public interface RefreshListener{
-        void refresh();
-    }
-    public void setRefreshListener(RefreshListener mRefreshListener){
-        this.mRefreshListener = mRefreshListener;
-    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -142,14 +138,16 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 mCustomerEmail = intent.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
                 tvRedeemPoints.setText(mCustomerPoints + "");
+                imvTick.setVisibility(View.VISIBLE);
             }else {
                 mCustomerID = "";
                 tvRedeemPoints.setVisibility(View.GONE);
+                imvTick.setVisibility(View.GONE);
             }
         }
         totalAmount= IPOSApplication.totalAmount;
-        tvPay.setText(getResources().getString(R.string.Rs)+" "+mTotalAmount);
-        tvBalance.setText(getResources().getString(R.string.Rs)+" "+totalAmount);
+        tvPay.setText(Util.getIndianNumberFormat(mTotalAmount+""));
+        tvBalance.setText(Util.getIndianNumberFormat(totalAmount+""));
         etCashAmount.setText(totalAmount+"");
         etCardAmount.setText(totalAmount+"");
     }
@@ -181,6 +179,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         etOTP=findViewById(R.id.etOTP);
         tvResendOTP=findViewById(R.id.tvResendOTP);
         tvRedeemPoints=findViewById(R.id.tvRedeemPoints);
+        imvTick=findViewById(R.id.imvTick);
         tvAvailablePoints=findViewById(R.id.tvAvailablePoints);
         etCashAmount=findViewById(R.id.etCashAmount);
         etReceivedAmount=findViewById(R.id.etReceivedAmount);
@@ -193,6 +192,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         etTransID=findViewById(R.id.etTransID);
         tvBalance=findViewById(R.id.tvBalance);
         imvUserAdd=findViewById(R.id.imvUserAdd);
+        flCustomer=findViewById(R.id.flCustomer);
         imvBilling=findViewById(R.id.imvBilling);
         llCash=findViewById(R.id.llCash);
         llCard = findViewById(R.id.llCard);
@@ -214,10 +214,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         tvResendOTP.setOnClickListener(this);
         buttonRedeem.setOnClickListener(this);
         buttonVerify.setOnClickListener(this);
-        imvUserAdd.setOnClickListener(new View.OnClickListener() {
+        flCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent mIntent = new Intent(PaymentModeActivity.this, CustomerInfoActivity.class);
+                mIntent.putExtra("paymentMode","clicked");
                 startActivityForResult(mIntent,Constants.ACT_CUSTOMER);
             }
         });
@@ -242,7 +243,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 if(!charSequence.toString().trim().equals("")) {
                     points2 = Double.parseDouble(charSequence.toString());
                     if(points1>=points2) {
-                        redeemValue = points1 * pointsPer;
+                        redeemValue = points2 * pointsPer;
                         etRedeemValue.setText(redeemValue + "");
                         sendRedeem = false;
                     }else {
@@ -285,6 +286,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
                 tvRedeemPoints.setText(mCustomerPoints+"");
+                imvTick.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -344,21 +346,18 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         }catch (Exception e){
 
         }
-//        mRefreshListener.refresh();
     }
 
     @Override
     public void onClick(View view) {
 
-
-
         int id = view.getId();
         switch (id) {
-
             case R.id.llPrintReceipt:
 
                 if (SharedPrefUtil.getString(Constants.Login_result, "", PaymentModeActivity.this) != null) {
                     json1 = SharedPrefUtil.getString(Constants.Login_result, "", PaymentModeActivity.this);
+
                     loginResult = Util.getCustomGson().fromJson(json1, LoginResult.class);
                 }
                 if (totalAmount == 0.0) {
@@ -459,43 +458,13 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             case R.id.llPoints:
 
                 if (!mCustomerID.equalsIgnoreCase("")) {
-
-                    if (cvPoints.getVisibility() == View.GONE) {
-                        if (totalAmount > 0.0) {
-                            cvPoints.setVisibility(View.VISIBLE);
-                            llPoints.setBackgroundResource(R.drawable.button_rectangle_light_gray);
-                            tvAvailablePoints.setText(mCustomerPoints + "");
-                            if (IPOSApplication.totalpointsToRedeemValue == 0) {
-                                points = mCustomerPoints;
-                                pointsPer = mCustomerPointsPer;
-                                redeemValue = points * pointsPer;
-                                if (totalAmount >= redeemValue) {
-                                    points1 = redeemValue / pointsPer;
-                                    redeemValue = points1 * pointsPer;
-                                } else {
-                                    points1 = totalAmount / pointsPer;
-                                    redeemValue = points1 * pointsPer;
-                                }
-//                            if(totalAmount>)
-                                etPointToRedeem.setText(points1 + "");
-                                etRedeemValue.setText(redeemValue + "");
-                            } else {
-                                etPointToRedeem.setText(IPOSApplication.totalpointsToRedeem + "");
-                                etRedeemValue.setText(IPOSApplication.totalpointsToRedeemValue + "");
-                                buttonSendOtp.setEnabled(false);
-                                llVerifyRedeem.setVisibility(View.GONE);
-                                buttonSendOtp.setBackgroundResource(R.drawable.button_rectangle_light_gray);
-                                Util.showToast("Redeem already applied!", PaymentModeActivity.this);
-                            }
-                        } else
-                            Util.showToast("Balance is empty!", PaymentModeActivity.this);
-                    } else {
-                        if (buttonRedeem.getVisibility() == View.VISIBLE) {
-                            cvPoints.setVisibility(View.GONE);
-                            llPoints.setBackgroundResource(R.drawable.rect_four_white);
-                        }
-
-                    }
+                    if(!mCustomerEmail.trim().equalsIgnoreCase(""))
+                        if(mCustomerPoints>0.0)
+                            setllPoints();
+                        else
+                            Util.showToast(getString(R.string.redeem_customer_points_not_sufficient), mContext);
+                    else
+                        Util.showToast(getString(R.string.redeem_customer_email_not_authorised), mContext);
                 } else {
                     Util.showToast("Please select customer first.", PaymentModeActivity.this);
                 }
@@ -800,11 +769,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     }
                 break;
             case R.id.buttonRedeem:
-                if(!sendRedeem)
-                    if(redeemValue>0){
-                        sendRedeem=true;
-                        if(sendRedeem){
-                            sendRedeem =false;
+                if(sendVerify) {
+                    if (redeemValue > 0) {
+                        sendRedeem = true;
+                        if (sendRedeem) {
+                            sendRedeem = false;
                             Util.showToast("Redeem points successfully", PaymentModeActivity.this);
                             llVerifyRedeem.setVisibility(View.VISIBLE);
                             IPOSApplication.totalpointsToRedeem = points1;
@@ -812,15 +781,58 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 //                            mRedeemListener.redeem(points1,redeemValue);
 //                            f.dismiss();
                             buttonRedeem.setVisibility(View.GONE);
-                        }else {
-                            sendRedeem =false;
+                        } else {
+                            sendRedeem = false;
                         }
-                    }else {
+                    } else {
 
                     }
+                }else {
+                    Util.showToast("not verified", PaymentModeActivity.this);
+                }
                 break;
         }
 
+    }
+
+    private void setllPoints() {
+
+        if (cvPoints.getVisibility() == View.GONE) {
+            if (totalAmount > 0.0) {
+                cvPoints.setVisibility(View.VISIBLE);
+                llPoints.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                tvAvailablePoints.setText(mCustomerPoints + "");
+                if (IPOSApplication.totalpointsToRedeemValue == 0) {
+                    points = mCustomerPoints;
+                    pointsPer = mCustomerPointsPer;
+                    redeemValue = points * pointsPer;
+                    if (totalAmount >= redeemValue) {
+                        points1 = redeemValue / pointsPer;
+                        redeemValue = points1 * pointsPer;
+                    } else {
+                        points1 = totalAmount / pointsPer;
+                        redeemValue = points1 * pointsPer;
+                    }
+//                            if(totalAmount>)
+                    etPointToRedeem.setText(points1 + "");
+                    etRedeemValue.setText(redeemValue + "");
+                } else {
+                    etPointToRedeem.setText(IPOSApplication.totalpointsToRedeem + "");
+                    etRedeemValue.setText(IPOSApplication.totalpointsToRedeemValue + "");
+                    buttonSendOtp.setEnabled(false);
+                    llVerifyRedeem.setVisibility(View.GONE);
+                    buttonSendOtp.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                    Util.showToast("Redeem already applied!", PaymentModeActivity.this);
+                }
+            } else
+                Util.showToast("Balance is empty!", PaymentModeActivity.this);
+        } else {
+            if (buttonRedeem.getVisibility() == View.VISIBLE) {
+                cvPoints.setVisibility(View.GONE);
+                llPoints.setBackgroundResource(R.drawable.rect_four_white);
+            }
+
+        }
     }
 
     private void sendOTPtoServer() {
@@ -881,26 +893,57 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                             IPOSApplication.mProductListResult.clear();
                             IPOSApplication.totalAmount = 0.0;
                             setResult(200);
-                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
                             finish();
                         }
                     }
                 }else if (httpStatusCode == Constants.BAD_REQUEST) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
+                    IPOSApplication.mProductListResult.clear();
+                    IPOSApplication.totalAmount = 0.0;
+                    setResult(200);
+//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                    finish();
+
 
                 } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
+                    IPOSApplication.mProductListResult.clear();
+                    IPOSApplication.totalAmount = 0.0;
+                    setResult(200);
+//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                    finish();
                 } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
+                    IPOSApplication.mProductListResult.clear();
+                    IPOSApplication.totalAmount = 0.0;
+                    setResult(200);
+//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                    finish();
                 } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
+                    IPOSApplication.mProductListResult.clear();
+                    IPOSApplication.totalAmount = 0.0;
+                    setResult(200);
+//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                    finish();
                 } else if (httpStatusCode == Constants.CONNECTION_OUT) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
+                    IPOSApplication.mProductListResult.clear();
+                    IPOSApplication.totalAmount = 0.0;
+                    setResult(200);
+//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                    finish();
                 }
             }catch (Exception e){
                 System.out.println(e);
