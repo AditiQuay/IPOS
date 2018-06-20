@@ -2,8 +2,10 @@
     android:id="@+id/lItemsDetails"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/dim_4"
+    android:layout_marginLeft="@dimen/dim_4"
+    android:layout_marginBottom="@dimen/dim_4"
     android:background="@drawable/rectangle_child_white"
-    android:layout_margin="@dimen/dim_4"
     android:orientation="vertical">
 
     <LinearLayout
@@ -28,6 +30,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="Open Qty" />
 
 
@@ -56,6 +59,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="In Qty" />
 
 
@@ -84,6 +88,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="AP QTY" />
 
             </LinearLayout>
@@ -112,6 +117,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="Balance Qty" />
             </LinearLayout>
 
@@ -131,12 +137,13 @@
         android:layout_marginTop="@dimen/dim_8">
 
     </android.support.v7.widget.RecyclerView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone"
-        android:padding="@dimen/dim_4">
+        android:padding="@dimen/dim_4"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/productName"
@@ -144,6 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dim_8"
             android:layout_marginTop="@dimen/dim_8"
+            android:fontFamily="@font/titilliumwebregular"
             android:gravity="center_vertical"
             android:text="Product Name" />
 
@@ -171,6 +179,7 @@
                         android:id="@+id/total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/titilliumwebregular"
                         android:text="5" />
 
 
@@ -199,6 +208,7 @@
                         android:layout_marginTop="@dimen/dim_4"
                         android:background="@color/transparent"
                         android:text="4"
+                        android:fontFamily="@font/titilliumwebregular"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/dim_14" />
 
@@ -227,6 +237,7 @@
                         android:layout_marginTop="@dimen/dim_4"
                         android:background="@color/transparent"
                         android:text="2"
+                        android:fontFamily="@font/titilliumwebregular"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/dim_14" />
 
@@ -253,6 +264,7 @@
                     <TextView
                         android:id="@+id/totalCount"
                         android:layout_width="wrap_content"
+                        android:fontFamily="@font/titilliumwebregular"
                         android:layout_height="wrap_content"
                         android:text="+2" />
                 </LinearLayout>
@@ -261,10 +273,10 @@
         </LinearLayout>
 
         <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="1dp"-->
-            <!--android:layout_marginTop="4dp"-->
-            <!--android:background="@drawable/ipos_line_black" />-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_marginTop="4dp"-->
+        <!--android:background="@drawable/ipos_line_black" />-->
 
 
     </LinearLayout>

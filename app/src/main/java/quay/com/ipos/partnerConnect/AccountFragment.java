@@ -14,16 +14,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.util.Arrays;
 import java.util.List;
 
+import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.Account;
-import quay.com.ipos.partnerConnect.model.BillnDelivery;
 import quay.com.ipos.partnerConnect.model.Cheques;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.AccountAdapter;
@@ -31,18 +33,20 @@ import quay.com.ipos.utility.EqualSpacingItemDecoration;
 
 public class AccountFragment extends Fragment implements InitInterface, View.OnClickListener {
     private static final String TAG = AccountFragment.class.getSimpleName();
-    private TextView textViewLastUpdated, textViewAccountInfoHeading, textViewMadatory;
+//    private TextView textViewLastUpdated, textViewAccountInfoHeading, textViewMadatory;
     private RecyclerView recyclerViewAccountInfo;
 
     private View view;
     private Context mContext;
     private AccountAdapter adapter;
 
-    private EditText editAccountHolderName, editAccountNo, editAccountType;
+    private EditText editAccountHolderName, editAccountNo;
+    private MaterialSpinner spinnerAccountType;
     private EditText editIFSCCode, editBankName, editBranchAddress;
 
     private View btnAdd;
     private PCModel mpcModel;
+    private String accountTypeArray[] = {"Saving", "Current"};///RECURRING, FIXED DEPOSITS
 
 
     @Nullable
@@ -57,21 +61,20 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
         applyLocalValidation();
 
 
-
         return view;
     }
 
     @Override
     public void findViewById() {
         btnAdd = view.findViewById(R.id.btnAdd);
-        textViewMadatory = view.findViewById(R.id.textViewMadatory);
-        textViewAccountInfoHeading = view.findViewById(R.id.textViewAccountInfoHeading);
-        textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
+//        textViewMadatory = view.findViewById(R.id.textViewMadatory);
+//        textViewAccountInfoHeading = view.findViewById(R.id.textViewAccountInfoHeading);
+//        textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
         recyclerViewAccountInfo = view.findViewById(R.id.recyclerViewAccountInfo);
 
         editAccountHolderName = view.findViewById(R.id.editAccountHolderName);
         editAccountNo = view.findViewById(R.id.editAccountNo);
-        editAccountType = view.findViewById(R.id.editAccountType);
+        spinnerAccountType = view.findViewById(R.id.spinnerAccountType);
         editBranchAddress = view.findViewById(R.id.editBranchAddress);
         editIFSCCode = view.findViewById(R.id.editIFSCCode);
         editBankName = view.findViewById(R.id.editBankName);
@@ -85,35 +88,33 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
         });
 
     }
+
     @Override
-    public void setUserVisibleHint(boolean visible)
-    {
+    public void setUserVisibleHint(boolean visible) {
         super.setUserVisibleHint(visible);
-        if (visible && isResumed())
-        {
+        if (visible && isResumed()) {
             onResume();
         }
     }
 
     @Override
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
-        if (!getUserVisibleHint())
-        {
+        if (!getUserVisibleHint()) {
             return;
         }
 
-        PartnerConnectMain mainActivity = (PartnerConnectMain)getActivity();
+        PartnerConnectMain mainActivity = (PartnerConnectMain) getActivity();
         mainActivity.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Do what you want
                 addNewField();
-               // Toast.makeText(getActivity(), "Add Account Fragment", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(), "Add Account Fragment", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
     @Override
     public void applyInitValues() {
 
@@ -170,7 +171,7 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
 
         account = pcModel.Account.get(0);
         if (account != null) {
-            editAccountType.setText(account.mAccountType);
+            //  spinnerAccountType.setText(account.mAccountType);
             editAccountNo.setText(account.mAccountNo);
             editAccountHolderName.setText(account.mAccountHolderName);
             editBranchAddress.setText(account.mBranchAdddres);
@@ -180,10 +181,49 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
             //setListner
             editAccountHolderName.addTextChangedListener(generalTextWatcher);
             editAccountNo.addTextChangedListener(generalTextWatcher);
-            editAccountType.addTextChangedListener(generalTextWatcher);
+            //  spinnerAccountType.addTextChangedListener(generalTextWatcher);
             editBranchAddress.addTextChangedListener(generalTextWatcher);
             editBankName.addTextChangedListener(generalTextWatcher);
             editIFSCCode.addTextChangedListener(generalTextWatcher);
+
+            final List<String> acList = Arrays.asList(accountTypeArray);
+
+            ArrayAdapter partnerTypeHeading = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, accountTypeArray);
+            partnerTypeHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerAccountType.setAdapter(partnerTypeHeading);
+
+            if (account.mAccountType != null) {
+
+                if (acList.contains(account.mAccountType)) {
+                    int index = acList.indexOf(account.mAccountType);
+                    spinnerAccountType.setSelection(index + 1);
+                }
+            }
+
+
+            spinnerAccountType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    if (i == -1) {
+                        account.mAccountType = "";
+                        return;
+                    }
+                    try {
+
+                        String partnerType = acList.get(i);
+                        Log.i("mAccountType", partnerType);
+                        account.mAccountType = partnerType;
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
 
 
             List<Cheques> chequesList = account.cheques;
@@ -201,9 +241,10 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
                 return;
             }
 
-            if (editAccountType.getText().hashCode() == charSequence.hashCode()) {
+          /*  if (spinnerAccountType.getText().hashCode() == charSequence.hashCode()) {
                 account.mAccountType = charSequence.toString();
-            } else if (editAccountHolderName.getText().hashCode() == charSequence.hashCode()) {
+            } else */
+            if (editAccountHolderName.getText().hashCode() == charSequence.hashCode()) {
                 account.mAccountHolderName = charSequence.toString();
 
             } else if (editAccountNo.getText().hashCode() == charSequence.hashCode()) {

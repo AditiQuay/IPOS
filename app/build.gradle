@@ -16,9 +16,9 @@ android {
 
     // Specifies two flavor dimensions.
 
-   /* flavorDimensions "tier"
+    flavorDimensions "tier"
 
-    productFlavors {
+   /* productFlavors {
         dev {
             dimension "tier"
             minSdkVersion 23

@@ -1816,4 +1816,9 @@ public class DDRCartActivity extends BaseActivity implements  View.OnClickListen
             llRedeem.setVisibility(View.GONE);
         }
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }
