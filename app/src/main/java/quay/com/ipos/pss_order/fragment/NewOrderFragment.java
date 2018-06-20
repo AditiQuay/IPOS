@@ -556,7 +556,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(cgst));
         tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(sgst));
         tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalDiscountPrice.setText("- "+getActivity().getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(discountPrice));
+        tvTotalDiscountPrice.setText(""+getActivity().getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(discountPrice));
         tvTotalDiscountDetail.setText("(Item " + discountItems + ")");
 
 

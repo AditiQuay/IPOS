@@ -798,6 +798,6 @@ public class Util {
 
         String moneyString = formatter.format(amount);
 
-        return moneyString.replaceAll("Rs.","");
+        return moneyString.replaceAll("Rs.","").replaceAll(getStringRes(R.string.Rs),"");
     }
 }
