@@ -51,6 +51,7 @@
             android:name=".partnerConnect.PartnerConnectMain"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_partner_connect"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
@@ -62,9 +63,11 @@
             android:name=".kycPartnerConnect.KYCMain"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_partner_connect"
+            android:screenOrientation="portrait"
+
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|stateHidden"/>
             android:windowSoftInputMode="adjustPan|stateHidden" />
+
 
 
         <!-- ***** DDR Sales ****** -->
@@ -83,6 +86,8 @@
             android:name=".ddrsales.DDRListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_b2b_ddr_select"
+            android:screenOrientation="portrait"
+
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
@@ -94,6 +99,8 @@
             android:name=".ddrsales.DDRAddProductActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_b2bsales"
+            android:screenOrientation="portrait"
+
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
@@ -105,6 +112,8 @@
             android:name=".ddrsales.DDRCartActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_b2bsales"
+            android:screenOrientation="portrait"
+
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
@@ -116,6 +125,21 @@
             android:name=".ddrsales.DDRInvoicePreviewActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_b2bsales"
+            android:screenOrientation="portrait"
+
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ddrsales.DDRBillPreviewActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_b2bsales"
+            android:screenOrientation="portrait"
+
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
@@ -250,10 +274,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
-      <!--  <activity
-            android:name=".inventory.activity.InventoryStepsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />-->
+        <!--  <activity
+              android:name=".inventory.activity.InventoryStepsActivity"
+              android:screenOrientation="portrait"
+              android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".pss_order.activity.EditOrderCentreActivity"
             android:screenOrientation="portrait"
@@ -270,10 +294,10 @@
             android:name=".inventory.activity.InventoryGRNStepsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
+        <!--<activity
             android:name=".ddr.activity.AddOrderCentreActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" />-->
         <activity
             android:name=".inventory.activity.ExpandablePODetailsActivity"
             android:screenOrientation="portrait"

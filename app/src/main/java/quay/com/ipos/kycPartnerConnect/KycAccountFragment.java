@@ -66,7 +66,7 @@ public class KycAccountFragment extends Fragment implements InitInterface, View.
 
         editAccountHolderName = view.findViewById(R.id.editAccountHolderName);
         editAccountNo = view.findViewById(R.id.editAccountNo);
-        editAccountType = view.findViewById(R.id.editAccountType);
+        editAccountType = view.findViewById(R.id.spinnerAccountType);
         editBranchAddress = view.findViewById(R.id.editBranchAddress);
         editIFSCCode = view.findViewById(R.id.editIFSCCode);
         editBankName = view.findViewById(R.id.editBankName);

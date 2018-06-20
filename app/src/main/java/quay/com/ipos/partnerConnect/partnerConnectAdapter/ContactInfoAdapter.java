@@ -58,7 +58,7 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
     }
 
     @Override
-    public void onBindViewHolder(MyView holder, int position) {
+    public void onBindViewHolder(MyView holder, final int position) {
         NewContact contactModel = list.get(position);
 
 
@@ -67,6 +67,7 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
         holder.editName.setText(list.get(holder.getAdapterPosition()).Name);
         holder.editMobile.setText(list.get(holder.getAdapterPosition()).PrimaryMobile);
         holder.editMobile2.setText(list.get(holder.getAdapterPosition()).SecondaryMobile);
+        holder.editEmail.setText(list.get(holder.getAdapterPosition()).Email);
 
         // magic code for spinner
         holder.myCustomSpinnerListener.updatePosition(holder.getAdapterPosition());
@@ -77,6 +78,20 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
                 holder.roleTypeSpinner.setSelection(index + 1);
             }
         }
+
+        if (contactModel.ID == 0  && position!=0) {
+            holder.btnRemove.setVisibility(View.VISIBLE);
+        }else {
+            holder.btnRemove.setVisibility(View.GONE);
+        }
+
+        holder.btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                list.remove(position);
+                notifyDataSetChanged();
+            }
+        });
         //  holder.roleTypeSpinner.setSelection(list.get(holder.getAdapterPosition()).Name);
 
 
@@ -92,7 +107,7 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
         private MaterialSpinner roleTypeSpinner;
         private TextInputLayout editNameInput, editMobileInput, editMobile2Input;
         private TextInputEditText editName, editMobile, editMobile2, editEmail;
-
+        private View btnRemove;
         public MyCustomEditTextListener myCustomEditTextListener;
         public MyCustomSpinnerListener myCustomSpinnerListener;
 
@@ -100,6 +115,8 @@ public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.
             super(itemView);
             roleTypeSpinner = itemView.findViewById(R.id.roleTypeSpinner);
             roleTypeSpinner.setAdapter(partnerTypeHeading);
+
+            btnRemove = itemView.findViewById(R.id.btnRemove);
 
             editNameInput = itemView.findViewById(R.id.editNameInput);
             editMobileInput = itemView.findViewById(R.id.editMobileInput);

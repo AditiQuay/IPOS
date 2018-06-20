@@ -366,6 +366,10 @@
     <string name="title_b2b_order_center">B2B Order Center</string>
     <string name="title_b2b_ddr_select">B2B DDR Select</string>
     <string name="no_item_available">No Item Available</string>
+    <string name="ddr_items_details">Items Details</string>
+    <string name="ddr_save_close"><![CDATA[SAVE & CLOSE]]></string>
+    <string name="ddr_submit">Submit</string>
+    <string name="ddr_close">Close</string>
 
 
 </resources>

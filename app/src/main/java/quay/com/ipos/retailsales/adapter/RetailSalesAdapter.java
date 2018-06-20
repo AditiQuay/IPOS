@@ -21,6 +21,8 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
@@ -265,6 +267,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             userViewHolder.etQtySelected.setTag(position);
             final int[] qty = {0};
+            final Timer[] timer = new Timer[1];
             userViewHolder.etQtySelected.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -278,9 +281,13 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 }
 
                 @Override
-                public void afterTextChanged(Editable editable) {
+                public void afterTextChanged(final Editable editable) {
 
                     if(!onBind) {
+                        timer[0] = new Timer();
+                        timer[0].schedule(new TimerTask() {
+                            @Override
+                            public void run() {
                         if (!editable.toString().isEmpty()) {
                             qty[0] = Integer.parseInt(editable.toString());
                             if (qty[0]<1) {
@@ -294,6 +301,8 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                             listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
                             qty[0] = 0;
                         }
+                            }
+                        }, 600);
                     }
 //                    userViewHolder.etQtySelected.postDelayed(new Runnable() {
 //                        @Override

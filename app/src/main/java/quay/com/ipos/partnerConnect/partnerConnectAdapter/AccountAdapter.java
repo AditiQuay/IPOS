@@ -23,7 +23,7 @@ import quay.com.ipos.partnerConnect.model.Cheques;
  * Created by niraj.kumar on 6/7/2018.
  */
 
-public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView>  {
+public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> {
     private Context mContext;
     private List<Cheques> list;
 
@@ -73,14 +73,21 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
         holder.myCustomSpinnerListener.updatePosition(holder.getAdapterPosition());
 
         String mAddressType = list.get(holder.getAdapterPosition()).mSecurityCheque;
+        if (mAddressType == null || mAddressType.isEmpty()) {
+            mAddressType = "No";
+        }
+
+        if (accountsModel.mChequeNo != null && !accountsModel.mChequeNo.isEmpty()) {
+            mAddressType = "Yes";
+        }
+
+
         if (mAddressType != null) {
             if (mSecurityChequesList.contains(mAddressType)) {
                 int index = mSecurityChequesList.indexOf(mAddressType);
                 holder.spinnerSecurityCheque.setSelection(index + 1);
             }
         }
-
-
 
 
     }

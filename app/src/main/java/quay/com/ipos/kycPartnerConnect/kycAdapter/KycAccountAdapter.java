@@ -50,7 +50,7 @@ public class KycAccountAdapter extends RecyclerView.Adapter<KycAccountAdapter.My
     @Override
     public MyView onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.accounts_item, parent, false);
+                .inflate(R.layout.kyc_accounts_item, parent, false);
 
 
         return new MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
