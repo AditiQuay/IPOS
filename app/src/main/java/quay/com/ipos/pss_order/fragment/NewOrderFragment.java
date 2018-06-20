@@ -550,13 +550,13 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 
         tvItemNo.setText("Item " + noOfItems);
         tvItemQty.setText(qty + " Qty");
-        tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalItemsAmount);
-        tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + gst);
-        tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + payAmount);
-        tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + cgst);
-        tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + sgst);
+        tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(totalItemsAmount));
+        tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(gst));
+        tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount));
+        tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(cgst));
+        tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(sgst));
         tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + "- "+discountPrice);
+        tvTotalDiscountPrice.setText("- "+getActivity().getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(discountPrice));
         tvTotalDiscountDetail.setText("(Item " + discountItems + ")");
 
 

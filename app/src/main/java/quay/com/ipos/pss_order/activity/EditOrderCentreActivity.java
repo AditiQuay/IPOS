@@ -569,13 +569,13 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
 
         tvItemNo.setText("Item " + noOfItems);
         tvItemQty.setText(qty + " Qty");
-        tvTotalItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + totalItemsAmount);
-        tvTotalItemGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + (cgst+sgst));
-        tvPay.setText(mContext.getResources().getString(R.string.Rs) + " " + payAmount);
-        tvCGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + cgst);
-        tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + sgst);
+        tvTotalItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(totalItemsAmount));
+        tvTotalItemGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat((cgst+sgst)));
+        tvPay.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount));
+        tvCGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(cgst));
+        tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(sgst));
         tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " "+discountPrice);
+        tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(discountPrice));
         tvTotalDiscountDetail.setText("(Item " + discountItems + ")");
 
 

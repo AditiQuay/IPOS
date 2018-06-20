@@ -261,8 +261,8 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             }
             dTotalAmount=realmOrderLists.getOrderValue();
 
-            orderValue.setText(getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getOrderValue()-redeeem));
-            orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
+            orderValue.setText(getResources().getString(R.string.Rs)+ " "+(Util.indianNumberFormat(realmOrderLists.getOrderValue()-redeeem)));
+            orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
             deliverDate.setText(Util.getFormattedDates(realmOrderLists.getDeliveryBy(),Constants.format6,Constants.format2));
            // deliverDate.setText(realmOrderLists.getDeliveryBy());
             loyaltyPoints.setText(realmOrderLists.getOrderLoyality()+"");
@@ -270,12 +270,12 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             dAccumulatedPoints=realmOrderLists.getAccumulatedLoyality();
             totalPoints.setText((realmOrderLists.getAccumulatedLoyality()+realmOrderLists.getOrderLoyality())+"");
             customerName.setText(Prefs.getStringPrefs(Constants.EntityName));
-            discount.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getDiscountValue());
+            discount.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
             tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getOrderValue()-redeeem));
             tvTotalQty.setText(realmOrderLists.getQuantity()+"");
-            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getTotalValueWithoutTax()-realmOrderLists.getDiscountValue()));
-            tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalCGSTValue()+"");
-            tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalSGSTValue()+"");
+            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat((realmOrderLists.getTotalValueWithoutTax()-realmOrderLists.getDiscountValue())));
+            tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getTotalCGSTValue())+"");
+            tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getTotalSGSTValue())+"");
             tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalRoundingOffValue()+"");
             getAddressData(realmOrderLists.getBusinessPlaceCode()+"");
             try {

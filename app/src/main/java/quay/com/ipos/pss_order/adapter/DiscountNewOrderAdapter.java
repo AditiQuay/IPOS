@@ -17,6 +17,7 @@ import java.util.List;
 import quay.com.ipos.R;
 import quay.com.ipos.pss_order.modal.DiscountModal;
 import quay.com.ipos.listeners.MyCheckedChangedListener;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by aditi.bhuranda on 26-04-2018.
@@ -113,7 +114,7 @@ public class DiscountNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             final DiscountNewOrderAdapter.UserViewHolder userViewHolder = (DiscountNewOrderAdapter.UserViewHolder) holder;
             userViewHolder.tvDiscount.setText(str.getsDiscountDisplayName());
-            userViewHolder.tvDiscountPrice.setText(str.getDiscountTotal()+"");
+            userViewHolder.tvDiscountPrice.setText(Util.indianNumberFormat(str.getDiscountTotal())+"");
             if (str.issDiscountStrikeOut()){
                 userViewHolder.chkDiscount.setChecked(false);
                 userViewHolder.tvDiscountPrice.setPaintFlags(userViewHolder.tvDiscountPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);

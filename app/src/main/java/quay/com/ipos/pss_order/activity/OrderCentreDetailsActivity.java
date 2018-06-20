@@ -230,7 +230,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         llDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-             //   dateDialogfrom();
+                dateDialogfrom();
             }
         });
 
@@ -267,7 +267,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         dp.setTitle("Calender");
         dp.show();
 
-        dp.getDatePicker().setMinDate(System.currentTimeMillis());
+        dp.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
 
 
     }
@@ -478,18 +478,20 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("1")){
                 tvStatus.setText("Submitted");
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("2")){
+                llbottom_buttons.setVisibility(View.GONE);
                 tvStatus.setText("Approved");
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("3")){
+                llbottom_buttons.setVisibility(View.VISIBLE);
                 tvStatus.setText("Rejected");
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("0")){
                 tvStatus.setText("Pending");
             }
 
 
-            orderValue.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("orderValue"));
-            orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("discountValue"));
-            discount.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("discountValue"));
-            tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("orderValue"));
+            orderValue.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("orderValue")));
+            orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("discountValue")));
+            discount.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("discountValue")));
+            tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("orderValue")));
           //  deliverDate.setText(jsonObject.optString("deliveryBy"));
             deliverDate.setText(Util.getFormattedDates(jsonObject.optString("deliveryBy"),Constants.formatDate,Constants.format2));
 
@@ -502,9 +504,9 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
 
 
-            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("totalValueWithoutTax")+"");
-            tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("totalCGSTValue")+"");
-            tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+jsonObject.optInt("totalSGSTValue")+"");
+            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("totalValueWithoutTax"))+"");
+            tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("totalCGSTValue"))+"");
+            tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("totalSGSTValue"))+"");
             tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+"0"+"");
 
             getFlow(jsonObject.optString("listspendRequestHistoryPhaseModel")+"");
@@ -603,7 +605,10 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                            for (int i=0;i<array.length();i++){
                                JSONObject jsonObject2=array.optJSONObject(i);
                                jsonObject2.put("productCode",jsonObject2.optString("productCode"));
-                               jsonObject2.put("iProductModalId",jsonObject2.optString("iProductModalId"));
+                               if (jsonObject2.optBoolean("isFreeItem"))
+                               jsonObject2.put("iProductModalId",jsonObject2.optString("iProductModalId")+"free");
+                               else
+                                   jsonObject2.put("iProductModalId",jsonObject2.optString("iProductModalId"));
                                jsonObject2.put("sProductName",jsonObject2.optString("materialName"));
                                jsonObject2.put("sProductPrice",jsonObject2.optString("materialUnitValue"));
                                jsonObject2.put("cgst",jsonObject2.optString("materialCGSTRate"));
@@ -1182,14 +1187,14 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         payAmount = (totalItemsAmount + cgst+sgst) - discountPrice;
 
 
-        orderValue.setText(getResources().getString(R.string.Rs) + " " + (payAmount));
-        orderDiscount.setText(getResources().getString(R.string.Rs) + " " + discountPrice);
-        discount.setText(getResources().getString(R.string.Rs) + " " + discountPrice);
-        tvOrderValue.setText(getResources().getString(R.string.Rs) + " " + payAmount);
+        orderValue.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat((payAmount)));
+        orderDiscount.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(discountPrice));
+        discount.setText(getResources().getString(R.string.Rs) + " " +Util.indianNumberFormat( discountPrice));
+        tvOrderValue.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount));
             tvTotalQty.setText(qty+"");
-            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+(totalItemsAmount-discountPrice)+"");
-            tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+cgst+"");
-            tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+sgst+"");
+            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat((totalItemsAmount-discountPrice))+"");
+            tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(cgst)+"");
+            tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(sgst)+"");
             tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+"0"+"");
     }
 

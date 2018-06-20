@@ -196,7 +196,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
                 if (!charSequence.toString().equalsIgnoreCase("")){
                     searchProductCall(charSequence.toString());
                 }else {
-                    searchProductCall("b");
+                    searchProductCall("NA");
                 }
 
 
