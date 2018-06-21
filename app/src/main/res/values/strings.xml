@@ -171,7 +171,7 @@
     <string name="new_">New</string>
     <string name="delivered">Delivered</string>
     <string name="cancelled">Cancelled</string>
-    <string name="new_orders">New Orders</string>
+    <string name="new_orders">New Order</string>
     <string name="order_centre">Order Centre</string>
     <string name="accept">Accept</string>
     <string name="redeem_value">Redeem Value</string>
@@ -284,7 +284,7 @@
     <string name="evening_text">Good Evening !</string>
     <string name="night_text">Good Night !</string>
     <string name="sale_value">Sale Value</string>
-    <string name="click_icon_for_add_product">Click search icon for add product</string>
+    <string name="click_icon_for_add_product">Click the search icon to add product</string>
     <string name="first_name_hint">First Name *</string>
     <string name="string_name">First Name<font color="#ff0000"><bold>*</bold></font></string>
 
@@ -372,6 +372,11 @@
     <string name="retail_product">Retail Product</string>
     <string name="redeem_customer_email_not_authorised">Please update customer email ID</string>
     <string name="redeem_customer_points_not_sufficient">Customer points not sufficient</string>
+    <string name="ddr_items_details">Items Details</string>
+    <string name="ddr_save_close"><![CDATA[SAVE & CLOSE]]></string>
+    <string name="ddr_submit">Submit</string>
+    <string name="ddr_close">Close</string>
+    <string name="net_total">Net Total (-Disc)</string>
 
 
 </resources>

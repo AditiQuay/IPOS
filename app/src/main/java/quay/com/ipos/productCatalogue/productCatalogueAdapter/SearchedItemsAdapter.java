@@ -108,7 +108,7 @@ public class SearchedItemsAdapter extends RecyclerView.Adapter<SearchedItemsAdap
                     ArrayList<ProductItemModal> filteredList = new ArrayList<>();
                     for (ProductItemModal searchedItemModal : searchedItemModals) {
 
-                        if (searchedItemModal.getProductName().toLowerCase().contains(charString)||searchedItemModal.getProductName().toUpperCase().contains(charString)) {
+                        if (searchedItemModal.getProductName().equalsIgnoreCase(charString.toLowerCase())|| searchedItemModal.getProductName().equalsIgnoreCase(charString.toUpperCase()) || searchedItemModal.getProductName().toLowerCase().contains(charString)||searchedItemModal.getProductName().toUpperCase().contains(charString)) {
 
                             filteredList.add(searchedItemModal);
                         }

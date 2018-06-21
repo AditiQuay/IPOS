@@ -162,13 +162,14 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
 
         layoutManager = new LinearLayoutManager(mContext);
         recyclerviewProduct.setLayoutManager(layoutManager);
-        if (ProductCatalogueUtils.getProductDetail(mContext) != null) {
-            String productCount = SharedPrefUtil.getString(Constants.PREF_KEY_PRODUCT_COUNT.trim(), "", mContext);
-            textViewProductCount.setText(productCount);
 
-            catalogueSubCatalogueFragmentAdapter = new CatalogueSubCatalogueFragmentAdapter(mContext, ProductCatalogueUtils.getProductDetail(mContext), this, this);
-            recyclerviewProduct.setAdapter(catalogueSubCatalogueFragmentAdapter);
-        }
+//        if (ProductCatalogueUtils.getProductDetail(mContext) != null) {
+//            String productCount = SharedPrefUtil.getString(Constants.PREF_KEY_PRODUCT_COUNT.trim(), "", mContext);
+//            textViewProductCount.setText(productCount);
+//
+//            catalogueSubCatalogueFragmentAdapter = new CatalogueSubCatalogueFragmentAdapter(mContext, ProductCatalogueUtils.getProductDetail(mContext), this, this);
+//            recyclerviewProduct.setAdapter(catalogueSubCatalogueFragmentAdapter);
+//        }
         getProductList();
 
     }

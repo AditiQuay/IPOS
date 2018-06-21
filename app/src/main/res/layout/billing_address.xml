@@ -25,7 +25,7 @@
                 android:id="@+id/textViewBillingInfoHeading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bills &amp; Deliver Sites"
+                android:text="Bill and Delivery Sites"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/universal_text_size16" />
 
@@ -56,7 +56,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dim_4"
+
             android:nestedScrollingEnabled="false"
             tools:listitem="@layout/billing_item" />
 

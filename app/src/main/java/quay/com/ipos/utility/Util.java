@@ -203,7 +203,7 @@ public class Util {
     }
 
     public static void showToast(String message,Context mContext) {
-        Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show();
     }
 
     public static int getIntRes(int resId) {
@@ -794,9 +794,24 @@ public class Util {
         return true;
     }
 
+
+    public static String indianNumberFormat(double amount){
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
+
+        String moneyString = formatter.format(amount);
+
+        return moneyString.replaceAll("Rs.","").replaceAll(getStringRes(R.string.Rs),"");
+    }
+
     public static String getIndianNumberFormat(String str){
         Format format = NumberFormat.getCurrencyInstance(new Locale("en", "in"));
         return str = (format.format(new BigDecimal(str)));
 
+    }
+
+    public static String generateOrderFormat(int number){
+        String numberAsString = String.valueOf(number);
+        String paddedNumberAsString = "000000".substring(numberAsString.length()) + numberAsString;
+        return paddedNumberAsString;
     }
 }

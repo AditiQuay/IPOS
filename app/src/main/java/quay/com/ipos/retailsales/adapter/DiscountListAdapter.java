@@ -110,16 +110,16 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ProductSearchResult.Discount str = mDataset.get(position);
             final DiscountListAdapter.UserViewHolder userViewHolder = (DiscountListAdapter.UserViewHolder) holder;
 
-//            setRules(userViewHolder,str,position);
-            if (str.isDiscItemSelected()) {
-                userViewHolder.chkDiscount.setChecked(true);
-//                str.setDiscItemSelected(true);
-                setRules(userViewHolder,str,position);
-            } else {
-                str.setDiscItemSelected(false);
-                userViewHolder.chkDiscount.setChecked(false);
-                setRules(userViewHolder,str,position);
-            }
+            setRules(userViewHolder,str,position);
+//            if (str.isDiscItemSelected()) {
+//                userViewHolder.chkDiscount.setChecked(true);
+////                str.setDiscItemSelected(true);
+//                setRules(userViewHolder,str,position);
+//            } else {
+//                str.setDiscItemSelected(false);
+//                userViewHolder.chkDiscount.setChecked(false);
+//                setRules(userViewHolder,str,position);
+//            }
 
             final  ProductSearchResult.Discount str1 = mDataset.get(position);
             onBind = false;
@@ -132,9 +132,12 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                 userViewHolder.chkDiscount.setChecked(true);
 //                                str1.setDiscItemSelected(true);
                                 setRules((UserViewHolder) holder, str1, position);
+                                AppLog.e("TAG", "chkDiscount" + b);
                             } else {
 //                                str1.setDiscItemSelected(false);
                                 userViewHolder.chkDiscount.setChecked(false);
+                                AppLog.e("TAG", "chkDiscount" + b);
+                                setRules((UserViewHolder) holder, str1, position);
 //                                setRules((UserViewHolder) holder, str1, position);
                             }
 
@@ -168,6 +171,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             loadingViewHolder.progressBar.setIndeterminate(true); }
 
     }
+
     double value = 0.0;
     private void setRules(UserViewHolder userViewHolder, ProductSearchResult.Discount str, int position){
 
@@ -212,7 +216,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                 } else {
                                     userViewHolder.tvDiscountPrice.setVisibility(View.GONE);
 //                                    adapterListener.onRowClicked(retailAdapterPosition,-1);
-//                                        break;
+                                    break;
                                 }
                             }
                             if (rule.get(i).getRuleType().equalsIgnoreCase("D")) {
@@ -239,8 +243,8 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //     i++;
                                                 } else {
                                                     userViewHolder.tvDiscountPrice.setVisibility(View.GONE);
-                                                    adapterListener.onRowClicked(retailAdapterPosition,-1);
-//                                                        break;
+//                                                    adapterListener.onRowClicked(retailAdapterPosition,-1);
+                                                    break;
                                                     // checkDependentPrecessor(i, value, holder, str, rule, datum, predecessor);
                                                 }
                                             } else {
@@ -264,7 +268,12 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     userViewHolder.tvDiscount.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                     userViewHolder.tvDiscountPrice.setPaintFlags(userViewHolder.tvDiscount.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                 } else {
-
+                    if (rule.size() > 0)
+                        for (int i = 0; i < rule.size(); i++) {
+                            if(rule.get(i).getPackSize()>=2) {
+                                ifPackSizeUnchecked();
+                            }
+                        }
                     ProductSearchResult.Discount mDiscount = mDataset.get(((UserViewHolder) userViewHolder).getAdapterPosition());
                     if(mDiscount.getDiscountTotal()!=0.0 ) {
                         userViewHolder.tvDiscountPrice.setText(Util.getIndianNumberFormat(mDiscount.getDiscountTotal()+""));
@@ -274,8 +283,9 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     }
                     else {
                         userViewHolder.tvDiscountPrice.setVisibility(View.GONE);
-                        adapterListener.onRowClicked(retailAdapterPosition,-1);
+//                        adapterListener.onRowClicked(retailAdapterPosition,-1);
                         mDiscount.setDiscountTotal(value);
+                        ((UserViewHolder) userViewHolder).tvDiscountPrice.setText(" - "+Util.getIndianNumberFormat(mDiscount.getDiscountTotal() + ""));
                         ((UserViewHolder) userViewHolder).tvDiscountPrice.setText(" - "+Util.getIndianNumberFormat(mDiscount.getDiscountTotal() + ""));
                     }
 
@@ -296,7 +306,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
         if(userViewHolder.tvDiscountPrice.getText().toString().trim().equals(mContext.getString(R.string.Rs))){
-                            userViewHolder.tvDiscountPrice.setVisibility(View.GONE);
+            userViewHolder.tvDiscountPrice.setVisibility(View.GONE);
         }
     }
 
@@ -704,7 +714,35 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
         return value;
     }
+    public void ifPackSizeUnchecked(){
+        int totalFreeItems=0;
+        ArrayList<ProductSearchResult.Datum> mTotalFreeArr = new ArrayList<>();
+        for (int h = 0; h < IPOSApplication.mProductListResult.size(); h++) {
 
+            if (this.datum.getProductCode().equals(IPOSApplication.mProductListResult.get(h).getProductCode())) {
+
+                if(this.datum.getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(h).getIProductModalId())) {
+                    if (IPOSApplication.mProductListResult.get(h).isFreeItem()) {
+                        totalFreeItems++;
+                        mTotalFreeArr.add(IPOSApplication.mProductListResult.get(h));
+                    }
+                }else {
+                    if (IPOSApplication.mProductListResult.get(h).isFreeItem())
+                        totalFreeItems++;
+                }
+            }
+
+        }
+        isFreeNotApplied = false;
+        if(mTotalFreeArr.size()>0) {
+            for (int k = 0; k < totalFreeItems; k++) {
+                if(mTotalFreeArr.get(k).getParentProductID()!=null && !mTotalFreeArr.get(k).getParentProductID().equalsIgnoreCase(""))
+                    if(this.datum.getIProductModalId().equalsIgnoreCase(mTotalFreeArr.get(k).getIProductModalId()))
+                        IPOSApplication.mProductListResult.remove(mTotalFreeArr.get(k));
+            }
+//                                adapterListener.onRowClicked(-1);
+        }
+    }
     boolean isFreeNotApplied=false;
     private double getDiscountType(double lowestDiscountValue,int i) {
         double value=0.0;
@@ -1042,8 +1080,10 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 minDiscount.set(i,datum1);
 //                IPOSApplication.mProductListResult.add( datum1);
+                AppLog.e("TAG","minDiscount >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.."+ i);
             }
             IPOSApplication.mProductListResult.addAll(minDiscount);
+
 //            SharedPrefUtil.putString(Constants.DISCOUNT+"",Util.getCustomGson().toJson(minDiscount),mContext);
 //            notifyDataSetChanged();
 

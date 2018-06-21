@@ -419,4 +419,10 @@ public class DDRAddProductActivity extends BaseActivity implements View.OnClickL
         }else
             tvNoItemAvailable.setVisibility(View.GONE);
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

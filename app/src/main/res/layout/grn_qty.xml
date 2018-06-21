@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/rectangle_child_white"
-    android:layout_margin="@dimen/dim_4"
+    android:layout_marginLeft="@dimen/dim_4"
+    android:layout_marginRight="@dimen/dim_4"
+    android:layout_marginBottom="@dimen/dim_4"
     android:orientation="vertical">
 
     <LinearLayout
@@ -27,6 +29,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:layout_height="wrap_content"
                     android:text="GRN Number" />
 
@@ -35,6 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dim_4"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:text="PO1800001"
@@ -60,6 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="Total Items" />
 
                 <EditText
@@ -68,6 +73,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:enabled="false"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="15 May 2018"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
@@ -98,6 +104,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="Received Date" />
 
                 <EditText
@@ -105,6 +112,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dim_4"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:background="@color/transparent"
                     android:enabled="true"
                     android:text="18-May-2018"
@@ -131,6 +139,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="Value" />
 
                 <EditText
@@ -140,6 +149,7 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:text="26799"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -182,6 +192,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="PO Qty" />
 
                 <EditText
@@ -191,6 +202,7 @@
                     android:layout_marginTop="@dimen/dim_4"
                     android:background="@color/transparent"
                     android:enabled="false"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="13"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
@@ -220,6 +232,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="Open Qty" />
 
                 <EditText
@@ -229,6 +242,7 @@
                     android:layout_marginTop="@dimen/dim_4"
                     android:background="@color/transparent"
                     android:enabled="false"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="0"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
@@ -258,6 +272,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="Balance Quantity" />
 
                 <EditText
@@ -267,6 +282,7 @@
                     android:layout_marginTop="@dimen/dim_4"
                     android:background="@color/transparent"
                     android:enabled="false"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="13"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />

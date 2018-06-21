@@ -273,6 +273,7 @@ public class AddOrderCentreActivity extends BaseActivity implements View.OnClick
                         JSONObject jsonObject=new JSONObject(strJson);
                         jsonObject.put(RetailSalesEnum.isAdded.toString(),true);
                         jsonObject.put(RetailSalesEnum.qty.toString(),1);
+                        jsonObject.put(RetailSalesEnum.discountPrice.toString(),0);
                         jsonObject.put(RetailSalesEnum.totalPrice.toString(),dataBeans.get(pos).getSProductPrice());
                         int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
                         jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);

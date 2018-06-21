@@ -11,6 +11,7 @@ public class RecentOrderModal {
     private String lessthan;
     private String discountValue;
     private String qty;
+    private boolean isFreeItem;
 
 
     public String getTitle() {
@@ -51,5 +52,13 @@ public class RecentOrderModal {
 
     public void setQty(String qty) {
         this.qty = qty;
+    }
+
+    public boolean isFreeItem() {
+        return isFreeItem;
+    }
+
+    public void setFreeItem(boolean freeItem) {
+        isFreeItem = freeItem;
     }
 }

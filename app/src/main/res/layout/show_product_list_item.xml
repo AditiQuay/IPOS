@@ -21,13 +21,6 @@
             android:scaleType="centerInside"
             android:layout_gravity="center" />
 
-        <ImageView
-            android:layout_width="1dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/dim_5"
-            android:visibility="gone"
-            android:background="@color/divider_color" />
 
         <LinearLayout
             android:id="@+id/llInnerItem"
@@ -38,7 +31,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_10"
+                android:layout_marginLeft="@dimen/dim_5"
                 android:layout_marginTop="@dimen/dim_5"
                 android:layout_weight="1.2"
                 android:orientation="vertical">
@@ -49,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal"
-                    android:paddingLeft="@dimen/dim_10">
+                    android:paddingLeft="@dimen/dim_5">
 
                     <CheckBox
                         android:id="@+id/chkItem"
@@ -70,27 +63,13 @@
                         android:textSize="@dimen/text_size_14sp" />
 
 
-                    <quay.com.ipos.ui.CustomTextView
-                        android:id="@+id/tvItemWeight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:lines="1"
-                        android:singleLine="true"
-                        android:text="500 gm"
-                        android:visibility="gone"
-                        android:textColor="@color/dashboard_textcolor"
-                        android:textSize="@dimen/text_size_14sp" />
-
-
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/llStock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
+                    android:layout_marginLeft="@dimen/dim_1"
                     android:layout_marginTop="4dp"
                     android:orientation="horizontal"
                     android:paddingTop="@dimen/dim_1">
@@ -106,31 +85,23 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="top"
-                        android:text="225"
+                        android:text="2223335"
                         android:textColor="@color/dashboard_textcolor"
 
                         android:textSize="@dimen/text_size_14sp" />
 
-                    <View
-                        android:layout_width="@dimen/dim_1"
-                        android:layout_height="@dimen/dim_10"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dim_5"
-                        android:layout_marginRight="@dimen/dim_5"
-                        android:background="@color/accent_color"
-                        android:visibility="gone" />
+
 
                     <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvItemPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="@dimen/dim_16"
+                        android:layout_marginLeft="@dimen/dim_10"
                         android:gravity="top"
-                        android:paddingRight="@dimen/dim_10"
-                        android:text="250"
+                        android:paddingRight="@dimen/dim_5"
+                        android:text="253450"
                         android:textColor="@color/dashboard_textcolor"
-
                         android:textSize="@dimen/text_size_14sp" />
 
                 </LinearLayout>
@@ -140,8 +111,8 @@
                     android:id="@+id/llPoints"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginLeft="@dimen/dim_5"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
                     <ImageView

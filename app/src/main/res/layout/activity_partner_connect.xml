@@ -47,14 +47,17 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:layout_marginBottom="@dimen/fab_margin_pc"
         android:layout_marginLeft="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
         android:visibility="visible"
-        app:backgroundTint="@color/colorPrimary"
 
-        app:srcCompat="@drawable/icon_plus"
-        tools:ignore="VectorDrawableCompat" />
+        app:fabSize="normal"
+        android:clickable="true"
+
+        app:backgroundTint="@color/colorPrimary"
+       android:src="@drawable/add_white"
+       />
 
 </android.support.design.widget.CoordinatorLayout>

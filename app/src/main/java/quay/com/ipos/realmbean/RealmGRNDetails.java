@@ -39,11 +39,11 @@ public class RealmGRNDetails extends RealmObject {
     @PrimaryKey
     private String grnNumber;
     private String receivedDate;
-    private int totalItems;
-    private int value;
-    private int poQty;
-    private int openQty;
-    private int balanceQty;
+    private double totalItems;
+    private double value;
+    private double poQty;
+    private double openQty;
+    private double balanceQty;
     private String transporterName;
     private String transporterLRName;
     private String transporterTruckNumber;
@@ -75,7 +75,7 @@ public class RealmGRNDetails extends RealmObject {
         this.receivedDate = receivedDate;
     }
 
-    public int getTotalItems() {
+    public double getTotalItems() {
         return totalItems;
     }
 
@@ -83,7 +83,7 @@ public class RealmGRNDetails extends RealmObject {
         this.totalItems = totalItems;
     }
 
-    public int getValue() {
+    public double getValue() {
         return value;
     }
 
@@ -91,7 +91,7 @@ public class RealmGRNDetails extends RealmObject {
         this.value = value;
     }
 
-    public int getPoQty() {
+    public double getPoQty() {
         return poQty;
     }
 
@@ -99,7 +99,7 @@ public class RealmGRNDetails extends RealmObject {
         this.poQty = poQty;
     }
 
-    public int getOpenQty() {
+    public double getOpenQty() {
         return openQty;
     }
 
@@ -107,7 +107,7 @@ public class RealmGRNDetails extends RealmObject {
         this.openQty = openQty;
     }
 
-    public int getBalanceQty() {
+    public double getBalanceQty() {
         return balanceQty;
     }
 

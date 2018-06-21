@@ -54,6 +54,7 @@ public class RealmOrderCentre extends RealmObject {
     private int mCheckStock;
     private boolean checkStockClick;
 
+
     public String getiProductModalId() {
         return iProductModalId;
     }

@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@color/app_background_color"
         android:paddingBottom="@dimen/dim_8"
+        android:minHeight="50dp"
         android:paddingLeft="@dimen/dim_8"
         android:paddingRight="@dimen/dim_8"
         android:paddingTop="@dimen/dim_8">

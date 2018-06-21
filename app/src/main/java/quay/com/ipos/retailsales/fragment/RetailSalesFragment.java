@@ -69,6 +69,7 @@ import quay.com.ipos.ui.MyDialogFragment;
 import quay.com.ipos.ui.WrapContentLinearLayoutManager;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
@@ -93,7 +94,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //    ArrayList<ProductListResult.Datum> arrSearchlist = new ArrayList<>();
     private TextView tvRight1, tvMoreDetails, tvItemNo, tvItemQty, tvTotalItemPrice,
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
-            tvLessDetails, tvRoundingOffPrice, tvTotalDiscount, tvPay, tvOTCDiscount,tvRedeemPoints, tvApplyOTC, tvApplyOTC2, tvPinCount,tvTotalPoints,tvTotalRedeemValue;
+            tvLessDetails, tvRoundingOffPrice, tvTotalDiscount, tvPay, tvOTCDiscount,tvRedeemPoints, tvApplyOTC, tvApplyOTC2, tvPinCount,tvTotalPoints,tvTotalRedeemValue,tvNetTotal;
     private FrameLayout flScanner,flScanLayout,flRedeem,flCustomer;
     private ToggleButton tbPerc, tbRs;
     private EditText etDiscountAmt;
@@ -156,6 +157,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     private Context mContext;
     PaymentModeActivity paymentModeActivity;
 
+
+
     /**
      * On create view view.
      *
@@ -200,6 +203,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         tvTotalPoints = rootView.findViewById(R.id.tvTotalPoints);
         tvTotalRedeemValue = rootView.findViewById(R.id.tvTotalRedeemValue);
         tvRedeemPoints = rootView.findViewById(R.id.tvRedeemPoints);
+        tvNetTotal = rootView.findViewById(R.id.tvNetTotal);
         imvPin = rootView.findViewById(R.id.imvPin);
         imvTick = rootView.findViewById(R.id.imvTick);
         imvRedeem = rootView.findViewById(R.id.imvRedeem);
@@ -301,6 +305,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
+        tvNetTotal.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountDetail.setText("(Item 0)");
         IPOSApplication.mProductListResult.clear();
         IPOSApplication.totalAmount = 0.0;
@@ -475,7 +480,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
     }
 
 
-    private void dialogOTCTask() {
+    private void dialogOTCTask(int otc_count) {
 
         dialogOTC = new Dialog(mContext);
         dialogOTC.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -496,6 +501,12 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         tvApplyOTC2.setOnClickListener(this);
         imvClearOTC.setOnClickListener(this);
         tvApplyOTC.setOnClickListener(this);
+        if(otc_count<=1){
+            tbRs.setEnabled(true);
+        }else {
+            tbRs.setEnabled(false);
+            Util.showToast("Discount in rupees not allowed in multiple items", mContext);
+        }
         tbPerc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -514,12 +525,14 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //                                        etDiscountAmt.setText("");
 //                                    }
 //                                }).show();
-                        Util.showMessageDialog(mContext,RetailSalesFragment.this, "Please enter valid discount percentage", "OK", null, Constants.APP_DIALOG_OTC, "", getActivity().getSupportFragmentManager());
+//                        Util.showMessageDialog(mContext,RetailSalesFragment.this, "Please enter valid discount percentage", "OK", null, Constants.APP_DIALOG_OTC, "", getActivity().getSupportFragmentManager());
+
+                        Util.showToast("Please enter valid discount percentage", mContext);
                     }else if(Integer.parseInt(etDiscountAmt.getText().toString())<=otcDiscountCheckPerc) {
 
                     }else {
                         etDiscountAmt.setEnabled(true);
-                        Util.showToast("Please enter valid discount value", mContext);
+                        Util.showToast("Please enter valid discount percentage", mContext);
                     }
             }
         });
@@ -533,6 +546,8 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                         tbRs.setChecked(true);
                         tbRs.setTextColor(mContext.getResources().getColor(R.color.white));
                         tbPerc.setTextColor(mContext.getResources().getColor(R.color.accent_color));
+                    }else {
+                        Util.showToast("Please enter valid discount value", mContext);
                     }
             }
         });
@@ -644,7 +659,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+        Util.hideSoftKeyboard(getActivity());
 
         if (requestCode == 1) {
             if (resultCode == 1) {
@@ -759,7 +774,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     discount.setDiscItemSelected(true);
             }
             datum.setDiscount(discounts);
-            totalPrice = (datum.getSProductPrice() * datum.getQty());
+            totalPrice = (datum.getSalesPrice() * datum.getQty());
             datum.setTotalPrice(totalPrice);
             IPOSApplication.mProductListResult.set(i, datum);
         }
@@ -784,6 +799,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
+            tvNetTotal.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvTotalDiscountDetail.setText("(Item 0)");
         } else {
 
@@ -804,14 +820,16 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 PaymentRequest.CartDetail cart_detail = new PaymentRequest().new CartDetail();
                 PaymentRequest.Scheme mScheme = new PaymentRequest().new Scheme();
 
-                qty += mList.get(i).getQty();
-                datum.setTotalQty(qty);
-                totalPrice = mList.get(i).getQty() * datum.getSProductPrice();
-                sum = totalPrice + sum;
-                datum.setTotalPrice(sum);
-                cart_detail.setMaterialUnitValue(totalPrice);
-                cart_detail.setMaterialValue(datum.getSProductPrice());
-                cart_detail.setMaterialQty(datum.getQty());
+                if(!datum.isFreeItem()) {
+                    qty += mList.get(i).getQty();
+                    datum.setTotalQty(qty);
+                    totalPrice = mList.get(i).getQty() * datum.getSalesPrice();
+                    sum = totalPrice + sum;
+                    datum.setTotalPrice(sum);
+                    cart_detail.setMaterialUnitValue(totalPrice);
+                    cart_detail.setMaterialValue(datum.getSalesPrice());
+                    cart_detail.setMaterialQty(datum.getQty());
+                }
 //                mDiscounts = mList.get(i).getDiscount();
 //                for (int j = 0 ; j < mDiscounts.size(); j++)
 //                if (mDiscounts.get(j).isDiscItemSelected()) {
@@ -838,27 +856,27 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                         cart_detail.setIsFreeItem(false);
                     }
                     for (int j = 0; j < discounts.size(); j++) {
-                        if (discounts.get(j).isDiscItemSelected()) {
-                            discount = discount + discounts.get(j).getDiscountTotal();
-                            mScheme.setSchemeID(discounts.get(j).getSchemeID());
+                            if (discounts.get(j).isDiscItemSelected()) {
+                                discount = discount + discounts.get(j).getDiscountTotal();
+                                mScheme.setSchemeID(discounts.get(j).getSchemeID());
 
-                            if (discounts.get(j).getDiscountTotal() > 0.0) {
-                                discountItem++;
-                                cart_detail.setDiscountValue(discounts.get(j).getDiscountTotal());
-                            } else {
-                                cart_detail.setDiscountValue(0.0);
-                            }
-
-                            for (int k = 0; k < discounts.get(j).getRule().size(); k++) {
-                                if (discounts.get(j).getRule().get(k).isApplied()) {
-                                    mScheme.setDiscountValue(discounts.get(j).getDiscountTotal());
-                                    mScheme.setRuleID(discounts.get(j).getRule().get(k).getRuleID());
-                                    mScheme.setDiscountPerc(discounts.get(j).getRule().get(k).getSDiscountValue());
-                                    scheme.add(mScheme);
+                                if (discounts.get(j).getDiscountTotal() > 0.0) {
+                                    discountItem++;
+                                    cart_detail.setDiscountValue(discounts.get(j).getDiscountTotal());
+                                } else {
+                                    cart_detail.setDiscountValue(0.0);
                                 }
 
+                                for (int k = 0; k < discounts.get(j).getRule().size(); k++) {
+                                    if (discounts.get(j).getRule().get(k).isApplied()) {
+                                        mScheme.setDiscountValue(discounts.get(j).getDiscountTotal());
+                                        mScheme.setRuleID(discounts.get(j).getRule().get(k).getRuleID());
+                                        mScheme.setDiscountPerc(discounts.get(j).getRule().get(k).getSDiscountValue());
+                                        scheme.add(mScheme);
+                                    }
+
+                                }
                             }
-                        }
                     }
                     cart_detail.setScheme(scheme);
                     if (datum.isDiscSelected()) {
@@ -928,9 +946,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             tvTotalItemPrice.setText( Util.getIndianNumberFormat(sum+""));
             paymentRequest.setTotalValueWithoutTax(sum);
 
-            tvTotalDiscountPrice.setText("-" + Util.getIndianNumberFormat((discount + otcDiscountPerc)+""));
+            tvTotalDiscountPrice.setText("-" + Util.getIndianNumberFormat((discount + otcDiscountPerc+ IPOSApplication.totalpointsToRedeemValue)+""));
+            tvNetTotal.setText( Util.getIndianNumberFormat((sum - (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue))+""));
             tvTotalDiscount.setText(Util.getIndianNumberFormat( (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue)+""));
-            paymentRequest.setTotalDiscountValue((discount + otcDiscountPerc));
+            paymentRequest.setTotalDiscountValue((discount + otcDiscountPerc+ IPOSApplication.totalpointsToRedeemValue));
 
             tvTotalDiscountDetail.setText("(Item " + discountItem + ")");
             paymentRequest.setPointsToRedeem(IPOSApplication.totalpointsToRedeem);
@@ -947,10 +966,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             paymentRequest.setTotalCGSTValue(cgst);
             if(IPOSApplication.totalpointsToRedeemValue>0)
             {
-                totalAfterGSt = ((sum - discount) - IPOSApplication.totalpointsToRedeemValue) + (sgst + cgst) - (otcDiscountPerc);
+                totalAfterGSt = (sum - (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue) + (sgst + cgst));
             }
             else
-                totalAfterGSt = (sum - discount) + (sgst + cgst) - (otcDiscountPerc);
+                totalAfterGSt = (sum - (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue) + (sgst + cgst));
 //            double floorValue = Math.round(totalAfterGSt);
 
 
@@ -1031,16 +1050,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 break;
             case R.id.imvClearOTC:
                 dialogOTC.dismiss();
-                ll_item_pay.setVisibility(View.VISIBLE);
-                llOTCSelect.setVisibility(View.GONE);
-                mRecyclerView.setVisibility(View.VISIBLE);
-                for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
-                    ProductSearchResult.Datum datum = IPOSApplication.mProductListResult.get(i);
-                    datum.setItemSelected(false);
-                    datum.setOTCselected(false);
-                    IPOSApplication.mProductListResult.set(i, datum);
-                }
-                mRetailSalesAdapter.notifyDataSetChanged();
+                clearOTC();
                 break;
 
             case R.id.tvMinus:
@@ -1077,11 +1087,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                                 llOTCConfirmation.setVisibility(View.VISIBLE);
                             }else {
                                 etDiscountAmt.setEnabled(true);
-                                Util.showToast("Discount value should not be greater than price value", mContext);
+                                Util.showToast("Discount percentage exceeds!", mContext);
                             }
                         }else {
                             etDiscountAmt.setEnabled(true);
-                            Util.showToast("Please enter valid discount value", mContext);
+                            Util.showToast("Please enter valid discount percentage", mContext);
                         }
                     } else {
                         if(checkApplyOTC()) {
@@ -1090,7 +1100,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                             llOTCConfirmation.setVisibility(View.VISIBLE);
                         }else {
                             etDiscountAmt.setEnabled(true);
-                            Util.showToast("Discount value should not be greater than price value", mContext);
+                            Util.showToast("Discount percentage exceeds!", mContext);
                         }
                     }
                 } else {
@@ -1146,12 +1156,18 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             case R.id.imvPin:
                 Util.hideSoftKeyboard(getActivity());
 //                setArrayPinned();
+                if(llOTCSelect.getVisibility()==View.VISIBLE){
+                    clearOTC();
+                }
                 cachedPinned();
                 openPinnedDetailActivity(true);
                 totalAmount =0.0;
                 break;
 
             case R.id.flRedeem:
+                if(llOTCSelect.getVisibility()==View.VISIBLE){
+                    clearOTC();
+                }
                 Util.hideSoftKeyboard(getActivity());
                 if (IPOSApplication.mProductListResult.size() > 0)
                     if(!mCustomerID.equalsIgnoreCase(""))
@@ -1222,6 +1238,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
                 break;
             case R.id.flCustomer:
+                if(llOTCSelect.getVisibility()==View.VISIBLE){
+                    clearOTC();
+                }
                 Util.hideSoftKeyboard(getActivity());
                 Intent mIntent = new Intent(mContext, CustomerInfoActivity.class);
                 startActivityForResult(mIntent,Constants.ACT_CUSTOMER);
@@ -1264,9 +1283,23 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 break;
             case R.id.imvBilling:
                 Util.hideSoftKeyboard(getActivity());
+
                 setNewBilling();
                 break;
         }
+    }
+
+    private void clearOTC() {
+        ll_item_pay.setVisibility(View.VISIBLE);
+        llOTCSelect.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
+            ProductSearchResult.Datum datum = IPOSApplication.mProductListResult.get(i);
+            datum.setItemSelected(false);
+            datum.setOTCselected(false);
+            IPOSApplication.mProductListResult.set(i, datum);
+        }
+        mRetailSalesAdapter.notifyDataSetChanged();
     }
 
     void setUnCheckPackSize(int posClear){
@@ -1307,6 +1340,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //    }
 
     private void setNewBilling() {
+        if(llOTCSelect.getVisibility()==View.VISIBLE){
+            clearOTC();
+        }
+
         if(IPOSApplication.mProductListResult.size()>0){
             Util.showMessageDialog(mContext,RetailSalesFragment.this, getResources().getString(R.string.new_billing_cart_message), getResources().getString(R.string.yes), getResources().getString(R.string.no),getResources().getString(R.string.cancel), Constants.APP_DIALOG_BILLING, "", getActivity().getSupportFragmentManager());
 
@@ -1321,7 +1358,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         setTextDefault();
     }
 
-
+    int orderNumber=0;
     private void cachedPinned() {
 
         if (IPOSApplication.mProductListResult != null)
@@ -1341,7 +1378,16 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     mInfo.setData(IPOSApplication.mProductListResult);
                     mInfoArrayList.set(childPosition, mInfo);
                 } else {
-                    mInfo.setKey("Order No: "+Util.getCurrentTimeStamp()+"                         "+Util.getIndianNumberFormat(IPOSApplication.totalAmount+""));
+                    if(Prefs.getStringPrefs(Constants.KEY_ORDER_ID)==null || Prefs.getStringPrefs(Constants.KEY_ORDER_ID)==""){
+                        orderNumber = 1;
+                        Prefs.putStringPrefs(Constants.KEY_ORDER_ID,orderNumber+"");
+                    }else {
+                        String order = Prefs.getStringPrefs(Constants.KEY_ORDER_ID);
+                        orderNumber = Integer.parseInt(order);
+                        orderNumber++;
+                        Prefs.putStringPrefs(Constants.KEY_ORDER_ID,Util.generateOrderFormat(orderNumber)+"");
+                    }
+                    mInfo.setKey("Order No: "+"ODR"+Util.generateOrderFormat(orderNumber)+"  \nTotal Price: "+Util.getIndianNumberFormat(IPOSApplication.totalAmount+""));
                     mInfo.setData(IPOSApplication.mProductListResult);
                     if (mInfoArrayList == null) {
                         mInfoArrayList = new ArrayList<>();
@@ -1398,14 +1444,14 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 datum.setItemSelected(false);
                 datum.setOTCselected(false);
 //                if (datum.getIsDiscount()) {
-//                    Double price = datum.getSProductPrice();
+//                    Double price = datum.getSalesPrice();
 //                    Double discount = (datum.getSDiscountPrice() * price) / 100;
 //                    afterDiscountPrice = price - discount;
 //                } else {
-//                    afterDiscountPrice = datum.getSProductPrice();
+//                    afterDiscountPrice = datum.getSalesPrice();
 //                }
                 if (tbPerc.isChecked())
-                    otcDiscount = (Double.parseDouble(etDiscountAmt.getText().toString()) * datum.getSProductPrice()) / 100;
+                    otcDiscount = (Double.parseDouble(etDiscountAmt.getText().toString()) * (datum.getSalesPrice()*datum.getQty())) / 100;
                 else
                     otcDiscount = Double.parseDouble(etDiscountAmt.getText().toString());
                 datum.setOTCDiscount(Util.round(otcDiscount, 1));
@@ -1426,10 +1472,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             isOTC = datum.isOTCselected();
             if (isOTC) {
                 if (tbPerc.isChecked())
-                    otcDiscount = (Double.parseDouble(etDiscountAmt.getText().toString()) * datum.getSProductPrice()) / 100;
+                    otcDiscount = (Double.parseDouble(etDiscountAmt.getText().toString()) * (datum.getSalesPrice()*datum.getQty())) / 100;
                 else
                     otcDiscount = Double.parseDouble(etDiscountAmt.getText().toString());
-                double productTotal = datum.getSProductPrice()*datum.getQty();
+                double productTotal = datum.getSalesPrice()*datum.getQty();
                 if(otcDiscount<=productTotal){
                     otcDiscount=0.0;
                     isApplied = true;
@@ -1448,13 +1494,16 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         otcDiscountCheckPerc = SharedPrefUtil.getInt( Constants.otcPerc, 0,mContext);
         otcDiscountCheckValue = SharedPrefUtil.getInt( Constants.otcValue, 0,mContext);
         isOTCCheck = SharedPrefUtil.getBoolean( Constants.isOTC, false,mContext);
+        int otc_count = 0;
         if(isOTCCheck) {
             for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
-                if (IPOSApplication.mProductListResult.get(i).isOTCselected())
+                if (IPOSApplication.mProductListResult.get(i).isOTCselected()) {
                     isOTC = true;
+                    otc_count++;
+                }
             }
             if (isOTC) {
-                dialogOTCTask();
+                dialogOTCTask(otc_count);
                 mRecyclerView.setVisibility(View.GONE);
             } else {
                 Util.showToast("Please select atleast one Item", mContext);
@@ -1480,9 +1529,15 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
             datum1.setQty(qty1 + 1);
             IPOSApplication.mProductListResult.set(posPlus, datum1);
-            mRetailSalesAdapter.notifyDataSetChanged();
+            mRetailSalesAdapter.notifyItemChanged(posPlus);
 
             setUpdateValues(IPOSApplication.mProductListResult);
+            mRecyclerView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mRetailSalesAdapter.notifyDataSetChanged();
+                }
+            },9000);
         }
         IPOSApplication.isClicked = true;
     }
@@ -1501,8 +1556,14 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             datum.setQty(qty - 1);
             IPOSApplication.mProductListResult.set(posMinus, datum);
             //  mRetailSalesAdapter.notifyDataSetChanged();
-            mRetailSalesAdapter.notifyDataSetChanged();
+            mRetailSalesAdapter.notifyItemChanged(posMinus);
             setUpdateValues(IPOSApplication.mProductListResult);
+            mRecyclerView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mRetailSalesAdapter.notifyDataSetChanged();
+                }
+            },9000);
             //
         }
 
@@ -1673,6 +1734,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 addDeleteDiscount();
             }
         }
+        mRetailSalesAdapter.notifyItemChanged(parentPosition);
     }
     /**
      * The Pos delete item.
@@ -1751,7 +1813,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
      * @param position the position
      */
     @Override
-    public void onRowClicked(int position) {
+    public void onRowClicked(final int position) {
 
         if(position==-1){
 
@@ -1762,26 +1824,17 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 }
             },1000);
             ((MainActivity) mContext).onResume();
-//            mRetailSalesAdapter.notifyItemRangeChanged(0,IPOSApplication.mProductListResult.size());
-//            if(SharedPrefUtil.getString(Constants.DISCOUNT+"","",getActivity())!=null){
-//                jsonDiscount = SharedPrefUtil.getString(Constants.DISCOUNT+"","",getActivity());
-//
-//                if(!jsonDiscount.equalsIgnoreCase("")) {
-//                    mMinDiscount = Util.getCustomGson().fromJson(jsonDiscount, new TypeToken<ArrayList<ProductSearchResult.Datum>>() {
-//                    }.getType());
-//                    if (mMinDiscount.size() > 0) {
-//                        IPOSApplication.mProductListResult.addAll(mMinDiscount);
-//                    }
-//                }
-//            }
-//            mRetailSalesAdapter.notifyDataSetChanged();
         }else {
-            ((MainActivity) mContext).onResume();
             boolean row = false;
             row = IPOSApplication.isClicked;
             setUpdateValues(IPOSApplication.mProductListResult);
             IPOSApplication.isClicked = row;
-
+            mRecyclerView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mRetailSalesAdapter.notifyItemChanged(position);
+                }
+            },3000);
         }
 
     }

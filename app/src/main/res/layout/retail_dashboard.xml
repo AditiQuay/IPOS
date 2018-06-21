@@ -35,16 +35,14 @@
 
             <ImageView
                 android:id="@+id/imvTick"
-                android:layout_width="29dp"
-                android:layout_height="29dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="right|end|top"
                 android:layout_marginRight="-8dp"
                 android:layout_marginLeft="@dimen/dim_8"
-                android:layout_marginTop="5dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:src="@drawable/ic_action_check_yellow"
-                android:gravity="center"
-                android:padding="3dp"/>
+                android:gravity="center"/>
 
         </FrameLayout>
         <FrameLayout
@@ -387,6 +385,33 @@
 
                         <quay.com.ipos.ui.CustomTextView
                             android:id="@+id/tvTotalRedeemValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="@string/Rs"
+                            android:textSize="@dimen/text_size_15sp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/llNetTotal"
+                        android:visibility="visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <quay.com.ipos.ui.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center_vertical"
+                            android:text="@string/net_total"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_15sp" />
+
+
+
+                        <quay.com.ipos.ui.CustomTextView
+                            android:id="@+id/tvNetTotal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"

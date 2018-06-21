@@ -19,7 +19,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rect_four_white"
+        android:background="@drawable/rect_four_white"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -368,7 +368,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
-                        android:id="@+id/imgLoyalty"
+                        android:id="@+id/imageCredit"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_centerVertical="true"
@@ -385,7 +385,7 @@
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_10"
-                        android:layout_toRightOf="@+id/imgLoyalty"
+                        android:layout_toRightOf="@+id/imageCredit"
                         android:gravity="center"
                         android:text="@string/loyalty"
                         android:textColor="@color/colorPrimary" />

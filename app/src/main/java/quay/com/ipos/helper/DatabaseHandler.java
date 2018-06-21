@@ -18,7 +18,7 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerSpinner;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.modal.BillingSync;
-import quay.com.ipos.modal.PaymentRequest;
+import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.utility.Util;
 
@@ -77,6 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_pointsPer = "pointsPer";
     private static final String KEY_brandName = "brandName";
     private static final String KEY_customerID = "customerID";
+    private static final String KEY_orderID = "orderID";
     private static final String KEY_billing = "billing";
     private static final String KEY_sync = "sync";
     private static final String KEY_date_time = "date_time";
@@ -95,11 +96,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_productCode + " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName + " TEXT," + KEY_sProductFeature + " TEXT," + KEY_sProductImage + " TEXT," + KEY_sProductPrice + " REAL," + KEY_sProductStock + " INTEGER," + KEY_sProductWeight + " INTEGER," + KEY_isDiscount + " INTEGER," + KEY_gstPerc + " REAL," + KEY_cgst + " REAL," + KEY_sgst + " REAL," + KEY_salesPrice + " REAL," + KEY_nrv + " REAL," + KEY_gpl + " REAL," + KEY_mrp + " REAL," + KEY_barCodeNumber + " TEXT," + KEY_discount + " TEXT," + KEY_points + " INTEGER," + KEY_pointsBasedOn + " TEXT," + KEY_pointsPer + " INTEGER," + KEY_valueFrom + " INTEGER," + KEY_valueTo + " INTEGER,"+KEY_conversionFactor + " INTEGER,"+KEY_hsnCode + " TEXT,"+KEY_hsnName + " TEXT,"+KEY_categoryName + " TEXT,"+KEY_subCategoryName + " TEXT,"+KEY_brandName + " TEXT" + ")";
+        String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_productCode + " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName + " TEXT," + KEY_sProductFeature + " TEXT," + KEY_sProductImage + " TEXT," + KEY_sProductPrice + " REAL," + KEY_sProductStock + " INTEGER," + KEY_sProductWeight + " INTEGER," + KEY_isDiscount + " INTEGER," + KEY_gstPerc + " REAL," + KEY_cgst + " REAL," + KEY_sgst + " REAL," + KEY_salesPrice + " REAL," + KEY_nrv + " REAL," + KEY_gpl + " REAL," + KEY_mrp + " REAL," + KEY_barCodeNumber + " TEXT," + KEY_discount + " TEXT," + KEY_points + " INTEGER," + KEY_pointsBasedOn + " TEXT," + KEY_pointsPer + " INTEGER," + KEY_valueFrom + " INTEGER," + KEY_valueTo + " INTEGER," + KEY_conversionFactor + " INTEGER," + KEY_hsnCode + " TEXT," + KEY_hsnName + " TEXT," + KEY_categoryName + " TEXT," + KEY_subCategoryName + " TEXT," + KEY_brandName + " TEXT" + ")";
         db.execSQL(CREATE_RETAIL_TABLE);
 
 
-        String CREATE_TABLE_BILLING = "CREATE TABLE " + TABLE_RETAIL_BILLING +"(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+ KEY_customerID + " TEXT," + KEY_billing + " TEXT," + KEY_date_time + " TEXT," + KEY_timestamp + " TEXT,"+KEY_sync + " TINYINT"+ ")";
+        String CREATE_TABLE_BILLING = "CREATE TABLE " + TABLE_RETAIL_BILLING + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_customerID + " TEXT,"+KEY_orderID+" TEXT," + KEY_billing + " TEXT," + KEY_date_time + " TEXT," + KEY_timestamp + " TEXT," + KEY_sync + " TINYINT" + ")";
         db.execSQL(CREATE_TABLE_BILLING);
 
 
@@ -138,7 +139,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * All CRUD(Create, Read, Update, Delete) Operations
      */
-
 
 
 //	// Adding new contact
@@ -369,23 +369,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return flag;
     }
+
     public long getBillingRecordsCount() {
         SQLiteDatabase db = this.getReadableDatabase();
         long count = DatabaseUtils.queryNumEntries(db, TABLE_RETAIL_BILLING);
         db.close();
         return count;
     }
+
     ArrayList<ProductSearchResult.Discount> searchResult = new ArrayList<>();
     ArrayList<ProductSearchResult.SProductFeature> productFeatures = new
             ArrayList<>();
 //    ArrayList<BillingSync> billingSyncList = new ArrayList<>();
 
-    public void addRetailBilling(BillingSync billingSync){
+    public void addRetailBilling(BillingSync billingSync) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
         ContentValues values = new ContentValues();
         //KEY_ID
         values.put(KEY_customerID, billingSync.getCustomerID());
+        values.put(KEY_orderID, billingSync.getOrderID());
         values.put(KEY_billing, billingSync.getBilling());
         values.put(KEY_date_time, billingSync.getOrderDateTime());
         values.put(KEY_timestamp, billingSync.getOrderTimestamp());
@@ -396,29 +399,26 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.endTransaction();
         db.close(); // Closing database connection
     }
-    public boolean checkIfBillingRecordExist(String searchKey)
-    {
-        try
-        {
-            SQLiteDatabase db=this.getReadableDatabase();
-            String selectQuery = "SELECT "+KEY_timestamp +" FROM " + TABLE_RETAIL_BILLING + " WHERE " + KEY_timestamp + " = "+searchKey+";";
-            Cursor cursor=db.rawQuery(selectQuery,null);
-            if (cursor.moveToFirst())
-            {
+
+    public boolean checkIfBillingRecordExist(String searchKey) {
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String selectQuery = "SELECT " + KEY_timestamp + " FROM " + TABLE_RETAIL_BILLING + " WHERE " + KEY_timestamp + " = " + searchKey + ";";
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            if (cursor.moveToFirst()) {
                 db.close();
-                Log.e("Record  Already Exists", "Table is:"+TABLE_RETAIL_BILLING+" ColumnName:"+searchKey);
+                Log.e("Record  Already Exists", "Table is:" + TABLE_RETAIL_BILLING + " ColumnName:" + searchKey);
                 return true;//record Exists
 
             }
             db.close();
-        }
-        catch(Exception errorException)
-        {
-            Log.d("Exception occured", "Exception occured "+errorException);
+        } catch (Exception errorException) {
+            Log.d("Exception occured", "Exception occured " + errorException);
             // db.close();
         }
         return false;
     }
+
     /*
     * this method is for getting all the unsynced name
     * so that we can sync it with database
@@ -436,10 +436,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 BillingSync datum = new BillingSync();
                 datum.setCustomerID(cursor.getString(1));
-                datum.setBilling(cursor.getString(2));
-                datum.setOrderDateTime(cursor.getString(3));
-                datum.setOrderTimestamp(cursor.getString(4));
-                datum.setSync(cursor.getInt(5));
+                datum.setOrderID(cursor.getString(2));
+                datum.setBilling(cursor.getString(3));
+                datum.setOrderDateTime(cursor.getString(4));
+                datum.setOrderTimestamp(cursor.getString(5));
+                datum.setSync(cursor.getInt(6));
                 billingSyncs.add(datum);
             } while (cursor.moveToNext());
         }
@@ -451,7 +452,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public ArrayList<BillingSync> getAllRetailBillingOrders() {
         ArrayList<BillingSync> billingSyncs = new ArrayList<BillingSync>();
         // Select All Query
-        String selectQuery = "SELECT * FROM " + TABLE_RETAIL_BILLING ;
+        String selectQuery = "SELECT * FROM " + TABLE_RETAIL_BILLING;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -461,10 +462,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 BillingSync datum = new BillingSync();
                 datum.setCustomerID(cursor.getString(1));
-                datum.setBilling(cursor.getString(2));
-                datum.setOrderDateTime(cursor.getString(3));
-                datum.setOrderTimestamp(cursor.getString(4));
-                datum.setSync(cursor.getInt(5));
+                datum.setOrderID(cursor.getString(2));
+                datum.setBilling(cursor.getString(3));
+                datum.setOrderDateTime(cursor.getString(4));
+                datum.setOrderTimestamp(cursor.getString(5));
+                datum.setSync(cursor.getInt(6));
                 billingSyncs.add(datum);
             } while (cursor.moveToNext());
         }
@@ -474,7 +476,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 
-    public  ArrayList<BillingSync> getBillingProduct(){
+    public ArrayList<BillingSync> getBillingProduct() {
         ArrayList<BillingSync> billingSyncs = new ArrayList<BillingSync>();
         // Select All Query
         String selectQuery = "SELECT * FROM " + TABLE_RETAIL_BILLING;
@@ -487,10 +489,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 BillingSync datum = new BillingSync();
                 datum.setCustomerID(cursor.getString(1));
-                datum.setBilling(cursor.getString(2));
-                datum.setOrderDateTime(cursor.getString(3));
-                datum.setOrderTimestamp(cursor.getString(4));
-                datum.setSync(cursor.getInt(5));
+                datum.setOrderID(cursor.getString(2));
+                datum.setBilling(cursor.getString(3));
+                datum.setOrderDateTime(cursor.getString(4));
+                datum.setOrderTimestamp(cursor.getString(5));
+                datum.setSync(cursor.getInt(6));
                 billingSyncs.add(datum);
             } while (cursor.moveToNext());
         }
@@ -498,6 +501,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return question List
         return billingSyncs;
     }
+
     //	// Getting All Questionaire
     public ArrayList<ProductSearchResult.Datum> getAllQuestionaIdByQuestionId(String questionId) {
         ArrayList<ProductSearchResult.Datum> questionList = new ArrayList<ProductSearchResult.Datum>();
@@ -557,7 +561,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return question List
         return questionList;
     }
-
 
 
     //
@@ -739,18 +742,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 //		return contactList;
 //	}
 //
-	// Updating single contact
-	public int updateSync(int status, String timestamp) {
-		SQLiteDatabase db = this.getWritableDatabase();
+    // Updating single contact
+    public int updateSync(int status, String timestamp) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
-		ContentValues values = new ContentValues();
-		values.put(KEY_sync, status);
+        ContentValues values = new ContentValues();
+        values.put(KEY_sync, status);
 
-		// updating row
-		// return the number of rows affected
-		return db.update(TABLE_RETAIL_BILLING, values, KEY_timestamp+ " = ?", new String[] { timestamp + "" });
-		// new String[] { String.valueOf(questionaire.getQuesId()) });
-	}
+        // updating row
+        // return the number of rows affected
+        return db.update(TABLE_RETAIL_BILLING, values, KEY_timestamp + " = ?", new String[]{timestamp + ""});
+        // new String[] { String.valueOf(questionaire.getQuesId()) });
+    }
 
 
     public int updateCustomerPoints(String points, String customerID) {
@@ -761,14 +764,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // updating row
         // return the number of rows affected
-        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?", new String[] { customerID + "" });
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?", new String[]{customerID + ""});
         // new String[] { String.valueOf(questionaire.getQuesId()) });
     }
 
 
-
-
-//
+    //
 //	// Updating single contact
 //	public int updateTestAnswer(LearnTestResult.QuestionList questionaire, int questionId) {
 //		SQLiteDatabase db = this.getWritableDatabase();
@@ -959,6 +960,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                                String customerCode,
                                String registeredBusinessPlaceID,
                                double customerPointsValue,
+                               double customerRedeemPoints,
+                               double customerAdjustPoint,
+                               double customerExpirePoint,
+                               double customerReversePoint,
                                int sync) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
@@ -1008,6 +1013,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(CustomerEnum.ColoumnCustomerCode.toString(), customerCode);
         values.put(CustomerEnum.ColoumnRegisteredBusinessPlace.toString(), registeredBusinessPlaceID);
         values.put(CustomerEnum.ColoumnPointsPerValue.toString(), customerPointsValue);
+        values.put(CustomerEnum.ColumnRedeemPoints.toString(), customerRedeemPoints);
+        values.put(CustomerEnum.ColumnAdjustedPoints.toString(), customerAdjustPoint);
+        values.put(CustomerEnum.ColumnExpirePoints.toString(), customerExpirePoint);
+        values.put(CustomerEnum.CoulmnReversePoints.toString(), customerReversePoint);
         values.put(CustomerEnum.ColoumnIsSync.toString(), sync);
 
         // insert row
@@ -1079,6 +1088,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                               String customerDom,
                               String customerCode,
                               String registeredBusinessPlaceID,
+                              double customerPointsPervalue,
+                              double customerRedeemPoints,
+                              double customerAdjustedPoints,
+                              double customerExpirePoints,
+                              double customerReversePoints,
                               int sync) {
         // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
@@ -1126,6 +1140,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(CustomerEnum.ColoumncCustomerDOM.toString(), customerDom);
         values.put(CustomerEnum.ColoumnCustomerCode.toString(), customerCode);
         values.put(CustomerEnum.ColoumnRegisteredBusinessPlace.toString(), registeredBusinessPlaceID);
+        values.put(CustomerEnum.ColoumnPointsPerValue.toString(), customerPointsPervalue);
+        values.put(CustomerEnum.ColumnRedeemPoints.toString(), customerRedeemPoints);
+        values.put(CustomerEnum.ColumnAdjustedPoints.toString(), customerAdjustedPoints);
+        values.put(CustomerEnum.ColumnExpirePoints.toString(), customerExpirePoints);
+        values.put(CustomerEnum.CoulmnReversePoints.toString(), customerReversePoints);
         values.put(CustomerEnum.ColoumnIsSync.toString(), sync);
         // insert row
         return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?",
@@ -1141,6 +1160,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close();
         return count;
     }
+
     //Get customer details
     public CustomerModel getCustomerMobile(String id) {
         // get readable database as we are not inserting anything
@@ -1190,6 +1210,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         CustomerEnum.ColoumnCustomerCode.toString(),
                         CustomerEnum.ColoumnRegisteredBusinessPlace.toString(),
                         CustomerEnum.ColoumnPointsPerValue.toString(),
+                        CustomerEnum.ColumnRedeemPoints.toString(),
+                        CustomerEnum.ColumnAdjustedPoints.toString(),
+                        CustomerEnum.ColumnExpirePoints.toString(),
+                        CustomerEnum.CoulmnReversePoints.toString(),
                         CustomerEnum.ColoumnIsSync.toString()},
                 CustomerEnum.ColoumnCustomerPhone.toString() + "=?",
                 new String[]{id}, null, null, null, null);
@@ -1241,6 +1265,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
                 cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnRedeemPoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnAdjustedPoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnExpirePoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.CoulmnReversePoints.toString())),
                 cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
 
         // close the db connection
@@ -1248,6 +1276,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         return note;
     }
+
     //Get customer details
     public CustomerModel getCustomer(String id) {
         // get readable database as we are not inserting anything
@@ -1297,6 +1326,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                         CustomerEnum.ColoumnCustomerCode.toString(),
                         CustomerEnum.ColoumnRegisteredBusinessPlace.toString(),
                         CustomerEnum.ColoumnPointsPerValue.toString(),
+                        CustomerEnum.ColumnRedeemPoints.toString(),
+                        CustomerEnum.ColumnAdjustedPoints.toString(),
+                        CustomerEnum.ColumnExpirePoints.toString(),
+                        CustomerEnum.CoulmnReversePoints.toString(),
                         CustomerEnum.ColoumnIsSync.toString()},
                 CustomerEnum.ColoumnCustomerID.toString() + "=?",
                 new String[]{id}, null, null, null, null);
@@ -1348,6 +1381,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
                 cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
                 cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnRedeemPoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnAdjustedPoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnExpirePoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.CoulmnReversePoints.toString())),
                 cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
 
         // close the db connection
@@ -1426,24 +1463,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return notes list
         return notes;
     }
-    public boolean checkIfRecordExist(String searchKey)
-    {
-        try
-        {
-            SQLiteDatabase db=this.getReadableDatabase();
-            Cursor cursor=db.rawQuery("SELECT "+searchKey+" FROM "+TABLE_NAME+" WHERE "+searchKey+"='",null);
-            if (cursor.moveToFirst())
-            {
+
+    public boolean checkIfRecordExist(String searchKey) {
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT " + searchKey + " FROM " + TABLE_NAME + " WHERE " + searchKey + "='", null);
+            if (cursor.moveToFirst()) {
                 db.close();
-                Log.d("Record  Already Exists", "Table is:"+TABLE_NAME+" ColumnName:"+searchKey);
+                Log.d("Record  Already Exists", "Table is:" + TABLE_NAME + " ColumnName:" + searchKey);
                 return true;//record Exists
 
             }
             db.close();
-        }
-        catch(Exception errorException)
-        {
-            Log.d("Exception occured", "Exception occured "+errorException);
+        } catch (Exception errorException) {
+            Log.d("Exception occured", "Exception occured " + errorException);
             // db.close();
         }
         return false;
@@ -1518,6 +1551,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 note.setCustomerCode(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())));
                 note.setRegisteredBusinessPlaceID(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())));
                 note.setPointsPerValue(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())));
+                note.setCustomerRedeemPoints(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnRedeemPoints.toString())));
+                note.setCustomerAdjustPoints(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnAdjustedPoints.toString())));
+                note.setCustomerExpirePoints(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnExpirePoints.toString())));
+                note.setCustomerReversePoints(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.CoulmnReversePoints.toString())));
                 note.setIsSync(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
                 notes.add(note);
             } while (cursor.moveToNext());

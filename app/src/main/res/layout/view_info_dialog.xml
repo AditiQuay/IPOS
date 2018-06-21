@@ -26,9 +26,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_toLeftOf="@+id/ImvClose"
                 android:alpha="0.7"
+                android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
                 android:text="Points Info" />
 
@@ -41,7 +41,7 @@
                 android:layout_marginRight="@dimen/dim_5"
                 android:gravity="top"
                 android:padding="@dimen/dim_2"
-                android:src="@drawable/ic_action_close" />
+                android:src="@drawable/ic_action_close_white" />
         </RelativeLayout>
 
 
@@ -51,14 +51,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/dim_4">
 
         <LinearLayout
             android:id="@+id/llName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dim_4"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="@dimen/dim_4">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -68,7 +69,7 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor14"
+                    style="@style/stylePrimaryTextColor16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -82,13 +83,13 @@
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/titilliumwebregular"
                     android:layout_alignParentRight="true"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8"
-                    android:text="1" />
+                    android:paddingRight="@dimen/dim_8" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,27 +97,27 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor14"
+                    style="@style/stylePrimaryTextColor16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
                     android:paddingRight="@dimen/dim_8"
-                    android:text="Total Points"/>
+                    android:text="Total Points Per Value" />
 
                 <TextView
                     android:id="@+id/textViewCustomerTotalPoints"
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/titilliumwebregular"
                     android:layout_alignParentRight="true"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8"
-                    android:text="1" />
+                    android:paddingRight="@dimen/dim_8" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,27 +125,27 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor14"
+                    style="@style/stylePrimaryTextColor16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
                     android:paddingRight="@dimen/dim_8"
-                    android:text="Total Redeem"/>
+                    android:text="Total Redeem Points" />
 
                 <TextView
                     android:id="@+id/textViewTotalRedeemPoints"
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/titilliumwebregular"
                     android:layout_alignParentRight="true"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8"
-                    android:text="1" />
+                    android:paddingRight="@dimen/dim_8" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -152,27 +153,27 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor14"
+                    style="@style/stylePrimaryTextColor16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
                     android:paddingRight="@dimen/dim_8"
-                    android:text="Total Adjusted Points"/>
+                    android:text="Total Adjust Points" />
 
                 <TextView
                     android:id="@+id/textViewTotalAdjustedPoints"
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/titilliumwebregular"
                     android:layout_alignParentRight="true"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8"
-                    android:text="1" />
+                    android:paddingRight="@dimen/dim_8" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -180,27 +181,27 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor14"
+                    style="@style/stylePrimaryTextColor16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
                     android:paddingRight="@dimen/dim_8"
-                    android:text="Total Expired Points"/>
+                    android:text="Total Expire Points" />
 
                 <TextView
                     android:id="@+id/textViewTotalExpirePoints"
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/titilliumwebregular"
                     android:layout_alignParentRight="true"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8"
-                    android:text="1" />
+                    android:paddingRight="@dimen/dim_8" />
 
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -208,25 +209,24 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor14"
+                    style="@style/stylePrimaryTextColor16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
                     android:paddingRight="@dimen/dim_8"
-                    android:text="Total Reverse Points"/>
+                    android:text="Total Reverse Points" />
 
                 <TextView
                     android:id="@+id/textViewTotalReversePoints"
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/titilliumwebregular"
                     android:layout_alignParentRight="true"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8"
-                    android:text="1" />
+                    android:paddingRight="@dimen/dim_8" />
 
             </RelativeLayout>
         </LinearLayout>

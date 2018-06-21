@@ -74,16 +74,14 @@
 
             <ImageView
                 android:id="@+id/imvTick"
-                android:layout_width="29dp"
-                android:layout_height="29dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="right|end|top"
                 android:layout_marginRight="-8dp"
                 android:layout_marginLeft="@dimen/dim_8"
-                android:layout_marginTop="5dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:src="@drawable/ic_action_check_yellow"
-                android:gravity="center"
-                android:padding="3dp"/>
+                android:gravity="center"/>
 
         </FrameLayout>
 

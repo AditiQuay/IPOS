@@ -51,7 +51,7 @@ public class BusinessFragment extends Fragment implements InitInterface, View.On
     private LinearLayout lLayoutBottom;
     private Context mContext;
 
-    private View fab;
+   // private View fab;
     private Button btnAdd;
     PCModel mpcModel;
     private BusinessAdapter businessAdapter;
@@ -82,12 +82,7 @@ public class BusinessFragment extends Fragment implements InitInterface, View.On
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         loadData();
-        getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "hhh", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     private void loadData() {
@@ -126,21 +121,21 @@ public class BusinessFragment extends Fragment implements InitInterface, View.On
         textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
         recyclerViewBusinessInfo = view.findViewById(R.id.recyclerViewBusinessInfo);
         lLayoutBottom = view.findViewById(R.id.lLayoutBottom);
-        fab = getActivity().findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClick(view);
-            }
-        });
+//        fab = getActivity().findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onClick(view);
+//            }
+//        });
         businessAdapter = new BusinessAdapter(getActivity());
         recyclerViewBusinessInfo.setAdapter(businessAdapter);
 
-        try {
+       /* try {
             fab.setOnClickListener(this);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,7 +184,7 @@ public class BusinessFragment extends Fragment implements InitInterface, View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab:
-                addNewField();
+                //addNewField();
                 break;
 
         }
@@ -197,7 +192,7 @@ public class BusinessFragment extends Fragment implements InitInterface, View.On
 
     private void addNewField() {
         if (mpcModel != null) {
-            Toast.makeText(getActivity(), "hhhvv", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(getActivity(), "hhhvv", Toast.LENGTH_SHORT).show();
 
             BusinessLocation businessLocation = new BusinessLocation();
 
@@ -213,7 +208,7 @@ public class BusinessFragment extends Fragment implements InitInterface, View.On
 
             PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
             if (connectMain != null) {
-             //   Toast.makeText(connectMain, "hhh", Toast.LENGTH_SHORT).show();
+
                 connectMain.getPcModelData().setValue(mpcModel);
             }
         }

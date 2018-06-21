@@ -28,6 +28,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.google.gson.reflect.TypeToken;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -44,6 +46,7 @@ import quay.com.ipos.modal.CustomerPointsRedeemResult;
 import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.OrderSubmitResult;
 import quay.com.ipos.modal.PaymentRequest;
+import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
@@ -327,13 +330,42 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
 
     }
+    private ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<RealmPinnedResults.Info>();
     ArrayList<BillingSync> billingSyncs = new ArrayList<>();
-
+    int orderNumber=0;
+    boolean isContained=false;
     //saving the name to local storage
     private void saveBillToLocalStorage(PaymentRequest paymentRequest, int status) {
+        if(Prefs.getStringPrefs(Constants.KEY_ORDER_ID)==null || Prefs.getStringPrefs(Constants.KEY_ORDER_ID)==""){
+            orderNumber = 1;
+            Prefs.putStringPrefs(Constants.KEY_ORDER_ID,orderNumber+"");
+        }else {
+            String order = Prefs.getStringPrefs(Constants.KEY_ORDER_ID);
+
+            if (SharedPrefUtil.getString("mInfoArrayList", "", mContext) != null) {
+                String json2 = SharedPrefUtil.getString("mInfoArrayList", "", mContext);
+                if (!json2.equalsIgnoreCase(""))
+                    mInfoArrayList = Util.getCustomGson().fromJson(json2, new TypeToken<ArrayList<RealmPinnedResults.Info>>() {
+                    }.getType());
+                for (int i = 0 ; i < mInfoArrayList.size(); i++){
+                    if(mInfoArrayList.get(i).getKey().contains(order)){
+                        isContained=true;
+                    }
+                }
+                if(!isContained){
+                    orderNumber = Integer.parseInt(order);
+                    orderNumber++;
+                    Prefs.putStringPrefs(Constants.KEY_ORDER_ID,Util.generateOrderFormat(orderNumber)+"");
+                }else {
+                    orderNumber = Integer.parseInt(order);
+                }
+            }
+
+        }
         BillingSync billingSync = new BillingSync();
         billingSync.setBilling(Util.getCustomGson().toJson(paymentRequest));
         billingSync.setCustomerID(mCustomerID);
+        billingSync.setOrderID("ODR"+Util.generateOrderFormat(orderNumber));
         billingSync.setOrderDateTime(Util.getCurrentDate() +" "+ Util.getCurrentTime());
         billingSync.setOrderTimestamp(Util.getCurrentTimeStamp());
         billingSync.setSync(status);

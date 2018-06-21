@@ -139,6 +139,9 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
     private ImageView imvStatus;
     private String poNumber;
     private int postionCheckStock;
+    private LinearLayout llArrows;
+    private ImageView imgArrow;
+    private boolean isArrowCLick=false;
 
 
     @Override
@@ -172,7 +175,12 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
             public void onClick(View view) {
 
 
+                if (mList.size()>0){
                     finish();
+                }else{
+                    Util.showToast("Please add atleast one product.");
+                }
+
 
             }
         });
@@ -197,6 +205,9 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
 */
 
     private void initializeComponent(View rootView) {
+        llArrows=findViewById(R.id.llArrows);
+        llArrows.setOnClickListener(this);
+        imgArrow=findViewById(R.id.imgArrow);
         tvMessage = findViewById(R.id.tvMessage);
         flScanner = findViewById(R.id.flScanner);
 
@@ -519,20 +530,26 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
             if (realmNewOrderCart.isDiscount() && !realmNewOrderCart.isFreeItem()) {
                 discountItems = discountItems + 1;
             }
-            if (!realmNewOrderCart.isFreeItem()) {
-                try {
-                    JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
-                    for (int k = 0; k < array.length(); k++) {
-                        JSONObject jsonObject = array.optJSONObject(k);
-                        if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
-                            discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+            if (realmNewOrderCart.getDiscountPrice()<=0) {
+                if (!realmNewOrderCart.isFreeItem()) {
+                    try {
+                        JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
+                        for (int k = 0; k < array.length(); k++) {
+                            JSONObject jsonObject = array.optJSONObject(k);
+                            if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
+                                discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                            }
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                } else {
+                    discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
                 }
             }else {
-                discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
+                discountPrice = discountPrice + realmNewOrderCart.getDiscountPrice();
+
+
             }
             totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
             gst = gst + totalGST;
@@ -548,17 +565,17 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
             totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
 
         }
-        payAmount = (totalItemsAmount + gst) - discountPrice;
+        payAmount = (totalItemsAmount + cgst+sgst) - discountPrice;
 
         tvItemNo.setText("Item " + noOfItems);
         tvItemQty.setText(qty + " Qty");
-        tvTotalItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + totalItemsAmount);
-        tvTotalItemGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + gst);
-        tvPay.setText(mContext.getResources().getString(R.string.Rs) + " " + payAmount);
-        tvCGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + cgst);
-        tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + sgst);
+        tvTotalItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(totalItemsAmount));
+        tvTotalItemGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat((cgst+sgst)));
+        tvPay.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount));
+        tvCGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(cgst));
+        tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(sgst));
         tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " "+discountPrice);
+        tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(discountPrice));
         tvTotalDiscountDetail.setText("(Item " + discountItems + ")");
 
 
@@ -587,7 +604,21 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                 llTotalDiscountDetail.setVisibility(View.GONE);
                 llTotalGST.setVisibility(View.VISIBLE);
                 break;
-
+            case R.id.llArrows:
+                if (!isArrowCLick) {
+                    isArrowCLick=true;
+                    imgArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
+                    Util.animateView(view);
+                    llTotalDiscountDetail.setVisibility(View.VISIBLE);
+                    llTotalGST.setVisibility(View.GONE);
+                }else {
+                    isArrowCLick=false;
+                    imgArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
+                    Util.animateView(view);
+                    llTotalDiscountDetail.setVisibility(View.GONE);
+                    llTotalGST.setVisibility(View.VISIBLE);
+                }
+                break;
             case R.id.tvMinus:
                 Util.animateView(view);
                 setOnClickMinus(view);
@@ -691,12 +722,13 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
             try {
                 JSONObject jsonObject = new JSONObject(strJson);
                 jsonObject.put(RetailSalesEnum.isAdded.toString(), true);
+                jsonObject.put(RetailSalesEnum.discountPrice.toString(),0);
                 jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() + 1);
                 jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
 
                 int totalPoints = getTotalPoints((realmNewOrderCarts.getQty() + 1) ,realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
-                saveResponseLocal(jsonObject, "P00001");
+                saveResponseLocal(jsonObject, poNumber);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -885,7 +917,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                     JSONObject jsonObject = new JSONObject(strJson);
 
                     jsonObject.put(RetailSalesEnum.discount.toString(), discountArray);
-                    saveResponseLocal(jsonObject, "P00001");
+                    saveResponseLocal(jsonObject, poNumber);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1155,7 +1187,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                saveResponseLocal(jsonObject, "P00001");
+                                saveResponseLocal(jsonObject, poNumber);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -1179,7 +1211,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, "P00001");
+                                    saveResponseLocal(jsonObject, poNumber);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -1199,7 +1231,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, "P00001");
+                                    saveResponseLocal(jsonObject, poNumber);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -1221,7 +1253,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, "P00001");
+                                    saveResponseLocal(jsonObject, poNumber);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -1270,7 +1302,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                         jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                         jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                        saveResponseLocal(jsonObject, "P00001");
+                        saveResponseLocal(jsonObject, poNumber);
                         isApplied = true;
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -1297,7 +1329,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                saveResponseLocal(jsonObject, "P00001");
+                                saveResponseLocal(jsonObject, poNumber);
                                 isApplied = true;
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -1320,7 +1352,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                saveResponseLocal(jsonObject, "P00001");
+                                saveResponseLocal(jsonObject, poNumber);
                                 isApplied = true;
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -1343,7 +1375,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                saveResponseLocal(jsonObject, "P00001");
+                                saveResponseLocal(jsonObject, poNumber);
                                 isApplied = true;
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -1438,12 +1470,13 @@ if (realmNewOrderCarts.getQty()>1) {
     try {
         JSONObject jsonObject = new JSONObject(strJson);
         jsonObject.put(RetailSalesEnum.isAdded.toString(), true);
+        jsonObject.put(RetailSalesEnum.discountPrice.toString(),0);
         jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() - 1);
         jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() - 1) * realmNewOrderCarts.getsProductPrice());
 
         int totalPoints=getTotalPoints((realmNewOrderCarts.getQty() - 1), realmNewOrderCarts,(realmNewOrderCarts.getQty()-1)*realmNewOrderCarts.getsProductPrice());
         jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
-        saveResponseLocal(jsonObject, "P00001");
+        saveResponseLocal(jsonObject, poNumber);
     } catch (JSONException e) {
         e.printStackTrace();
     }
@@ -1484,11 +1517,12 @@ if (realmNewOrderCarts.getQty()>1) {
                 try {
                     JSONObject jsonObject = new JSONObject(strJson);
                     jsonObject.put(RetailSalesEnum.qty.toString(), value);
+                    jsonObject.put(RetailSalesEnum.discountPrice.toString(),0);
                     jsonObject.put(RetailSalesEnum.totalPrice.toString(), value * realmNewOrderCarts.getsProductPrice());
 
                     int totalPoints = getTotalPoints(value, realmNewOrderCarts, value * realmNewOrderCarts.getsProductPrice());
                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
-                    saveResponseLocal(jsonObject, "P00001");
+                    saveResponseLocal(jsonObject, poNumber);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -1823,6 +1857,7 @@ if (realmNewOrderCarts.getQty()>1) {
         int noOfItems = 0;
         String poNumber = null;
         double accumulatedPoints=0;
+        double discountPartiItem=0;
         for (RealmOrderCentre realmNewOrderCart : realmNewOrderCarts1) {
 
             JSONObject jsonObjectCartDetail=new JSONObject();
@@ -1840,14 +1875,16 @@ if (realmNewOrderCarts.getQty()>1) {
                     JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
                     for (int k = 0; k < array.length(); k++) {
                         JSONObject jsonObject = array.optJSONObject(k);
-                        if (jsonObject.has("discountTotal")) {
+                        if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
                             discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                            discountPartiItem=discountPartiItem+jsonObject.optInt("discountTotal");
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }else {
+                discountPartiItem=realmNewOrderCart.getTotalPrice();
                 discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
             }
             totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
@@ -1899,18 +1936,18 @@ if (realmNewOrderCarts.getQty()>1) {
 
             try {
                 jsonObjectCartDetail.put("oldMaterialCode",realmNewOrderCart.getiProductModalId());
-                jsonObjectCartDetail.put("materialCode",realmNewOrderCart.getiProductModalId());
+                jsonObjectCartDetail.put("materialCode",realmNewOrderCart.getProductCode());
                 jsonObjectCartDetail.put("materialName",realmNewOrderCart.getsProductName());
                 jsonObjectCartDetail.put("materialValue",realmNewOrderCart.getTotalPrice());
                 jsonObjectCartDetail.put("materialQty",realmNewOrderCart.getQty());
-                jsonObjectCartDetail.put("materialDiscountValue",discountPrice);
+                jsonObjectCartDetail.put("materialDiscountValue",discountPartiItem);
                 jsonObjectCartDetail.put("materialUnitValue",realmNewOrderCart.getsProductPrice());
                 jsonObjectCartDetail.put("materialCGSTRate",realmNewOrderCart.getCgst());
                 jsonObjectCartDetail.put("materialCGSTValue",cgst);
                 jsonObjectCartDetail.put("materialSGSTRate",realmNewOrderCart.getSgst());
                 jsonObjectCartDetail.put("materialSGSTValue",sgst);
                 jsonObjectCartDetail.put("materialIGSTRate",realmNewOrderCart.getGstPerc());
-                jsonObjectCartDetail.put("materialIGSTValue",gst);
+                jsonObjectCartDetail.put("materialIGSTValue",cgst+sgst);
                 jsonObjectCartDetail.put("scheme",scheme);
                 jsonObjectCartDetail.put("discountValue",discountPrice);
                 jsonObjectCartDetail.put("discountPerc",0);
@@ -1960,7 +1997,7 @@ if (realmNewOrderCarts.getQty()>1) {
             e.printStackTrace();
         }
 
-        saveResponseLocalCreateOrder(jsonObject,"P00001");
+        saveResponseLocalCreateOrder(jsonObject,poNumber);
 
     }
 
@@ -2066,7 +2103,7 @@ if (realmNewOrderCarts.getQty()>1) {
 
                 int totalPoints = getTotalPoints((realmNewOrderCarts.getQty() + 1), realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
-                saveResponseLocal(jsonObject, "P00001");
+                saveResponseLocal(jsonObject, poNumber);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -2081,7 +2118,7 @@ if (realmNewOrderCarts.getQty()>1) {
                 jsonObject.put(RetailSalesEnum.totalPrice.toString(),jsonObject.optDouble("SProductPrice"));
               //  int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
             //    jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
-                saveResponseLocal(jsonObject,"P00001");
+                saveResponseLocal(jsonObject,poNumber);
                 calculateOPS(productId,productCode);
                 getProduct();
             } catch (JSONException e) {
@@ -2229,4 +2266,13 @@ if (realmNewOrderCarts.getQty()>1) {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (mList.size()>0){
+            finish();
+        }else{
+            Util.showToast("Please add atleast one product.");
+        }
+    }
 }
