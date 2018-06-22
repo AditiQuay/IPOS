@@ -65,9 +65,9 @@ public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> 
     }
 
     @Override
-    public void onBindViewHolder(MyView holder, int position) {
+    public void onBindViewHolder(MyView holder, final int position) {
         try {
-
+            BillnDelivery billnDelivery = list.get(position);
 
             holder.spinnerAddressType.setAdapter(addressAdapter);
             holder.spinnerBusinessType.setAdapter(businessPlaceAdapter);
@@ -100,6 +100,21 @@ public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> 
                     holder.spinnerBusinessType.setSelection(index + 1);
                 }
             }
+
+            if (billnDelivery.ID == 0 && position != 0) {
+                holder.btnRemove.setVisibility(View.VISIBLE);
+            } else {
+                holder.btnRemove.setVisibility(View.GONE);
+            }
+
+            holder.btnRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    list.remove(position);
+                    notifyDataSetChanged();
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -125,12 +140,12 @@ public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> 
         public MyCustomEditTextListener myCustomEditTextListener;
         public MyCustomSpinnerListener myCustomSpinnerListener;
 
-
+        public View btnRemove;
         public MyView(View itemView, MyCustomEditTextListener myCustomEditTextListener, MyCustomSpinnerListener myCustomSpinnerListener) {
             super(itemView);
             spinnerAddressType = itemView.findViewById(R.id.spinnerAddressType);
             spinnerBusinessType = itemView.findViewById(R.id.spinnerBusinessType);
-
+            btnRemove = itemView.findViewById(R.id.btnRemove);
             editState = itemView.findViewById(R.id.editState);
             editAddress = itemView.findViewById(R.id.editAddress);
             editCity = itemView.findViewById(R.id.editCity);

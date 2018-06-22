@@ -266,6 +266,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     SharedPrefUtil.setStoreID(Constants.STORE_ID.trim(), loginResult.getUserAccess().getWorklocationID(), mContext);
 
                     Prefs.putIntegerPrefs(Constants.entityCode.trim(), loginResult.getUserAccess().getEntityId());
+                    Prefs.putStringPrefs(Constants.entityName.trim(), loginResult.getUserAccess().getEntityName());
                     Prefs.putStringPrefs(Constants.entityRole.trim(), loginResult.getUserAccess().getUserRole());
                     Prefs.putStringPrefs(Constants.employeeCode.trim(), loginResult.getUserAccess().getEmpCode());
                     Prefs.putStringPrefs("email", loginResult.getUserAccess().getUserEmailID());

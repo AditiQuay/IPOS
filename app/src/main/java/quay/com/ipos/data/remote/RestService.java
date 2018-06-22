@@ -11,6 +11,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import quay.com.ipos.IPOSAPI;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -31,17 +32,17 @@ public class RestService {
                 .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl(URLStorage.BASE_URL)
+                .baseUrl(IPOSAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         APIService apiService = retrofit.create(APIService.class);
         return apiService;
     }
-    public static APIService getApiServiceSimple(final Context context) {
+    public static APIService getApiServiceSimple() {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(URLStorage.BASE_URL)
+                .baseUrl(IPOSAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         APIService apiService = retrofit.create(APIService.class);

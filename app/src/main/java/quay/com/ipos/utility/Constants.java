@@ -140,6 +140,7 @@ public class Constants {
     public static final String entityStateCode="entityStateCode";
 
     public static final String entityCode="entityCode";
+    public static final String entityName="entityName";
     public static final String entityRole="entityRole";
     public static final String employeeCode="employeeCode";
     public static final String employeeRole="employeeRole";

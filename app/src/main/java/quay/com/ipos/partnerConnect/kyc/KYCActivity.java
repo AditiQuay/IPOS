@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -51,26 +52,31 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
     private TextView textViewKycNumber, textViewKycPartner, textViewKycStatus, textViewKycPendingSince, textViewKycPendingTime, textViewBank, textViewDocuments;
     private Context mContext;
     private RecyclerView recyclerViewCardList;
-    private ArrayList<KycPSSDetailsModel> kycPSSDetailsModels = new ArrayList<>();
+    private List<KycPSSDetailsModel> kycPSSDetailsModels = new ArrayList<>();
     private KycPssDetailAdapter kycPssDetailAdapter;
     private LinearLayout lLayoutNew, lLayoutInprocess, lLayoutVerified, lLayoutAllPartners;
     private TextView textViewNew, textViewInProcess, textViewVerified, textViewAllPartners;
     private android.support.v7.widget.Toolbar toolbar;
     int newCount, inProcessCount, verifiedCount;
     int entityCode;
+    String EmpCode;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.kyc_activity_main);
+        clearData();
         mContext = KYCActivity.this;
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
-        String EmpCode = Prefs.getStringPrefs(Constants.employeeCode.trim());
+        EmpCode = Prefs.getStringPrefs(Constants.employeeCode.trim());
         entityCode = Prefs.getIntegerPrefs(Constants.entityCode.trim());
-        getSummary(EmpCode);
+        lLayoutNew.setSelected(true);
+
     }
 
     @Override
@@ -146,6 +152,7 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
 
             @Override
             public void onResponse(okhttp3.Call call, final okhttp3.Response response) throws IOException {
+
                 Log.e(TAG, "Response****" + response);
                 runOnUiThread(new Runnable() {
                     @Override
@@ -220,6 +227,7 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
         Realm realm = Realm.getDefaultInstance();
         RealmResults<RealmKycDetails> realmKycDetails = realm.where(RealmKycDetails.class).findAll();
         if (realmKycDetails.size() > 0) {
+
             for (RealmKycDetails realmOrderCentreSummary : realmKycDetails) {
 
                 if (realmOrderCentreSummary.getName().equalsIgnoreCase("New")) {
@@ -265,6 +273,7 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
                             kycPSSDetailsModel.setOverall_Status(jsonObject.optInt("Overall_Status"));
                             kycPSSDetailsModel.setCurrent_Approver(jsonObject.optString("Current_Approver"));
                             kycPSSDetailsModel.setFlag(jsonObject.optString("flag"));
+                            kycPSSDetailsModel.isApprover = realmOrderCentreSummary.getName().equalsIgnoreCase("New");
                             kycPSSDetailsModel.setJustification(jsonObject.optString("Justification"));
                             kycPSSDetailsModel.setRequest_Date(jsonObject.optString("Request_Date"));
                             kycPSSDetailsModel.setCREATED_DATE(jsonObject.optString("CREATED_DATE"));
@@ -308,46 +317,56 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
         switch (v.getId()) {
             case R.id.lLayoutNew:
                 setRealmData("New");
-                lLayoutNew.setBackgroundResource(R.drawable.card_selector_kyc);
-                lLayoutInprocess.setBackgroundResource(0);
-                lLayoutVerified.setBackgroundResource(0);
-                lLayoutAllPartners.setBackgroundResource(0);
+               // lLayoutNew.setBackgroundResource(R.drawable.card_selector_kyc);
+//                lLayoutInprocess.setBackgroundResource(0);
+//                lLayoutVerified.setBackgroundResource(0);
+//                lLayoutAllPartners.setBackgroundResource(0);
 
-                textViewNewCount.setTextColor(getResources().getColor(R.color.white));
-                textViewNew.setTextColor(getResources().getColor(R.color.white));
+                // textViewNewCount.setTextColor(getResources().getColor(R.color.white));
+//                textViewNew.setTextColor(getResources().getColor(R.color.white));
+
+                unSelectAll();
+                lLayoutNew.setSelected(true);
 
                 break;
             case R.id.lLayoutInprocess:
                 setRealmData("In Process");
-                lLayoutInprocess.setBackgroundResource(R.drawable.card_selector_kyc);
-                lLayoutNew.setBackgroundResource(0);
-                lLayoutVerified.setBackgroundResource(0);
-                lLayoutAllPartners.setBackgroundResource(0);
+//                lLayoutInprocess.setBackgroundResource(R.drawable.card_selector_kyc);
+//                lLayoutNew.setBackgroundResource(0);
+//                lLayoutVerified.setBackgroundResource(0);
+//                lLayoutAllPartners.setBackgroundResource(0);
+//
+//                textViewInProcessCount.setTextColor(getResources().getColor(R.color.white));
+//                textViewInProcess.setTextColor(getResources().getColor(R.color.white));
 
-                textViewInProcessCount.setTextColor(getResources().getColor(R.color.white));
-                textViewInProcess.setTextColor(getResources().getColor(R.color.white));
-
+                unSelectAll();
+                lLayoutInprocess.setSelected(true);
                 break;
             case R.id.lLayoutVerified:
                 setRealmData("Verified");
-                lLayoutVerified.setBackgroundResource(R.drawable.card_selector_kyc);
-                lLayoutNew.setBackgroundResource(0);
-                lLayoutInprocess.setBackgroundResource(0);
-                lLayoutAllPartners.setBackgroundResource(0);
+//                lLayoutVerified.setBackgroundResource(R.drawable.card_selector_kyc);
+//                lLayoutNew.setBackgroundResource(0);
+//                lLayoutInprocess.setBackgroundResource(0);
+//                lLayoutAllPartners.setBackgroundResource(0);
+//
+//                textViewVerifiedCount.setTextColor(getResources().getColor(R.color.white));
+//                textViewVerified.setTextColor(getResources().getColor(R.color.white));
 
-                textViewVerifiedCount.setTextColor(getResources().getColor(R.color.white));
-                textViewVerified.setTextColor(getResources().getColor(R.color.white));
 
+                unSelectAll();
+                lLayoutVerified.setSelected(true);
                 break;
             case R.id.lLayoutAllPartners:
-                lLayoutAllPartners.setBackgroundResource(R.drawable.card_selector_kyc);
-                lLayoutNew.setBackgroundResource(0);
-                lLayoutInprocess.setBackgroundResource(0);
-                lLayoutVerified.setBackgroundResource(0);
+//                lLayoutAllPartners.setBackgroundResource(R.drawable.card_selector_kyc);
+//                lLayoutNew.setBackgroundResource(0);
+//                lLayoutInprocess.setBackgroundResource(0);
+//                lLayoutVerified.setBackgroundResource(0);
+//
+//                textViewAllPartnersCount.setTextColor(getResources().getColor(R.color.white));
+//                textViewAllPartners.setTextColor(getResources().getColor(R.color.white));
 
-                textViewAllPartnersCount.setTextColor(getResources().getColor(R.color.white));
-                textViewAllPartners.setTextColor(getResources().getColor(R.color.white));
-
+                unSelectAll();
+                lLayoutAllPartners.setSelected(true);
                 break;
             case R.id.BtnViewAll:
 //                Intent i = new Intent(mContext, KYCViewAll.class);
@@ -356,6 +375,13 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
             default:
                 break;
         }
+    }
+
+    private void unSelectAll() {
+        lLayoutNew.setSelected(false);
+        lLayoutInprocess.setSelected(false);
+        lLayoutVerified.setSelected(false);
+        lLayoutAllPartners.setSelected(false);
     }
 
     @Override
@@ -372,13 +398,41 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
     public void onRowClicked(int position) {
         KycPSSDetailsModel kycPSSDetailsModel = kycPSSDetailsModels.get(position);
         Intent i = new Intent(mContext, KYCMain.class);
+        i.putExtra("isApprover", kycPSSDetailsModel.isApprover);
         i.putExtra("EntityCode", entityCode);
+      //  i.putExtra("title", kycPSSDetailsModel.);
+
         i.putExtra("RequestCode", kycPSSDetailsModel.getREQUEST_CODE());
         startActivity(i);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSummary(EmpCode);
     }
 
     @Override
     public void onRowClicked(int position, int value) {
 
     }
+
+    public void clearData() {
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+            realm.delete(RealmKycDetails.class);
+
+        } catch (Exception e) {
+            realm.cancelTransaction();
+            realm.close();
+            e.printStackTrace();
+        } finally {
+            realm.commitTransaction();
+            realm.close();
+        }
+    }
+
+
 }

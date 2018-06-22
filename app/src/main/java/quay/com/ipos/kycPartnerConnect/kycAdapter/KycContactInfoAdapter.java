@@ -120,6 +120,9 @@ public class KycContactInfoAdapter extends RecyclerView.Adapter<KycContactInfoAd
             this.roleTypeSpinner.setOnItemSelectedListener(myCustomSpinnerListener);
 
 
+            this.roleTypeSpinner.setEnabled(false);
+
+
             //Personal
             FontUtil.applyTypeface(roleTypeSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
             FontUtil.applyTypeface(editNameInput, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));

@@ -370,6 +370,8 @@
     <string name="ddr_save_close"><![CDATA[SAVE & CLOSE]]></string>
     <string name="ddr_submit">Submit</string>
     <string name="ddr_close">Close</string>
+    <string name="string_cancelled">Cancelled</string>
+    <string name="listEmptyCancelled">No Cancelled Item</string>
 
 
 </resources>

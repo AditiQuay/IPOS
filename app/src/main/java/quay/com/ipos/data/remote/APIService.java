@@ -1,12 +1,16 @@
 package quay.com.ipos.data.remote;
 
 
-import org.json.JSONObject;
 
+import quay.com.ipos.IPOSAPI;
+import quay.com.ipos.data.remote.model.KCYApproveResponse;
+import quay.com.ipos.data.remote.model.KycPartnerConnectResponse;
+import quay.com.ipos.ddrsales.model.POSummary;
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
 import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
+import quay.com.ipos.ddrsales.model.request.POSummaryReq;
 import quay.com.ipos.kycPartnerConnect.KYCAcceptData;
-import quay.com.ipos.partnerConnect.model.KycCardResponse;
+
 import quay.com.ipos.partnerConnect.model.PCModel;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -15,31 +19,42 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
- * Created by mertsimsek on 19/05/2017.
+ * Created by deepak on 19/05/2017.
  */
 
 public interface APIService {
 
-    @GET(URLStorage.PARTNER_CONNECT_API)
+    /***Partner Connect API***/
+
+    @GET(IPOSAPI.PARTNER_CONNECT_API)
     Call<PartnerConnectResponse> loadPartnerConnectData(@Query("strEntityId") String strEntityId);
 
-    @GET(URLStorage.KYC_PARTNER_API)
-    Call<PartnerConnectResponse> kycConnectData(@Query("strEntityId") String strEntityId,@Query("RequestCode")String requestCode);
-
-    @GET(URLStorage.KYC_PARTNER_API)
-    Call<JSONObject> kycConnectData1(@Query("strEntityId") String strEntityId,@Query("RequestCode")String requestCode);
-
-    @POST(URLStorage.KYC_PARTNER_ACCEPT)
-    Call<PartnerConnectUpdateResponse> kycConnectUpdateData(@Body KYCAcceptData jsonObject);
-
-
-    @POST(URLStorage.PARTNER_CONNECT_UPDATE_API)
+    @POST(IPOSAPI.PARTNER_CONNECT_UPDATE_API)
     Call<PartnerConnectUpdateResponse> updatePartnerConnectData(@Body PCModel pcModel);
 
+    /**&&&&&Partner Connect API&&&&***/
 
 
-    @POST(URLStorage.PARTNER_CONNECT_UPDATE_API)
-    Call<PartnerConnectUpdateResponse> updateKycConnectionData(@Body PCModel pcModel);
+    /***KYC API***/
+
+    @GET(IPOSAPI.KYC_PARTNER_API)
+    Call<KycPartnerConnectResponse> getKYCConnectData(@Query("strEntityId") String strEntityId, @Query("RequestCode") String requestCode);
+
+    @POST(IPOSAPI.KYC_PARTNER_ACCEPT)
+    Call<KCYApproveResponse> kycConnectUpdateDataAccept(@Body KYCAcceptData jsonObject);
+
+    /***&&&&&KYC API&&&&&***/
+
+
+     /***DDR Sales API***/
+
+    @POST(IPOSAPI.DDR_NO_SUMMARY)
+    Call<POSummary> DDR_NO_SUMMARY(@Body POSummaryReq poSummaryReq);
+
+ /*   @POST(IPOSAPI.KYC_PARTNER_ACCEPT)
+    Call<KCYApproveResponse> kycConnectUpdateDataAccept(@Body KYCAcceptData jsonObject);*/
+
+    /***&&&&&KYC API&&&&&***/
 
 
 }

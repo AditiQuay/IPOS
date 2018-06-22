@@ -203,7 +203,7 @@ public class DDRListActivity extends AppCompatActivity {
             Log.i(TAG, "entityCode Hardcoded if entityCode is 0" + entityCode + "");
         }
 
-        Call<PartnerConnectResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).loadPartnerConnectData(entityCode + "");
+        Call<PartnerConnectResponse> call = RestService.getApiServiceSimple( ).loadPartnerConnectData(entityCode + "");
         call.enqueue(new Callback<PartnerConnectResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectResponse> call, Response<PartnerConnectResponse> response) {
