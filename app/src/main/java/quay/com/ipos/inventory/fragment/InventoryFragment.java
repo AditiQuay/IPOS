@@ -189,9 +189,9 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b){
-                    llPOVisible.setVisibility(View.GONE);
-                }else {
                     llPOVisible.setVisibility(View.VISIBLE);
+                }else {
+                    llPOVisible.setVisibility(View.GONE);
                 }
             }
         });

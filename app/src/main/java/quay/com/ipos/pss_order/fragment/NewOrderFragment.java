@@ -550,13 +550,13 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 
         tvItemNo.setText("Item " + noOfItems);
         tvItemQty.setText(qty + " Qty");
-        tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + totalItemsAmount);
-        tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + gst);
-        tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + payAmount);
-        tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + cgst);
-        tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + sgst);
+        tvTotalItemPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(totalItemsAmount));
+        tvTotalItemGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(gst));
+        tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount));
+        tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(cgst));
+        tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(sgst));
         tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalDiscountPrice.setText(getActivity().getResources().getString(R.string.Rs) + "- "+discountPrice);
+        tvTotalDiscountPrice.setText(""+getActivity().getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(discountPrice));
         tvTotalDiscountDetail.setText("(Item " + discountItems + ")");
 
 
@@ -1865,7 +1865,7 @@ if (realmNewOrderCarts.getQty()>1) {
                     JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
                     for (int k = 0; k < array.length(); k++) {
                         JSONObject jsonObject = array.optJSONObject(k);
-                        if (jsonObject.has("discountTotal")) {
+                        if (jsonObject.has("discountTotal")&& !jsonObject.optBoolean("discountTotalStrike")) {
                             discountPrice = discountPrice + jsonObject.optInt("discountTotal");
                             discountPartiItem=discountPartiItem+jsonObject.optInt("discountTotal");
                         }
@@ -1926,7 +1926,8 @@ if (realmNewOrderCarts.getQty()>1) {
 
             try {
                 jsonObjectCartDetail.put("oldMaterialCode",realmNewOrderCart.getiProductModalId());
-                jsonObjectCartDetail.put("materialCode",realmNewOrderCart.getiProductModalId());
+                jsonObjectCartDetail.put("materialCode",realmNewOrderCart.getiProductModalId().replace("free",""));
+
                 jsonObjectCartDetail.put("materialName",realmNewOrderCart.getsProductName());
                 jsonObjectCartDetail.put("materialValue",realmNewOrderCart.getTotalPrice());
                 jsonObjectCartDetail.put("materialQty",realmNewOrderCart.getQty());
@@ -1938,6 +1939,8 @@ if (realmNewOrderCarts.getQty()>1) {
                 jsonObjectCartDetail.put("materialSGSTValue",sgst);
                 jsonObjectCartDetail.put("materialIGSTRate",realmNewOrderCart.getGstPerc());
                 jsonObjectCartDetail.put("materialIGSTValue",gst);
+                jsonObjectCartDetail.put("productCode",realmNewOrderCart.getProductCode());
+                jsonObjectCartDetail.put("isFreeItem",realmNewOrderCart.isFreeItem());
                 jsonObjectCartDetail.put("scheme",scheme);
                 jsonObjectCartDetail.put("discountValue",discountPrice);
                 jsonObjectCartDetail.put("discountPerc",0);
@@ -2066,6 +2069,8 @@ if (realmNewOrderCarts.getQty()>1) {
             getProduct();
 
         }else {
+            if (position==1)
+            deleteItemsCLickCHeckbox(productId);
             getCheckBox(discountModal,productId,position,true);
             getProduct();
         }
@@ -2242,5 +2247,27 @@ if (realmNewOrderCarts.getQty()>1) {
             }
         });
     }
+    private void deleteItemsCLickCHeckbox(String productId){
+        Realm realm1=Realm.getDefaultInstance();
+        RealmResults<RealmNewOrderCart> allSorted = realm1.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.parentProductId.toString(), productId).findAll();
+
+        realm1.beginTransaction();
+
+        try {
+            allSorted.deleteAllFromRealm();
+        }catch (Exception e){
+            if (realm1.isInTransaction())
+                realm1.cancelTransaction();
+
+        }finally {
+            if (realm1.isInTransaction())
+                realm1.commitTransaction();
+            if (!realm1.isClosed())
+                realm1.close();
+        }
+
+
+    }
+
 
 }

@@ -127,8 +127,8 @@
     <string name="total_discount">Total Discount</string>
     <string name="rounding_off">Rounding off</string>
     <string name="less_details">Less Details</string>
-    <string name="select_all">SELECT ALL</string>
-    <string name="otc_discount">OTC DISCOUNT</string>
+    <string name="select_all">Select All</string>
+    <string name="otc_discount">OTC Discount</string>
     <string name="cgst">CGST</string>
     <string name="sgst">SGST</string>
     <string name="otc_discount_details">OTC Discount Details</string>
@@ -171,7 +171,7 @@
     <string name="new_">New</string>
     <string name="delivered">Delivered</string>
     <string name="cancelled">Cancelled</string>
-    <string name="new_orders">New Orders</string>
+    <string name="new_orders">New Order</string>
     <string name="order_centre">Order Centre</string>
     <string name="accept">Accept</string>
     <string name="redeem_value">Redeem Value</string>
@@ -284,7 +284,7 @@
     <string name="evening_text">Good Evening !</string>
     <string name="night_text">Good Night !</string>
     <string name="sale_value">Sale Value</string>
-    <string name="click_icon_for_add_product">Click search icon for add product</string>
+    <string name="click_icon_for_add_product">Click the search icon to add product</string>
     <string name="first_name_hint">First Name *</string>
     <string name="string_name">First Name<font color="#ff0000"><bold>*</bold></font></string>
 
@@ -310,8 +310,8 @@
     <string name="enter_received_amount">Enter Received Amount</string>
     <string name="enter_return_amount">Enter Return Amount</string>
     <string name="enter_expiration_date">Expiration Date</string>
-    <string name="new_billing_cart_message"><![CDATA[Do you want to save cart & Proceed?]]></string>
-    <string name="form_submitted_successfully">Form submitted successfully</string>
+    <string name="new_billing_cart_message">Do you want to save cart &amp; Proceed?</string>
+    <string name="form_submitted_successfully">Form submmited succesfully</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -370,8 +370,6 @@
     <string name="ddr_save_close"><![CDATA[SAVE & CLOSE]]></string>
     <string name="ddr_submit">Submit</string>
     <string name="ddr_close">Close</string>
-    <string name="string_cancelled">Cancelled</string>
-    <string name="listEmptyCancelled">No Cancelled Item</string>
 
 
 </resources>

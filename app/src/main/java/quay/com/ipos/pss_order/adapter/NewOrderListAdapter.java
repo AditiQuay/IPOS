@@ -167,7 +167,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if (str!=null) {
                 if (Util.validateString(str.getsProductName()))
                     userViewHolder.tvItemName.setText(str.getsProductName());
-                userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + str.getsProductPrice());
+                userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(str.getsProductPrice()));
                 userViewHolder.etQtySelected.setText(str.getQty() + "");
                 userViewHolder.tvItemStockAvailabilty.setText(str.getsProductStock().substring(0, 1).toUpperCase() + str.getsProductStock().substring(1).toLowerCase());
                 userViewHolder.tvPoints.setText(str.getPoints() + " Pts.");
@@ -175,7 +175,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 if (str.isFreeItem()) {
                     userViewHolder.imvOffer.setVisibility(View.GONE);
-                    userViewHolder.tvTotalPrice.setText(" Free " + str.getQty()+" x "+mContext.getResources().getString(R.string.Rs) +" "+str.getsProductPrice());
+                    userViewHolder.tvTotalPrice.setText(" Free " + str.getQty()+" x "+mContext.getResources().getString(R.string.Rs) +" "+Util.indianNumberFormat(str.getsProductPrice()));
 
                     userViewHolder.tvTotalPrice.setPaintFlags(userViewHolder.tvTotalPrice.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                     userViewHolder.tvCheckStock.setVisibility(View.GONE);
@@ -186,7 +186,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     } else {
                         userViewHolder.imvOffer.setVisibility(View.GONE);
                     }
-                    userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + str.getTotalPrice());
+                    userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(str.getTotalPrice()));
 
                     if (str.isCheckStock()) {
                         userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);

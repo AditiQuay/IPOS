@@ -225,9 +225,8 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
                 break;
         }
         if (v == textViewAdd) {
-
-
             Intent i = new Intent(mContext, InventoryGRNDetails.class);
+            i.putExtra("poNumber",tvPoNumber.getText().toString());
             startActivity(i);
         }
     }

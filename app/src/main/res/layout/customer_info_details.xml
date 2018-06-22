@@ -42,6 +42,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:alpha="0.3"
             android:background="@color/transparent"
             android:src="@drawable/ic_action_add_person"/>
 
@@ -98,6 +99,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:alpha="0.3"
             android:background="@color/transparent"
             android:src="@drawable/ic_action_discount_white"/>
 
@@ -114,6 +116,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
+                android:alpha="0.3"
                 android:src="@drawable/ic_action_loyality_white"/>
 
             <quay.com.ipos.ui.CustomTextView
@@ -142,6 +145,7 @@
             android:layout_width="0dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:alpha="0.3"
             android:background="@color/transparent"
             android:src="@drawable/ic_action_online_shoping"/>
 
@@ -172,6 +176,7 @@
                 android:id="@+id/imvBarcode"
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
+                android:alpha="0.3"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_action_qr_code1"/>
 
@@ -183,6 +188,7 @@
                 android:layout_marginRight="-8dp"
                 android:layout_marginLeft="@dimen/dim_8"
                 android:layout_marginTop="5dp"
+                android:alpha="0.3"
                 android:background="@drawable/circle_disabled"
                 android:gravity="center"
                 android:padding="3dp"/>
@@ -454,6 +460,7 @@
 
 
                         <RelativeLayout
+                            android:id="@+id/rInfoLay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toEndOf="@+id/rLayoutPoints"

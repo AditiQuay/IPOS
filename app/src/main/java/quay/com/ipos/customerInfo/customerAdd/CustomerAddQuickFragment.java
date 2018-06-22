@@ -88,6 +88,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     private List<String> titlePosition = new ArrayList<>();
     private List<String> genderPosition = new ArrayList<>();
     private String paymentModeClicked;
+
     public CustomerAddQuickFragment() {
 
     }
@@ -219,7 +220,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                     "", "", "", "false", childjson,
                     "", "", mobileNumber.trim(), "", "", "", "", "",
                     "", "", "", "", "", "", "",
-                    "", "", "", "", "", "", "", "", "", "", "", "", "1", 0, 0);
+                    "", "", "", "", "", "", "", "", "", "", "", "", "1", 0, 0, 0, 0,0,0);
 
             customerModels.addAll(dbHelper.getAllOfflineCustomer());
             String accessToken = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN.trim(), "", mContext);
@@ -327,9 +328,9 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 long id = dbHelper.updateServerId(Integer.parseInt(localId), customerCode);
                 Log.e(TAG, "Id***" + id);
             }
-            sharedpreferences =  mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-            String payment = sharedpreferences.getString("paymentModeClicked","");
-            if (payment.equalsIgnoreCase("clicked")){
+            sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+            String payment = sharedpreferences.getString("paymentModeClicked", "");
+            if (payment.equalsIgnoreCase("clicked")) {
                 Intent i = new Intent(mContext, PaymentModeActivity.class);
                 startActivity(i);
                 getActivity().finish();
@@ -338,7 +339,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.clear();
                 editor.apply();
-            }else {
+            } else {
                 Intent i = new Intent(mContext, CustomerInfoActivity.class);
                 startActivity(i);
                 getActivity().finish();

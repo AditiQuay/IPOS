@@ -294,10 +294,10 @@
             android:name=".inventory.activity.InventoryGRNStepsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <!--<activity
-            android:name=".ddr.activity.AddOrderCentreActivity"
+        <activity
+            android:name=".pss_order.activity.AddOrderCentreActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />-->
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".inventory.activity.ExpandablePODetailsActivity"
             android:screenOrientation="portrait"
