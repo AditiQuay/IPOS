@@ -54,6 +54,11 @@ import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
+import static quay.com.ipos.application.IPOSApplication.mCustomerEmail;
+import static quay.com.ipos.application.IPOSApplication.mCustomerID;
+import static quay.com.ipos.application.IPOSApplication.mCustomerPoints;
+import static quay.com.ipos.application.IPOSApplication.mCustomerPointsPer;
+
 /**
  * Created by aditi.bhuranda on 30-04-2018.
  */
@@ -62,7 +67,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     private ImageView imvUserAdd,imvBilling,imvPin,imvTick;
     double points=0,pointsPer=0, points1=0;
     Double points2=0.0;
-    String mCustomerEmail="";
+
     ToggleButton toggleCOD;
     private Button btnPayCash,btnPayCard,buttonSendOtp,buttonVerify,buttonRedeem;
     Spinner spinner;
@@ -76,11 +81,10 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     DatabaseHandler db;
     private Menu menu1;
     Toolbar toolbar_default;
-    private String mCustomerID="";
-    private double mCustomerPoints=0;
+
     double redeemValue=0;
     Context context;
-    private double mCustomerPointsPer=0;
+
     PaymentRequest paymentRequest = new PaymentRequest();
     double cashAmount,receivedAmt,cashReturnAmt,cardAmount;
     String lastDigit="",expMonth="",expYear="",transID="",cardType="";
@@ -137,8 +141,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             mCustomerID = intent.getStringExtra(Constants.KEY_CUSTOMER);
             if(!mCustomerID.equalsIgnoreCase("") && mCustomerID != null) {
                 mCustomerPoints = intent.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS, 0);
-                mCustomerPointsPer = intent.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER, 0);
-                mCustomerEmail = intent.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
+               IPOSApplication.mCustomerPointsPer = intent.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER, 0);
+                IPOSApplication.mCustomerEmail = intent.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
                 tvRedeemPoints.setText(mCustomerPoints + "");
                 imvTick.setVisibility(View.VISIBLE);
@@ -243,7 +247,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
                 if(!charSequence.toString().trim().equals("")) {
+
                     points2 = Double.parseDouble(charSequence.toString());
                     if(points1>=points2) {
                         redeemValue = points2 * pointsPer;
@@ -285,8 +291,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
                 mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS,0);
-                mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
-                mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
+                IPOSApplication. mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
+                IPOSApplication. mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
                 tvRedeemPoints.setText(mCustomerPoints+"");
                 imvTick.setVisibility(View.VISIBLE);
@@ -341,7 +347,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             Prefs.putStringPrefs(Constants.KEY_ORDER_ID,orderNumber+"");
         }else {
             String order = Prefs.getStringPrefs(Constants.KEY_ORDER_ID);
-
+            orderNumber = Integer.parseInt(order);
+            orderNumber++;
+            order = orderNumber+"";
             if (SharedPrefUtil.getString("mInfoArrayList", "", mContext) != null) {
                 String json2 = SharedPrefUtil.getString("mInfoArrayList", "", mContext);
                 if (!json2.equalsIgnoreCase(""))
@@ -353,8 +361,6 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     }
                 }
                 if(!isContained){
-                    orderNumber = Integer.parseInt(order);
-                    orderNumber++;
                     Prefs.putStringPrefs(Constants.KEY_ORDER_ID,Util.generateOrderFormat(orderNumber)+"");
                 }else {
                     orderNumber = Integer.parseInt(order);
@@ -490,7 +496,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             case R.id.llPoints:
 
                 if (!mCustomerID.equalsIgnoreCase("")) {
-                    if(!mCustomerEmail.trim().equalsIgnoreCase(""))
+                    if(!IPOSApplication.mCustomerEmail.trim().equalsIgnoreCase(""))
                         if(mCustomerPoints>0.0)
                             setllPoints();
                         else
@@ -836,7 +842,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 tvAvailablePoints.setText(mCustomerPoints + "");
                 if (IPOSApplication.totalpointsToRedeemValue == 0) {
                     points = mCustomerPoints;
-                    pointsPer = mCustomerPointsPer;
+                    pointsPer = IPOSApplication.mCustomerPointsPer;
                     redeemValue = points * pointsPer;
                     if (totalAmount >= redeemValue) {
                         points1 = redeemValue / pointsPer;
@@ -870,7 +876,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     private void sendOTPtoServer() {
         CustomerPointsRedeemRequest customerPointsRedeemRequest = new CustomerPointsRedeemRequest();
         customerPointsRedeemRequest.setCustomerId(mCustomerID);
-        customerPointsRedeemRequest.setEmailId(mCustomerEmail);
+        customerPointsRedeemRequest.setEmailId(IPOSApplication.mCustomerEmail);
         customerPointsRedeemRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode.trim()));
         customerPointsRedeemRequest.setPointsRedeemValue(redeemValue);
         customerPointsRedeemRequest.setPointsToRedeem(points1);
@@ -932,51 +938,32 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 }else if (httpStatusCode == Constants.BAD_REQUEST) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
-                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
-                    IPOSApplication.mProductListResult.clear();
-                    IPOSApplication.totalAmount = 0.0;
-                    setResult(200);
-//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
-                    finish();
 
 
                 } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
-                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
-                    IPOSApplication.mProductListResult.clear();
-                    IPOSApplication.totalAmount = 0.0;
-                    setResult(200);
-//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
-                    finish();
                 } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
-                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
-                    IPOSApplication.mProductListResult.clear();
-                    IPOSApplication.totalAmount = 0.0;
-                    setResult(200);
-//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
-                    finish();
                 } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
-                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
-                    IPOSApplication.mProductListResult.clear();
-                    IPOSApplication.totalAmount = 0.0;
-                    setResult(200);
-//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
-                    finish();
                 } else if (httpStatusCode == Constants.CONNECTION_OUT) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
-                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
-                    IPOSApplication.mProductListResult.clear();
-                    IPOSApplication.totalAmount = 0.0;
-                    setResult(200);
-//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
-                    finish();
+
                 }
+                Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
+                IPOSApplication.mProductListResult.clear();
+                IPOSApplication.totalAmount = 0.0;
+                setResult(200);
+//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                finish();
+                IPOSApplication.mCustomerID="";
+                mCustomerPoints=0;
+                mCustomerEmail="";
+                mCustomerPointsPer=0;
             }catch (Exception e){
                 System.out.println(e);
             }

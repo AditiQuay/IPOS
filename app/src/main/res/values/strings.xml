@@ -377,6 +377,7 @@
     <string name="ddr_submit">Submit</string>
     <string name="ddr_close">Close</string>
     <string name="net_total">Net Total (-Disc)</string>
+    <string name="retail_outbox">Retail Outbox</string>
 
 
 </resources>

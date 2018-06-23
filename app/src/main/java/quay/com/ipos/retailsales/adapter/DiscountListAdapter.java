@@ -206,6 +206,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                                 if (value > 0.0) {
                                     ProductSearchResult.Rule mRule = rule.get(i);
                                     mRule.setApplied(true);
+
                                     rule.set(i, mRule);
                                     str.setRule(rule);
                                     str.setRuleID(rule.get(i).getRuleID());

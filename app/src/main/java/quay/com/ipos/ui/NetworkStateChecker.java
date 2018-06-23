@@ -53,8 +53,8 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
 
                 //getting all the UnSyncedRetailOrders names
-                billingSyncs = db.getUnSyncedRetailOrders();
                 sendDataToServer();
+
 //                if (cursor.moveToFirst()) {
 //                    do {
 //                        //calling the method to save the unsynced name to MySQL
@@ -68,7 +68,8 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
         }
     }
 
-    private void sendDataToServer() {
+    public void sendDataToServer() {
+        billingSyncs = db.getUnSyncedRetailOrders();
         AppLog.e("tag","sendDataToServer");
         if(billingSyncs.size()>0) {
             for (int i = 0; i < billingSyncs.size(); i++) {
@@ -133,7 +134,7 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
     private void editBillToLocalStorage(PaymentRequest paymentRequest, int status) {
         try {
             if(!db.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL_BILLING)) {
-                billingSyncs1 = db.getAllRetailBillingOrders();
+                billingSyncs1 = db.getUnSyncedRetailOrders();
                 if(billingSyncs1.size()>0) {
 //                    for (int i = 0; i < billingSyncs1.size(); i++) {
                     if(db.checkIfBillingRecordExist(paymentRequest.getOrderTimestamp()))
@@ -143,7 +144,9 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
 //                            } else {
 //
 //                            }
+
 //                    }
+                    sendDataToServer();
                 }else {
                     db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
                 }
