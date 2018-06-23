@@ -18,6 +18,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.partnerConnect.model.BillnDelivery;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.BillingAdapter;
+import quay.com.ipos.utility.DateAndTimeUtil;
 
 /**
  * Created by niraj.kumar on 6/7/2018.
@@ -100,6 +101,8 @@ public class BillingAddressFragment extends Fragment {
             @Override
             public void onChanged(@Nullable PCModel pcModel) {
                 mpcModel = pcModel;
+                textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , mpcModel.psslastUpdated));
+
                 if (pcModel.BillandDelivery != null && pcModel.BillandDelivery.size() == 0) {
                     BillnDelivery billnDelivery = new BillnDelivery();
                     pcModel.BillandDelivery.add(billnDelivery);

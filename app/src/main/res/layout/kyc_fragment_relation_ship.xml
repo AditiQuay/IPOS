@@ -9,7 +9,7 @@
     android:paddingBottom="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:paddingTop="16dp"
+    android:paddingTop="10dp"
     tools:context=".partnerConnect.RelationShipFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -32,7 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
             android:fontFamily="@font/titilliumwebregular"
             android:text="Last Updated : 30 Mar 2018"
             android:textColor="@color/dark_grey_color"
