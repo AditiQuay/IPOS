@@ -7,8 +7,8 @@ public class ValidateUtils {
     public static boolean isValidMobile(String phone) {
         boolean check=false;
         if(!Pattern.matches("[a-zA-Z]+", phone)) {
-            if(phone.length() < 6 || phone.length() > 13) {
-                // if(phone.length() != 10) {
+            //if(phone.length() < 6 || phone.length() > 13) {
+                 if(phone.length() != 10) {
                 check = false;
                // txtPhone.setError("Not Valid Number");
             } else {
