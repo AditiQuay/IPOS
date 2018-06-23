@@ -1462,7 +1462,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public boolean checkIfRecordExist(String searchKey) {
         try {
             SQLiteDatabase db = this.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT " + searchKey + " FROM " + TABLE_NAME + " WHERE " + searchKey + "='", null);
+            Cursor cursor = db.rawQuery("SELECT " + CustomerEnum.ColoumnCustomerPhone.toString() + " FROM " + TABLE_NAME + " WHERE " +CustomerEnum.ColoumnCustomerPhone.toString() +" = " + searchKey + ";", null);
             if (cursor.moveToFirst()) {
                 db.close();
                 Log.d("Record  Already Exists", "Table is:" + TABLE_NAME + " ColumnName:" + searchKey);

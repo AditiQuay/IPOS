@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -61,7 +60,6 @@ import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
-import quay.com.ipos.utility.DividerItemDecoration;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
@@ -405,8 +403,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                         childModels.add(model);
                         customerChildAdapter.notifyDataSetChanged();
                     }
-                }else {
-                    Toast.makeText(mContext,"You are not allow to add more then 3 childred details",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(mContext, "You are not allow to add more then 3 childred details", Toast.LENGTH_SHORT).show();
                     btnAddChild.setBackground(getResources().getDrawable(R.drawable.button_rectangle_grey));
                 }
             }
@@ -433,6 +431,24 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             String value = getArguments().getString("firstName");
             tieFirstName.setText(value);
         }
+        tieMobileNumSecondary.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    tilSecondaryMobileNumber.setErrorEnabled(false);
+                    tilSecondaryMobileNumber.setError(null);
+                } else {
+                    String mobileSecondary = tieMobileNumSecondary.getText().toString();
+                    if (mobileSecondary.length() < 10 || mobileSecondary.length() > 10) {
+                        tilSecondaryMobileNumber.setErrorEnabled(true);
+                        tilSecondaryMobileNumber.setError("Enter 10 digits mobile number");
+                    } else {
+                        tilSecondaryMobileNumber.setErrorEnabled(false);
+                        tilSecondaryMobileNumber.setError(getResources().getString(R.string.invalid_phone));
+                    }
+                }
+            }
+        });
         tieMobileNumSecondary.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -446,14 +462,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
             @Override
             public void afterTextChanged(Editable s) {
-                String mobileSecondary = tieMobileNumSecondary.getText().toString();
-                if (mobileSecondary.length() < 10 || mobileSecondary.length() > 10) {
-                    tilSecondaryMobileNumber.setErrorEnabled(true);
-                    tilSecondaryMobileNumber.setError(getResources().getString(R.string.invalid_phone));
-                } else {
-                    tilSecondaryMobileNumber.setErrorEnabled(false);
-                    tilSecondaryMobileNumber.setError(getResources().getString(R.string.invalid_phone));
-                }
 
 
             }

@@ -1,5 +1,6 @@
 package quay.com.ipos.inventory.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +17,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,11 +39,13 @@ import quay.com.ipos.inventory.adapter.InventoryGrnInccoAdapter;
 import quay.com.ipos.inventory.adapter.InventoryGrnItemsListAdapter;
 import quay.com.ipos.inventory.adapter.MilestonePOListAdapter;
 import quay.com.ipos.inventory.adapter.TermsPOListAdapter;
+import quay.com.ipos.inventory.fragment.InventoryProduct;
 import quay.com.ipos.inventory.modal.GrnAttachment;
 import quay.com.ipos.inventory.modal.GrnInccoTermsModel;
 import quay.com.ipos.inventory.modal.GrnItemQtyModel;
 import quay.com.ipos.inventory.modal.POPaymentTerms;
 import quay.com.ipos.inventory.modal.POTermsCondition;
+import quay.com.ipos.listeners.AttachmentListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.realmbean.RealmController;
@@ -59,7 +59,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 6/14/2018.
  */
 
-public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener ,MyListener{
+public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener, MyListener, AttachmentListener {
     private static final String TAG = InventoryGRNDetails.class.getSimpleName();
     private Toolbar toolbar;
     private Button btnAction, btnSave;
@@ -161,7 +161,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     }
 
 
-    private void setOnTextChangesListener(){
+    private void setOnTextChangesListener() {
 
     }
 
@@ -318,12 +318,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             try {
                 grnNumber.setText(realmGRNDetails.getGrnNumber());
                 et_received_date.setText(realmGRNDetails.getReceivedDate());
-                et_totalItems.setText(realmGRNDetails.getTotalItems()+"");
-                et_value.setText(realmGRNDetails.getValue()+"");
-                poQty.setText(realmGRNDetails.getPoQty()+"");
-                openQty.setText(realmGRNDetails.getOpenQty()+"");
-                balanceQty.setText(realmGRNDetails.getBalanceQty()+"");
-                transporterEWayBillValidityDate=realmGRNDetails.getTransporterEWayBillValidityDate();
+                et_totalItems.setText(realmGRNDetails.getTotalItems() + "");
+                et_value.setText(realmGRNDetails.getValue() + "");
+                poQty.setText(realmGRNDetails.getPoQty() + "");
+                openQty.setText(realmGRNDetails.getOpenQty() + "");
+                balanceQty.setText(realmGRNDetails.getBalanceQty() + "");
+                transporterEWayBillValidityDate = realmGRNDetails.getTransporterEWayBillValidityDate();
 
                 etName.setText(realmGRNDetails.getTransporterName());
                 etLrn.setText(realmGRNDetails.getTransporterLRName());
@@ -334,6 +334,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 etAddress.setText(realmGRNDetails.getTransporterAddress());
                 etEwayBill.setText(realmGRNDetails.getTransporterEWayBillNumber());
 
+                Log.e(TAG,"PoItemDetails:::"+realmGRNDetails.getPoItemDetails());
 
                 //Items Details
                 JSONArray array = new JSONArray(realmGRNDetails.getPoItemDetails());
@@ -427,8 +428,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject1.put("businessPlaceId", "1");
-            jsonObject1.put("poNumber", poNumber);
-            jsonObject1.put("isGRN", false);
+            jsonObject1.put("poNumber", "GRN18000001");
+            jsonObject1.put("isGRN", true);
             jsonObject1.put("isGRNOrQC", "grn");
 
         } catch (JSONException e) {
@@ -471,7 +472,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                             @Override
                             public void run() {
                                 Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
-                                Log.e(TAG,"Response***"+response.body().toString());
+                                Log.e(TAG, "Response***" + response.body().toString());
                             }
                         });
 
@@ -536,7 +537,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     private void setItemDetails() {
         recycler_viewItemDetail.setLayoutManager(new LinearLayoutManager(mContext));
-        itemListDataAdapter = new InventoryGrnItemsListAdapter(mContext, grnListModels,this);
+        itemListDataAdapter = new InventoryGrnItemsListAdapter(mContext, grnListModels, this);
         recycler_viewItemDetail.setAdapter(itemListDataAdapter);
     }
 
@@ -546,49 +547,49 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         rvIncco.setAdapter(inventoryGrnInccoAdapter);
     }
 
-    private void setPaymentTerms() {
-        recycler_viewPayment = findViewById(R.id.recycler_viewPayment);
-        recycler_viewPayment.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-        recycler_viewPayment.setLayoutManager(mLayoutManager);
-        milestonePOListAdapter = new MilestonePOListAdapter(mContext, poPaymentTerms);
-        recycler_viewPayment.setAdapter(milestonePOListAdapter);
-    }
+//    private void setPaymentTerms() {
+//        recycler_viewPayment = findViewById(R.id.recycler_viewPayment);
+//        recycler_viewPayment.setHasFixedSize(true);
+//        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+//        recycler_viewPayment.setLayoutManager(mLayoutManager);
+//        milestonePOListAdapter = new MilestonePOListAdapter(mContext, poPaymentTerms);
+//        recycler_viewPayment.setAdapter(milestonePOListAdapter);
+//    }
 
-    private void setTermsCondition() {
-
-        recycler_viewTerms = findViewById(R.id.recycler_viewTerms);
-        recycler_viewTerms.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-        recycler_viewTerms.setLayoutManager(mLayoutManager);
-        termsPOListAdapter = new TermsPOListAdapter(mContext, poTermsConditions);
-        recycler_viewTerms.setAdapter(termsPOListAdapter);
-    }
+//    private void setTermsCondition() {
+//
+//        recycler_viewTerms = findViewById(R.id.recycler_viewTerms);
+//        recycler_viewTerms.setHasFixedSize(true);
+//        LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+//        recycler_viewTerms.setLayoutManager(mLayoutManager);
+//        termsPOListAdapter = new TermsPOListAdapter(mContext, poTermsConditions);
+//        recycler_viewTerms.setAdapter(termsPOListAdapter);
+//    }
 
 
     private void setAttahcments() {
         rvAttachment.setLayoutManager(new LinearLayoutManager(mContext));
-        inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments);
+        inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments, this);
         rvAttachment.setAdapter(inventoryAttachmentAdapter);
     }
 
 
-    private void createJson(){
-        JSONObject jsonObject=new JSONObject();
-        JSONArray poDetails=new JSONArray();
+    private void createJson() {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray poDetails = new JSONArray();
 
         try {
 
             for (int j = 0; j < grnListModels.size(); j++) {
 
                 JSONObject jsonObject1 = new JSONObject();
-                jsonObject1.put("materialCode",grnListModels.get(j).getMaterialCode());
-                jsonObject1.put("materialName",grnListModels.get(j).getMaterialName());
-                jsonObject1.put("openQty",grnListModels.get(j).getOpenQty());
-                jsonObject1.put("inQty",grnListModels.get(j).getInQty());
-                jsonObject1.put("apQty",grnListModels.get(j).getApQty());
-                jsonObject1.put("balanceQty",grnListModels.get(j).getBalanceQty());
-                jsonObject1.put("gRNItemInfoDetails",grnListModels.get(j).getgRNItemInfoDetails());
+                jsonObject1.put("materialCode", grnListModels.get(j).getMaterialCode());
+                jsonObject1.put("materialName", grnListModels.get(j).getMaterialName());
+                jsonObject1.put("openQty", grnListModels.get(j).getOpenQty());
+                jsonObject1.put("inQty", grnListModels.get(j).getInQty());
+                jsonObject1.put("apQty", grnListModels.get(j).getApQty());
+                jsonObject1.put("balanceQty", grnListModels.get(j).getBalanceQty());
+                jsonObject1.put("gRNItemInfoDetails", grnListModels.get(j).getgRNItemInfoDetails());
 
                 poDetails.put(jsonObject1);
             }
@@ -596,10 +597,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             JSONArray IncoTermsArray = new JSONArray();
             for (int j = 0; j < grnInccoTermsModels.size(); j++) {
                 JSONObject jsonObject1 = new JSONObject();
-                jsonObject1.put("grnIncoDetail",grnInccoTermsModels.get(j).getGrnIncoDetail());
-                jsonObject1.put("grnPayBySender",grnInccoTermsModels.get(j).isGrnPayBySender());
-                jsonObject1.put("grnPayByReceiver",grnInccoTermsModels.get(j).isGrnPayByReceiver());
-                jsonObject1.put("grnPayAmount",grnInccoTermsModels.get(j).getGrnPayAmount());
+                jsonObject1.put("grnIncoDetail", grnInccoTermsModels.get(j).getGrnIncoDetail());
+                jsonObject1.put("grnPayBySender", grnInccoTermsModels.get(j).isGrnPayBySender());
+                jsonObject1.put("grnPayByReceiver", grnInccoTermsModels.get(j).isGrnPayByReceiver());
+                jsonObject1.put("grnPayAmount", grnInccoTermsModels.get(j).getGrnPayAmount());
 
                 IncoTermsArray.put(jsonObject1);
             }
@@ -607,36 +608,36 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             JSONArray jsonArrayAttachments = new JSONArray();
             for (int j = 0; j < grnAttachments.size(); j++) {
                 JSONObject jsonObject1 = new JSONObject();
-                jsonObject1.put("grnAttachmentName",grnAttachments.get(j).getGrnAttachmentName());
-                jsonObject1.put("grnAttachmentUrl",grnAttachments.get(j).getGrnAttachmentUrl());
-                jsonObject1.put("grnAttachmentType",grnAttachments.get(j).getGrnAttachmentType());
+                jsonObject1.put("grnAttachmentName", grnAttachments.get(j).getGrnAttachmentName());
+                jsonObject1.put("grnAttachmentUrl", grnAttachments.get(j).getGrnAttachmentUrl());
+                jsonObject1.put("grnAttachmentType", grnAttachments.get(j).getGrnAttachmentType());
 
                 jsonArrayAttachments.put(jsonObject1);
             }
 
 
-            jsonObject.put("poNumber",poNumber);
-            jsonObject.put("grnNumber",grnNumber.getText().toString());
-            jsonObject.put("receivedDate",et_received_date.getText().toString());
-            jsonObject.put("totalItems",et_totalItems.getText().toString());
-            jsonObject.put("value",et_value.getText().toString());
-            jsonObject.put("poQty",poQty.getText().toString());
-            jsonObject.put("openQty",openQty.getText().toString());
-            jsonObject.put("balanceQty",balanceQty.getText().toString());
-            jsonObject.put("transporterName",etName.getText().toString());
-            jsonObject.put("transporterLRName",etLrn.getText().toString());
-            jsonObject.put("transporterTruckNumber",etTrackNumber1.getText().toString());
-            jsonObject.put("transporterEWayBillNumber",etEwayBill.getText().toString());
-            jsonObject.put("transporterEWayBillValidityDate",transporterEWayBillValidityDate);
-            jsonObject.put("transporterDriverName",etDriverName.getText().toString());
-            jsonObject.put("transporterDriverMobileNumber",driverMobileNumber.getText().toString());
-            jsonObject.put("transporterAddress",etAddress.getText().toString());
-            jsonObject.put("poItemDetails",poDetails);
-            jsonObject.put("poIncoTerms",IncoTermsArray);
-            jsonObject.put("poPaymentTermsType",new JSONArray());
-            jsonObject.put("poTermsAndConditions",new JSONArray());
-            jsonObject.put("poAttachments",jsonArrayAttachments);
-            jsonObject.put("employeeCode","");
+            jsonObject.put("poNumber", poNumber);
+            jsonObject.put("grnNumber", grnNumber.getText().toString());
+            jsonObject.put("receivedDate", et_received_date.getText().toString());
+            jsonObject.put("totalItems", et_totalItems.getText().toString());
+            jsonObject.put("value", et_value.getText().toString());
+            jsonObject.put("poQty", poQty.getText().toString());
+            jsonObject.put("openQty", openQty.getText().toString());
+            jsonObject.put("balanceQty", balanceQty.getText().toString());
+            jsonObject.put("transporterName", etName.getText().toString());
+            jsonObject.put("transporterLRName", etLrn.getText().toString());
+            jsonObject.put("transporterTruckNumber", etTrackNumber1.getText().toString());
+            jsonObject.put("transporterEWayBillNumber", etEwayBill.getText().toString());
+            jsonObject.put("transporterEWayBillValidityDate", transporterEWayBillValidityDate);
+            jsonObject.put("transporterDriverName", etDriverName.getText().toString());
+            jsonObject.put("transporterDriverMobileNumber", driverMobileNumber.getText().toString());
+            jsonObject.put("transporterAddress", etAddress.getText().toString());
+            jsonObject.put("poItemDetails", poDetails);
+            jsonObject.put("poIncoTerms", IncoTermsArray);
+            jsonObject.put("poPaymentTermsType", new JSONArray());
+            jsonObject.put("poTermsAndConditions", new JSONArray());
+            jsonObject.put("poAttachments", jsonArrayAttachments);
+            jsonObject.put("employeeCode", "");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -717,7 +718,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                             @Override
                             public void run() {
                                 Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
-                                Log.e(TAG,"Response***"+response.body().toString());
+                                Log.e(TAG, "Response***" + response.body().toString());
                             }
                         });
 
@@ -783,7 +784,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     @Override
     public void onRowClicked(int position) {
-        createJson();
+        Intent gotToProductDetail = new Intent(mContext, InventoryProduct.class);
+        gotToProductDetail.putExtra("position", position);
+        startActivityForResult(gotToProductDetail, 1);
+
+//        createJson();
     }
 
     @Override
@@ -794,7 +799,20 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                grnListModels.clear();
+                grnInccoTermsModels.clear();
+                grnAttachments.clear();
 
-        getExpandableData();
+                getExpandableData();
+            }
+        }
+
+    }
+
+    @Override
+    public void onAttachmentClicked(int position) {
+
     }
 }

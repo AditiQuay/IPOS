@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@drawable/white_background_bottom"
-    android:layout_height="@dimen/dim_50">
+    android:layout_height="@dimen/dim_50"
+    android:background="@drawable/white_background_bottom">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,15 +29,18 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@color/colorPrimary_100"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
+            <TextView
+                android:id="@+id/batchNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/titilliumwebregular"
                 android:paddingLeft="@dimen/dim_8"
-                android:text="Batch Number"
+                android:text="10000000"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/dim_14" />
 
@@ -54,18 +57,22 @@
             android:layout_weight="1"
             android:padding="@dimen/dim_8">
 
-            <TextView
+            <EditText
+                android:id="@+id/qty"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:inputType="number"
+                android:focusable="true"
+                android:background="@color/transparent"
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
-                android:text="Qty"
                 android:textSize="@dimen/dim_14" />
 
         </LinearLayout>
 
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dim_0.5"

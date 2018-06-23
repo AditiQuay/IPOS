@@ -109,7 +109,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rLayoutProductTitle"
-
             android:padding="@dimen/dim_4">
 
             <android.support.v7.widget.SwitchCompat
@@ -145,157 +144,95 @@
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:id="@+id/rLayoutBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rLayoutProductTitle"
-        android:layout_marginLeft="@dimen/dim_4"
-        android:layout_marginRight="@dimen/dim_4"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/lLayoutBottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:baselineAligned="false">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <Button
-                    android:id="@+id/btnNormal"
-                    style="@style/styleWhiteTextColor14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:fontFamily="@font/titilliumwebregular"
-                    android:stateListAnimator="@null"
-                    android:text="Normal (3)"
-                    android:textAllCaps="false" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <Button
-                    android:id="@+id/btnDefeat"
-                    style="@style/styleWhiteTextColor14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/button_tint_gray"
-                    android:fontFamily="@font/titilliumwebregular"
-                    android:stateListAnimator="@null"
-                    android:text="Defeat (0)"
-                    android:textAllCaps="false" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <Button
-                    android:id="@+id/btnLeakage"
-                    style="@style/styleWhiteTextColor14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/button_tint_gray"
-                    android:fontFamily="@font/titilliumwebregular"
-                    android:stateListAnimator="@null"
-                    android:text="Leakage (0)"
-                    android:textAllCaps="false" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <Button
-                    android:id="@+id/btnOthers"
-                    style="@style/styleWhiteTextColor14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/button_tint_gray"
-                    android:fontFamily="@font/titilliumwebregular"
-                    android:stateListAnimator="@null"
-                    android:text="Others (0)"
-                    android:textAllCaps="false" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/editTextBatchNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rLayoutBtn"
-        android:layout_marginLeft="@dimen/dim_4"
-        android:layout_marginRight="@dimen/dim_4"
-        android:paddingBottom="@dimen/dim_8"
-        android:paddingTop="@dimen/dim_8">
-
-        <EditText
-            android:id="@+id/batchEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/btnAdd"
-            android:background="@drawable/white_background"
-            android:fontFamily="@font/titilliumwebregular" />
-
-        <Button
-            android:id="@+id/btnAdd"
-            style="@style/styleWhiteTextColor14"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dim_45"
-            android:layout_alignParentRight="true"
-            android:backgroundTint="@color/colorPrimary"
-            android:fontFamily="@font/titilliumwebregular"
-            android:text="Add"
-            android:textAllCaps="false" />
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/batchTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextBatchNumber"
-        android:layout_marginLeft="@dimen/dim_4"
-        android:layout_marginRight="@dimen/dim_4"
-        android:paddingLeft="@dimen/dim_8"
-        android:paddingRight="@dimen/dim_8">
-
-        <include layout="@layout/batch_title" />
-    </RelativeLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerviewBatch"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_sheet"
-        android:layout_below="@+id/batchTitle"
-        android:layout_marginLeft="@dimen/dim_4"
-        android:layout_marginRight="@dimen/dim_4"
-        android:overScrollMode="never"
-        android:paddingLeft="@dimen/dim_8"
-        android:paddingRight="@dimen/dim_8"
-        android:scrollbars="none"
-        tools:listitem="@layout/inventory_product_item" />
+        android:layout_below="@+id/rLayoutProductTitle">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/rLayoutBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerviewButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"
+                    android:paddingLeft="@dimen/dim_8"
+                    android:paddingRight="@dimen/dim_8"
+                    android:scrollbars="none" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/editTextBatchNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:paddingBottom="@dimen/dim_8"
+                android:paddingTop="@dimen/dim_8">
+
+                <EditText
+                    android:id="@+id/batchEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/btnAddBatch"
+                    android:background="@drawable/white_background"
+                    android:fontFamily="@font/titilliumwebregular" />
+
+                <Button
+                    android:id="@+id/btnAddBatch"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dim_45"
+                    android:layout_alignParentRight="true"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="Add"
+                    android:textAllCaps="false" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/batchTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:paddingLeft="@dimen/dim_8"
+                android:paddingRight="@dimen/dim_8">
+
+                <include layout="@layout/batch_title" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerviewBatch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:overScrollMode="never"
+                android:paddingLeft="@dimen/dim_8"
+                android:paddingRight="@dimen/dim_8"
+                android:scrollbars="none" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
 
     <LinearLayout
         android:id="@+id/bottom_sheet"

@@ -146,12 +146,12 @@ public class NewOrderScannerFragment extends BaseFragment implements
 //                mScannerView.setAutoFocus(mAutoFocus);
 //                return true;
 //            case R.id.menu_formats:
-//                DialogFragment fragment = FormatSelectorDialogFragment.newInstance(this, mSelectedIndices);
+//                ListDialogFragment fragment = FormatSelectorDialogFragment.newInstance(this, mSelectedIndices);
 //                fragment.show(getActivity().getSupportFragmentManager(), "format_selector");
 //                return true;
 //            case R.id.menu_camera_selector:
 //                mScannerView.stopCamera();
-//                DialogFragment cFragment = CameraSelectorDialogFragment.newInstance(this, mCameraId);
+//                ListDialogFragment cFragment = CameraSelectorDialogFragment.newInstance(this, mCameraId);
 //                cFragment.show(getActivity().getSupportFragmentManager(), "camera_selector");
 //                return true;
 //            default:
@@ -268,19 +268,19 @@ public class NewOrderScannerFragment extends BaseFragment implements
     }
 
 //    @Override
-//    public void onDialogPositiveClick(DialogFragment dialog) {
+//    public void onDialogPositiveClick(ListDialogFragment dialog) {
 //        // Resume the camera
 //        mScannerView.resumeCameraPreview(this);
 //    }
 
 //    @Override
-//    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+//    public void onDialogPositiveClick(ListDialogFragment dialog, int mCallType) {
 //        // Resume the camera
 //        mScannerView.resumeCameraPreview(this);
 //    }
 //
 //    @Override
-//    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+//    public void onDialogNegetiveClick(ListDialogFragment dialog, int mCallType) {
 //
 //    }
 

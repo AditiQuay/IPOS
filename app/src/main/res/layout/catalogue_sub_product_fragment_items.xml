@@ -179,7 +179,7 @@
                         android:drawableLeft="@drawable/data"
                         android:drawableStart="@drawable/data"
                         android:stateListAnimator="@null"
-                        android:text="DataSheet"
+                        android:text="Datasheet"
                         android:textAllCaps="false" />
 
                 </LinearLayout>

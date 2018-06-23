@@ -85,10 +85,11 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     public static final String mypreference = "Data";
     public static final String quickPreference = "QuickData";
     SharedPreferences.Editor editor;
+    SharedPreferences.Editor quickEdit;
     private List<String> titlePosition = new ArrayList<>();
     private List<String> genderPosition = new ArrayList<>();
     private String paymentModeClicked;
-
+    private int customerID=0;
     public CustomerAddQuickFragment() {
 
     }
@@ -112,6 +113,10 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
 
         mAwesomeValidation = new AwesomeValidation(BASIC);
         dbHelper = new DatabaseHandler(mContext);
+
+        quickPref = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
+        quickEdit = quickPref.edit();
+
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
@@ -128,12 +133,12 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     }
 
     public void setData() {
-        quickPref = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
-        String title = quickPref.getString("title", "");
-        String gender = quickPref.getString("gender", "");
-        String firstName = quickPref.getString("firstName", "");
-        String lastName = quickPref.getString("lastName", "");
-        String MobileNumber = quickPref.getString("mobileNumber", "");
+        sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        String title = sharedpreferences.getString("title", "");
+        String gender = sharedpreferences.getString("gender", "");
+        String firstName = sharedpreferences.getString("firstName", "");
+        String lastName = sharedpreferences.getString("lastName", "");
+        String MobileNumber = sharedpreferences.getString("MobileNumber", "");
 
         if (!TextUtils.isEmpty(title)) {
             if (titlePosition.contains(title)) {
@@ -195,7 +200,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     }
 
     private void storeCustomerDataToLocalDb() {
-        String customerId = " ";
+        String customerId = "0";
         String title = String.valueOf(titleSpinner.getSelectedItem());
         String firstName = tieFirstName.getText().toString();
         String lastName = tieLastName.getText().toString();
@@ -220,7 +225,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                     "", "", "", "false", childjson,
                     "", "", mobileNumber.trim(), "", "", "", "", "",
                     "", "", "", "", "", "", "",
-                    "", "", "", "", "", "", "", "", "", "", "", "", "1", 0, 0, 0, 0,0,0);
+                    "", "", "", "", "", "", "", "", "", "", "", "", "1", 0, 0, 0, 0, 0, 0);
 
             customerModels.addAll(dbHelper.getAllOfflineCustomer());
             String accessToken = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN.trim(), "", mContext);
