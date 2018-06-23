@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.helper.DatabaseHandler;
@@ -320,10 +321,12 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         CommonParams mCommonParams = new CommonParams();
         mCommonParams.setStoreId(s);
         mCommonParams.setSearchParam("NA");
+        String token = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN,"", IPOSApplication.getContext());
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT);
         mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setApiToken(token);
         mTask.setParamObj(mCommonParams);
         mTask.setListener(this);
         mTask.setResultType(ProductSearchResult.class);

@@ -388,34 +388,34 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private double getTotalPoints(ProductSearchResult.Datum str, double totalPrice, Double sProductPrice, int qty){
         double totalPoints=0;
-        if (str.getPointsBasedOn().equalsIgnoreCase("M")){
+//        if (str.getPointsBasedOn().equalsIgnoreCase("M")){
             totalPoints=str.getPoints()*qty;
 
-        }else if (str.getPointsBasedOn().equalsIgnoreCase("P")){
-            int valuefrom=str.getValueFrom();
-            int valueTo=str.getValueTo();
-            int perPoints=str.getPointsPer();
-            int points=str.getPoints();
-
-            if (totalPrice >= valuefrom && totalPrice <= valueTo){
-                totalPoints=(perPoints * totalPrice) / points;
-            }else if (totalPrice > valueTo){
-                totalPoints=(perPoints * valueTo) / points;
-            }
-
-        }else if (str.getPointsBasedOn().equalsIgnoreCase("V")){
-            int valuefrom=str.getValueFrom();
-            int valueTo=str.getValueTo();
-            int perPoints=str.getPointsPer();
-            int points=str.getPoints();
-
-            if (totalPrice>=valuefrom && totalPrice<=valueTo){
-                totalPoints=perPoints*totalPrice/points;
-            }else if (totalPrice>valueTo){
-                totalPoints=perPoints*valueTo/points;
-            }
-
-        }
+//        }else if (str.getPointsBasedOn().equalsIgnoreCase("P")){
+//            int valuefrom=str.getValueFrom();
+//            int valueTo=str.getValueTo();
+//            int perPoints=str.getPointsPer();
+//            int points=str.getPoints();
+//
+//            if (totalPrice >= valuefrom && totalPrice <= valueTo){
+//                totalPoints=(perPoints * totalPrice) / points;
+//            }else if (totalPrice > valueTo){
+//                totalPoints=(perPoints * valueTo) / points;
+//            }
+//
+//        }else if (str.getPointsBasedOn().equalsIgnoreCase("V")){
+//            int valuefrom=str.getValueFrom();
+//            int valueTo=str.getValueTo();
+//            int perPoints=str.getPointsPer();
+//            int points=str.getPoints();
+//
+//            if (totalPrice>=valuefrom && totalPrice<=valueTo){
+//                totalPoints=perPoints*totalPrice/points;
+//            }else if (totalPrice>valueTo){
+//                totalPoints=perPoints*valueTo/points;
+//            }
+//
+//        }
 
         return totalPoints;
     }
