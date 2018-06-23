@@ -18,15 +18,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.data.remote.RestService;
-
 import quay.com.ipos.ddrsales.adapter.POAdapter;
 import quay.com.ipos.ddrsales.model.OrderModel;
 import quay.com.ipos.ddrsales.model.POSummary;
@@ -47,7 +43,7 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
     private Activity activity;
     private Toolbar toolbar;
     private FloatingActionButton fab;
-    private MutableLiveData<POSummary> poSummaryLive = new MutableLiveData<>();
+    private MutableLiveData<POSummary> mutableLiveData = new MutableLiveData<>();
     private View btnViewAll;
 
 
@@ -81,6 +77,11 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
         getServerData();
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Toast.makeText(activity, "onNewIntent", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -270,7 +271,7 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
         // String localData = getLocalData();
         // POSummary pcModel = new Gson().fromJson(localData, POSummary.class);
         // Log.i("localData", pcModel.toString());
-        // poSummaryLive.setValue(pcModel.response);
+        // mutableLiveData.setValue(pcModel.response);
     }
 
     private String getLocalData() {
@@ -310,7 +311,7 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
 
                     Log.i("JsonObject", response.toString() + response.body());
                     if (response.body() != null) {
-                        poSummaryLive.setValue(response.body());
+                        mutableLiveData.setValue(response.body());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -331,7 +332,7 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
     }
 
     public MutableLiveData<POSummary> getLiveServerData() {
-        return poSummaryLive;
+        return mutableLiveData;
     }
 
 

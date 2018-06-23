@@ -13,15 +13,18 @@ import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.ddrsales.model.OrderModel;
+import quay.com.ipos.utility.NumberFormatEditText;
 
 public class POAdapter extends RecyclerView.Adapter<ViewHolder> {
     private List<OrderModel> list = new ArrayList<>();
     private Context context;
     private LayoutInflater inflater;
+    private String rs;
 
     public POAdapter(Context context) {
         this.context = context;
         inflater = LayoutInflater.from(context);
+        this.rs = context.getString(R.string.Rs) + " ";
     }
 
 
@@ -39,13 +42,13 @@ public class POAdapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         OrderModel object = list.get(position);
-        holder.textPName.setText(object.sellerName+"");
-        holder.textDeliveryReq.setText(object.etaDate+"");
-        holder.textRequestCode.setText(object.requestCode+"");
-        holder.textModifiedDate.setText(object.modifiedDate+"");
-        holder.textItemsCount.setText(object.itemQty+"");
-        holder.textQty.setText(object.itemQty+"");
-        holder.textOrderValue.setText(object.orderValue+"");
+        holder.textPName.setText(object.sellerName + "");
+        holder.textDeliveryReq.setText(object.etaDate + "");
+        holder.textRequestCode.setText(object.requestCode + "");
+        holder.textModifiedDate.setText(object.modifiedDate + "");
+        holder.textItemsCount.setText(object.itemQty + "");
+        holder.textQty.setText(object.itemQty + "");
+        holder.textOrderValue.setText(rs + NumberFormatEditText.getText(object.orderValue + ""));
     }
 
 
@@ -55,8 +58,8 @@ public class POAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 }
 
-  class ViewHolder extends RecyclerView.ViewHolder {
-    public TextView textDeliveryReq, textItemsCount,textQty, textRequestCode, textPName, textOrderValue, textModifiedDate;
+class ViewHolder extends RecyclerView.ViewHolder {
+    public TextView textDeliveryReq, textItemsCount, textQty, textRequestCode, textPName, textOrderValue, textModifiedDate;
 
 
     public ViewHolder(View itemView) {

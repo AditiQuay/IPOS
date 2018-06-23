@@ -370,6 +370,15 @@
     <string name="ddr_save_close"><![CDATA[SAVE & CLOSE]]></string>
     <string name="ddr_submit">Submit</string>
     <string name="ddr_close">Close</string>
+    <string name="string_cancelled">Cancelled</string>
+    <string name="listEmptyCancelled">No Cancelled Item</string>
+    <string name="auto">Auto</string>
+    <string name="manual">Manual</string>
+    <string name="stock_update">Stock Update</string>
+    <string name="net_total">Net Total</string>
+    <string name="retail_product">Retail Product</string>
+    <string name="redeem_customer_points_not_sufficient" />
+    <string name="redeem_customer_email_not_authorised" />
 
 
 </resources>
