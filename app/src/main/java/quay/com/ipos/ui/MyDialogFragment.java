@@ -144,6 +144,7 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
         // Build dialog
         Dialog builder = new Dialog(getActivity());
         builder.setCancelable(false);
+        builder.setCanceledOnTouchOutside(false);
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         builder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         builder.setContentView(view);
@@ -212,10 +213,12 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
                 break;
             case R.id.buttonVerify:
                 if(!sendVerify)
-                    if(redeemValue>0){
+                    if(redeemValue>0)
+                    {
                         sendVerify = true;
                         if(!etOTP.getText().toString().trim().equalsIgnoreCase(""))
-                            if(etOTP.getText().toString().trim().length()>=4) {
+                            if(etOTP.getText().toString().trim().length()>=4)
+                            {
                                 sendOTPtoServer();
                                 sendVerify = true;
                             }
@@ -223,12 +226,13 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
                                 Util.showToast("Please enter valid otp", getActivity() );
                         else
                             Util.showToast("Please enter otp", getActivity() );
-                    }else {
+                    }else
+                    {
                         Util.showToast("No points to redeem", getActivity() );
                     }
                 break;
             case R.id.buttonRedeem:
-                if(!sendRedeem)
+                if(sendVerify)
                     if(redeemValue>0){
                         sendRedeem=true;
                         if(sendRedeem){
@@ -257,6 +261,7 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
                 CustomerPointsRedeemResult customerPointsRedeemResult = (CustomerPointsRedeemResult) resultObj;
                 if(customerPointsRedeemResult!=null){
                     if(customerPointsRedeemResult.getError()==200){
+                        Util.showToast(customerPointsRedeemResult.getMessage(), getActivity());
                         if(sendOTP) {
                             sendOTP=false;
                             Util.showToast(customerPointsRedeemResult.getMessage(), getActivity());
@@ -276,7 +281,7 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
                             sendOTP=false;
                         }
                     }else {
-
+                        Util.showToast(customerPointsRedeemResult.getErrorDescription(), getActivity());
                     }
 
                 }

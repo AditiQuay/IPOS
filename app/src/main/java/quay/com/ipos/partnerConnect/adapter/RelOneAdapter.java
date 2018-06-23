@@ -34,6 +34,17 @@ public class RelOneAdapter extends RecyclerView.Adapter<RelOneAdapter.VH> {
         PssLOBS lobs = pssLOBS.get(position);
         holder.mtxt1.setText(lobs.pssType);
         holder.mtxt2.setText(lobs.pssLobName + " | " + lobs.pssLobCode);
+        int drawable = R.drawable.pc_rel_retailer_grey;
+        if (lobs.pssType.equalsIgnoreCase("Distributor")) {
+            drawable = R.drawable.pc_rel_distributor_grey;
+        } else if (lobs.pssType.equalsIgnoreCase("Retailer")) {
+            drawable = R.drawable.pc_rel_retailer_grey;
+
+        } else if (lobs.pssType.equalsIgnoreCase("Dealer")) {
+            drawable = R.drawable.pc_rel_dealer_grey;
+        }
+        holder.mtxt1.setCompoundDrawablesWithIntrinsicBounds(0, drawable, 0, 0);
+
 
     }
 

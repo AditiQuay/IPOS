@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.helper.DatabaseHandler;
@@ -266,6 +267,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     SharedPrefUtil.setStoreID(Constants.STORE_ID.trim(), loginResult.getUserAccess().getWorklocationID(), mContext);
 
                     Prefs.putIntegerPrefs(Constants.entityCode.trim(), loginResult.getUserAccess().getEntityId());
+                    Prefs.putStringPrefs(Constants.entityName.trim(), loginResult.getUserAccess().getEntityName());
                     Prefs.putStringPrefs(Constants.entityRole.trim(), loginResult.getUserAccess().getUserRole());
                     Prefs.putStringPrefs(Constants.employeeCode.trim(), loginResult.getUserAccess().getEmpCode());
                     Prefs.putStringPrefs("email", loginResult.getUserAccess().getUserEmailID());
@@ -284,6 +286,9 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     ArrayList<ProductSearchResult.Datum> data = new ArrayList<>();
                     ProductSearchResult mProductSearchResult = (ProductSearchResult) resultObj;
                     data.addAll(mProductSearchResult.getData());
+                    SharedPrefUtil.putBoolean(Constants.isOTC, mProductSearchResult.getIsOTC(), mContext);
+                    SharedPrefUtil.putInt(Constants.otcPerc, mProductSearchResult.getOtcPerc(), mContext);
+                    SharedPrefUtil.putInt(Constants.otcValue, mProductSearchResult.getOtcValue(), mContext);
 //                    IPOSApplication.datumArrayList.addAll(data);
                     if (db.isRetailMasterEmpty(db.TABLE_RETAIL)) {
                         for (int i = 0; i < data.size(); i++) {
@@ -316,10 +321,12 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         CommonParams mCommonParams = new CommonParams();
         mCommonParams.setStoreId(s);
         mCommonParams.setSearchParam("NA");
+        String token = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN,"", IPOSApplication.getContext());
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT);
         mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setApiToken(token);
         mTask.setParamObj(mCommonParams);
         mTask.setListener(this);
         mTask.setResultType(ProductSearchResult.class);

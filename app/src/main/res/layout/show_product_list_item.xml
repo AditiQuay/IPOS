@@ -21,13 +21,6 @@
             android:scaleType="centerInside"
             android:layout_gravity="center" />
 
-        <ImageView
-            android:layout_width="1dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:layout_margin="@dimen/dim_5"
-            android:visibility="gone"
-            android:background="@color/divider_color" />
 
         <LinearLayout
             android:id="@+id/llInnerItem"
@@ -38,17 +31,18 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_10"
+                android:layout_marginLeft="@dimen/dim_5"
                 android:layout_marginTop="@dimen/dim_5"
                 android:layout_weight="1.2"
                 android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/llName"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_marginTop="8dp"
-                    android:paddingLeft="@dimen/dim_10">
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/dim_5">
 
                     <CheckBox
                         android:id="@+id/chkItem"
@@ -64,42 +58,20 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
-                        android:lines="1"
+                        android:text="Missilesdfghjszdfghjasdfghsdfghasdf"
                         android:textColor="@color/dashboard_textcolor"
-                        android:singleLine="true"
-                        android:text="Missileefsdss"
-                        android:textSize="@dimen/text_size_14sp" />
-
-                    <View
-                        android:layout_width="@dimen/dim_1"
-                        android:layout_height="@dimen/dim_10"
-
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dim_5"
-                        android:layout_marginRight="@dimen/dim_5"
-                        android:background="@color/transparent" />
-
-                    <quay.com.ipos.ui.CustomTextView
-                        android:id="@+id/tvItemWeight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="center_vertical"
-                        android:lines="1"
-                        android:textColor="@color/dashboard_textcolor"
-                        android:singleLine="true"
-                        android:text="500 gm"
                         android:textSize="@dimen/text_size_14sp" />
 
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/llStock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginLeft="@dimen/dim_1"
                     android:layout_marginTop="4dp"
-                    android:layout_marginLeft="8dp"
+                    android:orientation="horizontal"
                     android:paddingTop="@dimen/dim_1">
 
                     <ImageView
@@ -113,32 +85,24 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:gravity="top"
-                        android:text="225"
+                        android:text="2223335"
                         android:textColor="@color/dashboard_textcolor"
 
                         android:textSize="@dimen/text_size_14sp" />
 
-                    <View
-                        android:layout_width="@dimen/dim_1"
-                        android:layout_height="@dimen/dim_10"
-                        android:visibility="gone"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="@dimen/dim_5"
-                        android:layout_marginRight="@dimen/dim_5"
-                        android:background="@color/accent_color" />
+
 
                     <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvItemPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dim_10"
                         android:gravity="top"
-                        android:layout_marginLeft="@dimen/dim_16"
-                        android:paddingRight="@dimen/dim_10"
-                        android:text="250"
+                        android:paddingRight="@dimen/dim_5"
+                        android:text="253450"
                         android:textColor="@color/dashboard_textcolor"
-
-                        android:textSize="@dimen/text_size_14sp"/>
+                        android:textSize="@dimen/text_size_14sp" />
 
                 </LinearLayout>
 
@@ -147,9 +111,9 @@
                     android:id="@+id/llPoints"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="16dp">
+                    android:layout_marginLeft="@dimen/dim_5"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="16dp"
@@ -161,12 +125,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:gravity="top"
                         android:layout_marginLeft="8dp"
+                        android:gravity="top"
                         android:text="50 Pts."
                         android:textColor="@color/dark_green"
 
-                        android:textSize="@dimen/text_size_14sp"/>
+                        android:textSize="@dimen/text_size_14sp" />
 
 
                 </LinearLayout>
@@ -206,7 +170,6 @@
                         android:id="@+id/imvClear"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:layout_gravity="right|center"
                         android:paddingLeft="@dimen/dim_20"
                         android:src="@drawable/ic_action_delete" />
@@ -226,12 +189,12 @@
                     android:layout_marginTop="@dimen/dim_12"
                     android:gravity="center"/>
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:id="@+id/llEvent"
                     android:layout_marginTop="@dimen/dim_12"
-                    android:gravity="center"
+                    android:gravity="end"
                     android:orientation="horizontal">
 
                     <quay.com.ipos.ui.CustomTextView
@@ -239,10 +202,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/button_rectangle_primary"
-                        android:paddingLeft="@dimen/dim_16"
-                        android:paddingRight="@dimen/dim_16"
+                        android:paddingLeft="@dimen/dim_13"
+                        android:paddingRight="@dimen/dim_13"
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:text="-"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_21sp" />
@@ -257,12 +222,14 @@
                         android:inputType="number"
                         android:selectAllOnFocus="true"
                         android:paddingBottom="@dimen/dim_6"
-                        android:paddingLeft="@dimen/dim_10"
-                        android:paddingRight="@dimen/dim_10"
+                        android:paddingLeft="@dimen/dim_9"
+                        android:paddingRight="@dimen/dim_9"
                         android:paddingTop="@dimen/dim_6"
+                        android:maxLength="4"
+                        android:maxWidth="60dp"
                         android:text="1"
                         android:textColor="@color/dashboard_textcolor"
-                        android:textSize="@dimen/text_size_12sp" />
+                        android:textSize="@dimen/text_size_10sp" />
 
                     <quay.com.ipos.ui.CustomTextView
                         android:id="@+id/tvPlus"
@@ -272,6 +239,8 @@
                         android:paddingLeft="@dimen/dim_12"
                         android:paddingRight="@dimen/dim_12"
                         android:paddingTop="2dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:paddingBottom="2dp"
                         android:text="+"
                         android:textColor="@color/white"

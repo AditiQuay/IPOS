@@ -78,7 +78,7 @@ public class LoginResult {
         private int EntityId;
         private String PrincipalName;
         private int PrincipalId;
-        private String EntityName;
+        public String EntityName;
         private List<WorklocationsBean> worklocations;
 
         public int getID() {

@@ -40,8 +40,7 @@
                 android:text="Missile"
                 android:paddingLeft="@dimen/dim_10"
                 android:textSize="@dimen/text_size_12sp"
-                android:textColor="@color/accent_color"
-                app:typeface="TitilliumWeb-SemiBold.ttf"/>
+                android:textColor="@color/accent_color"/>
 
 
             <quay.com.ipos.ui.CustomTextView
@@ -52,8 +51,7 @@
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:text="@string/qty"
-                android:textSize="@dimen/text_size_12sp"
-                app:typeface="TitilliumWeb-SemiBold.ttf" />
+                android:textSize="@dimen/text_size_12sp" />
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -78,8 +76,7 @@
                 android:layout_gravity="center"
                 android:gravity="top|center_vertical"
                 android:text="225"
-                android:textSize="@dimen/text_size_10sp"
-                app:typeface="TitilliumWeb-Bold.ttf" />
+                android:textSize="@dimen/text_size_10sp"/>
 
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvUnitPrice"
@@ -92,8 +89,7 @@
                 android:layout_gravity="center"
                 android:gravity="top|center_vertical"
                 android:text="225"
-                android:textSize="@dimen/text_size_10sp"
-                app:typeface="TitilliumWeb-Bold.ttf" />
+                android:textSize="@dimen/text_size_10sp"/>
             <RelativeLayout
                 android:id="@+id/llAdd"
                 android:layout_width="wrap_content"
@@ -148,8 +144,7 @@
                 android:text="225 Pts."
                 android:paddingLeft="@dimen/dim_4"
                 android:textColor="@color/green"
-                android:textSize="@dimen/text_size_10sp"
-                app:typeface="TitilliumWeb-Bold.ttf" />
+                android:textSize="@dimen/text_size_10sp" />
 
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvOfferDetail"
@@ -161,8 +156,7 @@
                 android:text="Season Discount(10%)"
                 android:paddingLeft="@dimen/dim_4"
                 android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/text_size_10sp"
-                app:typeface="TitilliumWeb-Bold.ttf" />
+                android:textSize="@dimen/text_size_10sp" />
         </LinearLayout>
 
     </LinearLayout>

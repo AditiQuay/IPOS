@@ -82,7 +82,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/card_selector_kyc"
+                android:background="@drawable/tab_menu_bg_left"
+
                 android:orientation="vertical"
                 android:padding="@dimen/dim_8">
 
@@ -93,8 +94,8 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center"
-                    android:text="1"
-                    android:textColor="@color/grey"
+                    android:text="0"
+                    android:textColor="@color/tab_menu_text"
                     android:textSize="@dimen/universal_text_size14" />
 
                 <TextView
@@ -105,7 +106,7 @@
                     android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center"
                     android:text="New"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/tab_menu_text"
                     android:textSize="@dimen/universal_text_size14" />
             </LinearLayout>
 
@@ -114,6 +115,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/tab_menu_bg"
                 android:orientation="vertical"
                 android:padding="@dimen/dim_8">
 
@@ -124,8 +126,8 @@
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="1"
-                    android:textColor="@color/grey"
+                    android:text="0"
+                    android:textColor="@color/tab_menu_text"
                     android:textSize="@dimen/universal_text_size14" />
 
                 <TextView
@@ -136,7 +138,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/titilliumwebregular"
                     android:text="In Process"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/tab_menu_text"
                     android:textSize="@dimen/universal_text_size14" />
             </LinearLayout>
 
@@ -145,6 +147,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/tab_menu_bg"
                 android:orientation="vertical"
                 android:padding="@dimen/dim_8">
 
@@ -154,8 +157,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="1"
-                    android:textColor="@color/grey"
+                    android:text="0"
+                    android:textColor="@color/tab_menu_text"
                     android:textSize="@dimen/universal_text_size14" />
 
                 <TextView
@@ -165,7 +168,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/titilliumwebregular"
                     android:text="Verified"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/tab_menu_text"
                     android:textSize="@dimen/universal_text_size14" />
             </LinearLayout>
 
@@ -174,6 +177,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/tab_menu_bg_right"
                 android:orientation="vertical"
                 android:padding="@dimen/dim_8">
 
@@ -183,8 +187,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="1"
-                    android:textColor="@color/grey"
+                    android:text="0"
+                    android:textColor="@color/tab_menu_text"
                     android:textSize="@dimen/universal_text_size14" />
 
                 <TextView
@@ -194,7 +198,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/titilliumwebregular"
                     android:text="All Request"
-                    android:textColor="@color/grey"
+                    android:textColor="@color/tab_menu_text"
                     android:textSize="@dimen/universal_text_size14" />
             </LinearLayout>
         </LinearLayout>

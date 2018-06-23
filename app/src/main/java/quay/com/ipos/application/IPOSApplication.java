@@ -36,6 +36,10 @@ public class IPOSApplication extends MultiDexApplication {
     public static double totalAmount = 0.0;
     public static double totalpointsToRedeem = 0;
     public static double totalpointsToRedeemValue = 0;
+    public static String mCustomerEmail="";
+    public static String mCustomerID="";
+    public static  double mCustomerPoints=0;
+    public static  double mCustomerPointsPer=0;
     public static ArrayList<ProductSearchResult.Datum> mProductListResult= new ArrayList<>();
 //    public static ArrayList<ProductSearchResult.Datum> mProductSearchResult= new ArrayList<>();
     public static ArrayList<OrderList.Datum> mOrderList= new ArrayList<>();

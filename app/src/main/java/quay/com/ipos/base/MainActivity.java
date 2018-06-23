@@ -140,7 +140,7 @@ public class MainActivity extends BaseActivity
     public static final String DATA_SAVED_BROADCAST = "ipos.datasaved";
     //Broadcast receiver to know the sync status
     private BroadcastReceiver broadcastReceiver;
-
+//    RelativeLayout rlSetting;
     public static RetailSalesFragment retailSalesFragment1;
 
     private DatabaseHandler dbHelper;
@@ -200,6 +200,7 @@ public class MainActivity extends BaseActivity
 
 
     private ArrayList<CustomerModel> customerModels = new ArrayList<>();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -279,17 +280,18 @@ public class MainActivity extends BaseActivity
         dashboardFragment = new McCOYDashboardFragment();
         addFragment(dashboardFragment, containerId);
         toolbar.setTitle(getString(R.string.dashboard));
-
     }
+
 
     @Override
     public void findViewById() {
         toolbar = findViewById(R.id.appBar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getResources().getString(R.string.toolbar_title_catalogue_product_details));
+//        toolbar.setTitle(getResources().getString(R.string.toolbar_title_catalogue_product_details));
         launchActivity(false);
 
         containerId = R.id.fragment_container;
+//        rlSetting = findViewById(R.id.llSetting);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         listViewContent = findViewById(R.id.listViewContent);
@@ -862,7 +864,7 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         // register GCM registration complete receiver
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,

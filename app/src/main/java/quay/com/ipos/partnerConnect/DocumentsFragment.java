@@ -1,10 +1,13 @@
 package quay.com.ipos.partnerConnect;
 
+import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -16,24 +19,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
 import java.io.File;
 import java.io.InputStream;
 
 import quay.com.ipos.R;
+import quay.com.ipos.kycPartnerConnect.KycDocumentsFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.DocumentVoults;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.utility.Base64Util;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.PictureManager;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.ShareWorldUtil;
 
@@ -71,6 +78,8 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
 
     private int mEntityId;
 
+    private PictureManager pictureManager;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,6 +89,10 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         mDrawableUnApproved = resources.getDrawable(mUnApprovedResId);
         mEntityId = Prefs.getIntegerPrefs(Constants.entityCode.trim());
 
+
+        pictureManager = new PictureManager(getContext());
+        pictureManager.setFragment(this);
+
     }
 
     @Nullable
@@ -87,6 +100,8 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         main = inflater.inflate(R.layout.documents_fragment, container, false);
         mContext = getActivity();
+        myDialog = new Dialog(mContext);
+        myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         findViewById();
         applyInitValues();
         applyLocalValidation();
@@ -176,6 +191,57 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         btnAnnexureUpload.setOnClickListener(this);
 
 
+        imageViewphoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+    }
+
+    private Dialog myDialog;
+
+    private void openImageDialog(String docFileBase64) {
+        ImageView ImvClose, imgDocumentPreview;
+
+        myDialog.setContentView(R.layout.view_dialog);
+        ImvClose = myDialog.findViewById(R.id.ImvClose);
+        imgDocumentPreview = myDialog.findViewById(R.id.imgDocumentPreview);
+        new ConvertToBitmap(docFileBase64, imgDocumentPreview).execute();
+
+        ImvClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
+
+
+    }
+
+    private void openImageDialogNew(String picUrl) {
+        ImageView ImvClose, imgDocumentPreview;
+
+        myDialog.setContentView(R.layout.view_dialog);
+        ImvClose = myDialog.findViewById(R.id.ImvClose);
+        imgDocumentPreview = myDialog.findViewById(R.id.imgDocumentPreview);
+        //  new ConvertToBitmap(docFileBase64, imgDocumentPreview).execute();
+        Glide.with(getActivity()).load(picUrl) .into(imgDocumentPreview);
+        ImvClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
+
+
     }
 
     @Override
@@ -220,20 +286,9 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
     @Override
     public void onClick(View v) {
 
-        btnPhotoCamera.setOnClickListener(this);
-        btnPanCamera.setOnClickListener(this);
-        btnAppointmentCamera.setOnClickListener(this);
-        btnAnnexureCamera.setOnClickListener(this);
-        btnCompilanceCamera.setOnClickListener(this);
-
-        //Upload button click listner
-        btnPhotoUpload.setOnClickListener(this);
-        btnPanUpload.setOnClickListener(this);
-        btnAppointmentUpload.setOnClickListener(this);
-        btnCompilanceUpload.setOnClickListener(this);
-        btnAnnexureUpload.setOnClickListener(this);
         switch (v.getId()) {
             case R.id.btnCamContact:
+             //   gotToCamera2(imageViewphoto, "PrimaryContactPhoto", 1);
                 gotToCamera(v, 1);
                 break;
             case R.id.btnPanCamera:
@@ -253,7 +308,9 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
 
                 break;
             case R.id.btnPhotoUpload:
-                onAttachFileClicked();
+
+
+             //   onAttachFileClicked();
                 break;
             case R.id.btnPanUpload:
                 break;
@@ -271,9 +328,27 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         ShareWorldUtil.dispatchTakePictureIntent(getActivity(), this, reqCode);
     }
 
+    private void gotToCamera2(final ImageView v, String name, int reqCode) {
+        Log.i(TAG, "gotToCamera2");
+        pictureManager.onClickCamera("PICTURE" + "_" + name, reqCode, new PictureManager.GetPicURLListener() {
+            @Override
+            public void onGetPicURL(String picUrl, int reqFor) {
+                //  imageViewTowerPath = picUrl ;
+                Log.i(TAG, "picUrl" + picUrl.toString());
+                Glide.with(getActivity()).load(picUrl).override(v.getWidth(), v.getHeight()).into(v);
+                openImageDialogNew(picUrl);
+            }
+        });
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PictureManager.IMAGE_CAPTURE) {
+            pictureManager.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+
         if (requestCode == PICKFILE_RESULT_CODE && resultCode == RESULT_OK) {
             Uri uri = data.getData();
             File f = new File(uri.getPath());
@@ -412,7 +487,7 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
             pcModel.DocumentVoults.add(docCompliance);
 
 
-        }else {
+        } else {
 
 
             for (DocumentVoults documentVoult : pcModel.DocumentVoults) {
@@ -584,5 +659,11 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         }
 
         return imageStr;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        pictureManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }

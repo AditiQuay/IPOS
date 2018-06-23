@@ -25,7 +25,7 @@ import quay.com.ipos.partnerConnect.model.Cheques;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> {
     private Context mContext;
-    private List<Cheques> list;
+    private List<Cheques> list = new ArrayList<>();
 
 
     private String[] securityCheck = {"Yes", "No"};
@@ -58,7 +58,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
     }
 
     @Override
-    public void onBindViewHolder(MyView holder, int position) {
+    public void onBindViewHolder(MyView holder, final int position) {
         Cheques accountsModel = list.get(position);
         holder.spinnerSecurityCheque.setAdapter(securityAdapter);
 
@@ -88,6 +88,20 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
                 holder.spinnerSecurityCheque.setSelection(index + 1);
             }
         }
+
+        if (accountsModel.ID == 0 && position != 0) {
+            holder.btnRemove.setVisibility(View.VISIBLE);
+        } else {
+            holder.btnRemove.setVisibility(View.GONE);
+        }
+
+        holder.btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                list.remove(position);
+                notifyDataSetChanged();
+            }
+        });
 
 
     }
@@ -128,6 +142,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
         private TextInputEditText editChequeNo, editMaxLimit, editDrawnAccountNo;
         public MyCustomEditTextListener myCustomEditTextListener;
         public MyCustomSpinnerListener myCustomSpinnerListener;
+        public View btnRemove;
 
 
         public MyView(View itemView, MyCustomEditTextListener myCustomEditTextListener, MyCustomSpinnerListener myCustomSpinnerListener) {
@@ -136,6 +151,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
             editDrawnAccountNo = itemView.findViewById(R.id.editDrawnAccountNo);
             editChequeNo = itemView.findViewById(R.id.editChequeNo);
             editMaxLimit = itemView.findViewById(R.id.editMaxLimit);
+            btnRemove = itemView.findViewById(R.id.btnRemove);
 
             //magic code for editText
             this.myCustomEditTextListener = myCustomEditTextListener;

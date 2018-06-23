@@ -52,7 +52,7 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
     private Context mContext;
     private List<String> listPosition = new ArrayList<>();
     private String[] partnerKeyPosition = {"Director", "Manager", "Executive"};
-//    private Button btnAdd;
+
     PCModel mpcModel;
 
     private KeyBusinessContactInfo contactInfo;

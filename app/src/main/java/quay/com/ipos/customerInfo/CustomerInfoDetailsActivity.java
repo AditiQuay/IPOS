@@ -56,8 +56,8 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private CircleImageView imageViewProfileDummy;
     private LinearLayout lLayoutBottom;
     private Context mContext;
-    private String customerId, mCustomerEmail;
-    private double customerPoints = 0, customerPointsPer = 0;
+    private String customerId="",mCustomerEmail="";
+    private double customerPoints = 0, customerPointsPer=0;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
     private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();
@@ -130,13 +130,18 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         lLayoutBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mIntent = new Intent();
-                mIntent.putExtra(Constants.KEY_CUSTOMER, customerId);
-                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, customerPoints);
-                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_PER, customerPointsPer);
-                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL, mCustomerEmail);
-                setResult(Constants.ACT_CUSTOMER, mIntent);
-                finish();
+                if(!mCustomerEmail.trim().equalsIgnoreCase("")) {
+                    Intent mIntent = new Intent();
+                    mIntent.putExtra(Constants.KEY_CUSTOMER, customerId);
+                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, customerPoints);
+                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_PER, customerPointsPer);
+                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL, mCustomerEmail);
+                    setResult(Constants.ACT_CUSTOMER, mIntent);
+                    finish();
+                }
+                else
+                    Util.showToast(getString(R.string.redeem_customer_email_not_authorised), mContext);
+
             }
         });
         imvBilling.setOnClickListener(new View.OnClickListener() {

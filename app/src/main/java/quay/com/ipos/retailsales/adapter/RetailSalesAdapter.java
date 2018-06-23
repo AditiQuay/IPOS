@@ -72,8 +72,9 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onRowClicked(int position) {
-        if(position==23)
+        if(position==23){
             listener.onRowClicked(position);
+        }
     }
 
     @Override
@@ -93,10 +94,10 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvItemName, tvItemWeight, tvItemRate, tvItemPrice, tvMinus,tvPlus,tvPoint,tvTotalPoints;
+        public TextView tvItemName,  tvItemRate, tvItemPrice, tvMinus,tvPlus,tvPoint,tvTotalPoints;
         public TextView tvTotalPrice, tvOTCDiscountPrice,tvDiscountedPrice,tvFreeItems;
-        public ImageView imvInfo,imvProduct,imvClear;
-        public LinearLayout llOTCDiscount,llEvent,llTotalPoints,llPoints,llInnerItem;
+        public ImageView imvInfo,imvProduct,imvClear,imvOffer;
+        public LinearLayout llOTCDiscount,llEvent,llTotalPoints,llPoints,llInnerItem,llStock,llName;
         public CheckBox chkItem,chkOTCDiscount;
         public EditText etQtySelected;
         public RecyclerView mRecyclerView;
@@ -107,19 +108,22 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             mRecyclerView = itemView.findViewById(R.id.recycleView);
 
             llEvent = itemView.findViewById(R.id.llEvent);
+            llName = itemView.findViewById(R.id.llName);
+            llStock = itemView.findViewById(R.id.llStock);
             llInnerItem = itemView.findViewById(R.id.llInnerItem);
             llOTCDiscount = itemView.findViewById(R.id.llOTCDiscount);
             tvOTCDiscountPrice = itemView.findViewById(R.id.tvOTCDiscountPrice);
             tvDiscountedPrice = itemView.findViewById(R.id.tvDiscountedPrice);
             chkOTCDiscount = itemView.findViewById(R.id.chkOTCDiscount);
             tvItemName =  itemView.findViewById(R.id.tvItemName);
-            tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
+//            tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
             tvItemRate =  itemView.findViewById(R.id.tvItemRate);
             tvItemPrice =  itemView.findViewById(R.id.tvItemPrice);
             tvFreeItems =  itemView.findViewById(R.id.tvFreeItems);
             imvInfo =  itemView.findViewById(R.id.imvInfo);
             imvProduct =  itemView.findViewById(R.id.imvProduct);
             imvClear =  itemView.findViewById(R.id.imvClear);
+            imvOffer =  itemView.findViewById(R.id.imvOffer);
             tvMinus =  itemView.findViewById(R.id.tvMinus);
             etQtySelected =  itemView.findViewById(R.id.etQtySelected);
             tvPlus =  itemView.findViewById(R.id.tvPlus);
@@ -163,21 +167,20 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 IPOSApplication.isRefreshed=false;
             }
             myAdapterTags.onRowClicked(position,0, Constants.DISCOUNT+"");
-            AppLog.e(RetailSalesAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             final UserViewHolder  userViewHolder = (UserViewHolder) holder;
-            userViewHolder.tvItemName.setText(str.getSProductName());
-            userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
+            userViewHolder.tvItemName.setText(str.getSProductName() + " " +str.getSProductWeight() + " gm");
+//            userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
             userViewHolder.tvItemRate.setText(str.getSProductStock()+"");
-            userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+str.getSProductPrice());
+            userViewHolder.tvItemPrice.setText(Util.getIndianNumberFormat(str.getSalesPrice()+""));
             userViewHolder.etQtySelected.setText(str.getQty()+"");
 
             ImageLoader.getInstance().displayImage(str.getProductImage(),userViewHolder.imvProduct);
 
-            Double totalPrice=(str.getSProductPrice()*str.getQty());
+            Double totalPrice=(str.getSalesPrice()*str.getQty());
 
             if(str.getPoints()!=null && !str.getPoints().equals("")){
                 userViewHolder.tvPoint.setText(str.getPoints() +" Pts");
-                double points = getTotalPoints(str,totalPrice,str.getSProductPrice(),str.getQty());
+                double points = getTotalPoints(str,totalPrice,str.getSalesPrice(),str.getQty());
                 userViewHolder.tvTotalPoints.setText((int)points+" Pts");
                 str.setTotalPoints(points);
                 IPOSApplication.mProductListResult.set(position,str);
@@ -203,20 +206,26 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.tvTotalPoints.setVisibility(View.GONE);
                 userViewHolder.tvPoint.setVisibility(View.GONE);
                 userViewHolder.llEvent.setVisibility(View.GONE);
-                userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" " + str.getSProductPrice());
+                userViewHolder.tvTotalPrice.setText(Util.getIndianNumberFormat( str.getSalesPrice()+""));
                 userViewHolder.chkItem.setVisibility(View.GONE);
                 userViewHolder.llOTCDiscount.setVisibility(View.GONE);
                 userViewHolder.llPoints.setVisibility(View.GONE);
                 userViewHolder.llTotalPoints.setVisibility(View.GONE);
                 userViewHolder.tvFreeItems.setVisibility(View.VISIBLE);
+                userViewHolder.imvClear.setVisibility(View.GONE);
+                userViewHolder.imvOffer.setVisibility(View.GONE);
+                userViewHolder.tvItemRate.setVisibility(View.GONE);
             }else {
+                userViewHolder.imvClear.setVisibility(View.VISIBLE);
+                userViewHolder.tvItemRate.setVisibility(View.VISIBLE);
+                userViewHolder.imvOffer.setVisibility(View.VISIBLE);
                 userViewHolder.tvFreeItems.setVisibility(View.GONE);
                 userViewHolder.tvTotalPoints.setVisibility(View.VISIBLE);
                 userViewHolder.tvPoint.setVisibility(View.VISIBLE);
                 userViewHolder.llEvent.setVisibility(View.VISIBLE);
                 userViewHolder.llPoints.setVisibility(View.VISIBLE);
                 userViewHolder.llTotalPoints.setVisibility(View.VISIBLE);
-                userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+totalPrice);
+                userViewHolder.tvTotalPrice.setText(Util.getIndianNumberFormat(totalPrice+""));
 
                 if(str.isItemSelected())
                     userViewHolder.chkItem.setVisibility(View.VISIBLE);
@@ -232,7 +241,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if(str.isDiscSelected()) {
                     userViewHolder.chkOTCDiscount.setChecked(true);
                     userViewHolder.llOTCDiscount.setVisibility(View.VISIBLE);
-                    userViewHolder.tvOTCDiscountPrice.setText("- "+mContext.getResources().getString(R.string.Rs) +" "+str.getOTCDiscount());
+                    userViewHolder.tvOTCDiscountPrice.setText("- "+Util.getIndianNumberFormat(str.getOTCDiscount()+""));
                 }
                 else {
                     userViewHolder.llOTCDiscount.setVisibility(View.GONE);
@@ -244,6 +253,12 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             userViewHolder.llInnerItem.setOnClickListener(mOnClickListener);
             userViewHolder.llInnerItem.setTag(position);
+
+            userViewHolder.llName.setOnClickListener(mOnClickListener);
+            userViewHolder.llName.setTag(position);
+
+            userViewHolder.llStock.setOnClickListener(mOnClickListener);
+            userViewHolder.llStock.setTag(position);
 
             userViewHolder.imvInfo.setOnClickListener(mOnClickListener);
             userViewHolder.imvInfo.setTag(position);
@@ -288,19 +303,19 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         timer[0].schedule(new TimerTask() {
                             @Override
                             public void run() {
-                        if (!editable.toString().isEmpty()) {
-                            qty[0] = Integer.parseInt(editable.toString());
-                            if (qty[0]<1) {
-                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
-                                qty[0] = 0;
-                            }else {
-                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(editable.toString()));
-                            }
+                                if (!editable.toString().isEmpty()) {
+                                    qty[0] = Integer.parseInt(editable.toString());
+                                    if (qty[0]<1) {
+                                        listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
+                                        qty[0] = 0;
+                                    }else {
+                                        listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(editable.toString()));
+                                    }
 
-                        }else {
-                            listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
-                            qty[0] = 0;
-                        }
+                                }else {
+                                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1+""));
+                                    qty[0] = 0;
+                                }
                             }
                         }, 600);
                     }
@@ -326,10 +341,12 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
             if(str.getIsDiscount()) {
                 userViewHolder.mRecyclerView.setVisibility(View.VISIBLE);
+                userViewHolder.imvOffer.setVisibility(View.VISIBLE);
                 DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext, userViewHolder.mRecyclerView, mDataset.get(userViewHolder.getAdapterPosition()).getDiscount(), mDataset.get(userViewHolder.getAdapterPosition()), userViewHolder.getAdapterPosition(), listener,myAdapterTags);
                 userViewHolder.mRecyclerView.setAdapter(itemListDataAdapter);
             }else {
                 userViewHolder.mRecyclerView.setVisibility(View.GONE);
+                userViewHolder.imvOffer.setVisibility(View.GONE);
             }
 
             if(position==getItemCount()-1){
@@ -371,34 +388,34 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private double getTotalPoints(ProductSearchResult.Datum str, double totalPrice, Double sProductPrice, int qty){
         double totalPoints=0;
-        if (str.getPointsBasedOn().equalsIgnoreCase("M")){
+//        if (str.getPointsBasedOn().equalsIgnoreCase("M")){
             totalPoints=str.getPoints()*qty;
 
-        }else if (str.getPointsBasedOn().equalsIgnoreCase("P")){
-            int valuefrom=str.getValueFrom();
-            int valueTo=str.getValueTo();
-            int perPoints=str.getPointsPer();
-            int points=str.getPoints();
-
-            if (totalPrice >= valuefrom && totalPrice <= valueTo){
-                totalPoints=(perPoints * totalPrice) / points;
-            }else if (totalPrice > valueTo){
-                totalPoints=(perPoints * valueTo) / points;
-            }
-
-        }else if (str.getPointsBasedOn().equalsIgnoreCase("V")){
-            int valuefrom=str.getValueFrom();
-            int valueTo=str.getValueTo();
-            int perPoints=str.getPointsPer();
-            int points=str.getPoints();
-
-            if (totalPrice>=valuefrom && totalPrice<=valueTo){
-                totalPoints=perPoints*totalPrice/points;
-            }else if (totalPrice>valueTo){
-                totalPoints=perPoints*valueTo/points;
-            }
-
-        }
+//        }else if (str.getPointsBasedOn().equalsIgnoreCase("P")){
+//            int valuefrom=str.getValueFrom();
+//            int valueTo=str.getValueTo();
+//            int perPoints=str.getPointsPer();
+//            int points=str.getPoints();
+//
+//            if (totalPrice >= valuefrom && totalPrice <= valueTo){
+//                totalPoints=(perPoints * totalPrice) / points;
+//            }else if (totalPrice > valueTo){
+//                totalPoints=(perPoints * valueTo) / points;
+//            }
+//
+//        }else if (str.getPointsBasedOn().equalsIgnoreCase("V")){
+//            int valuefrom=str.getValueFrom();
+//            int valueTo=str.getValueTo();
+//            int perPoints=str.getPointsPer();
+//            int points=str.getPoints();
+//
+//            if (totalPrice>=valuefrom && totalPrice<=valueTo){
+//                totalPoints=perPoints*totalPrice/points;
+//            }else if (totalPrice>valueTo){
+//                totalPoints=perPoints*valueTo/points;
+//            }
+//
+//        }
 
         return totalPoints;
     }
