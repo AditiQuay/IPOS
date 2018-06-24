@@ -618,7 +618,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
             case R.id.llRefreshStocks:
                 final int posDeleteCheckStock = (int) view.getTag();
                 RealmNewOrderCart realmNewOrderCart=mList.get(posDeleteCheckStock);
-                realmNewOrderCart.setmCheckStock(0);
+              //  realmNewOrderCart.setmCheckStock(0);
                 realmNewOrderCart.setCheckStockClick(false);
                 mList.set(posDeleteCheckStock,realmNewOrderCart);
                 mNewOrderListAdapter.notifyItemChanged(posDeleteCheckStock);
@@ -1040,7 +1040,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                 }
             }
 
-        }
+       }
 
         return isApplied;
     }
@@ -1050,7 +1050,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         double discount = 0.0;
         int productQty = realmNewOrderCarts.getQty();
 
-        if (productQty >= slabFrom && productQty <= slabTO || productQty > slabTO) {
+       if (productQty >= slabFrom && productQty <= slabTO || productQty > slabTO) {
 
             if (sDiscountBasedOn.equalsIgnoreCase("SP")) {
 
@@ -1093,7 +1093,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
     private boolean getQuantityBasedOnDiscountItems(boolean isApplied, RealmNewOrderCart realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
 
         int productQty = realmNewOrderCarts.getQty();
-        if (productQty >= slabFrom && productQty <= slabTO || productQty > slabTO) {
+     //   if (productQty >= slabFrom && productQty <= slabTO || productQty > slabTO) {
 
             if (sDiscountBasedOn.equalsIgnoreCase("SP")) {
                 if (opsCriteria.equalsIgnoreCase("L")) {
@@ -1131,7 +1131,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                 }
             }
 
-        }
+       // }
         return isApplied;
     }
 
@@ -1147,22 +1147,22 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         int itemsPerFree = countt / (packSize + slabFrom);
 
         int freeItems = 0;
-        if (itemsPerFree > 0) {
+        if (itemsPerFree >= 1) {
             freeItems = itemsPerFree * packSize;
 
             if (loopSize == 1) {
                 for (int l = 0; l < loopSize; l++) {
                     if (freeItems>0) {
-                        for (int m = 0; m < freeItems; m++) {
+                      //  for (int m = 0; m < freeItems; m++) {
                             Gson gson = new GsonBuilder().create();
                             String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                             try {
                                 JSONObject jsonObject = new JSONObject(strJson);
                                 jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
                                 jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
-                                jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                jsonObject.put(RetailSalesEnum.qty.toString(), freeItems);
                                 jsonObject.put(RetailSalesEnum.points.toString(),0);
-                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (freeItems) * realmNewOrderCarts1.get(l).getsProductPrice());
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
@@ -1170,7 +1170,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
+                       // }
                     }
                 }
             } else {
@@ -1178,16 +1178,16 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                     if (freeItems>0) {
                         int qty = realmNewOrderCarts1.get(l).getQty();
                         if (qty == freeItems) {
-                            for (int m = 0; m < freeItems; m++) {
+                          //  for (int m = 0; m < freeItems; m++) {
                                 Gson gson = new GsonBuilder().create();
                                 String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                                 try {
                                     JSONObject jsonObject = new JSONObject(strJson);
                                     jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
                                     jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
-                                    jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                    jsonObject.put(RetailSalesEnum.qty.toString(), freeItems);
                                     jsonObject.put(RetailSalesEnum.points.toString(),0);
-                                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), (freeItems) * realmNewOrderCarts1.get(l).getsProductPrice());
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
@@ -1195,20 +1195,20 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                            }
+                           // }
                             freeItems = 0;
 
                         } else if (qty < freeItems) {
-                            for (int m = 0; m < qty; m++) {
+                           // for (int m = 0; m < qty; m++) {
                                 Gson gson = new GsonBuilder().create();
                                 String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                                 try {
                                     JSONObject jsonObject = new JSONObject(strJson);
                                     jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
                                     jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
-                                    jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                    jsonObject.put(RetailSalesEnum.qty.toString(), qty);
                                     jsonObject.put(RetailSalesEnum.points.toString(),0);
-                                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), (qty) * realmNewOrderCarts1.get(l).getsProductPrice());
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
@@ -1216,22 +1216,22 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                freeItems = freeItems - 1;
-                            }
+                                freeItems = freeItems - qty;
+                          //  }
 
 
                         } else if (qty > freeItems) {
                             int size=freeItems;
-                            for (int m = 0; m < size; m++) {
+                          //  for (int m = 0; m < size; m++) {
                                 Gson gson = new GsonBuilder().create();
                                 String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                                 try {
                                     JSONObject jsonObject = new JSONObject(strJson);
                                     jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
                                     jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
-                                    jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                    jsonObject.put(RetailSalesEnum.qty.toString(), size);
                                     jsonObject.put(RetailSalesEnum.points.toString(),0);
-                                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), (size) * realmNewOrderCarts1.get(l).getsProductPrice());
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
@@ -1239,8 +1239,8 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                freeItems = freeItems - 1;
-                            }
+                                freeItems = freeItems - size;
+                         //   }
 
 
                         }
@@ -1267,21 +1267,21 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         int loopSize = realmNewOrderCarts1.size();
         int itemsPerFree = countt / (packSize + slabFrom);
         int freeItems = 0;
-        if (itemsPerFree > 0){
+        if (itemsPerFree >= 1){
             freeItems = itemsPerFree * packSize;
         if (loopSize == 1) {
             for (int l = 0; l < loopSize; l++) {
                 if (freeItems>0) {
-                for (int m = 0; m < freeItems; m++) {
+              //  for (int m = 0; m < freeItems; m++) {
                     Gson gson = new GsonBuilder().create();
                     String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                     try {
                         JSONObject jsonObject = new JSONObject(strJson);
                         jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
                         jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
-                        jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                        jsonObject.put(RetailSalesEnum.qty.toString(), freeItems);
                         jsonObject.put(RetailSalesEnum.points.toString(),0);
-                        jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                        jsonObject.put(RetailSalesEnum.totalPrice.toString(), (freeItems) * realmNewOrderCarts1.get(l).getsProductPrice());
                         jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                         jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
@@ -1290,7 +1290,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
+             //   }
             }
 
             }
@@ -1300,16 +1300,16 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                 if (freeItems>0) {
                     int qty = realmNewOrderCarts1.get(l).getQty();
                     if (qty == freeItems) {
-                        for (int m = 0; m < freeItems; m++) {
+                       // for (int m = 0; m < freeItems; m++) {
                             Gson gson = new GsonBuilder().create();
                             String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                             try {
                                 JSONObject jsonObject = new JSONObject(strJson);
                                 jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
                                 jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
-                                jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                jsonObject.put(RetailSalesEnum.qty.toString(), freeItems);
                                 jsonObject.put(RetailSalesEnum.points.toString(),0);
-                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (freeItems) * realmNewOrderCarts1.get(l).getsProductPrice());
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
@@ -1318,22 +1318,22 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                        }
+                       // }
 
                         freeItems = 0;
 
                     } else if (qty < freeItems) {
 
-                        for (int m = 0; m < qty; m++) {
+                      //  for (int m = 0; m < qty; m++) {
                             Gson gson = new GsonBuilder().create();
                             String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                             try {
                                 JSONObject jsonObject = new JSONObject(strJson);
                                 jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
                                 jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
-                                jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                jsonObject.put(RetailSalesEnum.qty.toString(), qty);
                                 jsonObject.put(RetailSalesEnum.points.toString(),0);
-                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * realmNewOrderCarts1.get(l).getsProductPrice());
+                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (qty) * realmNewOrderCarts1.get(l).getsProductPrice());
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
@@ -1342,22 +1342,22 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            freeItems = freeItems - 1;
-                        }
+                            freeItems = freeItems - qty;
+                       // }
 
 
                     } else if (qty > freeItems) {
                         int size=freeItems;
-                        for (int m = 0; m < size; m++) {
+                       // for (int m = 0; m < size; m++) {
                             Gson gson = new GsonBuilder().create();
                             String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                             try {
                                 JSONObject jsonObject = new JSONObject(strJson);
                                 jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
                                 jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
-                                jsonObject.put(RetailSalesEnum.qty.toString(), m + 1);
+                                jsonObject.put(RetailSalesEnum.qty.toString(), size);
                                 jsonObject.put(RetailSalesEnum.points.toString(),0);
-                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (m + 1) * (realmNewOrderCarts1.get(l)).getsProductPrice());
+                                jsonObject.put(RetailSalesEnum.totalPrice.toString(), (size) * (realmNewOrderCarts1.get(l)).getsProductPrice());
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
@@ -1366,8 +1366,8 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            freeItems = freeItems - 1;
-                        }
+                            freeItems = freeItems - size;
+                       // }
 
 
                     }
@@ -1492,9 +1492,13 @@ if (realmNewOrderCarts.getQty()>1) {
     @Override
     public void onRowClicked(final int position, final int value) {
 
+        try{
+
+
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
+
                 if (position>=0) {
                     Realm realm = Realm.getDefaultInstance();
                     RealmNewOrderCart realmNewOrderCarts = realm.where(RealmNewOrderCart.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), mList.get(position).getiProductModalId()).findFirst();
@@ -1524,7 +1528,9 @@ if (realmNewOrderCarts.getQty()>1) {
                 }
             }
         });
-
+        }catch (IndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
      //   Util.hideSoftKeyboard(getActivity());
     }
 
@@ -2224,6 +2230,7 @@ if (realmNewOrderCarts.getQty()>1) {
                                     realmNewOrderCart.setCheckStockClick(true);
                                     mList.set(postionCheckStock,realmNewOrderCart);
                                     mNewOrderListAdapter.notifyItemChanged(postionCheckStock);
+
                                 }
                             });
 
