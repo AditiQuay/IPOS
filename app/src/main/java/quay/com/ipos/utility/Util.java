@@ -53,6 +53,8 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.text.Format;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -799,5 +801,17 @@ public class Util {
         String moneyString = formatter.format(amount);
 
         return moneyString.replaceAll("Rs.","").replaceAll(getStringRes(R.string.Rs),"");
+    }
+
+    public static String getIndianNumberFormat(String str){
+        Format format = NumberFormat.getCurrencyInstance(new Locale("en", "in"));
+        return str = (format.format(new BigDecimal(str)));
+
+    }
+
+    public static String generateOrderFormat(int number){
+        String numberAsString = String.valueOf(number);
+        String paddedNumberAsString = "000000".substring(numberAsString.length()) + numberAsString;
+        return paddedNumberAsString;
     }
 }

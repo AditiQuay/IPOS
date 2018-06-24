@@ -17,6 +17,7 @@ import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.modal.BillingSync;
 import quay.com.ipos.modal.OrderSubmitResult;
 import quay.com.ipos.modal.PaymentRequest;
+import quay.com.ipos.retailsales.activity.OutboxActivity;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
@@ -24,24 +25,17 @@ import quay.com.ipos.utility.Util;
 
 public class NetworkStateChecker extends BroadcastReceiver implements ServiceTask.ServiceResultListener{
 
-    public interface NetworkStateCheckerListener{
-        void updateList();
-    }
     //context and database helper object
     private Context context;
     private DatabaseHandler db;
     ArrayList<BillingSync> billingSyncs = new ArrayList<>();
     ArrayList<BillingSync> billingSyncs1 = new ArrayList<>();
     PaymentRequest paymentRequest;
-    NetworkStateCheckerListener networkStateCheckerListener;
 
     //1 means data is synced and 0 means data is not synced
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
 
-    public void setListener(NetworkStateCheckerListener listener) {
-        networkStateCheckerListener = listener;
-    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -59,8 +53,8 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
 
                 //getting all the UnSyncedRetailOrders names
-                billingSyncs = db.getUnSyncedRetailOrders();
                 sendDataToServer();
+
 //                if (cursor.moveToFirst()) {
 //                    do {
 //                        //calling the method to save the unsynced name to MySQL
@@ -74,7 +68,8 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
         }
     }
 
-    private void sendDataToServer() {
+    public void sendDataToServer() {
+        billingSyncs = db.getUnSyncedRetailOrders();
         AppLog.e("tag","sendDataToServer");
         if(billingSyncs.size()>0) {
             for (int i = 0; i < billingSyncs.size(); i++) {
@@ -139,7 +134,7 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
     private void editBillToLocalStorage(PaymentRequest paymentRequest, int status) {
         try {
             if(!db.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL_BILLING)) {
-                billingSyncs1 = db.getAllRetailBillingOrders();
+                billingSyncs1 = db.getUnSyncedRetailOrders();
                 if(billingSyncs1.size()>0) {
 //                    for (int i = 0; i < billingSyncs1.size(); i++) {
                     if(db.checkIfBillingRecordExist(paymentRequest.getOrderTimestamp()))
@@ -149,7 +144,9 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
 //                            } else {
 //
 //                            }
+
 //                    }
+                    sendDataToServer();
                 }else {
                     db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
                 }
@@ -166,7 +163,9 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
 
         }
 
-        if(networkStateCheckerListener!=null)
-            networkStateCheckerListener.updateList();
+        if(OutboxActivity.getInstace()!=null)
+            OutboxActivity.getInstace().update();
+
+
     }
 }

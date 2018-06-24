@@ -10,5 +10,7 @@ public class KycPartnerConnectResponse {
     public String errorDescription;
     public String message;
     public PCModel response;
+    public boolean isApproved;
+
 
 }

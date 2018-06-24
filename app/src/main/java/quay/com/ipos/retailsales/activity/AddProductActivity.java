@@ -293,6 +293,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
             case R.id.imvClearAdded:
                 llAdded.setVisibility(View.GONE);
                 IPOSApplication.mProductListResult.clear();
+                count=0;
                 llAccept.setVisibility(View.GONE);
                 if( arrSearchlist.size()>0) {
                     for (int i = 0; i < arrSearchlist.size(); i++) {

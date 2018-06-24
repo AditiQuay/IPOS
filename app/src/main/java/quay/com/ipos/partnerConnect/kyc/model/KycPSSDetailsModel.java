@@ -6,6 +6,8 @@ package quay.com.ipos.partnerConnect.kyc.model;
 
 public class KycPSSDetailsModel {
     private String ID;
+    public boolean isApprover;
+
 
     public String getID() {
         return ID;

@@ -79,7 +79,7 @@
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginTop="@dimen/dim_2"
-                            android:src="@drawable/cart"
+                            android:src="@drawable/add_circle"
                             android:visibility="visible" />
 
                         <ImageView
@@ -150,7 +150,6 @@
                         <TextView
                             android:id="@+id/tvTotalItemPrice"
                             android:layout_width="wrap_content"
-
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
@@ -383,7 +382,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_product_detail_blue" />
+                        android:src="@drawable/wallet" />
 
                     <TextView
                         android:id="@+id/tvLoyalty"
@@ -418,7 +417,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/pc_rel_email" />
+                            android:src="@drawable/immediate" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -445,7 +444,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/pc_rel_email" />
+                            android:src="@drawable/cheque" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -472,7 +471,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/pc_rel_email" />
+                            android:src="@drawable/credit" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -507,7 +506,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_product_detail_blue" />
+                        android:src="@drawable/credit_blue" />
 
                     <TextView
                         android:id="@+id/textCredit"
@@ -645,7 +644,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_product_detail_blue" />
+                        android:src="@drawable/shipment" />
 
                     <TextView
                         android:id="@+id/textLogistics"
@@ -1019,7 +1018,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_product_detail_blue" />
+                        android:src="@drawable/biling" />
 
                     <TextView
 
@@ -1052,6 +1051,7 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/titilliumwebregular"
                         android:gravity="center"
+                        android:paddingLeft="16dp"
                         android:text="Billing Address Here....."
                         android:textColor="@color/filter_text_color" />
 
@@ -1063,6 +1063,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginRight="16dp"
                         android:gravity="center"
+
                         android:src="@drawable/pc_rel_email" />
                 </RelativeLayout>
 
@@ -1088,7 +1089,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
-                        android:src="@drawable/ic_action_product_detail_blue" />
+                        android:src="@drawable/location" />
 
                     <TextView
 
@@ -1121,6 +1122,8 @@
                         android:layout_centerVertical="true"
                         android:fontFamily="@font/titilliumwebregular"
                         android:gravity="center"
+                        android:paddingLeft="16dp"
+
                         android:text="Shipping Address Here....."
                         android:textColor="@color/filter_text_color" />
 
@@ -1169,7 +1172,7 @@
             android:paddingLeft="@dimen/dim_5"
             android:text="@string/ddr_save_close"
             android:textAllCaps="true"
-
+            android:onClick="onSaveAndCloseAction"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_15sp" />
 

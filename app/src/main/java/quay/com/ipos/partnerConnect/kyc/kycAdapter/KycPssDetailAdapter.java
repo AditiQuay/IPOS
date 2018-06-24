@@ -11,11 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import quay.com.ipos.R;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.partnerConnect.kyc.model.KycPSSDetailsModel;
+import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
 
 /**
  * Created by niraj.kumar on 6/15/2018.
@@ -23,13 +26,16 @@ import quay.com.ipos.partnerConnect.kyc.model.KycPSSDetailsModel;
 
 public class KycPssDetailAdapter extends RecyclerView.Adapter<KycPssDetailAdapter.ItemViewHolder> {
     private Context mContext;
-    private ArrayList<KycPSSDetailsModel> kycPSSDetailsModels;
+    private List<KycPSSDetailsModel> kycPSSDetailsModels = new ArrayList<>();
     private MyListener myListener;
+    private String entityName;
 
-    public KycPssDetailAdapter(Context context, ArrayList<KycPSSDetailsModel> kycPSSDetailsModels, MyListener myListener) {
+    public KycPssDetailAdapter(Context context, List<KycPSSDetailsModel> kycPSSDetailsModels, MyListener myListener) {
         this.mContext = context;
         this.kycPSSDetailsModels = kycPSSDetailsModels;
         this.myListener = myListener;
+        entityName = Prefs.getStringPrefs(Constants.entityName);
+
     }
 
     @NonNull
@@ -52,6 +58,8 @@ public class KycPssDetailAdapter extends RecyclerView.Adapter<KycPssDetailAdapte
         String second = tokens.nextToken();// this will contain " they taste good"
         holder.textViewBank.setText(first);
         holder.textViewDocumentsText.setText(second);
+        holder.textViewKycPartner.setText(entityName);
+        holder.textViewKycStatus.setText("Status "+kycPSSDetailsModel.getOverall_Status()+"");
 
 
         holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {

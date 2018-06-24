@@ -139,6 +139,16 @@ public class KycBillingAdapter extends RecyclerView.Adapter<KycBillingAdapter.My
             editMobile = itemView.findViewById(R.id.editMobile);
 
 
+            editState.setEnabled(false);
+            editAddress.setEnabled(false);
+            editCity.setEnabled(false);
+            editGstin.setEnabled(false);
+            editContactPerson.setEnabled(false);
+            editMobile.setEnabled(false);
+            spinnerAddressType.setEnabled(false);
+            spinnerBusinessType.setEnabled(false);
+
+
             //magic code for editText
             this.myCustomEditTextListener = myCustomEditTextListener;
             this.editAddress.addTextChangedListener(myCustomEditTextListener);

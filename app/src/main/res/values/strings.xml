@@ -127,8 +127,8 @@
     <string name="total_discount">Total Discount</string>
     <string name="rounding_off">Rounding off</string>
     <string name="less_details">Less Details</string>
-    <string name="select_all">SELECT ALL</string>
-    <string name="otc_discount">OTC DISCOUNT</string>
+    <string name="select_all">Select All</string>
+    <string name="otc_discount">OTC Discount</string>
     <string name="cgst">CGST</string>
     <string name="sgst">SGST</string>
     <string name="otc_discount_details">OTC Discount Details</string>
@@ -310,8 +310,8 @@
     <string name="enter_received_amount">Enter Received Amount</string>
     <string name="enter_return_amount">Enter Return Amount</string>
     <string name="enter_expiration_date">Expiration Date</string>
-    <string name="new_billing_cart_message"><![CDATA[Do you want to save cart & Proceed?]]></string>
-    <string name="form_submitted_successfully">Form submitted successfully</string>
+    <string name="new_billing_cart_message">Do you want to save cart &amp; Proceed?</string>
+    <string name="form_submitted_successfully">Form submmited succesfully</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -366,10 +366,20 @@
     <string name="title_b2b_order_center">B2B Order Center</string>
     <string name="title_b2b_ddr_select">B2B DDR Select</string>
     <string name="no_item_available">No Item Available</string>
+    <string name="auto">Auto</string>
+    <string name="manual">Manual</string>
+    <string name="stock_update">Stock Update</string>
+    <string name="retail_product">Retail Product</string>
+    <string name="redeem_customer_email_not_authorised">Please update customer email ID</string>
+    <string name="redeem_customer_points_not_sufficient">Customer points not sufficient</string>
     <string name="ddr_items_details">Items Details</string>
     <string name="ddr_save_close"><![CDATA[SAVE & CLOSE]]></string>
     <string name="ddr_submit">Submit</string>
     <string name="ddr_close">Close</string>
+    <string name="net_total">Net Total (-Disc)</string>
+    <string name="retail_outbox">Retail Outbox</string>
+    <string name="string_cancelled">Canceled</string>
+    <string name="listEmptyCancelled">List is empty</string>
 
 
 </resources>

@@ -69,7 +69,12 @@ public class DiscountDeleteFragment extends DialogFragment
             tvItemQty.setText("Qty " + datum.getQty());
             tvItemPrice.setText(getResources().getString(R.string.Rs) + " " + datum.getSProductPrice());
             tvDiscount.setText(datum.getDiscount().get(posChildDeleteItem).getSDiscountName());
-            tvDiscountPrice.setText("Total: "+getResources().getString(R.string.Rs) + " "+datum.getDiscount().get(posChildDeleteItem).getDiscountTotal());
+            if(datum.getDiscount().get(posChildDeleteItem).getDiscountTotal()!=0.0) {
+                tvDiscountPrice.setText("Total: " + getResources().getString(R.string.Rs) + " " + datum.getDiscount().get(posChildDeleteItem).getDiscountTotal());
+                tvDiscountPrice.setVisibility(View.VISIBLE);
+            }else {
+                tvDiscountPrice.setVisibility(View.GONE);
+            }
         }else {
             tvItemName.setText(datum1.getSProductName());
             tvItemWeight.setText(datum1.getSProductWeight() + " gm");
@@ -82,6 +87,8 @@ public class DiscountDeleteFragment extends DialogFragment
         // Build dialog
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        builder.setCancelable(false);
+        builder.setCanceledOnTouchOutside(false);
         builder.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         builder.setContentView(view);
         return builder;

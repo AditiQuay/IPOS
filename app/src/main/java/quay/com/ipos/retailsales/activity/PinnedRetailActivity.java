@@ -101,45 +101,45 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
 
-        final GestureDetector mGestureDetector = new GestureDetector(this,
-                new GestureDetector.SimpleOnGestureListener() {
-
-                    @Override
-                    public boolean onSingleTapUp(MotionEvent e) {
-                        return true;
-                    }
-
-                });
-
-        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-
-            @Override
-            public void onTouchEvent(RecyclerView arg0, MotionEvent arg1) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean arg0) {
-
-            }
-
-            @SuppressWarnings("deprecation")
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView arg0, MotionEvent motionEvent) {
-                View child = arg0.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
-
-                if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
-                    mSelectedpos = arg0.getChildPosition(child);
-                    AppLog.e(TAG, "item:: " + arg0.getChildPosition(child));
-                    selectPinned(arg0.getChildPosition(child));
-                    return true;
-
-                }
-
-                return false;
-            }
-
-        });
+//        final GestureDetector mGestureDetector = new GestureDetector(this,
+//                new GestureDetector.SimpleOnGestureListener() {
+//
+//                    @Override
+//                    public boolean onSingleTapUp(MotionEvent e) {
+//                        return true;
+//                    }
+//
+//                });
+//
+//        mRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+//
+//            @Override
+//            public void onTouchEvent(RecyclerView arg0, MotionEvent arg1) {
+//
+//            }
+//
+//            @Override
+//            public void onRequestDisallowInterceptTouchEvent(boolean arg0) {
+//
+//            }
+//
+//            @SuppressWarnings("deprecation")
+//            @Override
+//            public boolean onInterceptTouchEvent(RecyclerView arg0, MotionEvent motionEvent) {
+//                View child = arg0.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+//
+//                if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
+//                    mSelectedpos = arg0.getChildPosition(child);
+//                    AppLog.e(TAG, "item:: " + arg0.getChildPosition(child));
+////                    selectPinned(arg0.getChildPosition(child));
+//                    return true;
+//
+//                }
+//
+//                return false;
+//            }
+//
+//        });
     }
 
     private void selectPinned(int childPosition) {
@@ -187,6 +187,11 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View view) {
         int id = view.getId();
         switch (id){
+            case R.id.textViewChildName:
+                int pos1 = (int) view.getTag();
+                selectPinned(pos1);
+                break;
+
             case R.id.imvClose:
                 int pos = (int) view.getTag();
                 pinned_pos = pos;
