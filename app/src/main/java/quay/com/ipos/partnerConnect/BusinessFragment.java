@@ -36,6 +36,7 @@ import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.BusinessAdapter;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.OnItemChangeListener;
 import quay.com.ipos.partnerConnect.partnerConnectModel.BusinessModel;
+import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.FontUtil;
 
 /**
@@ -106,6 +107,7 @@ public class BusinessFragment extends Fragment implements InitInterface, View.On
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }
+        textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , pcModel.psslastUpdated));
 
         List<KeyBusinessInfo> data = pcModel.Business.KeyBusinessInfo;
         businessAdapter.loadData(data);

@@ -29,6 +29,7 @@ import quay.com.ipos.partnerConnect.model.Account;
 import quay.com.ipos.partnerConnect.model.Cheques;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.AccountAdapter;
+import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.EqualSpacingItemDecoration;
 
 public class AccountFragment extends Fragment implements InitInterface, View.OnClickListener {
@@ -43,6 +44,7 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
     private EditText editAccountHolderName, editAccountNo;
     private MaterialSpinner spinnerAccountType;
     private EditText editIFSCCode, editBankName, editBranchAddress;
+    private TextView textViewLastUpdated;
 
     private View btnAdd;
     private PCModel mpcModel;
@@ -67,6 +69,7 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
     @Override
     public void findViewById() {
         btnAdd = view.findViewById(R.id.btnAdd);
+        textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
 //        textViewMadatory = view.findViewById(R.id.textViewMadatory);
 //        textViewAccountInfoHeading = view.findViewById(R.id.textViewAccountInfoHeading);
 //        textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
@@ -168,6 +171,7 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }
+        textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , mpcModel.psslastUpdated));
 
         account = pcModel.Account.get(0);
         if (account != null) {

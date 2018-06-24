@@ -20,6 +20,7 @@ import quay.com.ipos.partnerConnect.adapter.RelOneAdapter;
 import quay.com.ipos.partnerConnect.adapter.RelThreeAdapter;
 import quay.com.ipos.partnerConnect.adapter.RelTwoAdapter;
 import quay.com.ipos.partnerConnect.model.PCModel;
+import quay.com.ipos.utility.DateAndTimeUtil;
 
 
 public class KYCRelationShipFragment extends Fragment {
@@ -119,7 +120,8 @@ public class KYCRelationShipFragment extends Fragment {
         }
         //Toast.makeText(getActivity(), "I am here", Toast.LENGTH_SHORT).show();
         mRelationShipName.setText(pcModel.RelationShipName);
-        mLastUpdate.setText(pcModel.psslastUpdated);
+        mLastUpdate.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , pcModel.psslastUpdated));
+
         mtxtPssEntityName.setText(pcModel.Relationship.pssEntityName);
         recyclerViewOne.setAdapter(new RelOneAdapter(pcModel.Relationship.pssLOBS));
         recyclerViewTwo.setAdapter(new RelTwoAdapter(pcModel.Relationship.pssPrincipleContact));
