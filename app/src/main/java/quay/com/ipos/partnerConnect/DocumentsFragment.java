@@ -308,7 +308,7 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
 
                 break;
             case R.id.btnPhotoUpload:
-
+                gotToCamera2(imageViewphoto, "PrimaryContactPhoto", 1);
 
              //   onAttachFileClicked();
                 break;
@@ -339,6 +339,18 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
                 openImageDialogNew(picUrl);
             }
         });
+    }private void gotToGallery(final ImageView v, String name, int reqCode) {
+        Log.i(TAG, "gotToCamera2");
+       /* pictureManager.onClickCamera("PICTURE" + "_" + name, reqCode, new PictureManager.GetPicURLListener() {
+            @Override
+            public void onGetPicURL(String picUrl, int reqFor) {
+                //  imageViewTowerPath = picUrl ;
+                Log.i(TAG, "picUrl" + picUrl.toString());
+                Glide.with(getActivity()).load(picUrl).override(v.getWidth(), v.getHeight()).into(v);
+                openImageDialogNew(picUrl);
+            }
+        });*/
+      // pictureManager.;
     }
 
     @Override
