@@ -1,5 +1,7 @@
 package quay.com.ipos.modal;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class LoginResult {
@@ -12,6 +14,9 @@ public class LoginResult {
      */
 
     private int Code;
+    @SerializedName("Globalsetting")
+    public GlobalSettings globalsettings;
+
     private UserAccessBean UserAccess;
     private List<UserMenuBean> UserMenu;
 

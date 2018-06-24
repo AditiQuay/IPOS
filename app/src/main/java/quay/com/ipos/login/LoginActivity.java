@@ -264,6 +264,8 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     LoginResult loginResult = (LoginResult) resultObj;
 
                     Log.e(TAG, "loginResult" + new Gson().toJson(loginResult));
+                    String globalSettingsJson = new Gson().toJson(loginResult.globalsettings);
+                    Prefs.putStringPrefs(Constants.globalSettings, globalSettingsJson);
 
                     Gson gson = new GsonBuilder().create();
                     gson.fromJson(serverResponse, LoginResult.class);
@@ -283,8 +285,8 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     //new  RealmController().saveUserDetail(userdata);
 
 
-//                    Intent i = new Intent(mContext, MainActivity.class);
-//                    startActivity(i);
+                  //   Intent i = new Intent(mContext, MainActivity.class);
+                  //   startActivity(i);
                     searchProductCall(loginResult.getUserAccess().getWorklocationID() + "");
                 }
             } else if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT)) {

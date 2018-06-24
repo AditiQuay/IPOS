@@ -2,6 +2,7 @@ package quay.com.ipos.service;
 
 import android.os.AsyncTask;
 import android.os.Build;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,11 +12,16 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
-import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Type;
 
+import okhttp3.Interceptor;
+import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.modal.GlobalSettings;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 
 
 /**
@@ -47,7 +53,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
          * @param resultType    the result type
          * @param resultObj     the result obj
          */
-        public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj,String serverResponse);
+        public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse);
     }
 
     /**
@@ -109,11 +115,11 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
      */
     private boolean isSetHeader = true;
 
-    private RequestBody fileToUpload = null;
+    private  okhttp3.RequestBody fileToUpload = null;
 
     private String getParameters;
 
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public static final  okhttp3.MediaType JSON = okhttp3. MediaType.parse("application/json; charset=utf-8");
 
     /**
      * Sets the listener.
@@ -124,7 +130,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
         this.listener = listener;
     }
 
-    public void setPhotoEntity(RequestBody fileToUpload) {
+    public void setPhotoEntity( okhttp3.RequestBody fileToUpload) {
         this.fileToUpload = fileToUpload;
     }
 
@@ -173,6 +179,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
     public void setServerResponse(String serverResponse) {
         this.serverResponse = serverResponse;
     }
+
     /**
      * @param paramObj the paramObj to set
      */
@@ -185,10 +192,10 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
     }
 
     /*
-         * (non-Javadoc)
-         *
-         * @see android.os.AsyncTask#onPreExecute()
-         */
+     * (non-Javadoc)
+     *
+     * @see android.os.AsyncTask#onPreExecute()
+     */
     @Override
     protected void onPreExecute() {
         AppLog.e(TAG, "onPreExecute++");
@@ -212,15 +219,17 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
             try {
                 String methodUrl = apiUrl;
                 if (null != apiMethod && false == apiMethod.isEmpty()) {
-                    methodUrl = apiUrl + apiMethod ;
+                    methodUrl = apiUrl + apiMethod;
                 }
                 AppLog.e(TAG, "methodUrl: " + methodUrl);
-                OkHttpClient client = new OkHttpClient();
-                Request request = null;
 
+                okhttp3.OkHttpClient.Builder clientBuilder = new  okhttp3.OkHttpClient().newBuilder();
+                clientBuilder.addInterceptor(new RequestTokenInterceptor());
+
+                okhttp3.OkHttpClient client = clientBuilder.build();
+                okhttp3.Request request = null;
 
                 Gson gson = new GsonBuilder().create();
-
 
                 if (apiMethod.equals("upload.php")) {
 //                    RequestBody requestBody = new MultipartBody.Builder()
@@ -235,15 +244,22 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
 //                            .url("https://api.imgur.com/3/image")
 //                            .post(requestBody)
 //                            .build();
-                    request = new Request.Builder()
-                            .addHeader("Authorization",apiToken)
+
+
+
+                    request = new  okhttp3.Request.Builder()
+                           // .header("Authorization", accessToken)
+                           // .addHeader("GlobalSettings", new Gson().toJson(globalSettings))//new change for header
+
                             .url(methodUrl)
                             .post(fileToUpload)
                             .build();
+
                 } else {
                     if (apiCallType == Constants.API_METHOD_GET) {
-                        request = new Request.Builder()
-                                .addHeader("Authorization",apiToken)
+                        request = new  okhttp3.Request.Builder()
+                              //  .header("Authorization", apiToken)
+                              //  .addHeader("GlobalSettings", new Gson().toJson(globalSettings))//new change for header
                                 .url(methodUrl + getParameters)
                                 .get()
                                 .build();
@@ -255,9 +271,10 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
                             String requestJson = gson.toJson(paramObj);
                             AppLog.e(TAG, "requestJson: " + methodUrl + requestJson);
 //                            AppLog.e(TAG, "requestJson: " + methodUrl + requestJson);
-                            RequestBody body = RequestBody.create(JSON, requestJson);
-                            request = new Request.Builder()
-                                    .addHeader("Authorization",apiToken)
+                            okhttp3.RequestBody body =  okhttp3.RequestBody.create(JSON, requestJson);
+                            request = new  okhttp3.Request.Builder()
+                                   // .header("Authorization", apiToken)
+                                   // .addHeader("GlobalSettings", new Gson().toJson(globalSettings))//new change for header
                                     .url(methodUrl)
                                     .post(body)
                                     .build();
@@ -273,7 +290,8 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
 //                    break;
 //                }
 
-                Response response = client.newCall(request).execute();
+
+                okhttp3.Response response = client.newCall(request).execute();
                 AppLog.e(TAG, "StatusCode : " + response.code());
                 statusCode = response.code();
                 if (200 == response.code()) {
@@ -286,7 +304,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
                         if (isCancelled()) {
                             break;
                         }
-                        serverResponse=responseJson;
+                        serverResponse = responseJson;
                         resultObj = gson.fromJson(responseJson, resultType);
                         responseJson = null;
                     } else {
@@ -320,7 +338,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
         AppLog.e(TAG, "onPostExecute++");
         super.onPostExecute(result);
         if (null != listener && false == isCancelled()) {
-            listener.onResult(apiUrl, apiMethod, statusCode, resultType, resultObj,serverResponse);
+            listener.onResult(apiUrl, apiMethod, statusCode, resultType, resultObj, serverResponse);
         } else {
             AppLog.e(TAG, "listener is null!!!");
         }
@@ -336,4 +354,6 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
             execute((Void[]) null);
         }
     }
+
+
 }
