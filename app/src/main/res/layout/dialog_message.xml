@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:visibility="visible"
-    android:padding="@dimen/dim_10"
     android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -15,9 +14,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:padding="@dimen/dim_10"
             android:textSize="@dimen/text_size_15sp"
+            android:textColor="@color/white"
+            android:text="@string/confirm_action"
+            android:background="@color/colorPrimary"
             app:typeface="TitilliumWeb-Bold.ttf"/>
 
 
@@ -28,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:padding="@dimen/dim_10"
             android:textSize="@dimen/text_size_15sp" />
         <LinearLayout

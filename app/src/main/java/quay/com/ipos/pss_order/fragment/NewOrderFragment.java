@@ -1671,7 +1671,7 @@ if (realmNewOrderCarts.getQty()>1) {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Util.showToast("Product Scanned Successfully");
+                        Util.showToast("Product added Successfully");
                         imvStatus.setBackgroundResource(R.drawable.circle_disabled);
                         flScanner.setVisibility(View.GONE);
                         closeFragment();
@@ -2110,7 +2110,7 @@ if (realmNewOrderCarts.getQty()>1) {
                 JSONObject jsonObject=new JSONObject(json);
                 jsonObject.put(RetailSalesEnum.isAdded.toString(),true);
                 jsonObject.put(RetailSalesEnum.qty.toString(),1);
-                jsonObject.put(RetailSalesEnum.totalPrice.toString(),jsonObject.optDouble("SProductPrice"));
+                jsonObject.put(RetailSalesEnum.totalPrice.toString(),jsonObject.optDouble("sProductPrice"));
               //  int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
             //    jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
                 saveResponseLocal(jsonObject,"P00001");

@@ -90,6 +90,9 @@ public class Constants {
     public static final String KEY_CUSTOMER_POINTS_PER = "CUSTOMER_POINTS_PER" ;
     public static final String KEY_CUSTOMER_POINTS_EMAIL = "CUSTOMER_POINTS_EMAIL";
     public static final String KEY_ORDER_ID = "KEY_ORDER_ID";
+    public static final int APP_DIALOG_DELETE_ITEM = 6;
+    public static final int APP_DIALOG_OTC_DIALOG_1 = 7;
+    public static final String APP_DIALOG_CUSTOMER = "app_dialog_customer";
     public static int APP_DIALOG_Pinned_ORDER=3;
 
     public static String UserProfilePic = "http://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png";

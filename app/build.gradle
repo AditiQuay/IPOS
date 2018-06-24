@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "quay.com.ipos"
-        minSdkVersion 19
+        minSdkVersion 15
         targetSdkVersion 26
         multiDexEnabled true
         versionCode 1
@@ -21,7 +21,7 @@ android {
     productFlavors {
         dev {
             dimension "tier"
-            minSdkVersion 23
+            minSdkVersion 19
             // The following configuration limits the "dev" flavor to using
             // English stringresources and xxhdpi screen-density resources.
             resConfigs "en", "xxhdpi"
@@ -52,7 +52,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.android.support:multidex:1.0.1'

@@ -91,7 +91,7 @@
     <string name="add">Add</string>
     <string name="fa_trash">&#xf1f8;</string>
     <string name="select_camera">Select Camera</string>
-    <string name="ok_button">Ok</string>
+    <string name="ok_button">OK</string>
     <string name="cancel_button">Cancel</string>
 
     <string name="toolBar_title_kyc_activity">KYC</string>
@@ -260,7 +260,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="delete_item_message">Do you want to Delete this Item?</string>
-    <string name="confirm_action">Confirm action</string>
+    <string name="confirm_action">Confirm Action</string>
     <string name="redeem_cannot_applied">Redeem cannot be applied with empty list</string>
     <string name="redeem_customer_not_authorised">Please select customer first.</string>
     <string name="pinned_empty">Pinned List is empty</string>
@@ -380,6 +380,11 @@
     <string name="retail_outbox">Retail Outbox</string>
     <string name="string_cancelled">Canceled</string>
     <string name="listEmptyCancelled">List is empty</string>
+    <string name="add_mark">+</string>
+    <string name="otc_discount_validation">Please enter valid discount percentage</string>
+    <string name="discount_perc_exceeds">Discount percentage exceeds!</string>
+    <string name="discount_val_exceeds">Discount value exceeds!</string>
+    <string name="disc_perc_val_validation">Please enter discount value/percentage</string>
 
 
 </resources>
