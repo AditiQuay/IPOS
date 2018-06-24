@@ -117,7 +117,7 @@
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
                 android:gravity="center"
-                android:src="@drawable/ic_pending" />
+                android:src="@drawable/ic_action_online_shop" />
 
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvOrderName"
@@ -161,7 +161,7 @@
 
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dim_2"
-                    android:background="@drawable/pending_white"/>
+                    android:background="@drawable/loyalty_white"/>
 
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvStatus"
@@ -247,28 +247,12 @@
                 android:layout_weight="1"
                 android:gravity="center|center_vertical"
                 android:orientation="vertical">
-
-                <RelativeLayout
+                <quay.com.ipos.ui.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    >
-                    <quay.com.ipos.ui.CustomTextView
-                        android:id="@+id/deliver"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dim_8"
-                        android:layout_centerVertical="true"
-                        android:text="@string/deliverby"
-                        android:textColor="@color/filter_text_color" />
-
-                    <ImageView
-                        android:layout_width="@dimen/dim_24"
-                        android:layout_height="@dimen/dim_24"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="8dp"
-                        android:layout_toRightOf="@+id/deliver"
-                        android:background="@drawable/calendar"/>
-                </RelativeLayout>
+                    android:layout_marginTop="@dimen/dim_8"
+                    android:text="@string/deliverby"
+                    android:textColor="@color/filter_text_color" />
 
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/deliverDate"
@@ -338,7 +322,8 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="@dimen/dim_4"
                 android:layout_marginEnd="@dimen/dim_4"
-                android:gravity="center" />
+                android:gravity="center"
+                app:srcCompat="@drawable/ic_shopping_cart" />
 
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvEtaDate"
@@ -519,7 +504,7 @@
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
                 android:layout_centerVertical="true"
-                app:srcCompat="@drawable/ic_location"
+                app:srcCompat="@drawable/ic_calendar"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 />
@@ -591,7 +576,7 @@
                 android:layout_marginLeft="@dimen/dim_4"
                 android:layout_marginStart="@dimen/dim_4"
                 android:layout_centerVertical="true"
-                app:srcCompat="@drawable/product_detail"
+                app:srcCompat="@drawable/ic_calendar"
                 android:layout_gravity="center_vertical"
                 android:gravity="center"
                 />

@@ -179,7 +179,7 @@
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:background="@drawable/ic_discount_icon"/>
+                android:background="@drawable/loyalty_app"/>
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/discount"
                 android:layout_width="0dp"

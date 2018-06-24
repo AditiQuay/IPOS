@@ -77,7 +77,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
     private String poNumber;
     private LinearLayout llAccept,llCancel,llDate,llRedeem;
     private TextView deliverDate;
-    private int dAccumulatedPoints;
+    private double dAccumulatedPoints;
     private double perPoints=0;
     private TextView tvResendOTP;
     private LinearLayout llRedeemValue;
@@ -242,9 +242,9 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         RealmOrderList realmOrderLists=realm.where(RealmOrderList.class).equalTo("poNumber","P00001").findFirst();
 
         if (realmOrderLists!=null){
-            int redeeem=0;
+            double redeeem=0;
             if (etRedeemValue!=null && Util.validateString(etRedeemValue.getText().toString()))
-            redeeem= Integer.parseInt(etRedeemValue.getText().toString());
+            redeeem= Double.parseDouble(etRedeemValue.getText().toString());
             poNumber=realmOrderLists.getPoNumber();
             prepareData(realm,realmOrderLists);
             tvOrderName.setText(realmOrderLists.getPoNumber());
@@ -266,13 +266,12 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             deliverDate.setText(Util.getFormattedDates(realmOrderLists.getDeliveryBy(),Constants.format6,Constants.format2));
            // deliverDate.setText(realmOrderLists.getDeliveryBy());
             loyaltyPoints.setText(realmOrderLists.getOrderLoyality()+"");
-            dAccumulatedPoints= (int) realmOrderLists.getAccumulatedLoyality();
-            accumulatedPoints.setText(( dAccumulatedPoints-redeeem)+"");
-
+            accumulatedPoints.setText((realmOrderLists.getAccumulatedLoyality()-redeeem)+"");
+            dAccumulatedPoints=realmOrderLists.getAccumulatedLoyality();
             totalPoints.setText((realmOrderLists.getAccumulatedLoyality()+realmOrderLists.getOrderLoyality())+"");
             customerName.setText(Prefs.getStringPrefs(Constants.EntityName));
             discount.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
-            tvOrderValue.setText("Order Value "+getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getOrderValue()-redeeem));
+            tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getOrderValue()-redeeem));
             tvTotalQty.setText(realmOrderLists.getQuantity()+"");
             tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat((realmOrderLists.getTotalValueWithoutTax()-realmOrderLists.getDiscountValue())));
             tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getTotalCGSTValue())+"");
@@ -386,12 +385,11 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
                 if (!isShipArrow){
                     isShipArrow=true;
                     recycler_viewAddress.setVisibility(View.GONE);
-                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
-
+                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
                 }else {
                     recycler_viewAddress.setVisibility(View.VISIBLE);
                     isShipArrow=false;
-                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
+                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
                 }
             }
         });
@@ -401,12 +399,11 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
                 if (!isItemDetailsArrow){
                     isItemDetailsArrow=true;
                     recycler_viewRecentOrders.setVisibility(View.GONE);
-
-                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
+                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
                 }else {
                     recycler_viewRecentOrders.setVisibility(View.VISIBLE);
                     isItemDetailsArrow=false;
-                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
+                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
                 }
             }
         });
@@ -505,7 +502,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
     }
 
-    public void showDialogOTP(Activity activity, final int dAccumulatedPoints){
+    public void showDialogOTP(Activity activity, final double dAccumulatedPoints){
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);

@@ -105,7 +105,6 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public ImageView imvOffer;
         public TextView tvTotalPoints,tvStocks;
         public LinearLayout llAddMinus,llStocks,llRefreshStocks;
-        private ImageView imgLoyal;
 
 
         public UserViewHolder(View itemView) {
@@ -133,7 +132,6 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             llStocks=itemView.findViewById(R.id.llStocks);
             tvStocks=itemView.findViewById(R.id.tvStocks);
             llRefreshStocks=itemView.findViewById(R.id.llRefreshStocks);
-            imgLoyal=itemView.findViewById(R.id.imgLoyal);
         }
     }
 
@@ -170,32 +168,19 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 if (Util.validateString(str.getsProductName()))
                     userViewHolder.tvItemName.setText(str.getsProductName());
                 userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(str.getsProductPrice()));
-
+                userViewHolder.etQtySelected.setText(str.getQty() + "");
                 userViewHolder.tvItemStockAvailabilty.setText(str.getsProductStock().substring(0, 1).toUpperCase() + str.getsProductStock().substring(1).toLowerCase());
                 userViewHolder.tvPoints.setText(str.getPoints() + " Pts.");
                 userViewHolder.tvTotalPoints.setText(str.getTotalPoints() + " Pts.");
 
                 if (str.isFreeItem()) {
-                    userViewHolder.llStocks.setVisibility(View.GONE);
-                    userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
-                    userViewHolder.tvTotalPoints.setText("Free");
-                    userViewHolder.tvTotalPoints.setTextColor(mContext.getResources().getColor(R.color.green));
-                    userViewHolder.imgLoyal.setVisibility(View.GONE);
-                    userViewHolder.etQtySelected.setText(+str.getQty() + " Qty");
-                    userViewHolder.tvPlus.setVisibility(View.GONE);
-                    userViewHolder.tvMinus.setVisibility(View.GONE);
                     userViewHolder.imvOffer.setVisibility(View.GONE);
-                    userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+Util.indianNumberFormat(str.getTotalPrice()));
+                    userViewHolder.tvTotalPrice.setText(" Free " + str.getQty()+" x "+mContext.getResources().getString(R.string.Rs) +" "+Util.indianNumberFormat(str.getsProductPrice()));
 
                     userViewHolder.tvTotalPrice.setPaintFlags(userViewHolder.tvTotalPrice.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                     userViewHolder.tvCheckStock.setVisibility(View.GONE);
-                  //  userViewHolder.llAddMinus.setVisibility(View.GONE);
-
+                    userViewHolder.llAddMinus.setVisibility(View.GONE);
                 } else {
-                    userViewHolder.etQtySelected.setText(str.getQty() + "");
-                    userViewHolder.imgLoyal.setVisibility(View.VISIBLE);
-                    userViewHolder.tvPlus.setVisibility(View.VISIBLE);
-                    userViewHolder.tvMinus.setVisibility(View.VISIBLE);
                     if (str.isDiscount()) {
                         userViewHolder.imvOffer.setVisibility(View.VISIBLE);
                     } else {
@@ -209,47 +194,13 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                             userViewHolder.llStocks.setVisibility(View.VISIBLE);
                             userViewHolder.tvStocks.setText(mDataset.get(holder.getAdapterPosition()).getmCheckStock() + "");
                             userViewHolder.tvCheckStock.setVisibility(View.GONE);
-                            int stock = mDataset.get(holder.getAdapterPosition()).getmCheckStock();
-                            int toalqty = str.getQty();
-                            if (toalqty > stock){
-                                userViewHolder.tvItemStockAvailabilty.setText("Out of Stock");
-                            userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.red));
-                        } else if (toalqty<stock){
-                                userViewHolder.tvItemStockAvailabilty.setText((stock-toalqty)+" few left");
-                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.yellow));
-                            }else {
-                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
-                            }
                         }else {
                             userViewHolder.llStocks.setVisibility(View.GONE);
                             userViewHolder.tvStocks.setText(str.getmCheckStock() + "");
                             userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
-                            int stock = mDataset.get(holder.getAdapterPosition()).getmCheckStock();
-                            int toalqty = str.getQty();
-                            if (toalqty > stock){
-                                userViewHolder.tvItemStockAvailabilty.setText("Out of Stock");
-                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.red));
-                            } else if (toalqty<stock){
-                                userViewHolder.tvItemStockAvailabilty.setText((stock-toalqty)+" few left");
-                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.yellow));
-                            }else {
-                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
-                            }
                         }
 
                     } else {
-                        int stock = mDataset.get(holder.getAdapterPosition()).getmCheckStock();
-                        int toalqty = str.getQty();
-                        if (toalqty > stock){
-                            userViewHolder.tvItemStockAvailabilty.setText("Out of Stock");
-                            userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.red));
-                        } else if (toalqty<stock){
-                            userViewHolder.tvItemStockAvailabilty.setText((stock-toalqty)+" few left");
-                            userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.yellow));
-                        }else {
-                            userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
-                        }
-
                         userViewHolder.tvCheckStock.setVisibility(View.GONE);
                     }
                     userViewHolder.llAddMinus.setVisibility(View.VISIBLE);

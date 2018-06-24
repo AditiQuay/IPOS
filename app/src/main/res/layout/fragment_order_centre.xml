@@ -36,7 +36,7 @@
                         android:layout_marginLeft="@dimen/dim_4"
                         android:layout_marginStart="@dimen/dim_4"
                         android:gravity="center"
-                        android:src="@drawable/order_summary" />
+                        android:src="@drawable/ic_action_online_shoping" />
 
                     <TextView
                         android:id="@+id/tvStoreName"
@@ -276,145 +276,21 @@
                 android:background="@color/white">
 
                 <quay.com.ipos.ui.CustomTextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_8"
                     android:id="@+id/tvNewStatus"
-
                     android:padding="8dp"
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/black"
-                    android:gravity="start|center_vertical"
-                    android:text="New Orders"/>
+                    android:gravity="center"
+                    android:text="@string/new_orders"/>
 
                 <include layout="@layout/view_layout_without_dot"/>
 
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/llNewRecyclerAccept"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white">
-
-                <quay.com.ipos.ui.CustomTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvNewStatusAccept"
-
-                    android:padding="8dp"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/black"
-                    android:gravity="start|center_vertical"
-                    android:text="Accepted"/>
-
-                <include layout="@layout/view_layout_without_dot"/>
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_viewAccepted"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/llNewRecyclerDispatch"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white">
-
-                <quay.com.ipos.ui.CustomTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvNewStatusDispatch"
-
-                    android:padding="8dp"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/black"
-                    android:gravity="start|center_vertical"
-                    android:text="@string/Dispatched"/>
-
-                <include layout="@layout/view_layout_without_dot"/>
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_viewDispatch"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/llNewRecyclerDelivered"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white">
-
-                <quay.com.ipos.ui.CustomTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvNewStatusDelivered"
-
-                    android:padding="8dp"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/black"
-                    android:gravity="start|center_vertical"
-                    android:text="Delivered"/>
-
-                <include layout="@layout/view_layout_without_dot"/>
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_viewDelivered"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                </android.support.v7.widget.RecyclerView>
-            </LinearLayout>
-            <LinearLayout
-                android:id="@+id/llNewRecyclerCancelled"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:layout_marginTop="@dimen/dim_8"
-                android:background="@color/white">
-
-                <quay.com.ipos.ui.CustomTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvNewStatusCannceled"
-
-                    android:padding="8dp"
-                    android:layout_gravity="center_vertical"
-                    android:textColor="@color/black"
-                    android:gravity="start|center_vertical"
-                    android:text="Cancelled Order"/>
-
-                <include layout="@layout/view_layout_without_dot"/>
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_viewCancelled"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
