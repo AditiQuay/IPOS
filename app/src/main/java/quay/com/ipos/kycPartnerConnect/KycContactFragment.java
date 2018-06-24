@@ -31,6 +31,7 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.KeyBusinessContactInfo;
 import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.partnerConnect.model.PCModel;
+import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.EqualSpacingItemDecoration;
 import quay.com.ipos.utility.FontUtil;
 
@@ -167,6 +168,7 @@ public class KycContactFragment extends Fragment implements InitInterface, View.
                 Log.i(TAG, "PCModel or PCModel.Business is null");
                 return;
             }
+            textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , PCModel.psslastUpdated));
 
             contactInfo = PCModel.Contact.keyBusinessContactInfo;
 

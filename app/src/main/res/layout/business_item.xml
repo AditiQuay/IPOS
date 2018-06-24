@@ -5,7 +5,7 @@
     android:id="@+id/cardViewProduct"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dim_8"
+
     android:orientation="vertical">
 
 

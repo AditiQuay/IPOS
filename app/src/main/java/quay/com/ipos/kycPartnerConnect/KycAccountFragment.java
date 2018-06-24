@@ -25,6 +25,7 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.Account;
 import quay.com.ipos.partnerConnect.model.Cheques;
 import quay.com.ipos.partnerConnect.model.PCModel;
+import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.EqualSpacingItemDecoration;
 
 public class KycAccountFragment extends Fragment implements InitInterface, View.OnClickListener {
@@ -135,6 +136,9 @@ public class KycAccountFragment extends Fragment implements InitInterface, View.
 
             return;
         }
+
+        textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , pcModel.psslastUpdated));
+
         if (pcModel.Account.size() == 0) {
             return;
         }
