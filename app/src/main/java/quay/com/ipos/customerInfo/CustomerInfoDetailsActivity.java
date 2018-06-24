@@ -39,6 +39,7 @@ import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.realmbean.RealmPinnedResults;
+import quay.com.ipos.ui.CustomTextView;
 import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
@@ -51,7 +52,8 @@ import quay.com.ipos.utility.Util;
 
 public class CustomerInfoDetailsActivity extends AppCompatActivity implements InitInterface, View.OnClickListener {
     private Toolbar toolbarCustomerInfoDetail;
-    private TextView textViewUserName, textViewMob, textViewEmail, textViewBill, textViewBirthDay, textViewPoints, textViewBillingAddress, textViewSuggestedBy, textViewWarningText, textViewRecentOrder, textViewStoreCount, textViewStoreAddress, textViewDate, textViewAmount, textViewUpdateAndProceed, tvPinCount;
+    private TextView textViewUserName, textViewMob, textViewEmail, textViewBill, textViewBirthDay, textViewPoints, textViewBillingAddress, textViewSuggestedBy, textViewWarningText, textViewRecentOrder, textViewStoreCount, textViewStoreAddress, textViewDate, textViewAmount, tvPinCount;
+    private CustomTextView textViewUpdateAndProceed;
     private ImageView imvBilling, imvPin;
     private CircleImageView imageViewProfileDummy;
     private LinearLayout lLayoutBottom;
@@ -359,6 +361,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
 
                 Intent i = new Intent(mContext, CustomerAddMain.class);
                 i.putExtra("Count", 1);
+                i.putExtra("isDetailClick",1);
                 i.putExtra("paymentModeClicked", paymentModeClicked);
                 startActivity(i);
                 break;

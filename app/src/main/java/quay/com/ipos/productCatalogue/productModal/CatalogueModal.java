@@ -129,6 +129,16 @@ public class CatalogueModal extends RealmObject {
     public String sProductFeature;
     public String sProductPrice;
     public String sDataSheet;
+
+    public String getsDataCalculator() {
+        return sDataCalculator;
+    }
+
+    public void setsDataCalculator(String sDataCalculator) {
+        this.sDataCalculator = sDataCalculator;
+    }
+
+    public String sDataCalculator;
     public String sPoints;
     public boolean isOnOffer;
     public boolean isCalculator;

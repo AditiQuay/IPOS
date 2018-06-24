@@ -3,6 +3,8 @@ package quay.com.ipos.inventory.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +24,11 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
     private Context mContext;
     private ArrayList<GrnItemQtyModel> grnItemQtyModels;
     MyListener myListener;
-    public InventoryGrnItemsListAdapter(Context mContext, ArrayList<GrnItemQtyModel>grnItemQtyModels,MyListener myListener){
+
+    public InventoryGrnItemsListAdapter(Context mContext, ArrayList<GrnItemQtyModel> grnItemQtyModels, MyListener myListener) {
         this.mContext = mContext;
         this.grnItemQtyModels = grnItemQtyModels;
-        this.myListener=myListener;
+        this.myListener = myListener;
     }
 
     @NonNull
@@ -37,19 +40,23 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
 
     @Override
     public void onBindViewHolder(@NonNull final ItmeViewHolder holder, int position) {
-            GrnItemQtyModel grnItemQtyModel = grnItemQtyModels.get(position);
-            holder.tvMaterialName.setText(grnItemQtyModel.getMaterialName());
-            holder.tvOpenQty.setText(grnItemQtyModel.getOpenQty()+"");
-            holder.tvInQty.setText(grnItemQtyModel.getInQty()+"");
-            holder.tvApQty.setText(grnItemQtyModel.getApQty()+"");
-            holder.tvBalanceQty.setText(grnItemQtyModel.getBalanceQty()+"");
+        GrnItemQtyModel grnItemQtyModel = grnItemQtyModels.get(position);
 
-            holder.item.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    myListener.onRowClicked(holder.getAdapterPosition());
-                }
-            });
+        SpannableString content = new SpannableString(grnItemQtyModel.getMaterialName());
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        holder.tvMaterialName.setText(content);
+
+        holder.tvOpenQty.setText(grnItemQtyModel.getOpenQty() + "");
+        holder.tvInQty.setText(grnItemQtyModel.getInQty() + "");
+        holder.tvApQty.setText(grnItemQtyModel.getApQty() + "");
+        holder.tvBalanceQty.setText(grnItemQtyModel.getBalanceQty() + "");
+
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myListener.onRowClicked(holder.getAdapterPosition());
+            }
+        });
 
 
     }
@@ -61,10 +68,11 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
 
     public class ItmeViewHolder extends RecyclerView.ViewHolder {
         private final View item;
-        private TextView tvMaterialName,tvOpenQty,tvInQty,tvApQty,tvBalanceQty;
+        private TextView tvMaterialName, tvOpenQty, tvInQty, tvApQty, tvBalanceQty;
+
         public ItmeViewHolder(View itemView) {
             super(itemView);
-            item=itemView;
+            item = itemView;
             tvMaterialName = itemView.findViewById(R.id.tvMaterialName);
             tvOpenQty = itemView.findViewById(R.id.tvOpenQty);
             tvInQty = itemView.findViewById(R.id.tvInQty);

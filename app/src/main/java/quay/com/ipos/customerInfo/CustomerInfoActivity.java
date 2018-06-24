@@ -87,6 +87,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     public void findViewById() {
         toolbarCustomerInfo = findViewById(R.id.toolbarCustomerInfo);
         searchViewCatalogue = findViewById(R.id.searchViewCatalogue);
+        searchViewCatalogue.clearFocus();
         recyclerviewCustomerCard = findViewById(R.id.recyclerviewCustomerCard);
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

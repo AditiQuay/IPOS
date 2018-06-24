@@ -137,6 +137,12 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
                 dataSheetDownloadListener.onCartBtnClick(position);
             }
         });
+        holder.btnCalculator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataSheetDownloadListener.onCalculatorSheetDownload(position);
+            }
+        });
     }
 
     @Override
