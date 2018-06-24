@@ -623,52 +623,47 @@
         android:id="@+id/lLayoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/dim_8"
-        android:baselineAligned="false"
-        android:onClick="onClick"
-        android:orientation="horizontal">
+        android:background="@color/colorPrimary">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvTotalDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:gravity="end"
-            android:padding="@dimen/dim_10">
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:text="@string/Rs"
+            android:paddingLeft="@dimen/dim_5"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            android:textSize="@dimen/text_size_15sp" />
 
-            <TextView
-                android:id="@+id/textViewUpdateAndProceed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="@dimen/dim_8"
-                android:paddingStart="@dimen/dim_8"
-                android:text="@string/proceed_update"
-                android:textColor="@color/side_view"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/textViewUpdateAndProceed"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:background="@color/side_view">
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="@dimen/dim_10"
+            android:text="@string/proceed_update"
+            android:paddingRight="@dimen/dim_8"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15sp"/>
 
-            <RelativeLayout
-                android:id="@+id/rLayoutArrow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/dim_9">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_action_arrow_white" />
-
-            </RelativeLayout>
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/imvRight"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:paddingLeft="@dimen/dim_15"
+            android:paddingRight="@dimen/dim_15"
+            android:src="@drawable/ic_action_arrow_right"
+            android:background="@color/colorAccentDark"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"/>
     </LinearLayout>
+
 
 </RelativeLayout>

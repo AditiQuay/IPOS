@@ -41,7 +41,7 @@
             android:elevation="2dp"
             android:inputType="number"
             app:iconifiedByDefault="false"
-            app:queryHint="Enter Mobile Number" />
+            app:queryHint="Search..." />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerviewCustomerCard"

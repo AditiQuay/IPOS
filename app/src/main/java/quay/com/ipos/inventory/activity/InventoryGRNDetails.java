@@ -312,7 +312,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     private void getExpandableData() {
         Realm realm = Realm.getDefaultInstance();
-//        RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).eualTo("grnNumber", poNumber)q.findFirst();
         RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
         if (realmGRNDetails != null) {
             try {

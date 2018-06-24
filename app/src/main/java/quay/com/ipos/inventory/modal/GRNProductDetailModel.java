@@ -12,6 +12,9 @@ public class GRNProductDetailModel implements Serializable {
     private int actionID;
     private int qty;
 
+    public boolean isSelected;
+
+
     public String getNumber() {
         return number;
     }

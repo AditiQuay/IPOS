@@ -18,7 +18,7 @@ android {
 
     flavorDimensions "tier"
 
-    /* productFlavors {
+    productFlavors {
         dev {
             dimension "tier"
             minSdkVersion 23
@@ -27,7 +27,7 @@ android {
             resConfigs "en", "xxhdpi"
         }
 
-    }*/
+    }
 
     buildTypes {
         debug {

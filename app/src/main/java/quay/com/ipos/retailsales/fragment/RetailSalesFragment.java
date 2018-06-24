@@ -1884,13 +1884,13 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             row = IPOSApplication.isClicked;
             setUpdateValues(IPOSApplication.mProductListResult);
             IPOSApplication.isClicked = row;
-//            mRecyclerView.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    mRetailSalesAdapter.notifyItemChanged(position);
-//
-//                }
-//            },1000);
+            mRecyclerView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mRetailSalesAdapter.notifyItemChanged(position);
+
+                }
+            },100);
 
         }
 

@@ -77,6 +77,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_pointsPer = "pointsPer";
     private static final String KEY_brandName = "brandName";
     private static final String KEY_customerID = "customerID";
+    private static final String KEY_orderID = "orderID";
     private static final String KEY_billing = "billing";
     private static final String KEY_sync = "sync";
     private static final String KEY_date_time = "date_time";
@@ -99,7 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_RETAIL_TABLE);
 
 
-        String CREATE_TABLE_BILLING = "CREATE TABLE " + TABLE_RETAIL_BILLING + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_customerID + " TEXT," + KEY_billing + " TEXT," + KEY_date_time + " TEXT," + KEY_timestamp + " TEXT," + KEY_sync + " TINYINT" + ")";
+        String CREATE_TABLE_BILLING = "CREATE TABLE " + TABLE_RETAIL_BILLING + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_customerID + " TEXT,"+KEY_orderID+" TEXT," + KEY_billing + " TEXT," + KEY_date_time + " TEXT," + KEY_timestamp + " TEXT," + KEY_sync + " TINYINT" + ")";
         db.execSQL(CREATE_TABLE_BILLING);
 
 
@@ -387,6 +388,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         //KEY_ID
         values.put(KEY_customerID, billingSync.getCustomerID());
+        values.put(KEY_orderID, billingSync.getOrderID());
         values.put(KEY_billing, billingSync.getBilling());
         values.put(KEY_date_time, billingSync.getOrderDateTime());
         values.put(KEY_timestamp, billingSync.getOrderTimestamp());
@@ -434,10 +436,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 BillingSync datum = new BillingSync();
                 datum.setCustomerID(cursor.getString(1));
-                datum.setBilling(cursor.getString(2));
-                datum.setOrderDateTime(cursor.getString(3));
-                datum.setOrderTimestamp(cursor.getString(4));
-                datum.setSync(cursor.getInt(5));
+                datum.setOrderID(cursor.getString(2));
+                datum.setBilling(cursor.getString(3));
+                datum.setOrderDateTime(cursor.getString(4));
+                datum.setOrderTimestamp(cursor.getString(5));
+                datum.setSync(cursor.getInt(6));
                 billingSyncs.add(datum);
             } while (cursor.moveToNext());
         }
@@ -459,10 +462,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 BillingSync datum = new BillingSync();
                 datum.setCustomerID(cursor.getString(1));
-                datum.setBilling(cursor.getString(2));
-                datum.setOrderDateTime(cursor.getString(3));
-                datum.setOrderTimestamp(cursor.getString(4));
-                datum.setSync(cursor.getInt(5));
+                datum.setOrderID(cursor.getString(2));
+                datum.setBilling(cursor.getString(3));
+                datum.setOrderDateTime(cursor.getString(4));
+                datum.setOrderTimestamp(cursor.getString(5));
+                datum.setSync(cursor.getInt(6));
                 billingSyncs.add(datum);
             } while (cursor.moveToNext());
         }
@@ -485,10 +489,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             do {
                 BillingSync datum = new BillingSync();
                 datum.setCustomerID(cursor.getString(1));
-                datum.setBilling(cursor.getString(2));
-                datum.setOrderDateTime(cursor.getString(3));
-                datum.setOrderTimestamp(cursor.getString(4));
-                datum.setSync(cursor.getInt(5));
+                datum.setOrderID(cursor.getString(2));
+                datum.setBilling(cursor.getString(3));
+                datum.setOrderDateTime(cursor.getString(4));
+                datum.setOrderTimestamp(cursor.getString(5));
+                datum.setSync(cursor.getInt(6));
                 billingSyncs.add(datum);
             } while (cursor.moveToNext());
         }

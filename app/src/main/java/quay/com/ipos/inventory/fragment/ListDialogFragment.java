@@ -18,6 +18,9 @@ import quay.com.ipos.R;
 import quay.com.ipos.inventory.adapter.OthersListAdapter;
 import quay.com.ipos.inventory.modal.OthersTabList;
 import quay.com.ipos.listeners.OthersTabListner;
+import quay.com.ipos.utility.DividerItemDecoration;
+
+import static android.widget.LinearLayout.VERTICAL;
 
 /**
  * Created by niraj.kumar on 6/23/2018.
@@ -25,7 +28,7 @@ import quay.com.ipos.listeners.OthersTabListner;
 
 public class ListDialogFragment extends DialogFragment implements OthersTabListner {
     private static final String ARG_PARAM1 = "data";
-    private RecyclerView recyclerviewButton;
+    private RecyclerView rvList;
     private Context mContext;
     private View main;
     private OthersListAdapter othersListAdapter;
@@ -70,12 +73,14 @@ public class ListDialogFragment extends DialogFragment implements OthersTabListn
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
-        recyclerviewButton = (RecyclerView) view.findViewById(R.id.recyclerviewButton);
+        rvList = (RecyclerView) view.findViewById(R.id.recyclerviewButton);
         // Show soft keyboard automatically and request focus to field
-        recyclerviewButton.setHasFixedSize(true);
-        recyclerviewButton.setLayoutManager(new LinearLayoutManager(mContext));
+        rvList.setHasFixedSize(true);
+        rvList.setLayoutManager(new LinearLayoutManager(mContext));
+        DividerItemDecoration decoration = new DividerItemDecoration(mContext, VERTICAL);
+        rvList.addItemDecoration(decoration);
         othersListAdapter = new OthersListAdapter(mContext, list, this);
-        recyclerviewButton.setAdapter(othersListAdapter);
+        rvList.setAdapter(othersListAdapter);
 
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);

@@ -46,14 +46,11 @@ import quay.com.ipos.productCatalogue.productCatalogueHelper.ProductCatalogueUti
 import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 import quay.com.ipos.productCatalogue.productModal.CatalogueRequestModel;
 import quay.com.ipos.productCatalogue.productModal.CatalogueServerModel;
-import quay.com.ipos.productCatalogue.productModal.ProductCatalogueServerModal;
-import quay.com.ipos.productCatalogue.productModal.ProductSectionModal;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.SharedPrefUtil;
-import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 4/17/2018.
@@ -88,7 +85,7 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
         mContext = CatalogueSubProduct.this;
         Intent i = getIntent();
         productName = i.getStringExtra("ProductName");
-        productId = i.getIntExtra("ProductId",0);
+        productId = i.getIntExtra("ProductId", 0);
 
         findViewById();
         applyInitValues();
@@ -200,6 +197,7 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
                 catalogueModal2.setsProductFeature(jsonObject.optString(ProductCatalogueEnum.sProductFeature.toString()));
                 catalogueModal2.setsProductPrice(jsonObject.optString(ProductCatalogueEnum.sProductPrice.toString()));
                 catalogueModal2.setsDataSheet(jsonObject.optString(ProductCatalogueEnum.sDataSheet.toString()));
+                catalogueModal2.setsDataCalculator(jsonObject.optString(ProductCatalogueEnum.sDataCalculator.toString()));
                 catalogueModal2.setsPoints(jsonObject.optString(ProductCatalogueEnum.sPoints.toString()));
                 catalogueModal2.setIsOnOffer(jsonObject.optBoolean(ProductCatalogueEnum.isOnOffer.toString()));
                 catalogueModal2.setIsCalculator(jsonObject.optBoolean(ProductCatalogueEnum.isCalculator.toString()));
@@ -268,6 +266,23 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
         Intent i = new Intent(mContext, ProductRangeActivity.class);
         i.putExtra("ProductCode", catalogueModal.getProductCode());
         startActivity(i);
+    }
+
+    @Override
+    public void onCalculatorSheetDownload(int position) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            CatalogueSubProduct.super.requestAppPermissions(ALL_PERMISSIONS, R.string.runtime_permissions_txt, REQUEST_PERMISSIONS, position);
+            this.clickedPosition = position;
+        } else {
+            CatalogueModal catalogueModal = catalogueModalsSet.get(position);
+            if (!TextUtils.isEmpty(catalogueModal.getsDataCalculator().trim())) {
+                // starting new Async Task
+                new DownloadFileFromURL().execute(catalogueModal.getsDataCalculator().trim());
+            } else {
+                Toast.makeText(mContext, "No attachment found !", Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 
     /**

@@ -10,7 +10,7 @@
         style="@style/styleWhiteTextColor14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="@color/button_tint_resource"
         android:drawablePadding="@dimen/dim_4"
         android:stateListAnimator="@null"
         android:text="Button"

@@ -28,6 +28,10 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,11 +48,9 @@ import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerChildAdapter;
 import quay.com.ipos.customerInfo.customerInfoModal.AddCustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CityListModel;
-import quay.com.ipos.customerInfo.customerInfoModal.CompanyListModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CountryListModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerSpinner;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerTypeListModel;
-import quay.com.ipos.customerInfo.customerInfoModal.DesignationListModel;
 import quay.com.ipos.customerInfo.customerInfoModal.RelationListModel;
 import quay.com.ipos.customerInfo.customerInfoModal.StateListModel;
 import quay.com.ipos.helper.DatabaseHandler;
@@ -89,14 +91,15 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
     //Professional information
     private TextView textViewProfessionalHeading;
-    private MaterialSpinner designationSpinner, companySpinner, customerTypeSpinner, relationShipSpinner;
-    private TextInputEditText tieGstin;
+    private MaterialSpinner companySpinner, customerTypeSpinner, relationShipSpinner;
+    private TextInputLayout tilDesignation;
+    private TextInputEditText tieGstin, tieDesignation;
     private static final String ARG_PARAM1 = "param1";
 
     private RecyclerView recyclerViewChild;
     private CustomerChildAdapter customerChildAdapter;
     private Context mContext;
-    private Button btnAddChild;
+    private Button btnAddChild, btnRemoveChild;
     private Button btnFullFragmentCancel, btnFullFragmentSubmit;
     private DatabaseHandler dbHelper;
     private Calendar calendar;
@@ -117,8 +120,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     SharedPreferences sharedpreferences;
     public static final String mypreference = "Data";
 
-    private TextInputLayout tilChildfname, tilChildDob, tilSecondaryMobileNumber, tilEmail2, tilPinCode;
-    private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDob, tieMobileNumSecondary;
+    private TextInputLayout tilChildfname, tilChildDob, tilSecondaryMobileNumber, tilEmail2, tilPinCode, tilCompany;
+    private TextInputEditText tieChildFirstName, tieChildLastName, tieChildDob, tieMobileNumSecondary, tieCompany;
     private MaterialSpinner childGenderSpinner;
     private List<String> listPosition = new ArrayList<>();
     private List<String> genderPosition = new ArrayList<>();
@@ -128,6 +131,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     public static final String quickPreference = "QuickData";
     SharedPreferences.Editor quickEditor;
     private SharedPreferences quickSharedPreferences;
+    private String statusCode;
 
     public CustomerAddFullFragment() {
 
@@ -268,6 +272,10 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         tieMobileNumPrimary = main.findViewById(R.id.tieMobileNumPrimary);
         tilSecondaryMobileNumber = main.findViewById(R.id.tilSecondaryMobileNumber);
         tieMobileNumSecondary = main.findViewById(R.id.tieMobileNumSecondary);
+        tilDesignation = main.findViewById(R.id.tilDesignation);
+        tieDesignation = main.findViewById(R.id.tieDesignation);
+        tilCompany = main.findViewById(R.id.tilCompany);
+        tieCompany = main.findViewById(R.id.tieCompany);
         tieEmail2 = main.findViewById(R.id.tieEmail2);
         tieEmail1 = main.findViewById(R.id.tieEmail1);
         countrySpinner = main.findViewById(R.id.countrySpinner);
@@ -276,8 +284,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
         //Professional info
         textViewProfessionalHeading = main.findViewById(R.id.textViewProfessionalHeading);
-        designationSpinner = main.findViewById(R.id.designationSpinner);
-        companySpinner = main.findViewById(R.id.companySpinner);
         customerTypeSpinner = main.findViewById(R.id.customerTypeSpinner);
         relationShipSpinner = main.findViewById(R.id.relationShipSpinner);
         tilGstn = main.findViewById(R.id.tilGstn);
@@ -285,11 +291,24 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
         recyclerViewChild = main.findViewById(R.id.recyclerViewChild);
         btnAddChild = main.findViewById(R.id.btnAddChild);
+        btnRemoveChild = main.findViewById(R.id.btnRemoveChild);
+        btnRemoveChild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (childModels.size() > 1) {
+                    childModels.remove(childModels.size() - 1);
+                    customerChildAdapter.notifyDataSetChanged();
+                } else {
+                    btnRemoveChild.setBackgroundColor(getResources().getColor(R.color.grey));
+                }
+            }
+        });
+        btnAddChild.setEnabled(true);
         btnAddChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (childModels.size() <= 2) {
-
+                    btnAddChild.setEnabled(true);
                     boolean isAnyEmpty = false;
                     for (int i = 0; i < childModels.size(); i++) {
                         View view = recyclerViewChild.getLayoutManager().findViewByPosition(i);
@@ -402,9 +421,11 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                         model.setCustomerChildGender("");
                         childModels.add(model);
                         customerChildAdapter.notifyDataSetChanged();
+
+
                     }
                 } else {
-                    Toast.makeText(mContext, "You are not allow to add more then 3 childred details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "You are not allowed to add more than 3 children details", Toast.LENGTH_SHORT).show();
                     btnAddChild.setBackground(getResources().getDrawable(R.drawable.button_rectangle_grey));
                 }
             }
@@ -449,23 +470,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 }
             }
         });
-        tieMobileNumSecondary.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-
-            }
-        });
         tieEmail2.addTextChangedListener(this);
 
         tiePinCode.addTextChangedListener(new TextWatcher() {
@@ -591,34 +596,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
             }
 
-            //Creating the ArrayAdapter instance having the designation name list
-            if (customerSpinner != null && customerSpinner.size() > 0) {
-                DesignationListModel[] designationListModels = new Gson().fromJson(customerSpinner.get(0).getDesignationList(), DesignationListModel[].class);
-                String[] designationArray = new String[designationListModels.length];
-                for (int i = 0; i < designationListModels.length; i++) {
-                    designationArray[i] = designationListModels[i].getDesignationName();
-                }
-                ArrayAdapter designationHeading = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, designationArray);
-                designationHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                designationSpinner.setAdapter(designationHeading);
-                designationSpinner.setOnItemSelectedListener(this);
-
-            }
-
-            //Creating the ArrayAdapter instance having the company name list
-            if (customerSpinner != null && customerSpinner.size() > 0) {
-
-                CompanyListModel[] companyListModels = new Gson().fromJson(customerSpinner.get(0).getCompanyList(), CompanyListModel[].class);
-                String[] companyArray = new String[companyListModels.length];
-                for (int i = 0; i < companyListModels.length; i++) {
-                    companyArray[i] = companyListModels[i].getCompaneyName();
-                }
-                ArrayAdapter companyHeading = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, companyArray);
-                companyHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                companySpinner.setAdapter(companyHeading);
-                companySpinner.setOnItemSelectedListener(this);
-            }
-
             //Creating the ArrayAdapter instance having the customer Type name list
             if (customerSpinner != null && customerSpinner.size() > 0) {
 
@@ -631,7 +608,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 ArrayAdapter customerTypeHeading = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, customerTypeArray);
                 customerTypeHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 customerTypeSpinner.setAdapter(customerTypeHeading);
-                companySpinner.setOnItemSelectedListener(this);
+                customerTypeSpinner.setOnItemSelectedListener(this);
             }
 
             //Creating the ArrayAdapter instance having the KycRelationship list name list
@@ -650,12 +627,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
             recyclerViewChild.setHasFixedSize(true);
             recyclerViewChild.setLayoutManager(new LinearLayoutManager(mContext));
-            //add ItemDecoration
-//            recyclerViewChild.addItemDecoration(new VerticalSpaceItemDecoration(VERTICAL_ITEM_SPACE));
-//            or
-//            recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
-            //or
-//            recyclerViewChild.addItemDecoration(new DividerItemDecoration(getActivity(), R.drawable.divider));
             customerChildAdapter = new CustomerChildAdapter(mContext, childModels, this, this, this);
             recyclerViewChild.setAdapter(customerChildAdapter);
 
@@ -700,8 +671,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         //Professional
 
         FontUtil.applyTypeface(textViewProfessionalHeading, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(designationSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(companySpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(customerTypeSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(relationShipSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(tieGstin, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
@@ -824,8 +793,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 String gender = String.valueOf(genderSpinner.getSelectedItem());
                 String maritalStatus = String.valueOf(maritalStatusSpinner.getSelectedItem());
                 String childStatus = String.valueOf(childSpinner.getSelectedItem());
-                String designation = String.valueOf(designationSpinner.getSelectedItem());
-                String company = String.valueOf(companySpinner.getSelectedItem());
+
 
                 boolean isFail = false;
                 if (title.equalsIgnoreCase("null")) {
@@ -1019,15 +987,15 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     tilMobileNumPrimary.setError(getResources().getString(R.string.invalid_phone));
 
                 }
-                if (designation.equalsIgnoreCase("null")) {
+                if (TextUtils.isEmpty(tieDesignation.getText().toString())) {
                     isFail = true;
-                    designationSpinner.setEnableErrorLabel(true);
-                    designationSpinner.setError(getResources().getText(R.string.invalid_designation));
+                    tilDesignation.setErrorEnabled(true);
+                    tilDesignation.setError(getResources().getString(R.string.invalid_designation));
                 }
-                if (company.equalsIgnoreCase("null")) {
+                if (TextUtils.isEmpty(tieCompany.getText().toString())) {
                     isFail = true;
-                    companySpinner.setEnableErrorLabel(true);
-                    companySpinner.setError(getResources().getString(R.string.invalid_company));
+                    tilCompany.setErrorEnabled(true);
+                    tilCompany.setError(getResources().getString(R.string.invalid_company));
                 }
 
                 if (!TextUtils.isEmpty(tiePinCode.getText().toString())) {
@@ -1055,6 +1023,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     titleSpinner.setEnableErrorLabel(false);
                     tilFirstName.setErrorEnabled(false);
                     tilLastName.setErrorEnabled(false);
+                    tilDesignation.setErrorEnabled(false);
+                    tilCompany.setErrorEnabled(false);
                     tilDOB.setErrorEnabled(false);
                     tilSpouseFirstName.setErrorEnabled(false);
                     tilSpouseLastName.setErrorEnabled(false);
@@ -1064,8 +1034,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
 
                     maritalStatusSpinner.setEnableErrorLabel(false);
-                    designationSpinner.setEnableErrorLabel(false);
-                    companySpinner.setEnableErrorLabel(false);
 
                     boolean isNotValidated = false;
                     if (!TextUtils.isEmpty(tieMobileNumSecondary.getText().toString())) {
@@ -1112,7 +1080,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                 //change boolean value
                 clicked = true;
                 Calendar minDate = Calendar.getInstance();
-                minDate.set(1980, 0, 1);
+                minDate.set(1900, 0, 1);
 
                 Calendar maxDate = Calendar.getInstance();
                 maxDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -1130,7 +1098,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             case R.id.tieSpouseDOB:
                 isSpouseDobClicked = true;
                 Calendar c1 = Calendar.getInstance();
-                c1.set(1980, 0, 1);
+                c1.set(1900, 0, 1);
 
                 Calendar maximunDate = Calendar.getInstance();
                 maximunDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -1177,12 +1145,12 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         String childStatus = String.valueOf(childSpinner.getSelectedItem());
         String email1 = tieEmail1.getText().toString().trim();
         String email2 = tieEmail2.getText().toString().trim();
+        String designation = tieDesignation.getText().toString().trim();
+        String company = tieCompany.getText().toString().trim();
         String mobileNumberPrimary = tieMobileNumPrimary.getText().toString().trim();
         String mobileNumberSecondary = tieMobileNumSecondary.getText().toString().trim();
         String address = tieAddress.getText().toString().trim();
         String pin = tiePinCode.getText().toString().trim();
-        String designation = String.valueOf(designationSpinner.getSelectedItem());
-        String company = String.valueOf(companySpinner.getSelectedItem());
         String gstn = tieGstin.getText().toString().trim();
         String customerType = String.valueOf(customerTypeSpinner.getSelectedItem());
         String relationShip = String.valueOf(relationShipSpinner.getSelectedItem());
@@ -1269,19 +1237,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         addCustomerModel.setCustomerPhone3("");
         addCustomerModel.setCustomerDom("");
         addCustomerModel.setCustomerStatus("");
-
-        if (designation.equalsIgnoreCase("null")) {
-            addCustomerModel.setCustomerDesignation("");
-        } else {
-            addCustomerModel.setCustomerDesignation(designation);
-        }
-
-        if (company.equalsIgnoreCase("null")) {
-            addCustomerModel.setCustomerCompany("");
-        } else {
-            addCustomerModel.setCustomerCompany(company);
-        }
-
+        addCustomerModel.setCustomerDesignation(designation);
+        addCustomerModel.setCustomerCompany(company);
         addCustomerModel.setCustoemrGstin(gstn);
 
         if (customerType.equalsIgnoreCase("null")) {
@@ -1379,27 +1336,44 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
     private void fetchResponse(String serverResponse) {
         Log.e(TAG, "Response**" + serverResponse);
-        Toast.makeText(mContext, R.string.form_submitted_successfully, Toast.LENGTH_SHORT).show();
 
-        sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-        String payment = sharedpreferences.getString("paymentModeClicked", "");
-        if (payment.equalsIgnoreCase("clicked")) {
-            Intent i = new Intent(mContext, PaymentModeActivity.class);
-            startActivity(i);
-            getActivity().finish();
+        try {
+            JSONArray jsonArray = new JSONArray(serverResponse);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.optJSONObject(i);
+                statusCode = jsonObject.optString("StatusCode");
+                message = jsonObject.optString("Message");
+            }
+            if (statusCode.equalsIgnoreCase("500")) {
+                Toast.makeText(mContext, "Mobile number already exist", Toast.LENGTH_SHORT).show();
+            }
+            if (statusCode.equalsIgnoreCase("200")) {
+                Toast.makeText(mContext, R.string.form_submitted_successfully, Toast.LENGTH_SHORT).show();
 
-            sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.clear();
-            editor.apply();
-        } else {
-            Intent i = new Intent(mContext, MainActivity.class);
-            startActivity(i);
-            sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.clear();
-            editor.apply();
+                sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+                String payment = sharedpreferences.getString("paymentModeClicked", "");
+                if (payment.equalsIgnoreCase("clicked")) {
+                    Intent i = new Intent(mContext, PaymentModeActivity.class);
+                    startActivity(i);
+                    getActivity().finish();
+
+                    sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                } else {
+                    Intent i = new Intent(mContext, MainActivity.class);
+                    startActivity(i);
+                    sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
 
     }
 
@@ -1507,11 +1481,11 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             if (genderPosition.contains(gender)) {
                 int index = genderPosition.indexOf(gender);
                 genderSpinner.setSelection(index + 1);
-                titleSpinner.setSelection(index + 1);
-                titleSpinner.setEnabled(false);
+                genderSpinner.setEnabled(false);
+            } else {
+                genderSpinner.setEnabled(true);
             }
         }
-
 
         if (sharedpreferences.contains("firstName")) {
             tieFirstName.setText(sharedpreferences.getString("firstName", ""));
@@ -1526,8 +1500,15 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             tieMobileNumPrimary.setFocusable(false);
         }
         if (sharedpreferences.contains("email")) {
-            tieEmail1.setText(sharedpreferences.getString("email", ""));
-            tieEmail1.setFocusable(false);
+            if (TextUtils.isEmpty(sharedpreferences.getString("email", ""))) {
+                tieEmail1.setText(sharedpreferences.getString("email", ""));
+                tieEmail1.setFocusable(true);
+
+            } else {
+                tieEmail1.setText(sharedpreferences.getString("email", ""));
+                tieEmail1.setFocusable(false);
+
+            }
         }
         if (sharedpreferences.contains("bDay")) {
             tieDOB.setText(sharedpreferences.getString("bDay", ""));
