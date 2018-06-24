@@ -14,7 +14,6 @@ public class LoginResult {
      */
 
     private int Code;
-    @SerializedName("Globalsetting")
     public GlobalSettings globalsettings;
 
     private UserAccessBean UserAccess;
