@@ -6,19 +6,10 @@ package quay.com.ipos.modal;
 
 public class BillingSync {
     String customerID;
-    String OrderID;
     String orderTimestamp;
     String orderDateTime;
     String billing;
     Integer sync;
-
-    public String getOrderID() {
-        return OrderID;
-    }
-
-    public void setOrderID(String orderID) {
-        OrderID = orderID;
-    }
 
     public String getCustomerID() {
         return customerID;

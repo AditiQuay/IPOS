@@ -15,9 +15,7 @@
     app:cardPreventCornerOverlap="true"
     card_view:cardElevation="0dp">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -71,7 +69,6 @@
                             app:ms_highlightColor="@color/highlight"
                             app:ms_hint="Address Type *"
                             app:ms_hintColor="@color/grey"
-                            android:nextFocusForward="@+id/spinnerBusinessType"
                             app:ms_multiline="false" />
                     </LinearLayout>
 
@@ -96,8 +93,6 @@
                             app:ms_floatingLabelText="Business Place"
                             app:ms_highlightColor="@color/highlight"
                             app:ms_hint="Business Place"
-                            android:nextFocusForward="@+id/editAddress"
-
                             app:ms_hintColor="@color/grey"
                             app:ms_multiline="false" />
                     </LinearLayout>
@@ -128,8 +123,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:hint="Address *"
-                                android:nextFocusForward="@+id/editCity"
-
                                 android:textSize="@dimen/universal_text_size14" />
 
                         </android.support.design.widget.TextInputLayout>
@@ -165,8 +158,6 @@
                                 android:hint="City *"
                                 android:inputType="textCapWords"
                                 android:maxLines="1"
-                                android:nextFocusForward="@+id/editState"
-
                                 android:fontFamily="@font/titilliumwebregular"
                                 android:textSize="@dimen/universal_text_size14" />
 
@@ -193,8 +184,6 @@
                                 android:hint="State *"
                                 android:inputType="textCapWords"
                                 android:maxLines="1"
-                                android:nextFocusForward="@+id/editGstin"
-
                                 android:fontFamily="@font/titilliumwebregular"
                                 android:textSize="@dimen/universal_text_size14" />
 
@@ -230,8 +219,6 @@
                                 android:inputType="textCapCharacters"
                                 android:maxLength="15"
                                 android:maxLines="1"
-                                android:nextFocusForward="@+id/editContactPerson"
-
                                 android:fontFamily="@font/titilliumwebregular"
                                 android:textSize="@dimen/universal_text_size14" />
 
@@ -255,8 +242,6 @@
                                 android:layout_height="match_parent"
                                 android:hint="Contact Person *"
                                 android:textSize="@dimen/universal_text_size14"
-                                android:nextFocusForward="@+id/editMobile"
-
                                 android:inputType="textPersonName"
                                 android:maxLines="1"/>
 
@@ -291,7 +276,6 @@
                                 android:hint="Contact Person Number *"
                                 android:textSize="@dimen/universal_text_size14"
                                 android:inputType="phone"
-
                                 android:maxLines="1"/>
 
                         </android.support.design.widget.TextInputLayout>
@@ -303,15 +287,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/btnRemove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:padding="5dp"
-        android:visibility="invisible"
-        android:src="@drawable/ic_action_delete" />
-</RelativeLayout>
 
 </android.support.v7.widget.CardView>
 

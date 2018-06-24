@@ -116,8 +116,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:fontFamily="@font/titilliumwebregular"
-                                        android:hint="Account Holder Name *"
-                                        android:enabled="false"
+                                        android:hint="Partner Type *"
                                         android:inputType="textCapWords"
                                         android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
@@ -143,7 +142,6 @@
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Account No *"
                                         android:inputType="number"
-                                        android:enabled="false"
                                         android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
 
@@ -177,7 +175,6 @@
                                         android:layout_height="match_parent"
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Account Type *"
-                                        android:enabled="false"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -200,7 +197,6 @@
                                         android:layout_height="match_parent"
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Bank Name *"
-                                        android:enabled="false"
                                         android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
 
@@ -236,7 +232,6 @@
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="IFSC Code *"
                                         android:maxLines="1"
-                                        android:enabled="false"
                                         android:inputType="textCapCharacters"
                                         android:textSize="@dimen/universal_text_size14" />
 
@@ -262,7 +257,6 @@
                                         android:layout_height="match_parent"
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Branch Address *"
-                                        android:enabled="false"
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -289,7 +283,7 @@
             android:layout_margin="10dp"
             android:background="#fff"
             android:fontFamily="@font/titilliumwebregular"
-            android:visibility="gone"
+            android:visibility="visible"
             android:text="Add" />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

@@ -1083,6 +1083,4 @@
     <dimen name="text_size_14sp">14sp</dimen>
     <dimen name="tab_label">12dp</dimen>
     <dimen name="b2b_text_body">14sp</dimen>
-    <dimen name="profile_pic_width">500dp</dimen>
-    <dimen name="profile_pic_height">500dp</dimen>
 </resources>

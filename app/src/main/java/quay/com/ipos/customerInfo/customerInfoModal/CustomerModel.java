@@ -342,10 +342,6 @@ public class CustomerModel {
             + CustomerEnum.ColoumnCustomerCode.toString() + " TEXT,"
             + CustomerEnum.ColoumnRegisteredBusinessPlace.toString() + " TEXT,"
             + CustomerEnum.ColoumnPointsPerValue.toString() + " REAL,"
-            + CustomerEnum.ColumnRedeemPoints.toString()+" REAL,"
-            + CustomerEnum.ColumnAdjustedPoints.toString()+" REAL,"
-            + CustomerEnum.ColumnExpirePoints.toString()+" REAL,"
-            + CustomerEnum.CoulmnReversePoints.toString()+" REAL,"
             + CustomerEnum.ColoumnIsSync.toString() + " INTEGER" + ")";
 
 
@@ -396,10 +392,6 @@ public class CustomerModel {
             String customerCode,
             String registeredBusinessPlaceID,
             double customerPointsPerValue,
-            double customerRedeemPoints,
-            double customerAdjustPoints,
-            double customerExpirePoints,
-            double customerReversePoints,
             int sync) {
         this.customerID = customerID;
         this.customerTitle = customerTitle;
@@ -444,10 +436,6 @@ public class CustomerModel {
         this.customerCode = customerCode;
         this.registeredBusinessPlaceID = registeredBusinessPlaceID;
         this.customerPointsPerValue = customerPointsPerValue;
-        this.customerRedeemPoints = customerRedeemPoints;
-        this.customerAdjustPoints = customerAdjustPoints;
-        this.customerExpirePoints = customerExpirePoints;
-        this.customerReversePoints = customerReversePoints;
         this.isSync = sync;
     }
 

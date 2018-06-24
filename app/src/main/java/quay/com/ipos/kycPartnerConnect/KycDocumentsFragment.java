@@ -190,7 +190,12 @@ public class KycDocumentsFragment extends Fragment implements InitInterface, Vie
 
     @Override
     public void onClick(View v) {
-
+        //Upload button click listner
+        btnPhotoView.setOnClickListener(this);
+        btnPanView.setOnClickListener(this);
+        btnAppointmentView.setOnClickListener(this);
+        btnCompilanceView.setOnClickListener(this);
+        btnAnnexureView.setOnClickListener(this);
         switch (v.getId()) {
             case R.id.btnPhotoView:
                 if (docPhoto != null) {

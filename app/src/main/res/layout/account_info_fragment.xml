@@ -118,8 +118,6 @@
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Account Holder Name *"
                                         android:inputType="textCapWords"
-                                        android:nextFocusForward="@+id/editAccountNo"
-
                                         android:maxLines="1"
                                         android:textSize="@dimen/universal_text_size14" />
 
@@ -145,8 +143,6 @@
                                         android:hint="Account No *"
                                         android:inputType="number"
                                         android:maxLines="1"
-                                        android:nextFocusForward="@+id/spinnerAccountType"
-
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -199,8 +195,6 @@
                                     app:ms_highlightColor="@color/highlight"
                                     app:ms_hint="Key Contact Position *"
                                     app:ms_hintColor="@color/grey"
-                                    android:nextFocusForward="@+id/editBankName"
-
                                     app:ms_multiline="false" />
 
                             </LinearLayout>
@@ -223,8 +217,6 @@
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="Bank Name *"
                                         android:maxLines="1"
-                                        android:nextFocusForward="@+id/editIFSCCode"
-
                                         android:textSize="@dimen/universal_text_size14" />
 
                                 </android.support.design.widget.TextInputLayout>
@@ -259,8 +251,6 @@
                                         android:fontFamily="@font/titilliumwebregular"
                                         android:hint="IFSC Code *"
                                         android:maxLines="1"
-                                        android:nextFocusForward="@+id/editBranchAddress"
-
                                         android:inputType="textCapCharacters"
                                         android:textSize="@dimen/universal_text_size14" />
 

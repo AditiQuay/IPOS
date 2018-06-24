@@ -37,7 +37,7 @@
                     android:id="@+id/textViewAppointmentHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Appointment Form"
+                    android:text="Appointment"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/universal_text_size16" />
 

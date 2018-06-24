@@ -34,7 +34,6 @@ public class KycRelOneAdapter extends RecyclerView.Adapter<KycRelOneAdapter.VH> 
         holder.mtxt1.setText(lobs.pssType);
         holder.mtxt2.setText(lobs.pssLobName);
 
-
     }
 
     @Override

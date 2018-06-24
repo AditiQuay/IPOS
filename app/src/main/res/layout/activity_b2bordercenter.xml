@@ -46,7 +46,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:visibility="visible"
         app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@drawable/add_white"
+        app:srcCompat="@drawable/icon_plus"
         tools:ignore="VectorDrawableCompat" />
 
 </android.support.design.widget.CoordinatorLayout>

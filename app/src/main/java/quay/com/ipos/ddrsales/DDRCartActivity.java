@@ -39,15 +39,14 @@ import android.widget.ToggleButton;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import me.dm7.barcodescanner.zbar.ZBarScannerView;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.ddrsales.model.DDR;
-import quay.com.ipos.ddrsales.model.InvoiceData;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.MyAdapterTags;
 import quay.com.ipos.listeners.ScanFilterListener;
@@ -79,33 +78,36 @@ import static quay.com.ipos.application.IPOSApplication.isClicked;
 import static quay.com.ipos.application.IPOSApplication.totalAmount;
 
 
-
-
-public class DDRCartActivity extends BaseActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, AdapterListener, MessageDialog.MessageDialogListener, ScannerProductListener, ScanFilterListener, MyAdapterTags, MyDialogFragment.RedeemListener {
+public class DDRCartActivity extends BaseActivity implements  View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener,ScanFilterListener,MyAdapterTags,MyDialogFragment.RedeemListener {
     private static final String TAG = DDRCartActivity.class.getSimpleName();
     private Activity activity;
     private Toolbar toolbar;
     private TextView mDDRDetails;
     private ImageView mDDRDetailsIcon;
-    private double mCustomerPoints, mCustomerPointsPer = 0;
-    private String mCustomerID = "", mCustomerEmail = "";
-    private View btnNext;
+    ProductListResult productListResult = null;
+    private MainActivity mainActivity;
+    double mCustomerPoints,mCustomerPointsPer=0;
+    String mCustomerID="",mCustomerEmail="";
+    private View bntNext;
     private ArrayList<PaymentRequest.CartDetail> cartDetail = new ArrayList<>();
     private ArrayList<PaymentRequest.Scheme> scheme = new ArrayList<>();
-
+    /**
+     * The Array searchlist.
+     */
+//    ArrayList<ProductListResult.Datum> arrSearchlist = new ArrayList<>();
     private TextView tvRight1, tvMoreDetails, tvItemNo, tvItemQty, tvTotalItemPrice,
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
-            tvLessDetails, tvRoundingOffPrice, tvTotalDiscount, tvPay, tvOTCDiscount, tvRedeemPoints, tvApplyOTC, tvApplyOTC2, tvPinCount, tvTotalPoints, tvTotalRedeemValue;
+            tvLessDetails, tvRoundingOffPrice, tvTotalDiscount, tvPay, tvOTCDiscount,tvRedeemPoints, tvApplyOTC, tvApplyOTC2, tvPinCount,tvTotalPoints,tvTotalRedeemValue;
     private FrameLayout flScanner;
     private ToggleButton tbPerc, tbRs;
     private EditText etDiscountAmt;
     private CheckBox chkOTC;
     private Fragment scanner_fragment;
-    private LinearLayout llTotalDiscountDetail, ll_item_pay, llOTCSelect, llTotalGST, llOTCConfirmation, llRedeem;
-    private ImageView imvDicount, imvGlobe, imvBilling, imvUserAdd, imvPin, imvRedeem, imvRight, imvClearOTC, imvBarcode, imvStatus;
-
+    private LinearLayout llTotalDiscountDetail, ll_item_pay, llOTCSelect, llTotalGST, llOTCConfirmation,llRedeem;
+    private ImageView imvDicount, imvGlobe,imvBilling, imvUserAdd, imvPin, imvRedeem, imvRight, imvClearOTC, imvBarcode,imvStatus;
+    //    private ToggleButton chkBarCode;
     private LinearLayoutManager mLayoutManager;
-
+    MyAdapterTags myAdapterTags;
     private RecyclerView mRecyclerView;
     private RetailSalesAdapter mRetailSalesAdapter;
     private boolean loading = true;
@@ -143,21 +145,17 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
     /**
      * The After discount price.
      */
-
-    private List<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<RealmPinnedResults.Info>();
+    Double afterDiscountPrice;
+    private ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<RealmPinnedResults.Info>();
     private String json;
-
+    private ZBarScannerView mScannerView;
     private Context mContext;
-
-    private EditText searchView;
 
 
     private DDR mDdr;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        InvoiceData.getInstance().cleanData();
         activity = this;
         setContentView(R.layout.activity_ddr_cart);
         toolbar = findViewById(R.id.appBar);
@@ -167,9 +165,9 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 
 
         mDdr = (DDR) getIntent().getSerializableExtra("ddr");
-        mDDRDetails = findViewById(R.id.mDDRDetails);
+        mDDRDetails =  findViewById(R.id.mDDRDetails);
         mDDRDetailsIcon = findViewById(R.id.mDDRDetailsIcon);
-        btnNext = findViewById(R.id.btnNext);
+        bntNext = findViewById(R.id.bntNext);
 
         if (mDdr != null) {
             mDDRDetails.setText(mDdr.mDDRCode + " - " + mDdr.mDDRName);
@@ -183,44 +181,43 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         initView();
     }
 
-
+    
+    
+    
+    
     public void initView() {
-
+        
         mContext = this;
         initializeComponent();
         setTextDefault();
         myDialog = new Dialog(activity);
+     //   setHasOptionsMenu(true);
         Util.hideSoftKeyboard(activity);
-        if (IPOSApplication.mProductListResult.size() == 0) {
+        if(IPOSApplication.mProductListResult.size() == 0){
             onSearchButton();
         }
         try {
             LocalBroadcastManager.getInstance(activity).registerReceiver(listener,
                     new IntentFilter("CUSTOM_ACTION"));
-        } catch (Exception e) {
+        }catch (Exception e){
 
         }
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        bntNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InvoiceData.getInstance().cartList=  IPOSApplication.mProductListResult;
                 Intent intent = new Intent(activity, DDRInvoicePreviewActivity.class);
                 intent.putExtra("ddr", mDdr);
                 startActivity(intent);
 
             }
         });
-
+        
     }
 
 
     // initialize views
     private void initializeComponent() {
-        searchView = findViewById(R.id.searchView);
-        searchView.setFocusable(false);
-        searchView.setClickable(true);
-        searchView.setOnClickListener(this);
         flScanner = findViewById(R.id.flScanner);
         imvUserAdd = findViewById(R.id.imvUserAdd);
         llRedeem = findViewById(R.id.llRedeem);
@@ -293,7 +290,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         IPOSApplication.totalAmount = 0.0;
         IPOSApplication.totalpointsToRedeem = 0.0;
         IPOSApplication.totalpointsToRedeemValue = 0.0;
-        IPOSApplication.isClicked = false;
+        IPOSApplication.isClicked=false;
         IPOSApplication.isRefreshed = false;
         flScanner.setVisibility(View.GONE);
 
@@ -326,7 +323,6 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void setListener() {
-        searchView.setOnClickListener(this);
         tvMoreDetails.setOnClickListener(this);
         tvLessDetails.setOnClickListener(this);
         imvDicount.setOnClickListener(this);
@@ -415,6 +411,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
     boolean isBack = false;
 
 
+
     /**
      * On resume.
      */
@@ -490,7 +487,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 //                                        etDiscountAmt.setText("");
 //                                    }
 //                                }).show();
-                        Util.showMessageDialog(mContext, DDRCartActivity.this, "Please enter valid discount percentage", "OK", null, Constants.APP_DIALOG_OTC, "", getSupportFragmentManager());
+                        Util.showMessageDialog(mContext,DDRCartActivity.this, "Please enter valid discount percentage", "OK", null, Constants.APP_DIALOG_OTC, "", getSupportFragmentManager());
                     }
             }
         });
@@ -522,8 +519,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
                 onSearchButton();
                 return true;
 
-
-            case R.id.action_outbox:
+            case  R.id.action_outbox:
                 // Do onClick on menu action here
                 onOutBoxButton();
                 break;
@@ -548,7 +544,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 
     private void setAdapter() {
 
-        mRetailSalesAdapter = new RetailSalesAdapter(mContext, this, mRecyclerView, IPOSApplication.mProductListResult, this, this, this);
+        mRetailSalesAdapter = new RetailSalesAdapter(mContext, this, mRecyclerView, IPOSApplication.mProductListResult, this, this,this);
         mRecyclerView.setAdapter(mRetailSalesAdapter);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -585,13 +581,12 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
             }
         });*/
     }
-
     ArrayList<ProductSearchResult.Datum> arrSearchlist = IPOSApplication.mProductListResult;
 
 
     private BroadcastReceiver listener = new BroadcastReceiver() {
         @Override
-        public void onReceive(Context context, Intent intent) {
+        public void onReceive( Context context, Intent intent ) {
             String data = intent.getStringExtra("CUSTOM_ACTION");
             //  Log.e( "Received data : ", data);
 
@@ -608,7 +603,6 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 
     /**
      * On activity result.
-     *
      * @param requestCode the request code
      * @param resultCode  the result code
      * @param data        the data
@@ -620,9 +614,9 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         if (requestCode == 1) {
             if (resultCode == 1) {
                 IPOSApplication.isClicked = true;
-                if (IPOSApplication.mProductListResult.size() > 0) {
-                    for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
-                        if (!IPOSApplication.mProductListResult.get(i).isAdded()) {
+                if(IPOSApplication.mProductListResult.size()>0){
+                    for(int i = 0 ; i < IPOSApplication.mProductListResult.size(); i++){
+                        if(!IPOSApplication.mProductListResult.get(i).isAdded()) {
                             IPOSApplication.mProductListResult.remove(i);
                             i--;
                         }
@@ -642,39 +636,39 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
                 pinnedUpdate();
                 getProduct();
             }
-        } else if (requestCode == Constants.ACT_PAYMENT) {
-            if (resultCode == Constants.ACT_PAYMENT_NEW_BILLING) {
+        }else if(requestCode == Constants.ACT_PAYMENT){
+            if(resultCode == Constants.ACT_PAYMENT_NEW_BILLING){
                 setNewBilling();
             }
-            if (resultCode == 200) {
+            if(resultCode==200){
                 getProduct();
             }
-            if (resultCode == Constants.ACT_CUSTOMER) {
+            if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
-                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS, 0);
-                mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER, 0);
+                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
                 mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
-                tvRedeemPoints.setText(mCustomerPoints + "");
+                tvRedeemPoints.setText(mCustomerPoints+"");
             }
-        } else if (requestCode == Constants.ACT_CUSTOMER) {
-            if (resultCode == Constants.ACT_CUSTOMER) {
+        }else if(requestCode==Constants.ACT_CUSTOMER){
+            if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
-                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS, 0);
-                mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER, 0);
+                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
                 mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
-                tvRedeemPoints.setText(mCustomerPoints + "");
+                tvRedeemPoints.setText(mCustomerPoints+"");
             }
-            if (resultCode == Constants.ACT_PINNED) {
+            if(resultCode==Constants.ACT_PINNED){
                 cachedPinned();
                 openPinnedDetailActivity(true);
             }
-            if (resultCode == Constants.ACT_PAYMENT_NEW_BILLING) {
+            if(resultCode == Constants.ACT_PAYMENT_NEW_BILLING){
                 setNewBilling();
             }
-        } else if (requestCode == Constants.ACT_PINNED) {
-            if (resultCode == Constants.ACT_PINNED) {
+        }else if(requestCode == Constants.ACT_PINNED){
+            if(resultCode==Constants.ACT_PINNED){
                 cachedPinned();
                 openPinnedDetailActivity(true);
             }
@@ -705,7 +699,6 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         }
 
     }
-
     private void setDefaultValues() {
 
         Double totalPrice;
@@ -714,7 +707,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
             discounts = datum.getDiscount();
             if (datum.getQty() == 0)
                 datum.setQty(1);
-            for (int j = 0; j < discounts.size(); j++) {
+            for (int j = 0 ; j < discounts.size();j++) {
                 ProductSearchResult.Discount discount = discounts.get(j);
                 if (!discount.isDiscItemSelected())
                     discount.setDiscItemSelected(true);
@@ -727,7 +720,6 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
     }
 
     PaymentRequest paymentRequest = new PaymentRequest();
-
     private void setUpdateValues(ArrayList<ProductSearchResult.Datum> mList) {
 
         AppLog.e(RetailSalesFragment.class.getSimpleName(), "IPOSApplication.mProductListResult:Frag: " + Util.getCustomGson().toJson(IPOSApplication.mProductListResult));
@@ -742,7 +734,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
             tvTotalItemGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvTotalDiscount.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvPay.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
-            totalAmount = 0.0;
+            totalAmount =0.0;
             tvCGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
@@ -790,30 +782,32 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 //
 //                }
 
-                if (mList.get(i).getIsDiscount()) {
+                if(mList.get(i).getIsDiscount()){
                     discounts = mList.get(i).getDiscount();
 //                    if(!mList.get(i).isFreeItem()) {
-                    if (mList.get(i).isFreeItem()) {
+                    if(mList.get(i).isFreeItem()){
 //                            discountItem++;
                         freeItemCount++;
                         cart_detail.setIsFreeItem(true);
 //                            mScheme.setSchemeID(discounts.get(j).getSchemeID());
-                    } else {
+                    }else {
                         cart_detail.setIsFreeItem(false);
                     }
                     for (int j = 0; j < discounts.size(); j++) {
                         discount = discount + discounts.get(j).getDiscountTotal();
                         mScheme.setSchemeID(discounts.get(j).getSchemeID());
 
-                        if (discounts.get(j).getDiscountTotal() > 0.0) {
+                        if(discounts.get(j).getDiscountTotal()>0.0){
                             discountItem++;
                             cart_detail.setDiscountValue(discounts.get(j).getDiscountTotal());
-                        } else {
+                        }else {
                             cart_detail.setDiscountValue(0.0);
                         }
 
-                        for (int k = 0; k < discounts.get(j).getRule().size(); k++) {
-                            if (discounts.get(j).getRule().get(k).isApplied()) {
+                        for(int k = 0 ; k< discounts.get(j).getRule().size();k++)
+                        {
+                            if(discounts.get(j).getRule().get(k).isApplied())
+                            {
                                 mScheme.setDiscountValue(discounts.get(j).getDiscountTotal());
                                 mScheme.setRuleID(discounts.get(j).getRule().get(k).getRuleID());
                                 mScheme.setDiscountPerc(discounts.get(j).getRule().get(k).getSDiscountValue());
@@ -834,7 +828,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 //                    }else {
 ////                        discount = discount + mList.get(i);
 //                    }
-                } else {
+                }else {
                     cart_detail.setIsFreeItem(false);
                     cart_detail.setDiscountValue(0.0);
                     scheme.clear();
@@ -851,7 +845,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
                 cgst = mList.get(i).getCgst() * sum / 100;
                 cart_detail.setMaterialCGSTValue(sgst);
                 cgst += cgst;
-                totalPoints += mList.get(i).getTotalPoints();
+                totalPoints +=  mList.get(i).getTotalPoints();
 //                totalPrice += mList.get(i).getTotalPrice();
                 cart_detail.setMaterialCode(datum.getIProductModalId());
                 cart_detail.setMaterialName(datum.getSProductName());
@@ -885,15 +879,17 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
             paymentRequest.setTotalSGSTValue(sgst);
             tvCGSTPrice.setText("+" + mContext.getResources().getString(R.string.Rs) + " " + cgst);
             paymentRequest.setTotalCGSTValue(cgst);
-            if (IPOSApplication.totalpointsToRedeemValue > 0) {
+            if(IPOSApplication.totalpointsToRedeemValue>0)
+            {
                 totalAfterGSt = ((sum - discount) - IPOSApplication.totalpointsToRedeemValue) + (sgst + cgst) - (otcDiscountPerc);
-            } else
+            }
+            else
                 totalAfterGSt = (sum - discount) + (sgst + cgst) - (otcDiscountPerc);
 //            double floorValue = Math.round(totalAfterGSt);
 
 
             double roundOff = totalAfterGSt - Math.floor(totalAfterGSt);
-            roundOff = (Util.round(roundOff, 1));
+            roundOff=(Util.round(roundOff, 1));
             tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + roundOff);
             paymentRequest.setTotalRoundingOffValue(roundOff);
 
@@ -920,9 +916,6 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         int id = view.getId();
         Util.hideSoftKeyboard(activity);
         switch (id) {
-            case R.id.searchView:
-                onSearchButton();
-                break;
 //            case R.id.imvQRCode:
 //                ((MainActivity) mContext).launchActivity(FullScannerActivity.class);
 //                break;
@@ -1057,15 +1050,16 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 //                setArrayPinned();
                 cachedPinned();
                 openPinnedDetailActivity(true);
-                totalAmount = 0.0;
+                totalAmount =0.0;
                 break;
 
             case R.id.imvRedeem:
 
                 if (IPOSApplication.mProductListResult.size() > 0)
-                    if (!mCustomerID.equalsIgnoreCase("")) {
+                    if(!mCustomerID.equalsIgnoreCase("")) {
                         //showRedeemLoyaltyPopup(rootView);
-                    } else
+                    }
+                    else
                         Util.showToast(getString(R.string.redeem_customer_not_authorised), mContext);
                 else
                     Util.showToast(getString(R.string.redeem_cannot_applied), mContext);
@@ -1117,17 +1111,17 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
                 break;
             case R.id.imvUserAdd:
                 Intent mIntent = new Intent(mContext, CustomerInfoActivity.class);
-                startActivityForResult(mIntent, Constants.ACT_CUSTOMER);
+                startActivityForResult(mIntent,Constants.ACT_CUSTOMER);
                 break;
             case R.id.tvPay:
                 flScanner.setVisibility(View.GONE);
                 closeFragment();
                 if (IPOSApplication.mProductListResult.size() > 0) {
-                    if (paymentRequest != null)
-                        SharedPrefUtil.putString(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest), activity);
+                    if(paymentRequest!=null)
+                        SharedPrefUtil.putString(Constants.PAYMENT_REQUEST,Util.getCustomGson().toJson(paymentRequest),activity);
                     Intent i = new Intent(mContext, PaymentModeActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
-                    startActivityForResult(i, Constants.ACT_PAYMENT);
+                    startActivityForResult(i,Constants.ACT_PAYMENT);
                 } else {
                     Util.showToast("Please add atleast one item to proceed.", mContext);
                 }
@@ -1137,11 +1131,11 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
                 flScanner.setVisibility(View.GONE);
                 closeFragment();
                 if (IPOSApplication.mProductListResult.size() > 0) {
-                    if (paymentRequest != null)
-                        SharedPrefUtil.putString(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest), activity);
+                    if(paymentRequest!=null)
+                        SharedPrefUtil.putString(Constants.PAYMENT_REQUEST,Util.getCustomGson().toJson(paymentRequest),activity);
                     Intent i = new Intent(mContext, PaymentModeActivity.class);
                     i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
-                    startActivityForResult(i, Constants.ACT_PAYMENT);
+                    startActivityForResult(i,Constants.ACT_PAYMENT);
                 } else {
                     Util.showToast("Please add atleast one item to proceed.", mContext);
                 }
@@ -1171,13 +1165,12 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 //    }
 
     private void setNewBilling() {
-        if (IPOSApplication.mProductListResult.size() > 0) {
-            Util.showMessageDialog(mContext, this, getResources().getString(R.string.new_billing_cart_message), getResources().getString(R.string.yes), getResources().getString(R.string.no), getResources().getString(R.string.cancel), Constants.APP_DIALOG_BILLING, "", getSupportFragmentManager());
-        } else {
+        if(IPOSApplication.mProductListResult.size()>0){
+            Util.showMessageDialog(mContext,this, getResources().getString(R.string.new_billing_cart_message), getResources().getString(R.string.yes), getResources().getString(R.string.no),getResources().getString(R.string.cancel), Constants.APP_DIALOG_BILLING, "", getSupportFragmentManager());
+        }else {
             Util.showToast("List is empty", mContext);
         }
     }
-
     private void setNewBillingWithoutSave() {
         IPOSApplication.mProductListResult.clear();
         mRetailSalesAdapter.notifyDataSetChanged();
@@ -1296,9 +1289,8 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         }
     }
 
-    ArrayList<ProductSearchResult.Datum> mMinDiscount = new ArrayList<>();
+    ArrayList<ProductSearchResult.Datum> mMinDiscount=new ArrayList<>();
     String jsonDiscount;
-
     private void setOnClickPlus(View view) {
         Util.hideSoftKeyboard(activity);
         Util.animateView(view);
@@ -1492,20 +1484,19 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
     }
 
 
-    void checkDiscountDelete(int pos, boolean isChecked, int parentPosition) {
+    void checkDiscountDelete(int pos, boolean isChecked, int parentPosition){
         posDeleteItem = parentPosition;
         posChildDeleteItem = pos;
         ProductSearchResult.Datum datum = IPOSApplication.mProductListResult.get(parentPosition);
         if (!isChecked) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             mDiscountDeleteFragment = DiscountDeleteFragment.newInstance();
-            mDiscountDeleteFragment.setDialogInfo(this, datum, posChildDeleteItem);
+            mDiscountDeleteFragment.setDialogInfo(this, datum,posChildDeleteItem);
             mDiscountDeleteFragment.show(fragmentManager, "Delete Discount");
         } else {
             addDeleteDiscount();
         }
     }
-
     /**
      * The Pos delete item.
      */
@@ -1543,19 +1534,20 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         IPOSApplication.mProductListResult.set(posDeleteItem, datum);
         mRetailSalesAdapter.notifyItemChanged(posDeleteItem);
         setUpdateValues(IPOSApplication.mProductListResult);
-        if (mDiscountDeleteFragment != null)
+        if(mDiscountDeleteFragment!=null)
             mDiscountDeleteFragment.dismiss();
     }
 
     @Override
     public void onRowClicked(int position, int value, String tag, int parentPosition) {
-        if (tag.equalsIgnoreCase(Constants.CHECK_DISCOUNT)) {
-            if (value == 0)
-                checkDiscountDelete(position, false, parentPosition);
+        if(tag.equalsIgnoreCase(Constants.CHECK_DISCOUNT)){
+            if(value==0)
+                checkDiscountDelete(position,false,parentPosition);
             else
-                checkDiscountDelete(position, true, parentPosition);
+                checkDiscountDelete(position,true,parentPosition);
         }
     }
+
 
 
     /**
@@ -1569,7 +1561,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         MyDialogFragment mMyDialogFragment = MyDialogFragment.newInstance();
-        mMyDialogFragment.setDialogInfo(this, mCustomerPoints, mCustomerPointsPer, mCustomerEmail, mCustomerID, this);
+        mMyDialogFragment.setDialogInfo(this,mCustomerPoints,mCustomerPointsPer,mCustomerEmail,mCustomerID,this);
 //        mMyDialogFragment.setArguments(args);
         mMyDialogFragment.show(fragmentManager, "Redeem");
 
@@ -1583,7 +1575,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
     @Override
     public void onRowClicked(int position) {
 
-        if (position == -1) {
+        if(position==-1){
 
             mRecyclerView.post(new Runnable() {
                 @Override
@@ -1604,7 +1596,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 //                }
 //            }
 //            mRetailSalesAdapter.notifyDataSetChanged();
-        } else {
+        }else {
             boolean row = false;
             row = IPOSApplication.isClicked;
             setUpdateValues(IPOSApplication.mProductListResult);
@@ -1612,14 +1604,12 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         }
 
     }
-
     ArrayList<ProductSearchResult.Datum> datumArrayList1 = new ArrayList<>();
-
     @Override
     public void onRowClicked(int position, int value, String tag) {
-        if (tag.equalsIgnoreCase(Constants.DISCOUNT + "")) {
+        if(tag.equalsIgnoreCase(Constants.DISCOUNT+"")) {
 
-            if (IPOSApplication.datumSameCode.size() <= 0) {
+            if (IPOSApplication.datumSameCode.size() <= 0){
                 IPOSApplication.datumSameCode.clear();
                 datumArrayList1.clear();
                 for (int j = 0; j < IPOSApplication.datumArrayList.size(); j++) {
@@ -1671,44 +1661,22 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 
             datum1.setQty(value);
             IPOSApplication.mProductListResult.set(position, datum1);
-            mRecyclerView.post(new Runnable()
-            {
-                @Override
-                public void run() {
+//            mRecyclerView.post(new Runnable()
+//            {
+//                @Override
+//                public void run() {
             mRetailSalesAdapter.notifyItemChanged(position);
-
-                }
-            });
             setUpdateValues(IPOSApplication.mProductListResult);
-            mRecyclerView.post(new Runnable()
-            {
-                @Override
-                public void run() {
-                    mRetailSalesAdapter.notifyDataSetChanged();
+//                }
+//            });
 
-                }
-            });
+
         } else {
             datum1.setQty(datum1.getSProductStock());
             IPOSApplication.mProductListResult.set(position, datum1);
-            mRecyclerView.post(new Runnable()
-            {
-                @Override
-                public void run() {
-                    mRetailSalesAdapter.notifyItemChanged(position);
-
-                }
-            });
+            mRetailSalesAdapter.notifyItemChanged(position);
             setUpdateValues(IPOSApplication.mProductListResult);
             Util.showToast(datum1.getSProductStock() + " " + getString(R.string.qty_available), mContext);
-            mRecyclerView.post(new Runnable()
-            {
-                @Override
-                public void run() {
-                    mRetailSalesAdapter.notifyDataSetChanged();
-
-                }
-            });
         }
 //        mRecyclerView.post(new Runnable() {
 //            @Override
@@ -1738,7 +1706,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
             dialog.dismiss();
             getFragmentManager().popBackStack();
 
-        } else if (mCallType == Constants.APP_DIALOG_BILLING) {
+        }else if(mCallType == Constants.APP_DIALOG_BILLING){
             if (IPOSApplication.mProductListResult.size() > 0)
                 cachedPinned();
             else
@@ -1765,7 +1733,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
             }
             dialog.dismiss();
 
-        } else if (mCallType == Constants.APP_DIALOG_BILLING) {
+        }else if(mCallType == Constants.APP_DIALOG_BILLING) {
             setNewBillingWithoutSave();
             dialog.dismiss();
         }
@@ -1833,21 +1801,21 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
     }
 
 
+
     @Override
     public void redeem(double pointsToRedeem, double pointsToRedeemValue) {
-        if (pointsToRedeemValue > 0.0) {
+        if(pointsToRedeemValue>0.0){
             llRedeem.setVisibility(View.VISIBLE);
-            tvTotalPoints.setText("(" + pointsToRedeem + ")");
-            tvTotalRedeemValue.setText("- " + getResources().getString(R.string.Rs) + " " + pointsToRedeemValue);
+            tvTotalPoints.setText("("+pointsToRedeem+")");
+            tvTotalRedeemValue.setText("- "+getResources().getString(R.string.Rs) + " "+pointsToRedeemValue);
             IPOSApplication.totalpointsToRedeem = pointsToRedeem;
             IPOSApplication.totalpointsToRedeemValue = pointsToRedeemValue;
-        } else {
-            IPOSApplication.totalpointsToRedeemValue = 0;
-            IPOSApplication.totalpointsToRedeem = 0;
+        }else {
+            IPOSApplication.totalpointsToRedeemValue=0;
+            IPOSApplication.totalpointsToRedeem=0;
             llRedeem.setVisibility(View.GONE);
         }
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

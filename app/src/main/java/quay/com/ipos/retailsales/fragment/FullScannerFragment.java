@@ -55,7 +55,6 @@ public class FullScannerFragment extends BaseFragment implements
     private boolean found=false;
     DatabaseHandler databaseHandler;
     public ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
-    public ArrayList<ProductSearchResult.Datum> data1= new ArrayList<>();
     private ProductSearchResult productListResult;
     private MainActivity mainActivity;
 
@@ -222,7 +221,7 @@ public class FullScannerFragment extends BaseFragment implements
             Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
     }
 
-    boolean isCodeFound=false;
+
     @Override
     public void handleResult(Result rawResult) {
         try {
@@ -232,75 +231,57 @@ public class FullScannerFragment extends BaseFragment implements
         } catch (Exception e) {
             e.printStackTrace();
         }
-        data.clear();
-        data1.clear();
 
         if(databaseHandler.isRetailMasterEmpty(databaseHandler.TABLE_RETAIL)) {
             callScanService(rawResult.getContents(),getActivity());
         }else {
-
             data = databaseHandler.getAllProduct();
             if(data.size()>0)
                 for(int i = 0 ; i < data.size() ; i++){
                     if(rawResult.getContents().equalsIgnoreCase(data.get(i).getBarCodeNumber())){
                         productListResult = new ProductSearchResult();
-                        data1.add(data.get(i));
-                        productListResult.setData(data1);
-                        isCodeFound=true;
-                        break;
-                    }else {
-                        isCodeFound=false;
+                        productListResult.setData(data);
                     }
                 }
-            if(!isCodeFound){
-                Util.showToast(getString(R.string.product_not_found),getActivity());
-            }else {
 
-                if (productListResult != null)
-                    if (productListResult.getData() != null && productListResult.getData().size() > 0) {
-                        if (IPOSApplication.mProductListResult.size() > 0) {
+            if(productListResult.getData()!=null && productListResult.getData().size()>0) {
+                if (IPOSApplication.mProductListResult.size() > 0){
 
-                            mProductList = IPOSApplication.mProductListResult;
-                            for (int i = 0; i < mProductList.size(); i++) {
+                    for (int i = 0; i < mProductList.size(); i++) {
 
-                                if (productListResult.getData().get(0).getIProductModalId().equalsIgnoreCase(mProductList.get(i).getIProductModalId())) {
-                                    ProductSearchResult.Datum mProductListResultData = mProductList.get(i);
-                                    mProductListResultData.setQty(mProductListResultData.getQty() + 1);
-                                    mProductListResultData.setAdded(true);
-                                    IPOSApplication.mProductListResult.set(i, mProductListResultData);
-                                    found = true;
-                                } else {
-
-
-                                }
-                            }
-                            if (!found) {
-                                ProductSearchResult.Datum datum = productListResult.getData().get(0);
-                                datum.setAdded(true);
-                                datum.setQty(1);
-                                IPOSApplication.mProductListResult.add(0, datum);
-                            }
+                        if (productListResult.getData().get(0).getIProductModalId().equalsIgnoreCase(mProductList.get(i).getIProductModalId())) {
+                            ProductSearchResult.Datum mProductListResultData = mProductList.get(i);
+                            mProductListResultData.setQty(mProductListResultData.getQty() + 1);
+                            mProductListResultData.setAdded(true);
+                            IPOSApplication.mProductListResult.set(i, mProductListResultData);
+                            found=true;
                         } else {
-                            ProductSearchResult.Datum datum = productListResult.getData().get(0);
-                            datum.setAdded(true);
-                            datum.setQty(1);
-                            IPOSApplication.mProductListResult.add(0, datum);
+
+
                         }
-
-                        IPOSApplication.isRefreshed = true;
-                        Util.showToast(getString(R.string.product_added_successfully), getActivity());
-                    } else {
-                        Util.showToast(getString(R.string.product_not_found), getActivity());
                     }
-            }
-        }
-        mScannerView.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mScannerView.resumeCameraPreview(FullScannerFragment.this);
-            }
-        },3000);
+                    if(!found){
+                        ProductSearchResult.Datum datum = productListResult.getData().get(0);
+                        datum.setAdded(true);
+                        datum.setQty(1);
+                        IPOSApplication.mProductListResult.add(0, datum);
+                    }
+                }else {
+                    ProductSearchResult.Datum datum = productListResult.getData().get(0);
+                    datum.setAdded(true);
+                    datum.setQty(1);
+                    IPOSApplication.mProductListResult.add(0, datum);
+                }
 
+                IPOSApplication.isRefreshed=true;
+                Util.showToast(getString(R.string.product_added_successfully),getActivity());
+            }else {
+                Util.showToast(getString(R.string.product_not_found),getActivity());
+            }
+
+        }
+
+        mScannerView.resumeCameraPreview(this);
 
         Intent intent = new Intent("CUSTOM_ACTION");
         // You can also include some extra data.

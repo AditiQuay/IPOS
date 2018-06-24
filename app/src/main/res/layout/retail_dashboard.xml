@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/backgroundgrey">
 
@@ -15,36 +16,17 @@
         android:layout_gravity="center_vertical"
         android:background="@color/colorPrimaryDark">
 
-        <FrameLayout
-            android:id="@+id/flCustomer"
-            style="?attr/actionButtonStyle"
+        <ImageView
+            android:id="@+id/imvUserAdd"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_5"
             android:layout_width="0dp"
-
-            android:layout_marginRight="@dimen/dim_5"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:clipToPadding="false"
-            android:focusable="true">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_action_add_person"/>
 
-            <ImageView
-                android:id="@+id/imvUserAdd"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_add_person"/>
-
-            <ImageView
-                android:id="@+id/imvTick"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="right|end|top"
-                android:layout_marginRight="-8dp"
-                android:layout_marginLeft="@dimen/dim_8"
-                android:visibility="visible"
-                android:src="@drawable/ic_action_check_yellow"
-                android:gravity="center"/>
-
-        </FrameLayout>
         <FrameLayout
             style="?attr/actionButtonStyle"
             android:layout_width="0dp"
@@ -102,7 +84,6 @@
             android:src="@drawable/ic_action_discount_white"/>
 
         <FrameLayout
-            android:id="@+id/flRedeem"
             style="?attr/actionButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -119,7 +100,7 @@
 
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvRedeemPoints"
-                android:layout_width="32dp"
+                android:layout_width="28dp"
                 android:layout_height="20dp"
                 android:layout_gravity="right|end|top"
                 android:layout_marginRight="-10dp"
@@ -393,33 +374,6 @@
                             android:textSize="@dimen/text_size_15sp" />
                     </LinearLayout>
                     <LinearLayout
-                        android:id="@+id/llNetTotal"
-                        android:visibility="visible"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <quay.com.ipos.ui.CustomTextView
-                            android:layout_width="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:text="@string/net_total"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/text_size_15sp" />
-
-
-
-                        <quay.com.ipos.ui.CustomTextView
-                            android:id="@+id/tvNetTotal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:text="@string/Rs"
-                            android:textSize="@dimen/text_size_15sp" />
-                    </LinearLayout>
-                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
@@ -526,7 +480,8 @@
                     android:text="@string/Rs"
                     android:paddingLeft="@dimen/dim_5"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp" />
+                    android:textSize="@dimen/text_size_15sp"
+                    app:typeface="TitilliumWeb-SemiBold.ttf" />
 
                 <quay.com.ipos.ui.CustomTextView
                     android:layout_width="wrap_content"
@@ -536,7 +491,8 @@
                     android:layout_marginLeft="@dimen/dim_10"
                     android:text="@string/sale_value"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp"/>
+                    android:textSize="@dimen/text_size_15sp"
+                    app:typeface="TitilliumWeb-SemiBold.ttf" />
 
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvPay"
@@ -548,7 +504,8 @@
                     android:paddingLeft="@dimen/dim_10"
                     android:text="@string/Rs"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp" />
+                    android:textSize="@dimen/text_size_15sp"
+                    app:typeface="TitilliumWeb-SemiBold.ttf" />
 
                 <ImageView
                     android:id="@+id/imvRight"
@@ -584,7 +541,8 @@
                     android:text="@string/select_all"
                     android:paddingLeft="@dimen/dim_5"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp"/>
+                    android:textSize="@dimen/text_size_15sp"
+                    app:typeface="Roboto-Regular.ttf" />
 
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvOTCDiscount"
@@ -595,7 +553,8 @@
                     android:paddingLeft="@dimen/dim_10"
                     android:text="@string/otc_discount"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp" />
+                    android:textSize="@dimen/text_size_15sp"
+                    app:typeface="Roboto-Regular.ttf" />
 
                 <TextView
                     android:id="@+id/tvRight1"

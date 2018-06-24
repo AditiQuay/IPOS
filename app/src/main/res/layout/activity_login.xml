@@ -66,7 +66,7 @@
             android:layout_toStartOf="@+id/imageViewUserIcon"
             android:background="@drawable/round_shape"
             android:hint="@string/email_hint_activity_login"
-            android:inputType="textNoSuggestions"
+            android:inputType="text"
             android:paddingLeft="@dimen/dim_20"
             android:paddingStart="@dimen/dim_20"
             android:text=""

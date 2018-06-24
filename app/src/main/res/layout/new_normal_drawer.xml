@@ -71,7 +71,7 @@
             android:id="@+id/rLaoutBtnFour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/llSetting"
+            android:layout_above="@+id/rLaoutBtnFive"
             android:layout_marginBottom="@dimen/dim_8">
 
             <View
@@ -103,7 +103,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/llSetting"
+            android:id="@+id/rLaoutBtnFive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/orderCenterImage"

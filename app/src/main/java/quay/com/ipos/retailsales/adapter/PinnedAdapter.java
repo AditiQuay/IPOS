@@ -101,12 +101,9 @@ public class PinnedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             AppLog.e(PinnedAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             PinnedAdapter.UserViewHolder userViewHolder = (PinnedAdapter.UserViewHolder) holder;
             userViewHolder.textViewChildName.setText(str.getKey());
-            userViewHolder.textViewChildName.setOnClickListener(mOnClickListener);
             userViewHolder.textViewChildName.setTag(position);
             userViewHolder.imvClose.setOnClickListener(mOnClickListener);
             userViewHolder.imvClose.setTag(position);
-
-
             userViewHolder.imvClose.setVisibility(View.VISIBLE);
 
         }

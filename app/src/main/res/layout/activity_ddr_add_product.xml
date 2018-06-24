@@ -50,7 +50,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="16dp"
                 android:paddingTop="8dp"
-                android:src="@drawable/person"
+                android:src="@drawable/info_white"
                 android:textSize="@dimen/b2b_text_body" />
 
         </RelativeLayout>
@@ -85,10 +85,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
-        android:clipToPadding="false">
-
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        >
 
         <LinearLayout
             android:id="@+id/llSearch"
@@ -176,8 +174,6 @@
             android:layout_below="@+id/llSize"
             android:layout_gravity="center"
             android:layout_margin="@dimen/dim_4"
-            android:paddingBottom="100dp"
-            android:clipToPadding="false"
             android:background="@color/backgroundgrey"
             android:scrollbars="none">
 

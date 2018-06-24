@@ -1,11 +1,8 @@
 package quay.com.ipos.customerInfo;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -56,7 +52,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private CircleImageView imageViewProfileDummy;
     private LinearLayout lLayoutBottom;
     private Context mContext;
-    private String customerId="",mCustomerEmail="";
+    private String customerId,mCustomerEmail;
     private double customerPoints = 0, customerPointsPer=0;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
@@ -68,8 +64,6 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private SharedPreferences.Editor editor;
     private RelativeLayout rLayoutContent;
     private String paymentModeClicked;
-    private RelativeLayout rInfoLay;
-    private Dialog myDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,11 +71,6 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         setContentView(R.layout.customer_info_details);
         mContext = CustomerInfoDetailsActivity.this;
         db = new DatabaseHandler(mContext);
-
-        myDialog = new Dialog(this);
-        myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-
         Intent i = getIntent();
         customerId = i.getStringExtra("customerID");
         paymentModeClicked = i.getStringExtra("paymentModeClicked");
@@ -118,30 +107,17 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         textViewRecentOrder = findViewById(R.id.textViewRecentOrder);
         textViewUpdateAndProceed = findViewById(R.id.textViewUpdateAndProceed);
         recyclerviewRecentOrder = findViewById(R.id.recyclerviewRecentOrder);
-        rInfoLay = findViewById(R.id.rInfoLay);
-        rInfoLay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDialogBox();
-            }
-        });
-
         pinnedUpdate();
         lLayoutBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!mCustomerEmail.trim().equalsIgnoreCase("")) {
-                    Intent mIntent = new Intent();
-                    mIntent.putExtra(Constants.KEY_CUSTOMER, customerId);
-                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, customerPoints);
-                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_PER, customerPointsPer);
-                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL, mCustomerEmail);
-                    setResult(Constants.ACT_CUSTOMER, mIntent);
-                    finish();
-                }
-                else
-                    Util.showToast(getString(R.string.redeem_customer_email_not_authorised), mContext);
-
+                Intent mIntent = new Intent();
+                mIntent.putExtra(Constants.KEY_CUSTOMER, customerId);
+                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, customerPoints);
+                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_PER,customerPointsPer);
+                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL,mCustomerEmail);
+                setResult(Constants.ACT_CUSTOMER, mIntent);
+                finish();
             }
         });
         imvBilling.setOnClickListener(new View.OnClickListener() {
@@ -162,40 +138,6 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         });
         rLayoutContent.setOnClickListener(this);
 
-    }
-
-    private void showDialogBox() {
-        CustomerModel customerModel = db.getCustomer(customerId);
-        ImageView ImvClose;
-        TextView textViewCustomerPoints,textViewCustomerTotalPoints,textViewTotalRedeemPoints,textViewTotalAdjustedPoints,textViewTotalExpirePoints,textViewTotalReversePoints;
-
-
-        myDialog.setContentView(R.layout.view_info_dialog);
-        ImvClose = myDialog.findViewById(R.id.imvClose);
-        textViewCustomerPoints = myDialog.findViewById(R.id.textViewCustomerPoints);
-        textViewCustomerTotalPoints = myDialog.findViewById(R.id.textViewCustomerTotalPoints);
-        textViewTotalRedeemPoints = myDialog.findViewById(R.id.textViewTotalRedeemPoints);
-        textViewTotalAdjustedPoints = myDialog.findViewById(R.id.textViewTotalAdjustedPoints);
-        textViewTotalExpirePoints = myDialog.findViewById(R.id.textViewTotalExpirePoints);
-        textViewTotalReversePoints = myDialog.findViewById(R.id.textViewTotalReversePoints);
-
-        textViewCustomerPoints.setText(customerModel.getCustomerPoints()+"");
-        textViewCustomerTotalPoints.setText(customerModel.getPointsPerValue()+"");
-        textViewTotalRedeemPoints.setText(customerModel.getCustomerRedeemPoints()+"");
-        textViewTotalAdjustedPoints.setText(customerModel.getCustomerAdjustPoints()+"");
-        textViewTotalExpirePoints.setText(customerModel.getCustomerExpirePoints()+"");
-        textViewTotalReversePoints.setText(customerModel.getCustomerReversePoints()+"");
-
-
-        ImvClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
-
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.show();
     }
 
     private void pinnedUpdate() {
@@ -359,7 +301,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
 
                 Intent i = new Intent(mContext, CustomerAddMain.class);
                 i.putExtra("Count", 1);
-                i.putExtra("paymentModeClicked", paymentModeClicked);
+                i.putExtra("paymentModeClicked",paymentModeClicked);
                 startActivity(i);
                 break;
         }

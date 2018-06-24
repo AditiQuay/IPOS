@@ -89,7 +89,6 @@ public class Constants {
     public static final String PAYMENT_REQUEST = "payment_request";
     public static final String KEY_CUSTOMER_POINTS_PER = "CUSTOMER_POINTS_PER" ;
     public static final String KEY_CUSTOMER_POINTS_EMAIL = "CUSTOMER_POINTS_EMAIL";
-    public static final String KEY_ORDER_ID = "KEY_ORDER_ID";
     public static int APP_DIALOG_Pinned_ORDER=3;
 
     public static String UserProfilePic = "http://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png";
@@ -141,7 +140,6 @@ public class Constants {
     public static final String entityStateCode="entityStateCode";
 
     public static final String entityCode="entityCode";
-    public static final String entityName="entityName";
     public static final String entityRole="entityRole";
     public static final String employeeCode="employeeCode";
     public static final String employeeRole="employeeRole";
@@ -153,9 +151,5 @@ public class Constants {
 
 
     public static String KEY_CUSTOMER_POINTS_EMPCODE="POINTS_EMPCODE";
-    public static String isOTC="isOTC";
-    public static String otcPerc="otcPerc";
-    public static String otcValue="otcValue";
-
 }
 

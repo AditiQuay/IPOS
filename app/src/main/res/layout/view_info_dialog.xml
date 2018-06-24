@@ -26,9 +26,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:fontFamily="@font/titilliumwebregular"
                 android:layout_toLeftOf="@+id/ImvClose"
                 android:alpha="0.7"
-                android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
                 android:text="Points Info" />
 
@@ -41,7 +41,7 @@
                 android:layout_marginRight="@dimen/dim_5"
                 android:gravity="top"
                 android:padding="@dimen/dim_2"
-                android:src="@drawable/ic_action_close_white" />
+                android:src="@drawable/ic_action_close" />
         </RelativeLayout>
 
 
@@ -51,15 +51,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal"
-        android:padding="@dimen/dim_4">
+        android:orientation="horizontal">
 
         <LinearLayout
             android:id="@+id/llName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/dim_4">
+            android:padding="@dimen/dim_4"
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -69,7 +68,7 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor16"
+                    style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -83,13 +82,13 @@
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:fontFamily="@font/titilliumwebregular"
+                    android:layout_alignParentRight="true"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8" />
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="1" />
 
             </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,27 +96,27 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor16"
+                    style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
                     android:paddingRight="@dimen/dim_8"
-                    android:text="Total Points Per Value" />
+                    android:text="Total Points"/>
 
                 <TextView
                     android:id="@+id/textViewCustomerTotalPoints"
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:fontFamily="@font/titilliumwebregular"
+                    android:layout_alignParentRight="true"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8" />
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="1" />
 
             </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,27 +124,27 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor16"
+                    style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
                     android:paddingRight="@dimen/dim_8"
-                    android:text="Total Redeem Points" />
+                    android:text="Total Redeem"/>
 
                 <TextView
                     android:id="@+id/textViewTotalRedeemPoints"
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:fontFamily="@font/titilliumwebregular"
+                    android:layout_alignParentRight="true"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8" />
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="1" />
 
             </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -153,27 +152,27 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor16"
+                    style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
                     android:paddingRight="@dimen/dim_8"
-                    android:text="Total Adjust Points" />
+                    android:text="Total Adjusted Points"/>
 
                 <TextView
                     android:id="@+id/textViewTotalAdjustedPoints"
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:fontFamily="@font/titilliumwebregular"
+                    android:layout_alignParentRight="true"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8" />
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="1" />
 
             </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -181,27 +180,27 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor16"
+                    style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
                     android:paddingRight="@dimen/dim_8"
-                    android:text="Total Expire Points" />
+                    android:text="Total Expired Points"/>
 
                 <TextView
                     android:id="@+id/textViewTotalExpirePoints"
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:fontFamily="@font/titilliumwebregular"
+                    android:layout_alignParentRight="true"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8" />
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="1" />
 
             </RelativeLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -209,24 +208,25 @@
                 android:padding="@dimen/dim_4">
 
                 <TextView
-                    style="@style/stylePrimaryTextColor16"
+                    style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/titilliumwebregular"
                     android:paddingLeft="@dimen/dim_8"
                     android:paddingRight="@dimen/dim_8"
-                    android:text="Total Reverse Points" />
+                    android:text="Total Reverse Points"/>
 
                 <TextView
                     android:id="@+id/textViewTotalReversePoints"
                     style="@style/stylePrimaryTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:fontFamily="@font/titilliumwebregular"
+                    android:layout_alignParentRight="true"
                     android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8" />
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="1" />
 
             </RelativeLayout>
         </LinearLayout>

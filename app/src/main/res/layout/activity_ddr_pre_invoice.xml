@@ -51,7 +51,7 @@
                 android:paddingLeft="8dp"
                 android:paddingRight="16dp"
                 android:paddingTop="8dp"
-                android:src="@drawable/person"
+                android:src="@drawable/info_white"
                 android:textSize="@dimen/b2b_text_body" />
 
         </RelativeLayout>

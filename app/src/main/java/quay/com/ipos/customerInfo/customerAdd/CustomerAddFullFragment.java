@@ -405,9 +405,11 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                         childModels.add(model);
                         customerChildAdapter.notifyDataSetChanged();
                     }
+
+
                 }else {
                     Toast.makeText(mContext,"You are not allow to add more then 3 childred details",Toast.LENGTH_SHORT).show();
-                    btnAddChild.setBackground(getResources().getDrawable(R.drawable.button_rectangle_grey));
+                    btnAddChild.setBackgroundColor(Color.GRAY);
                 }
             }
         });
@@ -647,7 +649,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 //            or
 //            recyclerView.addItemDecoration(new DividerItemDecoration(getActivity()));
             //or
-//            recyclerViewChild.addItemDecoration(new DividerItemDecoration(getActivity(), R.drawable.divider));
+            recyclerViewChild.addItemDecoration(new DividerItemDecoration(getActivity(), R.drawable.divider));
             customerChildAdapter = new CustomerChildAdapter(mContext, childModels, this, this, this);
             recyclerViewChild.setAdapter(customerChildAdapter);
 

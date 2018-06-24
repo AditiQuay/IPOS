@@ -5,7 +5,6 @@ import android.content.Context;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
@@ -21,7 +20,6 @@ import java.util.regex.Pattern;
  * check network status 2g,3g,4g
  */
 public final class NetUtil {
-    public static final String TAG = NetUtil.class.getSimpleName();
 
     public static int TYPE_WIFI = 1;
     public static int TYPE_MOBILE = 2;
@@ -171,10 +169,10 @@ public final class NetUtil {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
 
-        Log.v(TAG,"activeNetInfo.getType() "+""+activeNetInfo.getType());
-        Log.v(TAG,"activeNetInfo.getType() "+""+activeNetInfo.getSubtype());
-        Log.v(TAG,"activeNetInfo.getType() "+""+activeNetInfo.getSubtypeName());
-        Log.v(TAG,"activeNetInfo.getType() "+""+activeNetInfo.getExtraInfo());
+        Log.v("activeNetInfo.getType() ",""+activeNetInfo.getType());
+        Log.v("activeNetInfo.getType() ",""+activeNetInfo.getSubtype());
+        Log.v("activeNetInfo.getType() ",""+activeNetInfo.getSubtypeName());
+        Log.v("activeNetInfo.getType() ",""+activeNetInfo.getExtraInfo());
 
         if (activeNetInfo != null
                 && activeNetInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
@@ -346,8 +344,5 @@ public final class NetUtil {
 
         return map;
     }
-    public static boolean isNetworkConnected(@NonNull Context context) {
-        ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        return manager.getActiveNetworkInfo() != null;
-    }
+
 }

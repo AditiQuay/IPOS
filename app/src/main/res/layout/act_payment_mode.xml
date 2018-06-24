@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundgrey"
     android:orientation="vertical">
 
@@ -54,36 +54,16 @@
         android:layout_gravity="center_vertical"
         android:background="@color/colorPrimaryDark">
 
-        <FrameLayout
-            android:id="@+id/flCustomer"
-            style="?attr/actionButtonStyle"
+        <ImageView
+            android:id="@+id/imvUserAdd"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_5"
             android:layout_width="0dp"
-
-            android:layout_marginRight="@dimen/dim_5"
-            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:clipToPadding="false"
-            android:focusable="true">
-
-            <ImageView
-                android:id="@+id/imvUserAdd"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_add_person"/>
-
-            <ImageView
-                android:id="@+id/imvTick"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_gravity="right|end|top"
-                android:layout_marginRight="-8dp"
-                android:layout_marginLeft="@dimen/dim_8"
-                android:visibility="visible"
-                android:src="@drawable/ic_action_check_yellow"
-                android:gravity="center"/>
-
-        </FrameLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/transparent"
+            android:src="@drawable/ic_action_add_person"/>
 
         <FrameLayout
             style="?attr/actionButtonStyle"
@@ -98,7 +78,6 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                android:alpha="0.3"
                 android:src="@drawable/ic_action_pin_white"/>
 
             <quay.com.ipos.ui.CustomTextView
@@ -139,7 +118,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:alpha="0.3"
             android:background="@color/transparent"
             android:src="@drawable/ic_action_discount_white"/>
 
@@ -156,7 +134,6 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                android:alpha="0.3"
                 android:src="@drawable/ic_action_loyality_white"/>
 
             <quay.com.ipos.ui.CustomTextView
@@ -186,7 +163,6 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:alpha="0.3"
             android:src="@drawable/ic_action_online_shoping"/>
 
 
@@ -217,7 +193,6 @@
                 android:layout_width="wrap_content"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
-                android:alpha="0.3"
                 android:src="@drawable/ic_action_qr_code1"/>
 
             <ImageView
@@ -228,7 +203,6 @@
                 android:layout_marginRight="-8dp"
                 android:layout_marginLeft="@dimen/dim_8"
                 android:layout_marginTop="5dp"
-                android:alpha="0.3"
                 android:background="@drawable/circle_disabled"
                 android:gravity="center"
                 android:padding="3dp"/>
@@ -331,7 +305,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="@dimen/dim_10"
-                        android:background="@drawable/button_rectangle_light_gray"
+                        android:background="@drawable/gray_white_background_selector"
                         android:layout_gravity="center"
                         android:layout_marginLeft="@dimen/dim_2"
                         android:orientation="vertical">
@@ -677,7 +651,6 @@
                                     android:layout_gravity="left|center"
                                     android:textSize="14dp"
                                     android:inputType="number"
-                                    android:focusable="true"
                                     android:editable="false"
                                     android:enabled="false"
                                     android:padding="5dp"
@@ -1115,8 +1088,6 @@
                                 android:gravity="left|center"
                                 android:layout_gravity="left|center"
                                 android:textSize="14dp"
-                                android:enabled="false"
-                                android:focusable="true"
                                 android:inputType="number"
                                 android:padding="5dp"
                                 android:hint="@string/redeem_value"
@@ -1161,7 +1132,7 @@
                                 android:layout_weight="1"
                                 android:paddingTop="@dimen/dim_10"
                                 android:paddingBottom="@dimen/dim_10"
-
+                                app:typeface="TitilliumWeb-SemiBold.ttf"
                                 android:background="@drawable/button_rectangle_primary"
                                 android:text="@string/send_otp" />
 
@@ -1177,7 +1148,7 @@
                                 android:paddingRight="@dimen/dim_35"
                                 android:textSize="@dimen/text_size_15sp"
                                 android:textColor="@color/colorPrimary"
-
+                                app:typeface="TitilliumWeb-SemiBold.ttf"
                                 android:text="@string/resend_otp" />
                         </LinearLayout>
                         <LinearLayout
@@ -1262,7 +1233,7 @@
                                     android:textColor="@color/white"
                                     android:paddingTop="@dimen/dim_10"
                                     android:paddingBottom="@dimen/dim_10"
-
+                                    app:typeface="TitilliumWeb-SemiBold.ttf"
                                     android:background="@drawable/button_rectangle_primary"
                                     android:text="@string/verify" />
 
@@ -1279,7 +1250,7 @@
                                     android:textColor="@color/white"
                                     android:paddingTop="@dimen/dim_10"
                                     android:paddingBottom="@dimen/dim_10"
-
+                                    app:typeface="TitilliumWeb-SemiBold.ttf"
                                     android:background="@drawable/button_rectangle_primary"
                                     android:text="@string/redeem" />
                             </LinearLayout>
@@ -1308,14 +1279,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/balance"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/payment_color"/>
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvBalance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dim_16"
                     android:text="@string/Rs_0"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/payment_color"/>
 
             </LinearLayout>
             <LinearLayout
@@ -1331,7 +1302,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/print_receipt"
-                    android:textColor="@color/white"/>
+                    android:textAllCaps="true"
+                    android:textColor="@color/payment_color"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

@@ -63,7 +63,7 @@
                                 app:ms_alignLabels="true"
                                 app:ms_baseColor="@color/grey"
                                 app:ms_enableErrorLabel="false"
-                                app:ms_enableFloatingLabel="false"
+                                app:ms_enableFloatingLabel="true"
                                 app:ms_errorColor="@color/red"
                                 app:ms_floatingLabelColor="@color/grey"
                                 app:ms_floatingLabelText="Role *"

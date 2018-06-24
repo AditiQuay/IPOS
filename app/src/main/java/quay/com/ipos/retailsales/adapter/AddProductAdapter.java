@@ -129,7 +129,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
             }
 
-            userViewHolder.tvUnitPrice.setText(Util.getIndianNumberFormat(str.getSalesPrice()+""));
+            userViewHolder.tvUnitPrice.setText(str.getSalesPrice()+"");
             if(str.getDiscount().size()>1){
                 userViewHolder.tvOfferDetail.setText(str.getDiscount().size()+ " offers applied");
             }else if(str.getDiscount().size()==1){

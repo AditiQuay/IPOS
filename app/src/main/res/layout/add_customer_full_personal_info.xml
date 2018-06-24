@@ -2,10 +2,8 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardViewProduct"
     android:layout_width="match_parent"
-    app:cardBackgroundColor="@color/white"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dim_8"
     android:maxHeight="@dimen/dim_200"
@@ -16,7 +14,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/card">
 
 
         <LinearLayout
@@ -105,8 +104,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Last Name *"
-                            android:inputType="text"
                             android:lines="1"
+                            android:inputType="text"
                             android:textSize="@dimen/universal_text_size16" />
 
                     </android.support.design.widget.TextInputLayout>
@@ -288,8 +287,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="Spouse First Name *"
-                                    android:inputType="text"
                                     android:lines="1"
+                                    android:inputType="text"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
@@ -311,8 +310,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="Spouse Last Name *"
-                                    android:inputType="text"
                                     android:lines="1"
+                                    android:inputType="text"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
@@ -421,9 +420,7 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerViewChild"
                         android:layout_width="match_parent"
-                        android:background="@color/app_background_color"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/dim_0"
                         android:layout_marginTop="@dimen/dim_4"
                         android:overScrollMode="never"
                         android:scrollbars="none" />

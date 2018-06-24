@@ -6,8 +6,6 @@
     android:layout_height="wrap_content"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:paddingBottom="80dp"
-    android:clipToPadding="false"
     tools:background="@color/app_background_color"
     tools:context=".ddrsales.DDROrderCenterActivity">
 
@@ -36,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/btnViewAll"
                     android:layout_centerVertical="true"
-                    android:drawableLeft="@drawable/order_summary"
+                    android:drawableLeft="@drawable/order_center"
                     android:drawablePadding="4dp"
                     android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center_vertical"
@@ -45,7 +43,28 @@
                     android:textColor="@color/app_blue"
                     android:textSize="15sp" />
 
-
+                <!-- <android.support.v7.widget.CardView
+                     android:id="@+id/btnViewAll"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_alignParentRight="true"
+                     android:layout_margin="8dp"
+                     app:cardCornerRadius="5dp">
+ 
+                     <TextView
+ 
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:background="@color/colorPrimary"
+                         android:fontFamily="@font/titilliumwebregular"
+                         android:paddingBottom="5dp"
+                         android:paddingLeft="8dp"
+                         android:paddingRight="8dp"
+                         android:paddingTop="5dp"
+                         android:text="View All"
+                         android:textColor="#ffff"
+                         android:textSize="14sp" />
+                 </android.support.v7.widget.CardView>-->
                 <Button
                     android:id="@+id/btnViewAll"
                     style="@style/styleWhiteTextColor14"
@@ -53,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_margin="4dp"
+                    android:layout_margin="8dp"
                     android:backgroundTint="@color/colorPrimary"
                     android:drawableLeft="@drawable/view_all"
                     android:drawablePadding="@dimen/dim_4"
@@ -63,7 +82,21 @@
                     android:textAllCaps="false" />
             </RelativeLayout>
 
-
+            <!--  <android.support.design.widget.TabLayout
+                  android:id="@+id/tabs"
+                  android:layout_width="match_parent"
+                  android:layout_height="60dp"
+                  android:layout_below="@+id/boxContainerTitle"
+                  android:minHeight="60dp"
+                  app:tabGravity="fill"
+                  app:tabIndicatorColor="@color/app_blue"
+                  app:tabIndicatorHeight="4dp"
+                  app:tabMode="fixed"
+                  app:tabPaddingStart="0dp"
+                  app:tabPaddingEnd="0dp"
+                  app:tabPaddingTop="0dp"
+                  app:tabPaddingBottom="0dp"
+                  />-->
             <LinearLayout
                 android:id="@+id/rLayoutValidPhotoDocument"
                 android:layout_width="match_parent"
@@ -71,30 +104,26 @@
                 android:layout_below="@+id/boxContainerTitle"
                 android:layout_gravity="bottom"
                 android:layout_marginTop="@dimen/dim_4"
-                android:background="@color/colorPrimary_100"
-                android:minHeight="55dp"
-                >
+                android:background="@drawable/card_strip_kyc">
 
                 <LinearLayout
                     android:id="@+id/lLayoutNew"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/tab_menu_bg_left"
-
+                    android:background="@drawable/card_selector_ddr"
                     android:orientation="vertical"
-                    android:paddingTop="7dp">
+                    android:padding="@dimen/dim_2">
 
                     <TextView
-                        android:id="@+id/textNewCount"
+                        android:id="@+id/textViewNewCount"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center"
                         android:fontFamily="@font/titilliumwebregular"
                         android:gravity="center"
-
-                        android:text="0"
-                        android:textColor="@color/tab_menu_text"
+                        android:text="1"
+                        android:textColor="@color/grey"
                         android:textSize="@dimen/dim_12" />
 
                     <TextView
@@ -105,29 +134,27 @@
                         android:fontFamily="@font/titilliumwebregular"
                         android:gravity="center"
                         android:text="@string/ddrb2bNew"
-                        android:textColor="@color/tab_menu_text"
+                        android:textColor="@color/grey"
                         android:textSize="@dimen/dim_12" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lLayoutAccepted"
+                    android:id="@+id/lLayoutInprocess"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/tab_menu_bg"
                     android:orientation="vertical"
-                    android:paddingTop="7dp">
+                    android:padding="@dimen/dim_2">
 
                     <TextView
-                        android:id="@+id/textAcceptedCount"
+                        android:id="@+id/textViewInProcessCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:fontFamily="@font/titilliumwebregular"
-                        android:text="0"
-                        android:textColor="@color/tab_menu_text"
+                        android:text="1"
+                        android:textColor="@color/grey"
                         android:textSize="@dimen/dim_12" />
 
                     <TextView
@@ -138,28 +165,26 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/titilliumwebregular"
                         android:text="@string/ddrb2bAccepted"
-                        android:textColor="@color/tab_menu_text"
+                        android:textColor="@color/grey"
                         android:textSize="@dimen/dim_12" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lLayoutDispatched"
+                    android:id="@+id/lLayoutVerified"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/tab_menu_bg"
                     android:orientation="vertical"
-
-                    android:paddingTop="7dp">
+                    android:padding="@dimen/dim_2">
 
                     <TextView
-                        android:id="@+id/textDispatchedCount"
+                        android:id="@+id/textViewVerifiedCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/titilliumwebregular"
-                        android:text="0"
-                        android:textColor="@color/tab_menu_text"
+                        android:text="1"
+                        android:textColor="@color/grey"
                         android:textSize="@dimen/dim_12" />
 
                     <TextView
@@ -168,29 +193,28 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/titilliumwebregular"
-                        android:maxLines="1"
                         android:text="@string/ddrb2bDispatched"
-                        android:textColor="@color/tab_menu_text"
+                        android:textColor="@color/grey"
+                        android:maxLines="1"
                         android:textSize="@dimen/dim_12" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lLayoutDelivered"
+                    android:id="@+id/lLayoutAllPartners"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/tab_menu_bg"
                     android:orientation="vertical"
-                    android:paddingTop="7dp">
+                    android:padding="@dimen/dim_2">
 
                     <TextView
-                        android:id="@+id/textDeliveredCount"
+                        android:id="@+id/textViewAllPartnersCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/titilliumwebregular"
-                        android:text="0"
-                        android:textColor="@color/tab_menu_text"
+                        android:text="1"
+                        android:textColor="@color/grey"
                         android:textSize="@dimen/dim_12" />
 
                     <TextView
@@ -200,27 +224,26 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/titilliumwebregular"
                         android:text="@string/ddrb2bDelivered"
-                        android:textColor="@color/tab_menu_text"
+                        android:textColor="@color/grey"
                         android:textSize="@dimen/dim_12" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/lLayoutCancelled"
+                    android:id="@+id/lLayoutAllCancelled"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/tab_menu_bg_right"
                     android:orientation="vertical"
-                    android:paddingTop="7dp">
+                    android:padding="@dimen/dim_2">
 
                     <TextView
-                        android:id="@+id/textCancelledCount"
+                        android:id="@+id/textViewCancelledCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:fontFamily="@font/titilliumwebregular"
-                        android:text="0"
-                        android:textColor="@color/tab_menu_text"
+                        android:text="1"
+                        android:textColor="@color/grey"
                         android:textSize="@dimen/dim_12" />
 
                     <TextView
@@ -230,7 +253,7 @@
                         android:layout_gravity="center"
                         android:fontFamily="@font/titilliumwebregular"
                         android:text="@string/ddrb2bCancelled"
-                        android:textColor="@color/tab_menu_text"
+                        android:textColor="@color/grey"
                         android:textSize="@dimen/dim_12" />
                 </LinearLayout>
             </LinearLayout>
@@ -240,19 +263,18 @@
 
 
         <LinearLayout
-            android:id="@+id/blockNew"
+            android:id="@+id/blockImmediate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/ddr_rect_white"
-            android:layout_marginTop="8dp"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textNew"
+                android:id="@+id/ipos_block_txt2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
-                android:drawableLeft="@drawable/add_shopping_cart_blue"
+                android:background="@drawable/ddr_rect_white"
+                android:drawableLeft="@drawable/cart"
                 android:drawablePadding="16dp"
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center_vertical"
@@ -262,18 +284,21 @@
                 android:paddingTop="8dp"
                 android:text="New Order"
                 android:textColor="@color/colorPrimary"
+
+
                 android:textSize="@dimen/b2b_text_body" />
 
 
             <quay.com.ipos.utility.RecyclerViewEmptySupport
-                android:id="@+id/recyclerViewNew"
+                android:id="@+id/mRecyclerViewImmediate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
+                android:paddingBottom="10dp"
                 tools:itemCount="3" />
 
             <TextView
-                android:id="@+id/listEmptyNew"
+                android:id="@+id/listEmptyImmediate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -288,12 +313,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/blockAccepted"
+            android:id="@+id/blockUpcoming"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ddr_rect_white"
-            android:orientation="vertical">
+            android:orientation="vertical"
+
+
+            >
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -305,11 +331,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:background="@drawable/ddr_rect_white"
-                    android:drawableLeft="@drawable/add_shopping_cart_blue"
+                    android:drawableLeft="@drawable/cart"
                     android:drawablePadding="16dp"
                     android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center_vertical"
-                    android:paddingBottom="8dp"
+                    android:paddingBottom="2dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
 
@@ -323,14 +349,14 @@
 
 
             <quay.com.ipos.utility.RecyclerViewEmptySupport
-                android:id="@+id/recyclerViewAccepted"
+                android:id="@+id/mRecyclerViewUpcoming"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false"
-                 />
+                android:paddingBottom="10dp" />
 
             <TextView
-                android:id="@+id/listEmptyAccepted"
+                android:id="@+id/listEmptyUpcomingEvent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -345,12 +371,11 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/blockDispatched"
+            android:id="@+id/blockPending"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ddr_rect_white"
             android:orientation="vertical"
+
 
             >
 
@@ -358,11 +383,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
-                android:drawableLeft="@drawable/add_shopping_cart_blue"
+                android:background="@drawable/ddr_rect_white"
+                android:drawableLeft="@drawable/cart"
                 android:drawablePadding="16dp"
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center_vertical"
-                android:paddingBottom="8dp"
+                android:paddingBottom="2dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
 
@@ -373,14 +399,14 @@
 
 
             <quay.com.ipos.utility.RecyclerViewEmptySupport
-                android:id="@+id/recyclerViewDispatched"
+                android:id="@+id/mRecyclerViewPending"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:nestedScrollingEnabled="false"
-                 />
+                android:paddingBottom="10dp" />
 
             <TextView
-                android:id="@+id/listEmptyDispatched"
+                android:id="@+id/listEmptyPending"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -395,23 +421,21 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/blockDelivered"
+            android:id="@+id/blockDone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ddr_rect_white"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
-
-                android:drawableLeft="@drawable/add_shopping_cart_blue"
+                android:background="@drawable/ddr_rect_white"
+                android:drawableLeft="@drawable/cart"
                 android:drawablePadding="16dp"
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center_vertical"
-                android:paddingBottom="8dp"
+                android:paddingBottom="2dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
 
@@ -422,69 +446,22 @@
 
 
             <quay.com.ipos.utility.RecyclerViewEmptySupport
-                android:id="@+id/recyclerViewDelivered"
+                android:id="@+id/mRecyclerViewDone"
                 android:layout_width="match_parent"
+
                 android:layout_height="wrap_content"
                 android:clipToPadding="true"
-                android:nestedScrollingEnabled="false" />
+                android:nestedScrollingEnabled="false"
+                android:paddingBottom="200dp" />
 
             <TextView
-                android:id="@+id/listEmptyDelivered"
+                android:id="@+id/listEmptyDone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:paddingBottom="20dp"
                 android:paddingTop="20dp"
                 android:text="@string/listEmptyDeliverd"
-                android:visibility="gone"
-                tools:visibility="visible"
-
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/blockCancelled"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/ddr_rect_white"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-
-                android:drawableLeft="@drawable/add_shopping_cart_blue"
-                android:drawablePadding="16dp"
-                android:fontFamily="@font/titilliumwebregular"
-                android:gravity="center_vertical"
-                android:paddingBottom="8dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-
-                android:paddingTop="8dp"
-                android:text="@string/string_cancelled"
-                android:textColor="@color/colorPrimary"
-                android:textSize="@dimen/b2b_text_body" />
-
-
-            <quay.com.ipos.utility.RecyclerViewEmptySupport
-                android:id="@+id/recyclerViewCancelled"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="true"
-                android:nestedScrollingEnabled="false" />
-
-            <TextView
-                android:id="@+id/listEmptyCancelled"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
-                android:text="@string/listEmptyCancelled"
                 android:visibility="gone"
                 tools:visibility="visible"
 

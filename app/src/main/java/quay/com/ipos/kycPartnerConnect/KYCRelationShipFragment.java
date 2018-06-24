@@ -80,8 +80,6 @@ public class KYCRelationShipFragment extends Fragment {
         recyclerViewTwo = view.findViewById(R.id.recyclerViewTwo);
         recyclerViewThree = view.findViewById(R.id.recyclerViewThree);
 
-
-
         getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

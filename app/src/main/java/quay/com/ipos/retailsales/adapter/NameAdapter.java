@@ -47,7 +47,7 @@ public class NameAdapter extends BaseAdapter {
         BillingSync name = names.get(position);
 
         //setting the name to textview
-        textViewName.setText("Order No. : "+name.getOrderID());
+        textViewName.setText(name.getOrderDateTime());
 
         //if the synced status is 0 displaying 
         //queued icon 

@@ -48,21 +48,4 @@ public class IPOSAPI {
     //redeem
     public static String WEB_SERVICE_NOPointsRedeem = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOPointsRedeem";
     public static String WEB_SERVICE_ValidateNOCustomerRedeemPoint = WEB_SERVICE_BASE_URL + "PSSNewOrder/ValidateNOCustomerRedeemPoint";
-
-
-   //partner connect & kyc
-    public static final String BASE_URL = "http://13.127.101.233:8087/";
-    //@Query("sort") String sort  "api/PSSConnects/getPssConnectDetail?strEntityId=1";
-    //partner connect
-    public static final String PARTNER_CONNECT_API = "api/PSSConnects/getPssConnectDetail";
-    public static final String PARTNER_CONNECT_UPDATE_API = "api/PSSConnects/UpdatePssdetail";
-    //kyc
-    public static final String KYC_PARTNER_API = "api/PSSConnects/getPssRequesttDetail";
-    public static final String KYC_PARTNER_ACCEPT = "api/PSSConnects/KyCAccept";
-
-    //ddr sales
-    public static final String DDR_NO_SUMMARY = "/api/PSSNewOrder/NOSummary";
-    public static final String DDR_GetDDRList = "/api/DDR/GetDDRList";
-    public static final String DDR_GetDDRProductList = "/api/DDR/GetDDRProductList";
-
 }

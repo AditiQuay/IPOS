@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:maxHeight="@dimen/dim_200"
-    android:background="@color/grey"
+    app:cardCornerRadius="@dimen/dim_4"
     app:cardElevation="0dp"
-    app:cardUseCompatPadding="true"
     app:cardPreventCornerOverlap="true"
     card_view:cardElevation="0dp">
 
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,7 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/dim_2"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_2">
 
 
                 <LinearLayout
@@ -151,5 +153,6 @@
 
 
         </LinearLayout>
+    </RelativeLayout>
 </android.support.v7.widget.CardView>
 

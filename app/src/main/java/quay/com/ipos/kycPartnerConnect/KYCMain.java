@@ -48,9 +48,8 @@ import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.data.remote.RestService;
-import quay.com.ipos.data.remote.model.KCYApproveResponse;
-import quay.com.ipos.data.remote.model.KycPartnerConnectResponse;
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
+import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.RelationShipFragment;
 import quay.com.ipos.partnerConnect.model.Account;
@@ -85,26 +84,17 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
     private Dialog myDialog;
     private String employeeCode;
 
-
-    public boolean isApprover;
-
-    private String entityName;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
         setContentView(R.layout.kyc_partner_pss);
-        entityName = Prefs.getStringPrefs(Constants.entityName);
         myDialog = new Dialog(this);
         myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-
 
         Intent i = getIntent();
         entityCode = i.getIntExtra("EntityCode", 0);
         requestCode = i.getStringExtra("RequestCode");
-        isApprover = i.getBooleanExtra("isApprover", false);
-
         employeeCode = Prefs.getStringPrefs(Constants.employeeCode.trim());
         findViewById();
         applyInitValues();
@@ -132,7 +122,7 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(  getResources().getString(R.string.title_kyc_connect) +" - "+ entityName);
+        getSupportActionBar().setTitle(getResources().getString(R.string.title_kyc_connect));
         btnAccept = findViewById(R.id.btnAccept);
         btnReject = findViewById(R.id.btnReject);
         viewPager = findViewById(R.id.viewPager);
@@ -236,20 +226,17 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
            /* if (mListener != null) {
                 mListener.onPageSelected(position);
             }*/
-            //  if (position == 0 || position == 1) {
-            //    findViewById(R.id.bottom_sheet).setVisibility(View.GONE);
-            //   } else {
-            if (isApprover)
-                findViewById(R.id.bottom_sheet).setVisibility(View.VISIBLE);
-            else
+            if (position == 0 || position == 1) {
                 findViewById(R.id.bottom_sheet).setVisibility(View.GONE);
-            //  }
+            } else {
+                findViewById(R.id.bottom_sheet).setVisibility(View.VISIBLE);
+            }
 
-           /* if (position == 5 || position == 1) {
+            if (position == 5 || position == 1) {
                 fab.setVisibility(View.GONE);
             } else {
                 fab.setVisibility(View.VISIBLE);
-            }*/
+            }
         }
 
         @Override
@@ -441,7 +428,7 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
             case 3:
                 return new KycAccountFragment();
             case 4:
-                return new KYCBillingAddressFragment();
+                return new BillingAddressFragment();
             case 5:
                 return new KycDocumentsFragment();
             default:
@@ -498,12 +485,10 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
             Log.i(TAG, "entityCode Hardcoded if entityCode is 0" + entityCode + "");
         }
 
-        Call<KycPartnerConnectResponse> call = RestService.getApiServiceSimple(  ).getKYCConnectData(entity, requestCode);
-        call.enqueue(new Callback<KycPartnerConnectResponse>() {
+         Call<PartnerConnectResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).kycConnectData(entity, requestCode);
+        call.enqueue(new Callback<PartnerConnectResponse>() {
             @Override
-            public void onResponse(Call<KycPartnerConnectResponse> call, Response<KycPartnerConnectResponse> response) {
-                Log.d(TAG, "response.raw().request().url();" + response.raw().request().url());
-
+            public void onResponse(Call<PartnerConnectResponse> call, Response<PartnerConnectResponse> response) {
                 if (response.code() != 200) {
                     Toast.makeText(KYCMain.this, "Code:" + response.code() + ", Message:" + response.message(), Toast.LENGTH_SHORT).show();
                     return;
@@ -512,13 +497,10 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
                     Log.i("response", response.body().statusCode + "," + response.body().message);
                     Log.i("JsonObject", response.toString() + response.body());
                     if (response.body() != null) {
-                        KycPartnerConnectResponse response1 = response.body();
+                        PartnerConnectResponse response1 = response.body();
                         if (response1 != null) {
                             PCModel pcModel = response1.response;
-
                             if (pcModel != null) {
-
-
                                 Log.e(TAG, "pcModel" + new Gson().toJson(pcModel));
                                 Log.e(TAG, "pcDataContact" + new Gson().toJson(pcModel.Contact));
                                 pcModelLiveData.setValue(pcModel);
@@ -532,7 +514,7 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
             }
 
             @Override
-            public void onFailure(Call<KycPartnerConnectResponse> call, Throwable t) {
+            public void onFailure(Call<PartnerConnectResponse> call, Throwable t) {
                 Toast.makeText(KYCMain.this, " Message:" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
                 Log.e(TAG, "ERROR OCCURED");
@@ -540,7 +522,21 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
                 t.printStackTrace();
             }
         });
+/*
+        Call<JSONObject> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).kycConnectData1(entity, requestCode);
+        call.enqueue(new Callback<JSONObject>() {
+            @Override
+            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
 
+                Log.e(TAG, "response" + response.body().toString());
+
+            }
+
+            @Override
+            public void onFailure(Call<JSONObject> call, Throwable t) {
+
+            }
+        });*/
         return "";
     }
 
@@ -550,37 +546,43 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
 
 
     private void updateDataToWS() {
-
-        if (employeeCode == null || employeeCode.isEmpty()) {
-
-            Log.e(TAG, "employeeCode is null or empty");
-        } else {
-            Log.e(TAG, "employeeCode " + employeeCode);
-        }
-
+//        if (!validateData()) {
+//            return;
+//        }
+        JSONObject object = new JSONObject();
         KYCAcceptData kycAcceptData = new KYCAcceptData();
-        kycAcceptData.empCode = employeeCode.trim();
-        kycAcceptData.jsutification = "";
-        kycAcceptData.requestCode = requestCode;
-        kycAcceptData.pssRespnce = getPcModelData().getValue();
-
-
+        try {
+            object.put("empCode", employeeCode.trim());
+            //
+            object.put("jsutification", "");
+            object.put("requestCode", requestCode);
+            object.put("pssRespnce", new JSONObject(new Gson().toJson(getPcModelData().getValue())));
+            kycAcceptData.empCode = employeeCode.trim();
+            kycAcceptData.jsutification ="";
+            kycAcceptData.requestCode =requestCode;
+            kycAcceptData.pssRespnce =  getPcModelData().getValue();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Log.i("updateData", new Gson().toJson(getPcModelData().getValue()));
-        Call<KCYApproveResponse> call = RestService.getApiServiceSimple( ).kycConnectUpdateDataAccept(kycAcceptData);
-        call.enqueue(new Callback<KCYApproveResponse>() {
+        Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).kycConnectUpdateData(kycAcceptData);
+        call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
-            public void onResponse(Call<KCYApproveResponse> call, Response<KCYApproveResponse> response) {
-                Log.d(TAG, "response.raw().request().url();" + response.raw().request().url());
-                Log.i(TAG, "Code:" + response.code() + " message:" + response.message());
+            public void onResponse(Call<PartnerConnectUpdateResponse> call, Response<PartnerConnectUpdateResponse> response) {
                 if (response.code() != 200) {
                     IPOSApplication.showToast("Code:" + response.code() + " message:" + response.message());
                     return;
                 }
                 try {
-                      if (response.body() != null) {
-                        KCYApproveResponse response1 = response.body();
-                        IPOSApplication.showToast("" + response1.message);
-                        finish();
+
+                    IPOSApplication.showToast("Code:" + response.code() + " message:" + response.message());
+                    Log.i("response", response.body().statusCode + "," + response.body().message);
+                    Log.i("JsonObject", response.toString() + response.body());
+                    if (response.body() != null) {
+                        PartnerConnectUpdateResponse response1 = response.body();
+                        if (response1 != null) {
+                            Log.i("updateDataResponse", new Gson().toJson(response1));
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -589,7 +591,7 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
             }
 
             @Override
-            public void onFailure(Call<KCYApproveResponse> call, Throwable t) {
+            public void onFailure(Call<PartnerConnectUpdateResponse> call, Throwable t) {
                 Log.e(TAG, "ERROR OCCURED");
                 Log.i("JsonObject", t.toString());
                 t.printStackTrace();
@@ -710,50 +712,50 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.keyBusinessContactInfo == null) {
+        if (pcModel.Contact.KeyBusinessContactInfo == null) {
             String error = "Contact -> ContactInfo is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.keyBusinessContactInfo.keyDesignation == null || pcModel.Contact.keyBusinessContactInfo.keyDesignation.isEmpty()) {
+        if (pcModel.Contact.KeyBusinessContactInfo.keyDesignation == null || pcModel.Contact.KeyBusinessContactInfo.keyDesignation.isEmpty()) {
             String error = "Contact -> Contact Position is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.keyBusinessContactInfo.keyEmpName == null || pcModel.Contact.keyBusinessContactInfo.keyEmpName.isEmpty()) {
+        if (pcModel.Contact.KeyBusinessContactInfo.keyEmpName == null || pcModel.Contact.KeyBusinessContactInfo.keyEmpName.isEmpty()) {
             String error = "Contact -> Contact Person Name is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.keyBusinessContactInfo.keyMobile == null || pcModel.Contact.keyBusinessContactInfo.keyMobile.isEmpty()) {
+        if (pcModel.Contact.KeyBusinessContactInfo.keyMobile == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile.isEmpty()) {
             String error = "Contact -> Primary Mobile No. is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.keyBusinessContactInfo.keyMobile2 == null || pcModel.Contact.keyBusinessContactInfo.keyMobile2.isEmpty()) {
+        if (pcModel.Contact.KeyBusinessContactInfo.keyMobile2 == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile2.isEmpty()) {
             String error = "Contact -> Secondary Mobile No. is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.keyBusinessContactInfo.keyEmail == null || pcModel.Contact.keyBusinessContactInfo.keyEmail.isEmpty()) {
+        if (pcModel.Contact.KeyBusinessContactInfo.keyEmail == null || pcModel.Contact.KeyBusinessContactInfo.keyEmail.isEmpty()) {
             String error = "Contact-> Email is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
 
-        if (pcModel.Contact.keyBusinessContactInfo.NewContact == null) {
+        if (pcModel.Contact.KeyBusinessContactInfo.NewContact == null) {
             String error = "Contact-> Contact Other is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        for (NewContact newContact : pcModel.Contact.keyBusinessContactInfo.NewContact) {
+        for (NewContact newContact : pcModel.Contact.KeyBusinessContactInfo.NewContact) {
             if (newContact.Role == null || newContact.Role.isEmpty()) {
                 String error = "Contact-> Role is required!";
                 Log.e(TAG, error);
