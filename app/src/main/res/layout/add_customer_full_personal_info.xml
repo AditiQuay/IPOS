@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dim_8"
     android:maxHeight="@dimen/dim_200"
+    app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/dim_4"
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true"
@@ -14,8 +15,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/card">
+        android:layout_height="wrap_content">
 
 
         <LinearLayout
@@ -104,8 +104,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Last Name *"
-                            android:lines="1"
                             android:inputType="text"
+                            android:lines="1"
                             android:textSize="@dimen/universal_text_size16" />
 
                     </android.support.design.widget.TextInputLayout>
@@ -225,8 +225,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lLayoutTop"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -287,8 +287,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="Spouse First Name *"
-                                    android:lines="1"
                                     android:inputType="text"
+                                    android:lines="1"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
@@ -310,8 +310,8 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="Spouse Last Name *"
-                                    android:lines="1"
                                     android:inputType="text"
+                                    android:lines="1"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
@@ -422,21 +422,47 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dim_4"
+                        android:background="@color/app_background_color"
                         android:overScrollMode="never"
+                        android:padding="@dimen/dim_0"
                         android:scrollbars="none" />
 
-                    <Button
-                        android:id="@+id/btnAddChild"
-                        style="@style/styleWhiteTextColor14"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dim_40"
-                        android:layout_gravity="end"
-                        android:layout_marginTop="@dimen/dim_16"
-                        android:background="@drawable/button_drawable_blue"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:stateListAnimator="@null"
-                        android:text="AddChild"
-                        android:textAllCaps="false" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/btnRemoveChild"
+                            style="@style/styleWhiteTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dim_40"
+                            android:layout_gravity="end"
+
+                            android:layout_marginBottom="@dimen/dim_8"
+                            android:layout_marginTop="@dimen/dim_16"
+                            android:background="@drawable/button_drawable_blue"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:padding="@dimen/dim_4"
+                            android:stateListAnimator="@null"
+                            android:text="Remove Child"
+                            android:textAllCaps="false" />
+
+                        <Button
+                            android:id="@+id/btnAddChild"
+                            style="@style/styleWhiteTextColor14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dim_40"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="end"
+                            android:layout_marginBottom="@dimen/dim_8"
+                            android:layout_marginTop="@dimen/dim_16"
+                            android:background="@drawable/button_drawable_blue"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:stateListAnimator="@null"
+                            android:text="AddChild"
+                            android:textAllCaps="false" />
+
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

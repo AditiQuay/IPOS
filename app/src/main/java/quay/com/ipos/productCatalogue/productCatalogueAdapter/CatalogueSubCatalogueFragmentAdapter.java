@@ -3,6 +3,7 @@ package quay.com.ipos.productCatalogue.productCatalogueAdapter;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,12 +58,18 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
         holder.textViewProductName.setText(catalogueModal.getsProductName());
         holder.textViewFeature.setText(catalogueModal.getsProductFeature());
         String s1 = catalogueModal.getsProductPrice();
-        String[] words = s1.split("-");
-        String part1 =words[0];
-        String part2 = words[1];
-        String finalPrice = "\u20B9"+" "+part1+"-"+" \u20B9"+" "+part2;
 
-        holder.textViewPrice.setText(finalPrice);
+        if (!TextUtils.isEmpty(s1)){
+            String[] words = s1.split("-");
+            String part1 =words[0];
+            String part2 = words[1];
+            String finalPrice = "\u20B9"+" "+part1+"-"+" \u20B9"+" "+part2;
+            holder.textViewPrice.setText(finalPrice);
+        }else {
+            holder.textViewPrice.setText("");
+
+        }
+
         holder.textViewOffer.setText(catalogueModal.getsPoints() + " " + mContext.getResources().getString(R.string.text_points));
         if (catalogueModal.getIsOnOffer()){
             holder.rLayoutTopStrip.setVisibility(View.VISIBLE);
@@ -82,7 +89,11 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
         }
 
         if (NetUtil.isNetworkAvailable(mContext)) {
-            Picasso.get().load(catalogueModal.getsProductUrl()).placeholder(R.drawable.product_placeholder).into(holder.imageViewProduct);
+            if (!TextUtils.isEmpty(catalogueModal.getsProductUrl())){
+                Picasso.get().load(catalogueModal.getsProductUrl()).placeholder(R.drawable.product_placeholder).into(holder.imageViewProduct);
+            }else {
+                holder.imageViewProduct.setImageResource(R.drawable.product_placeholder);
+            }
 
         } else {
             Picasso.get()
@@ -124,6 +135,12 @@ public class CatalogueSubCatalogueFragmentAdapter extends RecyclerView.Adapter<C
             @Override
             public void onClick(View v) {
                 dataSheetDownloadListener.onCartBtnClick(position);
+            }
+        });
+        holder.btnCalculator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dataSheetDownloadListener.onCalculatorSheetDownload(position);
             }
         });
     }

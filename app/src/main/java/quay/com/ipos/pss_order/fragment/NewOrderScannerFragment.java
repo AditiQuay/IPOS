@@ -146,12 +146,12 @@ public class NewOrderScannerFragment extends BaseFragment implements
 //                mScannerView.setAutoFocus(mAutoFocus);
 //                return true;
 //            case R.id.menu_formats:
-//                DialogFragment fragment = FormatSelectorDialogFragment.newInstance(this, mSelectedIndices);
+//                ListDialogFragment fragment = FormatSelectorDialogFragment.newInstance(this, mSelectedIndices);
 //                fragment.show(getActivity().getSupportFragmentManager(), "format_selector");
 //                return true;
 //            case R.id.menu_camera_selector:
 //                mScannerView.stopCamera();
-//                DialogFragment cFragment = CameraSelectorDialogFragment.newInstance(this, mCameraId);
+//                ListDialogFragment cFragment = CameraSelectorDialogFragment.newInstance(this, mCameraId);
 //                cFragment.show(getActivity().getSupportFragmentManager(), "camera_selector");
 //                return true;
 //            default:
@@ -203,26 +203,7 @@ public class NewOrderScannerFragment extends BaseFragment implements
     }
 
 
-    void callScanService(String title, Context mContext){
 
-        mProductList = IPOSApplication.mProductListResult;
-        showProgressDialog(mContext,R.string.please_wait);
-        CommonParams mCommonParams = new CommonParams();
-        mCommonParams.setStoreId("1");
-        mCommonParams.setBarCodeNumber(title);
-
-        ServiceTask mTask = new ServiceTask();
-        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_ProductDetailUsingBarCode);
-        mTask.setApiCallType(Constants.API_METHOD_POST);
-        mTask.setParamObj(mCommonParams);
-        mTask.setListener(this);
-        mTask.setResultType(ProductSearchResult.class);
-        if(Util.isConnected())
-            mTask.execute();
-        else
-            Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
-    }
 
 
     @Override
@@ -247,7 +228,13 @@ public class NewOrderScannerFragment extends BaseFragment implements
         }catch (Exception e){
         }
 
-        mScannerView.resumeCameraPreview(this);
+        mScannerView.post(new Runnable() {
+            @Override
+            public void run() {
+                mScannerView.resumeCameraPreview(NewOrderScannerFragment.this);
+            }
+        });
+
     }
 
 
@@ -268,19 +255,19 @@ public class NewOrderScannerFragment extends BaseFragment implements
     }
 
 //    @Override
-//    public void onDialogPositiveClick(DialogFragment dialog) {
+//    public void onDialogPositiveClick(ListDialogFragment dialog) {
 //        // Resume the camera
 //        mScannerView.resumeCameraPreview(this);
 //    }
 
 //    @Override
-//    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+//    public void onDialogPositiveClick(ListDialogFragment dialog, int mCallType) {
 //        // Resume the camera
 //        mScannerView.resumeCameraPreview(this);
 //    }
 //
 //    @Override
-//    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+//    public void onDialogNegetiveClick(ListDialogFragment dialog, int mCallType) {
 //
 //    }
 
@@ -329,65 +316,6 @@ public class NewOrderScannerFragment extends BaseFragment implements
 
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj,String response) {
-        hideProgressDialog();
-        // Resume the camera
-        //   mScannerView.resumeCameraPreview(this);
-        if (httpStatusCode == Constants.SUCCESS) {
-            if(serviceUrl!=null && serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_ProductDetailUsingBarCode)) {
-                if (resultObj != null) {
-
-                    ProductSearchResult productListResult = (ProductSearchResult) resultObj;
-                    if(productListResult.getData()!=null)
-                        if(productListResult.getData()!=null && productListResult.getData().size()>0) {
-                            if (IPOSApplication.mProductListResult.size() > 0){
-
-                                for (int i = 0; i < mProductList.size(); i++) {
-
-                                    if (productListResult.getData().get(0).getIProductModalId().equalsIgnoreCase(mProductList.get(i).getIProductModalId())) {
-                                        ProductSearchResult.Datum mProductListResultData = mProductList.get(i);
-                                        mProductListResultData.setQty(mProductListResultData.getQty() + 1);
-                                        mProductListResultData.setAdded(true);
-                                        IPOSApplication.mProductListResult.set(i, mProductListResultData);
-                                        found=true;
-                                    } else {
-
-
-                                    }
-                                }
-                                if(!found){
-                                    ProductSearchResult.Datum datum = productListResult.getData().get(0);
-                                    datum.setAdded(true);
-                                    datum.setQty(1);
-                                    IPOSApplication.mProductListResult.add(0, datum);
-                                }
-                            }else {
-                                ProductSearchResult.Datum datum = productListResult.getData().get(0);
-                                datum.setAdded(true);
-                                datum.setQty(1);
-                                IPOSApplication.mProductListResult.add(0, datum);
-                            }
-
-                            IPOSApplication.isRefreshed=true;
-                            Util.showToast(getString(R.string.product_added_successfully),getActivity());
-                        }else {
-                            Util.showToast(getString(R.string.product_not_found),getActivity());
-                        }
-                }
-
-//                mainActivity.onUpdate((ProductListResult)resultObj,getActivity());
-            }
-        } else if (httpStatusCode == Constants.BAD_REQUEST) {
-            Toast.makeText(getActivity(), getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
-            Toast.makeText(getActivity(), getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
-            Toast.makeText(getActivity(), getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
-            Toast.makeText(getActivity(), getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
-        } else if (httpStatusCode == Constants.CONNECTION_OUT) {
-            Toast.makeText(getActivity(), getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
-        }
-
 
 
         mScannerView.resumeCameraPreview(this);

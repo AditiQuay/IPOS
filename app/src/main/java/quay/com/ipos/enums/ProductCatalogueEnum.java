@@ -5,7 +5,7 @@ package quay.com.ipos.enums;
  */
 
 public enum ProductCatalogueEnum {
-    info("info"), section("section"),sectionProduct("sectionProduct"),
+    info("info"), section("section"),sectionProduct("sectionProduct"),sDataCalculator("sDataCalculator"),
     sectionItems("sectionItems"), productId("productId"),productNameMain("productName"),productMainUrl("productUrl"),count("count"),
 
     productData("data"),productCode("productCode"),sProductName("sProductName"),

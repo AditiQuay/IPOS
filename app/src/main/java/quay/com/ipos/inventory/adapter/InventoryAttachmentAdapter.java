@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.modal.GrnAttachment;
+import quay.com.ipos.listeners.AttachmentListener;
+import quay.com.ipos.listeners.MyListener;
 
 /**
  * Created by niraj.kumar on 6/20/2018.
@@ -21,10 +23,11 @@ import quay.com.ipos.inventory.modal.GrnAttachment;
 public class InventoryAttachmentAdapter extends RecyclerView.Adapter<InventoryAttachmentAdapter.ItemView> {
     private Context mContext;
     private ArrayList<GrnAttachment> grnAttachments;
-
-    public InventoryAttachmentAdapter(Context mContext,ArrayList<GrnAttachment> grnAttachments){
+    AttachmentListener listener;
+    public InventoryAttachmentAdapter(Context mContext,ArrayList<GrnAttachment> grnAttachments,AttachmentListener listener){
         this.mContext = mContext;
         this.grnAttachments = grnAttachments;
+        this.listener = listener;
     }
 
     @NonNull
@@ -35,9 +38,15 @@ public class InventoryAttachmentAdapter extends RecyclerView.Adapter<InventoryAt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemView holder, int position) {
+    public void onBindViewHolder(@NonNull ItemView holder, final int position) {
         GrnAttachment grnAttachment = grnAttachments.get(position);
         holder.tvtitle.setText(grnAttachment.getGrnAttachmentName());
+        holder.tvtitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onAttachmentClicked(position);
+            }
+        });
 
     }
 

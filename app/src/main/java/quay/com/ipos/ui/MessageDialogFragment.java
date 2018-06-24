@@ -17,8 +17,8 @@ public class MessageDialogFragment extends DialogFragment {
 //    private int mCallType = -1;
 //
 //    public interface MessageDialogListener {
-//        public void onDialogPositiveClick(DialogFragment dialog,int mCallType);
-//        public void onDialogNegetiveClick(DialogFragment dialog,int mCallType);
+//        public void onDialogPositiveClick(ListDialogFragment dialog,int mCallType);
+//        public void onDialogNegetiveClick(ListDialogFragment dialog,int mCallType);
 //    }
 //
 //    private String yesButton;

@@ -87,6 +87,8 @@
                         android:layout_margin="@dimen/dim_8"
                         android:padding="@dimen/dim_4"
                         android:paddingTop="@dimen/dim_16"
+                        android:visibility="invisible"
+
                         android:text="Status Approved" />
 
                     <ImageView
@@ -95,6 +97,8 @@
                         android:layout_height="@dimen/dim_16"
                         android:layout_centerHorizontal="true"
                         android:layout_margin="@dimen/dim_12"
+                        android:visibility="invisible"
+
                         android:layout_toRightOf="@+id/textViewPanStatus"
                         android:src="@drawable/green_signal" />
 

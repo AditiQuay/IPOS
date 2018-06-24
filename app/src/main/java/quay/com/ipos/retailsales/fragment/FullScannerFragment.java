@@ -55,6 +55,7 @@ public class FullScannerFragment extends BaseFragment implements
     private boolean found=false;
     DatabaseHandler databaseHandler;
     public ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
+    public ArrayList<ProductSearchResult.Datum> data1= new ArrayList<>();
     private ProductSearchResult productListResult;
     private MainActivity mainActivity;
 
@@ -143,12 +144,12 @@ public class FullScannerFragment extends BaseFragment implements
 //                mScannerView.setAutoFocus(mAutoFocus);
 //                return true;
 //            case R.id.menu_formats:
-//                DialogFragment fragment = FormatSelectorDialogFragment.newInstance(this, mSelectedIndices);
+//                ListDialogFragment fragment = FormatSelectorDialogFragment.newInstance(this, mSelectedIndices);
 //                fragment.show(getActivity().getSupportFragmentManager(), "format_selector");
 //                return true;
 //            case R.id.menu_camera_selector:
 //                mScannerView.stopCamera();
-//                DialogFragment cFragment = CameraSelectorDialogFragment.newInstance(this, mCameraId);
+//                ListDialogFragment cFragment = CameraSelectorDialogFragment.newInstance(this, mCameraId);
 //                cFragment.show(getActivity().getSupportFragmentManager(), "camera_selector");
 //                return true;
 //            default:
@@ -221,7 +222,7 @@ public class FullScannerFragment extends BaseFragment implements
             Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
     }
 
-
+    boolean isCodeFound=false;
     @Override
     public void handleResult(Result rawResult) {
         try {
@@ -231,57 +232,75 @@ public class FullScannerFragment extends BaseFragment implements
         } catch (Exception e) {
             e.printStackTrace();
         }
+        data.clear();
+        data1.clear();
 
         if(databaseHandler.isRetailMasterEmpty(databaseHandler.TABLE_RETAIL)) {
             callScanService(rawResult.getContents(),getActivity());
         }else {
+
             data = databaseHandler.getAllProduct();
             if(data.size()>0)
                 for(int i = 0 ; i < data.size() ; i++){
                     if(rawResult.getContents().equalsIgnoreCase(data.get(i).getBarCodeNumber())){
                         productListResult = new ProductSearchResult();
-                        productListResult.setData(data);
+                        data1.add(data.get(i));
+                        productListResult.setData(data1);
+                        isCodeFound=true;
+                        break;
+                    }else {
+                        isCodeFound=false;
                     }
                 }
-
-            if(productListResult.getData()!=null && productListResult.getData().size()>0) {
-                if (IPOSApplication.mProductListResult.size() > 0){
-
-                    for (int i = 0; i < mProductList.size(); i++) {
-
-                        if (productListResult.getData().get(0).getIProductModalId().equalsIgnoreCase(mProductList.get(i).getIProductModalId())) {
-                            ProductSearchResult.Datum mProductListResultData = mProductList.get(i);
-                            mProductListResultData.setQty(mProductListResultData.getQty() + 1);
-                            mProductListResultData.setAdded(true);
-                            IPOSApplication.mProductListResult.set(i, mProductListResultData);
-                            found=true;
-                        } else {
-
-
-                        }
-                    }
-                    if(!found){
-                        ProductSearchResult.Datum datum = productListResult.getData().get(0);
-                        datum.setAdded(true);
-                        datum.setQty(1);
-                        IPOSApplication.mProductListResult.add(0, datum);
-                    }
-                }else {
-                    ProductSearchResult.Datum datum = productListResult.getData().get(0);
-                    datum.setAdded(true);
-                    datum.setQty(1);
-                    IPOSApplication.mProductListResult.add(0, datum);
-                }
-
-                IPOSApplication.isRefreshed=true;
-                Util.showToast(getString(R.string.product_added_successfully),getActivity());
-            }else {
+            if(!isCodeFound){
                 Util.showToast(getString(R.string.product_not_found),getActivity());
+            }else {
+
+                if (productListResult != null)
+                    if (productListResult.getData() != null && productListResult.getData().size() > 0) {
+                        if (IPOSApplication.mProductListResult.size() > 0) {
+
+                            mProductList = IPOSApplication.mProductListResult;
+                            for (int i = 0; i < mProductList.size(); i++) {
+
+                                if (productListResult.getData().get(0).getIProductModalId().equalsIgnoreCase(mProductList.get(i).getIProductModalId())) {
+                                    ProductSearchResult.Datum mProductListResultData = mProductList.get(i);
+                                    mProductListResultData.setQty(mProductListResultData.getQty() + 1);
+                                    mProductListResultData.setAdded(true);
+                                    IPOSApplication.mProductListResult.set(i, mProductListResultData);
+                                    found = true;
+                                } else {
+
+
+                                }
+                            }
+                            if (!found) {
+                                ProductSearchResult.Datum datum = productListResult.getData().get(0);
+                                datum.setAdded(true);
+                                datum.setQty(1);
+                                IPOSApplication.mProductListResult.add(0, datum);
+                            }
+                        } else {
+                            ProductSearchResult.Datum datum = productListResult.getData().get(0);
+                            datum.setAdded(true);
+                            datum.setQty(1);
+                            IPOSApplication.mProductListResult.add(0, datum);
+                        }
+
+                        IPOSApplication.isRefreshed = true;
+                        Util.showToast(getString(R.string.product_added_successfully), getActivity());
+                    } else {
+                        Util.showToast(getString(R.string.product_not_found), getActivity());
+                    }
             }
-
         }
+        mScannerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mScannerView.resumeCameraPreview(FullScannerFragment.this);
+            }
+        },3000);
 
-        mScannerView.resumeCameraPreview(this);
 
         Intent intent = new Intent("CUSTOM_ACTION");
         // You can also include some extra data.
@@ -311,19 +330,19 @@ public class FullScannerFragment extends BaseFragment implements
     }
 
 //    @Override
-//    public void onDialogPositiveClick(DialogFragment dialog) {
+//    public void onDialogPositiveClick(ListDialogFragment dialog) {
 //        // Resume the camera
 //        mScannerView.resumeCameraPreview(this);
 //    }
 
 //    @Override
-//    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+//    public void onDialogPositiveClick(ListDialogFragment dialog, int mCallType) {
 //        // Resume the camera
 //        mScannerView.resumeCameraPreview(this);
 //    }
 //
 //    @Override
-//    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+//    public void onDialogNegetiveClick(ListDialogFragment dialog, int mCallType) {
 //
 //    }
 

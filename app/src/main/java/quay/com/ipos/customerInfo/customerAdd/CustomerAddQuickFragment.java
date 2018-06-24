@@ -62,7 +62,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     private static final String TAG = CustomerAddQuickFragment.class.getSimpleName();
     private View main;
     private TextView textViewPersonalHeading;
-    private MaterialSpinner genderSpinner, titleSpinner;
+    private MaterialSpinner genSpinner, titleSpinner;
     private TextInputLayout tilFirstName, tilLastName, tilMobileNumber;
     private TextInputEditText tieFirstName, tieLastName, tieMobileNumber;
     private TextView textViewMadatory;
@@ -85,9 +85,12 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     public static final String mypreference = "Data";
     public static final String quickPreference = "QuickData";
     SharedPreferences.Editor editor;
+    SharedPreferences.Editor quickEdit;
     private List<String> titlePosition = new ArrayList<>();
     private List<String> genderPosition = new ArrayList<>();
     private String paymentModeClicked;
+    private int customerID = 0;
+
     public CustomerAddQuickFragment() {
 
     }
@@ -111,6 +114,10 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
 
         mAwesomeValidation = new AwesomeValidation(BASIC);
         dbHelper = new DatabaseHandler(mContext);
+
+        quickPref = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
+        quickEdit = quickPref.edit();
+
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
@@ -127,12 +134,12 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     }
 
     public void setData() {
-        quickPref = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
-        String title = quickPref.getString("title", "");
-        String gender = quickPref.getString("gender", "");
-        String firstName = quickPref.getString("firstName", "");
-        String lastName = quickPref.getString("lastName", "");
-        String MobileNumber = quickPref.getString("mobileNumber", "");
+        sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        String title = sharedpreferences.getString("title", "");
+        String gender = sharedpreferences.getString("gender", "");
+        String firstName = sharedpreferences.getString("firstName", "");
+        String lastName = sharedpreferences.getString("lastName", "");
+        String MobileNumber = sharedpreferences.getString("MobileNumber", "");
 
         if (!TextUtils.isEmpty(title)) {
             if (titlePosition.contains(title)) {
@@ -146,11 +153,11 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         if (!TextUtils.isEmpty(gender)) {
             if (genderPosition.contains(gender)) {
                 int index = genderPosition.indexOf(gender);
-                genderSpinner.setSelection(index + 1);
-                genderSpinner.setSelection(index + 1);
-                genderSpinner.setEnabled(false);
+                genSpinner.setSelection(index + 1);
+                genSpinner.setSelection(index + 1);
+                genSpinner.setEnabled(false);
             } else {
-                genderSpinner.setEnabled(true);
+                genSpinner.setEnabled(true);
             }
         }
         if (!TextUtils.isEmpty(firstName)) {
@@ -171,7 +178,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     public void findViewById() {
         textViewPersonalHeading = main.findViewById(R.id.textViewPersonalHeading);
         titleSpinner = main.findViewById(R.id.titleSpinner);
-        genderSpinner = main.findViewById(R.id.genderSpinner);
+        genSpinner = main.findViewById(R.id.genSpinner);
         tilFirstName = main.findViewById(R.id.tilFirstName);
         tilLastName = main.findViewById(R.id.tilLastName);
         tilMobileNumber = main.findViewById(R.id.tilMobileNumber);
@@ -191,14 +198,15 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         tieMobileNumber.addTextChangedListener(this);
 
         titleSpinner.setOnItemSelectedListener(this);
+        genSpinner.setOnItemSelectedListener(this);
     }
 
     private void storeCustomerDataToLocalDb() {
-        String customerId = " ";
+        String customerId = "0";
         String title = String.valueOf(titleSpinner.getSelectedItem());
         String firstName = tieFirstName.getText().toString();
         String lastName = tieLastName.getText().toString();
-        String gender = String.valueOf(genderSpinner.getSelectedItem());
+        String gender = String.valueOf(genSpinner.getSelectedItem());
         String mobileNumber = tieMobileNumber.getText().toString();
         if (gender.equalsIgnoreCase("Male")) {
             gender1 = "M";
@@ -219,7 +227,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                     "", "", "", "false", childjson,
                     "", "", mobileNumber.trim(), "", "", "", "", "",
                     "", "", "", "", "", "", "",
-                    "", "", "", "", "", "", "", "", "", "", "", "", "1", 0, 0);
+                    "", "", "", "", "", "", "", "", "", "", "", "", "1", 0, 0, 0, 0, 0, 0);
 
             customerModels.addAll(dbHelper.getAllOfflineCustomer());
             String accessToken = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN.trim(), "", mContext);
@@ -254,7 +262,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         //Creating the ArrayAdapter instance having the name title list
         ArrayAdapter genderHeading = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, genderTitle);
         genderHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(genderHeading);
+        genSpinner.setAdapter(genderHeading);
 
 
     }
@@ -264,7 +272,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
 
         FontUtil.applyTypeface(textViewPersonalHeading, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(titleSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(genderSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(genSpinner, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(tilFirstName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(tilLastName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
         FontUtil.applyTypeface(tilMobileNumber, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
@@ -327,9 +335,9 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 long id = dbHelper.updateServerId(Integer.parseInt(localId), customerCode);
                 Log.e(TAG, "Id***" + id);
             }
-            sharedpreferences =  mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-            String payment = sharedpreferences.getString("paymentModeClicked","");
-            if (payment.equalsIgnoreCase("clicked")){
+            sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+            String payment = sharedpreferences.getString("paymentModeClicked", "");
+            if (payment.equalsIgnoreCase("clicked")) {
                 Intent i = new Intent(mContext, PaymentModeActivity.class);
                 startActivity(i);
                 getActivity().finish();
@@ -338,7 +346,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.clear();
                 editor.apply();
-            }else {
+            } else {
                 Intent i = new Intent(mContext, CustomerInfoActivity.class);
                 startActivity(i);
                 getActivity().finish();
@@ -364,7 +372,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
             String title = String.valueOf(titleSpinner.getSelectedItem());
             String firstName = tieFirstName.getText().toString();
             String lastName = tieLastName.getText().toString();
-            String gender = String.valueOf(genderSpinner.getSelectedItem());
+            String gender = String.valueOf(genSpinner.getSelectedItem());
             String mobileNumber = tieMobileNumber.getText().toString();
 
             boolean isFail = false;
@@ -375,8 +383,8 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
             }
             if (gender.equalsIgnoreCase("null")) {
                 isFail = true;
-                genderSpinner.setEnableErrorLabel(true);
-                genderSpinner.setError(getResources().getString(R.string.invalid_gender));
+                genSpinner.setEnableErrorLabel(true);
+                genSpinner.setError(getResources().getString(R.string.invalid_gender));
             }
             if (TextUtils.isEmpty(tieFirstName.getText().toString())) {
                 isFail = true;
@@ -404,7 +412,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
 
             if (!isFail) {
                 titleSpinner.setEnableErrorLabel(false);
-                genderSpinner.setEnableErrorLabel(false);
+                genSpinner.setEnableErrorLabel(false);
                 tilFirstName.setErrorEnabled(false);
                 tilLastName.setErrorEnabled(false);
                 tilMobileNumber.setErrorEnabled(false);
@@ -472,7 +480,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
         if (!TextUtils.isEmpty(gender)) {
             if (genderPosition.contains(gender)) {
                 int index = genderPosition.indexOf(gender);
-                genderSpinner.setSelection(index + 1);
+                genSpinner.setSelection(index + 1);
                 titleSpinner.setSelection(index + 1);
                 titleSpinner.setEnabled(false);
             }
@@ -501,7 +509,7 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
             editor.putString("title", selectedSpinner);
             editor.apply();
         }
-        if (materialSpinner.getId() == R.id.genderSpinner) {
+        if (materialSpinner.getId() == R.id.genSpinner) {
             editor.putString("gender", selectedSpinner);
             editor.apply();
         }

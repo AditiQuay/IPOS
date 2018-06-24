@@ -1,6 +1,7 @@
 package quay.com.ipos.partnerConnect;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.arch.lifecycle.MutableLiveData;
 import android.net.Uri;
 import android.os.Bundle;
@@ -39,7 +40,9 @@ import quay.com.ipos.partnerConnect.model.BillnDelivery;
 import quay.com.ipos.partnerConnect.model.Cheques;
 import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.partnerConnect.model.PCModel;
+import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.Util;
 import quay.com.ipos.utility.ValidateUtils;
@@ -78,10 +81,12 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
         setContentView(R.layout.activity_partner_connect);
 
+
         findViewById();
         applyInitValues();
         applyTypeFace();
         applyLocalValidation();
+
 
         getServerData();
         initFile();
@@ -207,16 +212,25 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
            /* if (mListener != null) {
                 mListener.onPageSelected(position);
             }*/
-            if (position == 0 || position == 1) {
-                findViewById(R.id.bottom_sheet).setVisibility(View.GONE);
-            } else {
-                findViewById(R.id.bottom_sheet).setVisibility(View.VISIBLE);
-            }
+            try {
 
-            if (position == 5 || position == 1) {
-                 fab.setVisibility(View.GONE);
-            } else {
-                fab.setVisibility(View.VISIBLE);
+
+                if (getPcModelData().getValue().shouldShowBottom()) {
+                    if (position == 0 || position == 1) {
+                        findViewById(R.id.bottom_sheet).setVisibility(View.GONE);
+                    } else {
+                        findViewById(R.id.bottom_sheet).setVisibility(View.VISIBLE);
+                    }
+                }
+
+                if (position == 5 || position == 1) {
+                    fab.setVisibility(View.GONE);
+                } else {
+                    fab.setVisibility(View.VISIBLE);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
@@ -308,7 +322,9 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
     }
 
-    private String getServerData() {
+    private void getServerData() {
+
+
         int entityCode = Prefs.getIntegerPrefs(Constants.entityCode);
         Log.i(TAG + "entityCode", entityCode + "");
 
@@ -317,17 +333,25 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             Log.i(TAG, "entityCode Hardcoded if entityCode is 0" + entityCode + "");
         }
 
-        Call<PartnerConnectResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).loadPartnerConnectData(entityCode + "");
+        Call<PartnerConnectResponse> call = RestService.getApiServiceSimple().loadPartnerConnectData(entityCode + "");
+
+        if (!NetUtil.isNetworkConnected(activity)) {
+            Toast.makeText(activity, "" + getResources().getString(R.string.internet_connection_error_string), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         call.enqueue(new Callback<PartnerConnectResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectResponse> call, Response<PartnerConnectResponse> response) {
+                Log.d(TAG, "response.raw().request().url();" + response.raw().request().url());
                 if (response.code() != 200) {
+                    Log.i(TAG, "Code:" + response.code() + ", Message:" + response.message());
                     Toast.makeText(PartnerConnectMain.this, "Code:" + response.code() + ", Message:" + response.message(), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try {
-                   // Log.i("response", response.body().statusCode + "," + response.body().message);
-                   // Log.i("JsonObject", response.toString() + response.body());
+                    // Log.i("response", response.body().statusCode + "," + response.body().message);
+                    // Log.i("JsonObject", response.toString() + response.body());
                     if (response.body() != null) {
                         PartnerConnectResponse response1 = response.body();
                         if (response1 != null) {
@@ -339,8 +363,12 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                                     Log.e(TAG, "empId is null");
                                     return;
                                 }
-                                Log.i(TAG +" pcModel response:", new Gson().toJson(pcModel));
+                                Log.i(TAG + " pcModel response:", new Gson().toJson(pcModel));
                                 pcModel.empCode = empId;
+                                if (response1.keyValuePairs == null) {
+                                    response1.setDefaultValue();
+                                }
+
                                 pcModelLiveData.setValue(pcModel);
                             }
                         }
@@ -360,7 +388,6 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                 t.printStackTrace();
             }
         });
-        return "";
     }
 
     public MutableLiveData<PCModel> getPcModelData() {
@@ -372,23 +399,24 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         if (!validateData()) {
             return;
         }
-        PCModel pcModel = new PCModel();
-        pcModel.setLog(getPcModelData().getValue());
+        //  PCModel pcModel = new PCModel();
+        //  pcModel.setLog(getServerData().getValue());
 
-        Log.i("updateData pcModel", new Gson().toJson(pcModel));
-        Log.i("updateData pcModel", new Gson().toJson(getPcModelData().getValue()));
+        //  Log.i("updateData pcModel", new Gson().toJson(pcModel));
+        // Log.i("updateData pcModel", new Gson().toJson(getServerData().getValue()));
         writeFile(new Gson().toJson(getPcModelData().getValue()));
 
-        Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple(IPOSApplication.getContext()).updatePartnerConnectData(getPcModelData().getValue());
+        Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple().updatePartnerConnectData(getPcModelData().getValue());
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectUpdateResponse> call, Response<PartnerConnectUpdateResponse> response) {
+                Log.d(TAG, "response.raw().request().url();" + response.raw().request().url());
                 if (response.code() != 200) {
                     IPOSApplication.showToast("Code:" + response.code() + " message:" + response.message());
                     return;
                 }
                 try {
-                    Log.i(TAG,"Code:" + response.code() + " message:" + response.message());
+                    Log.i(TAG, "Code:" + response.code() + " message:" + response.message());
 
                     IPOSApplication.showToast("Data Updated.");
                     Log.i("response", response.body().statusCode + "," + response.body().message);
@@ -527,50 +555,65 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo == null) {
+        if (pcModel.Contact.keyBusinessContactInfo == null) {
             String error = "Contact -> ContactInfo is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo.keyDesignation == null || pcModel.Contact.KeyBusinessContactInfo.keyDesignation.isEmpty()) {
+        if (pcModel.Contact.keyBusinessContactInfo.keyDesignation == null || pcModel.Contact.keyBusinessContactInfo.keyDesignation.isEmpty()) {
             String error = "Contact -> Contact Position is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo.keyEmpName == null || pcModel.Contact.KeyBusinessContactInfo.keyEmpName.isEmpty()) {
+        if (pcModel.Contact.keyBusinessContactInfo.keyEmpName == null || pcModel.Contact.keyBusinessContactInfo.keyEmpName.isEmpty()) {
             String error = "Contact -> Contact Person Name is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo.keyMobile == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile.isEmpty()  || !ValidateUtils.isValidMobile(pcModel.Contact.KeyBusinessContactInfo.keyMobile)) {
+        if (pcModel.Contact.keyBusinessContactInfo.keyMobile == null || pcModel.Contact.keyBusinessContactInfo.keyMobile.isEmpty()) {
             String error = "Contact -> Primary Mobile No. is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        /*if (pcModel.Contact.KeyBusinessContactInfo.keyMobile2 == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile2.isEmpty()) {
+
+        if (!ValidateUtils.isValidMobile(pcModel.Contact.keyBusinessContactInfo.keyMobile)) {
+            String error = "Contact-> Primary Mobile should be 10 digit!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+
+        if (pcModel.Contact.keyBusinessContactInfo.keyMobile2 != null && pcModel.Contact.keyBusinessContactInfo.keyMobile2.length() > 0 && !ValidateUtils.isValidMobile(pcModel.Contact.keyBusinessContactInfo.keyMobile2)) {
+            String error = "Contact-> Secondary Mobile should be 10 digit!";
+            Log.e(TAG, error);
+            IPOSApplication.showToast(error);
+            return false;
+        }
+
+        /*if (pcModel.Contact.keyBusinessContactInfo.keyMobile2 == null || pcModel.Contact.keyBusinessContactInfo.keyMobile2.isEmpty()) {
             String error = "Contact -> Secondary Mobile No. is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }*/
-        if (pcModel.Contact.KeyBusinessContactInfo.keyEmail == null || pcModel.Contact.KeyBusinessContactInfo.keyEmail.isEmpty()) {
+        if (pcModel.Contact.keyBusinessContactInfo.keyEmail == null || pcModel.Contact.keyBusinessContactInfo.keyEmail.isEmpty()) {
             String error = "Contact-> Email is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
 
-        if (pcModel.Contact.KeyBusinessContactInfo.NewContact == null) {
+        if (pcModel.Contact.keyBusinessContactInfo.NewContact == null) {
             String error = "Contact-> Contact Other is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        for (NewContact newContact : pcModel.Contact.KeyBusinessContactInfo.NewContact) {
+        for (NewContact newContact : pcModel.Contact.keyBusinessContactInfo.NewContact) {
             if (newContact.Role == null || newContact.Role.isEmpty()) {
                 String error = "Contact-> Role is required!";
                 Log.e(TAG, error);
@@ -584,8 +627,14 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                 return false;
             }
 
-            if (newContact.PrimaryMobile == null || newContact.PrimaryMobile.isEmpty() || !ValidateUtils.isValidMobile(newContact.PrimaryMobile)) {
+            if (newContact.PrimaryMobile == null || newContact.PrimaryMobile.isEmpty()) {
                 String error = "Contact-> Primary Mobile is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (!ValidateUtils.isValidMobile(newContact.PrimaryMobile)) {
+                String error = "Contact-> Primary Mobile should be 10 digit!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
@@ -596,6 +645,13 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                 IPOSApplication.showToast(error);
                 return false;
             }*/
+
+            if (newContact.SecondaryMobile != null && newContact.SecondaryMobile.length() > 0 && !ValidateUtils.isValidMobile(newContact.SecondaryMobile)) {
+                String error = "Contact-> Secondary Mobile should be 10 digit!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
 
             if (newContact.Email == null || newContact.Email.isEmpty()) {
                 String error = "Contact-> Email is required!";
@@ -741,6 +797,13 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
                 IPOSApplication.showToast(error);
                 return false;
             }
+
+            if (!ValidateUtils.isValidMobile(billnDelivery.mMobile)) {
+                String error = "Bill & Delivery -> Contact Number should be 10 digit!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
         }
 
 
@@ -748,16 +811,16 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
     }
 
 
-   void initFile(){
+    void initFile() {
         if (!isExternalStorageAvailable() || isExternalStorageReadOnly()) {
             //saveButton.setEnabled(false);
-            Log.i(TAG,"External Storage Not Available");
-        }
-        else {
+            Log.i(TAG, "External Storage Not Available");
+        } else {
             myExternalFile = new File(getExternalFilesDir(filepath), filename);
         }
     }
-    void writeFile(String data){
+
+    void writeFile(String data) {
         try {
             FileOutputStream fos = new FileOutputStream(myExternalFile);
             fos.write(data.getBytes());
@@ -765,8 +828,8 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         } catch (IOException e) {
             e.printStackTrace();
         }
-      //  inputText.setText("");
-       Log.i(TAG,"SampleFile.txt saved to External Storage...");
+        //  inputText.setText("");
+        Log.i(TAG, "SampleFile.txt saved to External Storage...");
 
     }
 
@@ -784,5 +847,29 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        //super.onBackPressed();
+        Util.showMessageDialog(activity, new MessageDialog.MessageDialogListener() {
+            @Override
+            public void onDialogPositiveClick(Dialog dialog, int mCallType) {
+                finish();
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onDialogNegetiveClick(Dialog dialog, int mCallType) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onDialogCancelClick(Dialog dialog, int mCallType) {
+                dialog.dismiss();
+            }
+        }, getString(R.string.exit_message), getResources().getString(R.string.yes), getResources().getString(R.string.no), Constants.APP_DIALOG_BACK, "", getSupportFragmentManager());
+
     }
 }
