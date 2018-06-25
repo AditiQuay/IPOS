@@ -122,6 +122,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     private String erg;
     private boolean isShipArrow,isItemDetailsArrow;
     private ImageView imgShipArrow,arrow;
+    private LinearLayout llViewAll;
 
 
     @Override
@@ -282,6 +283,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     }
 
     private void intitiateView(){
+        llViewAll=findViewById(R.id.llViewAll);
         tvTotalQty = findViewById(R.id.tvTotalQty);
         tvTotalPriceBeforeGst = findViewById(R.id.tvTotalPriceBeforeGst);
         tvCGSTPrice = findViewById(R.id.tvCGSTPrice);
@@ -461,7 +463,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 userModal.setFlag(jsonObject1.optString("flag"));
             //    String datee= Util.getFormattedDates(jsonObject1.optString("date"),Constants.formatDate,Constants.format2);
 
-                userModal.setDate(jsonObject1.optString("date"));
+                userModal.setDate(jsonObject1.optString("date").replaceAll("\n"," "));
 
 
                 stringArrayListRoles.add(userModal);
@@ -497,6 +499,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 llDate.setEnabled(false);
                 btnEdit.setEnabled(false);
                 llRedeemValue.setEnabled(false);
+                llViewAll.setBackgroundResource(R.drawable.button_round_shape_green);
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("2")){
                 llbottom_buttons.setVisibility(View.GONE);
                 btnEdit.setVisibility(View.GONE);
@@ -504,6 +507,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 llDate.setEnabled(false);
                 btnEdit.setEnabled(false);
                 llRedeemValue.setEnabled(false);
+                llViewAll.setBackgroundResource(R.drawable.button_round_shape_green);
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("3")){
                 llbottom_buttons.setVisibility(View.GONE);
                 btnEdit.setVisibility(View.GONE);
@@ -511,8 +515,10 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 llDate.setEnabled(false);
                 btnEdit.setEnabled(false);
                 llRedeemValue.setEnabled(false);
+                llViewAll.setBackgroundResource(R.drawable.button_round_shape_red);
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("0")){
                 tvStatus.setText("Pending");
+                llViewAll.setBackgroundResource(R.drawable.button_round_shape_yelow);
             }
 
 

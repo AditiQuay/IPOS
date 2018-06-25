@@ -331,6 +331,7 @@
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
                         android:text="-"
+
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_21sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
@@ -349,8 +350,7 @@
                         android:paddingLeft="@dimen/dim_10"
                         android:paddingRight="@dimen/dim_10"
                         android:paddingTop="@dimen/dim_6"
-                        android:text="13337"
-                        android:maxLength="5"
+                        android:maxLength="9"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/text_size_12sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
