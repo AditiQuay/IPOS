@@ -22,7 +22,8 @@
             android:layout_width="63dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/order_summary" />
+            android:src="@drawable/order_summary"
+            android:visibility="gone" />
 
         <View
             android:id="@+id/viewSeperatorVertical"
@@ -30,7 +31,8 @@
             android:layout_height="80dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:visibility="invisible"
+            android:layout_marginRight="0dp"
             android:layout_toRightOf="@+id/imageProduct"
             android:background="@color/grey" />
 
@@ -139,7 +141,8 @@
 
             android:text=" "
             android:textColor="@color/grey"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            tools:text="aaaaa"/>
 
         <View
             android:id="@+id/viewMiddleRight"

@@ -144,7 +144,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         toolbar.setTitle("INVENTORY");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
-        setBatchTab();
+        setBatchTab(pos);
 
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         recyclerviewButton.setLayoutManager(horizontalLayoutManager);
@@ -157,7 +157,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     }
 
-    private void setBatchTab() {
+    private void setBatchTab(int position) {
         Realm realm = Realm.getDefaultInstance();
         RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
         Gson gson = new GsonBuilder().create();
@@ -166,7 +166,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
             JSONObject jsonObject = new JSONObject(json);
             JSONArray array = new JSONArray(jsonObject.optString("poItemDetails").replaceAll("\\\\", ""));
-            JSONObject jsonObject2 = array.getJSONObject(pos);
+            JSONObject jsonObject2 = array.getJSONObject(position);
             textViewProductName.setText(jsonObject2.optString("materialName"));
             textViewProductQuantity.setText(jsonObject2.optString("openQty"));
             textViewProductBalance.setText("Balance" + "" + jsonObject2.optString("balanceQty"));
@@ -183,7 +183,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 tabData.add(batchList);
             }
             batchTabAdapter.notifyDataSetChanged();
-
+            setRealmData(position);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -323,15 +323,15 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         switch (v.getId()) {
             case R.id.imgArrowRight:
                 int count = pos + 1;
-                getBatchList(count);
+                setBatchTab(count);
                 break;
             case R.id.imgArrowLeft:
                 if (pos == 0) {
-                    getBatchList(pos);
+                    setBatchTab(pos);
                 } else {
                     int firstPosition = pos;
                     int secondPosition = firstPosition - 1;
-                    getBatchList(secondPosition);
+                    setBatchTab(secondPosition);
                 }
                 break;
             case R.id.btnSave:

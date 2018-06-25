@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IPOS.iml" filepath="$PROJECT_DIR$/IPOS.iml" />
+<<<<<<< HEAD
+=======
       <module fileurl="file://E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\IPOS-core.iml" filepath="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\IPOS-core.iml" />
+>>>>>>> 1cbea9ab6bdefb344783815f48172ba112bf8f5a
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/zbar/zbar.iml" filepath="$PROJECT_DIR$/zbar/zbar.iml" />

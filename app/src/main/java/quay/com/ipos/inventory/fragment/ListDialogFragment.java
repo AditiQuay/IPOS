@@ -73,12 +73,10 @@ public class ListDialogFragment extends DialogFragment implements OthersTabListn
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
-        rvList = (RecyclerView) view.findViewById(R.id.recyclerviewButton);
+        rvList = (RecyclerView) view.findViewById(R.id.rvList);
         // Show soft keyboard automatically and request focus to field
         rvList.setHasFixedSize(true);
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
-        DividerItemDecoration decoration = new DividerItemDecoration(mContext, VERTICAL);
-        rvList.addItemDecoration(decoration);
         othersListAdapter = new OthersListAdapter(mContext, list, this);
         rvList.setAdapter(othersListAdapter);
 
