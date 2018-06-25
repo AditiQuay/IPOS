@@ -41,7 +41,7 @@ public class NewOrderItemsDetailListAdapter extends RecyclerView.Adapter<NewOrde
         holder.tvItemQty.setText(datum.getQty()+" x Free");
         else
             holder.tvItemQty.setText(datum.getQty()+"");
-        holder.tvValue.setText(mContext.getResources().getString(R.string.Rs) + " " + datum.getDiscountValue());
+        holder.tvValue.setText(mContext.getResources().getString(R.string.Rs) + " " + datum.getUnitprice());
         //double totalPrice = datum.getQty() * Double.parseDouble(datum.getSProductPrice());
         holder.tvValueMonth.setText(mContext.getResources().getString(R.string.Rs) + " " + datum.getValue());
         holder.tvValueDisc.setText("- "+mContext.getResources().getString(R.string.Rs) +" "+datum.getDiscountValue()+"");

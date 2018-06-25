@@ -12,6 +12,7 @@ public class RecentOrderModal {
     private String discountValue;
     private String qty;
     private boolean isFreeItem;
+    private double unitprice;
 
 
     public String getTitle() {
@@ -60,5 +61,13 @@ public class RecentOrderModal {
 
     public void setFreeItem(boolean freeItem) {
         isFreeItem = freeItem;
+    }
+
+    public double getUnitprice() {
+        return unitprice;
+    }
+
+    public void setUnitprice(double unitprice) {
+        this.unitprice = unitprice;
     }
 }

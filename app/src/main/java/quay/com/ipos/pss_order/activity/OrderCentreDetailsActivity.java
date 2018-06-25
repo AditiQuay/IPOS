@@ -10,7 +10,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -1112,6 +1114,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             recentOrderModal.setTitle(realmNewOrderCarts.getsProductName());
             recentOrderModal.setQty(""+realmNewOrderCarts.getQty());
             recentOrderModal.setFreeItem(realmNewOrderCarts.isFreeItem());
+            recentOrderModal.setUnitprice(realmNewOrderCarts.getsProductPrice());
 
             recentOrderModal.setValue(""+realmNewOrderCarts.getTotalPrice());
 
@@ -1134,8 +1137,14 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                     discountPrice = discountPrice + realmNewOrderCarts.getTotalPrice();
                 }
             }else {
-                discountPart=realmNewOrderCarts.getDiscountPrice();
-                discountPrice = discountPrice + realmNewOrderCarts.getDiscountPrice();
+                if (realmNewOrderCarts.isFreeItem()){
+                    discountPart=realmNewOrderCarts.getTotalPrice();
+                    discountPrice = discountPrice + realmNewOrderCarts.getTotalPrice();
+                }else {
+                    discountPart=realmNewOrderCarts.getDiscountPrice();
+                    discountPrice = discountPrice + realmNewOrderCarts.getDiscountPrice();
+                }
+
             }
             recentOrderModal.setDiscountValue(""+discountPart);
 
@@ -1196,7 +1205,12 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                     discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
                 }
             }else {
-                discountPrice = discountPrice + realmNewOrderCart.getDiscountPrice();
+                if (realmNewOrderCart.isFreeItem()){
+                    discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
+                }else {
+                    discountPrice = discountPrice + realmNewOrderCart.getDiscountPrice();
+                }
+
             }
             totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
             gst = gst + totalGST;
@@ -1211,11 +1225,13 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         }
         payAmount = (totalItemsAmount + cgst+sgst) - discountPrice;
 
-
-        orderValue.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat((payAmount)));
-        orderDiscount.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(discountPrice));
-        discount.setText(getResources().getString(R.string.Rs) + " " +Util.indianNumberFormat( discountPrice));
-        tvOrderValue.setText("Order Value "+getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount));
+            int redeeem=0;
+            if (etRedeemValue!=null && Util.validateString(etRedeemValue.getText().toString()))
+                redeeem= (int) Double.parseDouble(etRedeemValue.getText().toString());
+        orderValue.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat((payAmount-redeeem)));
+        orderDiscount.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(discountPrice+redeeem));
+        discount.setText(getResources().getString(R.string.Rs) + " " +Util.indianNumberFormat( discountPrice+redeeem));
+        tvOrderValue.setText("Order Value "+getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount-redeeem));
             tvTotalQty.setText(qty+"");
             tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat((totalItemsAmount-discountPrice))+"");
             tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(cgst)+"");
@@ -1242,17 +1258,43 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         tvResendOTP=(TextView)dialog.findViewById(R.id.tvResendOTP);
         tvRedeemPoints.setText(dAccumulatedPoints+"");
         buttonSendOtp=(Button)dialog.findViewById(R.id.buttonSendOtp);
-        EditText etPointToRedeem=dialog.findViewById(R.id.etPointToRedeem);
+        final EditText etPointToRedeem=dialog.findViewById(R.id.etPointToRedeem);
         if (Util.validateString(etPointToRedeem.getText().toString()))
             pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
         Button buttonSendOtp = (Button) dialog.findViewById(R.id.buttonSendOtp);
         Button buttonVerify = (Button) dialog.findViewById(R.id.buttonVerify);
         final double finalPointstoRedeem = pointstoRedeem;
+
+        etPointToRedeem.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if (Util.validateString(etPointToRedeem.getText().toString()))
+                    pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
+                if (pointstoRedeem<=dAccumulatedPoints)
+                    etRedeemValue.setText((perPoints*pointstoRedeem)+"");
+                else {
+                    Util.showToast("please check your available points");
+                }
+            }
+        });
         tvResendOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (dAccumulatedPoints>0 && finalPointstoRedeem >0 && finalPointstoRedeem<=dAccumulatedPoints){
-                    getOTP(finalPointstoRedeem);
+                if (Util.validateString(etPointToRedeem.getText().toString()))
+                    pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
+                if (dAccumulatedPoints>0 && pointstoRedeem >0 && pointstoRedeem<=dAccumulatedPoints){
+                    getOTP(pointstoRedeem);
                 }else {
                     Util.showToast("please check your available points");
                 }
@@ -1262,8 +1304,10 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         buttonVerify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (Util.validateString(etPointToRedeem.getText().toString()))
+                    pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
                 if (Util.validateString(etOTP.getText().toString())) {
-                    getVerifyOTP(etOTP.getText().toString(), finalPointstoRedeem);
+                    getVerifyOTP(etOTP.getText().toString(), pointstoRedeem);
                     dialog.dismiss();
                 } else {
                     Util.showToast("please enter otp");
@@ -1274,12 +1318,13 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             @Override
             public void onClick(View v) {
 
-                if (dAccumulatedPoints>0 && finalPointstoRedeem >0 && finalPointstoRedeem<=dAccumulatedPoints){
-                    getOTP(finalPointstoRedeem);
+                if (Util.validateString(etPointToRedeem.getText().toString()))
+                    pointstoRedeem = Double.parseDouble(etPointToRedeem.getText().toString());
+                if (dAccumulatedPoints>0 && pointstoRedeem >0 && pointstoRedeem<=dAccumulatedPoints){
+                    getOTP(pointstoRedeem);
                 }else {
                     Util.showToast("please check your available points");
                 }
-
             }
         });
 
@@ -1425,6 +1470,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    getProduct();
                                     Util.showToast(jsonObject.optString("message"));
 
                                 }
