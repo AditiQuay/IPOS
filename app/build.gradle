@@ -16,7 +16,7 @@ android {
 
     // Specifies two flavor dimensions.
 
-    flavorDimensions "tier"
+ /*   flavorDimensions "tier"
 
     productFlavors {
         dev {
@@ -27,7 +27,7 @@ android {
             resConfigs "en", "xxhdpi"
         }
 
-    }
+    }*/
 
     buildTypes {
         debug {

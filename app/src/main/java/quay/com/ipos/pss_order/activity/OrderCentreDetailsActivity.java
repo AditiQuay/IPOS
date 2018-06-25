@@ -454,11 +454,13 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 JSONObject jsonObject1=jsonObject.getJSONObject("listSpendRequestHistoryModel");
                 UserModal userModal=new UserModal();
                 userModal.setId(jsonObject.optString("positionStatus"));
-                userModal.setUserDateStatus(""+jsonObject1.optString("header"));
+                userModal.setUserDateStatus(jsonObject1.optString("status")+" "+jsonObject1.optString("header"));
                 userModal.setUserName(""+jsonObject.optString("phaseName"));
                 userModal.setUserStatus(""+jsonObject1.optString("status"));
                 userModal.setComment(jsonObject1.optString("comment"));
                 userModal.setFlag(jsonObject1.optString("flag"));
+            //    String datee= Util.getFormattedDates(jsonObject1.optString("date"),Constants.formatDate,Constants.format2);
+
                 userModal.setDate(jsonObject1.optString("date"));
 
 
@@ -729,13 +731,18 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         String header=stringArrayListRoles.get(position).getUserDateStatus();
 
         tvWith.setText(header);
-        if (Util.validateString(Html.fromHtml(date).toString())){
-            tvDate.setText(Html.fromHtml(date).toString().split(" ")[0]);
-            tvTime.setText(Html.fromHtml(date).toString().split(" ")[1]);
-        }else {
-            tvDate.setText("");
-            tvTime.setText("");
-        }
+
+            if (date!=null && Util.validateString(Html.fromHtml(date).toString())) {
+                String datee = Util.getFormattedDates(Html.fromHtml(date).toString().split(" ")[0], Constants.formatDate, Constants.format2);
+                tvDate.setText(datee);
+                tvTime.setText(Html.fromHtml(date).toString().split(" ")[1]);
+            } else {
+                tvDate.setText("");
+                tvTime.setText("");
+            }
+        tvDate.setVisibility(View.GONE);
+        tvTime.setVisibility(View.GONE);
+
 
 
     }

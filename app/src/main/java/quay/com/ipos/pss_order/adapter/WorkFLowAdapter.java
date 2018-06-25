@@ -33,6 +33,13 @@ public class WorkFLowAdapter extends RecyclerView.Adapter<WorkFLowAdapter.Survey
     @Override
     public void onBindViewHolder(SurveyViewHolder holder, int position) {
 
+        if (stringArrayList.size()==1){
+            holder.textDot.setVisibility(View.GONE);
+
+        }else {
+            holder.textDot.setVisibility(View.VISIBLE);
+        }
+
         if (position==0){
             holder.view1.setVisibility(View.GONE);
         }else{
@@ -44,6 +51,7 @@ public class WorkFLowAdapter extends RecyclerView.Adapter<WorkFLowAdapter.Survey
             holder.view2.setVisibility(View.VISIBLE);
         }
 
+        holder.textViewDate.setText(stringArrayList.get(position).getDate());
 
         holder.textViewRetailersName.setText(stringArrayList.get(position).getUserName());
         holder.textViewStatus.setText(stringArrayList.get(position).getUserStatus());
@@ -67,16 +75,17 @@ public class WorkFLowAdapter extends RecyclerView.Adapter<WorkFLowAdapter.Survey
     }
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
-        private TextView textViewRetailersName, textViewStatus;
+        private TextView textViewRetailersName, textViewStatus,textDot,textViewDate;
 
         private View view1,view2;
         public SurveyViewHolder(View itemView) {
             super(itemView);
             textViewRetailersName = itemView.findViewById(R.id.textViewRetailersName);
             textViewStatus = itemView.findViewById(R.id.textViewStatus);
-
+            textDot=itemView.findViewById(R.id.textDot);
             view1=itemView.findViewById(R.id.view1);
             view2=itemView.findViewById(R.id.view2);
+            textViewDate=itemView.findViewById(R.id.textViewDate);
 
            /* itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
