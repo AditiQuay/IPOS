@@ -378,21 +378,27 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     }
 
-    private void setChangeAction(int key) {
+    private void setChangeAction(int key, boolean isMove, boolean isDelete, String remark) {
         filterModelList = new ArrayList<>();
         for (GRNProductDetailModel grnProductDetailModel : selectedtabData.modelList) {
-            //  if (grnProductDetailModel.isSelected) {
-            filterModelList.add(grnProductDetailModel);
-            //  }
+             if (grnProductDetailModel.isSelected) {
+                  grnProductDetailModel.remark = remark;
+                  filterModelList.add(grnProductDetailModel);
+              }
         }
         //set new
-        for (RealmInventoryTabData model : tabData) {
-            if (model.getTabId() == key) {
-                model.modelList.addAll(filterModelList);
-                // selectedtabData = model;
+        if (!isDelete) {
+            for (RealmInventoryTabData model : tabData) {
+                if (model.getTabId() == key) {
+                    model.modelList.addAll(filterModelList);
+                    // selectedtabData = model;
+                }
             }
         }
-        selectedtabData.modelList.removeAll(filterModelList);
+        if (isMove || isDelete) {
+
+            selectedtabData.modelList.removeAll(filterModelList);
+        }
         inventoryProdcutDetailAdapter = new InventoryProdcutDetailAdapter(mContext, selectedtabData.modelList, this);
         recyclerviewBatch.setAdapter(inventoryProdcutDetailAdapter);
 
@@ -534,6 +540,23 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     @Override
     public void onActionListClicked(int actionId, String actionTitle) {
-//        setChangeAction(actionId);
+//        if(actionId == )
+        boolean isMove = false;
+        boolean isDelete = false;
+        if (actionTitle.contains("Copy")) {
+            isMove = false;
+        }
+        if (actionTitle.contains("Move")) {
+            isMove = true;
+        }
+        if (actionTitle.contains("Delete")) {
+            isMove = true;
+        }
+        String remark = "";
+        if (actionId == 10 || actionId ==11) {
+            remark = actionTitle;
+        }
+        setChangeAction(actionId, isMove, isDelete,remark);
+
     }
 }
