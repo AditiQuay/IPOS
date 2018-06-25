@@ -331,8 +331,26 @@
                         android:paddingTop="2dp"
                         android:paddingBottom="2dp"
                         android:text="-"
+
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_21sp"
+                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvQty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:inputType="text"
+                        android:text="Qty"
+                        android:visibility="gone"
+                        android:focusedByDefault="true"
+                        android:paddingBottom="@dimen/dim_6"
+                        android:paddingTop="@dimen/dim_6"
+                        android:maxLength="5"
+                        android:textColor="@color/dashboard_textcolor"
+                        android:textSize="@dimen/text_size_12sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
 
                     <quay.com.ipos.ui.CustomEditText
@@ -349,7 +367,6 @@
                         android:paddingLeft="@dimen/dim_10"
                         android:paddingRight="@dimen/dim_10"
                         android:paddingTop="@dimen/dim_6"
-                        android:text="13337"
                         android:maxLength="5"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/text_size_12sp"

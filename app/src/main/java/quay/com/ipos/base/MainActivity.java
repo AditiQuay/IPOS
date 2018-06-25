@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -304,8 +305,8 @@ public class MainActivity extends BaseActivity
         imgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, KYCActivity.class);
-                startActivity(intent);
+               /* Intent intentKYC = new Intent(mContext, KYCActivity.class);
+                startActivity(intentKYC);*/
             }
         });
 
@@ -350,7 +351,7 @@ public class MainActivity extends BaseActivity
     @Override
     public void applyInitValues() {
 
-
+        setVersionNumber();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -665,7 +666,12 @@ public class MainActivity extends BaseActivity
                 break;
 
             case "Compliance Tracking":
-                Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
+                break;
+            case "KYC":
+               // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
+                Intent intentKYC = new Intent(mContext, KYCActivity.class);
+                startActivity(intentKYC);
                 break;
 
 
@@ -1163,8 +1169,13 @@ public class MainActivity extends BaseActivity
         }
     }
 
-
+    private boolean isLoginClicked;
     private void funLogout() {
+        if (isLoginClicked) {
+            return;
+        }
+        isLoginClicked = true;
+
         new Thread() {
             @Override
             public void run() {
@@ -1207,5 +1218,14 @@ public class MainActivity extends BaseActivity
             }
         }.start();
     }
-
+    private  void setVersionNumber() {
+        try {
+            PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
+            String version = pInfo.versionName;
+            TextView textView = findViewById(R.id.textVersionNo);
+            textView.setText(" V_" + version + " ");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

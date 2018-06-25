@@ -53,6 +53,9 @@ public class RealmNewOrderCart extends RealmObject {
     private int mCheckStock;
     private boolean checkStockClick;
 private double accumulatedLoyality;
+private String pUOM;
+private String mUOM;
+private double conversionFactor;
 
 
     public String getiProductModalId() {
@@ -373,6 +376,30 @@ private double accumulatedLoyality;
 
     public void setCheckStockClick(boolean checkStockClick) {
         this.checkStockClick = checkStockClick;
+    }
+
+    public String getpUOM() {
+        return pUOM;
+    }
+
+    public void setpUOM(String pUOM) {
+        this.pUOM = pUOM;
+    }
+
+    public String getmUOM() {
+        return mUOM;
+    }
+
+    public void setmUOM(String mUOM) {
+        this.mUOM = mUOM;
+    }
+
+    public double getConversionFactor() {
+        return conversionFactor;
+    }
+
+    public void setConversionFactor(double conversionFactor) {
+        this.conversionFactor = conversionFactor;
     }
 }
 

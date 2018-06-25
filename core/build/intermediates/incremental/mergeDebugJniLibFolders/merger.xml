@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\debug\jniLibs"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="main"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\debug\jniLibs"/></dataSet></merger>
+>>>>>>> 6e144cb28da018e799fb5d2bb8a9f617387e277f

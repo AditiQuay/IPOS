@@ -122,6 +122,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     private String erg;
     private boolean isShipArrow,isItemDetailsArrow;
     private ImageView imgShipArrow,arrow;
+    private LinearLayout llViewAll;
 
 
     @Override
@@ -282,6 +283,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     }
 
     private void intitiateView(){
+        llViewAll=findViewById(R.id.llViewAll);
         tvTotalQty = findViewById(R.id.tvTotalQty);
         tvTotalPriceBeforeGst = findViewById(R.id.tvTotalPriceBeforeGst);
         tvCGSTPrice = findViewById(R.id.tvCGSTPrice);
@@ -454,12 +456,14 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 JSONObject jsonObject1=jsonObject.getJSONObject("listSpendRequestHistoryModel");
                 UserModal userModal=new UserModal();
                 userModal.setId(jsonObject.optString("positionStatus"));
-                userModal.setUserDateStatus(""+jsonObject1.optString("header"));
+                userModal.setUserDateStatus(jsonObject1.optString("status")+" "+jsonObject1.optString("header"));
                 userModal.setUserName(""+jsonObject.optString("phaseName"));
                 userModal.setUserStatus(""+jsonObject1.optString("status"));
                 userModal.setComment(jsonObject1.optString("comment"));
                 userModal.setFlag(jsonObject1.optString("flag"));
-                userModal.setDate(jsonObject1.optString("date"));
+            //    String datee= Util.getFormattedDates(jsonObject1.optString("date"),Constants.formatDate,Constants.format2);
+
+                userModal.setDate(jsonObject1.optString("date").replaceAll("\n"," "));
 
 
                 stringArrayListRoles.add(userModal);
@@ -495,6 +499,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 llDate.setEnabled(false);
                 btnEdit.setEnabled(false);
                 llRedeemValue.setEnabled(false);
+                llViewAll.setBackgroundResource(R.drawable.button_round_shape_green);
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("2")){
                 llbottom_buttons.setVisibility(View.GONE);
                 btnEdit.setVisibility(View.GONE);
@@ -502,6 +507,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 llDate.setEnabled(false);
                 btnEdit.setEnabled(false);
                 llRedeemValue.setEnabled(false);
+                llViewAll.setBackgroundResource(R.drawable.button_round_shape_green);
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("3")){
                 llbottom_buttons.setVisibility(View.GONE);
                 btnEdit.setVisibility(View.GONE);
@@ -509,8 +515,10 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 llDate.setEnabled(false);
                 btnEdit.setEnabled(false);
                 llRedeemValue.setEnabled(false);
+                llViewAll.setBackgroundResource(R.drawable.button_round_shape_red);
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("0")){
                 tvStatus.setText("Pending");
+                llViewAll.setBackgroundResource(R.drawable.button_round_shape_yelow);
             }
 
 
@@ -729,13 +737,18 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         String header=stringArrayListRoles.get(position).getUserDateStatus();
 
         tvWith.setText(header);
-        if (Util.validateString(Html.fromHtml(date).toString())){
-            tvDate.setText(Html.fromHtml(date).toString().split(" ")[0]);
-            tvTime.setText(Html.fromHtml(date).toString().split(" ")[1]);
-        }else {
-            tvDate.setText("");
-            tvTime.setText("");
-        }
+
+            if (date!=null && Util.validateString(Html.fromHtml(date).toString())) {
+                String datee = Util.getFormattedDates(Html.fromHtml(date).toString().split(" ")[0], Constants.formatDate, Constants.format2);
+                tvDate.setText(datee);
+                tvTime.setText(Html.fromHtml(date).toString().split(" ")[1]);
+            } else {
+                tvDate.setText("");
+                tvTime.setText("");
+            }
+        tvDate.setVisibility(View.GONE);
+        tvTime.setVisibility(View.GONE);
+
 
 
     }

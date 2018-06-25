@@ -52,7 +52,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
             android:layout_marginTop="@dimen/dim_2"
-            android:src="@drawable/kyc_update"
+            android:src="@drawable/generate"
             android:visibility="visible" />
 
         <ImageView
@@ -72,7 +72,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
             android:layout_marginTop="@dimen/dim_2"
-            android:src="@drawable/ic_action_arrow_down"
+            android:src="@drawable/print"
             android:visibility="visible" />
 
         <ImageView

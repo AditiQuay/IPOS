@@ -380,21 +380,27 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     }
 
-    private void setChangeAction(int key) {
+    private void setChangeAction(int key, boolean isMove, boolean isDelete, String remark) {
         filterModelList = new ArrayList<>();
         for (GRNProductDetailModel grnProductDetailModel : selectedtabData.modelList) {
-            //  if (grnProductDetailModel.isSelected) {
-            filterModelList.add(grnProductDetailModel);
-            //  }
+             if (grnProductDetailModel.isSelected) {
+                  grnProductDetailModel.remark = remark;
+                  filterModelList.add(grnProductDetailModel);
+              }
         }
         //set new
-        for (RealmInventoryTabData model : tabData) {
-            if (model.getTabId() == key) {
-                model.modelList.addAll(filterModelList);
-                // selectedtabData = model;
+        if (!isDelete) {
+            for (RealmInventoryTabData model : tabData) {
+                if (model.getTabId() == key) {
+                    model.modelList.addAll(filterModelList);
+                    // selectedtabData = model;
+                }
             }
         }
-        selectedtabData.modelList.removeAll(filterModelList);
+        if (isMove || isDelete) {
+
+            selectedtabData.modelList.removeAll(filterModelList);
+        }
         inventoryProdcutDetailAdapter = new InventoryProdcutDetailAdapter(mContext, selectedtabData.modelList, this);
         recyclerviewBatch.setAdapter(inventoryProdcutDetailAdapter);
 
@@ -538,15 +544,5 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     @Override
     public void onActionListClicked(int actionId, String actionTitle) {
 //        setChangeAction(actionId);
-
-    }
-    private void hideKeyboard() {
-        try {
-            InputMethodManager inputManager = (InputMethodManager) mContext
-                    .getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputManager.hideSoftInputFromWindow(InventoryProduct.this.getCurrentFocus()
-                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-        } catch (Exception e) {
-        }
     }
 }

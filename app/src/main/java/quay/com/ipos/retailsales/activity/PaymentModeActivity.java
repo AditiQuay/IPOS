@@ -455,7 +455,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             if(!db.checkIfBillingRecordExist(billingSync.getOrderTimestamp())) {
                 db.addRetailBilling(billingSync);
                 if(!mCustomerID.equalsIgnoreCase("")){
-                    CustomerModel customerModel = new CustomerModel();
+                    CustomerModel customerModel = db.getCustomer(mCustomerID);
                     RecentOrderList recentOrder = new RecentOrderList();
                     try {
 

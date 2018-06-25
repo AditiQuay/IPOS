@@ -43,6 +43,9 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
        // if (stringArrayList.get(position).isSelected())
         holder.radio.setChecked(stringArrayList.get(position).isSelected());
         holder.radio.setTag(position);
+        if (stringArrayList.size()==0){
+            holder.radio.setEnabled(false);
+        }
         if (stringArrayList.get(position).isSelected()){
             lastChecked = holder.radio;
             lastCheckedPos = 0;

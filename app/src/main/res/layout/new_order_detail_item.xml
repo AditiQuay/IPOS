@@ -20,6 +20,7 @@
         android:layout_marginTop="8dp"
         android:visibility="gone"
 
+
         android:padding="@dimen/dim_16"
         android:orientation="vertical">
 
@@ -59,6 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:background="@color/white"
+                    android:gravity="center"
                     android:text="25 Mar 2018"
                   />
                 <TextView
@@ -66,6 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:gravity="center"
                     android:background="@color/white"
                     android:text="07:30 PM"
                    />
