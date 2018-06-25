@@ -35,7 +35,6 @@ import io.realm.RealmResults;
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.adapter.BatchTabAdapter;
 import quay.com.ipos.inventory.adapter.InventoryProdcutDetailAdapter;
-import quay.com.ipos.inventory.adapter.OthersListAdapter;
 import quay.com.ipos.inventory.modal.ActionListModel;
 import quay.com.ipos.inventory.modal.GRNProductDetailModel;
 import quay.com.ipos.inventory.modal.OthersTabList;
@@ -63,6 +62,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     private ImageView imgArrowLeft, imgArrowRight, imvBarcode;
     private Context mContext;
     private LinearLayoutManager layoutManager;
+
     private List<GRNProductDetailModel> dataNormalList = new ArrayList<>();
     private List<GRNProductDetailModel> dataDefectList = new ArrayList<>();
 
@@ -75,7 +75,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     boolean isDefect;
     private BatchTabAdapter batchTabAdapter;
     private Dialog myDialog;
-    private OthersListAdapter othersListAdapter;
+
 
     private List<RealmInventoryTabData> tabData = new ArrayList<>();
     private RealmInventoryTabData selectedtabData;
@@ -183,7 +183,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 tabData.add(batchList);
             }
             batchTabAdapter.notifyDataSetChanged();
-            setRealmData(position);
+            getBatchList(position);
         } catch (Exception e) {
             e.printStackTrace();
         }

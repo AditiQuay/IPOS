@@ -18,9 +18,6 @@ import quay.com.ipos.R;
 import quay.com.ipos.inventory.adapter.ActionListAdapter;
 import quay.com.ipos.inventory.modal.ActionListModel;
 import quay.com.ipos.listeners.ActionListClick;
-import quay.com.ipos.utility.DividerItemDecoration;
-
-import static android.widget.LinearLayout.VERTICAL;
 
 /**
  * Created by niraj.kumar on 6/23/2018.
@@ -88,5 +85,6 @@ public class ActionListFragment extends DialogFragment implements ActionListClic
         ActionListModel actionListModel = actionListModels.get(position);
         ActionListener actionListener = (ActionListener) mContext;
         actionListener.onActionListClicked(actionListModel.actionID, actionListModel.actionTitle);
+        dismiss();
     }
 }
