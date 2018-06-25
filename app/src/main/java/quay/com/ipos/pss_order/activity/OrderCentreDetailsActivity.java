@@ -107,7 +107,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     private String businessCode;
     private String entityStateCode;
 
-    private double dAccumulatedPoints;
+    private int dAccumulatedPoints;
     private double perPoints=0;
     private TextView tvResendOTP,tvTotalQty,tvTotalPriceBeforeGst,tvCGSTPrice,tvSGSTPrice,tvRoundingOffPrice;
     private LinearLayout llRedeemValue;
@@ -121,6 +121,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     private boolean isShipArrow,isItemDetailsArrow;
     private ImageView imgShipArrow,arrow;
 
+
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,7 +132,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
         intitiateView();
 
-        tvEtaDate.setText("Eta - "+Util.getFormattedDates(etaDate.split(" ")[0],Constants.formatDate,Constants.format2));
+        tvEtaDate.setText("ETA - "+Util.getFormattedDates(etaDate.split(" ")[0],Constants.formatDate,Constants.format2));
 
         getOrderCentre();
         toolbarTtile=findViewById(R.id.toolbarTtile);
@@ -207,6 +208,12 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             }
         });
 
+        rlETA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dateDialogfrom();
+            }
+        });
        /* llPartner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,7 +234,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 //        getAddressData();
 //        getuserData();
 
-        llDate.setOnClickListener(new View.OnClickListener() {
+        tvEtaDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dateDialogfrom();
@@ -259,7 +266,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                         erg += "-" + String.valueOf(dayOfMonth);
 
 
-                        deliverDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
+                        tvEtaDate.setText("ETA "+Util.getFormattedDates(erg,Constants.format6,Constants.format2));
 
                     }
 
@@ -349,11 +356,12 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 if (!isShipArrow){
                     isShipArrow=true;
                     recycler_viewAddress.setVisibility(View.GONE);
-                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
+                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
                 }else {
                     recycler_viewAddress.setVisibility(View.VISIBLE);
                     isShipArrow=false;
-                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
+                    imgShipArrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
+
                 }
             }
         });
@@ -363,11 +371,12 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 if (!isItemDetailsArrow){
                     isItemDetailsArrow=true;
                     recycler_viewRecentOrders.setVisibility(View.GONE);
-                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
+
+                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
                 }else {
                     recycler_viewRecentOrders.setVisibility(View.VISIBLE);
                     isItemDetailsArrow=false;
-                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_down_black_18dp);
+                    arrow.setBackgroundResource(R.drawable.baseline_keyboard_arrow_up_black_18dp);
                 }
             }
         });
@@ -388,6 +397,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 if (!isBack){
                     llDetails.setVisibility(View.VISIBLE);
                     llFlow.setVisibility(View.GONE);
+                    menu_item_container.setVisibility(View.VISIBLE);
                     isBack=true;
                 }else {
                     finish();
@@ -449,7 +459,9 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 userModal.setFlag(jsonObject1.optString("flag"));
                 userModal.setDate(jsonObject1.optString("date"));
 
+
                 stringArrayListRoles.add(userModal);
+                if (!userModal.getUserStatus().equalsIgnoreCase("Pending") && !userModal.getUserStatus().equalsIgnoreCase("In Queue"))
                 stringArrayListFlow.add(userModal);
 
             }
@@ -503,16 +515,16 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             orderValue.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("orderValue")));
             orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("discountValue")));
             discount.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("discountValue")));
-            tvOrderValue.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("orderValue")));
+            tvOrderValue.setText("Order Value "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(jsonObject.optInt("orderValue")));
           //  deliverDate.setText(jsonObject.optString("deliveryBy"));
             deliverDate.setText(Util.getFormattedDates(jsonObject.optString("deliveryBy"),Constants.formatDate,Constants.format2));
 
             erg=Util.getFormattedDates(jsonObject.optString("deliveryBy"),Constants.formatDate,Constants.format1);
             loyaltyPoints.setText(jsonObject.optInt("orderLoyality")+"");
-            accumulatedPoints.setText(jsonObject.optDouble("accumulatedLoyality")+"");
-            dAccumulatedPoints=jsonObject.optDouble("accumulatedLoyality");
+            accumulatedPoints.setText(jsonObject.optInt("accumulatedLoyality")+"");
+            dAccumulatedPoints=jsonObject.optInt("accumulatedLoyality");
             totalPoints.setText(jsonObject.optInt("totalLoyality")+"");
-            customerName.setText(jsonObject.optString("customerName"));
+            customerName.setText(Prefs.getStringPrefs("EntityName"));
 
 
 
@@ -709,6 +721,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         isBack=false;
         llDetails.setVisibility(View.GONE);
         llFlow.setVisibility(View.VISIBLE);
+        menu_item_container.setVisibility(View.GONE);
 
         String date=stringArrayListRoles.get(position).getDate();
         String header=stringArrayListRoles.get(position).getUserDateStatus();
@@ -1202,7 +1215,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         orderValue.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat((payAmount)));
         orderDiscount.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(discountPrice));
         discount.setText(getResources().getString(R.string.Rs) + " " +Util.indianNumberFormat( discountPrice));
-        tvOrderValue.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount));
+        tvOrderValue.setText("Order Value "+getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount));
             tvTotalQty.setText(qty+"");
             tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat((totalItemsAmount-discountPrice))+"");
             tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(cgst)+"");
@@ -1214,7 +1227,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     }
 
 
-    public void showDialogOTP(Activity activity, final double dAccumulatedPoints){
+    public void showDialogOTP(Activity activity, final int dAccumulatedPoints){
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);

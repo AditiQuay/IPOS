@@ -1079,6 +1079,7 @@ public class MainActivity extends BaseActivity
                 for (MostUsed mostUsed : mostUseds) {
                     mostUsedFunList.add(mostUsed.funName);
                 }
+
                 Log.i("data", new Gson().toJson(mostUsedFunList));
             }
         });
