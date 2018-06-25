@@ -57,6 +57,7 @@ import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MySubmitButton;
+import quay.com.ipos.listeners.SendDataActivityToFragment;
 import quay.com.ipos.listeners.YourFragmentInterface;
 import quay.com.ipos.retailsales.activity.PaymentModeActivity;
 import quay.com.ipos.service.ServiceTask;
@@ -70,7 +71,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 5/31/2018.
  */
 
-public class CustomerAddFullFragment extends Fragment implements MySubmitButton, YourFragmentInterface, InitInterface, AdapterView.OnItemSelectedListener, ButtonListener, View.OnClickListener, DatePickerDialog.OnDateSetListener, ServiceTask.ServiceResultListener, TextWatcher, CustomerChildAdapter.MyChildValidation {
+public class CustomerAddFullFragment extends Fragment implements SendDataActivityToFragment, MySubmitButton, YourFragmentInterface, InitInterface, AdapterView.OnItemSelectedListener, ButtonListener, View.OnClickListener, DatePickerDialog.OnDateSetListener, ServiceTask.ServiceResultListener, TextWatcher, CustomerChildAdapter.MyChildValidation {
     private static final String TAG = CustomerAddFullFragment.class.getSimpleName();
     private View main;
     private TextView textViewMadatory, textViewPersonalHeading, textViewSpouseHeading, textViewChildHeading, textViewChild;
@@ -132,6 +133,10 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     SharedPreferences.Editor quickEditor;
     private SharedPreferences quickSharedPreferences;
     private String statusCode;
+    String customerCode, customerId, titleString, genderString;
+    private int localId;
+    String title,gender;
+    public static SendDataActivityToFragment sendDataActivityToFragment;
 
     public CustomerAddFullFragment() {
 
@@ -146,12 +151,17 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         return fragment;
     }
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e(TAG, "onCreate method  called");
-
-
+        Intent i = getActivity().getIntent();
+        customerId = i.getStringExtra("customerId");
+        customerCode = i.getStringExtra("customerCode");
+        titleString = i.getStringExtra("title");
+        genderString = i.getStringExtra("gender");
+        localId = i.getIntExtra("localId",0);
     }
 
     @Nullable
@@ -159,6 +169,7 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         main = inflater.inflate(R.layout.customer_add_full_fragment, container, false);
         mContext = getActivity();
+
         dbHelper = new DatabaseHandler(mContext);
         quickSharedPreferences = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
         quickEditor = quickSharedPreferences.edit();
@@ -172,6 +183,8 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+
+
         setData();
 
         return main;
@@ -179,13 +192,30 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
     public void setData() {
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-        String title = sharedpreferences.getString("title", "");
-        String gender = sharedpreferences.getString("gender", "");
+        if (!TextUtils.isEmpty(titleString)){
+            title = titleString;
+        }else {
+            title = sharedpreferences.getString("title", "");
+
+        }
+
+        if (!TextUtils.isEmpty(genderString)){
+            gender = genderString;
+            if (genderString.contains("M")){
+                gender = "Male";
+            }else {
+                gender = "Female";
+            }
+        }else {
+            gender = sharedpreferences.getString("gender", "");
+        }
+
         String firstName = sharedpreferences.getString("firstName", "");
         String lastName = sharedpreferences.getString("lastName", "");
         String MobileNumber = sharedpreferences.getString("MobileNumber", "");
         String email = sharedpreferences.getString("email", "");
         String bDay = sharedpreferences.getString("bDay", "");
+
         if (!TextUtils.isEmpty(title)) {
             if (listPosition.contains(title)) {
                 int index = listPosition.indexOf(title);
@@ -199,8 +229,10 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             if (genderPosition.contains(gender)) {
                 int index = genderPosition.indexOf(gender);
                 genderSpinner.setSelection(index + 1);
-                titleSpinner.setSelection(index + 1);
-                titleSpinner.setEnabled(false);
+                genderSpinner.setSelection(index + 1);
+                genderSpinner.setEnabled(false);
+            }else {
+                genderSpinner.setEnabled(true);
             }
         }
         if (!TextUtils.isEmpty(firstName)) {
@@ -987,16 +1019,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     tilMobileNumPrimary.setError(getResources().getString(R.string.invalid_phone));
 
                 }
-                if (TextUtils.isEmpty(tieDesignation.getText().toString())) {
-                    isFail = true;
-                    tilDesignation.setErrorEnabled(true);
-                    tilDesignation.setError(getResources().getString(R.string.invalid_designation));
-                }
-                if (TextUtils.isEmpty(tieCompany.getText().toString())) {
-                    isFail = true;
-                    tilCompany.setErrorEnabled(true);
-                    tilCompany.setError(getResources().getString(R.string.invalid_company));
-                }
 
                 if (!TextUtils.isEmpty(tiePinCode.getText().toString())) {
                     if (tiePinCode.getText().toString().length() < 6 || tiePinCode.getText().toString().length() > 6) {
@@ -1023,7 +1045,6 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
                     titleSpinner.setEnableErrorLabel(false);
                     tilFirstName.setErrorEnabled(false);
                     tilLastName.setErrorEnabled(false);
-                    tilDesignation.setErrorEnabled(false);
                     tilCompany.setErrorEnabled(false);
                     tilDOB.setErrorEnabled(false);
                     tilSpouseFirstName.setErrorEnabled(false);
@@ -1157,9 +1178,20 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
 
 
         AddCustomerModel addCustomerModel = new AddCustomerModel();
-        addCustomerModel.setLocalId(0);
-        addCustomerModel.setCustomerID("");
-        addCustomerModel.setCustomerCode("");
+
+        if (localId != 0) {
+            addCustomerModel.setLocalId(localId);
+        } else {
+            addCustomerModel.setLocalId(0);
+        }
+
+        if (TextUtils.isEmpty(customerId)) {
+            addCustomerModel.setCustomerID("");
+            addCustomerModel.setCustomerCode("");
+        } else {
+            addCustomerModel.setCustomerID(customerId);
+            addCustomerModel.setCustomerCode(customerId);
+        }
 
         if (title.equalsIgnoreCase("null")) {
             addCustomerModel.setCustomerTitle("");
@@ -1515,6 +1547,12 @@ public class CustomerAddFullFragment extends Fragment implements MySubmitButton,
             tieDOB.setFocusable(false);
             tieDOB.setClickable(false);
         }
+
+    }
+
+    @Override
+    public void sendData(String customerC, String title, String gender, String customerI, int localId) {
+
 
     }
 }
