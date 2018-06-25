@@ -72,7 +72,7 @@ public class ProductDetailsExpandableListAdapter extends BaseExpandableListAdapt
         TextView subtitle = (TextView) convertView.findViewById(R.id.textViewChildName);
         btnCheckStatus = convertView.findViewById(R.id.btnCheckStatus);
 
-        String productFinalChild = "<b>\u2022" + " " + productHeading + "</b><br/>" + productDescription;
+        String productFinalChild = productDescription;
         subtitle.setText(Html.fromHtml(productFinalChild));
 
         if (isCheckStock) {

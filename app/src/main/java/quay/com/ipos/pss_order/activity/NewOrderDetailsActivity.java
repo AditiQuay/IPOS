@@ -244,7 +244,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         if (realmOrderLists!=null){
             int redeeem=0;
             if (etRedeemValue!=null && Util.validateString(etRedeemValue.getText().toString()))
-            redeeem= Integer.parseInt(etRedeemValue.getText().toString());
+            redeeem= (int) Double.parseDouble(etRedeemValue.getText().toString());
             poNumber=realmOrderLists.getPoNumber();
             prepareData(realm,realmOrderLists);
             tvOrderName.setText(realmOrderLists.getPoNumber());
@@ -262,7 +262,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             dTotalAmount=realmOrderLists.getOrderValue();
 
             orderValue.setText(getResources().getString(R.string.Rs)+ " "+(Util.indianNumberFormat(realmOrderLists.getOrderValue()-redeeem)));
-            orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
+            orderDiscount.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getDiscountValue()+redeeem));
             deliverDate.setText(Util.getFormattedDates(realmOrderLists.getDeliveryBy(),Constants.format6,Constants.format2));
            // deliverDate.setText(realmOrderLists.getDeliveryBy());
             loyaltyPoints.setText(realmOrderLists.getOrderLoyality()+"");
@@ -271,7 +271,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
             totalPoints.setText((realmOrderLists.getAccumulatedLoyality()+realmOrderLists.getOrderLoyality())+"");
             customerName.setText(Prefs.getStringPrefs(Constants.EntityName));
-            discount.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
+            discount.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getDiscountValue()+redeeem));
             tvOrderValue.setText("Order Value "+getResources().getString(R.string.Rs)+ " "+(realmOrderLists.getOrderValue()-redeeem));
             tvTotalQty.setText(realmOrderLists.getQuantity()+"");
             tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat((realmOrderLists.getTotalValueWithoutTax()-realmOrderLists.getDiscountValue())));
@@ -290,6 +290,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
                     recentOrderModal.setQty(""+jsonObject.optInt("materialQty"));
                     recentOrderModal.setDiscountValue(""+jsonObject.optInt("materialDiscountValue"));
                     recentOrderModal.setValue(""+jsonObject.optInt("materialValue"));
+                    recentOrderModal.setUnitprice(jsonObject.optDouble("materialUnitValue"));
 
                     recentOrderModal.setFreeItem(jsonObject.optBoolean("isFreeItem"));
                     recentOrderModalArrayList.add(recentOrderModal);

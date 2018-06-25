@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import java.io.Serializable;
 import java.util.List;
@@ -40,6 +41,12 @@ public class ActionListFragment extends DialogFragment implements ActionListClic
 
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
+
     public static ActionListFragment newInstance(List<ActionListModel> list) {
         ActionListFragment fragment = new ActionListFragment();
         Bundle args = new Bundle();
@@ -61,7 +68,6 @@ public class ActionListFragment extends DialogFragment implements ActionListClic
         main = inflater.inflate(R.layout.view_spinner_dialog, container, false);
         mContext = getActivity();
 
-
         return main;
     }
 
@@ -70,14 +76,13 @@ public class ActionListFragment extends DialogFragment implements ActionListClic
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
         rvList = (RecyclerView) view.findViewById(R.id.rvList);
+
         // Show soft keyboard automatically and request focus to field
         rvList.setHasFixedSize(true);
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
         actionListAdapter = new ActionListAdapter(mContext, actionListModels, this);
         rvList.setAdapter(actionListAdapter);
 
-        getDialog().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override

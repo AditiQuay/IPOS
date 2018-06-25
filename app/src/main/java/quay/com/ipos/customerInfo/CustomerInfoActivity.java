@@ -303,7 +303,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
             setResult(Constants.ACT_PINNED, data);
             finish();
         } else if (resultCode == 0) {
-            finish();
+//            finish();
         }
 //        }
     }

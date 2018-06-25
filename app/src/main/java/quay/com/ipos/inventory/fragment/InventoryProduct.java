@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -172,6 +173,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
             textViewProductBalance.setText("Balance" + "" + jsonObject2.optString("balanceQty"));
 
 
+            tabData.clear();
             JSONObject jsonObject3 = jsonObject2.getJSONObject("gRNItemInfoDetails");
             JSONArray jsonArray = jsonObject3.getJSONArray("tabList");
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -403,7 +405,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         GRNProductDetailModel grnProductDetailModel = new GRNProductDetailModel();
         grnProductDetailModel.setNumber(batchEditText.getText().toString());
         grnProductDetailModel.setActionTitle(selectedtabData.getTabTitle());
-//        grnProductDetailModel.setActionID(2);
+        grnProductDetailModel.setActionID(selectedtabData.getTabId());
         grnProductDetailModel.setQty(0);
         selectedtabData.modelList.add(grnProductDetailModel);
 //        batchTabAdapter.notifyDataSetChanged();
@@ -463,7 +465,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
             JSONObject defects = new JSONObject();
             defects.put("tabTitle", "Defect");
-            defects.put("tabId", 1);
+            defects.put("tabId", 2);
             defects.put("count", 1);
             defects.put("model", jsonArrayDefects);
             jsonArray1.put(defects);
@@ -511,6 +513,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     }
 
     private void showActionListDialog(List<ActionListModel> actionListModels) {
+
         ActionListFragment actionListFragment = ActionListFragment.newInstance(actionListModels);
         actionListFragment.show(getSupportFragmentManager(), "TAG");
     }
@@ -535,5 +538,15 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     @Override
     public void onActionListClicked(int actionId, String actionTitle) {
 //        setChangeAction(actionId);
+
+    }
+    private void hideKeyboard() {
+        try {
+            InputMethodManager inputManager = (InputMethodManager) mContext
+                    .getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(InventoryProduct.this.getCurrentFocus()
+                    .getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        } catch (Exception e) {
+        }
     }
 }
