@@ -473,7 +473,6 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
 
             jsonObject3.put("data", jsonArray1);
-
             jsonObject2.put("gRNItemInfoDetails", jsonObject3);
             array.put(pos, jsonObject2);
             jsonObject.put("poItemDetails", array);
@@ -535,6 +534,6 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     @Override
     public void onActionListClicked(int actionId, String actionTitle) {
-        setChangeAction(actionId);
+//        setChangeAction(actionId);
     }
 }
