@@ -13,6 +13,7 @@ import android.widget.TextView;
 import quay.com.ipos.R;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderCentre;
+import quay.com.ipos.utility.Util;
 
 
 public class InformationDialogNewOrderEdit extends Dialog
@@ -76,6 +77,10 @@ public class InformationDialogNewOrderEdit extends Dialog
         tvSalesPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + datum.getSalesPrice());
         tvCategory.setVisibility(View.GONE);
         tvSubCategory.setVisibility(View.GONE);
+        if (Util.validateString(datum.getParentProductId())) {
+            tvCategory.setVisibility(View.VISIBLE);
+            tvCategory.setText("Discount on " + datum.getParentProductId());
+        }
       //  tvCategory.setText(datum.getCategoryName());
       //  tvSubCategory.setText(datum.getSubCategoryName());
 

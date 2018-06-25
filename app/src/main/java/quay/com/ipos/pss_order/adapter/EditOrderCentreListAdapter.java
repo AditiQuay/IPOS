@@ -104,7 +104,7 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
         public EditText etQtySelected;
         public RecyclerView mUserRecyclerView;
         public ImageView imvOffer;
-        public TextView tvTotalPoints,tvStocks;
+        public TextView tvTotalPoints,tvStocks,tvQty;
         public LinearLayout llAddMinus,llStocks,llRefreshStocks;
         private ImageView imgLoyal;
 
@@ -134,6 +134,7 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
             tvStocks=itemView.findViewById(R.id.tvStocks);
             llRefreshStocks=itemView.findViewById(R.id.llRefreshStocks);
             imgLoyal=itemView.findViewById(R.id.imgLoyal);
+            tvQty=itemView.findViewById(R.id.tvQty);
         }
     }
 
@@ -175,6 +176,7 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
                 userViewHolder.tvTotalPoints.setText(str.getTotalPoints() + " Pts.");
 
                 if (str.isFreeItem()) {
+                    userViewHolder.tvQty.setVisibility(View.VISIBLE);
                     userViewHolder.llStocks.setVisibility(View.GONE);
                     userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
                     userViewHolder.tvTotalPoints.setText("Free");
