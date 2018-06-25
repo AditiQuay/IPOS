@@ -1,10 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<merger version="3"><dataSet config="main"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\debug\jniLibs"/></dataSet></merger>
-=======
-<<<<<<< HEAD
-<merger version="3"><dataSet config="main"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\debug\jniLibs"/></dataSet></merger>
-=======
-<merger version="3"><dataSet config="main"><source path="D:\QuayApp\IPOS\core\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="D:\QuayApp\IPOS\core\src\debug\jniLibs"/></dataSet></merger>
->>>>>>> ebe3c36f18666ae243b8f3bbe879babc9e8a8713
->>>>>>> 9affa9445a501589667067ed8da125203a1eabdb
+<merger version="3"><dataSet config="main"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\jniLibs"/></dataSet><dataSet config="debug"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\debug\jniLibs"/></dataSet></merger>

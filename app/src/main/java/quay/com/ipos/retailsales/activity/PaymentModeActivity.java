@@ -1031,21 +1031,20 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
                     if (resultObj != null) {
                         OrderSubmitResult mOrderSubmitResult = (OrderSubmitResult) resultObj;
                         if (mOrderSubmitResult.getError() == 200) {
-
                             IPOSApplication.mProductListResult.clear();
                             IPOSApplication.totalAmount = 0.0;
                             setResult(200);
                             Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
                             saveBillToLocalStorage(paymentRequest, NAME_SYNCED_WITH_SERVER);
+                            Util.showToast("Order Sent Successfully", IPOSApplication.getContext());
                             finish();
-
                         } else {
                             saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                             Util.showToast(mOrderSubmitResult.getErrorDescription(), IPOSApplication.getContext());
                             IPOSApplication.mProductListResult.clear();
                             IPOSApplication.totalAmount = 0.0;
                             setResult(200);
-//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                            Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
                             finish();
                         }
                     }
@@ -1053,22 +1052,26 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
 
-
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
                 } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
                 } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
                 } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
                 } else if (httpStatusCode == Constants.CONNECTION_OUT) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
 
                 }
-                Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
+
                 IPOSApplication.mProductListResult.clear();
                 IPOSApplication.totalAmount = 0.0;
                 setResult(200);
