@@ -14,6 +14,13 @@ public class GRNProductDetailModel implements Serializable {
 
     public boolean isSelected;
 
+    public boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = isSelected;
+    }
 
     public String getNumber() {
         return number;
