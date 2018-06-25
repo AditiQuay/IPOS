@@ -24,6 +24,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.realm.Realm;
 import quay.com.ipos.R;
@@ -104,6 +106,7 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
         public ImageView imvOffer;
         public TextView tvTotalPoints,tvStocks;
         public LinearLayout llAddMinus,llStocks,llRefreshStocks;
+        private ImageView imgLoyal;
 
         public UserViewHolder(View itemView) {
             super(itemView);
@@ -130,6 +133,7 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
             llStocks=itemView.findViewById(R.id.llStocks);
             tvStocks=itemView.findViewById(R.id.tvStocks);
             llRefreshStocks=itemView.findViewById(R.id.llRefreshStocks);
+            imgLoyal=itemView.findViewById(R.id.imgLoyal);
         }
     }
 
@@ -161,30 +165,42 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
             Realm realm=Realm.getDefaultInstance();
             RealmOrderCentre str=realm.where(RealmOrderCentre.class).equalTo(RetailSalesEnum.iProductModalId.toString(),realmNewOrderCart.getiProductModalId()).findFirst();
             final EditOrderCentreListAdapter.UserViewHolder userViewHolder = (EditOrderCentreListAdapter.UserViewHolder) holder;
-
             if (str!=null) {
                 if (Util.validateString(str.getsProductName()))
                     userViewHolder.tvItemName.setText(str.getsProductName());
-                userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + str.getsProductPrice());
-                userViewHolder.etQtySelected.setText(str.getQty() + "");
+                userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(str.getsProductPrice()));
+
                 userViewHolder.tvItemStockAvailabilty.setText(str.getsProductStock().substring(0, 1).toUpperCase() + str.getsProductStock().substring(1).toLowerCase());
                 userViewHolder.tvPoints.setText(str.getPoints() + " Pts.");
                 userViewHolder.tvTotalPoints.setText(str.getTotalPoints() + " Pts.");
 
                 if (str.isFreeItem()) {
+                    userViewHolder.llStocks.setVisibility(View.GONE);
+                    userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
+                    userViewHolder.tvTotalPoints.setText("Free");
+                    userViewHolder.tvTotalPoints.setTextColor(mContext.getResources().getColor(R.color.green));
+                    userViewHolder.imgLoyal.setVisibility(View.GONE);
+                    userViewHolder.etQtySelected.setText(+str.getQty() + " Qty");
+                    userViewHolder.tvPlus.setVisibility(View.GONE);
+                    userViewHolder.tvMinus.setVisibility(View.GONE);
                     userViewHolder.imvOffer.setVisibility(View.GONE);
-                    userViewHolder.tvTotalPrice.setText(" Free " + str.getQty()+" x "+mContext.getResources().getString(R.string.Rs) +" "+str.getsProductPrice());
+                    userViewHolder.tvTotalPrice.setText("- "+mContext.getResources().getString(R.string.Rs) +" "+Util.indianNumberFormat(str.getTotalPrice()));
 
                     userViewHolder.tvTotalPrice.setPaintFlags(userViewHolder.tvTotalPrice.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                     userViewHolder.tvCheckStock.setVisibility(View.GONE);
-                    userViewHolder.llAddMinus.setVisibility(View.GONE);
+                    //  userViewHolder.llAddMinus.setVisibility(View.GONE);
+
                 } else {
+                    userViewHolder.etQtySelected.setText(str.getQty() + "");
+                    userViewHolder.imgLoyal.setVisibility(View.VISIBLE);
+                    userViewHolder.tvPlus.setVisibility(View.VISIBLE);
+                    userViewHolder.tvMinus.setVisibility(View.VISIBLE);
                     if (str.isDiscount()) {
                         userViewHolder.imvOffer.setVisibility(View.VISIBLE);
                     } else {
                         userViewHolder.imvOffer.setVisibility(View.GONE);
                     }
-                    userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + str.getTotalPrice());
+                    userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(str.getTotalPrice()));
 
                     if (str.isCheckStock()) {
                         userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
@@ -192,30 +208,83 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
                             userViewHolder.llStocks.setVisibility(View.VISIBLE);
                             userViewHolder.tvStocks.setText(mDataset.get(holder.getAdapterPosition()).getmCheckStock() + "");
                             userViewHolder.tvCheckStock.setVisibility(View.GONE);
+                            int stock = mDataset.get(holder.getAdapterPosition()).getmCheckStock();
+                            int toalqty = str.getQty();
+                            if (toalqty > stock){
+                                userViewHolder.tvItemStockAvailabilty.setText("Out of Stock");
+                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.red));
+                            } else if (toalqty<stock){
+                                userViewHolder.tvItemStockAvailabilty.setText((stock-toalqty)+" few left");
+                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.yellow));
+                            }else {
+                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
+                            }
+
+                            if (stock==0) {
+                                userViewHolder.tvItemStockAvailabilty.setText("Available");
+                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
+
+                            }
                         }else {
                             userViewHolder.llStocks.setVisibility(View.GONE);
                             userViewHolder.tvStocks.setText(str.getmCheckStock() + "");
                             userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
+                            int stock = mDataset.get(holder.getAdapterPosition()).getmCheckStock();
+                            int toalqty = str.getQty();
+                            if (toalqty > stock){
+                                userViewHolder.tvItemStockAvailabilty.setText("Out of Stock");
+                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.red));
+                            } else if (toalqty<stock){
+                                userViewHolder.tvItemStockAvailabilty.setText((stock-toalqty)+" few left");
+                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.yellow));
+                            }else {
+                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
+                            }
+
+                            if (stock==0) {
+                                userViewHolder.tvItemStockAvailabilty.setText("Available");
+                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
+
+                            }
                         }
 
                     } else {
+                        int stock = mDataset.get(holder.getAdapterPosition()).getmCheckStock();
+                        int toalqty = str.getQty();
+                        if (toalqty > stock){
+                            userViewHolder.tvItemStockAvailabilty.setText("Out of Stock");
+                            userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.red));
+                        } else if (toalqty<stock){
+                            userViewHolder.tvItemStockAvailabilty.setText((stock-toalqty)+" few left");
+                            userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.yellow));
+                        } else
+                        {
+                            userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
+                        }
+
+                        if (stock==0) {
+                            userViewHolder.tvItemStockAvailabilty.setText("Available");
+                            userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
+
+                        }
+
                         userViewHolder.tvCheckStock.setVisibility(View.GONE);
                     }
                     userViewHolder.llAddMinus.setVisibility(View.VISIBLE);
                 }
-                if (str.getProductImage()!=null && !str.getProductImage().equalsIgnoreCase(""))
                 Picasso.get().load(str.getProductImage()).into(userViewHolder.imvProduct);
 
 
                 onBind = false;
 
 
-
-
+                userViewHolder.imvInfo.setOnClickListener(mOnClickListener);
+                userViewHolder.imvInfo.setTag(position);
                 userViewHolder.llRefreshStocks.setOnClickListener(mOnClickListener);
                 userViewHolder.llRefreshStocks.setTag(position);
                 userViewHolder.tvCheckStock.setOnClickListener(mOnClickListener);
                 userViewHolder.tvCheckStock.setTag(position);
+
 
                 userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
                 userViewHolder.tvMinus.setTag(position);
@@ -231,6 +300,8 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
                 userViewHolder.imvClear.setOnClickListener(mOnClickListener);
                 userViewHolder.imvClear.setTag(position);
                 userViewHolder.etQtySelected.setTag(position);
+                final Timer[] timer = new Timer[1];
+
                 userViewHolder.etQtySelected.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -254,18 +325,26 @@ public class EditOrderCentreListAdapter extends RecyclerView.Adapter<RecyclerVie
                     }
 
                     @Override
-                    public void afterTextChanged(Editable editable) {
+                    public void afterTextChanged(final Editable editable) {
                         if (!onBind) {
-                            if (!editable.toString().isEmpty()) {
-                                if (Integer.parseInt(editable.toString()) < 1) {
-                                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
-                                } else {
-                                    listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(editable.toString()));
-                                }
+                            timer[0] = new Timer();
+                            timer[0].schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    if (!editable.toString().isEmpty()) {
+                                        if (Integer.parseInt(editable.toString()) < 1) {
+                                            listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
+                                        } else {
+                                            listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(editable.toString()));
+                                        }
 
-                            } else {
-                                listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
-                            }
+                                    } else {
+                                        listener.onRowClicked(userViewHolder.getAdapterPosition(), Integer.parseInt(1 + ""));
+                                    }
+                                    // do your actual work here
+                                }
+                            }, 600);
+
                         }
                     }
                 });

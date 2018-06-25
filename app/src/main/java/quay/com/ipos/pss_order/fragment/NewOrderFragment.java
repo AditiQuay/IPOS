@@ -91,6 +91,8 @@ import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
+import quay.com.ipos.ui.InformationDialog;
+import quay.com.ipos.ui.InformationDialogNewOrder;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.utility.Constants;
@@ -144,6 +146,8 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
     private LinearLayout llArrows;
     private ImageView imgArrow;
     private boolean isArrowCLick=false;
+    private ArrayList<NoGetEntityResultModal.BuisnessPlacesBean> distributotes = new ArrayList<>();
+    private AppCompatSpinner spnTraders;
 
 
     @Override
@@ -162,6 +166,15 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         }catch (Exception e){
 
         }
+        NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
+        noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(1);
+        noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(Prefs.getStringPrefs(Constants.entityName));
+        noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(Prefs.getStringPrefs(Constants.entityStateCode));
+        distributotes.add(noGetEntityBuisnessPlacesModal);
+
+        CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss,R.id.text1,distributotes);
+        adapter.setDropDownViewResource(R.layout.spinner_item_pss);
+        spnTraders.setAdapter(adapter);
         return rootView;
     }
 
@@ -178,6 +191,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
 */
 
     private void initializeComponent(View rootView) {
+        spnTraders=rootView.findViewById(R.id.spnTraders);
         llArrows=rootView.findViewById(R.id.llArrows);
         imgArrow=rootView.findViewById(R.id.imgArrow);
         tvMessage = rootView.findViewById(R.id.tvMessage);
@@ -600,6 +614,11 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                     llTotalDiscountDetail.setVisibility(View.GONE);
                     llTotalGST.setVisibility(View.VISIBLE);
                 }
+                break;
+            case R.id.imvInfo:
+                Util.hideSoftKeyboard(getActivity());
+                int infoPos = (int) view.getTag();
+                new InformationDialogNewOrder(mContext,mList.get(infoPos));
                 break;
             case R.id.tvMinus:
                 Util.animateView(view);
@@ -1673,7 +1692,9 @@ if (realmNewOrderCarts.getQty()>1) {
 
                         try {
                             JSONObject jsonObject = new JSONObject(serverResponse);
-                            addBarcodeScanProduct(jsonObject.optString("iProductModalId"), jsonObject.optString("productCode"), serverResponse);
+                            JSONArray array=jsonObject.optJSONArray("data");
+                            JSONObject jsonObject1=array.optJSONObject(0);
+                            addBarcodeScanProduct(jsonObject1.optString("iProductModalId"), jsonObject1.optString("productCode"), jsonObject1.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -2114,9 +2135,10 @@ if (realmNewOrderCarts.getQty()>1) {
         }else {
             try {
                 JSONObject jsonObject=new JSONObject(json);
+
                 jsonObject.put(RetailSalesEnum.isAdded.toString(),true);
                 jsonObject.put(RetailSalesEnum.qty.toString(),1);
-                jsonObject.put(RetailSalesEnum.totalPrice.toString(),jsonObject.optDouble("SProductPrice"));
+                jsonObject.put(RetailSalesEnum.totalPrice.toString(),jsonObject.optInt("sProductPrice"));
               //  int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
             //    jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
                 saveResponseLocal(jsonObject,"P00001");

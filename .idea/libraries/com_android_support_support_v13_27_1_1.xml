@@ -1,26 +1,12 @@
-<<<<<<< HEAD
 <component name="libraryTable">
   <library name="com.android.support:support-v13-27.1.1">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-v13-27.1.1.aar/c2ce994c89a7d2d6ed2b5c4ea49c3b41/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-v13-27.1.1.aar/c2ce994c89a7d2d6ed2b5c4ea49c3b41/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-v13-27.1.1.aar/eb29ba0dcc6830b5473cc2d5dfc157da/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-v13-27.1.1.aar/eb29ba0dcc6830b5473cc2d5dfc157da/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-v13/27.1.1/9b7a749a50ad2f1d4950c30d16b615769816c6dd/support-v13-27.1.1-sources.jar!/" />
     </SOURCES>
   </library>
-=======
-<component name="libraryTable">
-  <library name="com.android.support:support-v13-27.1.1">
-    <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-v13-27.1.1.aar/e5294e7d4e956675da926a804b2730a6/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-v13-27.1.1.aar/e5294e7d4e956675da926a804b2730a6/res" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES>
-      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.support/support-v13/27.1.1/9b7a749a50ad2f1d4950c30d16b615769816c6dd/support-v13-27.1.1-sources.jar!/" />
-    </SOURCES>
-  </library>
->>>>>>> 1cbea9ab6bdefb344783815f48172ba112bf8f5a
 </component>
