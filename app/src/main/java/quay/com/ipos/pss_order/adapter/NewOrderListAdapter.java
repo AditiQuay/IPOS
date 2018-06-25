@@ -185,7 +185,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     userViewHolder.tvPlus.setVisibility(View.GONE);
                     userViewHolder.tvMinus.setVisibility(View.GONE);
                     userViewHolder.imvOffer.setVisibility(View.GONE);
-                    userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) +" "+Util.indianNumberFormat(str.getTotalPrice()));
+                    userViewHolder.tvTotalPrice.setText("- "+mContext.getResources().getString(R.string.Rs) +" "+Util.indianNumberFormat(str.getTotalPrice()));
 
                     userViewHolder.tvTotalPrice.setPaintFlags(userViewHolder.tvTotalPrice.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
                     userViewHolder.tvCheckStock.setVisibility(View.GONE);
