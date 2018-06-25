@@ -27,7 +27,6 @@ public class BatchTabAdapter extends RecyclerView.Adapter<BatchTabAdapter.MyView
     public List<RealmInventoryTabData> batchListData;
     MyListener listener;
     TabListenerr tabListenerr;
-    private static SparseBooleanArray sSelectedItems;
     public BatchTabAdapter(Context mContext, List<RealmInventoryTabData> batchListData, MyListener listener, TabListenerr tabListenerr) {
         this.mContext = mContext;
         this.batchListData = batchListData;

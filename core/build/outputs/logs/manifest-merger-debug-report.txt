@@ -1,13 +1,37 @@
 -- Merging decision tree log ---
 manifest
+<<<<<<< HEAD
 ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+=======
+<<<<<<< HEAD
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 	package
-		ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:70-106
-		INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml
-		INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:70-106
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:11-69
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:11-69
 application
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+=======
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+>>>>>>> aa790c6d38053f5579837ecb34e300fe1a722d4a
+	package
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:3:70-106
+		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml
+		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:3:11-69
+application
+<<<<<<< HEAD
 ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+=======
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+>>>>>>> 1cbea9ab6bdefb344783815f48172ba112bf8f5a
+>>>>>>> aa790c6d38053f5579837ecb34e300fe1a722d4a

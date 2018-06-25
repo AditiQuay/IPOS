@@ -768,7 +768,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // new String[] { String.valueOf(questionaire.getQuesId()) });
     }
 
+    public int updateCustomerRecentOrders(String recentOrders) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
+        ContentValues values = new ContentValues();
+        values.put(CustomerEnum.ColoumnRecentOrders.toString(), recentOrders);
+
+        // updating row
+        // return the number of rows affected
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnRecentOrders.toString() + " = ?", new String[]{recentOrders + ""});
+        // new String[] { String.valueOf(questionaire.getQuesId()) });
+    }
     //
 //	// Updating single contact
 //	public int updateTestAnswer(LearnTestResult.QuestionList questionaire, int questionId) {

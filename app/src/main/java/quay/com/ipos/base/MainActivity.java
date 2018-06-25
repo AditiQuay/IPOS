@@ -220,6 +220,7 @@ public class MainActivity extends BaseActivity
         newOrderScannerFragment = new NewOrderFragment();
 
         retailSalesFragment1 = new RetailSalesFragment();
+
         //the broadcast receiver to update sync status
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -230,6 +231,8 @@ public class MainActivity extends BaseActivity
                 AppLog.e("tag", "onReceive");
             }
         };
+
+        //registering the broadcast receiver to update sync status
         try {
             LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver, new IntentFilter(DATA_SAVED_BROADCAST));
         } catch (Exception e) {

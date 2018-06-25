@@ -152,25 +152,25 @@ public class Util {
 //        if (typefaceCache.containsKey(typefaceName)) {
 //            textView.setTypeface(typefaceCache.get(typefaceName));
 //        } else {
-            Typeface typeface;
-            try {
+        Typeface typeface;
+        try {
 //                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
 //                        context.getString(R.string.assets_fonts_folder) + typefaceName);
-                if(typefaceName==null)
+            if(typefaceName==null)
                 typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
                         context.getString(R.string.assets_fonts_folder) + "/TitilliumWeb-Regular.ttf");
-                else
-                    typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
+            else
+                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
                         context.getString(R.string.assets_fonts_folder) + typefaceName);
-            } catch (Exception e) {
-                AppLog.v(context.getString(R.string.app_name), e.toString());
+        } catch (Exception e) {
+            AppLog.v(context.getString(R.string.app_name), e.toString());
 //				AppLog.v(context.getString(R.string.app_name),
 //						String.format(context.getString(R.string.typeface_not_found), typefaceName));
-                return;
-            }
+            return;
+        }
 
-            typefaceCache.put(typefaceName, typeface);
-            textView.setTypeface(typeface);
+        typefaceCache.put(typefaceName, typeface);
+        textView.setTypeface(typeface);
 //        }
 
         values.recycle();
@@ -805,7 +805,7 @@ public class Util {
 
     public static String getIndianNumberFormat(String str){
         Format format = NumberFormat.getCurrencyInstance(new Locale("en", "in"));
-        return str = (format.format(new BigDecimal(str)));
+        return (format.format(new BigDecimal(str))).replaceAll("Rs.",getStringRes(R.string.Rs).replaceAll(".00",""));
 
     }
 

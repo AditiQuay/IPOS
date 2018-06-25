@@ -134,7 +134,7 @@
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_action_badge"/>
+                android:src="@drawable/loyality_green"/>
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvPoints"
                 android:layout_width="wrap_content"

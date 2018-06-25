@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,11 +49,24 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
     public void onBindViewHolder(@NonNull final ItemViewHolder holder, final int position) {
         final GRNProductDetailModel grnProductDetailModel = list.get(position);
         holder.batchNumber.setText(grnProductDetailModel.getNumber());
-      //  holder.qty.setText(grnProductDetailModel.getQty() + "");
 
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition(), holder);
         holder.qty.setText(list.get(holder.getAdapterPosition()).getQty()+"");
 
+        holder.checkBox1.setChecked(grnProductDetailModel.getSelected());
+        //set a tag for position
+        holder.checkBox1.setTag(position);
+        holder.checkBox1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer pos = (Integer) holder.checkBox1.getTag();
+                if (list.get(pos).getSelected()) {
+                    list.get(pos).setSelected(false);
+                } else {
+                    list.get(pos).setSelected(true);
+                }
+            }
+        });
     }
 
     @Override
@@ -93,22 +107,13 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
 
         @Override
         public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-            GRNProductDetailModel  model =   list.get(position);
             if (holder.qty.getText().hashCode() == charSequence.hashCode()) {
-               // if (model.getActionTitle().equalsIgnoreCase("Normal".replace("()",""))) {
                     GRNProductDetailModel grnProductDetailModel = list.get(position);
                     int qty=0;
                     if(charSequence.toString().length()>0)
                         qty = Integer.parseInt(charSequence.toString());
                     grnProductDetailModel.setQty(qty);
                     list.set(position, grnProductDetailModel);
-               // }
-                /*if (model.getActionTitle().equalsIgnoreCase("Defect".replace("()",""))){
-                    GRNProductDetailModel grnProductDetailModel = list.get(position);
-                    grnProductDetailModel.setQty(Integer.parseInt(charSequence.toString()));
-                    list.set(position, grnProductDetailModel);
-                }*/
-
             }
 
 
@@ -118,9 +123,6 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
         @Override
         public void afterTextChanged(Editable s) {
 
-        }
-        public void updatePosition(int position) {
-            this.position = position;
         }
 
     }

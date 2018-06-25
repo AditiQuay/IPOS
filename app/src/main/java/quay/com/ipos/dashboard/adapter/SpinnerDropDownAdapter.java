@@ -54,7 +54,7 @@ public class SpinnerDropDownAdapter extends BaseAdapter implements
         if (!isBlack)
             text1.setTextColor(context.getResources().getColor(R.color.white));
         else
-            text1.setTextColor(context.getResources().getColor(R.color.black));
+            text1.setTextColor(context.getResources().getColor(R.color.accent_color));
         parent.setPadding(0, 0, 0, 0);
         return view;
     }
@@ -65,7 +65,7 @@ public class SpinnerDropDownAdapter extends BaseAdapter implements
         View view = LayoutInflater.from(context).inflate(R.layout.spinner_item, parent, false);
         TextView text1 = view.findViewById(R.id.text1);
         text1.setText(name[position]);
-        text1.setTextColor(context.getResources().getColor(R.color.black));
+        text1.setTextColor(context.getResources().getColor(R.color.accent_color));
         return view;
     }
 }

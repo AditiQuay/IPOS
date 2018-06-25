@@ -59,7 +59,8 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private LinearLayout lLayoutBottom;
     private Context mContext;
     private String customerId="",mCustomerEmail="";
-    private double customerPoints = 0, customerPointsPer=0;
+    private double customerPointsPer=0;
+    private int customerPoints =0;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
     private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();
@@ -261,7 +262,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         }
         if (Util.validateString(customerModel.getCustomerPoints())) {
             textViewPoints.setText(customerModel.getCustomerPoints() + getResources().getString(R.string.text_points));
-            customerPoints = Double.parseDouble(customerModel.getCustomerPoints());
+            customerPoints = Integer.parseInt(customerModel.getCustomerPoints());
         }
         if (TextUtils.isEmpty(customerModel.getLastBillingDate())) {
             textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + " " + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerModel.getLastBillingAmount());

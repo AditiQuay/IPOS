@@ -1,6 +1,7 @@
 package quay.com.ipos.retailsales.activity;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,17 +36,17 @@ import quay.com.ipos.utility.Util;
 public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceResultListener{
     NameAdapter nameAdapter;
     TextView tvNoItemAvailable;
-    ImageView imvRefresh,imvBack;
     ArrayList<BillingSync> billingSyncs = new ArrayList<>();
     ArrayList<BillingSync> billingSyncs1 = new ArrayList<>();
     PaymentRequest paymentRequest;
-
+    SwipeRefreshLayout swipeToRefresh;
     //1 means data is synced and 0 means data is not synced
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
     private ListView listViewNames;
     DatabaseHandler db;
     private Toolbar toolbar;
+
     //List to store all the names
     private ArrayList<BillingSync> names;
     private static OutboxActivity mainActivityRunningInstance;
@@ -58,8 +59,7 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outbox_list);
         toolbar = findViewById(R.id.toolbar);
-        imvRefresh = findViewById(R.id.imvRefresh);
-        imvBack = findViewById(R.id.imvBack);
+        swipeToRefresh = findViewById(R.id.swipeToRefresh);
         tvNoItemAvailable = findViewById(R.id.tvNoItemAvailable);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -75,20 +75,22 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
         //initializing views and objects
         db = new DatabaseHandler(this);
         update();
-        imvBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Util.hideSoftKeyboard(OutboxActivity.this);
-                finish();
-            }
-        });
+//        imvBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Util.hideSoftKeyboard(OutboxActivity.this);
+//                finish();
+//            }
+//        });
 
-        imvRefresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendDataToServer();
-            }
-        });
+        swipeToRefresh.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        sendDataToServer();
+                    }
+                }
+        );
 
     }
     public void sendDataToServer() {
@@ -103,6 +105,7 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
                 callServicePayment();
             }
         }else {
+            swipeToRefresh.invalidate();
             db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
         }
     }
@@ -157,8 +160,8 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
     private void editBillToLocalStorage(PaymentRequest paymentRequest, int status) {
         try {
             if (!db.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL_BILLING)) {
-                billingSyncs1 = db.getUnSyncedRetailOrders();
-                if (billingSyncs1.size() > 0) {
+                billingSyncs = db.getUnSyncedRetailOrders();
+                if (billingSyncs.size() > 0) {
 //                    for (int i = 0; i < billingSyncs1.size(); i++) {
                     if (db.checkIfBillingRecordExist(paymentRequest.getOrderTimestamp()))
                         db.updateSync(status, paymentRequest.getOrderTimestamp());
@@ -171,9 +174,9 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
 //                    }
                     sendDataToServer();
                 } else {
+                    swipeToRefresh.invalidate();
                     db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
                 }
-                billingSyncs1 = db.getAllRetailBillingOrders();
 //                if (status == NAME_SYNCED_WITH_SERVER) {
 //                    db.deleteRetailBillingTable(paymentRequest.getOrderTimestamp());
 //                }
@@ -199,7 +202,7 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
         return super.onOptionsItemSelected(item);
     }
 
-   public void update(){
+    public void update(){
         names = new ArrayList<>();
         names = db.getUnSyncedRetailOrders();
         nameAdapter = new NameAdapter(this, names);
@@ -208,10 +211,12 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
             nameAdapter.notifyDataSetChanged();
             tvNoItemAvailable.setVisibility(View.GONE);
             listViewNames.setVisibility(View.VISIBLE);
+            swipeToRefresh.setVisibility(View.VISIBLE);
         }else {
             db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
             nameAdapter.notifyDataSetChanged();
-            Util.showToast("No Outbox list available", IPOSApplication.getAppInstance());
+            swipeToRefresh.setVisibility(View.GONE);
+//            Util.showToast("No Outbox list available", IPOSApplication.getAppInstance());
 //            finish();
             tvNoItemAvailable.setVisibility(View.VISIBLE);
             listViewNames.setVisibility(View.GONE);
