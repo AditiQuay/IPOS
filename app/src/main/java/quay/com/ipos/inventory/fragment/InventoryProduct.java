@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -64,7 +63,6 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     private ImageView imgArrowLeft, imgArrowRight, imvBarcode;
     private Context mContext;
     private LinearLayoutManager layoutManager;
-
     private List<GRNProductDetailModel> dataNormalList = new ArrayList<>();
     private List<GRNProductDetailModel> dataDefectList = new ArrayList<>();
 
@@ -544,6 +542,25 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     @Override
     public void onActionListClicked(int actionId, String actionTitle) {
+//        if(actionId == )
+        boolean isMove = false;
+        boolean isDelete = false;
+        if (actionTitle.contains("Copy")) {
+            isMove = false;
+        }
+        if (actionTitle.contains("Move")) {
+            isMove = true;
+            ///
+        }
+        if (actionTitle.contains("Delete")) {
+            isMove = true;
+        }
+        String remark = "";
+        if (actionId == 10 || actionId ==11) {
+            remark = actionTitle;
+        }
+        setChangeAction(actionId, isMove, isDelete,remark);
+
 //        setChangeAction(actionId);
     }
 }
