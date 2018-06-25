@@ -32,10 +32,12 @@ import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.ScannerProductListener;
 import quay.com.ipos.modal.CommonParams;
+import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 public class FullScannerFragment extends BaseFragment implements
@@ -144,12 +146,12 @@ public class FullScannerFragment extends BaseFragment implements
 //                mScannerView.setAutoFocus(mAutoFocus);
 //                return true;
 //            case R.id.menu_formats:
-//                DialogFragment fragment = FormatSelectorDialogFragment.newInstance(this, mSelectedIndices);
+//                ListDialogFragment fragment = FormatSelectorDialogFragment.newInstance(this, mSelectedIndices);
 //                fragment.show(getActivity().getSupportFragmentManager(), "format_selector");
 //                return true;
 //            case R.id.menu_camera_selector:
 //                mScannerView.stopCamera();
-//                DialogFragment cFragment = CameraSelectorDialogFragment.newInstance(this, mCameraId);
+//                ListDialogFragment cFragment = CameraSelectorDialogFragment.newInstance(this, mCameraId);
 //                cFragment.show(getActivity().getSupportFragmentManager(), "camera_selector");
 //                return true;
 //            default:
@@ -206,7 +208,9 @@ public class FullScannerFragment extends BaseFragment implements
         mProductList = IPOSApplication.mProductListResult;
         showProgressDialog(mContext,R.string.please_wait);
         CommonParams mCommonParams = new CommonParams();
-        mCommonParams.setStoreId("1");
+        String json = SharedPrefUtil.getString(Constants.Login_result,"",getActivity());
+        LoginResult loginResult = Util.getCustomGson().fromJson(json,LoginResult.class);
+        mCommonParams.setStoreId(loginResult.getUserAccess().getWorklocationID()+"");
         mCommonParams.setBarCodeNumber(title);
 
         ServiceTask mTask = new ServiceTask();
@@ -330,19 +334,19 @@ public class FullScannerFragment extends BaseFragment implements
     }
 
 //    @Override
-//    public void onDialogPositiveClick(DialogFragment dialog) {
+//    public void onDialogPositiveClick(ListDialogFragment dialog) {
 //        // Resume the camera
 //        mScannerView.resumeCameraPreview(this);
 //    }
 
 //    @Override
-//    public void onDialogPositiveClick(DialogFragment dialog, int mCallType) {
+//    public void onDialogPositiveClick(ListDialogFragment dialog, int mCallType) {
 //        // Resume the camera
 //        mScannerView.resumeCameraPreview(this);
 //    }
 //
 //    @Override
-//    public void onDialogNegetiveClick(DialogFragment dialog, int mCallType) {
+//    public void onDialogNegetiveClick(ListDialogFragment dialog, int mCallType) {
 //
 //    }
 

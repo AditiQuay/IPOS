@@ -20,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,12 +27,12 @@ import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
-import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.KeyBusinessContactInfo;
 import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.ContactInfoAdapter;
+import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.EqualSpacingItemDecoration;
 import quay.com.ipos.utility.FontUtil;
 
@@ -201,8 +200,11 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
                 Log.i(TAG, "pcModel or pcModel.Business is null");
                 return;
             }
-            if (pcModel.Contact.KeyBusinessContactInfo == null) {
-                Log.i(TAG, "KeyBusinessContactInfo is null");
+
+            textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , mpcModel.psslastUpdated));
+
+            if (pcModel.Contact.keyBusinessContactInfo == null) {
+                Log.i(TAG, "keyBusinessContactInfo is null");
                 KeyBusinessContactInfo KeyBusinessContactInfo = new KeyBusinessContactInfo();
                 KeyBusinessContactInfo.NewContact = new ArrayList<>();
                 NewContact newContact = new NewContact();
@@ -211,13 +213,13 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
                 newContact.SecondaryMobile = "";
                 KeyBusinessContactInfo.NewContact.add(newContact);
 
-                pcModel.Contact.KeyBusinessContactInfo = KeyBusinessContactInfo;
+                pcModel.Contact.keyBusinessContactInfo = KeyBusinessContactInfo;
             } else {
-                Log.i(TAG, "KeyBusinessContactInfo is not null");
+                Log.i(TAG, "keyBusinessContactInfo is not null");
 
             }
 
-            contactInfo = pcModel.Contact.KeyBusinessContactInfo;
+            contactInfo = pcModel.Contact.keyBusinessContactInfo;
             ArrayAdapter partnerTypeHeading = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, partnerKeyPosition);
             partnerTypeHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             keyPositionSpinner.setAdapter(partnerTypeHeading);
@@ -267,7 +269,7 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
             editEmail.addTextChangedListener(generalTextWatcher);
             editNote.addTextChangedListener(generalTextWatcher);
 
-            recyclerViewContactInfo.setAdapter(new ContactInfoAdapter(getActivity(), pcModel.Contact.KeyBusinessContactInfo.NewContact));
+            recyclerViewContactInfo.setAdapter(new ContactInfoAdapter(getActivity(), pcModel.Contact.keyBusinessContactInfo.NewContact));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -314,8 +316,8 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
 
     private void addNewField() {
         if (mpcModel != null && mpcModel.Contact != null) {
-            if (mpcModel.Contact.KeyBusinessContactInfo != null) {
-                if (mpcModel.Contact.KeyBusinessContactInfo.NewContact != null) {
+            if (mpcModel.Contact.keyBusinessContactInfo != null) {
+                if (mpcModel.Contact.keyBusinessContactInfo.NewContact != null) {
                     NewContact newContact = new NewContact();
                     newContact.ID = 0;
                     newContact.RoleID = "";
@@ -324,7 +326,7 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
                     newContact.PrimaryMobile = "";
                     newContact.SecondaryMobile = "";
                     newContact.Email = "";
-                    mpcModel.Contact.KeyBusinessContactInfo.NewContact.add(newContact);
+                    mpcModel.Contact.keyBusinessContactInfo.NewContact.add(newContact);
 
                     PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
                     if (connectMain != null) {

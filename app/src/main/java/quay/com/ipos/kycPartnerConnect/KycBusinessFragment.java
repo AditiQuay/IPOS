@@ -26,6 +26,7 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.BusinessLocation;
 import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
 import quay.com.ipos.partnerConnect.model.PCModel;
+import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.FontUtil;
 
 /**
@@ -94,6 +95,7 @@ public class KycBusinessFragment extends Fragment implements InitInterface, View
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }
+        textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , pcModel.psslastUpdated));
 
         List<KeyBusinessInfo> data = pcModel.Business.KeyBusinessInfo;
         businessAdapter.loadData(data);

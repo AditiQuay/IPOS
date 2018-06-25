@@ -59,6 +59,7 @@ public class KycPssDetailAdapter extends RecyclerView.Adapter<KycPssDetailAdapte
         holder.textViewBank.setText(first);
         holder.textViewDocumentsText.setText(second);
         holder.textViewKycPartner.setText(entityName);
+        holder.textViewKycStatus.setText("Status "+kycPSSDetailsModel.getOverall_Status()+"");
 
 
         holder.cardViewProduct.setOnClickListener(new View.OnClickListener() {

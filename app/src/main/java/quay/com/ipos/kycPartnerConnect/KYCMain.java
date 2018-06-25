@@ -51,7 +51,6 @@ import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.data.remote.model.KCYApproveResponse;
 import quay.com.ipos.data.remote.model.KycPartnerConnectResponse;
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
-import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.RelationShipFragment;
 import quay.com.ipos.partnerConnect.model.Account;
@@ -711,50 +710,50 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo == null) {
+        if (pcModel.Contact.keyBusinessContactInfo == null) {
             String error = "Contact -> ContactInfo is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo.keyDesignation == null || pcModel.Contact.KeyBusinessContactInfo.keyDesignation.isEmpty()) {
+        if (pcModel.Contact.keyBusinessContactInfo.keyDesignation == null || pcModel.Contact.keyBusinessContactInfo.keyDesignation.isEmpty()) {
             String error = "Contact -> Contact Position is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo.keyEmpName == null || pcModel.Contact.KeyBusinessContactInfo.keyEmpName.isEmpty()) {
+        if (pcModel.Contact.keyBusinessContactInfo.keyEmpName == null || pcModel.Contact.keyBusinessContactInfo.keyEmpName.isEmpty()) {
             String error = "Contact -> Contact Person Name is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo.keyMobile == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile.isEmpty()) {
+        if (pcModel.Contact.keyBusinessContactInfo.keyMobile == null || pcModel.Contact.keyBusinessContactInfo.keyMobile.isEmpty()) {
             String error = "Contact -> Primary Mobile No. is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo.keyMobile2 == null || pcModel.Contact.KeyBusinessContactInfo.keyMobile2.isEmpty()) {
+        if (pcModel.Contact.keyBusinessContactInfo.keyMobile2 == null || pcModel.Contact.keyBusinessContactInfo.keyMobile2.isEmpty()) {
             String error = "Contact -> Secondary Mobile No. is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        if (pcModel.Contact.KeyBusinessContactInfo.keyEmail == null || pcModel.Contact.KeyBusinessContactInfo.keyEmail.isEmpty()) {
+        if (pcModel.Contact.keyBusinessContactInfo.keyEmail == null || pcModel.Contact.keyBusinessContactInfo.keyEmail.isEmpty()) {
             String error = "Contact-> Email is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
 
-        if (pcModel.Contact.KeyBusinessContactInfo.NewContact == null) {
+        if (pcModel.Contact.keyBusinessContactInfo.NewContact == null) {
             String error = "Contact-> Contact Other is required!";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }
-        for (NewContact newContact : pcModel.Contact.KeyBusinessContactInfo.NewContact) {
+        for (NewContact newContact : pcModel.Contact.keyBusinessContactInfo.NewContact) {
             if (newContact.Role == null || newContact.Role.isEmpty()) {
                 String error = "Contact-> Role is required!";
                 Log.e(TAG, error);

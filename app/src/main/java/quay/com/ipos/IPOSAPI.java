@@ -18,11 +18,7 @@ public class IPOSAPI {
     public static String WEB_SERVICE_RETAIL_ValidateCustomerPointsRedeemRequest = "Retail/ValidateCustomerPointsRedeemRequest";
     public static String WEB_SERVICE_ProductDetailUsingBarCode = "Retail/ProductDetailUsingBarCode";
     public static String WEB_SERVICE_RETAIL_CUSTOMER_LIST = "RetailCustomers/RetailCustomerList";
-    public static String WEB_SERVICE_RETAIL_SPINNER_LIST = "RetailCustomers/GetRetailCustomeBaseAddInfo";
-    public static String WEB_SERVICE_PRODUCT_MAIN = "ProductCatalog/ProductCatalogMain";
-    public static String WEB_SERVICE_PRODUCT_DETAIL = "ProductCatalog/ProductCatalogDetail";
-    public static String WEB_SERVICE_PRODUCT_DESCRIPTION = "ProductCatalog/ProductCatalogDescription";
-    public static String WEB_SERVICE_CUSTOMER_DATA = "RetailCustomers/SyncRetailCustomerData";
+
 
     // NEW ORDER API
     public static String WEB_SERVICE_NOPRODUCTSEARCH = "PSSNewOrder/NOProductSearch";
@@ -37,6 +33,15 @@ public class IPOSAPI {
     public static String WEB_SERVICE_KYC_PSS_REJECT = WEB_SERVICE_BASE_URL+"PSSConnects/KyCReject";
 
 
+    //Niraj and ankush
+
+
+    public static String WEB_SERVICE_PRODUCT_MAIN = "ProductCatalog/ProductCatalogMain";
+    public static String WEB_SERVICE_PRODUCT_DETAIL = "ProductCatalog/ProductCatalogDetail";
+    public static String WEB_SERVICE_PRODUCT_DESCRIPTION = "ProductCatalog/ProductCatalogDescription";
+    public static String WEB_SERVICE_RETAIL_SPINNER_LIST = "RetailCustomers/GetRetailCustomeBaseAddInfo";
+    public static String WEB_SERVICE_CUSTOMER_DATA = "RetailCustomers/SyncRetailCustomerData";
+
     //inventory
     public static String WEB_SERVICE_INventoryPONUMBERS = WEB_SERVICE_BASE_URL + "Inventory/GetPOSummary";
     public static String WEB_SERVICE_NOGetBusinessPlaces = "Inventory/GetBusinessPlaces";
@@ -44,7 +49,7 @@ public class IPOSAPI {
     public static String WEB_SERVICE_GetPOInfo = WEB_SERVICE_BASE_URL + "Inventory/GetPOInfo";
     public static String WEB_SERVICE_GET_GRN_SUMMARY = WEB_SERVICE_BASE_URL+"Inventory/GetGRNSummary";
     public static String WEB_SERVICE_GET_GRN_SUMMARY_DETAIL = WEB_SERVICE_BASE_URL+"Inventory/GetGRNSummaryDetail";
-
+    //------------niraj and ankush end
     //redeem
     public static String WEB_SERVICE_NOPointsRedeem = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOPointsRedeem";
     public static String WEB_SERVICE_ValidateNOCustomerRedeemPoint = WEB_SERVICE_BASE_URL + "PSSNewOrder/ValidateNOCustomerRedeemPoint";
@@ -62,5 +67,7 @@ public class IPOSAPI {
 
     //ddr sales
     public static final String DDR_NO_SUMMARY = "/api/PSSNewOrder/NOSummary";
+    public static final String DDR_GetDDRList = "/api/DDR/GetDDRList";
+    public static final String DDR_GetDDRProductList = "/api/DDR/GetDDRProductList";
 
 }

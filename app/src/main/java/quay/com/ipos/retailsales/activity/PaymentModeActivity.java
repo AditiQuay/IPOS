@@ -482,7 +482,7 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
                     recentOrder.setStoreState("");
                     recentOrder.setStoreCity("");
                     recentOrders.add(recentOrder);
-                    db.updateCustomerRecentOrders(Util.getCustomGson().toJson(recentOrder));
+                    db.updateCustomerRecentOrders(Util.getCustomGson().toJson(recentOrders));
                 }
             }
 //            billingSyncs = db.getAllRetailBillingOrders();

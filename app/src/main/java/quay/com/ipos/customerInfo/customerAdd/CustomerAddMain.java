@@ -47,7 +47,7 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
     public static final String mypreference = "Data";
     public static final String quickPreference = "QuickData";
 
-    int count;
+    int count, isDetailClick;
     String paymentModeClicked;
 
     @Override
@@ -58,11 +58,13 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
         dbHelper = new DatabaseHandler(mContext);
         Intent i = getIntent();
         count = i.getIntExtra("Count", 0);
+        isDetailClick = i.getIntExtra("isDetailClick", 0);
         paymentModeClicked = i.getStringExtra("paymentModeClicked");
+
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("paymentModeClicked",paymentModeClicked);
+        editor.putString("paymentModeClicked", paymentModeClicked);
         editor.apply();
 
 
@@ -110,10 +112,24 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
                 finish();
 
 
-
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.clear();
+        editor.apply();
+
+        quickPref = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = quickPref.edit();
+        editor1.clear();
+        editor1.apply();
+
     }
 
     @Override

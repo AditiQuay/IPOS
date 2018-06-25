@@ -7,4 +7,5 @@ package quay.com.ipos.listeners;
 public interface DataSheetDownloadListener {
     void onDataSheetDownload(int position);
     void onCartBtnClick(int position);
+    void onCalculatorSheetDownload(int position);
 }

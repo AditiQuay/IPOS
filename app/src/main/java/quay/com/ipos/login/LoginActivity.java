@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -146,6 +147,8 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         loginParams.setDeviceToken(sFcmToken);
         loginParams.setAppVersion(sAppVersion);
 
+        Log.e(TAG, "loginParams" + new Gson().toJson(loginParams));
+
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_LOGIN);
@@ -259,6 +262,11 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                 if (resultObj != null) {
 
                     LoginResult loginResult = (LoginResult) resultObj;
+
+                    Log.e(TAG, "loginResult" + new Gson().toJson(loginResult));
+                    String globalSettingsJson = new Gson().toJson(loginResult.globalsettings);
+                    Prefs.putStringPrefs(Constants.globalSettings, globalSettingsJson);
+
                     Gson gson = new GsonBuilder().create();
                     gson.fromJson(serverResponse, LoginResult.class);
                     SharedPrefUtil.putString(Constants.Login_result, Util.getCustomGson().toJson(loginResult), mContext);
@@ -277,8 +285,8 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     //new  RealmController().saveUserDetail(userdata);
 
 
-//                    Intent i = new Intent(mContext, MainActivity.class);
-//                    startActivity(i);
+                  //   Intent i = new Intent(mContext, MainActivity.class);
+                  //   startActivity(i);
                     searchProductCall(loginResult.getUserAccess().getWorklocationID() + "");
                 }
             } else if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT)) {

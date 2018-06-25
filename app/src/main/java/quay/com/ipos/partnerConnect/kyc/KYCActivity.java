@@ -260,7 +260,8 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
                 }
                 int firstCount = newCount + inProcessCount + verifiedCount;
                 textViewAllPartnersCount.setText(firstCount + "");
-                if (key.equals(realmOrderCentreSummary.getName())) {
+                if (key.equals(realmOrderCentreSummary.getName()) || key.contentEquals("all")) {
+
                     JSONArray array1 = null;
                     try {
                         array1 = new JSONArray(realmOrderCentreSummary.getData());
@@ -357,6 +358,8 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
                 lLayoutVerified.setSelected(true);
                 break;
             case R.id.lLayoutAllPartners:
+                setRealmData("all");
+
 //                lLayoutAllPartners.setBackgroundResource(R.drawable.card_selector_kyc);
 //                lLayoutNew.setBackgroundResource(0);
 //                lLayoutInprocess.setBackgroundResource(0);
@@ -368,10 +371,13 @@ public class KYCActivity extends AppCompatActivity implements InitInterface, Vie
                 unSelectAll();
                 lLayoutAllPartners.setSelected(true);
                 break;
-            case R.id.BtnViewAll:
+            case R.id.btnViewAll:
+                setRealmData("all");
+
 //                Intent i = new Intent(mContext, KYCViewAll.class);
 //                startActivity(i);
-
+                unSelectAll();
+                lLayoutAllPartners.setSelected(true);
             default:
                 break;
         }

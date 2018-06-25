@@ -295,7 +295,7 @@
     <string name="invalid_maritalStatus">Please enter your Marital status</string>
     <string name="invalid_email">Please enter a valid email</string>
     <string name="invalid_designation">Please enter a designation</string>
-    <string name="invalid_company">Please enter a company</string>
+    <string name="invalid_company">Enter company name</string>
 
     <string name="invalid_confirm_email">Email does not match</string>
     <string name="invalid_password">Please enter a valid password</string>
@@ -311,7 +311,7 @@
     <string name="enter_return_amount">Enter Return Amount</string>
     <string name="enter_expiration_date">Expiration Date</string>
     <string name="new_billing_cart_message">Do you want to save cart &amp; Proceed?</string>
-    <string name="form_submitted_successfully">Form submmited succesfully</string>
+    <string name="form_submitted_successfully">Form submitted successfully</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -342,8 +342,10 @@
     <string name="title_b2bsales">B2B Sales</string>
 
 
-
     <string name="ddr_b2b_search_hint">Enter DDR Code/Name</string>
+
+
+    <!--Compliance Tracker Start-->
 
     <string name="save_close"><![CDATA[Save & Close]]></string>
     <string name="hsn">HSN</string>
@@ -385,6 +387,85 @@
     <string name="discount_perc_exceeds">Discount percentage exceeds!</string>
     <string name="discount_val_exceeds">Discount value exceeds!</string>
     <string name="disc_perc_val_validation">Please enter discount value/percentage</string>
+
+
+
+    <string name="ct_statutory_business_compliance"><![CDATA[Statutory & Business Compliance]]></string>
+    <string name="ct_business_compliance"><![CDATA[Business Compliance]]></string>
+    <string name="ct_statutory_compliance"><![CDATA[Statutory Compliance]]></string>
+    <string name="ct_storewise">Store Wise Compliance Summary</string>
+
+    <string name="compliance_tracking">COMPLIANCE TRACKING</string>
+    <string name="title_activity_storewise_compliance">StorewiseComplianceActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_compliance_detail">Compliance Details</string>
+    <string name="txtSubCategory">Sub Category</string>
+    <string name="txtSubCategoryDetail">Month End Activity</string>
+    <string name="txtTaskName">Task Name</string>
+    <string name="txtTaskNameDetail">Monthly Book Closing</string>
+    <string name="txtTaskDescription">Task Description</string>
+    <string name="txtTaskAssignTo">Task Assign To</string>
+    <string name="txtTaskDescriptionDetail">Monthly activity of bill book closing for the respective month</string>
+    <string name="txtDueDate">Due Date</string>
+    <string name="txtDueDateDetail">30-Feb-2018</string>
+    <string name="txtProgressState">Progress State</string>
+    <string name="txtProgressStateDetail">In progress</string>
+    <string name="compliance_update">Compliance Update</string>
+    <string name="task_immediateattention">Immediate Attention</string>
+    <string name="task_upcoming">Upcoming Events</string>
+    <string name="task_pending">Pending</string>
+    <string name="task_done">Done</string>
+    <string name="task_cancel">Cancel</string>
+
+    <string name="error_message_loading_users">There seems to have been some error.</string>
+    <string name="default_message_loading_users">Press the button to load people!</string>
+    <string name="github">Github</string>
+    <string name="splash_screen">splash_screen</string>
+    <string name="update_compliance">Update</string>
+    <string name="subtaskname">Sub Task Name</string>
+    <string name="txtallstore">All Store</string>
+    <string name="txtPickStore">Pick a store</string>
+    <string name="listEmptyPending">No Pendind Data Found!</string>
+    <string name="listEmptyDone">No Done Found!</string>
+    <string name="listEmptyImmediate">No Immediate Event Found!</string>
+    <string name="listEmptyUpcomingEvent">No Upcoming Event Found!</string>
+    <string name="date_today">Today</string>
+    <string name="mark_as_done">Mark as done</string>
+    <string name="snooze">Snooze</string>
+    <string name="ok">Ok</string>
+    <string name="snooze_length">Snooze length</string>
+    <!--Server error text end-->
+
+    <string name="password_validation">Password length must be of atleast 8 character,1 special character ,1 Uppercase,1 lowercase and 1 number  !!</string>
+    <string name="progress_title_activity_login">Authenticating...</string>
+
+    <string name="subscribe_to_news">Subscribe To News</string>
+    <string name="log_token">Log Token</string>
+
+    <string name="msg_subscribed">Subscribed to news topic</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!--
+        This is the name that users will see when interacting with this channel.
+        It should describe the category of notifications that will be sent through this channel
+     -->
+    <string name="default_notification_channel_name" translatable="true">News</string>
+    <!--Server error text start-->
+
+
+    <string name="connection_timed_out_server_error">Connection timed out! please try again</string>
+
+
+    <string name="internal_server_error">Internal server error</string>
+
+    <string name="invalid_credential_server_error">Invalid credentials</string>
+
+    <string name="parsing_server_error">Parsing error! Please try again !!</string>
+
+    <!--Compliance Tracker END-->
 
 
 </resources>
