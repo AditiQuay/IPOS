@@ -1085,4 +1085,5 @@
     <dimen name="b2b_text_body">14sp</dimen>
     <dimen name="profile_pic_width">500dp</dimen>
     <dimen name="profile_pic_height">500dp</dimen>
+    <dimen name="circle_pager_indicator">17dp</dimen>
 </resources>

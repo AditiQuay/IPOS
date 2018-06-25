@@ -37,6 +37,10 @@ import quay.com.ipos.base.MainActivity;
 //import quay.com.ipos.pss_order.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.pss_order.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.pss_order.adapter.ExpandableListAdapter;
+import quay.com.ipos.pss_order.adapter.OrderCentreAccListAdapter;
+import quay.com.ipos.pss_order.adapter.OrderCentreCanListAdapter;
+import quay.com.ipos.pss_order.adapter.OrderCentreDelListAdapter;
+import quay.com.ipos.pss_order.adapter.OrderCentreDisListAdapter;
 import quay.com.ipos.pss_order.adapter.OrderCentreListAdapter;
 import quay.com.ipos.pss_order.modal.OrderCentreModal;
 import quay.com.ipos.modal.OrderList;
@@ -60,9 +64,18 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     private RecyclerView recyclerView;
     private LinearLayout llNew, llAccepted, llDispatched, llDelivered, llCancelled;
     private View vNew, vAccepted, vDispatched, vDelivered, vCancelled;
-    OrderCentreListAdapter mOrderCentreListAdapter;
+    private OrderCentreListAdapter mOrderCentreListAdapter;
+    private OrderCentreAccListAdapter orderCentreAccListAdapter;
+    private OrderCentreDelListAdapter orderCentreDelListAdapter;
+    private OrderCentreDisListAdapter orderCentreDisListAdapter;
+    private OrderCentreCanListAdapter orderCentreCanListAdapter;
 //    private ArrayList<LowInventoryModal> responseList = new ArrayList<>();
     private ArrayList<OrderCentreModal> orderList= new ArrayList<>();
+    private ArrayList<OrderCentreModal> orderListA= new ArrayList<>();
+    private ArrayList<OrderCentreModal> orderListDis= new ArrayList<>();
+    private ArrayList<OrderCentreModal> orderListDel= new ArrayList<>();
+    private ArrayList<OrderCentreModal> orderListCan= new ArrayList<>();
+
     private int mSelectedpos;
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -70,6 +83,10 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     HashMap<String, ArrayList<OrderList.Datum>> listDataChild;
     TextView tvNew,tvCancelled,tvDelivered,tvAccepted,tvDispatched;
     private LinearLayout btnViewAll;
+    TextView tvNewStatus;
+    private TextView tvNewStatusCannceled,tvNewStatusDelivered,tvNewStatusDispatch,tvNewStatusAccept;
+    private RecyclerView recycler_viewAccepted,recycler_viewDispatch,recycler_viewDelivered,recycler_viewCancelled;
+    private LinearLayout llNewRecyclerCancelled,llNewRecyclerDelivered,llNewRecyclerDispatch,llNewRecyclerAccept,llNewRecycler;
 
     // newInstance constructor for creating fragment with arguments
     public OrderCentreListFragment newInstance(int position) {
@@ -111,12 +128,38 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     }
 
     private void setAdapter() {
-        mOrderCentreListAdapter = new OrderCentreListAdapter(getActivity(),this,recyclerView, orderList);
-        recyclerView.setAdapter(mOrderCentreListAdapter);
+       if ( orderList.size()>0){
+
+                            mOrderCentreListAdapter = new OrderCentreListAdapter(getActivity(),this,recyclerView, orderList);
+                            recyclerView.setAdapter(mOrderCentreListAdapter);
+                        }
+                        if (orderListA.size()>0){
+                            orderCentreAccListAdapter = new OrderCentreAccListAdapter(getActivity(),this,recycler_viewAccepted, orderListA);
+                            recycler_viewAccepted.setAdapter(orderCentreAccListAdapter);
+                        }
+                        if (orderListDis.size()>0){
+                            orderCentreDisListAdapter = new OrderCentreDisListAdapter(getActivity(),this,recycler_viewDispatch, orderListDis);
+                            recycler_viewDispatch.setAdapter(orderCentreDisListAdapter);
+                        }
+                        if (orderListDel.size()>0){
+                            orderCentreDelListAdapter = new OrderCentreDelListAdapter(getActivity(),this,recycler_viewDelivered, orderListDel);
+                            recycler_viewDelivered.setAdapter(orderCentreDelListAdapter);
+
+                        }
+                        if ( orderListCan.size()>0){
+                            orderCentreCanListAdapter = new OrderCentreCanListAdapter(getActivity(),this,recycler_viewCancelled, orderListCan);
+                            recycler_viewCancelled.setAdapter(orderCentreCanListAdapter);
+                        }
+
+
     }
 
     private void setRealmData(int key){
         orderList.clear();
+        orderListCan.clear();
+        orderListA.clear();
+        orderListDis.clear();
+        orderListDel.clear();
         Realm realm=Realm.getDefaultInstance();
         RealmResults<RealmOrderCentreSummary> realmOrderCentreSummaries=realm.where(RealmOrderCentreSummary.class).findAll();
         orderList.clear();
@@ -155,9 +198,22 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                             orderCentreModal.setRequestCode(jsonObject.optString("requestCode"));
                             orderCentreModal.setTotalItem(jsonObject.optInt("totalItem"));
 
-                            orderList.add(orderCentreModal);
+                            if (realmOrderCentreSummary.getId()==1)
+                                orderList.add(orderCentreModal);
+                            if (realmOrderCentreSummary.getId()==2)
+                                orderListA.add(orderCentreModal);
+                            if (realmOrderCentreSummary.getId()==3)
+                                orderListDis.add(orderCentreModal);
+                            if (realmOrderCentreSummary.getId()==4)
+                                orderListDel.add(orderCentreModal);
+                            if (realmOrderCentreSummary.getId()==5)
+                                orderListCan.add(orderCentreModal);
 
                         }
+
+
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -165,6 +221,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                     JSONArray array1 = null;
                     try {
                         array1 = new JSONArray(realmOrderCentreSummary.getModel());
+
                         for (int k = 0; k < array1.length(); k++) {
                             JSONObject jsonObject = array1.optJSONObject(k);
                             OrderCentreModal orderCentreModal = new OrderCentreModal();
@@ -176,9 +233,49 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                             orderCentreModal.setRequestCode(jsonObject.optString("requestCode"));
                             orderCentreModal.setTotalItem(jsonObject.optInt("totalItem"));
 
+                            if (realmOrderCentreSummary.getId()==1)
                             orderList.add(orderCentreModal);
+                            if (realmOrderCentreSummary.getId()==2)
+                                orderListA.add(orderCentreModal);
+                            if (realmOrderCentreSummary.getId()==3)
+                                orderListDis.add(orderCentreModal);
+                            if (realmOrderCentreSummary.getId()==4)
+                                orderListDel.add(orderCentreModal);
+                            if (realmOrderCentreSummary.getId()==5)
+                            orderListCan.add(orderCentreModal);
 
                         }
+
+
+
+
+
+
+
+
+                      /*  if (realmOrderCentreSummary.getId()==1 && orderList.size()>0){
+
+                            mOrderCentreListAdapter = new OrderCentreListAdapter(getActivity(),this,recyclerView, orderList);
+                            recyclerView.setAdapter(mOrderCentreListAdapter);
+                        }
+                        if (realmOrderCentreSummary.getId()==2 && orderListA.size()>0){
+                            orderCentreAccListAdapter = new OrderCentreAccListAdapter(getActivity(),this,recycler_viewAccepted, orderListA);
+                            recycler_viewAccepted.setAdapter(orderCentreAccListAdapter);
+                        }
+                        if (realmOrderCentreSummary.getId()==3 && orderListDis.size()>0){
+                            orderCentreDisListAdapter = new OrderCentreDisListAdapter(getActivity(),this,recycler_viewDispatch, orderListDis);
+                            recycler_viewDispatch.setAdapter(orderCentreDisListAdapter);
+                        }
+                        if (realmOrderCentreSummary.getId()==4 && orderListDel.size()>0){
+                            orderCentreDelListAdapter = new OrderCentreDelListAdapter(getActivity(),this,recycler_viewDelivered, orderListDel);
+                            recycler_viewDelivered.setAdapter(orderCentreDelListAdapter);
+
+                        }
+                        if (realmOrderCentreSummary.getId()==5 && orderListCan.size()>0){
+                            orderCentreCanListAdapter = new OrderCentreCanListAdapter(getActivity(),this,recycler_viewCancelled, orderListCan);
+                            recycler_viewCancelled.setAdapter(orderCentreCanListAdapter);
+                        }*/
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -192,12 +289,47 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     }
 
     private void initializeComponent(View view) {
+
+        llNewRecycler=view.findViewById(R.id.llNewRecycler);
+        llNewRecyclerAccept=view.findViewById(R.id.llNewRecyclerAccept);
+        llNewRecyclerCancelled=view.findViewById(R.id.llNewRecyclerCancelled);
+        llNewRecyclerDelivered=view.findViewById(R.id.llNewRecyclerDelivered);
+        llNewRecyclerDispatch=view.findViewById(R.id.llNewRecyclerDispatch);
+
+        tvAccepted=view.findViewById(R.id.tvAccepted);
+        tvCancelled=view.findViewById(R.id.tvCancelled);
+        tvDelivered=view.findViewById(R.id.tvDelivered);
+        tvDispatched=view.findViewById(R.id.tvDispatched);
+        tvNewStatus=view.findViewById(R.id.tvNewStatus);
+
+
         btnViewAll=view.findViewById(R.id.btnViewAll);
         btnViewAll.setOnClickListener(this);
+
         recyclerView = view.findViewById(R.id.recycler_view);
         GridLayoutManager mLayoutManager2 = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(mLayoutManager2);
         recyclerView.addItemDecoration(new SpacesItemDecoration(10));
+
+        recycler_viewAccepted = view.findViewById(R.id.recycler_viewAccepted);
+        GridLayoutManager mLayoutManager8 = new GridLayoutManager(getActivity(), 1);
+        recycler_viewAccepted.setLayoutManager(mLayoutManager8);
+        recycler_viewAccepted.addItemDecoration(new SpacesItemDecoration(10));
+
+        recycler_viewCancelled = view.findViewById(R.id.recycler_viewCancelled);
+        GridLayoutManager mLayoutManager7 = new GridLayoutManager(getActivity(), 1);
+        recycler_viewCancelled.setLayoutManager(mLayoutManager7);
+        recycler_viewCancelled.addItemDecoration(new SpacesItemDecoration(10));
+
+        recycler_viewDelivered = view.findViewById(R.id.recycler_viewDelivered);
+        GridLayoutManager mLayoutManager9 = new GridLayoutManager(getActivity(), 1);
+        recycler_viewDelivered.setLayoutManager(mLayoutManager9);
+        recycler_viewDelivered.addItemDecoration(new SpacesItemDecoration(10));
+
+        recycler_viewDispatch = view.findViewById(R.id.recycler_viewDispatch);
+        GridLayoutManager mLayoutManager10 = new GridLayoutManager(getActivity(), 1);
+        recycler_viewDispatch.setLayoutManager(mLayoutManager10);
+        recycler_viewDispatch.addItemDecoration(new SpacesItemDecoration(10));
 
         llNew = view.findViewById(R.id.llNew);
         llAccepted = view.findViewById(R.id.llAccepted);
@@ -333,26 +465,53 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
             case R.id.llNew:
                 selectItemNew();
                 setRealmData(1);
+                llNewRecycler.setVisibility(View.VISIBLE);
+                llNewRecyclerDelivered.setVisibility(View.GONE);
+                llNewRecyclerDispatch.setVisibility(View.GONE);
+                llNewRecyclerCancelled.setVisibility(View.GONE);
+                llNewRecyclerAccept.setVisibility(View.GONE);
+
+
                 break;
 
             case R.id.llAccepted:
                 selectItemAccepted();
                 setRealmData(2);
+                llNewRecycler.setVisibility(View.GONE);
+                llNewRecyclerDelivered.setVisibility(View.GONE);
+                llNewRecyclerDispatch.setVisibility(View.GONE);
+                llNewRecyclerCancelled.setVisibility(View.GONE);
+                llNewRecyclerAccept.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.llDispatched:
                 selectItemDispatched();
                 setRealmData(3);
+                llNewRecycler.setVisibility(View.GONE);
+                llNewRecyclerDelivered.setVisibility(View.GONE);
+                llNewRecyclerDispatch.setVisibility(View.VISIBLE);
+                llNewRecyclerCancelled.setVisibility(View.GONE);
+                llNewRecyclerAccept.setVisibility(View.GONE);
                 break;
 
             case R.id.llDelivered:
                 selectItemDelivered();
                 setRealmData(4);
+                llNewRecycler.setVisibility(View.GONE);
+                llNewRecyclerDelivered.setVisibility(View.VISIBLE);
+                llNewRecyclerDispatch.setVisibility(View.GONE);
+                llNewRecyclerCancelled.setVisibility(View.GONE);
+                llNewRecyclerAccept.setVisibility(View.GONE);
                 break;
 
             case R.id.llCancelled:
                 selectItemCancel();
                 setRealmData(5);
+                llNewRecycler.setVisibility(View.GONE);
+                llNewRecyclerDelivered.setVisibility(View.GONE);
+                llNewRecyclerDispatch.setVisibility(View.GONE);
+                llNewRecyclerCancelled.setVisibility(View.VISIBLE);
+                llNewRecyclerAccept.setVisibility(View.GONE);
                 break;
             case R.id.btnViewAll:
                 vNew.setVisibility(View.VISIBLE);
@@ -360,6 +519,11 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                 vDelivered.setVisibility(View.VISIBLE);
                 vDispatched.setVisibility(View.VISIBLE);
                 vCancelled.setVisibility(View.VISIBLE);
+                llNewRecycler.setVisibility(View.VISIBLE);
+                llNewRecyclerDelivered.setVisibility(View.VISIBLE);
+                llNewRecyclerDispatch.setVisibility(View.VISIBLE);
+                llNewRecyclerCancelled.setVisibility(View.VISIBLE);
+                llNewRecyclerAccept.setVisibility(View.VISIBLE);
                 setRealmData(6);
                 break;
         }

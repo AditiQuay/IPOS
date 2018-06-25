@@ -143,5 +143,6 @@
     <color name="red_transulent">#30e64f20</color>
     <color name="dashboard_textcolor">#848484</color>
     <color name="ddr_light_grey">#AEAEAE</color>
+    <color name="color_bg_grey">#F4F4F4</color>
 </resources>
 

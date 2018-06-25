@@ -21,7 +21,7 @@ android {
     productFlavors {
         dev {
             dimension "tier"
-            minSdkVersion 23
+            minSdkVersion 19
             // The following configuration limits the "dev" flavor to using
             // English stringresources and xxhdpi screen-density resources.
             resConfigs "en", "xxhdpi"
