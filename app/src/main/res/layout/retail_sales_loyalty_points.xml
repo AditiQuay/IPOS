@@ -153,10 +153,11 @@
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:layout_weight="1"
-                        android:alpha="0.7"
                         android:enabled="false"
+                        android:textColor="@color/light_grey_color"
                         android:paddingBottom="@dimen/dim_5"
                         android:gravity="left|center"
+                        android:textColorHint="@color/light_grey_color"
                         android:inputType="number"
                         android:hint="@string/redeem_value" />
                 </android.support.design.widget.TextInputLayout>

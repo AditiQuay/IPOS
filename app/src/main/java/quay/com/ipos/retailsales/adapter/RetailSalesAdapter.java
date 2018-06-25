@@ -250,7 +250,13 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //            IPOSApplication.mProductList.set(position,str);
 //            AppLog.e(RetailSalesAdapter.class.getSimpleName(), "IPOSApplication.mProductList: "+ Util.getCustomGson().toJson(IPOSApplication.mProductList));
             onBind = false;
-
+            userViewHolder.etQtySelected.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+                public void onFocusChange(View v, boolean hasFocus){
+                    if(!onBind)
+                        if ((hasFocus) && (v.isPressed()))
+                            ((EditText)v).selectAll();
+                }
+            });
             userViewHolder.llInnerItem.setOnClickListener(mOnClickListener);
             userViewHolder.llInnerItem.setTag(position);
 
@@ -331,7 +337,12 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 }
             });
-
+            userViewHolder.etQtySelected.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((EditText)view).selectAll();
+                }
+            });
 
             userViewHolder.mRecyclerView.setHasFixedSize(true);
 //            WrapContentLinearLayoutManager mLayoutManager = new WrapContentLinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
@@ -389,7 +400,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private double getTotalPoints(ProductSearchResult.Datum str, double totalPrice, Double sProductPrice, int qty){
         double totalPoints=0;
 //        if (str.getPointsBasedOn().equalsIgnoreCase("M")){
-            totalPoints=str.getPoints()*qty;
+        totalPoints=str.getPoints()*qty;
 
 //        }else if (str.getPointsBasedOn().equalsIgnoreCase("P")){
 //            int valuefrom=str.getValueFrom();

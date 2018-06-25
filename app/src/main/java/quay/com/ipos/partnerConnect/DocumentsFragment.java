@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -12,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,11 +31,9 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 
-import java.io.File;
 import java.io.InputStream;
 
 import quay.com.ipos.R;
-import quay.com.ipos.kycPartnerConnect.KycDocumentsFragment;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.model.DocumentVoults;
 import quay.com.ipos.partnerConnect.model.PCModel;
@@ -52,7 +52,11 @@ import static android.app.Activity.RESULT_OK;
 
 public class DocumentsFragment extends Fragment implements InitInterface, View.OnClickListener {
     private static final String TAG = DocumentsFragment.class.getSimpleName();
-    private static final int PICKFILE_RESULT_CODE = 11;
+    private static final int REQ_GALLERY_Photo = 301;
+    private static final int REQ_GALLERY_Pan = 302;
+    private static final int REQ_GALLERY_Appointment = 303;
+    private static final int REQ_GALLERY_Annexure = 304;
+    private static final int REQ_GALLERY_Compliance = 305;
     private View main;
     private Context mContext;
     //Photo variables
@@ -230,7 +234,7 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         ImvClose = myDialog.findViewById(R.id.ImvClose);
         imgDocumentPreview = myDialog.findViewById(R.id.imgDocumentPreview);
         //  new ConvertToBitmap(docFileBase64, imgDocumentPreview).execute();
-        Glide.with(getActivity()).load(picUrl) .into(imgDocumentPreview);
+        Glide.with(getActivity()).load(picUrl).into(imgDocumentPreview);
         ImvClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -288,7 +292,7 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
 
         switch (v.getId()) {
             case R.id.btnCamContact:
-             //   gotToCamera2(imageViewphoto, "PrimaryContactPhoto", 1);
+                //   gotToCamera2(imageViewphoto, "PrimaryContactPhoto", 1);
                 gotToCamera(v, 1);
                 break;
             case R.id.btnPanCamera:
@@ -308,17 +312,27 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
 
                 break;
             case R.id.btnPhotoUpload:
-                gotToCamera2(imageViewphoto, "PrimaryContactPhoto", 1);
+                // gotToCamera2(imageViewphoto, "PrimaryContactPhoto", 1);
 
-             //   onAttachFileClicked();
+
+                //   onAttachFileClicked();
+                onClickGallery(REQ_GALLERY_Photo);
                 break;
             case R.id.btnPanUpload:
+                onClickGallery(REQ_GALLERY_Pan);
+
                 break;
             case R.id.btnAppointmentUpload:
+                onClickGallery(REQ_GALLERY_Appointment);
+
                 break;
             case R.id.btnCompilanceUpload:
+                onClickGallery(REQ_GALLERY_Compliance);
+
                 break;
             case R.id.btnAnnexureUpload:
+                onClickGallery(REQ_GALLERY_Annexure);
+                break;
             default:
                 break;
         }
@@ -339,7 +353,9 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
                 openImageDialogNew(picUrl);
             }
         });
-    }private void gotToGallery(final ImageView v, String name, int reqCode) {
+    }
+
+    private void gotToGallery(final ImageView v, String name, int reqCode) {
         Log.i(TAG, "gotToCamera2");
        /* pictureManager.onClickCamera("PICTURE" + "_" + name, reqCode, new PictureManager.GetPicURLListener() {
             @Override
@@ -350,34 +366,15 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
                 openImageDialogNew(picUrl);
             }
         });*/
-      // pictureManager.;
+        // pictureManager.;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        onActivityResultGallery(requestCode, resultCode, data);
         if (requestCode == PictureManager.IMAGE_CAPTURE) {
             pictureManager.onActivityResult(requestCode, resultCode, data);
-            return;
-        }
-
-        if (requestCode == PICKFILE_RESULT_CODE && resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            File f = new File(uri.getPath());
-            long size = f.length();
-            String FilePath = data.getData().getPath();
-            Log.i(TAG, "FilePath:" + FilePath + " , File Length:" + size);
-
-            // imageViewphoto.setImageURI(uri);
-
-            String s = getBase64StringNew(uri, (int) size);
-            if (s != null) {
-                Log.i(TAG, "getBase64StringNew:" + s);
-                new ConvertToBitmap(s, imageViewphoto).execute();
-                docPhoto.DocFileBase64 = s;
-            }
-
-
             return;
         }
 
@@ -625,30 +622,6 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
         }
     }
 
-    private void onAttachFileClicked() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(intent, PICKFILE_RESULT_CODE);
-    }
-
-   /* @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        switch (requestCode) {
-            case PICKFILE_RESULT_CODE:
-                if (resultCode == RESULT_OK) {
-                    Uri uri = data.getData();
-                  //  uriArrayList.add(uri);
-                  //  updateSize();
-                    String FilePath = data.getData().getPath();
-                  //  Toast.makeText(this, "FilePath" + FilePath, Toast.LENGTH_SHORT).show();
-                    // textFile.setText(FilePath);
-                    //updateSize();
-                }
-                break;
-
-        }
-    }*/
 
     private String getBase64StringNew(Uri uri, int filelength) {
         String imageStr = null;
@@ -677,5 +650,87 @@ public class DocumentsFragment extends Fragment implements InitInterface, View.O
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         pictureManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void onClickGallery(int REQ_GALLERY_CODE) {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivityForResult(intent, REQ_GALLERY_CODE);
+
+    }
+
+    public void onActivityResultGallery(int requestCode, int resultCode, Intent data) {
+        if (requestCode > 300) {
+            try {
+
+                if (resultCode == RESULT_OK) {
+                    Uri uri = data.getData();
+                    Cursor returnCursor =
+                            getActivity().getContentResolver().query(uri, null, null, null, null);
+                    int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+                    returnCursor.moveToFirst();
+
+                    String fileName = returnCursor.getString(nameIndex);
+                    long fileSize = returnCursor.getLong(sizeIndex);
+                    String mimeType = getActivity().getContentResolver().getType(uri);
+                    Log.i("Type", mimeType);
+                    Log.i("fileSize", fileSize + "");
+                    long twoMb = 1024 * 1024 * 2;
+
+                    if (fileSize <= twoMb) {
+                           /* AttachFileModel fileModel = new AttachFileModel();
+                            fileModel.fileName = fileName;
+                            fileModel.mimeType = mimeType;
+                            fileModel.uri = uri;
+
+                            attachFileModels.add(fileModel);
+                          //  updateSize();*/
+
+                        String FilePath = data.getData().getPath();
+                        ImageView imageView = null;
+                        DocumentVoults documentVoults = null;
+                        if (requestCode == REQ_GALLERY_Photo) {
+                            imageView = imageViewphoto;
+                            documentVoults = docPhoto;
+                        }
+                        if (requestCode == REQ_GALLERY_Annexure) {
+                            imageView = imageViewAnnexure;
+                            documentVoults = docAnnexure;
+
+                        }
+                        if (requestCode == REQ_GALLERY_Appointment) {
+                            imageView = imageViewAppointment;
+                            documentVoults = docAppointment;
+
+                        }
+                        if (requestCode == REQ_GALLERY_Compliance) {
+                            imageView = imageViewCompilance;
+                            documentVoults = docCompliance;
+
+                        }
+                        if (requestCode == REQ_GALLERY_Pan) {
+                            imageView = imageViewPan;
+                            documentVoults = docPan;
+
+                        }
+                        if (imageView != null)
+                            Glide.with(getActivity()).load(uri).override(imageView.getWidth(), imageView.getHeight()).into(imageView);
+                        if (documentVoults != null) {
+                            documentVoults.DocFileBase64 = getBase64StringNew(uri, (int) fileSize);
+                        }
+
+
+                    } else {
+                        Toast.makeText(getActivity(), "Oops! File Size must be less than 2 MB", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -32,10 +32,12 @@ import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.ScannerProductListener;
 import quay.com.ipos.modal.CommonParams;
+import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 public class FullScannerFragment extends BaseFragment implements
@@ -206,7 +208,9 @@ public class FullScannerFragment extends BaseFragment implements
         mProductList = IPOSApplication.mProductListResult;
         showProgressDialog(mContext,R.string.please_wait);
         CommonParams mCommonParams = new CommonParams();
-        mCommonParams.setStoreId("1");
+        String json = SharedPrefUtil.getString(Constants.Login_result,"",getActivity());
+        LoginResult loginResult = Util.getCustomGson().fromJson(json,LoginResult.class);
+        mCommonParams.setStoreId(loginResult.getUserAccess().getWorklocationID()+"");
         mCommonParams.setBarCodeNumber(title);
 
         ServiceTask mTask = new ServiceTask();

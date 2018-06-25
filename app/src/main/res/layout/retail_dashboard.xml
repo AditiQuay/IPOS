@@ -503,13 +503,13 @@
             <LinearLayout
                 android:id="@+id/ll_item_pay"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:orientation="horizontal"
                 android:background="@color/colorPrimary">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_discount"
+                    android:src="@drawable/ic_action_discount_white"
                     android:layout_gravity="center"
                     android:paddingLeft="@dimen/dim_10"
                     android:paddingTop="@dimen/dim_5"
@@ -557,23 +557,26 @@
                     android:paddingLeft="@dimen/dim_15"
                     android:paddingRight="@dimen/dim_15"
                     android:src="@drawable/ic_action_arrow_right"
-                    android:background="@color/colorAccentDark"
+                    android:background="@color/payment_color"
                     android:layout_width="wrap_content"
-                    android:layout_height="50dp"/>
+                    android:layout_height="45dp"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/llOTCSelect"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="45dp"
                 android:orientation="horizontal"
-                android:padding="@dimen/dim_10"
                 android:visibility="gone"
                 android:background="@color/colorPrimary">
                 <CheckBox
                     android:id="@+id/chkOTC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
                     android:checked="false"
+                    android:buttonTint="@color/white"
+
                     />
                 <quay.com.ipos.ui.CustomTextView
                     android:layout_width="wrap_content"
@@ -595,18 +598,19 @@
                     android:paddingLeft="@dimen/dim_10"
                     android:text="@string/otc_discount"
                     android:textColor="@color/white"
+                    android:paddingRight="@dimen/dim_10"
                     android:textSize="@dimen/text_size_15sp" />
 
-                <TextView
-                    android:id="@+id/tvRight1"
+                <ImageView
+                    android:id="@+id/imvRight1"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_15sp"
-                    android:padding="@dimen/dim_5"
+                    android:paddingLeft="@dimen/dim_15"
+                    android:paddingRight="@dimen/dim_15"
+                    android:src="@drawable/ic_action_arrow_right"
+                    android:background="@color/payment_color"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fa_right"/>
+                    android:layout_height="45dp"/>
             </LinearLayout>
         </LinearLayout>
 

@@ -146,6 +146,8 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
         IPOSApplication.mProductListResult.clear();
 
         IPOSApplication.mProductListResult.addAll(mInfoArrayList.get(childPosition).getData());
+        mInfoArrayList.remove(childPosition);
+        SharedPrefUtil.putString(Constants.mInfoArrayList,Util.getCustomGson().toJson(mInfoArrayList),this);
         Intent mIntent = new Intent();
         mIntent.putExtra("pinned_position",childPosition);
         setResult(1,mIntent);
@@ -211,7 +213,7 @@ public class PinnedRetailActivity extends BaseActivity implements View.OnClickLi
             mInfoArrayList.remove(pinned_pos);
             mPinnedAdapter.notifyDataSetChanged();
             String json = Util.getCustomGson().toJson(mInfoArrayList);
-            SharedPrefUtil.putString(Constants.mOrderInfoArrayList, json, PinnedRetailActivity.this);
+            SharedPrefUtil.putString(Constants.mInfoArrayList, json, PinnedRetailActivity.this);
         }
     }
 

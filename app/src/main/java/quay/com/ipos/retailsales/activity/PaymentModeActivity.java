@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -16,6 +17,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -30,6 +32,10 @@ import android.widget.ToggleButton;
 
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -39,6 +45,9 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
+import quay.com.ipos.customerInfo.customerInfoModal.RecentOrderList;
+import quay.com.ipos.dashboard.adapter.SpinnerDropDownAdapter;
+import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.modal.BillingSync;
 import quay.com.ipos.modal.CustomerPointsRedeemRequest;
@@ -48,6 +57,7 @@ import quay.com.ipos.modal.OrderSubmitResult;
 import quay.com.ipos.modal.PaymentRequest;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.service.ServiceTask;
+import quay.com.ipos.ui.CustomTextView;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
@@ -115,8 +125,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         arrMonth = context.getResources().getStringArray(R.array.months);
 
 
-        //registering the broadcast receiver to update sync status
-        ;
+
     }
 
 
@@ -140,11 +149,12 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             mTotalAmount=intent.getStringExtra(Constants.TOTAL_AMOUNT);
             mCustomerID = intent.getStringExtra(Constants.KEY_CUSTOMER);
             if(!mCustomerID.equalsIgnoreCase("") && mCustomerID != null) {
-                mCustomerPoints = intent.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS, 0);
-               IPOSApplication.mCustomerPointsPer = intent.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER, 0);
+                mCustomerPoints = intent.getIntExtra(Constants.KEY_CUSTOMER_POINTS, 0);
+                IPOSApplication.mCustomerPointsPer = intent.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER, 0);
                 IPOSApplication.mCustomerEmail = intent.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
-                tvRedeemPoints.setText(mCustomerPoints + "");
+
+                tvRedeemPoints.setText((mCustomerPoints + ""));
                 imvTick.setVisibility(View.VISIBLE);
             }else {
                 mCustomerID = "";
@@ -269,6 +279,49 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
             }
         });
+        etLastDigit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!charSequence.toString().trim().equalsIgnoreCase("")){
+                    if(charSequence.toString().length()==4){
+                        etExpMonth.setFocusable(true);
+                        etExpMonth.requestFocus();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        etExpMonth.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!charSequence.toString().trim().equalsIgnoreCase("")){
+                    if(charSequence.toString().length()==2){
+                        etExpYear.setFocusable(true);
+                        etExpYear.requestFocus();
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         toggleCOD.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -276,9 +329,19 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 if(b){
                     sendCOD=true;
                     llCashReceived.setVisibility(View.GONE);
+                    llPoints.setEnabled(false);
+                    llCard.setEnabled(false);
+                    llCash.setEnabled(false);
+                    cvPoints.setVisibility(View.GONE);
+                    cvCard.setVisibility(View.GONE);
+                    llPoints.setBackgroundResource(R.drawable.rect_four_white);
+                    llCard.setBackgroundResource(R.drawable.rect_four_white);
                 }else {
                     sendCOD=false;
                     llCashReceived.setVisibility(View.VISIBLE);
+                    llPoints.setEnabled(true);
+                    llCard.setEnabled(true);
+                    llCash.setEnabled(true);
                 }
             }
         });
@@ -290,7 +353,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         if(requestCode==Constants.ACT_CUSTOMER){
             if(resultCode==Constants.ACT_CUSTOMER){
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
-                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS,0);
+                mCustomerPoints = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS,0);
                 IPOSApplication. mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER,0);
                 IPOSApplication. mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
@@ -318,21 +381,33 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
 
         // Spinner Drop down elements
-        ArrayList<String> categories = new ArrayList<String>();
-        categories.add("Master Card");
-        categories.add("AMEX");
-        categories.add("Maestro Card");
-        categories.add("RuPay");
-        categories.add("VISA");
+//        ArrayList<String> categories = new ArrayList<String>();
+//        categories.add("Master Card");
+//        categories.add("AMEX");
+//        categories.add("Maestro Card");
+//        categories.add("RuPay");
+//        categories.add("VISA");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),
+//                android.R.layout.simple_spinner_item, categories) {
+//            @Override
+//            public View getView(int position, View convertView, ViewGroup parent) {
+//                View view = super.getView(position, convertView, parent);
+//                CustomTextView text = (CustomTextView) view.findViewById(android.R.id.text1);
+//                Typeface typeface = Typeface.createFromAsset(text.getContext().getAssets(),
+//                        context.getString(R.string.assets_fonts_folder) + "/TitilliumWeb-Regular.ttf");
+//                text.setTypeface(typeface);
+//                return view;
+//            }
+//        };
+//        // Drop down layout style - list view with radio button
+//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        SpinnerDropDownAdapter mSpinnerDropDownAdapter = new SpinnerDropDownAdapter(this,getResources().getStringArray(R.array.card_type));
+        mSpinnerDropDownAdapter.setColor(true);
         // attaching data adapter to spinner
-        spinner.setAdapter(dataAdapter);
+        spinner.setAdapter(mSpinnerDropDownAdapter);
 
 
     }
@@ -379,13 +454,43 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 //            billingSyncs = db.getAllRetailBillingOrders();
             if(!db.checkIfBillingRecordExist(billingSync.getOrderTimestamp())) {
                 db.addRetailBilling(billingSync);
+                if(!mCustomerID.equalsIgnoreCase("")){
+                    CustomerModel customerModel = new CustomerModel();
+                    RecentOrderList recentOrder = new RecentOrderList();
+                    try {
+
+                        JSONArray jsonArray = new JSONArray(customerModel.getRecentOrders());
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject3 = jsonArray.getJSONObject(i);
+                            recentOrder = new RecentOrderList();
+                            recentOrder.setFromStoreName(jsonObject3.optString(CustomerEnum.ColoumnFromStoreName.toString().trim()));
+                            recentOrder.setStoreCity(jsonObject3.optString(CustomerEnum.ColoumnStoreCity.toString().trim()));
+                            recentOrder.setStoreState(jsonObject3.optString(CustomerEnum.ColoumnStoreState.toString().trim()));
+                            recentOrder.setBillDate(jsonObject3.optString(CustomerEnum.ColoumnBillDate.toString().trim()));
+                            recentOrder.setBillPrice(jsonObject3.optString(CustomerEnum.ColoumnBillPrice.toString().trim()));
+                            recentOrders.add(recentOrder);
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",this),LoginResult.class);
+                    recentOrder= new RecentOrderList();
+                    recentOrder.setBillDate(billingSync.getOrderDateTime());
+                    recentOrder.setBillPrice(paymentRequest.getTotalValueWithTax()+"");
+                    recentOrder.setFromStoreName(loginResult.getUserAccess().getStoreName());
+                    recentOrder.setStoreState("");
+                    recentOrder.setStoreCity("");
+                    recentOrders.add(recentOrder);
+                    db.updateCustomerRecentOrders(Util.getCustomGson().toJson(recentOrders));
+                }
             }
 //            billingSyncs = db.getAllRetailBillingOrders();
         }catch (Exception e){
 
         }
     }
-
+    private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();
     @Override
     public void onClick(View view) {
 
@@ -497,7 +602,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
                 if (!mCustomerID.equalsIgnoreCase("")) {
                     if(!IPOSApplication.mCustomerEmail.trim().equalsIgnoreCase(""))
-                        if(mCustomerPoints>0.0)
+                        if(mCustomerPoints>0)
                             setllPoints();
                         else
                             Util.showToast(getString(R.string.redeem_customer_points_not_sufficient), mContext);
@@ -576,7 +681,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
                     if (cashAmount > 0.0 && cashAmount <= IPOSApplication.totalAmount) {
                         totalAmount = totalAmount - cashAmount;
-                        tvBalance.setText(totalAmount + "");
+                        tvBalance.setText(Util.getIndianNumberFormat(totalAmount+""));
                         btnPayCash.setVisibility(View.GONE);
                         llToggle.setVisibility(View.VISIBLE);
                         toggleCOD.setEnabled(false);
@@ -635,7 +740,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
                     if (receivedAmt > 0.0 && receivedAmt >= cashAmount && cashReturnAmt >= 0.0 && cashAmount > 0.0 && cashAmount <= IPOSApplication.totalAmount) {
                         totalAmount = totalAmount - cashAmount;
-                        tvBalance.setText(totalAmount + "");
+                        tvBalance.setText(Util.getIndianNumberFormat(totalAmount+""));
                         btnPayCash.setVisibility(View.GONE);
                         llToggle.setVisibility(View.GONE);
                         etReceivedAmount.setEnabled(false);
@@ -671,8 +776,12 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
 
 
-                cardType = spinner.getSelectedItem().toString();
+                if(spinner.getSelectedItem()!=null && !spinner.getSelectedItem().toString().equalsIgnoreCase(""))
+                    cardType = spinner.getSelectedItem().toString();
+                else {
+                    Util.showToast("Please select Card type", PaymentModeActivity.this);
 
+                }
                 if(!etLastDigit.getText().toString().trim().equalsIgnoreCase("")) {
                     lastDigit = etLastDigit.getText().toString().trim();
                     if(lastDigit.length()==4){
@@ -734,7 +843,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
                 if(checkCardAmt && checkCardDigit && checkCardMonth && checkCardExpYear && !transID.equalsIgnoreCase("")){
                     totalAmount=totalAmount-cardAmount;
-                    tvBalance.setText(totalAmount+"");
+                    tvBalance.setText(Util.getIndianNumberFormat(totalAmount+""));
                     btnPayCard.setVisibility(View.GONE);
                     etCardAmount.setEnabled(false);
                     etExpMonth.setEnabled(false);
@@ -830,7 +939,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 }
                 break;
         }
-
+        if(btnPayCard.getVisibility()==View.GONE || sendRedeem==true){
+            toggleCOD.setEnabled(false);
+        }else {
+            toggleCOD.setEnabled(true);
+        }
     }
 
     private void setllPoints() {
@@ -852,8 +965,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         redeemValue = points1 * pointsPer;
                     }
 //                            if(totalAmount>)
-                    etPointToRedeem.setText(points1 + "");
-                    etRedeemValue.setText(redeemValue + "");
+//                    etPointToRedeem.setText("");
+//                    etRedeemValue.setText(redeemValue + "");
+
                 } else {
                     etPointToRedeem.setText(IPOSApplication.totalpointsToRedeem + "");
                     etRedeemValue.setText(IPOSApplication.totalpointsToRedeemValue + "");

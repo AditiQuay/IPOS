@@ -79,7 +79,7 @@
                 android:layout_gravity="right|end|top"
                 android:layout_marginRight="-8dp"
                 android:layout_marginLeft="@dimen/dim_8"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:src="@drawable/ic_action_check_yellow"
                 android:gravity="center"/>
 
@@ -110,7 +110,7 @@
                 android:layout_marginLeft="@dimen/dim_16"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/yellow_circle"
-                android:maxLength="3"
+                android:maxLength="4"
                 android:gravity="center"
                 android:visibility="gone"
                 android:padding="3dp"
@@ -161,7 +161,7 @@
 
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvRedeemPoints"
-                android:layout_width="28dp"
+                android:layout_width="32dp"
                 android:layout_height="20dp"
                 android:layout_gravity="right|end|top"
                 android:layout_marginRight="-10dp"
@@ -356,6 +356,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+
+
+
+
+
                         android:gravity="center"
 
                         android:padding="@dimen/dim_10"
@@ -433,6 +438,7 @@
                         android:gravity="center"
                         android:padding="@dimen/dim_10"
                         android:layout_gravity="center"
+                        android:visibility="gone"
                         android:background="@drawable/gray_white_background_selector"
                         android:orientation="vertical">
 
@@ -610,7 +616,7 @@
                                 android:layout_gravity="left|center"
                                 android:textSize="14dp"
                                 android:padding="5dp"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:hint="@string/enter_cash_amount"
                                 android:textColorHint="@color/grey"
                                 android:textColor="@color/dark_text_color"
@@ -646,7 +652,7 @@
                                     android:layout_gravity="left|center"
                                     android:textSize="14dp"
                                     android:padding="5dp"
-                                    android:inputType="number"
+                                    android:inputType="numberDecimal"
                                     android:hint="@string/enter_received_amount"
                                     android:textColorHint="@color/grey"
                                     android:textColor="@color/dark_text_color"
@@ -676,7 +682,8 @@
                                     android:gravity="left|center"
                                     android:layout_gravity="left|center"
                                     android:textSize="14dp"
-                                    android:inputType="number"
+                                    android:inputType="numberDecimal"
+                                    android:alpha="0.5"
                                     android:focusable="true"
                                     android:editable="false"
                                     android:enabled="false"
@@ -781,7 +788,7 @@
                                     android:gravity="left|center"
                                     android:layout_gravity="left|center"
                                     android:textSize="14dp"
-                                    android:inputType="number"
+                                    android:inputType="numberDecimal"
                                     android:padding="5dp"
                                     android:hint="@string/enter_card_amount"
                                     android:textColorHint="@color/grey"
@@ -891,11 +898,10 @@
                                 <quay.com.ipos.ui.CustomTextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/dim_5"
                                     android:layout_centerVertical="true"
                                     android:text="@string/enter_expiration_date"
                                     android:textColor="@color/filter_text_color"
-                                    android:textSize="@dimen/dim_14"
+                                    android:textSize="@dimen/text_size_12sp"
                                     />
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -910,7 +916,7 @@
                                         android:layout_height="wrap_content"
                                         android:gravity="end"
                                         android:textSize="14dp"
-                                        android:padding="8dp"
+                                        android:padding="5dp"
                                         android:maxLength="2"
                                         android:inputType="number"
                                         android:hint="00"
@@ -933,7 +939,7 @@
                                         android:layout_height="wrap_content"
                                         android:gravity="end"
                                         android:textSize="14dp"
-                                        android:padding="8dp"
+                                        android:padding="5dp"
                                         android:maxLength="4"
                                         android:inputType="number"
                                         android:hint="0000"
@@ -1117,7 +1123,7 @@
                                 android:textSize="14dp"
                                 android:enabled="false"
                                 android:focusable="true"
-                                android:inputType="number"
+                                android:inputType="numberDecimal"
                                 android:padding="5dp"
                                 android:hint="@string/redeem_value"
                                 android:textColorHint="@color/grey"

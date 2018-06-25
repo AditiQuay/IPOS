@@ -997,7 +997,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //                }
 //                  if (i<=total-1){
                     for(int k = 0 ; k <total; k++) {
-                        ProductSearchResult.Datum datum1 = discountbeforeSorting.get(i);
+                        ProductSearchResult.Datum datum1 = discountbeforeSorting.get(0);
                         minDiscount.add(datum1);
                         break;
 //                break;
@@ -1007,7 +1007,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     if (qtyType<total){
 //                    for(int k = 0 ; k <=total; k++) {
                         for(int k = 0 ; k <total; k++) {
-                            ProductSearchResult.Datum datum1 = discountbeforeSorting.get(i);
+                            ProductSearchResult.Datum datum1 = discountbeforeSorting.get(0);
                             minDiscount.add(datum1);
                             break;
 //                break;
@@ -1073,9 +1073,11 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 datum1.setIsDiscount(minDiscount.get(i).getIsDiscount());
                 datum1.setProductImage(minDiscount.get(i).getProductImage());
                 datum1.setProductCode(minDiscount.get(i).getProductCode());
+                datum1.setCategoryName(minDiscount.get(i).getCategoryName());
+                datum1.setSubCategoryName(minDiscount.get(i).getSubCategoryName());
                 datum1.setDiscount(discounts);
                 datum1.setQty(1);
-                datum1.setSalesPrice(mPriceSelected);
+//                datum1.setSalesPrice(mPriceSelected);
                 datum1.setFreeItem(true);
                 datum1.setSProductPrice(mPriceSelected);
 
