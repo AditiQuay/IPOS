@@ -548,6 +548,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         }
         if (actionTitle.contains("Move")) {
             isMove = true;
+            ///
         }
         if (actionTitle.contains("Delete")) {
             isMove = true;
