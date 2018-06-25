@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -518,10 +519,10 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     }
 
-    private void showActionListDialog(List<ActionListModel> actionListModels) {
-
-        ActionListFragment actionListFragment = ActionListFragment.newInstance(actionListModels);
-        actionListFragment.show(getSupportFragmentManager(), "TAG");
+    private void showActionListDialog(List<ActionListModel> actionListModels){
+        Toast.makeText(mContext,"Action clicked",Toast.LENGTH_SHORT).show();
+//        ActionListFragment actionListFragment = ActionListFragment.newInstance(actionListModels);
+//        actionListFragment.show(getSupportFragmentManager(), "TAG");
     }
 
     @Override

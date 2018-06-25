@@ -1,13 +1,8 @@
 <component name="libraryTable">
   <library name="com.android.support:support-media-compat-27.1.1">
     <CLASSES>
-<<<<<<< HEAD
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/8eca49bd9f51b7a0fdb45ada0bfe71fb/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/8eca49bd9f51b7a0fdb45ada0bfe71fb/jars/classes.jar!/" />
-=======
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/d16e6833689b1d1eb13f4d1007f0ca61/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/d16e6833689b1d1eb13f4d1007f0ca61/jars/classes.jar!/" />
->>>>>>> 6e144cb28da018e799fb5d2bb8a9f617387e277f
     </CLASSES>
     <JAVADOC />
     <SOURCES>
