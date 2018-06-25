@@ -201,6 +201,7 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
                 return;
             }
 
+
             textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , mpcModel.psslastUpdated));
 
             if (pcModel.Contact.keyBusinessContactInfo == null) {

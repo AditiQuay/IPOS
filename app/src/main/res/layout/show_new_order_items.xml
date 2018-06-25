@@ -342,14 +342,15 @@
                         android:layout_gravity="center"
                         android:background="@color/white"
                         android:gravity="center"
+                        android:digits="1234567890"
                         android:inputType="number"
                         android:focusedByDefault="true"
                         android:paddingBottom="@dimen/dim_6"
                         android:paddingLeft="@dimen/dim_10"
                         android:paddingRight="@dimen/dim_10"
                         android:paddingTop="@dimen/dim_6"
-                        android:text="1333"
-                        android:maxLength="4"
+                        android:text="13337"
+                        android:maxLength="5"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/text_size_12sp"
                         app:typeface="TitilliumWeb-SemiBold.ttf" />
@@ -397,6 +398,7 @@
             android:layout_alignParentLeft="true">
 
             <ImageView
+                android:id="@+id/imgLoyal"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_marginLeft="8dp"

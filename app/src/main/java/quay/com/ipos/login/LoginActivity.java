@@ -280,6 +280,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     Prefs.putStringPrefs(Constants.employeeCode.trim(), loginResult.getUserAccess().getEmpCode());
                     Prefs.putStringPrefs("email", loginResult.getUserAccess().getUserEmailID());
                     Prefs.putStringPrefs(Constants.employeeRole.trim(), "distrubutor");
+                    Prefs.putStringPrefs("EntityName",loginResult.getUserAccess().getEntityName());
 
                     new RealmController().saveUserDetail(serverResponse);
                     //new  RealmController().saveUserDetail(userdata);

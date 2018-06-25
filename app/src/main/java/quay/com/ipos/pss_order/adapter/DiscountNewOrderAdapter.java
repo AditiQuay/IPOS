@@ -114,7 +114,7 @@ public class DiscountNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             final DiscountNewOrderAdapter.UserViewHolder userViewHolder = (DiscountNewOrderAdapter.UserViewHolder) holder;
             userViewHolder.tvDiscount.setText(str.getsDiscountDisplayName());
-            userViewHolder.tvDiscountPrice.setText(Util.indianNumberFormat(str.getDiscountTotal())+"");
+            userViewHolder.tvDiscountPrice.setText("- "+mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(str.getDiscountTotal())+"");
             if (str.issDiscountStrikeOut()){
                 userViewHolder.chkDiscount.setChecked(false);
                 userViewHolder.tvDiscountPrice.setPaintFlags(userViewHolder.tvDiscountPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
