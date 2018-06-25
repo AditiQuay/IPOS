@@ -305,8 +305,8 @@ public class MainActivity extends BaseActivity
         imgView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentKYC = new Intent(mContext, KYCActivity.class);
-                startActivity(intentKYC);
+               /* Intent intentKYC = new Intent(mContext, KYCActivity.class);
+                startActivity(intentKYC);*/
             }
         });
 
@@ -1169,8 +1169,13 @@ public class MainActivity extends BaseActivity
         }
     }
 
-
+    private boolean isLoginClicked;
     private void funLogout() {
+        if (isLoginClicked) {
+            return;
+        }
+        isLoginClicked = true;
+
         new Thread() {
             @Override
             public void run() {
@@ -1218,7 +1223,7 @@ public class MainActivity extends BaseActivity
             PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;
             TextView textView = findViewById(R.id.textVersionNo);
-            textView.setText(" V.N." + version + " ");
+            textView.setText(" V_" + version + " ");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
