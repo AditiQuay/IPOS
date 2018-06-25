@@ -31,6 +31,7 @@ import java.io.IOException;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
 import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
@@ -56,7 +57,7 @@ import static quay.com.ipos.utility.Constants.employeeCode;
  * Created by niraj.kumar on 6/3/2018.
  */
 
-public class PartnerConnectMain extends AppCompatActivity implements InitInterface,
+public class PartnerConnectMain extends RunTimePermissionActivity implements InitInterface,
         RelationShipFragment.OnFragmentInteractionListener {
     private static final String TAG = PartnerConnectMain.class.getSimpleName();
     private Activity activity;
@@ -74,7 +75,7 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
 
@@ -90,6 +91,11 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
         getServerData();
         initFile();
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode) {
+
     }
 
     @Override
@@ -394,23 +400,37 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
         return pcModelLiveData;
     }
 
+    private boolean isSubmitReq = false;
 
     private void updateDataToWS() {
         if (!validateData()) {
             return;
         }
-        //  PCModel pcModel = new PCModel();
-        //  pcModel.setLog(getServerData().getValue());
-
-        //  Log.i("updateData pcModel", new Gson().toJson(pcModel));
-        // Log.i("updateData pcModel", new Gson().toJson(getServerData().getValue()));
+        if (isSubmitReq) {
+            return;
+        }
+        isSubmitReq = true;
+        showProgress("Please Wait");
+        PCModel pcModelUpdate = getPcModelData().getValue();
+        pcModelUpdate.EntityID = Prefs.getIntegerPrefs(Constants.entityCode);
+        pcModelUpdate.empCode = Prefs.getStringPrefs(Constants.employeeCode);
         writeFile(new Gson().toJson(getPcModelData().getValue()));
+
+
 
         Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple().updatePartnerConnectData(getPcModelData().getValue());
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectUpdateResponse> call, Response<PartnerConnectUpdateResponse> response) {
+                try {
+                    isSubmitReq = false;
+                    dismissProgress();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 Log.d(TAG, "response.raw().request().url();" + response.raw().request().url());
+
                 if (response.code() != 200) {
                     IPOSApplication.showToast("Code:" + response.code() + " message:" + response.message());
                     return;
@@ -435,6 +455,13 @@ public class PartnerConnectMain extends AppCompatActivity implements InitInterfa
 
             @Override
             public void onFailure(Call<PartnerConnectUpdateResponse> call, Throwable t) {
+                try {
+                    isSubmitReq = false;
+                    dismissProgress();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 Log.e(TAG, "ERROR OCCURED");
                 Log.i("JsonObject", t.toString());
                 t.printStackTrace();

@@ -82,7 +82,7 @@
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginTop="@dimen/dim_2"
-                            android:src="@drawable/ic_action_arrow_down"
+                            android:src="@drawable/edit"
                             android:visibility="visible" />
 
                         <ImageView
@@ -92,7 +92,7 @@
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginTop="@dimen/dim_2"
-                            android:src="@drawable/ic_action_arrow_down"
+                            android:src="@drawable/ic_action_eyes"
                             android:visibility="visible" />
 
                         <ImageView
@@ -102,7 +102,7 @@
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginTop="@dimen/dim_2"
-                            android:src="@drawable/ic_action_arrow_down"
+                            android:src="@drawable/close"
                             android:visibility="visible" />
                     </LinearLayout>
 

@@ -10,7 +10,7 @@ android {
         versionCode 1
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
-        versionName "1.0"
+        versionName "1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
@@ -21,7 +21,7 @@ android {
     productFlavors {
         dev {
             dimension "tier"
-            minSdkVersion 19
+            minSdkVersion 23
             // The following configuration limits the "dev" flavor to using
             // English stringresources and xxhdpi screen-density resources.
             resConfigs "en", "xxhdpi"
