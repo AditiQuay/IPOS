@@ -99,7 +99,7 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
             }
         });
         tvRedeemPoints.setText(points + " Pts");
-        etPointToRedeem.setText(points+"");
+        etPointToRedeem.setText("");
         etPointToRedeem.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -232,7 +232,7 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
                     }
                 break;
             case R.id.buttonRedeem:
-                if(sendVerify)
+                if(!sendVerify)
                     if(redeemValue>0){
                         sendRedeem=true;
                         if(sendRedeem){

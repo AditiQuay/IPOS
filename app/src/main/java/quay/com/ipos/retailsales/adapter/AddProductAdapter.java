@@ -32,6 +32,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
     public static boolean onBind = true;
+    public static boolean onPressed = false;
     // private OnLoadMoreListener mOnLoadMoreListener;
 
     private boolean isLoading;
@@ -100,6 +101,9 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.add_product_list_item, parent, false);
+            final UserViewHolder userViewHolder = new UserViewHolder(view);
+            userViewHolder.llAdd.setOnClickListener(mOnClickListener);
+            userViewHolder.llAdd.setTag( userViewHolder.getAdapterPosition());
             return new AddProductAdapter.UserViewHolder(view);
         }
         else if (viewType == VIEW_TYPE_LOADING) {
@@ -113,34 +117,48 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof AddProductAdapter.UserViewHolder) {
-
+            // TODO: Implement this method
+//            holder.setIsRecyclable(false);
+            onBind=true;
             ProductSearchResult.Datum str = mDataset.get(position);
 //            AppLog.e(AddProductAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             AddProductAdapter.UserViewHolder userViewHolder = (AddProductAdapter.UserViewHolder) holder;
-            userViewHolder.tvItemName.setText(str.getSProductName());
-            userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
-            userViewHolder.tvStock.setText(str.getSProductStock()+"");
-            ImageLoader.getInstance().displayImage(str.getProductImage(),userViewHolder.imvProduct);
-            if(str.isAdded()){
-                userViewHolder.tvAdd.setText("Added");
-                userViewHolder.llAdd.setBackgroundResource(R.drawable.button_rectangle_light_gray );
-            }else {
-                userViewHolder.tvAdd.setText("Add");
-                userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
-            }
+//            if(!onPressed) {
+                userViewHolder.tvItemName.setText(str.getSProductName());
+                userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
+                userViewHolder.tvStock.setText(str.getSProductStock() + "");
+                ImageLoader.getInstance().displayImage(str.getProductImage(), userViewHolder.imvProduct);
 
-            userViewHolder.tvUnitPrice.setText(Util.getIndianNumberFormat(str.getSalesPrice()+""));
-            if(str.getDiscount().size()>1){
-                userViewHolder.tvOfferDetail.setText(str.getDiscount().size()+ " offers applied");
-            }else if(str.getDiscount().size()==1){
-                userViewHolder.tvOfferDetail.setText(str.getDiscount().get(0).getSDiscountName());
-            }else {
-                userViewHolder.tvOfferDetail.setVisibility(View.GONE);
-            }
-            userViewHolder.tvPoints.setText(str.getPoints()+"");
+                if (str.isAdded()) {
+                    userViewHolder.tvAdd.setText("Added");
+                    userViewHolder.llAdd.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                } else {
+                    userViewHolder.tvAdd.setText("Add");
+                    userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
+                }
+
+                userViewHolder.tvUnitPrice.setText(Util.getIndianNumberFormat(str.getSalesPrice() + ""));
+                if (str.getDiscount().size() > 1) {
+                    userViewHolder.tvOfferDetail.setText(str.getDiscount().size() + " offers available");
+                } else if (str.getDiscount().size() == 1) {
+                    userViewHolder.tvOfferDetail.setText(str.getDiscount().get(0).getSDiscountName());
+                } else {
+                    userViewHolder.tvOfferDetail.setText("");
+//                userViewHolder.tvOfferDetail.setVisibility(View.GONE);
+                }
+                userViewHolder.tvPoints.setText(str.getPoints() + "");
+//            }else {
+//                if (str.isAdded()) {
+//                    userViewHolder.tvAdd.setText("Added");
+//                    userViewHolder.llAdd.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+//                } else {
+//                    userViewHolder.tvAdd.setText("Add");
+//                    userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
+//                }
+//                onPressed=false;
+//            }
             onBind = false;
-            userViewHolder.llAdd.setOnClickListener(mOnClickListener);
-            userViewHolder.llAdd.setTag(position);
+            userViewHolder.llAdd.setTag( position);
 
 
         }

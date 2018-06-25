@@ -3,6 +3,7 @@ package quay.com.ipos.retailsales.activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -48,6 +49,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
     ArrayList<ProductSearchResult.Datum> arrSearchlist= new ArrayList<>();
     //    public ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
     private EditText searchView;
+    private CoordinatorLayout cr;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
     private ImageView imvClearAdded,imvBack;
@@ -106,6 +108,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 
     private void initializeComponent() {
         imvClearAdded = findViewById(R.id.imvClearAdded);
+        cr = findViewById(R.id.cr);
         tvItemAddedSize = findViewById(R.id.tvItemAddedSize);
         llAccept = findViewById(R.id.llAccept);
         imvBack = findViewById(R.id.imvBack);
@@ -231,6 +234,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         switch (id){
             case R.id.llAdd:
                 if(!AddProductAdapter.onBind) {
+                    AddProductAdapter.onPressed=true;
                     Util.hideSoftKeyboard(AddProductActivity.this);
                     boolean found = false;
                     int pos = (int) view.getTag();
@@ -245,14 +249,14 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                                     IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
                                     arrSearchlist.set(pos, mProductSearchResultData);
 
-                                    Util.showToast(getString(R.string.product_removed_successfully), AddProductActivity.this);
+//                                    Util.showToast(getString(R.string.product_removed_successfully), AddProductActivity.this);
                                 } else {
                                     mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 1);
                                     mProductSearchResultData.setAdded(true);
                                     count++;
                                     IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
                                     arrSearchlist.set(pos, mProductSearchResultData);
-                                    Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
+//                                    Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
                                 }
                                 found = true;
                             } else {
@@ -266,7 +270,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                             count++;
                             IPOSApplication.mProductListResult.add(0, mProductSearchResultData);
 
-                            Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
+//                            Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
                         }
                     } else {
                         ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
@@ -274,7 +278,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                         mProductSearchResultData.setAdded(true);
                         count++;
                         IPOSApplication.mProductListResult.add(0, mProductSearchResultData);
-                        Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
+//                        Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
                     }
 //                AppLog.e(TAG,"click" + Util.getCustomGson().toJson(IPOSApplication.mProductSearchResult));
 
@@ -287,6 +291,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                 searchView.setText("");
                 arrSearchlist.clear();
                 arrSearchlist.addAll(data);
+                updateItem();
                 mAddProductAdapter.notifyDataSetChanged();
                 break;
 
@@ -302,11 +307,12 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                         arrSearchlist.set(i, datum);
                     }
                 }
+                updateItem();
                 mAddProductAdapter.notifyDataSetChanged();
                 break;
             case R.id.imvBack:
-
                 onBackPressed();
+                Util.hideSoftKeyboard(AddProductActivity.this);
                 break;
             case R.id.llAccept:
 
