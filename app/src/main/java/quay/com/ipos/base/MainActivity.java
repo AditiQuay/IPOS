@@ -661,6 +661,10 @@ public class MainActivity extends BaseActivity
                 startActivity(intent);
                 break;
 
+            case "Compliance Tracking":
+                Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
+                break;
+
 
         }
 

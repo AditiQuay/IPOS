@@ -21,7 +21,9 @@ public class APIClient {
 
     public static OkHttpClient getHttpClient() {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder().readTimeout(240, TimeUnit.SECONDS);
+        httpClient.addInterceptor(new RequestTokenInterceptor());
         OkHttpClient okHttpClient = httpClient.build();
+
         return okHttpClient;
     }
 
@@ -47,6 +49,8 @@ public class APIClient {
         return new Request.Builder()
                 .header(IPOSAPI.CONTENT_TYPE, IPOSAPI.APPLICATION_JSON)
                 .header(Constants.ACCESS_TOKEN, authKey)
+
+
                 .url(url)
                 .post(requestBody)
                 .build();

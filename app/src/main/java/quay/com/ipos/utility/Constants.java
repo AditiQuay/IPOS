@@ -146,6 +146,8 @@ public class Constants {
     public static final String employeeCode="employeeCode";
     public static final String employeeRole="employeeRole";
 
+    public static final String globalSettings="globalSettings";
+
     public static final String EmpCode="EmpCode";
     public static final String UserRole="UserRole";
     public static final String EntityName="EntityName";
