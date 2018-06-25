@@ -405,6 +405,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 //        // Drop down layout style - list view with radio button
 //        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         SpinnerDropDownAdapter mSpinnerDropDownAdapter = new SpinnerDropDownAdapter(this,getResources().getStringArray(R.array.card_type));
+        mSpinnerDropDownAdapter.setColor(true);
         // attaching data adapter to spinner
         spinner.setAdapter(mSpinnerDropDownAdapter);
 
