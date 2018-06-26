@@ -522,6 +522,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         double discountPrice = 0.0;
         int totalPoints = 0;
         int noOfItems = 0;
+        double discountPer=0;
         for (RealmNewOrderCart realmNewOrderCart : realmNewOrderCarts1) {
             if (!realmNewOrderCart.isFreeItem())
                 noOfItems = noOfItems + 1;
@@ -538,21 +539,23 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                         JSONObject jsonObject = array.optJSONObject(k);
                         if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
                             discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                            discountPer = discountPer + jsonObject.optInt("discountTotal");
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }else {
+                discountPer=realmNewOrderCart.getTotalPrice();
                 discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
             }
-            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
+            totalGST = (int) (realmNewOrderCart.getGstPerc() * (realmNewOrderCart.getTotalPrice()-discountPer)/ 100);
             gst = gst + totalGST;
 
 
 
-            cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
-            sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
+            cgst = (int) (cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPer) / 100));
+            sgst = (int) (sgst + (realmNewOrderCart.getSgst() *( realmNewOrderCart.getTotalPrice()-discountPer) / 100));
 
 
 
@@ -1904,13 +1907,13 @@ if (realmNewOrderCarts.getQty()>1) {
                 discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
                 discountPartiItem=realmNewOrderCart.getTotalPrice();
             }
-            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
+            totalGST = (int) (realmNewOrderCart.getGstPerc() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100);
             gst = gst + totalGST;
 
 
 
-            cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
-            sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
+            cgst = (int) (cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100));
+            sgst = (int) (sgst + (realmNewOrderCart.getSgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100));
 
 
 

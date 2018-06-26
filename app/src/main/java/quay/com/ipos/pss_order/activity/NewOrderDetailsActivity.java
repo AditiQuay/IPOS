@@ -316,6 +316,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         arrow=findViewById(R.id.arrow);
         imgShipArrow=findViewById(R.id.imgShipArrow);
         llRedeem=findViewById(R.id.llRedeem);
+        llRedeem.setVisibility(View.GONE);
         deliverDate=findViewById(R.id.deliverDate);
         llDate=findViewById(R.id.llDate);
         llAccept=findViewById(R.id.llAccept);

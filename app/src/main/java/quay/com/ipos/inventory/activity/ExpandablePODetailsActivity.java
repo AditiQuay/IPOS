@@ -11,11 +11,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,6 +98,8 @@ public class ExpandablePODetailsActivity extends BaseActivity {
     ArrayList<POTermsCondition> poTermsConditions=new ArrayList<>();
     ArrayList<POAttachments> poAttachments=new ArrayList<>();
     String poNumber,businessPlaceId;
+    private TextView tvHeaderPoNumber,tvHeaderPOItemDetail;
+    private Spinner spnMilestone;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -133,6 +137,9 @@ public class ExpandablePODetailsActivity extends BaseActivity {
     }
 
     private void inializeViews(){
+        spnMilestone=findViewById(R.id.spnMilestone);
+        tvHeaderPoNumber=findViewById(R.id.tvHeaderPoNumber);
+        tvHeaderPOItemDetail=findViewById(R.id.tvHeaderPOItemDetail);
         llPODetails=findViewById(R.id.llPODetails);
         llItemsDetails=findViewById(R.id.llItemsDetails);
         llIncoTerms=findViewById(R.id.llIncoTerms);
@@ -308,6 +315,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         edtSupplierName=findViewById(R.id.edtSupplierName);
         try {
             JSONObject jsonObject=new JSONObject(response);
+            tvHeaderPoNumber.setText("#"+jsonObject.optString("poNumber"));
 
             edtPoNumber.setText(jsonObject.optString("poNumber"));
             edtBillingAddress.setText(jsonObject.optString("billingAddress"));
@@ -320,15 +328,26 @@ public class ExpandablePODetailsActivity extends BaseActivity {
             edtSupGSTIN.setText(jsonObject.optString("supplierGSTIN"));
             edtSupplierName.setText(jsonObject.optString("supplierName"));
 
+
+            ArrayList<String> list=new ArrayList<>();
+            list.add("One Time with Recurring");
+            list.add("Milestone Based");
+            list.add("On Invoice Based");
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_item,list);
+            spnMilestone.setAdapter(adapter);
+
+
             JSONArray array=jsonObject.optJSONArray("pOItemDetails");
 
 
+            int qty=0;
                 for (int j = 0; j < array.length(); j++) {
 
                     JSONObject jsonObject1 = array.optJSONObject(j);
-
+                    qty=qty+jsonObject1.optInt("poItemQty");
                     POItemDetail poItemDetail=new POItemDetail();
-                    poItemDetail.setPoItemQty(jsonObject1.optDouble("poItemQty"));
+                    poItemDetail.setPoItemQty(jsonObject1.optInt("poItemQty"));
                     poItemDetail.setPoItemAmount(jsonObject1.optDouble("poItemAmount"));
                     poItemDetail.setPoItemUnitPrice(jsonObject1.optDouble("poItemUnitPrice"));
                     poItemDetail.setPoItemIGSTValue(jsonObject1.optDouble("poItemIGSTValue"));
@@ -336,7 +355,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
                     poItemDetails.add(poItemDetail);
                 }
 
-
+            tvHeaderPOItemDetail.setText("Item Details | "+ array.length()+" Items | Qty "+qty );
 
             JSONArray jsonArray=jsonObject.optJSONArray("pOIncoTerms");
 
