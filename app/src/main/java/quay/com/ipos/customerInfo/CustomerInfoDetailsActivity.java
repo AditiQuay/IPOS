@@ -58,9 +58,9 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private CircleImageView imageViewProfileDummy;
     private LinearLayout lLayoutBottom;
     private Context mContext;
-    private String customerId="",mCustomerEmail="";
-    private double customerPointsPer=0;
-    private int customerPoints =0;
+    private String customerId = "", mCustomerEmail = "";
+    private double customerPointsPer = 0;
+    private int customerPoints = 0;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
     private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();
@@ -133,7 +133,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         lLayoutBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!mCustomerEmail.trim().equalsIgnoreCase("")) {
+                if (!mCustomerEmail.trim().equalsIgnoreCase("")) {
                     Intent mIntent = new Intent();
                     mIntent.putExtra(Constants.KEY_CUSTOMER, customerId);
                     mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, customerPoints);
@@ -141,8 +141,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
                     mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL, mCustomerEmail);
                     setResult(Constants.ACT_CUSTOMER, mIntent);
                     finish();
-                }
-                else
+                } else
                     Util.showToast(getString(R.string.redeem_customer_email_not_authorised), mContext);
 
             }
@@ -170,7 +169,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private void showDialogBox() {
         CustomerModel customerModel = db.getCustomer(customerId);
         ImageView ImvClose;
-        TextView textViewCustomerPoints,textViewCustomerTotalPoints,textViewTotalRedeemPoints,textViewTotalAdjustedPoints,textViewTotalExpirePoints,textViewTotalReversePoints;
+        TextView textViewCustomerPoints, textViewCustomerTotalPoints, textViewTotalRedeemPoints, textViewTotalAdjustedPoints, textViewTotalExpirePoints, textViewTotalReversePoints;
 
 
         myDialog.setContentView(R.layout.view_info_dialog);
@@ -182,12 +181,12 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         textViewTotalExpirePoints = myDialog.findViewById(R.id.textViewTotalExpirePoints);
         textViewTotalReversePoints = myDialog.findViewById(R.id.textViewTotalReversePoints);
 
-        textViewCustomerPoints.setText(customerModel.getCustomerPoints()+"");
-        textViewCustomerTotalPoints.setText(customerModel.getPointsPerValue()+"");
-        textViewTotalRedeemPoints.setText(customerModel.getCustomerRedeemPoints()+"");
-        textViewTotalAdjustedPoints.setText(customerModel.getCustomerAdjustPoints()+"");
-        textViewTotalExpirePoints.setText(customerModel.getCustomerExpirePoints()+"");
-        textViewTotalReversePoints.setText(customerModel.getCustomerReversePoints()+"");
+        textViewCustomerPoints.setText(customerModel.getCustomerPoints() + "");
+        textViewCustomerTotalPoints.setText(customerModel.getPointsPerValue() + "");
+        textViewTotalRedeemPoints.setText(customerModel.getCustomerRedeemPoints() + "");
+        textViewTotalAdjustedPoints.setText(customerModel.getCustomerAdjustPoints() + "");
+        textViewTotalExpirePoints.setText(customerModel.getCustomerExpirePoints() + "");
+        textViewTotalReversePoints.setText(customerModel.getCustomerReversePoints() + "");
 
 
         ImvClose.setOnClickListener(new View.OnClickListener() {
@@ -362,7 +361,12 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
 
                 Intent i = new Intent(mContext, CustomerAddMain.class);
                 i.putExtra("Count", 1);
-                i.putExtra("isDetailClick",1);
+                i.putExtra("isDetailClick", 1);
+                i.putExtra("localId",customerModel.getLocalId());
+                i.putExtra("customerId",customerModel.getCustomerID());
+                i.putExtra("title",customerModel.getCustomerTitle());
+                i.putExtra("gender",customerModel.getCustomerGender());
+                i.putExtra("customerCode", customerModel.getCustomerCode());
                 i.putExtra("paymentModeClicked", paymentModeClicked);
                 startActivity(i);
                 break;

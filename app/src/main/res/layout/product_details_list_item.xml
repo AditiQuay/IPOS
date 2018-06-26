@@ -10,7 +10,7 @@
         android:id="@+id/items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/dim_8"
+        android:padding="@dimen/dim_2"
         android:background="@drawable/rectangle_child_white">
 
         <TextView

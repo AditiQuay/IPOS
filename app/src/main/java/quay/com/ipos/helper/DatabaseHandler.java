@@ -755,6 +755,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // new String[] { String.valueOf(questionaire.getQuesId()) });
     }
 
+    public int updateProductStock(int stock, String productID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_sProductStock, stock);
+
+        // updating row
+        // return the number of rows affected
+        return db.update(TABLE_RETAIL, values, KEY_iProductModalId + " = ?", new String[]{productID + ""});
+        // new String[] { String.valueOf(questionaire.getQuesId()) });
+    }
 
     public int updateCustomerPoints(String points, String customerID) {
         SQLiteDatabase db = this.getWritableDatabase();

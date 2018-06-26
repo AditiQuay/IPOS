@@ -98,6 +98,7 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
         int storeId = SharedPrefUtil.getStoreId(Constants.STORE_ID.trim(), 0, mContext);
         AppLog.e(TAG, "StoreId" + storeId);
 
+
         CatalogueRequestModel catalogueRequestModel = new CatalogueRequestModel();
         catalogueRequestModel.setCompanyName("Quay");
         catalogueRequestModel.setProductId(String.valueOf(productId));
@@ -361,7 +362,7 @@ public class CatalogueSubProduct extends RunTimePermissionActivity implements In
                 InputStream input = new BufferedInputStream(url.openStream(), 8192);
 
                 // Output stream
-                OutputStream output = new FileOutputStream("/sdcard/download/List_Top%20100_2018.db");
+                OutputStream output = new FileOutputStream("/sdcard/");
 
                 byte data[] = new byte[1024];
 

@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,7 +36,6 @@ import io.realm.RealmResults;
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.adapter.BatchTabAdapter;
 import quay.com.ipos.inventory.adapter.InventoryProdcutDetailAdapter;
-import quay.com.ipos.inventory.adapter.OthersListAdapter;
 import quay.com.ipos.inventory.modal.ActionListModel;
 import quay.com.ipos.inventory.modal.GRNProductDetailModel;
 import quay.com.ipos.inventory.modal.OthersTabList;
@@ -75,7 +75,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     boolean isDefect;
     private BatchTabAdapter batchTabAdapter;
     private Dialog myDialog;
-    private OthersListAdapter othersListAdapter;
+
 
     private List<RealmInventoryTabData> tabData = new ArrayList<>();
     private RealmInventoryTabData selectedtabData;
@@ -172,6 +172,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
             textViewProductBalance.setText("Balance" + "" + jsonObject2.optString("balanceQty"));
 
 
+            tabData.clear();
             JSONObject jsonObject3 = jsonObject2.getJSONObject("gRNItemInfoDetails");
             JSONArray jsonArray = jsonObject3.getJSONArray("tabList");
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -183,7 +184,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 tabData.add(batchList);
             }
             batchTabAdapter.notifyDataSetChanged();
-            setRealmData(position);
+            getBatchList(position);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -378,21 +379,27 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     }
 
-    private void setChangeAction(int key) {
+    private void setChangeAction(int key, boolean isMove, boolean isDelete, String remark) {
         filterModelList = new ArrayList<>();
         for (GRNProductDetailModel grnProductDetailModel : selectedtabData.modelList) {
-            //  if (grnProductDetailModel.isSelected) {
-            filterModelList.add(grnProductDetailModel);
-            //  }
+             if (grnProductDetailModel.isSelected) {
+                  grnProductDetailModel.remark = remark;
+                  filterModelList.add(grnProductDetailModel);
+              }
         }
         //set new
-        for (RealmInventoryTabData model : tabData) {
-            if (model.getTabId() == key) {
-                model.modelList.addAll(filterModelList);
-                // selectedtabData = model;
+        if (!isDelete) {
+            for (RealmInventoryTabData model : tabData) {
+                if (model.getTabId() == key) {
+                    model.modelList.addAll(filterModelList);
+                    // selectedtabData = model;
+                }
             }
         }
-        selectedtabData.modelList.removeAll(filterModelList);
+        if (isMove || isDelete) {
+
+            selectedtabData.modelList.removeAll(filterModelList);
+        }
         inventoryProdcutDetailAdapter = new InventoryProdcutDetailAdapter(mContext, selectedtabData.modelList, this);
         recyclerviewBatch.setAdapter(inventoryProdcutDetailAdapter);
 
@@ -403,7 +410,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         GRNProductDetailModel grnProductDetailModel = new GRNProductDetailModel();
         grnProductDetailModel.setNumber(batchEditText.getText().toString());
         grnProductDetailModel.setActionTitle(selectedtabData.getTabTitle());
-//        grnProductDetailModel.setActionID(2);
+        grnProductDetailModel.setActionID(selectedtabData.getTabId());
         grnProductDetailModel.setQty(0);
         selectedtabData.modelList.add(grnProductDetailModel);
 //        batchTabAdapter.notifyDataSetChanged();
@@ -463,7 +470,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
             JSONObject defects = new JSONObject();
             defects.put("tabTitle", "Defect");
-            defects.put("tabId", 1);
+            defects.put("tabId", 2);
             defects.put("count", 1);
             defects.put("model", jsonArrayDefects);
             jsonArray1.put(defects);
@@ -510,9 +517,10 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     }
 
-    private void showActionListDialog(List<ActionListModel> actionListModels) {
-        ActionListFragment actionListFragment = ActionListFragment.newInstance(actionListModels);
-        actionListFragment.show(getSupportFragmentManager(), "TAG");
+    private void showActionListDialog(List<ActionListModel> actionListModels){
+        Toast.makeText(mContext,"Action clicked",Toast.LENGTH_SHORT).show();
+//        ActionListFragment actionListFragment = ActionListFragment.newInstance(actionListModels);
+//        actionListFragment.show(getSupportFragmentManager(), "TAG");
     }
 
     @Override
@@ -534,6 +542,25 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     @Override
     public void onActionListClicked(int actionId, String actionTitle) {
+//        if(actionId == )
+        boolean isMove = false;
+        boolean isDelete = false;
+        if (actionTitle.contains("Copy")) {
+            isMove = false;
+        }
+        if (actionTitle.contains("Move")) {
+            isMove = true;
+            ///
+        }
+        if (actionTitle.contains("Delete")) {
+            isMove = true;
+        }
+        String remark = "";
+        if (actionId == 10 || actionId ==11) {
+            remark = actionTitle;
+        }
+        setChangeAction(actionId, isMove, isDelete,remark);
+
 //        setChangeAction(actionId);
     }
 }

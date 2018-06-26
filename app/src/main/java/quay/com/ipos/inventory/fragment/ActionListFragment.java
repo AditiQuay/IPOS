@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,9 +19,6 @@ import quay.com.ipos.R;
 import quay.com.ipos.inventory.adapter.ActionListAdapter;
 import quay.com.ipos.inventory.modal.ActionListModel;
 import quay.com.ipos.listeners.ActionListClick;
-import quay.com.ipos.utility.DividerItemDecoration;
-
-import static android.widget.LinearLayout.VERTICAL;
 
 /**
  * Created by niraj.kumar on 6/23/2018.
@@ -40,6 +38,12 @@ public class ActionListFragment extends DialogFragment implements ActionListClic
     }
 
     public ActionListFragment() {
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
     }
 
@@ -64,7 +68,6 @@ public class ActionListFragment extends DialogFragment implements ActionListClic
         main = inflater.inflate(R.layout.view_spinner_dialog, container, false);
         mContext = getActivity();
 
-
         return main;
     }
 
@@ -73,14 +76,13 @@ public class ActionListFragment extends DialogFragment implements ActionListClic
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
         rvList = (RecyclerView) view.findViewById(R.id.rvList);
+
         // Show soft keyboard automatically and request focus to field
         rvList.setHasFixedSize(true);
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
         actionListAdapter = new ActionListAdapter(mContext, actionListModels, this);
         rvList.setAdapter(actionListAdapter);
 
-        getDialog().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override
@@ -88,5 +90,6 @@ public class ActionListFragment extends DialogFragment implements ActionListClic
         ActionListModel actionListModel = actionListModels.get(position);
         ActionListener actionListener = (ActionListener) mContext;
         actionListener.onActionListClicked(actionListModel.actionID, actionListModel.actionTitle);
+        dismiss();
     }
 }

@@ -233,57 +233,63 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         int id = view.getId();
         switch (id){
             case R.id.llAdd:
+
+                int pos = (int) view.getTag();
                 if(!AddProductAdapter.onBind) {
-                    AddProductAdapter.onPressed=true;
-                    Util.hideSoftKeyboard(AddProductActivity.this);
-                    boolean found = false;
-                    int pos = (int) view.getTag();
-                    if (IPOSApplication.mProductListResult.size() > 0) {
-                        for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
-                            if (arrSearchlist.get(pos).getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(i).getIProductModalId())) {
-                                ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
-                                if (mProductSearchResultData.isAdded()) {
-                                    mProductSearchResultData.setAdded(false);
-                                    count--;
-                                    mProductSearchResultData.setQty(mProductSearchResultData.getQty() - 1);
-                                    IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
-                                    arrSearchlist.set(pos, mProductSearchResultData);
+                    if(IPOSApplication.mProductListResult.get(pos).getSProductStock()>=0) {
+                        AddProductAdapter.onPressed = true;
+                        Util.hideSoftKeyboard(AddProductActivity.this);
+                        boolean found = false;
+
+                        if (IPOSApplication.mProductListResult.size() > 0) {
+                            for (int i = 0; i < IPOSApplication.mProductListResult.size(); i++) {
+                                if (arrSearchlist.get(pos).getIProductModalId().equalsIgnoreCase(IPOSApplication.mProductListResult.get(i).getIProductModalId())) {
+                                    ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
+                                    if (mProductSearchResultData.isAdded()) {
+                                        mProductSearchResultData.setAdded(false);
+                                        count--;
+                                        mProductSearchResultData.setQty(mProductSearchResultData.getQty() - 1);
+                                        IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
+                                        arrSearchlist.set(pos, mProductSearchResultData);
 
 //                                    Util.showToast(getString(R.string.product_removed_successfully), AddProductActivity.this);
-                                } else {
-                                    mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 1);
-                                    mProductSearchResultData.setAdded(true);
-                                    count++;
-                                    IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
-                                    arrSearchlist.set(pos, mProductSearchResultData);
+                                    } else {
+                                        mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 1);
+                                        mProductSearchResultData.setAdded(true);
+                                        count++;
+                                        IPOSApplication.mProductListResult.set(i, mProductSearchResultData);
+                                        arrSearchlist.set(pos, mProductSearchResultData);
 //                                    Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
-                                }
-                                found = true;
-                            } else {
+                                    }
+                                    found = true;
+                                } else {
 //                            IPOSApplication.mProductSearchResult.add(0,arrSearchlist.get(pos));
+                                }
                             }
-                        }
-                        if (!found) {
+                            if (!found) {
+                                ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
+                                mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 0);
+                                mProductSearchResultData.setAdded(true);
+                                count++;
+                                IPOSApplication.mProductListResult.add(0, mProductSearchResultData);
+
+//                            Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
+                            }
+                        } else {
                             ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
                             mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 0);
                             mProductSearchResultData.setAdded(true);
                             count++;
                             IPOSApplication.mProductListResult.add(0, mProductSearchResultData);
-
-//                            Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
-                        }
-                    } else {
-                        ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
-                        mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 0);
-                        mProductSearchResultData.setAdded(true);
-                        count++;
-                        IPOSApplication.mProductListResult.add(0, mProductSearchResultData);
 //                        Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
-                    }
+                        }
 //                AppLog.e(TAG,"click" + Util.getCustomGson().toJson(IPOSApplication.mProductSearchResult));
 
-                    updateItem();
-                    mAddProductAdapter.notifyItemChanged(pos);
+                        updateItem();
+                        mAddProductAdapter.notifyItemChanged(pos);
+                    }else {
+                        Util.showToast(getString(R.string.no_stock_available), AddProductActivity.this);
+                    }
                 }
                 break;
 

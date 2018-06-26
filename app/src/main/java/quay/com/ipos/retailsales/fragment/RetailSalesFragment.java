@@ -958,7 +958,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     cart_detail.setMaterialIGSTValue(totalGst);
                     cart_detail.setMaterialSGSTValue(sgst);
                     cart_detail.setMaterialCGSTValue(cgst);
-                    cart_detail.setMaterialCode(datum.getIProductModalId());
+                    cart_detail.setMaterialCode(datum.getProductCode());
+                    cart_detail.setMaterialStockAvail(datum.getSProductStock());
+                    cart_detail.setMaterialID(datum.getIProductModalId());
                     cart_detail.setMaterialName(datum.getSProductName());
                     cart_detail.setMaterialQty(1);
                     cart_detail.setMaterialSGSTRate(0.0);

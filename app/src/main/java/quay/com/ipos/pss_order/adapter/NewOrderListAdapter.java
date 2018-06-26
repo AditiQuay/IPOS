@@ -103,7 +103,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         public EditText etQtySelected;
         public RecyclerView mUserRecyclerView;
         public ImageView imvOffer;
-        public TextView tvTotalPoints,tvStocks;
+        public TextView tvTotalPoints,tvStocks,tvQty;
         public LinearLayout llAddMinus,llStocks,llRefreshStocks;
         private ImageView imgLoyal;
 
@@ -134,6 +134,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             tvStocks=itemView.findViewById(R.id.tvStocks);
             llRefreshStocks=itemView.findViewById(R.id.llRefreshStocks);
             imgLoyal=itemView.findViewById(R.id.imgLoyal);
+            tvQty=itemView.findViewById(R.id.tvQty);
         }
     }
 
@@ -181,7 +182,8 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     userViewHolder.tvTotalPoints.setText("Free");
                     userViewHolder.tvTotalPoints.setTextColor(mContext.getResources().getColor(R.color.green));
                     userViewHolder.imgLoyal.setVisibility(View.GONE);
-                    userViewHolder.etQtySelected.setText(+str.getQty() + " Qty");
+                    userViewHolder.etQtySelected.setText(+str.getQty()+"");
+                    userViewHolder.tvQty.setVisibility(View.VISIBLE);
                     userViewHolder.tvPlus.setVisibility(View.GONE);
                     userViewHolder.tvMinus.setVisibility(View.GONE);
                     userViewHolder.imvOffer.setVisibility(View.GONE);
@@ -220,6 +222,12 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                             }else {
                                 userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
                             }
+
+                            if (stock==0) {
+                                userViewHolder.tvItemStockAvailabilty.setText("Available");
+                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
+
+                            }
                         }else {
                             userViewHolder.llStocks.setVisibility(View.GONE);
                             userViewHolder.tvStocks.setText(str.getmCheckStock() + "");
@@ -235,6 +243,12 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                             }else {
                                 userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
                             }
+
+                            if (stock==0) {
+                                userViewHolder.tvItemStockAvailabilty.setText("Available");
+                                userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
+
+                            }
                         }
 
                     } else {
@@ -246,8 +260,15 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         } else if (toalqty<stock){
                             userViewHolder.tvItemStockAvailabilty.setText((stock-toalqty)+" few left");
                             userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.yellow));
-                        }else {
+                        } else
+                         {
                             userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
+                        }
+
+                        if (stock==0) {
+                            userViewHolder.tvItemStockAvailabilty.setText("Available");
+                            userViewHolder.tvItemStockAvailabilty.setTextColor(mContext.getResources().getColor(R.color.green));
+
                         }
 
                         userViewHolder.tvCheckStock.setVisibility(View.GONE);
@@ -260,7 +281,8 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 onBind = false;
 
 
-
+                userViewHolder.imvInfo.setOnClickListener(mOnClickListener);
+                userViewHolder.imvInfo.setTag(position);
                 userViewHolder.llRefreshStocks.setOnClickListener(mOnClickListener);
                 userViewHolder.llRefreshStocks.setTag(position);
                 userViewHolder.tvCheckStock.setOnClickListener(mOnClickListener);

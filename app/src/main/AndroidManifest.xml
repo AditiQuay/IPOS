@@ -176,8 +176,7 @@
         <activity
             android:name=".inventory.fragment.InventoryProduct"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustPan|adjustResize"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".inventory.activity.InventoryGRNDetails"

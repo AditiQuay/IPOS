@@ -92,10 +92,11 @@
                         android:layout_marginLeft="@dimen/dim_16"
                         android:background="@drawable/full_rectangle">
                         <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/spnTraders"
                             android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             style="@android:style/Widget.Holo.Light.Spinner"
-                            android:entries="@array/ordervalue"/>
+                            />
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="0dp"

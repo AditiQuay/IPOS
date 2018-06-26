@@ -424,8 +424,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         }else {
             String order = Prefs.getStringPrefs(Constants.KEY_ORDER_ID);
             orderNumber = Integer.parseInt(order);
-            orderNumber++;
-            order = orderNumber+"";
+
             if (SharedPrefUtil.getString("mInfoArrayList", "", mContext) != null) {
                 String json2 = SharedPrefUtil.getString("mInfoArrayList", "", mContext);
                 if (!json2.equalsIgnoreCase(""))
@@ -437,8 +436,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     }
                 }
                 if(!isContained){
+                    orderNumber++;
+                    order = orderNumber+"";
                     Prefs.putStringPrefs(Constants.KEY_ORDER_ID,Util.generateOrderFormat(orderNumber)+"");
                 }else {
+
                     orderNumber = Integer.parseInt(order);
                 }
             }
@@ -486,6 +488,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     db.updateCustomerRecentOrders(Util.getCustomGson().toJson(recentOrders), mCustomerID);
                     db.updateCustomerBillDate(billingSync.getOrderDateTime(), mCustomerID);
                     db.updateCustomerBillPrice(paymentRequest.getTotalValueWithTax()+"", mCustomerID);
+                    for (int i =0 ; i < paymentRequest.getCartDetail().size(); i++){
+                        int updatedQty = paymentRequest.getCartDetail().get(i).getMaterialStockAvail()-paymentRequest.getCartDetail().get(i).getMaterialQty();
+                        db.updateProductStock(updatedQty,paymentRequest.getCartDetail().get(i).getMaterialID());
+                    }
+
                 }
             }
         }catch (Exception e){
