@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -14,17 +13,13 @@ import java.util.ArrayList;
 
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
-import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.modal.BillingSync;
-import quay.com.ipos.modal.Name;
 import quay.com.ipos.modal.OrderSubmitResult;
 import quay.com.ipos.modal.PaymentRequest;
 import quay.com.ipos.retailsales.adapter.NameAdapter;
 import quay.com.ipos.service.ServiceTask;
-import quay.com.ipos.ui.NetworkStateChecker;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Util;
@@ -37,7 +32,6 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
     NameAdapter nameAdapter;
     TextView tvNoItemAvailable;
     ArrayList<BillingSync> billingSyncs = new ArrayList<>();
-    ArrayList<BillingSync> billingSyncs1 = new ArrayList<>();
     PaymentRequest paymentRequest;
     SwipeRefreshLayout swipeToRefresh;
     //1 means data is synced and 0 means data is not synced
@@ -75,13 +69,6 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
         //initializing views and objects
         db = new DatabaseHandler(this);
         update();
-//        imvBack.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Util.hideSoftKeyboard(OutboxActivity.this);
-//                finish();
-//            }
-//        });
 
         swipeToRefresh.setOnRefreshListener(
                 new SwipeRefreshLayout.OnRefreshListener() {
@@ -127,33 +114,22 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
                 if (resultObj != null) {
                     OrderSubmitResult mOrderSubmitResult = (OrderSubmitResult) resultObj;
                     if (mOrderSubmitResult.getError() == 200) {
-//                        IPOSApplication.mProductListResult.clear();
-//                        IPOSApplication.totalAmount = 0.0;
-//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
                         editBillToLocalStorage(paymentRequest, NAME_SYNCED_WITH_SERVER);
-
                     } else {
-
                         editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-//                            Util.showToast(mOrderSubmitResult.getErrorDescription(), IPOSApplication.getContext());
                     }
                 }
             }
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-//            Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-//            Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-//            Toast.makeText(context, context.getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-//            Toast.makeText(context, context.getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.CONNECTION_OUT) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-//            Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -162,24 +138,13 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
             if (!db.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL_BILLING)) {
                 billingSyncs = db.getUnSyncedRetailOrders();
                 if (billingSyncs.size() > 0) {
-//                    for (int i = 0; i < billingSyncs1.size(); i++) {
                     if (db.checkIfBillingRecordExist(paymentRequest.getOrderTimestamp()))
                         db.updateSync(status, paymentRequest.getOrderTimestamp());
-//                            if (paymentRequest.getOrderTimestamp().equalsIgnoreCase(billingSyncs1.get(i).getOrderTimestamp())) {
-//                                db.updateSync(status, paymentRequest.getOrderTimestamp());
-//                            } else {
-//
-//                            }
-
-//                    }
                     sendDataToServer();
                 } else {
                     swipeToRefresh.invalidate();
                     db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
                 }
-//                if (status == NAME_SYNCED_WITH_SERVER) {
-//                    db.deleteRetailBillingTable(paymentRequest.getOrderTimestamp());
-//                }
 
                 AppLog.e("tag", "RetailMaster Not Empty");
             } else {

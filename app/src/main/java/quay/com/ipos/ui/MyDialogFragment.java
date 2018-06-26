@@ -126,7 +126,7 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
         });
         points1 = points;
         redeemValue = points*pointsPer;
-        etRedeemValue.setText(redeemValue+"");
+        etRedeemValue.setText("0");
 
 
 //        Bundle mBundle = new Bundle();
@@ -150,6 +150,7 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
         builder.setContentView(view);
         return builder;
     }
+
     private void sendOTPtoServer() {
         CustomerPointsRedeemRequest customerPointsRedeemRequest = new CustomerPointsRedeemRequest();
         customerPointsRedeemRequest.setCustomerId(mCustomerID);
@@ -185,10 +186,14 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
                     if (!sendOTP)
                         if (points1 > 0) {
                             if (redeemValue > 0) {
-                                sendOTP = true;
-                                etPointToRedeem.setEnabled(false);
-                                etRedeemValue.setEnabled(false);
-                                sendOTPtoServer();
+                                if(redeemValue<=points) {
+                                    sendOTP = true;
+                                    etPointToRedeem.setEnabled(false);
+                                    etRedeemValue.setEnabled(false);
+                                    sendOTPtoServer();
+                                }else {
+                                    Util.showToast("Redeem points exceeds", getActivity());
+                                }
                             } else
                                 Util.showToast("No points to redeem", getActivity());
                         } else {

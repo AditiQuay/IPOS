@@ -16,12 +16,14 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 
 import okhttp3.Interceptor;
+import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.modal.GlobalSettings;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
+import quay.com.ipos.utility.Util;
 
 
 /**
@@ -348,10 +350,14 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
      * Execute.
      */
     public void execute() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[]) null);
-        } else {
-            execute((Void[]) null);
+        if(Util.isConnected()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void[]) null);
+            } else {
+                execute((Void[]) null);
+            }
+        }else {
+            Util.showToast(IPOSApplication.getContext().getString(R.string.internet_connection_error_string));
         }
     }
 

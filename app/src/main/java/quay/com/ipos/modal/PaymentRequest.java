@@ -482,6 +482,12 @@ public class PaymentRequest {
         @SerializedName("materialCode")
         @Expose
         private String materialCode;
+        @SerializedName("materialStockAvail")
+        @Expose
+        private Integer materialStockAvail;
+        @SerializedName("materialID")
+        @Expose
+        private String materialID;
         @SerializedName("materialName")
         @Expose
         private String materialName;
@@ -559,6 +565,22 @@ public class PaymentRequest {
 
         public Integer getMaterialQty() {
             return materialQty;
+        }
+
+        public String getMaterialID() {
+            return materialID;
+        }
+
+        public void setMaterialID(String materialID) {
+            this.materialID = materialID;
+        }
+
+        public Integer getMaterialStockAvail() {
+            return materialStockAvail;
+        }
+
+        public void setMaterialStockAvail(Integer materialStockAvail) {
+            this.materialStockAvail = materialStockAvail;
         }
 
         public void setMaterialQty(Integer materialQty) {

@@ -228,13 +228,10 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     public void onRowClicked(int position) {
         CustomerModel customerInfoModal = arrSearlist.get(position);
         CustomerModel customerModel = dbHelper.getCustomerMobile(customerInfoModal.getCustomerPhone());
-
         Intent i = new Intent(CustomerInfoActivity.this, CustomerInfoDetailsActivity.class);
         i.putExtra("customerID", customerModel.getCustomerID());
         i.putExtra("paymentModeClicked",paymentModeClicked);
         startActivityForResult(i, Constants.ACT_CUSTOMER);
-
-
     }
 
     @Override
