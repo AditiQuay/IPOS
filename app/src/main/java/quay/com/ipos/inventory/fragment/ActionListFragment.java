@@ -9,13 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 
 import java.io.Serializable;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.inventory.activity.SimpleDividerItemDecoration;
 import quay.com.ipos.inventory.adapter.ActionListAdapter;
 import quay.com.ipos.inventory.modal.ActionListModel;
 import quay.com.ipos.listeners.ActionListClick;
@@ -26,7 +25,6 @@ import quay.com.ipos.listeners.ActionListClick;
 
 public class ActionListFragment extends DialogFragment implements ActionListClick {
     private static final String ARG_PARAM1 = "data";
-    private RecyclerView rvList;
     private List<ActionListModel> actionListModels;
     private ActionListAdapter actionListAdapter;
     private Context mContext;
@@ -36,6 +34,7 @@ public class ActionListFragment extends DialogFragment implements ActionListClic
     public interface ActionListener {
         void onActionListClicked(int actionId, String actionTitle);
     }
+
 
     public ActionListFragment() {
 
@@ -65,23 +64,25 @@ public class ActionListFragment extends DialogFragment implements ActionListClic
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        main = inflater.inflate(R.layout.view_spinner_dialog, container, false);
+        main = inflater.inflate(R.layout.view_action_spinner_dialog, container, false);
         mContext = getActivity();
-
+        findViewById();
         return main;
+    }
+
+    private void findViewById() {
+        RecyclerView rvList = (RecyclerView) main.findViewById(R.id.rvActionList);
+
+        rvList.addItemDecoration(new SimpleDividerItemDecoration(mContext));
+        rvList.setLayoutManager(new LinearLayoutManager(mContext));
+        actionListAdapter = new ActionListAdapter(mContext, actionListModels, this);
+        rvList.setAdapter(actionListAdapter);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        // Get field from view
-        rvList = (RecyclerView) view.findViewById(R.id.rvList);
 
-        // Show soft keyboard automatically and request focus to field
-        rvList.setHasFixedSize(true);
-        rvList.setLayoutManager(new LinearLayoutManager(mContext));
-        actionListAdapter = new ActionListAdapter(mContext, actionListModels, this);
-        rvList.setAdapter(actionListAdapter);
 
     }
 

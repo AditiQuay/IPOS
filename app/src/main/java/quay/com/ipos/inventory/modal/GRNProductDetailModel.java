@@ -12,15 +12,26 @@ public class GRNProductDetailModel implements Serializable {
     private int actionID;
     private int qty;
 
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    private int count;
+
     public boolean isSelected;
     public String remark = "";
 
-    public boolean getSelected() {
+    public boolean isSelected() {
         return isSelected;
     }
 
     public void setSelected(boolean selected) {
-        isSelected = isSelected;
+        isSelected = selected;
     }
 
     public String getNumber() {
