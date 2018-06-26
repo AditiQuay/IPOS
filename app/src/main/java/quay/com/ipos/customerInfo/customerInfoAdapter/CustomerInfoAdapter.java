@@ -77,7 +77,12 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
 
         }
         holder.textViewMob.setText(customerInfoModal.getCustomerPhone());
-        holder.textViewEmail.setText(customerInfoModal.getCustomerEmail());
+
+        if (TextUtils.isEmpty(customerInfoModal.getCustomerEmail())){
+            holder.textViewEmail.setText("NA");
+        }else {
+            holder.textViewEmail.setText(customerInfoModal.getCustomerEmail());
+        }
 
         String date1 = Util.getFormattedDates(customerInfoModal.getLastBillingDate(), Constants.format12, Constants.format13);
 
@@ -132,7 +137,7 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
 
 
         if (customerInfoModal.getCustomerBday().equalsIgnoreCase("null")|| TextUtils.isEmpty(customerInfoModal.getCustomerBday())){
-            holder.textViewCake.setText(mContext.getResources().getString(R.string.text_birthday) + " " + ")");
+            holder.textViewCake.setText(mContext.getResources().getString(R.string.text_birthday) + "NA" + ")");
         }else {
             String bDate = Util.getFormattedDates(customerInfoModal.getCustomerBday(), Constants.formatDate, Constants.format14);
             holder.textViewCake.setText(mContext.getResources().getString(R.string.text_birthday) + bDate + ")");

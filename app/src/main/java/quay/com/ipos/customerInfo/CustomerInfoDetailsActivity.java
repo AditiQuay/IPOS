@@ -252,12 +252,20 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         if (Util.validateString(customerModel.getCustomerPhone())) {
             textViewMob.setText(customerModel.getCustomerPhone());
         }
-        if (Util.validateString(customerModel.getCustomerEmail())) {
+
+        if (TextUtils.isEmpty(customerModel.getCustomerEmail()) || customerModel.getCustomerEmail().equalsIgnoreCase("null")) {
+            textViewEmail.setText("NA");
+            mCustomerEmail = customerModel.getCustomerEmail();
+        } else {
             textViewEmail.setText(customerModel.getCustomerEmail());
             mCustomerEmail = customerModel.getCustomerEmail();
         }
-        if (Util.validateString(customerModel.getCustomerBday())) {
+        if (TextUtils.isEmpty(customerModel.getCustomerBday())) {
+            textViewBirthDay.setText(getResources().getString(R.string.text_birthday) + "NA" + ")");
+
+        } else {
             textViewBirthDay.setText(getResources().getString(R.string.text_birthday) + customerModel.getCustomerBday() + ")");
+
         }
         if (Util.validateString(customerModel.getCustomerPoints())) {
             textViewPoints.setText(customerModel.getCustomerPoints() + getResources().getString(R.string.text_points));
@@ -365,10 +373,10 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
                 Intent i = new Intent(mContext, CustomerAddMain.class);
                 i.putExtra("Count", 1);
                 i.putExtra("isDetailClick", 1);
-                i.putExtra("localId",customerModel.getLocalId());
-                i.putExtra("customerId",customerModel.getCustomerID());
-                i.putExtra("title",customerModel.getCustomerTitle());
-                i.putExtra("gender",customerModel.getCustomerGender());
+                i.putExtra("localId", customerModel.getLocalId());
+                i.putExtra("customerId", customerModel.getCustomerID());
+                i.putExtra("title", customerModel.getCustomerTitle());
+                i.putExtra("gender", customerModel.getCustomerGender());
                 i.putExtra("customerCode", customerModel.getCustomerCode());
                 i.putExtra("paymentModeClicked", paymentModeClicked);
                 startActivity(i);

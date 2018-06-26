@@ -83,6 +83,7 @@
                             android:layout_height="wrap_content"
                             android:hint="First Name *"
                             android:inputType="text"
+                            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:lines="1"
                             android:textSize="@dimen/universal_text_size16" />
 
@@ -103,6 +104,7 @@
                             android:id="@+id/tieLastName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:hint="Last Name *"
                             android:inputType="text"
                             android:lines="1"
@@ -289,6 +291,7 @@
                                     android:hint="Spouse First Name *"
                                     android:inputType="text"
                                     android:lines="1"
+                                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
@@ -310,6 +313,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="Spouse Last Name *"
+                                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     android:inputType="text"
                                     android:lines="1"
                                     android:textSize="@dimen/universal_text_size14" />

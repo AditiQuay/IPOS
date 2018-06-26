@@ -52,7 +52,7 @@ import quay.com.ipos.realmbean.RealmGRNDetails;
  * Created by niraj.kumar on 6/12/2018.
  */
 
-public class InventoryProduct extends AppCompatActivity implements InitInterface, View.OnClickListener, EdittClickListener, MyListener, ListDialogFragment.DialogListener, ActionListFragment.ActionListener, TabListenerr {
+public class InventoryProduct extends AppCompatActivity implements InitInterface, View.OnClickListener, EdittClickListener, MyListener, ListDialogFragment.DialogListener, ActionDialogFragment.ActionListener, TabListenerr {
     private static final String TAG = InventoryProduct.class.getSimpleName();
     private Button btnSave, btnAction, btnAddBatch, btnOthers;
     private RecyclerView recyclerviewBatch, recyclerviewButton;
@@ -421,7 +421,6 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
             }
         }
         if (isMove || isDelete) {
-
             selectedtabData.modelList.removeAll(filterModelList);
         }
         inventoryProdcutDetailAdapter = new InventoryProdcutDetailAdapter(mContext, selectedtabData.modelList, this);
@@ -552,7 +551,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 //        actionListFragment.show(getSupportFragmentManager(), "TAG");*/
     private void showActionListDialog(List<ActionListModel> actionListModels) {
         Toast.makeText(mContext, "Action clicked", Toast.LENGTH_SHORT).show();
-        ActionListFragment actionListFragment = ActionListFragment.newInstance(actionListModels);
+        ActionDialogFragment actionListFragment = ActionDialogFragment.newInstance(actionListModels);
        actionListFragment.show(getSupportFragmentManager(),"TAG");
     }
 
