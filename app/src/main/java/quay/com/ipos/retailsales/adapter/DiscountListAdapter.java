@@ -111,15 +111,6 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             final DiscountListAdapter.UserViewHolder userViewHolder = (DiscountListAdapter.UserViewHolder) holder;
 
             setRules(userViewHolder,str,position);
-//            if (str.isDiscItemSelected()) {
-//                userViewHolder.chkDiscount.setChecked(true);
-////                str.setDiscItemSelected(true);
-//                setRules(userViewHolder,str,position);
-//            } else {
-//                str.setDiscItemSelected(false);
-//                userViewHolder.chkDiscount.setChecked(false);
-//                setRules(userViewHolder,str,position);
-//            }
 
             final  ProductSearchResult.Discount str1 = mDataset.get(position);
             onBind = false;
@@ -130,15 +121,12 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         if (!onBind) {
                             if (b) {
                                 userViewHolder.chkDiscount.setChecked(true);
-//                                str1.setDiscItemSelected(true);
                                 setRules((UserViewHolder) holder, str1, position);
                                 AppLog.e("TAG", "chkDiscount" + b);
                             } else {
-//                                str1.setDiscItemSelected(false);
                                 userViewHolder.chkDiscount.setChecked(false);
                                 AppLog.e("TAG", "chkDiscount" + b);
                                 setRules((UserViewHolder) holder, str1, position);
-//                                setRules((UserViewHolder) holder, str1, position);
                             }
 
                             if (b)

@@ -275,7 +275,10 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
             textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + " " + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerModel.getLastBillingAmount());
         } else {
             String date1 = Util.getFormattedDates(customerModel.getLastBillingDate(), Constants.format12, Constants.format13);
-            textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + date1 + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerModel.getLastBillingAmount());
+            if(date1!=null)
+                textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + date1 + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerModel.getLastBillingAmount());
+            else
+                textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + customerModel.getLastBillingDate() + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerModel.getLastBillingAmount());
         }
 
         String address = customerModel.getCustomerAddress();

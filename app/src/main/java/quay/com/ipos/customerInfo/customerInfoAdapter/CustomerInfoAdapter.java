@@ -89,7 +89,10 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
         if (TextUtils.isEmpty(customerInfoModal.getLastBillingDate())) {
             holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + " " + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.getLastBillingAmount());
         } else {
+            if(date1!=null)
             holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + date1 + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.getLastBillingAmount());
+            else
+                holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + customerInfoModal.getLastBillingDate() + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.getLastBillingAmount());
         }
         if (NetUtil.isNetworkAvailable(mContext)) {
             if (!TextUtils.isEmpty(customerInfoModal.getCustomerImage())){
