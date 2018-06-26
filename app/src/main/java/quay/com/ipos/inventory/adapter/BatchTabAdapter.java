@@ -25,6 +25,7 @@ import quay.com.ipos.listeners.TabListenerr;
 public class BatchTabAdapter extends RecyclerView.Adapter<BatchTabAdapter.MyView> {
     public Context mContext;
     public List<RealmInventoryTabData> batchListData;
+    private static SparseBooleanArray sSelectedItems;
     MyListener listener;
     TabListenerr tabListenerr;
     public BatchTabAdapter(Context mContext, List<RealmInventoryTabData> batchListData, MyListener listener, TabListenerr tabListenerr) {
@@ -32,6 +33,7 @@ public class BatchTabAdapter extends RecyclerView.Adapter<BatchTabAdapter.MyView
         this.batchListData = batchListData;
         this.listener = listener;
         this.tabListenerr = tabListenerr;
+        sSelectedItems = new SparseBooleanArray();
     }
 
     @NonNull
@@ -40,7 +42,9 @@ public class BatchTabAdapter extends RecyclerView.Adapter<BatchTabAdapter.MyView
         View view = LayoutInflater.from(mContext).inflate(R.layout.batch_items, parent, false);
         return new BatchTabAdapter.MyView(view);
     }
+    public void selected(int position) {
 
+    }
     @Override
     public void onBindViewHolder(@NonNull final MyView holder, final int position) {
         final RealmInventoryTabData batchLis = batchListData.get(position);
@@ -53,9 +57,19 @@ public class BatchTabAdapter extends RecyclerView.Adapter<BatchTabAdapter.MyView
             holder.btnTab.setText(batchLis.getTabTitle());
             holder.btnTab.setCompoundDrawables(null, null, null, null);
         }
+
+        holder.btnTab.setSelected(sSelectedItems.get(position, false));
         holder.btnTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (sSelectedItems.get(holder.getAdapterPosition(), false)) {
+                    sSelectedItems.delete(holder.getAdapterPosition());
+                    holder.btnTab.setSelected(false);
+                } else {
+                    sSelectedItems.put(holder.getAdapterPosition(),true);
+                    holder.btnTab.setSelected(true);
+                }
+
                 if (batchLis.getTabId() == 3) {
                     listener.onRowClicked(position);
                 } else {
