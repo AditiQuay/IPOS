@@ -1,84 +1,29 @@
 package quay.com.ipos.ddrsales;
 
-import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
-
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import me.dm7.barcodescanner.zbar.ZBarScannerView;
 import quay.com.ipos.R;
-import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
-import quay.com.ipos.base.MainActivity;
-import quay.com.ipos.customerInfo.CustomerInfoActivity;
+import quay.com.ipos.ddrsales.adapter.DDRIncoTermsAdapter;
 import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.ddrsales.model.InvoiceData;
 import quay.com.ipos.ddrsales.model.response.Address;
-import quay.com.ipos.listeners.AdapterListener;
+import quay.com.ipos.ddrsales.model.response.DDRIncoTerms;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.listeners.MyAdapterTags;
-import quay.com.ipos.listeners.ScanFilterListener;
-import quay.com.ipos.listeners.ScannerProductListener;
-import quay.com.ipos.modal.PaymentRequest;
-import quay.com.ipos.modal.ProductList;
-import quay.com.ipos.modal.ProductListResult;
 import quay.com.ipos.modal.ProductSearchResult;
-import quay.com.ipos.realmbean.RealmPinnedResults;
-import quay.com.ipos.retailsales.activity.OutboxActivity;
-import quay.com.ipos.retailsales.activity.PaymentModeActivity;
-import quay.com.ipos.retailsales.activity.PinnedRetailActivity;
-import quay.com.ipos.retailsales.adapter.RetailSalesAdapter;
-import quay.com.ipos.retailsales.fragment.FullScannerFragment;
-import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
-import quay.com.ipos.ui.DiscountDeleteFragment;
-import quay.com.ipos.ui.FontManager;
-import quay.com.ipos.ui.ItemDecorationAlbumColumns;
-import quay.com.ipos.ui.MessageDialog;
-import quay.com.ipos.ui.MyDialogFragment;
-import quay.com.ipos.ui.WrapContentLinearLayoutManager;
-import quay.com.ipos.utility.AppLog;
-import quay.com.ipos.utility.Constants;
-import quay.com.ipos.utility.SharedPrefUtil;
-import quay.com.ipos.utility.Util;
-
-import static quay.com.ipos.application.IPOSApplication.isClicked;
-import static quay.com.ipos.application.IPOSApplication.totalAmount;
 
 
 public class DDRInvoicePreviewActivity extends BaseActivity implements InitInterface, View.OnClickListener {
@@ -92,6 +37,13 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
 
     private TextView tvItemQty;
     private TextView tvTotalItemPrice;
+
+    private RecyclerView recycleViewIncoTerms;
+
+    private DDRIncoTermsAdapter adapterIncoTerms;
+
+
+    private List<DDRIncoTerms> incoTermsList=new ArrayList<>();
 
     private DDR mDdr;
 
@@ -148,6 +100,13 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         textBillingAddress = findViewById(R.id.textBillingAddress);
         textShippingAddress = findViewById(R.id.textShippingAddress);
 
+        recycleViewIncoTerms = findViewById(R.id.recycleViewIncoTerms);
+
+
+        recycleViewIncoTerms.setLayoutManager(new LinearLayoutManager(mContext));
+        adapterIncoTerms = new DDRIncoTermsAdapter(mContext, incoTermsList);
+        recycleViewIncoTerms.setAdapter(adapterIncoTerms);
+
 
     }
 
@@ -169,6 +128,10 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
             textBillingAddress.setText(address.get(0).name);
             textShippingAddress.setText(address.get(1).name);
         }
+        incoTermsList.clear();
+        incoTermsList.addAll(InvoiceData.getInstance().ddrIncoTerms);
+        adapterIncoTerms.notifyDataSetChanged();
+
 
 
         setPriceSum();

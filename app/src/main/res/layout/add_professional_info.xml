@@ -43,8 +43,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/titilliumwebregular"
+                android:hint="Designation"
                 android:inputType="text"
-                android:hint="Designation *"
                 android:lines="1"
                 android:textSize="@dimen/universal_text_size14" />
 
@@ -75,10 +75,10 @@
                         android:id="@+id/tieCompany"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fontFeatureSettings=""
-                        android:inputType="text"
                         android:fontFamily="@font/titilliumwebregular"
-                        android:hint="Company *"
+                        android:fontFeatureSettings=""
+                        android:hint="Company"
+                        android:inputType="text"
                         android:lines="1"
                         android:textSize="@dimen/universal_text_size14" />
 

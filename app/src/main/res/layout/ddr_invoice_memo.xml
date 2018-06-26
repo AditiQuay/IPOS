@@ -1145,6 +1145,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/ddr_rect_white"
             android:orientation="vertical"
+            android:layout_marginTop="@dimen/dim_8"
             tools:visibility="visible">
 
             <RelativeLayout
@@ -1219,6 +1220,84 @@
             </RelativeLayout>
 
             <include layout="@layout/view_layout_without_dot" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+
+                    <TextView
+                        android:id="@+id/tvQty"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="QTY" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ipos_line_black" />
+
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="@dimen/dim_8"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:text="SENDER" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ipos_line_black" />
+
+                    <TextView
+                        android:id="@+id/tvAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:padding="8dp"
+                        android:text="RECEIVER" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ipos_line_black" />
+
+                    <TextView
+                        android:id="@+id/tvGst"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:gravity="center"
+                        android:padding="8dp"
+                        android:text="AMOUNT" />
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+
+                android:background="@drawable/ipos_line_black" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycleViewIncoTerms"

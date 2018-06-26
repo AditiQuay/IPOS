@@ -25,6 +25,7 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomerSpinnerServerModel;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.listeners.SendDataActivityToFragment;
 import quay.com.ipos.listeners.YourFragmentInterface;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
@@ -47,14 +48,18 @@ public class CustomerAddMain extends AppCompatActivity implements InitInterface,
     public static final String mypreference = "Data";
     public static final String quickPreference = "QuickData";
 
+    public SendDataActivityToFragment sendDataActivityToFragment;
     int count, isDetailClick;
-    String paymentModeClicked;
+    String paymentModeClicked, customerId, customerCode,title,gender;
+    private int localId;
+    private CustomerAddFullFragment customerAddFullFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.customer_add_main);
         mContext = CustomerAddMain.this;
+        customerAddFullFragment = new CustomerAddFullFragment();
         dbHelper = new DatabaseHandler(mContext);
         Intent i = getIntent();
         count = i.getIntExtra("Count", 0);

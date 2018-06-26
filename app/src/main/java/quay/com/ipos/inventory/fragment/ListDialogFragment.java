@@ -79,9 +79,6 @@ public class ListDialogFragment extends DialogFragment implements OthersTabListn
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
         othersListAdapter = new OthersListAdapter(mContext, list, this);
         rvList.setAdapter(othersListAdapter);
-
-        getDialog().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @Override
