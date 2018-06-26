@@ -90,6 +90,8 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
     private ImageView imgShipArrow,arrow;
     private LinearLayout llbottom_buttons;
     double dTotalAmount=0;
+    private String strPlace;
+    private int businessPlaceCode;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,7 +101,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
         setHeader();
         initializeComponent();
 
-        addressListAdapter = new AddressListAdapter(this, addressList);
+        addressListAdapter = new AddressListAdapter(this, addressList,this);
         recycler_viewAddress.setAdapter(addressListAdapter);
         getRecentOrdersData();
         setAllData();
@@ -156,6 +158,7 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             String responseRealm = gson.toJson(realm.copyFromRealm(realmOrderLists));
         try {
             jsonObjectSubmitJson=new JSONObject(responseRealm);
+
             jsonObjectSubmitJson.put("cartDetail",new JSONArray(realmOrderLists.getCartDetail()));
             jsonObjectSubmitJson.remove("listspendRequestHistoryPhaseModel");
         } catch (JSONException e) {
@@ -170,10 +173,16 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
 
     public void submitLoginRequest(String jsonObject) {
         final ProgressDialog progressDialog=new ProgressDialog(NewOrderDetailsActivity.this);
+        try {
+            jsonObjectSubmitJson.put("businessPlace",strPlace);
+            jsonObjectSubmitJson.put("businessPlaceCode",businessPlaceCode);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         progressDialog.show();
         OkHttpClient okHttpClient = APIClient.getHttpClient();
-        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject);
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObjectSubmitJson.toString());
         String url = IPOSAPI.WEB_SERVICE_NOSubmitOrder;
 
         final Request request = APIClient.getPostRequest(this, url, requestBody);
@@ -278,6 +287,8 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
             tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getTotalCGSTValue())+"");
             tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(realmOrderLists.getTotalSGSTValue())+"");
             tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+realmOrderLists.getTotalRoundingOffValue()+"");
+            strPlace=realmOrderLists.getBusinessPlace();
+            businessPlaceCode=realmOrderLists.getBusinessPlaceCode();
             getAddressData(realmOrderLists.getBusinessPlaceCode()+"");
             try {
                 JSONArray arrayCart=new JSONArray(realmOrderLists.getCartDetail());
@@ -465,6 +476,11 @@ public class NewOrderDetailsActivity extends BaseActivity implements View.OnClic
     public void onClick(View view) {
         int id = view.getId();
 
+        if (id==R.id.radio){
+            int infoPos = (int) view.getTag();
+           strPlace= addressList.get(infoPos).getBuisnessPlaceName();
+            businessPlaceCode= addressList.get(infoPos).getBuisnessPlaceId();
+        }
 
     }
 

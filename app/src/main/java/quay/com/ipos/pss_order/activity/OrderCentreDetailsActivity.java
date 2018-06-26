@@ -74,7 +74,7 @@ import static quay.com.ipos.utility.Util.dateDialogfrom;
  * Created by aditi.bhuranda on 20-04-2018.
  */
 
-public class OrderCentreDetailsActivity extends BaseActivity implements MyListener,ServiceTask.ServiceResultListener{
+public class OrderCentreDetailsActivity extends BaseActivity implements View.OnClickListener,MyListener,ServiceTask.ServiceResultListener{
     String[] address = {"1/82"};
     String[] items={"SoudaFoam 1k","SoudaFoam Pro"};
     String[] user={"KGM Traders","McCoy"};
@@ -109,6 +109,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     private String businessCode;
     private String entityStateCode;
 
+
     private int dAccumulatedPoints;
     private double perPoints=0;
     private TextView tvResendOTP,tvTotalQty,tvTotalPriceBeforeGst,tvCGSTPrice,tvSGSTPrice,tvRoundingOffPrice;
@@ -123,6 +124,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
     private boolean isShipArrow,isItemDetailsArrow;
     private ImageView imgShipArrow,arrow;
     private LinearLayout llViewAll;
+    private String strPlace;
+    private int businessPlaceCode;
 
 
     @Override
@@ -136,6 +139,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         intitiateView();
 
         tvEtaDate.setText("ETA - "+Util.getFormattedDates(etaDate.split(" ")[0],Constants.formatDate,Constants.format2));
+
 
         getOrderCentre();
         toolbarTtile=findViewById(R.id.toolbarTtile);
@@ -176,7 +180,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         recycler_viewAddress.setLayoutManager(mLayoutManager5);
         recycler_viewAddress.addItemDecoration(new SpacesItemDecoration(10));
 
-        addressListAdapter = new AddressListAdapter(this, addressList);
+        addressListAdapter = new AddressListAdapter(this, addressList,this);
         recycler_viewAddress.setAdapter(addressListAdapter);
 
         recylerViewRoles = findViewById(R.id.recylerViewRoles);
@@ -484,11 +488,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         try {
             JSONObject jsonObject=new JSONObject(serverResponse);
 
-            if (jsonObject.optString("isApprover").equalsIgnoreCase("1")){
-                llbottom_buttons.setVisibility(View.VISIBLE);
-            }else {
-                llbottom_buttons.setVisibility(View.GONE);
-            }
+
             poNumber=jsonObject.optString("poNumber");
             tvOrderName.setText(jsonObject.optString("poNumber"));
             OrderDate.setText(Util.getFormattedDates(jsonObject.optString("poDate"),Constants.formatDate,Constants.format2));
@@ -496,6 +496,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("1")){
                 tvStatus.setText("Submitted");
                 btnEdit.setVisibility(View.GONE);
+                tvEtaDate.setEnabled(false);
                 llDate.setEnabled(false);
                 btnEdit.setEnabled(false);
                 llRedeemValue.setEnabled(false);
@@ -503,6 +504,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("2")){
                 llbottom_buttons.setVisibility(View.GONE);
                 btnEdit.setVisibility(View.GONE);
+                tvEtaDate.setEnabled(false);
                 tvStatus.setText("Approved");
                 llDate.setEnabled(false);
                 btnEdit.setEnabled(false);
@@ -511,6 +513,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("3")){
                 llbottom_buttons.setVisibility(View.GONE);
                 btnEdit.setVisibility(View.GONE);
+                tvEtaDate.setEnabled(false);
                 tvStatus.setText("Rejected");
                 llDate.setEnabled(false);
                 btnEdit.setEnabled(false);
@@ -519,6 +522,15 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             }else if (jsonObject.optString("poStatus").trim().equalsIgnoreCase("0")){
                 tvStatus.setText("Pending");
                 llViewAll.setBackgroundResource(R.drawable.button_round_shape_yelow);
+            }
+
+            if (jsonObject.optString("isApprover").equalsIgnoreCase("1")){
+                llbottom_buttons.setVisibility(View.VISIBLE);
+                btnEdit.setVisibility(View.VISIBLE);
+            }else {
+                llbottom_buttons.setVisibility(View.GONE);
+                btnEdit.setVisibility(View.GONE);
+                tvEtaDate.setEnabled(false);
             }
 
 
@@ -545,6 +557,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
             getFlow(jsonObject.optString("listspendRequestHistoryPhaseModel")+"");
 
+            strPlace=jsonObject.optString("businessPlace");
+            businessPlaceCode=jsonObject.optInt("businessPlaceCode");
             businessCode=jsonObject.optString("businessPlaceCode");
             callServiceAddress();
             try {
@@ -769,10 +783,10 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         int qty = 0;
         double payAmount=0.0;
         int discountItems = 0;
-        int gst = 0;
-        int totalGST = 0;
-        int cgst = 0;
-        int sgst = 0;
+        double gst = 0;
+        double totalGST = 0;
+        double cgst = 0;
+        double sgst = 0;
         double totalItemsAmount = 0.0;
         double discountPrice = 0.0;
         int totalPoints = 0;
@@ -807,13 +821,13 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
                 discountPartiItem=realmNewOrderCart.getTotalPrice();
             }
-            totalGST = (int) (realmNewOrderCart.getGstPerc() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100);
+            totalGST =  (realmNewOrderCart.getGstPerc() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100);
             gst = gst + totalGST;
 
 
 
-            cgst = (int) (cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100));
-            sgst = (int) (sgst + (realmNewOrderCart.getSgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100));
+            cgst =  (cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100));
+            sgst =  (sgst + (realmNewOrderCart.getSgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100));
 
 
 
@@ -899,8 +913,8 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
             jsonObject.put("orderLoyality",totalPoints);
             jsonObject.put("accumulatedLoyality",dAccumulatedPoints);
             jsonObject.put("totalLoyality",totalPoints);
-            jsonObject.put("businessPlace","Store 4 ,noida , sector 56 ,Noida ,UP ,180090");
-            jsonObject.put("businessPlaceCode","1");
+            jsonObject.put("businessPlace",strPlace);
+            jsonObject.put("businessPlaceCode",businessPlaceCode);
             jsonObject.put("entityID","1");
             jsonObject.put("totalValueWithTax",totalValueWithTax);
             jsonObject.put("totalCGSTValue",cgst);
@@ -1071,7 +1085,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
 
 
                     }
-                    addressListAdapter = new AddressListAdapter(this, addressList);
+                    addressListAdapter = new AddressListAdapter(this, addressList,this);
                     recycler_viewAddress.setAdapter(addressListAdapter);
 
 
@@ -1184,10 +1198,10 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         int qty = 0;
         double payAmount = 0.0;
         int discountItems = 0;
-        int gst = 0;
-        int totalGST = 0;
-        int cgst = 0;
-        int sgst = 0;
+            double gst = 0;
+            double totalGST = 0;
+            double cgst = 0;
+            double sgst = 0;
         double totalItemsAmount = 0.0;
         double discountPrice = 0.0;
         int totalPoints = 0;
@@ -1230,12 +1244,12 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 }
 
             }
-            totalGST = (int) (realmNewOrderCart.getGstPerc() * (realmNewOrderCart.getTotalPrice()-discountPer) / 100);
+            totalGST = (realmNewOrderCart.getGstPerc() * (realmNewOrderCart.getTotalPrice()-discountPer) / 100);
             gst = gst + totalGST;
 
 
-            cgst = (int) (cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPer) / 100));
-            sgst = (int) (sgst + (realmNewOrderCart.getSgst() * (realmNewOrderCart.getTotalPrice()-discountPer) / 100));
+            cgst =  (cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPer) / 100));
+            sgst =  (sgst + (realmNewOrderCart.getSgst() * (realmNewOrderCart.getTotalPrice()-discountPer) / 100));
 
 
             totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
@@ -1510,6 +1524,19 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 }
             }
         });
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+
+        if (id==R.id.radio){
+            int infoPos = (int) view.getTag();
+            strPlace= addressList.get(infoPos).getBuisnessPlaceName();
+            businessPlaceCode= addressList.get(infoPos).getBuisnessPlaceId();
+        }
+
     }
 
 }

@@ -546,17 +546,14 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     }
 
-<<<<<<< HEAD
-    private void showActionListDialog(List<ActionListModel> actionListModels){
+ /*   private void showActionListDialog(List<ActionListModel> actionListModels){
         Toast.makeText(mContext,"Action clicked", Toast.LENGTH_SHORT).show();
 //        ActionListFragment actionListFragment = ActionListFragment.newInstance(actionListModels);
-//        actionListFragment.show(getSupportFragmentManager(), "TAG");
-=======
+//        actionListFragment.show(getSupportFragmentManager(), "TAG");*/
     private void showActionListDialog(List<ActionListModel> actionListModels) {
         Toast.makeText(mContext, "Action clicked", Toast.LENGTH_SHORT).show();
         ActionListFragment actionListFragment = ActionListFragment.newInstance(actionListModels);
        actionListFragment.show(getSupportFragmentManager(),"TAG");
->>>>>>> b9d3657ed9e94e41115f8f8d9dd97ba15f6a1575
     }
 
     @Override

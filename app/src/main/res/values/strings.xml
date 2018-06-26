@@ -172,7 +172,7 @@
     <string name="delivered">Delivered</string>
     <string name="cancelled">Cancelled</string>
     <string name="new_orders">New Order</string>
-    <string name="order_centre">Order Centre</string>
+    <string name="order_centre">Order Center</string>
     <string name="accept">Accept</string>
     <string name="redeem_value">Redeem Value</string>
     <string name="points_to_redeem">Points to Redeem</string>
