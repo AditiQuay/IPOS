@@ -944,11 +944,12 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     cart_detail.setMaterialSGSTValue(sgst);
                     cart_detail.setMaterialCGSTValue(cgst);
                     totalPoints += mList.get(i).getTotalPoints();
+                    cart_detail.setMaterialStockAvail(datum.getSProductStock());
                     cart_detail.setMaterialCode(datum.getIProductModalId());
                     cart_detail.setMaterialName(datum.getSProductName());
                     cart_detail.setMaterialQty(datum.getQty());
                     cart_detail.setMaterialSGSTRate(datum.getSgst());
-
+                    cart_detail.setMaterialID(datum.getIProductModalId());
                     cart_detail.setMaterialCGSTRate(datum.getCgst());
                     cart_detail.setMaterialIGSTRate(datum.getGstPerc());
                 }else {
@@ -959,7 +960,6 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     cart_detail.setMaterialSGSTValue(sgst);
                     cart_detail.setMaterialCGSTValue(cgst);
                     cart_detail.setMaterialCode(datum.getProductCode());
-                    cart_detail.setMaterialStockAvail(datum.getSProductStock());
                     cart_detail.setMaterialID(datum.getIProductModalId());
                     cart_detail.setMaterialName(datum.getSProductName());
                     cart_detail.setMaterialQty(1);

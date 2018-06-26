@@ -488,11 +488,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     db.updateCustomerRecentOrders(Util.getCustomGson().toJson(recentOrders), mCustomerID);
                     db.updateCustomerBillDate(billingSync.getOrderDateTime(), mCustomerID);
                     db.updateCustomerBillPrice(paymentRequest.getTotalValueWithTax()+"", mCustomerID);
-                    for (int i =0 ; i < paymentRequest.getCartDetail().size(); i++){
-                        int updatedQty = paymentRequest.getCartDetail().get(i).getMaterialStockAvail()-paymentRequest.getCartDetail().get(i).getMaterialQty();
-                        db.updateProductStock(updatedQty,paymentRequest.getCartDetail().get(i).getMaterialID());
-                    }
-
+                }
+                for (int i =0 ; i < paymentRequest.getCartDetail().size(); i++)
+                {
+                    int updatedQty = paymentRequest.getCartDetail().get(i).getMaterialStockAvail()-paymentRequest.getCartDetail().get(i).getMaterialQty();
+                    db.updateProductStock(updatedQty,paymentRequest.getCartDetail().get(i).getMaterialID());
                 }
             }
         }catch (Exception e){
