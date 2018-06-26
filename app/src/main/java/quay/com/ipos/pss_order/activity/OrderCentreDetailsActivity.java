@@ -318,7 +318,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         tvDate = findViewById(R.id.tvDate);
         tvTime = findViewById(R.id.tvTime);
         llRedeemValue=findViewById(R.id.llRedeem);
-
+        llRedeemValue.setVisibility(View.GONE);
         llAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -807,13 +807,13 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                 discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
                 discountPartiItem=realmNewOrderCart.getTotalPrice();
             }
-            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
+            totalGST = (int) (realmNewOrderCart.getGstPerc() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100);
             gst = gst + totalGST;
 
 
 
-            cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
-            sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
+            cgst = (int) (cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100));
+            sgst = (int) (sgst + (realmNewOrderCart.getSgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100));
 
 
 
@@ -1192,6 +1192,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
         double discountPrice = 0.0;
         int totalPoints = 0;
         int noOfItems = 0;
+        double discountPer=0;
         for (RealmOrderCentre realmNewOrderCart : realmNewOrderCarts1) {
             if (!realmNewOrderCart.isFreeItem())
                 noOfItems = noOfItems + 1;
@@ -1209,6 +1210,7 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                             JSONObject jsonObject = array.optJSONObject(k);
                             if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
                                 discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                                discountPer=discountPer + jsonObject.optInt("discountTotal");
                             }
                         }
                     } catch (JSONException e) {
@@ -1216,21 +1218,24 @@ public class OrderCentreDetailsActivity extends BaseActivity implements MyListen
                     }
                 } else {
                     discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
+                    discountPer=realmNewOrderCart.getTotalPrice();
                 }
             }else {
                 if (realmNewOrderCart.isFreeItem()){
+                    discountPer=realmNewOrderCart.getTotalPrice();
                     discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
                 }else {
+                    discountPer=realmNewOrderCart.getDiscountPrice();
                     discountPrice = discountPrice + realmNewOrderCart.getDiscountPrice();
                 }
 
             }
-            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
+            totalGST = (int) (realmNewOrderCart.getGstPerc() * (realmNewOrderCart.getTotalPrice()-discountPer) / 100);
             gst = gst + totalGST;
 
 
-            cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
-            sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
+            cgst = (int) (cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPer) / 100));
+            sgst = (int) (sgst + (realmNewOrderCart.getSgst() * (realmNewOrderCart.getTotalPrice()-discountPer) / 100));
 
 
             totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();

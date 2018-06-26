@@ -142,7 +142,7 @@
                <TextView
                    android:layout_width="0dp"
                    android:layout_height="wrap_content"
-                   android:layout_weight="1"
+                   android:layout_weight="0.5"
                    android:text="Inventory"
                    />
 
@@ -150,27 +150,31 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_weight="1">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="In"
-                        android:textSize="@dimen/dim_12"
+                        android:gravity="end"
+                        android:minWidth="60dp"
+                        android:textSize="@dimen/dim_11"
                         />
 
                     <Switch
                         android:id="@+id/swchInventory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
                         android:checked="true"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Out"
-                        android:textSize="@dimen/dim_12"
+                        android:minWidth="60dp"
+                        android:textSize="@dimen/dim_11"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -188,6 +192,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
                     android:text="Transaction Type"
+
                     />
 
 
@@ -201,21 +206,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Purchase"
-                        android:textSize="@dimen/dim_12"
+                        android:gravity="end"
+                        android:singleLine="true"
+                        android:minWidth="60dp"
+                        android:textSize="@dimen/dim_11"
                         />
 
                     <Switch
                         android:id="@+id/swchType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
 
                         android:checked="true"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/dim_12"
+                        android:textSize="@dimen/dim_11"
+                        android:minWidth="60dp"
+                        android:singleLine="true"
                         android:text="Transfer"
                         />
                 </LinearLayout>
@@ -231,7 +241,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
                     android:text="Is PO Available"
                     />
 
@@ -239,27 +249,31 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_weight="1">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="No"
-                        android:textSize="@dimen/dim_12"
+                        android:gravity="end"
+                        android:minWidth="@dimen/dim_60"
+                        android:textSize="@dimen/dim_11"
                         />
 
                     <Switch
                         android:id="@+id/swchPOAvailable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="12dp"
-                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
                         android:checked="true"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Yes"
-                        android:textSize="@dimen/dim_12"
+                        android:minWidth="@dimen/dim_60"
+                        android:textSize="@dimen/dim_11"
                         />
                 </LinearLayout>
             </LinearLayout>
@@ -269,7 +283,7 @@
                 android:id="@+id/llPOVisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
 
                 android:orientation="vertical">
                 <LinearLayout
@@ -282,7 +296,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.5"
                         android:text="PO Number"
                         />
 
@@ -290,14 +304,16 @@
                     <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:gravity="end"
                         android:layout_weight="1">
 
                         <EditText
                             android:id="@+id/edtPoNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
                             android:text=""
-                            android:hint="Enter Po Number"
+                            android:hint="Enter PO Number"
                             android:textSize="@dimen/dim_14"
                             android:background="@color/transparent"
                             />
@@ -323,7 +339,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.5"
                         android:text="PO Date"
                         />
 
@@ -354,7 +370,7 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="0.5"
                         android:text="Supplier Name"
                         />
 

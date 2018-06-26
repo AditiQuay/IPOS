@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <<<<<<< HEAD
+<merger version="3"><dataSet config="main"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\assets"/><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\debug\assets"/></dataSet></merger>
+=======
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\assets"/><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\debug\assets"/></dataSet></merger>
 =======
 <merger version="3"><dataSet config="main"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\assets"/><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\debug\assets"/></dataSet></merger>
 >>>>>>> 3a51b1ca9ae7e05625a2f7c17e9110ed00ca46bb
+>>>>>>> b9d3657ed9e94e41115f8f8d9dd97ba15f6a1575
