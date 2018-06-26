@@ -225,6 +225,7 @@
         <item>XYZ, ND</item>
     </string-array>
     <string-array name="card_type">
+        <item>Select Card Type</item>
         <item>Master Card</item>
         <item>Maestro Card</item>
         <item>RuPay</item>

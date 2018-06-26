@@ -311,6 +311,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
         tvCGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
+        tvTotalRedeemValue.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvNetTotal.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
@@ -816,6 +817,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             tvCGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
+            tvTotalRedeemValue.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvNetTotal.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
@@ -833,6 +835,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             int freeItemCount = 0;
             int mSelectedpos = 0;
             double totalDiscountedPrice=0;
+            double totalDiscounted=0;
             double totalAfterGSt = 0.0;
             double otcDiscountPerc = 0.0;
             scheme.clear();
@@ -883,9 +886,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                         if (discounts.get(j).isDiscItemSelected()) {
                             discount = discount + discounts.get(j).getDiscountTotal();
 
-                            if(!datum.isFreeItem()) {
+//                            if(!datum.isFreeItem()) {
                                 totalDiscountedPrice = totalDiscountedPrice - discounts.get(j).getDiscountTotal() - datum.getOTCDiscount();
-                            }
+//                            }
                             mScheme.setSchemeID(discounts.get(j).getSchemeID());
 
                             if (discounts.get(j).getDiscountTotal() > 0.0) {
@@ -930,10 +933,12 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     cart_detail.setScheme(scheme);
 
                 }
+
+                totalGst += mList.get(i).getGstPerc() * (totalDiscountedPrice) / 100;
+                sgst += mList.get(i).getSgst() * (totalDiscountedPrice) / 100;
+                cgst += mList.get(i).getCgst() * (totalDiscountedPrice) / 100;
+
                 if (!datum.isFreeItem()){
-                    totalGst += mList.get(i).getGstPerc() * (totalDiscountedPrice) / 100;
-                    sgst += mList.get(i).getSgst() * (totalDiscountedPrice) / 100;
-                    cgst += mList.get(i).getCgst() * (totalDiscountedPrice) / 100;
 
                     cart_detail.setMaterialIGSTValue(totalGst);
                     cart_detail.setMaterialSGSTValue(sgst);
@@ -947,6 +952,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     cart_detail.setMaterialCGSTRate(datum.getCgst());
                     cart_detail.setMaterialIGSTRate(datum.getGstPerc());
                 }else {
+//                    totalGst += mList.get(i).getGstPerc() * (totalDiscounted) / 100;
+//                    sgst += mList.get(i).getSgst() * (totalDiscounted) / 100;
+//                    cgst += mList.get(i).getCgst() * (totalDiscountedPrice) / 100;
                     cart_detail.setMaterialIGSTValue(totalGst);
                     cart_detail.setMaterialSGSTValue(sgst);
                     cart_detail.setMaterialCGSTValue(cgst);
@@ -968,11 +976,11 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             paymentRequest.setOrderLoyality(totalPoints);
             tvTotalItemPrice.setText( Util.getIndianNumberFormat(sum+""));
             paymentRequest.setTotalValueWithoutTax(sum);
-
-            tvTotalDiscountPrice.setText("-" + Util.getIndianNumberFormat((discount + otcDiscountPerc+ IPOSApplication.totalpointsToRedeemValue)+""));
-            tvNetTotal.setText( Util.getIndianNumberFormat((sum - (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue))+""));
-            tvTotalDiscount.setText(Util.getIndianNumberFormat( (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue)+""));
-            paymentRequest.setTotalDiscountValue((discount + otcDiscountPerc+ IPOSApplication.totalpointsToRedeemValue));
+double totalDisc = (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue);
+            tvTotalDiscountPrice.setText("-" + Util.getIndianNumberFormat((discount + otcDiscountPerc)+""));
+            tvNetTotal.setText( Util.getIndianNumberFormat((sum - totalDisc)+""));
+            tvTotalDiscount.setText(Util.getIndianNumberFormat( totalDisc+""));
+            paymentRequest.setTotalDiscountValue(totalDisc);
 
             tvTotalDiscountDetail.setText("(Item " + discountItem + ")");
             paymentRequest.setPointsToRedeem(IPOSApplication.totalpointsToRedeem);
@@ -991,16 +999,16 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             paymentRequest.setTotalCGSTValue(cgst);
             if(IPOSApplication.totalpointsToRedeemValue>0)
             {
-                totalAfterGSt = (sum - (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue) + (sgst + cgst));
+                totalAfterGSt = (sum - totalDisc + (sgst + cgst));
             }
             else
-                totalAfterGSt = (sum - (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue) + (sgst + cgst));
+                totalAfterGSt = (sum - totalDisc + (sgst + cgst));
 //            double floorValue = Math.round(totalAfterGSt);
 
 
             double roundOff = totalAfterGSt - Math.floor(totalAfterGSt);
             roundOff=(Util.round(roundOff, 2));
-            tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + roundOff);
+            tvRoundingOffPrice.setText(Util.getIndianNumberFormat(roundOff+""));
             paymentRequest.setTotalRoundingOffValue(roundOff);
 
             totalAfterGSt = totalAfterGSt + (Util.round(roundOff, 1));
@@ -1358,13 +1366,12 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             clearOTC();
         }
 
-        if(IPOSApplication.mProductListResult.size()>0 && !mCustomerID.equalsIgnoreCase("")){
+        if(IPOSApplication.mProductListResult.size()>0 || !mCustomerID.equalsIgnoreCase("")){
             Util.showMessageDialog(mContext,RetailSalesFragment.this, getResources().getString(R.string.new_billing_cart_message), getResources().getString(R.string.yes), getResources().getString(R.string.no),getResources().getString(R.string.cancel), Constants.APP_DIALOG_BILLING, "", getActivity().getSupportFragmentManager());
 
         }else {
             Util.showToast("Cart updated", mContext);
             SharedPrefUtil.putString(Constants.APP_DIALOG_CUSTOMER,"",getActivity());
-
             setTextDefault();
         }
     }
@@ -1470,7 +1477,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     totalDiscountPricePerItem = totalDiscountPricePerItem + datum.getDiscount().get(j).getDiscountTotal();
                 }
                 if (tbPerc.isChecked())
-                    otcDiscount = (Double.parseDouble(etDiscountAmt.getText().toString()) * (datum.getSalesPrice()*datum.getQty())-totalDiscountPricePerItem) / 100;
+                    otcDiscount = (Double.parseDouble(etDiscountAmt.getText().toString()) * ((datum.getSalesPrice()*datum.getQty())-totalDiscountPricePerItem))/ 100;
                 else
                     otcDiscount = Double.parseDouble(etDiscountAmt.getText().toString());
                 totalDiscountPricePerItem=0;
@@ -1495,7 +1502,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     totalDiscountPricePerItem = totalDiscountPricePerItem + datum.getDiscount().get(j).getDiscountTotal();
                 }
                 if (tbPerc.isChecked())
-                    otcDiscount = (Double.parseDouble(etDiscountAmt.getText().toString()) * (datum.getSalesPrice()*datum.getQty())-totalDiscountPricePerItem) / 100;
+                    otcDiscount = (Double.parseDouble(etDiscountAmt.getText().toString()) * ((datum.getSalesPrice()*datum.getQty())-totalDiscountPricePerItem)) / 100;
                 else
                     otcDiscount = Double.parseDouble(etDiscountAmt.getText().toString());
 
@@ -2155,7 +2162,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             if(pointsToRedeemValue<=totalAmount) {
                 llRedeem.setVisibility(View.VISIBLE);
                 tvTotalPoints.setText("(" + pointsToRedeem + ")");
-                tvTotalRedeemValue.setText("- " + getActivity().getResources().getString(R.string.Rs) + " " + pointsToRedeemValue);
+                tvTotalRedeemValue.setText("- " + Util.getIndianNumberFormat(pointsToRedeemValue+""));
                 IPOSApplication.totalpointsToRedeem = pointsToRedeem;
                 IPOSApplication.totalpointsToRedeemValue = pointsToRedeemValue;
             }else {
@@ -2166,6 +2173,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             IPOSApplication.totalpointsToRedeem=0;
             llRedeem.setVisibility(View.GONE);
         }
+        setUpdateValues(IPOSApplication.mProductListResult);
     }
 
 

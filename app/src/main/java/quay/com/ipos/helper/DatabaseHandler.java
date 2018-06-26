@@ -768,7 +768,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // new String[] { String.valueOf(questionaire.getQuesId()) });
     }
 
-    public int updateCustomerRecentOrders(String recentOrders) {
+    public int updateCustomerRecentOrders(String recentOrders,String customerID) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -776,7 +776,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // updating row
         // return the number of rows affected
-        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnRecentOrders.toString() + " = ?", new String[]{recentOrders + ""});
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?", new String[]{customerID + ""});
+        // new String[] { String.valueOf(questionaire.getQuesId()) });
+    }
+    public int updateCustomerBillPrice( String billPrice,String customerID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(CustomerEnum.ColoumnLastBillingAmount.toString(), billPrice);
+
+        // updating row
+        // return the number of rows affected
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?", new String[]{customerID});
+        // new String[] { String.valueOf(questionaire.getQuesId()) });
+    }
+    public int updateCustomerBillDate( String orderDateTime,String customerID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CustomerEnum.ColoumnLastBillingDate.toString(), orderDateTime);
+
+        // updating row
+        // return the number of rows affected
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?", new String[]{customerID + ""});
         // new String[] { String.valueOf(questionaire.getQuesId()) });
     }
     //

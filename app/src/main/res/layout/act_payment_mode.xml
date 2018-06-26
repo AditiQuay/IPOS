@@ -828,9 +828,7 @@
                                 app:ms_enableFloatingLabel="true"
                                 app:ms_errorColor="@color/red"
                                 app:ms_floatingLabelColor="@color/grey"
-                                app:ms_floatingLabelText="@string/select_card_type"
                                 app:ms_highlightColor="@color/highlight"
-                                app:ms_hint="@string/select_card_type"
                                 app:ms_hintColor="@color/grey"
                                 app:ms_multiline="false" />
                             <View
@@ -853,9 +851,8 @@
                                 <android.support.design.widget.TextInputLayout
                                     android:id="@+id/input_layout_discount4"
                                     android:layout_width="match_parent"
-                                    android:layout_marginRight="@dimen/dim_5"
-                                    android:layout_marginLeft="@dimen/dim_5"
-                                    android:paddingBottom="@dimen/dim_2"
+                                    android:layout_marginRight="@dimen/dim_4"
+                                    android:layout_marginLeft="@dimen/dim_4"
                                     android:layout_gravity="bottom"
                                     android:gravity="bottom"
                                     android:layout_height="50dp">
