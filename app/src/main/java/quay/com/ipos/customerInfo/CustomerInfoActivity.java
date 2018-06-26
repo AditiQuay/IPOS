@@ -8,8 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -76,7 +73,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         Intent i = getIntent();
         paymentModeClicked = i.getStringExtra("paymentMode");
 
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         findViewById();
         applyInitValues();
         applyTypeFace();
@@ -87,7 +84,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     public void findViewById() {
         toolbarCustomerInfo = findViewById(R.id.toolbarCustomerInfo);
         searchViewCatalogue = findViewById(R.id.searchViewCatalogue);
-        searchViewCatalogue.clearFocus();
+
         recyclerviewCustomerCard = findViewById(R.id.recyclerviewCustomerCard);
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +92,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
             public void onClick(View v) {
                 Intent i = new Intent(mContext, CustomerAddMain.class);
                 startActivity(i);
-                finish();
+//                finish();
             }
         });
     }
@@ -198,7 +195,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
                 for (CustomerModel wp : responseList) {
                     if (wp.getCustomerName() != null) {
 
-                        if (wp.getCustomerName().toLowerCase(Locale.getDefault()).contains(charText) || wp.getCustomerPhone().toLowerCase(Locale.getDefault()).contains(charText)) {
+                        if (wp.getCustomerName().toLowerCase().contains(charText) || wp.getCustomerPhone().toLowerCase().contains(charText)) {
                             arrSearlist.add(wp);
                         }
                     }
@@ -231,7 +228,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
 
         Intent i = new Intent(CustomerInfoActivity.this, CustomerInfoDetailsActivity.class);
         i.putExtra("customerID", customerModel.getCustomerID());
-        i.putExtra("paymentModeClicked",paymentModeClicked);
+        i.putExtra("paymentModeClicked", paymentModeClicked);
         startActivityForResult(i, Constants.ACT_CUSTOMER);
 
 
@@ -258,7 +255,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         CustomerModel customerModel = dbHelper.getAllNotes().get(position);
 
         ImageView ImvClose;
-        TextView textViewCustomerPoints,textViewCustomerTotalPoints,textViewTotalRedeemPoints,textViewTotalAdjustedPoints,textViewTotalExpirePoints,textViewTotalReversePoints;
+        TextView textViewCustomerPoints, textViewCustomerTotalPoints, textViewTotalRedeemPoints, textViewTotalAdjustedPoints, textViewTotalExpirePoints, textViewTotalReversePoints;
 
 
         myDialog.setContentView(R.layout.view_info_dialog);
@@ -270,12 +267,12 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         textViewTotalExpirePoints = myDialog.findViewById(R.id.textViewTotalExpirePoints);
         textViewTotalReversePoints = myDialog.findViewById(R.id.textViewTotalReversePoints);
 
-        textViewCustomerPoints.setText(customerModel.getCustomerPoints()+"");
-        textViewCustomerTotalPoints.setText(customerModel.getPointsPerValue()+"");
-        textViewTotalRedeemPoints.setText(customerModel.getCustomerRedeemPoints()+"");
-        textViewTotalAdjustedPoints.setText(customerModel.getCustomerAdjustPoints()+"");
-        textViewTotalExpirePoints.setText(customerModel.getCustomerExpirePoints()+"");
-        textViewTotalReversePoints.setText(customerModel.getCustomerReversePoints()+"");
+        textViewCustomerPoints.setText(customerModel.getCustomerPoints() + "");
+        textViewCustomerTotalPoints.setText(customerModel.getPointsPerValue() + "");
+        textViewTotalRedeemPoints.setText(customerModel.getCustomerRedeemPoints() + "");
+        textViewTotalAdjustedPoints.setText(customerModel.getCustomerAdjustPoints() + "");
+        textViewTotalExpirePoints.setText(customerModel.getCustomerExpirePoints() + "");
+        textViewTotalReversePoints.setText(customerModel.getCustomerReversePoints() + "");
 
 
         ImvClose.setOnClickListener(new View.OnClickListener() {

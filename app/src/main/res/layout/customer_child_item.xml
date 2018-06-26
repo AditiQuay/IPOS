@@ -58,6 +58,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:hint="First Name *"
+                                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     android:textSize="@dimen/universal_text_size14" />
 
                             </android.support.design.widget.TextInputLayout>
@@ -78,6 +79,7 @@
                                     android:id="@+id/tieChildLastName"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     android:hint="Last Name *"
                                     android:textSize="@dimen/universal_text_size14" />
 

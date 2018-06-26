@@ -365,7 +365,16 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
     @Override
     public void onClick(View v) {
         if (v == btnCancel) {
+            sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.clear();
+            editor.apply();
 
+            quickPref = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor1 = quickPref.edit();
+            editor1.clear();
+            editor1.apply();
+            getActivity().finish();
 
         } else if (v == btnsubmit) {
 
