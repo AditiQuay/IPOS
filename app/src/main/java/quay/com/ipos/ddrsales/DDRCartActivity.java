@@ -204,7 +204,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InvoiceData.getInstance().cartList=  IPOSApplication.mProductListResult;
+              //  InvoiceData.getInstance().cartList=  IPOSApplication.mProductListResult;
                 Intent intent = new Intent(activity, DDRInvoicePreviewActivity.class);
                 intent.putExtra("ddr", mDdr);
                 startActivity(intent);

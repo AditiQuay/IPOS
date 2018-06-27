@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "quay.com.ipos"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 26
         multiDexEnabled true
         versionCode 1

@@ -28,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/ddr_rect_white"
                 android:orientation="vertical"
+
                 tools:visibility="visible">
 
                 <RelativeLayout
@@ -491,7 +492,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -677,7 +679,7 @@
                         android:orientation="vertical"
                         android:paddingLeft="16dp">
 
-                        <TextView
+                      <!--  <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/titilliumwebregular"
@@ -685,14 +687,31 @@
                             android:text="Mode"
                             android:textColor="@color/filter_text_color" />
 
-                        <TextView
-                            android:id="@+id/textMode"
+                        <EditText
+                            android:id="@+id/editMode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center_horizontal"
                             android:text="Transporter"
-                            android:textColor="@color/filter_text_color" />
+                            android:textColor="@color/filter_text_color" />-->
+                        <fr.ganfra.materialspinner.MaterialSpinner
+                            android:id="@+id/spinnerMode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dim_4"
+                            android:layout_marginRight="@dimen/dim_4"
+                            app:ms_alignLabels="true"
+                            app:ms_baseColor="@color/grey"
+                            app:ms_enableErrorLabel="false"
+                            app:ms_enableFloatingLabel="true"
+                            app:ms_errorColor="@color/red"
+                            app:ms_floatingLabelColor="@color/grey"
+                            app:ms_floatingLabelText=""
+                            app:ms_highlightColor="@color/highlight"
+                            app:ms_hint="Mode"
+                            app:ms_hintColor="@color/grey"
+                            app:ms_multiline="false" />
 
                     </LinearLayout>
 
@@ -717,8 +736,8 @@
                             android:text="LR Number"
                             android:textColor="@color/filter_text_color" />
 
-                        <TextView
-                            android:id="@+id/textLRNumber"
+                        <EditText
+                            android:id="@+id/editLRNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
@@ -749,8 +768,8 @@
                         android:text="Transporter"
                         android:textColor="@color/filter_text_color" />
 
-                    <TextView
-                        android:id="@+id/textTransporter"
+                    <EditText
+                        android:id="@+id/editTransporter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dim_8"
@@ -783,8 +802,8 @@
                             android:text="Truck Number"
                             android:textColor="@color/filter_text_color" />
 
-                        <TextView
-                            android:id="@+id/textTruckNumber"
+                        <EditText
+                            android:id="@+id/editTruckNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
@@ -815,8 +834,8 @@
                             android:text="E-Way Bill Number"
                             android:textColor="@color/filter_text_color" />
 
-                        <TextView
-                            android:id="@+id/textEWayBillNo"
+                        <EditText
+                            android:id="@+id/editEWayBillNo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
@@ -852,8 +871,8 @@
                             android:text="E-Way Bill Validity"
                             android:textColor="@color/filter_text_color" />
 
-                        <TextView
-                            android:id="@+id/textEwayBillVal"
+                        <EditText
+                            android:id="@+id/editEwayBillVal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
@@ -884,8 +903,8 @@
                             android:text="Track Mobile Number"
                             android:textColor="@color/filter_text_color" />
 
-                        <TextView
-                            android:id="@+id/textTrackMobileNumber"
+                        <EditText
+                            android:id="@+id/editTrackMobileNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
@@ -921,8 +940,8 @@
                             android:text="Driver Name"
                             android:textColor="@color/filter_text_color" />
 
-                        <TextView
-                            android:id="@+id/textDriverName"
+                        <EditText
+                            android:id="@+id/editDriverName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
@@ -953,8 +972,8 @@
                             android:text="Driver Mobile Number"
                             android:textColor="@color/filter_text_color" />
 
-                        <TextView
-                            android:id="@+id/textDriverMobileNumber"
+                        <EditText
+                            android:id="@+id/editDriverMobileNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
@@ -985,8 +1004,8 @@
                         android:text="Address"
                         android:textColor="@color/filter_text_color" />
 
-                    <TextView
-                        android:id="@+id/textAddress"
+                    <EditText
+                        android:id="@+id/editAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dim_8"
@@ -1003,7 +1022,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1038,34 +1058,13 @@
 
                 <include layout="@layout/view_layout_without_dot" />
 
-                <RelativeLayout
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycleViewBillingAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="45dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textBillingAddress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:gravity="center"
-                        android:paddingLeft="16dp"
-                        android:text="Billing Address Here....."
-                        android:textColor="@color/filter_text_color" />
-
-                    <ImageView
-                        android:id="@+id/imageCheckIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="16dp"
-                        android:gravity="center"
-
-                        android:src="@drawable/pc_rel_email" />
-                </RelativeLayout>
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/ddr_adapter_address"/>
 
             </LinearLayout>
 
@@ -1074,7 +1073,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1109,7 +1109,7 @@
 
                 <include layout="@layout/view_layout_without_dot" />
 
-                <RelativeLayout
+               <!-- <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
@@ -1136,176 +1136,289 @@
                         android:layout_marginRight="16dp"
                         android:gravity="center"
                         android:src="@drawable/pc_rel_email" />
-                </RelativeLayout>
+                </RelativeLayout>-->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycleViewShippingAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/ddr_adapter_address"/>
 
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ddr_rect_white"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/dim_8"
-            tools:visibility="visible">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="45dp"
+                android:layout_marginTop="@dimen/dim_8"
+                android:background="@drawable/ddr_rect_white"
+                android:orientation="vertical"
+                android:paddingBottom="8dp"
+                tools:visibility="visible">
 
-                >
-
-                <ImageView
-                    android:id="@+id/imgIncoTerms"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dim_16"
-
-                    android:gravity="center"
-                    android:src="@drawable/ic_action_product_detail_blue" />
-
-                <TextView
-                    android:id="@+id/tvIncoTerms"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dim_15"
-                    android:layout_toRightOf="@+id/imgIncoTerms"
-                    android:gravity="center"
-
-                    android:text="INCO Terms"
-                    android:textColor="@color/colorPrimary" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="@dimen/dim_10"
-                    android:layout_marginRight="@dimen/dim_16"
-                    android:layout_marginTop="@dimen/dim_15"
-                    android:alpha="0.6"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/btnMasterIncoTerms"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:textSize="13sp"
-                        android:text="Master"
-                        android:padding="8dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="@dimen/dim_2"
-                        android:drawableRight="@drawable/arrow_down_small_gray"
-                        android:drawablePadding="16dp"
-                        android:background="@color/label_gray"
-                        android:visibility="visible" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-
-                        android:layout_marginTop="@dimen/dim_2"
-                        android:src="@drawable/ic_action_arrow_down"
-                        android:visibility="visible" />
-                </LinearLayout>
-
-            </RelativeLayout>
-
-            <include layout="@layout/view_layout_without_dot" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true">
+                    android:minHeight="45dp"
 
+                    >
+
+                    <ImageView
+                        android:id="@+id/imgIncoTerms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dim_16"
+
+                        android:gravity="center"
+                        android:src="@drawable/order_summary" />
 
                     <TextView
-                        android:id="@+id/tvQty"
-                        android:layout_width="0dp"
+                        android:id="@+id/tvIncoTerms"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/titilliumwebregular"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dim_15"
+                        android:layout_toRightOf="@+id/imgIncoTerms"
                         android:gravity="center"
-                        android:padding="8dp"
-                        android:text="QTY" />
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/ipos_line_black" />
+                        android:text="INCO Terms"
+                        android:textColor="@color/colorPrimary" />
 
-
-                    <TextView
-                        android:id="@+id/price"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="@dimen/dim_10"
+                        android:layout_marginRight="@dimen/dim_16"
+                        android:layout_marginTop="@dimen/dim_15"
+                        android:alpha="0.6"
                         android:gravity="center"
-                        android:padding="@dimen/dim_8"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:text="SENDER" />
+                        android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/ipos_line_black" />
+                        <TextView
+                            android:id="@+id/btnMasterIncoTerms"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:background="@drawable/btnmasterbg"
+                            android:drawablePadding="16dp"
+                            android:drawableRight="@drawable/arrow_down_small_gray"
+                            android:fontFamily="@font/titilliumwebregular"
+                            android:padding="8dp"
+                            android:text=" Master"
+                            android:textColor="@color/dark_grey_color"
+                            android:textSize="13sp"
+                            android:visibility="visible" />
 
-                    <TextView
-                        android:id="@+id/tvAmount"
-                        android:layout_width="0dp"
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:src="@drawable/ic_action_arrow_down"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <include layout="@layout/view_layout_without_dot" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:padding="8dp"
-                        android:text="RECEIVER" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/ipos_line_black" />
-
-                    <TextView
-                        android:id="@+id/tvGst"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="AMOUNT" />
+                        android:layout_centerInParent="true">
 
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvQty"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/titilliumwebregular"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="QTY" />
 
-            </RelativeLayout>
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/ipos_line_black" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
 
-                android:background="@drawable/ipos_line_black" />
+                        <TextView
+                            android:id="@+id/price"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/titilliumwebregular"
+                            android:gravity="center"
+                            android:padding="@dimen/dim_8"
+                            android:text="SENDER" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycleViewIncoTerms"
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/ipos_line_black" />
+
+                        <TextView
+                            android:id="@+id/tvAmount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/titilliumwebregular"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="RECEIVER" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/ipos_line_black" />
+
+                        <TextView
+                            android:id="@+id/tvGst"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/titilliumwebregular"
+                            android:gravity="center"
+                            android:padding="8dp"
+                            android:text="AMOUNT" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+
+                    android:background="@drawable/ipos_line_black" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycleViewIncoTerms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/ddr_adapter_incoterms"
+                    tools:spanCount="3"
+
+                    />
+
+                <include layout="@layout/ddr_layout_incoterms_total" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                />
-        </LinearLayout>
+                android:layout_marginTop="@dimen/dim_8"
+                android:background="@drawable/ddr_rect_white"
+                android:orientation="vertical"
+                android:paddingBottom="16dp"
+                tools:visibility="visible">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="45dp"
+
+                    >
+
+                    <ImageView
+                        android:id="@+id/imgBatch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dim_16"
+
+                        android:gravity="center"
+                        android:src="@drawable/update" />
+
+                    <TextView
+                        android:id="@+id/tvBatch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dim_15"
+                        android:layout_toRightOf="@+id/imgBatch"
+                        android:gravity="center"
+
+                        android:text="Batch Update"
+                        android:textColor="@color/colorPrimary" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="@dimen/dim_10"
+                        android:layout_marginRight="@dimen/dim_16"
+                        android:layout_marginTop="@dimen/dim_15"
+                        android:alpha="0.6"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/btnAutoBatch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:background="@drawable/btnmasterbg"
+                            android:drawablePadding="16dp"
+                            android:drawableRight="@drawable/arrow_down_small_gray"
+                            android:fontFamily="@font/titilliumwebregular"
+                            android:padding="8dp"
+                            android:text=" Auto"
+                            android:textColor="@color/dark_grey_color"
+                            android:textSize="13sp"
+                            android:visibility="visible" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+
+                            android:layout_marginTop="@dimen/dim_2"
+                            android:src="@drawable/ic_action_arrow_down"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <include layout="@layout/view_layout_without_dot" />
+
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+
+                    android:background="@drawable/ipos_line_black" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycleViewProductBatch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+
+                    />
+            </LinearLayout>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
@@ -1334,10 +1447,10 @@
             android:background="@drawable/ddr_blue_rect"
             android:fontFamily="@font/titilliumwebregular"
             android:gravity="center"
+            android:onClick="onSaveAndCloseAction"
             android:paddingLeft="@dimen/dim_5"
             android:text="@string/ddr_save_close"
             android:textAllCaps="true"
-            android:onClick="onSaveAndCloseAction"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_15sp" />
 

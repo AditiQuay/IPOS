@@ -60,6 +60,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.adapter.DrawerRoleAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
 import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.compliance.DashboardActivity;
 import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerModel;
@@ -667,6 +668,8 @@ public class MainActivity extends BaseActivity
 
             case "Compliance Tracking":
                // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
+                Intent intentCompliance = new Intent(mContext, DashboardActivity.class);
+                startActivity(intentCompliance);
                 break;
             case "KYC":
                // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();

@@ -177,7 +177,7 @@
                                         android:maxLines="1"
                                         android:inputType="phone"
                                         android:textSize="@dimen/universal_text_size14"
-                                        android:nextFocusForward="@+id/tilContactSecondaryMobileNumName"
+                                        android:nextFocusRight="@+id/tilContactSecondaryMobileNumName"
                                         android:imeOptions="actionNext"
                                         />
 

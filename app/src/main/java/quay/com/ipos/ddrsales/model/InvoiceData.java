@@ -8,13 +8,17 @@ import java.util.List;
 import quay.com.ipos.ddrsales.model.response.Address;
 import quay.com.ipos.ddrsales.model.response.DDRIncoTerms;
 import quay.com.ipos.ddrsales.model.response.DDRProductListResponse;
+import quay.com.ipos.ddrsales.model.response.DDTProductBatch;
 import quay.com.ipos.modal.ProductSearchResult;
 
 public class InvoiceData {
 
     public List<Address> address=new ArrayList<>();
-    public List<ProductSearchResult.Datum> cartList = new ArrayList<>();
+    public List<DDRProduct> cartList = new ArrayList<>();
     public List<DDRIncoTerms> ddrIncoTerms = new ArrayList<>();
+    public List<DDTProductBatch> ddtProductBatchList = new ArrayList<>();
+
+    public LogisticsData logisticsData  = new LogisticsData();
     private boolean initDataFeed = false;
     private static final InvoiceData ourInstance = new InvoiceData() {
     };
@@ -39,5 +43,6 @@ public class InvoiceData {
         this.address =new ArrayList<>();
         ddrIncoTerms = new ArrayList<>();
         cartList = new ArrayList<>();
+        ddtProductBatchList = new ArrayList<>();
     }
 }
