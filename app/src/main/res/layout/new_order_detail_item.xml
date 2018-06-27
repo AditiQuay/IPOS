@@ -619,6 +619,7 @@
                 android:textColor="@color/colorPrimary"
                 android:gravity="center"
                 android:visibility="gone"
+                android:layout_marginRight="8dp"
                 android:layout_toLeftOf="@+id/arrow"
                 android:text="Edit"/>
 
