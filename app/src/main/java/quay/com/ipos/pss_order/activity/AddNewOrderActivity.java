@@ -88,7 +88,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
 
         getIntentValues();
         initializeComponent();
-        searchProductCall("NA");
+        searchProductCall("NA","All");
         Realm realm=Realm.getDefaultInstance();
         RealmResults<RealmNewOrderCart> realmNewOrderCarts1=realm.where(RealmNewOrderCart.class).findAll();
 
@@ -194,9 +194,9 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().equalsIgnoreCase("")){
-                    searchProductCall(charSequence.toString());
+                    searchProductCall(charSequence.toString(),"na");
                 }else {
-                    searchProductCall("NA");
+                    searchProductCall("NA","All");
                 }
 
 
@@ -429,7 +429,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private void searchProductCall(String s) {
+    private void searchProductCall(String s,String all) {
 //        showProgress(getResources().getString(R.string.please_wait));
         ProductSearchRequest productSearchRequest = new ProductSearchRequest();
         productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
@@ -438,7 +438,7 @@ public class AddNewOrderActivity extends BaseActivity implements View.OnClickLis
         productSearchRequest.setSearchParam(s);
         productSearchRequest.setModuleType("NO");
         productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
-        productSearchRequest.setBarCodeNumber("All");
+        productSearchRequest.setBarCodeNumber(all);
         productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
         productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
         ServiceTask mTask = new ServiceTask();

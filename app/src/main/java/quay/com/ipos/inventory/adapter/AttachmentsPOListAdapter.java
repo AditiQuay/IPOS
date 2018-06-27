@@ -1,6 +1,8 @@
 package quay.com.ipos.inventory.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +35,19 @@ public class AttachmentsPOListAdapter extends RecyclerView.Adapter<AttachmentsPO
     }
 
     @Override
-    public void onBindViewHolder(SurveyViewHolder holder, int position) {
+    public void onBindViewHolder(final SurveyViewHolder holder, int position) {
 
 
 
         holder.tvtitle.setText(stringArrayList.get(position).getpOAttachmentName());
 
+        holder.item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(stringArrayList.get(holder.getAdapterPosition()).getpOAttachmentUrl()));
+                mContext.startActivity(browserIntent);
+            }
+        });
 
 
 
@@ -59,11 +68,13 @@ public class AttachmentsPOListAdapter extends RecyclerView.Adapter<AttachmentsPO
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
+        private final View item;
         private TextView tvtitle,textViewName;
 
         private RadioButton radio;
         public SurveyViewHolder(View itemView) {
             super(itemView);
+            item=itemView;
             tvtitle = itemView.findViewById(R.id.tvtitle);
 
 

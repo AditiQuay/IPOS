@@ -45,6 +45,7 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerChildAdapter;
 import quay.com.ipos.customerInfo.customerInfoModal.AddCustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CityListModel;
@@ -137,7 +138,6 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
     private int localId;
     String title,gender;
     public static SendDataActivityToFragment sendDataActivityToFragment;
-
     public CustomerAddFullFragment() {
 
     }
@@ -245,7 +245,6 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
         }
         if (!TextUtils.isEmpty(MobileNumber)) {
             tieMobileNumPrimary.setText(MobileNumber);
-            tieMobileNumPrimary.setFocusable(false);
         }
         if (!TextUtils.isEmpty(email)) {
             tieEmail1.setText(email);
@@ -313,7 +312,7 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
         countrySpinner = main.findViewById(R.id.countrySpinner);
         stateSpinner = main.findViewById(R.id.editState);
         citySpinner = main.findViewById(R.id.citySpinner);
-
+        btnFullFragmentCancel = main.findViewById(R.id.btnFullFragmentCancel);
         //Professional info
         textViewProfessionalHeading = main.findViewById(R.id.textViewProfessionalHeading);
         customerTypeSpinner = main.findViewById(R.id.customerTypeSpinner);
@@ -331,7 +330,7 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
                     childModels.remove(childModels.size() - 1);
                     customerChildAdapter.notifyDataSetChanged();
                 } else {
-                    btnRemoveChild.setBackgroundColor(getResources().getColor(R.color.grey));
+                    btnRemoveChild.setVisibility(View.GONE);
                 }
             }
         });
@@ -339,8 +338,12 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
         btnAddChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if (childModels.size() <= 2) {
                     btnAddChild.setEnabled(true);
+                    btnAddChild.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_drawable_blue));
+
                     boolean isAnyEmpty = false;
                     for (int i = 0; i < childModels.size(); i++) {
                         View view = recyclerViewChild.getLayoutManager().findViewByPosition(i);
@@ -454,15 +457,19 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
                         childModels.add(model);
                         customerChildAdapter.notifyDataSetChanged();
 
+                        if (childModels.size()<=0){
+                            btnRemoveChild.setVisibility(View.GONE);
+                        }else {
+                            btnRemoveChild.setVisibility(View.VISIBLE);
+                        }
 
                     }
                 } else {
                     Toast.makeText(mContext, "You are not allowed to add more than 3 children details", Toast.LENGTH_SHORT).show();
-                    btnAddChild.setBackground(getResources().getDrawable(R.drawable.button_rectangle_grey));
+                    btnAddChild.setBackgroundResource(R.drawable.button_rectangle_grey);
                 }
             }
         });
-        btnFullFragmentCancel = main.findViewById(R.id.btnFullFragmentCancel);
         btnFullFragmentSubmit = main.findViewById(R.id.btnFullFragmentSubmit);
 
         btnFullFragmentCancel.setOnClickListener(this);
@@ -817,7 +824,18 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnCancel:
+            case R.id.btnFullFragmentCancel:
+                sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.clear();
+                editor.apply();
+
+                quickSharedPreferences = mContext.getSharedPreferences(quickPreference, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor1 = quickSharedPreferences.edit();
+                editor1.clear();
+                editor1.apply();
+
+                getActivity().finish();
                 break;
             case R.id.btnFullFragmentSubmit:
 
@@ -1394,8 +1412,7 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
                     editor.clear();
                     editor.apply();
                 } else {
-                    Intent i = new Intent(mContext, MainActivity.class);
-                    startActivity(i);
+                    getActivity().finish();
                     sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.clear();
@@ -1529,7 +1546,6 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
         }
         if (sharedpreferences.contains("MobileNumber")) {
             tieMobileNumPrimary.setText(sharedpreferences.getString("MobileNumber", ""));
-            tieMobileNumPrimary.setFocusable(false);
         }
         if (sharedpreferences.contains("email")) {
             if (TextUtils.isEmpty(sharedpreferences.getString("email", ""))) {

@@ -6,7 +6,7 @@ package quay.com.ipos.inventory.modal;
 
 public class POItemDetail {
     private String title;
-    public double poItemQty;
+    public int poItemQty;
     public double poItemUnitPrice;
     public double poItemAmount;
     public double poItemIGSTValue;
@@ -16,11 +16,11 @@ public class POItemDetail {
     public double poItemCGSTPer;
     public double poItemSGSTPer;
 
-    public double getPoItemQty() {
+    public int getPoItemQty() {
         return poItemQty;
     }
 
-    public void setPoItemQty(double poItemQty) {
+    public void setPoItemQty(int poItemQty) {
         this.poItemQty = poItemQty;
     }
 
