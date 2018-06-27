@@ -5,7 +5,7 @@ import java.util.List;
 public class Business {
 
 
-    public List<KeyBusinessInfo> KeyBusinessInfo;
+    public List<KeyBusinessInfo> keyBusinessInfo;
 
 
 

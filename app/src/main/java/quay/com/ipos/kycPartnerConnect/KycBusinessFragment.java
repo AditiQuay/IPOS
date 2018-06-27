@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -91,13 +90,13 @@ public class KycBusinessFragment extends Fragment implements InitInterface, View
     }
 
     private void setData(PCModel pcModel) {
-        if (pcModel == null || pcModel.Business == null || pcModel.Business.KeyBusinessInfo == null) {
+        if (pcModel == null || pcModel.Business == null || pcModel.Business.keyBusinessInfo == null) {
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }
         textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , pcModel.psslastUpdated));
 
-        List<KeyBusinessInfo> data = pcModel.Business.KeyBusinessInfo;
+        List<KeyBusinessInfo> data = pcModel.Business.keyBusinessInfo;
         businessAdapter.loadData(data);
 
     }
@@ -185,13 +184,13 @@ public class KycBusinessFragment extends Fragment implements InitInterface, View
             BusinessLocation businessLocation = new BusinessLocation();
 
             KeyBusinessInfo keyBusinessInfo = new KeyBusinessInfo();
-            keyBusinessInfo.id = mpcModel.Business.KeyBusinessInfo.size() + 1;
+            keyBusinessInfo.id = mpcModel.Business.keyBusinessInfo.size() + 1;
             keyBusinessInfo.BusinessLocation = businessLocation;
 
-            if (mpcModel.Business.KeyBusinessInfo != null) {
-                mpcModel.Business.KeyBusinessInfo.add(keyBusinessInfo);
+            if (mpcModel.Business.keyBusinessInfo != null) {
+                mpcModel.Business.keyBusinessInfo.add(keyBusinessInfo);
             }
-            //  businessAdapter.loadData(mpcModel.Business.KeyBusinessInfo);
+            //  businessAdapter.loadData(mpcModel.Business.keyBusinessInfo);
 
 
             KYCMain connectMain = (KYCMain) getActivity();

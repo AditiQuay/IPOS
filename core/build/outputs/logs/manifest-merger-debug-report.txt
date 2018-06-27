@@ -1,27 +1,8 @@
 -- Merging decision tree log ---
 manifest
-<<<<<<< HEAD
 ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
-=======
-<<<<<<< HEAD
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
-	package
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:70-106
-		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
-	xmlns:android
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:11-69
-application
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
-=======
-ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
->>>>>>> f6f2a987d0216e057a6934dddfa05a028d25cb49
 	package
 		ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:70-106
 		INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml
@@ -29,9 +10,4 @@ INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\An
 	xmlns:android
 		ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:11-69
 application
-<<<<<<< HEAD
 ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:4:5-32
-=======
-ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
->>>>>>> 6e144cb28da018e799fb5d2bb8a9f617387e277f
->>>>>>> f6f2a987d0216e057a6934dddfa05a028d25cb49

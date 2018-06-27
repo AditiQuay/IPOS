@@ -350,9 +350,11 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
             @Override
             public void onResponse(Call<PartnerConnectResponse> call, Response<PartnerConnectResponse> response) {
                 Log.d(TAG, "response.raw().request().url();" + response.raw().request().url());
+
                 if (response.code() != 200) {
-                    Log.i(TAG, "Code:" + response.code() + ", Message:" + response.message());
-                    Toast.makeText(PartnerConnectMain.this, "Code:" + response.code() + ", Message:" + response.message(), Toast.LENGTH_SHORT).show();
+                    Log.e(TAG, "Code:" + response.code() + ", Message:" + response.message());
+                    Log.e(TAG, "Server Code:" + response.body().statusCode + ",Server Message:" + response.body().errorDescription);
+                     Toast.makeText(PartnerConnectMain.this, "Code:" + response.body().statusCode + ", Message:" + response.body().errorDescription, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try {
@@ -410,18 +412,21 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
             return;
         }
         isSubmitReq = true;
-        showProgress("Please Wait");
+        showProgress("Please Wait...");
         PCModel pcModelUpdate = getPcModelData().getValue();
         pcModelUpdate.EntityID = Prefs.getIntegerPrefs(Constants.entityCode);
         pcModelUpdate.empCode = Prefs.getStringPrefs(Constants.employeeCode);
-        writeFile(new Gson().toJson(getPcModelData().getValue()));
+        Log.i("contact",new Gson().toJson(pcModelUpdate.Contact) );
+
+        writeFile(new Gson().toJson(pcModelUpdate));
 
 
 
-        Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple().updatePartnerConnectData(getPcModelData().getValue());
+        Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple().updatePartnerConnectData(pcModelUpdate);
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectUpdateResponse> call, Response<PartnerConnectUpdateResponse> response) {
+                Log.e("data", new Gson().toJson(response.body()));
                 try {
                     isSubmitReq = false;
                     dismissProgress();
@@ -433,12 +438,19 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
 
                 if (response.code() != 200) {
                     IPOSApplication.showToast("Code:" + response.code() + " message:" + response.message());
+                    if (response.body() == null) {
+                        return;
+                    }
+                    Log.e(TAG, "Server Code:" + response.body().statusCode + ",Server Message:" + response.body().errorDescription);
+                    Toast.makeText(PartnerConnectMain.this, "Code:" + response.body().statusCode + ", Message:" + response.body().errorDescription, Toast.LENGTH_SHORT).show();
+
                     return;
                 }
                 try {
                     Log.i(TAG, "Code:" + response.code() + " message:" + response.message());
 
                     IPOSApplication.showToast("Data Updated.");
+                    finish();
                     Log.i("response", response.body().statusCode + "," + response.body().message);
                     Log.i("JsonObject", response.toString() + response.body());
                     if (response.body() != null) {
@@ -490,15 +502,15 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
         }
 
 
-        if (pcModel.Business.KeyBusinessInfo == null) {
-            String error = "Business KeyBusinessInfo is null";
+        if (pcModel.Business.keyBusinessInfo == null) {
+            String error = "Business keyBusinessInfo is null";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }*/
 
         //validate business info
-      /*  for (KeyBusinessInfo keyBusinessInfo : pcModel.Business.KeyBusinessInfo) {
+      /*  for (keyBusinessInfo keyBusinessInfo : pcModel.Business.keyBusinessInfo) {
 
 
             if (keyBusinessInfo.mPartnerType == null || keyBusinessInfo.mPartnerType.isEmpty()) {

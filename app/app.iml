@@ -92,16 +92,8 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/check-manifest" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
-=======
->>>>>>> 6e144cb28da018e799fb5d2bb8a9f617387e277f
-=======
->>>>>>> f6f2a987d0216e057a6934dddfa05a028d25cb49
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-verifier" />
@@ -111,7 +103,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifest-checker" />
->>>>>>> 93000ab627a79ed400f49466b24876c7ae443e05
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/prebuild" />
@@ -204,14 +195,6 @@
     <orderEntry type="library" name="Gradle: com.squareup.picasso:picasso-2.71828" level="project" />
     <orderEntry type="library" name="Gradle: android.arch.lifecycle:livedata-core-1.1.1" level="project" />
     <orderEntry type="library" name="Gradle: com.android.support:support-v13-27.1.1" level="project" />
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 93000ab627a79ed400f49466b24876c7ae443e05
-=======
->>>>>>> b8ef182e44ba41f2fd0aa69e758364eada78c244
->>>>>>> 6e144cb28da018e799fb5d2bb8a9f617387e277f
->>>>>>> f6f2a987d0216e057a6934dddfa05a028d25cb49
     <orderEntry type="module" module-name="core" />
     <orderEntry type="module" module-name="zbar" />
   </component>
