@@ -168,7 +168,11 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         }
         NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
         noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(1);
+<<<<<<< HEAD
         noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(Prefs.getStringPrefs("EntityName"));
+=======
+        noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(Prefs.getStringPrefs(Constants.EntityName));
+>>>>>>> c0bd7aa499dc8b8154c9746f2e4af83654df7820
         noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(Prefs.getStringPrefs(Constants.entityStateCode));
         distributotes.add(noGetEntityBuisnessPlacesModal);
 
@@ -514,14 +518,15 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         int qty = 0;
         double payAmount=0.0;
         int discountItems = 0;
-        int gst = 0;
-        int totalGST = 0;
-        int cgst = 0;
-        int sgst = 0;
+        double gst = 0;
+        double totalGST = 0;
+        double cgst = 0;
+        double sgst = 0;
         double totalItemsAmount = 0.0;
         double discountPrice = 0.0;
         int totalPoints = 0;
         int noOfItems = 0;
+        double discountPer=0;
         for (RealmNewOrderCart realmNewOrderCart : realmNewOrderCarts1) {
             if (!realmNewOrderCart.isFreeItem())
                 noOfItems = noOfItems + 1;
@@ -538,21 +543,23 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                         JSONObject jsonObject = array.optJSONObject(k);
                         if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
                             discountPrice = discountPrice + jsonObject.optInt("discountTotal");
+                            discountPer = discountPer + jsonObject.optInt("discountTotal");
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }else {
+                discountPer=realmNewOrderCart.getTotalPrice();
                 discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
             }
-            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
+            totalGST = (int) (realmNewOrderCart.getGstPerc() * (realmNewOrderCart.getTotalPrice()-discountPer)/ 100);
             gst = gst + totalGST;
 
 
 
-            cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
-            sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
+            cgst =  (cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPer) / 100));
+            sgst =  (sgst + (realmNewOrderCart.getSgst() *( realmNewOrderCart.getTotalPrice()-discountPer) / 100));
 
 
 
@@ -569,7 +576,9 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount));
         tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(cgst));
         tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(sgst));
-        tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+        double roundOff=Math.floor(payAmount);
+        double roundofff=payAmount-roundOff;
+        tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(roundofff));
         tvTotalDiscountPrice.setText(""+getActivity().getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(discountPrice));
         tvTotalDiscountDetail.setText("(Item " + discountItems + ")");
 
@@ -1864,10 +1873,10 @@ if (realmNewOrderCarts.getQty()>1) {
         int qty = 0;
         double payAmount=0.0;
         int discountItems = 0;
-        int gst = 0;
-        int totalGST = 0;
-        int cgst = 0;
-        int sgst = 0;
+        double gst = 0;
+        double totalGST = 0;
+        double cgst = 0;
+        double sgst = 0;
         double totalItemsAmount = 0.0;
         double discountPrice = 0.0;
         int totalPoints = 0;
@@ -1904,13 +1913,13 @@ if (realmNewOrderCarts.getQty()>1) {
                 discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
                 discountPartiItem=realmNewOrderCart.getTotalPrice();
             }
-            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
+            totalGST = (realmNewOrderCart.getGstPerc() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100);
             gst = gst + totalGST;
 
 
 
-            cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
-            sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
+            cgst =  (cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100));
+            sgst =  (sgst + (realmNewOrderCart.getSgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100));
 
 
 
@@ -1921,28 +1930,30 @@ if (realmNewOrderCarts.getQty()>1) {
             try {
                 JSONArray discountArray = new JSONArray(realmNewOrderCart.getDiscount());
                 for (int k = 0; k < discountArray.length(); k++) {
-                    JSONObject jsonObjectScheme=new JSONObject();
-                    JSONObject jsonObject = discountArray.optJSONObject(k);
+                    JSONObject jsonObjectScheme = new JSONObject();
 
-                  JSONArray jsonArrayRule=  jsonObject.getJSONArray("rule");
+                        JSONObject jsonObject = discountArray.optJSONObject(k);
+                    if (!jsonObject.optBoolean("discountTotalStrike")) {
+                        JSONArray jsonArrayRule = jsonObject.getJSONArray("rule");
 
-                  for (int m=0;m<jsonArrayRule.length();m++){
+                        for (int m = 0; m < jsonArrayRule.length(); m++) {
 
-                      JSONObject jsonObject1=jsonArrayRule.optJSONObject(m);
-                      if (jsonObject1.optBoolean("isRuleApplied")){
-                          jsonObjectScheme.put("schemeID",k+1);
-                          jsonObjectScheme.put("ruleID",jsonObject1.optString("ruleID"));
-                          jsonObjectScheme.put("discountValue",jsonObject.optString("discountTotal"));
-                          jsonObjectScheme.put("discountPerc",jsonObject1.optString("sDiscountValue"));
-                          jsonObjectScheme.put("oldSchemeID",k+1);
-                          jsonObjectScheme.put("oldRuleID",jsonObject1.optString("ruleID"));
+                            JSONObject jsonObject1 = jsonArrayRule.optJSONObject(m);
+                            if (jsonObject1.optBoolean("isRuleApplied")) {
+                                jsonObjectScheme.put("schemeID", k + 1);
+                                jsonObjectScheme.put("ruleID", jsonObject1.optString("ruleID"));
+                                jsonObjectScheme.put("discountValue", jsonObject.optString("discountTotal"));
+                                jsonObjectScheme.put("discountPerc", jsonObject1.optString("sDiscountValue"));
+                                jsonObjectScheme.put("oldSchemeID", k + 1);
+                                jsonObjectScheme.put("oldRuleID", jsonObject1.optString("ruleID"));
 
 
-                      }
+                            }
 
-                  }
-                  if (!jsonObjectScheme.toString().equalsIgnoreCase("{}"))
-                    scheme.put(jsonObjectScheme);
+                        }
+                        if (!jsonObjectScheme.toString().equalsIgnoreCase("{}"))
+                            scheme.put(jsonObjectScheme);
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -1985,7 +1996,8 @@ if (realmNewOrderCarts.getQty()>1) {
         double totalValueWithoutTax=totalItemsAmount;
         JSONObject jsonObject=new JSONObject();
 
-
+        double roundOff=Math.floor(payAmount);
+        double roundofff=payAmount-roundOff;
         try {
             jsonObject.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
@@ -2007,7 +2019,7 @@ if (realmNewOrderCarts.getQty()>1) {
             jsonObject.put("totalValueWithoutTax",totalValueWithoutTax);
             jsonObject.put("totalTaxValue",cgst+sgst);
             jsonObject.put("totalDiscountValue",discountPrice);
-            jsonObject.put("totalRoundingOffValue",0);
+            jsonObject.put("totalRoundingOffValue",Util.indianNumberFormat(roundofff));
             jsonObject.put("cartDetail",arrayCart);
           //  jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray());
             jsonObject.put("approvalStat",1);

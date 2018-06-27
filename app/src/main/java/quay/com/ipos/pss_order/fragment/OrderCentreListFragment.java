@@ -88,6 +88,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     private RecyclerView recycler_viewAccepted,recycler_viewDispatch,recycler_viewDelivered,recycler_viewCancelled;
     private LinearLayout llNewRecyclerCancelled,llNewRecyclerDelivered,llNewRecyclerDispatch,llNewRecyclerAccept,llNewRecycler;
 
+    int click=1;
     // newInstance constructor for creating fragment with arguments
     public OrderCentreListFragment newInstance(int position) {
         OrderCentreListFragment fragmentFirst = new OrderCentreListFragment();
@@ -105,10 +106,12 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
         initializeComponent(view);
         setAdapter();
 
-        getSummary("");
+
 
         return view;
     }
+
+
 
     private void clearData(){
         Realm realm=Realm.getDefaultInstance();
@@ -387,10 +390,38 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                     mSelectedpos = arg0.getChildPosition(child);
 //                    AppLog.e(TAG, "item:: " + arg0.getChildPosition(child));
 //                    selectPinned(arg0.getChildPosition(child));
-                    Intent mIntent = new Intent(getActivity(),OrderCentreDetailsActivity.class);
-                    mIntent.putExtra("etaDate",orderList.get(mSelectedpos).getEtaDate().replace("PO",""));
-                    mIntent.putExtra("requestCode",orderList.get(mSelectedpos).getRequestCode().replace("PO",""));
-                    getActivity().startActivity(mIntent);
+
+                    if (Util.isConnected()) {
+                        if (click==1){
+                            Intent mIntent = new Intent(getActivity(), OrderCentreDetailsActivity.class);
+                            mIntent.putExtra("etaDate", orderList.get(mSelectedpos).getEtaDate().replace("PO", ""));
+                            mIntent.putExtra("requestCode", orderList.get(mSelectedpos).getRequestCode().replace("PO", ""));
+                            getActivity().startActivity(mIntent);
+                        }else if (click==2){
+                            Intent mIntent = new Intent(getActivity(), OrderCentreDetailsActivity.class);
+                            mIntent.putExtra("etaDate", orderListA.get(mSelectedpos).getEtaDate().replace("PO", ""));
+                            mIntent.putExtra("requestCode", orderListA.get(mSelectedpos).getRequestCode().replace("PO", ""));
+                            getActivity().startActivity(mIntent);
+                        }else if (click==3){
+                            Intent mIntent = new Intent(getActivity(), OrderCentreDetailsActivity.class);
+                            mIntent.putExtra("etaDate", orderListDis.get(mSelectedpos).getEtaDate().replace("PO", ""));
+                            mIntent.putExtra("requestCode", orderListDis.get(mSelectedpos).getRequestCode().replace("PO", ""));
+                            getActivity().startActivity(mIntent);
+                        }else if (click==4){
+                            Intent mIntent = new Intent(getActivity(), OrderCentreDetailsActivity.class);
+                            mIntent.putExtra("etaDate", orderListDel.get(mSelectedpos).getEtaDate().replace("PO", ""));
+                            mIntent.putExtra("requestCode", orderListDel.get(mSelectedpos).getRequestCode().replace("PO", ""));
+                            getActivity().startActivity(mIntent);
+                        }else if (click==5){
+                            Intent mIntent = new Intent(getActivity(), OrderCentreDetailsActivity.class);
+                            mIntent.putExtra("etaDate", orderListCan.get(mSelectedpos).getEtaDate().replace("PO", ""));
+                            mIntent.putExtra("requestCode", orderListCan.get(mSelectedpos).getRequestCode().replace("PO", ""));
+                            getActivity().startActivity(mIntent);
+                        }
+
+                    }else {
+                        Util.showToast("No Internet Available");
+                    }
                     return true;
 
                 }
@@ -463,6 +494,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
 
         switch (id){
             case R.id.llNew:
+                click=1;
                 selectItemNew();
                 setRealmData(1);
                 llNewRecycler.setVisibility(View.VISIBLE);
@@ -475,6 +507,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                 break;
 
             case R.id.llAccepted:
+                click=2;
                 selectItemAccepted();
                 setRealmData(2);
                 llNewRecycler.setVisibility(View.GONE);
@@ -485,6 +518,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                 break;
 
             case R.id.llDispatched:
+                click=3;
                 selectItemDispatched();
                 setRealmData(3);
                 llNewRecycler.setVisibility(View.GONE);
@@ -495,6 +529,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                 break;
 
             case R.id.llDelivered:
+                click=4;
                 selectItemDelivered();
                 setRealmData(4);
                 llNewRecycler.setVisibility(View.GONE);
@@ -505,6 +540,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
                 break;
 
             case R.id.llCancelled:
+                click=5;
                 selectItemCancel();
                 setRealmData(5);
                 llNewRecycler.setVisibility(View.GONE);
@@ -575,6 +611,7 @@ public class OrderCentreListFragment extends BaseFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
+        getSummary("");
         ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.order_centre));
     }
     public void getSummary(String jsonObject) {

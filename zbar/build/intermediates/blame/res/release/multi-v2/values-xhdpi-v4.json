@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\QuayApp\\IPOS\\zbar\\build\\intermediates\\res\\merged\\release\\values-xhdpi-v4\\values-xhdpi-v4.xml",
+            "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\zbar\\build\\intermediates\\res\\merged\\release\\values-xhdpi-v4\\values-xhdpi-v4.xml",
             "map": [
                 {
-                    "source": "D:\\QuayApp\\IPOS\\core\\build\\intermediates\\packaged_res\\release\\values-xhdpi-v4\\values-xhdpi-v4.xml",
+                    "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\packaged_res\\release\\values-xhdpi-v4\\values-xhdpi-v4.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -16,10 +16,10 @@
             ]
         },
         {
-            "outputFile": "D:\\QuayApp\\IPOS\\zbar\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-xhdpi-v4\\values-xhdpi-v4.xml",
+            "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\zbar\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-xhdpi-v4\\values-xhdpi-v4.xml",
             "map": [
                 {
-                    "source": "D:\\QuayApp\\IPOS\\core\\build\\intermediates\\packaged_res\\release\\values-xhdpi-v4\\values-xhdpi-v4.xml",
+                    "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\packaged_res\\release\\values-xhdpi-v4\\values-xhdpi-v4.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

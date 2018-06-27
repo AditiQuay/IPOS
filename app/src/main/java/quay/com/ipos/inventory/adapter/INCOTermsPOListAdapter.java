@@ -46,6 +46,10 @@ public class INCOTermsPOListAdapter extends RecyclerView.Adapter<INCOTermsPOList
         if (stringArrayList.get(position).isPoPayByReceiver()){
             holder.reciver.setChecked(true);
         }
+        holder.sender.setEnabled(false);
+        holder.reciver.setEnabled(false);
+        holder.sender.setClickable(false);
+        holder.reciver.setClickable(false);
 
 
 

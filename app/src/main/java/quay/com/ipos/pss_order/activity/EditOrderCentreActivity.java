@@ -171,7 +171,11 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
 
         NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
         noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(1);
+<<<<<<< HEAD
         noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(Prefs.getStringPrefs("EntityName"));
+=======
+        noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(Prefs.getStringPrefs(Constants.EntityName));
+>>>>>>> c0bd7aa499dc8b8154c9746f2e4af83654df7820
         noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(Prefs.getStringPrefs(Constants.entityStateCode));
         distributotes.add(noGetEntityBuisnessPlacesModal);
 
@@ -1927,28 +1931,30 @@ if (realmNewOrderCarts.getQty()>1) {
             try {
                 JSONArray discountArray = new JSONArray(realmNewOrderCart.getDiscount());
                 for (int k = 0; k < discountArray.length(); k++) {
-                    JSONObject jsonObjectScheme=new JSONObject();
+                    JSONObject jsonObjectScheme = new JSONObject();
                     JSONObject jsonObject = discountArray.optJSONObject(k);
 
-                  JSONArray jsonArrayRule=  jsonObject.getJSONArray("rule");
+                    if (!jsonObject.optBoolean("discountTotalStrike")) {
+                        JSONArray jsonArrayRule = jsonObject.getJSONArray("rule");
 
-                  for (int m=0;m<jsonArrayRule.length();m++){
+                        for (int m = 0; m < jsonArrayRule.length(); m++) {
 
-                      JSONObject jsonObject1=jsonArrayRule.optJSONObject(m);
-                      if (jsonObject1.optBoolean("isRuleApplied")){
-                          jsonObjectScheme.put("schemeID",k+1);
-                          jsonObjectScheme.put("ruleID",jsonObject1.optString("ruleID"));
-                          jsonObjectScheme.put("discountValue",jsonObject.optString("discountTotal"));
-                          jsonObjectScheme.put("discountPerc",jsonObject1.optString("sDiscountValue"));
-                          jsonObjectScheme.put("oldSchemeID",k+1);
-                          jsonObjectScheme.put("oldRuleID",jsonObject1.optString("ruleID"));
+                            JSONObject jsonObject1 = jsonArrayRule.optJSONObject(m);
+                            if (jsonObject1.optBoolean("isRuleApplied")) {
+                                jsonObjectScheme.put("schemeID", k + 1);
+                                jsonObjectScheme.put("ruleID", jsonObject1.optString("ruleID"));
+                                jsonObjectScheme.put("discountValue", jsonObject.optString("discountTotal"));
+                                jsonObjectScheme.put("discountPerc", jsonObject1.optString("sDiscountValue"));
+                                jsonObjectScheme.put("oldSchemeID", k + 1);
+                                jsonObjectScheme.put("oldRuleID", jsonObject1.optString("ruleID"));
 
 
-                      }
+                            }
 
-                  }
-                  if (!jsonObjectScheme.toString().equalsIgnoreCase("{}"))
-                    scheme.put(jsonObjectScheme);
+                        }
+                        if (!jsonObjectScheme.toString().equalsIgnoreCase("{}"))
+                            scheme.put(jsonObjectScheme);
+                    }
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

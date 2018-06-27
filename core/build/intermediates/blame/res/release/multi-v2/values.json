@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\QuayApp\\IPOS\\core\\build\\intermediates\\res\\merged\\release\\values\\values.xml",
+            "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\res\\merged\\release\\values\\values.xml",
             "map": [
                 {
-                    "source": "D:\\QuayApp\\IPOS\\core\\src\\main\\res\\values\\strings.xml",
+                    "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\src\\main\\res\\values\\strings.xml",
                     "from": {
                         "startLines": "2,1",
                         "startColumns": "4,4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "D:\\QuayApp\\IPOS\\core\\src\\main\\res\\values\\colors.xml",
+                    "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\src\\main\\res\\values\\colors.xml",
                     "from": {
                         "startLines": "4,3,2",
                         "startColumns": "4,4,4",
@@ -40,10 +40,10 @@
             ]
         },
         {
-            "outputFile": "D:\\QuayApp\\IPOS\\core\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values\\values.xml",
+            "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
-                    "source": "D:\\QuayApp\\IPOS\\core\\src\\main\\res\\values\\strings.xml",
+                    "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\src\\main\\res\\values\\strings.xml",
                     "from": {
                         "startLines": "2,1",
                         "startColumns": "4,4",
@@ -60,7 +60,7 @@
                     }
                 },
                 {
-                    "source": "D:\\QuayApp\\IPOS\\core\\src\\main\\res\\values\\colors.xml",
+                    "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\src\\main\\res\\values\\colors.xml",
                     "from": {
                         "startLines": "4,3,2",
                         "startColumns": "4,4,4",

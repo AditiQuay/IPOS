@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="D:\QuayApp\IPOS\zbar\src\main\assets"/><source path="D:\QuayApp\IPOS\zbar\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\QuayApp\IPOS\zbar\src\debug\assets"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="main"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\assets"/><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\debug\assets"/></dataSet></merger>
+>>>>>>> c0bd7aa499dc8b8154c9746f2e4af83654df7820

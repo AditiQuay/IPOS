@@ -333,7 +333,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 etAddress.setText(realmGRNDetails.getTransporterAddress());
                 etEwayBill.setText(realmGRNDetails.getTransporterEWayBillNumber());
 
-                Log.e(TAG,"PoItemDetails:::"+realmGRNDetails.getPoItemDetails());
+                Log.e(TAG, "PoItemDetails:::" + realmGRNDetails.getPoItemDetails());
 
                 //Items Details
                 JSONArray array = new JSONArray(realmGRNDetails.getPoItemDetails());

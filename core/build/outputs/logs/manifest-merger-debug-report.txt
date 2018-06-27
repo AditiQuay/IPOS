@@ -1,13 +1,33 @@
 -- Merging decision tree log ---
 manifest
+<<<<<<< HEAD
 ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+=======
+<<<<<<< HEAD
+ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+=======
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+>>>>>>> 19c6ecd5f33e06c148f205f80df2a76863aadc96
+>>>>>>> c0bd7aa499dc8b8154c9746f2e4af83654df7820
 	package
-		ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:70-106
-		INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml
-		INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:3:70-106
+		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml
+		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:11-69
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:3:11-69
 application
+<<<<<<< HEAD
 ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+=======
+<<<<<<< HEAD
+ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+=======
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+>>>>>>> 19c6ecd5f33e06c148f205f80df2a76863aadc96
+>>>>>>> c0bd7aa499dc8b8154c9746f2e4af83654df7820

@@ -34,12 +34,13 @@
             android:id="@+id/searchViewCatalogue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="false"
             android:layout_marginLeft="@dimen/dim_8"
             android:layout_marginRight="@dimen/dim_8"
             android:alpha="0.7"
             android:focusedByDefault="false"
             android:elevation="2dp"
-            android:inputType="number"
+            android:inputType="text"
             app:iconifiedByDefault="false"
             app:queryHint="Search..." />
 

@@ -14,6 +14,7 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -105,7 +106,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     boolean checkCash=false;
     boolean checkCardAmt=false, checkCard=false,checkCardExpYear=false,checkCardMonth=false,checkCardDigit=false;
     String[] arrMonth;
-    boolean sendOTP=false,sendVerify = false,sendRedeem=false;
+    boolean sendOTP=false,sendVerify = false,sendRedeem=false,redeemed=false;
     //1 means data is synced and 0 means data is not synced
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
@@ -423,8 +424,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         }else {
             String order = Prefs.getStringPrefs(Constants.KEY_ORDER_ID);
             orderNumber = Integer.parseInt(order);
-            orderNumber++;
-            order = orderNumber+"";
+
             if (SharedPrefUtil.getString("mInfoArrayList", "", mContext) != null) {
                 String json2 = SharedPrefUtil.getString("mInfoArrayList", "", mContext);
                 if (!json2.equalsIgnoreCase(""))
@@ -436,8 +436,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     }
                 }
                 if(!isContained){
+                    orderNumber++;
+                    order = orderNumber+"";
                     Prefs.putStringPrefs(Constants.KEY_ORDER_ID,Util.generateOrderFormat(orderNumber)+"");
                 }else {
+
                     orderNumber = Integer.parseInt(order);
                 }
             }
@@ -474,7 +477,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",this),LoginResult.class);
+                    LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",this),LoginResult.class);
                     recentOrder= new RecentOrderList();
                     recentOrder.setBillDate(billingSync.getOrderDateTime());
                     recentOrder.setBillPrice(paymentRequest.getTotalValueWithTax()+"");
@@ -482,12 +485,19 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
                     recentOrder.setStoreState("");
                     recentOrder.setStoreCity("");
                     recentOrders.add(recentOrder);
-                    db.updateCustomerRecentOrders(Util.getCustomGson().toJson(recentOrders));
+                    db.updateCustomerRecentOrders(Util.getCustomGson().toJson(recentOrders), mCustomerID);
+                    db.updateCustomerBillDate(billingSync.getOrderDateTime(), mCustomerID);
+                    db.updateCustomerBillPrice(paymentRequest.getTotalValueWithTax()+"", mCustomerID);
+                }
+                for (int i =0 ; i < paymentRequest.getCartDetail().size(); i++)
+                {
+                    int updatedQty = paymentRequest.getCartDetail().get(i).getMaterialStockAvail()-paymentRequest.getCartDetail().get(i).getMaterialQty();
+                    db.updateProductStock(updatedQty,paymentRequest.getCartDetail().get(i).getMaterialID());
                 }
             }
-//            billingSyncs = db.getAllRetailBillingOrders();
         }catch (Exception e){
-
+            System.out.println(e);
+            AppLog.e("TAG",e.getMessage());
         }
     }
     private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();
@@ -577,7 +587,7 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
                                     points = paymentRequest.getOrderLoyality()+ Integer.parseInt(loyalty);
                                     db.updateCustomerPoints(points+"",mCustomerID);
                                 }else {
-                                    db.updateCustomerPoints(paymentRequest.getOrderLoyality().toString(),mCustomerID);
+                                    db.updateCustomerPoints((paymentRequest.getOrderLoyality()-IPOSApplication.totalpointsToRedeemValue)+"",mCustomerID);
                                 }
                             }
 //                            db.updateCustomerPoints(paymentRequest.getOrderLoyality().toString(),mCustomerID);
@@ -777,7 +787,10 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
 
 
                 if(spinner.getSelectedItem()!=null && !spinner.getSelectedItem().toString().equalsIgnoreCase(""))
-                    cardType = spinner.getSelectedItem().toString();
+                    if(spinner.getSelectedItemPosition()!=0)
+                        cardType = spinner.getSelectedItem().toString();
+                    else
+                        Util.showToast("Please select Card type", PaymentModeActivity.this);
                 else {
                     Util.showToast("Please select Card type", PaymentModeActivity.this);
 
@@ -855,6 +868,7 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
                         etCashAmount.setText(totalAmount+"");
                         cashAmount=totalAmount;
                     }
+
                     checkCard=true;
                 }else {
                     checkCard=false;
@@ -888,10 +902,15 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
             case R.id.tvResendOTP:
                 if(!sendVerify){
                     if(redeemValue>0) {
-                        sendOTP = true;
-                        etPointToRedeem.setEnabled(false);
-                        etRedeemValue.setEnabled(false);
-                        sendOTPtoServer();
+                        if(redeemValue<=points) {
+                            sendOTP = true;
+                            etPointToRedeem.setEnabled(false);
+                            etRedeemValue.setEnabled(false);
+                            sendOTPtoServer();
+                        }
+                        else {
+                            Util.showToast("Redeem points exceeds", PaymentModeActivity.this);
+                        }
                     }else
                         Util.showToast("No points to redeem", PaymentModeActivity.this );
                 }else {
@@ -916,23 +935,36 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
                     }
                 break;
             case R.id.buttonRedeem:
-                if(sendVerify) {
+                if(!sendVerify) {
                     if (redeemValue > 0) {
                         sendRedeem = true;
                         if (sendRedeem) {
                             sendRedeem = false;
+                            redeemed = true;
                             Util.showToast("Redeem points successfully", PaymentModeActivity.this);
                             llVerifyRedeem.setVisibility(View.VISIBLE);
                             IPOSApplication.totalpointsToRedeem = points1;
                             IPOSApplication.totalpointsToRedeemValue = redeemValue;
 //                            mRedeemListener.redeem(points1,redeemValue);
 //                            f.dismiss();
+                            totalAmount = totalAmount - redeemValue;
+                            tvBalance.setText(Util.getIndianNumberFormat(totalAmount+""));
                             buttonRedeem.setVisibility(View.GONE);
+                            if(!checkCash){
+                                etCashAmount.setText(totalAmount+"");
+                                cashAmount=totalAmount;
+                            }
+                            if(!checkCard){
+                                etCardAmount.setText(totalAmount+"");
+                                cardAmount=totalAmount;
+                            }
+
+
                         } else {
                             sendRedeem = false;
                         }
                     } else {
-
+                        redeemed=false;
                     }
                 }else {
                     Util.showToast("not verified", PaymentModeActivity.this);
@@ -1031,21 +1063,20 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
                     if (resultObj != null) {
                         OrderSubmitResult mOrderSubmitResult = (OrderSubmitResult) resultObj;
                         if (mOrderSubmitResult.getError() == 200) {
-
                             IPOSApplication.mProductListResult.clear();
                             IPOSApplication.totalAmount = 0.0;
                             setResult(200);
                             Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
                             saveBillToLocalStorage(paymentRequest, NAME_SYNCED_WITH_SERVER);
+                            Util.showToast("Order Sent Successfully", IPOSApplication.getContext());
                             finish();
-
                         } else {
                             saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                             Util.showToast(mOrderSubmitResult.getErrorDescription(), IPOSApplication.getContext());
                             IPOSApplication.mProductListResult.clear();
                             IPOSApplication.totalAmount = 0.0;
                             setResult(200);
-//                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
+                            Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
                             finish();
                         }
                     }
@@ -1053,22 +1084,26 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
 
-
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
                 } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
                 } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
                 } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
                 } else if (httpStatusCode == Constants.CONNECTION_OUT) {
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                    Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
 
                 }
-                Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
+
                 IPOSApplication.mProductListResult.clear();
                 IPOSApplication.totalAmount = 0.0;
                 setResult(200);
@@ -1080,6 +1115,63 @@ LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString
                 mCustomerPointsPer=0;
             }catch (Exception e){
                 System.out.println(e);
+            }
+        }  if(serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_CustomerPointsRedeemRequest)){
+            if(resultObj!=null) {
+                CustomerPointsRedeemResult customerPointsRedeemResult = (CustomerPointsRedeemResult) resultObj;
+                if(customerPointsRedeemResult!=null){
+                    if(customerPointsRedeemResult.getError()==200){
+                        Util.showToast(customerPointsRedeemResult.getMessage(), PaymentModeActivity.this);
+                        if(sendOTP) {
+                            sendOTP=false;
+                            Util.showToast(customerPointsRedeemResult.getMessage(), PaymentModeActivity.this);
+                            llVerifyRedeem.setVisibility(View.VISIBLE);
+
+                            buttonVerify.setVisibility(View.VISIBLE);
+                            buttonVerify.setBackgroundResource(R.drawable.button_drawable);
+                            buttonVerify.setEnabled(true);
+
+                            buttonRedeem.setVisibility(View.INVISIBLE);
+                            buttonRedeem.setEnabled(false);
+                            buttonRedeem.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+
+                            buttonSendOtp.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                            buttonSendOtp.setEnabled(false);
+                        }else {
+                            sendOTP=false;
+                        }
+                    }else {
+                        Util.showToast(customerPointsRedeemResult.getErrorDescription(), PaymentModeActivity.this);
+                    }
+
+                }
+            }
+        }else  if(serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ValidateCustomerPointsRedeemRequest))
+        {
+            if(resultObj!=null) {
+                CustomerPointsRedeemResult customerPointsRedeemResult = (CustomerPointsRedeemResult) resultObj;
+                if (customerPointsRedeemResult != null) {
+                    if (customerPointsRedeemResult.getError() == 200) {
+                        if (sendVerify) {
+                            sendVerify = false;
+                            Util.showToast(customerPointsRedeemResult.getMessage(), PaymentModeActivity.this);
+                            llVerifyRedeem.setVisibility(View.VISIBLE);
+
+                            buttonVerify.setVisibility(View.VISIBLE);
+                            buttonVerify.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                            buttonVerify.setEnabled(false);
+
+                            buttonRedeem.setVisibility(View.VISIBLE);
+                            buttonRedeem.setEnabled(true);
+                            buttonRedeem.setBackgroundResource(R.drawable.button_drawable);
+
+                            buttonSendOtp.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                            buttonSendOtp.setEnabled(false);
+                        } else {
+                            sendVerify = false;
+                        }
+                    }
+                }
             }
         }
     }

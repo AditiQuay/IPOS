@@ -37,14 +37,16 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.My
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyView holder, int position) {
+    public void onBindViewHolder(@NonNull final MyView holder, int position) {
         ActionListModel actionListModel = actionListModels.get(position);
         holder.text1.setText(actionListModel.actionTitle);
-        applyClickEvent(position);
-    }
+        holder.text1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actionListClick.actionListClicked(holder.getAdapterPosition());
 
-    private void applyClickEvent(int position) {
-        actionListClick.actionListClicked(position);
+            }
+        });
     }
 
     @Override

@@ -14,12 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -40,9 +41,11 @@ import quay.com.ipos.inventory.modal.ActionListModel;
 import quay.com.ipos.inventory.modal.GRNProductDetailModel;
 import quay.com.ipos.inventory.modal.OthersTabList;
 import quay.com.ipos.inventory.modal.RealmInventoryTabData;
+import quay.com.ipos.listeners.BatchTabButtonClick;
 import quay.com.ipos.listeners.EdittClickListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
+import quay.com.ipos.listeners.RecyclerItemClickListener;
 import quay.com.ipos.listeners.TabListenerr;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmGRNDetails;
@@ -51,7 +54,7 @@ import quay.com.ipos.realmbean.RealmGRNDetails;
  * Created by niraj.kumar on 6/12/2018.
  */
 
-public class InventoryProduct extends AppCompatActivity implements InitInterface, View.OnClickListener, EdittClickListener, MyListener, ListDialogFragment.DialogListener, ActionListFragment.ActionListener, TabListenerr {
+public class InventoryProduct extends AppCompatActivity implements InitInterface, View.OnClickListener, EdittClickListener, MyListener, ListDialogFragment.DialogListener, ActionDialogFragment.ActionListener, TabListenerr, BatchTabButtonClick {
     private static final String TAG = InventoryProduct.class.getSimpleName();
     private Button btnSave, btnAction, btnAddBatch, btnOthers;
     private RecyclerView recyclerviewBatch, recyclerviewButton;
@@ -75,18 +78,15 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     boolean isDefect;
     private BatchTabAdapter batchTabAdapter;
     private Dialog myDialog;
-
+    private CheckBox checkBox1;
 
     private List<RealmInventoryTabData> tabData = new ArrayList<>();
     private RealmInventoryTabData selectedtabData;
     private List<GRNProductDetailModel> filterModelList = new ArrayList<>();
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // tabData.get(0).modelList.addAll(filterModelList);
-
         setContentView(R.layout.inventory_product_details);
 
         mContext = InventoryProduct.this;
@@ -99,6 +99,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+
     }
 
     @Override
@@ -116,6 +117,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         recyclerviewButton = findViewById(R.id.recyclerviewButton);
         batchEditText = findViewById(R.id.batchEditText);
         imvBarcode = findViewById(R.id.imvBarcode);
+        checkBox1 = findViewById(R.id.checkBox1);
         switchBatchButton = findViewById(R.id.switchBatchButton);
         rLayoutBatchNumber = findViewById(R.id.rLayoutBatchNumber);
         textViewProductQuantity = findViewById(R.id.textViewProductQuantity);
@@ -129,6 +131,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
         imgArrowRight.setOnClickListener(this);
         imgArrowLeft.setOnClickListener(this);
+        checkBox1.setOnClickListener(this);
 
 
     }
@@ -148,7 +151,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         recyclerviewButton.setLayoutManager(horizontalLayoutManager);
-        batchTabAdapter = new BatchTabAdapter(mContext, tabData, this, this);
+        batchTabAdapter = new BatchTabAdapter(mContext, tabData, this, this,this);
         recyclerviewButton.setAdapter(batchTabAdapter);
 
 
@@ -332,15 +335,34 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 } else {
                     int firstPosition = pos;
                     int secondPosition = firstPosition - 1;
+                    pos = secondPosition;
                     setBatchTab(secondPosition);
                 }
                 break;
+            case R.id.checkBox1:
+                if (checkBox1.isChecked()) {
+                    for (GRNProductDetailModel model : selectedtabData.modelList) {
+                        model.setSelected(true);
+                    }
+                } else {
+                    for (GRNProductDetailModel model : selectedtabData.modelList) {
+                        model.setSelected(false);
+                    }
+                }
+                inventoryProdcutDetailAdapter.notifyDataSetChanged();
+
+                break;
             case R.id.btnSave:
+//                for (int i =0;i<selectedtabData.modelList.size();i++){
+//                   GRNProductDetailModel gr = selectedtabData.modelList.get(i);
+//                   if (gr.isSelected()){
+//                       Toast.makeText(mContext,gr.getNumber(),Toast.LENGTH_SHORT).show();
+//                   }
+//                }
                 updateData();
                 break;
             case R.id.btnAction:
                 getActionList();
-
                 break;
             case R.id.btnAddBatch:
                 saveBatchData();
@@ -349,6 +371,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
         }
     }
+
 
     private void getActionList() {
         actionListModels.clear();
@@ -372,7 +395,6 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 actionListModels.add(actionListModel);
             }
             showActionListDialog(actionListModels);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -382,22 +404,19 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     private void setChangeAction(int key, boolean isMove, boolean isDelete, String remark) {
         filterModelList = new ArrayList<>();
         for (GRNProductDetailModel grnProductDetailModel : selectedtabData.modelList) {
-             if (grnProductDetailModel.isSelected) {
-                  grnProductDetailModel.remark = remark;
-                  filterModelList.add(grnProductDetailModel);
-              }
+            if (grnProductDetailModel.isSelected) {
+                grnProductDetailModel.remark = remark;
+                filterModelList.add(grnProductDetailModel);
+            }
         }
-        //set new
         if (!isDelete) {
             for (RealmInventoryTabData model : tabData) {
                 if (model.getTabId() == key) {
                     model.modelList.addAll(filterModelList);
-                    // selectedtabData = model;
                 }
             }
         }
         if (isMove || isDelete) {
-
             selectedtabData.modelList.removeAll(filterModelList);
         }
         inventoryProdcutDetailAdapter = new InventoryProdcutDetailAdapter(mContext, selectedtabData.modelList, this);
@@ -411,16 +430,16 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         grnProductDetailModel.setNumber(batchEditText.getText().toString());
         grnProductDetailModel.setActionTitle(selectedtabData.getTabTitle());
         grnProductDetailModel.setActionID(selectedtabData.getTabId());
+        grnProductDetailModel.setCount(selectedtabData.getCount());
         grnProductDetailModel.setQty(0);
         selectedtabData.modelList.add(grnProductDetailModel);
-//        batchTabAdapter.notifyDataSetChanged();
+
         inventoryProdcutDetailAdapter = new InventoryProdcutDetailAdapter(mContext, selectedtabData.modelList, this);
         recyclerviewBatch.setAdapter(inventoryProdcutDetailAdapter);
 
     }
 
     private void updateData() {
-//        dataNormalList.addAll(dataDefectList);
         Realm realm = Realm.getDefaultInstance();
         RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
         Gson gson = new GsonBuilder().create();
@@ -438,7 +457,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
             JSONArray jsonArray = new JSONArray();
             JSONArray jsonArrayDefects = new JSONArray();
             JSONArray jsonArray1 = new JSONArray();
-            int quantity = 0, quantityDefect = 0;
+            int quantity = 0, quantityDefect = 0, qantityOthers = 0;
             for (int j = 0; j < selectedtabData.modelList.size(); j++) {
                 GRNProductDetailModel grnProductDetailModel = selectedtabData.modelList.get(j);
                 jsonObject1 = new JSONObject();
@@ -457,26 +476,30 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                     jsonArrayDefects.put(jsonObject1);
                 }
 
+            }
 
+            if (selectedtabData.getTabId() == 1) {
+                JSONObject normalBatch = new JSONObject();
+                normalBatch.put("tabTitle", selectedtabData.getTabTitle());
+                normalBatch.put("tabId", selectedtabData.getTabId());
+                normalBatch.put("count", jsonArray.length());
+                normalBatch.put("model", jsonArray);
+                jsonArray1.put(normalBatch);
+            }
+
+            if (selectedtabData.getTabId() == 2) {
+                JSONObject defects = new JSONObject();
+                defects.put("tabTitle", selectedtabData.getTabTitle());
+                defects.put("tabId", selectedtabData.getTabId());
+                defects.put("count", jsonArrayDefects.length());
+                defects.put("model", jsonArrayDefects);
+                jsonArray1.put(defects);
             }
 
 
-            JSONObject normalBatch = new JSONObject();
-            normalBatch.put("tabTitle", "Normal");
-            normalBatch.put("tabId", 1);
-            normalBatch.put("count", 1);
-            normalBatch.put("model", jsonArray);
-            jsonArray1.put(normalBatch);
-
-            JSONObject defects = new JSONObject();
-            defects.put("tabTitle", "Defect");
-            defects.put("tabId", 2);
-            defects.put("count", 1);
-            defects.put("model", jsonArrayDefects);
-            jsonArray1.put(defects);
-
             jsonObject2.put("inQty", quantity);
-            jsonObject2.put("openQty", quantityDefect);
+            int apQty = quantityDefect + qantityOthers;
+            jsonObject2.put("apQty", apQty);
 
 
             jsonObject3.put("data", jsonArray1);
@@ -509,6 +532,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     @Override
     public void onRowClicked(int position) {
         setOthersTab();
+
     }
 
     private void showListDialog(List<OthersTabList> othersTabLists) {
@@ -518,9 +542,12 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     }
 
     private void showActionListDialog(List<ActionListModel> actionListModels) {
+        Toast.makeText(mContext, "Action clicked", Toast.LENGTH_SHORT).show();
 
-        ActionListFragment actionListFragment = ActionListFragment.newInstance(actionListModels);
+        ActionDialogFragment actionListFragment = ActionDialogFragment.newInstance(actionListModels);
+       actionListFragment.show(getSupportFragmentManager(),"TAG");
         actionListFragment.show(getSupportFragmentManager(), "TAG");
+
     }
 
     @Override
@@ -531,6 +558,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     @Override
     public void tabClick(int position) {
+        batchEditText.setText("");
         RealmInventoryTabData realmInventoryTabData = tabData.get(position);
         setRealmData(realmInventoryTabData.getTabId());
     }
@@ -542,25 +570,33 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     @Override
     public void onActionListClicked(int actionId, String actionTitle) {
-//        if(actionId == )
+
+        int action = 0;
         boolean isMove = false;
         boolean isDelete = false;
-        if (actionTitle.contains("Copy")) {
+        if (actionId == 9) {
             isMove = false;
+            action = 2;
         }
-        if (actionTitle.contains("Move")) {
+        if (actionId == 10) {
             isMove = true;
-            ///
+            action = 2;
         }
-        if (actionTitle.contains("Delete")) {
+        if (actionId == 11) {
             isMove = true;
         }
+
         String remark = "";
-        if (actionId == 10 || actionId ==11) {
+        if (actionId == 12 || actionId == 13 || actionId == 14 || actionId == 15) {
             remark = actionTitle;
         }
-        setChangeAction(actionId, isMove, isDelete,remark);
+        setChangeAction(action, isMove, isDelete, remark);
 
-//        setChangeAction(actionId);
+    }
+
+
+    @Override
+    public void onTabClick(int position) {
+
     }
 }

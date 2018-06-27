@@ -172,7 +172,7 @@
     <string name="delivered">Delivered</string>
     <string name="cancelled">Cancelled</string>
     <string name="new_orders">New Order</string>
-    <string name="order_centre">Order Centre</string>
+    <string name="order_centre">Order Center</string>
     <string name="accept">Accept</string>
     <string name="redeem_value">Redeem Value</string>
     <string name="points_to_redeem">Points to Redeem</string>
@@ -225,6 +225,7 @@
         <item>XYZ, ND</item>
     </string-array>
     <string-array name="card_type">
+        <item>Select Card Type</item>
         <item>Master Card</item>
         <item>Maestro Card</item>
         <item>RuPay</item>
@@ -464,6 +465,7 @@
     <string name="invalid_credential_server_error">Invalid credentials</string>
 
     <string name="parsing_server_error">Parsing error! Please try again !!</string>
+    <string name="no_stock_available">No stock available</string>
 
     <!--Compliance Tracker END-->
 

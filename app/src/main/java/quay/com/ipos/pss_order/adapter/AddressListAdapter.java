@@ -20,10 +20,12 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
     private static int lastCheckedPos = 0;
     private ArrayList<RealmBusinessPlaces> stringArrayList;
     private OnItemSelecteListener mListener;
+    View.OnClickListener mOnClickListener;
 
-    public AddressListAdapter(Context mContext, ArrayList<RealmBusinessPlaces> stringArrayList) {
+    public AddressListAdapter(Context mContext, ArrayList<RealmBusinessPlaces> stringArrayList,View.OnClickListener mClickListener) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
+        this.mOnClickListener = mClickListener;
 
     }
 
@@ -43,8 +45,9 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
        // if (stringArrayList.get(position).isSelected())
         holder.radio.setChecked(stringArrayList.get(position).isSelected());
         holder.radio.setTag(position);
-        if (stringArrayList.size()==0){
+        if (stringArrayList.size()==1){
             holder.radio.setEnabled(false);
+            holder.radio.setClickable(false);
         }
         if (stringArrayList.get(position).isSelected()){
             lastChecked = holder.radio;
@@ -70,8 +73,11 @@ public class AddressListAdapter extends RecyclerView.Adapter<AddressListAdapter.
                     lastChecked = null;
 
                 stringArrayList.get(clickedPos).setSelected(cb.isChecked());
+                mOnClickListener.onClick(view);
             }
         });
+
+
 
 
       //  else {
