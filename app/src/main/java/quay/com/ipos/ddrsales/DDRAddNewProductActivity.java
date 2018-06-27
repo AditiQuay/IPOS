@@ -113,6 +113,8 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
         if (i!=null){
             entityStateCode=i.getStringExtra(Constants.entityStateCode);
             businessPlaceCode=i.getIntExtra(Constants.businessPlaceCode,0);
+            entityStateCode="06";
+            businessPlaceCode=1;
         }
     }
 

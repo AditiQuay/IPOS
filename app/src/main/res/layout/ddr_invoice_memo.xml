@@ -29,7 +29,7 @@
                 android:background="@drawable/ddr_rect_white"
                 android:orientation="vertical"
 
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -368,7 +368,7 @@
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
                 android:orientation="vertical"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -493,7 +493,7 @@
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
                 android:orientation="vertical"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -631,7 +631,7 @@
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
                 android:orientation="vertical"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1074,7 +1074,7 @@
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
                 android:orientation="vertical"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1154,7 +1154,7 @@
                 android:background="@drawable/ddr_rect_white"
                 android:orientation="vertical"
                 android:paddingBottom="8dp"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1327,7 +1327,7 @@
                 android:background="@drawable/ddr_rect_white"
                 android:orientation="vertical"
                 android:paddingBottom="16dp"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

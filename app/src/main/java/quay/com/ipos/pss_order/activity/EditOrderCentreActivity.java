@@ -171,11 +171,8 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
 
         NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
         noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(1);
-<<<<<<< HEAD
         noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(Prefs.getStringPrefs("EntityName"));
-=======
         noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(Prefs.getStringPrefs(Constants.EntityName));
->>>>>>> c0bd7aa499dc8b8154c9746f2e4af83654df7820
         noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(Prefs.getStringPrefs(Constants.entityStateCode));
         distributotes.add(noGetEntityBuisnessPlacesModal);
 

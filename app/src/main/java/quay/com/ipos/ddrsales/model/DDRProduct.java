@@ -48,6 +48,12 @@ public class DDRProduct extends RealmObject{
     private String pUOM;
     private String mUOM;
     private double conversionFactor;
+    private String brandName;
+    private String subCategoryName;
+    private String categoryName;
+    private String hsnName;
+    private String hsnCode;
+    private String sProductFeature;
 
 
     public String getiProductModalId() {
@@ -392,5 +398,53 @@ public class DDRProduct extends RealmObject{
 
     public void setConversionFactor(double conversionFactor) {
         this.conversionFactor = conversionFactor;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public String getSubCategoryName() {
+        return subCategoryName;
+    }
+
+    public void setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getHsnName() {
+        return hsnName;
+    }
+
+    public void setHsnName(String hsnName) {
+        this.hsnName = hsnName;
+    }
+
+    public String getHsnCode() {
+        return hsnCode;
+    }
+
+    public void setHsnCode(String hsnCode) {
+        this.hsnCode = hsnCode;
+    }
+
+    public String getsProductFeature() {
+        return sProductFeature;
+    }
+
+    public void setsProductFeature(String sProductFeature) {
+        this.sProductFeature = sProductFeature;
     }
 }

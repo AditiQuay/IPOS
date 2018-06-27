@@ -226,22 +226,22 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         adapterIncoTerms.notifyDataSetChanged();
 
         ddtProductBatchList.clear();
-        for (ProductSearchResult.Datum datum : InvoiceData.getInstance().cartList) {
+    /*    for (ProductSearchResult.Datum datum : InvoiceData.getInstance().cartList) {
             DDTProductBatch productBatch = new DDTProductBatch();
             productBatch.batchList = new ArrayList<>();
             productBatch.totalQty = datum.getTotalQty();
             productBatch.itemName = datum.getSProductName();
             ddtProductBatchList.add(productBatch);
-        }
+        }*/
         adapterProductBatch.notifyDataSetChanged();
 
 
-        setPriceSum();
+      //  setPriceSum();
 
 
     }
 
-    private void setPriceSum() {
+   /* private void setPriceSum() {
         List<ProductSearchResult.Datum> cartList = InvoiceData.getInstance().cartList;
         int totalCount = 0;
         for (ProductSearchResult.Datum cart : cartList) {
@@ -250,7 +250,7 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         tvItemQty.setText(totalCount + "");
         tvTotalItemPrice.setText(totalCount + "");
 
-    }
+    }*/
 
     @Override
     public void applyTypeFace() {
