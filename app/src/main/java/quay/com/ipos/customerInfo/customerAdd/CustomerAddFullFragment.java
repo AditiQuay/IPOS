@@ -330,7 +330,7 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
                     childModels.remove(childModels.size() - 1);
                     customerChildAdapter.notifyDataSetChanged();
                 } else {
-                    btnRemoveChild.setBackgroundColor(getResources().getColor(R.color.grey));
+                    btnRemoveChild.setVisibility(View.GONE);
                 }
             }
         });
@@ -338,6 +338,8 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
         btnAddChild.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 if (childModels.size() <= 2) {
                     btnAddChild.setEnabled(true);
                     btnAddChild.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_drawable_blue));
@@ -455,11 +457,16 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
                         childModels.add(model);
                         customerChildAdapter.notifyDataSetChanged();
 
+                        if (childModels.size()<=0){
+                            btnRemoveChild.setVisibility(View.GONE);
+                        }else {
+                            btnRemoveChild.setVisibility(View.VISIBLE);
+                        }
 
                     }
                 } else {
                     Toast.makeText(mContext, "You are not allowed to add more than 3 children details", Toast.LENGTH_SHORT).show();
-                    btnAddChild.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_rectangle_grey));
+                    btnAddChild.setBackgroundResource(R.drawable.button_rectangle_grey);
                 }
             }
         });

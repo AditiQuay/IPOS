@@ -30,7 +30,6 @@ public class ActionDialogFragment extends DialogFragment implements ActionListCl
     private RecyclerView rvList;
     private Context mContext;
     private View main;
-    private ActionListAdapter actionListAdapter;
     private List<ActionListModel> list;
 
     // 1. Defines the listener interface with a method passing back data result.
@@ -73,9 +72,8 @@ public class ActionDialogFragment extends DialogFragment implements ActionListCl
         // Get field from view
         rvList = (RecyclerView) view.findViewById(R.id.rvList);
         // Show soft keyboard automatically and request focus to field
-        rvList.setHasFixedSize(true);
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
-        actionListAdapter = new ActionListAdapter(mContext, list, this);
+        ActionListAdapter actionListAdapter = new ActionListAdapter(mContext, list, this);
         rvList.setAdapter(actionListAdapter);
     }
 

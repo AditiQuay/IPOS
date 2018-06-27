@@ -26,6 +26,17 @@ public class RealmInventoryTabData extends RealmObject {
     @Ignore
     public boolean flag;
 
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public boolean isSelected;
+
     @Ignore
      public List<GRNProductDetailModel> modelList;
 
