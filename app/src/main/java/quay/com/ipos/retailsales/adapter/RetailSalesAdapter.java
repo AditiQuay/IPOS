@@ -244,6 +244,9 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     userViewHolder.tvOTCDiscountPrice.setText("- "+Util.getIndianNumberFormat(str.getOTCDiscount()+""));
                 }
                 else {
+                    userViewHolder.chkOTCDiscount.setChecked(false);
+                    userViewHolder.chkOTCDiscount.setPaintFlags(userViewHolder.chkOTCDiscount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    userViewHolder.chkOTCDiscount.setPaintFlags(userViewHolder.chkOTCDiscount.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     userViewHolder.llOTCDiscount.setVisibility(View.GONE);
                 }
             }

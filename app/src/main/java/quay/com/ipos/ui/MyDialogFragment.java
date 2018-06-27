@@ -64,7 +64,7 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
         return f;
     }
 
-    public void setDialogInfo(View.OnClickListener mOnClickListener, double points, double pointsPer, String mCustomerEmail, String mCustomerID, RedeemListener mRedeemListener)
+    public void setDialogInfo(View.OnClickListener mOnClickListener, int points, double pointsPer, String mCustomerEmail, String mCustomerID, RedeemListener mRedeemListener)
     {
         this.mOnClickListener = mOnClickListener;
         this.points = points;
