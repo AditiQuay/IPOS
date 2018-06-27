@@ -102,7 +102,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     private int businessPlaceCode;
     private boolean isSync;
     private String strPlace;
-    private LinearLayout btnNext,llPOVisible;
+    private LinearLayout btnNext,llPOVisible,llInventory,llTransferType;
     private EditText edtPoNumber,edtDate,edtSupplier;
     private ImageView imgSearch;
 
@@ -156,6 +156,8 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
         spnAddress=rootView.findViewById(R.id.spnAddress);
         imgSearch=rootView.findViewById(R.id.imgSearch);
         llPOVisible=rootView.findViewById(R.id.llPOVisible);
+        llTransferType=rootView.findViewById(R.id.llTransferType);
+        llInventory=rootView.findViewById(R.id.llInventory);
         setSpinnerData();
 
         edtPoNumber.addTextChangedListener(new TextWatcher() {
@@ -195,6 +197,22 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                 }
             }
         });
+        swchInventory.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b){
+
+                    llTransferType.setVisibility(View.VISIBLE);
+                    llPOVisible.setVisibility(View.VISIBLE);
+                    llInventory.setVisibility(View.VISIBLE);
+                }else {
+                    llTransferType.setVisibility(View.GONE);
+                    llPOVisible.setVisibility(View.GONE);
+                    llInventory.setVisibility(View.GONE);
+                }
+            }
+        });
+
 
     }
 
