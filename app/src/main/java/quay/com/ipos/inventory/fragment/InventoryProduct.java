@@ -41,9 +41,11 @@ import quay.com.ipos.inventory.modal.ActionListModel;
 import quay.com.ipos.inventory.modal.GRNProductDetailModel;
 import quay.com.ipos.inventory.modal.OthersTabList;
 import quay.com.ipos.inventory.modal.RealmInventoryTabData;
+import quay.com.ipos.listeners.BatchTabButtonClick;
 import quay.com.ipos.listeners.EdittClickListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
+import quay.com.ipos.listeners.RecyclerItemClickListener;
 import quay.com.ipos.listeners.TabListenerr;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmGRNDetails;
@@ -52,7 +54,7 @@ import quay.com.ipos.realmbean.RealmGRNDetails;
  * Created by niraj.kumar on 6/12/2018.
  */
 
-public class InventoryProduct extends AppCompatActivity implements InitInterface, View.OnClickListener, EdittClickListener, MyListener, ListDialogFragment.DialogListener, ActionDialogFragment.ActionListener, TabListenerr {
+public class InventoryProduct extends AppCompatActivity implements InitInterface, View.OnClickListener, EdittClickListener, MyListener, ListDialogFragment.DialogListener, ActionDialogFragment.ActionListener, TabListenerr, BatchTabButtonClick {
     private static final String TAG = InventoryProduct.class.getSimpleName();
     private Button btnSave, btnAction, btnAddBatch, btnOthers;
     private RecyclerView recyclerviewBatch, recyclerviewButton;
@@ -85,8 +87,6 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // tabData.get(0).modelList.addAll(filterModelList);
-
         setContentView(R.layout.inventory_product_details);
 
         mContext = InventoryProduct.this;
@@ -151,12 +151,11 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         recyclerviewButton.setLayoutManager(horizontalLayoutManager);
-        batchTabAdapter = new BatchTabAdapter(mContext, tabData, this, this);
+        batchTabAdapter = new BatchTabAdapter(mContext, tabData, this, this,this);
         recyclerviewButton.setAdapter(batchTabAdapter);
 
 
         getBatchList(pos);
-
 
 
     }
@@ -396,7 +395,6 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 actionListModels.add(actionListModel);
             }
             showActionListDialog(actionListModels);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -411,12 +409,10 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 filterModelList.add(grnProductDetailModel);
             }
         }
-        //set new
         if (!isDelete) {
             for (RealmInventoryTabData model : tabData) {
                 if (model.getTabId() == key) {
                     model.modelList.addAll(filterModelList);
-                    // selectedtabData = model;
                 }
             }
         }
@@ -545,17 +541,12 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     }
 
-<<<<<<< HEAD
-    private void showActionListDialog(List<ActionListModel> actionListModels){
-        Toast.makeText(mContext,"Action clicked", Toast.LENGTH_SHORT).show();
-//        ActionListFragment actionListFragment = ActionListFragment.newInstance(actionListModels);
-//        actionListFragment.show(getSupportFragmentManager(), "TAG");
-=======
     private void showActionListDialog(List<ActionListModel> actionListModels) {
         Toast.makeText(mContext, "Action clicked", Toast.LENGTH_SHORT).show();
+
         ActionDialogFragment actionListFragment = ActionDialogFragment.newInstance(actionListModels);
-       actionListFragment.show(getSupportFragmentManager(),"TAG");
->>>>>>> b9d3657ed9e94e41115f8f8d9dd97ba15f6a1575
+        actionListFragment.show(getSupportFragmentManager(), "TAG");
+
     }
 
     @Override
@@ -566,6 +557,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     @Override
     public void tabClick(int position) {
+        batchEditText.setText("");
         RealmInventoryTabData realmInventoryTabData = tabData.get(position);
         setRealmData(realmInventoryTabData.getTabId());
     }
@@ -578,25 +570,32 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     @Override
     public void onActionListClicked(int actionId, String actionTitle) {
 
-
-//        if(actionId == )
+        int action = 0;
         boolean isMove = false;
         boolean isDelete = false;
-        if (actionTitle.contains("Copy")) {
+        if (actionId == 9) {
             isMove = false;
+            action = 2;
         }
-        if (actionTitle.contains("Move")) {
+        if (actionId == 10) {
             isMove = true;
-            ///
+            action = 2;
         }
-        if (actionTitle.contains("Delete")) {
+        if (actionId == 11) {
             isMove = true;
         }
+
         String remark = "";
-        if (actionId == 10 || actionId == 11) {
+        if (actionId == 12 || actionId == 13 || actionId == 14 || actionId == 15) {
             remark = actionTitle;
         }
-        setChangeAction(actionId, isMove, isDelete, remark);
+        setChangeAction(action, isMove, isDelete, remark);
+
+    }
+
+
+    @Override
+    public void onTabClick(int position) {
 
     }
 }

@@ -50,6 +50,7 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
 
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition(), holder);
         holder.qty.setText(grnProductDetailModel.getQty() + "");
+        holder.batchRemark.setText(grnProductDetailModel.remark);
 
         holder.checkBox1.setChecked(grnProductDetailModel.isSelected());
         //set a tag for position
@@ -72,7 +73,7 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private CheckBox checkBox1;
-        private TextView batchNumber;
+        private TextView batchNumber,batchRemark;
         private EditText qty;
         public MyCustomEditTextListener myCustomEditTextListener;
 
@@ -80,6 +81,7 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
             super(itemView);
             checkBox1 = itemView.findViewById(R.id.checkBox1);
             batchNumber = itemView.findViewById(R.id.batchNumber);
+            batchRemark = itemView.findViewById(R.id.batchRemark);
             qty = itemView.findViewById(R.id.qty);
 
 
