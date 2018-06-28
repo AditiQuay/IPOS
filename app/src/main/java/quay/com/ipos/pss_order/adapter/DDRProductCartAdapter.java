@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import io.realm.Realm;
 import quay.com.ipos.R;
 import quay.com.ipos.ddrsales.model.DDRProduct;
+import quay.com.ipos.ddrsales.model.response.DDRNewOrderProductsResult;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.listeners.AdapterListener;
-import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
 
 import quay.com.ipos.utility.Util;
 
@@ -41,12 +41,12 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<NewOrderProductsResult.DataBean> mDataset;
+    ArrayList<DDRNewOrderProductsResult.DataBean> mDataset;
 
 
 
     public DDRProductCartAdapter(Context ctx, View.OnClickListener mClickListener,
-                                 ArrayList<NewOrderProductsResult.DataBean> questionList, AdapterListener listener) {
+                                 ArrayList<DDRNewOrderProductsResult.DataBean> questionList, AdapterListener listener) {
         this.mOnClickListener = mClickListener;
         mContext = ctx;
         mDataset = questionList;
@@ -132,7 +132,7 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof DDRProductCartAdapter.UserViewHolder) {
             onBind = true;
-            NewOrderProductsResult.DataBean str = mDataset.get(position);
+            DDRNewOrderProductsResult.DataBean str = mDataset.get(position);
 
             Realm realm=Realm.getDefaultInstance();
             DDRProduct realmNewOrderCart=realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),str.getIProductModalId()).findFirst();
@@ -241,13 +241,13 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext);
             userViewHolder.mRecyclerView.setLayoutManager(mLayoutManager);
 
-            ArrayList<NewOrderProductsResult.DataBean.DiscountBean> discountBeans=new ArrayList<>();
-            NewOrderProductsResult.DataBean.DiscountBean discountBean=new NewOrderProductsResult.DataBean.DiscountBean();
+            ArrayList<DDRNewOrderProductsResult.DataBean.DiscountBean> discountBeans=new ArrayList<>();
+            DDRNewOrderProductsResult.DataBean.DiscountBean discountBean=new DDRNewOrderProductsResult.DataBean.DiscountBean();
             discountBean.setSDiscountDisplayName(str.getDiscount().size()+" Offers Applied");
             discountBeans.add(discountBean);
 //            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
 
-            DiscountNewOrderListAdapter itemListDataAdapter = new DiscountNewOrderListAdapter(mContext, userViewHolder.mRecyclerView, discountBeans);
+            DDRDiscountNewOrderListAdapter itemListDataAdapter = new DDRDiscountNewOrderListAdapter(mContext, userViewHolder.mRecyclerView, discountBeans);
             userViewHolder.mRecyclerView.setAdapter(itemListDataAdapter);
         }
         else if (holder instanceof DDRProductCartAdapter.LoadingViewHolder) {

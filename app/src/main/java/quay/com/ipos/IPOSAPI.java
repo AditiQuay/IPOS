@@ -69,6 +69,7 @@ public class IPOSAPI {
     public static final String DDR_NO_SUMMARY = "/api/PSSNewOrder/NOSummary";
     public static final String DDR_GetDDRList = "/api/DDR/GetDDRList";
     public static final String DDR_GetDDRProductList = "/api/DDR/GetDDRProductList";
+    public static final String DDR_SUBMIT = "/api/DDR/SubmitDDRDetail";
 
     //compliance
     public static final String COMPLIANCE_DATA = "/api/ComplianceTracker/GetTaskschedularDetails";

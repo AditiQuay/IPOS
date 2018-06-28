@@ -30,12 +30,13 @@
                     android:layout_weight="0.9"
                     android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center"
-                    android:padding="8dp"
+                    android:padding="3dp"
                     android:textColor="@color/grey"
-                    android:textSize="@dimen/universal_text_size14"
+                    android:textSize="13sp"
+                    android:maxLines="1"
                     android:text="Others"
                     android:drawableRight="@drawable/arrow_down_small_gray"
-                    android:drawablePadding="8dp"/>
+                    android:drawablePadding="2dp"/>
 
             </LinearLayout>
 

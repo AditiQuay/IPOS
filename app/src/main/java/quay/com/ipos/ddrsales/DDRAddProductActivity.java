@@ -387,7 +387,7 @@ public class DDRAddProductActivity extends BaseActivity implements InitInterface
 
     private void getServerData() {
 
-        DDRProductReq req = new DDRProductReq();
+        DDRProductReq req = new DDRProductReq("NA",mDdr,false);
         Log.i("mProductList", new Gson().toJson(req));
         Call<DDRProductListResponse> call = RestService.getApiServiceSimple().DDR_GetDDRProductList(req);
         call.enqueue(new Callback<DDRProductListResponse>() {
