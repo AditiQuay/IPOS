@@ -34,6 +34,7 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.ddrsales.model.DDR;
+import quay.com.ipos.ddrsales.model.DDRProduct;
 import quay.com.ipos.ddrsales.model.InvoiceData;
 import quay.com.ipos.ddrsales.model.request.DDRListReq;
 import quay.com.ipos.ddrsales.model.request.DDRProductReq;
@@ -361,7 +362,7 @@ public class DDRAddProductActivity extends BaseActivity implements InitInterface
                 try {
                     if (mProductList != null) {
 
-                        setData(mProductList);
+                     //   setData(mProductList);
                     }
 
                 } catch (Exception e) {
@@ -419,8 +420,8 @@ public class DDRAddProductActivity extends BaseActivity implements InitInterface
 
     }
 
-    private void setData(DDRProductListResponse response) {
-        this.mProductList = response.productList;
+    private void setData(DDRProduct response) {
+     //   this.mProductList = response.productList;
 
         arrSearchlist.clear();
         arrSearchlist.addAll(mProductList);

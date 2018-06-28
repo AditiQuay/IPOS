@@ -158,6 +158,10 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
 <<<<<<< HEAD
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
+=======
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
@@ -170,6 +174,7 @@
 =======
 >>>>>>> f6f2a987d0216e057a6934dddfa05a028d25cb49
 >>>>>>> 1fd5abfd53329f2303a7ed86469334c7147fcfd2
+>>>>>>> c0bd7aa499dc8b8154c9746f2e4af83654df7820
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-runtime-classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-verifier" />
@@ -181,8 +186,11 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifest-checker" />
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
 >>>>>>> 93000ab627a79ed400f49466b24876c7ae443e05
 >>>>>>> 1fd5abfd53329f2303a7ed86469334c7147fcfd2
+>>>>>>> c0bd7aa499dc8b8154c9746f2e4af83654df7820
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/multi-dex" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/prebuild" />
@@ -355,12 +363,15 @@
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 >>>>>>> 93000ab627a79ed400f49466b24876c7ae443e05
 =======
 >>>>>>> b8ef182e44ba41f2fd0aa69e758364eada78c244
 >>>>>>> 6e144cb28da018e799fb5d2bb8a9f617387e277f
 >>>>>>> f6f2a987d0216e057a6934dddfa05a028d25cb49
 >>>>>>> 1fd5abfd53329f2303a7ed86469334c7147fcfd2
+>>>>>>> c0bd7aa499dc8b8154c9746f2e4af83654df7820
     <orderEntry type="module" module-name="core" />
     <orderEntry type="module" module-name="zbar" />
   </component>

@@ -184,7 +184,7 @@
             android:visibility="visible"
             android:layout_height="120dp">
 
-            <fragment android:name="quay.com.ipos.retailsales.fragment.FullScannerFragment"
+            <fragment android:name="quay.com.ipos.pss_order.fragment.DDRScannerFragment"
                 android:id="@+id/scanner_fragment"
                 android:layout_weight="1"
                 android:layout_width="match_parent"

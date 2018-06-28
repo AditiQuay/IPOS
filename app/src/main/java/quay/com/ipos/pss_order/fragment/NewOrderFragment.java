@@ -168,6 +168,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         }
         NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
         noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(1);
+        noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(Prefs.getStringPrefs("EntityName"));
         noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(Prefs.getStringPrefs(Constants.EntityName));
         noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(Prefs.getStringPrefs(Constants.entityStateCode));
         distributotes.add(noGetEntityBuisnessPlacesModal);
@@ -572,7 +573,9 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
         tvPay.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount));
         tvCGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(cgst));
         tvSGSTPrice.setText(getActivity().getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(sgst));
-        tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " 0.0");
+        double roundOff=Math.floor(payAmount);
+        double roundofff=payAmount-roundOff;
+        tvRoundingOffPrice.setText(getActivity().getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(roundofff));
         tvTotalDiscountPrice.setText(""+getActivity().getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(discountPrice));
         tvTotalDiscountDetail.setText("(Item " + discountItems + ")");
 
@@ -1990,7 +1993,8 @@ if (realmNewOrderCarts.getQty()>1) {
         double totalValueWithoutTax=totalItemsAmount;
         JSONObject jsonObject=new JSONObject();
 
-
+        double roundOff=Math.floor(payAmount);
+        double roundofff=payAmount-roundOff;
         try {
             jsonObject.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
@@ -2012,7 +2016,7 @@ if (realmNewOrderCarts.getQty()>1) {
             jsonObject.put("totalValueWithoutTax",totalValueWithoutTax);
             jsonObject.put("totalTaxValue",cgst+sgst);
             jsonObject.put("totalDiscountValue",discountPrice);
-            jsonObject.put("totalRoundingOffValue",0);
+            jsonObject.put("totalRoundingOffValue",Util.indianNumberFormat(roundofff));
             jsonObject.put("cartDetail",arrayCart);
           //  jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray());
             jsonObject.put("approvalStat",1);

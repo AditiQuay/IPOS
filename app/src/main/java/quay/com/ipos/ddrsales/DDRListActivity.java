@@ -198,7 +198,7 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
             public void onSelect(DDR ddr) {
 
 
-                Intent mIntent = new Intent(activity, DDRCartActivity.class);
+                Intent mIntent = new Intent(activity, DDRCartDetails.class);
                 mIntent.putExtra("ddr", ddr);
                 startActivityForResult(mIntent, 1);
             }

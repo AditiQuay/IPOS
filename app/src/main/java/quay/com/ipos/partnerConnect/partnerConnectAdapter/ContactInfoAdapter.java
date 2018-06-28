@@ -24,8 +24,6 @@ import quay.com.ipos.utility.FontUtil;
 public class ContactInfoAdapter extends RecyclerView.Adapter<ContactInfoAdapter.MyView> {
     private Context mContext;
     private List<NewContact> list = new ArrayList<>();
-
-
     private String roleTypeText;
     private List<String> listPosition = new ArrayList<>();
 

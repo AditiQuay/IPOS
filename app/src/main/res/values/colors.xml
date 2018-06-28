@@ -144,5 +144,6 @@
     <color name="dashboard_textcolor">#848484</color>
     <color name="ddr_light_grey">#AEAEAE</color>
     <color name="color_bg_grey">#F4F4F4</color>
+    <color name="color_bg_master">#E9E7E8</color>
 </resources>
 
