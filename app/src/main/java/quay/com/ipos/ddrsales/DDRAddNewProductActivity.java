@@ -49,6 +49,7 @@ import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.pss_order.adapter.AddNewOrderAdapter;
+import quay.com.ipos.pss_order.adapter.DDRProductCartAdapter;
 import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
 import quay.com.ipos.pss_order.modal.ProductSearchRequest;
 
@@ -71,7 +72,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
     private LinearLayoutManager mLayoutManager;
     private OrderList mOrderListResult;
     private TextView tvItemSize,tvNoItemAvailable;
-    private AddNewOrderAdapter mAddNewOrderAdapter;
+    private DDRProductCartAdapter mAddNewOrderAdapter;
     private TextView tvClear,tvItemAddedSize;
     private String entityStateCode="";
     private int businessPlaceCode;
@@ -141,7 +142,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
 
     }*/
     private void setAdapter() {
-        mAddNewOrderAdapter = new AddNewOrderAdapter(this,this,dataBeans,this);
+        mAddNewOrderAdapter = new DDRProductCartAdapter(this,this,dataBeans,this);
         mRecyclerView.setAdapter(mAddNewOrderAdapter);
     }
     public void setHeader() {
@@ -459,20 +460,13 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
-
-
-
-
-
-        if (httpStatusCode == Constants.SUCCESS) {
+          if (httpStatusCode == Constants.SUCCESS) {
             dataBeans.clear();
             arrData.clear();
             if (Util.validateString(serverResponse)){
 
                 NewOrderProductsResult noGetEntityResultModal=(NewOrderProductsResult)resultObj;
                 arrData.add(noGetEntityResultModal);
-
-
                 for (int i=0;i<arrData.size();i++){
                     dataBeans.addAll(arrData.get(0).getData());
                 }

@@ -12,5 +12,4 @@ public class DDRProductListResponse {
     @SerializedName("listData")
     public List<DDRProduct> productList;
     public List<DDRIncoTerms> ddrIncoTerms;
-
 }
