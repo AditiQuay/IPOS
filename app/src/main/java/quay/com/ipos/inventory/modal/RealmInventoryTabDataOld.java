@@ -2,7 +2,6 @@ package quay.com.ipos.inventory.modal;
 
 import java.util.List;
 
-import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
@@ -11,7 +10,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by niraj.kumar on 6/21/2018.
  */
 
-public class RealmInventoryTabData  {
+public class RealmInventoryTabDataOld extends RealmObject {
 
     /**
      * tabTitle : Normal
@@ -19,11 +18,11 @@ public class RealmInventoryTabData  {
      * count : 1
      * model : [{"number":"123456","actionTitle":"Normal","actionID":1,"qty":2}]
      */
-
+    @PrimaryKey
     private String tabTitle;
     private int tabId;
     private int count;
- //   private String model;
+    private String model;
     @Ignore
     public boolean flag;
 
@@ -39,15 +38,16 @@ public class RealmInventoryTabData  {
     @Ignore
     public boolean isSelected;
 
+     @Ignore
      public List<GRNProductDetailModel> modelList;
 
-    /*public String getModel() {
+    public String getModel() {
         return model;
-    }*/
+    }
 
-   // public void setModel(String model) {
-   /*     this.model = model;
-    }*/
+    public void setModel(String model) {
+        this.model = model;
+    }
 
 
     public String getTabTitle() {

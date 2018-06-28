@@ -232,7 +232,7 @@ public class RealmController {
         }
 
     }
-    public void saveInventoryTabDetails(String responseData) {
+  /*  public void saveInventoryTabDetails(String responseData) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         try {
@@ -247,7 +247,7 @@ public class RealmController {
             realm.close();
         }
 
-    }
+    }*/
     public void savePODetails(String responseData) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();

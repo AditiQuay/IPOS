@@ -2,10 +2,10 @@
     android:id="@+id/lGrn"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rectangle_child_white"
+    android:layout_marginBottom="@dimen/dim_4"
     android:layout_marginLeft="@dimen/dim_4"
     android:layout_marginRight="@dimen/dim_4"
-    android:layout_marginBottom="@dimen/dim_4"
+    android:background="@drawable/rectangle_child_white"
     android:orientation="vertical">
 
     <LinearLayout
@@ -29,8 +29,8 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:fontFamily="@font/titilliumwebregular"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="GRN Number" />
 
                 <EditText
@@ -38,9 +38,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dim_4"
-                    android:fontFamily="@font/titilliumwebregular"
                     android:background="@color/transparent"
                     android:enabled="false"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="PO1800001"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
@@ -94,12 +94,15 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="start|center_vertical"
                 android:orientation="vertical"
-                android:padding="8dp">
+                android:padding="8dp"
+                android:paddingLeft="@dimen/dim_8"
+                android:paddingRight="8dp"
+                android:paddingTop="@dimen/dim_8">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -109,12 +112,12 @@
 
                 <EditText
                     android:id="@+id/et_received_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dim_4"
-                    android:fontFamily="@font/titilliumwebregular"
                     android:background="@color/transparent"
                     android:enabled="true"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="18-May-2018"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
@@ -148,8 +151,8 @@
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
                     android:enabled="false"
-                    android:text="26799"
                     android:fontFamily="@font/titilliumwebregular"
+                    android:text="26799"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
