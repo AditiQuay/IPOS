@@ -35,7 +35,6 @@ import quay.com.ipos.ddrsales.model.response.Address;
 import quay.com.ipos.ddrsales.model.response.DDRIncoTerms;
 import quay.com.ipos.ddrsales.model.response.DDTProductBatch;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.utility.NumberFormatEditText;
 
 
@@ -45,8 +44,8 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
     private Toolbar toolbar;
     private TextView mDDRDetails;
     private ImageView mDDRDetailsIcon;
-   // private TextView textBillingAddress;
-   // private TextView textShippingAddress;
+    // private TextView textBillingAddress;
+    // private TextView textShippingAddress;
 
     private TextView tvItemQty;
     private TextView tvTotalItemPrice;
@@ -137,8 +136,6 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         textTotalIncoTerms = findViewById(R.id.textTotalIncoTerms);
 
 
-
-
         //logistics
         spinnerMode = findViewById(R.id.spinnerMode);
         editTruckNumber = findViewById(R.id.editTruckNumber);
@@ -162,21 +159,16 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         editEwayBillVal.addTextChangedListener(generalTextWatcher);
 
 
-
-
         //billing and shipping
         recycleViewBillingAddress = findViewById(R.id.recycleViewBillingAddress);
         recycleViewBillingAddress.setLayoutManager(new LinearLayoutManager(mContext));
-        adapterAddBilling = new AddressAdapter(mContext,addressList , this);
+        adapterAddBilling = new AddressAdapter(mContext, addressList, this);
         recycleViewBillingAddress.setAdapter(adapterAddBilling);
 
         recycleViewShippingAddress = findViewById(R.id.recycleViewShippingAddress);
         recycleViewShippingAddress.setLayoutManager(new LinearLayoutManager(mContext));
         adapterAddShipping = new AddressAdapter(mContext, addressList, this);
         recycleViewShippingAddress.setAdapter(adapterAddShipping);
-
-
-
 
 
         recycleViewIncoTerms = findViewById(R.id.recycleViewIncoTerms);
@@ -199,7 +191,7 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
     @Override
     public void applyInitValues() {
         if (mDdr != null) {
-            textAvaCreditLimit.setText(rs+ NumberFormatEditText.getText(mDdr.mDDRCreditLimit+""));
+            textAvaCreditLimit.setText(rs + NumberFormatEditText.getText(mDdr.mDDRCreditLimit + ""));
             mDDRDetails.setText(mDdr.mDDRCode + " - " + mDdr.mDDRName);
             mDDRDetailsIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -220,7 +212,6 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         adapterAddShipping.notifyDataSetChanged();
 
 
-
         incoTermsList.clear();
         incoTermsList.addAll(InvoiceData.getInstance().ddrIncoTerms);
         adapterIncoTerms.notifyDataSetChanged();
@@ -236,7 +227,7 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         adapterProductBatch.notifyDataSetChanged();
 
 
-      //  setPriceSum();
+        //  setPriceSum();
 
 
     }
