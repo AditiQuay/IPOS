@@ -48,6 +48,8 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
    // private TextView textBillingAddress;
    // private TextView textShippingAddress;
 
+    private TextView textIncoTermsOthers;
+
     private TextView tvItemQty;
     private TextView tvTotalItemPrice;
 
@@ -177,7 +179,8 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
 
 
 
-
+        textIncoTermsOthers=findViewById(R.id.textIncoTermsOthers);
+        textIncoTermsOthers.setOnClickListener(this);
 
         recycleViewIncoTerms = findViewById(R.id.recycleViewIncoTerms);
         recycleViewProductBatch = findViewById(R.id.recycleViewProductBatch);
@@ -264,6 +267,15 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.textIncoTermsOthers:
+                addOtherIncoTerms();
+            break;
+        }
+
+    }
+
+    private void addOtherIncoTerms() {
 
     }
 

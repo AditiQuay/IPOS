@@ -71,8 +71,6 @@
     <color name="background_color">#f4f4f4</color>
 
 
-
-
     <!--    Application color constants     -->
     <color name="dark_primary_color">#e4be00</color>
     <color name="primary_color">#ffcc03</color>
@@ -145,5 +143,35 @@
     <color name="ddr_light_grey">#AEAEAE</color>
     <color name="color_bg_grey">#F4F4F4</color>
     <color name="color_bg_master">#E9E7E8</color>
+
+
+    <color name="coral_blue1">#E76F43</color>
+    <color name="dark_blue1">#E76F43</color>
+    <color name="color_done">#43e761</color>
+    <color name="color_immediate_action">#e74351</color>
+    <color name="color_upcoming_event">#434ee7</color>
+    <color name="color_pending">#f7af4a</color>
+
+    <color name="circleProgressCompleteEndGradient">@color/coral_blue1</color>
+    <color name="circleProgressCompleteStartGradient">@color/dark_blue1</color>
+    <color name="circleProgressIncompleteEndGradient">@color/grey</color>
+    <color name="circleProgressIncompleteStartGradient">@color/grey</color>
+
+
+    <color name="colorContentTheme">#FFFFFF</color>
+    <color name="colorDividerItem">#E1E1E1</color>
+
+    <color name="ipos_progress_foreground_color">#D9D9D9</color>
+    <color name="ipos_progress_background_color">#D9E4EB</color>
+    <color name="ipos_progress_bottom_title">#000000</color>
+
+    <color name="colorText">#ffffff</color>
+
+
+    <color name="dark_grey_outline_color">#CEDFDE</color>
+    <color name="colorWhite">#ffffff</color>
+
+
+    <color name="colorHeaderBackground">#1CADE4</color>
 </resources>
 

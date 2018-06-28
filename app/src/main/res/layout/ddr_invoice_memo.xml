@@ -742,6 +742,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:textSize="14sp"
                             android:text="LRN18189999"
                             android:textColor="@color/filter_text_color" />
 
@@ -771,6 +773,8 @@
                     <EditText
                         android:id="@+id/editTransporter"
                         android:layout_width="wrap_content"
+                        android:maxLines="1"
+                        android:textSize="14sp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dim_8"
                         android:gravity="center_vertical"
@@ -809,6 +813,8 @@
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center_horizontal"
                             android:text="DL-04-MK-7349"
+                            android:maxLines="1"
+                            android:textSize="14sp"
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
@@ -840,6 +846,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:textSize="14sp"
                             android:text="18100000001348"
                             android:textColor="@color/filter_text_color" />
 
@@ -876,6 +884,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
+                            android:maxLines="1"
+                            android:textSize="14sp"
                             android:gravity="center_horizontal"
                             android:text="22-May to 24-May-2018"
                             android:textColor="@color/filter_text_color" />
@@ -909,6 +919,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center"
+                            android:maxLines="1"
+                            android:textSize="14sp"
+                            android:inputType="phone"
                             android:text="9999999999"
                             android:textColor="@color/filter_text_color" />
 
@@ -947,6 +960,8 @@
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center_horizontal"
                             android:text="Kishore"
+                            android:maxLines="1"
+                            android:textSize="14sp"
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
@@ -979,6 +994,8 @@
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center"
                             android:text="88002312345"
+                            android:maxLines="1"
+                            android:textSize="14sp"
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
@@ -1008,6 +1025,8 @@
                         android:id="@+id/editAddress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:textSize="14sp"
                         android:layout_marginTop="@dimen/dim_8"
                         android:gravity="center_vertical"
                         android:text="AGARWAL PACKER AND MOVERS PVT LMT."
@@ -1318,6 +1337,7 @@
 
                     />
 
+                <include layout="@layout/ddr_layout_incoterms_others" />
                 <include layout="@layout/ddr_layout_incoterms_total" />
             </LinearLayout>
             <LinearLayout

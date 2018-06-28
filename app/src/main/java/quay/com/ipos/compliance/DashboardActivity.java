@@ -1,86 +1,103 @@
 package quay.com.ipos.compliance;
 
 import android.app.Activity;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.gson.Gson;
 
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import quay.com.ipos.BuildConfig;
 import quay.com.ipos.OnStoreSelectionListener;
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.compliance.constants.AnnotationComplianceType;
 import quay.com.ipos.compliance.constants.AnnotationStoreType;
 
+import quay.com.ipos.compliance.data.local.entity.BusinessPlaceEntity;
+import quay.com.ipos.compliance.data.local.entity.Employee;
+import quay.com.ipos.compliance.data.local.entity.SubTask;
+import quay.com.ipos.compliance.data.local.entity.Task;
+import quay.com.ipos.compliance.data.remote.model.ComplianceDetailsResponse;
 import quay.com.ipos.compliance.fragment.ComplianceFragmentHeader;
 import quay.com.ipos.compliance.fragment.ComplianceFragmentMain;
 import quay.com.ipos.data.local.AppDatabase;
-import quay.com.ipos.utility.DateAndTimeUtil;
+import quay.com.ipos.data.remote.APIService;
+import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.utility.SharedPrefUtil;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class DashboardActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ComplianceFragmentMain.ComplianceTypeListener
+        implements  ComplianceFragmentMain.ComplianceTypeListener
         , OnStoreSelectionListener,ComplianceFragmentHeader.OnComplianeFilterListener {
 
     private static final String TAG = DashboardActivity.class.getSimpleName();
     private ComplianceFragmentHeader complianceFragmentHeader;
     private ComplianceFragmentMain complianceFragmentMain;
     private Activity activity;
+    private AppDatabase appDatabase;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
+        appDatabase = AppDatabase.getAppDatabase(activity);
         setContentView(R.layout.c_activity_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
+      /*  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+      /*  DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+*/
+     /*   NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+*/
         openComplianceTracking(null);
+
+
+        loadCompliances();
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+  /*  @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -88,16 +105,16 @@ public class DashboardActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
-    }
+    }*/
 
-    @Override
+  /*  @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         if (BuildConfig.DEBUG) {
          //   getMenuInflater().inflate(R.menu.dashboard, menu);
         }
         return true;
-    }
+    }*/
 
    /* @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -145,7 +162,7 @@ public class DashboardActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 */
-    @SuppressWarnings("StatementWithEmptyBody")
+   /* @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -163,19 +180,19 @@ public class DashboardActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        }/* else if (id == R.id.nav_share) {
+        }*//* else if (id == R.id.nav_share) {
 
             printCurrentTime();
         } else if (id == R.id.nav_logout) {
             funLogout();
 
-        }*/
+        }*//*
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+*/
     private void printCurrentTime() {
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
         // textView is the TextView view that should display it
@@ -295,7 +312,7 @@ public class DashboardActivity extends AppCompatActivity
 
     public void openComplianceTracking(View view) {
         //for title
-    /*    Toolbar toolbar = findViewById(R.id.toolbar);
+    /*  Toolbar toolbar = findViewById(R.id.toolbar);
         TextView title = (TextView) toolbar.findViewById(R.id.title_text);
         title.setText("New Title");*/
         getSupportActionBar().setTitle(getResources().getString(R.string.compliance_tracking));
@@ -377,4 +394,115 @@ public class DashboardActivity extends AppCompatActivity
         builder.setSmallIcon(R.mipmap.ic_launcher);
         return builder.build();
     }*/
+
+
+
+    private void loadCompliances() {
+
+        APIService apiService = RestService.getApiServiceSimple();
+        Call<ComplianceDetailsResponse> call = apiService.loadComplianceDetail();
+        call.enqueue(new Callback<ComplianceDetailsResponse>() {
+            @Override
+            public void onResponse(Call<ComplianceDetailsResponse> call, Response<ComplianceDetailsResponse> response) {
+                if (response.errorBody() != null) {
+                    if (BuildConfig.DEBUG) {
+                        Toast.makeText(activity, "" + "message: " + response.code() + " " + response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                    Log.i("Rest errorBody", "code:" + response.code() + " " + "message:" + response.message());
+                }
+                if(response.body()!=null) {
+                    ComplianceDetailsResponse compResp = response.body();
+                    Log.i("Rest onResponse", response.toString() + new Gson().toJson(compResp));
+                    if(response.code()==200 && compResp.statusCode!=0) {
+                        loadToDatabase(compResp);
+
+                    }else {
+                        Log.i("Rest errorBody", "code:" + response.code() + " " + "message:" + response.message());
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ComplianceDetailsResponse> call, Throwable t) {
+                Log.i("Rest onFailure", t.toString());
+            }
+        });
+
+    }
+    ComplianceDetailsResponse compResp;
+    private void loadToDatabase(ComplianceDetailsResponse compResp) {
+        this.compResp = compResp;
+        new DatabaseAsync().execute();
+    }
+
+    private class DatabaseAsync extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            //Perform pre-adding operation here.
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... voids) {
+            try {
+
+                List<Employee> employeeList = compResp.response.employeeList;
+                appDatabase.employeeDao().saveAllEmployees(employeeList);
+
+
+                if (compResp.response.businessPlaceList == null) {
+                    return false;
+                }
+                List<BusinessPlaceEntity> placeEntityList = compResp.response.businessPlaceList;
+                appDatabase.placeDao().savePlace(placeEntityList);
+
+                List<Task> taskList = compResp.response.taskList;
+                appDatabase.taskDao().saveAllTask(taskList);
+
+
+                List<SubTask> subtaskList = compResp.response.subTaskList;
+                if (subtaskList != null)
+                    appDatabase.subtaskDao().saveAllSubTask(subtaskList);
+
+
+                //local data
+          /*  String json = LocalJsonReader.getJson(activity);
+            ComplianceDetailsResponse storeResponse = new Gson().fromJson(json, ComplianceDetailsResponse.class);
+            List<BusinessPlaceEntity> placeEntityList = storeResponse.response.businessPlaceList;
+            Log.i("ddd", new Gson().toJson(placeEntityList));
+            appDatabase.placeDao().savePlace(placeEntityList);*/
+
+                //List<UserProfileModel> userList = storeResponse.user_list;
+           /* List<Task> taskList = new ArrayList<>();
+            for (StoreResponseNew.StoreDataNew storeDataNew : storeResponse.storeDataList) {
+                taskList.addAll(storeDataNew.compliance_data);
+            }*/
+
+                //  appDatabase.taskDao().saveAllEmployees(taskList);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aVoid) {
+            super.onPostExecute(aVoid);
+           // SharedPrefUtil.putBoolean(KeyConstants.ISLOGGEDIN.trim(), true, getApplicationContext());
+           /* Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);*/
+            if (aVoid != null) {
+                openComplianceTracking(null);
+            }else {
+                IPOSApplication.showToast("Error Occurred!");
+            }
+
+        }
+    }
 }
