@@ -194,6 +194,7 @@ public class DDRCartListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     //  userViewHolder.llAddMinus.setVisibility(View.GONE);
 
                 } else {
+                    userViewHolder.tvQty.setVisibility(View.GONE);
                     userViewHolder.etQtySelected.setText(str.getQty() + "");
                     userViewHolder.imgLoyal.setVisibility(View.VISIBLE);
                     userViewHolder.tvPlus.setVisibility(View.VISIBLE);

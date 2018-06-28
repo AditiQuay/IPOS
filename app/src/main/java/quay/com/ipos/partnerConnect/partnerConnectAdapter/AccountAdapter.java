@@ -224,7 +224,7 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
                     if (i != -1)
                         list.get(position).mSecurityCheque = mSecurityChequesList.get(i);
                     else
-                        list.get(position).mSecurityCheque = "";
+                        list.get(position).mSecurityCheque = "No";
 
                     break;
 
@@ -234,7 +234,11 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyView> 
 
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
-
+            switch (adapterView.getId()) {
+                case R.id.spinnerSecurityCheque:
+                    list.get(position).mSecurityCheque = "No";
+                    break;
+            }
         }
 
         public void updatePosition(int position) {

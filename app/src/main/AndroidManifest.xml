@@ -69,7 +69,6 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
 
-
         <!-- ***** DDR Sales ****** -->
         <activity
             android:name=".ddrsales.DDROrderCenterActivity"
@@ -323,10 +322,26 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+<<<<<<< HEAD
         <activity
             android:name=".inventory.activity.EditExpandablePODetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+=======
+        <!---***Compliance Tracker***-->
+        <activity
+            android:name=".compliance.DashboardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!---&&&Compliance Tracker&&&-->
+
+>>>>>>> 19bc758d394657b6bd1aa90cfd6dc97af6c4044d
         <!-- Firebase Notifications -->
         <service
             android:name=".notifications.MyFirebaseMessagingService"
@@ -357,6 +372,6 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-    </application>
+</application>
 
-</manifest>
+    </manifest>

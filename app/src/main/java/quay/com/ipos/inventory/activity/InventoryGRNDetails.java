@@ -69,7 +69,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 6/14/2018.
  */
 
-public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener, MyListener, AttachmentListener {
+public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener, InventoryGrnInccoAdapter.OnCalculateTotalIncoTermsListener, MyListener, AttachmentListener {
     private static final String TAG = InventoryGRNDetails.class.getSimpleName();
     private Toolbar toolbar;
     private Button btnAction, btnSave;
@@ -103,7 +103,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     boolean isInccoClick = false;
     boolean isAttachmentClick = false;
     private String transporterEWayBillValidityDate;
+<<<<<<< HEAD
+    private TextView textTotalIncoTerms;
+=======
     private View ivAttAdd;
+>>>>>>> 5ae83c091d110728428058c4a123a9736404ef6e
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,7 +145,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         poQty = findViewById(R.id.poQty);
         openQty = findViewById(R.id.openQty);
         balanceQty = findViewById(R.id.balanceQty);
-
+        textTotalIncoTerms = findViewById(R.id.textTotalIncoTerms);
 
         ivAttAdd.setOnClickListener(this);
         rGrn.setOnClickListener(this);
@@ -374,10 +378,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 for (int j = 0; j < jsonArray.length(); j++) {
                     JSONObject jsonObject1 = jsonArray.optJSONObject(j);
                     GrnInccoTermsModel grnInccoTermsModel = new GrnInccoTermsModel();
-                    grnInccoTermsModel.setGrnIncoDetail(jsonObject1.optString("grnIncoDetail"));
-                    grnInccoTermsModel.setGrnPayBySender(jsonObject1.optBoolean("grnPayBySender"));
-                    grnInccoTermsModel.setGrnPayByReceiver(jsonObject1.optBoolean("grnPayByReceiver"));
-                    grnInccoTermsModel.setGrnPayAmount(jsonObject1.optDouble("grnPayAmount"));
+                    grnInccoTermsModel.grnIncoDetail = jsonObject1.optString("grnIncoDetail");
+                    grnInccoTermsModel.grnPayBySender = jsonObject1.optBoolean("grnPayBySender");
+                    grnInccoTermsModel.grnPayByReceiver = jsonObject1.optBoolean("grnPayByReceiver");
+                    grnInccoTermsModel.grnPayAmount = jsonObject1.optDouble("grnPayAmount");
                     grnInccoTermsModels.add(grnInccoTermsModel);
                 }
 
@@ -560,7 +564,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     private void setIncoTerms() {
         rvIncco.setLayoutManager(new LinearLayoutManager(mContext));
-        inventoryGrnInccoAdapter = new InventoryGrnInccoAdapter(mContext, grnInccoTermsModels);
+        inventoryGrnInccoAdapter = new InventoryGrnInccoAdapter(mContext, grnInccoTermsModels, this);
         rvIncco.setAdapter(inventoryGrnInccoAdapter);
     }
 
@@ -614,10 +618,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             JSONArray IncoTermsArray = new JSONArray();
             for (int j = 0; j < grnInccoTermsModels.size(); j++) {
                 JSONObject jsonObject1 = new JSONObject();
-                jsonObject1.put("grnIncoDetail", grnInccoTermsModels.get(j).getGrnIncoDetail());
-                jsonObject1.put("grnPayBySender", grnInccoTermsModels.get(j).isGrnPayBySender());
-                jsonObject1.put("grnPayByReceiver", grnInccoTermsModels.get(j).isGrnPayByReceiver());
-                jsonObject1.put("grnPayAmount", grnInccoTermsModels.get(j).getGrnPayAmount());
+                jsonObject1.put("grnIncoDetail", grnInccoTermsModels.get(j).grnIncoDetail);
+                jsonObject1.put("grnPayBySender", grnInccoTermsModels.get(j).grnPayBySender);
+                jsonObject1.put("grnPayByReceiver", grnInccoTermsModels.get(j).grnPayByReceiver);
+                jsonObject1.put("grnPayAmount", grnInccoTermsModels.get(j).grnPayAmount);
 
                 IncoTermsArray.put(jsonObject1);
             }
@@ -701,37 +705,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
         createJson();
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
-        JSONObject jsonObject1 = new JSONObject();
-
-
-     /*   //show
-        Realm realm=Realm.getDefaultInstance();
-        RealmGRNDetails realmGRNDetails=realm.where(RealmGRNDetails.class).equalTo("grnNumber",grnNumber.getText().toString()).findFirst();
-        Gson gson= new GsonBuilder().create();
-        String json=gson.toJson(realmGRNDetails);
-
-        JSONObject jsonObject=new JSONObject(json);
-
-      JSONArray  array=  jsonObject.getJSONArray("poItemDetails");
-
-       JSONObject jsonObject2= array.getJSONObject(position);
-
-       JSONObject jsonObject3=jsonObject2.getJSONObject("gRnItemInfoDetails");
-
-       //----------------------------------------------------show end
-       //update-----start
-
-
-        JSONArray jsArryBatch=new JSONArray();
-
-        JSONObject position=new JSONObject();
-        position.put("tabTitle",,"");
-        jsArryBatch.put(position);
-        jsonObject3.put("data",jsArryBatch);
-        jsonObject2.put("gRnItemInfoDetails",jsonObject2);
-
-        new RealmController().saveGRNDetails(jsonObject2.toString());*/
-
         progressDialog.show();
         OkHttpClient okHttpClient = APIClient.getHttpClient();
         RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, "");
@@ -837,7 +810,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         GrnItemQtyModel grnItemQtyModel = grnListModels.get(position);
         Intent gotToProductDetail = new Intent(mContext, InventoryProduct.class);
         gotToProductDetail.putExtra("position", position);
-        gotToProductDetail.putExtra("openQty",grnItemQtyModel.getOpenQty());
+        gotToProductDetail.putExtra("openQty", grnItemQtyModel.getOpenQty());
         startActivityForResult(gotToProductDetail, 1);
 
     }
@@ -868,6 +841,13 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     }
 
+<<<<<<< HEAD
+    @Override
+    public void funIncoTermsTotalCount(double totalIncoTerms) {
+        textTotalIncoTerms.setText(totalIncoTerms + "");
+        Log.i(TAG, "Total IncoTerms:" + totalIncoTerms);
+    }
+=======
     private static final int PICKFILE_RESULT_CODE = 101;
 
     private class onAttachFileClicked implements View.OnClickListener {
@@ -1042,4 +1022,5 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     }
 
 
+>>>>>>> 5ae83c091d110728428058c4a123a9736404ef6e
 }

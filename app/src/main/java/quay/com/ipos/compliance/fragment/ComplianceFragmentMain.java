@@ -162,19 +162,8 @@ public class ComplianceFragmentMain extends Fragment {
         @Override
         public Fragment getItem(int position) {
             if (mStoreType == AnnotationStoreType.ALL) {
-              /*  switch (position) {
 
-                    case 0:
-                        return AllStorewiseComplianceFragment.newInstance("FirstFragment, Instance 1", "0");
-                    case 1:
-                        return AllStorewiseComplianceFragment.newInstance("SecondFragment, Instance 1", "1");
-                    case 2:
-                        return AllStorewiseComplianceFragment.newInstance("ThirdFragment, Instance 1", "2");
-
-                    default:
-                        return ComplianceFragmentA.newInstance("ThirdFragment, Default", "0");
-                }*/
-            //   return AllStorewiseComplianceFragment.newInstance("FirstFragment, Instance 1",position);
+               return AllStorewiseComplianceFragment.newInstance("FirstFragment, Instance 1",position);
             }
             if (mStoreType == AnnotationStoreType.SINGLE) {
                /* switch (position) {
@@ -189,7 +178,7 @@ public class ComplianceFragmentMain extends Fragment {
                     default:
                         return ComplianceFragmentA.newInstance("ThirdFragment, Default", "0");
                 }*/
-              //  return ComplianceFragmentSingleStoreDetail_ABS.newInstance(""+mParam1,position);
+              return ComplianceFragmentSingleStoreDetail_ABS.newInstance(""+mParam1,position);
 
             }
            // return ComplianceFragmentA.newInstance("ThirdFragment, Default", "0");

@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -80,7 +82,8 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     private List<RealmInventoryTabData> tabData = new ArrayList<>();
     private RealmInventoryTabData selectedtabData;
     private List<GRNProductDetailModel> filterModelList = new ArrayList<>();
-    private int openQty;
+    private double openQty;
+    private boolean isRemarkEmpty = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,7 +95,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         Intent i = getIntent();
         pos = i.getIntExtra("position", pos);
-        openQty = i.getIntExtra("openQty", 0);
+        openQty = i.getDoubleExtra("openQty", 0);
 
         findViewById();
         applyInitValues();
@@ -331,16 +334,33 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
                 break;
             case R.id.btnSave:
-//                for (int i =0;i<selectedtabData.modelList.size();i++){
-//                   GRNProductDetailModel gr = selectedtabData.modelList.get(i);
-//                   if (gr.isSelected()){
-//                       Toast.makeText(mContext,gr.getNumber(),Toast.LENGTH_SHORT).show();
-//                   }
-//                }
-                updateData();
+                for (int i = 0; i < selectedtabData.modelList.size(); i++) {
+                    GRNProductDetailModel gr = selectedtabData.modelList.get(i);
+                    if (gr.getActionID() != 1) {
+                        String remark = gr.remark;
+                        isRemarkEmpty = TextUtils.isEmpty(remark);
+                    }
+
+                }
+
+                if (!isRemarkEmpty) {
+                    updateData();
+                } else {
+                    Toast.makeText(mContext, "Please perform action", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.btnAction:
-                getActionList();
+                for (int i = 0; i < selectedtabData.modelList.size(); i++) {
+                    GRNProductDetailModel gr = selectedtabData.modelList.get(i);
+                    if (gr.isSelected()) {
+                        getActionList();
+                        return;
+                    } else {
+                        Toast.makeText(mContext, "Please select batch before perform action", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
                 break;
             case R.id.btnAddBatch:
                 saveBatchData();
@@ -392,14 +412,14 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     }
 
-    private void setChangeAction(int key, boolean isMove, boolean isDelete, String remark) {
+    private void setChangeAction(int key, boolean isMove, boolean isDelete, String remark, int actionId) {
         filterModelList = new ArrayList<>();
         for (GRNProductDetailModel grnProductDetailModel : selectedtabData.modelList) {
             if (grnProductDetailModel.isSelected) {
                 grnProductDetailModel.remark = remark;
                 grnProductDetailModel.setSelected(false);
-                //if()
-                grnProductDetailModel.setActionID(key);
+
+                grnProductDetailModel.setActionID(actionId);
                 grnProductDetailModel.setActionTitle("Defect");
 
                 filterModelList.add(grnProductDetailModel);
@@ -474,7 +494,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 for (GRNProductDetailModel grnProductDetailModel : tabDatum.modelList) {
                     JSONObject jsonObject1 = new JSONObject();
                     jsonObject1.put("number", grnProductDetailModel.getNumber());
-                    jsonObject1.put("actionTitle", grnProductDetailModel.getActionTitle());
+                    jsonObject1.put("actionTitle", grnProductDetailModel.remark == null ? "" : grnProductDetailModel.remark);
                     jsonObject1.put("actionID", grnProductDetailModel.getActionID());
                     jsonObject1.put("qty", grnProductDetailModel.getQty());
                     if (grnProductDetailModel.getActionID() == 1) {
@@ -504,7 +524,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
             int apQty = quantityDefect + qantityOthers;
             jsonObject2.put("apQty", apQty);
 
-            int balanceQty = openQty - (quantity + apQty);
+            int balanceQty = (int) (openQty - (quantity + apQty));
             jsonObject2.put("balanceQty", balanceQty);
 
 
@@ -513,6 +533,15 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
             poItemDetailsArray.put(pos, jsonObject2);
 
+            int quanOpenTotal = 0, quanBalanceTotal = 0;
+            for (int k = 0; k < poItemDetailsArray.length(); k++) {
+                JSONObject jsonObject1 = poItemDetailsArray.optJSONObject(k);
+                quanOpenTotal += jsonObject1.optInt("openQty");
+                quanBalanceTotal += jsonObject1.optInt("balanceQty");
+
+            }
+            jsonObject.put("openQty", quanOpenTotal);
+            jsonObject.put("balanceQty", quanBalanceTotal);
             jsonObject.put("poItemDetails", poItemDetailsArray);
             jsonObject.put("poAttachments", arrayPoAttachment);
             jsonObject.put("poIncoTerms", arrayPoIncco);
@@ -584,7 +613,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         boolean isDelete = false;
         if (actionId == 9) {
             isMove = false;
-            action = 2;
+            action = actionId;
         }
         if (actionId == 10) {
             isMove = true;
@@ -598,7 +627,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         if (actionId == 12 || actionId == 13 || actionId == 14 || actionId == 15) {
             remark = actionTitle;
         }
-        setChangeAction(action, isMove, isDelete, remark);
+        setChangeAction(action, isMove, isDelete, remark, actionId);
 
     }
 
