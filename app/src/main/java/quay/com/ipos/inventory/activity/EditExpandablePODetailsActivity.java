@@ -101,7 +101,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     InventorPOInccoAdapter incoTermsPOListAdapter;
     PaymentTermsPOListAdapter milestonePOListAdapter;
     TermsPOListAdapter termsPOListAdapter;
-    InventoryAttachmentAdapter attachmentsPOListAdapter;
+    AttachFileAdapter attachmentsPOListAdapter;
     Context context;
     ArrayList<POItemDetail> poItemDetails=new ArrayList<>();
     ArrayList<GrnInccoTermsModel> poIncoTerms=new ArrayList<>();
@@ -490,7 +490,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         recycler_viewAttachment.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(EditExpandablePODetailsActivity.this);
         recycler_viewAttachment.setLayoutManager(mLayoutManager);
-        attachmentsPOListAdapter = new InventoryAttachmentAdapter(EditExpandablePODetailsActivity.this, poAttachments,this);
+        attachmentsPOListAdapter = new AttachFileAdapter(attachFileModels);
         recycler_viewAttachment.setAdapter(attachmentsPOListAdapter);
     }
 
