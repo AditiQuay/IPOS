@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\assets"/><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\debug\assets"/></dataSet></merger>
-=======
-<merger version="3"><dataSet config="main"><source path="D:\QuayApp\IPOS\core\src\main\assets"/><source path="D:\QuayApp\IPOS\core\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\QuayApp\IPOS\core\src\debug\assets"/></dataSet></merger>
->>>>>>> 54f05bb740b2bff1a3fb9bf78af23547f0948ba5

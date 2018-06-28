@@ -311,6 +311,17 @@
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
                     android:src="@drawable/ic_action_arrow_right_blue" />
+                <ImageView
+                    android:id="@+id/ivAttAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.7"
+                    android:layout_toLeftOf="@+id/ivAttGroupArrow"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/add_circle" />
 
             </RelativeLayout>
 
