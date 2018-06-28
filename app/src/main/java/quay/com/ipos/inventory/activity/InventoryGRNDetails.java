@@ -106,8 +106,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     private String transporterEWayBillValidityDate;
     private TextView textTotalIncoTerms;
     private View ivAttAdd;
+<<<<<<< HEAD
     String getGrnNumber;
     String cardClick;
+=======
+>>>>>>> cb17170b909b76e2e8852f54b9b79f49577a57c8
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -1070,7 +1073,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         textTotalIncoTerms.setText(totalIncoTerms + "");
         Log.i(TAG, "Total IncoTerms:" + totalIncoTerms);
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> cb17170b909b76e2e8852f54b9b79f49577a57c8
     private static final int PICKFILE_RESULT_CODE = 101;
 
     private void onAttachFileClicked() {
@@ -1243,4 +1249,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         return imageStr;
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> cb17170b909b76e2e8852f54b9b79f49577a57c8
 }
