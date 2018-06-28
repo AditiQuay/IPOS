@@ -49,7 +49,10 @@ public class InventoryGrnInccoAdapter extends RecyclerView.Adapter<InventoryGrnI
 
         GrnInccoTermsModel grnInccoTermsModel = grnInccoTermsModels.get(position);
         holder.tvDetailName.setText(grnInccoTermsModel.grnIncoDetail);
-        holder.tvPayAmount.setText(grnInccoTermsModel.grnPayAmount + "");
+
+
+        holder.myCustomEditTextListener.updatePosition(position, holder);
+        holder.tvPayAmount.setText(grnInccoTermsModels.get(holder.getAdapterPosition()).grnPayAmount + "");
 
 
         holder.myCustomCheckBoxListener.updatePosition(position, holder);

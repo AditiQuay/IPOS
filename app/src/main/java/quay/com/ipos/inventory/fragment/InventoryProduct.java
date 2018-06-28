@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -351,19 +352,12 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
                 break;
             case R.id.btnAction:
-                for (int i = 0; i < selectedtabData.modelList.size(); i++) {
-                    GRNProductDetailModel gr = selectedtabData.modelList.get(i);
-                    if (gr.isSelected()) {
-                        getActionList();
-                        return;
-                    } else {
-                        Toast.makeText(mContext, "Please select batch before perform action", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
+                getActionList();
                 break;
             case R.id.btnAddBatch:
+                hideKeyboard();
                 saveBatchData();
+                batchEditText.setText("");
                 break;
             case R.id.btnTabOther:
                 setOthersTab();
@@ -371,6 +365,15 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
             default:
                 break;
 
+        }
+    }
+
+    private void hideKeyboard() {
+        View view = getCurrentFocus();
+        if (view != null) {
+            assert getSystemService(Context.INPUT_METHOD_SERVICE) != null;
+            ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE)).
+                    hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 
@@ -476,9 +479,9 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         try {
 
             JSONObject jsonObject = new JSONObject(json);
-            JSONArray poItemDetailsArray = new JSONArray(jsonObject.optString("poItemDetails").replaceAll("\\\\", ""));
-            JSONArray arrayPoAttachment = new JSONArray(jsonObject.optString("poAttachments").replaceAll("\\\\", ""));
-            JSONArray arrayPoIncco = new JSONArray(jsonObject.optString("poIncoTerms").replaceAll("\\\\", ""));
+            JSONArray poItemDetailsArray = new JSONArray(jsonObject.optString("poItemDetails"));
+            JSONArray arrayPoAttachment = new JSONArray(jsonObject.optString("poAttachments"));
+            JSONArray arrayPoIncco = new JSONArray(jsonObject.optString("poIncoTerms"));
             JSONObject jsonObject2 = poItemDetailsArray.getJSONObject(pos);
             JSONObject jsonObject3 = jsonObject2.getJSONObject("gRNItemInfoDetails");
 
@@ -545,6 +548,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
             jsonObject.put("poItemDetails", poItemDetailsArray);
             jsonObject.put("poAttachments", arrayPoAttachment);
             jsonObject.put("poIncoTerms", arrayPoIncco);
+            jsonObject.put("poPaymentTerms",new JSONArray());
 
             Log.e(TAG, "Data::" + jsonObject2.toString());
 

@@ -65,7 +65,6 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     String[] user = {"KGM Traders", "McCoy"};
 
 
-
     private RecyclerView recycler_viewRecentOrders, recycleview, recylerViewRoles;
     private ItemsDetailListAdapter recentOrdersListAdapter;
 
@@ -497,9 +496,15 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
 
     }
 
+
     @Override
     public void onCardClicked(int position) {
+        GRNListModel grnListModel = grnInventories.get(position);
 
+        Intent i = new Intent(mContext, InventoryGRNDetails.class);
+        i.putExtra("grnNumber", grnListModel.getGrnNumber());
+        i.putExtra("cardClick", "yes");
+        startActivity(i);
     }
 
 }

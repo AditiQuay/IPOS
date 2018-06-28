@@ -39,6 +39,7 @@ public class RealmGRNDetails extends RealmObject {
 
     @PrimaryKey
     private String grnNumber;
+    private String poNumber;
     private String receivedDate;
     private double totalItems;
     private double value;
@@ -54,14 +55,12 @@ public class RealmGRNDetails extends RealmObject {
     private String transporterDriverMobileNumber;
     private String transporterAddress;
     private String poPaymentTermsType;
-
-
     private String poItemDetails;
     private String poIncoTerms;
     private String poPaymentTerms;
     private String poTermsAndConditions;
     private String poAttachments;
-
+    private String employeeCode;
 
     public String getGrnNumber() {
         return grnNumber;
@@ -230,5 +229,41 @@ public class RealmGRNDetails extends RealmObject {
 
     public void setPoAttachments(String poAttachments) {
         this.poAttachments = poAttachments;
+    }
+
+    public String getPoNumber() {
+        return poNumber;
+    }
+
+    public void setPoNumber(String poNumber) {
+        this.poNumber = poNumber;
+    }
+
+    public void setTotalItems(double totalItems) {
+        this.totalItems = totalItems;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public void setPoQty(double poQty) {
+        this.poQty = poQty;
+    }
+
+    public void setOpenQty(double openQty) {
+        this.openQty = openQty;
+    }
+
+    public void setBalanceQty(double balanceQty) {
+        this.balanceQty = balanceQty;
+    }
+
+    public String getEmployeeCode() {
+        return employeeCode;
+    }
+
+    public void setEmployeeCode(String employeeCode) {
+        this.employeeCode = employeeCode;
     }
 }
