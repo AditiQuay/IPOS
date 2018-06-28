@@ -196,6 +196,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:inputType="number"
                     android:layout_toLeftOf="@+id/btnAddBatch"
                     android:background="@drawable/white_background"
                     android:fontFamily="@font/titilliumwebregular"

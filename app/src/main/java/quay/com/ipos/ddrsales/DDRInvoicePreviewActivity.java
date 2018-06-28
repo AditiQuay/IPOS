@@ -149,12 +149,9 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
 
         textAvaCreditLimit = findViewById(R.id.textAvaCreditLimit);
 
-<<<<<<< HEAD
-=======
         textTotalIncoTerms = findViewById(R.id.textTotalIncoTerms);
 
 
->>>>>>> 5ae83c091d110728428058c4a123a9736404ef6e
         //logistics
         spinnerMode = findViewById(R.id.spinnerMode);
         editTruckNumber = findViewById(R.id.editTruckNumber);
@@ -190,12 +187,9 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         recycleViewShippingAddress.setAdapter(adapterAddShipping);
 
 
-<<<<<<< HEAD
-=======
         textIncoTermsOthers = findViewById(R.id.textIncoTermsOthers);
         textIncoTermsOthers.setOnClickListener(this);
 
->>>>>>> 5ae83c091d110728428058c4a123a9736404ef6e
         recycleViewIncoTerms = findViewById(R.id.recycleViewIncoTerms);
         recycleViewProductBatch = findViewById(R.id.recycleViewProductBatch);
 

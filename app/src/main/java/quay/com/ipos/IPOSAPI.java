@@ -49,6 +49,7 @@ public class IPOSAPI {
     public static String WEB_SERVICE_GetPOInfo = WEB_SERVICE_BASE_URL + "Inventory/GetPOInfo";
     public static String WEB_SERVICE_GET_GRN_SUMMARY = WEB_SERVICE_BASE_URL+"Inventory/GetGRNSummary";
     public static String WEB_SERVICE_GET_GRN_SUMMARY_DETAIL = WEB_SERVICE_BASE_URL+"Inventory/GetGRNSummaryDetail";
+    public static String WEB_SERVICE_GET_GRN_SUMMARY_SUBMIT = WEB_SERVICE_BASE_URL+"Inventory/SubmitGRNSummaryDetail";
     //------------niraj and ankush end
     //redeem
     public static String WEB_SERVICE_NOPointsRedeem = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOPointsRedeem";
