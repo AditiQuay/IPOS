@@ -195,7 +195,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
                 for (CustomerModel wp : responseList) {
                     if (wp.getCustomerName() != null) {
 
-                        if (wp.getCustomerName().toLowerCase().contains(charText) || wp.getCustomerPhone().toLowerCase().contains(charText)) {
+                        if (wp.getCustomerFirstName().toLowerCase().contains(charText) || wp.getCustomerFirstName().toUpperCase().contains(charText) || wp.getCustomerLastName().toLowerCase().contains(charText) || wp.getCustomerLastName().toUpperCase().contains(charText) || wp.getCustomerPhone().toLowerCase().contains(charText)) {
                             arrSearlist.add(wp);
                         }
                     }

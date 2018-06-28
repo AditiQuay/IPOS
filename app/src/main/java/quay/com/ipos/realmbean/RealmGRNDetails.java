@@ -4,6 +4,7 @@ import java.util.List;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import quay.com.ipos.inventory.modal.POItemDetail;
 
 /**
  * Created by ankush.bansal on 19-06-2018.
@@ -53,11 +54,14 @@ public class RealmGRNDetails extends RealmObject {
     private String transporterDriverMobileNumber;
     private String transporterAddress;
     private String poPaymentTermsType;
+
+
     private String poItemDetails;
     private String poIncoTerms;
     private String poPaymentTerms;
     private String poTermsAndConditions;
     private String poAttachments;
+
 
     public String getGrnNumber() {
         return grnNumber;

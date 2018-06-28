@@ -156,24 +156,31 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/rLayoutBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerviewButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:overScrollMode="never"
-                    android:paddingLeft="@dimen/dim_8"
-                    android:paddingRight="@dimen/dim_8"
-                    android:scrollbars="none" />
+                    android:layout_toLeftOf="@+id/btnTabOther"
+                    android:orientation="horizontal" />
 
-            </LinearLayout>
+                <Button
+                    android:id="@+id/btnTabOther"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:backgroundTint="@color/button_tint_resource"
+                    android:drawablePadding="@dimen/dim_4"
+                    android:stateListAnimator="@null"
+                    android:text="Others"
+                    android:textAllCaps="false" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/editTextBatchNumber"
@@ -191,7 +198,10 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/btnAddBatch"
                     android:background="@drawable/white_background"
-                    android:fontFamily="@font/titilliumwebregular" />
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:hint="Enter batch number"
+                    android:padding="@dimen/dim_4"
+                    android:textSize="@dimen/universal_text_size15" />
 
                 <Button
                     android:id="@+id/btnAddBatch"

@@ -1,5 +1,36 @@
 -- Merging decision tree log ---
 manifest
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+	package
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:70-106
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:11-69
+application
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+=======
+<<<<<<< HEAD
+>>>>>>> 54f5879b68071d8ef802f0b06cbcf38853c38e1b
+ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+	package
+		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:70-106
+		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:11-69
+application
+ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+<<<<<<< HEAD
+=======
+=======
 ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
@@ -11,3 +42,6 @@ INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 		ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:11-69
 application
 ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+>>>>>>> 54f05bb740b2bff1a3fb9bf78af23547f0948ba5
+>>>>>>> 314ba1b1b898c75751e8b51c9ea7d5f665363a96
+>>>>>>> 54f5879b68071d8ef802f0b06cbcf38853c38e1b

@@ -4,18 +4,25 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -23,7 +30,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.realm.Realm;
 import okhttp3.Call;
@@ -39,6 +48,7 @@ import quay.com.ipos.inventory.adapter.InventoryGrnInccoAdapter;
 import quay.com.ipos.inventory.adapter.InventoryGrnItemsListAdapter;
 import quay.com.ipos.inventory.adapter.MilestonePOListAdapter;
 import quay.com.ipos.inventory.adapter.TermsPOListAdapter;
+import quay.com.ipos.inventory.attachments.AttachFileModel;
 import quay.com.ipos.inventory.fragment.InventoryProduct;
 import quay.com.ipos.inventory.modal.GrnAttachment;
 import quay.com.ipos.inventory.modal.GrnInccoTermsModel;
@@ -67,6 +77,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     private RelativeLayout rGrn, rTransporter, rItemsDetails, rIncco, rAttachment;
     private LinearLayout lGrn, lItemsDetails, llIncoTerms, llTermsC;
     private RelativeLayout lTransporter;
+    ArrayList<AttachFileModel> attachFileModels = new ArrayList<>();
 
     private RecyclerView recycler_viewItemDetail, rvIncco, recycler_viewPayment, recycler_viewTerms, rvAttachment;
     //Inventory Grn
@@ -92,6 +103,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     boolean isInccoClick = false;
     boolean isAttachmentClick = false;
     private String transporterEWayBillValidityDate;
+    private View ivAttAdd;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,6 +126,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         toolbar = findViewById(R.id.toolbar);
         btnAction = findViewById(R.id.btnAction);
         btnSave = findViewById(R.id.btnSave);
+        ivAttAdd = findViewById(R.id.ivAttAdd);
 
         rGrn = findViewById(R.id.rGrn);
         rTransporter = findViewById(R.id.rTransporter);
@@ -130,6 +143,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         balanceQty = findViewById(R.id.balanceQty);
 
 
+        ivAttAdd.setOnClickListener(this);
         rGrn.setOnClickListener(this);
         rTransporter.setOnClickListener(this);
         rItemsDetails.setOnClickListener(this);
@@ -200,6 +214,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.ivAttAdd:
+                new onAttachFileClicked();
+                break;
+
             case R.id.btnAction:
                 Intent i = new Intent(mContext, InventoryWorkFlowActivity.class);
                 startActivity(i);
@@ -405,7 +423,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
                 setItemDetails();
                 setIncoTerms();
-                setAttahcments();
+              //  setAttahcments();
                 // setPaymentTerms();
                 //  setTermsCondition();
 
@@ -566,11 +584,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 //    }
 
 
-    private void setAttahcments() {
+ /*   private void setAttahcments() {
         rvAttachment.setLayoutManager(new LinearLayoutManager(mContext));
         inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments, this);
         rvAttachment.setAdapter(inventoryAttachmentAdapter);
-    }
+    }*/
 
 
     private void createJson() {
@@ -610,9 +628,42 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 jsonObject1.put("grnAttachmentName", grnAttachments.get(j).getGrnAttachmentName());
                 jsonObject1.put("grnAttachmentUrl", grnAttachments.get(j).getGrnAttachmentUrl());
                 jsonObject1.put("grnAttachmentType", grnAttachments.get(j).getGrnAttachmentType());
-
                 jsonArrayAttachments.put(jsonObject1);
             }
+
+            //attach new
+
+            for (int i = 0; i < grnAttachments.size(); i++) {
+                AttachFileModel fileModel = attachFileModels.get(i);
+                Uri returnUri = fileModel.uri;
+                Cursor returnCursor = getContentResolver().query(returnUri, null, null, null, null);
+                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+                returnCursor.moveToFirst();
+                String fileName = returnCursor.getString(nameIndex);
+                String fileSize = Long.toString(returnCursor.getLong(sizeIndex));
+                String mimeType = getContentResolver().getType(returnUri);
+                Log.i("Type", mimeType);
+
+              /*  SpendRequestAttachment spendRequestAttachment = new SpendRequestAttachment();
+                spendRequestAttachment.AttachmentBase = getBase64StringNew(returnUri, Integer.parseInt(fileSize));
+                spendRequestAttachment.AttachmentExtension = "No Info";
+                spendRequestAttachment.AttachmentName = fileName;
+                spendRequestAttachment.AttachmentType = mimeType;
+                spendRequestAttachmentList.add(spendRequestAttachment);
+               */
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("grnAttachmentName", fileName);
+                jsonObject1.put("grnAttachmentUrl", getBase64StringNew(returnUri, Integer.parseInt(fileSize)));
+                jsonObject1.put("grnAttachmentType",  mimeType);
+                jsonArrayAttachments.put(jsonObject1);
+
+
+            }
+            //attach end
+
+
+
 
 
             jsonObject.put("poNumber", poNumber);
@@ -783,11 +834,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     @Override
     public void onRowClicked(int position) {
+        GrnItemQtyModel grnItemQtyModel = grnListModels.get(position);
         Intent gotToProductDetail = new Intent(mContext, InventoryProduct.class);
         gotToProductDetail.putExtra("position", position);
+        gotToProductDetail.putExtra("openQty",grnItemQtyModel.getOpenQty());
         startActivityForResult(gotToProductDetail, 1);
 
-//        createJson();
     }
 
     @Override
@@ -798,6 +850,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        onActivityResultAttachment(requestCode,resultCode,data);
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 grnListModels.clear();
@@ -814,4 +867,179 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     public void onAttachmentClicked(int position) {
 
     }
+
+    private static final int PICKFILE_RESULT_CODE = 101;
+
+    private class onAttachFileClicked implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("*/*");
+            startActivityForResult(intent, PICKFILE_RESULT_CODE);
+        }
+    }
+
+
+    public void onActivityResultAttachment(int requestCode, int resultCode, Intent data) {
+
+        try {
+            switch (requestCode) {
+                case PICKFILE_RESULT_CODE:
+                    if (resultCode == RESULT_OK) {
+                        Uri uri = data.getData();
+                        Cursor returnCursor =
+                                getContentResolver().query(uri, null, null, null, null);
+                        int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                        int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+                        returnCursor.moveToFirst();
+
+                        String fileName = returnCursor.getString(nameIndex);
+                        long fileSize = returnCursor.getLong(sizeIndex);
+                        String mimeType = getContentResolver().getType(uri);
+                        Log.i("Type", mimeType);
+                        Log.i("fileSize", fileSize+"");
+                        long twoMb = 1024 * 1024 * 2;
+
+                        if(fileSize <= twoMb) {
+                            AttachFileModel fileModel = new AttachFileModel();
+                            fileModel.fileName = fileName;
+                            fileModel.mimeType = mimeType;
+                            fileModel.uri = uri;
+
+                            attachFileModels.add(fileModel);
+                            updateSize();
+                            String FilePath = data.getData().getPath();
+                        }else {
+                            Toast.makeText(getApplicationContext(), "Oops! File Size must be less than 2 MB", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                    break;
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateSize() {
+        int attachFileSize = attachFileModels.size();
+        int attachVoiceSize = 0;
+        int totalSize = attachFileSize;
+        // textViewAttachmentSize.setText("(" + totalSize + ")");
+        //    Toast.makeText(getActivity(), "attachFileModels" + attachFileModels.size(), Toast.LENGTH_SHORT).show();
+        for (int i = 0; i < attachFileModels.size(); i++) {
+            Log.v("attachFileModels", "attachFileModels" + attachFileModels.get(i));
+        }
+        if (attachFileSize > 0) {
+            rvAttachment.setLayoutManager(new LinearLayoutManager(mContext));
+           // inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments, this);
+          //  rvAttachment.setAdapter(inventoryAttachmentAdapter);
+
+            rvAttachment.setAdapter(new AttachFileAdapter(attachFileModels));
+
+        }
+    }
+
+    private class AttachVH extends RecyclerView.ViewHolder {
+        public TextView textView;
+        public View btnClear;
+
+        public AttachVH(View itemView) {
+            super(itemView);
+            textView = itemView.findViewById(R.id.textView);
+            btnClear = itemView.findViewById(R.id.btnClear);
+            btnClear.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private class AttachFileAdapter extends RecyclerView.Adapter<AttachVH> {
+        private List<AttachFileModel> spendRequestAttachment;
+
+        public AttachFileAdapter(List<AttachFileModel> spendRequestAttachment) {
+            this.spendRequestAttachment = spendRequestAttachment;
+        }
+
+        @NonNull
+        @Override
+        public AttachVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_attachfile_item, parent, false);
+            return new AttachVH(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull AttachVH holder, final int position) {
+            final AttachFileModel fileModel = spendRequestAttachment.get(position);
+            final String fileName = fileModel.fileName;
+            // String name = fileName.substring(fileName.lastIndexOf("/"));
+            //SpannableString content = new SpannableString("" + name);
+            //content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+            // textView.setText(content);
+            //holder.textView.setText(name);
+            holder.textView.setText(fileName);
+            Log.v("path", "---------------------" + fileName);
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   /* Uri path = Uri.parse(attachment);
+                    String type = attachment;
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(attachment));*/
+                    // intent.setDataAndType(spendRequestAttachment.get(position),"*/*");
+                    //   intent.setDataAndType(path, type);
+                    //intent.addFlag(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                    //Toast.makeText(getActivity(), "In Progress!", Toast.LENGTH_SHORT).show();
+                 /*   startActivity(intent);*/
+                    final Intent shareIntent = new Intent(Intent.ACTION_VIEW);
+                    //   shareIntent.setType("*/*");
+                    //  shareIntent.setDataAndType(Uri.parse(fileModel.uri.toString()), "image/*");
+                    shareIntent.setDataAndType(Uri.parse(fileModel.uri.toString()),fileModel.mimeType);
+                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    //final File photoFile = new File(getFilesDir(), "foo.jpg");
+
+                    startActivity(Intent.createChooser(shareIntent, "View file using"));
+                }
+            });
+            holder.btnClear.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    spendRequestAttachment.remove(fileModel);
+                    notifyDataSetChanged();
+
+                    int attachFileSize = attachFileModels.size();
+                    // textViewAttachmentSize.setText("(" + attachFileSize + ")");
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return spendRequestAttachment.size();
+        }
+    }
+    private String getBase64StringNew(Uri uri, int filelength) {
+        String imageStr = null;
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+
+           /* InputStream finput = new FileInputStream(file);
+            byte[] imageBytes = new byte[(int)file.length()];
+            finput.read(imageBytes, 0, imageBytes.length);
+            finput.close();
+            String imageStr = Base64.encodeBase64String(imageBytes);*/
+
+            //InputStream finput = new FileInputStream(file);
+            byte[] byteFileArray = new byte[filelength];
+            inputStream.read(byteFileArray, 0, byteFileArray.length);
+            inputStream.close();
+            imageStr = android.util.Base64.encodeToString(byteFileArray, android.util.Base64.NO_WRAP);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return imageStr;
+    }
+
+
 }

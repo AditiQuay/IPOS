@@ -7,12 +7,12 @@
     android:background="@color/app_background_color">
 
 
-
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbarCustomerInfoDetail"
             android:layout_width="match_parent"
@@ -23,28 +23,29 @@
 
 
     </android.support.design.widget.AppBarLayout>
+
     <LinearLayout
         android:id="@+id/llMenuBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
         android:layout_below="@id/appbar"
         android:layout_gravity="center_vertical"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp">
 
         <ImageView
             android:id="@+id/imvUserAdd"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:alpha="0.3"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_add_person"/>
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_5"
+            android:src="@drawable/ic_action_add_person" />
 
         <FrameLayout
             style="?attr/actionButtonStyle"
@@ -59,49 +60,49 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_action_pin_white"/>
+                android:src="@drawable/ic_action_pin_white" />
 
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvPinCount"
                 android:layout_width="28dp"
                 android:layout_height="20dp"
                 android:layout_gravity="right|end|top"
-                android:layout_marginRight="-10dp"
                 android:layout_marginLeft="@dimen/dim_16"
+                android:layout_marginRight="-10dp"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/yellow_circle"
-                android:maxLength="3"
                 android:gravity="center"
+                android:maxLength="3"
                 android:padding="3dp"
-                android:visibility="gone"
                 android:textColor="@android:color/white"
-                android:textSize="10sp"/>
+                android:textSize="10sp"
+                android:visibility="gone" />
 
         </FrameLayout>
 
 
         <ImageView
             android:id="@+id/imvBilling"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_billing_white"/>
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_5"
+            android:src="@drawable/ic_action_billing_white" />
 
         <ImageView
             android:id="@+id/imvDicount"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_5"
-            android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:alpha="0.3"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_discount_white"/>
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_5"
+            android:src="@drawable/ic_action_discount_white" />
 
         <FrameLayout
             style="?attr/actionButtonStyle"
@@ -117,57 +118,58 @@
                 android:layout_height="24dp"
                 android:layout_gravity="center"
                 android:alpha="0.3"
-                android:src="@drawable/ic_action_loyality_white"/>
+                android:src="@drawable/ic_action_loyality_white" />
 
             <quay.com.ipos.ui.CustomTextView
                 android:layout_width="28dp"
                 android:layout_height="20dp"
                 android:layout_gravity="right|end|top"
-                android:layout_marginRight="-10dp"
                 android:layout_marginLeft="@dimen/dim_16"
+                android:layout_marginRight="-10dp"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/yellow_circle"
                 android:gravity="center"
-                android:padding="3dp"
                 android:maxLength="3"
-                android:visibility="gone"
+                android:padding="3dp"
                 android:textColor="@android:color/white"
-                android:textSize="10sp"/>
+                android:textSize="10sp"
+                android:visibility="gone" />
 
         </FrameLayout>
 
 
         <ImageView
             android:id="@+id/imvGlobe"
-            android:paddingLeft="@dimen/dim_10"
-            android:paddingRight="@dimen/dim_10"
-            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
             android:alpha="0.3"
             android:background="@color/transparent"
-            android:src="@drawable/ic_action_online_shoping"/>
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:src="@drawable/ic_action_online_shoping" />
 
 
         <quay.com.ipos.ui.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center"
-            android:gravity="right"
             android:layout_weight="1"
-            android:text="@string/barcode"
-            android:visibility="gone"
-            android:textColor="@color/dark_text_color"
+            android:gravity="right"
             android:paddingRight="@dimen/dim_5"
-            android:textSize="@dimen/text_size_15sp"/>
-        <FrameLayout
-            style="?attr/actionButtonStyle"
-            android:layout_width="0dp"
+            android:text="@string/barcode"
+            android:textColor="@color/dark_text_color"
+            android:textSize="@dimen/text_size_15sp"
+            android:visibility="gone" />
 
+        <FrameLayout
             android:id="@+id/flScanLayout"
-            android:layout_marginRight="@dimen/dim_5"
+            style="?attr/actionButtonStyle"
+
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dim_5"
             android:layout_weight="1"
             android:clipToPadding="false"
             android:focusable="true">
@@ -175,23 +177,23 @@
             <ImageView
                 android:id="@+id/imvBarcode"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:alpha="0.3"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_action_qr_code1"/>
+                android:src="@drawable/ic_action_qr_code1" />
 
             <ImageView
                 android:id="@+id/imvStatus"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
                 android:layout_gravity="right|end|top"
-                android:layout_marginRight="-8dp"
                 android:layout_marginLeft="@dimen/dim_8"
+                android:layout_marginRight="-8dp"
                 android:layout_marginTop="5dp"
                 android:alpha="0.3"
                 android:background="@drawable/circle_disabled"
                 android:gravity="center"
-                android:padding="3dp"/>
+                android:padding="3dp" />
 
         </FrameLayout>
 
@@ -607,12 +609,12 @@
                 android:id="@+id/recyclerviewRecentOrder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/rLayoutRecent"
                 android:layout_marginBottom="@dimen/dim_10"
                 android:layout_marginLeft="@dimen/dim_16"
                 android:layout_marginRight="@dimen/dim_16"
                 android:layout_marginTop="@dimen/dim_10"
                 android:overScrollMode="never"
-                android:layout_below="@+id/rLayoutRecent"
                 android:scrollbars="none" />
 
 
@@ -623,46 +625,46 @@
         android:id="@+id/lLayoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
 
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvTotalDiscount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="center_vertical"
+            android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="@string/Rs"
             android:paddingLeft="@dimen/dim_5"
+            android:text="@string/Rs"
             android:textColor="@color/white"
-            android:visibility="invisible"
-            android:textSize="@dimen/text_size_15sp" />
+            android:textSize="@dimen/text_size_15sp"
+            android:visibility="invisible" />
 
         <quay.com.ipos.ui.CustomTextView
             android:id="@+id/textViewUpdateAndProceed"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
             android:layout_marginLeft="@dimen/dim_10"
-            android:text="@string/proceed_update"
+            android:gravity="center_vertical"
             android:paddingRight="@dimen/dim_8"
+            android:text="@string/proceed_update"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_15sp"/>
+            android:textSize="@dimen/text_size_15sp" />
 
 
         <ImageView
             android:id="@+id/imvRight"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
             android:layout_gravity="center"
+            android:background="@color/payment_color"
+            android:gravity="center"
             android:paddingLeft="@dimen/dim_15"
             android:paddingRight="@dimen/dim_15"
-            android:src="@drawable/ic_action_arrow_right"
-            android:background="@color/colorAccentDark"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"/>
+            android:src="@drawable/ic_action_arrow_right" />
     </LinearLayout>
 
 
