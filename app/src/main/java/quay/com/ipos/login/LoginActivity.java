@@ -286,9 +286,9 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     //new  RealmController().saveUserDetail(userdata);
 
 
-                  //   Intent i = new Intent(mContext, MainActivity.class);
-                  //   startActivity(i);
-                    searchProductCall(loginResult.getUserAccess().getWorklocationID() + "");
+                     Intent i = new Intent(mContext, MainActivity.class);
+                     startActivity(i);
+                   // searchProductCall(loginResult.getUserAccess().getWorklocationID() + "");
                 }
             } else if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT)) {
                 if (resultObj != null) {

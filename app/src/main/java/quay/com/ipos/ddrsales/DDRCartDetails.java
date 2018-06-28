@@ -2,9 +2,12 @@ package quay.com.ipos.ddrsales;
 
 import android.Manifest;
 import android.animation.Animator;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.Observer;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -25,13 +28,14 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,7 +56,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -67,7 +70,13 @@ import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.data.remote.RestService;
+import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.ddrsales.model.DDRProduct;
+import quay.com.ipos.ddrsales.model.InvoiceData;
+import quay.com.ipos.ddrsales.model.RealmDDROrderList;
+import quay.com.ipos.ddrsales.model.request.DDRProductReq;
+import quay.com.ipos.ddrsales.model.response.DDRProductListResponse;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
@@ -77,42 +86,37 @@ import quay.com.ipos.listeners.ScannerProductListener;
 import quay.com.ipos.listeners.SendScannerBarcodeListener;
 import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
-import quay.com.ipos.pss_order.activity.AddOrderCentreActivity;
 import quay.com.ipos.pss_order.activity.PinnedOrderActivity;
 import quay.com.ipos.pss_order.adapter.CustomAdapter;
 import quay.com.ipos.pss_order.adapter.DDRCartListAdapter;
 
 import quay.com.ipos.pss_order.fragment.DDRScannerFragment;
-import quay.com.ipos.pss_order.fragment.OrderCentreScannerFragment;
 import quay.com.ipos.pss_order.modal.DiscountModal;
-import quay.com.ipos.pss_order.modal.NOGetEntityBuisnessPlacesModal;
 import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
 import quay.com.ipos.pss_order.modal.NoGetEntityResultModal;
 import quay.com.ipos.pss_order.modal.ProductSearchRequest;
 import quay.com.ipos.realmbean.RealmController;
-import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.InformationDialogDDR;
-import quay.com.ipos.ui.InformationDialogNewOrder;
-import quay.com.ipos.ui.InformationDialogNewOrderEdit;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
-import retrofit2.http.HEAD;
+import quay.com.ipos.utility.ValidateUtils;
 
 /**
  * Created by aditi.bhuranda on 03-05-2018.
  */
 
-public class DDRCartDetails extends AppCompatActivity implements SendScannerBarcodeListener,MyCheckedChangedListener,MyListenerProduct,ServiceTask.ServiceResultListener ,View.OnClickListener , CompoundButton.OnCheckedChangeListener ,AdapterListener,MessageDialog.MessageDialogListener,ScannerProductListener {
+public class DDRCartDetails extends AppCompatActivity implements SendScannerBarcodeListener, MyCheckedChangedListener, MyListenerProduct, ServiceTask.ServiceResultListener, View.OnClickListener, CompoundButton.OnCheckedChangeListener, AdapterListener, MessageDialog.MessageDialogListener, ScannerProductListener {
     private TextView tvMoreDetails, tvItemNo, tvItemQty, tvTotalItemPrice,
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
             tvLessDetails, tvRoundingOffPrice, tvPay, tvPinCount;
-
+    private TextView mDDRDetails;
+    private ImageView mDDRDetailsIcon;
     ImageView imvBarcode;
     private FrameLayout flScanner;
     private Fragment scanner_fragment;
@@ -136,7 +140,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     ArrayList<NewOrderPinnedResults.Info> mOrderInfoArrayList = new ArrayList<>();
     private String json;
     private RelativeLayout llBelowPaymentDetail;
-    private TextView tvMessage,btnNext;
+    private TextView tvMessage, btnNext;
     private AppCompatSpinner spnAddress;
     private Context mContext;
     private ArrayList<NoGetEntityResultModal.BuisnessPlacesBean> noGetEntityBuisnessPlacesModals = new ArrayList<>();
@@ -147,17 +151,21 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     private ImageView imvStatus;
     private String poNumber;
     private int postionCheckStock;
-    private LinearLayout llArrows,llSearch;
+    private LinearLayout llArrows, llSearch;
     private ImageView imgArrow;
-    private boolean isArrowCLick=false;
-    private ArrayList<NoGetEntityResultModal.BuisnessPlacesBean> distributotes=new ArrayList<>();
+    private boolean isArrowCLick = false;
+    private ArrayList<NoGetEntityResultModal.BuisnessPlacesBean> distributotes = new ArrayList<>();
     private AppCompatSpinner spnTraders;
+    private EditText searchView;
+    private DDR mDdr;
+    private Activity activity;
 
+    private MutableLiveData<DDRProductListResponse> mutableLiveData = new MutableLiveData<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        activity = this;
         setContentView(R.layout.activity_ddr_cart);
         setHeader();
         mContext = DDRCartDetails.this;
@@ -170,11 +178,20 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         try {
             LocalBroadcastManager.getInstance(DDRCartDetails.this).registerReceiver(listener,
                     new IntentFilter("BarcodeScanDDR"));
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
+        getLiveServerData().observe(this, new Observer<DDRProductListResponse>() {
+            @Override
+            public void onChanged(@Nullable DDRProductListResponse response) {
+
+
+            }
+        });
+        getServerData();
 
     }
+
 
     public void setHeader() {
         Toolbar toolbar = findViewById(R.id.appBar);
@@ -184,13 +201,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                if (mList.size()>0){
-                    finish();
-                }else{
-                    Util.showToast("Please add atleast one product.");
-                }
+                finish();
 
 
             }
@@ -200,6 +211,22 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowCustomEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+
+
+        mDdr = (DDR) getIntent().getSerializableExtra("ddr");
+        mDDRDetails = findViewById(R.id.mDDRDetails);
+        mDDRDetailsIcon = findViewById(R.id.mDDRDetailsIcon);
+        btnNext = findViewById(R.id.btnNext);
+
+        if (mDdr != null) {
+            mDDRDetails.setText(mDdr.mDDRCode + " - " + mDdr.mDDRName);
+            mDDRDetailsIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(activity, "" + mDdr.mDDRCode + " - " + mDdr.mDDRName, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
@@ -216,8 +243,12 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 */
 
     private void initializeComponent(View rootView) {
-        llSearch=findViewById(R.id.llSearch);
-        imvStatus=findViewById(R.id.imvStatus);
+        searchView = findViewById(R.id.searchView);
+        searchView.setFocusable(false);
+        searchView.setClickable(true);
+        searchView.setOnClickListener(this);
+        llSearch = findViewById(R.id.llSearch);
+        imvStatus = findViewById(R.id.imvStatus);
         flScanner = findViewById(R.id.flScanner);
 
         imvBarcode = findViewById(R.id.imvBarcode);
@@ -231,27 +262,23 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         mRecyclerView.addItemDecoration(
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
-      //  mRecyclerView.addOnScrollListener(listener);
+        //  mRecyclerView.addOnScrollListener(listener);
 
         setListener();
         setAdapter();
 
-        Intent i=getIntent();
-        if (i!=null){
-            poNumber=i.getStringExtra("poNumber");
+        Intent i = getIntent();
+        if (i != null) {
+            poNumber = i.getStringExtra("poNumber");
         }
 
     }
-
-
-
 
 
     private void setListener() {
 
         btnNext.setOnClickListener(this);
         llSearch.setOnClickListener(this);
-
 
 
         imvBarcode.setOnClickListener(new View.OnClickListener() {
@@ -339,6 +366,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
     public void onSearchButton() {
         Intent mIntent = new Intent(mContext, DDRAddNewProductActivity.class);
+        mIntent.putExtra("ddr", mDdr);
         mIntent.putExtra(Constants.businessPlaceCode, businessPlaceCode);
         mIntent.putExtra(Constants.entityStateCode, entityStateCode);
         startActivityForResult(mIntent, 3);
@@ -346,7 +374,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
     private void setAdapter() {
 
-        mNewOrderListAdapter = new DDRCartListAdapter(mContext, this, mRecyclerView, mList, this, this,this);
+        mNewOrderListAdapter = new DDRCartListAdapter(mContext, this, mRecyclerView, mList, this, this, this);
         mRecyclerView.setAdapter(mNewOrderListAdapter);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -403,7 +431,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
 
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<DDRProduct> realmNewOrderCarts1 = realm.where(DDRProduct.class).equalTo("OrderId",poNumber).findAll();
+        RealmResults<DDRProduct> realmNewOrderCarts1 = realm.where(DDRProduct.class).findAll();
         mList.clear();
 
         for (DDRProduct realmNewOrderCart : realmNewOrderCarts1) {
@@ -417,12 +445,12 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         //setCalculatedValues();
 
 
-        if (mList.isEmpty()){
-         //   tvMessage.setVisibility(View.VISIBLE);
+        if (mList.isEmpty()) {
+            //   tvMessage.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.GONE);
             // onSearchButton();
-        }else{
-         //   tvMessage.setVisibility(View.GONE);
+        } else {
+            //   tvMessage.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
         }
 
@@ -443,10 +471,10 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         tvTotalDiscountDetail.setText("(Item 0)");
 
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<DDRProduct> realmNewOrderCarts1 = realm.where(DDRProduct.class).equalTo("OrderId",poNumber).findAll();
+        RealmResults<DDRProduct> realmNewOrderCarts1 = realm.where(DDRProduct.class).findAll();
 
         int qty = 0;
-        double payAmount=0.0;
+        double payAmount = 0.0;
         int discountItems = 0;
         int gst = 0;
         int totalGST = 0;
@@ -465,7 +493,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             if (realmNewOrderCart.isDiscount() && !realmNewOrderCart.isFreeItem()) {
                 discountItems = discountItems + 1;
             }
-            if (realmNewOrderCart.getDiscountPrice()<=0) {
+            if (realmNewOrderCart.getDiscountPrice() <= 0) {
                 if (!realmNewOrderCart.isFreeItem()) {
                     try {
                         JSONArray array = new JSONArray(realmNewOrderCart.getDiscount());
@@ -481,7 +509,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                 } else {
                     discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
                 }
-            }else {
+            } else {
                 discountPrice = discountPrice + realmNewOrderCart.getDiscountPrice();
 
 
@@ -490,35 +518,28 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             gst = gst + totalGST;
 
 
-
             cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
             sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
-
-
 
 
             totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
 
         }
-        payAmount = (totalItemsAmount + cgst+sgst) - discountPrice;
+        payAmount = (totalItemsAmount + cgst + sgst) - discountPrice;
 
         tvItemNo.setText("Item " + noOfItems);
         tvItemQty.setText(qty + " Qty");
         tvTotalItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(totalItemsAmount));
-        tvTotalItemGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat((cgst+sgst)));
+        tvTotalItemGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat((cgst + sgst)));
         tvPay.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(payAmount));
         tvCGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(cgst));
         tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(sgst));
         tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
-        tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(discountPrice));
+        tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(discountPrice));
         tvTotalDiscountDetail.setText("(Item " + discountItems + ")");
 
 
     }
-
-
-
-
 
 
     @Override
@@ -529,11 +550,13 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 //            case R.id.imvQRCode:
 //                ((MainActivity) mContext).launchActivity(FullScannerActivity.class);
 //                break;
-
+            case R.id.searchView:
+                onSearchButton();
+                break;
             case R.id.imvInfo:
                 Util.hideSoftKeyboard(DDRCartDetails.this);
                 int infoPos = (int) view.getTag();
-                new InformationDialogDDR(mContext,mList.get(infoPos));
+                new InformationDialogDDR(mContext, mList.get(infoPos));
                 break;
             case R.id.tvMinus:
                 Util.animateView(view);
@@ -578,9 +601,9 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                 Util.animateView(view);
                 if (mList.size() > 0) {
                     createOrder();
-                    Intent i=new Intent();
-                    setResult(6,i);
-                    finish();
+                    Intent intent = new Intent(DDRCartDetails.this, DDRInvoicePreviewActivity.class);
+                    intent.putExtra("ddr", mDdr);
+                    startActivity(intent);
                 } else {
                     Util.showToast("Please add atleast one item to proceed.");
                 }
@@ -590,18 +613,18 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
             case R.id.llRefreshStocks:
                 final int posDeleteCheckStock = (int) view.getTag();
-                DDRProduct realmNewOrderCart=mList.get(posDeleteCheckStock);
+                DDRProduct realmNewOrderCart = mList.get(posDeleteCheckStock);
                 realmNewOrderCart.setmCheckStock(0);
                 realmNewOrderCart.setCheckStockClick(false);
-                mList.set(posDeleteCheckStock,realmNewOrderCart);
+                mList.set(posDeleteCheckStock, realmNewOrderCart);
                 mNewOrderListAdapter.notifyItemChanged(posDeleteCheckStock);
                 break;
             case R.id.tvCheckStock:
                 Util.animateView(view);
 
                 final int posCheck = (int) view.getTag();
-                postionCheckStock=posCheck;
-                if (mList.size()  > 0) {
+                postionCheckStock = posCheck;
+                if (mList.size() > 0) {
                     getCheckStockAPI(mList.get(posCheck).getiProductModalId());
                 } else {
                     Util.showToast("Please add atleast one item to proceed.");
@@ -619,7 +642,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         int posPlus = (int) view.getTag();
 
         Realm realm = Realm.getDefaultInstance();
-        DDRProduct realmNewOrderCarts = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), mList.get(posPlus).getiProductModalId()).equalTo("OrderId",poNumber).findFirst();
+        DDRProduct realmNewOrderCarts = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), mList.get(posPlus).getiProductModalId()).findFirst();
         Gson gson = new GsonBuilder().create();
         if (realmNewOrderCarts != null) {
 
@@ -627,23 +650,23 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             try {
                 JSONObject jsonObject = new JSONObject(strJson);
                 jsonObject.put(RetailSalesEnum.isAdded.toString(), true);
-                jsonObject.put(RetailSalesEnum.discountPrice.toString(),0);
+                jsonObject.put(RetailSalesEnum.discountPrice.toString(), 0);
                 jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() + 1);
                 jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
 
-                int totalPoints = getTotalPoints((realmNewOrderCarts.getQty() + 1) ,realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
+                int totalPoints = getTotalPoints((realmNewOrderCarts.getQty() + 1), realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
-                saveResponseLocal(jsonObject, poNumber);
+                saveResponseLocal(jsonObject, "P00001");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
 
-         //   setCalculatedValues();
+            //   setCalculatedValues();
 
             mNewOrderListAdapter.notifyItemChanged(posPlus);
             calculateOPS(realmNewOrderCarts.getProductCode(), realmNewOrderCarts.getiProductModalId());
-             getProduct();
+            getProduct();
         }
     }
 
@@ -656,7 +679,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         JSONArray arrayRule = new JSONArray();
         JSONArray discountArray = new JSONArray();
         Realm realm = Realm.getDefaultInstance();
-        DDRProduct realmNewOrderCarts = realm.where(DDRProduct.class).equalTo(RetailSalesEnum.isFreeItem.toString(), false).equalTo(RetailSalesEnum.iProductModalId.toString(), productId).equalTo("OrderId",poNumber).findFirst();
+        DDRProduct realmNewOrderCarts = realm.where(DDRProduct.class).equalTo(RetailSalesEnum.isFreeItem.toString(), false).equalTo(RetailSalesEnum.iProductModalId.toString(), productId).findFirst();
 
         if (realmNewOrderCarts != null) {
             try {
@@ -822,7 +845,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                     JSONObject jsonObject = new JSONObject(strJson);
 
                     jsonObject.put(RetailSalesEnum.discount.toString(), discountArray);
-                    saveResponseLocal(jsonObject, poNumber);
+                    saveResponseLocal(jsonObject, "P00001");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -1020,58 +1043,58 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     private boolean getQuantityBasedOnDiscountItems(boolean isApplied, DDRProduct realmNewOrderCarts, int slabFrom, int slabTO, String opsCriteria, String sDiscountBasedOn, Realm realm, int packSize, String productCode) {
 
         int productQty = realmNewOrderCarts.getQty();
-      //  if (productQty >= slabFrom && productQty <= slabTO || productQty > slabTO) {
+        //  if (productQty >= slabFrom && productQty <= slabTO || productQty > slabTO) {
 
-            if (sDiscountBasedOn.equalsIgnoreCase("SP")) {
-                if (opsCriteria.equalsIgnoreCase("L")) {
-                    isApplied = getaddLowestFreeItems(realmNewOrderCarts,isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+        if (sDiscountBasedOn.equalsIgnoreCase("SP")) {
+            if (opsCriteria.equalsIgnoreCase("L")) {
+                isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
 
-                } else {
-                    isApplied = getaddHighestFreeItems(realmNewOrderCarts,isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+            } else {
+                isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
 
-                }
-
-
-            } else if (sDiscountBasedOn.equalsIgnoreCase("nrv")) {
-                if (opsCriteria.equalsIgnoreCase("L")) {
-                    isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
-
-                } else {
-                    isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
-
-                }
-            } else if (sDiscountBasedOn.equalsIgnoreCase("gpl")) {
-                if (opsCriteria.equalsIgnoreCase("L")) {
-                    isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
-
-                } else {
-                    isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
-
-                }
-            } else if (sDiscountBasedOn.equalsIgnoreCase("mrp")) {
-                if (opsCriteria.equalsIgnoreCase("L")) {
-                    isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
-
-                } else {
-                    isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
-
-                }
             }
 
-     //   }
+
+        } else if (sDiscountBasedOn.equalsIgnoreCase("nrv")) {
+            if (opsCriteria.equalsIgnoreCase("L")) {
+                isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+            } else {
+                isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+            }
+        } else if (sDiscountBasedOn.equalsIgnoreCase("gpl")) {
+            if (opsCriteria.equalsIgnoreCase("L")) {
+                isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+            } else {
+                isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+            }
+        } else if (sDiscountBasedOn.equalsIgnoreCase("mrp")) {
+            if (opsCriteria.equalsIgnoreCase("L")) {
+                isApplied = getaddLowestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+            } else {
+                isApplied = getaddHighestFreeItems(realmNewOrderCarts, isApplied, realm, opsCriteria, productCode, packSize, slabFrom, productQty);
+
+            }
+        }
+
+        //   }
         return isApplied;
     }
 
     private boolean getaddHighestFreeItems(DDRProduct realmNewOrderCarts, boolean isApplied, Realm realm, String opsCriteria, String productCode, int packSize, int slabFrom, int productQty) {
 
 
-        RealmResults<DDRProduct> realmNewOrderCarts1 = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).equalTo("OrderId",poNumber).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.DESCENDING);
+        RealmResults<DDRProduct> realmNewOrderCarts1 = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(), false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.DESCENDING);
 
-        long   sum     = realmNewOrderCarts1.sum(RetailSalesEnum.qty.toString()).longValue();
+        long sum = realmNewOrderCarts1.sum(RetailSalesEnum.qty.toString()).longValue();
 
-        int countt= (int) sum;
+        int countt = (int) sum;
         int loopSize = realmNewOrderCarts1.size();
-        int itemsPerFree = countt / (packSize + slabFrom);
+        int itemsPerFree = countt / (packSize);
 
         int freeItems = 0;
         if (itemsPerFree > 0) {
@@ -1079,7 +1102,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
             if (loopSize == 1) {
                 for (int l = 0; l < loopSize; l++) {
-                    if (freeItems>0) {
+                    if (freeItems > 0) {
                         for (int m = 0; m < freeItems; m++) {
                             Gson gson = new GsonBuilder().create();
                             String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
@@ -1092,7 +1115,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                saveResponseLocal(jsonObject, poNumber);
+                                saveResponseLocal(jsonObject, "P00001");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -1101,7 +1124,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                 }
             } else {
                 for (int l = 0; l < loopSize; l++) {
-                    if (freeItems>0) {
+                    if (freeItems > 0) {
                         int qty = realmNewOrderCarts1.get(l).getQty();
                         if (qty == freeItems) {
                             for (int m = 0; m < freeItems; m++) {
@@ -1116,7 +1139,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, poNumber);
+                                    saveResponseLocal(jsonObject, "P00001");
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -1136,7 +1159,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, poNumber);
+                                    saveResponseLocal(jsonObject, "P00001");
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -1145,7 +1168,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
 
                         } else if (qty > freeItems) {
-                            int size=freeItems;
+                            int size = freeItems;
                             for (int m = 0; m < size; m++) {
                                 Gson gson = new GsonBuilder().create();
                                 String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
@@ -1158,7 +1181,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                     jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                    saveResponseLocal(jsonObject, poNumber);
+                                    saveResponseLocal(jsonObject, "P00001");
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -1170,12 +1193,12 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                     }
                 }
             }
-        }else{
-                RealmResults<DDRProduct> allSorted = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),true).equalTo("OrderId",poNumber).findAll();
+        } else {
+            RealmResults<DDRProduct> allSorted = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(), true).findAll();
 
-                allSorted.deleteAllFromRealm();
+            allSorted.deleteAllFromRealm();
 
-            }
+        }
         return isApplied;
 
     }
@@ -1183,69 +1206,69 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     private boolean getaddLowestFreeItems(DDRProduct realmNewOrderCarts, boolean isApplied, Realm realm, String opsCriteria, String productCode, int packSize, int slabFrom, int productQty) {
 
 
-        RealmResults<DDRProduct> realmNewOrderCarts1 = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),false).equalTo("OrderId",poNumber).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.ASCENDING);
-        long   sum     = realmNewOrderCarts1.sum(RetailSalesEnum.qty.toString()).longValue();
+        RealmResults<DDRProduct> realmNewOrderCarts1 = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(), false).findAllSorted(RetailSalesEnum.sProductPrice.toString(), Sort.ASCENDING);
+        long sum = realmNewOrderCarts1.sum(RetailSalesEnum.qty.toString()).longValue();
 
-        int countt= (int) sum;
+        int countt = (int) sum;
         int loopSize = realmNewOrderCarts1.size();
-        int itemsPerFree = countt / (packSize + slabFrom);
+        int itemsPerFree = countt / (packSize);
         int freeItems = 0;
-        if (itemsPerFree > 0){
+        if (itemsPerFree > 0) {
             freeItems = itemsPerFree * packSize;
-        if (loopSize == 1) {
-            for (int l = 0; l < loopSize; l++) {
-                if (freeItems>0) {
-             //   for (int m = 0; m < freeItems; m++) {
-                    Gson gson = new GsonBuilder().create();
-                    String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
-                    try {
-                        JSONObject jsonObject = new JSONObject(strJson);
-                        jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
-                        jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
-                        jsonObject.put(RetailSalesEnum.qty.toString(), freeItems);
-                        jsonObject.put(RetailSalesEnum.totalPrice.toString(), (freeItems) * realmNewOrderCarts1.get(l).getsProductPrice());
-                        jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
-                        jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
+            if (loopSize == 1) {
+                for (int l = 0; l < loopSize; l++) {
+                    if (freeItems > 0) {
+                        //   for (int m = 0; m < freeItems; m++) {
+                        Gson gson = new GsonBuilder().create();
+                        String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
+                        try {
+                            JSONObject jsonObject = new JSONObject(strJson);
+                            jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
+                            jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
+                            jsonObject.put(RetailSalesEnum.qty.toString(), freeItems);
+                            jsonObject.put(RetailSalesEnum.totalPrice.toString(), (freeItems) * realmNewOrderCarts1.get(l).getsProductPrice());
+                            jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
+                            jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                        saveResponseLocal(jsonObject, poNumber);
-                        isApplied = true;
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                            saveResponseLocal(jsonObject, "P00001");
+                            isApplied = true;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        //   }
                     }
-             //   }
-            }
 
-            }
-        } else {
-            for (int l = 0; l < loopSize; l++) {
+                }
+            } else {
+                for (int l = 0; l < loopSize; l++) {
 
-                if (freeItems>0) {
-                    int qty = realmNewOrderCarts1.get(l).getQty();
-                    if (qty == freeItems) {
-                       // for (int m = 0; m < freeItems; m++) {
+                    if (freeItems > 0) {
+                        int qty = realmNewOrderCarts1.get(l).getQty();
+                        if (qty == freeItems) {
+                            // for (int m = 0; m < freeItems; m++) {
                             Gson gson = new GsonBuilder().create();
                             String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                             try {
                                 JSONObject jsonObject = new JSONObject(strJson);
                                 jsonObject.put(NoGetEntityEnums.parentProductId.toString(), realmNewOrderCarts.getiProductModalId());
                                 jsonObject.put(RetailSalesEnum.isFreeItem.toString(), true);
-                                jsonObject.put(RetailSalesEnum.qty.toString(),freeItems);
+                                jsonObject.put(RetailSalesEnum.qty.toString(), freeItems);
                                 jsonObject.put(RetailSalesEnum.totalPrice.toString(), (freeItems) * realmNewOrderCarts1.get(l).getsProductPrice());
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                saveResponseLocal(jsonObject, poNumber);
+                                saveResponseLocal(jsonObject, "P00001");
                                 isApplied = true;
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                    //    }
+                            //    }
 
-                        freeItems = 0;
+                            freeItems = 0;
 
-                    } else if (qty < freeItems) {
+                        } else if (qty < freeItems) {
 
-                       // for (int m = 0; m < qty; m++) {
+                            // for (int m = 0; m < qty; m++) {
                             Gson gson = new GsonBuilder().create();
                             String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                             try {
@@ -1257,18 +1280,18 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                saveResponseLocal(jsonObject, poNumber);
+                                saveResponseLocal(jsonObject, "P00001");
                                 isApplied = true;
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             freeItems = freeItems - qty;
-                       // }
+                            // }
 
 
-                    } else if (qty > freeItems) {
-                        int size=freeItems;
-                       // for (int m = 0; m < size; m++) {
+                        } else if (qty > freeItems) {
+                            int size = freeItems;
+                            // for (int m = 0; m < size; m++) {
                             Gson gson = new GsonBuilder().create();
                             String strJson = gson.toJson(realm.copyFromRealm(realmNewOrderCarts1.get(l)));
                             try {
@@ -1280,42 +1303,42 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), 0);
                                 jsonObject.put(RetailSalesEnum.iProductModalId.toString(), realmNewOrderCarts1.get(l).getiProductModalId() + "free");
 
-                                saveResponseLocal(jsonObject, poNumber);
+                                saveResponseLocal(jsonObject, "P00001");
                                 isApplied = true;
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             freeItems = freeItems - size;
-                       // }
+                            // }
 
 
+                        }
                     }
                 }
             }
-        }
-    }else{
-            Realm realm1=Realm.getDefaultInstance();
-            RealmResults<DDRProduct> allSorted = realm1.where(DDRProduct.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(),true).equalTo("OrderId",poNumber).findAll();
+        } else {
+            Realm realm1 = Realm.getDefaultInstance();
+            RealmResults<DDRProduct> allSorted = realm1.where(DDRProduct.class).equalTo(NoGetEntityEnums.productCode.toString(), productCode).equalTo(RetailSalesEnum.isFreeItem.toString(), true).findAll();
 
             realm1.beginTransaction();
             isApplied = true;
             try {
                 allSorted.deleteAllFromRealm();
-            }catch (Exception e){
+            } catch (Exception e) {
                 if (realm1.isInTransaction())
-                realm1.cancelTransaction();
+                    realm1.cancelTransaction();
 
-            }finally {
+            } finally {
                 if (realm1.isInTransaction())
-                realm1.commitTransaction();
+                    realm1.commitTransaction();
                 if (!realm1.isClosed())
-                realm1.close();
+                    realm1.close();
             }
 
 
         }
 
-            return isApplied;
+        return isApplied;
 
     }
 
@@ -1323,36 +1346,35 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     private void getOPSForProduct(String sDiscountType, int sDiscountValue, String sEligibilityBasedOn, int slabFrom, String sDiscountBasedOn, int slabTO, int packSize, String opsCriteria, String ruleType, int ruleID, int ruleSequence, int ruleProdecessors) {
 
 
-
     }
 
-    private int getTotalPoints(int i, DDRProduct realmNewOrderCarts, int totalPrice){
-        int totalPoints=0;
-        if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("M")){
-            totalPoints=realmNewOrderCarts.getPoints()*i;
+    private int getTotalPoints(int i, DDRProduct realmNewOrderCarts, int totalPrice) {
+        int totalPoints = 0;
+        if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("M")) {
+            totalPoints = realmNewOrderCarts.getPoints() * i;
 
-        }else if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("P")){
-            int valuefrom=realmNewOrderCarts.getValueFrom();
-            int valueTo=realmNewOrderCarts.getValueTo();
-            int perPoints=realmNewOrderCarts.getPointsPer();
-            int points=realmNewOrderCarts.getPoints();
+        } else if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("P")) {
+            int valuefrom = realmNewOrderCarts.getValueFrom();
+            int valueTo = realmNewOrderCarts.getValueTo();
+            int perPoints = realmNewOrderCarts.getPointsPer();
+            int points = realmNewOrderCarts.getPoints();
 
-            if (totalPrice>=valuefrom && totalPrice<=valueTo){
-                totalPoints=perPoints*totalPrice/points;
-            }else if (totalPrice>valueTo){
-                totalPoints=perPoints*valueTo/points;
+            if (totalPrice >= valuefrom && totalPrice <= valueTo) {
+                totalPoints = perPoints * totalPrice / points;
+            } else if (totalPrice > valueTo) {
+                totalPoints = perPoints * valueTo / points;
             }
 
-        }else if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("V")){
-            int valuefrom=realmNewOrderCarts.getValueFrom();
-            int valueTo=realmNewOrderCarts.getValueTo();
-            int perPoints=realmNewOrderCarts.getPointsPer();
-            int points=realmNewOrderCarts.getPoints();
+        } else if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("V")) {
+            int valuefrom = realmNewOrderCarts.getValueFrom();
+            int valueTo = realmNewOrderCarts.getValueTo();
+            int perPoints = realmNewOrderCarts.getPointsPer();
+            int points = realmNewOrderCarts.getPoints();
 
-            if (totalPrice>=valuefrom && totalPrice<=valueTo){
-                totalPoints=perPoints*totalPrice/points;
-            }else if (totalPrice>valueTo){
-                totalPoints=perPoints*valueTo/points;
+            if (totalPrice >= valuefrom && totalPrice <= valueTo) {
+                totalPoints = perPoints * totalPrice / points;
+            } else if (totalPrice > valueTo) {
+                totalPoints = perPoints * valueTo / points;
             }
 
         }
@@ -1365,46 +1387,43 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         Util.animateView(view);
         int posMinus = (int) view.getTag();
 
-        Realm realm=Realm.getDefaultInstance();
-        DDRProduct realmNewOrderCarts=realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),mList.get(posMinus).getiProductModalId()).equalTo("OrderId",poNumber).findFirst();
+        Realm realm = Realm.getDefaultInstance();
+        DDRProduct realmNewOrderCarts = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), mList.get(posMinus).getiProductModalId()).findFirst();
 
         Gson gson = new GsonBuilder().create();
-        if (realmNewOrderCarts!=null) {
-if (realmNewOrderCarts.getQty()>1) {
-    String strJson = gson.toJson(mList.get(posMinus));
-    try {
-        JSONObject jsonObject = new JSONObject(strJson);
-        jsonObject.put(RetailSalesEnum.isAdded.toString(), true);
-        jsonObject.put(RetailSalesEnum.discountPrice.toString(),0);
-        jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() - 1);
-        jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() - 1) * realmNewOrderCarts.getsProductPrice());
+        if (realmNewOrderCarts != null) {
+            if (realmNewOrderCarts.getQty() > 1) {
+                String strJson = gson.toJson(mList.get(posMinus));
+                try {
+                    JSONObject jsonObject = new JSONObject(strJson);
+                    jsonObject.put(RetailSalesEnum.isAdded.toString(), true);
+                    jsonObject.put(RetailSalesEnum.discountPrice.toString(), 0);
+                    jsonObject.put(RetailSalesEnum.qty.toString(), realmNewOrderCarts.getQty() - 1);
+                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), (realmNewOrderCarts.getQty() - 1) * realmNewOrderCarts.getsProductPrice());
 
-        int totalPoints=getTotalPoints((realmNewOrderCarts.getQty() - 1), realmNewOrderCarts,(realmNewOrderCarts.getQty()-1)*realmNewOrderCarts.getsProductPrice());
-        jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
-        saveResponseLocal(jsonObject, poNumber);
-    } catch (JSONException e) {
-        e.printStackTrace();
-    }
-  //  setCalculatedValues();
-    mNewOrderListAdapter.notifyItemChanged(posMinus);
-    calculateOPS(realmNewOrderCarts.getProductCode(),realmNewOrderCarts.getiProductModalId());
+                    int totalPoints = getTotalPoints((realmNewOrderCarts.getQty() - 1), realmNewOrderCarts, (realmNewOrderCarts.getQty() - 1) * realmNewOrderCarts.getsProductPrice());
+                    jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
+                    saveResponseLocal(jsonObject, "P00001");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //  setCalculatedValues();
+                mNewOrderListAdapter.notifyItemChanged(posMinus);
+                calculateOPS(realmNewOrderCarts.getProductCode(), realmNewOrderCarts.getiProductModalId());
 
-    getProduct();
+                getProduct();
 
-}else {
-    Util.showToast("Quantity atleast one or greater than one.");
-}
+            } else {
+                Util.showToast("Quantity atleast one or greater than one.");
+            }
 
 
         }
     }
 
 
-
-
     @Override
     public void onRowClicked(int position) {
-
 
 
     }
@@ -1412,9 +1431,9 @@ if (realmNewOrderCarts.getQty()>1) {
     @Override
     public void onRowClicked(final int position, final int value) {
 
-        if (position>=0) {
+        if (position >= 0) {
             Realm realm = Realm.getDefaultInstance();
-            DDRProduct realmNewOrderCarts = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), mList.get(position).getiProductModalId()).equalTo("OrderId",poNumber).findFirst();
+            DDRProduct realmNewOrderCarts = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), mList.get(position).getiProductModalId()).findFirst();
             Gson gson = new GsonBuilder().create();
             if (realmNewOrderCarts != null) {
 
@@ -1422,18 +1441,18 @@ if (realmNewOrderCarts.getQty()>1) {
                 try {
                     JSONObject jsonObject = new JSONObject(strJson);
                     jsonObject.put(RetailSalesEnum.qty.toString(), value);
-                    jsonObject.put(RetailSalesEnum.discountPrice.toString(),0);
+                    jsonObject.put(RetailSalesEnum.discountPrice.toString(), 0);
                     jsonObject.put(RetailSalesEnum.totalPrice.toString(), value * realmNewOrderCarts.getsProductPrice());
 
                     int totalPoints = getTotalPoints(value, realmNewOrderCarts, value * realmNewOrderCarts.getsProductPrice());
                     jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
-                    saveResponseLocal(jsonObject, poNumber);
+                    saveResponseLocal(jsonObject, "P00001");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
 
-              //  setCalculatedValues();
+                //  setCalculatedValues();
 
                 mNewOrderListAdapter.notifyItemChanged(position);
                 calculateOPS(realmNewOrderCarts.getProductCode(), realmNewOrderCarts.getiProductModalId());
@@ -1444,11 +1463,10 @@ if (realmNewOrderCarts.getQty()>1) {
     }
 
 
-
     private void cachedPinned(boolean showScreen) {
 
-        if(IPOSApplication.mOrderList!=null)
-            if(IPOSApplication.mOrderList.size()>0) {
+        if (IPOSApplication.mOrderList != null)
+            if (IPOSApplication.mOrderList.size() > 0) {
 
                 if (SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", DDRCartDetails.this) != null) {
                     String json2 = SharedPrefUtil.getString(Constants.mOrderInfoArrayList, "", DDRCartDetails.this);
@@ -1489,13 +1507,13 @@ if (realmNewOrderCarts.getQty()>1) {
 
     @Override
     public void onDialogPositiveClick(Dialog dialog, int mCallType) {
-        if(mCallType==Constants.APP_DIALOG_OTC) {
+        if (mCallType == Constants.APP_DIALOG_OTC) {
             dialog.dismiss();
-        }else if(mCallType==Constants.APP_DIALOG_Cart){
-            if(IPOSApplication.mOrderList.size()>0)
+        } else if (mCallType == Constants.APP_DIALOG_Cart) {
+            if (IPOSApplication.mOrderList.size() > 0)
                 cachedPinned(false);
             else
-                Util.showToast("Cannot save empty list",DDRCartDetails.this);
+                Util.showToast("Cannot save empty list", DDRCartDetails.this);
             dialog.dismiss();
             getFragmentManager().popBackStack();
         }
@@ -1503,8 +1521,8 @@ if (realmNewOrderCarts.getQty()>1) {
 
     @Override
     public void onDialogNegetiveClick(Dialog dialog, int mCallType) {
-        if(mCallType==Constants.APP_DIALOG_Cart){
-            if(IPOSApplication.mOrderList.size()>0) {
+        if (mCallType == Constants.APP_DIALOG_Cart) {
+            if (IPOSApplication.mOrderList.size() > 0) {
                 IPOSApplication.mOrderList.clear();
                 getFragmentManager().popBackStack();
             }
@@ -1537,13 +1555,16 @@ if (realmNewOrderCarts.getQty()>1) {
             public void onAnimationStart(Animator animation) {
                 llBelowPaymentDetail.setVisibility(View.VISIBLE);
             }
+
             @Override
             public void onAnimationEnd(Animator animation) {
                 llBelowPaymentDetail.setVisibility(View.VISIBLE);
             }
+
             @Override
             public void onAnimationCancel(Animator animation) {
             }
+
             @Override
             public void onAnimationRepeat(Animator animation) {
             }
@@ -1556,13 +1577,16 @@ if (realmNewOrderCarts.getQty()>1) {
             @Override
             public void onAnimationStart(Animator animation) {
             }
+
             @Override
             public void onAnimationEnd(Animator animation) {
                 llBelowPaymentDetail.setVisibility(View.GONE);
             }
+
             @Override
             public void onAnimationCancel(Animator animation) {
             }
+
             @Override
             public void onAnimationRepeat(Animator animation) {
             }
@@ -1571,67 +1595,71 @@ if (realmNewOrderCarts.getQty()>1) {
 
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
-     //   hideProgressDialog();
+        //   hideProgressDialog();
 
-        if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH)){
-
-
-                if (httpStatusCode == Constants.SUCCESS) {
-
-                    if (Util.validateString(serverResponse)) {
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(serverResponse);
-                            JSONArray array=jsonObject.optJSONArray("data");
-                            JSONObject jsonObject1=array.optJSONObject(0);
-                            addBarcodeScanProduct(jsonObject1.optString("iProductModalId"), jsonObject1.optString("productCode"), jsonObject1.toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        Util.showToast("Product Scanned Successfully");
-                        imvStatus.setBackgroundResource(R.drawable.circle_disabled);
-                        flScanner.setVisibility(View.GONE);
-                        closeFragment();
-
-                    }
+        if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH)) {
 
 
-                } else if (httpStatusCode == Constants.BAD_REQUEST) {
-                    Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
-                } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
-                    Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
-                } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
-                    Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
-                } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
-                    Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
-                } else if (httpStatusCode == Constants.CONNECTION_OUT) {
-                    Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
-                }
-
-        }else {
             if (httpStatusCode == Constants.SUCCESS) {
 
-                if (Util.validateString(serverResponse)){
+                if (Util.validateString(serverResponse)) {
 
                     try {
-                        JSONObject jsonObject=new JSONObject(serverResponse);
-                        JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
+                        JSONObject jsonObject = new JSONObject(serverResponse);
+                        JSONArray array = jsonObject.optJSONArray("data");
+                        if (array.length() == 0) {
+                            Util.showToast("Product not found");
+
+                            return;
+                        }
+                        JSONObject jsonObject1 = array.optJSONObject(0);
+                        addBarcodeScanProduct(jsonObject1.optString("iProductModalId"), jsonObject1.optString("productCode"), jsonObject1.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    Util.showToast("Product Scanned Successfully");
+                    imvStatus.setBackgroundResource(R.drawable.circle_disabled);
+                    flScanner.setVisibility(View.GONE);
+                    closeFragment();
+
+                }
+
+
+            } else if (httpStatusCode == Constants.BAD_REQUEST) {
+                Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+                Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+                Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+                Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+            } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+                Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            if (httpStatusCode == Constants.SUCCESS) {
+
+                if (Util.validateString(serverResponse)) {
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(serverResponse);
+                        JSONArray array = jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
                         new RealmController().saveBusinessPlaces(array.toString());
-                        for (int i=0;i<array.length();i++){
-                            NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
-                            JSONObject jsonObject1=array.optJSONObject(i);
+                        for (int i = 0; i < array.length(); i++) {
+                            NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal = new NoGetEntityResultModal.BuisnessPlacesBean();
+                            JSONObject jsonObject1 = array.optJSONObject(i);
                             noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
                             noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
                             noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
                             noGetEntityBuisnessPlacesModals.add(noGetEntityBuisnessPlacesModal);
 
 
-
                         }
 
-                        CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss,R.id.text1,noGetEntityBuisnessPlacesModals);
+                        CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss, R.id.text1, noGetEntityBuisnessPlacesModals);
                         adapter.setDropDownViewResource(R.layout.spinner_item_pss);
-                     //   spnAddress.setAdapter(adapter);
+                        //   spnAddress.setAdapter(adapter);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -1654,7 +1682,6 @@ if (realmNewOrderCarts.getQty()>1) {
 
 
     }
-
 
 
     @Override
@@ -1684,7 +1711,6 @@ if (realmNewOrderCarts.getQty()>1) {
                 } else {
                     jsonSubmitReq.put(Constants.ISSYNC, false);
                 }
-
 
 
                 realm.createOrUpdateObjectFromJson(DDRProduct.class, jsonSubmitReq);
@@ -1727,8 +1753,7 @@ if (realmNewOrderCarts.getQty()>1) {
                 }
 
 
-
-                realm.createOrUpdateObjectFromJson(RealmOrderList.class, jsonSubmitReq);
+                realm.createOrUpdateObjectFromJson(RealmDDROrderList.class, jsonSubmitReq);
 
 
             } catch (Exception e) {
@@ -1746,13 +1771,13 @@ if (realmNewOrderCarts.getQty()>1) {
     }
 
 
-    private void createOrder(){
+    private void createOrder() {
         Realm realm = Realm.getDefaultInstance();
-        RealmResults<DDRProduct> realmNewOrderCarts1 = realm.where(DDRProduct.class).equalTo("OrderId",poNumber).findAll();
+        RealmResults<DDRProduct> realmNewOrderCarts1 = realm.where(DDRProduct.class).findAll();
 
-        JSONArray arrayCart=new JSONArray();
+        JSONArray arrayCart = new JSONArray();
         int qty = 0;
-        double payAmount=0.0;
+        double payAmount = 0.0;
         int discountItems = 0;
         int gst = 0;
         int totalGST = 0;
@@ -1763,15 +1788,15 @@ if (realmNewOrderCarts.getQty()>1) {
         int totalPoints = 0;
         int noOfItems = 0;
         String poNumber = null;
-        double accumulatedPoints=0;
-        double discountPartiItem=0;
+        double accumulatedPoints = 0;
+        double discountPartiItem = 0;
         for (DDRProduct realmNewOrderCart : realmNewOrderCarts1) {
 
-            JSONObject jsonObjectCartDetail=new JSONObject();
+            JSONObject jsonObjectCartDetail = new JSONObject();
             if (!realmNewOrderCart.isFreeItem())
                 noOfItems = noOfItems + 1;
-            poNumber=realmNewOrderCart.getOrderId();
-            accumulatedPoints=realmNewOrderCart.getAccumulatedLoyality();
+            poNumber = realmNewOrderCart.getOrderId();
+            accumulatedPoints = realmNewOrderCart.getAccumulatedLoyality();
             qty = qty + realmNewOrderCart.getQty();
             totalItemsAmount = totalItemsAmount + realmNewOrderCart.getTotalPrice();
             if (realmNewOrderCart.isDiscount() && !realmNewOrderCart.isFreeItem()) {
@@ -1784,29 +1809,26 @@ if (realmNewOrderCarts.getQty()>1) {
                         JSONObject jsonObject = array.optJSONObject(k);
                         if (jsonObject.has("discountTotal") && !jsonObject.optBoolean("discountTotalStrike")) {
                             discountPrice = discountPrice + jsonObject.optInt("discountTotal");
-                            discountPartiItem=discountPartiItem+jsonObject.optInt("discountTotal");
+                            discountPartiItem = discountPartiItem + jsonObject.optInt("discountTotal");
                         }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }else {
-                discountPartiItem=realmNewOrderCart.getTotalPrice();
+            } else {
+                discountPartiItem = realmNewOrderCart.getTotalPrice();
                 discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
             }
             totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
             gst = gst + totalGST;
 
 
-
             cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
             sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
 
 
-
-
             totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
-            JSONArray scheme=new JSONArray();
+            JSONArray scheme = new JSONArray();
 
             try {
                 JSONArray discountArray = new JSONArray(realmNewOrderCart.getDiscount());
@@ -1841,25 +1863,23 @@ if (realmNewOrderCarts.getQty()>1) {
             }
 
 
-
-
             try {
-                jsonObjectCartDetail.put("oldMaterialCode",realmNewOrderCart.getiProductModalId());
-                jsonObjectCartDetail.put("materialCode",realmNewOrderCart.getProductCode());
-                jsonObjectCartDetail.put("materialName",realmNewOrderCart.getsProductName());
-                jsonObjectCartDetail.put("materialValue",realmNewOrderCart.getTotalPrice());
-                jsonObjectCartDetail.put("materialQty",realmNewOrderCart.getQty());
-                jsonObjectCartDetail.put("materialDiscountValue",discountPartiItem);
-                jsonObjectCartDetail.put("materialUnitValue",realmNewOrderCart.getsProductPrice());
-                jsonObjectCartDetail.put("materialCGSTRate",realmNewOrderCart.getCgst());
-                jsonObjectCartDetail.put("materialCGSTValue",cgst);
-                jsonObjectCartDetail.put("materialSGSTRate",realmNewOrderCart.getSgst());
-                jsonObjectCartDetail.put("materialSGSTValue",sgst);
-                jsonObjectCartDetail.put("materialIGSTRate",realmNewOrderCart.getGstPerc());
-                jsonObjectCartDetail.put("materialIGSTValue",cgst+sgst);
-                jsonObjectCartDetail.put("scheme",scheme);
-                jsonObjectCartDetail.put("discountValue",discountPrice);
-                jsonObjectCartDetail.put("discountPerc",0);
+                jsonObjectCartDetail.put("oldMaterialCode", realmNewOrderCart.getiProductModalId());
+                jsonObjectCartDetail.put("materialCode", realmNewOrderCart.getProductCode());
+                jsonObjectCartDetail.put("materialName", realmNewOrderCart.getsProductName());
+                jsonObjectCartDetail.put("materialValue", realmNewOrderCart.getTotalPrice());
+                jsonObjectCartDetail.put("materialQty", realmNewOrderCart.getQty());
+                jsonObjectCartDetail.put("materialDiscountValue", discountPartiItem);
+                jsonObjectCartDetail.put("materialUnitValue", realmNewOrderCart.getsProductPrice());
+                jsonObjectCartDetail.put("materialCGSTRate", realmNewOrderCart.getCgst());
+                jsonObjectCartDetail.put("materialCGSTValue", cgst);
+                jsonObjectCartDetail.put("materialSGSTRate", realmNewOrderCart.getSgst());
+                jsonObjectCartDetail.put("materialSGSTValue", sgst);
+                jsonObjectCartDetail.put("materialIGSTRate", realmNewOrderCart.getGstPerc());
+                jsonObjectCartDetail.put("materialIGSTValue", cgst + sgst);
+                jsonObjectCartDetail.put("scheme", scheme);
+                jsonObjectCartDetail.put("discountValue", discountPrice);
+                jsonObjectCartDetail.put("discountPerc", 0);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -1870,59 +1890,59 @@ if (realmNewOrderCarts.getQty()>1) {
         }
         payAmount = (totalItemsAmount + gst) - discountPrice;
 
-        double totalValueWithTax=totalItemsAmount+gst;
-        double totalValueWithoutTax=totalItemsAmount;
-        JSONObject jsonObject=new JSONObject();
+        double totalValueWithTax = totalItemsAmount + gst;
+        double totalValueWithoutTax = totalItemsAmount;
+        JSONObject jsonObject = new JSONObject();
 
 
         try {
-            jsonObject.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
-            jsonObject.put("poDate",Util.getCurrentDate());
-            jsonObject.put("poStatus","Pending");
-            jsonObject.put("orderValue",payAmount);
-            jsonObject.put("discountValue",discountPrice);
-            jsonObject.put("deliveryBy",Util.getCurrentDate());
-            jsonObject.put("orderLoyality",totalPoints);
-            jsonObject.put("accumulatedLoyality",accumulatedPoints);
-            jsonObject.put("totalLoyality",totalPoints);
-            jsonObject.put("businessPlace",strPlace);
-            jsonObject.put("businessPlaceCode",businessPlaceCode);
-            jsonObject.put("entityID",Prefs.getIntegerPrefs(Constants.entityCode));
-            jsonObject.put("totalValueWithTax",totalValueWithTax);
-            jsonObject.put("totalCGSTValue",cgst);
-            jsonObject.put("totalIGSTValue",gst);
-            jsonObject.put("totalSGSTValue",sgst);
-            jsonObject.put("totalValueWithoutTax",totalValueWithoutTax);
-            jsonObject.put("totalTaxValue",cgst+sgst);
-            jsonObject.put("totalDiscountValue",discountPrice);
-            jsonObject.put("totalRoundingOffValue",0);
-            jsonObject.put("cartDetail",arrayCart);
-          //  jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray());
-            jsonObject.put("approvalStat",1);
-            jsonObject.put("quantity",qty);
-            jsonObject.put("customerName",Prefs.getStringPrefs(Constants.EntityName));
+            jsonObject.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject.put("employeeRole", Prefs.getStringPrefs(Constants.employeeRole));
+            jsonObject.put("poDate", Util.getCurrentDate());
+            jsonObject.put("poStatus", "Pending");
+            jsonObject.put("orderValue", payAmount);
+            jsonObject.put("discountValue", discountPrice);
+            jsonObject.put("deliveryBy", Util.getCurrentDate());
+            jsonObject.put("orderLoyality", totalPoints);
+            jsonObject.put("accumulatedLoyality", accumulatedPoints);
+            jsonObject.put("totalLoyality", totalPoints);
+            jsonObject.put("businessPlace", strPlace);
+            jsonObject.put("businessPlaceCode", businessPlaceCode);
+            jsonObject.put("entityID", Prefs.getIntegerPrefs(Constants.entityCode));
+            jsonObject.put("totalValueWithTax", totalValueWithTax);
+            jsonObject.put("totalCGSTValue", cgst);
+            jsonObject.put("totalIGSTValue", gst);
+            jsonObject.put("totalSGSTValue", sgst);
+            jsonObject.put("totalValueWithoutTax", totalValueWithoutTax);
+            jsonObject.put("totalTaxValue", cgst + sgst);
+            jsonObject.put("totalDiscountValue", discountPrice);
+            jsonObject.put("totalRoundingOffValue", 0);
+            jsonObject.put("cartDetail", arrayCart);
+            //  jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray());
+            jsonObject.put("approvalStat", 1);
+            jsonObject.put("quantity", qty);
+            jsonObject.put("customerName", Prefs.getStringPrefs(Constants.EntityName));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        saveResponseLocalCreateOrder(jsonObject,poNumber);
+        saveResponseLocalCreateOrder(jsonObject, "P00001");
 
     }
 
-    private void deleteItems(String productId){
-        Realm realm1=Realm.getDefaultInstance();
-        RealmResults<DDRProduct> allSorted = realm1.where(DDRProduct.class).equalTo(RetailSalesEnum.iProductModalId.toString(),productId).or().equalTo(NoGetEntityEnums.parentProductId.toString(), productId).equalTo("OrderId",poNumber).findAll();
+    private void deleteItems(String productId) {
+        Realm realm1 = Realm.getDefaultInstance();
+        RealmResults<DDRProduct> allSorted = realm1.where(DDRProduct.class).equalTo(RetailSalesEnum.iProductModalId.toString(), productId).or().equalTo(NoGetEntityEnums.parentProductId.toString(), productId).findAll();
 
         realm1.beginTransaction();
 
         try {
             allSorted.deleteAllFromRealm();
-        }catch (Exception e){
+        } catch (Exception e) {
             if (realm1.isInTransaction())
                 realm1.cancelTransaction();
 
-        }finally {
+        } finally {
             if (realm1.isInTransaction())
                 realm1.commitTransaction();
             if (!realm1.isClosed())
@@ -1931,19 +1951,20 @@ if (realmNewOrderCarts.getQty()>1) {
 
 
     }
-    private void deleteItemFree(String productId){
-        Realm realm1=Realm.getDefaultInstance();
-        DDRProduct allSorted = realm1.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), productId).equalTo(RetailSalesEnum.isFreeItem.toString(),true).equalTo("OrderId",poNumber).findFirst();
+
+    private void deleteItemFree(String productId) {
+        Realm realm1 = Realm.getDefaultInstance();
+        DDRProduct allSorted = realm1.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), productId).equalTo(RetailSalesEnum.isFreeItem.toString(), true).findFirst();
 
         realm1.beginTransaction();
 
         try {
             allSorted.deleteFromRealm();
-        }catch (Exception e){
+        } catch (Exception e) {
             if (realm1.isInTransaction())
                 realm1.cancelTransaction();
 
-        }finally {
+        } finally {
             if (realm1.isInTransaction())
                 realm1.commitTransaction();
             if (!realm1.isClosed())
@@ -1952,20 +1973,20 @@ if (realmNewOrderCarts.getQty()>1) {
     }
 
 
-    private void getCheckBox(DiscountModal discountModal, String productId, int position,boolean strike){
-        Realm realm=Realm.getDefaultInstance();
-        DDRProduct realmNewOrderCart=realm.where(DDRProduct.class).equalTo(RetailSalesEnum.iProductModalId.toString(),productId).equalTo(RetailSalesEnum.isFreeItem.toString(),false).equalTo("OrderId",poNumber).findFirst();
+    private void getCheckBox(DiscountModal discountModal, String productId, int position, boolean strike) {
+        Realm realm = Realm.getDefaultInstance();
+        DDRProduct realmNewOrderCart = realm.where(DDRProduct.class).equalTo(RetailSalesEnum.iProductModalId.toString(), productId).equalTo(RetailSalesEnum.isFreeItem.toString(), false).findFirst();
         Gson gson = new GsonBuilder().create();
 
         try {
             String responseRealm = gson.toJson(realm.copyFromRealm(realmNewOrderCart));
             JSONObject jsonObject = new JSONObject(responseRealm);
-          JSONArray array=  new JSONArray(jsonObject.optString("discount").replaceAll("\\\\",""));
-           JSONObject jsonObject1=array.getJSONObject(position);
-            jsonObject1.put("discountTotalStrike",strike);
-          //  jsonObject1.put("discountTotal",0);
-           // discountModal.setDiscountTotal(0);
-            array.put(position,jsonObject1);
+            JSONArray array = new JSONArray(jsonObject.optString("discount").replaceAll("\\\\", ""));
+            JSONObject jsonObject1 = array.getJSONObject(position);
+            jsonObject1.put("discountTotalStrike", strike);
+            //  jsonObject1.put("discountTotal",0);
+            // discountModal.setDiscountTotal(0);
+            array.put(position, jsonObject1);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 jsonObject.put(RetailSalesEnum.discount.toString(), array);
             }
@@ -1979,13 +2000,13 @@ if (realmNewOrderCarts.getQty()>1) {
     @Override
     public void onDiscount(DiscountModal discountModal, int position, boolean b, String productId, String productCode) {
 
-        if (b){
-            getCheckBox(discountModal,productId,position,false);
-            calculateOPS(productCode,productId);
+        if (b) {
+            getCheckBox(discountModal, productId, position, false);
+            calculateOPS(productCode, productId);
             getProduct();
 
-        }else {
-            getCheckBox(discountModal,productId,position,true);
+        } else {
+            getCheckBox(discountModal, productId, position, true);
             getProduct();
         }
     }
@@ -1996,10 +2017,10 @@ if (realmNewOrderCarts.getQty()>1) {
     }
 
 
-    private void addBarcodeScanProduct(String productId,String productCode,String json){
+    private void addBarcodeScanProduct(String productId, String productCode, String json) {
 
         Realm realm = Realm.getDefaultInstance();
-        DDRProduct realmNewOrderCarts = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), productId).equalTo("OrderId",poNumber).findFirst();
+        DDRProduct realmNewOrderCarts = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), productId).findFirst();
         Gson gson = new GsonBuilder().create();
         if (realmNewOrderCarts != null) {
 
@@ -2012,33 +2033,34 @@ if (realmNewOrderCarts.getQty()>1) {
 
                 int totalPoints = getTotalPoints((realmNewOrderCarts.getQty() + 1), realmNewOrderCarts, (realmNewOrderCarts.getQty() + 1) * realmNewOrderCarts.getsProductPrice());
                 jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
-                saveResponseLocal(jsonObject, poNumber);
+                saveResponseLocal(jsonObject, "P00001");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-         //   setCalculatedValues();
+            //   setCalculatedValues();
             calculateOPS(realmNewOrderCarts.getProductCode(), realmNewOrderCarts.getiProductModalId());
             getProduct();
-        }else {
+        } else {
             try {
-                JSONObject jsonObject=new JSONObject(json);
-                jsonObject.put(RetailSalesEnum.isAdded.toString(),true);
-                jsonObject.put(RetailSalesEnum.qty.toString(),1);
-                jsonObject.put(RetailSalesEnum.totalPrice.toString(),jsonObject.optInt("sProductPrice"));
-              //  int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
-            //    jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
-                saveResponseLocal(jsonObject,poNumber);
-                calculateOPS(productId,productCode);
+                JSONObject jsonObject = new JSONObject(json);
+                jsonObject.put(RetailSalesEnum.isAdded.toString(), true);
+                jsonObject.put(RetailSalesEnum.qty.toString(), 1);
+                jsonObject.put(RetailSalesEnum.totalPrice.toString(), jsonObject.optInt("sProductPrice"));
+                //  int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
+                //    jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
+                saveResponseLocal(jsonObject, "P00001");
+                calculateOPS(productId, productCode);
                 getProduct();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
+
     private BroadcastReceiver listener = new BroadcastReceiver() {
         @Override
-        public void onReceive( Context context, Intent intent ) {
-            if (intent != null &&intent.getAction()!=null) {
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null && intent.getAction() != null) {
                 if (intent.getAction().equalsIgnoreCase("BarcodeScanDDR")) {
                     String data = intent.getStringExtra("messageScan");
                     //  Log.e( "Received data : ", data);
@@ -2052,7 +2074,7 @@ if (realmNewOrderCarts.getQty()>1) {
 
     @Override
     public void onScanBarcode(String title, FragmentActivity activity) {
-        mContext=activity;
+        mContext = activity;
 
 
     }
@@ -2060,11 +2082,11 @@ if (realmNewOrderCarts.getQty()>1) {
     private void searchProductCall(String s) {
 //        showProgress(getResources().getString(R.string.please_wait));
         ProductSearchRequest productSearchRequest = new ProductSearchRequest();
-        productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
+        productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode) + "");
         productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
         productSearchRequest.setEntityStateCode(entityStateCode);
         productSearchRequest.setSearchParam("NA");
-        productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
+        productSearchRequest.setBusinessPlaceCode(businessPlaceCode + "");
         productSearchRequest.setBarCodeNumber(s);
         productSearchRequest.setModuleType("NO");
         productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
@@ -2076,7 +2098,7 @@ if (realmNewOrderCarts.getQty()>1) {
         mTask.setParamObj(productSearchRequest);
         mTask.setListener(this);
         mTask.setResultType(NewOrderProductsResult.class);
-        if(Util.isConnected())
+        if (Util.isConnected())
             mTask.execute();
         else
             Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
@@ -2090,24 +2112,23 @@ if (realmNewOrderCarts.getQty()>1) {
         menu12.setVisible(false);
 
 
-
         return true;
     }
 
     public void getCheckStockAPI(String productId) {
-        final ProgressDialog progressDialog=new ProgressDialog(DDRCartDetails.this);
-        JSONObject jsonObject1=new JSONObject();
+        final ProgressDialog progressDialog = new ProgressDialog(DDRCartDetails.this);
+        JSONObject jsonObject1 = new JSONObject();
 
         try {
-            jsonObject1.put("employeeCode",Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
-            jsonObject1.put("businessPlaceCode",businessPlaceCode);
-            jsonObject1.put("entityRole",Prefs.getStringPrefs(Constants.entityRole));
-            jsonObject1.put("entityCode",Prefs.getIntegerPrefs(Constants.entityCode));
-            jsonObject1.put("searchParam",productId);
-            jsonObject1.put("barCodeNumber","string");
-            jsonObject1.put("moduleType","NO");
-            jsonObject1.put("entityStateCode",entityStateCode);
+            jsonObject1.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("employeeRole", Prefs.getStringPrefs(Constants.employeeRole));
+            jsonObject1.put("businessPlaceCode", businessPlaceCode);
+            jsonObject1.put("entityRole", Prefs.getStringPrefs(Constants.entityRole));
+            jsonObject1.put("entityCode", Prefs.getIntegerPrefs(Constants.entityCode));
+            jsonObject1.put("searchParam", productId);
+            jsonObject1.put("barCodeNumber", "string");
+            jsonObject1.put("moduleType", "NO");
+            jsonObject1.put("entityStateCode", entityStateCode);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -2141,19 +2162,18 @@ if (realmNewOrderCarts.getQty()>1) {
 
                         String responseData = response.body().string();
                         if (responseData != null) {
-                            final JSONObject jsonObject=new JSONObject(responseData);
+                            final JSONObject jsonObject = new JSONObject(responseData);
 
                             DDRCartDetails.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    DDRProduct realmNewOrderCart=mList.get(postionCheckStock);
+                                    DDRProduct realmNewOrderCart = mList.get(postionCheckStock);
                                     realmNewOrderCart.setmCheckStock(jsonObject.optInt("stockQty"));
                                     realmNewOrderCart.setCheckStockClick(true);
-                                    mList.set(postionCheckStock,realmNewOrderCart);
+                                    mList.set(postionCheckStock, realmNewOrderCart);
                                     mNewOrderListAdapter.notifyItemChanged(postionCheckStock);
                                 }
                             });
-
 
 
                         }
@@ -2162,12 +2182,10 @@ if (realmNewOrderCarts.getQty()>1) {
                     } else {
 
 
-
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
-
 
 
                 }
@@ -2177,12 +2195,50 @@ if (realmNewOrderCarts.getQty()>1) {
 
     @Override
     public void onBackPressed() {
-
-      /*  if (mList.size()>0){
-            finish();
-        }else{
-            Util.showToast("Please add atleast one product.");
-        }*/
-      finish();
+        finish();
     }
+
+
+    private void getServerData() {
+        if (!ValidateUtils.isNetworkConnected()) {
+            return;
+        }
+
+        DDRProductReq req = new DDRProductReq();
+        Log.i("mProductList", new Gson().toJson(req));
+        retrofit2.Call<DDRProductListResponse> call = RestService.getApiServiceSimple().DDR_GetDDRProductList(req);
+        call.enqueue(new retrofit2.Callback<DDRProductListResponse>() {
+            @Override
+            public void onResponse(retrofit2.Call<DDRProductListResponse> call, retrofit2.Response<DDRProductListResponse> response) {
+                Log.d(TAG, "response.raw().request().url();" + response.raw().request().url());
+                if (response.code() != 200) {
+                    Toast.makeText(activity, "Code:" + response.code() + ", Message:" + response.message(), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                try {
+                    if (response.body() != null) {
+                        InvoiceData.getInstance().setInitData(response.body());
+                        mutableLiveData.setValue(response.body());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<DDRProductListResponse> call, Throwable t) {
+                Toast.makeText(activity, " Message:" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "ERROR OCCURED");
+                Log.i("JsonObject", t.toString());
+                t.printStackTrace();
+            }
+        });
+
+    }
+
+    public MutableLiveData<DDRProductListResponse> getLiveServerData() {
+        return mutableLiveData;
+    }
+
 }

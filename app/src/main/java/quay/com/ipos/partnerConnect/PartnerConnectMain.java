@@ -25,14 +25,18 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import okhttp3.ResponseBody;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.data.remote.RestService;
+import quay.com.ipos.data.remote.model.MyErrorMessage;
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
 import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
 import quay.com.ipos.listeners.InitInterface;
@@ -426,6 +430,14 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectUpdateResponse> call, Response<PartnerConnectUpdateResponse> response) {
+               // if(!response.isSuccessful()){
+               /* Gson gson = new Gson();
+                MyErrorMessage message=gson.fromJson(response.errorBody().charStream(),MyErrorMessage.class);
+                IPOSApplication.showToast("Code:" + message.getCode() + " message:" + response.message());
+*/
+                //  return;
+              //  }
+
                 Log.e("data", new Gson().toJson(response.body()));
                 try {
                     isSubmitReq = false;
@@ -449,7 +461,7 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
                 try {
                     Log.i(TAG, "Code:" + response.code() + " message:" + response.message());
 
-                    IPOSApplication.showToast("Data Updated.");
+                    IPOSApplication.showToast(""+response.body().message);
                     finish();
                     Log.i("response", response.body().statusCode + "," + response.body().message);
                     Log.i("JsonObject", response.toString() + response.body());
@@ -911,4 +923,6 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
         }, getString(R.string.exit_message), getResources().getString(R.string.yes), getResources().getString(R.string.no), Constants.APP_DIALOG_BACK, "", getSupportFragmentManager());
 
     }
+
+
 }

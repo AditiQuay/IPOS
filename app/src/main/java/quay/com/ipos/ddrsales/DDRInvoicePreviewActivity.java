@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.realm.Realm;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.ddrsales.adapter.AddressAdapter;
@@ -31,11 +32,13 @@ import quay.com.ipos.ddrsales.adapter.DDRProductBatchAdapter;
 import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.ddrsales.model.InvoiceData;
 import quay.com.ipos.ddrsales.model.LogisticsData;
+import quay.com.ipos.ddrsales.model.RealmDDROrderList;
 import quay.com.ipos.ddrsales.model.response.Address;
 import quay.com.ipos.ddrsales.model.response.DDRIncoTerms;
 import quay.com.ipos.ddrsales.model.response.DDTProductBatch;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.utility.NumberFormatEditText;
+import quay.com.ipos.utility.Util;
 
 
 public class DDRInvoicePreviewActivity extends BaseActivity implements InitInterface, View.OnClickListener, DDRIncoTermsAdapter.OnCalculateTotalIncoTermsListener, AddressAdapter.OnItemSelecteListener {
@@ -47,8 +50,13 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
     // private TextView textBillingAddress;
     // private TextView textShippingAddress;
 
+
+    //total price
     private TextView tvItemQty;
-    private TextView tvTotalItemPrice;
+    private TextView textSGST, textCGST, tvTotalPriceBeforeGst, textDiscount, tvTotalItemPrice,textRoundingOff,textTotalInvoice;
+
+
+    private TextView textIncoTermsOthers;
 
 
     private TextView textAvaCreditLimit;
@@ -128,14 +136,25 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
     public void findViewById() {
         mDDRDetails = findViewById(R.id.mDDRDetails);
         mDDRDetailsIcon = findViewById(R.id.mDDRDetailsIcon);
-
+       // total pricr detail
         tvItemQty = findViewById(R.id.tvItemQty);
         tvTotalItemPrice = findViewById(R.id.tvTotalItemPrice);
+        textDiscount = findViewById(R.id.textDiscount);
+        tvTotalPriceBeforeGst = findViewById(R.id.textNextTotal);
+        textSGST = findViewById(R.id.textSGST);
+        textCGST = findViewById(R.id.textCGST);
+        textTotalInvoice = findViewById(R.id.textTotalInvoice);
+        textRoundingOff = findViewById(R.id.textRoundingOff);
+
+
         textAvaCreditLimit = findViewById(R.id.textAvaCreditLimit);
 
+<<<<<<< HEAD
+=======
         textTotalIncoTerms = findViewById(R.id.textTotalIncoTerms);
 
 
+>>>>>>> 5ae83c091d110728428058c4a123a9736404ef6e
         //logistics
         spinnerMode = findViewById(R.id.spinnerMode);
         editTruckNumber = findViewById(R.id.editTruckNumber);
@@ -171,6 +190,12 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         recycleViewShippingAddress.setAdapter(adapterAddShipping);
 
 
+<<<<<<< HEAD
+=======
+        textIncoTermsOthers = findViewById(R.id.textIncoTermsOthers);
+        textIncoTermsOthers.setOnClickListener(this);
+
+>>>>>>> 5ae83c091d110728428058c4a123a9736404ef6e
         recycleViewIncoTerms = findViewById(R.id.recycleViewIncoTerms);
         recycleViewProductBatch = findViewById(R.id.recycleViewProductBatch);
 
@@ -200,6 +225,8 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
                 }
             });
         }
+
+        setAllData();
         logisticsData = InvoiceData.getInstance().logisticsData;
         if (logisticsData != null) {
             setTransportMode();
@@ -255,6 +282,15 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
 
     @Override
     public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.textIncoTermsOthers:
+                addOtherIncoTerms();
+                break;
+        }
+
+    }
+
+    private void addOtherIncoTerms() {
 
     }
 
@@ -358,4 +394,32 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
     public void onItemSelected(View v, int position) {
 
     }
+
+
+    private void setAllData() {
+
+        Realm realm = Realm.getDefaultInstance();
+       // RealmDDROrderList realmOrderLists = realm.where(RealmDDROrderList.class).equalTo("poNumber", "P00001").findFirst();
+        RealmDDROrderList realmOrderLists = realm.where(RealmDDROrderList.class).findFirst();
+
+        if (realmOrderLists != null) {
+
+
+            textTotalInvoice.setText(getResources().getString(R.string.Rs) + " " + (Util.indianNumberFormat(realmOrderLists.getOrderValue())));
+           // orderDiscount.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
+
+
+            textDiscount.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
+            tvTotalItemPrice.setText("Order Value " + getResources().getString(R.string.Rs) + " " + (realmOrderLists.getOrderValue()));
+            tvItemQty.setText(realmOrderLists.getQuantity() + "");
+            tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat((realmOrderLists.getTotalValueWithoutTax() - realmOrderLists.getDiscountValue())));
+            textCGST.setText("+ " + getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getTotalCGSTValue()) + "");
+            textSGST.setText("+ " + getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getTotalSGSTValue()) + "");
+            textRoundingOff.setText(getResources().getString(R.string.Rs) + " " + realmOrderLists.getTotalRoundingOffValue() + "");
+
+        }
+
+
+    }
+
 }

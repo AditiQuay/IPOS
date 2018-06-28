@@ -194,6 +194,7 @@ public class NewOrderListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                   //  userViewHolder.llAddMinus.setVisibility(View.GONE);
 
                 } else {
+                    userViewHolder.tvQty.setVisibility(View.GONE);
                     userViewHolder.etQtySelected.setText(str.getQty() + "");
                     userViewHolder.imgLoyal.setVisibility(View.VISIBLE);
                     userViewHolder.tvPlus.setVisibility(View.VISIBLE);

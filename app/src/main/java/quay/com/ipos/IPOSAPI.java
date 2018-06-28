@@ -70,4 +70,7 @@ public class IPOSAPI {
     public static final String DDR_GetDDRList = "/api/DDR/GetDDRList";
     public static final String DDR_GetDDRProductList = "/api/DDR/GetDDRProductList";
 
+    //compliance
+    public static final String COMPLIANCE_DATA = "/api/ComplianceTracker/GetTaskschedularDetails";
+
 }

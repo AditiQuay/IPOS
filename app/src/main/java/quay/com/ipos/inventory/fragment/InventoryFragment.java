@@ -213,6 +213,17 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             }
         });
 
+        swchType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+
+                }else {
+
+                }
+            }
+        });
+
 
     }
 
