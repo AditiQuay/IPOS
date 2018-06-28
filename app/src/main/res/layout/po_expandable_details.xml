@@ -77,7 +77,7 @@
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingLeft="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
-                    android:text="PO# 1800023"
+                    android:text="PO# "
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/universal_text_size14" />
 
@@ -130,8 +130,22 @@
                 android:text="Items Details | 0 Items | Qty 0 "
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/universal_text_size14" />
-
+            <TextView
+                android:id="@+id/tvAddItems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:visibility="gone"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/white"
+                android:background="@drawable/button_rectangle_primary"
+                android:layout_toLeftOf="@+id/imgItems"
+                android:gravity="center"
+                android:textSize="@dimen/dim_18"/>
             <ImageView
+                android:id="@+id/imgItems"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -343,8 +357,23 @@
                 android:text="Attachments"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/universal_text_size14" />
+            <TextView
+                android:id="@+id/tvAddAttach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:visibility="gone"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/white"
+                android:background="@drawable/button_rectangle_primary"
+                android:layout_toLeftOf="@+id/imgri"
+                android:gravity="center"
+                android:textSize="@dimen/dim_18"/>
 
             <ImageView
+                android:id="@+id/imgri"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -355,6 +384,7 @@
                 android:paddingEnd="@dimen/dim_10"
                 android:paddingRight="@dimen/dim_10"
                 android:src="@drawable/ic_action_arrow_right_blue" />
+
 
         </RelativeLayout>
 
@@ -374,7 +404,18 @@
             android:dividerHeight="@dimen/dim_8"
             android:groupIndicator="@null"
             android:scrollbars="none" />
-
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/styleWhiteTextColor14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            android:backgroundTint="@color/colorPrimary"
+            android:fontFamily="@font/titilliumwebregular"
+            android:stateListAnimator="@null"
+            android:text="@string/save_close"
+            android:textAllCaps="true" />
     </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

@@ -435,10 +435,10 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
         ProductSearchRequest productSearchRequest = new ProductSearchRequest();
         productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
         productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
-        productSearchRequest.setEntityStateCode(entityStateCode);
+        productSearchRequest.setEntityStateCode("06");
         productSearchRequest.setSearchParam(s);
         productSearchRequest.setModuleType("NO");
-        productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
+        productSearchRequest.setBusinessPlaceCode("1");
         productSearchRequest.setBarCodeNumber(all);
         productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
         productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));

@@ -103,11 +103,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     boolean isInccoClick = false;
     boolean isAttachmentClick = false;
     private String transporterEWayBillValidityDate;
-<<<<<<< HEAD
     private TextView textTotalIncoTerms;
-=======
     private View ivAttAdd;
->>>>>>> 5ae83c091d110728428058c4a123a9736404ef6e
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -841,13 +838,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     }
 
-<<<<<<< HEAD
     @Override
     public void funIncoTermsTotalCount(double totalIncoTerms) {
         textTotalIncoTerms.setText(totalIncoTerms + "");
         Log.i(TAG, "Total IncoTerms:" + totalIncoTerms);
     }
-=======
     private static final int PICKFILE_RESULT_CODE = 101;
 
     private class onAttachFileClicked implements View.OnClickListener {
@@ -1022,5 +1017,4 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     }
 
 
->>>>>>> 5ae83c091d110728428058c4a123a9736404ef6e
 }

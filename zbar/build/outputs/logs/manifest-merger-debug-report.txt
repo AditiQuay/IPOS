@@ -1,30 +1,5 @@
 -- Merging decision tree log ---
 manifest
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 5ae83c091d110728428058c4a123a9736404ef6e
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-	package
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:70-106
-		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml
-	xmlns:android
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
-application
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
-<<<<<<< HEAD
-=======
-=======
-<<<<<<< HEAD
->>>>>>> 54f5879b68071d8ef802f0b06cbcf38853c38e1b
->>>>>>> 19bc758d394657b6bd1aa90cfd6dc97af6c4044d
 ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
@@ -36,24 +11,3 @@ INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\An
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
 application
 ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-=======
-ADDED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-	package
-		ADDED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:3:70-106
-		INJECTED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml
-		INJECTED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml
-	xmlns:android
-		ADDED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
-application
-ADDED from D:\QuayApp\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
->>>>>>> 54f05bb740b2bff1a3fb9bf78af23547f0948ba5
->>>>>>> 314ba1b1b898c75751e8b51c9ea7d5f665363a96
->>>>>>> 54f5879b68071d8ef802f0b06cbcf38853c38e1b
->>>>>>> 5ae83c091d110728428058c4a123a9736404ef6e
->>>>>>> 19bc758d394657b6bd1aa90cfd6dc97af6c4044d

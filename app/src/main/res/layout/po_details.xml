@@ -55,7 +55,7 @@
                         android:enabled="false"
                         android:background="@color/transparent"
                         android:layout_marginTop="@dimen/dim_4"
-                        android:text="PO1800001"
+                        android:text="PO"
                         android:textSize="@dimen/dim_14"
                         android:textColor="@color/dashboard_textcolor" />
 
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:enabled="false"
                         android:background="@color/transparent"
-                        android:text="15 May 2018"
+                        android:text=""
                         android:textSize="@dimen/dim_14"
                         android:textColor="@color/dashboard_textcolor" />
 
@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:enabled="false"
                         android:background="@color/transparent"
-                        android:text="26,000"
+                        android:text="0"
                         android:textSize="@dimen/dim_14"
                         android:textColor="@color/dashboard_textcolor" />
 
@@ -183,7 +183,7 @@
                         android:layout_height="wrap_content"
                         android:enabled="false"
                         android:background="@color/transparent"
-                        android:text="15 Jun 2018"
+                        android:text=""
                         android:textSize="@dimen/dim_14"
                         android:textColor="@color/dashboard_textcolor" />
 
@@ -214,7 +214,7 @@
                         android:layout_height="wrap_content"
                         android:enabled="false"
                         android:background="@color/transparent"
-                        android:text="24,000"
+                        android:text="0"
                         android:textSize="@dimen/dim_14"
                         android:textColor="@color/dashboard_textcolor" />
 
@@ -254,7 +254,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:background="@color/transparent"
-                android:text="SC0001 - Agro Chemicals"
+                android:text=""
                 android:textSize="@dimen/dim_14"
                 android:textColor="@color/dashboard_textcolor" />
 
@@ -285,7 +285,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:background="@color/transparent"
-                android:text="# 660 West paramanand colony, near Kingsway camp, New Delhi"
+                android:text=""
                 android:textSize="@dimen/dim_14"
                 android:textColor="@color/dashboard_textcolor" />
 
@@ -316,7 +316,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:background="@color/transparent"
-                android:text="15 Jun 2018"
+                android:text=""
                 android:textSize="@dimen/dim_14"
                 android:textColor="@color/dashboard_textcolor" />
 
@@ -347,7 +347,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:background="@color/transparent"
-                android:text="# 660 West paramanand colony, near Kingsway camp, New Delhi"
+                android:text=""
                 android:textSize="@dimen/dim_14"
                 android:textColor="@color/dashboard_textcolor" />
 
@@ -378,7 +378,6 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:background="@color/transparent"
-                android:text="# 660 West paramanand colony, near Kingsway camp, New Delhi"
                 android:textSize="@dimen/dim_14"
                 android:textColor="@color/dashboard_textcolor" />
 

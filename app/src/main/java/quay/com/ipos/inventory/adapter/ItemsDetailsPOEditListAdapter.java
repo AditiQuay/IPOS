@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
 
     @Override
     public SurveyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.po_item_details, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.po_item_edit, parent, false);
         return new SurveyViewHolder(view);
     }
 
@@ -86,8 +87,9 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvQty,textViewName,price,tvAmount,tvGst,tvPoNumber;
+        private TextView textViewName,price,tvAmount,tvGst,tvPoNumber;
 
+        private EditText tvQty;
         private RadioButton radio;
         public SurveyViewHolder(View itemView) {
             super(itemView);
