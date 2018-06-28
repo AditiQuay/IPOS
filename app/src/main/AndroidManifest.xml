@@ -322,6 +322,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".inventory.activity.EditExpandablePODetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".inventory.activity.InventoryItemAddNewOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <!---***Compliance Tracker***-->
         <activity
             android:name=".compliance.DashboardActivity"

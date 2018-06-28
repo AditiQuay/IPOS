@@ -23,14 +23,14 @@ import quay.com.ipos.inventory.modal.GrnInccoTermsModel;
  * Created by niraj.kumar on 6/20/2018.
  */
 
-public class InventoryGrnInccoAdapter extends RecyclerView.Adapter<InventoryGrnInccoAdapter.ItemView> {
-    private static final String TAG = InventoryGrnInccoAdapter.class.getSimpleName();
+public class InventorPOInccoAdapter extends RecyclerView.Adapter<InventorPOInccoAdapter.ItemView> {
+    private static final String TAG = InventorPOInccoAdapter.class.getSimpleName();
     private Context mContext;
     private ArrayList<GrnInccoTermsModel> grnInccoTermsModels;
     private OnCalculateTotalIncoTermsListener incoTermsListener;
     private boolean onBind;
 
-    public InventoryGrnInccoAdapter(Context mContext, ArrayList<GrnInccoTermsModel> grnInccoTermsModels, OnCalculateTotalIncoTermsListener incoTermsListener) {
+    public InventorPOInccoAdapter(Context mContext, ArrayList<GrnInccoTermsModel> grnInccoTermsModels, OnCalculateTotalIncoTermsListener incoTermsListener) {
         this.mContext = mContext;
         this.grnInccoTermsModels = grnInccoTermsModels;
         this.incoTermsListener = incoTermsListener;
@@ -40,7 +40,7 @@ public class InventoryGrnInccoAdapter extends RecyclerView.Adapter<InventoryGrnI
     @Override
     public ItemView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.grn_inco_terms_item, parent, false);
-        return new ItemView(view, new InventoryGrnInccoAdapter.MyCustomEditTextListener(), new InventoryGrnInccoAdapter.MyCustomCheckBoxListener());
+        return new ItemView(view, new InventorPOInccoAdapter.MyCustomEditTextListener(), new InventorPOInccoAdapter.MyCustomCheckBoxListener());
     }
 
     @Override
@@ -49,10 +49,7 @@ public class InventoryGrnInccoAdapter extends RecyclerView.Adapter<InventoryGrnI
 
         GrnInccoTermsModel grnInccoTermsModel = grnInccoTermsModels.get(position);
         holder.tvDetailName.setText(grnInccoTermsModel.grnIncoDetail);
-
-
-        holder.myCustomEditTextListener.updatePosition(position, holder);
-        holder.tvPayAmount.setText(grnInccoTermsModels.get(holder.getAdapterPosition()).grnPayAmount + "");
+        holder.tvPayAmount.setText(grnInccoTermsModel.grnPayAmount + "");
 
 
         holder.myCustomCheckBoxListener.updatePosition(position, holder);
@@ -73,7 +70,7 @@ public class InventoryGrnInccoAdapter extends RecyclerView.Adapter<InventoryGrnI
         public MyCustomEditTextListener myCustomEditTextListener;
         private MyCustomCheckBoxListener myCustomCheckBoxListener;
 
-        public ItemView(View itemView, InventoryGrnInccoAdapter.MyCustomEditTextListener myCustomEditTextListener, InventoryGrnInccoAdapter.MyCustomCheckBoxListener myCustomCheckBoxListener) {
+        public ItemView(View itemView, InventorPOInccoAdapter.MyCustomEditTextListener myCustomEditTextListener, InventorPOInccoAdapter.MyCustomCheckBoxListener myCustomCheckBoxListener) {
             super(itemView);
             tvDetailName = itemView.findViewById(R.id.tvDetailName);
             tvPayAmount = itemView.findViewById(R.id.tvPayAmount);
@@ -135,9 +132,9 @@ public class InventoryGrnInccoAdapter extends RecyclerView.Adapter<InventoryGrnI
     private class MyCustomCheckBoxListener implements CompoundButton.OnCheckedChangeListener {
 
         private int position;
-        private InventoryGrnInccoAdapter.ItemView holder;
+        private InventorPOInccoAdapter.ItemView holder;
 
-        public void updatePosition(int position, InventoryGrnInccoAdapter.ItemView holder) {
+        public void updatePosition(int position, InventorPOInccoAdapter.ItemView holder) {
             this.position = position;
             this.holder = holder;
         }

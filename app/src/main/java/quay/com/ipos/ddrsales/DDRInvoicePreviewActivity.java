@@ -236,6 +236,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         recycleViewShippingAddress.setAdapter(adapterAddShipping);
 
 
+
         textIncoTermsOthers = findViewById(R.id.textIncoTermsOthers);
         textIncoTermsOthers.setOnClickListener(this);
 

@@ -7,8 +7,8 @@ import android.net.Uri;
  */
 
 public class AttachFileModel {
-   public String fileName;
-   public String mimeType;
-   public Uri uri;
+    public String fileName;
+    public String mimeType;
+    public Uri uri;
 
 }

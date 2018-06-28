@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,7 +70,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 6/14/2018.
  */
 
-public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener, MyListener, AttachmentListener {
+public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener, InventoryGrnInccoAdapter.OnCalculateTotalIncoTermsListener, MyListener, AttachmentListener {
     private static final String TAG = InventoryGRNDetails.class.getSimpleName();
     private Toolbar toolbar;
     private Button btnAction, btnSave;
@@ -103,15 +104,25 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     boolean isInccoClick = false;
     boolean isAttachmentClick = false;
     private String transporterEWayBillValidityDate;
+    private TextView textTotalIncoTerms;
     private View ivAttAdd;
+<<<<<<< HEAD
+    String getGrnNumber;
+    String cardClick;
+=======
+>>>>>>> cb17170b909b76e2e8852f54b9b79f49577a57c8
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grn_expandable);
         mContext = InventoryGRNDetails.this;
+
         Intent i = getIntent();
+
         poNumber = i.getStringExtra("poNumber");
+        getGrnNumber = i.getStringExtra("grnNumber");
+        cardClick = i.getStringExtra("cardClick");
 
         findViewById();
         applyInitValues();
@@ -141,7 +152,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         poQty = findViewById(R.id.poQty);
         openQty = findViewById(R.id.openQty);
         balanceQty = findViewById(R.id.balanceQty);
-
+        textTotalIncoTerms = findViewById(R.id.textTotalIncoTerms);
 
         ivAttAdd.setOnClickListener(this);
         rGrn.setOnClickListener(this);
@@ -196,9 +207,14 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        if (!TextUtils.isEmpty(cardClick)) {
+            getGRNonCardClickDetails();
+        } else {
+            getGRNDetails();
+        }
 
         //Getting GRN details from server
-        getGRNDetails();
+
     }
 
     @Override
@@ -215,7 +231,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivAttAdd:
-                new onAttachFileClicked();
+                onAttachFileClicked();
                 break;
 
             case R.id.btnAction:
@@ -330,7 +346,13 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     private void getExpandableData() {
         Realm realm = Realm.getDefaultInstance();
-        RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
+        RealmGRNDetails realmGRNDetails;
+        if (getGrnNumber!=null){
+            realmGRNDetails = realm.where(RealmGRNDetails.class).equalTo("grnNumber",getGrnNumber+"").findFirst();
+        }else {
+             realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
+        }
+
         if (realmGRNDetails != null) {
             try {
                 grnNumber.setText(realmGRNDetails.getGrnNumber());
@@ -374,10 +396,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 for (int j = 0; j < jsonArray.length(); j++) {
                     JSONObject jsonObject1 = jsonArray.optJSONObject(j);
                     GrnInccoTermsModel grnInccoTermsModel = new GrnInccoTermsModel();
-                    grnInccoTermsModel.setGrnIncoDetail(jsonObject1.optString("grnIncoDetail"));
-                    grnInccoTermsModel.setGrnPayBySender(jsonObject1.optBoolean("grnPayBySender"));
-                    grnInccoTermsModel.setGrnPayByReceiver(jsonObject1.optBoolean("grnPayByReceiver"));
-                    grnInccoTermsModel.setGrnPayAmount(jsonObject1.optDouble("grnPayAmount"));
+                    grnInccoTermsModel.grnIncoDetail = jsonObject1.optString("grnIncoDetail");
+                    grnInccoTermsModel.grnPayBySender = jsonObject1.optBoolean("grnPayBySender");
+                    grnInccoTermsModel.grnPayByReceiver = jsonObject1.optBoolean("grnPayByReceiver");
+                    grnInccoTermsModel.grnPayAmount = jsonObject1.optDouble("grnPayAmount");
                     grnInccoTermsModels.add(grnInccoTermsModel);
                 }
 
@@ -423,7 +445,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
                 setItemDetails();
                 setIncoTerms();
-              //  setAttahcments();
+//                setAttahcments();
                 // setPaymentTerms();
                 //  setTermsCondition();
 
@@ -437,7 +459,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     }
 
-    public void getGRNDetails() {
+    public void getGRNonCardClickDetails() {
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
         JSONObject jsonObject1 = new JSONObject();
@@ -445,7 +467,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject1.put("businessPlaceId", "1");
-            jsonObject1.put("poNumber", "GRN18000001");
+            jsonObject1.put("poNumber", getGrnNumber);
             jsonObject1.put("isGRN", true);
             jsonObject1.put("isGRNOrQC", "grn");
 
@@ -470,7 +492,122 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-                //  dismissProgress();
+
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                // dismissProgress();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                    }
+                });
+                try {
+                    if (response != null && response.isSuccessful()) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, "Response***" + response.body().toString());
+                            }
+                        });
+
+                        final String responseData = response.body().string();
+                        if (responseData != null) {
+                            new RealmController().saveGRNDetails(responseData);
+                            //saveResponseLocalCreateOrder(jsonObject,requestId);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    getExpandableData();
+                                }
+                            });
+
+                        }
+
+                    } else if (response.code() == Constants.BAD_REQUEST) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.INTERNAL_SERVER_ERROR) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.URL_NOT_FOUND) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.UNAUTHORIZE_ACCESS) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.CONNECTION_OUT) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+
+                }
+            }
+        });
+    }
+
+    public void getGRNDetails() {
+
+        final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        JSONObject jsonObject1 = new JSONObject();
+
+        try {
+            jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("businessPlaceId", "1");
+            jsonObject1.put("poNumber", poNumber);
+            jsonObject1.put("isGRN", false);
+            jsonObject1.put("isGRNOrQC", "na");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        progressDialog.show();
+        OkHttpClient okHttpClient = APIClient.getHttpClient();
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
+        String url = IPOSAPI.WEB_SERVICE_GET_GRN_SUMMARY_DETAIL;
+
+        final Request request = APIClient.getPostRequest(this, url, requestBody);
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressDialog.dismiss();
+                        Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
 
             @Override
@@ -560,7 +697,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     private void setIncoTerms() {
         rvIncco.setLayoutManager(new LinearLayoutManager(mContext));
-        inventoryGrnInccoAdapter = new InventoryGrnInccoAdapter(mContext, grnInccoTermsModels);
+        inventoryGrnInccoAdapter = new InventoryGrnInccoAdapter(mContext, grnInccoTermsModels, this);
         rvIncco.setAdapter(inventoryGrnInccoAdapter);
     }
 
@@ -584,11 +721,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 //    }
 
 
- /*   private void setAttahcments() {
+    private void setAttahcments() {
         rvAttachment.setLayoutManager(new LinearLayoutManager(mContext));
         inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments, this);
         rvAttachment.setAdapter(inventoryAttachmentAdapter);
-    }*/
+    }
 
 
     private void createJson() {
@@ -614,10 +751,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             JSONArray IncoTermsArray = new JSONArray();
             for (int j = 0; j < grnInccoTermsModels.size(); j++) {
                 JSONObject jsonObject1 = new JSONObject();
-                jsonObject1.put("grnIncoDetail", grnInccoTermsModels.get(j).getGrnIncoDetail());
-                jsonObject1.put("grnPayBySender", grnInccoTermsModels.get(j).isGrnPayBySender());
-                jsonObject1.put("grnPayByReceiver", grnInccoTermsModels.get(j).isGrnPayByReceiver());
-                jsonObject1.put("grnPayAmount", grnInccoTermsModels.get(j).getGrnPayAmount());
+                jsonObject1.put("grnIncoDetail", grnInccoTermsModels.get(j).grnIncoDetail);
+                jsonObject1.put("grnPayBySender", grnInccoTermsModels.get(j).grnPayBySender);
+                jsonObject1.put("grnPayByReceiver", grnInccoTermsModels.get(j).grnPayByReceiver);
+                jsonObject1.put("grnPayAmount", grnInccoTermsModels.get(j).grnPayAmount);
 
                 IncoTermsArray.put(jsonObject1);
             }
@@ -633,7 +770,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
             //attach new
 
-            for (int i = 0; i < grnAttachments.size(); i++) {
+            for (int i = 0; i < attachFileModels.size(); i++) {
                 AttachFileModel fileModel = attachFileModels.get(i);
                 Uri returnUri = fileModel.uri;
                 Cursor returnCursor = getContentResolver().query(returnUri, null, null, null, null);
@@ -655,7 +792,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 JSONObject jsonObject1 = new JSONObject();
                 jsonObject1.put("grnAttachmentName", fileName);
                 jsonObject1.put("grnAttachmentUrl", getBase64StringNew(returnUri, Integer.parseInt(fileSize)));
-                jsonObject1.put("grnAttachmentType",  mimeType);
+                jsonObject1.put("grnAttachmentType", mimeType);
                 jsonArrayAttachments.put(jsonObject1);
 
 
@@ -663,7 +800,101 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             //attach end
 
 
+            jsonObject.put("poNumber", poNumber);
+            jsonObject.put("grnNumber", grnNumber.getText().toString());
+            jsonObject.put("receivedDate", et_received_date.getText().toString());
+            jsonObject.put("totalItems", et_totalItems.getText().toString());
+            jsonObject.put("value", et_value.getText().toString());
+            jsonObject.put("poQty", poQty.getText().toString());
+            jsonObject.put("openQty", openQty.getText().toString());
+            jsonObject.put("balanceQty", balanceQty.getText().toString());
+            jsonObject.put("transporterName", etName.getText().toString());
+            jsonObject.put("transporterLRName", etLrn.getText().toString());
+            jsonObject.put("transporterTruckNumber", etTrackNumber1.getText().toString());
+            jsonObject.put("transporterEWayBillNumber", etEwayBill.getText().toString());
+            jsonObject.put("transporterEWayBillValidityDate", transporterEWayBillValidityDate);
+            jsonObject.put("transporterDriverName", etDriverName.getText().toString());
+            jsonObject.put("transporterDriverMobileNumber", driverMobileNumber.getText().toString());
+            jsonObject.put("transporterAddress", etAddress.getText().toString());
+            jsonObject.put("poItemDetails", poDetails);
+            jsonObject.put("poIncoTerms", IncoTermsArray);
+            jsonObject.put("poPaymentTermsType", new JSONArray());
+            jsonObject.put("poTermsAndConditions", new JSONArray());
+            jsonObject.put("poAttachments", jsonArrayAttachments);
+            jsonObject.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+        new RealmController().saveGRNDetails(jsonObject.toString());
+
+    }
+
+
+    public void submitGRNDetails() {
+
+        JSONObject jsonObject = new JSONObject();
+        JSONArray poDetails = new JSONArray();
+
+        try {
+
+            for (int j = 0; j < grnListModels.size(); j++) {
+
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("materialCode", grnListModels.get(j).getMaterialCode());
+                jsonObject1.put("materialName", grnListModels.get(j).getMaterialName());
+                jsonObject1.put("openQty", grnListModels.get(j).getOpenQty());
+                jsonObject1.put("inQty", grnListModels.get(j).getInQty());
+                jsonObject1.put("apQty", grnListModels.get(j).getApQty());
+                jsonObject1.put("balanceQty", grnListModels.get(j).getBalanceQty());
+                jsonObject1.put("gRNItemInfoDetails", new JSONObject(grnListModels.get(j).getgRNItemInfoDetails()));
+
+                poDetails.put(jsonObject1);
+            }
+
+            JSONArray IncoTermsArray = new JSONArray();
+            for (int j = 0; j < grnInccoTermsModels.size(); j++) {
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("grnIncoDetail", grnInccoTermsModels.get(j).grnIncoDetail);
+                jsonObject1.put("grnPayBySender", grnInccoTermsModels.get(j).grnPayBySender);
+                jsonObject1.put("grnPayByReceiver", grnInccoTermsModels.get(j).grnPayByReceiver);
+                jsonObject1.put("grnPayAmount", grnInccoTermsModels.get(j).grnPayAmount);
+
+                IncoTermsArray.put(jsonObject1);
+            }
+
+            JSONArray jsonArrayAttachments = new JSONArray();
+
+            //attach new
+
+            for (int i = 0; i < attachFileModels.size(); i++) {
+                AttachFileModel fileModel = attachFileModels.get(i);
+                Uri returnUri = fileModel.uri;
+                Cursor returnCursor = getContentResolver().query(returnUri, null, null, null, null);
+                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+                returnCursor.moveToFirst();
+                String fileName = returnCursor.getString(nameIndex);
+                String fileSize = Long.toString(returnCursor.getLong(sizeIndex));
+                String mimeType = getContentResolver().getType(returnUri);
+                Log.i("Type", mimeType);
+
+              /*  SpendRequestAttachment spendRequestAttachment = new SpendRequestAttachment();
+                spendRequestAttachment.AttachmentBase = getBase64StringNew(returnUri, Integer.parseInt(fileSize));
+                spendRequestAttachment.AttachmentExtension = "No Info";
+                spendRequestAttachment.AttachmentName = fileName;
+                spendRequestAttachment.AttachmentType = mimeType;
+                spendRequestAttachmentList.add(spendRequestAttachment);
+               */
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("grnAttachmentName", fileName);
+                jsonObject1.put("grnAttachmentUrl", getBase64StringNew(returnUri, Integer.parseInt(fileSize)));
+                jsonObject1.put("grnAttachmentType", mimeType);
+                jsonArrayAttachments.put(jsonObject1);
+
+
+            }
+            //attach end
 
 
             jsonObject.put("poNumber", poNumber);
@@ -688,54 +919,23 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             jsonObject.put("poTermsAndConditions", new JSONArray());
             jsonObject.put("poAttachments", jsonArrayAttachments);
             jsonObject.put("employeeCode", "");
+            Log.e(TAG, "Requuest::" + jsonObject.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        new RealmController().saveGRNDetails(jsonObject.toString());
-
-    }
-
-
-    public void submitGRNDetails() {
-
-        createJson();
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
-        JSONObject jsonObject1 = new JSONObject();
-
-
-     /*   //show
-        Realm realm=Realm.getDefaultInstance();
-        RealmGRNDetails realmGRNDetails=realm.where(RealmGRNDetails.class).equalTo("grnNumber",grnNumber.getText().toString()).findFirst();
-        Gson gson= new GsonBuilder().create();
-        String json=gson.toJson(realmGRNDetails);
-
-        JSONObject jsonObject=new JSONObject(json);
-
-      JSONArray  array=  jsonObject.getJSONArray("poItemDetails");
-
-       JSONObject jsonObject2= array.getJSONObject(position);
-
-       JSONObject jsonObject3=jsonObject2.getJSONObject("gRnItemInfoDetails");
-
-       //----------------------------------------------------show end
-       //update-----start
-
-
-        JSONArray jsArryBatch=new JSONArray();
-
-        JSONObject position=new JSONObject();
-        position.put("tabTitle",,"");
-        jsArryBatch.put(position);
-        jsonObject3.put("data",jsArryBatch);
-        jsonObject2.put("gRnItemInfoDetails",jsonObject2);
-
-        new RealmController().saveGRNDetails(jsonObject2.toString());*/
-
         progressDialog.show();
+
+//        Realm realm = Realm.getDefaultInstance();
+//        RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).equalTo("grnNumber", grnNumber.getText().toString()).findFirst();
+//        Gson gson = new GsonBuilder().create();
+//        String json = gson.toJson(realm.copyFromRealm(realmGRNDetails));
+//
+
         OkHttpClient okHttpClient = APIClient.getHttpClient();
-        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, "");
-        String url = IPOSAPI.WEB_SERVICE_GET_GRN_SUMMARY_DETAIL;
+        RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject.toString().replaceAll("\\\\", ""));
+        String url = IPOSAPI.WEB_SERVICE_GET_GRN_SUMMARY_SUBMIT;
 
         final Request request = APIClient.getPostRequest(this, url, requestBody);
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -749,12 +949,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         Toast.makeText(mContext, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-                //  dismissProgress();
+
             }
 
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
-                // dismissProgress();
+
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -837,7 +1037,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         GrnItemQtyModel grnItemQtyModel = grnListModels.get(position);
         Intent gotToProductDetail = new Intent(mContext, InventoryProduct.class);
         gotToProductDetail.putExtra("position", position);
-        gotToProductDetail.putExtra("openQty",grnItemQtyModel.getOpenQty());
+        gotToProductDetail.putExtra("openQty", grnItemQtyModel.getOpenQty());
         startActivityForResult(gotToProductDetail, 1);
 
     }
@@ -850,7 +1050,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        onActivityResultAttachment(requestCode,resultCode,data);
+        onActivityResultAttachment(requestCode, resultCode, data);
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 grnListModels.clear();
@@ -868,15 +1068,22 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     }
 
+    @Override
+    public void funIncoTermsTotalCount(double totalIncoTerms) {
+        textTotalIncoTerms.setText(totalIncoTerms + "");
+        Log.i(TAG, "Total IncoTerms:" + totalIncoTerms);
+    }
+<<<<<<< HEAD
+
+=======
+>>>>>>> cb17170b909b76e2e8852f54b9b79f49577a57c8
     private static final int PICKFILE_RESULT_CODE = 101;
 
-    private class onAttachFileClicked implements View.OnClickListener {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*/*");
-            startActivityForResult(intent, PICKFILE_RESULT_CODE);
-        }
+    private void onAttachFileClicked() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        startActivityForResult(intent, PICKFILE_RESULT_CODE);
+
     }
 
 
@@ -897,10 +1104,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         long fileSize = returnCursor.getLong(sizeIndex);
                         String mimeType = getContentResolver().getType(uri);
                         Log.i("Type", mimeType);
-                        Log.i("fileSize", fileSize+"");
+                        Log.i("fileSize", fileSize + "");
                         long twoMb = 1024 * 1024 * 2;
 
-                        if(fileSize <= twoMb) {
+                        if (fileSize <= twoMb) {
                             AttachFileModel fileModel = new AttachFileModel();
                             fileModel.fileName = fileName;
                             fileModel.mimeType = mimeType;
@@ -909,7 +1116,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                             attachFileModels.add(fileModel);
                             updateSize();
                             String FilePath = data.getData().getPath();
-                        }else {
+                        } else {
                             Toast.makeText(getApplicationContext(), "Oops! File Size must be less than 2 MB", Toast.LENGTH_SHORT).show();
                         }
 
@@ -934,8 +1141,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
         if (attachFileSize > 0) {
             rvAttachment.setLayoutManager(new LinearLayoutManager(mContext));
-           // inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments, this);
-          //  rvAttachment.setAdapter(inventoryAttachmentAdapter);
+            // inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments, this);
+            //  rvAttachment.setAdapter(inventoryAttachmentAdapter);
 
             rvAttachment.setAdapter(new AttachFileAdapter(attachFileModels));
 
@@ -994,7 +1201,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     final Intent shareIntent = new Intent(Intent.ACTION_VIEW);
                     //   shareIntent.setType("*/*");
                     //  shareIntent.setDataAndType(Uri.parse(fileModel.uri.toString()), "image/*");
-                    shareIntent.setDataAndType(Uri.parse(fileModel.uri.toString()),fileModel.mimeType);
+                    shareIntent.setDataAndType(Uri.parse(fileModel.uri.toString()), fileModel.mimeType);
                     shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                     //final File photoFile = new File(getFilesDir(), "foo.jpg");
 
@@ -1018,6 +1225,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             return spendRequestAttachment.size();
         }
     }
+
     private String getBase64StringNew(Uri uri, int filelength) {
         String imageStr = null;
         try {
@@ -1041,5 +1249,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         return imageStr;
     }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> cb17170b909b76e2e8852f54b9b79f49577a57c8
 }
