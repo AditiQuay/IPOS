@@ -323,6 +323,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".inventory.activity.EditExpandablePODetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <!-- Firebase Notifications -->
         <service
             android:name=".notifications.MyFirebaseMessagingService"

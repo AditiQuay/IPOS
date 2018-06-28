@@ -278,7 +278,23 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/universal_text_size14" />
 
+            <TextView
+                android:id="@+id/tvAddTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:visibility="gone"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/white"
+                android:background="@drawable/button_rectangle_primary"
+                android:layout_toLeftOf="@+id/imgRight"
+                android:gravity="center"
+                android:textSize="@dimen/dim_18"/>
+
             <ImageView
+                android:id="@+id/imgRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"

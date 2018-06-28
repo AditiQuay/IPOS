@@ -1,14 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\assets"/><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\debug\assets"/></dataSet></merger>
-=======
-<<<<<<< HEAD
-<merger version="3"><dataSet config="main"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\assets"/><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\debug\assets"/></dataSet></merger>
-=======
-<<<<<<< HEAD
-<merger version="3"><dataSet config="main"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\assets"/><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\debug\assets"/></dataSet></merger>
-=======
-<merger version="3"><dataSet config="main"><source path="D:\QuayApp\IPOS\core\src\main\assets"/><source path="D:\QuayApp\IPOS\core\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\QuayApp\IPOS\core\src\debug\assets"/></dataSet></merger>
->>>>>>> 54f05bb740b2bff1a3fb9bf78af23547f0948ba5
->>>>>>> 314ba1b1b898c75751e8b51c9ea7d5f665363a96
->>>>>>> 54f5879b68071d8ef802f0b06cbcf38853c38e1b

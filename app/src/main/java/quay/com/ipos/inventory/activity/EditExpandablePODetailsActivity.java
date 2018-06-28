@@ -1,15 +1,28 @@
 package quay.com.ipos.inventory.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -26,6 +39,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -37,23 +52,29 @@ import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.inventory.adapter.AttachmentsPOListAdapter;
 import quay.com.ipos.inventory.adapter.INCOTermsPOListAdapter;
+import quay.com.ipos.inventory.adapter.ItemsDetailsPOEditListAdapter;
 import quay.com.ipos.inventory.adapter.ItemsDetailsPOListAdapter;
 import quay.com.ipos.inventory.adapter.MilestonePOListAdapter;
 import quay.com.ipos.inventory.adapter.TermsPOListAdapter;
+import quay.com.ipos.inventory.attachments.AttachFileModel;
 import quay.com.ipos.inventory.modal.InventoryPOModal;
 import quay.com.ipos.inventory.modal.POAttachments;
 import quay.com.ipos.inventory.modal.POIncoTerms;
 import quay.com.ipos.inventory.modal.POItemDetail;
 import quay.com.ipos.inventory.modal.POPaymentTerms;
 import quay.com.ipos.inventory.modal.POTermsCondition;
+import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.modal.MenuModal;
+import quay.com.ipos.realmbean.RealmController;
+import quay.com.ipos.realmbean.RealmInventoryProducts;
+import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 
 
-public class EditExpandablePODetailsActivity extends BaseActivity {
-
+public class EditExpandablePODetailsActivity extends BaseActivity implements MyListener{
+    private Dialog myDialog;
     ExpandableListView expandableListView;
     //CustomExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
@@ -62,7 +83,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity {
     RelativeLayout POHashitems,POitemsDetails,POIncoTerms,POPaymentTerms,POTermsandCondition,POAttachment;
     EditText edtPoNumber,edtPoDate,edtPoValDate,edtPoValue,edtPoGST,edtSupplierName,edtSupAddress,edtSupGSTIN,edtBillingAddress,edtDeliveryAddress;
     private RecyclerView recycler_viewItemDetail,recycler_viewInco,recycler_viewPayment,recycler_viewTerms,recycler_viewAttachment;
-    ItemsDetailsPOListAdapter itemListDataAdapter;
+    ItemsDetailsPOEditListAdapter itemListDataAdapter;
     INCOTermsPOListAdapter incoTermsPOListAdapter;
     MilestonePOListAdapter milestonePOListAdapter;
     TermsPOListAdapter termsPOListAdapter;
@@ -76,6 +97,8 @@ public class EditExpandablePODetailsActivity extends BaseActivity {
     String poNumber,businessPlaceId;
     private TextView tvHeaderPoNumber,tvHeaderPOItemDetail;
     private Spinner spnMilestone;
+    private TextView tvAddTerms;
+    private View ImvClose;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,14 +106,10 @@ public class EditExpandablePODetailsActivity extends BaseActivity {
         setContentView(R.layout.po_expandable_details);
         context=EditExpandablePODetailsActivity.this;
         setHeader();
-        Intent i=getIntent();
-        if (i!=null){
-            poNumber=i.getStringExtra("poNumber");
-            businessPlaceId=i.getStringExtra("businessPlaceId");
-        }
+
         inializeViews();
         setLisner();
-        getPODetails();
+        //getPODetails();
 
     }
     public void setHeader() {
@@ -113,6 +132,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity {
     }
 
     private void inializeViews(){
+        tvAddTerms=findViewById(R.id.tvAddTerms);
         spnMilestone=findViewById(R.id.spnMilestone);
         tvHeaderPoNumber=findViewById(R.id.tvHeaderPoNumber);
         tvHeaderPOItemDetail=findViewById(R.id.tvHeaderPOItemDetail);
@@ -131,6 +151,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity {
         POAttachment=findViewById(R.id.POAttachment);
 
         edtPoNumber=findViewById(R.id.edtPoNumber);
+
         edtBillingAddress=findViewById(R.id.edtBillingAddress);
         edtDeliveryAddress=findViewById(R.id.edtDeliveryAddress);
         edtPoDate=findViewById(R.id.edtPoDate);
@@ -141,9 +162,220 @@ public class EditExpandablePODetailsActivity extends BaseActivity {
         edtSupGSTIN=findViewById(R.id.edtSupGSTIN);
         edtSupplierName=findViewById(R.id.edtSupplierName);
 
+        edtPoNumber.setEnabled(true);
+        edtBillingAddress.setEnabled(true);
+        edtDeliveryAddress.setEnabled(true);
+        edtPoGST.setEnabled(true);
+        edtPoValue.setEnabled(true);
+        edtSupAddress.setEnabled(true);
+        edtSupGSTIN.setEnabled(true);
+        edtSupplierName.setEnabled(true);
 
+
+        tvAddTerms.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final TextInputLayout tilMessage;
+                final TextInputEditText tieMessage;
+                Button btnSubmit;
+
+                myDialog.setContentView(R.layout.view_note_dialog);
+                ImvClose = myDialog.findViewById(R.id.ImvClose);
+                ImvClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        myDialog.dismiss();
+                    }
+                });
+                tilMessage = myDialog.findViewById(R.id.tilMessage);
+                tieMessage = myDialog.findViewById(R.id.tieMessage);
+                tieMessage.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        tilMessage.setErrorEnabled(false);
+                        tilMessage.setError(null);
+                    }
+                });
+                btnSubmit = myDialog.findViewById(R.id.btnSubmit);
+                btnSubmit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (TextUtils.isEmpty(tieMessage.getText().toString())) {
+                            tilMessage.setErrorEnabled(true);
+                            tilMessage.setError("Please write a Note.");
+                        } else {
+                            POTermsCondition termsCondition=new POTermsCondition();
+                            termsCondition.setpOTermsAndConditionDetail(tieMessage.getText().toString());
+                            termsCondition.setpOTermsAndConditionSrNo(1);
+
+                            poTermsConditions.add(termsCondition);
+
+                            termsPOListAdapter.notifyDataSetChanged();
+
+
+                        }
+                    }
+                });
+
+
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
+
+            }
+        });
     }
 
+    private void getProducts(){
+        Realm realm = Realm.getDefaultInstance();
+        RealmResults<RealmInventoryProducts> realmNewOrderCarts1 = realm.where(RealmInventoryProducts.class).findAll();
+        poItemDetails.clear();
+
+        for (RealmInventoryProducts realmNewOrderCart : realmNewOrderCarts1) {
+            RealmInventoryProducts realmNewOrderCarts = realm.copyFromRealm(realmNewOrderCart);
+
+            POItemDetail poItemDetail=new POItemDetail();
+            poItemDetail.setTitle(realmNewOrderCarts.getsProductName());
+            poItemDetail.setPoItemUnitPrice(realmNewOrderCarts.getsProductPrice());
+            poItemDetail.setPoItemAmount(realmNewOrderCarts.getQty()*realmNewOrderCarts.getsProductPrice());
+            poItemDetail.setPoItemIGSTValue(((realmNewOrderCarts.getSgst()+realmNewOrderCarts.getCgst())*realmNewOrderCarts.getQty()*realmNewOrderCarts.getsProductPrice())/100);
+            poItemDetail.setPoItemCGSTPer(realmNewOrderCarts.getCgst());
+            poItemDetail.setPoItemSGSTPer(realmNewOrderCarts.getSgst());
+
+            poItemDetails.add(poItemDetail);
+        }
+
+        //  mList.addAll(realmNewOrderCarts1);
+
+        setItemDetails();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getProducts();
+    }
+
+    /*private void createJson() {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray poDetails = new JSONArray();
+
+        try {
+
+            for (int j = 0; j < grnListModels.size(); j++) {
+
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("materialCode", grnListModels.get(j).getMaterialCode());
+                jsonObject1.put("materialName", grnListModels.get(j).getMaterialName());
+                jsonObject1.put("openQty", grnListModels.get(j).getOpenQty());
+                jsonObject1.put("inQty", grnListModels.get(j).getInQty());
+                jsonObject1.put("apQty", grnListModels.get(j).getApQty());
+                jsonObject1.put("balanceQty", grnListModels.get(j).getBalanceQty());
+                jsonObject1.put("gRNItemInfoDetails", grnListModels.get(j).getgRNItemInfoDetails());
+
+                poDetails.put(jsonObject1);
+            }
+
+            JSONArray IncoTermsArray = new JSONArray();
+            for (int j = 0; j < poIncoTerms.size(); j++) {
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("grnIncoDetail", grnInccoTermsModels.get(j).getGrnIncoDetail());
+                jsonObject1.put("grnPayBySender", grnInccoTermsModels.get(j).isGrnPayBySender());
+                jsonObject1.put("grnPayByReceiver", grnInccoTermsModels.get(j).isGrnPayByReceiver());
+                jsonObject1.put("grnPayAmount", grnInccoTermsModels.get(j).getGrnPayAmount());
+
+                IncoTermsArray.put(jsonObject1);
+            }
+
+            JSONArray jsonArrayAttachments = new JSONArray();
+            for (int j = 0; j < poAttachments.size(); j++) {
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("grnAttachmentName", grnAttachments.get(j).getGrnAttachmentName());
+                jsonObject1.put("grnAttachmentUrl", grnAttachments.get(j).getGrnAttachmentUrl());
+                jsonObject1.put("grnAttachmentType", grnAttachments.get(j).getGrnAttachmentType());
+                jsonArrayAttachments.put(jsonObject1);
+            }
+
+            //attach new
+
+            for (int i = 0; i < poAttachments.size(); i++) {
+                AttachFileModel fileModel = poAttachments.get(i);
+                Uri returnUri = fileModel.uri;
+                Cursor returnCursor = getContentResolver().query(returnUri, null, null, null, null);
+                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+                returnCursor.moveToFirst();
+                String fileName = returnCursor.getString(nameIndex);
+                String fileSize = Long.toString(returnCursor.getLong(sizeIndex));
+                String mimeType = getContentResolver().getType(returnUri);
+                Log.i("Type", mimeType);
+
+              *//*  SpendRequestAttachment spendRequestAttachment = new SpendRequestAttachment();
+                spendRequestAttachment.AttachmentBase = getBase64StringNew(returnUri, Integer.parseInt(fileSize));
+                spendRequestAttachment.AttachmentExtension = "No Info";
+                spendRequestAttachment.AttachmentName = fileName;
+                spendRequestAttachment.AttachmentType = mimeType;
+                spendRequestAttachmentList.add(spendRequestAttachment);
+               *//*
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("grnAttachmentName", fileName);
+                jsonObject1.put("grnAttachmentUrl", getBase64StringNew(returnUri, Integer.parseInt(fileSize)));
+                jsonObject1.put("grnAttachmentType",  mimeType);
+                jsonArrayAttachments.put(jsonObject1);
+
+
+            }
+            //attach end
+
+
+
+            edtBillingAddress=findViewById(R.id.edtBillingAddress);
+            edtDeliveryAddress=findViewById(R.id.edtDeliveryAddress);
+            edtPoDate=findViewById(R.id.edtPoDate);
+            edtPoGST=findViewById(R.id.edtPoGST);
+            edtPoValDate=findViewById(R.id.edtPoValDate);
+            edtPoValue=findViewById(R.id.edtPoValue);
+            edtSupAddress=findViewById(R.id.edtSupAddress);
+            edtSupGSTIN=findViewById(R.id.edtSupGSTIN);
+            edtSupplierName=findViewById(R.id.edtSupplierName);
+
+
+            jsonObject.put("poNumber", edtPoNumber.getText().toString());
+            jsonObject.put("poDate", edtPoDate.getText().toString());
+            jsonObject.put("poValidityDate", edtPoValDate.getText().toString());
+            jsonObject.put("poValue", edtPoValue.getText().toString());
+            jsonObject.put("poIGSTValue", edtPoGST.getText().toString());
+            jsonObject.put("poCGSTValue",0);
+            jsonObject.put("poSGSTValue", 0);
+            jsonObject.put("supplierCode", edtSupplierName.getText().toString());
+            jsonObject.put("supplierName", edtSupplierName.getText().toString());
+            jsonObject.put("supplierAddress", edtSupAddress.getText().toString());
+            jsonObject.put("supplierGSTIN", edtSupGSTIN.getText().toString());
+            jsonObject.put("billingAddress", edtBillingAddress.getText().toString());
+            jsonObject.put("deliveryAddress", edtDeliveryAddress.getText().toString());
+            jsonObject.put("poItemDetails", poDetails);
+            jsonObject.put("poIncoTerms", IncoTermsArray);
+            jsonObject.put("poPaymentTermsType", new JSONArray());
+            jsonObject.put("poTermsAndConditions", new JSONArray());
+            jsonObject.put("poAttachments", jsonArrayAttachments);
+            jsonObject.put("employeeCode", "");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        new RealmController().saveGRNDetails(jsonObject.toString());
+
+    }
+*/
     private void setItemDetails(){
 
 
@@ -151,7 +383,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity {
         recycler_viewItemDetail.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(EditExpandablePODetailsActivity.this);
         recycler_viewItemDetail.setLayoutManager(mLayoutManager);
-         itemListDataAdapter = new ItemsDetailsPOListAdapter(EditExpandablePODetailsActivity.this, poItemDetails);
+         itemListDataAdapter = new ItemsDetailsPOEditListAdapter(EditExpandablePODetailsActivity.this, poItemDetails,this);
         recycler_viewItemDetail.setAdapter(itemListDataAdapter);
     }
 
@@ -503,4 +735,23 @@ public class EditExpandablePODetailsActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onRowClicked(int position) {
+
+    }
+
+    @Override
+    public void onRowClicked(int position, int value) {
+
+        POItemDetail poItemDetail=new POItemDetail();
+        poItemDetail.setTitle(poItemDetails.get(position).getTitle());
+        poItemDetail.setPoItemUnitPrice(poItemDetails.get(position).getPoItemUnitPrice());
+        poItemDetail.setPoItemAmount(value*poItemDetails.get(position).getPoItemUnitPrice());
+        poItemDetail.setPoItemIGSTValue(((poItemDetails.get(position).getPoItemSGSTPer()+poItemDetails.get(position).getPoItemCGSTPer())*value*poItemDetails.get(position).getPoItemUnitPrice())/100);
+
+        poItemDetails.set(position,poItemDetail);
+
+        termsPOListAdapter.notifyItemChanged(position);
+
+    }
 }
