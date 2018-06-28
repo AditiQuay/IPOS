@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:padding="@dimen/dim_4">
 
@@ -88,16 +89,19 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <EditText
                     android:id="@+id/tvPayAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="26,800"
                     android:textColor="@color/grey"
-                    android:textSize="@dimen/universal_text_size14" />
+                    android:inputType="numberDecimal"
+                    android:background="@null"
+                    android:textSize="@dimen/universal_text_size14"
+                    tools:text="26,800" />
+
             </LinearLayout>
 
 

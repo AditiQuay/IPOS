@@ -40,6 +40,7 @@ public class DDRIncoTermsAdapter extends RecyclerView.Adapter<DDRIncoTermsAdapte
         DDRIncoTerms incoTerms = list.get(position);
         holder.tvDetailName.setText(incoTerms.grnIncoDetail);
         holder.tvPayAmount.setText(incoTerms.grnPayAmount + "");
+
         if (incoTerms.grnPayBySender) {
             holder.sender.setChecked(true);
         }

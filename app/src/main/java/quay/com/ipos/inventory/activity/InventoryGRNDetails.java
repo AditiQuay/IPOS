@@ -783,11 +783,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     @Override
     public void onRowClicked(int position) {
+        GrnItemQtyModel grnItemQtyModel = grnListModels.get(position);
         Intent gotToProductDetail = new Intent(mContext, InventoryProduct.class);
         gotToProductDetail.putExtra("position", position);
+        gotToProductDetail.putExtra("openQty",grnItemQtyModel.getOpenQty());
         startActivityForResult(gotToProductDetail, 1);
 
-//        createJson();
     }
 
     @Override

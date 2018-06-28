@@ -43,7 +43,7 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
     private DDRIncoTermsAdapter adapterIncoTerms;
 
 
-    private List<DDRIncoTerms> incoTermsList=new ArrayList<>();
+    private List<DDRIncoTerms> incoTermsList = new ArrayList<>();
 
     private DDR mDdr;
 
@@ -73,13 +73,12 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         intent.putExtra("ddr", mDdr);
         startActivity(intent);
     }
+
     public void onSaveAndCloseAction(View view) {
         Intent intent = new Intent(activity, DDROrderCenterActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
-
-
 
 
     @Override
@@ -133,7 +132,6 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         adapterIncoTerms.notifyDataSetChanged();
 
 
-
         setPriceSum();
 
 
@@ -145,8 +143,8 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         for (ProductSearchResult.Datum cart : cartList) {
             totalCount = totalCount + cart.getQty();
         }
-        tvItemQty.setText(totalCount+"");
-        tvTotalItemPrice.setText(totalCount+"");
+        tvItemQty.setText(totalCount + "");
+        tvTotalItemPrice.setText(totalCount + "");
 
     }
 

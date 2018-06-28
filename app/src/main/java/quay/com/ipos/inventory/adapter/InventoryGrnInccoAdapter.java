@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class InventoryGrnInccoAdapter extends RecyclerView.Adapter<InventoryGrnI
         GrnInccoTermsModel grnInccoTermsModel = grnInccoTermsModels.get(position);
         holder.tvDetailName.setText(grnInccoTermsModel.getGrnIncoDetail());
         holder.tvPayAmount.setText(grnInccoTermsModel.getGrnPayAmount()+"");
+
         if (grnInccoTermsModel.isGrnPayBySender()){
             holder.sender.setChecked(true);
         }
@@ -52,7 +54,8 @@ public class InventoryGrnInccoAdapter extends RecyclerView.Adapter<InventoryGrnI
     }
 
     public class ItemView extends RecyclerView.ViewHolder{
-        private TextView tvDetailName,tvPayAmount;
+        private TextView tvDetailName;
+        private EditText tvPayAmount;
         RadioButton sender,reciver;
         public ItemView(View itemView) {
             super(itemView);

@@ -106,7 +106,7 @@
                         android:digits="abcdefghijklmnopqrstuvwxyz1234567890 "
                         android:hint="GSTIN Number"
                         android:lines="1"
-                        android:textSize="@dimen/universal_text_size14" />
+                        android:textSize="@dimen/universal_text_size16" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -139,6 +139,7 @@
                     app:ms_enableErrorLabel="false"
                     app:ms_enableFloatingLabel="true"
                     app:ms_errorColor="@color/red"
+                    android:textSize="@dimen/universal_text_size16"
                     app:ms_floatingLabelColor="@color/grey"
                     app:ms_floatingLabelText="Customer Type"
                     app:ms_highlightColor="@color/highlight"
@@ -165,6 +166,7 @@
                     app:ms_enableErrorLabel="false"
                     app:ms_enableFloatingLabel="true"
                     app:ms_errorColor="@color/red"
+                    android:textSize="@dimen/universal_text_size16"
                     app:ms_floatingLabelColor="@color/grey"
                     app:ms_floatingLabelText="Relationship"
                     app:ms_highlightColor="@color/highlight"
