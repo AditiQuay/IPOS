@@ -10,6 +10,7 @@ import quay.com.ipos.compliance.data.remote.model.AccessTokenRequest;
 import quay.com.ipos.compliance.data.remote.model.AccessTokenResponse;
 import quay.com.ipos.compliance.data.remote.model.ComplianceDetailsResponse;
 import quay.com.ipos.compliance.data.remote.model.SynResponse;
+import quay.com.ipos.data.remote.model.DDRSubmitResponse;
 import quay.com.ipos.data.remote.model.KCYApproveResponse;
 import quay.com.ipos.data.remote.model.KycPartnerConnectResponse;
 import quay.com.ipos.ddrsales.model.POSummary;
@@ -17,6 +18,7 @@ import quay.com.ipos.data.remote.model.PartnerConnectResponse;
 import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
 import quay.com.ipos.ddrsales.model.request.DDRListReq;
 import quay.com.ipos.ddrsales.model.request.DDRProductReq;
+import quay.com.ipos.ddrsales.model.request.InvoiceDataSubmit;
 import quay.com.ipos.ddrsales.model.request.POSummaryReq;
 import quay.com.ipos.ddrsales.model.response.DDRProductListResponse;
 import quay.com.ipos.ddrsales.model.response.GetDDRList;
@@ -68,6 +70,9 @@ public interface APIService {
 
     @POST(IPOSAPI.DDR_GetDDRProductList)
     Call<DDRProductListResponse> DDR_GetDDRProductList(@Body DDRProductReq req);
+
+    @POST(IPOSAPI.DDR_SUBMIT)
+    Call<DDRSubmitResponse> DDR_SUBMIT(@Body InvoiceDataSubmit pcModel);
 
 
     /***&&&&&DDR Sales API&&&&&***/

@@ -1,5 +1,7 @@
 package quay.com.ipos.ddrsales.model.request;
 
+import quay.com.ipos.ddrsales.model.DDR;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 
 public class DDRProductReq {
@@ -38,9 +40,9 @@ public class DDRProductReq {
 
 
     public DDRProductReq(String searchParam) {
-        this.employeeCode = Prefs.getStringPrefs(employeeCode);
-        this.employeeRole = Prefs.getStringPrefs(employeeRole);
-        this.businessPlaceId = Prefs.getStringPrefs(businessPlaceId);
+        this.employeeCode = Prefs.getStringPrefs(Constants.employeeCode);//"6000013";
+        this.employeeRole =  Prefs.getStringPrefs(Constants.employeeRole);
+        this.businessPlaceId =  Prefs.getStringPrefs(Constants.businessPlaceCode);
         this.stateCode = Prefs.getStringPrefs(stateCode);
        // "entityID": "pss allowed then entityID else NA",
         this.entityID = Prefs.getStringPrefs(entityID);
@@ -52,18 +54,19 @@ public class DDRProductReq {
         this.moduleType = "DDR";
         this.barCodeNumber = "NA";
     }
-    public DDRProductReq() {
-        this.employeeCode = "6000013";
-        this.employeeRole = "user";
-        this.businessPlaceId = "1";
+    public DDRProductReq(String searchParam, DDR  ddr,boolean isBarCode) {
+        this.employeeCode = Prefs.getStringPrefs(Constants.employeeCode);//"6000013";
+        this.employeeRole =  Prefs.getStringPrefs(Constants.employeeRole);
+        this.businessPlaceId =  "1";//Prefs.getStringPrefs(Constants.businessPlaceCode);
         this.stateCode = "06";
-        this.entityID = "1";
+        this.entityID = Prefs.getIntegerPrefs(Constants.entityCode)+"";
         this.entityType = "distributor";
-        this.entityUserCode = "D000001";
+        this.entityUserCode = ddr.mDDRCode;// "D000001";
         this.entityUserRole = "NA";
         this.poNumber = "NA";
-        this.searchParam = "na";
+        this.searchParam = searchParam;
         this.moduleType = "DDR";
-        this.barCodeNumber = "all";
+          //search param should be bar code
+        this.barCodeNumber = isBarCode ? searchParam : "All";
     }
 }

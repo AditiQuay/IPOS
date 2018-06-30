@@ -67,7 +67,7 @@ public class RealmDDROrderList extends RealmObject {
     private int totalLoyality;
     private int totalSGSTValue;
     private int totalIGSTValue;
-    private String cartDetail;
+    public String cartDetail;
     private String discount;
 
 

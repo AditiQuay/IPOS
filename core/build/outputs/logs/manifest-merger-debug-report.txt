@@ -1,5 +1,34 @@
 -- Merging decision tree log ---
 manifest
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+	package
+		ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:70-106
+		INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml
+		INJECTED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:3:11-69
+application
+ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+=======
+<<<<<<< HEAD
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
+	package
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:70-106
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:11-69
+application
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+=======
+>>>>>>> cbb25dc7e831c83737713f6e61c6f45ab9fdd079
 ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
@@ -11,3 +40,8 @@ INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\An
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:11-69
 application
 ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+<<<<<<< HEAD
+=======
+>>>>>>> cb17170b909b76e2e8852f54b9b79f49577a57c8
+>>>>>>> 95d4fe3342f227721eaa32f39b7341a3e70139e7
+>>>>>>> cbb25dc7e831c83737713f6e61c6f45ab9fdd079

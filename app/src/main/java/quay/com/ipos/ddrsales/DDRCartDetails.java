@@ -71,6 +71,7 @@ import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.data.remote.RestService;
+import quay.com.ipos.ddrsales.adapter.DDRCartListAdapter;
 import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.ddrsales.model.DDRProduct;
 import quay.com.ipos.ddrsales.model.InvoiceData;
@@ -88,7 +89,7 @@ import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.pss_order.activity.PinnedOrderActivity;
 import quay.com.ipos.pss_order.adapter.CustomAdapter;
-import quay.com.ipos.pss_order.adapter.DDRCartListAdapter;
+
 
 import quay.com.ipos.pss_order.fragment.DDRScannerFragment;
 import quay.com.ipos.pss_order.modal.DiscountModal;
@@ -2204,16 +2205,19 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             return;
         }
 
-        DDRProductReq req = new DDRProductReq();
+        final DDRProductReq req = new DDRProductReq("NA",mDdr,false);
         Log.i("mProductList", new Gson().toJson(req));
         retrofit2.Call<DDRProductListResponse> call = RestService.getApiServiceSimple().DDR_GetDDRProductList(req);
         call.enqueue(new retrofit2.Callback<DDRProductListResponse>() {
             @Override
             public void onResponse(retrofit2.Call<DDRProductListResponse> call, retrofit2.Response<DDRProductListResponse> response) {
                 Log.d(TAG, "response.raw().request().url();" + response.raw().request().url());
+                if (response.body() != null) {
+                    Log.e("data", new Gson().toJson(response.body()));
+                }
                 if (response.code() != 200) {
                     Toast.makeText(activity, "Code:" + response.code() + ", Message:" + response.message(), Toast.LENGTH_SHORT).show();
-                    return;
+                     return;
                 }
                 try {
                     if (response.body() != null) {
