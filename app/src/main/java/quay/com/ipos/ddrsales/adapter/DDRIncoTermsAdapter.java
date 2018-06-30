@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import quay.com.ipos.R;
-import quay.com.ipos.ddrsales.model.response.DDRIncoTerms;
+import quay.com.ipos.ddrsales.model.response.DDRIncoTerm;
 
 /**
  * Created by deepa.kumar on 6/25/2018.
@@ -26,11 +26,11 @@ import quay.com.ipos.ddrsales.model.response.DDRIncoTerms;
 public class DDRIncoTermsAdapter extends RecyclerView.Adapter<DDRIncoTermsAdapter.ViewHolder> {
     private static final String TAG = DDRIncoTermsAdapter.class.getSimpleName();
     private Context mContext;
-    private List<DDRIncoTerms> list;
+    private List<DDRIncoTerm> list;
     private OnCalculateTotalIncoTermsListener incoTermsListener;
     private boolean onBind;
 
-    public DDRIncoTermsAdapter(Context mContext, List<DDRIncoTerms> list, OnCalculateTotalIncoTermsListener incoTermsListener) {
+    public DDRIncoTermsAdapter(Context mContext, List<DDRIncoTerm> list, OnCalculateTotalIncoTermsListener incoTermsListener) {
         this.mContext = mContext;
         this.list = list;
         this.incoTermsListener = incoTermsListener;
@@ -46,7 +46,7 @@ public class DDRIncoTermsAdapter extends RecyclerView.Adapter<DDRIncoTermsAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         this.onBind = true;
-        DDRIncoTerms incoTerms = list.get(position);
+        DDRIncoTerm incoTerms = list.get(position);
         holder.tvDetailName.setText(incoTerms.grnIncoDetail);
 
         holder.myCustomEditTextListener.updatePosition(position, holder);
@@ -173,7 +173,7 @@ public class DDRIncoTermsAdapter extends RecyclerView.Adapter<DDRIncoTermsAdapte
     private void calIncoTerms() {
         if (incoTermsListener != null) {
             double total = 0.0;
-            for (DDRIncoTerms incoTerms : list) {
+            for (DDRIncoTerm incoTerms : list) {
                 total += incoTerms.grnPayAmount;
             }
 

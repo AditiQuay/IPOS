@@ -43,6 +43,7 @@
                 android:layout_weight="1"
                 android:padding="8dp"
                 android:gravity="center"
+                android:inputType="numberDecimal"
                 android:hint="%"
                 android:background="@color/transparent"
                 />
@@ -50,13 +51,14 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:background="@drawable/ipos_line_black"/>
-            <TextView
+            <EditText
                 android:id="@+id/tvGst"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="8dp"
+                android:background="@color/transparent"
                 android:text="Invoice Due"
                 />
 

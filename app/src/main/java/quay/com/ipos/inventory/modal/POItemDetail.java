@@ -15,6 +15,8 @@ public class POItemDetail {
     public double poItemIGSTPer;
     public double poItemCGSTPer;
     public double poItemSGSTPer;
+    public String materialCode;
+    public String materialName;
 
     public int getPoItemQty() {
         return poItemQty;
@@ -96,4 +98,19 @@ public class POItemDetail {
         this.title = title;
     }
 
+    public String getMaterialCode() {
+        return materialCode;
+    }
+
+    public void setMaterialCode(String materialCode) {
+        this.materialCode = materialCode;
+    }
+
+    public String getMaterialName() {
+        return materialName;
+    }
+
+    public void setMaterialName(String materialName) {
+        this.materialName = materialName;
+    }
 }

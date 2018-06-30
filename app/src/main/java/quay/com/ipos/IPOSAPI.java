@@ -50,6 +50,8 @@ public class IPOSAPI {
     public static String WEB_SERVICE_GET_GRN_SUMMARY = WEB_SERVICE_BASE_URL+"Inventory/GetGRNSummary";
     public static String WEB_SERVICE_GET_GRN_SUMMARY_DETAIL = WEB_SERVICE_BASE_URL+"Inventory/GetGRNSummaryDetail";
     public static String WEB_SERVICE_GET_GRN_SUMMARY_SUBMIT = WEB_SERVICE_BASE_URL+"Inventory/SubmitGRNSummaryDetail";
+    public static String WEB_SERVICE_GET_PO_CREATE = WEB_SERVICE_BASE_URL+"Inventory/SubmitPODetail";
+    public static String WEB_SERVICE_GetPODETAILS = WEB_SERVICE_BASE_URL + "Inventory/PODetail";
     //------------niraj and ankush end
     //redeem
     public static String WEB_SERVICE_NOPointsRedeem = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOPointsRedeem";
@@ -70,6 +72,7 @@ public class IPOSAPI {
     public static final String DDR_NO_SUMMARY = "/api/PSSNewOrder/NOSummary";
     public static final String DDR_GetDDRList = "/api/DDR/GetDDRList";
     public static final String DDR_GetDDRProductList = "/api/DDR/GetDDRProductList";
+    public static final String DDR_SUBMIT = "/api/DDR/SubmitDDRDetail";
 
     //compliance
     public static final String COMPLIANCE_DATA = "/api/ComplianceTracker/GetTaskschedularDetails";

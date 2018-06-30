@@ -1,4 +1,4 @@
-package quay.com.ipos.pss_order.adapter;
+package quay.com.ipos.ddrsales.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
@@ -33,6 +33,7 @@ import quay.com.ipos.ddrsales.model.DDRProduct;
 import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.listeners.MyCheckedChangedListener;
+import quay.com.ipos.pss_order.adapter.DiscountNewOrderAdapter;
 import quay.com.ipos.pss_order.modal.DiscountModal;
 import quay.com.ipos.realmbean.RealmNewOrderCart;
 
@@ -183,7 +184,7 @@ public class DDRCartListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     userViewHolder.tvTotalPoints.setText("Free");
                     userViewHolder.tvTotalPoints.setTextColor(mContext.getResources().getColor(R.color.green));
                     userViewHolder.imgLoyal.setVisibility(View.GONE);
-                    userViewHolder.etQtySelected.setText(+str.getQty() + " Qty");
+                    userViewHolder.etQtySelected.setText(+str.getQty()+"");
                     userViewHolder.tvPlus.setVisibility(View.GONE);
                     userViewHolder.tvMinus.setVisibility(View.GONE);
                     userViewHolder.imvOffer.setVisibility(View.GONE);
