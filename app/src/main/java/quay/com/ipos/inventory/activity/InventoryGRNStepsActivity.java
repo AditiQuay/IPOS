@@ -1,5 +1,6 @@
 package quay.com.ipos.inventory.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -95,14 +97,17 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     private int poItemQty, poGRNQty, poAPQty, poBalanceQty;
     private boolean qcVisible;
     private LinearLayout llQCList;
-
+    private String newGRNCreated;
+    public static Activity fa;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grn_steps_activity);
         mContext = InventoryGRNStepsActivity.this;
+        fa = this;
         Intent i = getIntent();
         poNumber = i.getStringExtra("poNumber");
+        newGRNCreated = i.getStringExtra("newGRNCreated");
 
         empCode = Prefs.getStringPrefs(Constants.employeeCode.trim());
         businessPlaceId = "1";
@@ -113,7 +118,20 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         applyTypeFace();
         getIntents();
 
-        getPODetails();
+        if (TextUtils.isEmpty(newGRNCreated)) {
+            getPODetails();
+        } else {
+            tvPO.setBackgroundResource(R.drawable.text_view_circle_grey);
+            tvGrn.setBackgroundResource(R.drawable.textview_circle_app_color);
+            recycleview.setVisibility(View.GONE);
+            recycleviewGrnCard.setVisibility(View.VISIBLE);
+            rlTab.setVisibility(View.VISIBLE);
+            llgrnn.setVisibility(View.VISIBLE);
+
+            getGrnDetails();
+
+        }
+
 
     }
 
@@ -188,6 +206,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         recycleviewGrnCard.setHasFixedSize(true);
         recycleviewGrnCard.setLayoutManager(layoutManager);
 
+
     }
 
     @Override
@@ -234,6 +253,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     }
 
     private void getGrnDetails() {
+        busineesPlaceId = "1";
         final ProgressDialog progressDialog = new ProgressDialog(InventoryGRNStepsActivity.this);
         JSONObject jsonObject1 = new JSONObject();
         try {

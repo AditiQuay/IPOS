@@ -11,6 +11,16 @@ public class GrnItemQtyModel {
     private double inQty;
     private double apQty;
     private double balanceQty;
+
+    public double getIsBatch() {
+        return isBatch;
+    }
+
+    public void setIsBatch(double isBatch) {
+        this.isBatch = isBatch;
+    }
+
+    private double isBatch;
     private String gRNItemInfoDetails;
 
     public String getMaterialCode() {
