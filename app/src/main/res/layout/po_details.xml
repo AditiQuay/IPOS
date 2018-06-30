@@ -17,6 +17,14 @@
         android:background="@drawable/rectangle_child_white"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/llSupplierInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -66,6 +74,8 @@
                     android:layout_marginTop="4dp"
                     android:background="@drawable/ipos_line_black"/>
                 <LinearLayout
+
+                    android:id="@+id/llPoDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
@@ -127,6 +137,7 @@
                 android:background="@drawable/ipos_line_black"/>
 
             <LinearLayout
+                android:id="@+id/llPoVal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -232,7 +243,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="4dp"
             android:background="@drawable/ipos_line_black"/>
-
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

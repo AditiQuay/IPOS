@@ -138,6 +138,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             public void onClick(View view) {
 
                 Intent i=new Intent(getActivity(), EditExpandablePODetailsActivity.class);
+                i.putExtra("businessPlaceId", businessPlaceCode + "");
                 startActivity(i);
             }
         });

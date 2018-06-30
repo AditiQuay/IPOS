@@ -187,10 +187,7 @@ public class DDRInvoicePreviewActivity extends BaseActivity implements InitInter
         recycleViewShippingAddress.setAdapter(adapterAddShipping);
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> cb17170b909b76e2e8852f54b9b79f49577a57c8
         textIncoTermsOthers = findViewById(R.id.textIncoTermsOthers);
         textIncoTermsOthers.setOnClickListener(this);
 

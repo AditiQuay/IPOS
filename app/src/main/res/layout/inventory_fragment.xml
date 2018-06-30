@@ -298,7 +298,7 @@
                 <quay.com.ipos.ui.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add New"
+                    android:text="Create PO"
                     android:gravity="center"
                     android:textColor="@color/white"/>
 
