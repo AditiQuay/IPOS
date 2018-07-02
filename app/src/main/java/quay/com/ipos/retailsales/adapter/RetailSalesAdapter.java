@@ -1,6 +1,7 @@
 package quay.com.ipos.retailsales.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -174,7 +177,28 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             userViewHolder.tvItemPrice.setText(Util.getIndianNumberFormat(str.getSalesPrice()+""));
             userViewHolder.etQtySelected.setText(str.getQty()+"");
 
-            ImageLoader.getInstance().displayImage(str.getProductImage(),userViewHolder.imvProduct);
+            ImageLoader.getInstance().displayImage(str.getProductImage(), userViewHolder.imvProduct, new ImageLoadingListener() {
+                @Override
+                public void onLoadingStarted(String imageUri, View view) {
+
+                }
+
+                @Override
+                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                    userViewHolder.imvProduct.setImageDrawable(mContext.getResources().getDrawable(R.drawable.gallery));
+                }
+
+                @Override
+                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+
+                }
+
+                @Override
+                public void onLoadingCancelled(String imageUri, View view) {
+//                    ImageLoader.getInstance().displayImage(mContext.getDrawable(R.drawable.gallery), userViewHolder.imvProduct);
+                    userViewHolder.imvProduct.setImageDrawable(mContext.getResources().getDrawable(R.drawable.gallery));
+                }
+            });
 
             Double totalPrice=(str.getSalesPrice()*str.getQty());
 
@@ -212,6 +236,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 userViewHolder.llPoints.setVisibility(View.GONE);
                 userViewHolder.llTotalPoints.setVisibility(View.GONE);
                 userViewHolder.tvFreeItems.setVisibility(View.VISIBLE);
+                userViewHolder.tvFreeItems.setText(mContext.getResources().getString(R.string.free)+" x 1");
                 userViewHolder.imvClear.setVisibility(View.GONE);
                 userViewHolder.imvOffer.setVisibility(View.GONE);
                 userViewHolder.tvItemRate.setVisibility(View.GONE);

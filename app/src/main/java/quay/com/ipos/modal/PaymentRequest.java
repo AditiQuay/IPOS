@@ -5,7 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
+
 public class PaymentRequest {
+    @SerializedName("customerJson")
+    @Expose
+    private CustomerModel customerJson;
     @SerializedName("orderTimestamp")
     @Expose
     private String orderTimestamp;
@@ -75,6 +80,15 @@ public class PaymentRequest {
     @SerializedName("entityID")
     @Expose
     private Integer entityID;
+
+
+    public CustomerModel getCustomerJson() {
+        return customerJson;
+    }
+
+    public void setCustomerJson(CustomerModel customerJson) {
+        this.customerJson = customerJson;
+    }
 
     public String getOrderTimestamp() {
         return orderTimestamp;
@@ -494,6 +508,9 @@ public class PaymentRequest {
         @SerializedName("materialValue")
         @Expose
         private Double materialValue;
+        @SerializedName("materialTotalValue")
+        @Expose
+        private Double materialTotalValue;
         @SerializedName("materialQty")
         @Expose
         private Integer materialQty;
@@ -530,6 +547,23 @@ public class PaymentRequest {
         @SerializedName("discountPerc")
         @Expose
         private Integer discountPerc;
+        private String hsnCode;
+
+        public Double getMaterialTotalValue() {
+            return materialTotalValue;
+        }
+
+        public void setMaterialTotalValue(Double materialTotalValue) {
+            this.materialTotalValue = materialTotalValue;
+        }
+
+        public String getHsnCode() {
+            return hsnCode;
+        }
+
+        public void setHsnCode(String hsnCode) {
+            this.hsnCode = hsnCode;
+        }
 
         public boolean getIsFreeItem() {
             return isFreeItem;

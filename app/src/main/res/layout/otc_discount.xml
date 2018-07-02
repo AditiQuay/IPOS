@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/togglebutton2"
                 android:layout_weight="1"
-                android:textColor="@color/accent_color"
+                android:textColor="@color/white"
                 android:background="@drawable/toggle_right_selector"
                 android:checked="true"
                 android:textOff="@string/Rs"

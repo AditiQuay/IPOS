@@ -118,13 +118,13 @@ public class CustomerModel {
         this.customer = customer;
     }
 
-    private String customerTitle;
-    private String customerName;
-    private String customerFirstName;
-    private String customerLastName;
-    private String customerGender;
-    private String customerBday;
-    private String customerMaritalStatus;
+    private String customerTitle="";
+    private String customerName="";
+    private String customerFirstName="";
+    private String customerLastName="";
+    private String customerGender="";
+    private String customerBday="";
+    private String customerMaritalStatus="";
     private String customerSpouseFirstName;
     private String customerSpouseLastName;
     private String customerSpouseDob;
@@ -132,7 +132,7 @@ public class CustomerModel {
     private List<CustomeChildListModel.ChildList> customerChild;
     private String customerEmail;
     private String customerEmail2;
-    private String customerPhone;
+    private String customerPhone="";
     private String customerPhone2;
     private String customerPhone3;
     private String customerAddress;

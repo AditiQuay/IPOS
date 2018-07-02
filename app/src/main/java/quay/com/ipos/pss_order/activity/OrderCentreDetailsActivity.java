@@ -1268,7 +1268,10 @@ public class OrderCentreDetailsActivity extends BaseActivity implements View.OnC
             tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat((totalItemsAmount-discountPrice))+"");
             tvCGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(cgst)+"");
             tvSGSTPrice.setText("+ "+getResources().getString(R.string.Rs)+ " "+Util.indianNumberFormat(sgst)+"");
-            tvRoundingOffPrice.setText(getResources().getString(R.string.Rs)+ " "+"0"+"");
+            double roundOff=Math.floor(payAmount);
+            double roundofff=payAmount-roundOff;
+            tvRoundingOffPrice.setText(getResources().getString(R.string.Rs) + " "+Util.indianNumberFormat(roundofff));
+
     }
 
 

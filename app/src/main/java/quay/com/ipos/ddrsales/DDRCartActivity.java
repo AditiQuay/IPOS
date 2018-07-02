@@ -87,7 +87,8 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
     private Toolbar toolbar;
     private TextView mDDRDetails;
     private ImageView mDDRDetailsIcon;
-    private double mCustomerPoints, mCustomerPointsPer = 0;
+    int mCustomerPoints=0;
+    private double mCustomerPointsPer = 0;
     private String mCustomerID = "", mCustomerEmail = "";
     private View btnNext;
     private ArrayList<PaymentRequest.CartDetail> cartDetail = new ArrayList<>();
@@ -204,7 +205,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InvoiceData.getInstance().cartList=  IPOSApplication.mProductListResult;
+              //  InvoiceData.getInstance().cartList=  IPOSApplication.mProductListResult;
                 Intent intent = new Intent(activity, DDRInvoicePreviewActivity.class);
                 intent.putExtra("ddr", mDdr);
                 startActivity(intent);
@@ -282,7 +283,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         tvTotalItemGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscount.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvPay.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
-        totalAmount = 0.0;
+        totalAmount = 0;
         tvCGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
@@ -290,7 +291,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         tvTotalDiscountPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
         tvTotalDiscountDetail.setText("(Item 0)");
         IPOSApplication.mProductListResult.clear();
-        IPOSApplication.totalAmount = 0.0;
+        IPOSApplication.totalAmount = 0;
         IPOSApplication.totalpointsToRedeem = 0.0;
         IPOSApplication.totalpointsToRedeemValue = 0.0;
         IPOSApplication.isClicked = false;
@@ -651,7 +652,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
             }
             if (resultCode == Constants.ACT_CUSTOMER) {
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
-                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS, 0);
+                mCustomerPoints = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS, 0);
                 mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER, 0);
                 mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
@@ -660,7 +661,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         } else if (requestCode == Constants.ACT_CUSTOMER) {
             if (resultCode == Constants.ACT_CUSTOMER) {
                 mCustomerID = data.getStringExtra(Constants.KEY_CUSTOMER);
-                mCustomerPoints = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS, 0);
+                mCustomerPoints = data.getIntExtra(Constants.KEY_CUSTOMER_POINTS, 0);
                 mCustomerPointsPer = data.getDoubleExtra(Constants.KEY_CUSTOMER_POINTS_PER, 0);
                 mCustomerEmail = data.getStringExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL);
                 tvRedeemPoints.setVisibility(View.VISIBLE);
@@ -742,7 +743,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
             tvTotalItemGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvTotalDiscount.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvPay.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
-            totalAmount = 0.0;
+            totalAmount = 0;
             tvCGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvSGSTPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
             tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " 0.0");
@@ -892,17 +893,22 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 //            double floorValue = Math.round(totalAfterGSt);
 
 
-            double roundOff = totalAfterGSt - Math.floor(totalAfterGSt);
-            roundOff = (Util.round(roundOff, 1));
-            tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + roundOff);
+//            double roundOff = totalAfterGSt - Math.floor(totalAfterGSt);
+//            roundOff = (Util.round(roundOff, 1));
+//            tvRoundingOffPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + roundOff);
+//            paymentRequest.setTotalRoundingOffValue(roundOff);
+
+            double roundOff=(Util.round(totalAfterGSt, 2));
+            double  totalRoundOff = roundOff-totalAfterGSt;
+            tvRoundingOffPrice.setText(Util.getIndianNumberFormat(totalRoundOff+""));
             paymentRequest.setTotalRoundingOffValue(roundOff);
 
-            totalAfterGSt = totalAfterGSt + (Util.round(roundOff, 1));
-            totalAmount = Math.round(totalAfterGSt);
+            totalAfterGSt = totalAfterGSt + (roundOff);
+            totalAmount = (int) totalAfterGSt;
 
-            tvPay.setText(mContext.getResources().getString(R.string.Rs) + " " + totalAmount);
-            paymentRequest.setTotalValueWithTax(totalAmount);
-            paymentRequest.setOrderValue(totalAmount);
+            tvPay.setText(mContext.getResources().getString(R.string.Rs) +totalAmount+"");
+            paymentRequest.setTotalValueWithTax((double)totalAmount);
+            paymentRequest.setOrderValue((double)totalAmount);
             paymentRequest.setCartDetail(cartDetail);
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), "paymentRequest: " + Util.getCustomGson().toJson(paymentRequest));
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), "updated: " + Util.getCustomGson().toJson(IPOSApplication.mProductListResult));
@@ -1057,7 +1063,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
 //                setArrayPinned();
                 cachedPinned();
                 openPinnedDetailActivity(true);
-                totalAmount = 0.0;
+                totalAmount = 0;
                 break;
 
             case R.id.imvRedeem:

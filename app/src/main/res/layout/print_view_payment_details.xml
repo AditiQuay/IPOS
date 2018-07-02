@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:src="@drawable/dashed_line"
+        android:layout_marginTop="@dimen/dim_5"
+        android:layout_marginBottom="@dimen/dim_5"
+        android:layerType="software" />
+    <quay.com.ipos.ui.CustomTextView
+        android:id="@+id/tvPaymentDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dim_5"
+        android:text="@string/payment_details"
+        android:paddingBottom="@dimen/dim_10"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_14sp" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:src="@drawable/dashed_line"
+        android:layout_marginTop="@dimen/dim_5"
+        android:layout_marginBottom="@dimen/dim_5"
+        android:layerType="software" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/paid_by_cash"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvPaidByCash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/tender_changes_"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvTenderChanges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dim_15"
+        android:orientation="horizontal">
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/paid_by_card"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvPaidByCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dim_15"
+        android:orientation="horizontal">
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/card_type_"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvCardType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/card_number_"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvCardNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/expiry_date_"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvExpiryDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="6"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14sp" />
+    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:src="@drawable/dashed_line"
+        android:layout_marginTop="@dimen/dim_5"
+        android:layout_marginBottom="@dimen/dim_5"
+        android:layerType="software" />
+    <quay.com.ipos.ui.CustomTextView
+        android:id="@+id/tvGSTSummary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dim_5"
+        android:text="@string/gst_summary"
+        android:paddingBottom="@dimen/dim_10"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_14sp" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:src="@drawable/dashed_line"
+        android:layout_marginTop="@dimen/dim_5"
+        android:layout_marginBottom="@dimen/dim_5"
+        android:layerType="software" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/gst_perc"
+            android:paddingTop="@dimen/dim_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14sp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/value"
+            android:paddingTop="@dimen/dim_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14sp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/gst"
+            android:paddingTop="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_14sp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:src="@drawable/dashed_line"
+        android:layout_marginTop="@dimen/dim_5"
+        android:layout_marginBottom="@dimen/dim_5"
+        android:layerType="software" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvGST"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_margin="@dimen/dim_5"
+        android:layout_marginTop="@dimen/dim_1" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:src="@drawable/dashed_line"
+        android:layout_marginTop="@dimen/dim_5"
+        android:layout_marginBottom="@dimen/dim_5"
+        android:layerType="software" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/total_gst_value"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_15sp" />
+
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvTotalGSTValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:text="@string/Rs"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_15sp" />
+    </LinearLayout>
+</LinearLayout>

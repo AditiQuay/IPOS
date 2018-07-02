@@ -233,18 +233,19 @@ public class CustomerAddQuickFragment extends Fragment implements InitInterface,
             String accessToken = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN.trim(), "", mContext);
 
 
-            m_Dialog = Util.showProgressDialog(mContext, "Loading");
-            ServiceTask mTask = new ServiceTask();
-            mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-            mTask.setApiMethod(IPOSAPI.WEB_SERVICE_CUSTOMER_DATA);
-            mTask.setApiCallType(Constants.API_METHOD_POST);
-            mTask.setParamObj(customerModels);
-            mTask.setApiToken("Bearer " + accessToken.trim());
-            mTask.setListener(this);
-            mTask.setResultType(CustomerServerRequestModel[].class);
-            mTask.execute();
+            if(Util.isConnected()) {
+                m_Dialog = Util.showProgressDialog(mContext, "Loading");
+                ServiceTask mTask = new ServiceTask();
+                mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+                mTask.setApiMethod(IPOSAPI.WEB_SERVICE_CUSTOMER_DATA);
+                mTask.setApiCallType(Constants.API_METHOD_POST);
+                mTask.setParamObj(customerModels);
+                mTask.setApiToken("Bearer " + accessToken.trim());
+                mTask.setListener(this);
+                mTask.setResultType(CustomerServerRequestModel[].class);
+                mTask.execute();
 
-
+            }
         } else {
             Toast.makeText(mContext, "Mobile number already exist", Toast.LENGTH_SHORT).show();
 

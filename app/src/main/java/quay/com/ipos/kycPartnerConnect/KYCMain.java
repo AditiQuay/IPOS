@@ -618,15 +618,15 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
         }
 
 
-        if (pcModel.Business.KeyBusinessInfo == null) {
-            String error = "Business KeyBusinessInfo is null";
+        if (pcModel.Business.keyBusinessInfo == null) {
+            String error = "Business keyBusinessInfo is null";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
         }*/
 
         //validate business info
-      /*  for (KeyBusinessInfo keyBusinessInfo : pcModel.Business.KeyBusinessInfo) {
+      /*  for (keyBusinessInfo keyBusinessInfo : pcModel.Business.keyBusinessInfo) {
 
 
             if (keyBusinessInfo.mPartnerType == null || keyBusinessInfo.mPartnerType.isEmpty()) {

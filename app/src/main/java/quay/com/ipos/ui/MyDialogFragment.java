@@ -182,38 +182,48 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
 
         switch (id){
             case R.id.buttonSendOtp:
-                if(!etPointToRedeem.getText().toString().equalsIgnoreCase("")) {
-                    if (!sendOTP)
-                        if (points1 > 0) {
-                            if (redeemValue > 0) {
-                                if(redeemValue<=points) {
-                                    sendOTP = true;
-                                    etPointToRedeem.setEnabled(false);
-                                    etRedeemValue.setEnabled(false);
-                                    sendOTPtoServer();
-                                }else {
-                                    Util.showToast("Redeem points exceeds", getActivity());
-                                }
-                            } else
+                if(!mCustomerEmail.trim().equalsIgnoreCase("")) {
+                    if (!etPointToRedeem.getText().toString().equalsIgnoreCase("")) {
+                        if (!sendOTP)
+                            if (points1 > 0) {
+                                if (redeemValue > 0) {
+                                    if (redeemValue <= points) {
+                                        sendOTP = true;
+                                        etPointToRedeem.setEnabled(false);
+                                        etRedeemValue.setEnabled(false);
+                                        tvResendOTP.setVisibility(View.VISIBLE);
+                                        sendOTPtoServer();
+                                    } else {
+                                        Util.showToast("Redeem points exceeds", getActivity());
+                                    }
+                                } else
+                                    Util.showToast("No points to redeem", getActivity());
+                            } else {
                                 Util.showToast("No points to redeem", getActivity());
-                        } else {
-                            Util.showToast("No points to redeem", getActivity());
-                        }
-                }else {
-                    Util.showToast("Enter points to redeem", getActivity());
+                            }
+                    } else {
+                        Util.showToast("Enter points to redeem", getActivity());
+                    }
+                }
+                else {
+                    Util.showToast(getString(R.string.redeem_customer_email_not_authorised), getActivity());
                 }
                 break;
             case R.id.tvResendOTP:
-                if(!sendVerify){
-                    if(redeemValue>0) {
-                        sendOTP = true;
-                        etPointToRedeem.setEnabled(false);
-                        etRedeemValue.setEnabled(false);
-                        sendOTPtoServer();
-                    }else
-                        Util.showToast("No points to redeem", getActivity() );
-                }else {
-                    Util.showToast("ID already verified!", getActivity() );
+                if(!mCustomerEmail.trim().equalsIgnoreCase("")) {
+                    if (!sendVerify) {
+                        if (redeemValue > 0) {
+                            sendOTP = true;
+                            etPointToRedeem.setEnabled(false);
+                            etRedeemValue.setEnabled(false);
+                            sendOTPtoServer();
+                        } else
+                            Util.showToast("No points to redeem", getActivity());
+                    } else {
+                        Util.showToast("ID already verified!", getActivity());
+                    }
+                } else {
+                    Util.showToast(getString(R.string.redeem_customer_email_not_authorised), getActivity());
                 }
                 break;
             case R.id.buttonVerify:

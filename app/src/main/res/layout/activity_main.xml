@@ -36,7 +36,9 @@
         android:layout_width="@dimen/dim_300"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+
+        >
 
         <include
             android:id="@+id/mcCoyDrawerItems"

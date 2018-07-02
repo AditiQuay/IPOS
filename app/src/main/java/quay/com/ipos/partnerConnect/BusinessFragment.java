@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,25 +16,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import quay.com.ipos.R;
-import quay.com.ipos.data.remote.model.PartnerConnectResponse;
-import quay.com.ipos.listeners.ButtonListener;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.partnerConnect.adapter.RelOneAdapter;
-import quay.com.ipos.partnerConnect.adapter.RelThreeAdapter;
-import quay.com.ipos.partnerConnect.adapter.RelTwoAdapter;
-import quay.com.ipos.partnerConnect.model.Business;
 import quay.com.ipos.partnerConnect.model.BusinessLocation;
 import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.BusinessAdapter;
-import quay.com.ipos.partnerConnect.partnerConnectAdapter.OnItemChangeListener;
-import quay.com.ipos.partnerConnect.partnerConnectModel.BusinessModel;
 import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.FontUtil;
 
@@ -103,13 +92,13 @@ public class BusinessFragment extends Fragment implements InitInterface, View.On
     }
 
     private void setData(PCModel pcModel) {
-        if (pcModel == null || pcModel.Business == null || pcModel.Business.KeyBusinessInfo == null) {
+        if (pcModel == null || pcModel.Business == null || pcModel.Business.keyBusinessInfo == null) {
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }
         textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , pcModel.psslastUpdated));
 
-        List<KeyBusinessInfo> data = pcModel.Business.KeyBusinessInfo;
+        List<KeyBusinessInfo> data = pcModel.Business.keyBusinessInfo;
         businessAdapter.loadData(data);
 
     }
@@ -199,13 +188,13 @@ public class BusinessFragment extends Fragment implements InitInterface, View.On
             BusinessLocation businessLocation = new BusinessLocation();
 
             KeyBusinessInfo keyBusinessInfo = new KeyBusinessInfo();
-            keyBusinessInfo.id = mpcModel.Business.KeyBusinessInfo.size() + 1;
+            keyBusinessInfo.id = mpcModel.Business.keyBusinessInfo.size() + 1;
             keyBusinessInfo.BusinessLocation = businessLocation;
 
-            if (mpcModel.Business.KeyBusinessInfo != null) {
-                mpcModel.Business.KeyBusinessInfo.add(keyBusinessInfo);
+            if (mpcModel.Business.keyBusinessInfo != null) {
+                mpcModel.Business.keyBusinessInfo.add(keyBusinessInfo);
             }
-          //  businessAdapter.loadData(mpcModel.Business.KeyBusinessInfo);
+          //  businessAdapter.loadData(mpcModel.Business.keyBusinessInfo);
 
 
             PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
