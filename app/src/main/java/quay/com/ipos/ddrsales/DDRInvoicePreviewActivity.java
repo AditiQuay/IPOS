@@ -621,7 +621,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                     Log.i(TAG, "Code:" + response.code() + " message:" + response.message());
 
                     IPOSApplication.showToast("" + response.body().message);
-                    finish();
+                    onSubmitSuccess();
                     Log.i("response", response.body().statusCode + "," + response.body().message);
                     Log.i("JsonObject", response.toString() + response.body());
                     if (response.body() != null) {

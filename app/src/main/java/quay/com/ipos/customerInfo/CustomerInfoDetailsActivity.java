@@ -26,7 +26,7 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
-import org.greenrobot.eventbus.EventBus;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -148,7 +148,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
                 mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL,  IPOSApplication.mCustomerEmail);
                 mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_NUMBER,  IPOSApplication.mCustomerNumber);
                 setResult(Constants.ACT_CUSTOMER, mIntent);
-                EventBus.getDefault().post(new MessageEvent(0,mIntent));
+                //EventBus.getDefault().post(new MessageEvent(0,mIntent));
                 finish();
 
             }

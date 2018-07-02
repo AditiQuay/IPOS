@@ -14,17 +14,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +38,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
@@ -70,7 +77,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 6/14/2018.
  */
 
-public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener, InventoryGrnInccoAdapter.OnCalculateTotalIncoTermsListener, MyListener, AttachmentListener {
+public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener, InventoryGrnInccoAdapter.OnCalculateTotalIncoTermsListener, MyListener, AttachmentListener, DatePickerDialog.OnDateSetListener {
     private static final String TAG = InventoryGRNDetails.class.getSimpleName();
     private Toolbar toolbar;
     private Button btnAction, btnSave;
@@ -78,6 +85,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     private RelativeLayout rGrn, rTransporter, rItemsDetails, rIncco, rAttachment;
     private LinearLayout lGrn, lItemsDetails, llIncoTerms, llTermsC;
     private RelativeLayout lTransporter;
+    private EditText etEWayBillValidity;
     ArrayList<AttachFileModel> attachFileModels = new ArrayList<>();
 
     private RecyclerView recycler_viewItemDetail, rvIncco, recycler_viewPayment, recycler_viewTerms, rvAttachment;
@@ -88,6 +96,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     MilestonePOListAdapter milestonePOListAdapter;
     TermsPOListAdapter termsPOListAdapter;
+    boolean clicked = false;
+    boolean isEWayBillClicked = false;
 
     ArrayList<GrnItemQtyModel> grnListModels = new ArrayList<>();
     ArrayList<GrnInccoTermsModel> grnInccoTermsModels = new ArrayList<>();
@@ -95,9 +105,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     ArrayList<POPaymentTerms> poPaymentTerms = new ArrayList<>();
     ArrayList<POTermsCondition> poTermsConditions = new ArrayList<>();
-
+    private int Year, Month, Day;
     String poNumber, businessPlaceId;
-    private EditText grnNumber, et_received_date, et_totalItems, et_value, poQty, openQty, balanceQty, etName, etLrn, etTrackNumber1, etEwayBill, etTruckNumber2, etDriverName, driverMobileNumber, etAddress;
+    private EditText grnNumber, et_received_date, et_totalItems, et_value, poQty, openQty, balanceQty, etName, etLrn, etTruckNumber, etEwayBill, etTrackNumber, etDriverName, driverMobileNumber, etAddress;
     boolean isGrnClick = false;
     boolean isTransporterClick = false;
     boolean isItemDetailsClick = false;
@@ -105,19 +115,22 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     boolean isAttachmentClick = false;
     private String transporterEWayBillValidityDate;
     private TextView textTotalIncoTerms;
+    private Calendar calendar;
     private View ivAttAdd;
-
     String getGrnNumber;
     String cardClick;
+    private DatePickerDialog datePickerDialog;
+    private int poQuantity;
+    private ImageView ivGrnGroupArrow, ivTransporterGroupArrow, ivItemDetailsGroupArrow, ivIncoGroupArrow, ivAttGroupArrow;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grn_expandable);
         mContext = InventoryGRNDetails.this;
-
         Intent i = getIntent();
 
+        calendar = Calendar.getInstance();
         poNumber = i.getStringExtra("poNumber");
         getGrnNumber = i.getStringExtra("grnNumber");
         cardClick = i.getStringExtra("cardClick");
@@ -151,6 +164,15 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         openQty = findViewById(R.id.openQty);
         balanceQty = findViewById(R.id.balanceQty);
         textTotalIncoTerms = findViewById(R.id.textTotalIncoTerms);
+        etEWayBillValidity = findViewById(R.id.etEWayBillValidity);
+
+
+        ivGrnGroupArrow = findViewById(R.id.ivGrnGroupArrow);
+        ivTransporterGroupArrow = findViewById(R.id.ivTransporterGroupArrow);
+        ivItemDetailsGroupArrow = findViewById(R.id.ivItemDetailsGroupArrow);
+        ivIncoGroupArrow = findViewById(R.id.ivIncoGroupArrow);
+        ivAttGroupArrow = findViewById(R.id.ivAttGroupArrow);
+
 
         ivAttAdd.setOnClickListener(this);
         rGrn.setOnClickListener(this);
@@ -170,8 +192,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
         etName = findViewById(R.id.etName);
         etLrn = findViewById(R.id.etLrn);
-        etTrackNumber1 = findViewById(R.id.etEwayBill);
-        etTruckNumber2 = findViewById(R.id.etTruckNumber2);
+        etTruckNumber = findViewById(R.id.etTruckNumber);
+        etTrackNumber = findViewById(R.id.etTrackNumber);
         etDriverName = findViewById(R.id.etDriverName);
         driverMobileNumber = findViewById(R.id.driverMobileNumber);
         etAddress = findViewById(R.id.etAddress);
@@ -181,6 +203,22 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         rvIncco = findViewById(R.id.rvIncco);
         rvAttachment = findViewById(R.id.rvAttachment);
 
+        et_received_date.setClickable(true);
+        et_received_date.setOnClickListener(this);
+
+        etEWayBillValidity.setClickable(true);
+        etEWayBillValidity.setOnClickListener(this);
+
+
+        etName.addTextChangedListener(new GenericTextWatcher(etName));
+        etLrn.addTextChangedListener(new GenericTextWatcher(etLrn));
+        etEwayBill.addTextChangedListener(new GenericTextWatcher(etEwayBill));
+        etDriverName.addTextChangedListener(new GenericTextWatcher(etDriverName));
+        etTruckNumber.addTextChangedListener(new GenericTextWatcher(etTruckNumber));
+        etEWayBillValidity.addTextChangedListener(new GenericTextWatcher(etEWayBillValidity));
+        driverMobileNumber.addTextChangedListener(new GenericTextWatcher(driverMobileNumber));
+        etTrackNumber.addTextChangedListener(new GenericTextWatcher(etTrackNumber));
+        etAddress.addTextChangedListener(new GenericTextWatcher(etAddress));
     }
 
 
@@ -205,10 +243,13 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        if (!TextUtils.isEmpty(cardClick)) {
-            getGRNonCardClickDetails();
+        if (TextUtils.isEmpty(cardClick)) {
+
+            addGRNDetails();
         } else {
-            getGRNDetails();
+            btnSave.setVisibility(View.GONE);
+            btnSave.setEnabled(false);
+            cardGrnDetail();
         }
 
         //Getting GRN details from server
@@ -237,7 +278,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 startActivity(i);
                 break;
             case R.id.btnSave:
-                submitGRNDetails();
+
+
+                checkValidation();
+//
                 break;
             case R.id.rGrn:
                 if (isGrnClick) {
@@ -246,6 +290,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     lItemsDetails.setVisibility(View.GONE);
                     llIncoTerms.setVisibility(View.GONE);
                     llTermsC.setVisibility(View.GONE);
+                    ivGrnGroupArrow.setImageResource(R.drawable.ic_action_arrow_right_blue);
 
                     isGrnClick = false;
                 } else {
@@ -254,6 +299,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     lItemsDetails.setVisibility(View.GONE);
                     llIncoTerms.setVisibility(View.GONE);
                     llTermsC.setVisibility(View.GONE);
+                    ivGrnGroupArrow.setImageResource(R.drawable.ic_action_arrow_down_blue);
+
                     isGrnClick = true;
                 }
 
@@ -265,6 +312,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     lItemsDetails.setVisibility(View.GONE);
                     llIncoTerms.setVisibility(View.GONE);
                     llTermsC.setVisibility(View.GONE);
+                    ivTransporterGroupArrow.setImageResource(R.drawable.ic_action_arrow_right_blue);
+
+
                     isTransporterClick = false;
                 } else {
                     lTransporter.setVisibility(View.VISIBLE);
@@ -272,9 +322,51 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     lItemsDetails.setVisibility(View.GONE);
                     llIncoTerms.setVisibility(View.GONE);
                     llTermsC.setVisibility(View.GONE);
+                    ivTransporterGroupArrow.setImageResource(R.drawable.ic_action_arrow_down_blue);
+
+
                     isTransporterClick = true;
                 }
 
+
+                break;
+            case R.id.et_received_date:
+                clicked = true;
+                Calendar minDate = Calendar.getInstance();
+                minDate.set(1900, 0, 1);
+
+                Calendar maxDate = Calendar.getInstance();
+                maxDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+                datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.showYearPickerFirst(true);
+                datePickerDialog.setMinDate(minDate);
+                datePickerDialog.setMaxDate(maxDate);
+                datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
+                datePickerDialog.setTitle("Select Date");
+                datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
+                datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
+
+                break;
+
+            case R.id.etEWayBillValidity:
+                isEWayBillClicked = true;
+                Calendar miDate = Calendar.getInstance();
+                miDate.set(1900, 0, 1);
+
+                Calendar maDate = Calendar.getInstance();
+                maDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+                datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
+                datePickerDialog.setThemeDark(false);
+                datePickerDialog.showYearPickerFirst(true);
+                datePickerDialog.setMinDate(miDate);
+                datePickerDialog.setMaxDate(maDate);
+                datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
+                datePickerDialog.setTitle("Select Date");
+                datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
+                datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
 
                 break;
             case R.id.rItemsDetails:
@@ -285,6 +377,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     llIncoTerms.setVisibility(View.GONE);
                     llTermsC.setVisibility(View.GONE);
 
+                    ivItemDetailsGroupArrow.setImageResource(R.drawable.ic_action_arrow_right_blue);
+
                     isItemDetailsClick = false;
                 } else {
                     lItemsDetails.setVisibility(View.VISIBLE);
@@ -292,6 +386,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     lTransporter.setVisibility(View.GONE);
                     llIncoTerms.setVisibility(View.GONE);
                     llTermsC.setVisibility(View.GONE);
+                    ivItemDetailsGroupArrow.setImageResource(R.drawable.ic_action_arrow_down_blue);
+
+
                     isItemDetailsClick = true;
                 }
 
@@ -304,6 +401,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     lGrn.setVisibility(View.GONE);
                     lTransporter.setVisibility(View.GONE);
                     llTermsC.setVisibility(View.GONE);
+                    ivIncoGroupArrow.setImageResource(R.drawable.ic_action_arrow_right_blue);
+
                     isInccoClick = false;
                 } else {
                     llIncoTerms.setVisibility(View.VISIBLE);
@@ -311,6 +410,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     lGrn.setVisibility(View.GONE);
                     lTransporter.setVisibility(View.GONE);
                     llTermsC.setVisibility(View.GONE);
+
+                    ivIncoGroupArrow.setImageResource(R.drawable.ic_action_arrow_down_blue);
+
                     isInccoClick = true;
                 }
 
@@ -324,6 +426,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     llIncoTerms.setVisibility(View.GONE);
                     lItemsDetails.setVisibility(View.GONE);
 
+                    ivAttGroupArrow.setImageResource(R.drawable.ic_action_arrow_right_blue);
+
                     isAttachmentClick = false;
                 } else {
                     llTermsC.setVisibility(View.VISIBLE);
@@ -332,6 +436,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     llIncoTerms.setVisibility(View.GONE);
                     lItemsDetails.setVisibility(View.GONE);
 
+                    ivAttGroupArrow.setImageResource(R.drawable.ic_action_arrow_down_blue);
                     isAttachmentClick = true;
                 }
 
@@ -341,32 +446,114 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
     }
 
+    private void checkValidation() {
+        boolean isFail = false;
+
+        String name = etName.getText().toString();
+        String LRNumber = etLrn.getText().toString();
+        String eWayBillNumber = etEwayBill.getText().toString();
+        String driverName = etDriverName.getText().toString();
+        String truckNumber = etTruckNumber.getText().toString();
+        String etEWayBillValidityDate = etEWayBillValidity.getText().toString();
+        String driverMobileNum = driverMobileNumber.getText().toString();
+        String trackNumber = etTrackNumber.getText().toString();
+        String address = etAddress.getText().toString();
+
+
+        if (TextUtils.isEmpty(name)) {
+            isFail = true;
+            etName.setError(getResources().getString(R.string.iv_error_name));
+        }
+        if (TextUtils.isEmpty(LRNumber)) {
+            isFail = true;
+            etLrn.setError(getResources().getString(R.string.iv_error_LRNumber));
+        }
+        if (TextUtils.isEmpty(eWayBillNumber)) {
+            isFail = true;
+            etEwayBill.setError(getResources().getString(R.string.iv_error_eway_billNumber));
+        }
+        if (TextUtils.isEmpty(driverName)) {
+            isFail = true;
+            etDriverName.setError(getResources().getString(R.string.iv_error_driver_name));
+        }
+        if (TextUtils.isEmpty(truckNumber)) {
+            isFail = true;
+            etTruckNumber.setError(getResources().getString(R.string.iv_error_truck_number));
+        }
+        if (TextUtils.isEmpty(etEWayBillValidityDate)) {
+            isFail = true;
+            etEWayBillValidity.setError(getResources().getString(R.string.iv_error_eway_billValidity));
+        }
+        if (TextUtils.isEmpty(driverMobileNum)) {
+            isFail = true;
+            driverMobileNumber.setError(getResources().getString(R.string.iv_error_mobile_number));
+        }
+        if (TextUtils.isEmpty(trackNumber)) {
+            isFail = true;
+            etTrackNumber.setError(getResources().getString(R.string.iv_error_track_number));
+        }
+        if (TextUtils.isEmpty(address)) {
+            isFail = true;
+            etAddress.setError(getResources().getString(R.string.iv_error_address));
+        }
+
+        if (!isFail) {
+            etName.setError(null);
+            etLrn.setError(null);
+            etEwayBill.setError(null);
+            etDriverName.setError(null);
+            etTruckNumber.setError(null);
+            etEWayBillValidity.setError(null);
+            driverMobileNumber.setError(null);
+            etTrackNumber.setError(null);
+            etAddress.setError(null);
+
+            if (TextUtils.isEmpty(cardClick)) {
+                submitGRNDetails();
+            }
+
+
+        } else {
+            Toast.makeText(mContext, "Please enter all required fields", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     private void getExpandableData() {
         Realm realm = Realm.getDefaultInstance();
         RealmGRNDetails realmGRNDetails;
-        if (getGrnNumber!=null){
-            realmGRNDetails = realm.where(RealmGRNDetails.class).equalTo("grnNumber",getGrnNumber+"").findFirst();
-        }else {
-             realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
-        }
+        realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
+
+//        if (getGrnNumber != null) {
+//            realmGRNDetails = realm.where(RealmGRNDetails.class).equalTo("grnNumber", getGrnNumber + "").findFirst();
+//        } else {
+//            realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
+//        }
 
         if (realmGRNDetails != null) {
             try {
+                int totalItem = (int) realmGRNDetails.getTotalItems();
+                int value = (int) realmGRNDetails.getValue();
+                int poQt = (int) realmGRNDetails.getPoQty();
+                poQuantity = poQt;
+                int openQt = (int) realmGRNDetails.getOpenQty();
+                int balanceQt = (int) realmGRNDetails.getBalanceQty();
+
                 grnNumber.setText(realmGRNDetails.getGrnNumber());
                 et_received_date.setText(realmGRNDetails.getReceivedDate());
-                et_totalItems.setText(realmGRNDetails.getTotalItems() + "");
+                et_totalItems.setText(totalItem + "");
                 et_value.setText(realmGRNDetails.getValue() + "");
-                poQty.setText(realmGRNDetails.getPoQty() + "");
-                openQty.setText(realmGRNDetails.getOpenQty() + "");
-                balanceQty.setText(realmGRNDetails.getBalanceQty() + "");
+                poQty.setText(poQt + "");
+                openQty.setText(openQt + "");
+                balanceQty.setText(balanceQt + "");
                 transporterEWayBillValidityDate = realmGRNDetails.getTransporterEWayBillValidityDate();
 
                 etName.setText(realmGRNDetails.getTransporterName());
                 etLrn.setText(realmGRNDetails.getTransporterLRName());
-                etTrackNumber1.setText(realmGRNDetails.getTransporterDriverMobileNumber());
-                etTruckNumber2.setText(realmGRNDetails.getTransporterTruckNumber());
+                etTruckNumber.setText(realmGRNDetails.getTransporterTruckNumber());
+                etTrackNumber.setText(realmGRNDetails.getTransporterTruckNumber());
                 etDriverName.setText(realmGRNDetails.getTransporterDriverName());
+                etEWayBillValidity.setText(realmGRNDetails.getTransporterEWayBillValidityDate());
                 driverMobileNumber.setText(realmGRNDetails.getTransporterDriverMobileNumber());
                 etAddress.setText(realmGRNDetails.getTransporterAddress());
                 etEwayBill.setText(realmGRNDetails.getTransporterEWayBillNumber());
@@ -384,6 +571,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     grnItemQtyModel.setInQty(jsonObject1.optDouble("inQty"));
                     grnItemQtyModel.setApQty(jsonObject1.optDouble("apQty"));
                     grnItemQtyModel.setBalanceQty(jsonObject1.optDouble("balanceQty"));
+                    grnItemQtyModel.setIsBatch(jsonObject1.optDouble("isBatch"));
                     grnItemQtyModel.setgRNItemInfoDetails(jsonObject1.optJSONObject("gRNItemInfoDetails").toString());
                     grnListModels.add(grnItemQtyModel);
                 }
@@ -457,7 +645,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     }
 
-    public void getGRNonCardClickDetails() {
+    public void addGRNDetails() {
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
         JSONObject jsonObject1 = new JSONObject();
@@ -465,9 +653,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject1.put("businessPlaceId", "1");
-            jsonObject1.put("poNumber", getGrnNumber);
-            jsonObject1.put("isGRN", true);
-            jsonObject1.put("isGRNOrQC", "grn");
+            jsonObject1.put("poNumber", poNumber);
+            jsonObject1.put("isGRN", false);
+            jsonObject1.put("isGRNOrQC", "NA");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -515,6 +703,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
                         final String responseData = response.body().string();
                         if (responseData != null) {
+                            clearRealm();
                             new RealmController().saveGRNDetails(responseData);
                             //saveResponseLocalCreateOrder(jsonObject,requestId);
                             runOnUiThread(new Runnable() {
@@ -572,7 +761,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         });
     }
 
-    public void getGRNDetails() {
+    public void cardGrnDetail() {
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
         JSONObject jsonObject1 = new JSONObject();
@@ -580,9 +769,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject1.put("businessPlaceId", "1");
-            jsonObject1.put("poNumber", poNumber);
-            jsonObject1.put("isGRN", false);
-            jsonObject1.put("isGRNOrQC", "na");
+            jsonObject1.put("poNumber", getGrnNumber);
+            jsonObject1.put("isGRN", true);
+            jsonObject1.put("isGRNOrQC", "grn");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -630,6 +819,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
                         final String responseData = response.body().string();
                         if (responseData != null) {
+                            clearRealm();
                             new RealmController().saveGRNDetails(responseData);
                             //saveResponseLocalCreateOrder(jsonObject,requestId);
                             runOnUiThread(new Runnable() {
@@ -808,9 +998,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             jsonObject.put("balanceQty", balanceQty.getText().toString());
             jsonObject.put("transporterName", etName.getText().toString());
             jsonObject.put("transporterLRName", etLrn.getText().toString());
-            jsonObject.put("transporterTruckNumber", etTrackNumber1.getText().toString());
+            jsonObject.put("transporterTruckNumber", etTruckNumber.getText().toString());
             jsonObject.put("transporterEWayBillNumber", etEwayBill.getText().toString());
-            jsonObject.put("transporterEWayBillValidityDate", transporterEWayBillValidityDate);
+            jsonObject.put("transporterEWayBillValidityDate", etEWayBillValidity.getText().toString());
             jsonObject.put("transporterDriverName", etDriverName.getText().toString());
             jsonObject.put("transporterDriverMobileNumber", driverMobileNumber.getText().toString());
             jsonObject.put("transporterAddress", etAddress.getText().toString());
@@ -831,6 +1021,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     public void submitGRNDetails() {
 
+        double totalItem = Double.parseDouble(et_totalItems.getText().toString());
+        double value = Double.parseDouble(et_value.getText().toString());
+        double poQt = Double.parseDouble(poQty.getText().toString());
+        double openQt = Double.parseDouble(openQty.getText().toString());
+        double balanceQt = Double.parseDouble(balanceQty.getText().toString());
+
         JSONObject jsonObject = new JSONObject();
         JSONArray poDetails = new JSONArray();
 
@@ -845,6 +1041,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 jsonObject1.put("inQty", grnListModels.get(j).getInQty());
                 jsonObject1.put("apQty", grnListModels.get(j).getApQty());
                 jsonObject1.put("balanceQty", grnListModels.get(j).getBalanceQty());
+                if (grnListModels.get(j).getIsBatch() == 0) {
+                    jsonObject1.put("isBatch", grnListModels.get(j).getIsBatch());
+                } else {
+                    jsonObject1.put("isBatch", grnListModels.get(j).getIsBatch());
+                }
                 jsonObject1.put("gRNItemInfoDetails", new JSONObject(grnListModels.get(j).getgRNItemInfoDetails()));
 
                 poDetails.put(jsonObject1);
@@ -898,25 +1099,50 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             jsonObject.put("poNumber", poNumber);
             jsonObject.put("grnNumber", grnNumber.getText().toString());
             jsonObject.put("receivedDate", et_received_date.getText().toString());
-            jsonObject.put("totalItems", et_totalItems.getText().toString());
-            jsonObject.put("value", et_value.getText().toString());
-            jsonObject.put("poQty", poQty.getText().toString());
-            jsonObject.put("openQty", openQty.getText().toString());
-            jsonObject.put("balanceQty", balanceQty.getText().toString());
+            if (totalItem == 0) {
+                jsonObject.put("totalItems", 0);
+            } else {
+                jsonObject.put("totalItems", totalItem);
+            }
+
+            if (value == 0) {
+                jsonObject.put("value", 0);
+            } else {
+                jsonObject.put("value", value);
+            }
+
+            if (poQt == 0) {
+                jsonObject.put("poQty", 0);
+            } else {
+                jsonObject.put("poQty", poQt);
+            }
+
+            if (openQt == 0) {
+                jsonObject.put("openQty", 0);
+            } else {
+                jsonObject.put("openQty", openQt);
+            }
+
+            if (balanceQt == 0) {
+                jsonObject.put("balanceQty", 0);
+            } else {
+                jsonObject.put("balanceQty", balanceQt);
+            }
+
             jsonObject.put("transporterName", etName.getText().toString());
             jsonObject.put("transporterLRName", etLrn.getText().toString());
-            jsonObject.put("transporterTruckNumber", etTrackNumber1.getText().toString());
+            jsonObject.put("transporterTruckNumber", etTruckNumber.getText().toString());
             jsonObject.put("transporterEWayBillNumber", etEwayBill.getText().toString());
-            jsonObject.put("transporterEWayBillValidityDate", transporterEWayBillValidityDate);
+            jsonObject.put("transporterEWayBillValidityDate", etEWayBillValidity.getText().toString());
             jsonObject.put("transporterDriverName", etDriverName.getText().toString());
             jsonObject.put("transporterDriverMobileNumber", driverMobileNumber.getText().toString());
             jsonObject.put("transporterAddress", etAddress.getText().toString());
             jsonObject.put("poItemDetails", poDetails);
             jsonObject.put("poIncoTerms", IncoTermsArray);
-            jsonObject.put("poPaymentTermsType", new JSONArray());
+            jsonObject.put("poPaymentTermsType", "");
             jsonObject.put("poTermsAndConditions", new JSONArray());
             jsonObject.put("poAttachments", jsonArrayAttachments);
-            jsonObject.put("employeeCode", "");
+            jsonObject.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
             Log.e(TAG, "Requuest::" + jsonObject.toString());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -953,7 +1179,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             @Override
             public void onResponse(Call call, final Response response) throws IOException {
 
-
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -966,7 +1191,14 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                             @Override
                             public void run() {
                                 Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
-                                Log.e(TAG, "Response***" + response.body().toString());
+//                                Log.e(TAG, "Response***" + response.body().toString());
+                                InventoryGRNStepsActivity.fa.finish();
+                                Intent i = new Intent(mContext, InventoryGRNStepsActivity.class);
+                                i.putExtra("newGRNCreated", "GrnCreated");
+                                i.putExtra("poNumber", poNumber);
+                                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                startActivity(i);
+
                             }
                         });
 
@@ -1032,11 +1264,16 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     @Override
     public void onRowClicked(int position) {
-        GrnItemQtyModel grnItemQtyModel = grnListModels.get(position);
-        Intent gotToProductDetail = new Intent(mContext, InventoryProduct.class);
-        gotToProductDetail.putExtra("position", position);
-        gotToProductDetail.putExtra("openQty", grnItemQtyModel.getOpenQty());
-        startActivityForResult(gotToProductDetail, 1);
+        if (TextUtils.isEmpty(cardClick)) {
+            GrnItemQtyModel grnItemQtyModel = grnListModels.get(position);
+            Intent gotToProductDetail = new Intent(mContext, InventoryProduct.class);
+            gotToProductDetail.putExtra("position", position);
+            gotToProductDetail.putExtra("poQty", poQuantity);
+            gotToProductDetail.putExtra("openQty", grnItemQtyModel.getOpenQty());
+            startActivityForResult(gotToProductDetail, 1);
+
+        }
+
 
     }
 
@@ -1144,6 +1381,38 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
     }
 
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        if (clicked) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, monthOfYear);
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            Date date = calendar.getTime();
+
+            String date1 = Util.getFormattedDates(date);
+            Log.e(TAG, "date1" + date1);
+
+            et_received_date.setText(date1);
+            clicked = false;
+
+        }
+        if (isEWayBillClicked) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.YEAR, year);
+            calendar.set(Calendar.MONTH, monthOfYear);
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            Date date = calendar.getTime();
+
+            String date1 = Util.getFormattedDates(date);
+            Log.e(TAG, "date1" + date1);
+
+            etEWayBillValidity.setText(date1);
+            isEWayBillClicked = false;
+
+        }
+    }
+
     private class AttachVH extends RecyclerView.ViewHolder {
         public TextView textView;
         public View btnClear;
@@ -1244,5 +1513,71 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         return imageStr;
     }
 
+    private class GenericTextWatcher implements TextWatcher {
 
+        private View view;
+
+        private GenericTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+
+        public void afterTextChanged(Editable editable) {
+            String text = editable.toString();
+            switch (view.getId()) {
+                case R.id.etName:
+                    etName.setError(null);
+                    break;
+                case R.id.etLrn:
+                    etLrn.setError(null);
+                    break;
+                case R.id.etEwayBill:
+                    etEwayBill.setError(null);
+                    break;
+                case R.id.etDriverName:
+                    etDriverName.setError(null);
+                    break;
+                case R.id.etTruckNumber:
+                    etTruckNumber.setError(null);
+                    break;
+                case R.id.etEWayBillValidity:
+                    etEWayBillValidity.setError(null);
+                    break;
+                case R.id.driverMobileNumber:
+                    driverMobileNumber.setError(null);
+                    break;
+                case R.id.etTrackNumber:
+                    etTrackNumber.setError(null);
+                    break;
+                case R.id.etAddress:
+                    etAddress.setError(null);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    public void clearRealm() {
+
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+            realm.delete(RealmGRNDetails.class);
+
+        } catch (Exception e) {
+            realm.cancelTransaction();
+            realm.close();
+            e.printStackTrace();
+        } finally {
+            realm.commitTransaction();
+            realm.close();
+        }
+    }
 }

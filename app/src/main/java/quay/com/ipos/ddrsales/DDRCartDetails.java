@@ -196,6 +196,12 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     }
 
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     public void setHeader() {
      //   Toolbar toolbar = findViewById(R.id.appBar);
      //   toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
@@ -1874,7 +1880,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
             try {
                 jsonObjectCartDetail.put("oldMaterialCode", realmNewOrderCart.getiProductModalId());
-                jsonObjectCartDetail.put("materialCode", realmNewOrderCart.getProductCode());
+                jsonObjectCartDetail.put("materialCode", realmNewOrderCart.getiProductModalId());
                 jsonObjectCartDetail.put("materialName", realmNewOrderCart.getsProductName());
                 jsonObjectCartDetail.put("materialValue", realmNewOrderCart.getTotalPrice());
                 jsonObjectCartDetail.put("materialQty", realmNewOrderCart.getQty());

@@ -48,7 +48,7 @@ public class SearchableSpinner extends Spinner implements View.OnTouchListener,
     public SearchableSpinner(Context context, AttributeSet attrs) {
         super(context, attrs);
         this._context = context;
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SearchableSpinner);
+        /*TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.SearchableSpinner);
         final int N = a.getIndexCount();
         for (int i = 0; i < N; ++i) {
             int attr = a.getIndex(i);
@@ -56,7 +56,7 @@ public class SearchableSpinner extends Spinner implements View.OnTouchListener,
                 _strHintText = a.getString(attr);
             }
         }
-        a.recycle();
+        a.recycle();*/
         init();
     }
 
