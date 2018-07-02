@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.compliance.TaskDetailActivity;
 import quay.com.ipos.compliance.data.local.entity.Task;
 import quay.com.ipos.utility.DateAndTimeUtil;
 
@@ -60,9 +61,9 @@ public class ComplianceAdapter extends RecyclerView.Adapter<ComplianceAdapter.Co
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* Intent intent = new Intent(view.getContext(), TaskDetailActivity.class);
+                Intent intent = new Intent(view.getContext(), TaskDetailActivity.class);
                 intent.putExtra("task_id", compliance.task_id);
-                view.getContext().startActivity(intent);*/
+                view.getContext().startActivity(intent);
             }
         });
     }

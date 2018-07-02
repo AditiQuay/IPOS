@@ -1,6 +1,7 @@
 package quay.com.ipos.ddrsales;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -27,15 +29,17 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import io.realm.Realm;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
-import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.data.remote.RestService;
+import quay.com.ipos.data.remote.model.APIError;
 import quay.com.ipos.data.remote.model.DDRSubmitResponse;
+import quay.com.ipos.data.remote.model.ErrorUtils;
 import quay.com.ipos.ddrsales.adapter.AddressAdapter;
 import quay.com.ipos.ddrsales.adapter.DDRIncoTermsAdapter;
 import quay.com.ipos.ddrsales.adapter.DDRProductBatchAdapter;
@@ -43,37 +47,31 @@ import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.ddrsales.model.InvoiceData;
 import quay.com.ipos.ddrsales.model.LogisticsData;
 import quay.com.ipos.ddrsales.model.RealmDDROrderList;
-import quay.com.ipos.ddrsales.model.request.DDRCartDetailsSubmit;
+import quay.com.ipos.ddrsales.model.request.DDRDetailInfo;
+import quay.com.ipos.ddrsales.model.request.DDRProductCart;
 import quay.com.ipos.ddrsales.model.request.DDRPaymentDetail;
 import quay.com.ipos.ddrsales.model.request.InvoiceDataSubmit;
 import quay.com.ipos.ddrsales.model.response.Address;
+import quay.com.ipos.ddrsales.model.response.DDRBatch;
 import quay.com.ipos.ddrsales.model.response.DDRIncoTerm;
-import quay.com.ipos.ddrsales.model.response.DDTProductBatch;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.modal.RecentOrderModal;
-import quay.com.ipos.partnerConnect.PartnerConnectMain;
-import quay.com.ipos.partnerConnect.model.BillnDelivery;
-import quay.com.ipos.partnerConnect.model.Cheques;
-import quay.com.ipos.partnerConnect.model.NewContact;
-import quay.com.ipos.partnerConnect.model.PCModel;
-import quay.com.ipos.utility.Constants;
+
+import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.NumberFormatEditText;
-import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.Util;
-import quay.com.ipos.utility.ValidateUtils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_SIMPLE;
 
-public class DDRInvoicePreviewActivity extends RunTimePermissionActivity implements InitInterface, View.OnClickListener, DDRIncoTermsAdapter.OnCalculateTotalIncoTermsListener, AddressAdapter.OnItemSelecteListener {
+
+public class DDRInvoicePreviewActivity extends RunTimePermissionActivity implements InitInterface, View.OnClickListener, DDRIncoTermsAdapter.OnCalculateTotalIncoTermsListener, AddressAdapter.OnItemSelectionListener {
     private static final String TAG = DDRInvoicePreviewActivity.class.getSimpleName();
     private Activity activity;
     private Toolbar toolbar;
     private TextView mDDRDetails;
     private ImageView mDDRDetailsIcon;
-    // private TextView textBillingAddress;
-    // private TextView textShippingAddress;
 
 
     //total price
@@ -84,7 +82,8 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
     private TextView textIncoTermsOthers;
 
 
-    private TextView textAvaCreditLimit;
+    //Credit Page Invoice
+    private TextView textCreditPageInvoice, textAvaCreditLimit, textCreditPageBalance;
 
     //Logistics
     private Spinner spinnerMode;
@@ -93,6 +92,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
 
     private TextView textTotalIncoTerms;
+
 
     private RecyclerView recycleViewBillingAddress;
     private RecyclerView recycleViewShippingAddress;
@@ -107,7 +107,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
 
     private List<DDRIncoTerm> incoTermsList = new ArrayList<>();
-    private List<DDTProductBatch> ddtProductBatchList = new ArrayList<>();
+    private List<DDRProductCart> ddrProductCartList = new ArrayList<>();
 
     private List<Address> addressList = new ArrayList<>();
 
@@ -120,9 +120,9 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
     private RealmDDROrderList invoiceSummary;
     private Address billing;
     private Address shipping;
-    private LogisticsData logisticsData;
+    private LogisticsData logisticsData = new LogisticsData();
     private List<DDRIncoTerm> ddrIncoTerms;
-    private List<DDRCartDetailsSubmit> dDRCartDetails;
+    private List<DDRProductCart> dDRCartDetails;
     private List<DDRPaymentDetail> dDRPaymentDetails;
     //submit data end
 
@@ -138,7 +138,6 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
         this.rs = getString(R.string.Rs) + " ";
         mDdr = (DDR) getIntent().getSerializableExtra("ddr");
-
 
         findViewById();
         applyInitValues();
@@ -196,7 +195,11 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         textRoundingOff = findViewById(R.id.textRoundingOff);
 
 
+        //credit section
+        textCreditPageInvoice = findViewById(R.id.textCreditPageInvoice);
         textAvaCreditLimit = findViewById(R.id.textAvaCreditLimit);
+        textCreditPageBalance = findViewById(R.id.textCreditPageBalance);
+
 
         textTotalIncoTerms = findViewById(R.id.textTotalIncoTerms);
 
@@ -221,20 +224,19 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         editDriverMobileNumber.addTextChangedListener(generalTextWatcher);
         editDriverName.addTextChangedListener(generalTextWatcher);
         editTrackMobileNumber.addTextChangedListener(generalTextWatcher);
-        editEwayBillVal.addTextChangedListener(generalTextWatcher);
+        // editEwayBillVal.addTextChangedListener(generalTextWatcher);
 
 
         //billing and shipping
         recycleViewBillingAddress = findViewById(R.id.recycleViewBillingAddress);
         recycleViewBillingAddress.setLayoutManager(new LinearLayoutManager(mContext));
-        adapterAddBilling = new AddressAdapter(mContext, addressList, this,Address.ADDRESS_TYPE_BILLING);
+        adapterAddBilling = new AddressAdapter(mContext, addressList, this, Address.ADDRESS_TYPE_BILLING);
         recycleViewBillingAddress.setAdapter(adapterAddBilling);
 
         recycleViewShippingAddress = findViewById(R.id.recycleViewShippingAddress);
         recycleViewShippingAddress.setLayoutManager(new LinearLayoutManager(mContext));
-        adapterAddShipping = new AddressAdapter(mContext, addressList, this,Address.ADDRESS_TYPE_SHIPPING);
+        adapterAddShipping = new AddressAdapter(mContext, addressList, this, Address.ADDRESS_TYPE_SHIPPING);
         recycleViewShippingAddress.setAdapter(adapterAddShipping);
-
 
 
         textIncoTermsOthers = findViewById(R.id.textIncoTermsOthers);
@@ -251,7 +253,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
         //batch
         recycleViewProductBatch.setLayoutManager(new LinearLayoutManager(mContext));
-        adapterProductBatch = new DDRProductBatchAdapter(mContext, ddtProductBatchList);
+        adapterProductBatch = new DDRProductBatchAdapter(mContext, ddrProductCartList);
         recycleViewProductBatch.setAdapter(adapterProductBatch);
 
 
@@ -280,7 +282,11 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         addressList.clear();
         addressList.addAll(address);
 
-        billing = shipping = addressList.get(0);
+        if (addressList.size() > 0) {
+            billing = shipping = addressList.get(0);
+            billing.setSelected(true);
+            shipping.setSelected(true);
+        }
 
         adapterAddBilling.notifyDataSetChanged();
         adapterAddShipping.notifyDataSetChanged();
@@ -290,13 +296,13 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         incoTermsList.addAll(InvoiceData.getInstance().ddrIncoTerms);
         adapterIncoTerms.notifyDataSetChanged();
 
-        /*ddtProductBatchList.clear();
+        /*ddrProductCartList.clear();
          *//*    for (ProductSearchResult.Datum datum : InvoiceData.getInstance().cartList) {
             DDTProductBatch productBatch = new DDTProductBatch();
             productBatch.batchList = new ArrayList<>();
             productBatch.totalQty = datum.getTotalQty();
             productBatch.itemName = datum.getSProductName();
-            ddtProductBatchList.add(productBatch);
+            ddrProductCartList.add(productBatch);
         }*//*
         adapterProductBatch.notifyDataSetChanged();*/
 
@@ -337,6 +343,22 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
     }
 
+
+    public void onClickAddDate(View view) {
+        final Calendar calendar = Calendar.getInstance();
+        DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                editEwayBillVal.setText(DateAndTimeUtil.toCustomStringDateAndTime(calendar, DATE_AND_TIME_FORMAT_SIMPLE));
+                logisticsData.eWayBillValidity = DateAndTimeUtil.toCustomStringDateAndTime(calendar, DATE_AND_TIME_FORMAT_SIMPLE);
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePicker.show();
+    }
+
     private void addOtherIncoTerms() {
 
     }
@@ -353,10 +375,11 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         public void onTextChanged(CharSequence charSequence, int start, int before,
                                   int count) {
             //logisticsData case
-            if (editEwayBillVal.getText().hashCode() == charSequence.hashCode()) {
+          /*  if (editEwayBillVal.getText().hashCode() == charSequence.hashCode()) {
                 logisticsData.eWayBillValidity = charSequence.toString();
 
-            } else if (editTrackMobileNumber.getText().hashCode() == charSequence.hashCode()) {
+            } else*/
+            if (editTrackMobileNumber.getText().hashCode() == charSequence.hashCode()) {
                 logisticsData.trackMobileNumber = charSequence.toString();
 
             } else if (editDriverName.getText().hashCode() == charSequence.hashCode()) {
@@ -435,9 +458,31 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
             }
         });
+
+
+        editLRNumber.setText(logisticsData.lrNumber + "");
+        editTransporter.setText(logisticsData.transporter + "");
+        editAddress.setText(logisticsData.address);
+        editEWayBillNo.setText(logisticsData.eWayBillNumber + "");
+        editEwayBillVal.setText(logisticsData.eWayBillValidity + "");
+        editTruckNumber.setText(logisticsData.truckNumber + "");
+        editDriverMobileNumber.setText(logisticsData.driverMobileNumber + "");
+        editDriverName.setText(logisticsData.driverName + "");
+        editTrackMobileNumber.setText(logisticsData.trackMobileNumber + "");
+
+
+        editLRNumber.addTextChangedListener(generalTextWatcher);
+        editTransporter.addTextChangedListener(generalTextWatcher);
+        editAddress.addTextChangedListener(generalTextWatcher);
+        editEWayBillNo.addTextChangedListener(generalTextWatcher);
+        editEwayBillVal.addTextChangedListener(generalTextWatcher);
+        editTruckNumber.addTextChangedListener(generalTextWatcher);
+        editDriverMobileNumber.addTextChangedListener(generalTextWatcher);
+        editDriverName.addTextChangedListener(generalTextWatcher);
+        editTrackMobileNumber.addTextChangedListener(generalTextWatcher);
+
+
     }
-
-
 
 
     private void setAllData() {
@@ -452,6 +497,14 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
 
         textTotalInvoice.setText(getResources().getString(R.string.Rs) + " " + (Util.indianNumberFormat(realmOrderLists.getOrderValue())));
+
+        textCreditPageInvoice.setText(getResources().getString(R.string.Rs) + " " + (Util.indianNumberFormat(realmOrderLists.getOrderValue())));
+        double balanceData = mDdr.mDDRCreditLimit - realmOrderLists.getOrderValue();
+        if (balanceData < 0) {
+            balanceData = 0;
+        }
+        textCreditPageBalance.setText(getResources().getString(R.string.Rs) + " " + (Util.indianNumberFormat(balanceData)));
+
         // orderDiscount.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
 
 
@@ -466,37 +519,34 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
         try {
             JSONArray arrayCart = new JSONArray(realmOrderLists.getCartDetail());
-            List<RecentOrderModal> recentOrderModalArrayList = new ArrayList<>();
-            recentOrderModalArrayList.clear();
+            Log.e("DDD", arrayCart.toString());
+            ddrProductCartList.clear();
+
             for (int p = 0; p < arrayCart.length(); p++) {
                 JSONObject jsonObject = arrayCart.optJSONObject(p);
-                RecentOrderModal recentOrderModal = new RecentOrderModal();
-                recentOrderModal.setTitle(jsonObject.optString("materialName"));
-                recentOrderModal.setQty("" + jsonObject.optInt("materialQty"));
-                recentOrderModal.setDiscountValue("" + jsonObject.optInt("materialDiscountValue"));
-                recentOrderModal.setValue("" + jsonObject.optInt("materialValue"));
-                recentOrderModal.setUnitprice(jsonObject.optDouble("materialUnitValue"));
-
-                recentOrderModal.setFreeItem(jsonObject.optBoolean("isFreeItem"));
-                recentOrderModalArrayList.add(recentOrderModal);
-
-                //  recentOrdersListAdapter.notifyDataSetChanged();
-
-
-                // realmOrderLists.cartDetail;
-
-                ddtProductBatchList.clear();
-                for (RecentOrderModal datum : recentOrderModalArrayList) {
-                    DDTProductBatch productBatch = new DDTProductBatch();
-                    productBatch.batchList = new ArrayList<>();
-                    productBatch.totalQty = Integer.parseInt(datum.getQty());
-                    productBatch.itemName = datum.getTitle();
-                    ddtProductBatchList.add(productBatch);
-                }
-                adapterProductBatch.notifyDataSetChanged();
-
-
+                DDRProductCart cartDetailsSubmit = new DDRProductCart();
+                cartDetailsSubmit.isBatch = 1;
+                cartDetailsSubmit.discountValue = jsonObject.optInt("materialDiscountValue");
+                cartDetailsSubmit.isFreeItem = jsonObject.optBoolean("isFreeItem");
+                cartDetailsSubmit.materialCGSTRate = jsonObject.optDouble("materialCGSTRate");
+                cartDetailsSubmit.materialCGSTValue = jsonObject.optDouble("materialCGSTValue");
+                cartDetailsSubmit.materialSGSTRate = jsonObject.optDouble("materialSGSTRate");
+                cartDetailsSubmit.materialSGSTValue = jsonObject.optDouble("materialSGSTValue");
+                cartDetailsSubmit.materialIGSTRate = jsonObject.optDouble("materialIGSTRate");
+                cartDetailsSubmit.materialIGSTValue = jsonObject.optDouble("materialIGSTValue");
+                cartDetailsSubmit.materialName = jsonObject.optString("materialName");
+                cartDetailsSubmit.materialCode = jsonObject.optString("materialCode");
+                ;
+                cartDetailsSubmit.materialQty = jsonObject.optInt("materialQty");
+                cartDetailsSubmit.materialValue = jsonObject.optInt("materialValue");
+                cartDetailsSubmit.materialUnitValue = jsonObject.optDouble("materialUnitValue");
+                cartDetailsSubmit.ddrBatchDetail = new ArrayList<>();
+                cartDetailsSubmit.dDRScheme = new ArrayList<>();
+                ddrProductCartList.add(cartDetailsSubmit);
             }
+            adapterProductBatch.notifyDataSetChanged();
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -506,6 +556,10 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
     private void updateDataToWS(RealmDDROrderList realmOrderLists) {
         this.invoiceSummary = realmOrderLists;
+        ddrIncoTerms = incoTermsList;
+        dDRCartDetails = ddrProductCartList;
+        dDRPaymentDetails = getPaymentDetail();
+
 
         if (!validateData()) {
             return;
@@ -523,8 +577,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                 ddrIncoTerms,
                 dDRCartDetails,
                 dDRPaymentDetails);
-        invoiceDataSubmit.entityID = Prefs.getIntegerPrefs(Constants.entityCode) + "";
-        invoiceDataSubmit.employeeCode = Prefs.getStringPrefs(Constants.employeeCode);
+
         Log.i("contact", new Gson().toJson(invoiceDataSubmit));
 
         //  writeFile(new Gson().toJson(pcModelUpdate));
@@ -534,8 +587,17 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         call.enqueue(new Callback<DDRSubmitResponse>() {
             @Override
             public void onResponse(Call<DDRSubmitResponse> call, Response<DDRSubmitResponse> response) {
+                if (response.isSuccessful()) {
+                    // use response data and do some fancy stuff :)
+                } else {
+                    // parse the response body …
+                    APIError error = ErrorUtils.parseError(response);
+                    // … and use it to show error information
 
-                Log.e("data", new Gson().toJson(response.errorBody()));
+                    // … or just log the issue like we’re doing :)
+                    Log.d("error message", error.message());
+                }
+
                 try {
                     isSubmitReq = false;
                     dismissProgress();
@@ -591,6 +653,32 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
     }
 
+    private List<DDRPaymentDetail> getPaymentDetail() {
+        List<DDRPaymentDetail> paymentDetails = new ArrayList<>();
+        DDRPaymentDetail paymentDetail = new DDRPaymentDetail();
+        paymentDetail.paymentType = "Credit";
+        List<DDRDetailInfo> ddrDetailInfoList = new ArrayList<>();
+        DDRDetailInfo ddrDetailInfo = new DDRDetailInfo();
+        ddrDetailInfo.cardExpirationDate = "29-06-2018";
+        ddrDetailInfo.cardLastDigits = "1234";
+        ddrDetailInfo.cardPaymentAmt = 10000.0;
+        ddrDetailInfo.cardTxnId = "TX10001";
+        ddrDetailInfo.cardExpirationDate = "11/18";
+
+        ddrDetailInfo.cashIsCOD = false;
+        ddrDetailInfo.cashReceivedAmt = 5000.0;
+        ddrDetailInfo.cashReturnAmt = 0.0;
+        ddrDetailInfo.totalAmt = 500000.0;
+        ddrDetailInfo.cardType = "VISA";
+
+
+        ddrDetailInfoList.add(ddrDetailInfo);
+        paymentDetail.dDRDetailInfo = ddrDetailInfoList;
+        paymentDetails.add(paymentDetail);
+        return paymentDetails;
+    }
+
+
     private boolean validateData() {
         if (mDdr == null) {
             Util.showToast("DDR is required");
@@ -600,6 +688,54 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
             Util.showToast("DDR Code is required");
             return false;
         }
+
+        //logistic validation
+        if (logisticsData == null) {
+            Util.showToast("Logistics is required");
+            return false;
+        }
+        if (logisticsData == null) {
+            Util.showToast("Logistics is required");
+            return false;
+        }
+        if (logisticsData.mode == null || logisticsData.mode.isEmpty()) {
+            Util.showToast("Logistics -> Mode is required");
+            return false;
+        }
+        if (logisticsData.transporter == null || logisticsData.mode.isEmpty()) {
+            Util.showToast("Logistics -> Transporter is required");
+            return false;
+        }
+        if (logisticsData.truckNumber == null || logisticsData.truckNumber.isEmpty()) {
+            Util.showToast("Logistics -> Truck Number is required");
+            return false;
+        }
+        if (logisticsData.eWayBillNumber == null || logisticsData.eWayBillNumber.isEmpty()) {
+            Util.showToast("Logistics -> E-Way Bill Number is required");
+            return false;
+        }
+        if (logisticsData.eWayBillValidity == null || logisticsData.eWayBillValidity.isEmpty()) {
+            Util.showToast("Logistics -> E-Way Bill Validity is required");
+            return false;
+        }
+        if (logisticsData.trackMobileNumber == null || logisticsData.trackMobileNumber.isEmpty()) {
+            Util.showToast("Logistics -> Track Mobile Number  is required");
+            return false;
+        }
+        if (logisticsData.driverName == null || logisticsData.driverName.isEmpty()) {
+            Util.showToast("Logistics -> Driver Name  is required");
+            return false;
+        }
+        if (logisticsData.driverMobileNumber == null || logisticsData.driverMobileNumber.isEmpty()) {
+            Util.showToast("Logistics -> Driver Mobile Number  is required");
+            return false;
+        }
+        if (logisticsData.address == null || logisticsData.address.isEmpty()) {
+            Util.showToast("Logistics -> Address is required");
+            return false;
+        }
+
+
         if (billing == null) {
             Util.showToast("Billing is required");
             return false;
@@ -625,17 +761,76 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
             Util.showToast("Shipping Name is required");
             return false;
         }
+
+
+        //inco terms validation
+        if (ddrIncoTerms == null) {
+            Util.showToast("IncoTerms is required");
+            return false;
+        }
+        if (!ddrIncoTerms.isEmpty()) {
+            for (DDRIncoTerm incoTerm : ddrIncoTerms) {
+                if (!incoTerm.grnPayByReceiver && !incoTerm.grnPayBySender) {
+                    Util.showToast("IncoTerms Sender or Receiver is required!");
+                    return false;
+                }
+            }
+
+        }
+
+        //batch validation
+        if (dDRCartDetails == null || dDRCartDetails.isEmpty()) {
+            Util.showToast("Product Data is required");
+            return false;
+        }
+
+        if (!dDRCartDetails.isEmpty()) {
+            for (DDRProductCart productCart : dDRCartDetails) {
+                if (productCart.ddrBatchDetail == null || productCart.ddrBatchDetail.isEmpty()) {
+                    Util.showToast("Batch is required!");
+                    return false;
+                }
+
+                if (!productCart.ddrBatchDetail.isEmpty()) {
+                    for (DDRBatch ddrBatch : productCart.ddrBatchDetail) {
+                        if (ddrBatch.number == null || ddrBatch.number.isEmpty()) {
+                            Util.showToast("Batch Number is required!");
+                            return false;
+                        }
+                        if (ddrBatch.qty == 0) {
+                            Util.showToast("Batch Quantity is required!");
+                            return false;
+                        }
+                    }
+
+                }
+
+                if (productCart.materialQty != productCart.batchQty) {
+                    Util.showToast("Batch Quantity Sum is not equal to Product Quantity!");
+                    return false;
+                }
+
+            }
+
+        }
+
+
         return true;
 
     }
 
     @Override
-    public void onItemSelected(View v, int position, int addressType) {
+    public void onItemSelected(int position, int addressType) {
         if (addressType == Address.ADDRESS_TYPE_SHIPPING) {
-           billing =  addressList.get(position);
+            billing = addressList.get(position);
         }
         if (addressType == Address.ADDRESS_TYPE_BILLING) {
-           shipping =  addressList.get(position);
+            shipping = addressList.get(position);
         }
+    }
+
+
+    public void addProduct(View view) {
+        finish();
     }
 }

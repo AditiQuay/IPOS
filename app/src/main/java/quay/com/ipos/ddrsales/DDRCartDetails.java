@@ -116,6 +116,8 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     private TextView tvMoreDetails, tvItemNo, tvItemQty, tvTotalItemPrice,
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
             tvLessDetails, tvRoundingOffPrice, tvPay, tvPinCount;
+    private Toolbar toolbar;
+
     private TextView mDDRDetails;
     private ImageView mDDRDetailsIcon;
     ImageView imvBarcode;
@@ -195,24 +197,29 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
 
     public void setHeader() {
-        Toolbar toolbar = findViewById(R.id.appBar);
-        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-        // toolbar.setNavigationIcon(getResources().getDrawable(R.mipmap.back));
-        setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+     //   Toolbar toolbar = findViewById(R.id.appBar);
+     //   toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+
+      //   setSupportActionBar(toolbar);
+       /* toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
 
 
             }
-        });
-        if (getSupportActionBar() != null) {
+        });*/
+      /*  if (getSupportActionBar() != null) {
             getSupportActionBar().setHomeButtonEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowCustomEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
+        }*/
+        toolbar = findViewById(R.id.appBar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle(getResources().getString(R.string.title_b2bsales));
 
 
         mDdr = (DDR) getIntent().getSerializableExtra("ddr");
@@ -245,6 +252,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
     private void initializeComponent(View rootView) {
         searchView = findViewById(R.id.searchView);
+        searchView.setHint("Search and Add Product");
         searchView.setFocusable(false);
         searchView.setClickable(true);
         searchView.setOnClickListener(this);
@@ -2107,11 +2115,11 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+      /*  getMenuInflater().inflate(R.menu.main, menu);
 
         MenuItem menu12 = menu.findItem(R.id.action_notification);
         menu12.setVisible(false);
-
+*/
 
         return true;
     }

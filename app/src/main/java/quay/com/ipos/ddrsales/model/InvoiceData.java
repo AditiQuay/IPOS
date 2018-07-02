@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import quay.com.ipos.ddrsales.model.response.Address;
+import quay.com.ipos.ddrsales.model.response.DDRBatch;
 import quay.com.ipos.ddrsales.model.response.DDRIncoTerm;
 import quay.com.ipos.ddrsales.model.response.DDRProductListResponse;
-import quay.com.ipos.ddrsales.model.response.DDTProductBatch;
 
 public class InvoiceData {
 
     public List<Address> address=new ArrayList<>();
     public List<DDRProduct> cartList = new ArrayList<>();
     public List<DDRIncoTerm> ddrIncoTerms = new ArrayList<>();
-    public List<DDTProductBatch> ddtProductBatchList = new ArrayList<>();
+    public List<DDRBatch> ddtProductBatchList = new ArrayList<>();
 
     public LogisticsData logisticsData  = new LogisticsData();
     private boolean initDataFeed = false;

@@ -13,25 +13,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.ddrsales.model.request.DDRProductCart;
 import quay.com.ipos.ddrsales.model.response.DDRBatch;
-import quay.com.ipos.ddrsales.model.response.DDTProductBatch;
+
 
 /**
- * Created by deepa.kumar on 6/25/2018.
+ * Created by deepak.kumar on 6/25/2018.
  */
 
 public class DDRProductBatchAdapter extends RecyclerView.Adapter<DDRProductBatchAdapter.ViewHolder> {
     private static final String TAG = DDRProductBatchAdapter.class.getSimpleName();
     private Context mContext;
-    private List<DDTProductBatch> list;
-
+    private List<DDRProductCart> ddrProductCartList;
 
 
     private boolean onBind;
 
-    public DDRProductBatchAdapter(Context mContext, List<DDTProductBatch> list) {
+    public DDRProductBatchAdapter(Context mContext, List<DDRProductCart> list) {
         this.mContext = mContext;
-        this.list = list;
+        this.ddrProductCartList = list;
     }
 
     @NonNull
@@ -44,30 +44,26 @@ public class DDRProductBatchAdapter extends RecyclerView.Adapter<DDRProductBatch
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         this.onBind = true;
-        final DDTProductBatch productBatch = list.get(position);
-        holder.editItemName.setText(productBatch.itemName);
+        final DDRProductCart productBatch = ddrProductCartList.get(position);
+        holder.editItemName.setText(productBatch.materialName);
 
-        holder.textItemCount.setText(productBatch.batchQty+"/"+productBatch.totalQty);
+        holder.textItemCount.setText(productBatch.batchQty + "/" + productBatch.materialQty);
         holder.btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addNewBatch(position, productBatch,holder.recyclerViewBatch);
+                addNewBatch(position, productBatch, holder.recyclerViewBatch, holder.textItemCount);
             }
         });
 
-        holder.onBind(position, productBatch.batchList);
-
-
-
+        holder.onBind(position, productBatch.ddrBatchDetail);
 
         this.onBind = false;
     }
 
 
-
     @Override
     public int getItemCount() {
-        return list.size();
+        return ddrProductCartList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -78,8 +74,6 @@ public class DDRProductBatchAdapter extends RecyclerView.Adapter<DDRProductBatch
 
         private RecyclerView recyclerViewBatch;
         private DDRBatchSelectionAdapter adapterBatchSelection;
-
-
 
 
         public ViewHolder(View itemView) {
@@ -94,9 +88,17 @@ public class DDRProductBatchAdapter extends RecyclerView.Adapter<DDRProductBatch
             recyclerViewBatch.setLayoutManager(new LinearLayoutManager(mContext));
             adapterBatchSelection = new DDRBatchSelectionAdapter(mContext, list, new DDRBatchSelectionAdapter.OnBatchDataChangeListener() {
                 @Override
-                public void onDataChange(List<DDRBatch> changeList) {
-                  /*  list.clear();
-                    list.addAll(changeList);*/
+                public void onDataChange(List<DDRBatch> changeList, int productPos, TextView textItemCount) {
+                  /*  ddrProductCartList.clear();
+                    ddrProductCartList.addAll(changeList);*/
+                    int totalCount = 0;
+                    for (DDRBatch ddrBatch : changeList) {
+                        totalCount += ddrBatch.qty;
+                    }
+
+                    ddrProductCartList.get(productPos).batchQty = totalCount;
+                    textItemCount.setText(totalCount + "/" + ddrProductCartList.get(productPos).materialQty);
+                    //  notifyDataSetChanged();
                 }
             });
             recyclerViewBatch.setAdapter(adapterBatchSelection);
@@ -107,27 +109,25 @@ public class DDRProductBatchAdapter extends RecyclerView.Adapter<DDRProductBatch
         public void onBind(int position, List<DDRBatch> batchList) {
             list.clear();
             list.addAll(batchList);
+            adapterBatchSelection.setProductPosition(position);
             adapterBatchSelection.notifyItemChanged(position);
         }
     }
 
 
-    private void addNewBatch(int position, DDTProductBatch productBatch, RecyclerView recyclerViewBatch) {
-        if (productBatch.batchList == null) {
-            productBatch.batchList = new ArrayList<>();
+    private void addNewBatch(int position, DDRProductCart productBatch, RecyclerView recyclerViewBatch, TextView textItemCount) {
+        if (productBatch.ddrBatchDetail == null) {
+            productBatch.ddrBatchDetail = new ArrayList<>();
         }
-        DDRBatch ddrBatch = new DDRBatch(0,"");
-        productBatch.batchList.add(ddrBatch);
+        DDRBatch ddrBatch = new DDRBatch(0, "");
+        productBatch.ddrBatchDetail.add(ddrBatch);
         DDRBatchSelectionAdapter batchAdapter = (DDRBatchSelectionAdapter) recyclerViewBatch.getAdapter();
-        batchAdapter.setMainDataList(productBatch.batchList);
-        notifyItemChanged(position);
-
-       // recyclerViewBatch.getAdapter().notifyDataSetChanged();
+        batchAdapter.setMainDataList(productBatch.ddrBatchDetail, textItemCount);
+        //  notifyItemChanged(position);
+        notifyDataSetChanged();
 
 
     }
-
-
 
 
 }

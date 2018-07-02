@@ -1,5 +1,6 @@
 package quay.com.ipos.service;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -7,6 +8,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 
 import okhttp3.Interceptor;
+import okhttp3.Request;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.modal.GlobalSettings;
 import quay.com.ipos.utility.Constants;
@@ -30,6 +32,19 @@ public class RequestTokenInterceptor  implements Interceptor {
                 .addHeader("Authorization", accessToken)
                 .addHeader("GlobalSettings", new Gson().toJson(globalSettings))
                 .build();
-        return chain.proceed(newRequest);
+         return chain.proceed(newRequest);//old code
+
+   /*   //  Request request = chain.request();
+        okhttp3.Response response = chain.proceed(request);
+
+        // todo deal with the issues the way you need to
+        if (response.code() == 400) {
+            Log.e(TAG, "" + response.message());
+
+            return response;
+        }
+
+        return response;*/
+
     }
 }

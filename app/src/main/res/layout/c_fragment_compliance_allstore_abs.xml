@@ -1,18 +1,3 @@
-<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <import type="android.view.View" />
-
-        <import type="android.support.v4.app.Fragment" />
-
-        <variable
-            name="storeViewModel"
-            type="com.quayintech.compliancetracker.viewModel.StoreViewModel" />
-    </data>-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -57,10 +42,10 @@
                         android:id="@+id/ipos_block_txt1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/update"
+                        android:drawableLeft="@drawable/summary"
                         android:drawablePadding="4dp"
                         android:gravity="center_vertical"
-                        android:paddingLeft="25dp"
+                        android:paddingLeft="16dp"
                         android:text="@string/ct_statutory_business_compliance"
                         android:textAppearance="@style/iposfontstyle"
                         android:textColor="@color/ipos_block_title_color"
@@ -121,10 +106,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
-                android:drawableLeft="@drawable/update"
+                android:drawableLeft="@drawable/summary"
                 android:drawablePadding="4dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="25dp"
+                android:paddingLeft="23dp"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="@string/ct_storewise"
                 android:textColor="@color/ipos_block_title_color"
                 android:textSize="@dimen/ipos_block_title_size" />
@@ -169,4 +155,4 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" />-->
 
-</RelativeLayout><!--</layout>-->
+</RelativeLayout>

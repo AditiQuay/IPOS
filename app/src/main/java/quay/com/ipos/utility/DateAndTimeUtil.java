@@ -15,8 +15,9 @@ import quay.com.ipos.R;
 public class DateAndTimeUtil {
 
     //Previously used "yyyyMMddHHmm" now using  "yyyy-MM-dd'T'HH:mm:ss.SSS" // sample "NextScheduleDateTime": "2018-05-21T13:07:46.203",
-    private static final SimpleDateFormat DATE_AND_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault());
-
+    private static final SimpleDateFormat DATE_AND_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+   // private static final SimpleDateFormat DATE_AND_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault());
+    public static final SimpleDateFormat DATE_AND_TIME_FORMAT_SIMPLE = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
     private static final SimpleDateFormat DATE_AND_TIME_FORMAT_JSON_STANDARD = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault());
     private static final SimpleDateFormat DATE_AND_TIME_WITH_SECONDS_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
     private static final SimpleDateFormat READABLE_DAY_MONTH_FORMAT = new SimpleDateFormat("d MMMM", Locale.getDefault());
@@ -45,6 +46,10 @@ public class DateAndTimeUtil {
 
     public static String toStringDateAndTime(Calendar calendar) {
         return DATE_AND_TIME_FORMAT.format(calendar.getTime());
+    }
+
+    public static String toCustomStringDateAndTime(Calendar calendar,SimpleDateFormat customformat) {
+        return customformat.format(calendar.getTime());
     }
 
     public static String toStringDateTimeWithSeconds(Calendar calendar) {

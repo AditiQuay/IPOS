@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 import java.util.Calendar;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.compliance.StorewiseComplianceActivity;
 import quay.com.ipos.compliance.constants.AnnotationTaskState;
 import quay.com.ipos.compliance.constants.KeyConstants;
 import quay.com.ipos.compliance.data.local.entity.BusinessPlaceEntity;
@@ -25,7 +27,7 @@ import quay.com.ipos.utility.DateAndTimeUtil;
  * Created by deepak.kumar1 on 19-03-2018.
  */
 
-public class StoreAdapter extends RecyclerView.Adapter<StoreWiseVH> {
+public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreWiseVH> {
     private static final String TAG = StoreAdapter.class.getSimpleName();
     private final Context context;
     private List<BusinessPlaceEntity> list = Collections.emptyList();
@@ -54,14 +56,14 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreWiseVH> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* Intent intent = new Intent(view.getContext(), StorewiseComplianceActivity.class);
+                Intent intent = new Intent(view.getContext(), StorewiseComplianceActivity.class);
                 intent.putExtra("title", "" + store.name);
                 intent.putExtra("storeid", "" + store.id);
                 intent.putExtra("curr_pos",pagerPosition);
 
                 Log.i(TAG, "title" + store.name + ", storeid" + store.id);
 
-                view.getContext().startActivity(intent);*/
+                view.getContext().startActivity(intent);
             }
         });
 
@@ -108,7 +110,9 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreWiseVH> {
             return;
         }
         for (Task taskData : store.getComplianceList()) {
-
+           if(taskData.task_category==null){
+               taskData.task_category = "";
+           }
             if (complianceType.contentEquals("all") || taskData.task_category.contentEquals(complianceType)) {
 
                 total_comp_size++;
@@ -153,4 +157,22 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreWiseVH> {
         holder.mCTUpcomingEvents.setText(com_upcoming_size + "");
     }
 
+
+    public class StoreWiseVH extends RecyclerView.ViewHolder {
+        public TextView mCTCompliant;
+        public TextView iposBlockTxt1;
+        public TextView mCTNonCompliant;
+        public TextView mCTImmediateAttention;
+        public TextView mCTUpcomingEvents;
+
+        public StoreWiseVH(View view) {
+            super(view);
+            iposBlockTxt1 = view.findViewById(R.id.ipos_block_txt1);
+            mCTCompliant = view.findViewById(R.id.mCT_Compliant);
+            mCTNonCompliant = view.findViewById(R.id.mCT_NonCompliant);
+            mCTImmediateAttention = view.findViewById(R.id.mCT_ImmediateAttention);
+            mCTUpcomingEvents = view.findViewById(R.id.mCT_UpcomingEvents);
+        }
+
+    }
 }
