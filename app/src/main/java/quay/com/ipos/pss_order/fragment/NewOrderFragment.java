@@ -91,7 +91,6 @@ import quay.com.ipos.realmbean.RealmNewOrderCart;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
-import quay.com.ipos.ui.InformationDialog;
 import quay.com.ipos.ui.InformationDialogNewOrder;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
@@ -229,7 +228,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
       //  mRecyclerView.addOnScrollListener(listener);
-        llBelowPaymentDetail = rootView.findViewById(R.id.llBelowPaymentDetail);
+        llBelowPaymentDetail = rootView.findViewById(R.id.bottomBar);
 
         setSpinnerData();
         setListener();

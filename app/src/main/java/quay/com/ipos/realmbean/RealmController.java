@@ -58,6 +58,21 @@ public class RealmController {
             realm.close();
         }
     }
+    public void clearRealm(Class aClass) {
+
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+            realm.delete(aClass);
+        } catch (Exception e) {
+            realm.cancelTransaction();
+            realm.close();
+            e.printStackTrace();
+        } finally {
+            realm.commitTransaction();
+            realm.close();
+        }
+    }
 
 
     public void saveFormNewRetailerSubmit(String responseData) {

@@ -31,12 +31,14 @@ import quay.com.ipos.data.local.entity.DDRInvoiceData;
 import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.ddrsales.adapter.DDRAdapter;
 import quay.com.ipos.ddrsales.model.DDR;
+import quay.com.ipos.ddrsales.model.DDRProduct;
 import quay.com.ipos.ddrsales.model.InvoiceData;
 import quay.com.ipos.ddrsales.model.POSummary;
 import quay.com.ipos.ddrsales.model.request.DDRListReq;
 import quay.com.ipos.ddrsales.model.response.GetDDRList;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
+import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.utility.DisplayUtils;
 import quay.com.ipos.utility.EqualSpacingItemDecoration;
 import retrofit2.Call;
@@ -201,6 +203,8 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
             @Override
             public void onSelect(DDR ddr) {
 
+                InvoiceData.getInstance().cleanData();
+                new RealmController().clearRealm(DDRProduct.class);
 
                 Intent mIntent = new Intent(activity, DDRCartDetails.class);
                 mIntent.putExtra("ddr", ddr);

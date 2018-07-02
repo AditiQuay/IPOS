@@ -3,6 +3,9 @@ package quay.com.ipos.ddrsales.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
+import quay.com.ipos.ddrsales.model.request.DDROrderDetail;
 import quay.com.ipos.ddrsales.model.response.Address;
 import quay.com.ipos.ddrsales.model.response.DDRBatch;
 import quay.com.ipos.ddrsales.model.response.DDRIncoTerm;
@@ -35,11 +38,36 @@ public class InvoiceData {
         ddrIncoTerms = response.ddrIncoTerms;
     }
 
+    public void setInitData2(DDROrderDetail response) {
+        if(initDataFeed)
+            return;
+        initDataFeed = true;
+
+        //logistic Data
+        this.logisticsData.mode = response.transporterMode;
+        this.logisticsData.lrNumber = response.transporterLRName;
+        this.logisticsData.transporter = response.transporterName;
+        this.logisticsData.truckNumber = response.transporterTruckNumber;
+        this.logisticsData.eWayBillNumber = response.transporterEWayBillNumber;
+        this.logisticsData.eWayBillValidity = response.transporterEWayBillValidityDate;
+        this.logisticsData.trackMobileNumber = response.transporterTrackNumber;
+        this.logisticsData.driverName = response.transporterDriverName;
+        this.logisticsData.driverMobileNumber = response.transporterDriverMobileNumber;
+        this.logisticsData.address = response.transporterAddress;
+        //logistic Data End
+
+        this.address = response.address;
+        ddrIncoTerms = response.dDRIncoTerms;
+    }
+
     public void cleanData() {
         initDataFeed = false;
         this.address =new ArrayList<>();
         ddrIncoTerms = new ArrayList<>();
         cartList = new ArrayList<>();
         ddtProductBatchList = new ArrayList<>();
+
+
+
     }
 }

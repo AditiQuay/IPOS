@@ -38,7 +38,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class DDROrderCenterActivity extends AppCompatActivity implements InitInterface, View.OnClickListener {
+public class DDROrderCenterActivity extends AppCompatActivity implements InitInterface, View.OnClickListener, POAdapter.OnSelectPOAdapterListener {
     private static final String TAG = PartnerConnectMain.class.getSimpleName();
     private Activity activity;
     private Toolbar toolbar;
@@ -134,11 +134,11 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
         recyclerViewDelivered.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewCancelled.setLayoutManager(new LinearLayoutManager(this));
 
-        adapterNew = new POAdapter(activity);
-        adapterAccepted = new POAdapter(activity);
-        adapterDispatched = new POAdapter(activity);
-        adapterDelivered = new POAdapter(activity);
-        adapterCancelled = new POAdapter(activity);
+        adapterNew = new POAdapter(activity, this);
+        adapterAccepted = new POAdapter(activity, this);
+        adapterDispatched = new POAdapter(activity, this);
+        adapterDelivered = new POAdapter(activity, this);
+        adapterCancelled = new POAdapter(activity, this);
 
         recyclerViewNew.setAdapter(adapterNew);
         recyclerViewAccepted.setAdapter(adapterAccepted);
@@ -398,5 +398,13 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
     }
 
 
+    @Override
+    public void onSelectPO(int pos, OrderModel orderModel) {
+
+        Intent intent = new Intent(activity, DDRApproveInvoiceActivity.class);
+        intent.putExtra("data", orderModel);
+        startActivity(intent);
+
+    }
 }
 
