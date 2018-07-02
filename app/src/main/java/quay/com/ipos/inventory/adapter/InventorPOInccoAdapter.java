@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -46,7 +47,7 @@ public class InventorPOInccoAdapter extends RecyclerView.Adapter<InventorPOIncco
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemView holder, int position) {
+    public void onBindViewHolder(@NonNull final ItemView holder, int position) {
         this.onBind = true;
 
         this.itemViewO=holder;
@@ -61,7 +62,15 @@ public class InventorPOInccoAdapter extends RecyclerView.Adapter<InventorPOIncco
         holder.sender.setChecked(grnInccoTermsModel.grnPayBySender);
         holder.reciver.setChecked(grnInccoTermsModel.grnPayByReceiver);
         this.onBind = false;
-
+        holder.delete.setVisibility(View.VISIBLE);
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                grnInccoTermsModels.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRangeChanged(holder.getAdapterPosition(),grnInccoTermsModels.size());
+            }
+        });
 
     }
 
@@ -74,6 +83,7 @@ public class InventorPOInccoAdapter extends RecyclerView.Adapter<InventorPOIncco
         private TextView tvDetailName;
         private EditText tvPayAmount;
         RadioButton sender, reciver;
+        private ImageView delete;
         public MyCustomEditTextListener myCustomEditTextListener;
         private MyCustomCheckBoxListener myCustomCheckBoxListener;
 
@@ -83,7 +93,7 @@ public class InventorPOInccoAdapter extends RecyclerView.Adapter<InventorPOIncco
             tvPayAmount = itemView.findViewById(R.id.tvPayAmount);
             sender = itemView.findViewById(R.id.sender);
             reciver = itemView.findViewById(R.id.reciver);
-
+            delete=itemView.findViewById(R.id.delete);
             this.myCustomEditTextListener = myCustomEditTextListener;
             this.myCustomCheckBoxListener = myCustomCheckBoxListener;
 

@@ -103,7 +103,13 @@
                     tools:text="26,800" />
 
             </LinearLayout>
-
+            <ImageView
+                android:id="@+id/delete"
+                android:layout_width="@dimen/dim_24"
+                android:layout_height="@dimen/dim_24"
+                android:visibility="gone"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/delete"/>
 
         </LinearLayout>
 
