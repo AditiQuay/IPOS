@@ -221,6 +221,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                     btnAddNew.setVisibility(View.GONE);
                     llTransferType.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.VISIBLE);
+                    swchType.setChecked(true);
                  //   llPOVisible.setVisibility(View.VISIBLE);
                   //  llInventory.setVisibility(View.VISIBLE);
                 }else {
@@ -242,7 +243,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                     llInventory.setVisibility(View.GONE);
                     btnNext.setVisibility(View.GONE);
                 }else {
-                    btnAddNew.setVisibility(View.GONE);
+                    btnAddNew.setVisibility(View.VISIBLE);
                     llPOVisible.setVisibility(View.GONE);
                     llInventory.setVisibility(View.VISIBLE);
                 }

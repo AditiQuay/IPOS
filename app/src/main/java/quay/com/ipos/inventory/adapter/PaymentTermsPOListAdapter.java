@@ -40,7 +40,7 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
     }
 
     @Override
-    public void onBindViewHolder(final SurveyViewHolder holder, final int position) {
+    public void onBindViewHolder(final SurveyViewHolder holder,  int position) {
         onBind = true;
 
 
@@ -67,9 +67,9 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
                 if(!onBind) {
                     if (Util.validateString(holder.percent.getText().toString())) {
 
-                        myListener.onRowClickedPaymentTerms(position, Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
+                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
                     } else {
-                        myListener.onRowClickedPaymentTerms(position, 0, holder.tvGst.getText().toString());
+                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
 
                     }
                 }
@@ -91,9 +91,9 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
                 if(!onBind) {
                     if (Util.validateString(holder.percent.getText().toString())) {
 
-                        myListener.onRowClickedPaymentTerms(position, Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
+                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
                     } else {
-                        myListener.onRowClickedPaymentTerms(position, 0, holder.tvGst.getText().toString());
+                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
 
                     }
                 }

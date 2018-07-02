@@ -31,6 +31,8 @@ public class IPOSAPI {
     public static String WEB_SERVICE_CheckStock = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOCheckStock";
     public static String WEB_SERVICE_KYS_PSS_DETAIL = WEB_SERVICE_BASE_URL + "PSSConnects/KYCPssdetailList";
     public static String WEB_SERVICE_KYC_PSS_REJECT = WEB_SERVICE_BASE_URL+"PSSConnects/KyCReject";
+    public static String WEB_SERVICE_INVENTORYPRODIUCTSEARCH = "Retail/SearchRetailProduct";
+
 
 
     //Niraj and ankush
