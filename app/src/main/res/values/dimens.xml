@@ -1086,4 +1086,14 @@
     <dimen name="profile_pic_width">500dp</dimen>
     <dimen name="profile_pic_height">500dp</dimen>
     <dimen name="circle_pager_indicator">17dp</dimen>
+    <dimen name="ipos_block_title_size">12sp</dimen>
+
+
+    <dimen name="circleProgressRadius">20dp</dimen>
+    <dimen name="circleProgressThickness">3dp</dimen>
+
+    <dimen name="curvedTextViewTextSize">15sp</dimen>
+    <dimen name="curvedTextRadius">20dp</dimen>
+    <dimen name="curvedTextPadding">3dp</dimen>
+    <dimen name="spacing">3dp</dimen>
 </resources>

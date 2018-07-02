@@ -390,7 +390,6 @@
     <string name="disc_perc_val_validation">Please enter discount value/percentage</string>
 
 
-
     <string name="ct_statutory_business_compliance"><![CDATA[Statutory & Business Compliance]]></string>
     <string name="ct_business_compliance"><![CDATA[Business Compliance]]></string>
     <string name="ct_statutory_compliance"><![CDATA[Statutory Compliance]]></string>
@@ -498,5 +497,15 @@
 
     <!--Compliance Tracker END-->
 
+    <!--Inventory GRN string values-->
+    <string name="iv_error_name">Please enter name</string>
+    <string name="iv_error_eway_billNumber">Please enter EWayBillNumber</string>
+    <string name="iv_error_LRNumber">Please enter LRNumber</string>
+    <string name="iv_error_driver_name">Please enter Driver Name</string>
+    <string name="iv_error_truck_number">Please enter Truck Number</string>
+    <string name="iv_error_eway_billValidity">Please enter EWayBillValidity</string>
+    <string name="iv_error_mobile_number">Please enter Driver Mobile Number</string>
+    <string name="iv_error_track_number">Please enter Track Number</string>
+    <string name="iv_error_address">Please enter Address</string>
 
 </resources>

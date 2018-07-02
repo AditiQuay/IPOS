@@ -2,29 +2,25 @@ package quay.com.ipos.inventory.modal;
 
 import java.io.Serializable;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by niraj.kumar on 6/21/2018.
  */
 
-public class GRNProductDetailModel implements Serializable {
+/**
+ * tabRelationnList
+ */
+public class GRNProductDetailModel  implements Serializable {
     private String number;
-    private String actionTitle;
+    public String actionTitle="";
     private int actionID;
     private int qty;
 
 
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
-    }
-
-    private int count;
-
     public boolean isSelected;
-    public String remark = "";
+  //  public String remark = "";
 
     public boolean isSelected() {
         return isSelected;

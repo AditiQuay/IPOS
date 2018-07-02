@@ -13,8 +13,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import quay.com.ipos.R;
-import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
 
+import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
 /**
  * Created by aditi.bhuranda on 26-04-2018.
  */

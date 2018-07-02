@@ -29,7 +29,6 @@ public class BatchTabAdapter extends RecyclerView.Adapter<BatchTabAdapter.MyView
     MyListener listener;
     TabListenerr tabListenerr;
     private SharedPreferences mPref;
-    private SharedPreferences.Editor mEditor;
     private BatchTabButtonClick batchTabButtonClick;
 
     public BatchTabAdapter(Context mContext, List<RealmInventoryTabData> batchListData, MyListener listener, TabListenerr tabListenerr, BatchTabButtonClick batchTabButtonClick) {
@@ -37,10 +36,11 @@ public class BatchTabAdapter extends RecyclerView.Adapter<BatchTabAdapter.MyView
         this.batchListData = batchListData;
         this.listener = listener;
         this.tabListenerr = tabListenerr;
+      /*  if (batchListData.size() > 0)
+            batchListData.get(0).isSelected = true;*/
         this.batchListData = batchListData;
         this.batchTabButtonClick = batchTabButtonClick;
         mPref = mContext.getSharedPreferences("data", Context.MODE_PRIVATE);
-        mEditor = mPref.edit();
     }
 
     @NonNull
@@ -54,27 +54,32 @@ public class BatchTabAdapter extends RecyclerView.Adapter<BatchTabAdapter.MyView
     @Override
     public void onBindViewHolder(@NonNull final MyView holder, final int position) {
         final RealmInventoryTabData batchLis = batchListData.get(position);
+        String btnTitle = batchLis.getTabTitle();
+        String count = batchLis.getCount() + "";
+        String text = btnTitle + "(" + count + ")";
 
         if (batchLis.getTabId() == 3) {
-            holder.btnTab.setText(batchLis.getTabTitle());
+            holder.btnTab.setText(text);
             Drawable img = mContext.getResources().getDrawable(R.drawable.ic_down_arrow_white);
             holder.btnTab.setCompoundDrawables(null, null, img, null);
         } else {
-            holder.btnTab.setText(batchLis.getTabTitle());
+            holder.btnTab.setText(text);
             holder.btnTab.setCompoundDrawables(null, null, null, null);
         }
 
         Log.e("selection", "" + batchLis.isSelected());
 
-        if (batchLis.isSelected()) {
-            holder.btnTab.setSelected(false);
-        } else {
-            holder.btnTab.setSelected(true);
-        }
-
+        holder.btnTab.setSelected(batchLis.isSelected());
         holder.btnTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                for (RealmInventoryTabData batchListDatum : batchListData) {
+                    batchListDatum.isSelected = false;
+
+                }
+                batchLis.isSelected = true;
+                notifyDataSetChanged();
                 batchTabButtonClick.onTabClick(position);
                 if (batchLis.getTabId() == 3) {
                     listener.onRowClicked(position);

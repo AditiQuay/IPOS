@@ -1,5 +1,6 @@
 package quay.com.ipos.inventory.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,7 +52,6 @@ import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmPOInventory;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
-import quay.com.ipos.utility.DividerItemDecoration;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SpacesItemDecoration;
 
@@ -64,6 +65,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     String[] address = {"1/82"};
     String[] items = {"PO180001", "PO180002"};
     String[] user = {"KGM Traders", "McCoy"};
+
 
     private RecyclerView recycler_viewRecentOrders, recycleview, recylerViewRoles;
     private ItemsDetailListAdapter recentOrdersListAdapter;
@@ -94,14 +96,18 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     private String poNum, poStatus;
     private int poItemQty, poGRNQty, poAPQty, poBalanceQty;
     private boolean qcVisible;
-
+    private LinearLayout llQCList;
+    private String newGRNCreated;
+    public static Activity fa;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grn_steps_activity);
         mContext = InventoryGRNStepsActivity.this;
+        fa = this;
         Intent i = getIntent();
         poNumber = i.getStringExtra("poNumber");
+        newGRNCreated = i.getStringExtra("newGRNCreated");
 
         empCode = Prefs.getStringPrefs(Constants.employeeCode.trim());
         businessPlaceId = "1";
@@ -112,7 +118,20 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         applyTypeFace();
         getIntents();
 
-        getPODetails();
+        if (TextUtils.isEmpty(newGRNCreated)) {
+            getPODetails();
+        } else {
+            tvPO.setBackgroundResource(R.drawable.text_view_circle_grey);
+            tvGrn.setBackgroundResource(R.drawable.textview_circle_app_color);
+            recycleview.setVisibility(View.GONE);
+            recycleviewGrnCard.setVisibility(View.VISIBLE);
+            rlTab.setVisibility(View.VISIBLE);
+            llgrnn.setVisibility(View.VISIBLE);
+
+            getGrnDetails();
+
+        }
+
 
     }
 
@@ -139,6 +158,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
 
     @Override
     public void findViewById() {
+        llQCList = findViewById(R.id.llQCList);
         toolbar = findViewById(R.id.toolbar);
         recycleviewGrnCard = findViewById(R.id.recycleviewCard);
         textViewAdd = findViewById(R.id.textViewAdd);
@@ -186,6 +206,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         recycleviewGrnCard.setHasFixedSize(true);
         recycleviewGrnCard.setLayoutManager(layoutManager);
 
+
     }
 
     @Override
@@ -226,12 +247,13 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         }
         if (v == textViewAdd) {
             Intent i = new Intent(mContext, InventoryGRNDetails.class);
-            i.putExtra("poNumber",tvPoNumber.getText().toString());
+            i.putExtra("poNumber", tvPoNumber.getText().toString());
             startActivity(i);
         }
     }
 
     private void getGrnDetails() {
+        busineesPlaceId = "1";
         final ProgressDialog progressDialog = new ProgressDialog(InventoryGRNStepsActivity.this);
         JSONObject jsonObject1 = new JSONObject();
         try {
@@ -247,7 +269,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
 
             String url = IPOSAPI.WEB_SERVICE_GET_GRN_SUMMARY;
 
-            Log.e(TAG,"Url::"+url);
+            Log.e(TAG, "Url::" + url);
             final Request request = APIClient.getPostRequest(this, url, requestBody);
             okHttpClient.newCall(request).enqueue(new Callback() {
                 @Override
@@ -270,7 +292,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
                         if (response != null && response.isSuccessful()) {
                             grnInventories.clear();
                             String responseData = response.body().string();
-                            Log.e(TAG,"Response***"+responseData);
+                            Log.e(TAG, "Response***" + responseData);
 
                             if (responseData != null) {
                                 JSONObject jsonObject = new JSONObject(responseData);
@@ -281,6 +303,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
                                 poAPQty = jsonObject.optInt("poAPQty");
                                 poBalanceQty = jsonObject.optInt("poBalanceQty");
                                 qcVisible = jsonObject.optBoolean("qcVisible");
+
 
                                 JSONArray jsonArray = jsonObject.optJSONArray("gRNList");
                                 for (int i = 0; i < jsonArray.length(); i++) {
@@ -301,6 +324,11 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        if (qcVisible) {
+                                            llQCList.setVisibility(View.VISIBLE);
+                                        } else {
+                                            llQCList.setVisibility(View.GONE);
+                                        }
                                         setGrnData(poNum, poStatus, poItemQty, poGRNQty, poAPQty, poBalanceQty);
                                     }
                                 });
@@ -358,6 +386,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
             e.printStackTrace();
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -373,10 +402,10 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
 
         tvPoNumber.setText(poNum);
         tvOpen.setText(poStatus);
-        poQtyCount.setText(poItemQty+"");
-        grnQtyCount.setText(poGRNQty+"");
-        apQtyCount.setText(poAPQty+"");
-        balanceQtyCount.setText(poBalanceQty+"");
+        poQtyCount.setText(poItemQty + "");
+        grnQtyCount.setText(poGRNQty + "");
+        apQtyCount.setText(poAPQty + "");
+        balanceQtyCount.setText(poBalanceQty + "");
         tvGrnNumberCount.setText("GRN (" + grnInventories.size() + ")");
 
         kycViewAllAdapter = new InventoryGRNStepsAdapter(mContext, grnInventories, this);
@@ -487,10 +516,15 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
 
     }
 
+
     @Override
     public void onCardClicked(int position) {
+        GRNListModel grnListModel = grnInventories.get(position);
 
+        Intent i = new Intent(mContext, InventoryGRNDetails.class);
+        i.putExtra("grnNumber", grnListModel.getGrnNumber());
+        i.putExtra("cardClick", "yes");
+        startActivity(i);
     }
+
 }
-
-

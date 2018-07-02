@@ -44,8 +44,6 @@ import java.util.regex.Pattern;
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
-import quay.com.ipos.base.MainActivity;
-import quay.com.ipos.customerInfo.CustomerInfoActivity;
 import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerChildAdapter;
 import quay.com.ipos.customerInfo.customerInfoModal.AddCustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CityListModel;
@@ -136,8 +134,9 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
     private String statusCode;
     String customerCode, customerId, titleString, genderString;
     private int localId;
-    String title,gender;
+    String title, gender;
     public static SendDataActivityToFragment sendDataActivityToFragment;
+
     public CustomerAddFullFragment() {
 
     }
@@ -161,7 +160,7 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
         customerCode = i.getStringExtra("customerCode");
         titleString = i.getStringExtra("title");
         genderString = i.getStringExtra("gender");
-        localId = i.getIntExtra("localId",0);
+        localId = i.getIntExtra("localId", 0);
     }
 
     @Nullable
@@ -192,21 +191,21 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
 
     public void setData() {
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
-        if (!TextUtils.isEmpty(titleString)){
+        if (!TextUtils.isEmpty(titleString)) {
             title = titleString;
-        }else {
+        } else {
             title = sharedpreferences.getString("title", "");
 
         }
 
-        if (!TextUtils.isEmpty(genderString)){
+        if (!TextUtils.isEmpty(genderString)) {
             gender = genderString;
-            if (genderString.contains("M")){
+            if (genderString.contains("M")) {
                 gender = "Male";
-            }else {
+            } else {
                 gender = "Female";
             }
-        }else {
+        } else {
             gender = sharedpreferences.getString("gender", "");
         }
 
@@ -231,7 +230,7 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
                 genderSpinner.setSelection(index + 1);
                 genderSpinner.setSelection(index + 1);
                 genderSpinner.setEnabled(false);
-            }else {
+            } else {
                 genderSpinner.setEnabled(true);
             }
         }
@@ -457,9 +456,9 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
                         childModels.add(model);
                         customerChildAdapter.notifyDataSetChanged();
 
-                        if (childModels.size()<=0){
+                        if (childModels.size() <= 0) {
                             btnRemoveChild.setVisibility(View.GONE);
-                        }else {
+                        } else {
                             btnRemoveChild.setVisibility(View.VISIBLE);
                         }
 

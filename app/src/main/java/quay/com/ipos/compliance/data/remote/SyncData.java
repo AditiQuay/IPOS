@@ -13,6 +13,7 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.compliance.data.local.AppDatabase;
 import quay.com.ipos.compliance.data.local.entity.SubTask;
 import quay.com.ipos.compliance.data.remote.model.SynResponse;
+import quay.com.ipos.data.remote.RestService;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -39,7 +40,7 @@ public class SyncData extends AsyncTask<Void, Void, Long> {
                     .create();
 
             Log.i("data", gson.toJson(subTaskList));
-            Call<List<SynResponse>> call = RestService.getApiService(IPOSApplication.getContext()).syncData(subTaskList);
+            Call<List<SynResponse>> call = RestService.getApiServiceSimple().syncData(subTaskList);
             Response<List<SynResponse>> response =  call.execute();
             Log.i(TAG, "Message" + response.code() + "," + response.message());
             Log.i(TAG, "body" +   gson.toJson(response.body()));

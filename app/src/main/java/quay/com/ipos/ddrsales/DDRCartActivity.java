@@ -538,7 +538,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
      */
     public void onSearchButton() {
         Intent mIntent = new Intent(mContext, DDRAddProductActivity.class);
-        mIntent.putExtra("ddr", mDdr);
+         mIntent.putExtra("ddr", mDdr);
         startActivityForResult(mIntent, 1);
     }
 

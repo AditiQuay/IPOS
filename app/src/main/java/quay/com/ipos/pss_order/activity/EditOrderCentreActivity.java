@@ -1188,7 +1188,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
 
         int countt= (int) sum;
         int loopSize = realmNewOrderCarts1.size();
-        int itemsPerFree = countt / (packSize + slabFrom);
+        int itemsPerFree = countt / (packSize);
 
         int freeItems = 0;
         if (itemsPerFree > 0) {
@@ -1305,7 +1305,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
 
         int countt= (int) sum;
         int loopSize = realmNewOrderCarts1.size();
-        int itemsPerFree = countt / (packSize + slabFrom);
+        int itemsPerFree = countt / (packSize);
         int freeItems = 0;
         if (itemsPerFree > 0){
             freeItems = itemsPerFree * packSize;
@@ -1700,6 +1700,11 @@ if (realmNewOrderCarts.getQty()>1) {
                         try {
                             JSONObject jsonObject = new JSONObject(serverResponse);
                             JSONArray array=jsonObject.optJSONArray("data");
+                            if (array.length() == 0) {
+                                Util.showToast("Product not found");
+
+                                return;
+                            }
                             JSONObject jsonObject1=array.optJSONObject(0);
                             addBarcodeScanProduct(jsonObject1.optString("iProductModalId"), jsonObject1.optString("productCode"), jsonObject1.toString());
                         } catch (JSONException e) {

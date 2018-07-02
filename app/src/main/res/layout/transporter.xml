@@ -17,11 +17,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="start|center_vertical"
             android:orientation="vertical"
-            android:padding="8dp"
+            android:paddingBottom="@dimen/dim_4"
+            android:paddingLeft="@dimen/dim_8"
+            android:paddingRight="@dimen/dim_8"
+            android:paddingTop="@dimen/dim_8"
             android:visibility="visible">
 
             <TextView
@@ -33,8 +36,10 @@
             <EditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dim_4"
                 android:background="@color/transparent"
+                android:inputType="text"
                 android:fontFamily="@font/titilliumwebregular"
                 android:textColor="@color/dashboard_textcolor"
                 android:textSize="@dimen/dim_14" />
@@ -77,6 +82,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dim_4"
+                        android:inputType="text"
                         android:background="@color/transparent"
                         android:fontFamily="@font/titilliumwebregular"
                         android:textColor="@color/dashboard_textcolor"
@@ -109,6 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
+                        android:inputType="text"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/dim_14" />
 
@@ -121,7 +128,7 @@
                     android:background="@drawable/ipos_line_black" />
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical"
@@ -139,6 +146,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
+                        android:inputType="text"
                         android:fontFamily="@font/titilliumwebregular"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/dim_14" />
@@ -172,12 +180,12 @@
                         android:text="Track Number" />
 
                     <EditText
-                        android:id="@+id/etTrackNumber1"
+                        android:id="@+id/etTruckNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dim_4"
+                        android:inputType="text"
                         android:background="@color/transparent"
-                        android:enabled="false"
                         android:fontFamily="@font/titilliumwebregular"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/dim_14" />
@@ -203,18 +211,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/titilliumwebregular"
-                        android:text="Truck Number" />
+                        android:text="E-Way Bill Validity" />
 
                     <EditText
-                        android:id="@+id/etTruckNumber2"
+                        android:id="@+id/etEWayBillValidity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/transparent"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:fontFamily="@font/titilliumwebregular"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/dim_14" />
 
                 </LinearLayout>
+
 
                 <View
                     android:layout_width="match_parent"
@@ -240,14 +251,50 @@
                         android:id="@+id/driverMobileNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="10"
                         android:background="@color/transparent"
                         android:fontFamily="@font/titilliumwebregular"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/dim_14" />
 
                 </LinearLayout>
+
             </LinearLayout>
 
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ipos_line_black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="start|center_vertical"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/titilliumwebregular"
+                android:text="Truck Number" />
+
+            <EditText
+                android:id="@+id/etTrackNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:inputType="text"
+                android:fontFamily="@font/titilliumwebregular"
+                android:textColor="@color/dashboard_textcolor"
+                android:textSize="@dimen/dim_14" />
 
         </LinearLayout>
 
@@ -278,6 +325,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
+                android:inputType="text"
                 android:fontFamily="@font/titilliumwebregular"
                 android:textColor="@color/dashboard_textcolor"
                 android:textSize="@dimen/dim_14" />

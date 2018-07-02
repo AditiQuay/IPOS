@@ -39,7 +39,6 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.inventory_product_item, parent, false);
-
         return new InventoryProdcutDetailAdapter.ItemViewHolder(view, new MyCustomEditTextListener());
     }
 
@@ -50,17 +49,20 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
 
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition(), holder);
         holder.qty.setText(grnProductDetailModel.getQty() + "");
-        holder.batchRemark.setText(grnProductDetailModel.remark);
-
+        if (grnProductDetailModel.getActionTitle().equalsIgnoreCase("Normal".trim()) || grnProductDetailModel.getActionTitle().equalsIgnoreCase("Defect".trim())) {
+            holder.batchRemark.setText(grnProductDetailModel.getActionTitle());
+        } else {
+            holder.batchRemark.setText(grnProductDetailModel.getActionTitle());
+        }
         holder.checkBox1.setChecked(grnProductDetailModel.isSelected());
         //set a tag for position
-        holder.checkBox1.setTag(grnProductDetailModel);
+        // holder.checkBox1.setTag(grnProductDetailModel);
         holder.checkBox1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CheckBox cb = (CheckBox) v;
-                GRNProductDetailModel grnProductDetailModel1 = (GRNProductDetailModel) cb.getTag();
-                grnProductDetailModel1.setSelected(cb.isChecked());
+                /*GRNProductDetailModel grnProductDetailModel1 = (GRNProductDetailModel) cb.getTag();
+                grnProductDetailModel1.setSelected(cb.isChecked());*/
                 grnProductDetailModel.setSelected(cb.isChecked());
             }
         });
@@ -73,7 +75,7 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private CheckBox checkBox1;
-        private TextView batchNumber,batchRemark;
+        private TextView batchNumber, batchRemark;
         private EditText qty;
         public MyCustomEditTextListener myCustomEditTextListener;
 

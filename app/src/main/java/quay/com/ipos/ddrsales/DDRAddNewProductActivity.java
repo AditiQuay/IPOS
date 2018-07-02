@@ -43,13 +43,15 @@ import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.ddrsales.model.DDRProduct;
+import quay.com.ipos.ddrsales.model.request.DDRProductReq;
+import quay.com.ipos.ddrsales.model.response.DDRNewOrderProductsResult;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
 import quay.com.ipos.modal.OrderList;
-import quay.com.ipos.pss_order.adapter.AddNewOrderAdapter;
-import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
+import quay.com.ipos.pss_order.adapter.DDRProductCartAdapter;
 import quay.com.ipos.pss_order.modal.ProductSearchRequest;
 
 import quay.com.ipos.service.APIClient;
@@ -71,25 +73,28 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
     private LinearLayoutManager mLayoutManager;
     private OrderList mOrderListResult;
     private TextView tvItemSize,tvNoItemAvailable;
-    private AddNewOrderAdapter mAddNewOrderAdapter;
+    private DDRProductCartAdapter mAddNewOrderAdapter;
     private TextView tvClear,tvItemAddedSize;
     private String entityStateCode="";
     private int businessPlaceCode;
-    ArrayList<NewOrderProductsResult> arrData= new ArrayList<>();
-    ArrayList<NewOrderProductsResult.DataBean> dataBeans= new ArrayList<>();
+    ArrayList<DDRNewOrderProductsResult> arrData= new ArrayList<>();
+    ArrayList<DDRNewOrderProductsResult.DataBean> dataBeans= new ArrayList<>();
     private boolean isSync;
     private LinearLayout llAccept;
     private int postionCheckStock;
+
+    private DDR mDdr;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_order_add_list);
+        mDdr = (DDR) getIntent().getSerializableExtra("ddr");
         setHeader();
 
         getIntentValues();
         initializeComponent();
-        searchProductCall("NA");
+        searchProductCall("NA","All");
         Realm realm=Realm.getDefaultInstance();
         RealmResults<DDRProduct> realmNewOrderCarts1=realm.where(DDRProduct.class).findAll();
 
@@ -141,7 +146,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
 
     }*/
     private void setAdapter() {
-        mAddNewOrderAdapter = new AddNewOrderAdapter(this,this,dataBeans,this);
+        mAddNewOrderAdapter = new DDRProductCartAdapter(this,this,dataBeans,this);
         mRecyclerView.setAdapter(mAddNewOrderAdapter);
     }
     public void setHeader() {
@@ -197,9 +202,9 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().equalsIgnoreCase("")){
-                    searchProductCall(charSequence.toString());
+                    searchProductCall(charSequence.toString(), "na");
                 }else {
-                    searchProductCall("NA");
+                    searchProductCall("NA", "All");
                 }
 
 
@@ -311,7 +316,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
 
             case R.id.llRefreshStocks:
                 final int posDeleteCheckStock = (int) view.getTag();
-                NewOrderProductsResult.DataBean realmNewOrderCart=dataBeans.get(posDeleteCheckStock);
+                DDRNewOrderProductsResult.DataBean realmNewOrderCart=dataBeans.get(posDeleteCheckStock);
                 realmNewOrderCart.setmCheckStock(0);
                 realmNewOrderCart.setCheckStockClick(false);
                 dataBeans.set(posDeleteCheckStock,realmNewOrderCart);
@@ -338,7 +343,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
         }
 
     }
-    private int getTotalPoints(NewOrderProductsResult.DataBean realmNewOrderCarts, int totalPrice){
+    private int getTotalPoints(DDRNewOrderProductsResult.DataBean realmNewOrderCarts, int totalPrice){
         int totalPoints=0;
         if (realmNewOrderCarts.getPointsBasedOn().equalsIgnoreCase("M")){
             totalPoints=realmNewOrderCarts.getPoints();
@@ -432,9 +437,9 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
         }
     }
 
-    private void searchProductCall(String s) {
+    private void searchProductCall(String s, String all) {
 //        showProgress(getResources().getString(R.string.please_wait));
-        ProductSearchRequest productSearchRequest = new ProductSearchRequest();
+       /* ProductSearchRequest productSearchRequest = new ProductSearchRequest();
         productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
         productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
         productSearchRequest.setEntityStateCode(entityStateCode);
@@ -443,14 +448,15 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
         productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
         productSearchRequest.setBarCodeNumber("All");
         productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
-        productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
+        productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));*/
         ServiceTask mTask = new ServiceTask();
-        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH);
+        mTask.setApiUrl(IPOSAPI.BASE_URL);
+        mTask.setApiMethod(IPOSAPI.DDR_GetDDRProductList);
         mTask.setApiCallType(Constants.API_METHOD_POST);
-        mTask.setParamObj(productSearchRequest);
+        mTask.setParamObj(new DDRProductReq(s,mDdr,false));
+      //  mTask.setParamObj(productSearchRequest);
         mTask.setListener(this);
-        mTask.setResultType(NewOrderProductsResult.class);
+        mTask.setResultType(DDRNewOrderProductsResult.class);
         if(Util.isConnected())
             mTask.execute();
         else
@@ -459,20 +465,13 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
 
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
-
-
-
-
-
-        if (httpStatusCode == Constants.SUCCESS) {
+          if (httpStatusCode == Constants.SUCCESS) {
             dataBeans.clear();
             arrData.clear();
             if (Util.validateString(serverResponse)){
 
-                NewOrderProductsResult noGetEntityResultModal=(NewOrderProductsResult)resultObj;
+                DDRNewOrderProductsResult noGetEntityResultModal=(DDRNewOrderProductsResult)resultObj;
                 arrData.add(noGetEntityResultModal);
-
-
                 for (int i=0;i<arrData.size();i++){
                     dataBeans.addAll(arrData.get(0).getData());
                 }
@@ -1301,7 +1300,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
                             DDRAddNewProductActivity.this.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    NewOrderProductsResult.DataBean realmNewOrderCart=dataBeans.get(postionCheckStock);
+                                    DDRNewOrderProductsResult.DataBean realmNewOrderCart=dataBeans.get(postionCheckStock);
                                     realmNewOrderCart.setmCheckStock(jsonObject.optInt("stockQty"));
                                     realmNewOrderCart.setCheckStockClick(true);
                                     dataBeans.set(postionCheckStock,realmNewOrderCart);

@@ -17,6 +17,14 @@
         android:background="@drawable/rectangle_child_white"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/llSupplierInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -55,7 +63,7 @@
                         android:enabled="false"
                         android:background="@color/transparent"
                         android:layout_marginTop="@dimen/dim_4"
-                        android:text="PO1800001"
+                        android:text="PO"
                         android:textSize="@dimen/dim_14"
                         android:textColor="@color/dashboard_textcolor" />
 
@@ -66,6 +74,8 @@
                     android:layout_marginTop="4dp"
                     android:background="@drawable/ipos_line_black"/>
                 <LinearLayout
+
+                    android:id="@+id/llPoDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
@@ -85,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:enabled="false"
                         android:background="@color/transparent"
-                        android:text="15 May 2018"
+                        android:text=""
                         android:textSize="@dimen/dim_14"
                         android:textColor="@color/dashboard_textcolor" />
 
@@ -115,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:enabled="false"
                         android:background="@color/transparent"
-                        android:text="26,000"
+                        android:text="0"
                         android:textSize="@dimen/dim_14"
                         android:textColor="@color/dashboard_textcolor" />
 
@@ -127,6 +137,7 @@
                 android:background="@drawable/ipos_line_black"/>
 
             <LinearLayout
+                android:id="@+id/llPoVal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -183,7 +194,7 @@
                         android:layout_height="wrap_content"
                         android:enabled="false"
                         android:background="@color/transparent"
-                        android:text="15 Jun 2018"
+                        android:text=""
                         android:textSize="@dimen/dim_14"
                         android:textColor="@color/dashboard_textcolor" />
 
@@ -214,7 +225,7 @@
                         android:layout_height="wrap_content"
                         android:enabled="false"
                         android:background="@color/transparent"
-                        android:text="24,000"
+                        android:text="0"
                         android:textSize="@dimen/dim_14"
                         android:textColor="@color/dashboard_textcolor" />
 
@@ -232,7 +243,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="4dp"
             android:background="@drawable/ipos_line_black"/>
-
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -254,7 +265,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:background="@color/transparent"
-                android:text="SC0001 - Agro Chemicals"
+                android:text=""
                 android:textSize="@dimen/dim_14"
                 android:textColor="@color/dashboard_textcolor" />
 
@@ -285,7 +296,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:background="@color/transparent"
-                android:text="# 660 West paramanand colony, near Kingsway camp, New Delhi"
+                android:text=""
                 android:textSize="@dimen/dim_14"
                 android:textColor="@color/dashboard_textcolor" />
 
@@ -316,7 +327,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:background="@color/transparent"
-                android:text="15 Jun 2018"
+                android:text=""
                 android:textSize="@dimen/dim_14"
                 android:textColor="@color/dashboard_textcolor" />
 
@@ -347,7 +358,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:background="@color/transparent"
-                android:text="# 660 West paramanand colony, near Kingsway camp, New Delhi"
+                android:text=""
                 android:textSize="@dimen/dim_14"
                 android:textColor="@color/dashboard_textcolor" />
 
@@ -378,7 +389,6 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:background="@color/transparent"
-                android:text="# 660 West paramanand colony, near Kingsway camp, New Delhi"
                 android:textSize="@dimen/dim_14"
                 android:textColor="@color/dashboard_textcolor" />
 

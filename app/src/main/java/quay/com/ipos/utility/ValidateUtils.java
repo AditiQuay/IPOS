@@ -2,6 +2,9 @@ package quay.com.ipos.utility;
 
 import java.util.regex.Pattern;
 
+import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
+
 public class ValidateUtils {
 
     public static boolean isValidMobile(String phone) {
@@ -18,5 +21,13 @@ public class ValidateUtils {
             check=false;
         }
         return check;
+    }
+
+    public static boolean isNetworkConnected() {
+        if (!Util.isConnected()) {
+            Util.showToast(IPOSApplication.getContext().getString(R.string.no_internet_connection_warning_server_error));
+            return false;
+        }
+        return true;
     }
 }

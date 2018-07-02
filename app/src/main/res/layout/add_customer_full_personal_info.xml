@@ -49,6 +49,7 @@
                 app:ms_alignLabels="true"
                 app:ms_baseColor="@color/grey"
                 app:ms_enableErrorLabel="false"
+                android:textSize="@dimen/universal_text_size16"
                 app:ms_enableFloatingLabel="true"
                 app:ms_errorColor="@color/red"
                 app:ms_floatingLabelColor="@color/grey"
@@ -141,6 +142,7 @@
                         app:ms_baseColor="@color/grey"
                         app:ms_enableErrorLabel="false"
                         app:ms_enableFloatingLabel="true"
+                        android:textSize="@dimen/universal_text_size16"
                         app:ms_errorColor="@color/red"
                         app:ms_floatingLabelColor="@color/grey"
                         app:ms_floatingLabelText="Gender *"
@@ -168,10 +170,10 @@
                             android:clickable="true"
                             android:drawableRight="@drawable/calendar_gray"
                             android:focusable="false"
+                            android:textSize="@dimen/universal_text_size16"
                             android:hint="DOB *"
                             android:inputType="text"
-                            android:lines="1"
-                            android:textSize="@dimen/universal_text_size14" />
+                            android:lines="1" />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -203,6 +205,7 @@
                         app:ms_baseColor="@color/grey"
                         app:ms_enableErrorLabel="false"
                         app:ms_enableFloatingLabel="true"
+                        android:textSize="@dimen/universal_text_size16"
                         app:ms_errorColor="@color/red"
                         app:ms_floatingLabelColor="@color/grey"
                         app:ms_floatingLabelText="Marital Status *"
@@ -292,7 +295,7 @@
                                     android:inputType="text"
                                     android:lines="1"
                                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                                    android:textSize="@dimen/universal_text_size14" />
+                                    android:textSize="@dimen/universal_text_size16" />
 
                             </android.support.design.widget.TextInputLayout>
                         </LinearLayout>
@@ -316,7 +319,8 @@
                                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                                     android:inputType="text"
                                     android:lines="1"
-                                    android:textSize="@dimen/universal_text_size14" />
+                                    android:textSize="@dimen/universal_text_size16"
+                                    />
 
                             </android.support.design.widget.TextInputLayout>
                         </LinearLayout>
@@ -351,7 +355,7 @@
                                     android:focusable="false"
                                     android:hint="DOB *"
                                     android:lines="1"
-                                    android:textSize="@dimen/universal_text_size14" />
+                                    android:textSize="@dimen/universal_text_size16" />
 
                             </android.support.design.widget.TextInputLayout>
 
@@ -375,6 +379,7 @@
                                 app:ms_enableErrorLabel="false"
                                 app:ms_enableFloatingLabel="true"
                                 app:ms_errorColor="@color/red"
+                                android:textSize="@dimen/universal_text_size16"
                                 app:ms_floatingLabelColor="@color/grey"
                                 app:ms_floatingLabelText="Child *"
                                 app:ms_highlightColor="@color/highlight"
@@ -463,7 +468,7 @@
                             android:background="@drawable/button_drawable_blue"
                             android:backgroundTint="@color/colorPrimary"
                             android:stateListAnimator="@null"
-                            android:text="AddChild"
+                            android:text="Add Child"
                             android:textAllCaps="false" />
 
                     </RelativeLayout>

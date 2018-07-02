@@ -181,9 +181,11 @@
 
             <include layout="@layout/view_layout_without_dot"/>
             <LinearLayout
+                android:id="@+id/llTransferType"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:visibility="gone"
                 android:background="@color/white">
 
 
@@ -232,9 +234,11 @@
             </LinearLayout>
             <include layout="@layout/view_layout_without_dot"/>
             <LinearLayout
+                android:id="@+id/llInventory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:visibility="gone"
                 android:background="@color/white">
 
 
@@ -267,7 +271,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
                         android:layout_marginLeft="8dp"
-                        android:checked="true"/>
+                        android:checked="false"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -278,12 +282,39 @@
                 </LinearLayout>
             </LinearLayout>
             <include layout="@layout/view_layout_without_dot"/>
+            <LinearLayout
+                android:id="@+id/btnAddNew"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_round_app"
+                android:layout_gravity="end"
+                android:padding="6dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_alignParentRight="true">
 
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Create PO"
+                    android:gravity="center"
+                    android:textColor="@color/white"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dim_24"
+                    android:layout_height="@dimen/dim_24"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_action_arrow_right"/>
+
+
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/llPOVisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
 
                 android:orientation="vertical">
                 <LinearLayout

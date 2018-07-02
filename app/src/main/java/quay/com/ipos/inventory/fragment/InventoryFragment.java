@@ -44,6 +44,7 @@ import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseFragment;
+import quay.com.ipos.inventory.activity.EditExpandablePODetailsActivity;
 import quay.com.ipos.inventory.activity.ExpandablePODetailsActivity;
 import quay.com.ipos.pss_order.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.enums.NoGetEntityEnums;
@@ -70,6 +71,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
             tvLessDetails, tvRoundingOffPrice, tvPay, tvPinCount;
 
+    private LinearLayout btnAddNew;
     Switch swchInventory,swchType,swchPOAvailable;
     private FrameLayout flScanner;
     private Fragment scanner_fragment;
@@ -102,7 +104,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     private int businessPlaceCode;
     private boolean isSync;
     private String strPlace;
-    private LinearLayout btnNext,llPOVisible;
+    private LinearLayout btnNext,llPOVisible,llInventory,llTransferType;
     private EditText edtPoNumber,edtDate,edtSupplier;
     private ImageView imgSearch;
 
@@ -130,6 +132,16 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                 }
             }
         });
+
+        btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i=new Intent(getActivity(), EditExpandablePODetailsActivity.class);
+                i.putExtra("businessPlaceId", businessPlaceCode + "");
+                startActivity(i);
+            }
+        });
         return rootView;
     }
 
@@ -146,7 +158,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
 */
 
     private void initializeComponent(View rootView) {
-
+        btnAddNew=rootView.findViewById(R.id.btnAddNew);
         swchInventory=rootView.findViewById(R.id.swchInventory);
         swchPOAvailable=rootView.findViewById(R.id.swchPOAvailable);
         swchType=rootView.findViewById(R.id.swchType);
@@ -156,6 +168,8 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
         spnAddress=rootView.findViewById(R.id.spnAddress);
         imgSearch=rootView.findViewById(R.id.imgSearch);
         llPOVisible=rootView.findViewById(R.id.llPOVisible);
+        llTransferType=rootView.findViewById(R.id.llTransferType);
+        llInventory=rootView.findViewById(R.id.llInventory);
         setSpinnerData();
 
         edtPoNumber.addTextChangedListener(new TextWatcher() {
@@ -189,12 +203,52 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b){
+                    btnAddNew.setVisibility(View.GONE);
                     llPOVisible.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.VISIBLE);
+
                 }else {
                     llPOVisible.setVisibility(View.GONE);
+                    btnAddNew.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.GONE);
                 }
             }
         });
+        swchInventory.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (!b){
+                    btnAddNew.setVisibility(View.GONE);
+                    llTransferType.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.VISIBLE);
+                 //   llPOVisible.setVisibility(View.VISIBLE);
+                  //  llInventory.setVisibility(View.VISIBLE);
+                }else {
+                    btnAddNew.setVisibility(View.GONE);
+                    llTransferType.setVisibility(View.GONE);
+                    llPOVisible.setVisibility(View.GONE);
+                    llInventory.setVisibility(View.GONE);
+                    btnNext.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        swchType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b){
+                    btnAddNew.setVisibility(View.GONE);
+                    llPOVisible.setVisibility(View.GONE);
+                    llInventory.setVisibility(View.GONE);
+                    btnNext.setVisibility(View.GONE);
+                }else {
+                    btnAddNew.setVisibility(View.GONE);
+                    llPOVisible.setVisibility(View.GONE);
+                    llInventory.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
 
     }
 
