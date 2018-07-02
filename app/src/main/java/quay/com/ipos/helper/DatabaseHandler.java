@@ -82,6 +82,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_sync = "sync";
     private static final String KEY_date_time = "date_time";
     private static final String KEY_timestamp = "timestamp";
+    private static final String KEY_print_receipt = "print_receipt";
 
 
     public DatabaseHandler(Context context) {
@@ -100,7 +101,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_RETAIL_TABLE);
 
 
-        String CREATE_TABLE_BILLING = "CREATE TABLE " + TABLE_RETAIL_BILLING + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_customerID + " TEXT,"+KEY_orderID+" TEXT," + KEY_billing + " TEXT," + KEY_date_time + " TEXT," + KEY_timestamp + " TEXT," + KEY_sync + " TINYINT" + ")";
+        String CREATE_TABLE_BILLING = "CREATE TABLE " + TABLE_RETAIL_BILLING + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_customerID + " TEXT,"+KEY_orderID+" TEXT," + KEY_billing + " TEXT," + KEY_date_time + " TEXT," + KEY_timestamp + " TEXT," + KEY_sync + " TINYINT,"+KEY_print_receipt + " TEXT" + ")";
         db.execSQL(CREATE_TABLE_BILLING);
 
 
@@ -393,6 +394,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_date_time, billingSync.getOrderDateTime());
         values.put(KEY_timestamp, billingSync.getOrderTimestamp());
         values.put(KEY_sync, billingSync.getSync());
+        values.put(KEY_print_receipt, billingSync.getReceipt());
         // Inserting Row
         db.insert(TABLE_RETAIL_BILLING, null, values);
         db.setTransactionSuccessful();
@@ -441,6 +443,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 datum.setOrderDateTime(cursor.getString(4));
                 datum.setOrderTimestamp(cursor.getString(5));
                 datum.setSync(cursor.getInt(6));
+                datum.setReceipt(cursor.getString(7));
                 billingSyncs.add(datum);
             } while (cursor.moveToNext());
         }
@@ -467,6 +470,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 datum.setOrderDateTime(cursor.getString(4));
                 datum.setOrderTimestamp(cursor.getString(5));
                 datum.setSync(cursor.getInt(6));
+                datum.setReceipt(cursor.getString(7));
                 billingSyncs.add(datum);
             } while (cursor.moveToNext());
         }
@@ -494,6 +498,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 datum.setOrderDateTime(cursor.getString(4));
                 datum.setOrderTimestamp(cursor.getString(5));
                 datum.setSync(cursor.getInt(6));
+                datum.setReceipt(cursor.getString(7));
                 billingSyncs.add(datum);
             } while (cursor.moveToNext());
         }

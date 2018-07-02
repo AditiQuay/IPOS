@@ -2,6 +2,8 @@ package quay.com.ipos.inventory.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +15,21 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.modal.POPaymentTerms;
+import quay.com.ipos.listeners.MyListener;
+import quay.com.ipos.listeners.MyListenerPaymentTerms;
+import quay.com.ipos.utility.Util;
 
 
 public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTermsPOListAdapter.SurveyViewHolder> {
     private Context mContext;
     private ArrayList<POPaymentTerms> stringArrayList;
     private OnItemSelecteListener mListener;
-
-    public PaymentTermsPOListAdapter(Context mContext, ArrayList<POPaymentTerms> stringArrayList) {
+    private MyListenerPaymentTerms myListener;
+    private boolean onBind;
+    public PaymentTermsPOListAdapter(Context mContext, ArrayList<POPaymentTerms> stringArrayList,MyListenerPaymentTerms myListener) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
+        this.myListener=myListener;
 
     }
 
@@ -33,8 +40,8 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
     }
 
     @Override
-    public void onBindViewHolder(SurveyViewHolder holder, int position) {
-
+    public void onBindViewHolder(final SurveyViewHolder holder, final int position) {
+        onBind = true;
 
 
         holder.tvQty.setText(stringArrayList.get(position).getPoPaymentTermsDetail());
@@ -43,6 +50,57 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
 
 
         holder.percent.setEnabled(true);
+        onBind = false;
+        holder.tvGst.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!onBind) {
+                    if (Util.validateString(holder.percent.getText().toString())) {
+
+                        myListener.onRowClickedPaymentTerms(position, Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
+                    } else {
+                        myListener.onRowClickedPaymentTerms(position, 0, holder.tvGst.getText().toString());
+
+                    }
+                }
+            }
+        });
+        holder.percent.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!onBind) {
+                    if (Util.validateString(holder.percent.getText().toString())) {
+
+                        myListener.onRowClickedPaymentTerms(position, Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
+                    } else {
+                        myListener.onRowClickedPaymentTerms(position, 0, holder.tvGst.getText().toString());
+
+                    }
+                }
+            }
+        });
+
+
 
 
     }
@@ -62,9 +120,9 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvQty,tvGst;
+        private TextView tvQty;
 
-        private EditText percent;
+        private EditText percent,tvGst;
         private RadioButton radio;
         public SurveyViewHolder(View itemView) {
             super(itemView);

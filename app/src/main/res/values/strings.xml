@@ -390,7 +390,6 @@
     <string name="disc_perc_val_validation">Please enter discount value/percentage</string>
 
 
-
     <string name="ct_statutory_business_compliance"><![CDATA[Statutory & Business Compliance]]></string>
     <string name="ct_business_compliance"><![CDATA[Business Compliance]]></string>
     <string name="ct_statutory_compliance"><![CDATA[Statutory Compliance]]></string>
@@ -466,8 +465,47 @@
 
     <string name="parsing_server_error">Parsing error! Please try again !!</string>
     <string name="no_stock_available">No stock available</string>
+    <string name="free">Free</string>
+    <string name="information">Information</string>
+    <string name="discount_perc">Discount Percentage</string>
+    <string name="edit">Edit</string>
+    <string name="phone_">Phone:</string>
+    <string name="email_">Email:</string>
+    <string name="cin_">CIN</string>
+    <string name="gstin_">GSTIN:</string>
+    <string name="bill_number_">Bill Number:</string>
+    <string name="date_n_time"><![CDATA[Date & Time:]]></string>
+    <string name="customer_">Customer:</string>
+    <string name="item_details">Item Details</string>
+    <string name="unit_price">Unit Price</string>
+    <string name="discount">Discount</string>
+    <string name="amount">Amount</string>
+    <string name="hsn_code">HSN Code</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="paid_by_cash">Paid By Cash:</string>
+    <string name="tender_changes_">Tender Changes:</string>
+    <string name="paid_by_card">Paid By Card</string>
+    <string name="card_type_">Card Type:</string>
+    <string name="number_">Number:</string>
+    <string name="card_number_">Card Number:</string>
+    <string name="expiry_date_">Expiry Date:</string>
+    <string name="gst_summary">GST Summary</string>
+    <string name="value">Value</string>
+    <string name="gst">GST</string>
+    <string name="total_gst_value">Total GST Value</string>
+    <string name="gst_value">GST Value</string>
 
     <!--Compliance Tracker END-->
 
+    <!--Inventory GRN string values-->
+    <string name="iv_error_name">Please enter name</string>
+    <string name="iv_error_eway_billNumber">Please enter EWayBillNumber</string>
+    <string name="iv_error_LRNumber">Please enter LRNumber</string>
+    <string name="iv_error_driver_name">Please enter Driver Name</string>
+    <string name="iv_error_truck_number">Please enter Truck Number</string>
+    <string name="iv_error_eway_billValidity">Please enter EWayBillValidity</string>
+    <string name="iv_error_mobile_number">Please enter Driver Mobile Number</string>
+    <string name="iv_error_track_number">Please enter Track Number</string>
+    <string name="iv_error_address">Please enter Address</string>
 
 </resources>

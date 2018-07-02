@@ -110,13 +110,15 @@
                     android:fontFamily="@font/titilliumwebregular"
                     android:text="Received Date" />
 
+
                 <EditText
                     android:id="@+id/et_received_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dim_4"
                     android:background="@color/transparent"
-                    android:enabled="true"
+                    android:focusable="false"
+                    android:clickable="true"
                     android:fontFamily="@font/titilliumwebregular"
                     android:text="18-May-2018"
                     android:textColor="@color/dashboard_textcolor"

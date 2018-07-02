@@ -94,30 +94,34 @@ public class CustomerInfoAdapter extends RecyclerView.Adapter<CustomerInfoAdapte
             else
                 holder.textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + customerInfoModal.getLastBillingDate() + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerInfoModal.getLastBillingAmount());
         }
-        if (NetUtil.isNetworkAvailable(mContext)) {
-            if (!TextUtils.isEmpty(customerInfoModal.getCustomerImage())){
-                Picasso.get().load(customerInfoModal.getCustomerImage()).into(holder.imageViewProfileDummy);
-            }else {
-                holder.imageViewProfileDummy.setImageResource(R.drawable.placeholder);
+        try {
+            if (NetUtil.isNetworkAvailable(mContext)) {
+                if (!TextUtils.isEmpty(customerInfoModal.getCustomerImage())) {
+                    Picasso.get().load(customerInfoModal.getCustomerImage()).into(holder.imageViewProfileDummy);
+                } else {
+                    holder.imageViewProfileDummy.setImageResource(R.drawable.placeholder);
+                }
+
+            } else {
+                Picasso.get()
+                        .load(customerInfoModal.getCustomerImage())
+                        .placeholder(R.drawable.placeholder)
+                        .networkPolicy(NetworkPolicy.OFFLINE)
+                        .into(holder.imageViewProfileDummy, new Callback() {
+                            @Override
+                            public void onSuccess() {
+
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+
+                            }
+
+                        });
             }
+        }catch (Exception e){
 
-        } else {
-            Picasso.get()
-                    .load(customerInfoModal.getCustomerImage())
-                    .placeholder(R.drawable.placeholder)
-                    .networkPolicy(NetworkPolicy.OFFLINE)
-                    .into(holder.imageViewProfileDummy, new Callback() {
-                        @Override
-                        public void onSuccess() {
-
-                        }
-
-                        @Override
-                        public void onError(Exception e) {
-
-                        }
-
-                    });
         }
 
 

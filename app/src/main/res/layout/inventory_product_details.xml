@@ -174,9 +174,9 @@
                     style="@style/styleWhiteTextColor14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:backgroundTint="@color/button_tint_resource"
-                    android:drawablePadding="@dimen/dim_4"
+                    android:gravity="center"
                     android:stateListAnimator="@null"
                     android:text="Others"
                     android:textAllCaps="false" />
@@ -196,11 +196,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:inputType="number"
                     android:layout_toLeftOf="@+id/btnAddBatch"
                     android:background="@drawable/white_background"
                     android:fontFamily="@font/titilliumwebregular"
                     android:hint="Enter batch number"
+                    android:inputType="number"
                     android:padding="@dimen/dim_4"
                     android:textSize="@dimen/universal_text_size15" />
 

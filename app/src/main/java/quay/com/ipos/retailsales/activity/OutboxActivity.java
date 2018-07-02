@@ -33,7 +33,7 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
     TextView tvNoItemAvailable;
     ArrayList<BillingSync> billingSyncs = new ArrayList<>();
     PaymentRequest paymentRequest;
-    SwipeRefreshLayout swipeToRefresh;
+//    SwipeRefreshLayout swipeToRefresh;
     //1 means data is synced and 0 means data is not synced
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
@@ -53,7 +53,7 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outbox_list);
         toolbar = findViewById(R.id.toolbar);
-        swipeToRefresh = findViewById(R.id.swipeToRefresh);
+//        swipeToRefresh = findViewById(R.id.swipeToRefresh);
         tvNoItemAvailable = findViewById(R.id.tvNoItemAvailable);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -69,15 +69,15 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
         //initializing views and objects
         db = new DatabaseHandler(this);
         update();
-
-        swipeToRefresh.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        sendDataToServer();
-                    }
-                }
-        );
+//        swipeToRefresh.setEnabled(false);
+//        swipeToRefresh.setOnRefreshListener(
+//                new SwipeRefreshLayout.OnRefreshListener() {
+//                    @Override
+//                    public void onRefresh() {
+////                        sendDataToServer();
+//                    }
+//                }
+//        );
 
     }
     public void sendDataToServer() {
@@ -92,12 +92,13 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
                 callServicePayment();
             }
         }else {
-            swipeToRefresh.invalidate();
+//            swipeToRefresh.invalidate();
             db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
         }
     }
 
     private void callServicePayment() {
+        showProgressDialog(R.string.please_wait);
         ServiceTask mServiceTask = new ServiceTask();
         mServiceTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT);
         mServiceTask.setParamObj(paymentRequest);
@@ -142,7 +143,7 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
                         db.updateSync(status, paymentRequest.getOrderTimestamp());
                     sendDataToServer();
                 } else {
-                    swipeToRefresh.invalidate();
+//                    swipeToRefresh.invalidate();
                     db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
                 }
 
@@ -176,11 +177,17 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
             nameAdapter.notifyDataSetChanged();
             tvNoItemAvailable.setVisibility(View.GONE);
             listViewNames.setVisibility(View.VISIBLE);
-            swipeToRefresh.setVisibility(View.VISIBLE);
+//            swipeToRefresh.setVisibility(View.VISIBLE);
+            for(int i =0 ; i < names.size(); i++){
+                if(names.get(i).getSync()==1){
+                    names.remove(i);
+                    i--;
+                }
+            }
         }else {
             db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
             nameAdapter.notifyDataSetChanged();
-            swipeToRefresh.setVisibility(View.GONE);
+//            swipeToRefresh.setVisibility(View.GONE);
 //            Util.showToast("No Outbox list available", IPOSApplication.getAppInstance());
 //            finish();
             tvNoItemAvailable.setVisibility(View.VISIBLE);

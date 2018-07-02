@@ -14,13 +14,13 @@ import io.realm.annotations.PrimaryKey;
  */
 public class GRNProductDetailModel  implements Serializable {
     private String number;
-    private String actionTitle;
+    public String actionTitle="";
     private int actionID;
     private int qty;
 
 
     public boolean isSelected;
-    public String remark = "";
+  //  public String remark = "";
 
     public boolean isSelected() {
         return isSelected;

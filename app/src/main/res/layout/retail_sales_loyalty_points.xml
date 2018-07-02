@@ -205,6 +205,7 @@
                 android:layout_weight="1"
                 android:paddingRight="@dimen/dim_35"
                 android:textSize="@dimen/text_size_15sp"
+                android:visibility="gone"
                 android:textColor="@color/colorPrimary"
                 app:typeface="TitilliumWeb-SemiBold.ttf"
                 android:text="@string/resend_otp" />

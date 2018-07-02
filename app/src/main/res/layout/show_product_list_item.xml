@@ -299,7 +299,7 @@
             android:gravity="right"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
-            android:text="Free"
+            android:text="@string/free"
             android:textColor="@color/green"
             android:visibility="gone"
             android:textSize="@dimen/text_size_14sp"/>
