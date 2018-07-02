@@ -32,7 +32,7 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
@@ -330,7 +330,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="@string/amount"
+                    android:text="@string/gst"
                     android:paddingTop="@dimen/dim_10"
                     android:paddingLeft="@dimen/dim_10"
                     android:textColor="@color/grey"
@@ -566,8 +566,6 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15sp" />
 
-
-
                 <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvRoundingOffPrice"
                     android:layout_width="wrap_content"
@@ -611,16 +609,10 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_size_15sp" />
             </LinearLayout>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:src="@drawable/dashed_line"
-                android:layout_marginTop="@dimen/dim_5"
-                android:layout_marginBottom="@dimen/dim_5"
-                android:layerType="software" />
+
             <include
                 layout="@layout/print_view_payment_details"/>
         </LinearLayout>
 
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

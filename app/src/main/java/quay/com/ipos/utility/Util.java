@@ -54,6 +54,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -807,6 +808,10 @@ public class Util {
         Format format = NumberFormat.getCurrencyInstance(new Locale("en", "in"));
         return (format.format(new BigDecimal(str))).replaceAll("Rs.",getStringRes(R.string.Rs).replaceAll(".00",""));
 
+    }
+
+    public static double getLastTwoDigits(double value){
+        return Double.parseDouble(new DecimalFormat("###.##").format(value));
     }
 
     public static String generateOrderFormat(int number){

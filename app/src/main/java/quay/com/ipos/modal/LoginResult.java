@@ -279,8 +279,8 @@ public class LoginResult {
             private int LocationCharge2;
             private String LocationWorkHoursFrom;
             private String LocationWorkHoursTo;
-            private String LocationEmail1;
-            private String LocationEmail2;
+            private String locationEmail1;
+            private String locationEmail2;
             private String CreateDate;
             private String ModifiedDate;
             private boolean Active;
@@ -426,19 +426,19 @@ public class LoginResult {
             }
 
             public String getLocationEmail1() {
-                return LocationEmail1;
+                return locationEmail1;
             }
 
             public void setLocationEmail1(String LocationEmail1) {
-                this.LocationEmail1 = LocationEmail1;
+                this.locationEmail1 = LocationEmail1;
             }
 
             public String getLocationEmail2() {
-                return LocationEmail2;
+                return locationEmail2;
             }
 
             public void setLocationEmail2(String LocationEmail2) {
-                this.LocationEmail2 = LocationEmail2;
+                this.locationEmail2 = LocationEmail2;
             }
 
             public String getCreateDate() {

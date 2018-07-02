@@ -14,8 +14,11 @@ import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.modal.PrintViewResult;
 import quay.com.ipos.retailsales.adapter.GSTSummaryAdapter;
 import quay.com.ipos.retailsales.adapter.ItemDetailAdapter;
+import quay.com.ipos.retailsales.adapter.PaymentAdapter;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
+import quay.com.ipos.ui.LinearLayoutManagerDummy;
 import quay.com.ipos.ui.WrapContentLinearLayoutManager;
+import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Util;
 
@@ -28,14 +31,15 @@ public class PrintReceiptActivity extends BaseActivity {
     String json;
     String jsonFrom;
     private LinearLayout llRedeem;
-    private RecyclerView rvItemDetails,rvGST;
+    private RecyclerView rvItemDetails,rvGST,rvPayment;
     private TextView tvStoreName,tvStoreAddress,tvStorePhone,tvStoreEmail,tvStoreCIN,tvStoreGSTIN,tvTaxVoice,tvBillNumber,
             tvDateTime,tvCustomerDetails,tvItemDetails,tvItemSize,tvTotalQty,tvTotalAmount,tvTotalDiscountPrice,
             tvTotalPoints,tvTotalRedeemValue,tvNetTotal,tvCGSTPrice,tvSGSTPrice,tvRoundingOffPrice,tvSaleValue,
             tvPaymentDetails,tvPaidByCash,tvTenderChanges,tvPaidByCard,tvCardType,tvCardNumber,tvExpiryDate,tvGSTSummary,tvTotalGSTValue;
-    private LinearLayoutManager mLayoutManager;
+    private LinearLayoutManagerDummy mLayoutManager;
     private ItemDetailAdapter mItemDetailAdapter;
     private GSTSummaryAdapter mGSTSummaryAdapter;
+    private PaymentAdapter paymentAdapter;
     ArrayList<PrintViewResult.ItemDetail> itemDetails = new ArrayList<>();
     ArrayList<PrintViewResult.PaymentsDetail> paymentsDetails = new ArrayList<>();
     ArrayList<PrintViewResult.GstSummary> gstSummaries = new ArrayList<>();
@@ -45,16 +49,55 @@ public class PrintReceiptActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_print_view);
-        if(getIntent()!=null){
-            json = getIntent().getStringExtra(Constants.RECEIPT);
-            jsonFrom = getIntent().getStringExtra(Constants.RECEIPT_FROM);
-            if(jsonFrom.equalsIgnoreCase(Constants.paymentMode)){
-                if(!json.equalsIgnoreCase(""))
-                    mPrintViewResult = Util.getCustomGson().fromJson(json,PrintViewResult.class);
+        initializeComponent();
+        try {
+            if (getIntent() != null) {
+                json = getIntent().getStringExtra(Constants.RECEIPT);
+                jsonFrom = getIntent().getStringExtra(Constants.RECEIPT_FROM);
+                if (jsonFrom.equalsIgnoreCase(Constants.paymentMode)) {
+                    if (!json.equalsIgnoreCase("")) {
+                        mPrintViewResult = Util.getCustomGson().fromJson(json, PrintViewResult.class);
+                        setValues();
+                    }
+                }
             }
+        }catch (Exception e){
+            AppLog.e(PrintReceiptActivity.class.getSimpleName(),e.getMessage());
         }
 
-        initializeComponent();
+    }
+
+    private void setValues() {
+        itemDetails.addAll(mPrintViewResult.getItemDetails());
+        mItemDetailAdapter.notifyDataSetChanged();
+        paymentsDetails.addAll(mPrintViewResult.getPaymentsDetails());
+        paymentAdapter.notifyDataSetChanged();
+        gstSummaries.addAll(mPrintViewResult.getGstSummary());
+        mGSTSummaryAdapter.notifyDataSetChanged();
+        tvStoreName.setText(mPrintViewResult.getLocationName()+"");
+        tvStoreAddress.setText(mPrintViewResult.getBusinessPlaceName()+"");
+        tvStorePhone.setText("Phone: "+mPrintViewResult.getLocationPhone1()+"");
+        tvStoreEmail.setText("Email: "+mPrintViewResult.getLocationEmail1()+"");
+        tvStoreGSTIN.setText("GSTIN: "+mPrintViewResult.getGstin()+"");
+        tvStoreCIN.setText("CIN: "+mPrintViewResult.getCin()+"");
+        tvBillNumber.setText(mPrintViewResult.getOrderNo()+"");
+        tvDateTime.setText(mPrintViewResult.getOrderDate()+"");
+        if(mPrintViewResult.getCustomerName()!=null && mPrintViewResult.getCustomerName().equalsIgnoreCase(""))
+            tvCustomerDetails.setText(mPrintViewResult.getMobile()+" - "+mPrintViewResult.getCustomerName());
+        else {
+            tvCustomerDetails.setText("NA");
+        }
+        tvItemSize.setText(itemDetails.size()+" items");
+        tvTotalQty.setText("Qty "+ mPrintViewResult.getTotalQty());
+        tvTotalAmount.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalAmount()));
+        tvTotalDiscountPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalDiscountAmount()));
+        tvNetTotal.setText(Util.getIndianNumberFormat(mPrintViewResult.getNetTotalAmount()));
+        tvCGSTPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalCgst()));
+        tvSGSTPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalSgst()));
+        tvRoundingOffPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getRoundingOff()));
+        tvSaleValue.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalSaleAmount()));
+        tvTotalGSTValue.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalIgst()));
+//        if(mPrintViewResult.get)
     }
 
     private void initializeComponent() {
@@ -91,12 +134,39 @@ public class PrintReceiptActivity extends BaseActivity {
         tvTotalGSTValue = findViewById(R.id.tvTotalGSTValue);
         rvItemDetails = findViewById(R.id.rvItemDetails);
         rvGST = findViewById(R.id.rvGST);
+        rvPayment = findViewById(R.id.rvPayment);
+
+        //        >>>>>>>>>>>>>>>>>>>>>>>>>> rvItemDetails <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         rvItemDetails.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(mContext);
-        rvItemDetails.setLayoutManager(new WrapContentLinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        mLayoutManager = new LinearLayoutManagerDummy(mContext, LinearLayoutManager.VERTICAL, false);
+        mLayoutManager.setAutoMeasureEnabled(true);
+        rvItemDetails.setLayoutManager(mLayoutManager);
+
         rvItemDetails.addItemDecoration(
                 new ItemDecorationAlbumColumns(mContext.getResources().getDimensionPixelSize(R.dimen.dim_5),
                         mContext.getResources().getInteger(R.integer.photo_list_preview_columns)));
+
+
+        //        >>>>>>>>>>>>>>>>>>>>>>>>>> rvGST <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        rvGST.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManagerDummy(mContext, LinearLayoutManager.VERTICAL, false);
+        mLayoutManager.setAutoMeasureEnabled(true);
+        rvGST.setLayoutManager(mLayoutManager);
+        rvGST.addItemDecoration(
+                new ItemDecorationAlbumColumns(mContext.getResources().getDimensionPixelSize(R.dimen.dim_5),
+                        mContext.getResources().getInteger(R.integer.photo_list_preview_columns)));
+
+
+
+        //        >>>>>>>>>>>>>>>>>>>>>>>>>> rvPayment <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        rvPayment.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManagerDummy(mContext, LinearLayoutManager.VERTICAL, false);
+        mLayoutManager.setAutoMeasureEnabled(true);
+        rvPayment.setLayoutManager(mLayoutManager);
+        rvPayment.addItemDecoration(
+                new ItemDecorationAlbumColumns(mContext.getResources().getDimensionPixelSize(R.dimen.dim_5),
+                        mContext.getResources().getInteger(R.integer.photo_list_preview_columns)));
+
 
         tvItemDetails.setPaintFlags(tvItemDetails.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tvTaxVoice.setPaintFlags(tvTaxVoice.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -111,5 +181,7 @@ public class PrintReceiptActivity extends BaseActivity {
         rvItemDetails.setAdapter(mItemDetailAdapter);
         mGSTSummaryAdapter = new GSTSummaryAdapter(this,gstSummaries);
         rvGST.setAdapter(mGSTSummaryAdapter);
+        paymentAdapter = new PaymentAdapter(this,paymentsDetails);
+        rvPayment.setAdapter(paymentAdapter);
     }
 }

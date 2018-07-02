@@ -1,5 +1,7 @@
 package quay.com.ipos.modal;
 
+import android.content.Intent;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -22,7 +24,7 @@ public class PaymentRequest {
     private String customerID;
     @SerializedName("pointsToRedeem")
     @Expose
-    private double pointsToRedeem;
+    private Integer pointsToRedeem;
     @SerializedName("pointsToRedeemValue")
     @Expose
     private double pointsToRedeemValue;
@@ -40,7 +42,10 @@ public class PaymentRequest {
     private Double orderValue;
     @SerializedName("orderLoyality")
     @Expose
-    private Integer orderLoyality;
+    private Double orderLoyality;
+    @SerializedName("totalQty")
+    @Expose
+    private Integer totalQty;
     @SerializedName("businessPlace")
     @Expose
     private String businessPlace;
@@ -106,11 +111,11 @@ public class PaymentRequest {
         this.orderDateTime = orderDateTime;
     }
 
-    public double getPointsToRedeem() {
+    public Integer getPointsToRedeem() {
         return pointsToRedeem;
     }
 
-    public void setPointsToRedeem(double pointsToRedeem) {
+    public void setPointsToRedeem(Integer pointsToRedeem) {
         this.pointsToRedeem = pointsToRedeem;
     }
 
@@ -170,12 +175,20 @@ public class PaymentRequest {
         this.orderValue = orderValue;
     }
 
-    public Integer getOrderLoyality() {
+    public Double getOrderLoyality() {
         return orderLoyality;
     }
 
-    public void setOrderLoyality(Integer orderLoyality) {
+    public void setOrderLoyality(Double orderLoyality) {
         this.orderLoyality = orderLoyality;
+    }
+
+    public Integer getTotalQty() {
+        return totalQty;
+    }
+
+    public void setTotalQty(Integer totalQty) {
+        this.totalQty = totalQty;
     }
 
     public String getBusinessPlace() {

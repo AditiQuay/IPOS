@@ -31,6 +31,34 @@ public class PrintViewResult {
     @SerializedName("orderDate")
     @Expose
     private String orderDate;
+    @SerializedName("totalQty")
+    @Expose
+    private String totalQty;
+    @SerializedName("totalAmount")
+    @Expose
+    private String totalAmount;
+    @SerializedName("totalSaleAmount")
+    @Expose
+    private String totalSaleAmount;
+    @SerializedName("totalDiscountAmount")
+    @Expose
+    private String totalDiscountAmount;
+    @SerializedName("netTotalAmount")
+    @Expose
+    private String netTotalAmount;
+    @SerializedName("totalCgst")
+    @Expose
+    private String totalCgst;
+    @SerializedName("totalSgst")
+    @Expose
+    private String totalSgst;
+    @SerializedName("totalIgst")
+    @Expose
+    private String totalIgst;
+    @SerializedName("roundingOff")
+    @Expose
+    private String roundingOff;
+
     @SerializedName("customerName")
     @Expose
     private String customerName;
@@ -61,6 +89,78 @@ public class PrintViewResult {
 
     public void setBusinessPlaceName(String businessPlaceName) {
         this.businessPlaceName = businessPlaceName;
+    }
+
+    public String getTotalQty() {
+        return totalQty;
+    }
+
+    public void setTotalQty(String totalQty) {
+        this.totalQty = totalQty;
+    }
+
+    public String getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(String totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public String getTotalSaleAmount() {
+        return totalSaleAmount;
+    }
+
+    public void setTotalSaleAmount(String totalSaleAmount) {
+        this.totalSaleAmount = totalSaleAmount;
+    }
+
+    public String getTotalDiscountAmount() {
+        return totalDiscountAmount;
+    }
+
+    public void setTotalDiscountAmount(String totalDiscountAmount) {
+        this.totalDiscountAmount = totalDiscountAmount;
+    }
+
+    public String getNetTotalAmount() {
+        return netTotalAmount;
+    }
+
+    public void setNetTotalAmount(String netTotalAmount) {
+        this.netTotalAmount = netTotalAmount;
+    }
+
+    public String getTotalCgst() {
+        return totalCgst;
+    }
+
+    public void setTotalCgst(String totalCgst) {
+        this.totalCgst = totalCgst;
+    }
+
+    public String getTotalSgst() {
+        return totalSgst;
+    }
+
+    public void setTotalSgst(String totalSgst) {
+        this.totalSgst = totalSgst;
+    }
+
+    public String getTotalIgst() {
+        return totalIgst;
+    }
+
+    public void setTotalIgst(String totalIgst) {
+        this.totalIgst = totalIgst;
+    }
+
+    public String getRoundingOff() {
+        return roundingOff;
+    }
+
+    public void setRoundingOff(String roundingOff) {
+        this.roundingOff = roundingOff;
     }
 
     public String getLocationPhone1() {
@@ -155,6 +255,12 @@ public class PrintViewResult {
         @SerializedName("orderNo")
         @Expose
         private String orderNo;
+        @SerializedName("returnValue")
+        @Expose
+        private String returnValue;
+        @SerializedName("cardType")
+        @Expose
+        private String cardType;
         @SerializedName("paymentID")
         @Expose
         private String paymentID;
@@ -191,6 +297,14 @@ public class PrintViewResult {
 
         public void setPaymentID(String paymentID) {
             this.paymentID = paymentID;
+        }
+
+        public String getCardType() {
+            return cardType;
+        }
+
+        public void setCardType(String cardType) {
+            this.cardType = cardType;
         }
 
         public String getModeOfPayment() {
@@ -241,6 +355,13 @@ public class PrintViewResult {
             this.expiryDate = expiryDate;
         }
 
+        public String getReturnValue() {
+            return returnValue;
+        }
+
+        public void setReturnValue(String returnValue) {
+            this.returnValue = returnValue;
+        }
     }
     public class ItemDetail {
 
