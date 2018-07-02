@@ -13,7 +13,7 @@
         android:layout_toLeftOf="@+id/btnClear"
         android:drawableLeft="@drawable/attachment"
         android:gravity="center_vertical"
-        android:padding="2dp"
+        android:padding="@dimen/dim_4"
         android:text=""
         android:textColor="@color/grey">
 

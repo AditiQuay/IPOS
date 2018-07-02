@@ -208,6 +208,7 @@
             android:name=".inventory.activity.InventoryGRNDetails"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".partnerConnect.kyc.KYCActivity"
             android:screenOrientation="portrait"
@@ -374,6 +375,6 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-</application>
+    </application>
 
-    </manifest>
+</manifest>

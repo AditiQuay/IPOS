@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import org.json.JSONArray;
@@ -53,6 +56,8 @@ import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.adapter.InventoryAttachmentAdapter;
 import quay.com.ipos.inventory.adapter.InventoryGrnInccoAdapter;
+import quay.com.ipos.inventory.adapter.InventoryGrnInccoViewAdapter;
+import quay.com.ipos.inventory.adapter.InventoryGrnItemDetailsView;
 import quay.com.ipos.inventory.adapter.InventoryGrnItemsListAdapter;
 import quay.com.ipos.inventory.adapter.MilestonePOListAdapter;
 import quay.com.ipos.inventory.adapter.TermsPOListAdapter;
@@ -64,6 +69,7 @@ import quay.com.ipos.inventory.modal.GrnItemQtyModel;
 import quay.com.ipos.inventory.modal.POPaymentTerms;
 import quay.com.ipos.inventory.modal.POTermsCondition;
 import quay.com.ipos.listeners.AttachmentListener;
+import quay.com.ipos.listeners.DataUpdateListener;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.realmbean.RealmController;
@@ -77,7 +83,7 @@ import quay.com.ipos.utility.Util;
  * Created by niraj.kumar on 6/14/2018.
  */
 
-public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener, InventoryGrnInccoAdapter.OnCalculateTotalIncoTermsListener, MyListener, AttachmentListener, DatePickerDialog.OnDateSetListener {
+public class InventoryGRNDetails extends AppCompatActivity implements InitInterface, View.OnClickListener, InventoryGrnInccoAdapter.OnCalculateTotalIncoTermsListener, MyListener, AttachmentListener, DatePickerDialog.OnDateSetListener, DataUpdateListener {
     private static final String TAG = InventoryGRNDetails.class.getSimpleName();
     private Toolbar toolbar;
     private Button btnAction, btnSave;
@@ -93,6 +99,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     InventoryGrnItemsListAdapter itemListDataAdapter;
     InventoryGrnInccoAdapter inventoryGrnInccoAdapter;
     InventoryAttachmentAdapter inventoryAttachmentAdapter;
+
+
+    InventoryGrnItemDetailsView inventoryGrnItemDetailsView;
+    InventoryGrnInccoViewAdapter inventoryGrnInccoViewAdapter;
 
     MilestonePOListAdapter milestonePOListAdapter;
     TermsPOListAdapter termsPOListAdapter;
@@ -115,6 +125,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     boolean isAttachmentClick = false;
     private String transporterEWayBillValidityDate;
     private TextView textTotalIncoTerms;
+    private ImageView ivItemAdd;
     private Calendar calendar;
     private View ivAttAdd;
     String getGrnNumber;
@@ -122,12 +133,18 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     private DatePickerDialog datePickerDialog;
     private int poQuantity;
     private ImageView ivGrnGroupArrow, ivTransporterGroupArrow, ivItemDetailsGroupArrow, ivIncoGroupArrow, ivAttGroupArrow;
+    private LinearLayout bottom_sheet;
+    public static final String Preference = "TransporterData";
+    SharedPreferences.Editor Editor;
+    private SharedPreferences SharedPreferences;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.grn_expandable);
         mContext = InventoryGRNDetails.this;
+        SharedPreferences = mContext.getSharedPreferences(Preference, Context.MODE_PRIVATE);
+        Editor = SharedPreferences.edit();
         Intent i = getIntent();
 
         calendar = Calendar.getInstance();
@@ -172,7 +189,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         ivItemDetailsGroupArrow = findViewById(R.id.ivItemDetailsGroupArrow);
         ivIncoGroupArrow = findViewById(R.id.ivIncoGroupArrow);
         ivAttGroupArrow = findViewById(R.id.ivAttGroupArrow);
-
+        ivItemAdd = findViewById(R.id.ivItemAdd);
+        bottom_sheet = findViewById(R.id.bottom_sheet);
 
         ivAttAdd.setOnClickListener(this);
         rGrn.setOnClickListener(this);
@@ -208,6 +226,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
         etEWayBillValidity.setClickable(true);
         etEWayBillValidity.setOnClickListener(this);
+        ivItemAdd.setOnClickListener(this);
 
 
         etName.addTextChangedListener(new GenericTextWatcher(etName));
@@ -221,9 +240,13 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         etAddress.addTextChangedListener(new GenericTextWatcher(etAddress));
     }
 
-
-    private void setOnTextChangesListener() {
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        SharedPreferences = mContext.getSharedPreferences(Preference, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = SharedPreferences.edit();
+        editor.clear();
+        editor.apply();
     }
 
     @Override
@@ -234,6 +257,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             @Override
             public void onClick(View view) {
                 finish();
+                SharedPreferences = mContext.getSharedPreferences(Preference, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = SharedPreferences.edit();
+                editor.clear();
+                editor.apply();
             }
         });
         if (getSupportActionBar() != null) {
@@ -247,8 +274,20 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
             addGRNDetails();
         } else {
-            btnSave.setVisibility(View.GONE);
-            btnSave.setEnabled(false);
+
+            etName.setEnabled(false);
+            etLrn.setEnabled(false);
+            etEwayBill.setEnabled(false);
+            etDriverName.setEnabled(false);
+            etTruckNumber.setEnabled(false);
+            etEWayBillValidity.setEnabled(false);
+            driverMobileNumber.setEnabled(false);
+            etTrackNumber.setEnabled(false);
+            etAddress.setEnabled(false);
+            bottom_sheet.setVisibility(View.GONE);
+            ivItemAdd.setVisibility(View.GONE);
+            ivAttAdd.setVisibility(View.GONE);
+
             cardGrnDetail();
         }
 
@@ -278,10 +317,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 startActivity(i);
                 break;
             case R.id.btnSave:
-
-
                 checkValidation();
-//
+
+                break;
+            case R.id.ivItemAdd:
+
                 break;
             case R.id.rGrn:
                 if (isGrnClick) {
@@ -520,9 +560,197 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
 
     private void getExpandableData() {
+        grnListModels.clear();
+        attachFileModels.clear();
+        grnInccoTermsModels.clear();
         Realm realm = Realm.getDefaultInstance();
-        RealmGRNDetails realmGRNDetails;
-        realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
+
+        RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
+
+//        if (getGrnNumber != null) {
+//            realmGRNDetails = realm.where(RealmGRNDetails.class).equalTo("grnNumber", getGrnNumber + "").findFirst();
+//        } else {
+//            realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
+//        }
+
+        if (realmGRNDetails != null) {
+            try {
+                int totalItem = (int) realmGRNDetails.getTotalItems();
+                int value = (int) realmGRNDetails.getValue();
+                int poQt = (int) realmGRNDetails.getPoQty();
+                poQuantity = poQt;
+                int openQt = (int) realmGRNDetails.getOpenQty();
+                int balanceQt = (int) realmGRNDetails.getBalanceQty();
+
+                grnNumber.setText(realmGRNDetails.getGrnNumber());
+                et_received_date.setText(realmGRNDetails.getReceivedDate());
+                et_totalItems.setText(totalItem + "");
+                et_value.setText(realmGRNDetails.getValue() + "");
+                poQty.setText(poQt + "");
+                openQty.setText(openQt + "");
+                balanceQty.setText(balanceQt + "");
+                transporterEWayBillValidityDate = realmGRNDetails.getTransporterEWayBillValidityDate();
+
+                //SharedPreference Values
+                String name = SharedPreferences.getString("Name", "");
+                String lRnNumber = SharedPreferences.getString("LRNNumber", "");
+                String eWayBillNumber = SharedPreferences.getString("EWayBillNumber", "");
+                String driverName = SharedPreferences.getString("DriverName", "");
+                String truckNumber = SharedPreferences.getString("TruckNumber", "");
+                String ewayBillValidity = SharedPreferences.getString("EwayBillValidity", "");
+                String driverMobNumber = SharedPreferences.getString("DriverMobileNumber", "");
+                String trackNumber = SharedPreferences.getString("TrackNumber", "");
+                String address = SharedPreferences.getString("Address", "");
+
+
+                if (TextUtils.isEmpty(name)) {
+                    etName.setText(realmGRNDetails.getTransporterName());
+                } else {
+                    etName.setText(name);
+                }
+
+                if (TextUtils.isEmpty(lRnNumber)) {
+                    etLrn.setText(realmGRNDetails.getTransporterLRName());
+                } else {
+                    etLrn.setText(lRnNumber);
+                }
+
+                if (TextUtils.isEmpty(eWayBillNumber)) {
+                    etTruckNumber.setText(realmGRNDetails.getTransporterTruckNumber());
+                } else {
+                    etTruckNumber.setText(eWayBillNumber);
+                }
+
+                if (TextUtils.isEmpty(trackNumber)) {
+                    etTrackNumber.setText(realmGRNDetails.getTransporterTruckNumber());
+                } else {
+                    etTrackNumber.setText(trackNumber);
+                }
+
+                if (TextUtils.isEmpty(driverName)) {
+                    etDriverName.setText(realmGRNDetails.getTransporterDriverName());
+                } else {
+                    etDriverName.setText(driverName);
+                }
+
+                if (TextUtils.isEmpty(ewayBillValidity)) {
+                    etEWayBillValidity.setText(realmGRNDetails.getTransporterEWayBillValidityDate());
+                } else {
+                    etEWayBillValidity.setText(ewayBillValidity.trim());
+
+                }
+
+                if (TextUtils.isEmpty(driverMobNumber)) {
+                    driverMobileNumber.setText(realmGRNDetails.getTransporterDriverMobileNumber());
+
+                } else {
+                    driverMobileNumber.setText(driverMobNumber);
+
+                }
+
+                if (TextUtils.isEmpty(address)) {
+                    etAddress.setText(realmGRNDetails.getTransporterAddress());
+                } else {
+                    etAddress.setText(address);
+                }
+
+                if (TextUtils.isEmpty(eWayBillNumber)) {
+                    etEwayBill.setText(realmGRNDetails.getTransporterEWayBillNumber());
+                } else {
+                    etEwayBill.setText(eWayBillNumber);
+                }
+
+                Log.e(TAG, "PoItemDetails:::" + realmGRNDetails.getPoItemDetails());
+
+                //Items Details
+                JSONArray array = new JSONArray(realmGRNDetails.getPoItemDetails());
+                for (int j = 0; j < array.length(); j++) {
+                    JSONObject jsonObject1 = array.optJSONObject(j);
+                    GrnItemQtyModel grnItemQtyModel = new GrnItemQtyModel();
+                    grnItemQtyModel.setMaterialCode(jsonObject1.optString("materialCode"));
+                    grnItemQtyModel.setMaterialName(jsonObject1.optString("materialName"));
+                    grnItemQtyModel.setOpenQty(jsonObject1.optDouble("openQty"));
+                    grnItemQtyModel.setInQty(jsonObject1.optDouble("inQty"));
+                    grnItemQtyModel.setApQty(jsonObject1.optDouble("apQty"));
+                    grnItemQtyModel.setBalanceQty(jsonObject1.optDouble("balanceQty"));
+                    grnItemQtyModel.setIsBatch(jsonObject1.optDouble("isBatch"));
+                    grnItemQtyModel.setgRNItemInfoDetails(jsonObject1.optJSONObject("gRNItemInfoDetails").toString());
+                    grnListModels.add(grnItemQtyModel);
+                }
+
+
+                //Incco terms
+                JSONArray jsonArray = new JSONArray(realmGRNDetails.getPoIncoTerms());
+                for (int j = 0; j < jsonArray.length(); j++) {
+                    JSONObject jsonObject1 = jsonArray.optJSONObject(j);
+                    GrnInccoTermsModel grnInccoTermsModel = new GrnInccoTermsModel();
+                    grnInccoTermsModel.grnIncoDetail = jsonObject1.optString("grnIncoDetail");
+                    grnInccoTermsModel.grnPayBySender = jsonObject1.optBoolean("grnPayBySender");
+                    grnInccoTermsModel.grnPayByReceiver = jsonObject1.optBoolean("grnPayByReceiver");
+                    grnInccoTermsModel.grnPayAmount = jsonObject1.optDouble("grnPayAmount");
+                    grnInccoTermsModels.add(grnInccoTermsModel);
+                }
+
+//                POIncoTerms poIncoTerms2 = new POIncoTerms();
+//                poIncoTerms2.setPoIncoDetail("Total");
+//                poIncoTerms2.setPoPayAmount(total);
+//                poIncoTerms2.setPoPayByReceiver(false);
+//                poIncoTerms2.setPoPayBySender(false);
+//                poIncoTerms.add(poIncoTerms2);
+
+                //PoPayment terms
+//                JSONArray jsonArray1 = new JSONArray(realmGRNDetails.getPoPaymentTerms());
+//                for (int j = 0; j < jsonArray1.length(); j++) {
+//                    JSONObject jsonObject1 = jsonArray1.optJSONObject(j);
+//                    POPaymentTerms poIncoTerms1 = new POPaymentTerms();
+//                    poIncoTerms1.setPoPaymentTermsDetail(jsonObject1.optString("grnPaymentTermsDetail"));
+//                    poIncoTerms1.setPoPaymentTermsInvoiceDue(jsonObject1.optString("grnPaymentTermsInvoiceDue"));
+//                    poIncoTerms1.setPoPaymentTermsPer(jsonObject1.optDouble("grnPaymentTermsPer"));
+//                    poPaymentTerms.add(poIncoTerms1);
+//                }
+
+//                //Po terms and conditions
+//                JSONArray jsonArray2 = new JSONArray(realmGRNDetails.getPoTermsAndConditions());
+//                for (int j = 0; j < jsonArray2.length(); j++) {
+//                    JSONObject jsonObject1 = jsonArray2.optJSONObject(j);
+//                    POTermsCondition termsCondition = new POTermsCondition();
+//                    termsCondition.setpOTermsAndConditionDetail(jsonObject1.optString("grnTermsAndConditionDetail"));
+//                    termsCondition.setpOTermsAndConditionSrNo(jsonObject1.optInt("grnTermsAndConditionSrNo"));
+//                    poTermsConditions.add(termsCondition);
+//                }
+
+                //Attachments
+                JSONArray jsonArray3 = new JSONArray(realmGRNDetails.getPoAttachments());
+                for (int j = 0; j < jsonArray3.length(); j++) {
+                    JSONObject jsonObject1 = jsonArray3.optJSONObject(j);
+                    AttachFileModel attachFileModel = new AttachFileModel();
+                    attachFileModel.fileName = jsonObject1.optString("grnAttachmentName");
+                    attachFileModel.fileUrl = jsonObject1.optString("grnAttachmentUrl");
+                    attachFileModel.mimeType = jsonObject1.optString("grnAttachmentType");
+                    attachFileModels.add(attachFileModel);
+                }
+
+
+                setItemDetails();
+                setIncoTerms();
+                setAttahcments();
+                // setPaymentTerms();
+                //  setTermsCondition();
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+
+    private void getGrnCardExpandableData() {
+        Realm realm = Realm.getDefaultInstance();
+
+        RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
 
 //        if (getGrnNumber != null) {
 //            realmGRNDetails = realm.where(RealmGRNDetails.class).equalTo("grnNumber", getGrnNumber + "").findFirst();
@@ -589,51 +817,20 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     grnInccoTermsModels.add(grnInccoTermsModel);
                 }
 
-//                POIncoTerms poIncoTerms2 = new POIncoTerms();
-//                poIncoTerms2.setPoIncoDetail("Total");
-//                poIncoTerms2.setPoPayAmount(total);
-//                poIncoTerms2.setPoPayByReceiver(false);
-//                poIncoTerms2.setPoPayBySender(false);
-//                poIncoTerms.add(poIncoTerms2);
-
-                //PoPayment terms
-//                JSONArray jsonArray1 = new JSONArray(realmGRNDetails.getPoPaymentTerms());
-//                for (int j = 0; j < jsonArray1.length(); j++) {
-//                    JSONObject jsonObject1 = jsonArray1.optJSONObject(j);
-//                    POPaymentTerms poIncoTerms1 = new POPaymentTerms();
-//                    poIncoTerms1.setPoPaymentTermsDetail(jsonObject1.optString("grnPaymentTermsDetail"));
-//                    poIncoTerms1.setPoPaymentTermsInvoiceDue(jsonObject1.optString("grnPaymentTermsInvoiceDue"));
-//                    poIncoTerms1.setPoPaymentTermsPer(jsonObject1.optDouble("grnPaymentTermsPer"));
-//                    poPaymentTerms.add(poIncoTerms1);
-//                }
-
-//                //Po terms and conditions
-//                JSONArray jsonArray2 = new JSONArray(realmGRNDetails.getPoTermsAndConditions());
-//                for (int j = 0; j < jsonArray2.length(); j++) {
-//                    JSONObject jsonObject1 = jsonArray2.optJSONObject(j);
-//                    POTermsCondition termsCondition = new POTermsCondition();
-//                    termsCondition.setpOTermsAndConditionDetail(jsonObject1.optString("grnTermsAndConditionDetail"));
-//                    termsCondition.setpOTermsAndConditionSrNo(jsonObject1.optInt("grnTermsAndConditionSrNo"));
-//                    poTermsConditions.add(termsCondition);
-//                }
-
                 //Attachments
                 JSONArray jsonArray3 = new JSONArray(realmGRNDetails.getPoAttachments());
                 for (int j = 0; j < jsonArray3.length(); j++) {
                     JSONObject jsonObject1 = jsonArray3.optJSONObject(j);
-                    GrnAttachment grnAttachment = new GrnAttachment();
-                    grnAttachment.setGrnAttachmentName(jsonObject1.optString("grnAttachmentName"));
-                    grnAttachment.setGrnAttachmentUrl(jsonObject1.optString("grnAttachmentUrl"));
-                    grnAttachment.setGrnAttachmentUrl(jsonObject1.optString("grnAttachmentType"));
-                    grnAttachments.add(grnAttachment);
+                    AttachFileModel attachFileModel = new AttachFileModel();
+                    attachFileModel.fileName = jsonObject1.optString("grnAttachmentName");
+                    attachFileModel.fileUrl = jsonObject1.optString("grnAttachmentUrl");
+                    attachFileModel.mimeType = jsonObject1.optString("grnAttachmentType");
+                    attachFileModels.add(attachFileModel);
                 }
 
-
-                setItemDetails();
-                setIncoTerms();
-//                setAttahcments();
-                // setPaymentTerms();
-                //  setTermsCondition();
+                setGrnItemViewDetail();
+                setGRNInccoTermsDetails();
+                setAttahcments();
 
 
             } catch (JSONException e) {
@@ -644,6 +841,19 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
 
     }
+
+    private void setGRNInccoTermsDetails() {
+        rvIncco.setLayoutManager(new LinearLayoutManager(mContext));
+        inventoryGrnInccoViewAdapter = new InventoryGrnInccoViewAdapter(mContext, grnInccoTermsModels);
+        rvIncco.setAdapter(inventoryGrnInccoViewAdapter);
+    }
+
+    private void setGrnItemViewDetail() {
+        recycler_viewItemDetail.setLayoutManager(new LinearLayoutManager(mContext));
+        inventoryGrnItemDetailsView = new InventoryGrnItemDetailsView(mContext, grnListModels);
+        recycler_viewItemDetail.setAdapter(inventoryGrnItemDetailsView);
+    }
+
 
     public void addGRNDetails() {
 
@@ -696,7 +906,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "Response***" + response.body().toString());
                             }
                         });
@@ -825,7 +1035,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    getExpandableData();
+                                    getGrnCardExpandableData();
                                 }
                             });
 
@@ -879,7 +1089,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     private void setItemDetails() {
         recycler_viewItemDetail.setLayoutManager(new LinearLayoutManager(mContext));
-        itemListDataAdapter = new InventoryGrnItemsListAdapter(mContext, grnListModels, this);
+        itemListDataAdapter = new InventoryGrnItemsListAdapter(mContext, grnListModels, this, this);
         recycler_viewItemDetail.setAdapter(itemListDataAdapter);
     }
 
@@ -911,8 +1121,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     private void setAttahcments() {
         rvAttachment.setLayoutManager(new LinearLayoutManager(mContext));
-        inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments, this);
-        rvAttachment.setAdapter(inventoryAttachmentAdapter);
+
+//        inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments, this);
+        rvAttachment.setAdapter(new AttachFileAdapter(attachFileModels));
     }
 
 
@@ -1270,6 +1481,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             gotToProductDetail.putExtra("position", position);
             gotToProductDetail.putExtra("poQty", poQuantity);
             gotToProductDetail.putExtra("openQty", grnItemQtyModel.getOpenQty());
+            gotToProductDetail.putExtra("lengthOfProduct", grnListModels.size());
             startActivityForResult(gotToProductDetail, 1);
 
         }
@@ -1413,6 +1625,79 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
     }
 
+    //Product edit text value changed
+    @Override
+    public void onUpdateData(int position, int inQty, int appQty, int balanceQty) {
+
+        Log.e(TAG, "position***" + position);
+        Log.e(TAG, "inQty***" + inQty);
+        Log.e(TAG, "appQty***" + appQty);
+        Log.e(TAG, "balanceQty***" + balanceQty);
+
+        Realm realm = Realm.getDefaultInstance();
+        RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
+        try {
+
+
+            Gson gson = new GsonBuilder().create();
+
+            try {
+                String json = gson.toJson(realm.copyFromRealm(realmGRNDetails));
+                JSONObject jsonObject = new JSONObject(json);
+                JSONArray poItemDetailsArray = new JSONArray(jsonObject.optString("poItemDetails"));
+                JSONArray arrayPoAttachment = new JSONArray(jsonObject.optString("poAttachments"));
+                JSONArray arrayPoIncco = new JSONArray(jsonObject.optString("poIncoTerms"));
+                JSONArray poPaymentTerms = new JSONArray(jsonObject.optString("poPaymentTerms"));
+                JSONArray poTermsAndConditions = new JSONArray(jsonObject.optString("poTermsAndConditions"));
+                JSONObject jsonObject2 = poItemDetailsArray.getJSONObject(position);
+
+
+                jsonObject2.put("inQty", inQty);
+                jsonObject2.put("apQty", appQty);
+                jsonObject2.put("balanceQty", balanceQty);
+
+                poItemDetailsArray.put(position, jsonObject2);
+
+                int quanOpenTotal = 0, quanBalanceTotal = 0, quanInQuant = 0, quanApp = 0;
+                for (int k = 0; k < poItemDetailsArray.length(); k++) {
+                    JSONObject jsonObject1 = poItemDetailsArray.optJSONObject(k);
+                    quanOpenTotal += jsonObject1.optInt("openQty");
+                    quanBalanceTotal += jsonObject1.optInt("balanceQty");
+                    quanInQuant += inQty;
+                    quanApp += appQty;
+                }
+
+                jsonObject.put("openQty", poQuantity - (quanInQuant + quanApp));
+                jsonObject.put("balanceQty", quanBalanceTotal+balanceQty);
+                jsonObject.put("poItemDetails", poItemDetailsArray);
+                jsonObject.put("poAttachments", arrayPoAttachment);
+                jsonObject.put("poIncoTerms", arrayPoIncco);
+                jsonObject.put("poPaymentTerms", poPaymentTerms);
+                jsonObject.put("poTermsAndConditions", poTermsAndConditions);
+
+                new RealmController().saveGRNDetails(jsonObject.toString().replaceAll("\\\\", ""));
+                grnListModels.clear();
+                grnInccoTermsModels.clear();
+                grnAttachments.clear();
+
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            realm.close();
+        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getExpandableData();
+
+            }
+        });
+    }
+
     private class AttachVH extends RecyclerView.ViewHolder {
         public TextView textView;
         public View btnClear;
@@ -1462,14 +1747,21 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     //intent.addFlag(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                     //Toast.makeText(getActivity(), "In Progress!", Toast.LENGTH_SHORT).show();
                  /*   startActivity(intent);*/
-                    final Intent shareIntent = new Intent(Intent.ACTION_VIEW);
-                    //   shareIntent.setType("*/*");
-                    //  shareIntent.setDataAndType(Uri.parse(fileModel.uri.toString()), "image/*");
-                    shareIntent.setDataAndType(Uri.parse(fileModel.uri.toString()), fileModel.mimeType);
-                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    //final File photoFile = new File(getFilesDir(), "foo.jpg");
+                    if (TextUtils.isEmpty(fileModel.fileUrl)) {
+                        final Intent shareIntent = new Intent(Intent.ACTION_VIEW);
+                        //   shareIntent.setType("*/*");
+                        //  shareIntent.setDataAndType(Uri.parse(fileModel.uri.toString()), "image/*");
+                        shareIntent.setDataAndType(Uri.parse(fileModel.uri.toString()), fileModel.mimeType);
+                        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        //final File photoFile = new File(getFilesDir(), "foo.jpg");
+                        startActivity(Intent.createChooser(shareIntent, "View file using"));
 
-                    startActivity(Intent.createChooser(shareIntent, "View file using"));
+                    } else {
+
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(fileModel.fileUrl));
+                        startActivity(browserIntent);
+                    }
+
                 }
             });
             holder.btnClear.setOnClickListener(new View.OnClickListener() {
@@ -1533,30 +1825,48 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             switch (view.getId()) {
                 case R.id.etName:
                     etName.setError(null);
+                    Editor.putString("Name", etName.getText().toString());
+                    Editor.commit();
                     break;
                 case R.id.etLrn:
                     etLrn.setError(null);
+                    Editor.putString("LRNNumber", etLrn.getText().toString());
+                    Editor.commit();
                     break;
                 case R.id.etEwayBill:
                     etEwayBill.setError(null);
+                    Editor.putString("EWayBillNumber", etEwayBill.getText().toString());
+                    Editor.commit();
                     break;
                 case R.id.etDriverName:
                     etDriverName.setError(null);
+                    Editor.putString("DriverName", etDriverName.getText().toString());
+                    Editor.commit();
                     break;
                 case R.id.etTruckNumber:
                     etTruckNumber.setError(null);
+                    Editor.putString("TruckNumber", etTruckNumber.getText().toString());
+                    Editor.commit();
                     break;
                 case R.id.etEWayBillValidity:
                     etEWayBillValidity.setError(null);
+                    Editor.putString("EwayBillValidity", etEWayBillValidity.getText().toString());
+                    Editor.commit();
                     break;
                 case R.id.driverMobileNumber:
                     driverMobileNumber.setError(null);
+                    Editor.putString("DriverMobileNumber", driverMobileNumber.getText().toString());
+                    Editor.commit();
                     break;
                 case R.id.etTrackNumber:
                     etTrackNumber.setError(null);
+                    Editor.putString("TrackNumber", etTrackNumber.getText().toString());
+                    Editor.commit();
                     break;
                 case R.id.etAddress:
                     etAddress.setError(null);
+                    Editor.putString("Address", etAddress.getText().toString());
+                    Editor.commit();
                     break;
                 default:
                     break;
