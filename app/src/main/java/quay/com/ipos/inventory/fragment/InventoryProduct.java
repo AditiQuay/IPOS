@@ -84,7 +84,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
     private List<GRNProductDetailModel> filterModelList = new ArrayList<>();
     private double openQty;
     private boolean isRemarkEmpty = false;
-    private int poQty;
+    private int poQty, lengthOgItem;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,10 +94,13 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         mContext = InventoryProduct.this;
         myDialog = new Dialog(this);
         myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         Intent i = getIntent();
         pos = i.getIntExtra("position", pos);
+        lengthOgItem = i.getIntExtra("lengthOfProduct", lengthOgItem);
         openQty = i.getDoubleExtra("openQty", 0);
         poQty = i.getIntExtra("poQty", 0);
+
 
         findViewById();
         applyInitValues();
@@ -138,6 +141,8 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         imgArrowLeft.setOnClickListener(this);
         checkBox1.setOnClickListener(this);
         btnTabOther.setOnClickListener(this);
+
+        switchBatchButton.setChecked(true);
 
 
     }
@@ -238,6 +243,15 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     //onAdd others
     void onAddOthers(int id, String title) {
+        if (tabData.size() > 0) {
+            for (int i = 0; i < tabData.size(); i++) {
+                RealmInventoryTabData realmInventoryTabData = tabData.get(i);
+                if (realmInventoryTabData.getTabId() == id) {
+                    Toast.makeText(mContext, "Category already exists", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+        }
         RealmInventoryTabData batchList = new RealmInventoryTabData();
         batchList.setTabId(id);
         batchList.setTabTitle(title);
@@ -312,7 +326,10 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 setBatchTab(count);
                 imgArrowLeft.setVisibility(View.VISIBLE);
                 pos = count;
+                if (pos == lengthOgItem - 1) {
+                    imgArrowRight.setVisibility(View.GONE);
 
+                }
                 break;
             case R.id.imgArrowLeft:
                 if (pos == 0) {
@@ -320,13 +337,11 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                     setBatchTab(pos);
                 } else {
                     imgArrowLeft.setVisibility(View.GONE);
-
+                    imgArrowRight.setVisibility(View.VISIBLE);
                     int firstPosition = pos;
                     int secondPosition = firstPosition - 1;
                     pos = secondPosition;
                     setBatchTab(secondPosition);
-
-
                 }
                 break;
             case R.id.checkBox1:
@@ -360,6 +375,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 updateData();
                 break;
             case R.id.btnAction:
+
                 getActionList();
                 break;
             case R.id.btnAddBatch:
@@ -568,7 +584,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
             int balanceQty = (int) (openQty - (quantity + apQty));
             jsonObject2.put("balanceQty", balanceQty);
-            jsonObject2.put("isBatch",1);
+            jsonObject2.put("isBatch", 1);
 
 
             jsonObject3.put("data", jsonArray1);
@@ -587,7 +603,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
             }
 
             jsonObject.put("openQty", poQty - (quanInQuant + quanApp));
-            jsonObject.put("balanceQty", quanBalanceTotal);
+            jsonObject.put("balanceQty", quanBalanceTotal+balanceQty);
             jsonObject.put("poItemDetails", poItemDetailsArray);
             jsonObject.put("poAttachments", arrayPoAttachment);
             jsonObject.put("poIncoTerms", arrayPoIncco);
@@ -650,6 +666,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     @Override
     public void onFinishListDialog(int tabId, String tabTitle) {
+
         onAddOthers(tabId, tabTitle);
     }
 

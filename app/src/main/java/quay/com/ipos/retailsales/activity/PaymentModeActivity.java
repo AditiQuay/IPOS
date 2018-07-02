@@ -508,19 +508,21 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
     private void convertPaymentToPrintViewStatus(PaymentRequest paymentRequest, LoginResult loginResult, CustomerModel customerModel, int status, String billingDate_Time, String billingTimeStamp) {
         PrintViewResult mPrintViewResult = new PrintViewResult();
-        mPrintViewResult.setBusinessPlaceName("");
-        mPrintViewResult.setCin("");
+        mPrintViewResult.setBusinessPlaceName(loginResult.getUserAccess().getWorklocations().get(0).getAddress1());
+        mPrintViewResult.setCin(loginResult.getUserAccess().getWorklocations().get(0).getCIN());
         if(customerModel!=null) {
             mPrintViewResult.setCustomerName(customerModel.getCustomerName());
             mPrintViewResult.setMobile(customerModel.getCustomerPhone());
         }else {
             mPrintViewResult.setCustomerName("NA");
+            mPrintViewResult.setMobile("");
         }
-        mPrintViewResult.setGstin("");
-        mPrintViewResult.setLocationEmail1("");
-        mPrintViewResult.setLocationName(loginResult.getUserAccess().getStoreName());
+        mPrintViewResult.setGstin(loginResult.getUserAccess().getWorklocations().get(0).getGSTIN());
+        mPrintViewResult.setLocationEmail1(loginResult.getUserAccess().getWorklocations().get(0).getLocationEmail1());
+        mPrintViewResult.setLocationPhone1(loginResult.getUserAccess().getWorklocations().get(0).getLocationPhone1());
+        mPrintViewResult.setLocationName(loginResult.getUserAccess().getWorklocations().get(0).getLocationName());
         mPrintViewResult.setOrderDate(billingDate_Time);
-        mPrintViewResult.setOrderNo(orderNumber+"");
+        mPrintViewResult.setOrderNo("ODR"+Util.generateOrderFormat(orderNumber)+"");
         for(int i =0 ; i < paymentRequest.getCartDetail().size(); i++) {
             PaymentRequest.CartDetail mCartDetail = paymentRequest.getCartDetail().get(i);
             PrintViewResult.ItemDetail itemDetail = new PrintViewResult().new ItemDetail();
@@ -539,16 +541,27 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             itemDetail.setSGSTValue(mCartDetail.getMaterialSGSTValue());
 
             PrintViewResult.GstSummary gstSummary = new PrintViewResult().new GstSummary();
-            gstSummary.setTotalPrice(mCartDetail.getMaterialTotalValue());
-            gstSummary.setCGSTRate(mCartDetail.getMaterialCGSTRate());
-            gstSummary.setCGSTValue(mCartDetail.getMaterialCGSTValue());
-            gstSummary.setSGSTRate(mCartDetail.getMaterialSGSTRate());
-            gstSummary.setSGSTValue(mCartDetail.getMaterialSGSTValue());
-            gstSummaries.add(gstSummary);
+            if(mCartDetail.getMaterialTotalValue()>0.0) {
+                gstSummary.setTotalPrice(mCartDetail.getMaterialTotalValue());
+                gstSummary.setCGSTRate(mCartDetail.getMaterialCGSTRate());
+                gstSummary.setCGSTValue(mCartDetail.getMaterialCGSTValue());
+                gstSummary.setSGSTRate(mCartDetail.getMaterialSGSTRate());
+                gstSummary.setSGSTValue(mCartDetail.getMaterialSGSTValue());
+                gstSummaries.add(gstSummary);
+            }
             itemDetails.add(itemDetail);
         }
         mPrintViewResult.setItemDetails(itemDetails);
         mPrintViewResult.setGstSummary(gstSummaries);
+        mPrintViewResult.setTotalQty(paymentRequest.getTotalQty()+"");
+        mPrintViewResult.setTotalAmount(paymentRequest.getTotalValueWithoutTax()+"");
+        mPrintViewResult.setTotalDiscountAmount(paymentRequest.getTotalDiscountValue()+"");
+        mPrintViewResult.setTotalCgst(Util.getLastTwoDigits(paymentRequest.getTotalCGSTValue())+"");
+        mPrintViewResult.setTotalSaleAmount(paymentRequest.getTotalValueWithTax()+"");
+        mPrintViewResult.setTotalSgst(Util.getLastTwoDigits(paymentRequest.getTotalSGSTValue())+"");
+        mPrintViewResult.setNetTotalAmount(paymentRequest.getTotalValueWithoutTax()+"");
+        mPrintViewResult.setRoundingOff(paymentRequest.getTotalRoundingOffValue()+"");
+        mPrintViewResult.setTotalIgst(paymentRequest.getTotalIGSTValue()+"");
 
         if(paymentRequest.getPaymentDetail().size()>0){
             for(int j = 0 ; j < paymentRequest.getPaymentDetail().size(); j++){
@@ -559,7 +572,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         mPaymentsDetail.setAmount(mPDetail.getDetailInfo().get(k).getTotalAmt());
                         mPaymentsDetail.setPaymentID("NA");
                         mPaymentsDetail.setModeOfPayment(mPDetail.getPaymentType());
-                        mPaymentsDetail.setOrderNo(orderNumber+"");
+                        mPaymentsDetail.setOrderNo("ODR"+Util.generateOrderFormat(orderNumber)+"");
+                        mPaymentsDetail.setReturnValue(mPDetail.getDetailInfo().get(k).getCashReturnAmt()+"");
                     }
                 }
                 if(mPDetail.getPaymentType().equalsIgnoreCase("card")) {
@@ -570,7 +584,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         mPaymentsDetail.setExpiryDate(mPDetail.getDetailInfo().get(k).getCardExpirationDate());
                         mPaymentsDetail.setModeOfPayment(mPDetail.getPaymentType());
                         mPaymentsDetail.setNameOnCard("");
-                        mPaymentsDetail.setOrderNo(orderNumber+"");
+                        mPaymentsDetail.setOrderNo("ODR"+Util.generateOrderFormat(orderNumber)+"");
+                        mPaymentsDetail.setCardType(mPDetail.getDetailInfo().get(k).getCardType());
                     }
                 }
 
@@ -713,7 +728,10 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                                 paymentRequest.setCustomerID("NA");
                             else {
                                 paymentRequest.setCustomerID(mCustomerID);
-
+                                if(IPOSApplication.totalpointsToRedeemValue>0.0){
+                                    paymentRequest.setPointsToRedeem(IPOSApplication.totalpointsToRedeem);
+                                    paymentRequest.setPointsToRedeemValue(IPOSApplication.totalpointsToRedeemValue);
+                                }
                             }
                             paymentRequest.setPaymentDetail(arrPaymentDetail);
                             try {
@@ -734,12 +752,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                                     if (customerModel != null) {
                                         if (!customerModel.getCustomerPoints().equalsIgnoreCase("")) {
                                             loyalty = customerModel.getCustomerPoints();
-                                            points = paymentRequest.getOrderLoyality() + Integer.parseInt(loyalty);
+                                            points = (int)(paymentRequest.getOrderLoyality() + Integer.parseInt(loyalty))-paymentRequest.getPointsToRedeem();
                                             db.updateCustomerPoints(points + "", mCustomerID);
                                         } else {
-                                            db.updateCustomerPoints((paymentRequest.getOrderLoyality() - IPOSApplication.totalpointsToRedeemValue) + "", mCustomerID);
+                                            db.updateCustomerPoints((paymentRequest.getOrderLoyality() - paymentRequest.getPointsToRedeem()) + "", mCustomerID);
                                         }
-
                                     }
 
 //                            db.updateCustomerPoints(paymentRequest.getOrderLoyality().toString(),mCustomerID);

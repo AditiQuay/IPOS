@@ -3,8 +3,6 @@ package quay.com.ipos.ddrsales.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.Realm;
-import io.realm.RealmResults;
 import quay.com.ipos.ddrsales.model.request.DDROrderDetail;
 import quay.com.ipos.ddrsales.model.response.Address;
 import quay.com.ipos.ddrsales.model.response.DDRBatch;

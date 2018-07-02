@@ -95,11 +95,11 @@ public class SearchableListDialog extends DialogFragment implements
 
         // Change End
 
-      //  View rootView = inflater.inflate(R.layout.searchable_list_dialog, null);
-      //  setData(rootView);
+        View rootView = inflater.inflate(R.layout.searchable_list_dialog, null);
+        setData(rootView);
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-      //  alertDialog.setView(rootView);
+       alertDialog.setView(rootView);
 
         String strPositiveButton = _strPositiveButtonText == null ? "CLOSE" : _strPositiveButtonText;
         alertDialog.setPositiveButton(strPositiveButton, _onClickListener);
@@ -149,8 +149,8 @@ public class SearchableListDialog extends DialogFragment implements
                 .SEARCH_SERVICE);
 
         _searchView = (SearchView) rootView.findViewById(R.id.search);
-        _searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName
-                ()));
+        _searchView.setVisibility(View.GONE);
+        _searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
         _searchView.setIconifiedByDefault(false);
         _searchView.setOnQueryTextListener(this);
         _searchView.setOnCloseListener(this);

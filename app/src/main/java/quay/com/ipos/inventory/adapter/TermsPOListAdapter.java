@@ -37,7 +37,7 @@ public class TermsPOListAdapter extends RecyclerView.Adapter<TermsPOListAdapter.
 
 
 
-        holder.text1.setText((position+1)+" "+stringArrayList.get(position).getpOTermsAndConditionDetail());
+        holder.text1.setText((position+1)+". "+stringArrayList.get(position).getpOTermsAndConditionDetail());
 
 
 

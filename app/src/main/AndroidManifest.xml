@@ -221,6 +221,7 @@
             android:name=".inventory.activity.InventoryGRNDetails"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".partnerConnect.kyc.KYCActivity"
             android:screenOrientation="portrait"
@@ -305,7 +306,11 @@
             android:name="quay.com.ipos.pss_order.activity.AddNewOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name="quay.com.ipos.retailsales.activity.PrintReceiptActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <!--  <activity
               android:name=".inventory.activity.InventoryStepsActivity"
               android:screenOrientation="portrait"

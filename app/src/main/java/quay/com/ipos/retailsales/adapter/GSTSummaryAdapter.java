@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.modal.PrintViewResult;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by aditi.bhuranda on 02-07-2018.
@@ -78,12 +79,12 @@ public class GSTSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             onBind = true;
             PrintViewResult.GstSummary str = mDataset.get(position);
             GSTSummaryAdapter.UserViewHolder userViewHolder = (GSTSummaryAdapter.UserViewHolder) holder;
-            userViewHolder.tvSGSTValue.setText(mContext.getResources().getString(R.string.Rs) + " "+ str.getSGSTValue()+"");
-            userViewHolder.tvSGSTItemValue.setText(mContext.getResources().getString(R.string.Rs) + " "+ str.getTotalPrice()+"");
-            userViewHolder.tvSGSTRate.setText(str.getSGSTRate()+"");
-            userViewHolder.tvCGSTRate.setText(str.getCGSTRate()+"");
-            userViewHolder.tvCGSTItemValue.setText(mContext.getResources().getString(R.string.Rs) + " " + str.getTotalPrice());
-            userViewHolder.tvCGSTValue.setText( str.getCGSTValue()+" %");
+            userViewHolder.tvSGSTValue.setText(Util.getIndianNumberFormat( str.getSGSTValue()+""));
+            userViewHolder.tvSGSTItemValue.setText(Util.getIndianNumberFormat(str.getTotalPrice()+""));
+            userViewHolder.tvSGSTRate.setText("SGST "+str.getSGSTRate()+" %");
+            userViewHolder.tvCGSTRate.setText("CGST "+str.getCGSTRate()+" %");
+            userViewHolder.tvCGSTItemValue.setText(Util.getIndianNumberFormat( str.getTotalPrice()+""));
+            userViewHolder.tvCGSTValue.setText( Util.getIndianNumberFormat(str.getCGSTValue()+""));
             onBind = false;
 
         }

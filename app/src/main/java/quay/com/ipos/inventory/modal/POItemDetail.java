@@ -18,6 +18,7 @@ public class POItemDetail {
     public String materialCode;
     public String materialName;
 
+
     public int getPoItemQty() {
         return poItemQty;
     }

@@ -1,10 +1,15 @@
 package quay.com.ipos.retailsales.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -79,6 +84,12 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
 //                }
 //        );
 
+        listViewNames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                callPrintViewActivity(names.get(i).getReceipt());
+            }
+        });
     }
     public void sendDataToServer() {
         billingSyncs = db.getUnSyncedRetailOrders();
@@ -95,6 +106,13 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
 //            swipeToRefresh.invalidate();
             db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
         }
+    }
+
+    public void callPrintViewActivity(String mPrintViewResult){
+        Intent mIntent = new Intent(OutboxActivity.this, PrintReceiptActivity.class);
+        mIntent.putExtra(Constants.RECEIPT,mPrintViewResult);
+        mIntent.putExtra(Constants.RECEIPT_FROM,Constants.paymentMode);
+        startActivity(mIntent);
     }
 
     private void callServicePayment() {

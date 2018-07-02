@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\QuayApp\IPOS\zbar\src\main\shaders"/></dataSet><dataSet config="debug"><source path="D:\QuayApp\IPOS\zbar\src\debug\shaders"/></dataSet></merger>
+<<<<<<< HEAD
+<merger version="3"><dataSet config="main"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\shaders"/></dataSet><dataSet config="debug"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\debug\shaders"/></dataSet></merger>
+=======
+<<<<<<< HEAD
+<merger version="3"><dataSet config="main"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\shaders"/></dataSet><dataSet config="debug"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\debug\shaders"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="main"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\shaders"/></dataSet><dataSet config="debug"><source path="C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\debug\shaders"/></dataSet></merger>
+>>>>>>> 8cbe7b0f668964b30c8ba3eafb4e2d4b3d050cb4
+>>>>>>> 7032db19add77e83722efe11798cabd4e2f76d3a
