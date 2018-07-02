@@ -42,11 +42,11 @@ public class RestService {
         APIService apiService = retrofit.create(APIService.class);
         return apiService;
     }
-
+   public  static Retrofit retrofit;
     public static APIService getApiServiceSimple() {
         OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new RequestTokenInterceptor()).build();
 
-        Retrofit retrofit = new Retrofit.Builder()
+          retrofit = new Retrofit.Builder()
                 .client(client)
                 .baseUrl(IPOSAPI.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

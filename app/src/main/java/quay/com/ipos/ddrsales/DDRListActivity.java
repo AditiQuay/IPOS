@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Locale;
 
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.data.local.entity.DDRInvoiceData;
 import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.ddrsales.adapter.DDRAdapter;
 import quay.com.ipos.ddrsales.model.DDR;
@@ -90,7 +92,7 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+      //  getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -127,6 +129,8 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
                 }
                 try {
                     if (response.body() != null) {
+                      //  GetDDRList getDDRList = response.body();
+                      //  List<DDRInvoiceData> ddrInvoiceDataList=IPOSApplication.getDatabase().ddrInvoiceDao().fetchAllData();
                         mutableLiveData.setValue(response.body());
                     }
                 } catch (Exception e) {

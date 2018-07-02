@@ -1,15 +1,13 @@
 package quay.com.ipos.ddrsales.model.request;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import quay.com.ipos.ddrsales.model.DDR;
-import quay.com.ipos.ddrsales.model.InvoiceData;
 import quay.com.ipos.ddrsales.model.LogisticsData;
 import quay.com.ipos.ddrsales.model.RealmDDROrderList;
 import quay.com.ipos.ddrsales.model.response.Address;
 import quay.com.ipos.ddrsales.model.response.DDRIncoTerm;
-import quay.com.ipos.ddrsales.model.response.DDTProductBatch;
+
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
 
@@ -49,8 +47,9 @@ public class InvoiceDataSubmit {
     public String transporterAddress;
     public double pointsToRedeemValue;
     public double pointsToRedeem;
+    public int isApprover;//0 or 1
     public List<DDRIncoTerm> dDRIncoTerms = null;
-    public List<DDRCartDetailsSubmit> dDRCartDetails = null;
+    public List<DDRProductCart> dDRCartDetails = null;
     public List<DDRPaymentDetail> dDRPaymentDetails = null;
 
 
@@ -60,7 +59,7 @@ public class InvoiceDataSubmit {
                              Address shipping,
                              LogisticsData logisticsData,
                              List<DDRIncoTerm> ddrIncoTerms,
-                             List<DDRCartDetailsSubmit> dDRCartDetails,
+                             List<DDRProductCart> dDRCartDetails,
                              List<DDRPaymentDetail> dDRPaymentDetails){
 
         this. employeeCode =Prefs.getStringPrefs(Constants.employeeCode);//"6000013";
@@ -92,7 +91,7 @@ public class InvoiceDataSubmit {
         this. transporterTruckNumber = logisticsData.truckNumber;
         this. transporterEWayBillNumber = logisticsData.eWayBillNumber;
         this. transporterEWayBillValidityDate = logisticsData.eWayBillValidity;
-        this. transporterTrackNumber = logisticsData.truckNumber;
+        this. transporterTrackNumber = logisticsData.trackMobileNumber;
         this. transporterDriverName = logisticsData.driverName;
         this. transporterDriverMobileNumber = logisticsData.driverMobileNumber;
         this. transporterAddress = logisticsData.address;

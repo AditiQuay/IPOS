@@ -143,6 +143,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/includeCardView"
-        android:nestedScrollingEnabled="false" />
+        android:nestedScrollingEnabled="false"
+        tools:listitem = "@layout/ddr_adapter_product_batch"/>
 
 </RelativeLayout>

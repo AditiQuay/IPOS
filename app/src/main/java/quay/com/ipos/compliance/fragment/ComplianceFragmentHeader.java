@@ -169,9 +169,9 @@ public class ComplianceFragmentHeader extends Fragment {
 
 
     private void openDynamicStoreDialog() {
-       /* final StoreListDialogFragment dialogFragment = StoreListDialogFragment.newInstance("", 0);
+        final StoreListDialogFragment dialogFragment = StoreListDialogFragment.newInstance("", 0);
         dialogFragment.show(getChildFragmentManager(), TAG);
-*/
+
     }
    /* private void openStoreDialog() {
 

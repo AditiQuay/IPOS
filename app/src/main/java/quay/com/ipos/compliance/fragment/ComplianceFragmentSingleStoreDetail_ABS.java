@@ -24,10 +24,10 @@ import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.compliance.adapter.ComplianceAdapter;
 import quay.com.ipos.compliance.constants.AnnotationTaskState;
-import quay.com.ipos.compliance.data.local.AppDatabase;
 import quay.com.ipos.compliance.data.local.entity.Task;
 import quay.com.ipos.compliance.viewModel.ProgressStateViewModel;
 import quay.com.ipos.compliance.viewModel.StoreViewModel;
+import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.RecyclerViewEmptySupport;
 import quay.com.ipos.utility.UiUtils;
@@ -57,8 +57,8 @@ public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements
     private ComplianceAdapter adapterImmediate;
 
     private View btnViewAll;
-    private ProgressStateViewModel progressStateViewModel;
-    private TextView txtShowCountContainer;
+   // private ProgressStateViewModel progressStateViewModel;
+    private View txtShowCountContainer;
 
     private List<Task> taskList = new ArrayList<>();
 
@@ -100,8 +100,8 @@ public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements
                 container,
                 false);
         //View view = binding.getRoot();
-        progressStateViewModel = new ProgressStateViewModel(null);
-        progressStateViewModel.setAllTrue();
+        //progressStateViewModel = new ProgressStateViewModel(null);
+        //progressStateViewModel.setAllTrue();
         //binding.setProgressState(progressStateViewModel);
         // binding.setStoreViewModel(storeViewModel);
 

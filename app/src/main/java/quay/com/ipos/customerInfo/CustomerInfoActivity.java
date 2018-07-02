@@ -22,9 +22,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -302,7 +302,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
 //        }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+   // @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event,Intent data) {/* Do something */
         try {
             if(event.getStatus()==0){
@@ -318,7 +318,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
     public void onStart() {
         super.onStart();
         try {
-            EventBus.getDefault().register(this);
+           // EventBus.getDefault().register(this);
         }catch (Exception e){
 
         }
@@ -329,7 +329,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         super.onStop();
 
         try {
-            EventBus.getDefault().unregister(this);
+           // EventBus.getDefault().unregister(this);
         }catch (Exception e){
 
         }

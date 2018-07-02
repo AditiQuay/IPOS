@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <TextView
@@ -13,9 +14,9 @@
         android:layout_toLeftOf="@+id/btnClear"
         android:drawableLeft="@drawable/attachment"
         android:gravity="center_vertical"
-        android:padding="2dp"
+        android:padding="@dimen/dim_4"
         android:text=""
-        android:textColor="@color/grey">
+        android:textColor="@color/secondary_text_color">
 
     </TextView>
 
@@ -25,11 +26,12 @@
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:src="@drawable/ic_action_cancel"
         android:gravity="center_vertical"
         android:padding="2dp"
-        android:src="@drawable/ic_action_cancel"
-        android:visibility="gone"
-        tools:visibility="visible">
+      >
 
     </ImageView>
 </RelativeLayout>

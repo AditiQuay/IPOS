@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -40,14 +41,22 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
     }
 
     @Override
-    public void onBindViewHolder(final SurveyViewHolder holder, final int position) {
+    public void onBindViewHolder(final SurveyViewHolder holder,  int position) {
         onBind = true;
 
 
         holder.tvQty.setText(stringArrayList.get(position).getPoPaymentTermsDetail());
         holder.percent.setText(stringArrayList.get(position).getPoPaymentTermsPer()+"");
         holder.tvGst.setText(stringArrayList.get(position).getPoPaymentTermsInvoiceDue());
-
+        holder.delete.setVisibility(View.VISIBLE);
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stringArrayList.remove(holder.getAdapterPosition());
+                notifyItemRemoved(holder.getAdapterPosition());
+                notifyItemRangeChanged(holder.getAdapterPosition(),stringArrayList.size());
+            }
+        });
 
         holder.percent.setEnabled(true);
         onBind = false;
@@ -67,9 +76,9 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
                 if(!onBind) {
                     if (Util.validateString(holder.percent.getText().toString())) {
 
-                        myListener.onRowClickedPaymentTerms(position, Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
+                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
                     } else {
-                        myListener.onRowClickedPaymentTerms(position, 0, holder.tvGst.getText().toString());
+                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
 
                     }
                 }
@@ -91,9 +100,9 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
                 if(!onBind) {
                     if (Util.validateString(holder.percent.getText().toString())) {
 
-                        myListener.onRowClickedPaymentTerms(position, Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
+                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
                     } else {
-                        myListener.onRowClickedPaymentTerms(position, 0, holder.tvGst.getText().toString());
+                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
 
                     }
                 }
@@ -121,6 +130,7 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvQty;
+        private ImageView delete;
 
         private EditText percent,tvGst;
         private RadioButton radio;
@@ -129,6 +139,7 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
             tvQty = itemView.findViewById(R.id.tvQty);
             percent = itemView.findViewById(R.id.percent);
             tvGst = itemView.findViewById(R.id.tvGst);
+            delete=itemView.findViewById(R.id.delete);
 
 
 

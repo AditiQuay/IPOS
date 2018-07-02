@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:text="Inventory"
+                android:text="INVENTORY"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:visibility="visible" />
@@ -288,7 +288,7 @@
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingLeft="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
-                    android:text="Terms &amp; Condition"
+                    android:text="Terms &amp; Conditions"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/universal_text_size14" />
 

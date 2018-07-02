@@ -208,6 +208,7 @@
             android:name=".inventory.activity.InventoryGRNDetails"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".partnerConnect.kyc.KYCActivity"
             android:screenOrientation="portrait"
@@ -345,6 +346,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".compliance.StorewiseComplianceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <!---&&&Compliance Tracker&&&-->
 
@@ -378,6 +388,6 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-</application>
+    </application>
 
-    </manifest>
+</manifest>

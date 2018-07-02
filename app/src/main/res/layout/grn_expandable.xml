@@ -52,7 +52,9 @@
                 android:id="@+id/rGrn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dim_4"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:layout_marginTop="@dimen/dim_4"
                 android:background="@color/white"
                 android:padding="8dp">
 
@@ -106,7 +108,9 @@
                 android:id="@+id/rTransporter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dim_4"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:layout_marginTop="@dimen/dim_4"
                 android:background="@color/white"
                 android:padding="8dp">
 
@@ -160,7 +164,9 @@
                 android:id="@+id/rItemsDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dim_4"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:layout_marginTop="@dimen/dim_4"
                 android:background="@color/white"
                 android:padding="8dp">
 
@@ -204,6 +210,18 @@
                     android:paddingRight="@dimen/dim_10"
                     android:src="@drawable/ic_action_arrow_right_blue" />
 
+                <ImageView
+                    android:id="@+id/ivItemAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/ivItemDetailsGroupArrow"
+                    android:alpha="0.7"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/add_circle" />
+
             </RelativeLayout>
 
             <include
@@ -214,7 +232,9 @@
                 android:id="@+id/rIncco"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dim_4"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:layout_marginTop="@dimen/dim_4"
                 android:background="@color/white"
                 android:padding="8dp">
 
@@ -268,7 +288,9 @@
                 android:id="@+id/rAttachment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/dim_4"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:layout_marginTop="@dimen/dim_4"
                 android:background="@color/white"
                 android:padding="8dp">
 
@@ -388,7 +410,7 @@
                     android:backgroundTint="@color/colorPrimary"
                     android:fontFamily="@font/titilliumwebregular"
                     android:stateListAnimator="@null"
-                    android:text="@string/save_close"
+                    android:text="@string/ddr_submit"
                     android:textAllCaps="true" />
 
             </LinearLayout>

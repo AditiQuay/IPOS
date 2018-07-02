@@ -1,11 +1,13 @@
 package quay.com.ipos.inventory.activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -43,10 +45,12 @@ import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.compliance.constants.Constant;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.inventory.adapter.InventoryAddNewOrderAdapter;
 import quay.com.ipos.listeners.AdapterListener;
+import quay.com.ipos.modal.CommonParams;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.pss_order.adapter.AddNewOrderAdapter;
 import quay.com.ipos.pss_order.modal.NewOrderProductsResult;
@@ -55,6 +59,8 @@ import quay.com.ipos.realmbean.RealmInventoryProducts;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.FontManager;
+import quay.com.ipos.ui.InformationDialogInventory;
+import quay.com.ipos.ui.InformationDialogNewOrder;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
@@ -145,7 +151,7 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
     public void setHeader() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-        toolbar.setTitle("New Order");
+        toolbar.setTitle("Inventory");
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -306,6 +312,11 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
             case R.id.tvClear:
                 searchView.setText("");
                 break;
+            case R.id.imvInfo:
+                Util.hideSoftKeyboard(InventoryItemAddNewOrderActivity.this);
+                int infoPos = (int) view.getTag();
+                new InformationDialogInventory(mContext,dataBeans.get(infoPos));
+                break;
 
             case R.id.llRefreshStocks:
                 final int posDeleteCheckStock = (int) view.getTag();
@@ -432,21 +443,16 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
 
     private void searchProductCall(String s,String all) {
 //        showProgress(getResources().getString(R.string.please_wait));
-        ProductSearchRequest productSearchRequest = new ProductSearchRequest();
-        productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
-        productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
-        productSearchRequest.setEntityStateCode("06");
-        productSearchRequest.setSearchParam(s);
-        productSearchRequest.setModuleType("NO");
-        productSearchRequest.setBusinessPlaceCode("1");
-        productSearchRequest.setBarCodeNumber(all);
-        productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
-        productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
+        CommonParams mCommonParams = new CommonParams();
+        mCommonParams.setStoreId(Prefs.getIntegerPrefs("WorklocationID")+"");
+        mCommonParams.setSearchParam(s);
+     //   productSearchRequest.setBusinessPlaceCode(Prefs.getIntegerPrefs("WorklocationID")+"");
+
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH);
+        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_INVENTORYPRODIUCTSEARCH);
         mTask.setApiCallType(Constants.API_METHOD_POST);
-        mTask.setParamObj(productSearchRequest);
+        mTask.setParamObj(mCommonParams);
         mTask.setListener(this);
         mTask.setResultType(NewOrderProductsResult.class);
         if(Util.isConnected())
@@ -637,7 +643,9 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
                                         isApplied=  getQuantityBasedOnDiscountItems(isApplied,realmNewOrderCarts,slabFrom,slabTO,opsCriteria,sDiscountBasedOn,realm,packSize,productCode);
 
                                     }else {
-                                        isApplied=  getValueBasedOnDiscountItems(isApplied,realmNewOrderCarts,slabFrom,slabTO,opsCriteria,sDiscountBasedOn,realm,packSize,productCode);
+                                        isApplied=  getQuantityBasedOnDiscountItems(isApplied,realmNewOrderCarts,slabFrom,slabTO,opsCriteria,sDiscountBasedOn,realm,packSize,productCode);
+
+                                     //   isApplied=  getValueBasedOnDiscountItems(isApplied,realmNewOrderCarts,slabFrom,slabTO,opsCriteria,sDiscountBasedOn,realm,packSize,productCode);
 
                                     }
 
@@ -1327,4 +1335,14 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+
+    }
+
+
+
 }
