@@ -1,6 +1,7 @@
 package quay.com.ipos.compliance;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,11 +13,14 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -85,7 +89,7 @@ public class DashboardActivity extends AppCompatActivity
      /*   NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 */
-        openComplianceTracking(null);
+        //openComplianceTracking(null);
 
 
         loadCompliances();
@@ -346,12 +350,12 @@ public class DashboardActivity extends AppCompatActivity
     public void onStoreSelected(String strStoreName, String storeId) {
         try {
             if (complianceFragmentMain != null) {
-               /* Intent intent = new Intent(this, StorewiseComplianceActivity.class);
+               Intent intent = new Intent(this, StorewiseComplianceActivity.class);
                 intent.putExtra("title", strStoreName);
                 intent.putExtra("storeid", storeId);
                 intent.putExtra("curr_pos", complianceFragmentMain.getCurrentViewPagerPos());
                 Log.i(TAG, "strStoreName" + strStoreName + ", storeid" + storeId);
-                startActivity(intent);*/
+                startActivity(intent);
                 Log.i(TAG, "strStoreName" + strStoreName + ", storeid" + storeId);
             } else {
                 Log.e(TAG, "complianceFragmentMain is null");
@@ -452,9 +456,23 @@ public class DashboardActivity extends AppCompatActivity
                 List<Employee> employeeList = compResp.response.employeeList;
                 appDatabase.employeeDao().saveAllEmployees(employeeList);
 
+                Log.i(TAG,"compResp.response.businessPlaceList:"+new Gson().toJson(compResp.response.businessPlaceList));
+               if (compResp.response.businessPlaceList == null) {
+                   List<BusinessPlaceEntity> placeEntities = new ArrayList<>();
+                   BusinessPlaceEntity placeEntity = new BusinessPlaceEntity() ;
+                   placeEntity.id = 1;
+                   placeEntity.name ="Gurgaon";
+                   placeEntity.address1 = "address1";
+                   placeEntity.address1 = "address1";
+                   placeEntity.city = "city";
+                   placeEntity.state = "state";
+                   placeEntity.roleCode = 1212;
+                   placeEntity.empCode = "1212";
 
-                if (compResp.response.businessPlaceList == null) {
-                    return false;
+
+                   placeEntities.add(placeEntity);
+                   compResp.response.businessPlaceList = placeEntities;
+                    /* return false;*/
                 }
                 List<BusinessPlaceEntity> placeEntityList = compResp.response.businessPlaceList;
                 appDatabase.placeDao().savePlace(placeEntityList);
@@ -497,7 +515,8 @@ public class DashboardActivity extends AppCompatActivity
            /* Intent intent = new Intent(getApplicationContext(),DashboardActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);*/
-            if (aVoid != null) {
+            Log.i("data", aVoid+"");
+            if (aVoid) {
                 openComplianceTracking(null);
             }else {
                 IPOSApplication.showToast("Error Occurred!");

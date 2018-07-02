@@ -1020,7 +1020,7 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
                     tilEmail1.setErrorEnabled(true);
                     tilEmail1.setError("Email is required");
                 }
-                if (!isEmailValid(tieEmail1.getText().toString())) {
+                if (!emailValidator(tieEmail1.getText().toString())) {
                     isFail = true;
                     tilEmail1.setErrorEnabled(true);
                     tilEmail1.setError(getResources().getString(R.string.invalid_email));
@@ -1083,7 +1083,7 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
                         }
                     }
                     if (!TextUtils.isEmpty(tieEmail2.getText().toString())) {
-                        if (!isEmailValid(tieEmail2.getText().toString())) {
+                        if (!Util.validateEmail(tieEmail2.getText().toString())) {
                             isNotValidated = true;
                             tilEmail2.setErrorEnabled(true);
                             tilEmail2.setError(getResources().getString(R.string.invalid_email));
@@ -1168,6 +1168,16 @@ public class CustomerAddFullFragment extends Fragment implements SendDataActivit
             isValid = true;
         }
         return isValid;
+    }
+
+    public boolean emailValidator(String email)
+    {
+        Pattern pattern;
+        Matcher matcher;
+        final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     private void sendCustomerData() {

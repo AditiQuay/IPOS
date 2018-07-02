@@ -74,7 +74,7 @@ public class ComplianceFragmentMain extends Fragment {
 
         viewPager = view.findViewById(R.id.viewPager);
         viewPager.addOnPageChangeListener(myOnPageChangeListener);
-      //  viewPager.setAdapter(new MyPagerAdapter(getActivity().getSupportFragmentManager()));
+        viewPager.setAdapter(new MyPagerAdapter(getActivity().getSupportFragmentManager()));
 
         Log.e(TAG, "parent_curr_pos: "+parent_curr_pos+"");
 

@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -30,6 +31,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -65,8 +67,8 @@ import quay.com.ipos.utility.Util;
 
 public class DDRAddNewProductActivity extends BaseActivity implements View.OnClickListener,AdapterListener,ServiceTask.ServiceResultListener{
 
-    private static final String TAG = quay.com.ipos.retailsales.activity.AddProductActivity.class.getSimpleName();
-    ArrayList<OrderList.Datum> arrSearlist= new ArrayList<>();
+    private static final String TAG = DDRAddNewProductActivity.class.getSimpleName();
+
     private EditText searchView;
     private RecyclerView mRecyclerView;
     private FloatingActionButton fab;
@@ -404,38 +406,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
         Util.hideSoftKeyboard(this);*/
     }
 
-    private void setOnClickPlus(View view) {
-        Util.hideSoftKeyboard(this);
-        Util.animateView(view);
-        int posPlus = (int) view.getTag();
-        OrderList.Datum datum1 =arrSearlist.get(posPlus);
-        int qty1 = datum1.getQty();
-        if(Integer.parseInt(datum1.getSProductPoints())<=qty1){
-            Util.showToast("Quantity limit exceed",this);
-        }else {
-            datum1.setQty(qty1 + 1);
-            arrSearlist.set(posPlus, datum1);
-            mAddNewOrderAdapter.notifyItemChanged(posPlus);
 
-        }
-    }
-
-    private void setOnClickMinus(View view) {
-        Util.hideSoftKeyboard(this);
-        Util.animateView(view);
-        int posMinus = (int) view.getTag();
-        OrderList.Datum datum = arrSearlist.get(posMinus);
-        int qty = datum.getQty();
-        if(qty==1){
-            Util.showToast("Cannot purchase with 0 quantity",this);
-            return;
-        }else {
-            datum.setQty(qty - 1);
-            arrSearlist.set(posMinus, datum);
-            mAddNewOrderAdapter.notifyItemChanged(posMinus);
-
-        }
-    }
 
     private void searchProductCall(String s, String all) {
 //        showProgress(getResources().getString(R.string.please_wait));
@@ -470,11 +441,15 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
             arrData.clear();
             if (Util.validateString(serverResponse)){
 
+                Log.i(TAG+" response : ", serverResponse);
+
                 DDRNewOrderProductsResult noGetEntityResultModal=(DDRNewOrderProductsResult)resultObj;
                 arrData.add(noGetEntityResultModal);
                 for (int i=0;i<arrData.size();i++){
                     dataBeans.addAll(arrData.get(0).getData());
                 }
+
+
 
              /*   try {
                     JSONObject jsonObject=new JSONObject(serverResponse);

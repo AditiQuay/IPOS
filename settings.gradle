@@ -1,1 +1,1 @@
-include ':app',':zbar',':core'
+include ':app',':zbar',':core',":tasklib"

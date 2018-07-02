@@ -58,7 +58,6 @@
             android:id="@+id/flCustomer"
             style="?attr/actionButtonStyle"
             android:layout_width="0dp"
-
             android:layout_marginRight="@dimen/dim_5"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -573,10 +572,27 @@
                                     android:layout_marginRight="@dimen/dim_8"
                                     android:background="@drawable/toggle_selector"
                                     android:checked="false"
+                                    android:enabled="false"
                                     android:textOff=""
                                     android:textOn=""/>
 
                             </LinearLayout>
+                            <quay.com.ipos.ui.CustomButton
+                                android:id="@+id/btnEditCash"
+                                style="@style/styleWhiteTextColor14"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:drawableRight="@drawable/ic_action_check"
+                                android:drawablePadding="@dimen/dim_5"
+                                android:layout_marginRight="@dimen/dim_10"
+                                android:layout_marginLeft="@dimen/dim_5"
+                                android:paddingLeft="@dimen/dim_5"
+                                android:paddingRight="@dimen/dim_5"
+                                android:visibility="gone"
+                                android:background="@drawable/button_rectangle_primary"
+                                android:text="@string/edit" />
                             <quay.com.ipos.ui.CustomButton
                                 android:id="@+id/btnPayCash"
                                 style="@style/styleWhiteTextColor14"
@@ -616,7 +632,7 @@
                                 android:layout_gravity="left|center"
                                 android:textSize="14dp"
                                 android:padding="5dp"
-                                android:inputType="numberDecimal"
+                                android:inputType="number"
                                 android:hint="@string/enter_cash_amount"
                                 android:textColorHint="@color/grey"
                                 android:textColor="@color/dark_text_color"
@@ -652,7 +668,7 @@
                                     android:layout_gravity="left|center"
                                     android:textSize="14dp"
                                     android:padding="5dp"
-                                    android:inputType="numberDecimal"
+                                    android:inputType="number"
                                     android:hint="@string/enter_received_amount"
                                     android:textColorHint="@color/grey"
                                     android:textColor="@color/dark_text_color"
@@ -682,7 +698,7 @@
                                     android:gravity="left|center"
                                     android:layout_gravity="left|center"
                                     android:textSize="14dp"
-                                    android:inputType="numberDecimal"
+                                    android:inputType="number"
                                     android:alpha="0.5"
                                     android:focusable="true"
                                     android:editable="false"
@@ -748,7 +764,22 @@
                                 android:textAllCaps="true"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/text_size_15sp"/>
-
+                            <quay.com.ipos.ui.CustomButton
+                                android:id="@+id/btnEditCard"
+                                style="@style/styleWhiteTextColor14"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:drawableRight="@drawable/ic_action_check"
+                                android:drawablePadding="@dimen/dim_5"
+                                android:layout_marginRight="@dimen/dim_10"
+                                android:layout_marginLeft="@dimen/dim_5"
+                                android:paddingLeft="@dimen/dim_5"
+                                android:paddingRight="@dimen/dim_5"
+                                android:visibility="gone"
+                                android:background="@drawable/button_rectangle_primary"
+                                android:text="@string/edit" />
                             <quay.com.ipos.ui.CustomButton
                                 android:id="@+id/btnPayCard"
                                 style="@style/styleWhiteTextColor14"
@@ -788,7 +819,7 @@
                                     android:gravity="left|center"
                                     android:layout_gravity="left|center"
                                     android:textSize="14dp"
-                                    android:inputType="numberDecimal"
+                                    android:inputType="number"
                                     android:padding="5dp"
                                     android:hint="@string/enter_card_amount"
                                     android:textColorHint="@color/grey"
@@ -1066,6 +1097,22 @@
                                 android:background="@drawable/item_bg_primary"
                                 android:layout_marginBottom="@dimen/dim_2"
                                 />
+                            <quay.com.ipos.ui.CustomButton
+                                android:id="@+id/btnEditPoints"
+                                style="@style/styleWhiteTextColor14"
+                                android:layout_alignParentRight="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:drawableRight="@drawable/ic_action_check"
+                                android:drawablePadding="@dimen/dim_5"
+                                android:layout_marginRight="@dimen/dim_10"
+                                android:layout_marginLeft="@dimen/dim_5"
+                                android:paddingLeft="@dimen/dim_5"
+                                android:paddingRight="@dimen/dim_5"
+                                android:visibility="gone"
+                                android:background="@drawable/button_rectangle_primary"
+                                android:text="@string/edit" />
                         </LinearLayout>
                         <View
                             android:layout_width="match_parent"
@@ -1120,7 +1167,7 @@
                                 android:textSize="14dp"
                                 android:enabled="false"
                                 android:focusable="true"
-                                android:inputType="numberDecimal"
+                                android:inputType="number"
                                 android:padding="5dp"
                                 android:hint="@string/redeem_value"
                                 android:textColorHint="@color/grey"
@@ -1179,6 +1226,7 @@
                                 android:layout_weight="1"
                                 android:paddingRight="@dimen/dim_35"
                                 android:textSize="@dimen/text_size_15sp"
+                                android:visibility="gone"
                                 android:textColor="@color/colorPrimary"
 
                                 android:text="@string/resend_otp" />

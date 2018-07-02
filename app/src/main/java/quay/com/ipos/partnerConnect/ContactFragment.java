@@ -68,7 +68,6 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
         listPosition = Arrays.asList(partnerKeyPosition);
 
 
-
         findViewById();
         applyInitValues();
         applyLocalValidation();

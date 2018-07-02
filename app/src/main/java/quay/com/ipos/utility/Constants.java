@@ -93,6 +93,9 @@ public class Constants {
     public static final int APP_DIALOG_DELETE_ITEM = 6;
     public static final int APP_DIALOG_OTC_DIALOG_1 = 7;
     public static final String APP_DIALOG_CUSTOMER = "app_dialog_customer";
+    public static final String KEY_CUSTOMER_POINTS_NUMBER ="CUSTOMER_POINTS_NUMBER" ;
+    public static final String RECEIPT = "RECEIPT";
+    public static final String RECEIPT_FROM = "RECEIPT_FROM";
     public static int APP_DIALOG_Pinned_ORDER=3;
 
     public static String UserProfilePic = "http://upload.wikimedia.org/wikipedia/commons/d/d3/User_Circle.png";
@@ -162,5 +165,6 @@ public class Constants {
     public static String otcPerc="otcPerc";
     public static String otcValue="otcValue";
 
+    public static String paymentMode="paymentMode";
 }
 

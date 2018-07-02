@@ -39,9 +39,9 @@ public class AllStorewiseComplianceFragment extends Fragment {
     private String mParam1;
     private int position;
 
-    private OnFragmentInteractionListener mListener;
+   // private OnFragmentInteractionListener mListener;
 
-    private StoreViewModel storeViewModel;
+   // private StoreViewModel storeViewModel;
 
     private TextView mIpos_ct_ProgressBar;
 
@@ -120,7 +120,7 @@ public class AllStorewiseComplianceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        storeViewModel = new StoreViewModel(getActivity());
+        //storeViewModel = new StoreViewModel(getActivity());
          View view=inflater.inflate(R.layout.c_fragment_compliance_allstore_abs, container, false);
        /* View view = binding.getRoot();
         binding.setStoreViewModel(storeViewModel);
@@ -139,7 +139,7 @@ public class AllStorewiseComplianceFragment extends Fragment {
         textView.setText(getTitle());
 
         mIpos_ct_ProgressBar = view.findViewById(R.id.mIpos_ct_ProgressBar);
-        mIpos_ct_ProgressBar.setText("Hello");
+        //mIpos_ct_ProgressBar.setText("Hello");
 
 
         recyclerView = view.findViewById(R.id.mRv_storewise_compliance_summary);
@@ -159,7 +159,7 @@ public class AllStorewiseComplianceFragment extends Fragment {
         AppDatabase.getAppDatabase(IPOSApplication.getContext()).taskDao().getAllTask().observe(getActivity(), new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable List<Task> tasks) {
-                storeViewModel.updateUI(tasks, position,"");
+                //storeViewModel.updateUI(tasks, position,"");
             }
         });
 
@@ -187,7 +187,7 @@ public class AllStorewiseComplianceFragment extends Fragment {
     }
 
 
-    @Override
+   /* @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
@@ -196,12 +196,12 @@ public class AllStorewiseComplianceFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnStoreSelectionListener");
         }
-    }
+    }*/
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+       // mListener = null;
     }
 
     @Override
@@ -211,15 +211,7 @@ public class AllStorewiseComplianceFragment extends Fragment {
 
     }
 
-   /* public FragmentComplianceAllstoreAbsBinding getBinding() {
-        return binding;
-    }
-*/
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 
     private class DatabaseAsync extends AsyncTask<Void, Void, List<BusinessPlaceEntity>> {
 

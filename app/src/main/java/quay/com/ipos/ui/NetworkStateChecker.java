@@ -67,12 +67,13 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
             }
         }
     }
-
+    int pos;
     public void sendDataToServer() {
         billingSyncs = db.getUnSyncedRetailOrders();
         AppLog.e("tag","sendDataToServer");
         if(billingSyncs.size()>0) {
             for (int i = 0; i < billingSyncs.size(); i++) {
+                pos=i;
                 BillingSync billingSync = billingSyncs.get(i);
                 paymentRequest = Util.getCustomGson().fromJson(billingSync.getBilling(), PaymentRequest.class);
                 paymentRequest.setOrderDateTime(billingSync.getOrderDateTime());
@@ -105,7 +106,8 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
 //                        IPOSApplication.totalAmount = 0.0;
 //                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
                         editBillToLocalStorage(paymentRequest, NAME_SYNCED_WITH_SERVER);
-
+                        billingSyncs.remove(pos);
+                        sendDataToServer();
                     } else {
 
                         editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
@@ -115,19 +117,14 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
             }
         } else if (httpStatusCode == Constants.BAD_REQUEST) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-//            Toast.makeText(context, context.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-//            Toast.makeText(context, context.getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-//            Toast.makeText(context, context.getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-//            Toast.makeText(context, context.getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
         } else if (httpStatusCode == Constants.CONNECTION_OUT) {
             editBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
-//            Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -136,24 +133,16 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
             if(!db.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL_BILLING)) {
                 billingSyncs1 = db.getUnSyncedRetailOrders();
                 if(billingSyncs1.size()>0) {
-//                    for (int i = 0; i < billingSyncs1.size(); i++) {
                     if(db.checkIfBillingRecordExist(paymentRequest.getOrderTimestamp()))
                         db.updateSync(status, paymentRequest.getOrderTimestamp());
-//                            if (paymentRequest.getOrderTimestamp().equalsIgnoreCase(billingSyncs1.get(i).getOrderTimestamp())) {
-//                                db.updateSync(status, paymentRequest.getOrderTimestamp());
-//                            } else {
-//
-//                            }
 
-//                    }
-                    sendDataToServer();
+                    if(OutboxActivity.getInstace()!=null)
+                        OutboxActivity.getInstace().update();
                 }else {
                     db.deleteTable(DatabaseHandler.TABLE_RETAIL_BILLING);
+                    if(OutboxActivity.getInstace()!=null)
+                        OutboxActivity.getInstace().update();
                 }
-                billingSyncs1 = db.getAllRetailBillingOrders();
-//                if (status == NAME_SYNCED_WITH_SERVER) {
-//                    db.deleteRetailBillingTable(paymentRequest.getOrderTimestamp());
-//                }
 
                 AppLog.e("tag","RetailMaster Not Empty");
             }else {
@@ -163,8 +152,6 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
 
         }
 
-        if(OutboxActivity.getInstace()!=null)
-            OutboxActivity.getInstace().update();
 
 
     }

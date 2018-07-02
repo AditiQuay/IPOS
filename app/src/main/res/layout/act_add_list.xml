@@ -149,6 +149,8 @@
             android:layout_height="match_parent"
             android:padding="@dimen/dim_10"
             android:visibility="gone"
+            android:layout_below="@id/llSize"
+            android:layout_above="@id/llAccept"
             android:gravity="center"
             android:text="@string/no_match_found"
             android:background="@color/backgroundgrey"

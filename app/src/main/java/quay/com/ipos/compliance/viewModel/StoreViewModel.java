@@ -140,7 +140,9 @@ public class StoreViewModel  {
 
         for (Task taskData : compliances) {
 
-
+            if (taskData.task_category==null) {
+                taskData.task_category = "";
+            }
             if (complianceType.contentEquals("all") || taskData.task_category.contentEquals(complianceType)) {
 
 

@@ -285,7 +285,25 @@ public class LoginResult {
             private String ModifiedDate;
             private boolean Active;
             private String LocationStateCode;
+            private String GSTIN;
+            private String CIN;
             private int EntityIdRef;
+
+            public String getGSTIN() {
+                return GSTIN;
+            }
+
+            public void setGSTIN(String GSTIN) {
+                this.GSTIN = GSTIN;
+            }
+
+            public String getCIN() {
+                return CIN;
+            }
+
+            public void setCIN(String CIN) {
+                this.CIN = CIN;
+            }
 
             public int getID() {
                 return ID;

@@ -33,6 +33,7 @@ import quay.com.ipos.retailsales.adapter.AddProductAdapter;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.FontManager;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.SpacesItemDecoration;
 import quay.com.ipos.utility.Util;
@@ -64,6 +65,7 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
      * The data.
      */
     public ArrayList<ProductSearchResult.Datum> data= new ArrayList<>();
+    private int orderNumber=1;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -73,7 +75,8 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
         initializeComponent();
         databaseHandler = new DatabaseHandler(this);
 //        databaseHandler.deleteTable(DatabaseHandler.TABLE_RETAIL);
-        if(databaseHandler.isRetailMasterEmpty(databaseHandler.TABLE_RETAIL)) {
+//        if(databaseHandler.isRetailMasterEmpty(databaseHandler.TABLE_RETAIL)) {
+        if(Util.isConnected()) {
             loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",AddProductActivity.this),LoginResult.class);
             searchProductCall(loginResult.getUserAccess().getWorklocationID()+"");
         }else {
@@ -287,6 +290,12 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 //                            Util.showToast(getString(R.string.product_added_successfully), AddProductActivity.this);
                         }
                     } else {
+                        if (Prefs.getStringPrefs(Constants.KEY_ORDER_ID) != null && !Prefs.getStringPrefs(Constants.KEY_ORDER_ID).equalsIgnoreCase("")) {
+                            String order = Prefs.getStringPrefs(Constants.KEY_ORDER_ID);
+                            orderNumber = Integer.parseInt(order);
+                            orderNumber++;
+                            Prefs.putStringPrefs(Constants.KEY_ORDER_ID, Util.generateOrderFormat(orderNumber) + "");
+                        }
                         ProductSearchResult.Datum mProductSearchResultData = arrSearchlist.get(pos);
                         if(mProductSearchResultData.getSProductStock()>=0) {
                             mProductSearchResultData.setQty(mProductSearchResultData.getQty() + 0);
@@ -331,12 +340,21 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                 updateItem();
                 mAddProductAdapter.notifyDataSetChanged();
                 break;
+
             case R.id.imvBack:
                 onBackPressed();
+                if(IPOSApplication.mProductListResult.size()>0){
+                    if (Prefs.getStringPrefs(Constants.KEY_ORDER_ID) != null && !Prefs.getStringPrefs(Constants.KEY_ORDER_ID).equalsIgnoreCase("")) {
+                        String order = Prefs.getStringPrefs(Constants.KEY_ORDER_ID);
+                        orderNumber = Integer.parseInt(order);
+                        orderNumber--;
+                        Prefs.putStringPrefs(Constants.KEY_ORDER_ID, Util.generateOrderFormat(orderNumber) + "");
+                    }
+                }
                 Util.hideSoftKeyboard(AddProductActivity.this);
                 break;
-            case R.id.llAccept:
 
+            case R.id.llAccept:
                 if(count>0) {
                     Intent mIntent1 = new Intent();
                     setResult(1, mIntent1);
@@ -383,11 +401,18 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
                     data.addAll(mProductSearchResult.getData());
                     arrSearchlist.addAll(data);
                     setAdapter();
+                    IPOSApplication.datumArrayList.clear();
                     IPOSApplication.datumArrayList.addAll(data);
+                    if(data.size()>0){
+                        databaseHandler.deleteTable(DatabaseHandler.TABLE_RETAIL);
+                    }
                     if(databaseHandler.isRetailMasterEmpty(databaseHandler.TABLE_RETAIL)) {
                         for (int i = 0; i < data.size(); i++) {
                             databaseHandler.addProduct(data.get(i));
                         }
+                    }else
+                    {
+
                     }
                 }
 //                if (resultObj != null) {

@@ -18,17 +18,15 @@ import quay.com.ipos.ddrsales.model.response.Address;
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHolder> {
     private Context mContext;
     private List<Address> list;
-    private OnItemSelecteListener mListener;
-
-
-    private  RadioButton lastChecked = null;
-    private  int lastCheckedPos = 0;
+    private OnItemSelectionListener mListener;
     private int addressType;
 
-
-    public AddressAdapter(Context mContext, List<Address> list, OnItemSelecteListener mListener,int addressType) {
+    public AddressAdapter(Context mContext, List<Address> list, OnItemSelectionListener mListener, int addressType) {
         this.mContext = mContext;
         this.list = list;
+        if (list != null && list.size() > 0) {
+            list.get(0).setSelected(true);
+        }
         this.mListener = mListener;
         this.addressType = addressType;
     }
@@ -40,48 +38,29 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
 
 
-        Address address = list.get(position);
+        final Address address = list.get(position);
         holder.textAddress.setText(address.name);
-       /* holder.radio.setChecked(address.isSelected);
-        holder.radio.setChecked(list.get(holder.getAdapterPosition()).isSelected);
-*/       holder.radio.setChecked(list.get(position).isSelected);
-        holder.radio.setTag(new Integer(position));
+        holder.radio.setChecked(address.isSelected);
 
-        //for default check in first item
-        if(position == 0 && list.get(0).isSelected && holder.radio.isChecked())
-        {
-            lastChecked = holder.radio;
-            lastCheckedPos = 0;
-        }
 
-        holder.radio.setOnClickListener(new View.OnClickListener()
-        {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                RadioButton  cb = (RadioButton) v;
-                int clickedPos = ((Integer)cb.getTag()).intValue();
-
-                if(cb.isChecked())
-                {
-                    if(lastChecked != null)
-                    {
-                        lastChecked.setChecked(false);
-                        list.get(lastCheckedPos).setSelected(false);
-                    }
-
-                    lastChecked = cb;
-                    lastCheckedPos = clickedPos;
+            public void onClick(View view) {
+                for (Address address1 :
+                        list) {
+                    address1.setSelected(false);
                 }
-                else
-                    lastChecked = null;
-
-                list.get(clickedPos).setSelected(cb.isSelected());
+                address.setSelected(true);
+                notifyDataSetChanged();
+                if (mListener != null) {
+                    mListener.onItemSelected(position, addressType);
+                }
             }
         });
+
 
     }
 
@@ -92,8 +71,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         return list.size();
     }
 
-    public interface OnItemSelecteListener {
-          void onItemSelected(View v, int position,int addressType);
+    public interface OnItemSelectionListener {
+          void onItemSelected(int position,int addressType);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -105,7 +84,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             super(itemView);
             textAddress = itemView.findViewById(R.id.textAddress);
             radio=itemView.findViewById(R.id.radio);
-
+            radio.setFocusable(false);
+            radio.setClickable(false);
 
         }
     }

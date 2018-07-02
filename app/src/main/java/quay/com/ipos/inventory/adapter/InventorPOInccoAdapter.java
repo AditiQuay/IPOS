@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.modal.GrnInccoTermsModel;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 6/20/2018.
@@ -29,6 +30,7 @@ public class InventorPOInccoAdapter extends RecyclerView.Adapter<InventorPOIncco
     private ArrayList<GrnInccoTermsModel> grnInccoTermsModels;
     private OnCalculateTotalIncoTermsListener incoTermsListener;
     private boolean onBind;
+    private ItemView itemViewO;
 
     public InventorPOInccoAdapter(Context mContext, ArrayList<GrnInccoTermsModel> grnInccoTermsModels, OnCalculateTotalIncoTermsListener incoTermsListener) {
         this.mContext = mContext;
@@ -47,15 +49,20 @@ public class InventorPOInccoAdapter extends RecyclerView.Adapter<InventorPOIncco
     public void onBindViewHolder(@NonNull ItemView holder, int position) {
         this.onBind = true;
 
+        this.itemViewO=holder;
         GrnInccoTermsModel grnInccoTermsModel = grnInccoTermsModels.get(position);
         holder.tvDetailName.setText(grnInccoTermsModel.grnIncoDetail);
-        holder.tvPayAmount.setText(grnInccoTermsModel.grnPayAmount + "");
+        holder.myCustomEditTextListener.updatePosition(position, holder);
+        holder.tvPayAmount.setText(grnInccoTermsModels.get(holder.getAdapterPosition()).grnPayAmount + "");
+
 
 
         holder.myCustomCheckBoxListener.updatePosition(position, holder);
         holder.sender.setChecked(grnInccoTermsModel.grnPayBySender);
         holder.reciver.setChecked(grnInccoTermsModel.grnPayByReceiver);
         this.onBind = false;
+
+
     }
 
     @Override
@@ -84,6 +91,7 @@ public class InventorPOInccoAdapter extends RecyclerView.Adapter<InventorPOIncco
 
             sender.setOnCheckedChangeListener(myCustomCheckBoxListener);
             reciver.setOnCheckedChangeListener(myCustomCheckBoxListener);
+
         }
     }
 
@@ -105,14 +113,20 @@ public class InventorPOInccoAdapter extends RecyclerView.Adapter<InventorPOIncco
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
             try {
 
-                if (holder.tvPayAmount != null) {
-                    if (holder.tvPayAmount.getText().hashCode() == charSequence.hashCode()) {
+                if (itemViewO.tvPayAmount != null) {
+                  // if (itemViewO.tvPayAmount.getText().hashCode() == charSequence.hashCode()) {
                         String editStr = charSequence.toString();
                         if (editStr.isEmpty()) {
                             editStr = "0.0";
                         }
                         grnInccoTermsModels.get(position).grnPayAmount = Double.parseDouble(editStr);
+                    //}
+                }else {
+                    String editStr = charSequence.toString();
+                    if (editStr.isEmpty()) {
+                        editStr = "0.0";
                     }
+                    grnInccoTermsModels.get(position).grnPayAmount = Double.parseDouble(editStr);
                 }
 
 
@@ -147,12 +161,16 @@ public class InventorPOInccoAdapter extends RecyclerView.Adapter<InventorPOIncco
                     switch (compoundButton.getId()) {
                         case R.id.sender:
                             grnInccoTermsModels.get(position).grnPayBySender = b;
+                            if (Util.validateString(holder.tvPayAmount.getText().toString()))
+                            grnInccoTermsModels.get(position).grnPayAmount = Double.parseDouble(holder.tvPayAmount.getText().toString());
                             grnInccoTermsModels.get(position).grnPayByReceiver = !grnInccoTermsModels.get(position).grnPayBySender;
                             Log.i(TAG, "Notify" + "holder.sender");
                             notifyItemChanged(position);
                             break;
                         case R.id.reciver:
                             grnInccoTermsModels.get(position).grnPayByReceiver = b;
+                            if (Util.validateString(holder.tvPayAmount.getText().toString()))
+                                grnInccoTermsModels.get(position).grnPayAmount = Double.parseDouble(holder.tvPayAmount.getText().toString());
                             grnInccoTermsModels.get(position).grnPayBySender = !grnInccoTermsModels.get(position).grnPayByReceiver;
                             Log.i(TAG, "Notify" + "holder.reciver");
                             notifyItemChanged(position);

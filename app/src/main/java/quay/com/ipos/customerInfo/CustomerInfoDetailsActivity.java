@@ -8,11 +8,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +34,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.customerInfo.customerAdd.CustomerAddMain;
 import quay.com.ipos.customerInfo.customerInfoAdapter.CustomerRecentOrdersAdapter;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
@@ -40,6 +44,7 @@ import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.realmbean.RealmPinnedResults;
 import quay.com.ipos.ui.CustomTextView;
+import quay.com.ipos.ui.MessageEvent;
 import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
@@ -56,11 +61,12 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private CustomTextView textViewUpdateAndProceed;
     private ImageView imvBilling, imvPin;
     private CircleImageView imageViewProfileDummy;
+    private Menu menu1;
     private LinearLayout lLayoutBottom;
     private Context mContext;
-    private String customerId = "", mCustomerEmail = "";
-    private double customerPointsPer = 0;
-    private int customerPoints = 0;
+    //    private String customerId = "", mCustomerEmail = "", mCustomerNumber="";
+//    private double customerPointsPer = 0;
+//    private int customerPoints = 0;
     private RecyclerView recyclerviewRecentOrder;
     private CustomerRecentOrdersAdapter customerRecentOrdersAdapter;
     private ArrayList<RecentOrderList> recentOrders = new ArrayList<>();
@@ -71,6 +77,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     private SharedPreferences.Editor editor;
     private RelativeLayout rLayoutContent;
     private String paymentModeClicked;
+    private String paymentModeSearch="";
     private RelativeLayout rInfoLay;
     private Dialog myDialog;
 
@@ -80,14 +87,15 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         setContentView(R.layout.customer_info_details);
         mContext = CustomerInfoDetailsActivity.this;
         db = new DatabaseHandler(mContext);
-
         myDialog = new Dialog(this);
         myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 
         Intent i = getIntent();
-        customerId = i.getStringExtra("customerID");
+        IPOSApplication.mCustomerID = i.getStringExtra("customerID");
         paymentModeClicked = i.getStringExtra("paymentModeClicked");
+        if(i.getStringExtra("paymentModeSearch")!=null)
+            paymentModeSearch = i.getStringExtra("paymentModeSearch");
 
         sharedpreferences = mContext.getSharedPreferences(mypreference, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
@@ -133,16 +141,15 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         lLayoutBottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!mCustomerEmail.trim().equalsIgnoreCase("")) {
-                    Intent mIntent = new Intent();
-                    mIntent.putExtra(Constants.KEY_CUSTOMER, customerId);
-                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, customerPoints);
-                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_PER, customerPointsPer);
-                    mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL, mCustomerEmail);
-                    setResult(Constants.ACT_CUSTOMER, mIntent);
-                    finish();
-                } else
-                    Util.showToast(getString(R.string.redeem_customer_email_not_authorised), mContext);
+                Intent mIntent = new Intent();
+                mIntent.putExtra(Constants.KEY_CUSTOMER, IPOSApplication.mCustomerID);
+                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS, IPOSApplication.mCustomerPoints);
+                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_PER,  IPOSApplication.mCustomerPointsPer);
+                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL,  IPOSApplication.mCustomerEmail);
+                mIntent.putExtra(Constants.KEY_CUSTOMER_POINTS_NUMBER,  IPOSApplication.mCustomerNumber);
+                setResult(Constants.ACT_CUSTOMER, mIntent);
+                //EventBus.getDefault().post(new MessageEvent(0,mIntent));
+                finish();
 
             }
         });
@@ -167,7 +174,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     }
 
     private void showDialogBox() {
-        CustomerModel customerModel = db.getCustomer(customerId);
+        CustomerModel customerModel = db.getCustomer( IPOSApplication.mCustomerID);
         ImageView ImvClose;
         TextView textViewCustomerPoints, textViewCustomerTotalPoints, textViewTotalRedeemPoints, textViewTotalAdjustedPoints, textViewTotalExpirePoints, textViewTotalReversePoints;
 
@@ -230,7 +237,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         toolbarCustomerInfoDetail.setTitleTextColor(getResources().getColor(R.color.white));
 
 
-        CustomerModel customerModel = db.getCustomer(customerId);
+        CustomerModel customerModel = db.getCustomer( IPOSApplication.mCustomerID);
         if (!TextUtils.isEmpty(customerModel.getCustomerImage())) {
             Picasso.get().load(customerModel.getCustomerImage()).placeholder(R.drawable.placeholder).into(imageViewProfileDummy);
         } else {
@@ -251,14 +258,15 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         }
         if (Util.validateString(customerModel.getCustomerPhone())) {
             textViewMob.setText(customerModel.getCustomerPhone());
+            IPOSApplication.mCustomerNumber = customerModel.getCustomerPhone();
         }
 
         if (TextUtils.isEmpty(customerModel.getCustomerEmail()) || customerModel.getCustomerEmail().equalsIgnoreCase("null")) {
             textViewEmail.setText("NA");
-            mCustomerEmail = customerModel.getCustomerEmail();
+            IPOSApplication.mCustomerEmail = customerModel.getCustomerEmail();
         } else {
             textViewEmail.setText(customerModel.getCustomerEmail());
-            mCustomerEmail = customerModel.getCustomerEmail();
+            IPOSApplication.mCustomerEmail = customerModel.getCustomerEmail();
         }
         if (TextUtils.isEmpty(customerModel.getCustomerBday())) {
             textViewBirthDay.setText(getResources().getString(R.string.text_birthday) + "NA" + ")");
@@ -269,7 +277,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         }
         if (Util.validateString(customerModel.getCustomerPoints())) {
             textViewPoints.setText(customerModel.getCustomerPoints() + getResources().getString(R.string.text_points));
-            customerPoints = Integer.parseInt(customerModel.getCustomerPoints());
+            IPOSApplication.mCustomerPoints = Integer.parseInt(customerModel.getCustomerPoints());
         }
         if (TextUtils.isEmpty(customerModel.getLastBillingDate())) {
             textViewBill.setText(mContext.getResources().getString(R.string.text_Last_Billing) + " " + " | " + mContext.getResources().getString(R.string.Rs) + " " + customerModel.getLastBillingAmount());
@@ -285,7 +293,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
         String state = customerModel.getCustomerState();
         String city = customerModel.getCustomerCity();
         String pin = customerModel.getCustomerPin();
-        customerPointsPer = customerModel.getCustomerPointsPerValue();
+        IPOSApplication.mCustomerPointsPer = customerModel.getCustomerPointsPerValue();
         String finalAddress = address + ", " + state + ", " + city + ", " + pin;
         textViewBillingAddress.setText(finalAddress);
         textViewWarningText.setText(customerModel.getSuggestion());
@@ -319,10 +327,30 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.action_search:
+//                Intent mIntent = new Intent(mContext, CustomerInfoActivity.class);
+//                startActivity(mIntent);
+                if(paymentModeSearch.equalsIgnoreCase("search")){
+                    Intent mIntent = new Intent(mContext, CustomerInfoActivity.class);
+                    startActivity(mIntent);
+                }
+                finish();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        this.menu1 = menu;
+        MenuItem menu12 = menu1.findItem(R.id.action_help);
+        View actionView = MenuItemCompat.getActionView(menu12);
+
+//        TextView cart_badge = actionView.findViewById(R.id.cart_badge);
+//        cart_badge.setText(count + "");
+        return true;
+    }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -362,7 +390,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rLayoutContent:
-                CustomerModel customerModel = db.getCustomer(customerId);
+                CustomerModel customerModel = db.getCustomer( IPOSApplication.mCustomerID);
                 editor.putString("firstName", customerModel.getCustomerFirstName());
                 editor.putString("lastName", customerModel.getCustomerLastName());
                 editor.putString("MobileNumber", customerModel.getCustomerPhone());

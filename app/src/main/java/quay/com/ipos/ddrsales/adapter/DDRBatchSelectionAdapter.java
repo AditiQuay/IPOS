@@ -27,8 +27,9 @@ public class DDRBatchSelectionAdapter extends RecyclerView.Adapter<DDRBatchSelec
     private List<DDRBatch> list = new ArrayList<>();
     private OnBatchDataChangeListener batchDataChangeListener;
     private boolean onBind;
+    private int productPos;
 
-    public DDRBatchSelectionAdapter(Context mContext, List<DDRBatch> list, OnBatchDataChangeListener batchDataChangeListener) {
+    public DDRBatchSelectionAdapter(Context mContext, List<DDRBatch> list,OnBatchDataChangeListener batchDataChangeListener) {
         this.mContext = mContext;
         this.list = list;
         this.batchDataChangeListener = batchDataChangeListener;
@@ -49,8 +50,8 @@ public class DDRBatchSelectionAdapter extends RecyclerView.Adapter<DDRBatchSelec
 
 
         holder.myCustomEditTextListener.updatePosition(position, holder);
-        holder.editItemCount.setText(list.get(holder.getAdapterPosition()).batchQty + "");
-        holder.editBatchNumber.setText(list.get(holder.getAdapterPosition()).batchNumber + "");
+        holder.editItemCount.setText(list.get(holder.getAdapterPosition()).qty + "");
+        holder.editBatchNumber.setText(list.get(holder.getAdapterPosition()).number + "");
 
 
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -75,9 +76,15 @@ public class DDRBatchSelectionAdapter extends RecyclerView.Adapter<DDRBatchSelec
     }
 
     List<DDRBatch> batchList = new ArrayList<>();
-
-    public void setMainDataList(List<DDRBatch> batchList) {
+    TextView textItemCount;
+    public void setMainDataList(List<DDRBatch> batchList, TextView textItemCount) {
         this.batchList = batchList;
+        this.textItemCount = textItemCount;
+    }
+
+    public void setProductPosition(int position) {
+        this.productPos = position;
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -121,27 +128,29 @@ public class DDRBatchSelectionAdapter extends RecyclerView.Adapter<DDRBatchSelec
 
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            try {
+            if (!onBind) {
+                try {
 
-                if (holder.editBatchNumber != null) {
-                    if (holder.editBatchNumber.getText().hashCode() == charSequence.hashCode()) {
-                        String editStr = charSequence.toString();
-                        list.get(position).batchNumber = editStr;
-                    }
-                }
-                if (holder.editItemCount != null) {
-                    if (holder.editItemCount.getText().hashCode() == charSequence.hashCode()) {
-                        String editStr = charSequence.toString();
-                        if (editStr.isEmpty()) {
-                            editStr = "0";
+                    if (holder.editBatchNumber != null) {
+                        if (holder.editBatchNumber.getText().hashCode() == charSequence.hashCode()) {
+                            String editStr = charSequence.toString();
+                            list.get(position).number = editStr;
                         }
-                        list.get(position).batchQty = Integer.parseInt(editStr);
                     }
+                    if (holder.editItemCount != null) {
+                        if (holder.editItemCount.getText().hashCode() == charSequence.hashCode()) {
+                            String editStr = charSequence.toString();
+                            if (editStr.isEmpty()) {
+                                editStr = "0";
+                            }
+                            list.get(position).qty = Integer.parseInt(editStr);
+                        }
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
 
@@ -156,12 +165,12 @@ public class DDRBatchSelectionAdapter extends RecyclerView.Adapter<DDRBatchSelec
 
     private void onDataChange() {
         if (batchDataChangeListener != null) {
-             batchDataChangeListener.onDataChange(list);
+             batchDataChangeListener.onDataChange(list,productPos,textItemCount);
         }
     }
 
     public interface OnBatchDataChangeListener {
-        void onDataChange(List<DDRBatch> list);
+        void onDataChange(List<DDRBatch> list,int productPos,TextView textItemCount);
     }
 
 }
