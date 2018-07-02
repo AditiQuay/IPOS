@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TaskLib</string>
+    <string name="subtaskname">Title</string>
+    <string name="txtTaskAssignTo">People</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="forever">Forever</string>
+    <string name="same_week_each_month">Same week each month</string>
+    <string name="same_day_each_month">Same day each month</string>
+</resources>

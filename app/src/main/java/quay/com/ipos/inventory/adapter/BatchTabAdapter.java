@@ -36,8 +36,8 @@ public class BatchTabAdapter extends RecyclerView.Adapter<BatchTabAdapter.MyView
         this.batchListData = batchListData;
         this.listener = listener;
         this.tabListenerr = tabListenerr;
-        if (batchListData.size() > 0)
-            batchListData.get(0).isSelected = true;
+      /*  if (batchListData.size() > 0)
+            batchListData.get(0).isSelected = true;*/
         this.batchListData = batchListData;
         this.batchTabButtonClick = batchTabButtonClick;
         mPref = mContext.getSharedPreferences("data", Context.MODE_PRIVATE);

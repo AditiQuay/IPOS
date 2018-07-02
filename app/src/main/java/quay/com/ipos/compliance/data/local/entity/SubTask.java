@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.quayintech.tasklib.model.Recurrence;
+import com.quayintech.tasklib.model.RecurrenceNever;
 
 import java.util.List;
 
@@ -389,7 +391,7 @@ public class SubTask {
 
 
     //for local use
-   /* public Recurrence getRepeat() {
+    public Recurrence getRepeat() {
         Recurrence reminder = null;
             reminder = new RecurrenceNever();
             reminder.setRepeatFrequencyId(this.interval_type_id);
@@ -406,5 +408,5 @@ public class SubTask {
 
 
         return reminder;
-    }*/
+    }
 }

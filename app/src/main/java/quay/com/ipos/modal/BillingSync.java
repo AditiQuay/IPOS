@@ -5,12 +5,21 @@ package quay.com.ipos.modal;
  */
 
 public class BillingSync {
+    String receipt;
     String customerID;
     String OrderID;
     String orderTimestamp;
     String orderDateTime;
     String billing;
     Integer sync;
+
+    public String getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(String receipt) {
+        this.receipt = receipt;
+    }
 
     public String getOrderID() {
         return OrderID;

@@ -1,24 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <import type="android.view.View" />
-
-        <import type="android.support.v4.app.Fragment" />
-
-        <variable
-            name="progressState"
-            type="com.quayintech.compliancetracker.viewModel.ProgressStateViewModel" />
-
-        <variable
-            name="storeViewModel"
-            type="com.quayintech.compliancetracker.viewModel.StoreViewModel" />
-    </data>-->
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
@@ -66,7 +47,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="17dp"
             android:gravity="center"
-
             android:textAppearance="@style/iposfontstyle"
             android:textColor="@color/color_done"
             android:textSize="11sp"
@@ -81,11 +61,10 @@
             android:gravity="center"
             android:paddingBottom="8dp"
             android:text="Compliant"
-            android:textAppearance="@style/iposfontstyle"
+
             android:textSize="11sp" />
 
 
 
     </RelativeLayout>
-<!--
-</layout>-->
+

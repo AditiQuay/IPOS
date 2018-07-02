@@ -10,9 +10,9 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 
 import quay.com.ipos.application.IPOSApplication;
-import quay.com.ipos.compliance.data.local.AppDatabase;
 import quay.com.ipos.compliance.data.local.entity.SubTask;
 import quay.com.ipos.compliance.data.remote.model.SynResponse;
+import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.remote.RestService;
 import retrofit2.Call;
 import retrofit2.Response;

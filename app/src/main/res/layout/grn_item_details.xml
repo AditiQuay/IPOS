@@ -65,12 +65,15 @@
                 <!--android:background="@drawable/ipos_line_black" />-->
 
 
-                <TextView
+                <EditText
                     android:id="@+id/tvInQty"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@color/transparent"
                     android:gravity="center"
+                    android:textColor="@color/dashboard_textcolor"
+                    android:textSize="@dimen/universal_text_size14"
                     android:padding="8dp"
                     android:text="1" />
 
@@ -80,14 +83,17 @@
                 <!--android:background="@drawable/ipos_line_black" />-->
 
 
-                <TextView
+                <EditText
                     android:id="@+id/tvApQty"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="@color/transparent"
                     android:gravity="center"
+                    android:textColor="@color/dashboard_textcolor"
+                    android:textSize="@dimen/universal_text_size14"
                     android:padding="8dp"
-                    android:text="2" />
+                    android:text="1" />
 
                 <!--<View-->
                 <!--android:layout_width="1dp"-->

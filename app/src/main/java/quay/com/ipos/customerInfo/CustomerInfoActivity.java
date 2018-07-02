@@ -22,6 +22,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -33,6 +37,7 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
+import quay.com.ipos.ui.MessageEvent;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.Util;
@@ -165,12 +170,7 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
         customerInfoAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.e(TAG, "onStart***");
 
-    }
 
     @Override
     protected void onRestart() {
@@ -300,5 +300,38 @@ public class CustomerInfoActivity extends AppCompatActivity implements InitInter
 //            finish();
         }
 //        }
+    }
+
+   // @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event,Intent data) {/* Do something */
+        try {
+            if(event.getStatus()==0){
+                setResult(Constants.ACT_CUSTOMER, data);
+                finish();
+            }
+        }catch (Exception e){
+
+        }
+
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        try {
+           // EventBus.getDefault().register(this);
+        }catch (Exception e){
+
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        try {
+           // EventBus.getDefault().unregister(this);
+        }catch (Exception e){
+
+        }
     }
 }

@@ -148,7 +148,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         Log.e("--","setPreviewSize width ------------------ "+optimalSize.width); // 1920
         Log.e("--","setPreviewSize height ------------------ "+optimalSize.height); // 1080
 //        parameters.setPreviewSize(optimalSize.width, optimalSize.height);
-          if (optimalSize.height>=720){
+          if (optimalSize.height==720){
 //            parameters.setPreviewSize(320, 480);
               parameters.setPreviewSize(optimalSize.width, optimalSize.height);
               parameters.setZoom(1);

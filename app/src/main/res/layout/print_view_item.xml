@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvQty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/qty"
+            android:paddingTop="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvUnitPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/unit_price"
+            android:paddingTop="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/discount"
+            android:paddingTop="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvTotalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/amount"
+            android:paddingTop="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dim_5"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1.5"/>
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvHSN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/hsn_code"
+            android:paddingTop="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1.5"/>
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvGST_Perc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/gst_perc"
+            android:paddingTop="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvGSTValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/gst_value"
+            android:paddingTop="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:textColor="@color/grey"
+            android:textSize="@dimen/text_size_14sp" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>

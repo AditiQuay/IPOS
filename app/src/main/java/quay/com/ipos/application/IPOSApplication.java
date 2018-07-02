@@ -33,11 +33,12 @@ public class IPOSApplication extends MultiDexApplication {
     private static IPOSApplication _instance = null;
     public static boolean isRefreshed=false;
     public static boolean isClicked=false;
-    public static double totalAmount = 0.0;
+    public static int totalAmount = 0;
     public static double totalpointsToRedeem = 0;
     public static double totalpointsToRedeemValue = 0;
     public static String mCustomerEmail="";
     public static String mCustomerID="";
+    public static String mCustomerNumber="";
     public static int mCustomerPoints=0;
     public static  double mCustomerPointsPer=0;
     public static ArrayList<ProductSearchResult.Datum> mProductListResult= new ArrayList<>();
@@ -46,9 +47,6 @@ public class IPOSApplication extends MultiDexApplication {
 
     public static ArrayList<ProductSearchResult.Datum> datumArrayList = new ArrayList<>();
     public static HashMap<String,ArrayList<ProductSearchResult.Datum>> datumSameCode = new HashMap<String,ArrayList<ProductSearchResult.Datum>>();
-
-
-
 
     @Override
     public void onCreate() {

@@ -63,10 +63,10 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:src="@drawable/summary"
                     android:layout_centerVertical="true"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10" />
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/summary" />
 
                 <TextView
                     android:id="@+id/textViewGroupName"
@@ -117,10 +117,10 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:src="@drawable/shipment"
                     android:layout_centerVertical="true"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10" />
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/shipment" />
 
                 <TextView
                     android:id="@+id/textViewTransporter"
@@ -171,10 +171,10 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:src="@drawable/detail"
                     android:layout_centerVertical="true"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10" />
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/detail" />
 
                 <TextView
                     android:id="@+id/textViewItemDetails"
@@ -224,11 +224,11 @@
                     android:layout_height="@dimen/dim_30"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:src="@drawable/order_summary"
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10" />
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/order_summary" />
 
                 <TextView
                     android:id="@+id/textViewIncco"
@@ -262,7 +262,7 @@
 
             <include
                 layout="@layout/grn_incco"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <RelativeLayout
                 android:id="@+id/rAttachment"
@@ -277,12 +277,12 @@
                     android:layout_width="@dimen/dim_30"
                     android:layout_height="@dimen/dim_30"
                     android:layout_alignParentLeft="true"
-                    android:src="@drawable/attachment"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10" />
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/attachment" />
 
                 <TextView
                     android:id="@+id/textViewAttachment"
@@ -311,14 +311,15 @@
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
                     android:src="@drawable/ic_action_arrow_right_blue" />
+
                 <ImageView
                     android:id="@+id/ivAttAdd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_centerVertical="true"
-                    android:alpha="0.7"
                     android:layout_toLeftOf="@+id/ivAttGroupArrow"
+                    android:alpha="0.7"
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
                     android:src="@drawable/add_circle" />
