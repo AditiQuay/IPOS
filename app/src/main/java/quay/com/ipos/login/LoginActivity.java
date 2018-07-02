@@ -249,6 +249,8 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                 hideKeyboard();
             }
         }
+//        Intent i = new Intent(mContext,KYCMain.class);
+//        startActivity(i);
 
     }
 
@@ -278,20 +280,16 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     Prefs.putStringPrefs(Constants.employeeCode.trim(), loginResult.getUserAccess().getEmpCode());
                     Prefs.putStringPrefs("email", loginResult.getUserAccess().getUserEmailID());
                     Prefs.putStringPrefs(Constants.employeeRole.trim(), "distrubutor");
-<<<<<<< HEAD
                     Prefs.putStringPrefs("EntityName",loginResult.getUserAccess().getEntityName());
                     Prefs.putIntegerPrefs("WorklocationID",loginResult.getUserAccess().getWorklocationID());
-=======
-                    Prefs.putStringPrefs("EntityName", loginResult.getUserAccess().getEntityName());
->>>>>>> c78063954de4256a00bc063216829e26863d4691
 
                     new RealmController().saveUserDetail(serverResponse);
                     //new  RealmController().saveUserDetail(userdata);
 
 
-                    Intent i = new Intent(mContext, MainActivity.class);
-                    startActivity(i);
-                    // searchProductCall(loginResult.getUserAccess().getWorklocationID() + "");
+                     Intent i = new Intent(mContext, MainActivity.class);
+                     startActivity(i);
+                   // searchProductCall(loginResult.getUserAccess().getWorklocationID() + "");
                 }
             } else if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT)) {
                 if (resultObj != null) {
@@ -333,7 +331,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         CommonParams mCommonParams = new CommonParams();
         mCommonParams.setStoreId(s);
         mCommonParams.setSearchParam("NA");
-        String token = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN, "", IPOSApplication.getContext());
+        String token = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN,"", IPOSApplication.getContext());
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT);

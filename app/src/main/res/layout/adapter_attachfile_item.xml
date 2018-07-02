@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-<<<<<<< HEAD
     android:layout_height="wrap_content"
     android:background="@color/white"
     xmlns:tools="http://schemas.android.com/tools">
-=======
-    android:layout_height="wrap_content">
->>>>>>> c78063954de4256a00bc063216829e26863d4691
 
 
     <TextView
@@ -21,11 +16,7 @@
         android:gravity="center_vertical"
         android:padding="2dp"
         android:text=""
-<<<<<<< HEAD
         android:textColor="@color/secondary_text_color">
-=======
-        android:textColor="@color/grey">
->>>>>>> c78063954de4256a00bc063216829e26863d4691
 
     </TextView>
 
@@ -35,11 +26,12 @@
         android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:src="@drawable/ic_action_cancel"
         android:gravity="center_vertical"
         android:padding="2dp"
-        android:src="@drawable/ic_action_cancel"
-        android:visibility="gone"
-        tools:visibility="visible">
+      >
 
     </ImageView>
 </RelativeLayout>
