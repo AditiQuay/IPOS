@@ -149,6 +149,7 @@ public class SearchableListDialog extends DialogFragment implements
                 .SEARCH_SERVICE);
 
         _searchView = (SearchView) rootView.findViewById(R.id.search);
+        _searchView.setVisibility(View.GONE);
         _searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName
                 ()));
         _searchView.setIconifiedByDefault(false);
