@@ -357,7 +357,7 @@ public class Util {
 
     public static String getCurrentTime() {
         Calendar calander = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.format15);
 
         String time = simpleDateFormat.format(calander.getTime());
         return time;

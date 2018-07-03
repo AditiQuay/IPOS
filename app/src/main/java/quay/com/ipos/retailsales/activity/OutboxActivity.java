@@ -41,8 +41,9 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
     OutboxAdapter nameAdapter;
     TextView tvNoItemAvailable;
     ArrayList<BillingSync> billingSyncs = new ArrayList<>();
+    ArrayList<BillingSync> billingSyncsFilter = new ArrayList<>();
     PaymentRequest paymentRequest;
-//    SwipeRefreshLayout swipeToRefresh;
+    SwipeRefreshLayout swipeToRefresh;
     //1 means data is synced and 0 means data is not synced
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
@@ -63,7 +64,8 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_outbox_list);
         toolbar = findViewById(R.id.toolbar);
-//        swipeToRefresh = findViewById(R.id.swipeToRefresh);
+        swipeToRefresh = findViewById(R.id.swipeToRefresh);
+        swipeToRefresh.setEnabled(false);
         tvNoItemAvailable = findViewById(R.id.tvNoItemAvailable);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -147,6 +149,8 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
     }
     public void sendDataToServer() {
         billingSyncs = db.getUnSyncedRetailOrders();
+        billingSyncsFilter = db.getUnSyncedRetailOrders();
+
         AppLog.e("tag","sendDataToServer");
         if(billingSyncs.size()>0) {
             for (int i = 0; i < billingSyncs.size(); i++) {
@@ -210,6 +214,7 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
         try {
             if (!db.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL_BILLING)) {
                 billingSyncs = db.getUnSyncedRetailOrders();
+                billingSyncsFilter = db.getUnSyncedRetailOrders();
                 if (billingSyncs.size() > 0) {
                     if (db.checkIfBillingRecordExist(paymentRequest.getOrderTimestamp()))
                         db.updateSync(status, paymentRequest.getOrderTimestamp());

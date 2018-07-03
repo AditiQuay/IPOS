@@ -31,7 +31,7 @@ public class OutboxAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private int lastVisibleItem, totalItemCount;
     static Context mContext;
     private ArrayList<BillingSync>  mDataset;
-//    private ArrayList<PrintViewResult.PaymentsDetail>  mPaymentDetail;
+    //    private ArrayList<PrintViewResult.PaymentsDetail>  mPaymentDetail;
     public PrintViewResult printViewResult;
 
 
@@ -83,6 +83,8 @@ public class OutboxAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (holder instanceof OutboxAdapter.UserViewHolder) {
             onBind = true;
             String mode="Paid via ";
+            String mobile="";
+            String name="";
             BillingSync str = mDataset.get(position);
             OutboxAdapter.UserViewHolder userViewHolder = (OutboxAdapter.UserViewHolder) holder;
             userViewHolder.tvOrderNumber.setText(str.getOrderID()+"");
@@ -97,8 +99,16 @@ public class OutboxAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mode += " & "+printViewResult.getPaymentsDetails().get(i).getModeOfPayment();
             }
             userViewHolder.tvPaymentMode.setText(mode);
-//            mPaymentDetail.clear();
-            userViewHolder.tvCustomerDetails.setText(printViewResult.getMobile()+" - "+printViewResult.getCustomerName());
+            if(printViewResult.getMobile().equalsIgnoreCase("") || printViewResult.getMobile().equalsIgnoreCase("NA")){
+                mobile = "9999 9999";
+            }else
+                mobile= printViewResult.getMobile();
+            if(printViewResult.getCustomerName().equalsIgnoreCase("") || printViewResult.getCustomerName().equalsIgnoreCase("NA")){
+                name = "Default Customer";
+            }else
+                name= printViewResult.getCustomerName();
+
+            userViewHolder.tvCustomerDetails.setText(mobile+" - "+name);
             onBind = false;
 
         }

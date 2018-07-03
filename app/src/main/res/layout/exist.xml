@@ -28,8 +28,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_toLeftOf="@+id/ImvClose"
                 android:alpha="0.7"
-                android:gravity="center"
-                android:text="Remark" />
+                android:gravity="center" />
 
             <ImageView
                 android:id="@+id/ImvClose"
@@ -92,9 +91,9 @@
                     style="@style/styleWhiteTextColor14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/titilliumwebregular"
                     android:layout_gravity="right"
                     android:backgroundTint="@color/colorPrimary"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="Yes"
                     android:textAllCaps="true"
                     android:textColor="@color/white" />
@@ -113,8 +112,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:fontFamily="@font/titilliumwebregular"
                     android:backgroundTint="@color/colorPrimary"
+                    android:fontFamily="@font/titilliumwebregular"
                     android:text="No"
                     android:textAllCaps="true"
                     android:textColor="@color/white" />

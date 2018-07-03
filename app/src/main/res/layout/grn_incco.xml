@@ -29,7 +29,7 @@
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="QTY" />
+                android:text="Details" />
 
             <View
                 android:layout_width="1dp"

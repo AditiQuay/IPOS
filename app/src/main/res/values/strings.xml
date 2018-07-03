@@ -219,6 +219,12 @@
     <string-array name="ordervalue">
         <item>KGM Traders</item>
     </string-array>
+    <string-array name="payment_type">
+        <item>Select Payment Mode</item>
+        <item>Cash</item>
+        <item>Card</item>
+        <item>Points</item>
+    </string-array>
     <string-array name="addressvalue">
         <item>Kirti Nagar, ND</item>
         <item>Saket, ND</item>
@@ -507,5 +513,8 @@
     <string name="iv_error_mobile_number">Please enter Driver Mobile Number</string>
     <string name="iv_error_track_number">Please enter Track Number</string>
     <string name="iv_error_address">Please enter Address</string>
+    <string name="retail_sales_order_centre">Retail Order Center</string>
+    <string name="order_date_from">Order Date From</string>
+    <string name="order_date_to">Order Date To</string>
 
 </resources>

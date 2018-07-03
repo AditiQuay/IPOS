@@ -27,8 +27,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:ellipsize="end"
                 android:fontFamily="@font/titilliumwebregular"
-                android:text="Inventory"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:visibility="visible" />
@@ -105,62 +105,6 @@
                 android:visibility="gone" />
 
             <RelativeLayout
-                android:id="@+id/rTransporter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:layout_marginTop="@dimen/dim_4"
-                android:background="@color/white"
-                android:padding="8dp">
-
-                <ImageView
-                    android:id="@+id/ivtransporterGroupIcon"
-                    android:layout_width="@dimen/dim_30"
-                    android:layout_height="@dimen/dim_30"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerVertical="true"
-                    android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10"
-                    android:src="@drawable/shipment" />
-
-                <TextView
-                    android:id="@+id/textViewTransporter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toEndOf="@+id/ivtransporterGroupIcon"
-                    android:layout_toRightOf="@+id/ivtransporterGroupIcon"
-                    android:fontFamily="@font/titilliumwebregular"
-                    android:paddingEnd="@dimen/dim_10"
-                    android:paddingLeft="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10"
-                    android:text="Transporter"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/universal_text_size14" />
-
-                <ImageView
-                    android:id="@+id/ivTransporterGroupArrow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerVertical="true"
-                    android:alpha="0.7"
-                    android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10"
-                    android:src="@drawable/ic_action_arrow_right_blue" />
-
-            </RelativeLayout>
-
-            <include
-                layout="@layout/transporter"
-                android:visibility="gone" />
-
-            <RelativeLayout
                 android:id="@+id/rItemsDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -220,13 +164,71 @@
                     android:alpha="0.7"
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
-                    android:src="@drawable/add_circle" />
+                    android:src="@drawable/add_circle"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
             <include
                 layout="@layout/items_details"
                 android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/rTransporter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:layout_marginTop="@dimen/dim_4"
+                android:background="@color/white"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/ivtransporterGroupIcon"
+                    android:layout_width="@dimen/dim_30"
+                    android:layout_height="@dimen/dim_30"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/shipment" />
+
+                <TextView
+                    android:id="@+id/textViewTransporter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ivtransporterGroupIcon"
+                    android:layout_toRightOf="@+id/ivtransporterGroupIcon"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:text="Transporter"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/universal_text_size14" />
+
+                <ImageView
+                    android:id="@+id/ivTransporterGroupArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.7"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/ic_action_arrow_right_blue" />
+
+            </RelativeLayout>
+
+            <include
+                layout="@layout/transporter"
+                android:visibility="gone" />
+
 
             <RelativeLayout
                 android:id="@+id/rIncco"
@@ -380,7 +382,7 @@
                     style="@style/styleWhiteTextColor14"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:backgroundTint="@color/colorPrimary"
+                    android:backgroundTint="@color/dark_gray"
                     android:fontFamily="@font/titilliumwebregular"
                     android:stateListAnimator="@null"
                     android:text="Upload Batch"

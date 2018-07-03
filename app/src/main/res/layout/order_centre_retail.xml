@@ -32,25 +32,28 @@
             android:hint="@string/search"
             android:inputType="number"
             android:visibility="visible" />
-        <TextView
-            android:id="@+id/tvClear"
+        <ImageView
+            android:id="@+id/imvClear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
             android:paddingRight="@dimen/dim_10"
             android:paddingLeft="@dimen/dim_10"
             android:gravity="center"
+            android:src="@drawable/ic_action_close_gray"
             android:layout_gravity="center"
             android:visibility="gone"
-            android:textSize="@dimen/text_size_21sp"
-            android:text="@string/fa_cross"
             />
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvOutBox"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvOutBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
     <quay.com.ipos.ui.CustomTextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

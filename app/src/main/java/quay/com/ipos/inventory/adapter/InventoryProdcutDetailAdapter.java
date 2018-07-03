@@ -27,12 +27,15 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
     public Context mContext;
     private List<GRNProductDetailModel> list;
     EdittClickListener edittClickListener;
-
-
-    public InventoryProdcutDetailAdapter(Context mContext, List<GRNProductDetailModel> list, EdittClickListener edittClickListener) {
+    public interface NotifyCount{
+        void notifyQty();
+    }
+    NotifyCount notifyCount;
+    public InventoryProdcutDetailAdapter(Context mContext, List<GRNProductDetailModel> list, EdittClickListener edittClickListener,NotifyCount notifyCount) {
         this.mContext = mContext;
         this.list = list;
         this.edittClickListener = edittClickListener;
+        this.notifyCount = notifyCount;
     }
 
     @NonNull
@@ -123,7 +126,7 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
 
         @Override
         public void afterTextChanged(Editable s) {
-
+            notifyCount.notifyQty();
         }
 
     }

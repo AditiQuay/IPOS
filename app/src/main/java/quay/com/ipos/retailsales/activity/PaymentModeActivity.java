@@ -458,10 +458,10 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         }
 
         try {
-            billingDate_Time = Util.getCurrentDate() +" "+ Util.getCurrentDateTime();
+            billingDate_Time = Util.getCurrentDate() +" "+ Util.getCurrentTime();
             billingTimeStamp = Util.getCurrentTimeStamp();
 //            billingSyncs = db.getAllRetailBillingOrders();
-            if(!db.checkIfBillingRecordExist(billingDate_Time)) {
+//            if(!db.checkIfBillingRecordExist(billingTimeStamp)) {
 
                 if(!mCustomerID.equalsIgnoreCase("")){
                     customerModel = db.getCustomer(mCustomerID);
@@ -483,7 +483,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-//                    LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",this),LoginResult.class);
+                    loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",this),LoginResult.class);
                     recentOrder= new RecentOrderList();
                     recentOrder.setBillDate(billingDate_Time);
                     recentOrder.setBillPrice(paymentRequest.getTotalValueWithTax()+"");
@@ -500,7 +500,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     int updatedQty = paymentRequest.getCartDetail().get(i).getMaterialStockAvail()-paymentRequest.getCartDetail().get(i).getMaterialQty();
                     db.updateProductStock(updatedQty,paymentRequest.getCartDetail().get(i).getMaterialID());
                 }
-            }
+//            }
         }catch (Exception e){
             System.out.println(e);
             AppLog.e("TAG",e.getMessage());
@@ -610,7 +610,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         billingSync.setSync(status);
         billingSync.setReceipt(Util.getCustomGson().toJson(mPrintViewResult));
         try {
-            if (!db.checkIfBillingRecordExist(billingDate_Time)) {
+//            if (!db.checkIfBillingRecordExist(billingTimeStamp)) {
                 db.addRetailBilling(billingSync);
 
                 Intent mIntent = new Intent(PaymentModeActivity.this, PrintReceiptActivity.class);
@@ -618,7 +618,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 mIntent.putExtra(Constants.RECEIPT_FROM,Constants.paymentMode);
                 startActivity(mIntent);
 
-            }
+//            }
         }catch (Exception e){
 
         }
@@ -1235,6 +1235,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void callServicePayment() {
+        AppLog.e(PrintReceiptActivity.class.getSimpleName(),"paymentRequest Final : "+Util.getCustomGson().toJson(paymentRequest));
         showProgressDialog(R.string.please_wait);
         ServiceTask mServiceTask = new ServiceTask();
         mServiceTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT);

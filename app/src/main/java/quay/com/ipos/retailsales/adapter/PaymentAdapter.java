@@ -80,21 +80,24 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof PaymentAdapter.UserViewHolder) {
             onBind = true;
-            PrintViewResult.PaymentsDetail str = mDataset.get(position);
-            PaymentAdapter.UserViewHolder userViewHolder = (PaymentAdapter.UserViewHolder) holder;
-            if(str.getModeOfPayment().equalsIgnoreCase("cash")){
-                userViewHolder.tvPaidByCash.setText(Util.getIndianNumberFormat(str.getAmount()+""));
-                userViewHolder.tvTenderChanges.setText(Util.getIndianNumberFormat(str.getReturnValue()+""));
-                userViewHolder.llPaidByCash.setVisibility(View.VISIBLE);
-            }
-            if(str.getModeOfPayment().equalsIgnoreCase("card")){
-                userViewHolder.tvCardNumber.setText(str.getCardNo()+"");
-                userViewHolder.tvCardType.setText(str.getCardType()+"");
-                userViewHolder.tvExpiryDate.setText(str.getExpiryDate()+"");
-                userViewHolder.tvPaidByCard.setText(Util.getIndianNumberFormat(str.getAmount()+""));
-                userViewHolder.llPaidByCard.setVisibility(View.VISIBLE);
-            }
+            try {
+                PrintViewResult.PaymentsDetail str = mDataset.get(position);
+                PaymentAdapter.UserViewHolder userViewHolder = (PaymentAdapter.UserViewHolder) holder;
+                if(str.getModeOfPayment().equalsIgnoreCase("cash")){
+                    userViewHolder.tvPaidByCash.setText(Util.getIndianNumberFormat(str.getAmount()+""));
+                    userViewHolder.tvTenderChanges.setText(Util.getIndianNumberFormat(str.getReturnValue()+""));
+                    userViewHolder.llPaidByCash.setVisibility(View.VISIBLE);
+                }
+                if(str.getModeOfPayment().equalsIgnoreCase("card")){
+                    userViewHolder.tvCardNumber.setText(str.getCardNo()+"");
+                    userViewHolder.tvCardType.setText(str.getCardType()+"");
+                    userViewHolder.tvExpiryDate.setText(str.getExpiryDate()+"");
+                    userViewHolder.tvPaidByCard.setText(Util.getIndianNumberFormat(str.getAmount()+""));
+                    userViewHolder.llPaidByCard.setVisibility(View.VISIBLE);
+                }
+            }catch (Exception e){
 
+            }
 
             onBind = false;
 
