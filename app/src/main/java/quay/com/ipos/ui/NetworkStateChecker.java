@@ -106,7 +106,8 @@ public class NetworkStateChecker extends BroadcastReceiver implements ServiceTas
 //                        IPOSApplication.totalAmount = 0.0;
 //                            Util.showToast(mOrderSubmitResult.getMessage(), IPOSApplication.getContext());
                         editBillToLocalStorage(paymentRequest, NAME_SYNCED_WITH_SERVER);
-                        billingSyncs.remove(pos);
+                        if(billingSyncs.get(pos)!=null)
+                            billingSyncs.remove(pos);
                         sendDataToServer();
                     } else {
 

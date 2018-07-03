@@ -16,6 +16,8 @@ public class SpinnerDropDownAdapter extends BaseAdapter implements
     Context context;
     String[] name;
     boolean isBlack=false;
+    int colorBG;
+    String  strColor;
 
     public SpinnerDropDownAdapter(Context ctx,String[] name ) {
         context = ctx;
@@ -23,6 +25,10 @@ public class SpinnerDropDownAdapter extends BaseAdapter implements
     }
     public void setColor(boolean isBlack){
         this.isBlack = isBlack;
+    }
+    public void setColorBG(int colorBG, String color){
+        this.colorBG = colorBG;
+        this.strColor = color;
     }
 //
 //    String[] name = { " One", " Two", " Three", " Four", " Five", " Six",
@@ -51,6 +57,9 @@ public class SpinnerDropDownAdapter extends BaseAdapter implements
         View view = LayoutInflater.from(context).inflate(R.layout.spinner_item, parent, false);
         TextView text1 = view.findViewById(R.id.text1);
         text1.setText(name[position]);
+        if(strColor!=null){
+            text1.setBackgroundColor(context.getResources().getColor(colorBG));
+        }
         if (!isBlack)
             text1.setTextColor(context.getResources().getColor(R.color.white));
         else

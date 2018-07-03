@@ -88,6 +88,7 @@ import quay.com.ipos.pss_order.fragment.NewOrderFragment;
 import quay.com.ipos.pss_order.fragment.OrderCentreListFragment;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmUserDetail;
+import quay.com.ipos.retailsales.fragment.RetailOrderCentreFragment;
 import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.MessageDialog;
@@ -118,7 +119,7 @@ public class MainActivity extends BaseActivity
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
     //  private Class<?> mClss;
-    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null;
+    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null,mRetailOrderCentreFragment=null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
     //  private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
@@ -573,12 +574,12 @@ public class MainActivity extends BaseActivity
 
                 break;
             case "Billing & Cash":
-                retailSalesFragment = new RetailSalesFragment();
-                replaceFragment(retailSalesFragment, containerId);
-                drawer.closeDrawer(GravityCompat.START);
-                toolbar.setTitle(getString(R.string.retail_sales));
-                menu1.findItem(R.id.action_notification).setVisible(false);
-                menu1.findItem(R.id.action_search).setVisible(true);
+//                retailSalesFragment = new RetailSalesFragment();
+//                replaceFragment(retailSalesFragment, containerId);
+//                drawer.closeDrawer(GravityCompat.START);
+//                toolbar.setTitle(getString(R.string.retail_sales));
+//                menu1.findItem(R.id.action_notification).setVisible(false);
+//                menu1.findItem(R.id.action_search).setVisible(true);
                 break;
             case "Retail Sales (OTC & Online)":
                 retailSalesFragment = new RetailSalesFragment();
@@ -587,16 +588,27 @@ public class MainActivity extends BaseActivity
                 toolbar.setTitle(getString(R.string.retail_sales));
                 menu1.findItem(R.id.action_notification).setVisible(false);
                 menu1.findItem(R.id.action_search).setVisible(true);
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
 
+            case "Retail Order Center":
+                mRetailOrderCentreFragment = new RetailOrderCentreFragment();
+                replaceFragment(mRetailOrderCentreFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.retail_sales_order_centre));
+                menu1.findItem(R.id.action_notification).setVisible(false);
+                menu1.findItem(R.id.action_help).setVisible(false);
+                menu1.findItem(R.id.action_filter).setVisible(true);
+                menu1.findItem(R.id.action_search).setVisible(false);
+                break;
             case "DDR Sales (B2B)":
                 Intent intentDDR = new Intent(mContext, DDROrderCenterActivity.class);
                 startActivity(intentDDR);
-
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
 
             case "Manage Store":
-
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
 
             case "Inventory In/Out":
@@ -605,11 +617,12 @@ public class MainActivity extends BaseActivity
                 toolbar.setTitle("Inventory");
                 menu1.findItem(R.id.action_notification).setVisible(false);
                 menu1.findItem(R.id.action_search).setVisible(false);
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 drawer.closeDrawer(GravityCompat.START);
 
                 break;
             case "Manage KycBusiness":
-
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
             case "Insights & Analytics":
                 menu1.findItem(R.id.action_notification).setVisible(true);
@@ -617,6 +630,7 @@ public class MainActivity extends BaseActivity
                 replaceFragment(dashboardFragment, containerId);
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.dashboard));
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 menu1.findItem(R.id.action_search).setVisible(false);
                 break;
             case "New Order":
@@ -625,6 +639,7 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.new_orders));
                 drawer.closeDrawer(GravityCompat.START);
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
             case "Order Center":
                 mOrderCentreListFragment = new OrderCentreListFragment();
@@ -632,6 +647,7 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 toolbar.setTitle(getString(R.string.order_centre));
                 drawer.closeDrawer(GravityCompat.START);
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
             case "Dashboard & Insights":
                 dashboardFragment = new McCOYDashboardFragment();
@@ -640,6 +656,7 @@ public class MainActivity extends BaseActivity
                 toolbar.setTitle(getString(R.string.dashboard));
                 menu1.findItem(R.id.action_notification).setVisible(true);
                 menu1.findItem(R.id.action_search).setVisible(false);
+                menu1.findItem(R.id.action_filter).setVisible(false);
 
                 drawer.closeDrawer(GravityCompat.START);
                 break;
@@ -650,31 +667,35 @@ public class MainActivity extends BaseActivity
                 toolbar.setTitle(getString(R.string.toolbar_title_catalogue_product_details));
                 menu1.findItem(R.id.action_notification).setVisible(false);
                 menu1.findItem(R.id.action_search).setVisible(false);
-
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 drawer.closeDrawer(GravityCompat.START);
                 break;
             case "Stock & Price":
                 //   imageId = R.drawable.insights;
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
             case "Loyalty Program":
-
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 //  imageId = R.drawable.insights;
                 break;
             case "Partner Connect":
                 // imageId = R.drawable.insights;
                 Intent intent = new Intent(getApplicationContext(), PartnerConnectMain.class);
                 startActivity(intent);
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
 
             case "Compliance Tracking":
                // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
                 Intent intentCompliance = new Intent(mContext, DashboardActivity.class);
                 startActivity(intentCompliance);
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
             case "KYC":
                // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
                 Intent intentKYC = new Intent(mContext, KYCActivity.class);
                 startActivity(intentKYC);
+                menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
 
 
