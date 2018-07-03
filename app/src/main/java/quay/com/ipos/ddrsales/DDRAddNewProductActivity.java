@@ -253,7 +253,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
                DDRProduct realmNewOrderCarts=realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),dataBeans.get(pos).getIProductModalId()).findFirst();
                 Gson gson = new GsonBuilder().create();
                 if (realmNewOrderCarts!=null) {
-                    realm.beginTransaction();
+                  /*  realm.beginTransaction();
                     try {
                         realmNewOrderCarts.deleteFromRealm();
                         RealmResults<DDRProduct> realmNewOrderCarts1=realm.where(DDRProduct.class).findAll();
@@ -274,7 +274,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
                         realm.close();
                     }
 
-
+*/
 
                 }else {
 

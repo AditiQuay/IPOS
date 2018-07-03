@@ -52,7 +52,6 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -89,7 +88,6 @@ import quay.com.ipos.realmbean.RealmOrderCentre;
 import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
-import quay.com.ipos.ui.InformationDialogNewOrder;
 import quay.com.ipos.ui.InformationDialogNewOrderEdit;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.MessageDialog;
@@ -259,7 +257,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
       //  mRecyclerView.addOnScrollListener(listener);
-        llBelowPaymentDetail = findViewById(R.id.llBelowPaymentDetail);
+        llBelowPaymentDetail = findViewById(R.id.bottomBar);
 
         setSpinnerData();
         setListener();

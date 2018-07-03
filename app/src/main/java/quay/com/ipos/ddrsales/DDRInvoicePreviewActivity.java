@@ -54,6 +54,9 @@ import quay.com.ipos.ddrsales.model.request.InvoiceDataSubmit;
 import quay.com.ipos.ddrsales.model.response.Address;
 import quay.com.ipos.ddrsales.model.response.DDRBatch;
 import quay.com.ipos.ddrsales.model.response.DDRIncoTerm;
+import quay.com.ipos.inventory.activity.EditExpandablePODetailsActivity;
+import quay.com.ipos.inventory.adapter.InventorPOInccoAdapter;
+import quay.com.ipos.inventory.modal.GrnInccoTermsModel;
 import quay.com.ipos.listeners.InitInterface;
 
 import quay.com.ipos.utility.DateAndTimeUtil;
@@ -79,7 +82,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
     private TextView textSGST, textCGST, tvTotalPriceBeforeGst, textDiscount, tvTotalItemPrice, textRoundingOff, textTotalInvoice;
 
 
-    private TextView textIncoTermsOthers;
+    private Spinner textIncoTermsOthers;
 
 
     //Credit Page Invoice
@@ -240,7 +243,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
 
         textIncoTermsOthers = findViewById(R.id.textIncoTermsOthers);
-        textIncoTermsOthers.setOnClickListener(this);
+      //  textIncoTermsOthers.setOnClickListener(this);
 
         recycleViewIncoTerms = findViewById(R.id.recycleViewIncoTerms);
         recycleViewProductBatch = findViewById(R.id.recycleViewProductBatch);
@@ -271,7 +274,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                 }
             });
         }
-
+       setIncotermsData();
         setAllData();
         logisticsData = InvoiceData.getInstance().logisticsData;
         if (logisticsData != null) {
@@ -590,12 +593,12 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                 if (response.isSuccessful()) {
                     // use response data and do some fancy stuff :)
                 } else {
-                    // parse the response body …
+                   /* // parse the response body …
                     APIError error = ErrorUtils.parseError(response);
                     // … and use it to show error information
 
                     // … or just log the issue like we’re doing :)
-                    Log.d("error message", error.message());
+                    Log.d("error message", error.message());*/
                 }
 
                 try {
@@ -833,4 +836,56 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
     public void addProduct(View view) {
         finish();
     }
+
+
+    private void setIncotermsData() {
+        final ArrayList<String> strings = new ArrayList<>();
+//        list.add("One Time with Recurring");
+        strings.add("Options");
+        strings.add("Loading");
+        strings.add("Shipping");
+        strings.add("Unload");
+        strings.add("Toll");
+        strings.add("E-Way Bill");
+        //   list.add("On Invoice Based");
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, strings);
+        textIncoTermsOthers.setAdapter(stringArrayAdapter);
+        final ArrayList<String> strings1 = new ArrayList<>();
+
+        textIncoTermsOthers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i != 0) {
+                    int count = 0;
+                    for (int k = 0; k < strings1.size(); k++) {
+                        if (strings1.get(k).equalsIgnoreCase(strings.get(i)))
+                            count = count + 1;
+                    }
+                    DDRIncoTerm poIncoTerms1 = new DDRIncoTerm();
+                    if (!strings1.contains(strings.get(i))) {
+                        poIncoTerms1.grnIncoDetail = strings.get(i);
+                    } else {
+                        poIncoTerms1.grnIncoDetail = strings.get(i) + " " + (count);
+                    }
+                    poIncoTerms1.grnPayAmount = 0;
+                    poIncoTerms1.grnPayByReceiver = true;
+                    poIncoTerms1.grnPayBySender = false;
+                    strings1.add(strings.get(i));
+                    incoTermsList.add(poIncoTerms1);
+                    adapterIncoTerms.notifyDataSetChanged();
+                    // setIncoTerms();
+                }
+                textIncoTermsOthers.setSelection(0);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
+
 }

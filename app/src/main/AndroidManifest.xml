@@ -161,6 +161,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ddrsales.DDRApproveInvoiceActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_b2bsales"
+            android:screenOrientation="portrait"
+
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ddrsales.DDRBillPreviewActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_b2bsales"
