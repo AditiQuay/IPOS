@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.modal.POItemDetail;
 import quay.com.ipos.listeners.MyListener;
+import quay.com.ipos.listeners.MyListenerOnitemClick;
 import quay.com.ipos.utility.Util;
 
 
@@ -23,9 +24,9 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
     private Context mContext;
     private ArrayList<POItemDetail> stringArrayList;
     private OnItemSelecteListener mListener;
-    MyListener myListener;
-    private boolean onBind;
-    public ItemsDetailsPOEditListAdapter(Context mContext, ArrayList<POItemDetail> stringArrayList,MyListener myListener) {
+    MyListenerOnitemClick myListener;
+
+    public ItemsDetailsPOEditListAdapter(Context mContext, ArrayList<POItemDetail> stringArrayList,MyListenerOnitemClick myListener) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
         this.myListener=myListener;
@@ -42,14 +43,14 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
     public void onBindViewHolder(final SurveyViewHolder holder, int position) {
 
 
-        onBind = true;
+
         holder.tvPoNumber.setText(stringArrayList.get(position).getTitle());
         holder.tvAmount.setText(stringArrayList.get(position).getPoItemAmount()+"");
         holder.tvGst.setText(stringArrayList.get(position).getPoItemIGSTValue()+"");
         holder.tvQty.setText(stringArrayList.get(position).getPoItemQty()+"");
         holder.price.setText(stringArrayList.get(position).getPoItemUnitPrice()+"");
 
-        onBind = false;
+
         holder.tvQty.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -63,17 +64,29 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(!onBind) {
-                    if (editable.toString().equalsIgnoreCase("")) {
-                        holder.tvQty.setText("1");
-                    }
-                    if (Util.validateString(holder.tvQty.getText().toString()) && !holder.tvQty.getText().toString().equalsIgnoreCase("0")) {
-                        myListener.onRowClicked(holder.getAdapterPosition(), Integer.parseInt(holder.tvQty.getText().toString()));
-                    }
-                }
+                if (Util.validateString(holder.tvQty.getText().toString()) && !holder.tvQty.getText().toString().equalsIgnoreCase("0"))
+                myListener.onRowClickedOnItem(holder.getAdapterPosition(),Integer.parseInt(holder.tvQty.getText().toString()),Double.parseDouble(holder.price.getText().toString()));
             }
         });
 
+        holder.price.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (Util.validateString(holder.tvQty.getText().toString()) && !holder.tvQty.getText().toString().equalsIgnoreCase("0"))
+                    myListener.onRowClickedOnItem(holder.getAdapterPosition(),Integer.parseInt(holder.tvQty.getText().toString()),Double.parseDouble(holder.price.getText().toString()));
+
+            }
+        });
 
 
     }
@@ -93,9 +106,9 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
 
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView textViewName,price,tvAmount,tvGst,tvPoNumber;
+        private TextView textViewName,tvAmount,tvGst,tvPoNumber;
 
-        private EditText tvQty;
+        private EditText tvQty,price;
         private RadioButton radio;
         public SurveyViewHolder(View itemView) {
             super(itemView);

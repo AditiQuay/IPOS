@@ -168,6 +168,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
                         android:layout_marginLeft="8dp"
+                        android:theme="@style/SCBSwitch"
                         android:checked="true"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -219,6 +220,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
+                        android:theme="@style/SCBSwitch"
                         android:layout_marginLeft="8dp"
 
                         android:checked="true"/>
@@ -271,6 +273,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
                         android:layout_marginLeft="8dp"
+                        android:theme="@style/SCBSwitch"
                         android:checked="false"/>
                     <TextView
                         android:layout_width="wrap_content"

@@ -54,6 +54,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -70,6 +71,7 @@ import java.util.regex.Pattern;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.compliance.constants.Constant;
 import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
@@ -355,7 +357,14 @@ public class Util {
 
     public static String getCurrentTime() {
         Calendar calander = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.format15);
+
+        String time = simpleDateFormat.format(calander.getTime());
+        return time;
+    }
+    public static String getCurrentDateTime() {
+        Calendar calander = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.format15);
 
         String time = simpleDateFormat.format(calander.getTime());
         return time;
@@ -363,7 +372,7 @@ public class Util {
 
     public static String getCurrentDate() {
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat(Constants.formatDate);
         formatedDate = df.format(c.getTime());
         return formatedDate;
     }
@@ -807,6 +816,10 @@ public class Util {
         Format format = NumberFormat.getCurrencyInstance(new Locale("en", "in"));
         return (format.format(new BigDecimal(str))).replaceAll("Rs.",getStringRes(R.string.Rs).replaceAll(".00",""));
 
+    }
+
+    public static double getLastTwoDigits(double value){
+        return Double.parseDouble(new DecimalFormat("###.##").format(value));
     }
 
     public static String generateOrderFormat(int number){

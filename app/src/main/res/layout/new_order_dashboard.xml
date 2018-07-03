@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:fillViewport="true"
             android:layout_below="@+id/llTop"
-            android:layout_above="@+id/llBelowPaymentDetail">
+            android:layout_above="@+id/bottomBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -124,7 +124,7 @@
             android:layout_height="match_parent"
             android:scrollbars="none"
             android:background="@color/backgroundgrey"
-            android:layout_above="@id/llBelowPaymentDetail"
+            android:layout_above="@id/bottomBar"
             android:layout_below="@+id/flScanner"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_marginTop="@dimen/dim_1" />
@@ -134,7 +134,7 @@
         </android.support.v4.widget.NestedScrollView>
 
         <LinearLayout
-            android:id="@+id/llBelowPaymentDetail"
+            android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

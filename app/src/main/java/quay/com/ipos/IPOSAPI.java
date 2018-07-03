@@ -14,10 +14,12 @@ public class IPOSAPI {
     public static String WEB_SERVICE_LOGIN = "Token/GenerateToken";
     public static String WEB_SERVICE_SEARCH_PRODUCT = "Retail/SearchRetailProduct";
     public static String WEB_SERVICE_RETAIL_ORDER_SUBMIT = "Retail/RetailOrderSubmit";
+    public static String WEB_SERVICE_RETAIL_ORDER_CENTER = "Retail/RetailOrderCenter";
     public static String WEB_SERVICE_RETAIL_CustomerPointsRedeemRequest = "Retail/CustomerPointsRedeemRequest";
     public static String WEB_SERVICE_RETAIL_ValidateCustomerPointsRedeemRequest = "Retail/ValidateCustomerPointsRedeemRequest";
     public static String WEB_SERVICE_ProductDetailUsingBarCode = "Retail/ProductDetailUsingBarCode";
     public static String WEB_SERVICE_RETAIL_CUSTOMER_LIST = "Retail/RetailCustomerList";
+    public static String WEB_SERVICE_RETAIL_ORDER_CENTER_PRINT = "Retail/RetailOrderCenterPrint";
 
 
     // NEW ORDER API
@@ -72,6 +74,7 @@ public class IPOSAPI {
 
     //ddr sales
     public static final String DDR_NO_SUMMARY = "/api/PSSNewOrder/NOSummary";
+    public static final String GET_ORDER_DETAIL = "/api/DDR/GetOrderDetail";
     public static final String DDR_GetDDRList = "/api/DDR/GetDDRList";
     public static final String DDR_GetDDRProductList = "/api/DDR/GetDDRProductList";
     public static final String DDR_SUBMIT = "/api/DDR/SubmitDDRDetail";

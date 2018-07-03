@@ -161,6 +161,19 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ddrsales.DDRApproveInvoiceActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_b2bsales"
+            android:screenOrientation="portrait"
+
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".ddrsales.DDRBillPreviewActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_b2bsales"
@@ -293,7 +306,11 @@
             android:name="quay.com.ipos.pss_order.activity.AddNewOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name="quay.com.ipos.retailsales.activity.PrintReceiptActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <!--  <activity
               android:name=".inventory.activity.InventoryStepsActivity"
               android:screenOrientation="portrait"

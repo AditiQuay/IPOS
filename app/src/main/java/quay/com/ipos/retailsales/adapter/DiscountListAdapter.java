@@ -975,19 +975,19 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 discount.setSDiscountName(mDataset.get(holder.getAdapterPosition()).getSDiscountName());
                 switch (rule.getSDiscountBasedOn()) {
                     case "MRP":
-                        mPriceSelected= minDiscount.get(0).getMrp();
+                        mPriceSelected= minDiscount.get(i).getMrp();
                         break;
 
                     case "NRV":
-                        mPriceSelected=  minDiscount.get(0).getNrv();
+                        mPriceSelected=  minDiscount.get(i).getNrv();
                         break;
 
                     case "SP":
-                        mPriceSelected= minDiscount.get(0).getSalesPrice();
+                        mPriceSelected= minDiscount.get(i).getSalesPrice();
                         break;
 
                     case "GPL":
-                        mPriceSelected= minDiscount.get(0).getGpl();
+                        mPriceSelected= minDiscount.get(i).getGpl();
                         break;
                 }
                 discount.setDiscountTotal(mPriceSelected);
@@ -1020,11 +1020,10 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 datum1.setQty(1);
 //                datum1.setSalesPrice(mPriceSelected);
                 datum1.setFreeItem(true);
-                datum1.setSProductPrice(mPriceSelected);
+                datum1.setSProductPrice(minDiscount.get(i).getSalesPrice());
 
                 minDiscount.set(i,datum1);
 //                IPOSApplication.mProductListResult.add( datum1);
-                AppLog.e("TAG","minDiscount >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.."+ i);
             }
             IPOSApplication.mProductListResult.addAll(minDiscount);
 

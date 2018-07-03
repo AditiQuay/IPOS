@@ -84,6 +84,7 @@ import quay.com.ipos.inventory.modal.POPaymentTerms;
 import quay.com.ipos.inventory.modal.POTermsCondition;
 import quay.com.ipos.listeners.AttachmentListener;
 import quay.com.ipos.listeners.MyListener;
+import quay.com.ipos.listeners.MyListenerOnitemClick;
 import quay.com.ipos.listeners.MyListenerPaymentTerms;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
@@ -99,7 +100,7 @@ import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.Util;
 
 
-public class EditExpandablePODetailsActivity extends BaseActivity implements MyListenerPaymentTerms,MyListener,InventorPOInccoAdapter.OnCalculateTotalIncoTermsListener,AttachmentListener {
+public class EditExpandablePODetailsActivity extends BaseActivity implements MyListenerOnitemClick,MyListenerPaymentTerms,MyListener,InventorPOInccoAdapter.OnCalculateTotalIncoTermsListener,AttachmentListener {
     private Dialog myDialog;
     ExpandableListView expandableListView;
     ArrayList<AttachFileModel> attachFileModels = new ArrayList<>();
@@ -145,6 +146,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     private Spinner spnDetails;
     private TextView textViewPrice;
     private Spinner spnOptions;
+    private String requestJson;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -154,6 +156,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         setHeader();
         Intent i=getIntent();
         if (i!=null){
+            requestJson = i.getStringExtra("request");
             businessPlaceId=i.getStringExtra("businessPlaceId");
         }
         clearRealm();
@@ -620,9 +623,12 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                     supName = supplierName.get(i).getAddress();
                     if (i == supplierName.size() - 1) {
                         edtSupGSTIN.setText("");
+                        edtSupOther.setText("");
                         NameView.setVisibility(View.VISIBLE);
                         llSuppierNameOthers.setVisibility(View.VISIBLE);
+
                     } else {
+                        edtSupOther.setText(supplierName.get(i).getNameAddress());
                         edtSupGSTIN.setText(supplierName.get(i).getSupplierGSTIN());
                         NameView.setVisibility(View.GONE);
                         llSuppierNameOthers.setVisibility(View.GONE);
@@ -639,8 +645,9 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         edtBillingAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+
                 if (i!=0) {
-                    postionBilling = i;
                     billingAddress = noGetEntityBuisnessPlacesModals.get(i).getId();
                     if (i == noGetEntityBuisnessPlacesModals.size() - 1) {
                         billingView.setVisibility(View.VISIBLE);
@@ -661,7 +668,10 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         edtDeliveryAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+
                 if (i!=0) {
+                    postionBilling = i;
                     deliveryAddress = noGetEntityBuisnessPlacesModals.get(i).getId();
                     if (i == noGetEntityBuisnessPlacesModals.size() - 1) {
                         deliveryView.setVisibility(View.VISIBLE);
@@ -683,26 +693,26 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b){
-                    if (Util.validateString(billingAddress)){
+                    if (Util.validateString(deliveryAddress)){
 
-                        edtDeliveryAddress.setSelection(postionBilling);
+                        edtBillingAddress.setSelection(postionBilling);
 
                         if (postionBilling==noGetEntityBuisnessPlacesModals.size()-1){
-                            llSuppierDeliveryOthers.setVisibility(View.VISIBLE);
-                            edtSupDeliveryOther.setText(edtSupBillingOther.getText().toString());
+                            llSuppierBillingOthers.setVisibility(View.VISIBLE);
+                            edtSupBillingOther.setText(edtSupDeliveryOther.getText().toString());
                         }else {
-                            edtSupDeliveryOther.setText("");
-                            llSuppierDeliveryOthers.setVisibility(View.GONE);
+                            edtSupBillingOther.setText("");
+                            llSuppierBillingOthers.setVisibility(View.GONE);
                         }
 
                     }else {
-                        Util.showToast("Please choose billing address");
+                        Util.showToast("Please choose delivery address");
                     }
                 }else {
                     if (noGetEntityBuisnessPlacesModals.size()>0)
-                    edtDeliveryAddress.setSelection(0);
-                    edtSupDeliveryOther.setText("");
-                    llSuppierDeliveryOthers.setVisibility(View.GONE);
+                        edtBillingAddress.setSelection(0);
+                    edtSupBillingOther.setText("");
+                    llSuppierBillingOthers.setVisibility(View.GONE);
                 }
             }
         });
@@ -795,6 +805,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
             }
 
+            double poValue=0;
             JSONArray arrayPoDetails=new JSONArray();
             for (int j = 0; j < poItemDetails.size(); j++) {
 
@@ -809,7 +820,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                 poItemDetail.setPoItemCGSTPer(poItemDetails.get(j).getPoItemCGSTValue());
                 poItemDetail.setPoItemSGSTPer(poItemDetails.get(j).getPoItemSGSTValue());
                 poItemDetail.setPoItemQty(poItemDetails.get(j).getPoItemQty());
-
+                poValue+=poItemDetails.get(j).getPoItemAmount();
                 String json=gson.toJson(poItemDetail);
 
                 JSONObject jsonObject1 =new JSONObject(json);
@@ -890,7 +901,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
             jsonObject.put("poNumber", edtPoNumber.getText().toString());
             jsonObject.put("poDate", "na");
             jsonObject.put("poValidityDate", "na");
-            jsonObject.put("poValue", 0);
+            jsonObject.put("poValue", poValue);
             jsonObject.put("poIGSTValue",0);
             jsonObject.put("poCGSTValue",0);
             jsonObject.put("poSGSTValue", 0);
@@ -902,8 +913,8 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                 jsonObject.put("supplierNameOther", edtSupNameOther.getText().toString().trim());
                 jsonObject.put("supplierName", "Other");
             }
-            if (Util.validateString(msupplierAddress)) {
-                jsonObject.put("supplierAddress", msupplierAddress);
+            if (Util.validateString(edtSupOther.getText().toString().trim())) {
+                jsonObject.put("supplierAddress", edtSupOther);
                 jsonObject.put("supplierAddressOther","" );
             } else {
                 jsonObject.put("supplierAddressOther",  edtSupOther.getText().toString().trim());
@@ -1097,6 +1108,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                 noGetEntityBuisnessPlacesModal.setAddress(jsonObject1.optString("supplierName"));
                 noGetEntityBuisnessPlacesModal.setId(jsonObject1.optString("supplierId"));
                 noGetEntityBuisnessPlacesModal.setSupplierGSTIN(jsonObject1.optString("supplierGSTIN"));
+                noGetEntityBuisnessPlacesModal.setNameAddress(jsonObject1.optString("supplierAddress"));
                 supplierName.add(noGetEntityBuisnessPlacesModal);
             }
 
@@ -1237,23 +1249,10 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     @Override
     public void onRowClicked(int position, int value) {
 
-        POItemDetail poItemDetail=new POItemDetail();
-        poItemDetail.setTitle(poItemDetails.get(position).getTitle());
 
-        poItemDetail.setPoItemUnitPrice(poItemDetails.get(position).getPoItemUnitPrice());
-        poItemDetail.setPoItemAmount(value*poItemDetails.get(position).getPoItemUnitPrice());
-        poItemDetail.setPoItemIGSTValue(((poItemDetails.get(position).getPoItemSGSTPer()+poItemDetails.get(position).getPoItemCGSTPer())*value*poItemDetails.get(position).getPoItemUnitPrice())/100);
-        poItemDetail.setPoItemQty(value);
-        poItemDetails.set(position,poItemDetail);
-
-        itemListDataAdapter.notifyItemChanged(position);
-        int qty=0;
-        for (int l=0;l<poItemDetails.size();l++) {
-            qty+=poItemDetails.get(l).getPoItemQty();
-
-        }
-        tvHeaderPOItemDetail.setText("Item Details | " + poItemDetails.size() + " Items | Qty " +qty);
     }
+
+
 
     @Override
     public void funIncoTermsTotalCount(double totalIncoTerms) {
@@ -1353,6 +1352,29 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
         milestonePOListAdapter.notifyItemChanged(position);
 
+    }
+
+    @Override
+    public void onRowClickedOnItem(int position, int percent, double value) {
+        if (value==0){
+            value=poItemDetails.get(position).getPoItemUnitPrice();
+        }
+        POItemDetail poItemDetail=new POItemDetail();
+        poItemDetail.setTitle(poItemDetails.get(position).getTitle());
+
+        poItemDetail.setPoItemUnitPrice(value);
+        poItemDetail.setPoItemAmount(value*percent);
+        poItemDetail.setPoItemIGSTValue(((poItemDetails.get(position).getPoItemSGSTPer()+poItemDetails.get(position).getPoItemCGSTPer())*percent*value)/100);
+        poItemDetail.setPoItemQty(percent);
+        poItemDetails.set(position,poItemDetail);
+
+        itemListDataAdapter.notifyItemChanged(position);
+        int qty=0;
+        for (int l=0;l<poItemDetails.size();l++) {
+            qty+=poItemDetails.get(l).getPoItemQty();
+
+        }
+        tvHeaderPOItemDetail.setText("Item Details | " + poItemDetails.size() + " Items | Qty " +qty);
     }
 
     private class AttachVH extends RecyclerView.ViewHolder {
@@ -1507,7 +1529,23 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                                 @Override
                                 public void run() {
                                     Util.showToast(jsonObject.optString("code")+" PO created Successfully");
-                                        finish();
+                                    JSONObject jsonObject1=null;
+                                    try {
+                                         jsonObject1=new JSONObject(requestJson);
+                                        jsonObject1.put("poNumber",jsonObject.optString("code"));
+                                        jsonObject1.put("poDate",Util.getCurrentDate());
+                                        jsonObject1.put("edtSupplier",msupplierName);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    Intent i = new Intent(EditExpandablePODetailsActivity.this, InventoryGRNStepsActivity.class);
+                                    assert jsonObject1 != null;
+                                    i.putExtra("request", jsonObject1.toString());
+                                    i.putExtra("businessPlaceId", businessPlaceId + "");
+                                    i.putExtra("poNumber",jsonObject.optString("code"));
+                                    i.putExtra("isGrn","1");
+                                    startActivity(i);
+                                    finish();
                                 }
                             });
 
@@ -1614,15 +1652,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         if (poPaymentTerms.isEmpty()){
             valid=false;
         }
-        if (poTermsConditions.isEmpty()){
-            valid=false;
-        }
-        if (poIncoTerms.isEmpty()){
-            valid=false;
-        }
-        if (attachFileModels.isEmpty()){
-            valid=false;
-        }
+
         if (msupplierName.equalsIgnoreCase("Other")){
             if (!Util.validateString(edtSupNameOther.getText().toString().trim())){
                 valid=false;

@@ -1,6 +1,7 @@
 package quay.com.ipos.ddrsales.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.ddrsales.DDRApproveInvoiceActivity;
 import quay.com.ipos.ddrsales.model.OrderModel;
 import quay.com.ipos.utility.NumberFormatEditText;
 
@@ -20,14 +22,18 @@ public class POAdapter extends RecyclerView.Adapter<ViewHolder> {
     private Context context;
     private LayoutInflater inflater;
     private String rs;
+    private OnSelectPOAdapterListener listener;
 
-    public POAdapter(Context context) {
+    public POAdapter(Context context, OnSelectPOAdapterListener listener) {
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.rs = context.getString(R.string.Rs) + " ";
+        this.listener = listener;
     }
 
-
+    public interface OnSelectPOAdapterListener{
+        void onSelectPO(int pos, OrderModel orderModel);
+    }
     public void setList(List<OrderModel> list) {
         this.list = list;
         notifyDataSetChanged();
@@ -40,8 +46,8 @@ public class POAdapter extends RecyclerView.Adapter<ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        OrderModel object = list.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+        final OrderModel object = list.get(position);
         holder.textPName.setText(object.sellerName + "");
         holder.textDeliveryReqDate.setText(object.etaDate + "");
         holder.textRequestCode.setText(object.requestCode + "");
@@ -49,6 +55,17 @@ public class POAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.textItemsCount.setText(object.itemQty + "");
         holder.textQty.setText(object.itemQty + "");
         holder.textOrderValue.setText(rs + NumberFormatEditText.getText(object.orderValue + ""));
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null) {
+                    listener.onSelectPO(position, object);
+                }
+
+            }
+        });
     }
 
 
@@ -73,4 +90,8 @@ class ViewHolder extends RecyclerView.ViewHolder {
         textModifiedDate = itemView.findViewById(R.id.textModifiedDate);
         textModifiedDate = itemView.findViewById(R.id.textModifiedDate);
     }
+
+
+
+
 }
