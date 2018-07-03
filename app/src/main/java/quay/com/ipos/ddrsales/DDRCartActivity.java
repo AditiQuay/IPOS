@@ -292,7 +292,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
         tvTotalDiscountDetail.setText("(Item 0)");
         IPOSApplication.mProductListResult.clear();
         IPOSApplication.totalAmount = 0;
-        IPOSApplication.totalpointsToRedeem = 0.0;
+        IPOSApplication.totalpointsToRedeem = 0;
         IPOSApplication.totalpointsToRedeemValue = 0.0;
         IPOSApplication.isClicked = false;
         IPOSApplication.isRefreshed = false;
@@ -1845,7 +1845,7 @@ public class DDRCartActivity extends BaseActivity implements View.OnClickListene
             llRedeem.setVisibility(View.VISIBLE);
             tvTotalPoints.setText("(" + pointsToRedeem + ")");
             tvTotalRedeemValue.setText("- " + getResources().getString(R.string.Rs) + " " + pointsToRedeemValue);
-            IPOSApplication.totalpointsToRedeem = pointsToRedeem;
+            IPOSApplication.totalpointsToRedeem = (int) pointsToRedeem;
             IPOSApplication.totalpointsToRedeemValue = pointsToRedeemValue;
         } else {
             IPOSApplication.totalpointsToRedeemValue = 0;

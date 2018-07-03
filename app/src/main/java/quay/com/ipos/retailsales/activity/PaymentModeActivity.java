@@ -111,14 +111,16 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_payment_mode);
+        try {
+            db = new DatabaseHandler(PaymentModeActivity.this);
+            findViewbyId();
+            getIntentValues();
+            spnCardType();
+            context = IPOSApplication.getContext();
+            arrMonth = context.getResources().getStringArray(R.array.months);
+        }catch (Exception e){
 
-        db = new DatabaseHandler(PaymentModeActivity.this);
-        findViewbyId();
-        getIntentValues();
-        spnCardType();
-        context = IPOSApplication.getContext();
-        arrMonth = context.getResources().getStringArray(R.array.months);
-
+        }
     }
 
 
@@ -139,6 +141,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     private void getIntentValues(){
         Intent intent=getIntent();
         if (intent!=null){
+            if (intent.getStringExtra(Constants.PAYMENT_REQUEST) != null) {
+                json =intent.getStringExtra(Constants.PAYMENT_REQUEST);
+
+                paymentRequest = Util.getCustomGson().fromJson(json, PaymentRequest.class);
+            }
             mTotalAmount=intent.getStringExtra(Constants.TOTAL_AMOUNT);
             mCustomerID = intent.getStringExtra(Constants.KEY_CUSTOMER);
             if(!mCustomerID.equalsIgnoreCase("") && mCustomerID != null) {
@@ -451,7 +458,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         }
 
         try {
-            billingDate_Time = Util.getCurrentDate() +" "+ Util.getCurrentTime();
+            billingDate_Time = Util.getCurrentDate() +" "+ Util.getCurrentDateTime();
             billingTimeStamp = Util.getCurrentTimeStamp();
 //            billingSyncs = db.getAllRetailBillingOrders();
             if(!db.checkIfBillingRecordExist(billingDate_Time)) {
@@ -669,11 +676,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         loginResult = Util.getCustomGson().fromJson(json1, LoginResult.class);
                     }
                     if (totalAmount == 0.0) {
-                        if (SharedPrefUtil.getString(Constants.PAYMENT_REQUEST, "", PaymentModeActivity.this) != null) {
-                            json = SharedPrefUtil.getString(Constants.PAYMENT_REQUEST, "", PaymentModeActivity.this);
 
-                            paymentRequest = Util.getCustomGson().fromJson(json, PaymentRequest.class);
-                        }
                         if (paymentRequest != null && loginResult != null) {
                             if (loginResult.getUserAccess() != null) {
                                 paymentRequest.setBusinessPlace(loginResult.getUserAccess().getStoreName());
@@ -1213,7 +1216,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         customerPointsRedeemRequest.setEmailId(IPOSApplication.mCustomerEmail);
         customerPointsRedeemRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode.trim()));
         customerPointsRedeemRequest.setPointsRedeemValue(redeemValue);
-        customerPointsRedeemRequest.setPointsToRedeem((double)points1);
+        customerPointsRedeemRequest.setPointsToRedeem(points1);
         if(sendVerify)
             customerPointsRedeemRequest.setRequestOTP(etOTP.getText().toString());
         else

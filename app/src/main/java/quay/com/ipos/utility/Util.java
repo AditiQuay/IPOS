@@ -71,6 +71,7 @@ import java.util.regex.Pattern;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
+import quay.com.ipos.compliance.constants.Constant;
 import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
@@ -361,10 +362,17 @@ public class Util {
         String time = simpleDateFormat.format(calander.getTime());
         return time;
     }
+    public static String getCurrentDateTime() {
+        Calendar calander = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.format15);
+
+        String time = simpleDateFormat.format(calander.getTime());
+        return time;
+    }
 
     public static String getCurrentDate() {
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df = new SimpleDateFormat(Constants.formatDate);
         formatedDate = df.format(c.getTime());
         return formatedDate;
     }

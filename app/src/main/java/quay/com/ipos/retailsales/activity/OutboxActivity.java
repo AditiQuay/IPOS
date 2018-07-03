@@ -3,6 +3,7 @@ package quay.com.ipos.retailsales.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
@@ -24,7 +25,10 @@ import quay.com.ipos.modal.BillingSync;
 import quay.com.ipos.modal.OrderSubmitResult;
 import quay.com.ipos.modal.PaymentRequest;
 import quay.com.ipos.retailsales.adapter.NameAdapter;
+import quay.com.ipos.retailsales.adapter.OutboxAdapter;
 import quay.com.ipos.service.ServiceTask;
+import quay.com.ipos.ui.ItemDecorationAlbumColumns;
+import quay.com.ipos.ui.WrapContentLinearLayoutManager;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Util;
@@ -34,7 +38,7 @@ import quay.com.ipos.utility.Util;
  */
 
 public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceResultListener{
-    NameAdapter nameAdapter;
+    OutboxAdapter nameAdapter;
     TextView tvNoItemAvailable;
     ArrayList<BillingSync> billingSyncs = new ArrayList<>();
     PaymentRequest paymentRequest;
@@ -42,9 +46,10 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
     //1 means data is synced and 0 means data is not synced
     public static final int NAME_SYNCED_WITH_SERVER = 1;
     public static final int NAME_NOT_SYNCED_WITH_SERVER = 0;
-    private ListView listViewNames;
+    private RecyclerView rvOutBox;
     DatabaseHandler db;
     private Toolbar toolbar;
+    private LinearLayoutManager mLayoutManager;
 
     //List to store all the names
     private ArrayList<BillingSync> names;
@@ -70,7 +75,14 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
         mainActivityRunningInstance =this;
-        listViewNames = findViewById(R.id.listViewNames);
+        rvOutBox = findViewById(R.id.rvOutBox);
+        rvOutBox.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(mContext);
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+        rvOutBox.setLayoutManager(new WrapContentLinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        rvOutBox.addItemDecoration(
+                new ItemDecorationAlbumColumns(mContext.getResources().getDimensionPixelSize(R.dimen.dim_5),
+                        mContext.getResources().getInteger(R.integer.photo_list_preview_columns)));
         //initializing views and objects
         db = new DatabaseHandler(this);
         update();
@@ -84,11 +96,53 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
 //                }
 //        );
 
-        listViewNames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        listViewNames.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                callPrintViewActivity(names.get(i).getReceipt());
+//            }
+//        });
+
+
+        final GestureDetector mGestureDetector = new GestureDetector(this,
+                new GestureDetector.SimpleOnGestureListener() {
+
+                    @Override
+                    public boolean onSingleTapUp(MotionEvent e) {
+                        Util.hideSoftKeyboard(OutboxActivity.this);
+                        return true;
+                    }
+
+                });
+
+        rvOutBox.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                callPrintViewActivity(names.get(i).getReceipt());
+            public void onTouchEvent(RecyclerView arg0, MotionEvent arg1) {
+
             }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean arg0) {
+
+            }
+
+            @SuppressWarnings("deprecation")
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView arg0, MotionEvent motionEvent) {
+                View child = arg0.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
+
+                if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
+
+//                    Util.hideSoftKeyboard(getActivity());
+                    callPrintViewActivity(names.get(arg0.getChildAdapterPosition(child)).getReceipt());
+                    return true;
+
+                }
+
+                return false;
+            }
+
         });
     }
     public void sendDataToServer() {
@@ -189,12 +243,12 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
     public void update(){
         names = new ArrayList<>();
         names = db.getUnSyncedRetailOrders();
-        nameAdapter = new NameAdapter(this, names);
-        listViewNames.setAdapter(nameAdapter);
+        nameAdapter = new OutboxAdapter(this, names);
+        rvOutBox.setAdapter(nameAdapter);
         if(names.size()>0) {
             nameAdapter.notifyDataSetChanged();
             tvNoItemAvailable.setVisibility(View.GONE);
-            listViewNames.setVisibility(View.VISIBLE);
+            rvOutBox.setVisibility(View.VISIBLE);
 //            swipeToRefresh.setVisibility(View.VISIBLE);
             for(int i =0 ; i < names.size(); i++){
                 if(names.get(i).getSync()==1){
@@ -209,7 +263,7 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
 //            Util.showToast("No Outbox list available", IPOSApplication.getAppInstance());
 //            finish();
             tvNoItemAvailable.setVisibility(View.VISIBLE);
-            listViewNames.setVisibility(View.GONE);
+            rvOutBox.setVisibility(View.GONE);
         }
     }
 
