@@ -104,7 +104,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     private LinearLayout llQCList;
     private String newGRNCreated;
     public static Activity fa;
-    private String isGrn;
+    private String isGrn="";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

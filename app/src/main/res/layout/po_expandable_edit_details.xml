@@ -82,6 +82,7 @@
                     android:textSize="@dimen/universal_text_size14" />
 
                 <ImageView
+                    android:id="@+id/arrowPO"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -90,8 +91,7 @@
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10"
-                    android:src="@drawable/ic_action_arrow_right_blue" />
+                    android:paddingRight="@dimen/dim_10" />
 
             </RelativeLayout>
 
@@ -154,8 +154,7 @@
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10"
-                    android:src="@drawable/ic_action_arrow_right_blue" />
+                    android:paddingRight="@dimen/dim_10" />
 
             </RelativeLayout>
             <include layout="@layout/item_detail_po"
@@ -195,6 +194,7 @@
                     android:textSize="@dimen/universal_text_size14" />
 
                 <ImageView
+                    android:id="@+id/imgIncoTerms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -203,8 +203,7 @@
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10"
-                    android:src="@drawable/ic_action_arrow_right_blue" />
+                    android:paddingRight="@dimen/dim_10" />
 
             </RelativeLayout>
             <include layout="@layout/expandable_inco_terms_item"
@@ -244,6 +243,7 @@
                     android:textSize="@dimen/universal_text_size14" />
 
                 <ImageView
+                    android:id="@+id/imgPaymentTerms"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -252,8 +252,7 @@
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10"
-                    android:src="@drawable/ic_action_arrow_right_blue" />
+                    android:paddingRight="@dimen/dim_10" />
 
             </RelativeLayout>
             <include layout="@layout/payment_terms_items"
@@ -317,8 +316,7 @@
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10"
-                    android:src="@drawable/ic_action_arrow_right_blue" />
+                    android:paddingRight="@dimen/dim_10"/>
 
             </RelativeLayout>
 
@@ -382,8 +380,7 @@
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10"
-                    android:src="@drawable/ic_action_arrow_right_blue" />
+                    android:paddingRight="@dimen/dim_10" />
 
 
             </RelativeLayout>

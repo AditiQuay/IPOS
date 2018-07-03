@@ -664,16 +664,10 @@
         <item name="android:textSize">@dimen/dim_14</item>
     </style>
 
-    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
-        <!-- active thumb & track color (30% transparency) -->
-        <item name="colorControlActivated">#46bdbf</item>
 
-        <!-- inactive thumb color -->
-        <item name="colorSwitchThumbNormal">#46bdbf
-        </item>
+    <style name="SwitchCompatStyle" >
+        <item name="thumbTint">@color/switch_color</item>
+        <item name="trackTint">@color/switch_color</item>
 
-        <!-- inactive track color (30% transparency) -->
-        <item name="android:colorForeground">#46bdbf
-        </item>
     </style>
 </resources>

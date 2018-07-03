@@ -25,7 +25,7 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
     private ArrayList<POItemDetail> stringArrayList;
     private OnItemSelecteListener mListener;
     MyListenerOnitemClick myListener;
-
+    private boolean onBind;
     public ItemsDetailsPOEditListAdapter(Context mContext, ArrayList<POItemDetail> stringArrayList,MyListenerOnitemClick myListener) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
@@ -41,14 +41,25 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
 
     @Override
     public void onBindViewHolder(final SurveyViewHolder holder, int position) {
-
+        onBind = true;
 
 
         holder.tvPoNumber.setText(stringArrayList.get(position).getTitle());
         holder.tvAmount.setText(stringArrayList.get(position).getPoItemAmount()+"");
         holder.tvGst.setText(stringArrayList.get(position).getPoItemIGSTValue()+"");
-        holder.tvQty.setText(stringArrayList.get(position).getPoItemQty()+"");
-        holder.price.setText(stringArrayList.get(position).getPoItemUnitPrice()+"");
+        if (stringArrayList.get(position).getPoItemQty()==0){
+            holder.tvQty.setText("");
+            holder.tvQty.setHint("0");
+        }else {
+            holder.tvQty.setText(stringArrayList.get(position).getPoItemQty()+"");
+        }
+        if (stringArrayList.get(position).getPoItemUnitPrice()==0){
+            holder.price.setText("");
+            holder.price.setHint("0");
+        }else {
+            holder.price.setText(stringArrayList.get(position).getPoItemUnitPrice()+"");
+        }
+        onBind = false;
 
 
         holder.tvQty.addTextChangedListener(new TextWatcher() {
@@ -64,8 +75,17 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (Util.validateString(holder.tvQty.getText().toString()) && !holder.tvQty.getText().toString().equalsIgnoreCase("0"))
-                myListener.onRowClickedOnItem(holder.getAdapterPosition(),Integer.parseInt(holder.tvQty.getText().toString()),Double.parseDouble(holder.price.getText().toString()));
+                if(!onBind) {
+                    if (Util.validateString(holder.price.getText().toString()) && Util.validateString(holder.tvQty.getText().toString())) {
+                        myListener.onRowClickedOnItem(holder.getAdapterPosition(), Integer.parseInt(holder.tvQty.getText().toString()), Double.parseDouble(holder.price.getText().toString()));
+                    } else if (Util.validateString(holder.tvQty.getText().toString())) {
+                        myListener.onRowClickedOnItem(holder.getAdapterPosition(), Integer.parseInt(holder.tvQty.getText().toString()), 0);
+
+                    } else if (Util.validateString(holder.price.getText().toString())) {
+                        myListener.onRowClickedOnItem(holder.getAdapterPosition(), 0, Double.parseDouble(holder.price.getText().toString()));
+
+                    }
+                }
             }
         });
 
@@ -82,9 +102,17 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (Util.validateString(holder.tvQty.getText().toString()) && !holder.tvQty.getText().toString().equalsIgnoreCase("0"))
-                    myListener.onRowClickedOnItem(holder.getAdapterPosition(),Integer.parseInt(holder.tvQty.getText().toString()),Double.parseDouble(holder.price.getText().toString()));
+                if(!onBind) {
+                    if (Util.validateString(holder.price.getText().toString())  && Util.validateString(holder.tvQty.getText().toString()) ) {
+                        myListener.onRowClickedOnItem(holder.getAdapterPosition(), Integer.parseInt(holder.tvQty.getText().toString()), Double.parseDouble(holder.price.getText().toString()));
+                    }else if (Util.validateString(holder.tvQty.getText().toString()) ){
+                        myListener.onRowClickedOnItem(holder.getAdapterPosition(), Integer.parseInt(holder.tvQty.getText().toString()), 0);
 
+                    }else if (Util.validateString(holder.price.getText().toString()) ){
+                        myListener.onRowClickedOnItem(holder.getAdapterPosition(), 0,  Double.parseDouble(holder.price.getText().toString()));
+
+                    }
+                }
             }
         });
 
