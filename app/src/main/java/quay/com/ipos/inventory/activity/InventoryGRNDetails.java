@@ -1417,6 +1417,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                                 Intent i = new Intent(mContext, InventoryGRNStepsActivity.class);
                                 i.putExtra("newGRNCreated", "GrnCreated");
                                 i.putExtra("poNumber", poNumber);
+                                i.putExtra("isGrn","0");
                                 i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                                 startActivity(i);
 

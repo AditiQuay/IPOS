@@ -73,6 +73,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
 
     private LinearLayout btnAddNew;
     Switch swchInventory,swchType,swchPOAvailable;
+
     private FrameLayout flScanner;
     private Fragment scanner_fragment;
     private LinearLayout llTotalDiscountDetail, ll_item_pay, llTotalGST;
@@ -127,6 +128,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                     i.putExtra("request", prepareJson().toString());
                     i.putExtra("businessPlaceId", businessPlaceCode + "");
                     i.putExtra("poNumber",edtPoNumber.getText().toString().trim());
+                    i.putExtra("isGrn","0");
                     startActivity(i);
                 }else{
                     Util.showToast("Please Enter Po Number");
@@ -248,6 +250,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                     btnAddNew.setVisibility(View.VISIBLE);
                     llPOVisible.setVisibility(View.GONE);
                     llInventory.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.GONE);
                 }
             }
         });
@@ -446,6 +449,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    Util.hideSoftKeyboard(getActivity());
                                     edtDate.setText(jsonObject.optString("poDate"));
                                     edtSupplier.setText(jsonObject.optString("supplierName"));
                                 }

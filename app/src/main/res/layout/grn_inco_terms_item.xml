@@ -4,12 +4,13 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
-    android:padding="@dimen/dim_4">
+    >
 
     <LinearLayout
         android:id="@+id/includeCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:orientation="vertical">
 
         <LinearLayout
@@ -24,9 +25,8 @@
 
                 <TextView
                     android:id="@+id/tvDetailName"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.9"
                     android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center"
                     android:padding="8dp"
@@ -44,7 +44,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -63,7 +63,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -83,15 +83,15 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/tvPayAmount"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center"
@@ -101,15 +101,16 @@
                     android:background="@null"
                     android:textSize="@dimen/universal_text_size14"
                     tools:text="26,800" />
+                <ImageView
+                    android:id="@+id/delete"
+                    android:layout_width="@dimen/dim_24"
+                    android:layout_height="@dimen/dim_24"
+                    android:visibility="gone"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/delete"/>
 
             </LinearLayout>
-            <ImageView
-                android:id="@+id/delete"
-                android:layout_width="@dimen/dim_24"
-                android:layout_height="@dimen/dim_24"
-                android:visibility="gone"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/delete"/>
+
 
         </LinearLayout>
 

@@ -37,6 +37,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -147,6 +148,8 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     private TextView textViewPrice;
     private Spinner spnOptions;
     private String requestJson;
+    private boolean isPOHeader,isItemDetails,isInco,isPayment,isTerms,isAttachments;
+    private ImageView imgri,imgRight,imgPaymentTerms,imgIncoTerms,imgItems,arrowPO;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -431,6 +434,24 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     }
 
     private void inializeViews(){
+
+
+
+        imgri=findViewById(R.id.imgri);
+        imgRight=findViewById(R.id.imgRight);
+        imgPaymentTerms=findViewById(R.id.imgPaymentTerms);
+        imgIncoTerms=findViewById(R.id.imgIncoTerms);
+        imgItems=findViewById(R.id.imgItems);
+        arrowPO=findViewById(R.id.arrowPO);
+
+        imgri.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+        imgRight.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+        imgPaymentTerms.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+        imgIncoTerms.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+        imgItems.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+        arrowPO.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+
+
         edtSupOther=findViewById(R.id.edtSupOther);
         edtSupNameOther=findViewById(R.id.edtSupNameOther);
         spnOptions=findViewById(R.id.spnOptions);
@@ -914,7 +935,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                 jsonObject.put("supplierName", "Other");
             }
             if (Util.validateString(edtSupOther.getText().toString().trim())) {
-                jsonObject.put("supplierAddress", edtSupOther);
+                jsonObject.put("supplierAddress", edtSupOther.getText().toString());
                 jsonObject.put("supplierAddressOther","" );
             } else {
                 jsonObject.put("supplierAddressOther",  edtSupOther.getText().toString().trim());
@@ -1019,12 +1040,20 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
             @Override
             public void onClick(View view) {
 
-                llPODetails.setVisibility(View.VISIBLE);
-                llItemsDetails.setVisibility(View.GONE);
+                if (!isPOHeader){
+                    llPODetails.setVisibility(View.VISIBLE);
+                    isPOHeader=true;
+                    arrowPO.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    arrowPO.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llPODetails.setVisibility(View.GONE);
+                    isPOHeader=false;
+                }
+            /*    llItemsDetails.setVisibility(View.GONE);
                 llIncoTerms.setVisibility(View.GONE);
                 llPaymentTerms.setVisibility(View.GONE);
                 llTermsC.setVisibility(View.GONE);
-                llAttachments.setVisibility(View.GONE);
+                llAttachments.setVisibility(View.GONE);*/
             }
         });
 
@@ -1032,57 +1061,102 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         POitemsDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPODetails.setVisibility(View.GONE);
+                if (!isItemDetails){
+                    llItemsDetails.setVisibility(View.VISIBLE);
+                    isItemDetails=true;
+                    imgItems.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    imgItems.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llItemsDetails.setVisibility(View.GONE);
+                    isItemDetails=false;
+                }
+                /*llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.VISIBLE);
                 llIncoTerms.setVisibility(View.GONE);
                 llPaymentTerms.setVisibility(View.GONE);
                 llTermsC.setVisibility(View.GONE);
-                llAttachments.setVisibility(View.GONE);
+                llAttachments.setVisibility(View.GONE);*/
             }
         });
 
         POIncoTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPODetails.setVisibility(View.GONE);
+                if (!isInco){
+                    llIncoTerms.setVisibility(View.VISIBLE);
+                    isInco=true;
+                    imgIncoTerms.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    imgIncoTerms.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llIncoTerms.setVisibility(View.GONE);
+                    isInco=false;
+                }
+               /* llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
                 llIncoTerms.setVisibility(View.VISIBLE);
                 llPaymentTerms.setVisibility(View.GONE);
                 llTermsC.setVisibility(View.GONE);
-                llAttachments.setVisibility(View.GONE);
+                llAttachments.setVisibility(View.GONE);*/
             }
         });
         POPaymentTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPODetails.setVisibility(View.GONE);
+                if (!isPayment){
+                    llPaymentTerms.setVisibility(View.VISIBLE);
+                    isPayment=true;
+                    imgPaymentTerms.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    imgPaymentTerms.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llPaymentTerms.setVisibility(View.GONE);
+                    isPayment=false;
+                }
+          /*      llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
                 llIncoTerms.setVisibility(View.GONE);
                 llPaymentTerms.setVisibility(View.VISIBLE);
                 llTermsC.setVisibility(View.GONE);
-                llAttachments.setVisibility(View.GONE);
+                llAttachments.setVisibility(View.GONE);*/
             }
         });
         POTermsandCondition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPODetails.setVisibility(View.GONE);
+                if (!isTerms){
+                    llTermsC.setVisibility(View.VISIBLE);
+                    isTerms=true;
+                    imgRight.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    imgRight.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llTermsC.setVisibility(View.GONE);
+                    isTerms=false;
+                }
+           /*     llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
                 llIncoTerms.setVisibility(View.GONE);
                 llPaymentTerms.setVisibility(View.GONE);
                 llTermsC.setVisibility(View.VISIBLE);
-                llAttachments.setVisibility(View.GONE);
+                llAttachments.setVisibility(View.GONE);*/
             }
         });
         POAttachment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPODetails.setVisibility(View.GONE);
+                if (!isAttachments){
+                    llAttachments.setVisibility(View.VISIBLE);
+                    isAttachments=true;
+                    imgri.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    imgri.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llAttachments.setVisibility(View.GONE);
+                    isAttachments=false;
+                }
+               /* llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
                 llIncoTerms.setVisibility(View.GONE);
                 llPaymentTerms.setVisibility(View.GONE);
                 llTermsC.setVisibility(View.GONE);
-                llAttachments.setVisibility(View.VISIBLE);
+                llAttachments.setVisibility(View.VISIBLE);*/
             }
         });
 
@@ -1355,26 +1429,35 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     }
 
     @Override
-    public void onRowClickedOnItem(int position, int percent, double value) {
-        if (value==0){
-            value=poItemDetails.get(position).getPoItemUnitPrice();
-        }
-        POItemDetail poItemDetail=new POItemDetail();
-        poItemDetail.setTitle(poItemDetails.get(position).getTitle());
+    public void onRowClickedOnItem(final int position, final int percent,final double value) {
 
-        poItemDetail.setPoItemUnitPrice(value);
-        poItemDetail.setPoItemAmount(value*percent);
-        poItemDetail.setPoItemIGSTValue(((poItemDetails.get(position).getPoItemSGSTPer()+poItemDetails.get(position).getPoItemCGSTPer())*percent*value)/100);
-        poItemDetail.setPoItemQty(percent);
-        poItemDetails.set(position,poItemDetail);
 
-        itemListDataAdapter.notifyItemChanged(position);
-        int qty=0;
-        for (int l=0;l<poItemDetails.size();l++) {
-            qty+=poItemDetails.get(l).getPoItemQty();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                double valuetotal=value;
+                if (value==0){
+               //     valuetotal=poItemDetails.get(position).getPoItemUnitPrice();
+                }
+                POItemDetail poItemDetail=new POItemDetail();
+                poItemDetail.setTitle(poItemDetails.get(position).getTitle());
 
-        }
-        tvHeaderPOItemDetail.setText("Item Details | " + poItemDetails.size() + " Items | Qty " +qty);
+                poItemDetail.setPoItemUnitPrice(valuetotal);
+                poItemDetail.setPoItemAmount(valuetotal*percent);
+                poItemDetail.setPoItemIGSTValue(((poItemDetails.get(position).getPoItemSGSTPer()+poItemDetails.get(position).getPoItemCGSTPer())*percent*valuetotal)/100);
+                poItemDetail.setPoItemQty(percent);
+                poItemDetails.set(position,poItemDetail);
+
+                itemListDataAdapter.notifyItemChanged(position);
+                int qty=0;
+                for (int l=0;l<poItemDetails.size();l++) {
+                    qty+=poItemDetails.get(l).getPoItemQty();
+
+                }
+                tvHeaderPOItemDetail.setText("Item Details | " + poItemDetails.size() + " Items | Qty " +qty);
+            }
+        });
+
     }
 
     private class AttachVH extends RecyclerView.ViewHolder {
@@ -1634,7 +1717,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         if (!Util.validateString(supName)){
             valid=false;
         }
-        if (!Util.validateString(msupplierAddress)){
+        if (!Util.validateString(edtSupOther.getText().toString())){
             valid=false;
         }
         if (!Util.validateString(edtSupGSTIN.getText().toString().trim()) || edtSupGSTIN.getText().toString().length()<15){
@@ -1658,11 +1741,11 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                 valid=false;
             }
         }
-        if (msupplierAddress.equalsIgnoreCase("Other")){
+       /* if (msupplierAddress.equalsIgnoreCase("Other")){
             if (!Util.validateString(edtSupOther.getText().toString().trim())){
                 valid=false;
             }
-        }
+        }*/
         if (deliveryAddress.equalsIgnoreCase("Other")){
             if (!Util.validateString(edtSupDeliveryOther.getText().toString().trim())){
                 valid=false;

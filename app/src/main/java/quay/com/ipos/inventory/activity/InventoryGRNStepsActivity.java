@@ -104,6 +104,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     private LinearLayout llQCList;
     private String newGRNCreated,supplierName;
     public static Activity fa;
+    private String isGrn="";
     private String isGrn;
 
     @Override

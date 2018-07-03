@@ -46,8 +46,29 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
 
 
         holder.tvQty.setText(stringArrayList.get(position).getPoPaymentTermsDetail());
-        holder.percent.setText(stringArrayList.get(position).getPoPaymentTermsPer()+"");
-        holder.tvGst.setText(stringArrayList.get(position).getPoPaymentTermsInvoiceDue());
+        if (stringArrayList.get(position).getPoPaymentTermsPer()==0){
+            holder.percent.setText("");
+            holder.percent.setHint("0");
+        }else {
+            holder.percent.setText(stringArrayList.get(position).getPoPaymentTermsPer()+"");
+        }
+
+
+        if (stringArrayList.get(position).getPoPaymentTermsInvoiceDue().equalsIgnoreCase("Immediate")){
+            holder.tvGst.setHint("Immediate");
+            holder.tvGst.setEnabled(false);
+        }else {
+            holder.tvGst.setHint("days");
+            holder.tvGst.setEnabled(true);
+        }
+
+        if (stringArrayList.get(position).getPoPaymentTermsInvoiceDue().equalsIgnoreCase("0 Days")){
+            holder.tvGst.setText("");
+        }else {
+            holder.tvGst.setText(stringArrayList.get(position).getPoPaymentTermsInvoiceDue());
+        }
+
+
         holder.delete.setVisibility(View.VISIBLE);
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,13 +95,20 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!onBind) {
-                    if (Util.validateString(holder.percent.getText().toString())) {
 
-                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
-                    } else {
-                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
+                        if (Util.validateString(holder.tvGst.getText().toString())) {
+                            if (Util.validateString(holder.percent.getText().toString())){
+                                myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
 
-                    }
+                            }else {
+                                myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
+
+                            }
+                        } else {
+                            myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
+
+                        }
+
                 }
             }
         });
@@ -98,12 +126,21 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!onBind) {
+                    double percentage=0;
+                    for (int i=0;i<stringArrayList.size();i++){
+                        percentage+=stringArrayList.get(holder.getAdapterPosition()).getPoPaymentTermsPer();
+                    }
+                    if (percentage<=100) {
                     if (Util.validateString(holder.percent.getText().toString())) {
 
                         myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
                     } else {
                         myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
 
+                    }
+                    }else {
+                        Util.showToast("Total percentage should not be greater than 100%");
+                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
                     }
                 }
             }

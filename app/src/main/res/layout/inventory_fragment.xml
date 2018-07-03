@@ -165,10 +165,11 @@
                     <Switch
                         android:id="@+id/swchInventory"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="10dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginLeft="8dp"
-                        android:theme="@style/SCBSwitch"
+                        android:track="@drawable/switch_track_custom"
+                        android:thumb="@drawable/switch_color_draw"
                         android:checked="true"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -220,8 +221,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
-                        android:theme="@style/SCBSwitch"
-                        android:layout_marginLeft="8dp"
+                        android:track="@drawable/switch_track_custom"
+                        android:thumb="@drawable/switch_color_draw"                        android:layout_marginLeft="8dp"
 
                         android:checked="true"/>
                     <TextView
@@ -273,8 +274,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="8dp"
                         android:layout_marginLeft="8dp"
-                        android:theme="@style/SCBSwitch"
-                        android:checked="false"/>
+                        android:track="@drawable/switch_track_custom"
+                        android:thumb="@drawable/switch_color_draw"                        android:checked="false"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -301,7 +302,7 @@
                 <quay.com.ipos.ui.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Create PO"
+                    android:text="Next"
                     android:gravity="center"
                     android:textColor="@color/white"/>
 
