@@ -330,9 +330,9 @@ public class ExpandablePODetailsActivity extends BaseActivity {
 
 
             ArrayList<String> list=new ArrayList<>();
-            list.add("One Time with Recurring");
+           // list.add("One Time with Recurring");
             list.add("Milestone Based");
-            list.add("On Invoice Based");
+          //  list.add("On Invoice Based");
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_spinner_item,list);
             spnMilestone.setAdapter(adapter);

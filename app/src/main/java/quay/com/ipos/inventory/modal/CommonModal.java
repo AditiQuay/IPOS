@@ -9,6 +9,7 @@ public class CommonModal {
     String id;
     String address;
     private String supplierGSTIN;
+    private String nameAddress;
 
     public String getId() {
         return id;
@@ -32,6 +33,14 @@ public class CommonModal {
 
     public void setSupplierGSTIN(String supplierGSTIN) {
         this.supplierGSTIN = supplierGSTIN;
+    }
+
+    public String getNameAddress() {
+        return nameAddress;
+    }
+
+    public void setNameAddress(String nameAddress) {
+        this.nameAddress = nameAddress;
     }
 }
 

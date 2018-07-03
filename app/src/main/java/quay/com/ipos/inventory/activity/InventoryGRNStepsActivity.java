@@ -49,7 +49,12 @@ import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.modal.RecentOrderModal;
 import quay.com.ipos.realmbean.RealmBusinessPlaces;
 import quay.com.ipos.realmbean.RealmController;
+import quay.com.ipos.realmbean.RealmCustomerInfoModal;
+import quay.com.ipos.realmbean.RealmNewOrderCart;
+import quay.com.ipos.realmbean.RealmOrderCentreSummary;
+import quay.com.ipos.realmbean.RealmOrderList;
 import quay.com.ipos.realmbean.RealmPOInventory;
+import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
@@ -99,6 +104,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     private LinearLayout llQCList;
     private String newGRNCreated;
     public static Activity fa;
+    private String isGrn;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +114,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         Intent i = getIntent();
         poNumber = i.getStringExtra("poNumber");
         newGRNCreated = i.getStringExtra("newGRNCreated");
+        isGrn=i.getStringExtra("isGrn");
 
         empCode = Prefs.getStringPrefs(Constants.employeeCode.trim());
         businessPlaceId = "1";
@@ -117,10 +124,23 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         applyLocalValidation();
         applyTypeFace();
         getIntents();
+        clearRealm();
 
         if (TextUtils.isEmpty(newGRNCreated)) {
             getPODetails();
         } else {
+            tvPO.setBackgroundResource(R.drawable.text_view_circle_grey);
+            tvGrn.setBackgroundResource(R.drawable.textview_circle_app_color);
+            recycleview.setVisibility(View.GONE);
+            recycleviewGrnCard.setVisibility(View.VISIBLE);
+            rlTab.setVisibility(View.VISIBLE);
+            llgrnn.setVisibility(View.VISIBLE);
+
+            getGrnDetails();
+
+        }
+
+        if (isGrn.equalsIgnoreCase("1")){
             tvPO.setBackgroundResource(R.drawable.text_view_circle_grey);
             tvGrn.setBackgroundResource(R.drawable.textview_circle_app_color);
             recycleview.setVisibility(View.GONE);
@@ -526,5 +546,43 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         i.putExtra("cardClick", "yes");
         startActivity(i);
     }
+    public void clearRealm() {
 
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+            realm.delete(RealmPOInventory.class);
+
+
+           /* Prefs.clearValue(AppConstants.UserId);
+            Prefs.clearValue(AppConstants.Login_Status);
+            Prefs.clearValue(AppConstants.USERNAME);
+            Prefs.clearValue(AppConstants.EMPLOYEE_NAME);
+            Prefs.clearValue(AppConstants.employee_name);
+            Prefs.clearValue(AppConstants.name);*/
+       /*     realm.delete(RealmAnswers.class);
+            realm.delete(RealmCategory.class);
+            realm.delete(RealmCategoryAnswers.class);
+            realm.delete(RealmClient.class);
+            realm.delete(RealmCustomer.class);
+            realm.delete(RealmRoles.class);
+
+            realm.delete(RealmQuestion.class);
+            realm.delete(RealmQuestions.class);
+            realm.delete(RealmSurveys.class);
+            realm.delete(RealmWorkFlow.class);
+            realm.delete(RealmSurveysList.class);
+            realm.delete(RealmUser.class);
+            realm.delete(RealmSurveyQuestion.class);*/
+
+
+        } catch (Exception e) {
+            realm.cancelTransaction();
+            realm.close();
+            e.printStackTrace();
+        } finally {
+            realm.commitTransaction();
+            realm.close();
+        }
+    }
 }

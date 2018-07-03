@@ -317,7 +317,7 @@
             android:gravity="start|center_vertical"
             android:layout_weight="1"
             android:padding="8dp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <TextView
@@ -334,7 +334,7 @@
                 android:background="@color/transparent"
                 android:text=""
                 android:spinnerMode="dialog"
-
+                android:visibility="gone"
                 android:textSize="@dimen/dim_14"
                 android:textColor="@color/dashboard_textcolor" />
 
@@ -354,13 +354,13 @@
             android:gravity="start|center_vertical"
             android:layout_weight="1"
             android:padding="8dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Other Address"
+                android:text="Supplier Address"
                 />
 
             <EditText
@@ -423,6 +423,86 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Delivery Address"
+                />
+
+            <quay.com.ipos.ui.SearchableSpinner
+                android:id="@+id/edtDeliveryAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:spinnerMode="dialog"
+
+                android:background="@color/transparent"
+                android:textSize="@dimen/dim_14"
+                android:textColor="@color/dashboard_textcolor" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/deliveryView"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ipos_line_black"/>
+        <LinearLayout
+            android:id="@+id/llSuppierDeliveryOthers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Other Supplier Delivery Address"
+                />
+
+            <EditText
+                android:id="@+id/edtSupDeliveryOther"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:background="@color/transparent"
+                android:text=""
+                android:textSize="@dimen/dim_14"
+                android:textColor="@color/dashboard_textcolor" />
+
+        </LinearLayout>
+
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ipos_line_black"/>
+        <CheckBox
+            android:id="@+id/chkBilling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Billing address same as Delivery Address"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/ipos_line_black"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|center_vertical"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:visibility="visible"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Billing Address"
                 />
 
@@ -464,82 +544,6 @@
 
             <EditText
                 android:id="@+id/edtSupBillingOther"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:background="@color/transparent"
-                android:text=""
-                android:textSize="@dimen/dim_14"
-                android:textColor="@color/dashboard_textcolor" />
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/ipos_line_black"/>
-        <CheckBox
-            android:id="@+id/chkBilling"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Delivery address same as Billing Address"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/ipos_line_black"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start|center_vertical"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:visibility="visible"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delivery Address"
-                />
-
-            <quay.com.ipos.ui.SearchableSpinner
-                android:id="@+id/edtDeliveryAddress"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
-                android:spinnerMode="dialog"
-
-                android:background="@color/transparent"
-                android:textSize="@dimen/dim_14"
-                android:textColor="@color/dashboard_textcolor" />
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/deliveryView"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/ipos_line_black"/>
-        <LinearLayout
-            android:id="@+id/llSuppierDeliveryOthers"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start|center_vertical"
-            android:layout_weight="1"
-            android:padding="8dp"
-            android:visibility="gone"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Other Supplier Delivery Address"
-                />
-
-            <EditText
-                android:id="@+id/edtSupDeliveryOther"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"
