@@ -1020,7 +1020,7 @@ public class DiscountListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 datum1.setQty(1);
 //                datum1.setSalesPrice(mPriceSelected);
                 datum1.setFreeItem(true);
-                datum1.setSProductPrice(mPriceSelected);
+                datum1.setSProductPrice(minDiscount.get(i).getSalesPrice());
 
                 minDiscount.set(i,datum1);
 //                IPOSApplication.mProductListResult.add( datum1);

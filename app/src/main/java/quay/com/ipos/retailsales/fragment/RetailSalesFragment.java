@@ -884,7 +884,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             int totalPoints = 0;
             int freeItemCount = 0;
             int mSelectedpos = 0;
-
+            double discount_perItemTotal=0.0 ;
             double totalDiscounted = 0;
             double totalAfterGSt = 0.0;
             double otcDiscountPerc = 0.0;
@@ -941,7 +941,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     for (int j = 0; j < discounts.size(); j++) {
                         if (discounts.get(j).isDiscItemSelected()) {
                             discount = discount + discounts.get(j).getDiscountTotal();
-
+discount_perItemTotal=discounts.get(j).getDiscountTotal();
                             perItemDiscount =(discounts.get(j).getDiscountTotal() - datum.getOTCDiscount());
                             totalDiscountedPrice = totalDiscountedPrice - perItemDiscount;
 
@@ -982,19 +982,19 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     cart_detail.setScheme(scheme);
                 }
                 if(!datum.isFreeItem()) {
-                    double discount_perItemTotal;
+                    double discount_perItemTotal1;
                     if (datum.isDiscSelected())
-                        discount_perItemTotal = discount - datum.getOTCDiscount();
+                        discount_perItemTotal1 = discount - datum.getOTCDiscount();
                     else
-                        discount_perItemTotal = discount;
-                    if (discount_perItemTotal > 0.0) {
+                        discount_perItemTotal1 = discount;
+                    if (discount_perItemTotal1 > 0.0) {
                         discountItem++;
-                        cart_detail.setDiscountValue(discount_perItemTotal);
+                        cart_detail.setDiscountValue(discount_perItemTotal1);
                     } else {
                         cart_detail.setDiscountValue(0.0);
                     }
                 }else {
-                    double discount_perItemTotal = discount ;
+
                     if (discount_perItemTotal > 0.0) {
                         discountItem++;
                         cart_detail.setDiscountValue(discount_perItemTotal);
@@ -1044,6 +1044,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 cartDetail.add(cart_detail);
             }
             tvItemNo.setText("Items " + (mList.size() - freeItemCount) + " item");
+            paymentRequest.setItemQty((mList.size() - freeItemCount) );
             paymentRequest.setFreeItemQty(freeItemCount);
 
             tvItemQty.setText(qty + " Qty");
@@ -1328,8 +1329,8 @@ String strDiscountAmt="";
                     flScanner.setVisibility(View.GONE);
                     closeFragment();
                     if (IPOSApplication.mProductListResult.size() > 0) {
-                        if (paymentRequest != null)
-                            SharedPrefUtil.putString(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest), getActivity());
+//                        if (paymentRequest != null)
+//                            SharedPrefUtil.putString(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest), getActivity());
                         Intent i = new Intent(mContext, PaymentModeActivity.class);
                         i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
                         i.putExtra(Constants.KEY_CUSTOMER, IPOSApplication.mCustomerID);
@@ -1337,6 +1338,7 @@ String strDiscountAmt="";
                         i.putExtra(Constants.KEY_CUSTOMER_POINTS, mCustomerPoints);
                         i.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL, IPOSApplication.mCustomerEmail);
                         i.putExtra(Constants.KEY_CUSTOMER_POINTS_NUMBER, IPOSApplication.mCustomerNumber);
+                        i.putExtra(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest));
                         startActivityForResult(i, Constants.ACT_PAYMENT);
                     } else {
                         Util.showToast("Please add atleast one item to proceed.", mContext);

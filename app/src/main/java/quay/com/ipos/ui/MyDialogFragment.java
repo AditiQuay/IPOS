@@ -41,7 +41,8 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
     EditText etPointToRedeem,etRedeemValue,etOTP;
     Button buttonSendOtp,buttonVerify,buttonRedeem;
     LinearLayout llVerifyRedeem;
-    double points=0,pointsPer=0, points1=0;
+    double pointsPer=0;
+    Integer points=0, points1=0;
     String mCustomerEmail="",mCustomerID="";
     View.OnClickListener mOnClickListener;
     static MyDialogFragment f;
@@ -109,7 +110,7 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(!charSequence.toString().trim().equals("")) {
-                    points1 = Double.parseDouble(charSequence.toString());
+                    points1 = Integer.parseInt(charSequence.toString());
                     if(points1<=points) {
                         redeemValue = points1 * pointsPer;
                         etRedeemValue.setText(redeemValue + "");
