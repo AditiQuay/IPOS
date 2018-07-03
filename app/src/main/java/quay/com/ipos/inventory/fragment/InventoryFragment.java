@@ -12,8 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -44,10 +42,8 @@ import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseFragment;
-import quay.com.ipos.inventory.activity.EditExpandablePODetailsActivity;
-import quay.com.ipos.inventory.activity.ExpandablePODetailsActivity;
-import quay.com.ipos.pss_order.activity.OrderCentreDetailsActivity;
 import quay.com.ipos.enums.NoGetEntityEnums;
+import quay.com.ipos.inventory.activity.EditExpandablePODetailsActivity;
 import quay.com.ipos.inventory.activity.InventoryGRNStepsActivity;
 import quay.com.ipos.inventory.adapter.CustomAdapter;
 import quay.com.ipos.inventory.modal.NOGetEntityBuisnessPlacesModal;
@@ -66,13 +62,13 @@ import quay.com.ipos.utility.Util;
  * Created by aditi.bhuranda on 03-05-2018.
  */
 
-public class InventoryFragment extends BaseFragment implements ServiceTask.ServiceResultListener{
+public class InventoryFragment extends BaseFragment implements ServiceTask.ServiceResultListener {
     private TextView tvMoreDetails, tvItemNo, tvItemQty, tvTotalItemPrice,
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
             tvLessDetails, tvRoundingOffPrice, tvPay, tvPinCount;
 
     private LinearLayout btnAddNew;
-    Switch swchInventory,swchType,swchPOAvailable;
+    Switch swchInventory, swchType, swchPOAvailable;
     private FrameLayout flScanner;
     private Fragment scanner_fragment;
     private LinearLayout llTotalDiscountDetail, ll_item_pay, llTotalGST;
@@ -104,8 +100,8 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     private int businessPlaceCode;
     private boolean isSync;
     private String strPlace;
-    private LinearLayout btnNext,llPOVisible,llInventory,llTransferType;
-    private EditText edtPoNumber,edtDate,edtSupplier;
+    private LinearLayout btnNext, llPOVisible, llInventory, llTransferType;
+    private EditText edtPoNumber, edtDate, edtSupplier;
     private ImageView imgSearch;
 
 
@@ -115,7 +111,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
         initializeComponent(rootView);
         mContext = getActivity();
         myDialog = new Dialog(getActivity());
-        btnNext=rootView.findViewById(R.id.btnNext);
+        btnNext = rootView.findViewById(R.id.btnNext);
         setHasOptionsMenu(true);
         Util.hideSoftKeyboard(getActivity());
         btnNext.setOnClickListener(new View.OnClickListener() {
@@ -125,9 +121,10 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                     Intent i = new Intent(getActivity(), InventoryGRNStepsActivity.class);
                     i.putExtra("request", prepareJson().toString());
                     i.putExtra("businessPlaceId", businessPlaceCode + "");
-                    i.putExtra("poNumber",edtPoNumber.getText().toString().trim());
+                    i.putExtra("poNumber", edtPoNumber.getText().toString().trim());
+                    i.putExtra("supplierName", edtSupplier.getText().toString().trim());
                     startActivity(i);
-                }else{
+                } else {
                     Util.showToast("Please Enter Po Number");
                 }
             }
@@ -137,7 +134,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             @Override
             public void onClick(View view) {
 
-                Intent i=new Intent(getActivity(), EditExpandablePODetailsActivity.class);
+                Intent i = new Intent(getActivity(), EditExpandablePODetailsActivity.class);
                 i.putExtra("businessPlaceId", businessPlaceCode + "");
                 startActivity(i);
             }
@@ -158,18 +155,18 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
 */
 
     private void initializeComponent(View rootView) {
-        btnAddNew=rootView.findViewById(R.id.btnAddNew);
-        swchInventory=rootView.findViewById(R.id.swchInventory);
-        swchPOAvailable=rootView.findViewById(R.id.swchPOAvailable);
-        swchType=rootView.findViewById(R.id.swchType);
-        edtSupplier=rootView.findViewById(R.id.edtSupplier);
-        edtDate=rootView.findViewById(R.id.edtDate);
-        edtPoNumber=rootView.findViewById(R.id.edtPoNumber);
-        spnAddress=rootView.findViewById(R.id.spnAddress);
-        imgSearch=rootView.findViewById(R.id.imgSearch);
-        llPOVisible=rootView.findViewById(R.id.llPOVisible);
-        llTransferType=rootView.findViewById(R.id.llTransferType);
-        llInventory=rootView.findViewById(R.id.llInventory);
+        btnAddNew = rootView.findViewById(R.id.btnAddNew);
+        swchInventory = rootView.findViewById(R.id.swchInventory);
+        swchPOAvailable = rootView.findViewById(R.id.swchPOAvailable);
+        swchType = rootView.findViewById(R.id.swchType);
+        edtSupplier = rootView.findViewById(R.id.edtSupplier);
+        edtDate = rootView.findViewById(R.id.edtDate);
+        edtPoNumber = rootView.findViewById(R.id.edtPoNumber);
+        spnAddress = rootView.findViewById(R.id.spnAddress);
+        imgSearch = rootView.findViewById(R.id.imgSearch);
+        llPOVisible = rootView.findViewById(R.id.llPOVisible);
+        llTransferType = rootView.findViewById(R.id.llTransferType);
+        llInventory = rootView.findViewById(R.id.llInventory);
         setSpinnerData();
 
         edtPoNumber.addTextChangedListener(new TextWatcher() {
@@ -192,7 +189,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             @Override
             public void onClick(View view) {
                 if (Util.validateString(edtPoNumber.getText().toString().trim()))
-                getPODetails();
+                    getPODetails();
                 else {
                     Util.showToast("Please enter PO Number");
                 }
@@ -202,12 +199,12 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
         swchPOAvailable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+                if (b) {
                     btnAddNew.setVisibility(View.GONE);
                     llPOVisible.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.VISIBLE);
 
-                }else {
+                } else {
                     llPOVisible.setVisibility(View.GONE);
                     btnAddNew.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.GONE);
@@ -217,14 +214,14 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
         swchInventory.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (!b){
+                if (!b) {
                     btnAddNew.setVisibility(View.GONE);
                     llTransferType.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.VISIBLE);
                     swchType.setChecked(true);
-                 //   llPOVisible.setVisibility(View.VISIBLE);
-                  //  llInventory.setVisibility(View.VISIBLE);
-                }else {
+                    //   llPOVisible.setVisibility(View.VISIBLE);
+                    //  llInventory.setVisibility(View.VISIBLE);
+                } else {
                     btnAddNew.setVisibility(View.GONE);
                     llTransferType.setVisibility(View.GONE);
                     llPOVisible.setVisibility(View.GONE);
@@ -237,12 +234,12 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
         swchType.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+                if (b) {
                     btnAddNew.setVisibility(View.GONE);
                     llPOVisible.setVisibility(View.GONE);
                     llInventory.setVisibility(View.GONE);
                     btnNext.setVisibility(View.GONE);
-                }else {
+                } else {
                     btnAddNew.setVisibility(View.VISIBLE);
                     llPOVisible.setVisibility(View.GONE);
                     llInventory.setVisibility(View.VISIBLE);
@@ -253,37 +250,36 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
 
     }
 
-    private JSONObject prepareJson(){
-        boolean bswitchInventory=false,bswchPOAvailable=false,bswchType=false;
-        if (swchInventory.isChecked()){
-            bswitchInventory=true;
+    private JSONObject prepareJson() {
+        boolean bswitchInventory = false, bswchPOAvailable = false, bswchType = false;
+        if (swchInventory.isChecked()) {
+            bswitchInventory = true;
         }
-        if (swchType.isChecked()){
-            bswchType=true;
+        if (swchType.isChecked()) {
+            bswchType = true;
         }
-        if (swchPOAvailable.isChecked()){
-            bswchPOAvailable=true;
+        if (swchPOAvailable.isChecked()) {
+            bswchPOAvailable = true;
         }
-        JSONObject jsonObject=new JSONObject();
+        JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("bswitchInventory",bswitchInventory);
-            jsonObject.put("bswchType",bswchType);
-            jsonObject.put("bswchPOAvailable",bswchPOAvailable);
-            jsonObject.put("edtDate",edtDate.getText().toString());
-            jsonObject.put("poNumber",edtPoNumber.getText().toString());
-            jsonObject.put("edtSupplier",edtSupplier.getText().toString());
-            jsonObject.put("strPlace",strPlace);
-            jsonObject.put("entityStateCode",entityStateCode);
-            jsonObject.put("businessPlaceId",businessPlaceCode);
-            jsonObject.put("empCode",Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject.put("bswitchInventory", bswitchInventory);
+            jsonObject.put("bswchType", bswchType);
+            jsonObject.put("bswchPOAvailable", bswchPOAvailable);
+            jsonObject.put("edtDate", edtDate.getText().toString());
+            jsonObject.put("poNumber", edtPoNumber.getText().toString());
+            jsonObject.put("edtSupplier", edtSupplier.getText().toString());
+            jsonObject.put("strPlace", strPlace);
+            jsonObject.put("entityStateCode", entityStateCode);
+            jsonObject.put("businessPlaceId", businessPlaceCode);
+            jsonObject.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-     return jsonObject;
+        return jsonObject;
 
     }
-
 
 
     private void setSpinnerData() {
@@ -291,7 +287,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
         spnAddress.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                strPlace=noGetEntityBuisnessPlacesModals.get(i).getBuisnessPlaceName();
+                strPlace = noGetEntityBuisnessPlacesModals.get(i).getBuisnessPlaceName();
                 entityStateCode = noGetEntityBuisnessPlacesModals.get(i).getBuisnessLocationStateCode();
                 businessPlaceCode = noGetEntityBuisnessPlacesModals.get(i).getBuisnessPlaceId();
             }
@@ -303,13 +299,12 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
         });
 //        showProgressDialog(mContext,R.string.msg_load_default);
         NOGetEntityBuisnessPlacesModal noGetEntityBuisnessPlacesModal = new NOGetEntityBuisnessPlacesModal();
-        noGetEntityBuisnessPlacesModal.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
+        noGetEntityBuisnessPlacesModal.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode) + "");
         noGetEntityBuisnessPlacesModal.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
         noGetEntityBuisnessPlacesModal.setEntityType(Prefs.getStringPrefs(Constants.entityRole));
         noGetEntityBuisnessPlacesModal.setEmpCode(Prefs.getStringPrefs(Constants.employeeCode));
         noGetEntityBuisnessPlacesModal.setBusinessPlaceId(Prefs.getStringPrefs(Constants.employeeCode));
         noGetEntityBuisnessPlacesModal.setPoNumber(Prefs.getStringPrefs(Constants.employeeCode));
-
 
 
         ServiceTask mTask = new ServiceTask();
@@ -324,7 +319,6 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     }
 
 
-
     boolean isBack = false;
 
     @Override
@@ -334,44 +328,29 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
-     //   hideProgressDialog();
+        //   hideProgressDialog();
         if (httpStatusCode == Constants.SUCCESS) {
 
-            if (Util.validateString(serverResponse)){
+            if (Util.validateString(serverResponse)) {
 
                 try {
-                    JSONObject jsonObject=new JSONObject(serverResponse);
-                    JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
+                    JSONObject jsonObject = new JSONObject(serverResponse);
+                    JSONArray array = jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
                     new RealmController().saveBusinessPlaces(array.toString());
-                    for (int i=0;i<array.length();i++){
-                        NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal=new NoGetEntityResultModal.BuisnessPlacesBean();
-                        JSONObject jsonObject1=array.optJSONObject(i);
+                    for (int i = 0; i < array.length(); i++) {
+                        NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal = new NoGetEntityResultModal.BuisnessPlacesBean();
+                        JSONObject jsonObject1 = array.optJSONObject(i);
                         noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
                         noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
                         noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
                         noGetEntityBuisnessPlacesModals.add(noGetEntityBuisnessPlacesModal);
 
 
-
                     }
 
-                    CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss,R.id.text1,noGetEntityBuisnessPlacesModals);
+                    CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss, R.id.text1, noGetEntityBuisnessPlacesModals);
                     adapter.setDropDownViewResource(R.layout.spinner_item_pss);
                     spnAddress.setAdapter(adapter);
                 } catch (JSONException e) {
@@ -396,13 +375,13 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     }
 
     public void getPODetails() {
-        final ProgressDialog progressDialog=new ProgressDialog(getActivity());
-        JSONObject jsonObject1=new JSONObject();
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        JSONObject jsonObject1 = new JSONObject();
 
         try {
-            jsonObject1.put("empCode",Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("businessPlaceId",businessPlaceCode);
-            jsonObject1.put("poNumber",edtPoNumber.getText().toString());
+            jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
+            jsonObject1.put("businessPlaceId", businessPlaceCode);
+            jsonObject1.put("poNumber", edtPoNumber.getText().toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -437,7 +416,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
 
                         final String responseData = response.body().string();
                         if (responseData != null) {
-                            final JSONObject jsonObject=new JSONObject(responseData);
+                            final JSONObject jsonObject = new JSONObject(responseData);
 
 
                             // saveResponseLocalCreateOrder(jsonObject,requestId);
@@ -458,7 +437,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                              Util.showToast("No Content found");
+                                Util.showToast("No Content found");
                             }
                         });
 
@@ -466,7 +445,6 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
 
                 } catch (Exception e) {
                     e.printStackTrace();
-
 
 
                 }

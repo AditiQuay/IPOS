@@ -1,6 +1,5 @@
 package quay.com.ipos.inventory.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.modal.GrnItemQtyModel;
@@ -65,23 +63,12 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
         holder.tvOpenQty.setText((int) grnItemQtyModel.getOpenQty() + "");
 
 
-        if ((int) grnItemQtyModel.getInQty() == 0) {
-            holder.tvInQty.setHint((int) grnItemQtyModel.getInQty() + "");
-            holder.tvInQty.setSelection(holder.tvInQty.getText().length());
+        holder.tvInQty.setText((int) grnItemQtyModel.getInQty() + "");
+        holder.tvInQty.setSelection(holder.tvInQty.getText().length());
 
-        } else {
-            holder.tvInQty.setText((int) grnItemQtyModel.getInQty() + "");
-            holder.tvInQty.setSelection(holder.tvInQty.getText().length());
-        }
-        if ((int) grnItemQtyModel.getApQty() == 0) {
-            holder.tvApQty.setHint((int) grnItemQtyModel.getApQty() + "");
-            holder.tvApQty.setSelection(holder.tvApQty.getText().length());
+        holder.tvApQty.setText((int) grnItemQtyModel.getApQty() + "");
+        holder.tvApQty.setSelection(holder.tvApQty.getText().length());
 
-        } else {
-            holder.tvApQty.setText((int) grnItemQtyModel.getApQty() + "");
-            holder.tvApQty.setSelection(holder.tvApQty.getText().length());
-
-        }
         holder.tvBalanceQty.setText((int) grnItemQtyModel.getBalanceQty() + "");
 
         holder.tvMaterialName.setOnClickListener(new View.OnClickListener() {
@@ -141,12 +128,7 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            if (holder.tvBalanceQty.getText().hashCode() == s.hashCode()) {
-                if (Util.validateString(holder.tvApQty.getText().toString()) && !holder.tvApQty.getText().toString().equalsIgnoreCase("0")) {
-                    holder.imageViewStatus.setVisibility(View.VISIBLE);
 
-                }
-            }
         }
 
         @Override
@@ -163,68 +145,70 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
             if (!onBind) {
                 try {
                     String text = editable.toString();
-                    if (holder.tvInQty.getText().hashCode() == editable.hashCode()) {
-                        if (Util.validateString(holder.tvInQty.getText().toString()) && !holder.tvInQty.getText().toString().equalsIgnoreCase("0")) {
-                            String openQty = holder.tvOpenQty.getText().toString();
-                            final String inQty = holder.tvInQty.getText().toString();
-                            final String appQty = holder.tvApQty.getText().toString();
+//                    if (holder.tvInQty.getText().hashCode() == editable.hashCode()) {
+//                        if (Util.validateString(holder.tvInQty.getText().toString()) && !holder.tvInQty.getText().toString().equalsIgnoreCase("0")) {
+//                            String openQty = holder.tvOpenQty.getText().toString();
+//                            final String inQty = holder.tvInQty.getText().toString();
+//                            final String appQty = holder.tvApQty.getText().toString();
+//
+//
+//                            final int balanceQty = Integer.parseInt(openQty) - (Integer.parseInt(inQty) + Integer.parseInt(appQty));
+//                            //setting data
+//                            grnItemQtyModels.get(position).setOpenQty(Double.parseDouble(openQty));
+//                            grnItemQtyModels.get(position).setInQty(Double.parseDouble(inQty));
+//                            grnItemQtyModels.get(position).setApQty(Double.parseDouble(appQty));
+//                            grnItemQtyModels.get(position).setBalanceQty(balanceQty);
+//
+//                            holder.tvBalanceQty.setText(grnItemQtyModels.get(position).getBalanceQty() + "");
+//                            holder.imageViewStatus.setVisibility(View.VISIBLE);
+//
+//                            // user typed: start the timer
+//                            timer = new Timer();
+//                            timer.schedule(new TimerTask() {
+//                                @Override
+//                                public void run() {
+//                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
+//                                    // do your actual work here
+//                                }
+//                            }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
+//                        }
+//
+//                    }
+//                    if (holder.tvApQty.getText().hashCode() == editable.hashCode()) {
+//                        if (Util.validateString(holder.tvApQty.getText().toString()) && !holder.tvApQty.getText().toString().equalsIgnoreCase("0")) {
+//                            String openQty = holder.tvOpenQty.getText().toString();
+//                            final String inQty = holder.tvInQty.getText().toString();
+//                            final String appQty = holder.tvApQty.getText().toString();
+//
+//                            final int balanceQty = Integer.parseInt(openQty) - (Integer.parseInt(inQty) + Integer.parseInt(appQty));
+//                            holder.tvBalanceQty.setText(balanceQty + "");
+//
+//                            //setting data
+//                            grnItemQtyModels.get(position).setOpenQty(Double.parseDouble(openQty));
+//                            grnItemQtyModels.get(position).setInQty(Double.parseDouble(inQty));
+//                            grnItemQtyModels.get(position).setApQty(Double.parseDouble(appQty));
+//                            grnItemQtyModels.get(position).setBalanceQty(balanceQty);
+//
+//                            holder.tvBalanceQty.setText(grnItemQtyModels.get(position).getBalanceQty() + "");
+//                            holder.imageViewStatus.setVisibility(View.VISIBLE);
+//                            // user typed: start the timer
+//                            timer = new Timer();
+//                            timer.schedule(new TimerTask() {
+//                                @Override
+//                                public void run() {
+//                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
+//
+//                                    // do your actual work here
+//                                }
+//                            }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
+//
+//
+//                        }
 
-
-                            final int balanceQty = Integer.parseInt(openQty) - (Integer.parseInt(inQty) + Integer.parseInt(appQty));
-                            //setting data
-                            grnItemQtyModels.get(position).setOpenQty(Double.parseDouble(openQty));
-                            grnItemQtyModels.get(position).setInQty(Double.parseDouble(inQty));
-                            grnItemQtyModels.get(position).setApQty(Double.parseDouble(appQty));
-                            grnItemQtyModels.get(position).setBalanceQty(balanceQty);
-
-                            holder.tvBalanceQty.setText(grnItemQtyModels.get(position).getBalanceQty() + "");
-                            holder.imageViewStatus.setVisibility(View.VISIBLE);
-
-                            // user typed: start the timer
-                            timer = new Timer();
-                            timer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
-                                    // do your actual work here
-                                }
-                            }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
-                        }
-
+//                    }
+                    if (holder.tvBalanceQty.getText().hashCode() == editable.hashCode()) {
+                        holder.imageViewStatus.setVisibility(View.VISIBLE);
                     }
-                    if (holder.tvApQty.getText().hashCode() == editable.hashCode()) {
-                        if (Util.validateString(holder.tvApQty.getText().toString()) && !holder.tvApQty.getText().toString().equalsIgnoreCase("0")) {
-                            String openQty = holder.tvOpenQty.getText().toString();
-                            final String inQty = holder.tvInQty.getText().toString();
-                            final String appQty = holder.tvApQty.getText().toString();
-
-                            final int balanceQty = Integer.parseInt(openQty) - (Integer.parseInt(inQty) + Integer.parseInt(appQty));
-                            holder.tvBalanceQty.setText(balanceQty + "");
-
-                            //setting data
-                            grnItemQtyModels.get(position).setOpenQty(Double.parseDouble(openQty));
-                            grnItemQtyModels.get(position).setInQty(Double.parseDouble(inQty));
-                            grnItemQtyModels.get(position).setApQty(Double.parseDouble(appQty));
-                            grnItemQtyModels.get(position).setBalanceQty(balanceQty);
-
-                            holder.tvBalanceQty.setText(grnItemQtyModels.get(position).getBalanceQty() + "");
-                            holder.imageViewStatus.setVisibility(View.VISIBLE);
-                            // user typed: start the timer
-                            timer = new Timer();
-                            timer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
-
-                                    // do your actual work here
-                                }
-                            }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
-
-
-                        }
-
-                    }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -233,4 +217,5 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
         }
 
     }
+
 }

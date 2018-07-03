@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import io.realm.Realm;
 import quay.com.ipos.inventory.modal.GRNListModel;
+import quay.com.ipos.inventory.modal.RealmGRNUpdateDetails;
 import quay.com.ipos.inventory.modal.RealmInventoryTabData;
 import quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails;
 import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
@@ -271,6 +272,22 @@ public class RealmController {
         realm.beginTransaction();
         try {
             realm.createOrUpdateObjectFromJson(RealmGRNDetails.class, responseData);
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
+    public void saveBatchDetails(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateObjectFromJson(RealmGRNUpdateDetails.class, responseData);
         } catch (Exception e) {
             if (realm.isInTransaction())
                 realm.cancelTransaction();

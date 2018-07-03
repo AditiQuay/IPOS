@@ -21,15 +21,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/titilliumwebregular"
-                android:text="Billo 1L x 20 (Emamectin benzoate 1.9% EC)"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/dim_14"
                 android:visibility="visible" />
 
             <ImageView
                 android:id="@+id/imageViewStatus"
-                android:layout_width="@dimen/dim_14"
-                android:layout_height="@dimen/dim_14"
+                android:layout_width="@dimen/dim_12"
+                android:layout_height="@dimen/dim_12"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dim_38"
@@ -55,8 +54,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:padding="8dp"
-                    android:text="5" />
+                    android:padding="8dp" />
 
 
                 <!--<View-->
@@ -73,10 +71,10 @@
                     android:background="@color/transparent"
                     android:gravity="center"
                     android:inputType="number"
-                    android:textColor="@color/dashboard_textcolor"
-                    android:textSize="@dimen/universal_text_size14"
+                    android:enabled="false"
                     android:padding="8dp"
-                    android:text="1" />
+                    android:textColor="@color/dashboard_textcolor"
+                    android:textSize="@dimen/universal_text_size14" />
 
                 <!--<View-->
                 <!--android:layout_width="1dp"-->
@@ -92,10 +90,10 @@
                     android:background="@color/transparent"
                     android:gravity="center"
                     android:inputType="number"
-                    android:textColor="@color/dashboard_textcolor"
-                    android:textSize="@dimen/universal_text_size14"
+                    android:enabled="false"
                     android:padding="8dp"
-                    android:text="1" />
+                    android:textColor="@color/dashboard_textcolor"
+                    android:textSize="@dimen/universal_text_size14" />
 
                 <!--<View-->
                 <!--android:layout_width="1dp"-->
@@ -109,8 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:padding="8dp"
-                    android:text="1" />
+                    android:padding="8dp" />
 
 
             </LinearLayout>

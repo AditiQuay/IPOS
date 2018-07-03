@@ -24,7 +24,7 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
     private ArrayList<POItemDetail> stringArrayList;
     private OnItemSelecteListener mListener;
     MyListener myListener;
-
+    private boolean onBind;
     public ItemsDetailsPOEditListAdapter(Context mContext, ArrayList<POItemDetail> stringArrayList,MyListener myListener) {
         this.mContext = mContext;
         this.stringArrayList = stringArrayList;
@@ -42,14 +42,14 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
     public void onBindViewHolder(final SurveyViewHolder holder, int position) {
 
 
-
+        onBind = true;
         holder.tvPoNumber.setText(stringArrayList.get(position).getTitle());
         holder.tvAmount.setText(stringArrayList.get(position).getPoItemAmount()+"");
         holder.tvGst.setText(stringArrayList.get(position).getPoItemIGSTValue()+"");
         holder.tvQty.setText(stringArrayList.get(position).getPoItemQty()+"");
         holder.price.setText(stringArrayList.get(position).getPoItemUnitPrice()+"");
 
-
+        onBind = false;
         holder.tvQty.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -63,8 +63,14 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (Util.validateString(holder.tvQty.getText().toString()) && !holder.tvQty.getText().toString().equalsIgnoreCase("0"))
-                myListener.onRowClicked(holder.getAdapterPosition(), Integer.parseInt(holder.tvQty.getText().toString()));
+                if(!onBind) {
+                    if (editable.toString().equalsIgnoreCase("")) {
+                        holder.tvQty.setText("1");
+                    }
+                    if (Util.validateString(holder.tvQty.getText().toString()) && !holder.tvQty.getText().toString().equalsIgnoreCase("0")) {
+                        myListener.onRowClicked(holder.getAdapterPosition(), Integer.parseInt(holder.tvQty.getText().toString()));
+                    }
+                }
             }
         });
 
