@@ -122,6 +122,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             @Override
             public void onClick(View view) {
                 if (Util.validateString(edtPoNumber.getText().toString().trim())) {
+
                     Intent i = new Intent(getActivity(), InventoryGRNStepsActivity.class);
                     i.putExtra("request", prepareJson().toString());
                     i.putExtra("businessPlaceId", businessPlaceCode + "");
@@ -138,6 +139,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             public void onClick(View view) {
 
                 Intent i=new Intent(getActivity(), EditExpandablePODetailsActivity.class);
+                i.putExtra("request", prepareJson().toString());
                 i.putExtra("businessPlaceId", businessPlaceCode + "");
                 startActivity(i);
             }
