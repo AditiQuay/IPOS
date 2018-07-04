@@ -167,7 +167,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toLeftOf="@+id/btnTabOther"
-                    tools:listitem="@layout/batch_items"
                     android:orientation="horizontal" />
 
                 <Button
@@ -179,7 +178,6 @@
                     android:backgroundTint="@color/button_tint_resource"
                     android:gravity="center"
                     android:drawableRight="@drawable/ic_action_arrow_down_white"
-                    android:stateListAnimator="@null"
                     android:text="Others"
                     android:textAllCaps="false" />
             </RelativeLayout>
