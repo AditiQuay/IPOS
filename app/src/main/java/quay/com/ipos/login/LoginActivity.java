@@ -84,9 +84,9 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
     }
 
     /*
-*Getting device information like deviceId,AppVersion,DeviceModel and IMEI number.
-*
-*/
+     *Getting device information like deviceId,AppVersion,DeviceModel and IMEI number.
+     *
+     */
     private void getDeviceInformation() {
         //App version
         try {
@@ -274,22 +274,24 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
                     SharedPrefUtil.setAccessToken(Constants.ACCESS_TOKEN.trim(), loginResult.getUserAccess().getAccessToken(), mContext);
                     SharedPrefUtil.setStoreID(Constants.STORE_ID.trim(), loginResult.getUserAccess().getWorklocationID(), mContext);
 
+                    Prefs.putStringPrefs(Constants.ACCOUNT.trim(), loginResult.getUserAccess().Account);
+                    Prefs.putStringPrefs(Constants.USERTYPE.trim(), loginResult.getUserAccess().UserType);
                     Prefs.putIntegerPrefs(Constants.entityCode.trim(), loginResult.getUserAccess().getEntityId());
                     Prefs.putStringPrefs(Constants.entityName.trim(), loginResult.getUserAccess().getEntityName());
                     Prefs.putStringPrefs(Constants.entityRole.trim(), loginResult.getUserAccess().getUserRole());
                     Prefs.putStringPrefs(Constants.employeeCode.trim(), loginResult.getUserAccess().getEmpCode());
                     Prefs.putStringPrefs("email", loginResult.getUserAccess().getUserEmailID());
                     Prefs.putStringPrefs(Constants.employeeRole.trim(), "distrubutor");
-                    Prefs.putStringPrefs("EntityName",loginResult.getUserAccess().getEntityName());
-                    Prefs.putIntegerPrefs("WorklocationID",loginResult.getUserAccess().getWorklocationID());
+                    Prefs.putStringPrefs("EntityName", loginResult.getUserAccess().getEntityName());
+                    Prefs.putIntegerPrefs("WorklocationID", loginResult.getUserAccess().getWorklocationID());
 
                     new RealmController().saveUserDetail(serverResponse);
                     //new  RealmController().saveUserDetail(userdata);
 
 
-                     Intent i = new Intent(mContext, MainActivity.class);
-                     startActivity(i);
-                   // searchProductCall(loginResult.getUserAccess().getWorklocationID() + "");
+                    Intent i = new Intent(mContext, MainActivity.class);
+                    startActivity(i);
+                    // searchProductCall(loginResult.getUserAccess().getWorklocationID() + "");
                 }
             } else if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT)) {
                 if (resultObj != null) {
@@ -331,7 +333,7 @@ public class LoginActivity extends RunTimePermissionActivity implements InitInte
         CommonParams mCommonParams = new CommonParams();
         mCommonParams.setStoreId(s);
         mCommonParams.setSearchParam("NA");
-        String token = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN,"", IPOSApplication.getContext());
+        String token = SharedPrefUtil.getAccessToken(Constants.ACCESS_TOKEN, "", IPOSApplication.getContext());
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_SEARCH_PRODUCT);

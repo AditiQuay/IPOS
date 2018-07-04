@@ -90,7 +90,7 @@ public class ProductSearchResult {
         private Integer sProductStock;
         @SerializedName("sProductWeight")
         @Expose
-        private Integer sProductWeight;
+        private String sProductWeight;
         @SerializedName("isDiscount")
         @Expose
         private Boolean isDiscount;
@@ -326,11 +326,11 @@ public class ProductSearchResult {
             this.sProductStock = sProductStock;
         }
 
-        public Integer getSProductWeight() {
+        public String getSProductWeight() {
             return sProductWeight;
         }
 
-        public void setSProductWeight(Integer sProductWeight) {
+        public void setSProductWeight(String sProductWeight) {
             this.sProductWeight = sProductWeight;
         }
 
