@@ -58,6 +58,7 @@ import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.SpacesItemDecoration;
 
 /**
@@ -270,7 +271,8 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         if (v == textViewAdd) {
             Intent i = new Intent(mContext, InventoryGRNDetails.class);
             i.putExtra("poNumber", tvPoNumber.getText().toString());
-            i.putExtra("supplierName",supplierName);
+            String supplier = SharedPrefUtil.getString("supplierName","",mContext);
+            i.putExtra("supplierName",supplier);
             startActivity(i);
         }
     }

@@ -85,8 +85,13 @@ import quay.com.ipos.realmbean.RealmGRNDetails;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.ui.CustomTextView;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
+
+import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_INDIA;
+import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_SIMPLE;
 
 /**
  * Created by niraj.kumar on 6/14/2018.
@@ -334,7 +339,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     public void applyInitValues() {
         setSupportActionBar(toolbar);
+        String supplierName = SharedPrefUtil.getString("supplierName", "", mContext);
         toolbarTtile.setText(poNumber + ", " + supplierName);
+
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -413,7 +420,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 break;
             case R.id.ivReceivedDateCalender:
                 clicked = true;
-                dateDialogReceivedDate();
+                clickAddDate();
+//                dateDialogReceivedDate();
 
                 break;
             case R.id.ivItemAdd:
@@ -468,7 +476,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 break;
             case R.id.et_received_date:
                 clicked = true;
-                dateDialogReceivedDate();
+                clickAddDate();
+//                dateDialogReceivedDate();
 
 //                Calendar maxDate = Calendar.getInstance();
 //                maxDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -580,51 +589,64 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
         }
     }
-
-    public void dateDialogReceivedDate() {
-        final Calendar c = Calendar.getInstance();
-
-        int y = c.get(Calendar.YEAR);
-        int m = c.get(Calendar.MONTH);
-        int d = c.get(Calendar.DAY_OF_MONTH);
-
-        android.app.DatePickerDialog dp = new android.app.DatePickerDialog(mContext,
-                new android.app.DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-
-                        String erg = year + "";
-                        erg += "-" + String.valueOf(monthOfYear + 1);
-                        erg += "-" + String.valueOf(dayOfMonth);
-
-                        try {
-                            if (clicked) {
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.set(Calendar.YEAR, year);
-                                calendar.set(Calendar.MONTH, monthOfYear);
-                                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                Date date = calendar.getTime();
-
-                                String date1 = Util.getFormattedDates(date);
-                                Log.e(TAG, "date1" + date1);
-
-                                et_received_date.setText(erg);
-                                clicked = false;
-
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }, y, m, d);
-        dp.setTitle("Calender");
-        dp.show();
-        dp.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-
-
+    public void clickAddDate() {
+        final Calendar calendar = Calendar.getInstance();
+        android.app.DatePickerDialog datePicker = new android.app.DatePickerDialog(mContext, new android.app.DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                et_received_date.setText(DateAndTimeUtil.toCustomStringDateAndTime(calendar, DATE_AND_TIME_FORMAT_INDIA));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePicker.show();
+        clicked = false;
     }
+//    public void dateDialogReceivedDate() {
+//        final Calendar c = Calendar.getInstance();
+//
+//        int y = c.get(Calendar.YEAR);
+//        int m = c.get(Calendar.MONTH);
+//        int d = c.get(Calendar.DAY_OF_MONTH);
+//
+//        android.app.DatePickerDialog dp = new android.app.DatePickerDialog(mContext,
+//                new android.app.DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year,
+//                                          int monthOfYear, int dayOfMonth) {
+//
+//                        String erg = year + "";
+//                        erg += "-" + String.valueOf(monthOfYear + 1);
+//                        erg += "-" + String.valueOf(dayOfMonth);
+//
+//                        try {
+//                            if (clicked) {
+//                                Calendar calendar = Calendar.getInstance();
+//                                calendar.set(Calendar.YEAR, year);
+//                                calendar.set(Calendar.MONTH, monthOfYear);
+//                                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//                                Date date = calendar.getTime();
+//
+//                                String date1 = Util.getFormattedDates(date);
+//                                Log.e(TAG, "date1" + date1);
+//
+//                                et_received_date.setText(erg);
+//                                clicked = false;
+//
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                }, y, m, d);
+//        dp.setTitle("Calender");
+//        dp.show();
+//        dp.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+//
+//
+//    }
 
     public void dateDialogBillValidity() {
         final Calendar c = Calendar.getInstance();
@@ -690,7 +712,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
         if (TextUtils.isEmpty(receivedDate)) {
             isFail = true;
-            etName.setError("PLease enter received date");
+            et_received_date.setError("PLease enter received date");
         }
         if (TextUtils.isEmpty(LRNumber)) {
             isFail = true;
@@ -739,7 +761,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
 
         } else {
-            Toast.makeText(mContext, "Please enter all required fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Please fill all required (*) fields", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -771,8 +793,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 et_received_date.setText(realmGRNDetails.getReceivedDate());
                 et_totalItems.setText(totalItem + "");
                 et_value.setText(realmGRNDetails.getValue() + "");
-                poQty.setText(poQt + "");
-                openQty.setText(openQt + "");
+                poQty.setText(openQt + "");
+                openQty.setText(poQt + "");
                 balanceQty.setText(balanceQt + "");
                 transporterEWayBillValidityDate = realmGRNDetails.getTransporterEWayBillValidityDate();
 
@@ -964,8 +986,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 et_received_date.setText(realmGRNDetails.getReceivedDate());
                 et_totalItems.setText(totalItem + "");
                 et_value.setText(realmGRNDetails.getValue() + "");
-                poQty.setText(poQt + "");
-                openQty.setText(openQt + "");
+                poQty.setText(openQt + "");
+                openQty.setText(poQt + "");
                 balanceQty.setText(balanceQt + "");
                 transporterEWayBillValidityDate = realmGRNDetails.getTransporterEWayBillValidityDate();
 
@@ -1564,6 +1586,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
 //        Realm realm = Realm.getDefaultInstance();
@@ -1612,8 +1635,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                                 i.putExtra("newGRNCreated", "GrnCreated");
                                 i.putExtra("poNumber", poNumber);
                                 i.putExtra("isGrn", "0");
-                                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
+                                finish();
 
                             }
                         });
@@ -1874,16 +1898,20 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
                         poItemDetailsArray.put(position, jsonObject2);
 
-                        int quanOpenTotal = 0, quanBalanceTotal = 0, quanInQuant = 0, quanApp = 0;
+                        int quanOpenTotal = 0, quanBalanceTotal = 0, quanIn = 0, quanApp = 0,quanPo = 0;
                         for (int k = 0; k < poItemDetailsArray.length(); k++) {
                             JSONObject jsonObject1 = poItemDetailsArray.optJSONObject(k);
+                            quanPo+=jsonObject1.optInt("poQty");
                             quanOpenTotal += jsonObject1.optInt("openQty");
                             quanBalanceTotal += jsonObject1.optInt("balanceQty");
-                            quanInQuant += inQty;
+                            quanIn += jsonObject1.optInt("inQty");
+                            quanApp += jsonObject1.optInt("apQty");
+
+                            quanIn+=inQty;
                             quanApp += appQty;
                         }
 
-//                jsonObject.put("openQty", poQuantity - (quanInQuant + quanApp));
+                        jsonObject.put("poQty", quanPo+(quanIn + quanApp));
                         jsonObject.put("balanceQty", quanBalanceTotal);
                         jsonObject.put("poItemDetails", poItemDetailsArray);
                         jsonObject.put("poAttachments", arrayPoAttachment);

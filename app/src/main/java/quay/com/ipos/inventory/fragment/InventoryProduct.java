@@ -3,11 +3,14 @@ package quay.com.ipos.inventory.fragment;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -823,17 +826,18 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
             poItemDetailsArray.put(pos, jsonObject2);
 
-            int quanOpenTotal = 0, quanBalanceTotal = 0, quanInQuant = 0, quanApp = 0;
+            int quanOpenTotal = 0, quanBalanceTotal = 0, quanInQuant = 0, quanApp = 0,quanPo=0;
             for (int k = 0; k < poItemDetailsArray.length(); k++) {
                 JSONObject jsonObject1 = poItemDetailsArray.optJSONObject(k);
                 quanOpenTotal += jsonObject1.optInt("openQty");
+                quanPo+=jsonObject1.optInt("poQty");
                 quanBalanceTotal += jsonObject1.optInt("balanceQty");
                 quanInQuant += jsonObject1.optInt("inQty");
                 quanApp += jsonObject1.optInt("apQty");
 
             }
 
-//            jsonObject.put("openQty", poQty - (quanInQuant + quanApp));
+            jsonObject.put("poQty", quanPo+(quanInQuant + quanApp));
             jsonObject.put("balanceQty", quanBalanceTotal);
             jsonObject.put("poItemDetails", poItemDetailsArray);
             jsonObject.put("poAttachments", arrayPoAttachment);
