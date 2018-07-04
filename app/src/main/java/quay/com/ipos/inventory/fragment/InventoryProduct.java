@@ -188,7 +188,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
             JSONObject jsonObject2 = array.getJSONObject(position);
             textViewProductName.setText(jsonObject2.optString("materialName"));
             textViewProductQuantity.setText(jsonObject2.optString("openQty"));
-            textViewProductBalance.setText("Balance" + "" + jsonObject2.optString("balanceQty"));
+            textViewProductBalance.setText("Balance" + " " + jsonObject2.optString("balanceQty"));
 
 
             tabData.clear();

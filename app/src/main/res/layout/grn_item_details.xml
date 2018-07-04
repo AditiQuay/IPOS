@@ -71,7 +71,6 @@
                     android:background="@color/transparent"
                     android:gravity="center"
                     android:inputType="number"
-                    android:enabled="false"
                     android:padding="8dp"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/universal_text_size14" />
@@ -90,7 +89,6 @@
                     android:background="@color/transparent"
                     android:gravity="center"
                     android:inputType="number"
-                    android:enabled="false"
                     android:padding="8dp"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/universal_text_size14" />

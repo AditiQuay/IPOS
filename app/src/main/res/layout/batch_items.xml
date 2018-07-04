@@ -10,10 +10,10 @@
         style="@style/styleWhiteTextColor14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:singleLine="true"
         android:backgroundTint="@color/button_tint_resource"
         android:drawablePadding="@dimen/dim_4"
         android:stateListAnimator="@null"
-        android:text="Button"
         android:textAllCaps="false" />
 
 
