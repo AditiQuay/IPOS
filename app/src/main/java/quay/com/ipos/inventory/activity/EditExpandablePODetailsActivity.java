@@ -145,11 +145,12 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     private int postionBilling;
     private EditText edtSupDeliveryOther,edtSupBillingOther,edtSupNameOther,edtSupOther;
     private Spinner spnDetails;
-    private TextView textViewPrice;
+    private TextView textViewPrice,tvQty;
     private Spinner spnOptions;
     private String requestJson;
     private boolean isPOHeader,isItemDetails,isInco,isPayment,isTerms,isAttachments;
     private ImageView imgri,imgRight,imgPaymentTerms,imgIncoTerms,imgItems,arrowPO;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -452,6 +453,8 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         arrowPO.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
 
 
+        tvQty=findViewById(R.id.tvQtyDetail);
+        tvQty.setVisibility(View.GONE);
         edtSupOther=findViewById(R.id.edtSupOther);
         edtSupNameOther=findViewById(R.id.edtSupNameOther);
         spnOptions=findViewById(R.id.spnOptions);
@@ -770,22 +773,34 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     private void getProducts(){
         Realm realm = Realm.getDefaultInstance();
         RealmResults<RealmInventoryProducts> realmNewOrderCarts1 = realm.where(RealmInventoryProducts.class).findAll();
-        poItemDetails.clear();
+     //   poItemDetails.clear();
 
         int qty=0;
         for (RealmInventoryProducts realmNewOrderCart : realmNewOrderCarts1) {
             RealmInventoryProducts realmNewOrderCarts = realm.copyFromRealm(realmNewOrderCart);
-
             POItemDetail poItemDetail=new POItemDetail();
+            if (poItemDetails.size()>0){
+
+                for (int i=0;i<poItemDetails.size();i++){
+
+                    if (poItemDetails.get(i).getMaterialName().equalsIgnoreCase(realmNewOrderCarts.getsProductName())){
+                        poItemDetail.setPoItemQty(poItemDetails.get(i).getPoItemQty());
+                    }else {
+                        poItemDetail.setPoItemQty(1);
+                    }
+                }
+            }
+
             poItemDetail.setTitle(realmNewOrderCarts.getsProductName());
             poItemDetail.setPoItemUnitPrice(realmNewOrderCarts.getsProductPrice());
-            poItemDetail.setPoItemAmount(realmNewOrderCarts.getQty()*realmNewOrderCarts.getsProductPrice());
-            poItemDetail.setPoItemIGSTValue(((realmNewOrderCarts.getSgst()+realmNewOrderCarts.getCgst())*realmNewOrderCarts.getQty()*realmNewOrderCarts.getsProductPrice())/100);
+            poItemDetail.setPoItemAmount(poItemDetail.getPoItemQty()*realmNewOrderCarts.getsProductPrice());
+            poItemDetail.setPoItemIGSTValue(((realmNewOrderCarts.getSgst()+realmNewOrderCarts.getCgst())*poItemDetail.getPoItemQty()*realmNewOrderCarts.getsProductPrice())/100);
             poItemDetail.setPoItemCGSTPer(realmNewOrderCarts.getCgst());
             poItemDetail.setPoItemSGSTPer(realmNewOrderCarts.getSgst());
             poItemDetail.setMaterialCode(realmNewOrderCarts.getiProductModalId());
             poItemDetail.setMaterialName(realmNewOrderCarts.getsProductName());
-            poItemDetail.setPoItemQty(1);
+
+
             qty=qty+1;
             poItemDetails.add(poItemDetail);
         }
@@ -847,6 +862,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                 JSONObject jsonObject1 =new JSONObject(json);
                 jsonObject1.remove("title");
                 jsonObject1.put("materialName",poItemDetails.get(j).getMaterialName());
+                if(Util.validateString(poItemDetails.get(j).getMaterialCode()))
                 jsonObject1.put("materialCode",poItemDetails.get(j).getMaterialCode().replace("free",""));
                 arrayPoDetails.put(jsonObject1);
 
@@ -1443,6 +1459,10 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                 poItemDetail.setTitle(poItemDetails.get(position).getTitle());
 
                 poItemDetail.setPoItemUnitPrice(valuetotal);
+                poItemDetail.setPoItemCGSTPer(poItemDetails.get(position).getPoItemCGSTPer());
+                poItemDetail.setPoItemIGSTPer(poItemDetails.get(position).getPoItemIGSTPer());
+                poItemDetail.setMaterialCode(poItemDetails.get(position).getMaterialCode());
+                poItemDetail.setMaterialName(poItemDetails.get(position).getMaterialName());
                 poItemDetail.setPoItemAmount(valuetotal*percent);
                 poItemDetail.setPoItemIGSTValue(((poItemDetails.get(position).getPoItemSGSTPer()+poItemDetails.get(position).getPoItemCGSTPer())*percent*valuetotal)/100);
                 poItemDetail.setPoItemQty(percent);

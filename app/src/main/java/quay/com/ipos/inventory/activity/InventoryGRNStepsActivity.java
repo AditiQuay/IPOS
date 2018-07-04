@@ -105,7 +105,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     private String newGRNCreated,supplierName;
     public static Activity fa;
     private String isGrn="";
-    private String isGrn;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -532,6 +532,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         Intent i = new Intent(mContext, ExpandablePODetailsActivity.class);
         i.putExtra("poNumber", inventoryModels.get(position).getPoNumber());
         i.putExtra("businessPlaceId", busineesPlaceId);
+        i.putExtra("supplierName", inventoryModels.get(position).getCompany());
         mContext.startActivity(i);
     }
 

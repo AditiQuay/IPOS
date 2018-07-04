@@ -14,6 +14,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -392,7 +393,11 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 break;
             case R.id.btnAddBatch:
                 hideKeyboard();
-                saveBatchData();
+                if(TextUtils.isEmpty(batchEditText.getText().toString())){
+                    Toast.makeText(mContext,"Please enter batch number",Toast.LENGTH_SHORT).show();
+                }else {
+                    saveBatchData();
+                }
                 batchEditText.setText("");
                 break;
             case R.id.btnTabOther:
