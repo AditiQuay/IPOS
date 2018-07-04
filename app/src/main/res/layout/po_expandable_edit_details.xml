@@ -238,7 +238,7 @@
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingLeft="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
-                    android:text="Payment Terms"
+                    android:text="Payment Terms *"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/universal_text_size14" />
 

@@ -107,13 +107,13 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent" />
 
-        <RelativeLayout
+      <!--  <RelativeLayout
             android:id="@+id/bottomBar"
             android:layout_width="match_parent"
             android:layout_height="58dp"
             android:layout_alignParentBottom="true"
             >
-
+-->
             <!--  <TextView
                   android:id="@+id/bntNext"
                   android:layout_width="wrap_content"
@@ -176,7 +176,7 @@
 
 
             </LinearLayout>
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
     </RelativeLayout>
 
 

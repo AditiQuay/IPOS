@@ -51,6 +51,10 @@ public class INCOTermsPOListAdapter extends RecyclerView.Adapter<INCOTermsPOList
         holder.sender.setClickable(false);
         holder.reciver.setClickable(false);
 
+        if (stringArrayList.get(position).getPoIncoDetail().equalsIgnoreCase("Total")){
+            holder.sender.setVisibility(View.GONE);
+            holder.reciver.setVisibility(View.GONE);
+        }
 
 
 

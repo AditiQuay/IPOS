@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,26 +69,7 @@ public class DDRCartListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         this.mCheckedChangeListener = mCheckedChangeListener;
         this. listener = listener;
         this.myCheckedChangedListener=myCheckedChangedListener;
-        // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
-        // mRecyclerView.getLayoutManager();
-        // mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
-        // {
-        // @Override
-        // public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        // super.onScrolled(recyclerView, dx, dy);
-        //
-        // totalItemCount = linearLayoutManager.getItemCount();
-        // lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-        //
-        // if (!isLoading && totalItemCount <= (lastVisibleItem +
-        // visibleThreshold)) {
-        // if (mOnLoadMoreListener != null) {
-        // mOnLoadMoreListener.onLoadMore();
-        // }
-        // isLoading = true;
-        // }
-        // }
-        // });
+
     }
 
     @Override
@@ -149,7 +131,7 @@ public class DDRCartListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.show_new_order_items, parent, false);
+            View view = LayoutInflater.from(mContext).inflate(R.layout.ddr_cart_items, parent, false);
             return new DDRCartListAdapter.UserViewHolder(view);
         }
         else if (viewType == VIEW_TYPE_LOADING) {
@@ -172,8 +154,14 @@ public class DDRCartListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if (Util.validateString(str.getsProductName()))
                     userViewHolder.tvItemName.setText(str.getsProductName());
                 userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(str.getsProductPrice()));
-
-                userViewHolder.tvItemStockAvailabilty.setText(str.getsProductStock().substring(0, 1).toUpperCase() + str.getsProductStock().substring(1).toLowerCase());
+                String stokAvaialableFree = str.getsProductStock().substring(0, 1).toUpperCase() + str.getsProductStock().substring(1).toLowerCase();
+                int intStokeAvaialableFree=0;
+                try {
+                    intStokeAvaialableFree = (int)Double.parseDouble(stokAvaialableFree);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                userViewHolder.tvItemStockAvailabilty.setText(intStokeAvaialableFree+"");
                 userViewHolder.tvPoints.setText(str.getPoints() + " Pts.");
                 userViewHolder.tvTotalPoints.setText(str.getTotalPoints() + " Pts.");
 
@@ -191,7 +179,7 @@ public class DDRCartListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     userViewHolder.tvTotalPrice.setText("- "+mContext.getResources().getString(R.string.Rs) +" "+Util.indianNumberFormat(str.getTotalPrice()));
 
                     userViewHolder.tvTotalPrice.setPaintFlags(userViewHolder.tvTotalPrice.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
-                    userViewHolder.tvCheckStock.setVisibility(View.GONE);
+                   // userViewHolder.tvCheckStock.setVisibility(View.GONE);
                     //  userViewHolder.llAddMinus.setVisibility(View.GONE);
 
                 } else {
@@ -206,8 +194,16 @@ public class DDRCartListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         userViewHolder.imvOffer.setVisibility(View.GONE);
                     }
                     userViewHolder.tvTotalPrice.setText(mContext.getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(str.getTotalPrice()));
-
-                    if (str.isCheckStock()) {
+                    String stokAvaialable = realmNewOrderCart.getsProductStock().substring(0, 1).toUpperCase() + realmNewOrderCart.getsProductStock().substring(1).toLowerCase();
+                    Log.i("stokAvaialable", stokAvaialable);
+                    int intStokeAvaialable=0;
+                    try {
+                        intStokeAvaialable = (int)Double.parseDouble(stokAvaialable);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    userViewHolder.tvItemStockAvailabilty.setText(intStokeAvaialable+"");
+                   /* if (str.isCheckStock()) {
                         userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
                         if (mDataset.get(holder.getAdapterPosition()).isCheckStockClick()) {
                             userViewHolder.llStocks.setVisibility(View.VISIBLE);
@@ -274,7 +270,7 @@ public class DDRCartListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         }
 
                         userViewHolder.tvCheckStock.setVisibility(View.GONE);
-                    }
+                    }*/
                     userViewHolder.llAddMinus.setVisibility(View.VISIBLE);
                 }
                 Picasso.get().load(str.getProductImage()).into(userViewHolder.imvProduct);

@@ -48,7 +48,8 @@ public class POAdapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         final OrderModel object = list.get(position);
-        holder.textPName.setText(object.sellerName + "");
+        holder.textPName.setText(object.ddrName + "");
+        holder.textDeliveryReq.setText(object.dispatchText + "");
         holder.textDeliveryReqDate.setText(object.etaDate + "");
         holder.textRequestCode.setText(object.requestCode + "");
         holder.textModifiedDate.setText(object.modifiedDate + "");
@@ -76,11 +77,12 @@ public class POAdapter extends RecyclerView.Adapter<ViewHolder> {
 }
 
 class ViewHolder extends RecyclerView.ViewHolder {
-    public TextView textDeliveryReqDate, textItemsCount, textQty, textRequestCode, textPName, textOrderValue, textModifiedDate;
+    public TextView textDeliveryReqDate,textDeliveryReq, textItemsCount, textQty, textRequestCode, textPName, textOrderValue, textModifiedDate;
 
 
     public ViewHolder(View itemView) {
         super(itemView);
+        textDeliveryReq = itemView.findViewById(R.id.textDeliveryReq);
         textDeliveryReqDate = itemView.findViewById(R.id.textDeliveryReqDate);
         textItemsCount = itemView.findViewById(R.id.textItemsCount);
         textQty = itemView.findViewById(R.id.textQty);

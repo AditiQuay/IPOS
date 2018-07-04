@@ -59,7 +59,7 @@
 
                         android:gravity="center"
                         android:padding="@dimen/dim_10"
-                        android:text="BB123456"
+                        android:text="04-Jul-2018"
                         android:textColor="@color/dark_grey_color" />
 
                     <LinearLayout

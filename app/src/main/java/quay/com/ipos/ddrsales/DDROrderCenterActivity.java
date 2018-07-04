@@ -24,6 +24,7 @@ import java.util.List;
 import quay.com.ipos.R;
 import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.ddrsales.adapter.POAdapter;
+import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.ddrsales.model.OrderModel;
 import quay.com.ipos.ddrsales.model.POSummary;
 import quay.com.ipos.ddrsales.model.POSummaryData;
@@ -289,13 +290,6 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
             Log.i(TAG, "entityCode Hardcoded if entityCode is 0" + entityCode + "");
         }
         POSummaryReq poSummaryReq = new POSummaryReq();
-        {
-            poSummaryReq.employeeCode = "6000014";
-            poSummaryReq.employeeRole = "user";
-            poSummaryReq.businessCode = "1";
-            poSummaryReq.entityID = "1";
-            poSummaryReq.type = "no";
-        }
 
 
         Call<POSummary> call = RestService.getApiServiceSimple().DDR_NO_SUMMARY(poSummaryReq);
@@ -402,7 +396,10 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
     public void onSelectPO(int pos, OrderModel orderModel) {
 
         Intent intent = new Intent(activity, DDRApproveInvoiceActivity.class);
+        DDR ddr = new DDR(orderModel.ddrCode,orderModel.ddrName,"","",0,0,0);
+
         intent.putExtra("data", orderModel);
+        intent.putExtra("ddr", ddr);
         startActivity(intent);
 
     }

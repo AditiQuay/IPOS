@@ -66,6 +66,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_INDIA;
 import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_SIMPLE;
 
 
@@ -285,11 +286,20 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         addressList.clear();
         addressList.addAll(address);
 
-        if (addressList.size() > 0) {
-            billing = shipping = addressList.get(0);
-            billing.setSelected(true);
-            shipping.setSelected(true);
-        }
+       /* if (addressList.size() > 0) {
+             boolean isSelected ;
+            for (Address address1 : addressList) {
+                if (address1.isSelected) {
+                    isSelected = true;
+                }
+            }
+
+            if(!isSelected) {
+                billing = shipping = addressList.get(0);
+                billing.setSelected(true);
+                shipping.setSelected(true);
+            }
+        }*/
 
         adapterAddBilling.notifyDataSetChanged();
         adapterAddShipping.notifyDataSetChanged();
@@ -355,7 +365,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, month);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                editEwayBillVal.setText(DateAndTimeUtil.toCustomStringDateAndTime(calendar, DATE_AND_TIME_FORMAT_SIMPLE));
+                editEwayBillVal.setText(DateAndTimeUtil.toCustomStringDateAndTime(calendar, DATE_AND_TIME_FORMAT_INDIA));
                 logisticsData.eWayBillValidity = DateAndTimeUtil.toCustomStringDateAndTime(calendar, DATE_AND_TIME_FORMAT_SIMPLE);
             }
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
@@ -463,15 +473,15 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         });
 
 
-        editLRNumber.setText(logisticsData.lrNumber + "");
-        editTransporter.setText(logisticsData.transporter + "");
-        editAddress.setText(logisticsData.address);
-        editEWayBillNo.setText(logisticsData.eWayBillNumber + "");
-        editEwayBillVal.setText(logisticsData.eWayBillValidity + "");
-        editTruckNumber.setText(logisticsData.truckNumber + "");
-        editDriverMobileNumber.setText(logisticsData.driverMobileNumber + "");
-        editDriverName.setText(logisticsData.driverName + "");
-        editTrackMobileNumber.setText(logisticsData.trackMobileNumber + "");
+        editLRNumber.setText(valueOf(logisticsData.lrNumber));
+        editTransporter.setText(valueOf(logisticsData.transporter));
+        editAddress.setText(valueOf(logisticsData.address));
+        editEWayBillNo.setText(valueOf(logisticsData.eWayBillNumber));
+        editEwayBillVal.setText(valueOf(logisticsData.eWayBillValidity));
+        editTruckNumber.setText(valueOf(logisticsData.truckNumber));
+        editDriverMobileNumber.setText(valueOf(logisticsData.driverMobileNumber));
+        editDriverName.setText(valueOf(logisticsData.driverName));
+        editTrackMobileNumber.setText(valueOf(logisticsData.trackMobileNumber));
 
 
         editLRNumber.addTextChangedListener(generalTextWatcher);
@@ -538,8 +548,13 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                 cartDetailsSubmit.materialIGSTRate = jsonObject.optDouble("materialIGSTRate");
                 cartDetailsSubmit.materialIGSTValue = jsonObject.optDouble("materialIGSTValue");
                 cartDetailsSubmit.materialName = jsonObject.optString("materialName");
-                cartDetailsSubmit.materialCode = jsonObject.optString("materialCode");
-                ;
+                String materialCode = jsonObject.optString("materialCode");
+                if (materialCode.contains("free")) {
+                    materialCode =   materialCode.replace("free", "");
+                }
+                Log.i("TAG Material Code", materialCode);
+                cartDetailsSubmit.materialCode = materialCode;// jsonObject.optString("materialCode");
+
                 cartDetailsSubmit.materialQty = jsonObject.optInt("materialQty");
                 cartDetailsSubmit.materialValue = jsonObject.optInt("materialValue");
                 cartDetailsSubmit.materialUnitValue = jsonObject.optDouble("materialUnitValue");
@@ -693,7 +708,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         }
 
         //logistic validation
-        if (logisticsData == null) {
+      /*  if (logisticsData == null) {
             Util.showToast("Logistics is required");
             return false;
         }
@@ -736,7 +751,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         if (logisticsData.address == null || logisticsData.address.isEmpty()) {
             Util.showToast("Logistics -> Address is required");
             return false;
-        }
+        }*/
 
 
         if (billing == null) {
@@ -767,7 +782,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
 
         //inco terms validation
-        if (ddrIncoTerms == null) {
+       /* if (ddrIncoTerms == null) {
             Util.showToast("IncoTerms is required");
             return false;
         }
@@ -780,9 +795,9 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
             }
 
         }
-
+*/
         //batch validation
-        if (dDRCartDetails == null || dDRCartDetails.isEmpty()) {
+      /*  if (dDRCartDetails == null || dDRCartDetails.isEmpty()) {
             Util.showToast("Product Data is required");
             return false;
         }
@@ -816,7 +831,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
             }
 
         }
-
+*/
 
         return true;
 

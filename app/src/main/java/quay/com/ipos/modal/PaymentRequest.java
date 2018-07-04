@@ -24,7 +24,7 @@ public class PaymentRequest {
     private String customerID;
     @SerializedName("pointsToRedeem")
     @Expose
-    private Integer pointsToRedeem;
+    private double pointsToRedeem;
     @SerializedName("pointsToRedeemValue")
     @Expose
     private double pointsToRedeemValue;
@@ -114,11 +114,11 @@ public class PaymentRequest {
         this.orderDateTime = orderDateTime;
     }
 
-    public Integer getPointsToRedeem() {
+    public double getPointsToRedeem() {
         return pointsToRedeem;
     }
 
-    public void setPointsToRedeem(Integer pointsToRedeem) {
+    public void setPointsToRedeem(double pointsToRedeem) {
         this.pointsToRedeem = pointsToRedeem;
     }
 

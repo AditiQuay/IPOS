@@ -123,42 +123,6 @@ public class DDRScannerFragment extends BaseFragment implements
     }
 
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle presses on the action bar items
-//        switch (item.getItemId()) {
-//            case R.id.menu_flash:
-//                mFlash = !mFlash;
-//                if(mFlash) {
-//                    item.setTitle(R.string.flash_on);
-//                } else {
-//                    item.setTitle(R.string.flash_off);
-//                }
-//                mScannerView.setFlash(mFlash);
-//                return true;
-//            case R.id.menu_auto_focus:
-//                mAutoFocus = !mAutoFocus;
-//                if(mAutoFocus) {
-//                    item.setTitle(R.string.auto_focus_on);
-//                } else {
-//                    item.setTitle(R.string.auto_focus_off);
-//                }
-//                mScannerView.setAutoFocus(mAutoFocus);
-//                return true;
-//            case R.id.menu_formats:
-//                ListDialogFragment fragment = FormatSelectorDialogFragment.newInstance(this, mSelectedIndices);
-//                fragment.show(getActivity().getSupportFragmentManager(), "format_selector");
-//                return true;
-//            case R.id.menu_camera_selector:
-//                mScannerView.stopCamera();
-//                ListDialogFragment cFragment = CameraSelectorDialogFragment.newInstance(this, mCameraId);
-//                cFragment.show(getActivity().getSupportFragmentManager(), "camera_selector");
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
     @Override
     public void onResume() {
         super.onResume();
