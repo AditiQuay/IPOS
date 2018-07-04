@@ -265,7 +265,7 @@ public class LoginResult {
              */
 
             private int ID;
-            private String BusinessPlaceCode;
+            private String businessPlaceCode;
             private String LocationName;
             private String Address1;
             private String Address2;
@@ -314,11 +314,11 @@ public class LoginResult {
             }
 
             public String getBusinessPlaceCode() {
-                return BusinessPlaceCode;
+                return businessPlaceCode;
             }
 
             public void setBusinessPlaceCode(String BusinessPlaceCode) {
-                this.BusinessPlaceCode = BusinessPlaceCode;
+                this.businessPlaceCode = BusinessPlaceCode;
             }
 
             public String getLocationName() {

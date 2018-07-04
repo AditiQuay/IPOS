@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/titilliumwebregular"
                 android:paddingLeft="@dimen/dim_8"
-                android:text="dhjdhdjhdjddjhdjhdjhd"
+                android:visibility="gone"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/dim_14" />
 
@@ -74,6 +74,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:inputType="number"
+                android:maxLength="5"
                 android:focusable="true"
                 android:background="@color/transparent"
                 android:fontFamily="@font/titilliumwebregular"

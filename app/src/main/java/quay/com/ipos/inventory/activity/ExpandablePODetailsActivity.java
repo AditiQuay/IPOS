@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -78,6 +79,7 @@ import quay.com.ipos.utility.Util;
 
 public class ExpandablePODetailsActivity extends BaseActivity {
 
+    LinearLayout includeCardView;
     ExpandableListView expandableListView;
     //CustomExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
@@ -100,6 +102,10 @@ public class ExpandablePODetailsActivity extends BaseActivity {
     String poNumber,businessPlaceId;
     private TextView tvHeaderPoNumber,tvHeaderPOItemDetail;
     private Spinner spnMilestone;
+    private boolean isPOHeader,isItemDetails,isInco,isPayment,isTerms,isAttachments;
+    private ImageView imgri,imgRight,imgPaymentTerms,imgIncoTerms,imgItems,arrowPO;
+    private String supplierName="";
+    private TextView toolbarTtile;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -111,11 +117,15 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         if (i!=null){
             poNumber=i.getStringExtra("poNumber");
             businessPlaceId=i.getStringExtra("businessPlaceId");
+            supplierName=i.getStringExtra("supplierName");
         }
+
+
         inializeViews();
         setLisner();
         getPODetails();
-
+        if (supplierName!=null)
+        toolbarTtile.setText(poNumber+" "+supplierName);
     }
     public void setHeader() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -137,6 +147,25 @@ public class ExpandablePODetailsActivity extends BaseActivity {
     }
 
     private void inializeViews(){
+        includeCardView=findViewById(R.id.includeCardView);
+        includeCardView.setVisibility(View.GONE);
+        toolbarTtile=findViewById(R.id.toolbarTtile);
+        imgri=findViewById(R.id.imgri);
+        imgRight=findViewById(R.id.imgRight);
+        imgPaymentTerms=findViewById(R.id.imgPaymentTerms);
+        imgIncoTerms=findViewById(R.id.imgIncoTerms);
+        imgItems=findViewById(R.id.imgItems);
+        arrowPO=findViewById(R.id.arrowPO);
+
+        imgri.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+        imgRight.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+        imgPaymentTerms.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+        imgIncoTerms.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+        imgItems.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+        arrowPO.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+
+
+
         spnMilestone=findViewById(R.id.spnMilestone);
         tvHeaderPoNumber=findViewById(R.id.tvHeaderPoNumber);
         tvHeaderPOItemDetail=findViewById(R.id.tvHeaderPOItemDetail);
@@ -230,12 +259,20 @@ public class ExpandablePODetailsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                llPODetails.setVisibility(View.VISIBLE);
-                llItemsDetails.setVisibility(View.GONE);
+                if (!isPOHeader){
+                    llPODetails.setVisibility(View.VISIBLE);
+                    isPOHeader=true;
+                    arrowPO.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    arrowPO.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llPODetails.setVisibility(View.GONE);
+                    isPOHeader=false;
+                }
+            /*    llItemsDetails.setVisibility(View.GONE);
                 llIncoTerms.setVisibility(View.GONE);
                 llPaymentTerms.setVisibility(View.GONE);
                 llTermsC.setVisibility(View.GONE);
-                llAttachments.setVisibility(View.GONE);
+                llAttachments.setVisibility(View.GONE);*/
             }
         });
 
@@ -243,57 +280,102 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         POitemsDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPODetails.setVisibility(View.GONE);
+                if (!isItemDetails){
+                    llItemsDetails.setVisibility(View.VISIBLE);
+                    isItemDetails=true;
+                    imgItems.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    imgItems.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llItemsDetails.setVisibility(View.GONE);
+                    isItemDetails=false;
+                }
+                /*llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.VISIBLE);
                 llIncoTerms.setVisibility(View.GONE);
                 llPaymentTerms.setVisibility(View.GONE);
                 llTermsC.setVisibility(View.GONE);
-                llAttachments.setVisibility(View.GONE);
+                llAttachments.setVisibility(View.GONE);*/
             }
         });
 
         POIncoTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPODetails.setVisibility(View.GONE);
+                if (!isInco){
+                    llIncoTerms.setVisibility(View.VISIBLE);
+                    isInco=true;
+                    imgIncoTerms.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    imgIncoTerms.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llIncoTerms.setVisibility(View.GONE);
+                    isInco=false;
+                }
+               /* llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
                 llIncoTerms.setVisibility(View.VISIBLE);
                 llPaymentTerms.setVisibility(View.GONE);
                 llTermsC.setVisibility(View.GONE);
-                llAttachments.setVisibility(View.GONE);
+                llAttachments.setVisibility(View.GONE);*/
             }
         });
         POPaymentTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPODetails.setVisibility(View.GONE);
+                if (!isPayment){
+                    llPaymentTerms.setVisibility(View.VISIBLE);
+                    isPayment=true;
+                    imgPaymentTerms.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    imgPaymentTerms.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llPaymentTerms.setVisibility(View.GONE);
+                    isPayment=false;
+                }
+          /*      llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
                 llIncoTerms.setVisibility(View.GONE);
                 llPaymentTerms.setVisibility(View.VISIBLE);
                 llTermsC.setVisibility(View.GONE);
-                llAttachments.setVisibility(View.GONE);
+                llAttachments.setVisibility(View.GONE);*/
             }
         });
         POTermsandCondition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPODetails.setVisibility(View.GONE);
+                if (!isTerms){
+                    llTermsC.setVisibility(View.VISIBLE);
+                    isTerms=true;
+                    imgRight.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    imgRight.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llTermsC.setVisibility(View.GONE);
+                    isTerms=false;
+                }
+           /*     llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
                 llIncoTerms.setVisibility(View.GONE);
                 llPaymentTerms.setVisibility(View.GONE);
                 llTermsC.setVisibility(View.VISIBLE);
-                llAttachments.setVisibility(View.GONE);
+                llAttachments.setVisibility(View.GONE);*/
             }
         });
         POAttachment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                llPODetails.setVisibility(View.GONE);
+                if (!isAttachments){
+                    llAttachments.setVisibility(View.VISIBLE);
+                    isAttachments=true;
+                    imgri.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
+                }else {
+                    imgri.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
+                    llAttachments.setVisibility(View.GONE);
+                    isAttachments=false;
+                }
+               /* llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
                 llIncoTerms.setVisibility(View.GONE);
                 llPaymentTerms.setVisibility(View.GONE);
                 llTermsC.setVisibility(View.GONE);
-                llAttachments.setVisibility(View.VISIBLE);
+                llAttachments.setVisibility(View.VISIBLE);*/
             }
         });
 
@@ -315,7 +397,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         edtSupplierName=findViewById(R.id.edtSupplierName);
         try {
             JSONObject jsonObject=new JSONObject(response);
-            tvHeaderPoNumber.setText("#"+jsonObject.optString("poNumber"));
+            tvHeaderPoNumber.setText("PO Header");
 
             edtPoNumber.setText(jsonObject.optString("poNumber"));
             edtBillingAddress.setText(jsonObject.optString("billingAddress"));
@@ -330,9 +412,9 @@ public class ExpandablePODetailsActivity extends BaseActivity {
 
 
             ArrayList<String> list=new ArrayList<>();
-            list.add("One Time with Recurring");
+           // list.add("One Time with Recurring");
             list.add("Milestone Based");
-            list.add("On Invoice Based");
+          //  list.add("On Invoice Based");
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_spinner_item,list);
             spnMilestone.setAdapter(adapter);

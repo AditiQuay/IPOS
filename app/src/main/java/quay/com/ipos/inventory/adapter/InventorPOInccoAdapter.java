@@ -54,8 +54,12 @@ public class InventorPOInccoAdapter extends RecyclerView.Adapter<InventorPOIncco
         GrnInccoTermsModel grnInccoTermsModel = grnInccoTermsModels.get(position);
         holder.tvDetailName.setText(grnInccoTermsModel.grnIncoDetail);
         holder.myCustomEditTextListener.updatePosition(position, holder);
-        holder.tvPayAmount.setText(grnInccoTermsModels.get(holder.getAdapterPosition()).grnPayAmount + "");
-
+        if (grnInccoTermsModels.get(holder.getAdapterPosition()).grnPayAmount==0){
+            holder.tvPayAmount.setText("");
+            holder.tvPayAmount.setHint("0");
+        }else {
+            holder.tvPayAmount.setText(grnInccoTermsModels.get(holder.getAdapterPosition()).grnPayAmount + "");
+        }
 
 
         holder.myCustomCheckBoxListener.updatePosition(position, holder);

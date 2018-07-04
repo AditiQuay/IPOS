@@ -1,6 +1,5 @@
 package quay.com.ipos.inventory.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -65,23 +64,12 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
         holder.tvOpenQty.setText((int) grnItemQtyModel.getOpenQty() + "");
 
 
-        if ((int) grnItemQtyModel.getInQty() == 0) {
-            holder.tvInQty.setHint((int) grnItemQtyModel.getInQty() + "");
-            holder.tvInQty.setSelection(holder.tvInQty.getText().length());
+        holder.tvInQty.setText((int) grnItemQtyModel.getInQty() + "");
+        holder.tvInQty.setSelection(holder.tvInQty.getText().length());
 
-        } else {
-            holder.tvInQty.setText((int) grnItemQtyModel.getInQty() + "");
-            holder.tvInQty.setSelection(holder.tvInQty.getText().length());
-        }
-        if ((int) grnItemQtyModel.getApQty() == 0) {
-            holder.tvApQty.setHint((int) grnItemQtyModel.getApQty() + "");
-            holder.tvApQty.setSelection(holder.tvApQty.getText().length());
+        holder.tvApQty.setText((int) grnItemQtyModel.getApQty() + "");
+        holder.tvApQty.setSelection(holder.tvApQty.getText().length());
 
-        } else {
-            holder.tvApQty.setText((int) grnItemQtyModel.getApQty() + "");
-            holder.tvApQty.setSelection(holder.tvApQty.getText().length());
-
-        }
         holder.tvBalanceQty.setText((int) grnItemQtyModel.getBalanceQty() + "");
 
         holder.tvMaterialName.setOnClickListener(new View.OnClickListener() {
@@ -141,12 +129,7 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
 
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            if (holder.tvBalanceQty.getText().hashCode() == s.hashCode()) {
-                if (Util.validateString(holder.tvApQty.getText().toString()) && !holder.tvApQty.getText().toString().equalsIgnoreCase("0")) {
-                    holder.imageViewStatus.setVisibility(View.VISIBLE);
 
-                }
-            }
         }
 
         @Override
@@ -224,7 +207,9 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
                         }
 
                     }
-
+                    if (holder.tvBalanceQty.getText().hashCode() == editable.hashCode()) {
+                        holder.imageViewStatus.setVisibility(View.VISIBLE);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -233,4 +218,5 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
         }
 
     }
+
 }

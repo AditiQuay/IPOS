@@ -111,14 +111,16 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_payment_mode);
+        try {
+            db = new DatabaseHandler(PaymentModeActivity.this);
+            findViewbyId();
+            getIntentValues();
+            spnCardType();
+            context = IPOSApplication.getContext();
+            arrMonth = context.getResources().getStringArray(R.array.months);
+        }catch (Exception e){
 
-        db = new DatabaseHandler(PaymentModeActivity.this);
-        findViewbyId();
-        getIntentValues();
-        spnCardType();
-        context = IPOSApplication.getContext();
-        arrMonth = context.getResources().getStringArray(R.array.months);
-
+        }
     }
 
 
@@ -139,6 +141,11 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     private void getIntentValues(){
         Intent intent=getIntent();
         if (intent!=null){
+            if (intent.getStringExtra(Constants.PAYMENT_REQUEST) != null) {
+                json =intent.getStringExtra(Constants.PAYMENT_REQUEST);
+
+                paymentRequest = Util.getCustomGson().fromJson(json, PaymentRequest.class);
+            }
             mTotalAmount=intent.getStringExtra(Constants.TOTAL_AMOUNT);
             mCustomerID = intent.getStringExtra(Constants.KEY_CUSTOMER);
             if(!mCustomerID.equalsIgnoreCase("") && mCustomerID != null) {
@@ -454,7 +461,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
             billingDate_Time = Util.getCurrentDate() +" "+ Util.getCurrentTime();
             billingTimeStamp = Util.getCurrentTimeStamp();
 //            billingSyncs = db.getAllRetailBillingOrders();
-            if(!db.checkIfBillingRecordExist(billingDate_Time)) {
+//            if(!db.checkIfBillingRecordExist(billingTimeStamp)) {
 
                 if(!mCustomerID.equalsIgnoreCase("")){
                     customerModel = db.getCustomer(mCustomerID);
@@ -476,7 +483,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-//                    LoginResult loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",this),LoginResult.class);
+                    loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",this),LoginResult.class);
                     recentOrder= new RecentOrderList();
                     recentOrder.setBillDate(billingDate_Time);
                     recentOrder.setBillPrice(paymentRequest.getTotalValueWithTax()+"");
@@ -493,7 +500,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     int updatedQty = paymentRequest.getCartDetail().get(i).getMaterialStockAvail()-paymentRequest.getCartDetail().get(i).getMaterialQty();
                     db.updateProductStock(updatedQty,paymentRequest.getCartDetail().get(i).getMaterialID());
                 }
-            }
+//            }
         }catch (Exception e){
             System.out.println(e);
             AppLog.e("TAG",e.getMessage());
@@ -603,7 +610,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         billingSync.setSync(status);
         billingSync.setReceipt(Util.getCustomGson().toJson(mPrintViewResult));
         try {
-            if (!db.checkIfBillingRecordExist(billingDate_Time)) {
+//            if (!db.checkIfBillingRecordExist(billingTimeStamp)) {
                 db.addRetailBilling(billingSync);
 
                 Intent mIntent = new Intent(PaymentModeActivity.this, PrintReceiptActivity.class);
@@ -611,7 +618,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 mIntent.putExtra(Constants.RECEIPT_FROM,Constants.paymentMode);
                 startActivity(mIntent);
 
-            }
+//            }
         }catch (Exception e){
 
         }
@@ -669,11 +676,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         loginResult = Util.getCustomGson().fromJson(json1, LoginResult.class);
                     }
                     if (totalAmount == 0.0) {
-                        if (SharedPrefUtil.getString(Constants.PAYMENT_REQUEST, "", PaymentModeActivity.this) != null) {
-                            json = SharedPrefUtil.getString(Constants.PAYMENT_REQUEST, "", PaymentModeActivity.this);
 
-                            paymentRequest = Util.getCustomGson().fromJson(json, PaymentRequest.class);
-                        }
                         if (paymentRequest != null && loginResult != null) {
                             if (loginResult.getUserAccess() != null) {
                                 paymentRequest.setBusinessPlace(loginResult.getUserAccess().getStoreName());
@@ -1213,7 +1216,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         customerPointsRedeemRequest.setEmailId(IPOSApplication.mCustomerEmail);
         customerPointsRedeemRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode.trim()));
         customerPointsRedeemRequest.setPointsRedeemValue(redeemValue);
-        customerPointsRedeemRequest.setPointsToRedeem((double)points1);
+        customerPointsRedeemRequest.setPointsToRedeem(points1);
         if(sendVerify)
             customerPointsRedeemRequest.setRequestOTP(etOTP.getText().toString());
         else
@@ -1232,6 +1235,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void callServicePayment() {
+        AppLog.e(PrintReceiptActivity.class.getSimpleName(),"paymentRequest Final : "+Util.getCustomGson().toJson(paymentRequest));
         showProgressDialog(R.string.please_wait);
         ServiceTask mServiceTask = new ServiceTask();
         mServiceTask.setApiMethod(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_SUBMIT);

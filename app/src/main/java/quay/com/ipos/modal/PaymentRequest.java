@@ -28,6 +28,9 @@ public class PaymentRequest {
     @SerializedName("pointsToRedeemValue")
     @Expose
     private double pointsToRedeemValue;
+    @SerializedName("ItemQty")
+    @Expose
+    private int ItemQty;
     @SerializedName("freeItemQty")
     @Expose
     private int freeItemQty;
@@ -42,7 +45,7 @@ public class PaymentRequest {
     private Double orderValue;
     @SerializedName("orderLoyality")
     @Expose
-    private Double orderLoyality;
+    private Integer orderLoyality;
     @SerializedName("totalQty")
     @Expose
     private Integer totalQty;
@@ -151,6 +154,14 @@ public class PaymentRequest {
         this.freeItemQty = freeItemQty;
     }
 
+    public int getItemQty() {
+        return ItemQty;
+    }
+
+    public void setItemQty(int itemQty) {
+        ItemQty = itemQty;
+    }
+
     public String getEmployeeCode() {
         return employeeCode;
     }
@@ -175,11 +186,11 @@ public class PaymentRequest {
         this.orderValue = orderValue;
     }
 
-    public Double getOrderLoyality() {
+    public Integer getOrderLoyality() {
         return orderLoyality;
     }
 
-    public void setOrderLoyality(Double orderLoyality) {
+    public void setOrderLoyality(Integer orderLoyality) {
         this.orderLoyality = orderLoyality;
     }
 

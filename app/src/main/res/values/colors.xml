@@ -173,5 +173,14 @@
 
 
     <color name="colorHeaderBackground">#1CADE4</color>
+
+
+    <color name="switchTrack">#501cade4</color>
+    <color name="switchTrackDisable">#1cade4</color>
+    <color name="switchTrackActive">#1cade4</color>
+    <color name="switchTrackNormal">#1cade4</color>
+    <color name="switchThumbBgActive">#1cade4</color>
+    <color name="switchThumbActive">#1cade4</color>
+    <color name="switchThumbkNormal">#1cade4</color>
 </resources>
 

@@ -56,7 +56,7 @@ public class BatchTabAdapter extends RecyclerView.Adapter<BatchTabAdapter.MyView
         final RealmInventoryTabData batchLis = batchListData.get(position);
         String btnTitle = batchLis.getTabTitle();
         String count = batchLis.getCount() + "";
-        String text = btnTitle + ""+"(" + count + ")";
+        String text = btnTitle + " "+"(" + count + ")";
 
         if (batchLis.getTabId() == 3) {
             holder.btnTab.setText(text);

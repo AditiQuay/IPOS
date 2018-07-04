@@ -14,6 +14,7 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import quay.com.ipos.R;
@@ -225,7 +226,7 @@ public class ServiceTask extends AsyncTask<Void, Void, Void> {
                 }
                 AppLog.e(TAG, "methodUrl: " + methodUrl);
 
-                okhttp3.OkHttpClient.Builder clientBuilder = new  okhttp3.OkHttpClient().newBuilder();
+                okhttp3.OkHttpClient.Builder clientBuilder = new  okhttp3.OkHttpClient().newBuilder().readTimeout(240, TimeUnit.SECONDS);
                 clientBuilder.addInterceptor(new RequestTokenInterceptor());
 
                 okhttp3.OkHttpClient client = clientBuilder.build();
