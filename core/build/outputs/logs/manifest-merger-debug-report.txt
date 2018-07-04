@@ -20,7 +20,10 @@ ADDED from D:\QuayApp\IPOS\core\src\main\AndroidManifest.xml:4:5-32
 <<<<<<< HEAD
 =======
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 >>>>>>> 367b2228ea302e28d63402fd1592146a3e13e43b
+>>>>>>> 014073032e8ce174ea95e8ad571cda9a3a87efa9
 ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:1-5:12
@@ -32,6 +35,8 @@ INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\An
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:3:11-69
 application
 ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\core\src\main\AndroidManifest.xml:4:5-32
+<<<<<<< HEAD
+=======
 <<<<<<< HEAD
 =======
 =======

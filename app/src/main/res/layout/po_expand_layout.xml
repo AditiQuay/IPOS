@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:text="INVENTORY"
+                android:text=""
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:visibility="visible" />
@@ -77,12 +77,13 @@
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingLeft="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
-                    android:text="PO Header"
+                    android:text=""
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/universal_text_size14" />
 
                 <ImageView
                     android:id="@+id/arrowPO"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -95,7 +96,7 @@
 
             </RelativeLayout>
 
-            <include layout="@layout/supplier_info_edit"
+            <include layout="@layout/po_details"
                 android:visibility="gone"/>
             <RelativeLayout
                 android:id="@+id/POitemsDetails"
@@ -195,6 +196,7 @@
 
                 <ImageView
                     android:id="@+id/imgIncoTerms"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -206,7 +208,7 @@
                     android:paddingRight="@dimen/dim_10" />
 
             </RelativeLayout>
-            <include layout="@layout/expandable_inco_terms_item"
+            <include layout="@layout/inco_terms_items_detail"
                 android:visibility="gone"/>
             <RelativeLayout
                 android:id="@+id/POPaymentTerms"
@@ -238,12 +240,13 @@
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingLeft="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
-                    android:text="Payment Terms *"
+                    android:text="Payment Terms"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/universal_text_size14" />
 
                 <ImageView
                     android:id="@+id/imgPaymentTerms"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -287,7 +290,7 @@
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingLeft="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
-                    android:text="Terms &amp; Conditions"
+                    android:text="Terms &amp; Condition"
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/universal_text_size14" />
 
@@ -316,7 +319,7 @@
                     android:layout_centerVertical="true"
                     android:alpha="0.7"
                     android:paddingEnd="@dimen/dim_10"
-                    android:paddingRight="@dimen/dim_10"/>
+                    android:paddingRight="@dimen/dim_10" />
 
             </RelativeLayout>
 
@@ -411,7 +414,7 @@
                 android:backgroundTint="@color/colorPrimary"
                 android:fontFamily="@font/titilliumwebregular"
                 android:stateListAnimator="@null"
-                android:text="Submit"
+                android:text="@string/save_close"
                 android:textAllCaps="true" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
