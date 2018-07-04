@@ -12,7 +12,7 @@
         android:background="@color/backgroundgrey"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:paddingBottom="100dp"
+        android:paddingBottom="70dp"
 
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
@@ -174,7 +174,7 @@
                             android:layout_gravity="center_vertical"
                             android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center_vertical"
-                            android:text="Discout"
+                            android:text="Discount"
                             android:textColor="@color/accent_color"
                             android:textSize="@dimen/text_size_15sp" />
 
@@ -1619,7 +1619,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
-            android:background="@drawable/ddr_blue_rect"
+            android:background="@drawable/ddr_rect_reject"
             android:fontFamily="@font/titilliumwebregular"
             android:gravity="center"
             android:onClick="onSaveAndCloseAction"
@@ -1635,7 +1635,7 @@
             android:layout_gravity="center"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
-            android:background="@drawable/ddr_blue_rect"
+            android:background="@drawable/ddr_rect_hold"
             android:fontFamily="@font/titilliumwebregular"
             android:gravity="center"
             android:onClick="onSaveAndCloseAction"

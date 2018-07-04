@@ -135,7 +135,9 @@ public abstract class RunTimePermissionActivity extends AppCompatActivity {
             mProgressDialog = null;
         }
     }
-
+    public static String valueOf(Object obj) {
+        return (obj == null) ? "" : obj.toString();
+    }
 }
 
 

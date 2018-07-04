@@ -381,7 +381,7 @@
     <string name="ddr_close">Close</string>
     <string name="net_total">Net Total (-Disc)</string>
     <string name="retail_outbox">Retail Outbox</string>
-    <string name="string_cancelled">Canceled</string>
+    <string name="string_cancelled">Cancelled</string>
     <string name="listEmptyCancelled">List is empty</string>
     <string name="add_mark">+</string>
     <string name="otc_discount_validation">Please enter valid discount percentage</string>

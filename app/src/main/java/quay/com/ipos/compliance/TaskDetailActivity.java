@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -43,6 +44,13 @@ public class TaskDetailActivity extends AppCompatActivity implements
     private SubTaskAdapter adapter;
     private RecyclerView recyclerView;
     private Activity activity;
+
+    private TextView txtSubCategory,txtTaskName,txtTaskDescription,txtTaskAssignTo;
+
+
+
+
+
 
 
     @Override

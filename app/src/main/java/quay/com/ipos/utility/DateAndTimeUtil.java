@@ -18,6 +18,7 @@ public class DateAndTimeUtil {
     private static final SimpleDateFormat DATE_AND_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
    // private static final SimpleDateFormat DATE_AND_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault());
     public static final SimpleDateFormat DATE_AND_TIME_FORMAT_SIMPLE = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    public static final SimpleDateFormat DATE_AND_TIME_FORMAT_INDIA = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
     private static final SimpleDateFormat DATE_AND_TIME_FORMAT_JSON_STANDARD = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.getDefault());
     private static final SimpleDateFormat DATE_AND_TIME_WITH_SECONDS_FORMAT = new SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault());
     private static final SimpleDateFormat READABLE_DAY_MONTH_FORMAT = new SimpleDateFormat("d MMMM", Locale.getDefault());

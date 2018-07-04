@@ -5,7 +5,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class DDRProduct extends RealmObject{
     @PrimaryKey
-    private String iProductModalId;
+    public String iProductModalId;
     private String productCode;
     private String sProductName;
     private String productImage;

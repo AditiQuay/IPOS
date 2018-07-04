@@ -752,7 +752,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                                     if (customerModel != null) {
                                         if (!customerModel.getCustomerPoints().equalsIgnoreCase("")) {
                                             loyalty = customerModel.getCustomerPoints();
-                                            points = (int)(paymentRequest.getOrderLoyality() + Integer.parseInt(loyalty))-paymentRequest.getPointsToRedeem();
+                                            points = (int)(paymentRequest.getOrderLoyality() + Integer.parseInt(loyalty))-(int)paymentRequest.getPointsToRedeem();
                                             db.updateCustomerPoints(points + "", mCustomerID);
                                         } else {
                                             db.updateCustomerPoints((paymentRequest.getOrderLoyality() - paymentRequest.getPointsToRedeem()) + "", mCustomerID);

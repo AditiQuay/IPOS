@@ -50,26 +50,7 @@ public class DiscountNewOrderAdapter extends RecyclerView.Adapter<RecyclerView.V
         this.productId=productId;
         this.productCode=productCode;
 
-        // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
-        // mRecyclerView.getLayoutManager();
-        // mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
-        // {
-        // @Override
-        // public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        // super.onScrolled(recyclerView, dx, dy);
-        //
-        // totalItemCount = linearLayoutManager.getItemCount();
-        // lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-        //
-        // if (!isLoading && totalItemCount <= (lastVisibleItem +
-        // visibleThreshold)) {
-        // if (mOnLoadMoreListener != null) {
-        // mOnLoadMoreListener.onLoadMore();
-        // }
-        // isLoading = true;
-        // }
-        // }
-        // });
+
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {

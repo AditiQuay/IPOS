@@ -2,8 +2,8 @@ package quay.com.ipos.compliance.fragment;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
-import android.content.Context;
-import android.net.Uri;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -35,19 +35,13 @@ public class AllStorewiseComplianceFragment extends Fragment {
     private static final String TAG = AllStorewiseComplianceFragment.class.getSimpleName();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
     private int position;
+    private StoreViewModel storeViewModel;
 
-   // private OnFragmentInteractionListener mListener;
-
-   // private StoreViewModel storeViewModel;
-
-    private TextView mIpos_ct_ProgressBar;
+    private TextView textProgressDone;
 
     private RecyclerView recyclerView;
     private StoreAdapter adapter;
-
 
 
     private void loadData() {
@@ -111,7 +105,6 @@ public class AllStorewiseComplianceFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
             position = getArguments().getInt(ARG_PARAM2);
         }
     }
@@ -120,15 +113,13 @@ public class AllStorewiseComplianceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //storeViewModel = new StoreViewModel(getActivity());
-         View view=inflater.inflate(R.layout.c_fragment_compliance_allstore_abs, container, false);
-       /* View view = binding.getRoot();
-        binding.setStoreViewModel(storeViewModel);
-*/
-
+        View view = inflater.inflate(R.layout.c_fragment_compliance_allstore_abs, container, false);
+        storeViewModel = StoreViewModel.getInstance(this);
         return view;
 
     }
+
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -138,8 +129,8 @@ public class AllStorewiseComplianceFragment extends Fragment {
         TextView textView = view.findViewById(R.id.ipos_block_txt1);
         textView.setText(getTitle());
 
-        mIpos_ct_ProgressBar = view.findViewById(R.id.mIpos_ct_ProgressBar);
-        //mIpos_ct_ProgressBar.setText("Hello");
+        textProgressDone = view.findViewById(R.id.textProgressDone);
+        //textProgressDone.setText("Hello");
 
 
         recyclerView = view.findViewById(R.id.mRv_storewise_compliance_summary);
@@ -159,7 +150,7 @@ public class AllStorewiseComplianceFragment extends Fragment {
         AppDatabase.getAppDatabase(IPOSApplication.getContext()).taskDao().getAllTask().observe(getActivity(), new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable List<Task> tasks) {
-                //storeViewModel.updateUI(tasks, position,"");
+                storeViewModel.updateUI(tasks, position, "");
             }
         });
 
@@ -201,7 +192,7 @@ public class AllStorewiseComplianceFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-       // mListener = null;
+        // mListener = null;
     }
 
     @Override
@@ -210,7 +201,6 @@ public class AllStorewiseComplianceFragment extends Fragment {
 
 
     }
-
 
 
     private class DatabaseAsync extends AsyncTask<Void, Void, List<BusinessPlaceEntity>> {

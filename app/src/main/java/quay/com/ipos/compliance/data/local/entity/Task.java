@@ -89,7 +89,7 @@ public class Task {
     //Reminder Start Here
     //public int notificationId;//used as notification_id.
 
-    @SerializedName("task_due_date")
+    //@SerializedName("task_due_date")
     public String task_due_date;
 
     //alert Data start

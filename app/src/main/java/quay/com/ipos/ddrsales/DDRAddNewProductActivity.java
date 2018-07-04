@@ -31,7 +31,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Locale;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -52,9 +52,7 @@ import quay.com.ipos.ddrsales.model.response.DDRNewOrderProductsResult;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.enums.RetailSalesEnum;
 import quay.com.ipos.listeners.AdapterListener;
-import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.pss_order.adapter.DDRProductCartAdapter;
-import quay.com.ipos.pss_order.modal.ProductSearchRequest;
 
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
@@ -65,7 +63,7 @@ import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.Util;
 
 
-public class DDRAddNewProductActivity extends BaseActivity implements View.OnClickListener,AdapterListener,ServiceTask.ServiceResultListener{
+public class DDRAddNewProductActivity extends BaseActivity implements View.OnClickListener,AdapterListener,ServiceTask.ServiceResultListener, DDRProductCartAdapter.OnCartAddListener {
 
     private static final String TAG = DDRAddNewProductActivity.class.getSimpleName();
 
@@ -73,7 +71,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
     private RecyclerView mRecyclerView;
     private FloatingActionButton fab;
     private LinearLayoutManager mLayoutManager;
-    private OrderList mOrderListResult;
+   // private OrderList mOrderListResult;
     private TextView tvItemSize,tvNoItemAvailable;
     private DDRProductCartAdapter mAddNewOrderAdapter;
     private TextView tvClear,tvItemAddedSize;
@@ -96,7 +94,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
 
         getIntentValues();
         initializeComponent();
-        searchProductCall("NA","All");
+        searchProductCall("NA",false);
         Realm realm=Realm.getDefaultInstance();
         RealmResults<DDRProduct> realmNewOrderCarts1=realm.where(DDRProduct.class).findAll();
 
@@ -148,7 +146,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
 
     }*/
     private void setAdapter() {
-        mAddNewOrderAdapter = new DDRProductCartAdapter(this,this,dataBeans,this);
+        mAddNewOrderAdapter = new DDRProductCartAdapter(this,this,dataBeans,this, this);
         mRecyclerView.setAdapter(mAddNewOrderAdapter);
     }
     public void setHeader() {
@@ -204,9 +202,9 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().equalsIgnoreCase("")){
-                    searchProductCall(charSequence.toString(), "na");
+                    searchProductCall(charSequence.toString(), false);
                 }else {
-                    searchProductCall("NA", "All");
+                    searchProductCall("NA", false);
                 }
 
 
@@ -249,8 +247,9 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
             case R.id.llAdd:
                 Util.hideSoftKeyboard(DDRAddNewProductActivity.this);
                 int pos = (int) view.getTag();
+
                 Realm realm=Realm.getDefaultInstance();
-               DDRProduct realmNewOrderCarts=realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),dataBeans.get(pos).getIProductModalId()).findFirst();
+                DDRProduct realmNewOrderCarts=realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),dataBeans.get(pos).getIProductModalId()).findFirst();
                 Gson gson = new GsonBuilder().create();
                 if (realmNewOrderCarts!=null) {
                   /*  realm.beginTransaction();
@@ -306,7 +305,8 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
                     }
                 }
 
-                mAddNewOrderAdapter.notifyItemChanged(pos);
+                //mAddNewOrderAdapter.notifyItemChanged(pos);
+                mAddNewOrderAdapter.notifyDataSetChanged();
 
 
 
@@ -317,12 +317,12 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
                 break;
 
             case R.id.llRefreshStocks:
-                final int posDeleteCheckStock = (int) view.getTag();
+              /*  final int posDeleteCheckStock = (int) view.getTag();
                 DDRNewOrderProductsResult.DataBean realmNewOrderCart=dataBeans.get(posDeleteCheckStock);
                 realmNewOrderCart.setmCheckStock(0);
                 realmNewOrderCart.setCheckStockClick(false);
                 dataBeans.set(posDeleteCheckStock,realmNewOrderCart);
-                mAddNewOrderAdapter.notifyItemChanged(posDeleteCheckStock);
+                mAddNewOrderAdapter.notifyItemChanged(posDeleteCheckStock);*/
                 break;
             case R.id.llAccept:
 
@@ -332,7 +332,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
                 break;
 
             case R.id.tvCheckStock:
-                Util.animateView(view);
+                /*Util.animateView(view);
 
                 final int posCheck = (int) view.getTag();
                 postionCheckStock=posCheck;
@@ -340,7 +340,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
                     getCheckStockAPI(dataBeans.get(posCheck).getIProductModalId());
                 } else {
                     Util.showToast("Please add atleast one item to proceed.");
-                }
+                }*/
                 break;
         }
 
@@ -408,24 +408,12 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
 
 
 
-    private void searchProductCall(String s, String all) {
-//        showProgress(getResources().getString(R.string.please_wait));
-       /* ProductSearchRequest productSearchRequest = new ProductSearchRequest();
-        productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode)+"");
-        productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
-        productSearchRequest.setEntityStateCode(entityStateCode);
-        productSearchRequest.setSearchParam(s);
-        productSearchRequest.setModuleType("NO");
-        productSearchRequest.setBusinessPlaceCode(businessPlaceCode+"");
-        productSearchRequest.setBarCodeNumber("All");
-        productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
-        productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));*/
+    private void searchProductCall(String s,boolean isBarCode) {
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.BASE_URL);
         mTask.setApiMethod(IPOSAPI.DDR_GetDDRProductList);
         mTask.setApiCallType(Constants.API_METHOD_POST);
-        mTask.setParamObj(new DDRProductReq(s,mDdr,false));
-      //  mTask.setParamObj(productSearchRequest);
+        mTask.setParamObj(new DDRProductReq(s,mDdr,isBarCode));
         mTask.setListener(this);
         mTask.setResultType(DDRNewOrderProductsResult.class);
         if(Util.isConnected())
@@ -449,21 +437,6 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
                     dataBeans.addAll(arrData.get(0).getData());
                 }
 
-
-
-             /*   try {
-                    JSONObject jsonObject=new JSONObject(serverResponse);
-                    JSONArray array=jsonObject.optJSONArray(NoGetEntityEnums.data)
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
-
-
-
-
-                // dataBeans.add(arrData)
-
             }
             if(dataBeans.size()>0) {
                 tvClear.setVisibility(View.VISIBLE);
@@ -475,6 +448,31 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
                 arrData.clear();
             }
             tvItemSize.setText("Showing "+dataBeans.size() + " Products");
+
+
+              Realm realm=Realm.getDefaultInstance();
+              List<DDRProduct> realmNewOrderCartList=realm.where(DDRProduct.class).findAll();
+              for (DDRNewOrderProductsResult.DataBean dataBean : dataBeans) {
+                  for (DDRProduct ddrProduct : realmNewOrderCartList) {
+                      if (dataBean.iProductModalId.equalsIgnoreCase(ddrProduct.iProductModalId)) {
+                          dataBean.isAdded = true;
+                      }else {
+
+                      }
+
+                  }
+              }
+
+             /* if (realmNewOrderCart!=null){
+                  if(realmNewOrderCart.isAdded()){
+                      userViewHolder.tvAddCart.setText("Added");
+                      userViewHolder.llAdd.setBackgroundResource(R.drawable.button_rectangle_light_gray );
+                  }else {
+                      userViewHolder.tvAddCart.setText("Add");
+                      userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
+                  }
+              }*/
+
             mAddNewOrderAdapter.notifyDataSetChanged();
 
             if(dataBeans.size()==0){
@@ -613,7 +611,8 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
                                         isApplied=  getQuantityBasedOnDiscountItems(isApplied,realmNewOrderCarts,slabFrom,slabTO,opsCriteria,sDiscountBasedOn,realm,packSize,productCode);
 
                                     }else {
-                                        isApplied=  getValueBasedOnDiscountItems(isApplied,realmNewOrderCarts,slabFrom,slabTO,opsCriteria,sDiscountBasedOn,realm,packSize,productCode);
+                                        //isApplied=  getValueBasedOnDiscountItems(isApplied,realmNewOrderCarts,slabFrom,slabTO,opsCriteria,sDiscountBasedOn,realm,packSize,productCode);
+                                        isApplied=  getQuantityBasedOnDiscountItems(isApplied,realmNewOrderCarts,slabFrom,slabTO,opsCriteria,sDiscountBasedOn,realm,packSize,productCode);//change
 
                                     }
 
@@ -1302,5 +1301,36 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
                 }
             }
         });
+    }
+
+    @Override
+    public void onCartAdded(int pos, DDRNewOrderProductsResult.DataBean product) {
+        Gson gson = new GsonBuilder().create();
+        String strJson=gson.toJson(dataBeans.get(pos));
+        try {
+            JSONObject jsonObject=new JSONObject(strJson);
+            jsonObject.put(RetailSalesEnum.isAdded.toString(),true);
+            jsonObject.put(RetailSalesEnum.qty.toString(),1);
+            jsonObject.put(RetailSalesEnum.totalPrice.toString(),dataBeans.get(pos).getSProductPrice());
+            int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
+            jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
+            jsonObject.put(RetailSalesEnum.accumulatedLoyality.toString(),dataBeans.get(pos).getAccumulatedLoyality());
+            saveResponseLocal(jsonObject,"P00001");
+            calculateOPS(dataBeans.get(pos).getProductCode(),dataBeans.get(pos).getIProductModalId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Realm realm1=Realm.getDefaultInstance();
+        RealmResults<DDRProduct> realmNewOrderCarts1=realm1.where(DDRProduct.class).equalTo(RetailSalesEnum.isFreeItem.toString(),false).findAll();
+
+        if (realmNewOrderCarts1!=null){
+            tvItemAddedSize.setText(realmNewOrderCarts1.size()+"");
+            if (realmNewOrderCarts1.size()>0){
+                llAccept.setVisibility(View.VISIBLE);
+            }else {
+                llAccept.setVisibility(View.VISIBLE);
+            }
+
+        }
     }
 }

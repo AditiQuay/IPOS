@@ -3,6 +3,7 @@ package quay.com.ipos.pss_order.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import io.realm.Realm;
 import quay.com.ipos.R;
-import quay.com.ipos.ddrsales.model.DDRProduct;
 import quay.com.ipos.ddrsales.model.response.DDRNewOrderProductsResult;
-import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.listeners.AdapterListener;
 
 import quay.com.ipos.utility.Util;
@@ -30,7 +28,7 @@ import quay.com.ipos.utility.Util;
  */
 
 public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private boolean onBind;
+  //  private boolean onBind;
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
 
@@ -42,36 +40,21 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     View.OnClickListener mOnClickListener;
     static Context mContext;
     ArrayList<DDRNewOrderProductsResult.DataBean> mDataset;
-
+    private OnCartAddListener cartAddListener;
+    public interface OnCartAddListener{
+       void onCartAdded(int pos, DDRNewOrderProductsResult.DataBean product);
+    }
 
 
     public DDRProductCartAdapter(Context ctx, View.OnClickListener mClickListener,
-                                 ArrayList<DDRNewOrderProductsResult.DataBean> questionList, AdapterListener listener) {
+                                 ArrayList<DDRNewOrderProductsResult.DataBean> questionList, AdapterListener listener, OnCartAddListener cartAddListener) {
         this.mOnClickListener = mClickListener;
         mContext = ctx;
         mDataset = questionList;
 
         this.listener = listener;
-        // final LinearLayoutManager linearLayoutManager = (LinearLayoutManager)
-        // mRecyclerView.getLayoutManager();
-        // mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener()
-        // {
-        // @Override
-        // public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        // super.onScrolled(recyclerView, dx, dy);
-        //
-        // totalItemCount = linearLayoutManager.getItemCount();
-        // lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-        //
-        // if (!isLoading && totalItemCount <= (lastVisibleItem +
-        // visibleThreshold)) {
-        // if (mOnLoadMoreListener != null) {
-        // mOnLoadMoreListener.onLoadMore();
-        // }
-        // isLoading = true;
-        // }
-        // }
-        // });
+
+        this.cartAddListener = cartAddListener;
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
@@ -129,15 +112,15 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof DDRProductCartAdapter.UserViewHolder) {
-            onBind = true;
-            DDRNewOrderProductsResult.DataBean str = mDataset.get(position);
-
-            Realm realm=Realm.getDefaultInstance();
-            DDRProduct realmNewOrderCart=realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),str.getIProductModalId()).findFirst();
-
+            //onBind = true;
+            final DDRNewOrderProductsResult.DataBean product = mDataset.get(position);
             final DDRProductCartAdapter.UserViewHolder userViewHolder = (DDRProductCartAdapter.UserViewHolder) holder;
+
+          /*  Realm realm=Realm.getDefaultInstance();
+            DDRProduct realmNewOrderCart=realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),product.getIProductModalId()).findFirst();
+
 
             if (realmNewOrderCart!=null){
                 if(realmNewOrderCart.isAdded()){
@@ -147,19 +130,33 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     userViewHolder.tvAddCart.setText("Add");
                     userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
                 }
+            }*/
+           if(product.isAdded){
+                userViewHolder.tvAddCart.setText("Added");
+                userViewHolder.llAdd.setBackgroundResource(R.drawable.button_rectangle_light_gray );
+            }else {
+                userViewHolder.tvAddCart.setText("Add");
+                userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
             }
-
-            userViewHolder.tvItemName.setText(str.getSProductName());
-            Picasso.get().load(str.getProductImage()).into(userViewHolder.imvProduct);
-            userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs)+" "+ Util.indianNumberFormat(str.getSProductPrice()));
-            userViewHolder.tvItemStockAvailabilty.setText(str.getSProductStock().substring(0,1).toUpperCase()+str.getSProductStock().substring(1).toLowerCase());
-            userViewHolder.tvPoints.setText(str.getPoints()+ " Pts.");
-            if (str.isIsDiscount()){
+            userViewHolder.tvItemName.setText(product.getSProductName());
+            Picasso.get().load(product.getProductImage()).into(userViewHolder.imvProduct);
+            userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs)+" "+ Util.indianNumberFormat(product.getSProductPrice()));
+            String stokAvaialable = product.getSProductStock().substring(0, 1).toUpperCase() + product.getSProductStock().substring(1).toLowerCase();
+            Log.i("stokAvaialable", stokAvaialable);
+            int intStokeAvaialable=0;
+            try {
+                intStokeAvaialable = (int)Double.parseDouble(stokAvaialable);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            userViewHolder.tvItemStockAvailabilty.setText(intStokeAvaialable+"");
+            userViewHolder.tvPoints.setText(product.getPoints()+ " Pts.");
+            if (product.isIsDiscount()){
                 userViewHolder.imvOffer.setVisibility(View.VISIBLE);
             }else {
                 userViewHolder.imvOffer.setVisibility(View.GONE);
             }
-            if (str.isIsCheckStock()){
+            if (product.isIsCheckStock()){
                 userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
                 if (mDataset.get(holder.getAdapterPosition()).isCheckStockClick()) {
                     userViewHolder.llStocks.setVisibility(View.VISIBLE);
@@ -167,15 +164,15 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     userViewHolder.tvCheckStock.setVisibility(View.GONE);
                 }else {
                     userViewHolder.llStocks.setVisibility(View.GONE);
-                    userViewHolder.tvStocks.setText(str.getmCheckStock() + "");
+                    userViewHolder.tvStocks.setText(product.getmCheckStock() + "");
                     userViewHolder.tvCheckStock.setVisibility(View.VISIBLE);
                 }
 
             }else {
                 userViewHolder.tvCheckStock.setVisibility(View.GONE);
             }
-          //  userViewHolder.etQtySelected.setText(str.getQty()+"");
-            onBind = false;
+          //  userViewHolder.etQtySelected.setText(product.getQty()+"");
+            //onBind = false;
 
 
 
@@ -189,8 +186,27 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
 
-           userViewHolder.llAdd.setOnClickListener(mOnClickListener);
             userViewHolder.llAdd.setTag(position);
+            userViewHolder.llAdd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (product.isAdded) {
+                        Util.showToast("Already Added!");
+                    }else {
+                        if (cartAddListener != null) {
+                            int pos = (int) userViewHolder.llAdd.getTag();
+                            Log.i("pos", pos + "");
+                            product.isAdded = true;
+                            notifyItemChanged(pos);
+                            cartAddListener.onCartAdded(pos, product);
+
+                           /* userViewHolder.tvAddCart.setText("Added");
+                            userViewHolder.llAdd.setBackgroundResource(R.drawable.button_rectangle_light_gray );
+                            */
+                        }
+                    }
+                }
+            });
 
          /*   userViewHolder.tvMinus.setOnClickListener(mOnClickListener);
             userViewHolder.tvMinus.setTag(position);
@@ -243,7 +259,7 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
             ArrayList<DDRNewOrderProductsResult.DataBean.DiscountBean> discountBeans=new ArrayList<>();
             DDRNewOrderProductsResult.DataBean.DiscountBean discountBean=new DDRNewOrderProductsResult.DataBean.DiscountBean();
-            discountBean.setSDiscountDisplayName(str.getDiscount().size()+" Offers Applied");
+            discountBean.setSDiscountDisplayName(product.getDiscount().size()+" Offers Applied");
             discountBeans.add(discountBean);
 //            DiscountListAdapter itemListDataAdapter = new DiscountListAdapter(mContext,userViewHolder.mRecyclerView, mDataset.get(position).getDiscount());
 

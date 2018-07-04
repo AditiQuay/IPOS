@@ -77,6 +77,7 @@ import quay.com.ipos.ddrsales.model.DDRProduct;
 import quay.com.ipos.ddrsales.model.InvoiceData;
 import quay.com.ipos.ddrsales.model.RealmDDROrderList;
 import quay.com.ipos.ddrsales.model.request.DDRProductReq;
+import quay.com.ipos.ddrsales.model.response.DDRNewOrderProductsResult;
 import quay.com.ipos.ddrsales.model.response.DDRProductListResponse;
 import quay.com.ipos.enums.NoGetEntityEnums;
 import quay.com.ipos.enums.RetailSalesEnum;
@@ -759,7 +760,9 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                                         isApplied = getQuantityBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
 
                                     } else {
-                                        isApplied = getValueBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+                                        isApplied = getQuantityBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+
+                                        //isApplied = getValueBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
 
                                     }
 
@@ -792,7 +795,9 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                                             isApplied = getQuantityBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
 
                                         } else {
-                                            isApplied = getValueBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+                                            isApplied = getQuantityBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+
+                                         //   isApplied = getValueBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
 
                                         }
 
@@ -1446,35 +1451,41 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     @Override
     public void onRowClicked(final int position, final int value) {
 
-        if (position >= 0) {
-            Realm realm = Realm.getDefaultInstance();
-            DDRProduct realmNewOrderCarts = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), mList.get(position).getiProductModalId()).findFirst();
-            Gson gson = new GsonBuilder().create();
-            if (realmNewOrderCarts != null) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (position >= 0) {
+                    Realm realm = Realm.getDefaultInstance();
+                    DDRProduct realmNewOrderCarts = realm.where(DDRProduct.class).equalTo(NoGetEntityEnums.iProductModalId.toString(), mList.get(position).getiProductModalId()).findFirst();
+                    Gson gson = new GsonBuilder().create();
+                    if (realmNewOrderCarts != null) {
 
-                String strJson = gson.toJson(mList.get(position));
-                try {
-                    JSONObject jsonObject = new JSONObject(strJson);
-                    jsonObject.put(RetailSalesEnum.qty.toString(), value);
-                    jsonObject.put(RetailSalesEnum.discountPrice.toString(), 0);
-                    jsonObject.put(RetailSalesEnum.totalPrice.toString(), value * realmNewOrderCarts.getsProductPrice());
+                        String strJson = gson.toJson(mList.get(position));
+                        try {
+                            JSONObject jsonObject = new JSONObject(strJson);
+                            jsonObject.put(RetailSalesEnum.qty.toString(), value);
+                            jsonObject.put(RetailSalesEnum.discountPrice.toString(), 0);
+                            jsonObject.put(RetailSalesEnum.totalPrice.toString(), value * realmNewOrderCarts.getsProductPrice());
 
-                    int totalPoints = getTotalPoints(value, realmNewOrderCarts, value * realmNewOrderCarts.getsProductPrice());
-                    jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
-                    saveResponseLocal(jsonObject, "P00001");
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                            int totalPoints = getTotalPoints(value, realmNewOrderCarts, value * realmNewOrderCarts.getsProductPrice());
+                            jsonObject.put(RetailSalesEnum.totalPoints.toString(), totalPoints);
+                            saveResponseLocal(jsonObject, "P00001");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        //  setCalculatedValues();
+
+                        mNewOrderListAdapter.notifyItemChanged(position);
+                        calculateOPS(realmNewOrderCarts.getProductCode(), realmNewOrderCarts.getiProductModalId());
+                        getProduct();
+                    }
                 }
-
-
-                //  setCalculatedValues();
-
-                mNewOrderListAdapter.notifyItemChanged(position);
-                calculateOPS(realmNewOrderCarts.getProductCode(), realmNewOrderCarts.getiProductModalId());
-                getProduct();
             }
-        }
-        Util.hideSoftKeyboard(DDRCartDetails.this);
+        });
+
+      //  Util.hideSoftKeyboard(DDRCartDetails.this);
     }
 
 
@@ -1611,90 +1622,92 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         //   hideProgressDialog();
+        try {
+            if (serviceMethod.equalsIgnoreCase(IPOSAPI.DDR_GetDDRProductList)) {
 
-        if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH)) {
 
+                if (httpStatusCode == Constants.SUCCESS) {
 
-            if (httpStatusCode == Constants.SUCCESS) {
+                    if (Util.validateString(serverResponse)) {
 
-                if (Util.validateString(serverResponse)) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(serverResponse);
+                            JSONArray array = jsonObject.optJSONArray("listData");
+                            if (array.length() == 0) {
+                                Util.showToast("Product not found");
 
-                    try {
-                        JSONObject jsonObject = new JSONObject(serverResponse);
-                        JSONArray array = jsonObject.optJSONArray("data");
-                        if (array.length() == 0) {
-                            Util.showToast("Product not found");
-
-                            return;
+                                return;
+                            }
+                            JSONObject jsonObject1 = array.optJSONObject(0);
+                            addBarcodeScanProduct(jsonObject1.optString("iProductModalId"), jsonObject1.optString("productCode"), jsonObject1.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                        JSONObject jsonObject1 = array.optJSONObject(0);
-                        addBarcodeScanProduct(jsonObject1.optString("iProductModalId"), jsonObject1.optString("productCode"), jsonObject1.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    Util.showToast("Product Scanned Successfully");
-                    imvStatus.setBackgroundResource(R.drawable.circle_disabled);
-                    flScanner.setVisibility(View.GONE);
-                    closeFragment();
+                        Util.showToast("Product Scanned Successfully");
+                        imvStatus.setBackgroundResource(R.drawable.circle_disabled);
+                        flScanner.setVisibility(View.GONE);
+                        closeFragment();
 
-                }
-
-
-            } else if (httpStatusCode == Constants.BAD_REQUEST) {
-                Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
-            } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
-                Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
-            } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
-                Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
-            } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
-                Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
-            } else if (httpStatusCode == Constants.CONNECTION_OUT) {
-                Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
-            }
-
-        } else {
-            if (httpStatusCode == Constants.SUCCESS) {
-
-                if (Util.validateString(serverResponse)) {
-
-                    try {
-                        JSONObject jsonObject = new JSONObject(serverResponse);
-                        JSONArray array = jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
-                        new RealmController().saveBusinessPlaces(array.toString());
-                        for (int i = 0; i < array.length(); i++) {
-                            NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal = new NoGetEntityResultModal.BuisnessPlacesBean();
-                            JSONObject jsonObject1 = array.optJSONObject(i);
-                            noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
-                            noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
-                            noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
-                            noGetEntityBuisnessPlacesModals.add(noGetEntityBuisnessPlacesModal);
-
-
-                        }
-
-                        CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss, R.id.text1, noGetEntityBuisnessPlacesModals);
-                        adapter.setDropDownViewResource(R.layout.spinner_item_pss);
-                        //   spnAddress.setAdapter(adapter);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
 
+
+                } else if (httpStatusCode == Constants.BAD_REQUEST) {
+                    Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+                    Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+                    Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+                    Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+                    Toast.makeText(DDRCartDetails.this, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
                 }
 
+            } else {
+                if (httpStatusCode == Constants.SUCCESS) {
 
-            } else if (httpStatusCode == Constants.BAD_REQUEST) {
-                Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
-            } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
-                Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
-            } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
-                Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
-            } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
-                Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
-            } else if (httpStatusCode == Constants.CONNECTION_OUT) {
-                Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                    if (Util.validateString(serverResponse)) {
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(serverResponse);
+                            JSONArray array = jsonObject.optJSONArray(NoGetEntityEnums.buisnessPlaces.toString());
+                            new RealmController().saveBusinessPlaces(array.toString());
+                            for (int i = 0; i < array.length(); i++) {
+                                NoGetEntityResultModal.BuisnessPlacesBean noGetEntityBuisnessPlacesModal = new NoGetEntityResultModal.BuisnessPlacesBean();
+                                JSONObject jsonObject1 = array.optJSONObject(i);
+                                noGetEntityBuisnessPlacesModal.setBuisnessPlaceId(jsonObject1.optInt(NoGetEntityEnums.buisnessPlaceId.toString()));
+                                noGetEntityBuisnessPlacesModal.setBuisnessPlaceName(jsonObject1.optString(NoGetEntityEnums.buisnessPlaceName.toString()));
+                                noGetEntityBuisnessPlacesModal.setBuisnessLocationStateCode(jsonObject1.optString(NoGetEntityEnums.buisnessLocationStateCode.toString()));
+                                noGetEntityBuisnessPlacesModals.add(noGetEntityBuisnessPlacesModal);
+
+
+                            }
+
+                            CustomAdapter adapter = new CustomAdapter(mContext, R.layout.spinner_item_pss, R.id.text1, noGetEntityBuisnessPlacesModals);
+                            adapter.setDropDownViewResource(R.layout.spinner_item_pss);
+                            //   spnAddress.setAdapter(adapter);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+
+                } else if (httpStatusCode == Constants.BAD_REQUEST) {
+                    Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.INTERNAL_SERVER_ERROR) {
+                    Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.URL_NOT_FOUND) {
+                    Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.UNAUTHORIZE_ACCESS) {
+                    Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                } else if (httpStatusCode == Constants.CONNECTION_OUT) {
+                    Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
 
     }
 
@@ -2080,8 +2093,8 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                     String data = intent.getStringExtra("messageScan");
                     //  Log.e( "Received data : ", data);
 
-                    searchProductCall(data);
-
+                    //searchProductCall(data);
+                    searchProductCall(data,true);
                 }
             }
         }
@@ -2094,7 +2107,21 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
     }
 
-    private void searchProductCall(String s) {
+    private void searchProductCall(String s,boolean isBarCode) {
+        ServiceTask mTask = new ServiceTask();
+        mTask.setApiUrl(IPOSAPI.BASE_URL);
+        mTask.setApiMethod(IPOSAPI.DDR_GetDDRProductList);
+        mTask.setApiCallType(Constants.API_METHOD_POST);
+        mTask.setParamObj(new DDRProductReq(s,mDdr,isBarCode));
+        mTask.setListener(this);
+        mTask.setResultType(DDRNewOrderProductsResult.class);
+        if(Util.isConnected())
+            mTask.execute();
+        else
+            Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
+    }
+
+   /* private void searchProductCall(String s) {
 //        showProgress(getResources().getString(R.string.please_wait));
         ProductSearchRequest productSearchRequest = new ProductSearchRequest();
         productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode) + "");
@@ -2118,7 +2145,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         else
             Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
     }
-
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
       /*  getMenuInflater().inflate(R.menu.main, menu);
