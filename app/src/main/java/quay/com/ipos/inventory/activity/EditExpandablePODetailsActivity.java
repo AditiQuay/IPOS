@@ -775,6 +775,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         RealmResults<RealmInventoryProducts> realmNewOrderCarts1 = realm.where(RealmInventoryProducts.class).findAll();
      //   poItemDetails.clear();
 
+
         int qty=0;
         for (RealmInventoryProducts realmNewOrderCart : realmNewOrderCarts1) {
             RealmInventoryProducts realmNewOrderCarts = realm.copyFromRealm(realmNewOrderCart);
