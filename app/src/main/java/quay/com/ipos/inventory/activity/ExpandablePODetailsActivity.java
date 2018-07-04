@@ -79,6 +79,7 @@ import quay.com.ipos.utility.Util;
 
 public class ExpandablePODetailsActivity extends BaseActivity {
 
+    LinearLayout includeCardView;
     ExpandableListView expandableListView;
     //CustomExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
@@ -103,6 +104,8 @@ public class ExpandablePODetailsActivity extends BaseActivity {
     private Spinner spnMilestone;
     private boolean isPOHeader,isItemDetails,isInco,isPayment,isTerms,isAttachments;
     private ImageView imgri,imgRight,imgPaymentTerms,imgIncoTerms,imgItems,arrowPO;
+    private String supplierName="";
+    private TextView toolbarTtile;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -114,11 +117,15 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         if (i!=null){
             poNumber=i.getStringExtra("poNumber");
             businessPlaceId=i.getStringExtra("businessPlaceId");
+            supplierName=i.getStringExtra("supplierName");
         }
+
+
         inializeViews();
         setLisner();
         getPODetails();
-
+        if (supplierName!=null)
+        toolbarTtile.setText(poNumber+" "+supplierName);
     }
     public void setHeader() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -140,6 +147,9 @@ public class ExpandablePODetailsActivity extends BaseActivity {
     }
 
     private void inializeViews(){
+        includeCardView=findViewById(R.id.includeCardView);
+        includeCardView.setVisibility(View.GONE);
+        toolbarTtile=findViewById(R.id.toolbarTtile);
         imgri=findViewById(R.id.imgri);
         imgRight=findViewById(R.id.imgRight);
         imgPaymentTerms=findViewById(R.id.imgPaymentTerms);
@@ -387,7 +397,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         edtSupplierName=findViewById(R.id.edtSupplierName);
         try {
             JSONObject jsonObject=new JSONObject(response);
-            tvHeaderPoNumber.setText("#"+jsonObject.optString("poNumber"));
+            tvHeaderPoNumber.setText("PO Header");
 
             edtPoNumber.setText(jsonObject.optString("poNumber"));
             edtBillingAddress.setText(jsonObject.optString("billingAddress"));

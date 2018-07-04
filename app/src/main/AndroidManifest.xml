@@ -348,7 +348,8 @@
         <activity
             android:name=".inventory.activity.InventoryItemAddNewOrderActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
         <!---***Compliance Tracker***-->
         <activity
             android:name=".compliance.DashboardActivity"

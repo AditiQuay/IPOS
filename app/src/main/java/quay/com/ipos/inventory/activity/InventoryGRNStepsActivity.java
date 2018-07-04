@@ -531,6 +531,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         Intent i = new Intent(mContext, ExpandablePODetailsActivity.class);
         i.putExtra("poNumber", inventoryModels.get(position).getPoNumber());
         i.putExtra("businessPlaceId", busineesPlaceId);
+        i.putExtra("supplierName", inventoryModels.get(position).getCompany());
         mContext.startActivity(i);
     }
 

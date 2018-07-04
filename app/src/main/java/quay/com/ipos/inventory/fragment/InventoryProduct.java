@@ -393,7 +393,11 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 break;
             case R.id.btnAddBatch:
                 hideKeyboard();
+<<<<<<< HEAD
+                if(TextUtils.isEmpty(batchEditText.getText().toString())){
+=======
                 if (TextUtils.isEmpty(batchEditText.getText().toString())){
+>>>>>>> 367b2228ea302e28d63402fd1592146a3e13e43b
                     Toast.makeText(mContext,"Please enter batch number",Toast.LENGTH_SHORT).show();
                 }else {
                     saveBatchData();

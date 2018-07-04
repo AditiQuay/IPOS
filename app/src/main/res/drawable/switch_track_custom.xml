@@ -4,9 +4,9 @@
         android:start="4dp"
         android:end="4dp">
         <shape android:shape="rectangle"
-            android:tint="@color/switch_color">
+            android:tint="@color/grey">
             <corners android:radius="6dp" />
-            <solid android:color="@color/switch_color" />
+            <solid android:color="@color/grey" />
             <size android:height="10dp" />
         </shape>
     </item>
