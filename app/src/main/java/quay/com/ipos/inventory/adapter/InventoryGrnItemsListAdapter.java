@@ -161,7 +161,7 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
                             grnItemQtyModels.get(position).setBalanceQty(balanceQty);
 
                             holder.tvBalanceQty.setText(grnItemQtyModels.get(position).getBalanceQty() + "");
-                            holder.imageViewStatus.setVisibility(View.VISIBLE);
+//                            holder.imageViewStatus.setVisibility(View.VISIBLE);
 
                             // user typed: start the timer
                             timer = new Timer();
@@ -191,7 +191,7 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
                             grnItemQtyModels.get(position).setBalanceQty(balanceQty);
 
                             holder.tvBalanceQty.setText(grnItemQtyModels.get(position).getBalanceQty() + "");
-                            holder.imageViewStatus.setVisibility(View.VISIBLE);
+//                            holder.imageViewStatus.setVisibility(View.VISIBLE);
                             // user typed: start the timer
                             timer = new Timer();
                             timer.schedule(new TimerTask() {
@@ -208,7 +208,7 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
 
                     }
                     if (holder.tvBalanceQty.getText().hashCode() == editable.hashCode()) {
-                        holder.imageViewStatus.setVisibility(View.VISIBLE);
+//                        holder.imageViewStatus.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

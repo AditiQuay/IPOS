@@ -3,11 +3,14 @@ package quay.com.ipos.inventory.fragment;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -164,7 +167,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
         recyclerviewButton.setHasFixedSize(false);
-        recyclerviewButton.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerviewButton.setLayoutManager(new GridLayoutManager(this, 2));
         if (tabData.size() > 0) {
             tabData.get(0).isSelected = true;
         }
@@ -393,27 +396,48 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 break;
             case R.id.btnAddBatch:
                 hideKeyboard();
-<<<<<<< HEAD
-                if(TextUtils.isEmpty(batchEditText.getText().toString())){
-=======
-                if (TextUtils.isEmpty(batchEditText.getText().toString())){
->>>>>>> 367b2228ea302e28d63402fd1592146a3e13e43b
-                    Toast.makeText(mContext,"Please enter batch number",Toast.LENGTH_SHORT).show();
-                }else {
+                if (TextUtils.isEmpty(batchEditText.getText().toString())) {
+                    Toast.makeText(mContext, "Please enter batch number", Toast.LENGTH_SHORT).show();
+                } else {
                     saveBatchData();
                 }
                 batchEditText.setText("");
+
                 break;
             case R.id.btnTabOther:
                 setOthersTab();
-                break;
+
             default:
                 break;
-
         }
     }
 
+    private void confirmationDialog() {
+        AlertDialog.Builder builder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder = new AlertDialog.Builder(InventoryProduct.this, android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            builder = new AlertDialog.Builder(InventoryProduct.this);
+        }
+        builder.setTitle("Alert")
+                .setMessage("Are you sure you want to exit the screen?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        refreshGrnData();
+                        finish();
 
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
 
     private void existDialog() {
         ImageView ivClose;
@@ -457,15 +481,14 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        existDialog();
+        confirmationDialog();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                existDialog();
+                confirmationDialog();
                 return true;
         }
         return super.onOptionsItemSelected(item);

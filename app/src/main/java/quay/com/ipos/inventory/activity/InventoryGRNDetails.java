@@ -23,12 +23,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -146,6 +149,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     private SharedPreferences SharedPreferences;
     private String supplierName;
     private CustomTextView toolbarTtile;
+    private Spinner spnOptions;
+    private TextView tvQty;
+    final ArrayList<String> strings1 = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -166,6 +172,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+        setIncotermsData();
 
 
     }
@@ -216,6 +223,13 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         lTransporter = findViewById(R.id.lTransporter);
         lItemsDetails = findViewById(R.id.lItemsDetails);
         llIncoTerms = findViewById(R.id.llIncoTerms);
+
+        tvQty = findViewById(R.id.tvQty);
+        tvQty.setVisibility(View.VISIBLE);
+
+        spnOptions = findViewById(R.id.spnOptions);
+        spnOptions.setVisibility(View.VISIBLE);
+
         llTermsC = findViewById(R.id.llTermsC);
 
         btnSave.setOnClickListener(this);
@@ -254,6 +268,60 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         etAddress.addTextChangedListener(new GenericTextWatcher(etAddress));
     }
 
+    private void setIncotermsData() {
+        final ArrayList<String> strings = new ArrayList<>();
+//        list.add("One Time with Recurring");
+        strings.add("Options");
+        strings.add("Loading");
+        strings.add("Shipping");
+        strings.add("Unload");
+        strings.add("Toll");
+        strings.add("E-Way Bill");
+        //   list.add("On Invoice Based");
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, strings);
+        spnOptions.setAdapter(stringArrayAdapter);
+
+
+        spnOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i != 0) {
+                    int count = 0;
+                    for (int k = 0; k < strings1.size(); k++) {
+                        if (strings1.get(k).equalsIgnoreCase(strings.get(i)))
+                            count = count + 1;
+                    }
+                    if (!strings1.contains(strings.get(i))) {
+                        GrnInccoTermsModel grnInccoTermsModel = new GrnInccoTermsModel();
+                        grnInccoTermsModel.grnIncoDetail = strings.get(i);
+                        grnInccoTermsModel.grnPayAmount = 0;
+                        grnInccoTermsModel.grnPayByReceiver = true;
+                        grnInccoTermsModel.grnPayBySender = false;
+                        strings1.add(strings.get(i));
+                        grnInccoTermsModels.add(grnInccoTermsModel);
+                    } else {
+                        GrnInccoTermsModel grnInccoTermsModel = new GrnInccoTermsModel();
+                        grnInccoTermsModel.grnIncoDetail = strings.get(i) + " " + (count);
+                        grnInccoTermsModel.grnPayAmount = 0;
+                        grnInccoTermsModel.grnPayByReceiver = true;
+                        grnInccoTermsModel.grnPayBySender = false;
+                        strings1.add(strings.get(i));
+                        grnInccoTermsModels.add(grnInccoTermsModel);
+                    }
+                    setIncoTerms();
+                }
+                spnOptions.setSelection(0);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -285,10 +353,15 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        tvQty.setVisibility(View.VISIBLE);
 
+        spnOptions = findViewById(R.id.spnOptions);
         if (TextUtils.isEmpty(cardClick)) {
+            tvQty.setVisibility(View.GONE);
+            spnOptions.setVisibility(View.VISIBLE);
 
             addGRNDetails();
+
         } else {
 
             etName.setEnabled(false);
@@ -303,7 +376,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             ivItemAdd.setVisibility(View.GONE);
             ivAttAdd.setVisibility(View.GONE);
 
+            tvQty.setVisibility(View.VISIBLE);
+            spnOptions.setVisibility(View.GONE);
+
             cardGrnDetail();
+
         }
 
         //Getting GRN details from server
@@ -331,11 +408,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
                 break;
             case R.id.imValidtyCalender:
-
                 isEWayBillClicked = true;
                 dateDialogBillValidity();
                 break;
-
             case R.id.ivReceivedDateCalender:
                 clicked = true;
                 dateDialogReceivedDate();
@@ -561,15 +636,14 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         android.app.DatePickerDialog dp = new android.app.DatePickerDialog(mContext,
                 new android.app.DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
 
                         String erg = year + "";
                         erg += "-" + String.valueOf(monthOfYear + 1);
                         erg += "-" + String.valueOf(dayOfMonth);
 
                         try {
-                            if (clicked) {
+                            if (isEWayBillClicked) {
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.set(Calendar.YEAR, year);
                                 calendar.set(Calendar.MONTH, monthOfYear);
@@ -580,7 +654,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                                 Log.e(TAG, "date1" + date1);
 
                                 etEWayBillValidity.setText(erg);
-                                clicked = false;
+                                isEWayBillClicked = false;
 
                             }
                         } catch (Exception e) {
@@ -807,6 +881,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     grnInccoTermsModel.grnPayByReceiver = jsonObject1.optBoolean("grnPayByReceiver");
                     grnInccoTermsModel.grnPayAmount = jsonObject1.optDouble("grnPayAmount");
                     grnInccoTermsModels.add(grnInccoTermsModel);
+                    strings1.add(jsonObject1.optString("grnIncoDetail"));
                 }
 
 //                POIncoTerms poIncoTerms2 = new POIncoTerms();
@@ -976,6 +1051,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     public void addGRNDetails() {
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.setCancelable(false);
         JSONObject jsonObject1 = new JSONObject();
 
         try {

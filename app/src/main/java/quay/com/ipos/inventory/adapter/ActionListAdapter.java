@@ -32,7 +32,7 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.My
     @NonNull
     @Override
     public MyView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.spinner_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.action_list_item, parent, false);
         return new ActionListAdapter.MyView(view);
     }
 
@@ -47,6 +47,11 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.My
 
             }
         });
+        if (position==2){
+            holder.borderLine.setVisibility(View.VISIBLE);
+        }else {
+            holder.borderLine.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -56,10 +61,11 @@ public class ActionListAdapter extends RecyclerView.Adapter<ActionListAdapter.My
 
     public class MyView extends RecyclerView.ViewHolder {
         private TextView text1;
-
+        private View borderLine;
         public MyView(View itemView) {
             super(itemView);
             text1 = itemView.findViewById(R.id.text1);
+            borderLine = itemView.findViewById(R.id.borderLine);
         }
     }
 }

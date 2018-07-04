@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:baselineAligned="false">
@@ -9,12 +9,11 @@
     <Button
         android:id="@+id/btnTab"
         style="@style/styleWhiteTextColor14"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/dim_150"
         android:layout_height="wrap_content"
-        android:singleLine="true"
+        android:minWidth="@dimen/dim_150"
+        android:gravity="center"
         android:backgroundTint="@color/button_tint_resource"
-        android:drawablePadding="@dimen/dim_4"
-        android:stateListAnimator="@null"
         android:textAllCaps="false" />
 
 
