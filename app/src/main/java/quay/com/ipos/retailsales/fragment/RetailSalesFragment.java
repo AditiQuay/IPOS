@@ -881,7 +881,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //            double discount1 = 0, totalGst1 = 0.0, cgst1 = 0.0, sgst1 = 0.0;
 
             int discountItem = 0;
-            double totalPoints = 0;
+            int totalPoints = 0;
             int freeItemCount = 0;
             int mSelectedpos = 0;
             double discount_perItemTotal=0.0 ;

@@ -45,6 +45,7 @@
                 android:gravity="center"
                 android:inputType="numberDecimal"
                 android:hint="%"
+                android:maxLength="3"
                 android:background="@color/transparent"
                 />
             <View
@@ -59,6 +60,7 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:inputType="number"
+                android:maxLength="9"
                 android:background="@color/transparent"
                 android:text="Invoice Due"
                 />

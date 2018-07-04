@@ -488,7 +488,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                 if (validate())
                 submitGRNDetails();
                 else {
-                    Util.showToast("Please fill all required (*) fields");
+
                 }
             }
         });
@@ -1821,6 +1821,8 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                 valid=false;
 
             }
+        }else {
+            Util.showToast("Please fill all required (*) fields");
         }
 
         return valid;
