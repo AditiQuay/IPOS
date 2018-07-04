@@ -340,6 +340,21 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences = mContext.getSharedPreferences(Preference, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = SharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+    }
+
+    @Override
     public void applyInitValues() {
         setSupportActionBar(toolbar);
         String supplierName = SharedPrefUtil.getString("supplierName", "", mContext);
@@ -376,6 +391,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
             etName.setEnabled(false);
             etLrn.setEnabled(false);
+            et_received_date.setEnabled(false);
             etEwayBill.setEnabled(false);
             etDriverName.setEnabled(false);
             etTruckNumber.setEnabled(false);
