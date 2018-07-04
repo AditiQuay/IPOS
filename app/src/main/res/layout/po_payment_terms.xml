@@ -60,9 +60,8 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:inputType="number"
-                android:maxLength="9"
                 android:background="@color/transparent"
-                android:text="Invoice Due"
+                android:text=""
                 />
 
 

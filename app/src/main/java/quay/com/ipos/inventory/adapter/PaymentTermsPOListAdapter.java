@@ -57,8 +57,9 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
         }
 
 
-        if (stringArrayList.get(position).getPoPaymentTermsInvoiceDue().equalsIgnoreCase("Immediate")){
+        if (stringArrayList.get(position).getPoPaymentTermsInvoiceDue().contains("Immediate")){
             holder.tvGst.setHint("Immediate");
+            holder.tvGst.setText("Immediate");
             holder.tvGst.setEnabled(false);
         }else {
             holder.tvGst.setHint("days");
@@ -68,9 +69,13 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
         if (stringArrayList.get(position).getPoPaymentTermsInvoiceDue()!=null && stringArrayList.get(position).getPoPaymentTermsInvoiceDue().equalsIgnoreCase("0 Days")){
             holder.tvGst.setText("");
         }else {
-            holder.tvGst.setText(stringArrayList.get(position).getPoPaymentTermsInvoiceDue()+" days");
-            holder.tvGst.setSelection(holder.tvGst.getText().length());
+            if (stringArrayList.get(position).getPoPaymentTermsInvoiceDue()!=null && !stringArrayList.get(position).getPoPaymentTermsInvoiceDue().contains("Immediate")) {
+                if (Util.validateString(stringArrayList.get(position).getPoPaymentTermsInvoiceDue()))
+                    holder.tvGst.setText(stringArrayList.get(position).getPoPaymentTermsInvoiceDue().replace(" ", "") + " days");
+                holder.tvGst.setSelection(holder.tvGst.getText().length());
+            }
         }
+
 
 
         holder.delete.setVisibility(View.VISIBLE);
@@ -106,10 +111,10 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
                         public void run() {*/
                             if (Util.validateString(holder.tvGst.getText().toString())) {
                                 if (Util.validateString(holder.percent.getText().toString())) {
-                                    myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Integer.parseInt(holder.percent.getText().toString()), holder.tvGst.getText().toString());
+                                    myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Integer.parseInt(holder.percent.getText().toString()), holder.tvGst.getText().toString().replaceAll("days",""));
 
                                 } else {
-                                    myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
+                                    myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString().replaceAll("days",""));
 
                                 }
                             } else {

@@ -1457,9 +1457,9 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
             POPaymentTerms poIncoTerms1 = new POPaymentTerms();
             poIncoTerms1.setPoPaymentTermsDetail(poPaymentTerms.get(position).getPoPaymentTermsDetail());
             if (days!=null && days.contains("days"))
-            poIncoTerms1.setPoPaymentTermsInvoiceDue(days.replaceAll("days",""));
+            poIncoTerms1.setPoPaymentTermsInvoiceDue(days.replaceAll("days","").replaceAll("day","").replaceAll("da","").replaceAll("d",""));
             else {
-                poIncoTerms1.setPoPaymentTermsInvoiceDue(days);
+                poIncoTerms1.setPoPaymentTermsInvoiceDue(days.replaceAll("days","").replaceAll("day","").replaceAll("da","").replaceAll("d",""));
             }
             poIncoTerms1.setPoPaymentTermsPer(percent);
 
