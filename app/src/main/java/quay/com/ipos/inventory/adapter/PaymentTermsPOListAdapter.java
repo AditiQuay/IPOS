@@ -65,7 +65,7 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
         if (stringArrayList.get(position).getPoPaymentTermsInvoiceDue().equalsIgnoreCase("0 Days")){
             holder.tvGst.setText("");
         }else {
-            holder.tvGst.setText(stringArrayList.get(position).getPoPaymentTermsInvoiceDue());
+            holder.tvGst.setText(stringArrayList.get(position).getPoPaymentTermsInvoiceDue()+" days");
         }
 
 
@@ -98,7 +98,7 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
 
                         if (Util.validateString(holder.tvGst.getText().toString())) {
                             if (Util.validateString(holder.percent.getText().toString())){
-                                myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
+                                myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Integer.parseInt(holder.percent.getText().toString()), holder.tvGst.getText().toString());
 
                             }else {
                                 myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
@@ -126,22 +126,22 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!onBind) {
-                    double percentage=0;
+                 /*   double percentage=0;
                     for (int i=0;i<stringArrayList.size();i++){
                         percentage+=stringArrayList.get(holder.getAdapterPosition()).getPoPaymentTermsPer();
                     }
-                    if (percentage<=100) {
+                    if (percentage<=100) {*/
                     if (Util.validateString(holder.percent.getText().toString())) {
 
-                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Double.parseDouble(holder.percent.getText().toString()), holder.tvGst.getText().toString());
+                        myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Integer.parseInt(holder.percent.getText().toString()), holder.tvGst.getText().toString());
                     } else {
                         myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
 
                     }
-                    }else {
+                    /*}else {
                         Util.showToast("Total percentage should not be greater than 100%");
                         myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
-                    }
+                    }*/
                 }
             }
         });

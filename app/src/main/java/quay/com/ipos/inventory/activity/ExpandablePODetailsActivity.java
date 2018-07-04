@@ -110,7 +110,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.po_expandable_details);
+        setContentView(R.layout.po_expand_layout);
         context=ExpandablePODetailsActivity.this;
         setHeader();
         Intent i=getIntent();
@@ -148,7 +148,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
 
     private void inializeViews(){
         includeCardView=findViewById(R.id.includeCardView);
-        includeCardView.setVisibility(View.GONE);
+      //  includeCardView.setVisibility(View.GONE);
         toolbarTtile=findViewById(R.id.toolbarTtile);
         imgri=findViewById(R.id.imgri);
         imgRight=findViewById(R.id.imgRight);
@@ -385,7 +385,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
 
 
     private void getExpandableData(String response){
-        edtPoNumber=findViewById(R.id.edtPoNumber);
+    /*    edtPoNumber=findViewById(R.id.edtPoNumber);
         edtBillingAddress=findViewById(R.id.edtBillingAddress);
         edtDeliveryAddress=findViewById(R.id.edtDeliveryAddress);
         edtPoDate=findViewById(R.id.edtPoDate);
@@ -394,7 +394,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
         edtPoValue=findViewById(R.id.edtPoValue);
         edtSupAddress=findViewById(R.id.edtSupAddress);
         edtSupGSTIN=findViewById(R.id.edtSupGSTIN);
-        edtSupplierName=findViewById(R.id.edtSupplierName);
+        edtSupplierName=findViewById(R.id.edtSupplierName);*/
         try {
             JSONObject jsonObject=new JSONObject(response);
             tvHeaderPoNumber.setText("PO Header");
@@ -477,7 +477,7 @@ public class ExpandablePODetailsActivity extends BaseActivity {
                 POPaymentTerms poIncoTerms1=new POPaymentTerms();
                 poIncoTerms1.setPoPaymentTermsDetail(jsonObject1.optString("poPaymentTermsDetail"));
                 poIncoTerms1.setPoPaymentTermsInvoiceDue(jsonObject1.optString("poPaymentTermsInvoiceDue"));
-                poIncoTerms1.setPoPaymentTermsPer(jsonObject1.optDouble("poPaymentTermsPer"));
+                poIncoTerms1.setPoPaymentTermsPer(jsonObject1.optInt("poPaymentTermsPer"));
 
                 poPaymentTerms.add(poIncoTerms1);
 

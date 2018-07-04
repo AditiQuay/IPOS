@@ -1,11 +1,5 @@
 -- Merging decision tree log ---
 manifest
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> 367b2228ea302e28d63402fd1592146a3e13e43b
 ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
@@ -17,27 +11,3 @@ INJECTED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\An
 		ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
 application
 ADDED from C:\Users\Ankush.bansal\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
-<<<<<<< HEAD
-=======
-=======
-<<<<<<< HEAD
->>>>>>> 2ac700d40d4fdfbc2b1d04714c8fcec4b20f0a04
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
-	package
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:70-106
-		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml
-	xmlns:android
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
-application
-ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
-<<<<<<< HEAD
-=======
-=======
-ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
->>>>>>> 0dbe755824a7b7c7923019db2156a66095adb22f
->>>>>>> 8afb9a48146533e11c2d94478c4e79233ed86877
->>>>>>> 2ac700d40d4fdfbc2b1d04714c8fcec4b20f0a04
->>>>>>> 367b2228ea302e28d63402fd1592146a3e13e43b
