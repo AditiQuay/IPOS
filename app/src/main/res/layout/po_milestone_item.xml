@@ -23,6 +23,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/titilliumwebregular"
+
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="Advance"
@@ -43,6 +45,8 @@
                 android:layout_weight="1"
                 android:padding="8dp"
                 android:gravity="center"
+                android:fontFamily="@font/titilliumwebregular"
+
                 android:text="20%"
                 />
             <View
@@ -56,6 +60,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="8dp"
+                android:fontFamily="@font/titilliumwebregular"
+
                 android:text="Invoice Due"
                 />
 

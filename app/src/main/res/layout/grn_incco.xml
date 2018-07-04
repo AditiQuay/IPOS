@@ -58,7 +58,7 @@
                 android:gravity="center"
                 android:textAllCaps="false"
                 android:padding="@dimen/dim_8"
-                android:text="SUPPLIER" />
+                android:text="SENDER" />
 
             <View
                 android:layout_width="1dp"
@@ -74,7 +74,7 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:textAllCaps="false"
-                android:text="ME" />
+                android:text="RECEIVER" />
 
             <View
                 android:layout_width="1dp"

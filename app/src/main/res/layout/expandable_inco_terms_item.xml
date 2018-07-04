@@ -59,7 +59,7 @@
                 android:gravity="center"
                 android:padding="@dimen/dim_8"
                 android:fontFamily="@font/titilliumwebregular"
-                android:text="Supplier" />
+                android:text="Sender" />
 
             <View
                 android:layout_width="1dp"
@@ -74,7 +74,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/titilliumwebregular"
                 android:padding="8dp"
-                android:text="Me" />
+                android:text="Receiver" />
 
             <View
                 android:layout_width="1dp"

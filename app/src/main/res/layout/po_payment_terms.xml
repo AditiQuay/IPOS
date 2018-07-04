@@ -24,6 +24,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:fontFamily="@font/titilliumwebregular"
+
                 android:padding="8dp"
                 android:text="Advance"
                 />
@@ -43,6 +45,8 @@
                 android:layout_weight="1"
                 android:padding="8dp"
                 android:gravity="center"
+                android:fontFamily="@font/titilliumwebregular"
+
                 android:inputType="numberDecimal"
                 android:hint="%"
                 android:maxLength="3"
@@ -60,6 +64,8 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:inputType="number"
+                android:fontFamily="@font/titilliumwebregular"
+
                 android:background="@color/transparent"
                 android:text=""
                 />
