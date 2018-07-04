@@ -509,7 +509,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_16"
                         android:gravity="center"
-                        android:src="@drawable/credit_blue" />
+                        android:src="@drawable/credit_white" />
 
                     <TextView
                         android:id="@+id/textCredit"

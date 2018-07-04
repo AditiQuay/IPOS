@@ -1807,10 +1807,10 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         int qty = 0;
         double payAmount = 0.0;
         int discountItems = 0;
-        int gst = 0;
-        int totalGST = 0;
-        int cgst = 0;
-        int sgst = 0;
+        double gst = 0;
+        double totalGST = 0;
+        double cgst = 0;
+        double sgst = 0;
         double totalItemsAmount = 0.0;
         double discountPrice = 0.0;
         int totalPoints = 0;
@@ -1847,12 +1847,12 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                 discountPartiItem = realmNewOrderCart.getTotalPrice();
                 discountPrice = discountPrice + realmNewOrderCart.getTotalPrice();
             }
-            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100);
+            totalGST = (realmNewOrderCart.getGstPerc() * realmNewOrderCart.getTotalPrice() / 100.0);
             gst = gst + totalGST;
 
 
-            cgst = cgst + (realmNewOrderCart.getCgst() * realmNewOrderCart.getTotalPrice() / 100);
-            sgst = sgst + (realmNewOrderCart.getSgst() * realmNewOrderCart.getTotalPrice() / 100);
+            cgst = cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100.0);
+            sgst = sgst + (realmNewOrderCart.getSgst() *( realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100.0);
 
 
             totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
@@ -1916,19 +1916,20 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             arrayCart.put(jsonObjectCartDetail);
 
         }
-        payAmount = (totalItemsAmount + gst) - discountPrice;
+        payAmount = (totalItemsAmount + (cgst+sgst) - discountPrice);
 
         double totalValueWithTax = totalItemsAmount + gst;
         double totalValueWithoutTax = totalItemsAmount;
         JSONObject jsonObject = new JSONObject();
-
+        double roundOff=Math.floor(payAmount);
+        double roundofff=payAmount-roundOff;
 
         try {
             jsonObject.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject.put("employeeRole", Prefs.getStringPrefs(Constants.employeeRole));
             jsonObject.put("poDate", Util.getCurrentDate());
             jsonObject.put("poStatus", "Pending");
-            jsonObject.put("orderValue", payAmount);
+            jsonObject.put("orderValue", payAmount-Util.round(roundofff,3));
             jsonObject.put("discountValue", discountPrice);
             jsonObject.put("deliveryBy", Util.getCurrentDate());
             jsonObject.put("orderLoyality", totalPoints);
@@ -1944,7 +1945,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             jsonObject.put("totalValueWithoutTax", totalValueWithoutTax);
             jsonObject.put("totalTaxValue", cgst + sgst);
             jsonObject.put("totalDiscountValue", discountPrice);
-            jsonObject.put("totalRoundingOffValue", 0);
+            jsonObject.put("totalRoundingOffValue", Util.round(roundofff,3));
             jsonObject.put("cartDetail", arrayCart);
             //  jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray());
             jsonObject.put("approvalStat", 1);

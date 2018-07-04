@@ -36,6 +36,7 @@ import io.realm.Realm;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.RunTimePermissionActivity;
+import quay.com.ipos.dashboard.adapter.SpinnerDropDownAdapter;
 import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.data.remote.model.APIError;
 import quay.com.ipos.data.remote.model.DDRSubmitResponse;
@@ -521,8 +522,8 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         // orderDiscount.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
 
 
-        textDiscount.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
-        tvTotalItemPrice.setText("Order Value " + getResources().getString(R.string.Rs) + " " + (realmOrderLists.getOrderValue()));
+        tvTotalItemPrice.setText( getResources().getString(R.string.Rs) + " " +  Util.indianNumberFormat(realmOrderLists.getTotalValueWithoutTax()));
+        textDiscount.setText("- "+getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
         tvItemQty.setText(realmOrderLists.getQuantity() + "");
         tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat((realmOrderLists.getTotalValueWithoutTax() - realmOrderLists.getDiscountValue())));
         textCGST.setText("+ " + getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getTotalCGSTValue()) + "");
@@ -863,9 +864,14 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         strings.add("Toll");
         strings.add("E-Way Bill");
         //   list.add("On Invoice Based");
-        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, strings);
-        textIncoTermsOthers.setAdapter(stringArrayAdapter);
+//        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_spinner_item, strings);
+//        textIncoTermsOthers.setAdapter(stringArrayAdapter);
+        String[] stringsArray={"Options","Loading","Shipping","Unload","Toll","E-Way Bill"};
+        SpinnerDropDownAdapter spinnerDropDownAdapter = new SpinnerDropDownAdapter(this,stringsArray);
+        spinnerDropDownAdapter.setColor(true);
+
+        textIncoTermsOthers.setAdapter(spinnerDropDownAdapter);
         final ArrayList<String> strings1 = new ArrayList<>();
 
         textIncoTermsOthers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

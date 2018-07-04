@@ -1062,7 +1062,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
             tvItemQty.setText(qty + " Qty");
             paymentRequest.setTotalQty(qty);
-            paymentRequest.setOrderLoyality(totalPoints);
+            paymentRequest.setOrderLoyality((int)totalPoints);
             tvTotalItemPrice.setText(Util.getIndianNumberFormat(sum + ""));
             paymentRequest.setTotalValueWithoutTax(sum);
             double totalDisc = (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue);

@@ -200,7 +200,7 @@ public class PaymentRequest {
         return orderLoyality;
     }
 
-    public void setOrderLoyality(Integer orderLoyality) {
+    public void setOrderLoyality(int orderLoyality) {
         this.orderLoyality = orderLoyality;
     }
 

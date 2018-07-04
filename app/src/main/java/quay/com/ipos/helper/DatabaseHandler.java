@@ -106,7 +106,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_productCode + " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName + " TEXT," + KEY_sProductFeature + " TEXT," + KEY_sProductImage + " TEXT," + KEY_sProductPrice + " REAL," + KEY_sProductStock + " INTEGER," + KEY_sProductWeight + " INTEGER," + KEY_isDiscount + " INTEGER," + KEY_gstPerc + " REAL," + KEY_cgst + " REAL," + KEY_sgst + " REAL," + KEY_salesPrice + " REAL," + KEY_nrv + " REAL," + KEY_gpl + " REAL," + KEY_mrp + " REAL," + KEY_barCodeNumber + " TEXT," + KEY_discount + " TEXT," + KEY_points + " INTEGER," + KEY_pointsBasedOn + " TEXT," + KEY_pointsPer + " INTEGER," + KEY_valueFrom + " INTEGER," + KEY_valueTo + " INTEGER," + KEY_conversionFactor + " INTEGER," + KEY_hsnCode + " TEXT," + KEY_hsnName + " TEXT," + KEY_categoryName + " TEXT," + KEY_subCategoryName + " TEXT," + KEY_brandName + " TEXT" + ")";
+        String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_productCode + " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName + " TEXT," + KEY_sProductFeature + " TEXT," + KEY_sProductImage + " TEXT," + KEY_sProductPrice + " REAL," + KEY_sProductStock + " INTEGER," + KEY_sProductWeight + " TEXT," + KEY_isDiscount + " INTEGER," + KEY_gstPerc + " REAL," + KEY_cgst + " REAL," + KEY_sgst + " REAL," + KEY_salesPrice + " REAL," + KEY_nrv + " REAL," + KEY_gpl + " REAL," + KEY_mrp + " REAL," + KEY_barCodeNumber + " TEXT," + KEY_discount + " TEXT," + KEY_points + " INTEGER," + KEY_pointsBasedOn + " TEXT," + KEY_pointsPer + " INTEGER," + KEY_valueFrom + " INTEGER," + KEY_valueTo + " INTEGER," + KEY_conversionFactor + " INTEGER," + KEY_hsnCode + " TEXT," + KEY_hsnName + " TEXT," + KEY_categoryName + " TEXT," + KEY_subCategoryName + " TEXT," + KEY_brandName + " TEXT" + ")";
         db.execSQL(CREATE_RETAIL_TABLE);
 
 
@@ -613,7 +613,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 datum.setProductImage(cursor.getString(5));
                 datum.setSProductPrice(cursor.getDouble(6));
                 datum.setSProductStock(cursor.getInt(7));
-                datum.setSProductWeight(cursor.getInt(8));
+                datum.setSProductWeight(cursor.getString(8));
                 if (cursor.getInt(9) == 0)
                     datum.setIsDiscount(false);
                 else
@@ -675,7 +675,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 datum.setProductImage(cursor.getString(5));
                 datum.setSProductPrice(cursor.getDouble(6));
                 datum.setSProductStock(cursor.getInt(7));
-                datum.setSProductWeight(cursor.getInt(8));
+                datum.setSProductWeight(cursor.getString(8));
                 if (cursor.getInt(9) == 0)
                     datum.setIsDiscount(false);
                 else
