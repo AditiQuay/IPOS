@@ -31,7 +31,6 @@
         android:id="@+id/action_filter"
         android:icon="@drawable/ic_action_filter_white"
         android:title="filter"
-        android:visible="false"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_notification"

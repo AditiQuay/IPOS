@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
-            android:background="@drawable/ic_action_cloud_off"
+            android:src="@drawable/ic_action_cloud_off"
             android:id="@+id/imvStatus"
 android:layout_margin="@dimen/dim_15"
             android:layout_gravity="center"

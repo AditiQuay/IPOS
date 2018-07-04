@@ -1,13 +1,23 @@
 -- Merging decision tree log ---
 manifest
+<<<<<<< HEAD
 ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
 INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
+=======
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
+INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:3:1-5:12
+>>>>>>> 1078251e43c79a6fd348b7a12e6028a184b7e1fb
 	package
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:70-106
-		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml
-		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:3:70-106
+		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml
+		INJECTED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
+		ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:3:11-69
 application
+<<<<<<< HEAD
 ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
+=======
+ADDED from E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\src\main\AndroidManifest.xml:4:5-32
+>>>>>>> 1078251e43c79a6fd348b7a12e6028a184b7e1fb

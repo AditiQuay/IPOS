@@ -65,6 +65,7 @@
             android:background="@drawable/button_rectangle_light_gray"
             >
             <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvDateFrom"
                 style="@style/stylePrimaryTextColor14"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -91,6 +92,7 @@
             android:background="@drawable/button_rectangle_light_gray"
             >
             <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvDateTo"
                 style="@style/stylePrimaryTextColor14"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

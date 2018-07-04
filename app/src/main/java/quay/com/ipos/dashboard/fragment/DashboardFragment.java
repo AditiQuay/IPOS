@@ -241,7 +241,7 @@ public class DashboardFragment extends Fragment {
 //        });
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item,getResources().getStringArray(R.array.stores));
         SpinnerDropDownAdapter sddadapter = new SpinnerDropDownAdapter(getActivity(),getResources().getStringArray(R.array.stores));
-        sddadapter.setColorBG(R.color.colorPrimary,"");
+        sddadapter.setColorBG(R.color.colorPrimary,"sd");
         spStoreName.setAdapter(sddadapter);
 
     }

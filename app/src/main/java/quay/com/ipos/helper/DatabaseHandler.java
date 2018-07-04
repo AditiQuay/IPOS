@@ -19,7 +19,9 @@ import quay.com.ipos.customerInfo.customerInfoModal.CustomerSpinner;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.modal.BillingSync;
 import quay.com.ipos.modal.CustomerList;
+import quay.com.ipos.modal.PrintViewResult;
 import quay.com.ipos.modal.ProductSearchResult;
+import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Util;
 
 import static quay.com.ipos.customerInfo.customerInfoModal.CustomerModel.TABLE_NAME;
@@ -38,6 +40,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public static final String TABLE_RETAIL = "RetailTable";
     public static final String TABLE_RETAIL_CART = "RetailTableCart";
     public static final String TABLE_RETAIL_BILLING = "RetailBilling";
+    public static final String TABLE_RETAIL_GST = "RetailGST";
 
     // OpnionTable table name
 //	public static final String TABLE_OPINION = "OpnionTable";
@@ -84,6 +87,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_timestamp = "timestamp";
     private static final String KEY_print_receipt = "print_receipt";
 
+    private static final String KEY_cGSTRate = "cGSTRate";
+    private static final String KEY_sGSTRate = "sGSTRate";
+    private static final String KEY_cGSTValue = "cGSTValue";
+    private static final String KEY_sGSTValue = "sGSTValue";
+    private static final String KEY_totalPrice = "totalPrice";
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -104,6 +113,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String CREATE_TABLE_BILLING = "CREATE TABLE " + TABLE_RETAIL_BILLING + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_customerID + " TEXT,"+KEY_orderID+" TEXT," + KEY_billing + " TEXT," + KEY_date_time + " TEXT," + KEY_timestamp + " TEXT," + KEY_sync + " TINYINT,"+KEY_print_receipt + " TEXT" + ")";
         db.execSQL(CREATE_TABLE_BILLING);
 
+        String CREATE_TABLE_GST = "CREATE TABLE " + TABLE_RETAIL_GST + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_cGSTRate + " REAL,"+KEY_sGSTRate+" REAL," + KEY_cGSTValue + " REAL,"+KEY_sGSTValue + " REAL," + KEY_totalPrice + " REAL" + ")";
+        db.execSQL(CREATE_TABLE_GST);
 
         // create notes table
         db.execSQL(CustomerModel.CREATE_TABLE);
@@ -117,6 +128,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL_BILLING);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL_GST);
 
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
@@ -140,6 +152,76 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     /**
      * All CRUD(Create, Read, Update, Delete) Operations
      */
+
+    public void addGST(PrintViewResult.GstSummary datum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_cGSTRate, datum.getCGSTRate());
+        values.put(KEY_sGSTRate, datum.getSGSTRate());
+        values.put(KEY_cGSTValue, datum.getCGSTValue()); //
+        values.put(KEY_sGSTValue, datum.getSGSTValue()); //
+        values.put(KEY_totalPrice, datum.getTotalPrice()); //
+        // Inserting Row
+        db.insert(TABLE_RETAIL_GST, null, values);
+        db.close(); // Closing database connection
+    }
+    public ArrayList<PrintViewResult.GstSummary> getGST() {
+        ArrayList<PrintViewResult.GstSummary> gstSummaries = new ArrayList<PrintViewResult.GstSummary>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_RETAIL_GST ;
+        AppLog.e(DatabaseHandler.class.getSimpleName(), "selectQuery: " +selectQuery);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                PrintViewResult.GstSummary datum = new PrintViewResult(). new GstSummary();
+                datum.setCGSTRate(cursor.getDouble(1));
+                datum.setSGSTRate(cursor.getDouble(2));
+                datum.setCGSTValue(cursor.getDouble(3));
+                datum.setSGSTValue(cursor.getDouble(4));
+                datum.setTotalPrice(cursor.getDouble(5));
+                AppLog.e(DatabaseHandler.class.getSimpleName(), "datum: " +Util.getCustomGson().toJson(datum));
+                gstSummaries.add(datum);
+            } while (cursor.moveToNext());
+        }
+
+        // return question List
+        return gstSummaries;
+    }
+
+    public ArrayList<PrintViewResult.GstSummary> getGSTGROUPBY() {
+        ArrayList<PrintViewResult.GstSummary> gstSummaries = new ArrayList<PrintViewResult.GstSummary>();
+        // Select All Query
+        String selectQuery = "SELECT SUM("+ KEY_totalPrice +") totalPrice,SUM("+ KEY_sGSTValue +") sGSTValue,sum("+KEY_cGSTValue+") cGSTValue,"+KEY_cGSTRate+" ,"+KEY_sGSTRate+" FROM " + TABLE_RETAIL_GST +" group by cGSTRate,sGSTRate ;";
+        AppLog.e(DatabaseHandler.class.getSimpleName(), "selectQuery: " +selectQuery);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                PrintViewResult.GstSummary datum = new PrintViewResult(). new GstSummary();
+//                datum.setCGSTRate(cursor.getDouble(0));
+//                datum.setSGSTRate(cursor.getDouble(1));
+//                datum.setCGSTValue(cursor.getDouble(2));
+//                datum.setSGSTValue(cursor.getDouble(3));
+//                datum.setTotalPrice(cursor.getDouble(4));
+                datum.setCGSTRate(cursor.getDouble(4));
+                datum.setSGSTRate(cursor.getDouble(3));
+                datum.setCGSTValue(cursor.getDouble(2));
+                datum.setSGSTValue(cursor.getDouble(1));
+                datum.setTotalPrice(cursor.getDouble(0));
+                AppLog.e(DatabaseHandler.class.getSimpleName(), "datum: " +Util.getCustomGson().toJson(datum));
+                gstSummaries.add(datum);
+            } while (cursor.moveToNext());
+        }
+        AppLog.e(DatabaseHandler.class.getSimpleName(), "gstSummaries: " +Util.getCustomGson().toJson(gstSummaries));
+        // return question List
+        return gstSummaries;
+    }
 
 
 //	// Adding new contact
