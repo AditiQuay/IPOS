@@ -103,6 +103,7 @@ import quay.com.ipos.utility.Util;
 
 public class EditExpandablePODetailsActivity extends BaseActivity implements MyListenerOnitemClick,MyListenerPaymentTerms,MyListener,InventorPOInccoAdapter.OnCalculateTotalIncoTermsListener,AttachmentListener {
     private Dialog myDialog;
+    final ArrayList<String> strings1Payment=new ArrayList<>();
     ExpandableListView expandableListView;
     ArrayList<AttachFileModel> attachFileModels = new ArrayList<>();
     //CustomExpandableListAdapter expandableListAdapter;
@@ -182,13 +183,13 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,strings);
         spnDetails.setAdapter(stringArrayAdapter);
-        final ArrayList<String> strings1=new ArrayList<>();
+
 
         spnDetails.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i!=0) {
-                    if (poPaymentTerms.size() < 3 && !strings1.contains(strings.get(i))) {
+                    if (poPaymentTerms.size() < 3 && !strings1Payment.contains(strings.get(i))) {
                         POPaymentTerms poIncoTerms1 = new POPaymentTerms();
                         poIncoTerms1.setPoPaymentTermsDetail(strings.get(i));
                         if (i == 2 || i == 3)
@@ -196,7 +197,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                         else
                             poIncoTerms1.setPoPaymentTermsInvoiceDue("Immediate");
                         poIncoTerms1.setPoPaymentTermsPer(0);
-                        strings1.add(strings.get(i));
+                        strings1Payment.add(strings.get(i));
                         poPaymentTerms.add(poIncoTerms1);
                         setPaymentsTerms(0);
                     } else {
@@ -258,7 +259,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,strings);
         spnOptions.setAdapter(stringArrayAdapter);
-        final ArrayList<String> strings1=new ArrayList<>();
+        final ArrayList<String> strings1inco=new ArrayList<>();
 
         spnOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -266,17 +267,17 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
                if (i!=0) {
                    int count = 0;
-                   for (int k = 0; k < strings1.size(); k++) {
-                       if (strings1.get(k).equalsIgnoreCase(strings.get(i)))
+                   for (int k = 0; k < strings1inco.size(); k++) {
+                       if (strings1inco.get(k).equalsIgnoreCase(strings.get(i)))
                            count = count + 1;
                    }
-                   if (!strings1.contains(strings.get(i))) {
+                   if (!strings1inco.contains(strings.get(i))) {
                        GrnInccoTermsModel poIncoTerms1 = new GrnInccoTermsModel();
                        poIncoTerms1.grnIncoDetail = strings.get(i);
                        poIncoTerms1.grnPayAmount = 0;
                        poIncoTerms1.grnPayByReceiver = true;
                        poIncoTerms1.grnPayBySender = false;
-                       strings1.add(strings.get(i));
+                       strings1inco.add(strings.get(i));
                        poIncoTerms.add(poIncoTerms1);
                    } else {
                        GrnInccoTermsModel poIncoTerms1 = new GrnInccoTermsModel();
@@ -284,7 +285,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                        poIncoTerms1.grnPayAmount = 0;
                        poIncoTerms1.grnPayByReceiver = true;
                        poIncoTerms1.grnPayBySender = false;
-                       strings1.add(strings.get(i));
+                       strings1inco.add(strings.get(i));
                        poIncoTerms.add(poIncoTerms1);
                    }
                    setIncoTerms();
@@ -1447,14 +1448,25 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     @Override
     public void onRowClickedPaymentTerms(int position, int percent, String days) {
 
-        POPaymentTerms poIncoTerms1=new POPaymentTerms();
-        poIncoTerms1.setPoPaymentTermsDetail(poPaymentTerms.get(position).getPoPaymentTermsDetail());
-        poIncoTerms1.setPoPaymentTermsInvoiceDue(days);
-        poIncoTerms1.setPoPaymentTermsPer(percent);
+        if (days.equalsIgnoreCase("payment")){
+            poPaymentTerms.remove(position);
+            strings1Payment.remove(position);
+            milestonePOListAdapter.notifyItemRemoved(position);
+            milestonePOListAdapter.notifyItemRangeChanged(position,poPaymentTerms.size());
+        }else {
+            POPaymentTerms poIncoTerms1 = new POPaymentTerms();
+            poIncoTerms1.setPoPaymentTermsDetail(poPaymentTerms.get(position).getPoPaymentTermsDetail());
+            if (days!=null && days.contains("days"))
+            poIncoTerms1.setPoPaymentTermsInvoiceDue(days.replaceAll("days",""));
+            else {
+                poIncoTerms1.setPoPaymentTermsInvoiceDue(days);
+            }
+            poIncoTerms1.setPoPaymentTermsPer(percent);
 
-        poPaymentTerms.set(position,poIncoTerms1);
+            poPaymentTerms.set(position, poIncoTerms1);
 
-        milestonePOListAdapter.notifyItemChanged(position);
+            milestonePOListAdapter.notifyItemChanged(position);
+        }
 
     }
 
