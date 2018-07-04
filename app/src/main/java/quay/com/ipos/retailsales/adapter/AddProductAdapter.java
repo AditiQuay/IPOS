@@ -125,7 +125,7 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             AddProductAdapter.UserViewHolder userViewHolder = (AddProductAdapter.UserViewHolder) holder;
 //            if(!onPressed) {
                 userViewHolder.tvItemName.setText(str.getSProductName());
-                userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
+                userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " "+str.get);
                 userViewHolder.tvStock.setText(str.getSProductStock() + "");
                 ImageLoader.getInstance().displayImage(str.getProductImage(), userViewHolder.imvProduct);
 

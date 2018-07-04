@@ -518,7 +518,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         mPrintViewResult.setBusinessPlaceName(loginResult.getUserAccess().getWorklocations().get(0).getAddress1());
         mPrintViewResult.setCin(loginResult.getUserAccess().getWorklocations().get(0).getCIN());
         if(customerModel!=null) {
-            mPrintViewResult.setCustomerName(customerModel.getCustomerName());
+            mPrintViewResult.setCustomerName(customerModel.getCustomerFirstName()+" "+customerModel.getCustomerLastName());
             mPrintViewResult.setMobile(customerModel.getCustomerPhone());
         }else {
             mPrintViewResult.setCustomerName("NA");
