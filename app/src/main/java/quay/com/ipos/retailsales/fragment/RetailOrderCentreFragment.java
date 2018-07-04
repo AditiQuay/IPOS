@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,19 +27,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONException;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseFragment;
 import quay.com.ipos.dashboard.adapter.SpinnerDropDownAdapter;
 import quay.com.ipos.modal.LoginResult;
-import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.modal.RetailOrderCenterListResult;
 import quay.com.ipos.modal.RetailOrderCentreRequest;
 import quay.com.ipos.retailsales.activity.OutboxActivity;
@@ -66,6 +61,7 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
     private LinearLayoutManager mLayoutManager;
     private SwipeRefreshLayout swipeToRefresh;
     RetailOrderCenterAdapter mRetailOrderCenterAdapter;
+    TextView tvDateFrom,tvDateTo;
     EditText searchView;
     private ArrayList<RetailOrderCenterListResult.ListOrderCenter> listOrderCenters = new ArrayList<>();
 //    private ArrayList<RetailOrderCenterListResult.ListOrderCenter> allListOrderCenters = new ArrayList<>();
@@ -103,11 +99,17 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
                 // Do onClick on menu action here
                 dialogOTCTask();
                 return true;
-
+            case R.id.action_outbox:
+                // Do onClick on menu action here
+                onOutBoxButton();
+                break;
         }
         return false;
     }
-
+    public void onOutBoxButton() {
+        Intent mIntent = new Intent(getActivity(), OutboxActivity.class);
+        startActivity(mIntent);
+    }
     private void initializeComponent(View rootView) {
         loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",getActivity()),LoginResult.class);
         swipeToRefresh = rootView.findViewById(R.id.swipeToRefresh);
@@ -115,6 +117,7 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
         tvNoItemAvailable = rootView.findViewById(R.id.tvNoItemAvailable);
         imvClear = rootView.findViewById(R.id.imvClear);
         rvOutBox = rootView.findViewById(R.id.rvOutBox);
+
         rvOutBox.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         rvOutBox.setLayoutManager(new WrapContentLinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
@@ -134,6 +137,16 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
                 mRetailOrderCenterAdapter.notifyDataSetChanged();
             }
         });
+        swipeToRefresh.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        listOrderCenters.clear();
+                        callServiceRetailOrderCenter(fromDate,toDate,paymentMode,searchParam);
+                        mRetailOrderCenterAdapter.notifyDataSetChanged();
+                    }
+                }
+        );
         searchView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -208,14 +221,18 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
         btnCancel = dialogOTC.findViewById(R.id.btnCancel);
         llCancel = dialogOTC.findViewById(R.id.llCancel);
         btnAccept = dialogOTC.findViewById(R.id.btnAccept);
+        tvDateFrom = dialogOTC.findViewById(R.id.tvDateFrom);
+        tvDateTo = dialogOTC.findViewById(R.id.tvDateTo);
         imageViewCancel = dialogOTC.findViewById(R.id.imageViewCancel);
         llCancel.setBackgroundResource(R.drawable.button_drawable);
+        btnCancel.setTextColor(getActivity().getResources().getColor(R.color.white));
         btnCancel.setText("Reset");
         btnAccept.setText("Apply");
         llDateFrom.setOnClickListener(this);
         llDateTo.setOnClickListener(this);
         llAccept.setOnClickListener(this);
         llCancel.setOnClickListener(this);
+        imageViewCancel.setOnClickListener(this);
         SpinnerDropDownAdapter mSpinnerDropDownAdapter = new SpinnerDropDownAdapter(getActivity(),getResources().getStringArray(R.array.payment_type));
         mSpinnerDropDownAdapter.setColor(true);
         mSpinnerDropDownAdapter.setColorBG(R.color.colorAccent,"grey");
@@ -243,24 +260,62 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.llAccept:
-                dialogOTC.dismiss();
-                listOrderCenters.clear();
-                callServiceRetailOrderCenter(fromDate,toDate,paymentMode,searchParam);
+                if(!fromDate.equalsIgnoreCase("")){
+                    Util.showToast("Please select Date to also ");
+                }else if(!toDate.equalsIgnoreCase("")){
+                    Util.showToast("Please select Date from also");
+                }else {
 
+                    dialogOTC.dismiss();
+                    listOrderCenters.clear();
+                    callServiceRetailOrderCenter(fromDate,toDate,paymentMode,searchParam);
+                }
+
+                if(fromDate.equalsIgnoreCase("")){
+                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                }else if(toDate.equalsIgnoreCase("")){
+                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                }
                 break;
             case R.id.llCancel:
                 fromDate="";
                 toDate="";
                 paymentMode="";
+                tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                tvDateTo.setText(getResources().getString(R.string.order_date_to));
                 dialogOTC.dismiss();
                 listOrderCenters.clear();
                 callServiceRetailOrderCenter(fromDate,toDate,paymentMode,searchParam);
+                if(fromDate.equalsIgnoreCase("")){
+                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                }else if(toDate.equalsIgnoreCase("")){
+                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                }
                 break;
             case R.id.llDateFrom:
                 dateDialogfrom();
+//                tvDateFrom.setText(Util.getFormattedDates(fromDate,Constants.format6,Constants.format2));
+                if(fromDate.equalsIgnoreCase("")){
+                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                }else if(toDate.equalsIgnoreCase("")){
+                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                }
                 break;
             case R.id.llDateTo:
                 dateDialogTo();
+                if(fromDate.equalsIgnoreCase("")){
+                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                }else if(toDate.equalsIgnoreCase("")){
+                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                }
+                break;
+            case R.id.imageViewCancel:
+                dialogOTC.dismiss();
+                if(fromDate.equalsIgnoreCase("")){
+                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                }else if(toDate.equalsIgnoreCase("")){
+                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                }
                 break;
         }
     }
@@ -282,14 +337,19 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
                             String erg = year+"";
                             erg += "-" + String.valueOf(monthOfYear + 1);
                             erg += "-" + String.valueOf(dayOfMonth);
+                            Calendar c1 = Calendar.getInstance();
 
-                            lfromDateInMillis =c.getTimeInMillis();
+                             c1.set(year,monthOfYear,dayOfMonth);
+//                            int m = c1.get(monthOfYear);
+//                            int d = c1.get(dayOfMonth);
+                            lfromDateInMillis =c1.getTimeInMillis();
                             fromDate=erg;
 //                            jsonObjectSubmitJson.put("deliveryBy",erg);
+                            tvDateFrom.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-//                        deliverDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
+
 
                     }
 
@@ -297,7 +357,7 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
         dp.setTitle("Date From");
         dp.show();
 
-        dp.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
+        dp.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
 
 
     }
@@ -324,6 +384,7 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
 //                            lfromDateInMillis =c.getTimeInMillis();
                             toDate=erg;
 //                            jsonObjectSubmitJson.put("deliveryBy",erg);
+                            tvDateTo.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -335,8 +396,8 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
         dp.setTitle("Date To");
         dp.show();
 
-        if(lfromDateInMillis>0)
-            dp.getDatePicker().setMinDate(lfromDateInMillis-1000);
+//        if(lfromDateInMillis>0)
+//            dp.getDatePicker().setMinDate(lfromDateInMillis-1000);
         dp.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
 
     }
@@ -419,6 +480,8 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         hideProgressDialog();
+        swipeToRefresh.invalidate();
+        swipeToRefresh.setRefreshing(false);
         if(httpStatusCode == Constants.SUCCESS){
             if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_CENTER)) {
                 if (resultObj != null) {

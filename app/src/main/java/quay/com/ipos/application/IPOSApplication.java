@@ -34,7 +34,7 @@ public class IPOSApplication extends MultiDexApplication {
     public static boolean isRefreshed=false;
     public static boolean isClicked=false;
     public static int totalAmount = 0;
-    public static double totalpointsToRedeem = 0;
+    public static int totalpointsToRedeem = 0;
     public static double totalpointsToRedeemValue = 0;
     public static String mCustomerEmail="";
     public static String mCustomerID="";

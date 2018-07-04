@@ -139,6 +139,17 @@ public class ProductSearchResult {
         @SerializedName("pointsPer")
         @Expose
         private Integer pointsPer;
+        @SerializedName("mUOM")
+        @Expose
+        private Integer mUOM;
+
+        public Integer getmUOM() {
+            return mUOM;
+        }
+
+        public void setmUOM(Integer mUOM) {
+            this.mUOM = mUOM;
+        }
 
         private String PriceSelected;
         private boolean isAdded = false;

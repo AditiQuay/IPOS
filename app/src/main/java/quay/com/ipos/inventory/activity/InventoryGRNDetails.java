@@ -23,12 +23,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,8 +85,13 @@ import quay.com.ipos.realmbean.RealmGRNDetails;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.ui.CustomTextView;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
+
+import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_INDIA;
+import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_SIMPLE;
 
 /**
  * Created by niraj.kumar on 6/14/2018.
@@ -133,7 +141,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     private String transporterEWayBillValidityDate;
     private TextView textTotalIncoTerms;
     private ImageView ivItemAdd;
-    private Calendar calendar;
+    private Calendar calendar, eWayBillValidityCalender;
     private View ivAttAdd;
     String getGrnNumber;
     String cardClick;
@@ -146,6 +154,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     private SharedPreferences SharedPreferences;
     private String supplierName;
     private CustomTextView toolbarTtile;
+    private Spinner spnOptions;
+    private TextView tvQty;
+    final ArrayList<String> strings1 = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -157,6 +168,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         Intent i = getIntent();
 
         calendar = Calendar.getInstance();
+        eWayBillValidityCalender = Calendar.getInstance();
+
         poNumber = i.getStringExtra("poNumber");
         getGrnNumber = i.getStringExtra("grnNumber");
         cardClick = i.getStringExtra("cardClick");
@@ -166,6 +179,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+        setIncotermsData();
 
 
     }
@@ -216,6 +230,13 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         lTransporter = findViewById(R.id.lTransporter);
         lItemsDetails = findViewById(R.id.lItemsDetails);
         llIncoTerms = findViewById(R.id.llIncoTerms);
+
+        tvQty = findViewById(R.id.tvQty);
+        tvQty.setVisibility(View.VISIBLE);
+
+        spnOptions = findViewById(R.id.spnOptions);
+        spnOptions.setVisibility(View.VISIBLE);
+
         llTermsC = findViewById(R.id.llTermsC);
 
         btnSave.setOnClickListener(this);
@@ -245,6 +266,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         ivReceivedDateCalender.setOnClickListener(this);
 
         etName.addTextChangedListener(new GenericTextWatcher(etName));
+        et_received_date.addTextChangedListener(new GenericTextWatcher(et_received_date));
         etLrn.addTextChangedListener(new GenericTextWatcher(etLrn));
         etEwayBill.addTextChangedListener(new GenericTextWatcher(etEwayBill));
         etDriverName.addTextChangedListener(new GenericTextWatcher(etDriverName));
@@ -252,6 +274,60 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         etEWayBillValidity.addTextChangedListener(new GenericTextWatcher(etEWayBillValidity));
         driverMobileNumber.addTextChangedListener(new GenericTextWatcher(driverMobileNumber));
         etAddress.addTextChangedListener(new GenericTextWatcher(etAddress));
+    }
+
+    private void setIncotermsData() {
+        final ArrayList<String> strings = new ArrayList<>();
+//        list.add("One Time with Recurring");
+        strings.add("Options");
+        strings.add("Loading");
+        strings.add("Shipping");
+        strings.add("Unload");
+        strings.add("Toll");
+        strings.add("E-Way Bill");
+        //   list.add("On Invoice Based");
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, strings);
+        spnOptions.setAdapter(stringArrayAdapter);
+
+
+        spnOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i != 0) {
+                    int count = 0;
+                    for (int k = 0; k < strings1.size(); k++) {
+                        if (strings1.get(k).equalsIgnoreCase(strings.get(i)))
+                            count = count + 1;
+                    }
+                    if (!strings1.contains(strings.get(i))) {
+                        GrnInccoTermsModel grnInccoTermsModel = new GrnInccoTermsModel();
+                        grnInccoTermsModel.grnIncoDetail = strings.get(i);
+                        grnInccoTermsModel.grnPayAmount = 0;
+                        grnInccoTermsModel.grnPayByReceiver = true;
+                        grnInccoTermsModel.grnPayBySender = false;
+                        strings1.add(strings.get(i));
+                        grnInccoTermsModels.add(grnInccoTermsModel);
+                    } else {
+                        GrnInccoTermsModel grnInccoTermsModel = new GrnInccoTermsModel();
+                        grnInccoTermsModel.grnIncoDetail = strings.get(i) + " " + (count);
+                        grnInccoTermsModel.grnPayAmount = 0;
+                        grnInccoTermsModel.grnPayByReceiver = true;
+                        grnInccoTermsModel.grnPayBySender = false;
+                        strings1.add(strings.get(i));
+                        grnInccoTermsModels.add(grnInccoTermsModel);
+                    }
+                    setIncoTerms();
+                }
+                spnOptions.setSelection(0);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override
@@ -266,7 +342,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     public void applyInitValues() {
         setSupportActionBar(toolbar);
+        String supplierName = SharedPrefUtil.getString("supplierName", "", mContext);
         toolbarTtile.setText(poNumber + ", " + supplierName);
+
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,10 +363,15 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        tvQty.setVisibility(View.VISIBLE);
 
+        spnOptions = findViewById(R.id.spnOptions);
         if (TextUtils.isEmpty(cardClick)) {
+            tvQty.setVisibility(View.GONE);
+            spnOptions.setVisibility(View.VISIBLE);
 
             addGRNDetails();
+
         } else {
 
             etName.setEnabled(false);
@@ -303,7 +386,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             ivItemAdd.setVisibility(View.GONE);
             ivAttAdd.setVisibility(View.GONE);
 
+            tvQty.setVisibility(View.VISIBLE);
+            spnOptions.setVisibility(View.GONE);
+
             cardGrnDetail();
+
         }
 
         //Getting GRN details from server
@@ -331,14 +418,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
                 break;
             case R.id.imValidtyCalender:
-
                 isEWayBillClicked = true;
-                dateDialogBillValidity();
+                seteWayBillValidityCalenderAddDate();
                 break;
-
             case R.id.ivReceivedDateCalender:
                 clicked = true;
-                dateDialogReceivedDate();
+                clickAddDate();
 
                 break;
             case R.id.ivItemAdd:
@@ -393,40 +478,15 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 break;
             case R.id.et_received_date:
                 clicked = true;
-                dateDialogReceivedDate();
+                clickAddDate();
 
-//                Calendar maxDate = Calendar.getInstance();
-//                maxDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-//
-//                datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
-//                datePickerDialog.setThemeDark(false);
-//                datePickerDialog.showYearPickerFirst(true);
-//                datePickerDialog.setMinDate(maxDate);
-////                datePickerDialog.setMaxDate(maxDate);
-//                datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
-//                datePickerDialog.setTitle("Select Date");
-//                datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
-//                datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
 
                 break;
 
             case R.id.etEWayBillValidity:
                 isEWayBillClicked = true;
+                seteWayBillValidityCalenderAddDate();
 
-
-//                Calendar maDate = Calendar.getInstance();
-//                maDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-//
-//                datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
-//                datePickerDialog.setThemeDark(false);
-//                datePickerDialog.showYearPickerFirst(true);
-//                datePickerDialog.setMinDate(maDate);
-////                datePickerDialog.setMaxDate(maDate);
-//                datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
-//                datePickerDialog.setTitle("Select Date");
-//                datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
-//                datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
-                dateDialogBillValidity();
 
                 break;
             case R.id.rItemsDetails:
@@ -506,94 +566,36 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
     }
 
-    public void dateDialogReceivedDate() {
-        final Calendar c = Calendar.getInstance();
-
-        int y = c.get(Calendar.YEAR);
-        int m = c.get(Calendar.MONTH);
-        int d = c.get(Calendar.DAY_OF_MONTH);
-
-        android.app.DatePickerDialog dp = new android.app.DatePickerDialog(mContext,
-                new android.app.DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-
-                        String erg = year + "";
-                        erg += "-" + String.valueOf(monthOfYear + 1);
-                        erg += "-" + String.valueOf(dayOfMonth);
-
-                        try {
-                            if (clicked) {
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.set(Calendar.YEAR, year);
-                                calendar.set(Calendar.MONTH, monthOfYear);
-                                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                Date date = calendar.getTime();
-
-                                String date1 = Util.getFormattedDates(date);
-                                Log.e(TAG, "date1" + date1);
-
-                                et_received_date.setText(erg);
-                                clicked = false;
-
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }, y, m, d);
-        dp.setTitle("Calender");
-        dp.show();
-        dp.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-
-
+    public void clickAddDate() {
+        if (clicked) {
+            android.app.DatePickerDialog datePicker = new android.app.DatePickerDialog(mContext, new android.app.DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    calendar.set(Calendar.YEAR, year);
+                    calendar.set(Calendar.MONTH, month);
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    et_received_date.setText(DateAndTimeUtil.toCustomStringDateAndTime(calendar, DATE_AND_TIME_FORMAT_INDIA));
+                }
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            datePicker.show();
+            clicked = false;
+        }
     }
 
-    public void dateDialogBillValidity() {
-        final Calendar c = Calendar.getInstance();
-
-        int y = c.get(Calendar.YEAR);
-        int m = c.get(Calendar.MONTH);
-        int d = c.get(Calendar.DAY_OF_MONTH);
-
-        android.app.DatePickerDialog dp = new android.app.DatePickerDialog(mContext,
-                new android.app.DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year,
-                                          int monthOfYear, int dayOfMonth) {
-
-                        String erg = year + "";
-                        erg += "-" + String.valueOf(monthOfYear + 1);
-                        erg += "-" + String.valueOf(dayOfMonth);
-
-                        try {
-                            if (clicked) {
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.set(Calendar.YEAR, year);
-                                calendar.set(Calendar.MONTH, monthOfYear);
-                                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                                Date date = calendar.getTime();
-
-                                String date1 = Util.getFormattedDates(date);
-                                Log.e(TAG, "date1" + date1);
-
-                                etEWayBillValidity.setText(erg);
-                                clicked = false;
-
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }, y, m, d);
-        dp.setTitle("Calender");
-        dp.show();
-        dp.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-
-
+    public void seteWayBillValidityCalenderAddDate() {
+        if (isEWayBillClicked) {
+            android.app.DatePickerDialog datePicker = new android.app.DatePickerDialog(mContext, new android.app.DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    eWayBillValidityCalender.set(Calendar.YEAR, year);
+                    eWayBillValidityCalender.set(Calendar.MONTH, month);
+                    eWayBillValidityCalender.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    etEWayBillValidity.setText(DateAndTimeUtil.toCustomStringDateAndTime(eWayBillValidityCalender, DATE_AND_TIME_FORMAT_INDIA));
+                }
+            }, eWayBillValidityCalender.get(Calendar.YEAR), eWayBillValidityCalender.get(Calendar.MONTH), eWayBillValidityCalender.get(Calendar.DAY_OF_MONTH));
+            datePicker.show();
+            isEWayBillClicked = false;
+        }
     }
 
     private void checkValidation() {
@@ -616,7 +618,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
         if (TextUtils.isEmpty(receivedDate)) {
             isFail = true;
-            etName.setError("PLease enter received date");
+            et_received_date.setError("PLease enter received date");
         }
         if (TextUtils.isEmpty(LRNumber)) {
             isFail = true;
@@ -665,7 +667,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
 
         } else {
-            Toast.makeText(mContext, "Please enter all required fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Please fill all required (*) fields", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -697,8 +699,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 et_received_date.setText(realmGRNDetails.getReceivedDate());
                 et_totalItems.setText(totalItem + "");
                 et_value.setText(realmGRNDetails.getValue() + "");
-                poQty.setText(poQt + "");
-                openQty.setText(openQt + "");
+                poQty.setText(openQt + "");
+                openQty.setText(poQt + "");
                 balanceQty.setText(balanceQt + "");
                 transporterEWayBillValidityDate = realmGRNDetails.getTransporterEWayBillValidityDate();
 
@@ -807,6 +809,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     grnInccoTermsModel.grnPayByReceiver = jsonObject1.optBoolean("grnPayByReceiver");
                     grnInccoTermsModel.grnPayAmount = jsonObject1.optDouble("grnPayAmount");
                     grnInccoTermsModels.add(grnInccoTermsModel);
+                    strings1.add(jsonObject1.optString("grnIncoDetail"));
                 }
 
 //                POIncoTerms poIncoTerms2 = new POIncoTerms();
@@ -889,8 +892,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 et_received_date.setText(realmGRNDetails.getReceivedDate());
                 et_totalItems.setText(totalItem + "");
                 et_value.setText(realmGRNDetails.getValue() + "");
-                poQty.setText(poQt + "");
-                openQty.setText(openQt + "");
+                poQty.setText(openQt + "");
+                openQty.setText(poQt + "");
                 balanceQty.setText(balanceQt + "");
                 transporterEWayBillValidityDate = realmGRNDetails.getTransporterEWayBillValidityDate();
 
@@ -976,11 +979,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     public void addGRNDetails() {
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.setCancelable(false);
         JSONObject jsonObject1 = new JSONObject();
 
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("businessPlaceId", "1");
+            jsonObject1.put("businessPlaceId", Prefs.getIntegerPrefs("WorklocationID"));
             jsonObject1.put("poNumber", poNumber);
             jsonObject1.put("isGRN", false);
             jsonObject1.put("isGRNOrQC", "NA");
@@ -1097,7 +1101,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("businessPlaceId", "1");
+            jsonObject1.put("businessPlaceId", Prefs.getIntegerPrefs("WorklocationID"));
             jsonObject1.put("po", poNumber);
             jsonObject1.put("poNumber", getGrnNumber);
             jsonObject1.put("isGRN", true);
@@ -1464,11 +1468,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 jsonObject.put("balanceQty", balanceQt);
             }
 
+            jsonObject.put("receivedDate", DateAndTimeUtil.toCustomStringDateAndTime(calendar, DATE_AND_TIME_FORMAT_SIMPLE));
             jsonObject.put("transporterName", etName.getText().toString());
             jsonObject.put("transporterLRName", etLrn.getText().toString());
             jsonObject.put("transporterTruckNumber", etTruckNumber.getText().toString());
             jsonObject.put("transporterEWayBillNumber", etEwayBill.getText().toString());
-            jsonObject.put("transporterEWayBillValidityDate", etEWayBillValidity.getText().toString());
+            jsonObject.put("transporterEWayBillValidityDate", DateAndTimeUtil.toCustomStringDateAndTime(eWayBillValidityCalender, DATE_AND_TIME_FORMAT_SIMPLE));
             jsonObject.put("transporterDriverName", etDriverName.getText().toString());
             jsonObject.put("transporterDriverMobileNumber", driverMobileNumber.getText().toString());
             jsonObject.put("transporterAddress", etAddress.getText().toString());
@@ -1488,6 +1493,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
 //        Realm realm = Realm.getDefaultInstance();
@@ -1536,8 +1542,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                                 i.putExtra("newGRNCreated", "GrnCreated");
                                 i.putExtra("poNumber", poNumber);
                                 i.putExtra("isGrn", "0");
-                                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
+                                finish();
 
                             }
                         });
@@ -1766,9 +1773,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     //Product edit text value changed
     @Override
     public void onUpdateData(final int position, final int inQty, final int appQty, final int balanceQty) {
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                int inQts = inQty;
+                int appQts = appQty;
                 Log.e(TAG, "position***" + position);
                 Log.e(TAG, "inQty***" + inQty);
                 Log.e(TAG, "appQty***" + appQty);
@@ -1795,19 +1805,23 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         jsonObject2.put("inQty", inQty);
                         jsonObject2.put("apQty", appQty);
                         jsonObject2.put("balanceQty", balanceQty);
-
                         poItemDetailsArray.put(position, jsonObject2);
 
-                        int quanOpenTotal = 0, quanBalanceTotal = 0, quanInQuant = 0, quanApp = 0;
+                        int quanOpenTotal = 0, quanBalanceTotal = 0, quanIn = 0, quanApp = 0, quanPo = 0;
                         for (int k = 0; k < poItemDetailsArray.length(); k++) {
+
                             JSONObject jsonObject1 = poItemDetailsArray.optJSONObject(k);
+                            quanPo += jsonObject1.optInt("poQty");
                             quanOpenTotal += jsonObject1.optInt("openQty");
                             quanBalanceTotal += jsonObject1.optInt("balanceQty");
-                            quanInQuant += inQty;
-                            quanApp += appQty;
+
+                            quanIn += inQts;
+                            quanApp += appQts;
+                            inQts = 0;
+                            appQts = 0;
                         }
 
-//                jsonObject.put("openQty", poQuantity - (quanInQuant + quanApp));
+                        jsonObject.put("poQty", quanPo + (quanIn + quanApp));
                         jsonObject.put("balanceQty", quanBalanceTotal);
                         jsonObject.put("poItemDetails", poItemDetailsArray);
                         jsonObject.put("poAttachments", arrayPoAttachment);
@@ -1983,6 +1997,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 case R.id.etName:
                     etName.setError(null);
                     Editor.putString("Name", etName.getText().toString());
+                    Editor.commit();
+                    break;
+                case R.id.et_received_date:
+                    et_received_date.setError(null);
+                    Editor.putString("ReceivedDate", et_received_date.getText().toString());
                     Editor.commit();
                     break;
                 case R.id.etLrn:

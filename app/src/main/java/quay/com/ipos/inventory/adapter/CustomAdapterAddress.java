@@ -48,7 +48,7 @@ public class CustomAdapterAddress extends ArrayAdapter<CommonModal> {
 
             holder = new viewHolder();
             flater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowview = flater.inflate(R.layout.spinner_item_pss, null, false);
+            rowview = flater.inflate(R.layout.spinner_item_pss_ipos, null, false);
 
             holder.txtTitle = (TextView) rowview.findViewById(R.id.text1);
 

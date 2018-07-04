@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseActivity;
+import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.PrintViewResult;
 import quay.com.ipos.modal.RetailOrderCenterListResult;
@@ -57,30 +58,33 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
     LoginResult loginResult;
     String mobile="";
     String name="";
+    DatabaseHandler db;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_print_view);
         initializeComponent();
-        try {
-            if (getIntent() != null) {
+//        try {
+        db = new DatabaseHandler(this);
+        if (getIntent() != null) {
 
-                jsonFrom = getIntent().getStringExtra(Constants.RECEIPT_FROM);
-                if (jsonFrom.equalsIgnoreCase(Constants.paymentMode)) {
-                    json = getIntent().getStringExtra(Constants.RECEIPT);
-                    if (!json.equalsIgnoreCase("")) {
-                        AppLog.e(PrintReceiptActivity.class.getSimpleName(),"PrintViewResult : "+json);
-                        mPrintViewResult = Util.getCustomGson().fromJson(json, PrintViewResult.class);
-                        setValues();
-                    }
-                }else if(jsonFrom.equalsIgnoreCase(Constants.OrderCenterMode)){
-                    orderID = getIntent().getStringExtra(Constants.KEY_ORDER_ID);
-                    callServiceRetailOrderCenter(fromDate,toDate,paymentMode,orderID);
+            jsonFrom = getIntent().getStringExtra(Constants.RECEIPT_FROM);
+            if (jsonFrom.equalsIgnoreCase(Constants.paymentMode)) {
+                json = getIntent().getStringExtra(Constants.RECEIPT);
+                if (!json.equalsIgnoreCase("")) {
+                    AppLog.e(PrintReceiptActivity.class.getSimpleName(),"PrintViewResult : "+json);
+                    mPrintViewResult = Util.getCustomGson().fromJson(json, PrintViewResult.class);
+                    setValues();
                 }
+            }else if(jsonFrom.equalsIgnoreCase(Constants.OrderCenterMode)){
+                orderID = getIntent().getStringExtra(Constants.KEY_ORDER_ID);
+                callServiceRetailOrderCenter(fromDate,toDate,paymentMode,orderID);
             }
-        }catch (Exception e){
-            AppLog.e(PrintReceiptActivity.class.getSimpleName(),e.getMessage());
         }
+//        }catch (Exception e){
+//            AppLog.e(PrintReceiptActivity.class.getSimpleName(),e.getMessage());
+//        }
 
     }
 
@@ -111,47 +115,54 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
         try {
 
 
-            itemDetails.addAll(mPrintViewResult.getItemDetails());
-            mItemDetailAdapter.notifyDataSetChanged();
-            paymentsDetails.addAll(mPrintViewResult.getPaymentsDetails());
-            paymentAdapter.notifyDataSetChanged();
-            gstSummaries.addAll(mPrintViewResult.getGstSummary());
-            mGSTSummaryAdapter.notifyDataSetChanged();
-            tvStoreName.setText(mPrintViewResult.getLocationName()+"");
-            tvStoreAddress.setText(mPrintViewResult.getBusinessPlaceName()+"");
-            tvStorePhone.setText("Phone: "+mPrintViewResult.getLocationPhone1()+"");
-            tvStoreEmail.setText("Email: "+mPrintViewResult.getLocationEmail1()+"");
-            tvStoreGSTIN.setText("GSTIN: "+mPrintViewResult.getGstin()+"");
-            tvStoreCIN.setText("CIN: "+mPrintViewResult.getCin()+"");
-            tvBillNumber.setText(mPrintViewResult.getOrderNo()+"");
-            tvDateTime.setText(mPrintViewResult.getOrderDate()+"");
+        itemDetails.addAll(mPrintViewResult.getItemDetails());
+        mItemDetailAdapter.notifyDataSetChanged();
+        paymentsDetails.addAll(mPrintViewResult.getPaymentsDetails());
+        paymentAdapter.notifyDataSetChanged();
+        gstSummaries.addAll(mPrintViewResult.getGstSummary());
+        db.deleteTable(DatabaseHandler.TABLE_RETAIL_GST);
+        for(int i = 0 ; i < gstSummaries.size() ; i++){
+            db.addGST(gstSummaries.get(i));
+        }
+        db.getGST();
+        gstSummaries.clear();
+        gstSummaries.addAll( db.getGSTGROUPBY());
+        mGSTSummaryAdapter.notifyDataSetChanged();
+        tvStoreName.setText(mPrintViewResult.getLocationName()+"");
+        tvStoreAddress.setText(mPrintViewResult.getBusinessPlaceName()+"");
+        tvStorePhone.setText("Phone: "+mPrintViewResult.getLocationPhone1()+"");
+        tvStoreEmail.setText("Email: "+mPrintViewResult.getLocationEmail1()+"");
+        tvStoreGSTIN.setText("GSTIN: "+mPrintViewResult.getGstin()+"");
+        tvStoreCIN.setText("CIN: "+mPrintViewResult.getCin()+"");
+        tvBillNumber.setText(mPrintViewResult.getOrderNo()+"");
+        tvDateTime.setText(mPrintViewResult.getOrderDate()+"");
 //            if(mPrintViewResult.getCustomerName()!=null && mPrintViewResult.getCustomerName().equalsIgnoreCase(""))
 //                tvCustomerDetails.setText(mPrintViewResult.getMobile()+" - "+mPrintViewResult.getCustomerName());
 //            else {
 //                tvCustomerDetails.setText("NA");
 //            }
 
-            if(mPrintViewResult.getMobile().equalsIgnoreCase("") || mPrintViewResult.getMobile().equalsIgnoreCase("NA")){
-                mobile = "9999 9999";
-            }else
-                mobile= mPrintViewResult.getMobile();
+        if(mPrintViewResult.getMobile().equalsIgnoreCase("") || mPrintViewResult.getMobile().equalsIgnoreCase("NA")){
+            mobile = "9999 9999";
+        }else
+            mobile= mPrintViewResult.getMobile();
 
-            if(mPrintViewResult.getCustomerName().equalsIgnoreCase("") || mPrintViewResult.getCustomerName().equalsIgnoreCase("NA")){
-                name = "Default Customer";
-            }else
-                name= mPrintViewResult.getCustomerName();
+        if(mPrintViewResult.getCustomerName().equalsIgnoreCase("") || mPrintViewResult.getCustomerName().equalsIgnoreCase("NA") || mPrintViewResult.getCustomerName().equalsIgnoreCase("NA NA")){
+            name = "Default Customer";
+        }else
+            name= mPrintViewResult.getCustomerName();
 
-            tvCustomerDetails.setText(mobile+" - "+name);
-            tvItemSize.setText(itemDetails.size()+" items");
-            tvTotalQty.setText("Qty "+ mPrintViewResult.getTotalQty());
-            tvTotalAmount.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalAmount()));
-            tvTotalDiscountPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalDiscountAmount()));
-            tvNetTotal.setText(Util.getIndianNumberFormat(mPrintViewResult.getNetTotalAmount()));
-            tvCGSTPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalCgst()));
-            tvSGSTPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalSgst()));
-            tvRoundingOffPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getRoundingOff()));
-            tvSaleValue.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalSaleAmount()));
-            tvTotalGSTValue.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalIgst()));
+        tvCustomerDetails.setText(mobile+" - "+name);
+        tvItemSize.setText(itemDetails.size()+" items");
+        tvTotalQty.setText("Qty "+ mPrintViewResult.getTotalQty());
+        tvTotalAmount.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalAmount()));
+        tvTotalDiscountPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalDiscountAmount()));
+        tvNetTotal.setText(Util.getIndianNumberFormat(mPrintViewResult.getNetTotalAmount()));
+        tvCGSTPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalCgst()));
+        tvSGSTPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalSgst()));
+        tvRoundingOffPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getRoundingOff()));
+        tvSaleValue.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalSaleAmount()));
+        tvTotalGSTValue.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalIgst()));
 //        if(mPrintViewResult.get)
         }catch (Exception e){
 
@@ -231,12 +242,16 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
     private void setAdapterItemDetails() {
         try {
 
-            mItemDetailAdapter = new ItemDetailAdapter(this, itemDetails);
-            rvItemDetails.setAdapter(mItemDetailAdapter);
-            mGSTSummaryAdapter = new GSTSummaryAdapter(this,gstSummaries);
-            rvGST.setAdapter(mGSTSummaryAdapter);
-            paymentAdapter = new PaymentAdapter(this,paymentsDetails);
-            rvPayment.setAdapter(paymentAdapter);
+        mItemDetailAdapter = new ItemDetailAdapter(this, itemDetails);
+        rvItemDetails.setAdapter(mItemDetailAdapter);
+
+
+
+        mGSTSummaryAdapter = new GSTSummaryAdapter(this,gstSummaries);
+        rvGST.setAdapter(mGSTSummaryAdapter);
+
+        paymentAdapter = new PaymentAdapter(this,paymentsDetails);
+        rvPayment.setAdapter(paymentAdapter);
         }catch (Exception e){
 
         }
@@ -246,15 +261,19 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         dismissProgress();
         if(httpStatusCode == Constants.SUCCESS){
-            if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_CENTER_PRINT)) {
-                if (resultObj != null) {
-                    mPrintViewResult = (PrintViewResult) resultObj;
-                    if(mPrintViewResult != null){
-                        setValues();
-                        setAdapterItemDetails();
-                    }
+            try {
+                if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_CENTER_PRINT)) {
+                    if (resultObj != null) {
+                        mPrintViewResult = (PrintViewResult) resultObj;
+                        if (mPrintViewResult != null) {
+                            setValues();
+                            setAdapterItemDetails();
+                        }
 
+                    }
                 }
+            }catch (Exception e){
+
             }
         }else if (httpStatusCode == Constants.BAD_REQUEST) {
             Toast.makeText(this, this.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();

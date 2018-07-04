@@ -143,7 +143,7 @@ public class MainActivity extends BaseActivity
     public static final String DATA_SAVED_BROADCAST = "ipos.datasaved";
     //Broadcast receiver to know the sync status
     private BroadcastReceiver broadcastReceiver;
-//    RelativeLayout rlSetting;
+    //    RelativeLayout rlSetting;
     public static RetailSalesFragment retailSalesFragment1;
 
     private DatabaseHandler dbHelper;
@@ -687,13 +687,13 @@ public class MainActivity extends BaseActivity
                 break;
 
             case "Compliance Tracking":
-               // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
                 Intent intentCompliance = new Intent(mContext, DashboardActivity.class);
                 startActivity(intentCompliance);
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
             case "KYC":
-               // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
                 Intent intentKYC = new Intent(mContext, KYCActivity.class);
                 startActivity(intentKYC);
                 menu1.findItem(R.id.action_filter).setVisible(false);
@@ -1217,6 +1217,8 @@ public class MainActivity extends BaseActivity
 
 
                     DatabaseHandler dbHelper = new DatabaseHandler(mContext);
+                    if(!dbHelper.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL))
+                        dbHelper.deleteTable(DatabaseHandler.TABLE_RETAIL);
                     dbHelper.removeAll();
                     new RealmController().clearRealm();
 

@@ -47,9 +47,9 @@ public class InventoryGrnInccoViewAdapter extends RecyclerView.Adapter<Inventory
 
 
         holder.sender.setChecked(grnInccoTermsModel.grnPayBySender);
-        holder.sender.setEnabled(false);
+        holder.sender.setClickable(false);
         holder.reciver.setChecked(grnInccoTermsModel.grnPayByReceiver);
-        holder.reciver.setEnabled(false);
+        holder.reciver.setClickable(false);
     }
 
     @Override

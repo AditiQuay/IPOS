@@ -34,6 +34,9 @@ public class PrintViewResult {
     @SerializedName("totalQty")
     @Expose
     private String totalQty;
+    @SerializedName("totalItem")
+    @Expose
+    private String totalItem;
     @SerializedName("totalAmount")
     @Expose
     private String totalAmount;
@@ -89,6 +92,14 @@ public class PrintViewResult {
 
     public void setBusinessPlaceName(String businessPlaceName) {
         this.businessPlaceName = businessPlaceName;
+    }
+
+    public String getTotalItem() {
+        return totalItem;
+    }
+
+    public void setTotalItem(String totalItem) {
+        this.totalItem = totalItem;
     }
 
     public String getTotalQty() {

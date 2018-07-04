@@ -2,11 +2,9 @@ package quay.com.ipos.retailsales.fragment;
 
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -95,6 +93,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //    String mCustomerID="",mCustomerEmail="";
     private ArrayList<PaymentRequest.CartDetail> cartDetail = new ArrayList<>();
     private ArrayList<PaymentRequest.Scheme> scheme = new ArrayList<>();
+    private ArrayList<PaymentRequest.Scheme> scheme1 = new ArrayList<>();
     /**
      * The Array searchlist.
      */
@@ -881,7 +880,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 //            double discount1 = 0, totalGst1 = 0.0, cgst1 = 0.0, sgst1 = 0.0;
 
             int discountItem = 0;
-            double totalPoints = 0;
+            int totalPoints = 0;
             int freeItemCount = 0;
             int mSelectedpos = 0;
             double discount_perItemTotal=0.0 ;
@@ -897,7 +896,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 ProductSearchResult.Datum datum = mList.get(i);
                 PaymentRequest.CartDetail cart_detail = new PaymentRequest().new CartDetail();
                 PaymentRequest.Scheme mScheme = new PaymentRequest().new Scheme();
-
+//                scheme.clear();
 //                if(!datum.isFreeItem()) {
                 qty += mList.get(i).getQty();
                 datum.setTotalQty(qty);
@@ -941,24 +940,37 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     for (int j = 0; j < discounts.size(); j++) {
                         if (discounts.get(j).isDiscItemSelected()) {
                             discount = discount + discounts.get(j).getDiscountTotal();
-discount_perItemTotal=discounts.get(j).getDiscountTotal();
-                            perItemDiscount =(discounts.get(j).getDiscountTotal() - datum.getOTCDiscount());
+                            discount_perItemTotal = discounts.get(j).getDiscountTotal();
+                            perItemDiscount = (discounts.get(j).getDiscountTotal() - datum.getOTCDiscount());
                             totalDiscountedPrice = totalDiscountedPrice - perItemDiscount;
+                            if(discount_perItemTotal>0.0){
 
-                            for (int k = 0; k < discounts.get(j).getRule().size(); k++) {
-                                if (discounts.get(j).getRule().get(k).isApplied()) {
-                                    mScheme.setSchemeID(discounts.get(j).getSchemeID());
-                                    mScheme.setDiscountValue(discounts.get(j).getDiscountTotal());
-                                    mScheme.setRuleID(discounts.get(j).getRule().get(k).getRuleID());
-                                    mScheme.setDiscountPerc(discounts.get(j).getRule().get(k).getSDiscountValue());
-                                    scheme.add(mScheme);
+                                if(scheme.size()>0){
+                                    scheme = new ArrayList<>();
+                                }
+                                for (int k = 0; k < discounts.get(j).getRule().size(); k++) {
+
+                                    if (discounts.get(j).getRule().get(k).isApplied()) {
+                                        mScheme = new PaymentRequest().new Scheme();
+                                        mScheme.setSchemeID(discounts.get(j).getSchemeID());
+                                        mScheme.setDiscountValue(discount_perItemTotal);
+                                        mScheme.setRuleID(discounts.get(j).getRule().get(k).getRuleID());
+                                        mScheme.setDiscountPerc(discounts.get(j).getRule().get(k).getSDiscountValue());
+                                        if(mScheme!=null && mScheme.getSchemeID()!=null) {
+                                            scheme.add(mScheme);
+                                            cart_detail.setScheme(scheme);
+                                        }
+
+                                    }
+
                                 }
 
                             }
                         }
                     }
 
-                    cart_detail.setScheme(scheme);
+
+//                    scheme.clear();
                     if (datum.isDiscSelected()) {
 //                        if (!discounts.get(j).isDiscItemSelected())
                         discountItem++;
@@ -978,8 +990,9 @@ discount_perItemTotal=discounts.get(j).getDiscountTotal();
                     }
                     cart_detail.setIsFreeItem(false);
                     cart_detail.setDiscountValue(0.0);
-                    scheme.clear();
-                    cart_detail.setScheme(scheme);
+//                    scheme.clear();
+                    cart_detail.setScheme(scheme1);
+//                    scheme.clear();
                 }
                 if(!datum.isFreeItem()) {
                     double discount_perItemTotal1;
@@ -1055,6 +1068,7 @@ discount_perItemTotal=discounts.get(j).getDiscountTotal();
             double totalDisc = (discount + otcDiscountPerc + IPOSApplication.totalpointsToRedeemValue);
             tvTotalDiscountPrice.setText("-" + Util.getIndianNumberFormat((discount + otcDiscountPerc) + ""));
             tvNetTotal.setText(Util.getIndianNumberFormat((sum - totalDisc) + ""));
+            paymentRequest.setNetTotal((sum - totalDisc));
             tvTotalDiscount.setText(Util.getIndianNumberFormat(totalDisc + ""));
             paymentRequest.setTotalDiscountValue(totalDisc);
 
@@ -1084,7 +1098,7 @@ discount_perItemTotal=discounts.get(j).getDiscountTotal();
             double asb = Math.round(totalAfterGSt);
             double totalRoundOff = asb - totalAfterGSt;
             tvRoundingOffPrice.setText(Util.getIndianNumberFormat(totalRoundOff + ""));
-            paymentRequest.setTotalRoundingOffValue(asb);
+            paymentRequest.setTotalRoundingOffValue(totalRoundOff);
 
 //            totalAfterGSt = totalAfterGSt;
             totalAmount = (int) (totalAfterGSt + totalRoundOff);
@@ -1096,9 +1110,10 @@ discount_perItemTotal=discounts.get(j).getDiscountTotal();
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), "paymentRequest: " + Util.getCustomGson().toJson(paymentRequest));
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), "updated: " + Util.getCustomGson().toJson(IPOSApplication.mProductListResult));
             isClicked = false;
+//            scheme.clear();
         }
     }
-String strDiscountAmt="";
+    String strDiscountAmt="";
     /**
      * On click.
      *

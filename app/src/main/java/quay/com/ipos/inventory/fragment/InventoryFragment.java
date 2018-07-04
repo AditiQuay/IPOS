@@ -56,6 +56,7 @@ import quay.com.ipos.service.APIClient;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 /**
@@ -124,7 +125,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                     i.putExtra("request", prepareJson().toString());
                     i.putExtra("businessPlaceId", businessPlaceCode + "");
                     i.putExtra("poNumber", edtPoNumber.getText().toString().trim());
-                    i.putExtra("supplierName", edtSupplier.getText().toString().trim());
+                    SharedPrefUtil.putString("supplierName",edtSupplier.getText().toString().trim(),mContext);
                     i.putExtra("isGrn", "0");
                     startActivity(i);
                 } else {

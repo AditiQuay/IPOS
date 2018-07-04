@@ -82,7 +82,7 @@ public class ItemDetailAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
             PrintViewResult.ItemDetail str = mDataset.get(position);
             ItemDetailAdapter.UserViewHolder userViewHolder = (ItemDetailAdapter.UserViewHolder) holder;
             userViewHolder.tvQty.setText(str.getQuantity()+"");
-            userViewHolder.tvHSN.setText(str.getHsnCode()+"");
+            userViewHolder.tvHSN.setText("HSN "+str.getHsnCode()+"");
             userViewHolder.tvTotalAmount.setText(Util.getIndianNumberFormat(str.getTotalPrice()+""));
             userViewHolder.tvUnitPrice.setText(Util.getIndianNumberFormat(str.getUnitPrice()+""));
             userViewHolder.tvDiscount.setText(Util.getIndianNumberFormat( str.getDiscountValue()+""));

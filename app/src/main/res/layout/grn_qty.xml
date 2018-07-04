@@ -41,7 +41,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="PO1800001"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -74,7 +73,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="15 May 2018"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -135,7 +133,6 @@
                     android:clickable="true"
                     android:focusable="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="18-May-2018"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -169,7 +166,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="26799"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -223,7 +219,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="13"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -263,7 +258,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="0"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -303,7 +297,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="13"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 

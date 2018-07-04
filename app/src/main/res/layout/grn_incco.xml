@@ -18,18 +18,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_centerInParent="true">
 
+            <Spinner
+                android:id="@+id/spnOptions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:gravity="center"
+                android:fontFamily="@font/titilliumwebregular"
+                android:padding="8dp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tvQty"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="Details" />
+                android:textAllCaps="false"
+                android:text="Details"
+                android:visibility="gone" />
 
             <View
                 android:layout_width="1dp"
@@ -44,6 +56,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
+                android:textAllCaps="false"
                 android:padding="@dimen/dim_8"
                 android:text="SUPPLIER" />
 
@@ -60,6 +73,7 @@
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
                 android:padding="8dp"
+                android:textAllCaps="false"
                 android:text="ME" />
 
             <View
@@ -74,6 +88,7 @@
                 android:layout_weight="1"
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
+                android:textAllCaps="false"
                 android:padding="8dp"
                 android:text="AMOUNT" />
 
