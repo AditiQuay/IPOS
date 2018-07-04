@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\main\assets"/><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\src\debug\assets"/></dataSet></merger>
-=======
-<merger version="3"><dataSet config="main"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\main\assets"/><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="E:\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\core\src\debug\assets"/></dataSet></merger>
->>>>>>> 1078251e43c79a6fd348b7a12e6028a184b7e1fb
