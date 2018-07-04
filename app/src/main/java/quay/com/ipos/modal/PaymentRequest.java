@@ -70,6 +70,9 @@ public class PaymentRequest {
     @SerializedName("totalValueWithoutTax")
     @Expose
     private Double totalValueWithoutTax;
+    @SerializedName("netTotal")
+    @Expose
+    private Double netTotal;
     @SerializedName("totalTaxValue")
     @Expose
     private Double totalTaxValue;
@@ -89,6 +92,13 @@ public class PaymentRequest {
     @Expose
     private Integer entityID;
 
+    public Double getNetTotal() {
+        return netTotal;
+    }
+
+    public void setNetTotal(Double netTotal) {
+        this.netTotal = netTotal;
+    }
 
     public CustomerModel getCustomerJson() {
         return customerJson;
@@ -407,7 +417,7 @@ public class PaymentRequest {
         private String cardTxnId;
         @SerializedName("pointsToRedeem")
         @Expose
-        private Double pointsToRedeem;
+        private Integer pointsToRedeem;
         @SerializedName("pointsValue")
         @Expose
         private Double pointsValue;
@@ -487,11 +497,11 @@ public class PaymentRequest {
             this.cardTxnId = cardTxnId;
         }
 
-        public Double getPointsToRedeem() {
+        public Integer getPointsToRedeem() {
             return pointsToRedeem;
         }
 
-        public void setPointsToRedeem(Double pointsToRedeem) {
+        public void setPointsToRedeem(Integer pointsToRedeem) {
             this.pointsToRedeem = pointsToRedeem;
         }
 

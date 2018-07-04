@@ -90,7 +90,7 @@ public class OutboxAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder
             userViewHolder.tvOrderNumber.setText(str.getOrderID()+"");
             printViewResult = Util.getCustomGson().fromJson(str.getReceipt(),PrintViewResult.class);
 //            mPaymentDetail.addAll(printViewResult.getPaymentsDetails());
-            userViewHolder.tvValue.setText(printViewResult.getTotalSaleAmount()+"");
+            userViewHolder.tvValue.setText(mContext.getResources().getString(R.string.Rs) +" "+ printViewResult.getTotalSaleAmount()+"");
             userViewHolder.tvDateTime.setText(str.getOrderDateTime());
             for(int i =0 ; i < printViewResult.getPaymentsDetails().size(); i++){
                 if(i==0)
