@@ -83,10 +83,10 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!onBind) {
-                    timer[0] = new Timer();
+                  /*  timer[0] = new Timer();
                     timer[0].schedule(new TimerTask() {
                         @Override
-                        public void run() {
+                        public void run() {*/
                     if (Util.validateString(holder.price.getText().toString()) && Util.validateString(holder.tvQty.getText().toString())) {
                         myListener.onRowClickedOnItem(holder.getAdapterPosition(), Integer.parseInt(holder.tvQty.getText().toString()), Double.parseDouble(holder.price.getText().toString()));
                     } else if (Util.validateString(holder.tvQty.getText().toString())) {
@@ -96,8 +96,8 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
                         myListener.onRowClickedOnItem(holder.getAdapterPosition(), 0, Double.parseDouble(holder.price.getText().toString()));
 
                     }
-                        }
-                    }, 600);
+                  /*      }
+                    }, 600);*/
                 }
             }
         });

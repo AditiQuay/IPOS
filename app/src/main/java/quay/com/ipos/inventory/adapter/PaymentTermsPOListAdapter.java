@@ -100,10 +100,10 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!onBind) {
-                    timer[0] = new Timer();
+                 /*   timer[0] = new Timer();
                     timer[0].schedule(new TimerTask() {
                         @Override
-                        public void run() {
+                        public void run() {*/
                             if (Util.validateString(holder.tvGst.getText().toString())) {
                                 if (Util.validateString(holder.percent.getText().toString())) {
                                     myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Integer.parseInt(holder.percent.getText().toString()), holder.tvGst.getText().toString());
@@ -123,8 +123,8 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
                                 //  myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, "");
 
                             }
-                        }
-                        }, 600);
+                    /*    }
+                        }, 600);*/
 
                 }
             }
