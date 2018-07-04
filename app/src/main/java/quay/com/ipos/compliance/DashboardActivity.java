@@ -458,25 +458,18 @@ public class DashboardActivity extends AppCompatActivity
 
                 Log.i(TAG,"compResp.response.businessPlaceList:"+new Gson().toJson(compResp.response.businessPlaceList));
                if (compResp.response.businessPlaceList == null) {
-                   List<BusinessPlaceEntity> placeEntities = new ArrayList<>();
-                   BusinessPlaceEntity placeEntity = new BusinessPlaceEntity() ;
-                   placeEntity.id = 1;
-                   placeEntity.name ="Gurgaon";
-                   placeEntity.address1 = "address1";
-                   placeEntity.address1 = "address1";
-                   placeEntity.city = "city";
-                   placeEntity.state = "state";
-                   placeEntity.roleCode = 1212;
-                   placeEntity.empCode = "1212";
 
-
-                   placeEntities.add(placeEntity);
-                   compResp.response.businessPlaceList = placeEntities;
-                    /* return false;*/
+                    return false;
                 }
                 List<BusinessPlaceEntity> placeEntityList = compResp.response.businessPlaceList;
                 appDatabase.placeDao().savePlace(placeEntityList);
 
+
+                Log.i(TAG,"compResp.response.taskList:"+new Gson().toJson(compResp.response.taskList));
+                if (compResp.response.taskList == null) {
+                    Log.i(TAG, "Task List is null");
+                    return false;
+                }
                 List<Task> taskList = compResp.response.taskList;
                 appDatabase.taskDao().saveAllTask(taskList);
 

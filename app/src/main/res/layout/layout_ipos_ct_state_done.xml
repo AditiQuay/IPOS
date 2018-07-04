@@ -6,6 +6,7 @@
         android:layout_height="90dp">
 
         <View
+            android:id="@+id/viewSelectedDone"
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginLeft="7dp"
@@ -41,7 +42,7 @@
             tools:progress="70" />
 
         <TextView
-            android:id="@+id/mIpos_ct_ProgressBar"
+            android:id="@+id/textProgressDone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -50,6 +51,7 @@
             android:textAppearance="@style/iposfontstyle"
             android:textColor="@color/color_done"
             android:textSize="11sp"
+            android:text="0/0"
             tools:text="10/10" />
 
         <TextView

@@ -174,7 +174,7 @@
                             android:layout_gravity="center_vertical"
                             android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center_vertical"
-                            android:text="Discout"
+                            android:text="Discount"
                             android:textColor="@color/accent_color"
                             android:textSize="@dimen/text_size_15sp" />
 
@@ -369,7 +369,7 @@
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
                 android:orientation="vertical"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -427,6 +427,7 @@
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center"
                             android:text="Immediate"
+                            android:fontFamily="@font/titilliumwebregular"
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
@@ -454,6 +455,7 @@
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center"
                             android:text="Cheque"
+                            android:fontFamily="@font/titilliumwebregular"
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
@@ -468,12 +470,13 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center|center_vertical"
+                        android:background="@drawable/ddr_blue_rect_normal_right"
                         android:orientation="vertical">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/credit" />
+                            android:src="@drawable/credit_blue" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -481,7 +484,8 @@
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center"
                             android:text="Credit"
-                            android:textColor="@color/filter_text_color" />
+                            android:fontFamily="@font/titilliumwebregular"
+                            android:textColor="#fff" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -555,7 +559,8 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center"
-                            android:text="Rs.0"
+                            android:text=""
+                            android:fontFamily="@font/titilliumwebregular"
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
@@ -587,6 +592,7 @@
                             android:layout_marginTop="@dimen/dim_8"
                             android:gravity="center"
                             android:text="Rs.0"
+                            android:fontFamily="@font/titilliumwebregular"
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
@@ -608,6 +614,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
+
                             android:text="Balance"
                             android:textColor="@color/filter_text_color" />
 
@@ -745,7 +752,7 @@
                                 android:imeOptions="actionNext"
                                 android:inputType="textCapCharacters"
                                 android:maxLines="1"
-
+                                android:fontFamily="@font/titilliumwebregular"
                                 android:nextFocusForward="@+id/editTransporter"
                                 android:textSize="@dimen/universal_text_size14"
 
@@ -800,7 +807,7 @@
                         android:textSize="@dimen/universal_text_size14"
                         android:nextFocusForward="@+id/editTruckNumber"
                         android:imeOptions="actionNext"
-
+                        android:fontFamily="@font/titilliumwebregular"
                         />
                     </android.support.design.widget.TextInputLayout>
 
@@ -854,7 +861,7 @@
                                 android:textSize="@dimen/universal_text_size14"
                                 android:nextFocusForward="@+id/editEWayBillNo"
                                 android:imeOptions="actionNext"
-
+                                android:fontFamily="@font/titilliumwebregular"
                                 />
                         </android.support.design.widget.TextInputLayout>
 
@@ -906,7 +913,7 @@
                                 android:textSize="@dimen/universal_text_size14"
                                 android:nextFocusForward="@+id/editEwayBillVal"
                                 android:imeOptions="actionNext"
-
+                                android:fontFamily="@font/titilliumwebregular"
                                 />
                         </android.support.design.widget.TextInputLayout>
 
@@ -968,7 +975,7 @@
                                 android:cursorVisible="false"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-
+                                android:fontFamily="@font/titilliumwebregular"
                                 />
                         </android.support.design.widget.TextInputLayout>
 
@@ -1022,7 +1029,7 @@
                                 android:textSize="@dimen/universal_text_size14"
                                 android:nextFocusForward="@+id/editDriverName"
                                 android:imeOptions="actionNext"
-
+                                android:fontFamily="@font/titilliumwebregular"
 
                                 />
                         </android.support.design.widget.TextInputLayout>
@@ -1079,7 +1086,7 @@
                                 android:textSize="@dimen/universal_text_size14"
                                 android:nextFocusForward="@+id/editDriverMobileNumber"
                                 android:imeOptions="actionNext"
-
+                                android:fontFamily="@font/titilliumwebregular"
                                 />
                         </android.support.design.widget.TextInputLayout>
 
@@ -1131,7 +1138,7 @@
                                 android:textSize="@dimen/universal_text_size14"
                                 android:nextFocusForward="@+id/editAddress"
                                 android:imeOptions="actionNext"
-
+                                android:fontFamily="@font/titilliumwebregular"
                                 />
                         </android.support.design.widget.TextInputLayout>
 
@@ -1183,7 +1190,7 @@
                             android:textSize="@dimen/universal_text_size14"
                             android:nextFocusForward="@+id/tilContactMobileNumName"
                             android:imeOptions="actionNext"
-
+                            android:fontFamily="@font/titilliumwebregular"
                             />
                     </android.support.design.widget.TextInputLayout>
 
@@ -1225,6 +1232,7 @@
                         android:fontFamily="@font/titilliumwebregular"
                         android:gravity="center"
                         android:text="Billing Address"
+
                         android:textColor="@color/colorPrimary" />
 
 
@@ -1357,7 +1365,7 @@
                         android:layout_marginLeft="@dimen/dim_15"
                         android:layout_toRightOf="@+id/imgIncoTerms"
                         android:gravity="center"
-
+                        android:fontFamily="@font/titilliumwebregular"
                         android:text="INCO Terms"
                         android:textColor="@color/colorPrimary" />
 
@@ -1386,9 +1394,10 @@
                             android:fontFamily="@font/titilliumwebregular"
                             android:padding="8dp"
                             android:text=" Master"
+
                             android:textColor="@color/dark_grey_color"
                             android:textSize="13sp"
-                            android:visibility="visible" />
+                            android:visibility="invisible" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -1415,7 +1424,7 @@
                         android:layout_centerInParent="true">
 
 
-                        <TextView
+                      <!--  <TextView
                             android:id="@+id/tvQty"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -1423,7 +1432,22 @@
                             android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
                             android:padding="8dp"
-                            android:text="QTY" />
+                            android:text="Details" />-->
+                        <Spinner
+                            android:id="@+id/textIncoTermsOthers"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.9"
+                            android:fontFamily="@font/titilliumwebregular"
+                            android:gravity="center"
+                            android:padding="3dp"
+                            android:textColor="@color/grey"
+                            android:textSize="12dp"
+                            android:maxLines="1"
+                            android:text="Others"
+                            android:drawableRight="@drawable/arrow_down_small_gray"
+                            android:drawablePadding="2dp"/>
+
 
                         <View
                             android:layout_width="1dp"
@@ -1492,7 +1516,7 @@
 
                     />
 
-                <include layout="@layout/ddr_layout_incoterms_others" />
+               <!-- <include layout="@layout/ddr_layout_incoterms_others" />-->
                 <include layout="@layout/ddr_layout_incoterms_total" />
             </LinearLayout>
             <LinearLayout
@@ -1531,7 +1555,7 @@
                         android:layout_marginLeft="@dimen/dim_15"
                         android:layout_toRightOf="@+id/imgBatch"
                         android:gravity="center"
-
+                        android:fontFamily="@font/titilliumwebregular"
                         android:text="Batch Update"
                         android:textColor="@color/colorPrimary" />
 
@@ -1560,9 +1584,10 @@
                             android:fontFamily="@font/titilliumwebregular"
                             android:padding="8dp"
                             android:text=" Auto"
+
                             android:textColor="@color/dark_grey_color"
                             android:textSize="13sp"
-                            android:visibility="visible" />
+                            android:visibility="invisible" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -1571,7 +1596,7 @@
 
                             android:layout_marginTop="@dimen/dim_2"
                             android:src="@drawable/ic_action_arrow_down"
-                            android:visibility="visible" />
+                            android:visibility="invisible" />
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -1626,6 +1651,7 @@
             android:paddingLeft="@dimen/dim_5"
             android:text="@string/ddr_save_close"
             android:textAllCaps="true"
+            android:visibility="invisible"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_15sp" />
 

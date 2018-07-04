@@ -20,6 +20,8 @@ public class ProgressStateViewModel {
     }
 
 
+
+
     public void setAllTrue() {
         viewDone = true;
         viewPending = true;

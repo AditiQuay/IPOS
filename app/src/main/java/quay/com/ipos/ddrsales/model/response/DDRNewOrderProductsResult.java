@@ -51,7 +51,7 @@ public class DDRNewOrderProductsResult {
         private int mCheckStock;
         private boolean checkStockClick;
         private String productCode;
-        private String iProductModalId;
+        public String iProductModalId;
         private String sProductName;
         private String productImage;
         private int sProductPrice;
@@ -76,6 +76,7 @@ public class DDRNewOrderProductsResult {
         private boolean isStockDisplay;
         private List<DiscountBean> discount;
         private double accumulatedLoyality;
+        public boolean isAdded;//local use
 
 
         public String getProductCode() {

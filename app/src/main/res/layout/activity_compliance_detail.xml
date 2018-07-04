@@ -38,7 +38,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="8dp"
                 android:paddingTop="8dp"
-                android:src="@drawable/close"
+                android:src="@drawable/ic_close_white_24dp"
 
                 />
 
@@ -118,6 +118,7 @@
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
+                            android:id="@+id/txtSubCategory"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:cursorVisible="false"
@@ -139,6 +140,8 @@
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
+                            android:id="@+id/txtTaskName"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:cursorVisible="false"
@@ -160,6 +163,8 @@
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
+                            android:id="@+id/txtTaskDescription"
+
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="false"
@@ -182,6 +187,7 @@
                         app:hintEnabled="true">
 
                         <android.support.design.widget.TextInputEditText
+                            android:id="@+id/txtTaskAssignTo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="false"

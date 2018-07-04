@@ -1,9 +1,14 @@
 package quay.com.ipos.compliance.viewModel;
 
+import android.app.Activity;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-
 
 
 import java.util.Calendar;
@@ -19,7 +24,7 @@ import quay.com.ipos.utility.DateAndTimeUtil;
  * Created by deepak.kumar1 on 29-03-2018.
  */
 
-public class StoreViewModel  {
+public class StoreViewModel extends ViewModel {
     private static final String TAG = StoreViewModel.class.getSimpleName();
     public int progressDone = 0;
     public int progressPending = 0;
@@ -32,12 +37,15 @@ public class StoreViewModel  {
     public String progressUpcomingText = "0";
     public String progressImmText = "0";
 
-    private Context context;
+    public StoreViewModel() {
+    }
 
-    public StoreViewModel(Context context) {
-        this.context = context;
-        progressDone = 20;
+    public static  StoreViewModel getInstance(FragmentActivity fragmentActivity) {
+        return ViewModelProviders.of(fragmentActivity).get(StoreViewModel.class);
+    }
 
+    public  static  StoreViewModel getInstance(Fragment fragment) {
+        return ViewModelProviders.of(fragment).get(StoreViewModel.class);
     }
 
     public void updateUI(List<BusinessPlaceEntity> stores, int position) {
@@ -46,7 +54,7 @@ public class StoreViewModel  {
         int task_done_size = 0;
         int task_pending_size = 0;
         int com_upcoming_size = 0;
-         int com_immediate_size = 0;
+        int com_immediate_size = 0;
 
         String complianceType = "all";
 
@@ -76,10 +84,10 @@ public class StoreViewModel  {
 
                     Calendar dueDate = DateAndTimeUtil.parseDateAndTime(taskData.getDateAndTime());
                     Calendar calendardayAfterTomorrow = Calendar.getInstance();
-                    calendardayAfterTomorrow.add(Calendar.DAY_OF_YEAR,2);
-                    calendardayAfterTomorrow.add(Calendar.HOUR_OF_DAY,0);
-                    calendardayAfterTomorrow.add(Calendar.MINUTE,0);
-                    calendardayAfterTomorrow.add(Calendar.SECOND,0);
+                    calendardayAfterTomorrow.add(Calendar.DAY_OF_YEAR, 2);
+                    calendardayAfterTomorrow.add(Calendar.HOUR_OF_DAY, 0);
+                    calendardayAfterTomorrow.add(Calendar.MINUTE, 0);
+                    calendardayAfterTomorrow.add(Calendar.SECOND, 0);
                     if (dueDate.after(calendardayAfterTomorrow)) {
                         com_upcoming_size++;
                     }
@@ -88,7 +96,7 @@ public class StoreViewModel  {
                     calendarImm.set(Calendar.HOUR_OF_DAY, 0);
                     calendarImm.set(Calendar.MINUTE, 0);
                     calendarImm.set(Calendar.SECOND, 0);
-                        if (dueDate.before(calendarImm) && taskData.progress_state == AnnotationTaskState.PENDING) {
+                    if (dueDate.before(calendarImm) && taskData.progress_state == AnnotationTaskState.PENDING) {
                         com_immediate_size++;
                     }
                 }
@@ -108,7 +116,7 @@ public class StoreViewModel  {
         maxSize = total_task_size;
         progressUpcoming = com_upcoming_size;
         progressImmediate = com_immediate_size;
-    //    notifyChange();
+        //    notifyChange();
 
 
     }
@@ -137,10 +145,9 @@ public class StoreViewModel  {
         }
 
 
-
         for (Task taskData : compliances) {
 
-            if (taskData.task_category==null) {
+            if (taskData.task_category == null) {
                 taskData.task_category = "";
             }
             if (complianceType.contentEquals("all") || taskData.task_category.contentEquals(complianceType)) {
@@ -157,10 +164,10 @@ public class StoreViewModel  {
                 }*/
                 Calendar dueDate = DateAndTimeUtil.parseDateAndTime(taskData.getDateAndTime());
                 Calendar calendardayAfterTomorrow = Calendar.getInstance();
-                calendardayAfterTomorrow.add(Calendar.DAY_OF_YEAR,2);
-                calendardayAfterTomorrow.add(Calendar.HOUR_OF_DAY,0);
-                calendardayAfterTomorrow.add(Calendar.MINUTE,0);
-                calendardayAfterTomorrow.add(Calendar.SECOND,0);
+                calendardayAfterTomorrow.add(Calendar.DAY_OF_YEAR, 2);
+                calendardayAfterTomorrow.add(Calendar.HOUR_OF_DAY, 0);
+                calendardayAfterTomorrow.add(Calendar.MINUTE, 0);
+                calendardayAfterTomorrow.add(Calendar.SECOND, 0);
 
                 if (dueDate.after(calendardayAfterTomorrow)) {
                     com_upcoming_size++;
@@ -181,7 +188,7 @@ public class StoreViewModel  {
         }
 
 
-       // int com_immediate_size = DatabaseHelper.getInstance(context).getImmediateTaskList().size();
+        // int com_immediate_size = DatabaseHelper.getInstance(context).getImmediateTaskList().size();
 
         progressDoneText = task_done_size + "/" + total_task_size + "";
         progressPendingText = task_pending_size + "/" + total_task_size + "";
@@ -194,10 +201,13 @@ public class StoreViewModel  {
         progressUpcoming = com_upcoming_size;
 
         progressImmediate = com_immediate_size;
-       // notifyChange();
+        // notifyChange();
 
 
     }
 
-
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+    }
 }
