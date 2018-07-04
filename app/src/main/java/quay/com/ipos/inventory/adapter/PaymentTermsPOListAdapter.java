@@ -13,6 +13,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.modal.POPaymentTerms;
@@ -46,11 +48,12 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
 
 
         holder.tvQty.setText(stringArrayList.get(position).getPoPaymentTermsDetail());
-        if (stringArrayList.get(position).getPoPaymentTermsPer()==0){
+        if ( stringArrayList.get(position).getPoPaymentTermsPer()==0){
             holder.percent.setText("");
             holder.percent.setHint("0");
         }else {
             holder.percent.setText(stringArrayList.get(position).getPoPaymentTermsPer()+"");
+            holder.percent.setSelection(holder.percent.getText().length());
         }
 
 
@@ -62,10 +65,11 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
             holder.tvGst.setEnabled(true);
         }
 
-        if (stringArrayList.get(position).getPoPaymentTermsInvoiceDue().equalsIgnoreCase("0 Days")){
+        if (stringArrayList.get(position).getPoPaymentTermsInvoiceDue()!=null && stringArrayList.get(position).getPoPaymentTermsInvoiceDue().equalsIgnoreCase("0 Days")){
             holder.tvGst.setText("");
         }else {
             holder.tvGst.setText(stringArrayList.get(position).getPoPaymentTermsInvoiceDue()+" days");
+            holder.tvGst.setSelection(holder.tvGst.getText().length());
         }
 
 
@@ -80,6 +84,8 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
 
         holder.percent.setEnabled(true);
         onBind = false;
+        final Timer[] timer = new Timer[1];
+        final Timer[] timer1 = new Timer[1];
         holder.tvGst.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -94,26 +100,31 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!onBind) {
+                 /*   timer[0] = new Timer();
+                    timer[0].schedule(new TimerTask() {
+                        @Override
+                        public void run() {*/
+                            if (Util.validateString(holder.tvGst.getText().toString())) {
+                                if (Util.validateString(holder.percent.getText().toString())) {
+                                    myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Integer.parseInt(holder.percent.getText().toString()), holder.tvGst.getText().toString());
 
-                        if (Util.validateString(holder.tvGst.getText().toString())) {
-                            if (Util.validateString(holder.percent.getText().toString())){
-                                myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Integer.parseInt(holder.percent.getText().toString()), holder.tvGst.getText().toString());
+                                } else {
+                                    myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
 
-                            }else {
-                                myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, holder.tvGst.getText().toString());
+                                }
+                            } else {
+                                if (Util.validateString(holder.percent.getText().toString())) {
+                                    myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Integer.parseInt(holder.percent.getText().toString()), "");
+
+                                } else {
+                                    myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, "");
+
+                                }
+                                //  myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, "");
 
                             }
-                        } else {
-                            if (Util.validateString(holder.percent.getText().toString())){
-                                myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Integer.parseInt(holder.percent.getText().toString()),"");
-
-                            }else {
-                                myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, "");
-
-                            }
-                          //  myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, "");
-
-                        }
+                    /*    }
+                        }, 600);*/
 
                 }
             }
@@ -132,6 +143,10 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
             @Override
             public void afterTextChanged(Editable editable) {
                 if(!onBind) {
+                 /*  timer1[0] = new Timer();
+                    timer1[0].schedule(new TimerTask() {
+                        @Override
+                        public void run() {*/
                     if (Util.validateString(holder.tvGst.getText().toString())) {
                         if (Util.validateString(holder.percent.getText().toString())){
                             myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), Integer.parseInt(holder.percent.getText().toString()), holder.tvGst.getText().toString());
@@ -151,6 +166,8 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
                         //  myListener.onRowClickedPaymentTerms(holder.getAdapterPosition(), 0, "");
 
                     }
+                /*        }
+                    }, 600);*/
                  /*   double percentage=0;
                     for (int i=0;i<stringArrayList.size();i++){
                         percentage+=stringArrayList.get(holder.getAdapterPosition()).getPoPaymentTermsPer();
@@ -196,6 +213,7 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
 
         private EditText percent,tvGst;
         private RadioButton radio;
+
         public SurveyViewHolder(View itemView) {
             super(itemView);
             tvQty = itemView.findViewById(R.id.tvQty);
