@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,12 +28,15 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
     public Context mContext;
     private List<GRNProductDetailModel> list;
     EdittClickListener edittClickListener;
-
-
-    public InventoryProdcutDetailAdapter(Context mContext, List<GRNProductDetailModel> list, EdittClickListener edittClickListener) {
+    public interface NotifyCount{
+        void notifyQty();
+    }
+    NotifyCount notifyCount;
+    public InventoryProdcutDetailAdapter(Context mContext, List<GRNProductDetailModel> list, EdittClickListener edittClickListener,NotifyCount notifyCount) {
         this.mContext = mContext;
         this.list = list;
         this.edittClickListener = edittClickListener;
+        this.notifyCount = notifyCount;
     }
 
     @NonNull
@@ -50,9 +54,14 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition(), holder);
         holder.qty.setText(grnProductDetailModel.getQty() + "");
         if (grnProductDetailModel.getActionTitle().equalsIgnoreCase("Normal".trim()) || grnProductDetailModel.getActionTitle().equalsIgnoreCase("Defect".trim())) {
+            holder.batchRemark.setVisibility(View.VISIBLE);
             holder.batchRemark.setText(grnProductDetailModel.getActionTitle());
         } else {
+            holder.batchRemark.setVisibility(View.VISIBLE);
             holder.batchRemark.setText(grnProductDetailModel.getActionTitle());
+        }
+        if (TextUtils.isEmpty(grnProductDetailModel.getActionTitle())){
+            holder.batchRemark.setVisibility(View.GONE);
         }
         holder.checkBox1.setChecked(grnProductDetailModel.isSelected());
         //set a tag for position
@@ -123,7 +132,7 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
 
         @Override
         public void afterTextChanged(Editable s) {
-
+            notifyCount.notifyQty();
         }
 
     }

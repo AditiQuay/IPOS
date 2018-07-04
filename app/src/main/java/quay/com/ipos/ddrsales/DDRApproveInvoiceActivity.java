@@ -320,7 +320,7 @@ public class DDRApproveInvoiceActivity extends RunTimePermissionActivity impleme
             Util.showToast("Data is null");
             return;
         }
-        bottomBar.setVisibility(data.isApprover==1 ? View.VISIBLE : View.INVISIBLE);
+      //  bottomBar.setVisibility(data.isApprover==1 ? View.VISIBLE : View.INVISIBLE);
 
         InvoiceData.getInstance().setInitData2(data);
 
@@ -489,15 +489,16 @@ public class DDRApproveInvoiceActivity extends RunTimePermissionActivity impleme
         });
 
 
-        editLRNumber.setText(logisticsData.lrNumber + "");
-        editTransporter.setText(logisticsData.transporter + "");
-        editAddress.setText(logisticsData.address);
-        editEWayBillNo.setText(logisticsData.eWayBillNumber + "");
-        editEwayBillVal.setText(logisticsData.eWayBillValidity + "");
-        editTruckNumber.setText(logisticsData.truckNumber + "");
-        editDriverMobileNumber.setText(logisticsData.driverMobileNumber + "");
-        editDriverName.setText(logisticsData.driverName + "");
-        editTrackMobileNumber.setText(logisticsData.trackMobileNumber + "");
+        editLRNumber.setText(valueOf(logisticsData.lrNumber));
+        editTransporter.setText(valueOf(logisticsData.transporter));
+        editAddress.setText(valueOf(logisticsData.address));
+        editEWayBillNo.setText(valueOf(logisticsData.eWayBillNumber));
+        editEwayBillVal.setText(valueOf(logisticsData.eWayBillValidity));
+        editTruckNumber.setText(valueOf(logisticsData.truckNumber));
+        editDriverMobileNumber.setText(valueOf(logisticsData.driverMobileNumber));
+        editDriverName.setText(valueOf(logisticsData.driverName));
+        editTrackMobileNumber.setText(valueOf(logisticsData.trackMobileNumber));
+
 
 
         editLRNumber.addTextChangedListener(generalTextWatcher);

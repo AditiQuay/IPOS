@@ -22,11 +22,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +43,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -75,9 +83,15 @@ import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.realmbean.RealmGRNDetails;
 import quay.com.ipos.service.APIClient;
+import quay.com.ipos.ui.CustomTextView;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
+
+import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_INDIA;
+import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_SIMPLE;
 
 /**
  * Created by niraj.kumar on 6/14/2018.
@@ -103,6 +117,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     InventoryGrnItemDetailsView inventoryGrnItemDetailsView;
     InventoryGrnInccoViewAdapter inventoryGrnInccoViewAdapter;
+    private ImageView imValidtyCalender, ivReceivedDateCalender;
 
     MilestonePOListAdapter milestonePOListAdapter;
     TermsPOListAdapter termsPOListAdapter;
@@ -117,7 +132,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     ArrayList<POTermsCondition> poTermsConditions = new ArrayList<>();
     private int Year, Month, Day;
     String poNumber, businessPlaceId;
-    private EditText grnNumber, et_received_date, et_totalItems, et_value, poQty, openQty, balanceQty, etName, etLrn, etTruckNumber, etEwayBill, etTrackNumber, etDriverName, driverMobileNumber, etAddress;
+    private EditText grnNumber, et_received_date, et_totalItems, et_value, poQty, openQty, balanceQty, etName, etLrn, etTruckNumber, etEwayBill, etDriverName, driverMobileNumber, etAddress;
     boolean isGrnClick = false;
     boolean isTransporterClick = false;
     boolean isItemDetailsClick = false;
@@ -137,6 +152,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     public static final String Preference = "TransporterData";
     SharedPreferences.Editor Editor;
     private SharedPreferences SharedPreferences;
+    private String supplierName;
+    private CustomTextView toolbarTtile;
+    private Spinner spnOptions;
+    private TextView tvQty;
+    final ArrayList<String> strings1 = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -151,11 +171,13 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         poNumber = i.getStringExtra("poNumber");
         getGrnNumber = i.getStringExtra("grnNumber");
         cardClick = i.getStringExtra("cardClick");
+        supplierName = i.getStringExtra("supplierName");
 
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+        setIncotermsData();
 
 
     }
@@ -172,6 +194,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         rItemsDetails = findViewById(R.id.rItemsDetails);
         rIncco = findViewById(R.id.rIncco);
         rAttachment = findViewById(R.id.rAttachment);
+        imValidtyCalender = findViewById(R.id.imValidtyCalender);
+        ivReceivedDateCalender = findViewById(R.id.ivReceivedDateCalender);
+
 
         grnNumber = findViewById(R.id.grnNumber);
         et_received_date = findViewById(R.id.et_received_date);
@@ -203,19 +228,26 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         lTransporter = findViewById(R.id.lTransporter);
         lItemsDetails = findViewById(R.id.lItemsDetails);
         llIncoTerms = findViewById(R.id.llIncoTerms);
+
+        tvQty = findViewById(R.id.tvQty);
+        tvQty.setVisibility(View.VISIBLE);
+
+        spnOptions = findViewById(R.id.spnOptions);
+        spnOptions.setVisibility(View.VISIBLE);
+
         llTermsC = findViewById(R.id.llTermsC);
 
         btnSave.setOnClickListener(this);
-        btnAction.setOnClickListener(this);
+
 
         etName = findViewById(R.id.etName);
         etLrn = findViewById(R.id.etLrn);
         etTruckNumber = findViewById(R.id.etTruckNumber);
-        etTrackNumber = findViewById(R.id.etTrackNumber);
         etDriverName = findViewById(R.id.etDriverName);
         driverMobileNumber = findViewById(R.id.driverMobileNumber);
         etAddress = findViewById(R.id.etAddress);
         etEwayBill = findViewById(R.id.etEwayBill);
+        toolbarTtile = findViewById(R.id.toolbarTtile);
 
         recycler_viewItemDetail = findViewById(R.id.recycler_viewItemDetails);
         rvIncco = findViewById(R.id.rvIncco);
@@ -228,6 +260,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         etEWayBillValidity.setOnClickListener(this);
         ivItemAdd.setOnClickListener(this);
 
+        imValidtyCalender.setOnClickListener(this);
+        ivReceivedDateCalender.setOnClickListener(this);
 
         etName.addTextChangedListener(new GenericTextWatcher(etName));
         etLrn.addTextChangedListener(new GenericTextWatcher(etLrn));
@@ -236,8 +270,61 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         etTruckNumber.addTextChangedListener(new GenericTextWatcher(etTruckNumber));
         etEWayBillValidity.addTextChangedListener(new GenericTextWatcher(etEWayBillValidity));
         driverMobileNumber.addTextChangedListener(new GenericTextWatcher(driverMobileNumber));
-        etTrackNumber.addTextChangedListener(new GenericTextWatcher(etTrackNumber));
         etAddress.addTextChangedListener(new GenericTextWatcher(etAddress));
+    }
+
+    private void setIncotermsData() {
+        final ArrayList<String> strings = new ArrayList<>();
+//        list.add("One Time with Recurring");
+        strings.add("Options");
+        strings.add("Loading");
+        strings.add("Shipping");
+        strings.add("Unload");
+        strings.add("Toll");
+        strings.add("E-Way Bill");
+        //   list.add("On Invoice Based");
+        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, strings);
+        spnOptions.setAdapter(stringArrayAdapter);
+
+
+        spnOptions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i != 0) {
+                    int count = 0;
+                    for (int k = 0; k < strings1.size(); k++) {
+                        if (strings1.get(k).equalsIgnoreCase(strings.get(i)))
+                            count = count + 1;
+                    }
+                    if (!strings1.contains(strings.get(i))) {
+                        GrnInccoTermsModel grnInccoTermsModel = new GrnInccoTermsModel();
+                        grnInccoTermsModel.grnIncoDetail = strings.get(i);
+                        grnInccoTermsModel.grnPayAmount = 0;
+                        grnInccoTermsModel.grnPayByReceiver = true;
+                        grnInccoTermsModel.grnPayBySender = false;
+                        strings1.add(strings.get(i));
+                        grnInccoTermsModels.add(grnInccoTermsModel);
+                    } else {
+                        GrnInccoTermsModel grnInccoTermsModel = new GrnInccoTermsModel();
+                        grnInccoTermsModel.grnIncoDetail = strings.get(i) + " " + (count);
+                        grnInccoTermsModel.grnPayAmount = 0;
+                        grnInccoTermsModel.grnPayByReceiver = true;
+                        grnInccoTermsModel.grnPayBySender = false;
+                        strings1.add(strings.get(i));
+                        grnInccoTermsModels.add(grnInccoTermsModel);
+                    }
+                    setIncoTerms();
+                }
+                spnOptions.setSelection(0);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override
@@ -252,6 +339,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     public void applyInitValues() {
         setSupportActionBar(toolbar);
+        String supplierName = SharedPrefUtil.getString("supplierName", "", mContext);
+        toolbarTtile.setText(poNumber + ", " + supplierName);
+
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,9 +360,15 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        tvQty.setVisibility(View.VISIBLE);
+
+        spnOptions = findViewById(R.id.spnOptions);
         if (TextUtils.isEmpty(cardClick)) {
+            tvQty.setVisibility(View.GONE);
+            spnOptions.setVisibility(View.VISIBLE);
 
             addGRNDetails();
+
         } else {
 
             etName.setEnabled(false);
@@ -282,13 +378,16 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             etTruckNumber.setEnabled(false);
             etEWayBillValidity.setEnabled(false);
             driverMobileNumber.setEnabled(false);
-            etTrackNumber.setEnabled(false);
             etAddress.setEnabled(false);
             bottom_sheet.setVisibility(View.GONE);
             ivItemAdd.setVisibility(View.GONE);
             ivAttAdd.setVisibility(View.GONE);
 
+            tvQty.setVisibility(View.VISIBLE);
+            spnOptions.setVisibility(View.GONE);
+
             cardGrnDetail();
+
         }
 
         //Getting GRN details from server
@@ -311,13 +410,18 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             case R.id.ivAttAdd:
                 onAttachFileClicked();
                 break;
-
-            case R.id.btnAction:
-                Intent i = new Intent(mContext, InventoryWorkFlowActivity.class);
-                startActivity(i);
-                break;
             case R.id.btnSave:
                 checkValidation();
+
+                break;
+            case R.id.imValidtyCalender:
+                isEWayBillClicked = true;
+                dateDialogBillValidity();
+                break;
+            case R.id.ivReceivedDateCalender:
+                clicked = true;
+                clickAddDate();
+//                dateDialogReceivedDate();
 
                 break;
             case R.id.ivItemAdd:
@@ -372,41 +476,41 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 break;
             case R.id.et_received_date:
                 clicked = true;
-                Calendar minDate = Calendar.getInstance();
-                minDate.set(1900, 0, 1);
+                clickAddDate();
+//                dateDialogReceivedDate();
 
-                Calendar maxDate = Calendar.getInstance();
-                maxDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-
-                datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
-                datePickerDialog.setThemeDark(false);
-                datePickerDialog.showYearPickerFirst(true);
-                datePickerDialog.setMinDate(minDate);
-                datePickerDialog.setMaxDate(maxDate);
-                datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
-                datePickerDialog.setTitle("Select Date");
-                datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
-                datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
+//                Calendar maxDate = Calendar.getInstance();
+//                maxDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+//
+//                datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
+//                datePickerDialog.setThemeDark(false);
+//                datePickerDialog.showYearPickerFirst(true);
+//                datePickerDialog.setMinDate(maxDate);
+////                datePickerDialog.setMaxDate(maxDate);
+//                datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
+//                datePickerDialog.setTitle("Select Date");
+//                datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
+//                datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
 
                 break;
 
             case R.id.etEWayBillValidity:
                 isEWayBillClicked = true;
-                Calendar miDate = Calendar.getInstance();
-                miDate.set(1900, 0, 1);
 
-                Calendar maDate = Calendar.getInstance();
-                maDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 
-                datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
-                datePickerDialog.setThemeDark(false);
-                datePickerDialog.showYearPickerFirst(true);
-                datePickerDialog.setMinDate(miDate);
-                datePickerDialog.setMaxDate(maDate);
-                datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
-                datePickerDialog.setTitle("Select Date");
-                datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
-                datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
+//                Calendar maDate = Calendar.getInstance();
+//                maDate.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+//
+//                datePickerDialog = DatePickerDialog.newInstance(this, Year, Month, Day);
+//                datePickerDialog.setThemeDark(false);
+//                datePickerDialog.showYearPickerFirst(true);
+//                datePickerDialog.setMinDate(maDate);
+////                datePickerDialog.setMaxDate(maDate);
+//                datePickerDialog.setAccentColor(getResources().getColor(R.color.colorPrimary));
+//                datePickerDialog.setTitle("Select Date");
+//                datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);
+//                datePickerDialog.show(getFragmentManager(), "DatePickerDialog");
+                dateDialogBillValidity();
 
                 break;
             case R.id.rItemsDetails:
@@ -485,24 +589,130 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
         }
     }
+    public void clickAddDate() {
+        final Calendar calendar = Calendar.getInstance();
+        android.app.DatePickerDialog datePicker = new android.app.DatePickerDialog(mContext, new android.app.DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                et_received_date.setText(DateAndTimeUtil.toCustomStringDateAndTime(calendar, DATE_AND_TIME_FORMAT_INDIA));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+        datePicker.show();
+        clicked = false;
+    }
+//    public void dateDialogReceivedDate() {
+//        final Calendar c = Calendar.getInstance();
+//
+//        int y = c.get(Calendar.YEAR);
+//        int m = c.get(Calendar.MONTH);
+//        int d = c.get(Calendar.DAY_OF_MONTH);
+//
+//        android.app.DatePickerDialog dp = new android.app.DatePickerDialog(mContext,
+//                new android.app.DatePickerDialog.OnDateSetListener() {
+//                    @Override
+//                    public void onDateSet(DatePicker view, int year,
+//                                          int monthOfYear, int dayOfMonth) {
+//
+//                        String erg = year + "";
+//                        erg += "-" + String.valueOf(monthOfYear + 1);
+//                        erg += "-" + String.valueOf(dayOfMonth);
+//
+//                        try {
+//                            if (clicked) {
+//                                Calendar calendar = Calendar.getInstance();
+//                                calendar.set(Calendar.YEAR, year);
+//                                calendar.set(Calendar.MONTH, monthOfYear);
+//                                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//                                Date date = calendar.getTime();
+//
+//                                String date1 = Util.getFormattedDates(date);
+//                                Log.e(TAG, "date1" + date1);
+//
+//                                et_received_date.setText(erg);
+//                                clicked = false;
+//
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                }, y, m, d);
+//        dp.setTitle("Calender");
+//        dp.show();
+//        dp.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+//
+//
+//    }
+
+    public void dateDialogBillValidity() {
+        final Calendar c = Calendar.getInstance();
+
+        int y = c.get(Calendar.YEAR);
+        int m = c.get(Calendar.MONTH);
+        int d = c.get(Calendar.DAY_OF_MONTH);
+
+        android.app.DatePickerDialog dp = new android.app.DatePickerDialog(mContext,
+                new android.app.DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                        String erg = year + "";
+                        erg += "-" + String.valueOf(monthOfYear + 1);
+                        erg += "-" + String.valueOf(dayOfMonth);
+
+                        try {
+                            if (isEWayBillClicked) {
+                                Calendar calendar = Calendar.getInstance();
+                                calendar.set(Calendar.YEAR, year);
+                                calendar.set(Calendar.MONTH, monthOfYear);
+                                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                Date date = calendar.getTime();
+
+                                String date1 = Util.getFormattedDates(date);
+                                Log.e(TAG, "date1" + date1);
+
+                                etEWayBillValidity.setText(erg);
+                                isEWayBillClicked = false;
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }, y, m, d);
+        dp.setTitle("Calender");
+        dp.show();
+        dp.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+
+
+    }
 
     private void checkValidation() {
         boolean isFail = false;
 
         String name = etName.getText().toString();
+        String receivedDate = et_received_date.getText().toString();
         String LRNumber = etLrn.getText().toString();
         String eWayBillNumber = etEwayBill.getText().toString();
         String driverName = etDriverName.getText().toString();
         String truckNumber = etTruckNumber.getText().toString();
         String etEWayBillValidityDate = etEWayBillValidity.getText().toString();
         String driverMobileNum = driverMobileNumber.getText().toString();
-        String trackNumber = etTrackNumber.getText().toString();
         String address = etAddress.getText().toString();
 
 
         if (TextUtils.isEmpty(name)) {
             isFail = true;
             etName.setError(getResources().getString(R.string.iv_error_name));
+        }
+        if (TextUtils.isEmpty(receivedDate)) {
+            isFail = true;
+            et_received_date.setError("PLease enter received date");
         }
         if (TextUtils.isEmpty(LRNumber)) {
             isFail = true;
@@ -528,10 +738,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             isFail = true;
             driverMobileNumber.setError(getResources().getString(R.string.iv_error_mobile_number));
         }
-        if (TextUtils.isEmpty(trackNumber)) {
-            isFail = true;
-            etTrackNumber.setError(getResources().getString(R.string.iv_error_track_number));
-        }
+
         if (TextUtils.isEmpty(address)) {
             isFail = true;
             etAddress.setError(getResources().getString(R.string.iv_error_address));
@@ -539,13 +746,13 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
         if (!isFail) {
             etName.setError(null);
+            et_received_date.setError(null);
             etLrn.setError(null);
             etEwayBill.setError(null);
             etDriverName.setError(null);
             etTruckNumber.setError(null);
             etEWayBillValidity.setError(null);
             driverMobileNumber.setError(null);
-            etTrackNumber.setError(null);
             etAddress.setError(null);
 
             if (TextUtils.isEmpty(cardClick)) {
@@ -554,7 +761,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
 
         } else {
-            Toast.makeText(mContext, "Please enter all required fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, "Please fill all required (*) fields", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -586,20 +793,20 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 et_received_date.setText(realmGRNDetails.getReceivedDate());
                 et_totalItems.setText(totalItem + "");
                 et_value.setText(realmGRNDetails.getValue() + "");
-                poQty.setText(poQt + "");
-                openQty.setText(openQt + "");
+                poQty.setText(openQt + "");
+                openQty.setText(poQt + "");
                 balanceQty.setText(balanceQt + "");
                 transporterEWayBillValidityDate = realmGRNDetails.getTransporterEWayBillValidityDate();
 
                 //SharedPreference Values
                 String name = SharedPreferences.getString("Name", "");
+                String receivedDate = SharedPreferences.getString("ReceivedDate", "");
                 String lRnNumber = SharedPreferences.getString("LRNNumber", "");
                 String eWayBillNumber = SharedPreferences.getString("EWayBillNumber", "");
                 String driverName = SharedPreferences.getString("DriverName", "");
                 String truckNumber = SharedPreferences.getString("TruckNumber", "");
                 String ewayBillValidity = SharedPreferences.getString("EwayBillValidity", "");
                 String driverMobNumber = SharedPreferences.getString("DriverMobileNumber", "");
-                String trackNumber = SharedPreferences.getString("TrackNumber", "");
                 String address = SharedPreferences.getString("Address", "");
 
 
@@ -609,6 +816,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     etName.setText(name);
                 }
 
+                if (TextUtils.isEmpty(receivedDate)) {
+                    et_received_date.setText(realmGRNDetails.getReceivedDate());
+                } else {
+                    et_received_date.setText(receivedDate);
+                }
+
                 if (TextUtils.isEmpty(lRnNumber)) {
                     etLrn.setText(realmGRNDetails.getTransporterLRName());
                 } else {
@@ -616,21 +829,22 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 }
 
                 if (TextUtils.isEmpty(eWayBillNumber)) {
-                    etTruckNumber.setText(realmGRNDetails.getTransporterTruckNumber());
+                    etTruckNumber.setText(realmGRNDetails.getTransporterEWayBillNumber());
                 } else {
                     etTruckNumber.setText(eWayBillNumber);
                 }
 
-                if (TextUtils.isEmpty(trackNumber)) {
-                    etTrackNumber.setText(realmGRNDetails.getTransporterTruckNumber());
-                } else {
-                    etTrackNumber.setText(trackNumber);
-                }
 
                 if (TextUtils.isEmpty(driverName)) {
                     etDriverName.setText(realmGRNDetails.getTransporterDriverName());
                 } else {
                     etDriverName.setText(driverName);
+                }
+
+                if (TextUtils.isEmpty(truckNumber)) {
+                    etTruckNumber.setText(realmGRNDetails.getTransporterTruckNumber());
+                } else {
+                    etTruckNumber.setText(truckNumber);
                 }
 
                 if (TextUtils.isEmpty(ewayBillValidity)) {
@@ -689,6 +903,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     grnInccoTermsModel.grnPayByReceiver = jsonObject1.optBoolean("grnPayByReceiver");
                     grnInccoTermsModel.grnPayAmount = jsonObject1.optDouble("grnPayAmount");
                     grnInccoTermsModels.add(grnInccoTermsModel);
+                    strings1.add(jsonObject1.optString("grnIncoDetail"));
                 }
 
 //                POIncoTerms poIncoTerms2 = new POIncoTerms();
@@ -771,15 +986,15 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 et_received_date.setText(realmGRNDetails.getReceivedDate());
                 et_totalItems.setText(totalItem + "");
                 et_value.setText(realmGRNDetails.getValue() + "");
-                poQty.setText(poQt + "");
-                openQty.setText(openQt + "");
+                poQty.setText(openQt + "");
+                openQty.setText(poQt + "");
                 balanceQty.setText(balanceQt + "");
                 transporterEWayBillValidityDate = realmGRNDetails.getTransporterEWayBillValidityDate();
 
                 etName.setText(realmGRNDetails.getTransporterName());
+                et_received_date.setText(realmGRNDetails.getReceivedDate());
                 etLrn.setText(realmGRNDetails.getTransporterLRName());
                 etTruckNumber.setText(realmGRNDetails.getTransporterTruckNumber());
-                etTrackNumber.setText(realmGRNDetails.getTransporterTruckNumber());
                 etDriverName.setText(realmGRNDetails.getTransporterDriverName());
                 etEWayBillValidity.setText(realmGRNDetails.getTransporterEWayBillValidityDate());
                 driverMobileNumber.setText(realmGRNDetails.getTransporterDriverMobileNumber());
@@ -858,6 +1073,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     public void addGRNDetails() {
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.setCancelable(false);
         JSONObject jsonObject1 = new JSONObject();
 
         try {
@@ -915,6 +1131,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         if (responseData != null) {
                             clearRealm();
                             new RealmController().saveGRNDetails(responseData);
+                            new RealmController().saveBatchDetails(responseData);
                             //saveResponseLocalCreateOrder(jsonObject,requestId);
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -979,6 +1196,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject1.put("businessPlaceId", "1");
+            jsonObject1.put("po", poNumber);
             jsonObject1.put("poNumber", getGrnNumber);
             jsonObject1.put("isGRN", true);
             jsonObject1.put("isGRNOrQC", "grn");
@@ -1031,6 +1249,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         if (responseData != null) {
                             clearRealm();
                             new RealmController().saveGRNDetails(responseData);
+
                             //saveResponseLocalCreateOrder(jsonObject,requestId);
                             runOnUiThread(new Runnable() {
                                 @Override
@@ -1279,28 +1498,31 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
             for (int i = 0; i < attachFileModels.size(); i++) {
                 AttachFileModel fileModel = attachFileModels.get(i);
-                Uri returnUri = fileModel.uri;
-                Cursor returnCursor = getContentResolver().query(returnUri, null, null, null, null);
-                int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
-                returnCursor.moveToFirst();
-                String fileName = returnCursor.getString(nameIndex);
-                String fileSize = Long.toString(returnCursor.getLong(sizeIndex));
-                String mimeType = getContentResolver().getType(returnUri);
-                Log.i("Type", mimeType);
+                if (fileModel.uri != null) {
+                    Uri returnUri = fileModel.uri;
+                    Cursor returnCursor = getContentResolver().query(returnUri, null, null, null, null);
+                    int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+                    returnCursor.moveToFirst();
+                    String fileName = returnCursor.getString(nameIndex);
+                    String fileSize = Long.toString(returnCursor.getLong(sizeIndex));
+                    String mimeType = getContentResolver().getType(returnUri);
+                    Log.i("Type", mimeType);
 
-              /*  SpendRequestAttachment spendRequestAttachment = new SpendRequestAttachment();
-                spendRequestAttachment.AttachmentBase = getBase64StringNew(returnUri, Integer.parseInt(fileSize));
-                spendRequestAttachment.AttachmentExtension = "No Info";
-                spendRequestAttachment.AttachmentName = fileName;
-                spendRequestAttachment.AttachmentType = mimeType;
-                spendRequestAttachmentList.add(spendRequestAttachment);
-               */
-                JSONObject jsonObject1 = new JSONObject();
-                jsonObject1.put("grnAttachmentName", fileName);
-                jsonObject1.put("grnAttachmentUrl", getBase64StringNew(returnUri, Integer.parseInt(fileSize)));
-                jsonObject1.put("grnAttachmentType", mimeType);
-                jsonArrayAttachments.put(jsonObject1);
+                    JSONObject jsonObject1 = new JSONObject();
+                    jsonObject1.put("grnAttachmentName", fileName);
+                    jsonObject1.put("grnAttachmentUrl", getBase64StringNew(returnUri, Integer.parseInt(fileSize)));
+                    jsonObject1.put("grnAttachmentType", mimeType);
+                    jsonArrayAttachments.put(jsonObject1);
+
+                } else {
+
+//                    JSONObject jsonObject1 = new JSONObject();
+//                    jsonObject1.put("grnAttachmentName", "");
+//                    jsonObject1.put("grnAttachmentUrl", "");
+//                    jsonObject1.put("grnAttachmentType", "");
+//                    jsonArrayAttachments.put(jsonObject1);
+                }
 
 
             }
@@ -1352,7 +1574,11 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
             jsonObject.put("poIncoTerms", IncoTermsArray);
             jsonObject.put("poPaymentTermsType", "");
             jsonObject.put("poTermsAndConditions", new JSONArray());
-            jsonObject.put("poAttachments", jsonArrayAttachments);
+            if (jsonArrayAttachments.length() > 0) {
+                jsonObject.put("poAttachments", jsonArrayAttachments);
+            } else {
+                jsonObject.put("poAttachments", new JSONArray());
+            }
             jsonObject.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
             Log.e(TAG, "Requuest::" + jsonObject.toString());
         } catch (JSONException e) {
@@ -1360,6 +1586,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
 
         final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
 //        Realm realm = Realm.getDefaultInstance();
@@ -1407,8 +1634,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                                 Intent i = new Intent(mContext, InventoryGRNStepsActivity.class);
                                 i.putExtra("newGRNCreated", "GrnCreated");
                                 i.putExtra("poNumber", poNumber);
-                                i.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                i.putExtra("isGrn", "0");
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(i);
+                                finish();
 
                             }
                         });
@@ -1472,6 +1701,15 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         });
     }
 
+    // url = file path or whatever suitable URL you want.
+    public static String getMimeType(String url) {
+        String type = null;
+        String extension = MimeTypeMap.getFileExtensionFromUrl(url);
+        if (extension != null) {
+            type = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension);
+        }
+        return type;
+    }
 
     @Override
     public void onRowClicked(int position) {
@@ -1627,75 +1865,78 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     //Product edit text value changed
     @Override
-    public void onUpdateData(int position, int inQty, int appQty, int balanceQty) {
-
-        Log.e(TAG, "position***" + position);
-        Log.e(TAG, "inQty***" + inQty);
-        Log.e(TAG, "appQty***" + appQty);
-        Log.e(TAG, "balanceQty***" + balanceQty);
-
-        Realm realm = Realm.getDefaultInstance();
-        RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
-        try {
-
-
-            Gson gson = new GsonBuilder().create();
-
-            try {
-                String json = gson.toJson(realm.copyFromRealm(realmGRNDetails));
-                JSONObject jsonObject = new JSONObject(json);
-                JSONArray poItemDetailsArray = new JSONArray(jsonObject.optString("poItemDetails"));
-                JSONArray arrayPoAttachment = new JSONArray(jsonObject.optString("poAttachments"));
-                JSONArray arrayPoIncco = new JSONArray(jsonObject.optString("poIncoTerms"));
-                JSONArray poPaymentTerms = new JSONArray(jsonObject.optString("poPaymentTerms"));
-                JSONArray poTermsAndConditions = new JSONArray(jsonObject.optString("poTermsAndConditions"));
-                JSONObject jsonObject2 = poItemDetailsArray.getJSONObject(position);
-
-
-                jsonObject2.put("inQty", inQty);
-                jsonObject2.put("apQty", appQty);
-                jsonObject2.put("balanceQty", balanceQty);
-
-                poItemDetailsArray.put(position, jsonObject2);
-
-                int quanOpenTotal = 0, quanBalanceTotal = 0, quanInQuant = 0, quanApp = 0;
-                for (int k = 0; k < poItemDetailsArray.length(); k++) {
-                    JSONObject jsonObject1 = poItemDetailsArray.optJSONObject(k);
-                    quanOpenTotal += jsonObject1.optInt("openQty");
-                    quanBalanceTotal += jsonObject1.optInt("balanceQty");
-                    quanInQuant += inQty;
-                    quanApp += appQty;
-                }
-
-                jsonObject.put("openQty", poQuantity - (quanInQuant + quanApp));
-                jsonObject.put("balanceQty", quanBalanceTotal+balanceQty);
-                jsonObject.put("poItemDetails", poItemDetailsArray);
-                jsonObject.put("poAttachments", arrayPoAttachment);
-                jsonObject.put("poIncoTerms", arrayPoIncco);
-                jsonObject.put("poPaymentTerms", poPaymentTerms);
-                jsonObject.put("poTermsAndConditions", poTermsAndConditions);
-
-                new RealmController().saveGRNDetails(jsonObject.toString().replaceAll("\\\\", ""));
-                grnListModels.clear();
-                grnInccoTermsModels.clear();
-                grnAttachments.clear();
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            realm.close();
-        }
+    public void onUpdateData(final int position, final int inQty, final int appQty, final int balanceQty) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                getExpandableData();
+                Log.e(TAG, "position***" + position);
+                Log.e(TAG, "inQty***" + inQty);
+                Log.e(TAG, "appQty***" + appQty);
+                Log.e(TAG, "balanceQty***" + balanceQty);
 
+                Realm realm = Realm.getDefaultInstance();
+                RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
+                try {
+
+
+                    Gson gson = new GsonBuilder().create();
+
+                    try {
+                        String json = gson.toJson(realm.copyFromRealm(realmGRNDetails));
+                        JSONObject jsonObject = new JSONObject(json);
+                        JSONArray poItemDetailsArray = new JSONArray(jsonObject.optString("poItemDetails"));
+                        JSONArray arrayPoAttachment = new JSONArray(jsonObject.optString("poAttachments"));
+                        JSONArray arrayPoIncco = new JSONArray(jsonObject.optString("poIncoTerms"));
+                        JSONArray arrayPayTerms = new JSONArray(jsonObject.optString("poPaymentTerms"));
+                        JSONArray arrayTermsAndCondition = new JSONArray(jsonObject.optString("poTermsAndConditions"));
+                        JSONObject jsonObject2 = poItemDetailsArray.getJSONObject(position);
+
+
+                        jsonObject2.put("inQty", inQty);
+                        jsonObject2.put("apQty", appQty);
+                        jsonObject2.put("balanceQty", balanceQty);
+
+                        poItemDetailsArray.put(position, jsonObject2);
+
+                        int quanOpenTotal = 0, quanBalanceTotal = 0, quanIn = 0, quanApp = 0,quanPo = 0;
+                        for (int k = 0; k < poItemDetailsArray.length(); k++) {
+                            JSONObject jsonObject1 = poItemDetailsArray.optJSONObject(k);
+                            quanPo+=jsonObject1.optInt("poQty");
+                            quanOpenTotal += jsonObject1.optInt("openQty");
+                            quanBalanceTotal += jsonObject1.optInt("balanceQty");
+                            quanIn += jsonObject1.optInt("inQty");
+                            quanApp += jsonObject1.optInt("apQty");
+
+                            quanIn+=inQty;
+                            quanApp += appQty;
+                        }
+
+                        jsonObject.put("poQty", quanPo+(quanIn + quanApp));
+                        jsonObject.put("balanceQty", quanBalanceTotal);
+                        jsonObject.put("poItemDetails", poItemDetailsArray);
+                        jsonObject.put("poAttachments", arrayPoAttachment);
+                        jsonObject.put("poIncoTerms", arrayPoIncco);
+                        jsonObject.put("poPaymentTerms", arrayPayTerms);
+                        jsonObject.put("poTermsAndConditions", arrayTermsAndCondition);
+
+                        new RealmController().saveGRNDetails(jsonObject.toString().replaceAll("\\\\", ""));
+                        grnListModels.clear();
+                        grnInccoTermsModels.clear();
+                        grnAttachments.clear();
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    realm.close();
+                }
+                getExpandableData();
             }
         });
+
     }
 
     private class AttachVH extends RecyclerView.ViewHolder {
@@ -1782,6 +2023,26 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         }
     }
 
+    private String getByteArrayFromImageURL(String url) {
+
+        try {
+            URL imageUrl = new URL(url);
+            URLConnection ucon = imageUrl.openConnection();
+            InputStream is = ucon.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int read = 0;
+            while ((read = is.read(buffer, 0, buffer.length)) != -1) {
+                baos.write(buffer, 0, read);
+            }
+            baos.flush();
+            return android.util.Base64.encodeToString(baos.toByteArray(), android.util.Base64.DEFAULT);
+        } catch (Exception e) {
+            Log.d("Error", e.toString());
+        }
+        return null;
+    }
+
     private String getBase64StringNew(Uri uri, int filelength) {
         String imageStr = null;
         try {
@@ -1856,11 +2117,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 case R.id.driverMobileNumber:
                     driverMobileNumber.setError(null);
                     Editor.putString("DriverMobileNumber", driverMobileNumber.getText().toString());
-                    Editor.commit();
-                    break;
-                case R.id.etTrackNumber:
-                    etTrackNumber.setError(null);
-                    Editor.putString("TrackNumber", etTrackNumber.getText().toString());
                     Editor.commit();
                     break;
                 case R.id.etAddress:

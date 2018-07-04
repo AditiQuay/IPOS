@@ -41,7 +41,6 @@ public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements
 
     private String store_id;
     private int mParam2;
-    //private FragmentComplianceSinglestoredetailBinding binding;
 
 
     private RecyclerViewEmptySupport mRecyclerViewImmediate;
@@ -93,17 +92,16 @@ public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        storeViewModel = new StoreViewModel(getActivity());
+        //storeViewModel = new StoreViewModel(getActivity());
 
 
-        View view = inflater.inflate(R.layout.c_fragment_compliance_singlestoredetail,
-                container,
-                false);
+        View view = inflater.inflate(R.layout.c_fragment_compliance_singlestoredetail, container, false);
         //View view = binding.getRoot();
         //progressStateViewModel = new ProgressStateViewModel(null);
         //progressStateViewModel.setAllTrue();
         //binding.setProgressState(progressStateViewModel);
         // binding.setStoreViewModel(storeViewModel);
+        storeViewModel = StoreViewModel.getInstance(this);
 
 
         return view;

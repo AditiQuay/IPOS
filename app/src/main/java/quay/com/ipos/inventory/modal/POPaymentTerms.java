@@ -7,7 +7,7 @@ package quay.com.ipos.inventory.modal;
 public class POPaymentTerms {
 
     public String poPaymentTermsDetail;
-    public double poPaymentTermsPer;
+    public int poPaymentTermsPer;
     public String poPaymentTermsInvoiceDue;
 
     public String getPoPaymentTermsDetail() {
@@ -18,11 +18,11 @@ public class POPaymentTerms {
         this.poPaymentTermsDetail = poPaymentTermsDetail;
     }
 
-    public double getPoPaymentTermsPer() {
+    public int getPoPaymentTermsPer() {
         return poPaymentTermsPer;
     }
 
-    public void setPoPaymentTermsPer(double poPaymentTermsPer) {
+    public void setPoPaymentTermsPer(int poPaymentTermsPer) {
         this.poPaymentTermsPer = poPaymentTermsPer;
     }
 

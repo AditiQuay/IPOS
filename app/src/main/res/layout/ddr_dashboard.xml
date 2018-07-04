@@ -191,15 +191,20 @@
                 android:layout_height="match_parent" />
 
         </FrameLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            android:layout_margin="@dimen/dim_12"
+            android:paddingTop="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:paddingBottom="50dp"
+            android:clipToPadding="false"
             android:layout_above="@id/bottomBar"
             android:layout_below="@+id/flScanner"
-            android:layout_marginTop="@dimen/dim_1" />
+            />
 
         <LinearLayout
             android:id="@+id/bottomBar"

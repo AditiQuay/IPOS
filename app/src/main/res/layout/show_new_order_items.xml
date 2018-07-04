@@ -362,6 +362,8 @@
                         android:gravity="center"
                         android:digits="1234567890"
                         android:inputType="number"
+                        android:enabled="false"
+                        android:focusable="false"
                         android:focusedByDefault="true"
                         android:paddingBottom="@dimen/dim_6"
                         android:paddingLeft="@dimen/dim_10"

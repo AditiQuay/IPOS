@@ -280,8 +280,9 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
                         JSONObject jsonObject=new JSONObject(strJson);
                         jsonObject.put(RetailSalesEnum.isAdded.toString(),true);
                         jsonObject.put(RetailSalesEnum.qty.toString(),1);
-                        jsonObject.put(RetailSalesEnum.totalPrice.toString(),dataBeans.get(pos).getSProductPrice());
-                        int totalPoints=getTotalPoints(dataBeans.get(pos),dataBeans.get(pos).getSProductPrice());
+                        jsonObject.put(RetailSalesEnum.totalPrice.toString(),0);
+                        jsonObject.put(RetailSalesEnum.sProductPrice.toString(),0);
+                        int totalPoints=getTotalPoints(dataBeans.get(pos),0);
                         jsonObject.put(RetailSalesEnum.totalPoints.toString(),totalPoints);
                         jsonObject.put(RetailSalesEnum.accumulatedLoyality.toString(),dataBeans.get(pos).getAccumulatedLoyality());
                         saveResponseLocal(jsonObject,"P00001");

@@ -177,7 +177,7 @@
                     android:layout_alignParentEnd="true"
                     android:backgroundTint="@color/button_tint_resource"
                     android:gravity="center"
-                    android:stateListAnimator="@null"
+                    android:drawableRight="@drawable/ic_action_arrow_down_white"
                     android:text="Others"
                     android:textAllCaps="false" />
             </RelativeLayout>

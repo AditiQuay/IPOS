@@ -5,6 +5,6 @@ package quay.com.ipos.listeners;
  */
 
 public interface MyListenerPaymentTerms {
-    void onRowClickedPaymentTerms(int position, double percent, String days);
+    void onRowClickedPaymentTerms(int position, int percent, String days);
 
 }

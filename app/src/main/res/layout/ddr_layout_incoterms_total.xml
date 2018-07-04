@@ -92,9 +92,10 @@
                     android:padding="8dp"
                     android:textColor="@color/grey"
 
+                    android:hint="0"
                     android:background="@null"
                     android:textSize="@dimen/universal_text_size14"
-                    tools:text="26,800" />
+                    tools:text="" />
             </LinearLayout>
 
 

@@ -23,18 +23,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_centerInParent="true">
-
+            <Spinner
+                android:id="@+id/spnOptions"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:layout_marginTop="8dp"
+                android:gravity="center" />
 
             <TextView
-                android:id="@+id/tvQty"
+                android:id="@+id/tvQtyDetail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="QTY" />
+                android:visibility="visible"
+                android:text="Details" />
 
             <View
                 android:layout_width="1dp"
@@ -50,7 +60,7 @@
                 android:gravity="center"
                 android:padding="@dimen/dim_8"
                 android:fontFamily="@font/titilliumwebregular"
-                android:text="SUPPLIER" />
+                android:text="Supplier" />
 
             <View
                 android:layout_width="1dp"
@@ -65,7 +75,7 @@
                 android:gravity="center"
                 android:fontFamily="@font/titilliumwebregular"
                 android:padding="8dp"
-                android:text="ME" />
+                android:text="Me" />
 
             <View
                 android:layout_width="1dp"
@@ -80,23 +90,13 @@
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="AMOUNT" />
+                android:text="Amount" />
 
 
         </LinearLayout>
 
     </RelativeLayout>
-    <Spinner
-        android:id="@+id/spnOptions"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_weight="1"
-        android:padding="8dp"
-        android:visibility="gone"
-        android:layout_marginTop="8dp"
-        android:layout_marginLeft="8dp"
-        android:gravity="center"
-        />
+
 
     <View
         android:layout_width="match_parent"
@@ -107,7 +107,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_viewInco"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dim_8">
 
     </android.support.v7.widget.RecyclerView>

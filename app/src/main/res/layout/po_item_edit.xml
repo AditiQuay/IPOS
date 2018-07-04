@@ -58,6 +58,7 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="0"
+                    android:maxLength="4"
                     android:inputType="number"
 
                     android:background="@color/transparent"
@@ -78,8 +79,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="26,800"
+                    android:background="@color/transparent"
                     android:padding="8dp"
+                    android:inputType="numberDecimal"
                     android:gravity="center"
+                    android:maxLength="8"
                     />
                 <View
                     android:layout_width="1dp"
@@ -95,6 +99,7 @@
                     android:text="26,800"
                     android:padding="8dp"
                     android:gravity="center"
+                    android:maxLength="8"
                     />
                 <View
                     android:layout_width="1dp"
@@ -110,6 +115,7 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="26,800"
+                    android:maxLength="8"
                     />
 
 

@@ -33,7 +33,7 @@ public class InvoiceData {
             return;
         initDataFeed = true;
         this.address = response.address;
-        ddrIncoTerms = response.ddrIncoTerms;
+        ddrIncoTerms = new ArrayList<>();
     }
 
     public void setInitData2(DDROrderDetail response) {

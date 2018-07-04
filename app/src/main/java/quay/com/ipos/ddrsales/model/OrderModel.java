@@ -12,6 +12,9 @@ public class OrderModel implements Serializable {
     public int totalItem;
     public double orderValue;
     public String sellerName;
+    public String ddrCode;
+    public String ddrName;
+    public String dispatchText;
 
 }
 

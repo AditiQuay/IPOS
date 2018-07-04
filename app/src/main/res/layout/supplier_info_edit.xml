@@ -257,7 +257,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Supplier Name"
+                android:text="Supplier Name *"
                 />
 
             <quay.com.ipos.ui.SearchableSpinner
@@ -278,6 +278,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="4dp"
+            android:visibility="gone"
             android:background="@drawable/ipos_line_black"/>
         <LinearLayout
             android:id="@+id/llSuppierNameOthers"
@@ -360,7 +361,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Supplier Address"
+                android:text="Supplier Address *"
                 />
 
             <EditText
@@ -391,7 +392,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Supplier GSTIN"
+                android:text="Supplier GSTIN *"
                 />
 
             <EditText
@@ -423,7 +424,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Delivery Address"
+                android:text="Delivery Address *"
                 />
 
             <quay.com.ipos.ui.SearchableSpinner
@@ -503,7 +504,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Billing Address"
+                android:text="Billing Address *"
                 />
 
             <quay.com.ipos.ui.SearchableSpinner

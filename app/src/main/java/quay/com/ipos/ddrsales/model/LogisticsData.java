@@ -15,4 +15,6 @@ public class LogisticsData {
     public String driverName="";
     public String driverMobileNumber="";
     public String address="";
+
+
 }

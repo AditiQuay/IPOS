@@ -58,6 +58,7 @@ import quay.com.ipos.realmbean.RealmUserDetail;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.SpacesItemDecoration;
 
 /**
@@ -102,9 +103,10 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     private int poItemQty, poGRNQty, poAPQty, poBalanceQty;
     private boolean qcVisible;
     private LinearLayout llQCList;
-    private String newGRNCreated;
+    private String newGRNCreated,supplierName;
     public static Activity fa;
-    private String isGrn;
+    private String isGrn="";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +116,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         Intent i = getIntent();
         poNumber = i.getStringExtra("poNumber");
         newGRNCreated = i.getStringExtra("newGRNCreated");
+        supplierName = i.getStringExtra("supplierName");
         isGrn=i.getStringExtra("isGrn");
 
         empCode = Prefs.getStringPrefs(Constants.employeeCode.trim());
@@ -268,6 +271,8 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         if (v == textViewAdd) {
             Intent i = new Intent(mContext, InventoryGRNDetails.class);
             i.putExtra("poNumber", tvPoNumber.getText().toString());
+            String supplier = SharedPrefUtil.getString("supplierName","",mContext);
+            i.putExtra("supplierName",supplier);
             startActivity(i);
         }
     }
@@ -528,6 +533,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         Intent i = new Intent(mContext, ExpandablePODetailsActivity.class);
         i.putExtra("poNumber", inventoryModels.get(position).getPoNumber());
         i.putExtra("businessPlaceId", busineesPlaceId);
+        i.putExtra("supplierName", inventoryModels.get(position).getCompany());
         mContext.startActivity(i);
     }
 
@@ -544,6 +550,8 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         Intent i = new Intent(mContext, InventoryGRNDetails.class);
         i.putExtra("grnNumber", grnListModel.getGrnNumber());
         i.putExtra("cardClick", "yes");
+        i.putExtra("poNumber", tvPoNumber.getText().toString());
+        i.putExtra("supplierName",supplierName);
         startActivity(i);
     }
     public void clearRealm() {

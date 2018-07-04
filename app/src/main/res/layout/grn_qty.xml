@@ -41,7 +41,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="PO1800001"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -74,7 +73,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="15 May 2018"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -104,11 +102,26 @@
                 android:paddingRight="8dp"
                 android:paddingTop="@dimen/dim_8">
 
-                <TextView
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/titilliumwebregular"
-                    android:text="Received Date" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/textViewReceivedDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:text="Received Date *" />
+
+                    <ImageView
+                        android:id="@+id/ivReceivedDateCalender"
+                        android:layout_width="@dimen/dim_18"
+                        android:layout_height="@dimen/dim_18"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/calendar" />
+
+                </RelativeLayout>
 
 
                 <EditText
@@ -117,10 +130,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/dim_4"
                     android:background="@color/transparent"
-                    android:focusable="false"
                     android:clickable="true"
+                    android:focusable="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="18-May-2018"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -154,7 +166,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="26799"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -198,7 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="PO Qty" />
+                    android:text="Open Qty" />
 
                 <EditText
                     android:id="@+id/poQty"
@@ -208,7 +219,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="13"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -238,7 +248,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="Open Qty" />
+                    android:text="GRN Qty" />
 
                 <EditText
                     android:id="@+id/openQty"
@@ -248,7 +258,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="0"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
@@ -288,7 +297,6 @@
                     android:background="@color/transparent"
                     android:enabled="false"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:text="13"
                     android:textColor="@color/dashboard_textcolor"
                     android:textSize="@dimen/dim_14" />
 
