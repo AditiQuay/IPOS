@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,9 +54,14 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
         holder.myCustomEditTextListener.updatePosition(holder.getAdapterPosition(), holder);
         holder.qty.setText(grnProductDetailModel.getQty() + "");
         if (grnProductDetailModel.getActionTitle().equalsIgnoreCase("Normal".trim()) || grnProductDetailModel.getActionTitle().equalsIgnoreCase("Defect".trim())) {
+            holder.batchRemark.setVisibility(View.VISIBLE);
             holder.batchRemark.setText(grnProductDetailModel.getActionTitle());
         } else {
+            holder.batchRemark.setVisibility(View.VISIBLE);
             holder.batchRemark.setText(grnProductDetailModel.getActionTitle());
+        }
+        if (TextUtils.isEmpty(grnProductDetailModel.getActionTitle())){
+            holder.batchRemark.setVisibility(View.GONE);
         }
         holder.checkBox1.setChecked(grnProductDetailModel.isSelected());
         //set a tag for position

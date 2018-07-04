@@ -106,7 +106,6 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     public static Activity fa;
     private String isGrn="";
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

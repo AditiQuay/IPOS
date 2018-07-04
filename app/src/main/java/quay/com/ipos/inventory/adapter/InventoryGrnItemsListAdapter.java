@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import quay.com.ipos.R;
 import quay.com.ipos.inventory.modal.GrnItemQtyModel;
@@ -145,67 +146,67 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
             if (!onBind) {
                 try {
                     String text = editable.toString();
-//                    if (holder.tvInQty.getText().hashCode() == editable.hashCode()) {
-//                        if (Util.validateString(holder.tvInQty.getText().toString()) && !holder.tvInQty.getText().toString().equalsIgnoreCase("0")) {
-//                            String openQty = holder.tvOpenQty.getText().toString();
-//                            final String inQty = holder.tvInQty.getText().toString();
-//                            final String appQty = holder.tvApQty.getText().toString();
-//
-//
-//                            final int balanceQty = Integer.parseInt(openQty) - (Integer.parseInt(inQty) + Integer.parseInt(appQty));
-//                            //setting data
-//                            grnItemQtyModels.get(position).setOpenQty(Double.parseDouble(openQty));
-//                            grnItemQtyModels.get(position).setInQty(Double.parseDouble(inQty));
-//                            grnItemQtyModels.get(position).setApQty(Double.parseDouble(appQty));
-//                            grnItemQtyModels.get(position).setBalanceQty(balanceQty);
-//
-//                            holder.tvBalanceQty.setText(grnItemQtyModels.get(position).getBalanceQty() + "");
-//                            holder.imageViewStatus.setVisibility(View.VISIBLE);
-//
-//                            // user typed: start the timer
-//                            timer = new Timer();
-//                            timer.schedule(new TimerTask() {
-//                                @Override
-//                                public void run() {
-//                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
-//                                    // do your actual work here
-//                                }
-//                            }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
-//                        }
-//
-//                    }
-//                    if (holder.tvApQty.getText().hashCode() == editable.hashCode()) {
-//                        if (Util.validateString(holder.tvApQty.getText().toString()) && !holder.tvApQty.getText().toString().equalsIgnoreCase("0")) {
-//                            String openQty = holder.tvOpenQty.getText().toString();
-//                            final String inQty = holder.tvInQty.getText().toString();
-//                            final String appQty = holder.tvApQty.getText().toString();
-//
-//                            final int balanceQty = Integer.parseInt(openQty) - (Integer.parseInt(inQty) + Integer.parseInt(appQty));
-//                            holder.tvBalanceQty.setText(balanceQty + "");
-//
-//                            //setting data
-//                            grnItemQtyModels.get(position).setOpenQty(Double.parseDouble(openQty));
-//                            grnItemQtyModels.get(position).setInQty(Double.parseDouble(inQty));
-//                            grnItemQtyModels.get(position).setApQty(Double.parseDouble(appQty));
-//                            grnItemQtyModels.get(position).setBalanceQty(balanceQty);
-//
-//                            holder.tvBalanceQty.setText(grnItemQtyModels.get(position).getBalanceQty() + "");
-//                            holder.imageViewStatus.setVisibility(View.VISIBLE);
-//                            // user typed: start the timer
-//                            timer = new Timer();
-//                            timer.schedule(new TimerTask() {
-//                                @Override
-//                                public void run() {
-//                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
-//
-//                                    // do your actual work here
-//                                }
-//                            }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
-//
-//
-//                        }
+                    if (holder.tvInQty.getText().hashCode() == editable.hashCode()) {
+                        if (Util.validateString(holder.tvInQty.getText().toString()) && !holder.tvInQty.getText().toString().equalsIgnoreCase("0")) {
+                            String openQty = holder.tvOpenQty.getText().toString();
+                            final String inQty = holder.tvInQty.getText().toString();
+                            final String appQty = holder.tvApQty.getText().toString();
 
-//                    }
+
+                            final int balanceQty = Integer.parseInt(openQty) - (Integer.parseInt(inQty) + Integer.parseInt(appQty));
+                            //setting data
+                            grnItemQtyModels.get(position).setOpenQty(Double.parseDouble(openQty));
+                            grnItemQtyModels.get(position).setInQty(Double.parseDouble(inQty));
+                            grnItemQtyModels.get(position).setApQty(Double.parseDouble(appQty));
+                            grnItemQtyModels.get(position).setBalanceQty(balanceQty);
+
+                            holder.tvBalanceQty.setText(grnItemQtyModels.get(position).getBalanceQty() + "");
+                            holder.imageViewStatus.setVisibility(View.VISIBLE);
+
+                            // user typed: start the timer
+                            timer = new Timer();
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
+                                    // do your actual work here
+                                }
+                            }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
+                        }
+
+                    }
+                    if (holder.tvApQty.getText().hashCode() == editable.hashCode()) {
+                        if (Util.validateString(holder.tvApQty.getText().toString()) && !holder.tvApQty.getText().toString().equalsIgnoreCase("0")) {
+                            String openQty = holder.tvOpenQty.getText().toString();
+                            final String inQty = holder.tvInQty.getText().toString();
+                            final String appQty = holder.tvApQty.getText().toString();
+
+                            final int balanceQty = Integer.parseInt(openQty) - (Integer.parseInt(inQty) + Integer.parseInt(appQty));
+                            holder.tvBalanceQty.setText(balanceQty + "");
+
+                            //setting data
+                            grnItemQtyModels.get(position).setOpenQty(Double.parseDouble(openQty));
+                            grnItemQtyModels.get(position).setInQty(Double.parseDouble(inQty));
+                            grnItemQtyModels.get(position).setApQty(Double.parseDouble(appQty));
+                            grnItemQtyModels.get(position).setBalanceQty(balanceQty);
+
+                            holder.tvBalanceQty.setText(grnItemQtyModels.get(position).getBalanceQty() + "");
+                            holder.imageViewStatus.setVisibility(View.VISIBLE);
+                            // user typed: start the timer
+                            timer = new Timer();
+                            timer.schedule(new TimerTask() {
+                                @Override
+                                public void run() {
+                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
+
+                                    // do your actual work here
+                                }
+                            }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
+
+
+                        }
+
+                    }
                     if (holder.tvBalanceQty.getText().hashCode() == editable.hashCode()) {
                         holder.imageViewStatus.setVisibility(View.VISIBLE);
                     }
