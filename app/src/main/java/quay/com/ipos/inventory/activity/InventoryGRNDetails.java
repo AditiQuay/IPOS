@@ -260,6 +260,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         et_received_date.setClickable(true);
         et_received_date.setOnClickListener(this);
 
+
         etEWayBillValidity.setClickable(true);
         etEWayBillValidity.setOnClickListener(this);
 
@@ -716,6 +717,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 int balanceQt = (int) realmGRNDetails.getBalanceQty();
 
                 grnNumber.setText(realmGRNDetails.getGrnNumber());
+                if (Util.validateString(realmGRNDetails.getReceivedDate()))
                 et_received_date.setText(realmGRNDetails.getReceivedDate());
                 et_totalItems.setText(totalItem + "");
                 et_value.setText(realmGRNDetails.getValue() + "");
@@ -2081,7 +2083,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     etAddress.setError(null);
                     Editor.putString("Address", etAddress.getText().toString());
                     Editor.commit();
-                    break;
                 default:
                     break;
             }
