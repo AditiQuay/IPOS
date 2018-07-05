@@ -147,6 +147,8 @@ public class Constants {
     public static final String businessPlaceCode="businessPlaceCode";
     public static final String entityStateCode="entityStateCode";
 
+    public static final String ACCOUNT="Account";
+    public static final String USERTYPE="UserType";
     public static final String entityCode="entityCode";
     public static final String entityName="entityName";
     public static final String entityRole="entityRole";
@@ -167,6 +169,7 @@ public class Constants {
     public static String otcValue="otcValue";
 
     public static String paymentMode="paymentMode";
+    public static String outboxMode="outboxMode";
     public static String OrderCenterMode="OrderCenterMode";
 }
 

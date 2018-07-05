@@ -81,6 +81,7 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
         rootView = getView() != null ? getView() : inflater.inflate(R.layout.order_centre_retail, container, false);
         initializeComponent(rootView);
         setHasOptionsMenu(true);
+        dialogOTCTask();
         return rootView;
     }
 
@@ -97,7 +98,7 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
 
             case R.id.action_filter:
                 // Do onClick on menu action here
-                dialogOTCTask();
+                dialogOTC.show();
                 return true;
             case R.id.action_outbox:
                 // Do onClick on menu action here
@@ -211,7 +212,7 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
 
         // Include dialog.xml file
         dialogOTC.setContentView(R.layout.retail_order_filter_layout);
-        dialogOTC.show();
+//        dialogOTC.show();
         dialogOTC.setCancelable(false);
         llDateFrom = dialogOTC.findViewById(R.id.llDateFrom);
         spPayment = dialogOTC.findViewById(R.id.spPayment);
@@ -260,27 +261,35 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.llAccept:
-                if(!fromDate.equalsIgnoreCase("")){
-                    Util.showToast("Please select Date to also ");
-                }else if(!toDate.equalsIgnoreCase("")){
-                    Util.showToast("Please select Date from also");
+                if (paymentMode.equalsIgnoreCase("")){
+                    if(fromDate.equalsIgnoreCase("") ){
+                        Util.showToast("Please select Date from also ");
+                    }else if(toDate.equalsIgnoreCase("") ){
+                        Util.showToast("Please select Date to also");
+                    } else {
+                        dialogOTC.dismiss();
+                        listOrderCenters.clear();
+                        callServiceRetailOrderCenter(fromDate,toDate,paymentMode,searchParam);
+                    }
                 }else {
-
                     dialogOTC.dismiss();
                     listOrderCenters.clear();
                     callServiceRetailOrderCenter(fromDate,toDate,paymentMode,searchParam);
                 }
 
-                if(fromDate.equalsIgnoreCase("")){
-                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
-                }else if(toDate.equalsIgnoreCase("")){
-                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
-                }
+
+
+//                if(fromDate.equalsIgnoreCase("")){
+//                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+//                }else if(toDate.equalsIgnoreCase("")){
+//                    tvDateTo.setText(getResources().getString(R.string.order_date_to));
+//                }
                 break;
             case R.id.llCancel:
                 fromDate="";
                 toDate="";
                 paymentMode="";
+                spPayment.setSelection(0);
                 tvDateFrom.setText(getResources().getString(R.string.order_date_from));
                 tvDateTo.setText(getResources().getString(R.string.order_date_to));
                 dialogOTC.dismiss();
@@ -289,7 +298,7 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
                 if(fromDate.equalsIgnoreCase("")){
                     tvDateFrom.setText(getResources().getString(R.string.order_date_from));
                 }else if(toDate.equalsIgnoreCase("")){
-                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                    tvDateTo.setText(getResources().getString(R.string.order_date_to));
                 }
                 break;
             case R.id.llDateFrom:
@@ -298,15 +307,21 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
                 if(fromDate.equalsIgnoreCase("")){
                     tvDateFrom.setText(getResources().getString(R.string.order_date_from));
                 }else if(toDate.equalsIgnoreCase("")){
-                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                    tvDateTo.setText(getResources().getString(R.string.order_date_to));
                 }
                 break;
             case R.id.llDateTo:
-                dateDialogTo();
+                if(fromDate.equalsIgnoreCase("")){
+                    Util.showToast("Please select Date from also ");
+                }else {
+
+                    dateDialogTo();
+                }
+
                 if(fromDate.equalsIgnoreCase("")){
                     tvDateFrom.setText(getResources().getString(R.string.order_date_from));
                 }else if(toDate.equalsIgnoreCase("")){
-                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                    tvDateTo.setText(getResources().getString(R.string.order_date_to));
                 }
                 break;
             case R.id.imageViewCancel:
@@ -314,7 +329,7 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
                 if(fromDate.equalsIgnoreCase("")){
                     tvDateFrom.setText(getResources().getString(R.string.order_date_from));
                 }else if(toDate.equalsIgnoreCase("")){
-                    tvDateFrom.setText(getResources().getString(R.string.order_date_from));
+                    tvDateTo.setText(getResources().getString(R.string.order_date_to));
                 }
                 break;
         }
@@ -337,20 +352,21 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
                             String erg = year+"";
                             erg += "-" + String.valueOf(monthOfYear + 1);
                             erg += "-" + String.valueOf(dayOfMonth);
+                            fromDate=erg;
                             Calendar c1 = Calendar.getInstance();
 
                              c1.set(year,monthOfYear,dayOfMonth);
 //                            int m = c1.get(monthOfYear);
 //                            int d = c1.get(dayOfMonth);
                             lfromDateInMillis =c1.getTimeInMillis();
-                            fromDate=erg;
+
 //                            jsonObjectSubmitJson.put("deliveryBy",erg);
-                            tvDateFrom.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
 
-
+                        tvDateFrom.setText(Util.getFormattedDates(fromDate,Constants.format6,Constants.format2));
                     }
 
                 }, y, m, d);
@@ -384,10 +400,11 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
 //                            lfromDateInMillis =c.getTimeInMillis();
                             toDate=erg;
 //                            jsonObjectSubmitJson.put("deliveryBy",erg);
-                            tvDateTo.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                        tvDateTo.setText(Util.getFormattedDates(toDate,Constants.format6,Constants.format2));
 //                        deliverDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
 
                     }
@@ -396,9 +413,11 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
         dp.setTitle("Date To");
         dp.show();
 
-//        if(lfromDateInMillis>0)
-//            dp.getDatePicker().setMinDate(lfromDateInMillis-1000);
+
         dp.getDatePicker().setMaxDate(System.currentTimeMillis()-1000);
+        if(lfromDateInMillis>0)
+            dp.getDatePicker().setMinDate(lfromDateInMillis-1000);
+//        dp.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
 
     }
     private void setAdapter() {

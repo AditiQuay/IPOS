@@ -4,6 +4,8 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +19,6 @@ import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.helper.DatabaseHandler;
 import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.PrintViewResult;
-import quay.com.ipos.modal.RetailOrderCenterListResult;
 import quay.com.ipos.modal.RetailOrderCentreRequest;
 import quay.com.ipos.retailsales.adapter.GSTSummaryAdapter;
 import quay.com.ipos.retailsales.adapter.ItemDetailAdapter;
@@ -25,7 +26,6 @@ import quay.com.ipos.retailsales.adapter.PaymentAdapter;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.ItemDecorationAlbumColumns;
 import quay.com.ipos.ui.LinearLayoutManagerDummy;
-import quay.com.ipos.ui.WrapContentLinearLayoutManager;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.SharedPrefUtil;
@@ -39,6 +39,7 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
 
     String json="",orderID="";
     String jsonFrom;
+    private Toolbar toolbarInfoDetail;
     private LinearLayout llRedeem;
     private RecyclerView rvItemDetails,rvGST,rvPayment;
     private TextView tvStoreName,tvStoreAddress,tvStorePhone,tvStoreEmail,tvStoreCIN,tvStoreGSTIN,tvTaxVoice,tvBillNumber,
@@ -70,7 +71,16 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
         if (getIntent() != null) {
 
             jsonFrom = getIntent().getStringExtra(Constants.RECEIPT_FROM);
-            if (jsonFrom.equalsIgnoreCase(Constants.paymentMode)) {
+            if (jsonFrom.equalsIgnoreCase(Constants.paymentMode) ) {
+                toolbarInfoDetail.setTitle(getResources().getString(R.string.retail_sales));
+                json = getIntent().getStringExtra(Constants.RECEIPT);
+                if (!json.equalsIgnoreCase("")) {
+                    AppLog.e(PrintReceiptActivity.class.getSimpleName(),"PrintViewResult : "+json);
+                    mPrintViewResult = Util.getCustomGson().fromJson(json, PrintViewResult.class);
+                    setValues();
+                }
+            }else if(jsonFrom.equalsIgnoreCase(Constants.outboxMode)){
+                toolbarInfoDetail.setTitle(getResources().getString(R.string.retail_outbox));
                 json = getIntent().getStringExtra(Constants.RECEIPT);
                 if (!json.equalsIgnoreCase("")) {
                     AppLog.e(PrintReceiptActivity.class.getSimpleName(),"PrintViewResult : "+json);
@@ -78,6 +88,7 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
                     setValues();
                 }
             }else if(jsonFrom.equalsIgnoreCase(Constants.OrderCenterMode)){
+                toolbarInfoDetail.setTitle(getResources().getString(R.string.retail_sales_order_centre));
                 orderID = getIntent().getStringExtra(Constants.KEY_ORDER_ID);
                 callServiceRetailOrderCenter(fromDate,toDate,paymentMode,orderID);
             }
@@ -87,6 +98,18 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
 //        }
 
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     private void callServiceRetailOrderCenter(String fromDate,String toDate,String paymentMode,String searchParam) {
         loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",this),LoginResult.class);
@@ -112,7 +135,7 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
         mServiceTask.execute();
     }
     private void setValues() {
-        try {
+//        try {
 
 
         itemDetails.addAll(mPrintViewResult.getItemDetails());
@@ -164,13 +187,14 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
         tvSaleValue.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalSaleAmount()));
         tvTotalGSTValue.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalIgst()));
 //        if(mPrintViewResult.get)
-        }catch (Exception e){
-
-        }
+//        }catch (Exception e){
+//
+//        }
     }
 
     private void initializeComponent() {
         tvItemDetails = findViewById(R.id.tvItemDetails);
+        toolbarInfoDetail = findViewById(R.id.toolbarInfoDetail);
         tvTaxVoice = findViewById(R.id.tvTaxVoice);
         tvPaymentDetails = findViewById(R.id.tvPaymentDetails);
         tvGSTSummary = findViewById(R.id.tvGSTSummary);
@@ -198,7 +222,15 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
         rvItemDetails = findViewById(R.id.rvItemDetails);
         rvGST = findViewById(R.id.rvGST);
         rvPayment = findViewById(R.id.rvPayment);
+        setSupportActionBar(toolbarInfoDetail);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
+
+        toolbarInfoDetail.setTitleTextColor(getResources().getColor(R.color.white));
         //        >>>>>>>>>>>>>>>>>>>>>>>>>> rvItemDetails <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         rvItemDetails.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManagerDummy(mContext, LinearLayoutManager.VERTICAL, false);
@@ -240,7 +272,7 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
     }
 
     private void setAdapterItemDetails() {
-        try {
+//        try {
 
         mItemDetailAdapter = new ItemDetailAdapter(this, itemDetails);
         rvItemDetails.setAdapter(mItemDetailAdapter);
@@ -252,16 +284,16 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
 
         paymentAdapter = new PaymentAdapter(this,paymentsDetails);
         rvPayment.setAdapter(paymentAdapter);
-        }catch (Exception e){
-
-        }
+//        }catch (Exception e){
+//
+//        }
     }
 
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
         dismissProgress();
         if(httpStatusCode == Constants.SUCCESS){
-            try {
+//            try {
                 if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_CENTER_PRINT)) {
                     if (resultObj != null) {
                         mPrintViewResult = (PrintViewResult) resultObj;
@@ -272,9 +304,9 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
 
                     }
                 }
-            }catch (Exception e){
-
-            }
+//            }catch (Exception e){
+//
+//            }
         }else if (httpStatusCode == Constants.BAD_REQUEST) {
             Toast.makeText(this, this.getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
 

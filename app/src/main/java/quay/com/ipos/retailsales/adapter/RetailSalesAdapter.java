@@ -171,8 +171,7 @@ public class RetailSalesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
             myAdapterTags.onRowClicked(position,0, Constants.DISCOUNT+"");
             final UserViewHolder  userViewHolder = (UserViewHolder) holder;
-            userViewHolder.tvItemName.setText(str.getSProductName() + " " +str.getSProductWeight() + " gm");
-//            userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
+            userViewHolder.tvItemName.setText(str.getSProductName() + " " +str.getSProductWeight() + "");
             userViewHolder.tvItemRate.setText(str.getSProductStock()+"");
             userViewHolder.tvItemPrice.setText(Util.getIndianNumberFormat(str.getSalesPrice()+""));
             userViewHolder.etQtySelected.setText(str.getQty()+"");

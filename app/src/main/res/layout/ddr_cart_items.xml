@@ -39,7 +39,7 @@
                     android:layout_height="16dp"
                     android:src="@drawable/loyality_green" />
 
-                <quay.com.ipos.ui.CustomTextView
+                <TextView
                     android:id="@+id/tvPoints"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
                     android:text="0 Pts."
                     android:textColor="@color/dark_green"
                     android:textSize="@dimen/text_size_14sp"
-                    app:typeface="TitilliumWeb-SemiBold.ttf" />
+                    android:fontFamily="@font/titilliumwebregular" />
 
 
             </LinearLayout>
@@ -98,7 +98,7 @@
                         android:orientation="horizontal">
 
 
-                        <quay.com.ipos.ui.CustomTextView
+                        <TextView
                             android:id="@+id/tvItemName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -108,7 +108,7 @@
                             android:textSize="@dimen/text_size_14sp"
                             android:lines="1"
                             android:singleLine="true"
-                            app:typeface="TitilliumWeb-SemiBold.ttf" />
+                            android:fontFamily="@font/titilliumwebregular" />
 
                         <View
                             android:layout_width="@dimen/dim_1"
@@ -118,7 +118,7 @@
                             android:layout_marginRight="@dimen/dim_5"
                             android:background="@color/transparent"/>
 
-                        <quay.com.ipos.ui.CustomTextView
+                        <TextView
                             android:id="@+id/tvItemWeight"
                             android:layout_width="wrap_content"
                             android:layout_weight="1"
@@ -130,7 +130,7 @@
                             android:gravity="center_vertical"
                             android:text="500 gm"
                             android:textSize="@dimen/text_size_14sp"
-                            app:typeface="TitilliumWeb-SemiBold.ttf" />
+                            android:fontFamily="@font/titilliumwebregular" />
 
 
                     </LinearLayout>
@@ -143,7 +143,7 @@
                         android:layout_toLeftOf="@+id/imvOffer"
                         android:orientation="horizontal">
 
-                        <quay.com.ipos.ui.CustomTextView
+                        <TextView
                             android:id="@+id/tvItemPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                             android:paddingRight="@dimen/dim_8"
                             android:text="250rwewfewff"
                             android:textSize="@dimen/text_size_12sp"
-                            app:typeface="TitilliumWeb-SemiBold.ttf" />
+                            android:fontFamily="@font/titilliumwebregular" />
 
                         <View
                             android:layout_width="@dimen/dim_1"
@@ -163,7 +163,7 @@
                             android:visibility="gone"
                             android:background="@color/accent_color"/>
 
-                        <quay.com.ipos.ui.CustomTextView
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -172,9 +172,9 @@
                             android:layout_marginLeft="8dp"
                             android:text="@string/stock"
                             android:textSize="@dimen/text_size_12sp"
-                            app:typeface="TitilliumWeb-SemiBold.ttf" />
+                            android:fontFamily="@font/titilliumwebregular" />
 
-                        <quay.com.ipos.ui.CustomTextView
+                        <TextView
                             android:id="@+id/tvItemStockAvailabilty"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
                             android:text="10 few "
                             android:textColor="@color/colorAccentGreen"
                             android:textSize="@dimen/text_size_12sp"
-                            app:typeface="TitilliumWeb-SemiBold.ttf" />
+                            android:fontFamily="@font/titilliumwebregular" />
                     </LinearLayout>
 
                     <ImageView
@@ -234,7 +234,7 @@
                 android:paddingLeft="8dp"
                 android:orientation="vertical">
 
-                <quay.com.ipos.ui.CustomTextView
+                <TextView
                     android:id="@+id/tvCheckStock"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
@@ -249,7 +249,7 @@
                     android:textColor="@color/white"
                     android:background="@drawable/button_drawable"
                     android:textSize="@dimen/text_size_13sp"
-                    app:typeface="Roboto-Regular.ttf" />
+                    android:fontFamily="@font/titilliumwebregular" />
                 <LinearLayout
                     android:id="@+id/llStocks"
                     android:layout_width="wrap_content"
@@ -260,7 +260,7 @@
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical">
 
-                    <quay.com.ipos.ui.CustomTextView
+                    <TextView
                         android:id="@+id/tvStocks"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -322,7 +322,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <quay.com.ipos.ui.CustomTextView
+                    <TextView
                         android:id="@+id/tvMinus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -335,8 +335,8 @@
 
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_21sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
-                    <quay.com.ipos.ui.CustomTextView
+                        android:fontFamily="@font/titilliumwebregular" />
+                    <TextView
                         android:id="@+id/tvQty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -352,7 +352,7 @@
                         android:maxLength="5"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/text_size_12sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                        android:fontFamily="@font/titilliumwebregular" />
 
                     <quay.com.ipos.ui.CustomEditText
                         android:id="@+id/etQtySelected"
@@ -373,9 +373,9 @@
                         android:maxLength="5"
                         android:textColor="@color/dashboard_textcolor"
                         android:textSize="@dimen/text_size_12sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                        android:fontFamily="@font/titilliumwebregular" />
 
-                    <quay.com.ipos.ui.CustomTextView
+                    <TextView
                         android:id="@+id/tvPlus"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -387,7 +387,7 @@
                         android:text="+"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_size_21sp"
-                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                        android:fontFamily="@font/titilliumwebregular" />
 
                 </LinearLayout>
 
@@ -424,7 +424,7 @@
                 android:layout_marginLeft="8dp"
                 android:src="@drawable/loyalty" />
 
-            <quay.com.ipos.ui.CustomTextView
+            <TextView
                 android:id="@+id/tvTotalPoints"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -434,11 +434,11 @@
                 android:text="250 Pts."
                 android:textColor="@color/dashboard_textcolor"
                 android:textSize="@dimen/text_size_14sp"
-                app:typeface="TitilliumWeb-SemiBold.ttf" />
+                android:fontFamily="@font/titilliumwebregular" />
         </LinearLayout>
 
 
-        <quay.com.ipos.ui.CustomTextView
+        <TextView
             android:id="@+id/tvTotalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -451,7 +451,7 @@
             android:text="@string/Rs"
             android:textColor="@color/dashboard_textcolor"
             android:textSize="@dimen/dim_14"
-            app:typeface="TitilliumWeb-SemiBold.ttf" />
+            android:fontFamily="@font/titilliumwebregular" />
 
     </RelativeLayout>
 
@@ -475,7 +475,7 @@
             android:checked="true"
             android:buttonTint="@color/colorAccentDark"
             android:layout_marginLeft="@dimen/dim_10"/>
-        <quay.com.ipos.ui.CustomTextView
+        <TextView
             android:id="@+id/tvDiscount"
             android:layout_width="wrap_content"
             android:layout_weight="1"
@@ -485,7 +485,7 @@
             android:text="Special discount (10%)"
             android:textColor="@color/colorAccentDark"
             android:textSize="@dimen/text_size_13sp" />
-        <quay.com.ipos.ui.CustomTextView
+        <TextView
             android:id="@+id/tvDiscountPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -509,7 +509,7 @@
             android:checked="true"
             android:buttonTint="@color/colorAccentDark"
             android:layout_marginLeft="@dimen/dim_10"/>
-        <quay.com.ipos.ui.CustomTextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -518,7 +518,7 @@
             android:text="OTC Discount"
             android:textColor="@color/colorAccentDark"
             android:textSize="@dimen/text_size_15sp" />
-        <quay.com.ipos.ui.CustomTextView
+        <TextView
             android:id="@+id/tvOTCDiscountPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

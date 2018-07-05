@@ -1329,10 +1329,41 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                         }
 
 
-                    } else {
-
-
-
+                    } else if (response.code() == Constants.BAD_REQUEST) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.INTERNAL_SERVER_ERROR) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.URL_NOT_FOUND) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.UNAUTHORIZE_ACCESS) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.CONNECTION_OUT) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                 } catch (Exception e) {
@@ -1457,9 +1488,9 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
             POPaymentTerms poIncoTerms1 = new POPaymentTerms();
             poIncoTerms1.setPoPaymentTermsDetail(poPaymentTerms.get(position).getPoPaymentTermsDetail());
             if (days!=null && days.contains("days"))
-            poIncoTerms1.setPoPaymentTermsInvoiceDue(days.replaceAll("days",""));
+            poIncoTerms1.setPoPaymentTermsInvoiceDue(days.replaceAll("days","").replaceAll("day","").replaceAll("da","").replaceAll("d",""));
             else {
-                poIncoTerms1.setPoPaymentTermsInvoiceDue(days);
+                poIncoTerms1.setPoPaymentTermsInvoiceDue(days.replaceAll("days","").replaceAll("day","").replaceAll("da","").replaceAll("d",""));
             }
             poIncoTerms1.setPoPaymentTermsPer(percent);
 

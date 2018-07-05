@@ -61,6 +61,7 @@ import quay.com.ipos.adapter.DrawerRoleAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.compliance.DashboardActivity;
+import quay.com.ipos.compliance.constants.Constant;
 import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerModel;
@@ -97,6 +98,7 @@ import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.NetUtil;
+import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
@@ -118,13 +120,11 @@ public class MainActivity extends BaseActivity
     private int lastExpandedGroup;
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
-    //  private Class<?> mClss;
     private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null,mRetailOrderCentreFragment=null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
-    //  private LinearLayout lLaoutBtnP, lLaoutBtnI, lLaoutBtnM;
-    //  private View viewM, viewI, viewP;
-    private CircleImageView imageViewProfileDummy;
+
+    private ImageView imageViewProfileDummy;
     private TextView textViewMyBusiness, textViewAccount;
     private TextView textViewP, textViewI, textViewM;
     public static DashboardItemFragment dashboardItemFragment;
@@ -194,15 +194,14 @@ public class MainActivity extends BaseActivity
     private double customerAdjustPoints;
     private double customerExpirePoints;
     private double customerReversePoints;
-
     private int mActivePosition = 1;
     private int currentType = -1;
     private boolean firstTime = true;
     private ImageView imgView;
     private List<String> mostUsedFunList = new ArrayList<>();
-
-
     private ArrayList<CustomerModel> customerModels = new ArrayList<>();
+
+    int drawableIdArray[] = {R.drawable.icon_pss, R.drawable.icon_ipos_saffire};
 
 
     @Override
@@ -221,9 +220,7 @@ public class MainActivity extends BaseActivity
         setDashBoard();
         dashboardItemFragment = new DashboardItemFragment();
         newOrderScannerFragment = new NewOrderFragment();
-
         retailSalesFragment1 = new RetailSalesFragment();
-
         //the broadcast receiver to update sync status
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -313,8 +310,12 @@ public class MainActivity extends BaseActivity
         });
 
         imageViewProfileDummy = findViewById(R.id.imageViewProfileDummy);
+        imageViewProfileDummy.setImageResource(drawableIdArray[1]);
+
 
         textViewMyBusiness = findViewById(R.id.textViewMyBusiness);
+        textViewMyBusiness.setText(Prefs.getStringPrefs(Constants.ACCOUNT));
+
         textViewAccount = findViewById(R.id.textViewAccount);
 
         expandableListView1 = findViewById(R.id.expandableListView1);
@@ -940,7 +941,7 @@ public class MainActivity extends BaseActivity
 
                 if (matchKey.equalsIgnoreCase(key)) {
                     JSONArray jsonArray1 = jsonObject.optJSONArray("data");
-                    textViewMyBusiness.setText(jsonObject.optString("userName"));
+               //     textViewMyBusiness.setText(jsonObject.optString("userName"));
                     textViewAccount.setText(jsonObject.optString("account"));
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         MenuModal menuModal = new MenuModal();
@@ -1133,6 +1134,10 @@ public class MainActivity extends BaseActivity
     @Override
     public void onRoleSelected(DrawerRoleModal drawerRoleModal, int position) {
         try {
+            if (position < 2) {
+                imageViewProfileDummy.setImageResource(drawableIdArray[position]);
+            }
+
             currentType = position;
             // int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
             //  int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());

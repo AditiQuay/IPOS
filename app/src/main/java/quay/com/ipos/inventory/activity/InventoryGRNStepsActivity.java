@@ -214,7 +214,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-        toolbar.setTitle("INVENTORY");
+        toolbar.setTitle("Inventory");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
         recycleview = (RecyclerView) findViewById(R.id.recycleview);
@@ -500,9 +500,41 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
                         }
 
 
-                    } else {
-
-
+                    }else if (response.code() == Constants.BAD_REQUEST) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.INTERNAL_SERVER_ERROR) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.URL_NOT_FOUND) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.UNAUTHORIZE_ACCESS) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } else if (response.code() == Constants.CONNECTION_OUT) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                 } catch (Exception e) {

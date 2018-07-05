@@ -41,16 +41,16 @@ public class RealmDDROrderList extends RealmObject {
     @PrimaryKey
     private String poNumber;
     private boolean isSync;
-    private int totalTaxValue;
+    private double totalTaxValue;
     private String approvalStat;
-    private int orderValue;
+    private double orderValue;
     private String businessPlace;
     private String employeeCode;
     private String poDate;
-    private int totalCGSTValue;
-    private int totalValueWithoutTax;
+    private double totalCGSTValue;
+    private double totalValueWithoutTax;
     private String poStatus;
-    private int discountValue;
+    private double discountValue;
     private String listspendRequestHistoryPhaseModel;
     private int businessPlaceCode;
     private String deliveryBy;
@@ -61,12 +61,12 @@ public class RealmDDROrderList extends RealmObject {
 
     private String quantity;
     private String customerName;
-    private int totalValueWithTax;
+    private double totalValueWithTax;
     private String entityID;
-    private int totalDiscountValue;
+    private double totalDiscountValue;
     private int totalLoyality;
-    private int totalSGSTValue;
-    private int totalIGSTValue;
+    private double totalSGSTValue;
+    private double totalIGSTValue;
     public String cartDetail;
     private String discount;
 
@@ -79,11 +79,11 @@ public class RealmDDROrderList extends RealmObject {
         this.isSync = isSync;
     }
 
-    public int getTotalTaxValue() {
+    public double getTotalTaxValue() {
         return totalTaxValue;
     }
 
-    public void setTotalTaxValue(int totalTaxValue) {
+    public void setTotalTaxValue(double totalTaxValue) {
         this.totalTaxValue = totalTaxValue;
     }
 
@@ -95,11 +95,11 @@ public class RealmDDROrderList extends RealmObject {
         this.approvalStat = approvalStat;
     }
 
-    public int getOrderValue() {
+    public double getOrderValue() {
         return orderValue;
     }
 
-    public void setOrderValue(int orderValue) {
+    public void setOrderValue(double orderValue) {
         this.orderValue = orderValue;
     }
 
@@ -127,7 +127,7 @@ public class RealmDDROrderList extends RealmObject {
         this.poDate = poDate;
     }
 
-    public int getTotalCGSTValue() {
+    public double getTotalCGSTValue() {
         return totalCGSTValue;
     }
 
@@ -135,11 +135,11 @@ public class RealmDDROrderList extends RealmObject {
         this.totalCGSTValue = totalCGSTValue;
     }
 
-    public int getTotalValueWithoutTax() {
+    public double getTotalValueWithoutTax() {
         return totalValueWithoutTax;
     }
 
-    public void setTotalValueWithoutTax(int totalValueWithoutTax) {
+    public void setTotalValueWithoutTax(double totalValueWithoutTax) {
         this.totalValueWithoutTax = totalValueWithoutTax;
     }
 
@@ -151,11 +151,11 @@ public class RealmDDROrderList extends RealmObject {
         this.poStatus = poStatus;
     }
 
-    public int getDiscountValue() {
+    public double getDiscountValue() {
         return discountValue;
     }
 
-    public void setDiscountValue(int discountValue) {
+    public void setDiscountValue(double discountValue) {
         this.discountValue = discountValue;
     }
 
@@ -223,11 +223,11 @@ public class RealmDDROrderList extends RealmObject {
         this.poNumber = poNumber;
     }
 
-    public int getTotalValueWithTax() {
+    public double getTotalValueWithTax() {
         return totalValueWithTax;
     }
 
-    public void setTotalValueWithTax(int totalValueWithTax) {
+    public void setTotalValueWithTax(double totalValueWithTax) {
         this.totalValueWithTax = totalValueWithTax;
     }
 
@@ -239,11 +239,11 @@ public class RealmDDROrderList extends RealmObject {
         this.entityID = entityID;
     }
 
-    public int getTotalDiscountValue() {
+    public double getTotalDiscountValue() {
         return totalDiscountValue;
     }
 
-    public void setTotalDiscountValue(int totalDiscountValue) {
+    public void setTotalDiscountValue(double totalDiscountValue) {
         this.totalDiscountValue = totalDiscountValue;
     }
 
@@ -255,19 +255,19 @@ public class RealmDDROrderList extends RealmObject {
         this.totalLoyality = totalLoyality;
     }
 
-    public int getTotalSGSTValue() {
+    public double getTotalSGSTValue() {
         return totalSGSTValue;
     }
 
-    public void setTotalSGSTValue(int totalSGSTValue) {
+    public void setTotalSGSTValue(double totalSGSTValue) {
         this.totalSGSTValue = totalSGSTValue;
     }
 
-    public int getTotalIGSTValue() {
+    public double getTotalIGSTValue() {
         return totalIGSTValue;
     }
 
-    public void setTotalIGSTValue(int totalIGSTValue) {
+    public void setTotalIGSTValue(double totalIGSTValue) {
         this.totalIGSTValue = totalIGSTValue;
     }
 

@@ -29,17 +29,16 @@
                 android:id="@+id/spnOptions"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:padding="8dp"
                 android:visibility="gone"
-                android:layout_marginTop="8dp"
                 android:gravity="center" />
 
             <TextView
                 android:id="@+id/tvQtyDetail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
                 android:padding="8dp"
