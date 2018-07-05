@@ -1109,6 +1109,9 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
             paymentRequest.setCartDetail(cartDetail);
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), "paymentRequest: " + Util.getCustomGson().toJson(paymentRequest));
             AppLog.e(RetailSalesAdapter.class.getSimpleName(), "updated: " + Util.getCustomGson().toJson(IPOSApplication.mProductListResult));
+
+            if (paymentRequest != null)
+                SharedPrefUtil.putString(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest), getActivity());
             isClicked = false;
 //            scheme.clear();
         }
@@ -1276,12 +1279,13 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     Util.hideSoftKeyboard(getActivity());
                     if (IPOSApplication.mProductListResult.size() > 0)
                         if (!IPOSApplication.mCustomerID.equalsIgnoreCase(""))
-                            if (mCustomerPoints > 0.0)
-                                showRedeemLoyaltyPopup(rootView);
-                            else
-                                Util.showToast(getString(R.string.redeem_customer_points_not_sufficient), mContext);
-//                            else
-//                                Util.showToast(getString(R.string.redeem_customer_email_not_authorised), mContext);
+                            if(mCustomerNumber.equalsIgnoreCase("0000000000")) {
+                                if (mCustomerPoints > 0.0)
+                                    showRedeemLoyaltyPopup(rootView);
+                                else
+                                    Util.showToast(getString(R.string.redeem_customer_points_not_sufficient), mContext);
+                            } else
+                                Util.showToast(getString(R.string.redeem_customer_phone_not_authorised), mContext);
                         else
                             Util.showToast(getString(R.string.redeem_customer_not_authorised), mContext);
                     else
@@ -1343,39 +1347,47 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 case R.id.tvPay:
                     flScanner.setVisibility(View.GONE);
                     closeFragment();
-                    if (IPOSApplication.mProductListResult.size() > 0) {
-//                        if (paymentRequest != null)
-//                            SharedPrefUtil.putString(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest), getActivity());
-                        Intent i = new Intent(mContext, PaymentModeActivity.class);
-                        i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
-                        i.putExtra(Constants.KEY_CUSTOMER, IPOSApplication.mCustomerID);
-                        i.putExtra(Constants.KEY_CUSTOMER_POINTS_PER, IPOSApplication.mCustomerPointsPer);
-                        i.putExtra(Constants.KEY_CUSTOMER_POINTS, mCustomerPoints);
-                        i.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL, IPOSApplication.mCustomerEmail);
-                        i.putExtra(Constants.KEY_CUSTOMER_POINTS_NUMBER, IPOSApplication.mCustomerNumber);
-                        i.putExtra(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest));
-                        startActivityForResult(i, Constants.ACT_PAYMENT);
-                    } else {
-                        Util.showToast("Please add atleast one item to proceed.", mContext);
+                    if(!mCustomerID.equalsIgnoreCase("")) {
+                        if (IPOSApplication.mProductListResult.size() > 0) {
+                            if (paymentRequest != null)
+                                SharedPrefUtil.putString(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest), getActivity());
+                            Intent i = new Intent(mContext, PaymentModeActivity.class);
+                            i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
+                            i.putExtra(Constants.KEY_CUSTOMER, IPOSApplication.mCustomerID);
+                            i.putExtra(Constants.KEY_CUSTOMER_POINTS_PER, IPOSApplication.mCustomerPointsPer);
+                            i.putExtra(Constants.KEY_CUSTOMER_POINTS, mCustomerPoints);
+                            i.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL, IPOSApplication.mCustomerEmail);
+                            i.putExtra(Constants.KEY_CUSTOMER_POINTS_NUMBER, IPOSApplication.mCustomerNumber);
+//                        i.putExtra(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest));
+                            startActivityForResult(i, Constants.ACT_PAYMENT);
+                        } else {
+                            Util.showToast("Please add atleast one item to proceed.", mContext);
+                        }
+                    }else {
+                        Util.showToast("Please select Customer.", mContext);
                     }
 //                totalAmount =0.0;
                     break;
                 case R.id.imvRight:
                     flScanner.setVisibility(View.GONE);
                     closeFragment();
-                    if (IPOSApplication.mProductListResult.size() > 0) {
-                        if (paymentRequest != null)
-                            SharedPrefUtil.putString(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest), getActivity());
-                        Intent i = new Intent(mContext, PaymentModeActivity.class);
-                        i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
-                        i.putExtra(Constants.KEY_CUSTOMER, IPOSApplication.mCustomerID);
-                        i.putExtra(Constants.KEY_CUSTOMER_POINTS_PER, IPOSApplication.mCustomerPointsPer);
-                        i.putExtra(Constants.KEY_CUSTOMER_POINTS, mCustomerPoints);
-                        i.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL, IPOSApplication.mCustomerEmail);
-                        i.putExtra(Constants.KEY_CUSTOMER_POINTS_NUMBER, IPOSApplication.mCustomerNumber);
-                        startActivityForResult(i, Constants.ACT_PAYMENT);
-                    } else {
-                        Util.showToast("Please add atleast one item to proceed.", mContext);
+                    if(!mCustomerID.equalsIgnoreCase("")) {
+                        if (IPOSApplication.mProductListResult.size() > 0) {
+                            if (paymentRequest != null)
+                                SharedPrefUtil.putString(Constants.PAYMENT_REQUEST, Util.getCustomGson().toJson(paymentRequest), getActivity());
+                            Intent i = new Intent(mContext, PaymentModeActivity.class);
+                            i.putExtra(Constants.TOTAL_AMOUNT, totalAmount + "");
+                            i.putExtra(Constants.KEY_CUSTOMER, IPOSApplication.mCustomerID);
+                            i.putExtra(Constants.KEY_CUSTOMER_POINTS_PER, IPOSApplication.mCustomerPointsPer);
+                            i.putExtra(Constants.KEY_CUSTOMER_POINTS, mCustomerPoints);
+                            i.putExtra(Constants.KEY_CUSTOMER_POINTS_EMAIL, IPOSApplication.mCustomerEmail);
+                            i.putExtra(Constants.KEY_CUSTOMER_POINTS_NUMBER, IPOSApplication.mCustomerNumber);
+                            startActivityForResult(i, Constants.ACT_PAYMENT);
+                        } else {
+                            Util.showToast("Please add atleast one item to proceed.", mContext);
+                        }
+                    }else {
+                        Util.showToast("Please select Customer.", mContext);
                     }
 //                totalAmount =0.0;
                     break;

@@ -169,6 +169,7 @@ public class Constants {
     public static String otcValue="otcValue";
 
     public static String paymentMode="paymentMode";
+    public static String outboxMode="outboxMode";
     public static String OrderCenterMode="OrderCenterMode";
 }
 

@@ -3,6 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@color/white">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -18,6 +20,8 @@
             app:popupTheme="@style/AppTheme"
             app:theme="@style/ToolbarColoredBackArrow" >
 
+
+
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
@@ -27,7 +31,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
@@ -50,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="Store 1"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_14sp" />
 
@@ -113,6 +116,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="TAX INVOICE"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_14sp" />
             <ImageView
@@ -190,6 +194,7 @@
                     android:text="@string/customer_"
                     android:padding="@dimen/dim_5"
                     android:paddingBottom="@dimen/dim_10"
+                    android:layout_marginRight="@dimen/dim_15"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/text_size_14sp" />
                 <quay.com.ipos.ui.CustomTextView
@@ -220,6 +225,7 @@
                 android:padding="@dimen/dim_5"
                 android:text="@string/item_details"
                 android:paddingBottom="@dimen/dim_10"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_14sp" />
             <ImageView

@@ -1,10 +1,17 @@
 {
     "logs": [
         {
+<<<<<<< HEAD
             "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\zbar\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
             "map": [
                 {
                     "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\packaged_res\\debug\\values\\values.xml",
+=======
+            "outputFile": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\zbar\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+            "map": [
+                {
+                    "source": "E:\\Aditi Bhuranda\\Downloads\\iPOS\\IPOS\\IPOS\\core\\build\\intermediates\\packaged_res\\debug\\values\\values.xml",
+>>>>>>> d35c262da84643022342e6fea716d2b287a14926
                     "from": {
                         "startLines": "2,3,4,6,7",
                         "startColumns": "4,4,4,4,4",

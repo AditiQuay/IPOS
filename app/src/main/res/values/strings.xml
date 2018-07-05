@@ -380,6 +380,7 @@
     <string name="stock_update">Stock Update</string>
     <string name="retail_product">Retail Product</string>
     <string name="redeem_customer_email_not_authorised">Please update customer email ID</string>
+    <string name="redeem_customer_phone_not_authorised">Cannot redeem points of default customers!</string>
     <string name="redeem_customer_points_not_sufficient">Customer points not sufficient</string>
     <string name="ddr_items_details">Items Details</string>
     <string name="ddr_save_close"><![CDATA[SAVE & CLOSE]]></string>
