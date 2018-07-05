@@ -97,6 +97,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     LoginResult loginResult ;
     private ArrayList<PaymentRequest.PaymentDetail> arrPaymentDetail = new ArrayList<>();
     private ArrayList<PaymentRequest.DetailInfo> detailInfo = new ArrayList<>();
+    private ArrayList<PaymentRequest.DetailInfo> detailInfo1 = new ArrayList<>();
+    private ArrayList<PaymentRequest.DetailInfo> detailInfo2 = new ArrayList<>();
     boolean checkCash=false;
     boolean checkCardAmt=false, checkCard=false,checkCardExpYear=false,checkCardMonth=false,checkCardDigit=false;
     String[] arrMonth;
@@ -518,7 +520,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         mPrintViewResult.setBusinessPlaceName(loginResult.getUserAccess().getWorklocations().get(0).getAddress1());
         mPrintViewResult.setCin(loginResult.getUserAccess().getWorklocations().get(0).getCIN());
         if(customerModel!=null) {
-            mPrintViewResult.setCustomerName(customerModel.getCustomerName());
+            mPrintViewResult.setCustomerName(customerModel.getCustomerFirstName()+" "+customerModel.getCustomerLastName());
             mPrintViewResult.setMobile(customerModel.getCustomerPhone());
         }else {
             mPrintViewResult.setCustomerName("NA");
@@ -561,12 +563,13 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         mPrintViewResult.setItemDetails(itemDetails);
         mPrintViewResult.setGstSummary(gstSummaries);
         mPrintViewResult.setTotalQty(paymentRequest.getTotalQty()+"");
+        mPrintViewResult.setTotalItem(paymentRequest.getItemQty()+"");
         mPrintViewResult.setTotalAmount(paymentRequest.getTotalValueWithoutTax()+"");
         mPrintViewResult.setTotalDiscountAmount(paymentRequest.getTotalDiscountValue()+"");
         mPrintViewResult.setTotalCgst(Util.getLastTwoDigits(paymentRequest.getTotalCGSTValue())+"");
         mPrintViewResult.setTotalSaleAmount(paymentRequest.getTotalValueWithTax()+"");
         mPrintViewResult.setTotalSgst(Util.getLastTwoDigits(paymentRequest.getTotalSGSTValue())+"");
-        mPrintViewResult.setNetTotalAmount(paymentRequest.getTotalValueWithoutTax()+"");
+        mPrintViewResult.setNetTotalAmount(paymentRequest.getNetTotal()+"");
         mPrintViewResult.setRoundingOff(paymentRequest.getTotalRoundingOffValue()+"");
         mPrintViewResult.setTotalIgst(paymentRequest.getTotalIGSTValue()+"");
 
@@ -692,8 +695,10 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                             arrPaymentDetail.clear();
 
                             if (checkCash) {
+                                detailInfo.clear();
+                                paymentDetail = new PaymentRequest().new PaymentDetail();
                                 paymentDetail.setPaymentType("cash");
-                                arrPaymentDetail.add(paymentDetail);
+                                mDetailInfo = new PaymentRequest().new DetailInfo();
                                 mDetailInfo.setTotalAmt((double)cashAmount);
                                 if (sendCOD) {
                                     mDetailInfo.setCashReceivedAmt(0.0);
@@ -710,21 +715,46 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                                 mDetailInfo.setCardTxnId(transID);
                                 detailInfo.add(mDetailInfo);
                                 paymentDetail.setDetailInfo(detailInfo);
+                                arrPaymentDetail.add(paymentDetail);
                             }
                             if (checkCard) {
+                                detailInfo1.clear();
+                                paymentDetail = new PaymentRequest().new PaymentDetail();
                                 paymentDetail.setPaymentType("card");
+                              PaymentRequest.DetailInfo mDetailInfo1 = new PaymentRequest().new DetailInfo();
+                                mDetailInfo1.setTotalAmt(0.0);
+                                mDetailInfo1.setCashReceivedAmt(0.0);
+                                mDetailInfo1.setCashReturnAmt(0.0);
+                                mDetailInfo1.setCashIsCOD(false);
+                                mDetailInfo1.setCardPaymentAmt((double)cardAmount);
+                                mDetailInfo1.setCardExpirationDate(expMonth + "/" + expYear);
+                                mDetailInfo1.setCardLastDigits(lastDigit);
+                                mDetailInfo1.setCardType(cardType);
+                                mDetailInfo1.setCardTxnId(transID);
+                                detailInfo1.add(mDetailInfo1);
+                                paymentDetail.setDetailInfo(detailInfo1);
                                 arrPaymentDetail.add(paymentDetail);
-                                mDetailInfo.setTotalAmt(0.0);
-                                mDetailInfo.setCashReceivedAmt(0.0);
-                                mDetailInfo.setCashReturnAmt(0.0);
-                                mDetailInfo.setCashIsCOD(false);
-                                mDetailInfo.setCardPaymentAmt((double)cardAmount);
-                                mDetailInfo.setCardExpirationDate(expMonth + "/" + expYear);
-                                mDetailInfo.setCardLastDigits(lastDigit);
-                                mDetailInfo.setCardType(cardType);
-                                mDetailInfo.setCardTxnId(transID);
-                                detailInfo.add(mDetailInfo);
-                                paymentDetail.setDetailInfo(detailInfo);
+                            }
+                            if(redeemed){
+                                detailInfo2.clear();
+                                paymentDetail = new PaymentRequest().new PaymentDetail();
+                                paymentDetail.setPaymentType("points");
+                                PaymentRequest.DetailInfo mDetailInfo1 = new PaymentRequest().new DetailInfo();
+                                mDetailInfo1.setTotalAmt(0.0);
+                                mDetailInfo1.setCashReceivedAmt(0.0);
+                                mDetailInfo1.setCashReturnAmt(0.0);
+                                mDetailInfo1.setCashIsCOD(false);
+                                mDetailInfo1.setCardPaymentAmt(0.0);
+                                mDetailInfo1.setCardExpirationDate("" + "/" + "");
+                                mDetailInfo1.setCardLastDigits("");
+                                mDetailInfo1.setCardType("");
+                                mDetailInfo1.setCardTxnId("");
+                                mDetailInfo.setPointsValue(IPOSApplication.totalpointsToRedeemValue);
+                                mDetailInfo.setPointsToRedeem(IPOSApplication.totalpointsToRedeem);
+                                mDetailInfo.setPointsOtp(etOTP.getText().toString());
+                                detailInfo2.add(mDetailInfo1);
+                                paymentDetail.setDetailInfo(detailInfo2);
+                                arrPaymentDetail.add(paymentDetail);
                             }
 
                             if(mCustomerID.equalsIgnoreCase(""))
@@ -1293,7 +1323,6 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     saveBillToLocalStorage(paymentRequest, NAME_NOT_SYNCED_WITH_SERVER);
                     Toast.makeText(context, context.getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
                     Util.showToast("Order Saved Successfully", IPOSApplication.getContext());
-
                 }
 
                 IPOSApplication.mProductListResult.clear();

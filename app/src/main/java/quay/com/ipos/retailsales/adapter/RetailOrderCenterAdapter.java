@@ -87,7 +87,7 @@ public class RetailOrderCenterAdapter  extends RecyclerView.Adapter<RecyclerView
             RetailOrderCenterListResult.ListOrderCenter str = mDataset.get(position);
             RetailOrderCenterAdapter.UserViewHolder userViewHolder = (RetailOrderCenterAdapter.UserViewHolder) holder;
             userViewHolder.tvOrderNumber.setText(str.getOrderNo()+"");
-            userViewHolder.tvValue.setText(str.getOrderValue()+"");
+            userViewHolder.tvValue.setText(mContext.getResources().getString(R.string.Rs)+" "+str.getOrderValue()+"");
             userViewHolder.tvDateTime.setText(str.getOrderDate());
             userViewHolder.tvPaymentMode.setText(str.getPaymentStatus());
             userViewHolder.tvCustomerDetails.setText(str.getMobile()+" - "+str.getCustomerName());
@@ -95,12 +95,13 @@ public class RetailOrderCenterAdapter  extends RecyclerView.Adapter<RecyclerView
                 mobile = "9999 9999";
             }else
                 mobile= str.getMobile();
-            if(str.getCustomerName().equalsIgnoreCase("") || str.getCustomerName().equalsIgnoreCase("NA")){
+            if(str.getCustomerName().equalsIgnoreCase("") || str.getCustomerName().equalsIgnoreCase("NA")|| str.getCustomerName().equalsIgnoreCase("NA NA")){
                 name = "Default Customer";
             }else
                 name= str.getCustomerName();
 
             userViewHolder.tvCustomerDetails.setText(mobile+" - "+name);
+            userViewHolder.imvStatus.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_action_cart));
             onBind = false;
 
         }

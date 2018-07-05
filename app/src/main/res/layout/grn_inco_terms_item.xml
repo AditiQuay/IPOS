@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    android:minHeight="37dp"
+    android:padding="@dimen/dim_0"
     android:background="@color/white"
     >
-
     <LinearLayout
         android:id="@+id/includeCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:orientation="vertical">
 
         <LinearLayout
@@ -21,18 +21,19 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1">
+                android:layout_weight="1.2">
 
                 <TextView
                     android:id="@+id/tvDetailName"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
                     android:fontFamily="@font/titilliumwebregular"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:padding="8dp"
-                    android:text="Loading"
                     android:textColor="@color/grey"
-                    android:textSize="@dimen/universal_text_size14" />
+                    android:textSize="@dimen/universal_text_size14"
+                    tools:text="Loading" />
 
             </LinearLayout>
 
@@ -44,9 +45,9 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight=".8"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -63,9 +64,9 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight=".8"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -83,7 +84,7 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -91,7 +92,7 @@
 
                 <EditText
                     android:id="@+id/tvPayAmount"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/titilliumwebregular"
                     android:gravity="center"
@@ -103,12 +104,12 @@
                     tools:text="26,800" />
                 <ImageView
                     android:id="@+id/delete"
-                    android:layout_width="@dimen/dim_24"
-                    android:layout_height="@dimen/dim_24"
+                    android:layout_width="@dimen/dim_22"
+                    android:layout_height="@dimen/dim_22"
                     android:visibility="gone"
+                    android:layout_marginRight="@dimen/dim_18"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/delete"/>
-
             </LinearLayout>
 
 
@@ -117,10 +118,11 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="0dp"
             android:background="@drawable/ipos_line_black" />
 
 
     </LinearLayout>
+
 
 </RelativeLayout>

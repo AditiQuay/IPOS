@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ import quay.com.ipos.utility.Util;
 public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceResultListener{
     OutboxAdapter nameAdapter;
     TextView tvNoItemAvailable;
+    LinearLayout llSearch;
     ArrayList<BillingSync> billingSyncs = new ArrayList<>();
     ArrayList<BillingSync> billingSyncsFilter = new ArrayList<>();
     PaymentRequest paymentRequest;
@@ -65,6 +67,8 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
         setContentView(R.layout.activity_outbox_list);
         toolbar = findViewById(R.id.toolbar);
         swipeToRefresh = findViewById(R.id.swipeToRefresh);
+        llSearch = findViewById(R.id.llSearch);
+        llSearch.setVisibility(View.GONE);
         swipeToRefresh.setEnabled(false);
         tvNoItemAvailable = findViewById(R.id.tvNoItemAvailable);
         setSupportActionBar(toolbar);

@@ -84,6 +84,8 @@ public class LoginResult {
         private String PrincipalName;
         private int PrincipalId;
         public String EntityName;
+        public String UserType;
+        public String Account;
         private List<WorklocationsBean> worklocations;
 
         public int getID() {

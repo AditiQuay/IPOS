@@ -83,18 +83,25 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             try {
                 PrintViewResult.PaymentsDetail str = mDataset.get(position);
                 PaymentAdapter.UserViewHolder userViewHolder = (PaymentAdapter.UserViewHolder) holder;
+
                 if(str.getModeOfPayment().equalsIgnoreCase("cash")){
                     userViewHolder.tvPaidByCash.setText(Util.getIndianNumberFormat(str.getAmount()+""));
                     userViewHolder.tvTenderChanges.setText(Util.getIndianNumberFormat(str.getReturnValue()+""));
                     userViewHolder.llPaidByCash.setVisibility(View.VISIBLE);
-                }
-                if(str.getModeOfPayment().equalsIgnoreCase("card")){
+                    userViewHolder.llPaidByCard.setVisibility(View.GONE);
+                }else  if(str.getModeOfPayment().equalsIgnoreCase("card")){
                     userViewHolder.tvCardNumber.setText(str.getCardNo()+"");
                     userViewHolder.tvCardType.setText(str.getCardType()+"");
                     userViewHolder.tvExpiryDate.setText(str.getExpiryDate()+"");
                     userViewHolder.tvPaidByCard.setText(Util.getIndianNumberFormat(str.getAmount()+""));
                     userViewHolder.llPaidByCard.setVisibility(View.VISIBLE);
+                    userViewHolder.llPaidByCash.setVisibility(View.GONE);
+                }else {
+                    userViewHolder.llPaidByCash.setVisibility(View.GONE);
+                    userViewHolder.llPaidByCard.setVisibility(View.GONE);
                 }
+
+
             }catch (Exception e){
 
             }

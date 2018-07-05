@@ -90,7 +90,7 @@ public class ProductSearchResult {
         private Integer sProductStock;
         @SerializedName("sProductWeight")
         @Expose
-        private Integer sProductWeight;
+        private String sProductWeight;
         @SerializedName("isDiscount")
         @Expose
         private Boolean isDiscount;
@@ -139,6 +139,17 @@ public class ProductSearchResult {
         @SerializedName("pointsPer")
         @Expose
         private Integer pointsPer;
+//        @SerializedName("mUOM")
+//        @Expose
+//        private Integer mUOM;
+//
+//        public Integer getmUOM() {
+//            return mUOM;
+//        }
+
+//        public void setmUOM(Integer mUOM) {
+//            this.mUOM = mUOM;
+//        }
 
         private String PriceSelected;
         private boolean isAdded = false;
@@ -326,11 +337,11 @@ public class ProductSearchResult {
             this.sProductStock = sProductStock;
         }
 
-        public Integer getSProductWeight() {
+        public String getSProductWeight() {
             return sProductWeight;
         }
 
-        public void setSProductWeight(Integer sProductWeight) {
+        public void setSProductWeight(String sProductWeight) {
             this.sProductWeight = sProductWeight;
         }
 

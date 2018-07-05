@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundgrey"
@@ -80,8 +79,8 @@
                             android:layout_gravity="center"
                             android:layout_marginRight="10dp"
                             android:layout_marginTop="@dimen/dim_2"
-                            android:src="@drawable/add_circle"
                             android:onClick="addProduct"
+                            android:src="@drawable/add_circle"
                             android:visibility="visible" />
 
                         <ImageView
@@ -204,7 +203,7 @@
                             android:layout_gravity="center_vertical"
                             android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center_vertical"
-                            android:text="New Total (-Disc)"
+                            android:text="Net Total (-Disc)"
                             android:textColor="@color/accent_color"
                             android:textSize="@dimen/text_size_15sp" />
 
@@ -414,7 +413,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -424,10 +425,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
+                            android:layout_marginTop="@dimen/dim_4"
+                            android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
                             android:text="Immediate"
-                            android:fontFamily="@font/titilliumwebregular"
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
@@ -442,7 +443,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -452,10 +455,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
+                            android:layout_marginTop="@dimen/dim_4"
+                            android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
                             android:text="Cheque"
-                            android:fontFamily="@font/titilliumwebregular"
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
@@ -469,22 +472,24 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:gravity="center|center_vertical"
                         android:background="@drawable/ddr_blue_rect_normal_right"
-                        android:orientation="vertical">
+                        android:gravity="center|center_vertical"
+                        android:orientation="vertical"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/credit_blue" />
+                            android:src="@drawable/credit_white" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
+                            android:layout_marginTop="@dimen/dim_4"
+                            android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
                             android:text="Credit"
-                            android:fontFamily="@font/titilliumwebregular"
                             android:textColor="#fff" />
 
                     </LinearLayout>
@@ -498,7 +503,7 @@
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
                 android:orientation="vertical"
-                tools:visibility="gone">
+                tools:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -543,7 +548,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -557,10 +564,10 @@
                             android:id="@+id/textCreditPageInvoice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
+                            android:layout_marginTop="@dimen/dim_4"
+                            android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
                             android:text=""
-                            android:fontFamily="@font/titilliumwebregular"
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
@@ -575,7 +582,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -589,10 +598,10 @@
                             android:id="@+id/textAvaCreditLimit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
+                            android:layout_marginTop="@dimen/dim_4"
+                            android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
                             android:text="Rs.0"
-                            android:fontFamily="@font/titilliumwebregular"
                             android:textColor="@color/filter_text_color" />
 
                     </LinearLayout>
@@ -607,7 +616,9 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center|center_vertical"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:paddingBottom="8dp"
+                        android:paddingTop="8dp">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -622,7 +633,7 @@
                             android:id="@+id/textCreditPageBalance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
+                            android:layout_marginTop="@dimen/dim_4"
                             android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
                             android:text="Rs.0"
@@ -639,7 +650,7 @@
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
                 android:orientation="vertical"
-                tools:visibility="visible">
+                tools:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -682,7 +693,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                         android:gravity="center_vertical"
+                        android:gravity="center_vertical"
                         android:orientation="vertical"
                         android:paddingLeft="8dp">
 
@@ -693,6 +704,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dim_4"
                             android:layout_marginRight="@dimen/dim_4"
+                            android:nextFocusForward="@+id/editLRNumber"
                             android:paddingBottom="4dp"
                             app:ms_alignLabels="true"
                             app:ms_baseColor="@color/grey"
@@ -702,7 +714,6 @@
                             app:ms_floatingLabelColor="@color/grey"
                             app:ms_floatingLabelText=""
                             app:ms_highlightColor="@color/highlight"
-                            android:nextFocusForward="@+id/editLRNumber"
                             app:ms_hint="Mode"
                             app:ms_hintColor="@color/grey"
                             app:ms_multiline="false" />
@@ -748,11 +759,11 @@
                                 android:id="@+id/editLRNumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:fontFamily="@font/titilliumwebregular"
                                 android:hint="LR Number"
                                 android:imeOptions="actionNext"
                                 android:inputType="textCapCharacters"
                                 android:maxLines="1"
-                                android:fontFamily="@font/titilliumwebregular"
                                 android:nextFocusForward="@+id/editTransporter"
                                 android:textSize="@dimen/universal_text_size14"
 
@@ -764,7 +775,7 @@
 
                 </LinearLayout>
 
-             <!--   <include layout="@layout/view_layout_without_dot" />-->
+                <!--   <include layout="@layout/view_layout_without_dot" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -774,46 +785,44 @@
                     android:orientation="vertical"
                     android:paddingLeft="8dp">
 
-                  <!--  <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:gravity="center_vertical"
-                        android:text="Transporter"
-                        android:textColor="@color/filter_text_color" />
+                    <!--  <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:fontFamily="@font/titilliumwebregular"
+                          android:gravity="center_vertical"
+                          android:text="Transporter"
+                          android:textColor="@color/filter_text_color" />
 
-                    <EditText
-                        android:id="@+id/editTransporter"
-                        android:layout_width="wrap_content"
-                        android:maxLines="1"
-                        android:textSize="14sp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dim_8"
-                        android:gravity="center_vertical"
-                        android:text="AGARWAL PACKER AND MOVERS PVT LMT."
-                        android:textColor="@color/filter_text_color" />-->
+                      <EditText
+                          android:id="@+id/editTransporter"
+                          android:layout_width="wrap_content"
+                          android:maxLines="1"
+                          android:textSize="14sp"
+                          android:layout_height="wrap_content"
+                          android:layout_marginTop="@dimen/dim_8"
+                          android:gravity="center_vertical"
+                          android:text="AGARWAL PACKER AND MOVERS PVT LMT."
+                          android:textColor="@color/filter_text_color" />-->
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
+                        android:layout_height="match_parent">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/editTransporter"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:hint="Transporter"
-                        android:inputType="textCapWords"
-                        android:maxLines="1"
-                        android:textSize="@dimen/universal_text_size14"
-                        android:nextFocusForward="@+id/editTruckNumber"
-                        android:imeOptions="actionNext"
-                        android:fontFamily="@font/titilliumwebregular"
-                        />
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/editTransporter"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/titilliumwebregular"
+                            android:hint="Transporter"
+                            android:imeOptions="actionNext"
+                            android:inputType="textCapWords"
+                            android:maxLines="1"
+                            android:nextFocusForward="@+id/editTruckNumber"
+                            android:textSize="@dimen/universal_text_size14" />
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
 
-               <!-- <include layout="@layout/view_layout_without_dot" />-->
+                <!-- <include layout="@layout/view_layout_without_dot" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -828,41 +837,39 @@
                         android:orientation="vertical"
                         android:paddingLeft="8dp">
 
-                      <!--  <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/titilliumwebregular"
-                            android:gravity="center_horizontal"
-                            android:text="Truck Number"
-                            android:textColor="@color/filter_text_color" />
+                        <!--  <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:fontFamily="@font/titilliumwebregular"
+                              android:gravity="center_horizontal"
+                              android:text="Truck Number"
+                              android:textColor="@color/filter_text_color" />
 
-                        <EditText
-                            android:id="@+id/editTruckNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:gravity="center_horizontal"
-                            android:text="DL-04-MK-7349"
-                            android:maxLines="1"
-                            android:textSize="14sp"
-                            android:textColor="@color/filter_text_color" />-->
+                          <EditText
+                              android:id="@+id/editTruckNumber"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="@dimen/dim_8"
+                              android:gravity="center_horizontal"
+                              android:text="DL-04-MK-7349"
+                              android:maxLines="1"
+                              android:textSize="14sp"
+                              android:textColor="@color/filter_text_color" />-->
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            >
+                            android:layout_height="match_parent">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/editTruckNumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:fontFamily="@font/titilliumwebregular"
                                 android:hint="Truck Number"
+                                android:imeOptions="actionNext"
                                 android:inputType="textCapCharacters"
                                 android:maxLines="1"
-                                android:textSize="@dimen/universal_text_size14"
                                 android:nextFocusForward="@+id/editEWayBillNo"
-                                android:imeOptions="actionNext"
-                                android:fontFamily="@font/titilliumwebregular"
-                                />
+                                android:textSize="@dimen/universal_text_size14" />
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
@@ -880,41 +887,39 @@
                         android:orientation="vertical"
                         android:paddingLeft="8dp">
 
-                      <!--  <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/titilliumwebregular"
-                            android:gravity="center"
-                            android:text="E-Way Bill Number"
-                            android:textColor="@color/filter_text_color" />
+                        <!--  <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:fontFamily="@font/titilliumwebregular"
+                              android:gravity="center"
+                              android:text="E-Way Bill Number"
+                              android:textColor="@color/filter_text_color" />
 
-                        <EditText
-                            android:id="@+id/editEWayBillNo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:textSize="14sp"
-                            android:text="18100000001348"
-                            android:textColor="@color/filter_text_color" />-->
+                          <EditText
+                              android:id="@+id/editEWayBillNo"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="@dimen/dim_8"
+                              android:gravity="center"
+                              android:maxLines="1"
+                              android:textSize="14sp"
+                              android:text="18100000001348"
+                              android:textColor="@color/filter_text_color" />-->
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            >
+                            android:layout_height="match_parent">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/editEWayBillNo"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:fontFamily="@font/titilliumwebregular"
                                 android:hint="E-Way Bill Number"
+                                android:imeOptions="actionNext"
                                 android:inputType="number"
                                 android:maxLines="1"
-                                android:textSize="@dimen/universal_text_size14"
                                 android:nextFocusForward="@+id/editEwayBillVal"
-                                android:imeOptions="actionNext"
-                                android:fontFamily="@font/titilliumwebregular"
-                                />
+                                android:textSize="@dimen/universal_text_size14" />
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
@@ -922,7 +927,7 @@
 
                 </LinearLayout>
 
-               <!-- <include layout="@layout/view_layout_without_dot" />-->
+                <!-- <include layout="@layout/view_layout_without_dot" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -937,46 +942,44 @@
                         android:orientation="vertical"
                         android:paddingLeft="8dp">
 
-                      <!--  <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/titilliumwebregular"
-                            android:gravity="center_horizontal"
-                            android:text="E-Way Bill Validity"
-                            android:textColor="@color/filter_text_color" />
+                        <!--  <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:fontFamily="@font/titilliumwebregular"
+                              android:gravity="center_horizontal"
+                              android:text="E-Way Bill Validity"
+                              android:textColor="@color/filter_text_color" />
 
-                        <EditText
-                            android:id="@+id/editEwayBillVal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:maxLines="1"
-                            android:textSize="14sp"
-                            android:gravity="center_horizontal"
-                            android:text="22-May to 24-May-2018"
-                            android:textColor="@color/filter_text_color" />-->
+                          <EditText
+                              android:id="@+id/editEwayBillVal"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="@dimen/dim_8"
+                              android:maxLines="1"
+                              android:textSize="14sp"
+                              android:gravity="center_horizontal"
+                              android:text="22-May to 24-May-2018"
+                              android:textColor="@color/filter_text_color" />-->
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            >
+                            android:layout_height="match_parent">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/editEwayBillVal"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:hint="E-Way Bill Validity"
-                                android:inputType="text"
-                                android:maxLines="1"
-                                android:textSize="@dimen/universal_text_size14"
-                                android:nextFocusForward="@+id/editTrackMobileNumber"
-                                android:imeOptions="actionNext"
-                                android:onClick="onClickAddDate"
                                 android:clickable="true"
                                 android:cursorVisible="false"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
                                 android:fontFamily="@font/titilliumwebregular"
-                                />
+                                android:hint="E-Way Bill Validity"
+                                android:imeOptions="actionNext"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:nextFocusForward="@+id/editTrackMobileNumber"
+                                android:onClick="onClickAddDate"
+                                android:textSize="@dimen/universal_text_size14" />
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
@@ -994,42 +997,41 @@
                         android:orientation="vertical"
                         android:paddingLeft="8dp">
 
-                      <!--  <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/titilliumwebregular"
-                            android:gravity="center"
-                            android:text="Track Mobile Number"
-                            android:textColor="@color/filter_text_color" />
+                        <!--  <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:fontFamily="@font/titilliumwebregular"
+                              android:gravity="center"
+                              android:text="Track Mobile Number"
+                              android:textColor="@color/filter_text_color" />
 
-                        <EditText
-                            android:id="@+id/editTrackMobileNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:textSize="14sp"
-                            android:inputType="phone"
-                            android:text="9999999999"
-                            android:textColor="@color/filter_text_color" />
--->
+                          <EditText
+                              android:id="@+id/editTrackMobileNumber"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="@dimen/dim_8"
+                              android:gravity="center"
+                              android:maxLines="1"
+                              android:textSize="14sp"
+                              android:inputType="phone"
+                              android:text="9999999999"
+                              android:textColor="@color/filter_text_color" />
+  -->
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            >
+                            android:layout_height="match_parent">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/editTrackMobileNumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:fontFamily="@font/titilliumwebregular"
                                 android:hint="Track Mobile Number"
+                                android:imeOptions="actionNext"
                                 android:inputType="phone"
                                 android:maxLines="1"
-                                android:textSize="@dimen/universal_text_size14"
                                 android:nextFocusForward="@+id/editDriverName"
-                                android:imeOptions="actionNext"
-                                android:fontFamily="@font/titilliumwebregular"
+                                android:textSize="@dimen/universal_text_size14"
 
                                 />
                         </android.support.design.widget.TextInputLayout>
@@ -1038,7 +1040,7 @@
 
                 </LinearLayout>
 
-               <!-- <include layout="@layout/view_layout_without_dot" />-->
+                <!-- <include layout="@layout/view_layout_without_dot" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1053,41 +1055,39 @@
                         android:orientation="vertical"
                         android:paddingLeft="8dp">
 
-                      <!--  <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/titilliumwebregular"
-                            android:gravity="center_horizontal"
-                            android:text="Driver Name"
-                            android:textColor="@color/filter_text_color" />
+                        <!--  <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:fontFamily="@font/titilliumwebregular"
+                              android:gravity="center_horizontal"
+                              android:text="Driver Name"
+                              android:textColor="@color/filter_text_color" />
 
-                        <EditText
-                            android:id="@+id/editDriverName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:gravity="center_horizontal"
-                            android:text="Kishore"
-                            android:maxLines="1"
-                            android:textSize="14sp"
-                            android:textColor="@color/filter_text_color" />-->
+                          <EditText
+                              android:id="@+id/editDriverName"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="@dimen/dim_8"
+                              android:gravity="center_horizontal"
+                              android:text="Kishore"
+                              android:maxLines="1"
+                              android:textSize="14sp"
+                              android:textColor="@color/filter_text_color" />-->
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            >
+                            android:layout_height="match_parent">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/editDriverName"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:fontFamily="@font/titilliumwebregular"
                                 android:hint="Driver Name"
+                                android:imeOptions="actionNext"
                                 android:inputType="textPersonName"
                                 android:maxLines="1"
-                                android:textSize="@dimen/universal_text_size14"
                                 android:nextFocusForward="@+id/editDriverMobileNumber"
-                                android:imeOptions="actionNext"
-                                android:fontFamily="@font/titilliumwebregular"
-                                />
+                                android:textSize="@dimen/universal_text_size14" />
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
@@ -1105,41 +1105,39 @@
                         android:orientation="vertical"
                         android:paddingLeft="8dp">
 
-                      <!--  <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/titilliumwebregular"
-                            android:gravity="center"
-                            android:text="Driver Mobile Number"
-                            android:textColor="@color/filter_text_color" />
+                        <!--  <TextView
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:fontFamily="@font/titilliumwebregular"
+                              android:gravity="center"
+                              android:text="Driver Mobile Number"
+                              android:textColor="@color/filter_text_color" />
 
-                        <EditText
-                            android:id="@+id/editDriverMobileNumber"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dim_8"
-                            android:gravity="center"
-                            android:text="88002312345"
-                            android:maxLines="1"
-                            android:textSize="14sp"
-                            android:textColor="@color/filter_text_color" />-->
+                          <EditText
+                              android:id="@+id/editDriverMobileNumber"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="@dimen/dim_8"
+                              android:gravity="center"
+                              android:text="88002312345"
+                              android:maxLines="1"
+                              android:textSize="14sp"
+                              android:textColor="@color/filter_text_color" />-->
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            >
+                            android:layout_height="match_parent">
 
                             <android.support.design.widget.TextInputEditText
                                 android:id="@+id/editDriverMobileNumber"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:fontFamily="@font/titilliumwebregular"
                                 android:hint="Driver Mobile Number"
+                                android:imeOptions="actionNext"
                                 android:inputType="phone"
                                 android:maxLines="1"
-                                android:textSize="@dimen/universal_text_size14"
                                 android:nextFocusForward="@+id/editAddress"
-                                android:imeOptions="actionNext"
-                                android:fontFamily="@font/titilliumwebregular"
-                                />
+                                android:textSize="@dimen/universal_text_size14" />
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
@@ -1147,7 +1145,7 @@
 
                 </LinearLayout>
 
-             <!--   <include layout="@layout/view_layout_without_dot" />-->
+                <!--   <include layout="@layout/view_layout_without_dot" />-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1157,41 +1155,39 @@
                     android:orientation="vertical"
                     android:paddingLeft="8dp">
 
-                  <!--  <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:gravity="center_vertical"
-                        android:text="Address"
-                        android:textColor="@color/filter_text_color" />
+                    <!--  <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:fontFamily="@font/titilliumwebregular"
+                          android:gravity="center_vertical"
+                          android:text="Address"
+                          android:textColor="@color/filter_text_color" />
 
-                    <EditText
-                        android:id="@+id/editAddress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:textSize="14sp"
-                        android:layout_marginTop="@dimen/dim_8"
-                        android:gravity="center_vertical"
-                        android:text="AGARWAL PACKER AND MOVERS PVT LMT."
-                        android:textColor="@color/filter_text_color" />-->
+                      <EditText
+                          android:id="@+id/editAddress"
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:maxLines="1"
+                          android:textSize="14sp"
+                          android:layout_marginTop="@dimen/dim_8"
+                          android:gravity="center_vertical"
+                          android:text="AGARWAL PACKER AND MOVERS PVT LMT."
+                          android:textColor="@color/filter_text_color" />-->
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
+                        android:layout_height="match_parent">
 
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/editAddress"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:fontFamily="@font/titilliumwebregular"
                             android:hint="Address"
+                            android:imeOptions="actionNext"
                             android:inputType="textPostalAddress"
                             android:maxLines="1"
-                            android:textSize="@dimen/universal_text_size14"
                             android:nextFocusForward="@+id/tilContactMobileNumName"
-                            android:imeOptions="actionNext"
-                            android:fontFamily="@font/titilliumwebregular"
-                            />
+                            android:textSize="@dimen/universal_text_size14" />
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
@@ -1204,7 +1200,7 @@
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
                 android:orientation="vertical"
-                tools:visibility="visible">
+                tools:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1245,8 +1241,7 @@
                     android:id="@+id/recycleViewBillingAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
-                    tools:listitem="@layout/ddr_adapter_address"/>
+                    android:nestedScrollingEnabled="false" />
 
             </LinearLayout>
 
@@ -1256,7 +1251,7 @@
                 android:layout_marginTop="@dimen/dim_8"
                 android:background="@drawable/rect_four_white"
                 android:orientation="vertical"
-                tools:visibility="visible">
+                tools:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -1291,40 +1286,39 @@
 
                 <include layout="@layout/view_layout_without_dot" />
 
-               <!-- <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <!-- <RelativeLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
 
-                    android:minHeight="45dp">
+                     android:minHeight="45dp">
 
-                    <TextView
-                        android:id="@+id/textShippingAddress"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:gravity="center"
-                        android:paddingLeft="8dp"
+                     <TextView
+                         android:id="@+id/textShippingAddress"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_centerVertical="true"
+                         android:fontFamily="@font/titilliumwebregular"
+                         android:gravity="center"
+                         android:paddingLeft="8dp"
 
-                        android:text="Shipping Address Here....."
-                        android:textColor="@color/filter_text_color" />
+                         android:text="Shipping Address Here....."
+                         android:textColor="@color/filter_text_color" />
 
-                    <ImageView
-                        android:id="@+id/imageCheckIconShipping"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="16dp"
-                        android:gravity="center"
-                        android:src="@drawable/pc_rel_email" />
-                </RelativeLayout>-->
+                     <ImageView
+                         android:id="@+id/imageCheckIconShipping"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_alignParentRight="true"
+                         android:layout_centerVertical="true"
+                         android:layout_marginRight="16dp"
+                         android:gravity="center"
+                         android:src="@drawable/pc_rel_email" />
+                 </RelativeLayout>-->
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycleViewShippingAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
-                    tools:listitem="@layout/ddr_adapter_address"/>
+                    android:nestedScrollingEnabled="false" />
 
             </LinearLayout>
 
@@ -1364,8 +1358,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_15"
                         android:layout_toRightOf="@+id/imgIncoTerms"
-                        android:gravity="center"
                         android:fontFamily="@font/titilliumwebregular"
+                        android:gravity="center"
                         android:text="INCO Terms"
                         android:textColor="@color/colorPrimary" />
 
@@ -1424,29 +1418,29 @@
                         android:layout_centerInParent="true">
 
 
-                      <!--  <TextView
-                            android:id="@+id/tvQty"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/titilliumwebregular"
-                            android:gravity="center"
-                            android:padding="8dp"
-                            android:text="Details" />-->
+                        <!--  <TextView
+                              android:id="@+id/tvQty"
+                              android:layout_width="0dp"
+                              android:layout_height="wrap_content"
+                              android:layout_weight="1"
+                              android:fontFamily="@font/titilliumwebregular"
+                              android:gravity="center"
+                              android:padding="8dp"
+                              android:text="Details" />-->
                         <Spinner
                             android:id="@+id/textIncoTermsOthers"
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.9"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.2"
+                            android:drawablePadding="0dp"
+                            android:drawableRight="@drawable/arrow_down_small_gray"
                             android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
-                            android:padding="3dp"
-                            android:textColor="@color/grey"
-                            android:textSize="12dp"
                             android:maxLines="1"
+                            android:padding="0dp"
                             android:text="Others"
-                            android:drawableRight="@drawable/arrow_down_small_gray"
-                            android:drawablePadding="2dp"/>
+                            android:textColor="@color/grey"
+                            android:textSize="12dp" />
 
 
                         <View
@@ -1459,11 +1453,12 @@
                             android:id="@+id/price"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight=".8"
                             android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
-                            android:padding="@dimen/dim_8"
-                            android:text="SENDER" />
+                            android:padding="5dp"
+                            android:text="Sender"
+                            android:textSize="13dp" />
 
                         <View
                             android:layout_width="1dp"
@@ -1474,11 +1469,12 @@
                             android:id="@+id/tvAmount"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight=".8"
                             android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
-                            android:padding="8dp"
-                            android:text="RECEIVER" />
+                            android:padding="5dp"
+                            android:text="Receiver"
+                            android:textSize="13dp" />
 
                         <View
                             android:layout_width="1dp"
@@ -1492,8 +1488,9 @@
                             android:layout_weight="1"
                             android:fontFamily="@font/titilliumwebregular"
                             android:gravity="center"
-                            android:padding="8dp"
-                            android:text="AMOUNT" />
+                            android:padding="5dp"
+                            android:text="Amount"
+                            android:textSize="13dp" />
 
 
                     </LinearLayout>
@@ -1516,9 +1513,10 @@
 
                     />
 
-               <!-- <include layout="@layout/ddr_layout_incoterms_others" />-->
+                <!-- <include layout="@layout/ddr_layout_incoterms_others" />-->
                 <include layout="@layout/ddr_layout_incoterms_total" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1554,8 +1552,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginLeft="@dimen/dim_15"
                         android:layout_toRightOf="@+id/imgBatch"
-                        android:gravity="center"
                         android:fontFamily="@font/titilliumwebregular"
+                        android:gravity="center"
                         android:text="Batch Update"
                         android:textColor="@color/colorPrimary" />
 
@@ -1604,7 +1602,6 @@
                 <include layout="@layout/view_layout_without_dot" />
 
 
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -1651,9 +1648,9 @@
             android:paddingLeft="@dimen/dim_5"
             android:text="@string/ddr_save_close"
             android:textAllCaps="true"
-            android:visibility="invisible"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_15sp" />
+            android:textSize="@dimen/text_size_15sp"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/textSubmit"

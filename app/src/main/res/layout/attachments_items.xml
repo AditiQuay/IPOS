@@ -17,17 +17,19 @@
         android:paddingLeft="8dp"
         android:paddingRight="@dimen/dim_4"
         android:singleLine="true"
+        android:layout_alignParentLeft="true"
         android:text=""
+        android:layout_toLeftOf="@+id/imageattach"
         android:textColor="@color/accent_color"
         android:textSize="16sp" />
     <ImageView
         android:id="@+id/imageattach"
         android:layout_width="@dimen/dim_24"
         android:layout_height="24dp"
-        android:layout_toLeftOf="@+id/imgDelete"
         android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_alignParentRight="true"
         android:background="@drawable/attachment" />
     <ImageView
         android:id="@+id/imgDelete"
@@ -36,6 +38,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="8dp"
+        android:visibility="gone"
         android:background="@drawable/delete" />
 
 

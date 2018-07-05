@@ -26,6 +26,8 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="Advance"
+                android:fontFamily="@font/titilliumwebregular"
+
                 />
 
 
@@ -42,6 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="8dp"
+                android:fontFamily="@font/titilliumwebregular"
+
                 android:gravity="center"
                 android:inputType="numberDecimal"
                 android:hint="%"
@@ -59,10 +63,11 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="8dp"
+                android:fontFamily="@font/titilliumwebregular"
+
                 android:inputType="number"
-                android:maxLength="9"
                 android:background="@color/transparent"
-                android:text="Invoice Due"
+                android:text=""
                 />
 
 
