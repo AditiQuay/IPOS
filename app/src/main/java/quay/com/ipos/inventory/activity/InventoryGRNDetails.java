@@ -718,7 +718,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
                 grnNumber.setText(realmGRNDetails.getGrnNumber());
                 if (Util.validateString(realmGRNDetails.getReceivedDate()))
-                et_received_date.setText(realmGRNDetails.getReceivedDate());
+                    et_received_date.setText(realmGRNDetails.getReceivedDate());
                 et_totalItems.setText(totalItem + "");
                 et_value.setText(realmGRNDetails.getValue() + "");
                 poQty.setText(openQt + "");
