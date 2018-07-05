@@ -157,15 +157,15 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (charSequence.toString().trim().length()>0)
                 {
-                    if(listOrderCenters.size()>0) {
+//                    if(listOrderCenters.size()>0) {
                         imvClear.setVisibility(View.VISIBLE);
 //                        filter(charSequence.toString(), allListOrderCenters);
                         searchParam=charSequence.toString();
                         listOrderCenters.clear();
                         callServiceRetailOrderCenter(fromDate,toDate,paymentMode,searchParam);
-                    }else {
-                        imvClear.setVisibility(View.GONE);
-                    }
+//                    }else {
+//                        imvClear.setVisibility(View.GONE);
+//                    }
                     mRetailOrderCenterAdapter.notifyDataSetChanged();
                 }
                 else {
