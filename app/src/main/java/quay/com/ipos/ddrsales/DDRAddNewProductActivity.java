@@ -109,7 +109,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
         }
         setAdapter();
     //    getProduct();
-//            setDefaultValues();
+    //    setDefaultValues();
     }
 
     private void getIntentValues() {
@@ -1333,4 +1333,7 @@ public class DDRAddNewProductActivity extends BaseActivity implements View.OnCli
 
         }
     }
+
+
+
 }

@@ -517,5 +517,6 @@
     <string name="retail_sales_order_centre">Retail Order Center</string>
     <string name="order_date_from">Order Date From</string>
     <string name="order_date_to">Order Date To</string>
+    <string name="not_generated">Not Generated</string>
 
 </resources>

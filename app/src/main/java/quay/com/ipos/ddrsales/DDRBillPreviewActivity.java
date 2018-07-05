@@ -31,14 +31,16 @@ public class DDRBillPreviewActivity extends AppCompatActivity implements View.On
     private Toolbar toolbar;
     private TextView mDDRDetails;
     private ImageView mDDRDetailsIcon;
+    private TextView tvDate, tvDDROrderId;
 
     private RecyclerView recycleView;
     private BillPreviewAdapter adapter;
-
     private List<BillAdapterModel> list = new ArrayList<>();
-
-
     private DDR mDdr;
+    private String ddrOrderDate, ddrOrderId;
+
+    private boolean cameFromSubmitPage = false;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,8 +54,16 @@ public class DDRBillPreviewActivity extends AppCompatActivity implements View.On
 
 
         mDdr = (DDR) getIntent().getSerializableExtra("ddr");
+        ddrOrderDate = getIntent().getStringExtra("ddrOrderDate");
+        ddrOrderId = getIntent().getStringExtra("ddrOrderId");
+        cameFromSubmitPage = getIntent().getBooleanExtra("cameFromSubmitPage", false);
+
+
         mDDRDetails = findViewById(R.id.mDDRDetails);
         mDDRDetailsIcon = findViewById(R.id.mDDRDetailsIcon);
+
+        tvDate = findViewById(R.id.tvDate);
+        tvDDROrderId = findViewById(R.id.tvDDROrderId);
 
         if (mDdr != null) {
             mDDRDetails.setText(mDdr.mDDRCode + " - " + mDdr.mDDRName);
@@ -64,14 +74,20 @@ public class DDRBillPreviewActivity extends AppCompatActivity implements View.On
                 }
             });
         }
+        if (ddrOrderDate != null) {
+            tvDate.setText(ddrOrderDate);
+        }
+        if (ddrOrderId != null) {
+            tvDDROrderId.setText(ddrOrderId);
+        }
 
         localBillSetUp();
         initView();
     }
 
     private void localBillSetUp() {
-        list.add(new BillAdapterModel("1", "Performa Invoice", "NOT GENERATED"));
-        list.add(new BillAdapterModel("2", "Delivery Challan", "DC2000101"));
+        list.add(new BillAdapterModel("1", "Performa Invoice", "Not Generated"));
+        list.add(new BillAdapterModel("2", "Delivery Challan", "Not Generated"));
         list.add(new BillAdapterModel("3", "Invoice", "Not Generated"));
     }
 
@@ -102,9 +118,11 @@ public class DDRBillPreviewActivity extends AppCompatActivity implements View.On
 
 
     public void onCloseAction(View view) {
-        Intent intent = new Intent(activity, DDROrderCenterActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        if (cameFromSubmitPage) {
+            Intent intent = new Intent(activity, DDROrderCenterActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
         finish();
     }
 
@@ -184,7 +202,8 @@ public class DDRBillPreviewActivity extends AppCompatActivity implements View.On
 
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        /// onBackPressed();
+        onCloseAction(null);
         return true;
     }
 

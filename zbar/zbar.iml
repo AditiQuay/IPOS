@@ -87,10 +87,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/shaders" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/attr" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
-<<<<<<< HEAD
+
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/check-manifest" />
-=======
->>>>>>> d35c262da84643022342e6fea716d2b287a14926
+
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/intermediate-jars" />
@@ -112,11 +111,8 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-<<<<<<< HEAD
-    <orderEntry type="library" name="__local_aars__:C.\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\libs\zbar.jar:unspecified@jar" level="project" />
-=======
-    <orderEntry type="library" name="__local_aars__:E.\Aditi Bhuranda\Downloads\iPOS\IPOS\IPOS\zbar\libs\zbar.jar:unspecified@jar" level="project" />
->>>>>>> d35c262da84643022342e6fea716d2b287a14926
+
+
     <orderEntry type="module" module-name="core" />
   </component>
 </module>

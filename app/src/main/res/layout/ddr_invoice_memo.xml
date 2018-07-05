@@ -1427,6 +1427,7 @@
                               android:gravity="center"
                               android:padding="8dp"
                               android:text="Details" />-->
+
                         <Spinner
                             android:id="@+id/textIncoTermsOthers"
                             android:layout_width="0dp"

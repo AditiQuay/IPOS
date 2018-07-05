@@ -6,6 +6,7 @@ import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,14 +28,12 @@ import java.util.List;
 import java.util.Locale;
 
 import quay.com.ipos.R;
-import quay.com.ipos.application.IPOSApplication;
-import quay.com.ipos.data.local.entity.DDRInvoiceData;
 import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.ddrsales.adapter.DDRAdapter;
+import quay.com.ipos.ddrsales.ddrdetail.DDRCUActivity;
 import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.ddrsales.model.DDRProduct;
 import quay.com.ipos.ddrsales.model.InvoiceData;
-import quay.com.ipos.ddrsales.model.POSummary;
 import quay.com.ipos.ddrsales.model.request.DDRListReq;
 import quay.com.ipos.ddrsales.model.response.GetDDRList;
 import quay.com.ipos.listeners.InitInterface;
@@ -59,6 +59,9 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
     List<DDR> filterDDRList = new ArrayList<>();
 
     private MutableLiveData<GetDDRList> mutableLiveData = new MutableLiveData<>();
+
+
+    private FloatingActionButton fab;
 
 
     @Override
@@ -182,6 +185,8 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
 
     @Override
     public void findViewById() {
+        fab = findViewById(R.id.fab);
+
         searchView = findViewById(R.id.searchView);
         tvClear = findViewById(R.id.tvClear);
 
@@ -246,6 +251,14 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
             }
         });
 
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*Intent intent = new Intent(activity, DDRCUActivity.class);
+                startActivity(intent);*/
+            }
+        });
 
     }
 
