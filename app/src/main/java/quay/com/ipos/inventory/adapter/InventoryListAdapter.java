@@ -47,7 +47,7 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
         holder.tvTitle.setText(stringArrayList.get(position).getCompany());
         holder.tvDate.setText(stringArrayList.get(position).getDate());
         holder.tvOrderNumber.setText(stringArrayList.get(position).getId());
-        holder.tvValue.setText(stringArrayList.get(position).getValue()+"");
+        holder.tvValue.setText(mContext.getResources().getString(R.string.Rs)+". "+stringArrayList.get(position).getValue()+"");
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

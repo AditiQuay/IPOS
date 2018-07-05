@@ -113,7 +113,7 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
             }
         }
         setAdapter();
-    //    getProduct();
+        //    getProduct();
 //            setDefaultValues();
     }
 
@@ -126,28 +126,28 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
         }
     }
 
-   /* private void setDefaultValues() {
+    /* private void setDefaultValues() {
 
-        Double totalPrice;
-        for(int i=0 ; i < arrData.size();i++ )
-        {
-            OrderList.Datum datum = arrData.get(i);
-            if(datum.getQty()==0)
-                datum.setQty(1);
-            if(!datum.isDiscItemSelected())
-                datum.setDiscItemSelected(true);
-            totalPrice = (Double.parseDouble(datum.getSProductPrice()) * datum.getQty());
-            datum.setTotalPrice(totalPrice);
-            if(datum.getIsDiscount()) {
-                Double discount = Double.parseDouble(datum.getSDiscountPrice()) * totalPrice / 100;
-              //  datum.setDiscount(discount);
-            }else {
-             //   datum.setDiscount(0.0);
-            }
-            arrData.set(i,datum);
-        }
+         Double totalPrice;
+         for(int i=0 ; i < arrData.size();i++ )
+         {
+             OrderList.Datum datum = arrData.get(i);
+             if(datum.getQty()==0)
+                 datum.setQty(1);
+             if(!datum.isDiscItemSelected())
+                 datum.setDiscItemSelected(true);
+             totalPrice = (Double.parseDouble(datum.getSProductPrice()) * datum.getQty());
+             datum.setTotalPrice(totalPrice);
+             if(datum.getIsDiscount()) {
+                 Double discount = Double.parseDouble(datum.getSDiscountPrice()) * totalPrice / 100;
+               //  datum.setDiscount(discount);
+             }else {
+              //   datum.setDiscount(0.0);
+             }
+             arrData.set(i,datum);
+         }
 
-    }*/
+     }*/
     private void setAdapter() {
         mAddNewOrderAdapter = new InventoryAddNewOrderAdapter(this,this,dataBeans,this);
         mRecyclerView.setAdapter(mAddNewOrderAdapter);
@@ -221,7 +221,7 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
     }
 
 
- /*   private void getProduct() {
+/*   private void getProduct() {
         try {
             arrData.clear();
             String json = Util.getAssetJsonResponse(this, "product_list.json");
@@ -289,10 +289,10 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
                 Realm realm=Realm.getDefaultInstance();
                 RealmInventoryProducts realmNewOrderCarts;
                 if (Util.validateString(strSearch)) {
-                     realmNewOrderCarts=realm.where(RealmInventoryProducts.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),arrSearchlist.get(pos).getIProductModalId()).findFirst();
+                    realmNewOrderCarts=realm.where(RealmInventoryProducts.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),arrSearchlist.get(pos).getIProductModalId()).findFirst();
 
                 }else {
-                     realmNewOrderCarts=realm.where(RealmInventoryProducts.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),dataBeans.get(pos).getIProductModalId()).findFirst();
+                    realmNewOrderCarts=realm.where(RealmInventoryProducts.class).equalTo(NoGetEntityEnums.iProductModalId.toString(),dataBeans.get(pos).getIProductModalId()).findFirst();
 
                 }
                 Gson gson = new GsonBuilder().create();
@@ -392,9 +392,9 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
                 final int posDeleteCheckStock = (int) view.getTag();
                 NewOrderProductsResult.DataBean realmNewOrderCart;
                 if (Util.validateString(strSearch)){
-                   realmNewOrderCart=arrSearchlist.get(posDeleteCheckStock);
+                    realmNewOrderCart=arrSearchlist.get(posDeleteCheckStock);
                 }else {
-                     realmNewOrderCart=dataBeans.get(posDeleteCheckStock);
+                    realmNewOrderCart=dataBeans.get(posDeleteCheckStock);
                 }
 
                 realmNewOrderCart.setmCheckStock(0);
@@ -402,7 +402,7 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
                 if (Util.validateString(strSearch)){
                     arrSearchlist.set(posDeleteCheckStock,realmNewOrderCart);
                 }else
-                dataBeans.set(posDeleteCheckStock,realmNewOrderCart);
+                    dataBeans.set(posDeleteCheckStock,realmNewOrderCart);
                 mAddNewOrderAdapter.notifyItemChanged(posDeleteCheckStock);
                 break;
             case R.id.llAccept:
@@ -533,7 +533,7 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
         CommonParams mCommonParams = new CommonParams();
         mCommonParams.setStoreId(Prefs.getIntegerPrefs("WorklocationID")+"");
         mCommonParams.setSearchParam(s);
-     //   productSearchRequest.setBusinessPlaceCode(Prefs.getIntegerPrefs("WorklocationID")+"");
+        //   productSearchRequest.setBusinessPlaceCode(Prefs.getIntegerPrefs("WorklocationID")+"");
 
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
@@ -733,7 +733,7 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
                                     }else {
                                         isApplied=  getQuantityBasedOnDiscountItems(isApplied,realmNewOrderCarts,slabFrom,slabTO,opsCriteria,sDiscountBasedOn,realm,packSize,productCode);
 
-                                     //   isApplied=  getValueBasedOnDiscountItems(isApplied,realmNewOrderCarts,slabFrom,slabTO,opsCriteria,sDiscountBasedOn,realm,packSize,productCode);
+                                        //   isApplied=  getValueBasedOnDiscountItems(isApplied,realmNewOrderCarts,slabFrom,slabTO,opsCriteria,sDiscountBasedOn,realm,packSize,productCode);
 
                                     }
 
@@ -1397,14 +1397,14 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
                                 public void run() {
                                     NewOrderProductsResult.DataBean realmNewOrderCart;
                                     if (Util.validateString(strSearch))
-                                    realmNewOrderCart=arrSearchlist.get(postionCheckStock);
+                                        realmNewOrderCart=arrSearchlist.get(postionCheckStock);
                                     else{
-                                         realmNewOrderCart=dataBeans.get(postionCheckStock);
+                                        realmNewOrderCart=dataBeans.get(postionCheckStock);
                                     }
                                     realmNewOrderCart.setmCheckStock(jsonObject.optInt("stockQty"));
                                     realmNewOrderCart.setCheckStockClick(true);
                                     if (Util.validateString(strSearch))
-                                    arrSearchlist.set(postionCheckStock,realmNewOrderCart);
+                                        arrSearchlist.set(postionCheckStock,realmNewOrderCart);
                                     else {
                                         dataBeans.set(postionCheckStock,realmNewOrderCart);
                                     }
@@ -1443,3 +1443,4 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
 
 
 }
+

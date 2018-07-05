@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class OrderModel implements Serializable {
+
+
     public String requestCode;
     public String etaDate;
     public String modifiedDate;

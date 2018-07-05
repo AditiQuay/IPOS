@@ -141,13 +141,14 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
 
     private void getIntentValues(){
+        if (SharedPrefUtil.getString(Constants.PAYMENT_REQUEST,"",this)!=null) {
+            json =SharedPrefUtil.getString(Constants.PAYMENT_REQUEST,"",this);
+
+            paymentRequest = Util.getCustomGson().fromJson(json, PaymentRequest.class);
+        }
         Intent intent=getIntent();
         if (intent!=null){
-            if (intent.getStringExtra(Constants.PAYMENT_REQUEST) != null) {
-                json =intent.getStringExtra(Constants.PAYMENT_REQUEST);
 
-                paymentRequest = Util.getCustomGson().fromJson(json, PaymentRequest.class);
-            }
             mTotalAmount=intent.getStringExtra(Constants.TOTAL_AMOUNT);
             mCustomerID = intent.getStringExtra(Constants.KEY_CUSTOMER);
             if(!mCustomerID.equalsIgnoreCase("") && mCustomerID != null) {
@@ -818,13 +819,13 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 case R.id.llPoints:
 
                     if (!mCustomerID.equalsIgnoreCase("")) {
-//                        if(!IPOSApplication.mCustomerEmail.trim().equalsIgnoreCase(""))
-                        if(mCustomerPoints>0)
-                            setllPoints();
-                        else
-                            Util.showToast(getString(R.string.redeem_customer_points_not_sufficient), mContext);
-//                        else
-//                            Util.showToast(getString(R.string.redeem_customer_email_not_authorised), mContext);
+                        if(mCustomerNumber.equalsIgnoreCase("0000000000")) {
+                            if (mCustomerPoints > 0)
+                                setllPoints();
+                            else
+                                Util.showToast(getString(R.string.redeem_customer_points_not_sufficient), mContext);
+                        } else
+                            Util.showToast(getString(R.string.redeem_customer_phone_not_authorised), mContext);
                     } else {
                         Util.showToast("Please select customer first.", PaymentModeActivity.this);
                     }

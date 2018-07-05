@@ -17,6 +17,7 @@
         android:layout_gravity="center"
         android:gravity="center_vertical"
         android:padding="@dimen/dim_5"
+        android:textStyle="bold"
         android:text="@string/payment_details"
         android:paddingBottom="@dimen/dim_10"
         android:textColor="@color/black"
@@ -49,6 +50,7 @@
         android:gravity="center_vertical"
         android:padding="@dimen/dim_5"
         android:text="@string/gst_summary"
+        android:textStyle="bold"
         android:paddingBottom="@dimen/dim_10"
         android:textColor="@color/black"
         android:textSize="@dimen/text_size_14sp" />

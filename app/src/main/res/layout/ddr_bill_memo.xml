@@ -38,7 +38,7 @@
 
 
                     <TextView
-                        android:id="@+id/tvDDRCode"
+                        android:id="@+id/tvDDROrderId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -55,8 +55,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
-                        android:layout_toRightOf="@+id/tvDDRCode"
-
+                        android:layout_toRightOf="@+id/tvDDROrderId"
                         android:gravity="center"
                         android:padding="@dimen/dim_10"
                         android:text="04-Jul-2018"

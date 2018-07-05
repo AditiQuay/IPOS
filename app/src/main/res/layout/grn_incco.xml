@@ -101,7 +101,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/ipos_line_black" />
 
     <android.support.v7.widget.RecyclerView
@@ -113,5 +112,5 @@
 
     </android.support.v7.widget.RecyclerView>
 
-    <include layout="@layout/ddr_layout_incoterms_total" />
+    <include layout="@layout/ddr_layout_incoterms_total_grn" />
 </LinearLayout>

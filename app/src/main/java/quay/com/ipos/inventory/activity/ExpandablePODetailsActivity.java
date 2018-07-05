@@ -403,9 +403,9 @@ public class ExpandablePODetailsActivity extends BaseActivity {
             edtBillingAddress.setText(jsonObject.optString("billingAddress"));
             edtDeliveryAddress.setText(jsonObject.optString("deliveryAddress"));
             edtPoDate.setText(jsonObject.optString("poDate"));
-            edtPoGST.setText(jsonObject.optDouble("poIGSTValue")+"");
+            edtPoGST.setText(Util.round(jsonObject.optDouble("poIGSTValue"),2)+"");
             edtPoValDate.setText(jsonObject.optString("poValidityDate"));
-            edtPoValue.setText(jsonObject.optDouble("poValue")+"");
+            edtPoValue.setText(Util.round(jsonObject.optDouble("poValue"),2)+"");
             edtSupAddress.setText(jsonObject.optString("supplierAddress"));
             edtSupGSTIN.setText(jsonObject.optString("supplierGSTIN"));
             edtSupplierName.setText(jsonObject.optString("supplierName"));
