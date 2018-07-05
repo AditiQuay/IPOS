@@ -1044,7 +1044,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-//                                Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "Response***" + response.body().toString());
                             }
                         });
@@ -1162,7 +1161,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "Response***" + response.body().toString());
                             }
                         });

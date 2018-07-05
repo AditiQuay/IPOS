@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/titilliumwebregular"
-            android:text="NOT GENERATED"
+            android:text="@string/not_generated"
             android:textColor="@color/dark_grey_color"
             android:textSize="@dimen/dim_13" />
     </LinearLayout>

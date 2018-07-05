@@ -135,11 +135,11 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
         recyclerViewDelivered.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewCancelled.setLayoutManager(new LinearLayoutManager(this));
 
-        adapterNew = new POAdapter(activity, this);
-        adapterAccepted = new POAdapter(activity, this);
-        adapterDispatched = new POAdapter(activity, this);
-        adapterDelivered = new POAdapter(activity, this);
-        adapterCancelled = new POAdapter(activity, this);
+        adapterNew = new POAdapter(activity, DDRConstant.OrderSummaryTAB.NEW, this);
+        adapterAccepted = new POAdapter(activity, DDRConstant.OrderSummaryTAB.ACCEPTED, this);
+        adapterDispatched = new POAdapter(activity, DDRConstant.OrderSummaryTAB.DISPATCHED, this);
+        adapterDelivered = new POAdapter(activity, DDRConstant.OrderSummaryTAB.DELIVERED, this);
+        adapterCancelled = new POAdapter(activity, DDRConstant.OrderSummaryTAB.CANCELLED, this);
 
         recyclerViewNew.setAdapter(adapterNew);
         recyclerViewAccepted.setAdapter(adapterAccepted);
@@ -245,7 +245,7 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-      //  getMenuInflater().inflate(R.menu.main, menu);
+        //  getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -393,14 +393,23 @@ public class DDROrderCenterActivity extends AppCompatActivity implements InitInt
 
 
     @Override
-    public void onSelectPO(int pos, OrderModel orderModel) {
-
-        Intent intent = new Intent(activity, DDRApproveInvoiceActivity.class);
-        DDR ddr = new DDR(orderModel.ddrCode,orderModel.ddrName,"","",0,0,0);
-
-        intent.putExtra("data", orderModel);
-        intent.putExtra("ddr", ddr);
-        startActivity(intent);
+    public void onSelectPO(int pos, String orderSummaryTab, OrderModel orderModel) {
+        if (orderSummaryTab == DDRConstant.OrderSummaryTAB.NEW) {
+            Intent intent = new Intent(activity, DDRApproveInvoiceActivity.class);
+            DDR ddr = new DDR(orderModel.ddrCode, orderModel.ddrName, "", "", 0, 0, 0);
+            intent.putExtra("data", orderModel);
+            intent.putExtra("ddr", ddr);
+            startActivity(intent);
+        }
+        if (orderSummaryTab == DDRConstant.OrderSummaryTAB.ACCEPTED) {
+            Intent intent = new Intent(activity, DDRBillPreviewActivity.class);
+            DDR ddr = new DDR(orderModel.ddrCode, orderModel.ddrName, "", "", 0, 0, 0);
+            intent.putExtra("ddr", ddr);
+            intent.putExtra("ddrOrderId", orderModel.requestCode);
+            intent.putExtra("ddrOrderDate", orderModel.etaDate);
+            intent.putExtra("cameFromSubmitPage", false);
+            startActivity(intent);
+        }
 
     }
 }

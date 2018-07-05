@@ -165,7 +165,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     private Activity activity;
 
     private MutableLiveData<DDRProductListResponse> mutableLiveData = new MutableLiveData<>();
-
+    private boolean openProductSearch =true;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -193,6 +193,12 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             }
         });
         getServerData();
+
+
+        if(openProductSearch){
+            openProductSearch = false;
+            onSearchButton();
+        }
 
     }
 

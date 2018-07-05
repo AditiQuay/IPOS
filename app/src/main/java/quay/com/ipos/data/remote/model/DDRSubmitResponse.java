@@ -6,11 +6,17 @@ public class DDRSubmitResponse {
     public String errorDescription;
     public String message;
     public boolean response;
+    public String ddrOrderId;
+    public String ddrOrderDate;
+
+
 
    /* {
-        "statusCode": 200,
-            "response": true,
-            "message": "success"
+            "error": 200,
+             "errorDescription": "",
+               "message": "Order has been created successfully",
+             "ddrOrderId": "BB18000011",
+             "ddrOrderDate": "5-Jul-2018"
     }*/
 
 }

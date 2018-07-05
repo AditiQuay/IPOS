@@ -205,17 +205,17 @@
 
                         <ImageView
                             android:id="@+id/imvInfo"
-                            android:layout_width="14dp"
-                            android:layout_height="14dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_action_info_gray" />
 
                         <ImageView
                             android:id="@+id/imvClear"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_marginLeft="@dimen/dim_16"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
                             android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/dim_16"
                             android:src="@drawable/ic_action_delete" />
 
 

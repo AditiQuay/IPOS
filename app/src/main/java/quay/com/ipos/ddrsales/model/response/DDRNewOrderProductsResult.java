@@ -22,31 +22,142 @@ public class DDRNewOrderProductsResult {
 
     public static class DataBean {
         /**
-         * productCode : Billo
-         * iProductModalId : BLLO2KG
-         * sProductName : BILLO 2KG
-         * productImage : https://www.khedutstore.com/p3y9_inv/admin/img/product/orignal/276108.jpg
-         * sProductPrice : 150
-         * sProductStock : available
-         * sProductWeight : 45
-         * isDiscount : true
-         * gstPerc : 18
-         * cgst : 9
-         * sgst : 9
-         * salesPrice : 100
-         * nrv : 150
-         * gpl : 120
-         * mrp : 160
-         * barCodeNumber : 9421023610112
-         * discount : [{"sDiscountName":"Season Discount","sDiscountDisplayName":"Seasnal Scheme","rule":[{"sDiscountType":"p","sDiscountValue":10,"sEligibilityBasedOn":"V","sDiscountBasedOn":"SP","slabFrom":0,"slabTO":100000,"packSize":0,"isCrossBundle":false,"opsCriteria":"L","ruleType":"I","ruleNotes":"Independent","ruleID":1,"ruleNumber":1,"ruleSequence":0,"ruleProdecessors":0,"opsType":"P"}]},{"sDiscountName":"Special Offer","sDiscountDisplayName":"Special Offer","rule":[{"sDiscountType":"P","sDiscountValue":5,"sEligibilityBasedOn":"V","sDiscountBasedOn":"MRP","slabFrom":0,"slabTO":2,"packSize":0,"isCrossBundle":false,"opsCriteria":"L","ruleType":"D","ruleNotes":"Dependent","ruleID":2,"ruleNumber":2,"ruleSequence":2,"ruleProdecessors":2,"opsType":"P"},{"sDiscountType":"P","sDiscountValue":100,"sEligibilityBasedOn":"V","sDiscountBasedOn":"MRP","slabFrom":2,"slabTO":2,"packSize":2,"isCrossBundle":false,"opsCriteria":"L","ruleType":"I","ruleNotes":"InDependent","ruleID":3,"ruleNumber":3,"ruleSequence":0,"ruleProdecessors":0,"opsType":"P"},{"sDiscountType":"P","sDiscountValue":20,"sEligibilityBasedOn":"V","sDiscountBasedOn":"MRP","slabFrom":100,"slabTO":300,"packSize":0,"isCrossBundle":false,"opsCriteria":"L","ruleType":"D","ruleNotes":"Dependent","ruleID":4,"ruleNumber":4,"ruleSequence":1,"ruleProdecessors":1,"opsType":"P"}]}]
-         * points : 20
-         * pointsBasedOn : P
-         * valueFrom : 200
-         * valueTo : 600
-         * pointsPer : 2
-         * isReserveStock : true
-         * isCheckStock : true
-         * isStockDisplay : true
+         * "productCode": "Billo",
+         * "iProductModalId": "BLLO2KG",
+         * "sProductName": "Admire",
+         * "sProductFeature": [],
+         * "productImage": "http://13.127.101.233/Image/Admire.jpg",
+         * "sProductPrice": 150,
+         * "sProductStock": 150,
+         * "sProductWeight": 2,
+         * "isDiscount": true,
+         * "gstPerc": 18,
+         * "cgst": 9,
+         * "sgst": 9,
+         * "salesPrice": 100,
+         * "nrv": 150,
+         * "gpl": 120,
+         * "mrp": 160,
+         * "barCodeNumber": "9421023610112",
+         * "discount": [
+         * {
+         * "schemeID": "S001",
+         * "sDiscountName": "Seasonal Discount",
+         * "sDiscountDisplayName": "Seasonal Scheme",
+         * "rule": [
+         * {
+         * "sDiscountType": "p",
+         * "sDiscountValue": 10,
+         * "sEligibilityBasedOn": "V",
+         * "sDiscountBasedOn": "SP",
+         * "slabFrom": 0,
+         * "slabTO": 100000,
+         * "packSize": 0,
+         * "isCrossBundle": false,
+         * "opsCriteria": "L",
+         * "ruleType": "I",
+         * "ruleNotes": "Independent",
+         * "ruleID": 1,
+         * "ruleNumber": 1,
+         * "ruleSequence": 0,
+         * "ruleProdecessors": 0,
+         * "opsType": "P"
+         * }
+         * ]
+         * },
+         * {
+         * "schemeID": "S002",
+         * "sDiscountName": "Special Offer",
+         * "sDiscountDisplayName": "Special Offer",
+         * "rule": [
+         * {
+         * "sDiscountType": "P",
+         * "sDiscountValue": 10,
+         * "sEligibilityBasedOn": "V",
+         * "sDiscountBasedOn": "SP",
+         * "slabFrom": 0,
+         * "slabTO": 1,
+         * "packSize": 0,
+         * "isCrossBundle": false,
+         * "opsCriteria": "L",
+         * "ruleType": "D",
+         * "ruleNotes": "Dependent",
+         * "ruleID": 1,
+         * "ruleNumber": 1,
+         * "ruleSequence": 3,
+         * "ruleProdecessors": 2,
+         * "opsType": "P"
+         * },
+         * {
+         * "sDiscountType": "P",
+         * "sDiscountValue": 5,
+         * "sEligibilityBasedOn": "V",
+         * "sDiscountBasedOn": "SP",
+         * "slabFrom": 0,
+         * "slabTO": 2,
+         * "packSize": 0,
+         * "isCrossBundle": false,
+         * "opsCriteria": "L",
+         * "ruleType": "D",
+         * "ruleNotes": "Dependent",
+         * "ruleID": 2,
+         * "ruleNumber": 2,
+         * "ruleSequence": 2,
+         * "ruleProdecessors": 4,
+         * "opsType": "P"
+         * },
+         * {
+         * "sDiscountType": "P",
+         * "sDiscountValue": 100,
+         * "sEligibilityBasedOn": "V",
+         * "sDiscountBasedOn": "SP",
+         * "slabFrom": 2,
+         * "slabTO": 2,
+         * "packSize": 2,
+         * "isCrossBundle": false,
+         * "opsCriteria": "L",
+         * "ruleType": "I",
+         * "ruleNotes": "InDependent",
+         * "ruleID": 3,
+         * "ruleNumber": 3,
+         * "ruleSequence": 0,
+         * "ruleProdecessors": 0,
+         * "opsType": "P"
+         * },
+         * {
+         * "sDiscountType": "P",
+         * "sDiscountValue": 20,
+         * "sEligibilityBasedOn": "V",
+         * "sDiscountBasedOn": "SP",
+         * "slabFrom": 100,
+         * "slabTO": 300,
+         * "packSize": 0,
+         * "isCrossBundle": false,
+         * "opsCriteria": "L",
+         * "ruleType": "D",
+         * "ruleNotes": "Dependent",
+         * "ruleID": 4,
+         * "ruleNumber": 4,
+         * "ruleSequence": 1,
+         * "ruleProdecessors": 3,
+         * "opsType": "P"
+         * }
+         * ]
+         * }
+         * ],
+         * "points": 10,
+         * "pointsBasedOn": "M",
+         * "valueFrom": 0,
+         * "valueTo": 0,
+         * "pointsPer": 0,
+         * "pUOM": "gm",
+         * "mUOM": "",
+         * "conversionFactor": 10,
+         * "hsnCode": "476JHJ7",
+         * "hsnName": "xyz",
+         * "categoryName": "PCname",
+         * "subCategoryName": "PSubCatName",
+         * "brandName": ""
          */
         private int mCheckStock;
         private boolean checkStockClick;
@@ -76,6 +187,14 @@ public class DDRNewOrderProductsResult {
         private boolean isStockDisplay;
         private List<DiscountBean> discount;
         private double accumulatedLoyality;
+
+        public int conversionFactor;
+        public String categoryName;
+        public String subCategoryName;
+        public String hsnCode;
+        public String hsnName;
+
+
         public boolean isAdded;//local use
 
 

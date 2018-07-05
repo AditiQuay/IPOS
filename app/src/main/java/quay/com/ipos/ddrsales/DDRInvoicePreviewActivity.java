@@ -166,9 +166,12 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
     }
 
-    private void onSubmitSuccess() {
+    private void onSubmitSuccess(String ddrOrderId, String ddrOrderDate) {
         Intent intent = new Intent(activity, DDRBillPreviewActivity.class);
         intent.putExtra("ddr", mDdr);
+        intent.putExtra("ddrOrderId", ddrOrderId);
+        intent.putExtra("ddrOrderDate", ddrOrderDate);
+        intent.putExtra("cameFromSubmitPage", true);
         startActivity(intent);
     }
 
@@ -640,13 +643,14 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                     Log.i(TAG, "Code:" + response.code() + " message:" + response.message());
 
                     IPOSApplication.showToast("" + response.body().message);
-                    onSubmitSuccess();
+
                     Log.i("response", response.body().statusCode + "," + response.body().message);
                     Log.i("JsonObject", response.toString() + response.body());
                     if (response.body() != null) {
-                        DDRSubmitResponse response1 = response.body();
-                        if (response1 != null) {
-                            Log.i("updateDataResponse", new Gson().toJson(response1));
+                        DDRSubmitResponse ddrSubmitResponse = response.body();
+                        if (ddrSubmitResponse != null) {
+                            Log.i("updateDataResponse", new Gson().toJson(ddrSubmitResponse));
+                            onSubmitSuccess(ddrSubmitResponse.ddrOrderId,ddrSubmitResponse.ddrOrderDate);
                         }
                     }
                 } catch (Exception e) {
