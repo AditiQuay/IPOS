@@ -53,7 +53,7 @@ public class NewOrderProductsResult {
         private String productImage;
         private int sProductPrice;
         private String sProductStock;
-        private int sProductWeight;
+        private String sProductWeight;
         private boolean isDiscount;
         private int gstPerc;
         private int cgst;
@@ -123,11 +123,11 @@ public class NewOrderProductsResult {
             this.sProductStock = sProductStock;
         }
 
-        public int getSProductWeight() {
+        public String getSProductWeight() {
             return sProductWeight;
         }
 
-        public void setSProductWeight(int sProductWeight) {
+        public void setSProductWeight(String sProductWeight) {
             this.sProductWeight = sProductWeight;
         }
 

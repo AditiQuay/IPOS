@@ -173,7 +173,7 @@ public class OutboxActivity extends BaseActivity implements ServiceTask.ServiceR
     public void callPrintViewActivity(String mPrintViewResult){
         Intent mIntent = new Intent(OutboxActivity.this, PrintReceiptActivity.class);
         mIntent.putExtra(Constants.RECEIPT,mPrintViewResult);
-        mIntent.putExtra(Constants.RECEIPT_FROM,Constants.paymentMode);
+        mIntent.putExtra(Constants.RECEIPT_FROM,Constants.outboxMode);
         startActivity(mIntent);
     }
 

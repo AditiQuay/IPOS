@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/llIncoTerms"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -53,12 +54,12 @@
                 android:id="@+id/price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight=".8"
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
                 android:textAllCaps="false"
                 android:padding="@dimen/dim_8"
-                android:text="SUPPLIER" />
+                android:text="Sender" />
 
             <View
                 android:layout_width="1dp"
@@ -69,12 +70,12 @@
                 android:id="@+id/tvAmount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight=".8"
                 android:fontFamily="@font/titilliumwebregular"
                 android:gravity="center"
                 android:padding="8dp"
                 android:textAllCaps="false"
-                android:text="ME" />
+                android:text="Receiver" />
 
             <View
                 android:layout_width="1dp"
@@ -90,7 +91,7 @@
                 android:gravity="center"
                 android:textAllCaps="false"
                 android:padding="8dp"
-                android:text="AMOUNT" />
+                android:text="Amount" />
 
 
         </LinearLayout>
@@ -100,16 +101,16 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/ipos_line_black" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvIncco"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dim_8">
+        tools:listitem="@layout/grn_inco_terms_item"
+        >
 
     </android.support.v7.widget.RecyclerView>
 
-    <include layout="@layout/ddr_layout_incoterms_total" />
+    <include layout="@layout/ddr_layout_incoterms_total_grn" />
 </LinearLayout>

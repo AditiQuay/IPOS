@@ -147,7 +147,7 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
                 try {
                     String text = editable.toString();
                     if (holder.tvInQty.getText().hashCode() == editable.hashCode()) {
-                        if (Util.validateString(holder.tvInQty.getText().toString()) && !holder.tvInQty.getText().toString().equalsIgnoreCase("0")) {
+                        if (Util.validateString(holder.tvInQty.getText().toString())) {
                             String openQty = holder.tvOpenQty.getText().toString();
                             final String inQty = holder.tvInQty.getText().toString();
                             final String appQty = holder.tvApQty.getText().toString();
@@ -176,7 +176,7 @@ public class InventoryGrnItemsListAdapter extends RecyclerView.Adapter<Inventory
 
                     }
                     if (holder.tvApQty.getText().hashCode() == editable.hashCode()) {
-                        if (Util.validateString(holder.tvApQty.getText().toString()) && !holder.tvApQty.getText().toString().equalsIgnoreCase("0")) {
+                        if (Util.validateString(holder.tvApQty.getText().toString())) {
                             String openQty = holder.tvOpenQty.getText().toString();
                             final String inQty = holder.tvInQty.getText().toString();
                             final String appQty = holder.tvApQty.getText().toString();

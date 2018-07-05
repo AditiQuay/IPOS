@@ -770,6 +770,8 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
 
 
             JSONObject jsonObject2 = poItemDetailsArray.getJSONObject(pos);
+            double unitPrice = jsonObject2.getDouble("unitPrice");
+
             JSONObject jsonObject3 = jsonObject2.getJSONObject("gRNItemInfoDetails");
 
 
@@ -777,6 +779,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
             JSONArray jsonArray1 = new JSONArray();
 
             int quantity = 0, quantityDefect = 0, qantityOthers = 0;
+
             for (RealmInventoryTabData tabDatum : tabData) {
 
                 JSONArray jsonArray = new JSONArray();
@@ -820,13 +823,25 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
             jsonObject2.put("balanceQty", balanceQty);
             jsonObject2.put("isBatch", 1);
 
+//            double unitP = 0;
+//            double totalUnitPrice = unitPrice*(quantity+apQty);
+//            unitP+=totalUnitPrice;
+
+//            jsonObject2.put("unitPrice",totalUnitPrice);
+
 
             jsonObject3.put("data", jsonArray1);
             jsonObject2.put("gRNItemInfoDetails", jsonObject3);
 
             poItemDetailsArray.put(pos, jsonObject2);
 
+
+
+
+
+
             int quanOpenTotal = 0, quanBalanceTotal = 0, quanInQuant = 0, quanApp = 0,quanPo=0;
+            double unitPri=0,upIn=0,upApp=0;
             for (int k = 0; k < poItemDetailsArray.length(); k++) {
                 JSONObject jsonObject1 = poItemDetailsArray.optJSONObject(k);
                 quanOpenTotal += jsonObject1.optInt("openQty");
@@ -834,10 +849,17 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 quanBalanceTotal += jsonObject1.optInt("balanceQty");
                 quanInQuant += jsonObject1.optInt("inQty");
                 quanApp += jsonObject1.optInt("apQty");
+                double up = jsonObject2.getDouble("unitPrice");
 
+                upIn+= jsonObject1.optInt("inQty")*up;
+                upApp+= jsonObject1.optInt("apQty")*up;
             }
 
-            jsonObject.put("poQty", quanPo+(quanInQuant + quanApp));
+            int totalPoQty = quanPo+(quanInQuant+quanApp);
+
+
+            jsonObject.put("poQty", totalPoQty);
+            jsonObject.put("value",upIn+upApp);
             jsonObject.put("balanceQty", quanBalanceTotal);
             jsonObject.put("poItemDetails", poItemDetailsArray);
             jsonObject.put("poAttachments", arrayPoAttachment);

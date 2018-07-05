@@ -46,6 +46,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start|center_vertical"
+                    android:fontFamily="@font/titilliumwebregular"
+
                     android:layout_weight="1"
                     android:padding="8dp"
                     android:orientation="vertical">
@@ -53,6 +55,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/titilliumwebregular"
+
                         android:text="PO Number"
                         />
 
@@ -86,6 +90,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/titilliumwebregular"
+
                         android:text="PO Date"
                         />
 
@@ -117,6 +123,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="PO Value"
+                        android:fontFamily="@font/titilliumwebregular"
+
                         />
 
                     <EditText
@@ -155,6 +163,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="PO Number"
+                        android:fontFamily="@font/titilliumwebregular"
+
                         />
 
                     <EditText
@@ -186,6 +196,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="PO Validity Date"
+                        android:fontFamily="@font/titilliumwebregular"
+
                         />
 
                     <EditText
@@ -217,6 +229,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="GST Value"
+                        android:fontFamily="@font/titilliumwebregular"
+
                         />
 
                     <EditText
@@ -257,6 +271,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Supplier Name"
+                android:fontFamily="@font/titilliumwebregular"
+
                 />
 
             <EditText
@@ -288,6 +304,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Supplier Address"
+                android:fontFamily="@font/titilliumwebregular"
+
                 />
 
             <EditText
@@ -319,6 +337,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Supplier GSTIN"
+                android:fontFamily="@font/titilliumwebregular"
+
                 />
 
             <EditText
@@ -350,6 +370,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Billing Address"
+                android:fontFamily="@font/titilliumwebregular"
+
                 />
 
             <EditText
@@ -381,6 +403,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Delivery Address"
+                android:fontFamily="@font/titilliumwebregular"
+
                 />
 
             <EditText

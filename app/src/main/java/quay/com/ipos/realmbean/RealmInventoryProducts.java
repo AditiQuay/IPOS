@@ -19,7 +19,7 @@ public class RealmInventoryProducts extends RealmObject {
     private String productImage;
     private int sProductPrice;
     private String sProductStock;
-    private int sProductWeight;
+    private String sProductWeight;
     private boolean isDiscount;
     private int gstPerc;
     private int cgst;
@@ -106,11 +106,11 @@ private double conversionFactor;
         this.sProductStock = sProductStock;
     }
 
-    public int getsProductWeight() {
+    public String getsProductWeight() {
         return sProductWeight;
     }
 
-    public void setsProductWeight(int sProductWeight) {
+    public void setsProductWeight(String sProductWeight) {
         this.sProductWeight = sProductWeight;
     }
 
