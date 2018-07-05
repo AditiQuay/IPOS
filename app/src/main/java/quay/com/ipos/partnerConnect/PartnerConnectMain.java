@@ -58,7 +58,7 @@ import retrofit2.Response;
 import static quay.com.ipos.utility.Constants.employeeCode;
 
 /**
- * Created by niraj.kumar on 6/3/2018.
+ * Created by deepak.kumar on 6/3/2018.
  */
 
 public class PartnerConnectMain extends RunTimePermissionActivity implements InitInterface,
@@ -294,7 +294,7 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+      //  getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
