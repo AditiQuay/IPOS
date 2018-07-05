@@ -23,11 +23,11 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/titilliumwebregular"
-
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="Advance"
+                android:fontFamily="@font/titilliumwebregular"
+
                 />
 
 
@@ -44,9 +44,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="8dp"
-                android:gravity="center"
                 android:fontFamily="@font/titilliumwebregular"
 
+                android:gravity="center"
                 android:text="20%"
                 />
             <View
@@ -57,7 +57,7 @@
                 android:id="@+id/tvGst"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:gravity="center"
                 android:padding="8dp"
                 android:fontFamily="@font/titilliumwebregular"
@@ -72,7 +72,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="4dp"
             android:background="@drawable/ipos_line_black"/>
 
 

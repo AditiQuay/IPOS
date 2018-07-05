@@ -113,7 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginLeft="@dimen/dim_8"
-            android:src="@drawable/ic_action_attachment_blue"
+            android:src="@drawable/attachment"
             android:visibility="gone" />
 
         <ImageView

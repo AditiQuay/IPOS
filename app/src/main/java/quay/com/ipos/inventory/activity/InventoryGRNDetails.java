@@ -1487,6 +1487,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 jsonObject.put("balanceQty", balanceQt);
             }
 
+            if (value == 0) {
+                jsonObject.put("value", 0);
+            } else {
+                jsonObject.put("value", value);
+            }
+
             jsonObject.put("receivedDate", DateAndTimeUtil.toCustomStringDateAndTime(calendar, DATE_AND_TIME_FORMAT_SIMPLE));
             jsonObject.put("transporterName", etName.getText().toString());
             jsonObject.put("transporterLRName", etLrn.getText().toString());
@@ -1554,8 +1560,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
-//                                Log.e(TAG, "Response***" + response.body().toString());
+                                Toast.makeText(mContext, "GRN sucessfully created", Toast.LENGTH_SHORT).show();
                                 InventoryGRNStepsActivity.fa.finish();
                                 Intent i = new Intent(mContext, InventoryGRNStepsActivity.class);
                                 i.putExtra("newGRNCreated", "GrnCreated");
@@ -1575,7 +1580,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Util.showToast("Save Successfully");
+
                                 }
                             });
 

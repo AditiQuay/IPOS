@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:id="@+id/llPaymentTerms"
     android:background="@color/white">
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/ipos_line_black"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,6 +20,7 @@
             android:layout_weight="0.5"
             android:text="Type"
             android:fontFamily="@font/titilliumwebregular"
+
             android:padding="8dp"
             android:gravity="center"
             />
@@ -33,7 +34,7 @@
             android:id="@+id/spnMilestone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.1"
             android:padding="8dp"
             android:layout_gravity="center"
             android:gravity="center"
@@ -44,13 +45,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/ipos_line_black"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
+        android:layout_height="wrap_content">
 
 
 
@@ -80,9 +79,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Details"
+                android:padding="8dp"
                 android:fontFamily="@font/titilliumwebregular"
 
-                android:padding="8dp"
+                android:visibility="visible"
                 android:gravity="center"
                 />
             <View
@@ -108,9 +108,10 @@
                 android:id="@+id/tvGst"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.2"
                 android:gravity="center"
                 android:fontFamily="@font/titilliumwebregular"
+
                 android:padding="8dp"
                 android:text="Invoice Due"
                 />
@@ -123,14 +124,17 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/ipos_line_black"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_viewPayment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
+        tools:listitem="@layout/po_payment_terms"
+
+
+
+        >
 
     </android.support.v7.widget.RecyclerView>
 

@@ -8,7 +8,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
+
         android:background="@drawable/ipos_line_black"/>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:padding="8dp"
-                android:text="QTY"
+                android:text="Qty"
                 />
 
 
@@ -46,7 +46,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="UNIT PRICE"
+                android:text="Unit Price"
                 android:padding="8dp"
                 android:gravity="center"
                 />
@@ -59,7 +59,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="AMOUNT"
+                android:text="Amount"
                 android:padding="8dp"
                 android:gravity="center"
                 />
@@ -85,7 +85,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
         android:background="@drawable/ipos_line_black"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_viewItemDetail"

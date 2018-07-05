@@ -22,8 +22,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
-                android:fontFamily="@font/titilliumwebregular"
-                android:layout_marginLeft="4dp"
                 android:text="Billo 1L x 20 (Emamectin benzoate 1.9% EC)"
                 android:textColor="@color/textColorPrimary"
                 android:textSize="@dimen/dim_14" />
@@ -57,8 +55,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/titilliumwebregular"
-
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="0"
@@ -83,8 +79,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="26,800"
-                    android:fontFamily="@font/titilliumwebregular"
-
                     android:background="@color/transparent"
                     android:padding="8dp"
                     android:inputType="numberDecimal"
@@ -102,8 +96,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/titilliumwebregular"
-
                     android:text="26,800"
                     android:padding="8dp"
                     android:gravity="center"
@@ -123,8 +115,6 @@
                     android:gravity="center"
                     android:padding="8dp"
                     android:text="26,800"
-                    android:fontFamily="@font/titilliumwebregular"
-
                     android:maxLength="8"
                     />
 
@@ -142,7 +132,6 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="4dp"
             android:background="@drawable/ipos_line_black"/>
     </LinearLayout>
 
