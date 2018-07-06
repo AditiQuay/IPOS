@@ -255,11 +255,19 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(activity, DDRCUActivity.class);
-                startActivity(intent);*/
+                 Intent intent = new Intent(activity, DDRCUActivity.class);
+                 startActivityForResult(intent,0);
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            getServerData();
+        }
     }
 
     @Override

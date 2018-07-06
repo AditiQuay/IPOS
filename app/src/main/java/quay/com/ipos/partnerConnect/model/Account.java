@@ -31,6 +31,7 @@ public class Account {
     @SerializedName("isSecurityCheques")
     public boolean isSecurityCheques;
 
+    @SerializedName("cheques")
     public List<Cheques> cheques;
 
 }

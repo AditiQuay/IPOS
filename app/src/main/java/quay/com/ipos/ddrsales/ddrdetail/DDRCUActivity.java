@@ -22,10 +22,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
@@ -42,9 +45,15 @@ import quay.com.ipos.ddrsales.ddrdetail.fragment.DDRCUDocumentsFragment;
 import quay.com.ipos.ddrsales.ddrdetail.fragment.DDRCU_BusinessFragment;
 import quay.com.ipos.partnerConnect.model.Account;
 import quay.com.ipos.partnerConnect.model.BillnDelivery;
+import quay.com.ipos.partnerConnect.model.Business;
+import quay.com.ipos.partnerConnect.model.BusinessLocation;
 import quay.com.ipos.partnerConnect.model.Cheques;
+import quay.com.ipos.partnerConnect.model.Contact;
+import quay.com.ipos.partnerConnect.model.KeyBusinessContactInfo;
+import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
 import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.partnerConnect.model.PCModel;
+import quay.com.ipos.partnerConnect.model.Relationship;
 import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.NetUtil;
@@ -90,7 +99,8 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
         applyLocalValidation();
 
 
-        getServerData();
+       // getServerData();
+        setData();
         initFile();
     }
 
@@ -116,7 +126,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.title_partner_connect));
+        getSupportActionBar().setTitle(getResources().getString(R.string.title_ddrcu));
         btnsubmit = findViewById(R.id.btnSubmit);
         btnCancel = findViewById(R.id.btnCancel);
         viewPager = findViewById(R.id.viewPager);
@@ -162,35 +172,35 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
 
     private void createTabIcons() {
 
-        TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+       /* TextView tabOne = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabOne.setText(getResources().getString(R.string.pc_tab_1));
         tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.pc_relationship_white, 0, 0);
         tabLayout.getTabAt(0).setCustomView(tabOne);
-
+*/
         TextView tabTwo = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabTwo.setText(getResources().getString(R.string.pc_tab_2));
         tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.pc_business_white, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabTwo);
+        tabLayout.getTabAt(0).setCustomView(tabTwo);
 
         TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabThree.setText(getResources().getString(R.string.pc_tab_3));
         tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.pc_contact_white, 0, 0);
-        tabLayout.getTabAt(2).setCustomView(tabThree);
+        tabLayout.getTabAt(1).setCustomView(tabThree);
 
         TextView tabFour = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabFour.setText(getResources().getString(R.string.pc_tab_4));
         tabFour.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.pc_bank_white, 0, 0);
-        tabLayout.getTabAt(3).setCustomView(tabFour);
+        tabLayout.getTabAt(2).setCustomView(tabFour);
 
         TextView tabFive = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabFive.setText(getResources().getString(R.string.pc_tab_5));
         tabFive.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.pc_billing_white, 0, 0);
-        tabLayout.getTabAt(4).setCustomView(tabFive);
+        tabLayout.getTabAt(3).setCustomView(tabFive);
 
         TextView tabSix = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabSix.setText(getResources().getString(R.string.pc_tab_6));
         tabSix.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.pc_documents_white, 0, 0);
-        tabLayout.getTabAt(5).setCustomView(tabSix);
+        tabLayout.getTabAt(4).setCustomView(tabSix);
     }
 
     public int getCurrentViewPagerPos() {
@@ -223,14 +233,15 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
 
 
                 if (getPcModelData().getValue().shouldShowBottom()) {
-                    if (position == 0 || position == 1) {
+                 /*   if (position == 0 || position == 1) {
                         findViewById(R.id.bottom_sheet).setVisibility(View.GONE);
                     } else {
                         findViewById(R.id.bottom_sheet).setVisibility(View.VISIBLE);
-                    }
+                    }*/
+                    findViewById(R.id.bottom_sheet).setVisibility(View.VISIBLE);
                 }
 
-                if (position == 5 || position == 1) {
+                if (position == 4 || position == 0) {
                     fab.setVisibility(View.GONE);
                 } else {
                     fab.setVisibility(View.VISIBLE);
@@ -263,26 +274,26 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
 
         @Override
         public int getCount() {
-            return 6;
+            return 5;
         }
     }
 
     private Fragment getFragmentByPosition(int position) {
         switch (position) {
+           /* case 0:
+                return DDRCU_RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");*/
             case 0:
-                return DDRCU_RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
-            case 1:
                 return new DDRCU_BusinessFragment();
-            case 2:
+            case 1:
                 return new DDRCUContactFragment();
-            case 3:
+            case 2:
                 return new DDRCUAccountFragment();
-            case 4:
+            case 3:
                 return new DDRCUBillingAddressFragment();
-            case 5:
+            case 4:
                 return new DDRCUDocumentsFragment();
             default:
-                return DDRCU_RelationShipFragment.newInstance("FirstFragment, Instance 1", "0");
+                return new DDRCU_BusinessFragment();
         }
     }
 
@@ -395,6 +406,89 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
             }
         });
     }
+    private void setData() {
+        String employeeCode = Prefs.getStringPrefs(Constants.employeeCode);
+        PCModel pcModel = new PCModel();
+        pcModel.empCode = employeeCode;
+        pcModel.EntityID = 1;
+
+        Relationship relationship = new Relationship();
+        relationship.pssEntityName = "Test";
+        relationship.pssPrincipleBankpaymentTo = new ArrayList<>();
+        relationship.pssPrincipleContact = new ArrayList<>();
+        relationship.pssLOBS = new ArrayList<>();
+        pcModel.Relationship = relationship;
+
+
+        KeyBusinessInfo businessInfo = new KeyBusinessInfo();
+        businessInfo.mPartnerType = "";
+        businessInfo.mContactPosition = "";
+        businessInfo.sync = "";
+        businessInfo.mCIN = "";
+        businessInfo.mPAN = "";
+        businessInfo.mCompanyName = "";
+        BusinessLocation businessLocation = new BusinessLocation();
+        businessLocation.mZone = "";
+        businessLocation.mState = "";
+        businessLocation.mCity = "";
+        businessLocation.mPINCode = "";
+        businessInfo.BusinessLocation = businessLocation;
+        List<KeyBusinessInfo> keyBusinessContactInfos = new ArrayList<>();
+        keyBusinessContactInfos.add(businessInfo);
+        pcModel.Business = new Business();
+        pcModel.Business.keyBusinessInfo = keyBusinessContactInfos;
+
+        KeyBusinessContactInfo keyBusinessContactInfo = new KeyBusinessContactInfo();
+        keyBusinessContactInfo.keyEmpName = "";
+        keyBusinessContactInfo.keyDesignation = "";
+        keyBusinessContactInfo.keyMobile = "";
+        keyBusinessContactInfo.keyMobile2 = "";
+        keyBusinessContactInfo.keyEmail = "";
+        keyBusinessContactInfo.keyEmpNote = "";
+        NewContact newContact = new NewContact();
+        newContact.ID = 0;
+        newContact.RoleID = "";
+        newContact.Role = "";
+        newContact.Name = "";
+        newContact.PrimaryMobile = "";
+        newContact.SecondaryMobile = "";
+        newContact.Email = "";
+        keyBusinessContactInfo.NewContact = new ArrayList<>();
+        keyBusinessContactInfo.NewContact.add(newContact);
+
+        pcModel.Contact =new Contact();
+        pcModel.Contact.keyBusinessContactInfo = keyBusinessContactInfo;
+
+
+
+
+        pcModel.Account = new ArrayList<>();
+        Account account = new Account();
+       // List<Cheques> chequesList  = new ArrayList<>();
+        Cheques cq = new Cheques();
+        cq.mChequeNo = "";
+        cq.mMaxLimitAmount = "";
+        cq.mDrawnAccountNo = "";
+        cq.CreateDate = "NA";
+        cq.CreatedBy = "NA";
+        cq.EntityBankAcHoderID = "";
+        cq.ID = 0;
+        cq.ModifiedBy = "NA";
+        cq.ModifiedDate = "NA";
+       // chequesList.add(cq);
+        account.cheques=new ArrayList<>();
+        account.cheques.add(cq);
+        pcModel.Account.add(account);
+
+
+
+
+        pcModel.BillandDelivery = new ArrayList<>();
+
+        pcModel.DocumentVoults = new ArrayList<>();
+
+        pcModelLiveData.setValue(pcModel);
+    }
 
     public MutableLiveData<PCModel> getPcModelData() {
         return pcModelLiveData;
@@ -420,7 +514,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
 
 
 
-        Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple().updatePartnerConnectData(pcModelUpdate);
+        Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple().DDR_CREATE_AND_UPDATE_API(pcModelUpdate);
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectUpdateResponse> call, Response<PartnerConnectUpdateResponse> response) {
@@ -752,14 +846,14 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
             }
             if (account.cheques != null) {
                 for (Cheques cheque : account.cheques) {
-                    if (cheque.mSecurityCheque == null || cheque.mSecurityCheque.isEmpty()) {
+                    /*if (cheque.mSecurityCheque == null || cheque.mSecurityCheque.isEmpty()) {
                         String error = "Account ->   Security Cheque is required!";
                         Log.e(TAG, error);
                         IPOSApplication.showToast(error);
                         return false;
                     }
 
-                    if (cheque.mSecurityCheque.contains("Yes")) {
+                    if (cheque.mSecurityCheque.contains("Yes")) {*/
                         if (cheque.mDrawnAccountNo == null || cheque.mDrawnAccountNo.isEmpty()) {
                             String error = "Account ->   DrawnAccountNo is required!";
                             Log.e(TAG, error);
@@ -779,7 +873,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
                             return false;
                         }
                     }
-                }
+               // }
 
 
             }

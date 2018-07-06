@@ -34,8 +34,8 @@ import com.google.gson.Gson;
 import java.io.InputStream;
 
 import quay.com.ipos.R;
+import quay.com.ipos.ddrsales.ddrdetail.DDRCUActivity;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.partnerConnect.model.DocumentVoults;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.utility.Base64Util;
@@ -437,9 +437,9 @@ public class DDRCUDocumentsFragment extends Fragment implements InitInterface, V
 
 
     private void loadData() {
-        PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
-        if (partnerConnectMain != null) {
-            partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
+        DDRCUActivity DDRCUActivity = (DDRCUActivity) getActivity();
+        if (DDRCUActivity != null) {
+            DDRCUActivity.getPcModelData().observe(this, new Observer<PCModel>() {
                 @Override
                 public void onChanged(@Nullable PCModel pcModel) {
                     pcModel = pcModel;
@@ -482,6 +482,7 @@ public class DDRCUDocumentsFragment extends Fragment implements InitInterface, V
         } else {
             Log.i("data", new Gson().toJson(pcModel.DocumentVoults));
         }
+
 
         if (pcModel.DocumentVoults.size() == 0) {
             docPhoto = new DocumentVoults(mEntityId, "IDPHOTO");

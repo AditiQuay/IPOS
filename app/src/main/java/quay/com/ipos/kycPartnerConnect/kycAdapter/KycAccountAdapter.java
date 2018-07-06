@@ -28,23 +28,23 @@ public class KycAccountAdapter extends RecyclerView.Adapter<KycAccountAdapter.My
     private List<Cheques> list;
 
 
-    private String[] securityCheck = {"Yes", "No"};
-    private List<String> mSecurityChequesList = new ArrayList<>();
+   // private String[] securityCheck = {"Yes", "No"};
+  //  private List<String> mSecurityChequesList = new ArrayList<>();
     String checkNumberText;
     String securityCheckText;
     String branchAddText;
     String accountHolder;
 
-    private ArrayAdapter securityAdapter;
+  //  private ArrayAdapter securityAdapter;
 
     public KycAccountAdapter(Context context) {
         this.mContext = context;
         this.list = new ArrayList<>();
         //Creating the ArrayAdapter instance having the securityCheck list
-        securityAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, securityCheck);
-        securityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+      //  securityAdapter = new ArrayAdapter(mContext, android.R.layout.simple_spinner_item, securityCheck);
+       // securityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        mSecurityChequesList = Arrays.asList(securityCheck);
+       // mSecurityChequesList = Arrays.asList(securityCheck);
     }
 
     @Override
@@ -53,14 +53,14 @@ public class KycAccountAdapter extends RecyclerView.Adapter<KycAccountAdapter.My
                 .inflate(R.layout.kyc_accounts_item, parent, false);
 
 
-        return new MyView(itemView, new MyCustomEditTextListener(), new MyCustomSpinnerListener());
+        return new MyView(itemView, new MyCustomEditTextListener());//, new MyCustomSpinnerListener());
 
     }
 
     @Override
     public void onBindViewHolder(MyView holder, int position) {
         Cheques accountsModel = list.get(position);
-        holder.spinnerSecurityCheque.setAdapter(securityAdapter);
+     //   holder.spinnerSecurityCheque.setAdapter(securityAdapter);
 
 
         // magic code for editText
@@ -70,7 +70,7 @@ public class KycAccountAdapter extends RecyclerView.Adapter<KycAccountAdapter.My
         holder.editDrawnAccountNo.setText(list.get(holder.getAdapterPosition()).mDrawnAccountNo);
 
         // magic code for spinner
-        holder.myCustomSpinnerListener.updatePosition(holder.getAdapterPosition());
+      /*  holder.myCustomSpinnerListener.updatePosition(holder.getAdapterPosition());
 
         String mAddressType = list.get(holder.getAdapterPosition()).mSecurityCheque;
         if (mAddressType != null) {
@@ -78,7 +78,7 @@ public class KycAccountAdapter extends RecyclerView.Adapter<KycAccountAdapter.My
                 int index = mSecurityChequesList.indexOf(mAddressType);
                 holder.spinnerSecurityCheque.setSelection(index + 1);
             }
-        }
+        }*/
 
 
 
@@ -91,7 +91,7 @@ public class KycAccountAdapter extends RecyclerView.Adapter<KycAccountAdapter.My
     }
 
 
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+  /*  public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         MaterialSpinner materialSpinner = (MaterialSpinner) parent;
         String selectedSpinner = String.valueOf(materialSpinner.getSelectedItem());
 
@@ -109,7 +109,7 @@ public class KycAccountAdapter extends RecyclerView.Adapter<KycAccountAdapter.My
 
     public void onNothingSelected(AdapterView<?> parent) {
 
-    }
+    }*/
 
     public void loadData(List<Cheques> chequesList) {
         this.list = chequesList;
@@ -117,15 +117,15 @@ public class KycAccountAdapter extends RecyclerView.Adapter<KycAccountAdapter.My
     }
 
     public class MyView extends RecyclerView.ViewHolder {
-        private MaterialSpinner spinnerSecurityCheque;
+       // private MaterialSpinner spinnerSecurityCheque;
         private TextInputEditText editChequeNo, editMaxLimit, editDrawnAccountNo;
         public MyCustomEditTextListener myCustomEditTextListener;
-        public MyCustomSpinnerListener myCustomSpinnerListener;
+     //   public MyCustomSpinnerListener myCustomSpinnerListener;
 
 
-        public MyView(View itemView, MyCustomEditTextListener myCustomEditTextListener, MyCustomSpinnerListener myCustomSpinnerListener) {
+        public MyView(View itemView, MyCustomEditTextListener myCustomEditTextListener){//, MyCustomSpinnerListener myCustomSpinnerListener) {
             super(itemView);
-            spinnerSecurityCheque = itemView.findViewById(R.id.spinnerSecurityCheque);
+           // spinnerSecurityCheque = itemView.findViewById(R.id.spinnerSecurityCheque);
             editDrawnAccountNo = itemView.findViewById(R.id.editDrawnAccountNo);
             editChequeNo = itemView.findViewById(R.id.editChequeNo);
             editMaxLimit = itemView.findViewById(R.id.editMaxLimit);
@@ -137,8 +137,8 @@ public class KycAccountAdapter extends RecyclerView.Adapter<KycAccountAdapter.My
             this.editDrawnAccountNo.addTextChangedListener(myCustomEditTextListener);
 
             //magic code for spinner
-            this.myCustomSpinnerListener = myCustomSpinnerListener;
-            this.spinnerSecurityCheque.setOnItemSelectedListener(myCustomSpinnerListener);
+           // this.myCustomSpinnerListener = myCustomSpinnerListener;
+           // this.spinnerSecurityCheque.setOnItemSelectedListener(myCustomSpinnerListener);
 
 
         }
@@ -191,7 +191,7 @@ public class KycAccountAdapter extends RecyclerView.Adapter<KycAccountAdapter.My
         }
     }
 
-    private class MyCustomSpinnerListener implements AdapterView.OnItemSelectedListener {
+   /* private class MyCustomSpinnerListener implements AdapterView.OnItemSelectedListener {
         private int position;
 
         @Override
@@ -217,5 +217,5 @@ public class KycAccountAdapter extends RecyclerView.Adapter<KycAccountAdapter.My
         public void updatePosition(int position) {
             this.position = position;
         }
-    }
+    }*/
 }

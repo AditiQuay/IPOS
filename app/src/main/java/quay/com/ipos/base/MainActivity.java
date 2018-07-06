@@ -1138,6 +1138,12 @@ public class MainActivity extends BaseActivity
                 imageViewProfileDummy.setImageResource(drawableIdArray[position]);
             }
 
+            if (position == 0) {
+                textViewAccount.setText(R.string.pss);
+            } if (position == 1) {
+                textViewAccount.setText(R.string.ipos_business);
+            }
+
             currentType = position;
             // int UnSelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, getResources().getDisplayMetrics());
             //  int SelectSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40, getResources().getDisplayMetrics());

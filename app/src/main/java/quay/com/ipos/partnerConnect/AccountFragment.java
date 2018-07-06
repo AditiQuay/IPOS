@@ -173,7 +173,9 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
         }
         textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , mpcModel.psslastUpdated));
 
-        account = pcModel.Account.get(0);
+        if (pcModel.Account != null && pcModel.Account.size() > 0) {
+            account = pcModel.Account.get(0);
+        }
         if (account != null) {
             //  spinnerAccountType.setText(account.mAccountType);
             editAccountNo.setText(account.mAccountNo);
@@ -287,7 +289,7 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
                     Account account = mpcModel.Account.get(0);
                     if (account.cheques != null) {
                         Cheques cheques = new Cheques();
-                        cheques.mSecurityCheque = "Yes";
+//                        cheques.mSecurityCheque = "Yes";
                         account.cheques.add(cheques);
 
                         PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();

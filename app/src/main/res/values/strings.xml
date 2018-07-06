@@ -122,6 +122,7 @@
     </string-array>
 
     <string name="title_partner_connect">Partner Connect</string>
+    <string name="title_ddrcu">New DDR</string>
     <string name="title_kyc_connect">KYC</string>
 
     <string name="total_discount">Total Discount</string>
@@ -518,5 +519,7 @@
     <string name="order_date_from">Order Date From</string>
     <string name="order_date_to">Order Date To</string>
     <string name="not_generated">Not Generated</string>
+    <string name="pss">Patner Sale Service</string>
+    <string name="ipos_business">My Business</string>
 
 </resources>
