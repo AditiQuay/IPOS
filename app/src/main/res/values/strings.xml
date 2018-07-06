@@ -333,6 +333,10 @@
     <string name="grn">GRN</string>
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
+    
+    <string name="transfer_out">Transfer Out</string>
+    <string name="shipment">Shipment</string>
+    <string name="transfer_in">Transfer In</string>
 
     <string name="listEmptyNewOrder">No New Order</string>
     <string name="listEmptyDeliverd">No Deliver Item</string>

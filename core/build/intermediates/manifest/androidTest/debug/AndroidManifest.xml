@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.dm7.barcodescanner.core.test" >
 
@@ -18,24 +17,4 @@
         <uses-library android:name="android.test.runner" />
     </application>
 
-=======
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.dm7.barcodescanner.core.test" >
-
-    <uses-sdk
-        android:minSdkVersion="1"
-        android:targetSdkVersion="1" />
-
-    <instrumentation
-        android:name="android.test.InstrumentationTestRunner"
-        android:functionalTest="false"
-        android:handleProfiling="false"
-        android:label="Tests for me.dm7.barcodescanner.core.test"
-        android:targetPackage="me.dm7.barcodescanner.core.test" />
-
-    <application android:debuggable="true" >
-        <uses-library android:name="android.test.runner" />
-    </application>
-
->>>>>>> 0559ffa433883070168f4f9567bd829430abbbba
 </manifest>

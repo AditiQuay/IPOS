@@ -1,17 +1,10 @@
 {
     "logs": [
         {
-<<<<<<< HEAD
             "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\zbar\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xxhdpi-v4\\values-xxhdpi-v4.xml",
             "map": [
                 {
                     "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\core\\build\\intermediates\\packaged_res\\debug\\values-xxhdpi-v4\\values-xxhdpi-v4.xml",
-=======
-            "outputFile": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\ipos_project_final\\IPOS\\zbar\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-xxhdpi-v4\\values-xxhdpi-v4.xml",
-            "map": [
-                {
-                    "source": "C:\\Users\\Ankush.bansal\\AndroidStudioProjects\\ipos_project_final\\IPOS\\core\\build\\intermediates\\packaged_res\\debug\\values-xxhdpi-v4\\values-xxhdpi-v4.xml",
->>>>>>> 0559ffa433883070168f4f9567bd829430abbbba
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
