@@ -16,44 +16,58 @@
         android:background="@color/white"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvTitle"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center"
-            android:singleLine="true"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:textSize="12sp"
+
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:text=" Nidan 4G"
-            android:textColor="@color/filter_text_color"
-            />
+            android:orientation="vertical">
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:singleLine="true"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="12sp"
+                android:text=" Nidan 4G"
+                android:textColor="@color/textColorPrimary"
+                />
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|left"
+                android:textSize="12sp"
+                android:text="₹ 320k"
+                android:textColor="@color/filter_text_color"
+                />
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center">
-            <TextView
-                android:id="@+id/tvValue"
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvItemQty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
+                android:layout_gravity="center_horizontal"
                 android:textSize="14sp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
-                android:text="₹ 320k"
-                android:textColor="@color/filter_text_color"
+                android:text="1"
+                android:textColor="@color/textColorPrimary"
                 />
 
         </LinearLayout>
 
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvLess"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -87,22 +101,37 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center">
-            <TextView
+            android:gravity="right"
+            android:layout_marginRight="@dimen/dim_10"
+            android:orientation="vertical">
+            <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvValueMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="right"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:textSize="14sp"
-                android:gravity="center"
+                android:gravity="right"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:text="₹ 450k"
+                android:textColor="@color/textColorPrimary"
+                />
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvValueDisc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textSize="14sp"
+                android:gravity="right"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:text="₹ 450k"
                 android:textColor="@color/filter_text_color"
                 />
-
         </LinearLayout>
     </LinearLayout>
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:orientation="horizontal"
+    android:background="@color/grey"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <quay.com.ipos.ui.CustomTextView
+        android:text="Name"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:background="@drawable/ic_action_cloud_off_white"
+        android:layout_alignParentRight="true"
+        android:id="@+id/imageViewStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

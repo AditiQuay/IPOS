@@ -1,12 +1,14 @@
 package quay.com.ipos.realmbean;
 
-import android.content.Context;
-
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import io.realm.Realm;
+import quay.com.ipos.inventory.modal.GRNListModel;
+import quay.com.ipos.inventory.modal.RealmGRNUpdateDetails;
+import quay.com.ipos.inventory.modal.RealmInventoryTabData;
+import quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails;
 import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 //import quay.com.ipos.modal.PinnedResult;
 
@@ -14,14 +16,17 @@ import quay.com.ipos.productCatalogue.productModal.CatalogueModal;
 public class RealmController {
 
 
-
-
-
-    public void clearRealm(Context context) {
+    public void clearRealm() {
 
         Realm realm = Realm.getDefaultInstance();
         try {
             realm.beginTransaction();
+            realm.delete(RealmBusinessPlaces.class);
+            realm.delete(RealmNewOrderCart.class);
+            realm.delete(RealmOrderCentreSummary.class);
+            realm.delete(RealmCustomerInfoModal.class);
+            realm.delete(RealmOrderList.class);
+            realm.delete(RealmUserDetail.class);
 
            /* Prefs.clearValue(AppConstants.UserId);
             Prefs.clearValue(AppConstants.Login_Status);
@@ -45,8 +50,21 @@ public class RealmController {
             realm.delete(RealmSurveyQuestion.class);*/
 
 
+        } catch (Exception e) {
+            realm.cancelTransaction();
+            realm.close();
+            e.printStackTrace();
+        } finally {
+            realm.commitTransaction();
+            realm.close();
+        }
+    }
+    public void clearRealm(Class aClass) {
 
-
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            realm.beginTransaction();
+            realm.delete(aClass);
         } catch (Exception e) {
             realm.cancelTransaction();
             realm.close();
@@ -65,7 +83,7 @@ public class RealmController {
             if (jsonResponse != null) {
                 realm.beginTransaction();
 
-                   realm.createOrUpdateObjectFromJson(CatalogueModal.class, jsonResponse);
+                realm.createOrUpdateObjectFromJson(CatalogueModal.class, jsonResponse);
 
             }
         } catch (Exception e) {
@@ -79,14 +97,12 @@ public class RealmController {
     }
 
 
-
-
     public void saveUserDetail(String responseData) {
 
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         try {
-         //   realm.createOrUpdateObjectFromJson(RealmUser.class, responseData);
+              realm.createOrUpdateObjectFromJson(RealmUserDetail.class, responseData);
         } catch (Exception e) {
             if (realm.isInTransaction())
                 realm.cancelTransaction();
@@ -98,7 +114,42 @@ public class RealmController {
         }
 
     }
-//    public void saveQuestions(String responseData) {
+    public void saveBusinessPlaces(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateAllFromJson(RealmBusinessPlaces.class, new JSONArray(responseData));
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
+    public void saveCustomers(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateAllFromJson(RealmCustomerInfoModal.class, new JSONArray(responseData));
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
+
+
+
+    //    public void saveQuestions(String responseData) {
 //        Realm realm = Realm.getDefaultInstance();
 //        realm.beginTransaction();
 //        try {
@@ -165,5 +216,103 @@ public class RealmController {
 
     }
 
+    public void saveOrderCentreSummary(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateAllFromJson(RealmOrderCentreSummary.class, new JSONArray(responseData));
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
+    public void saveKycSummary(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateAllFromJson(RealmKycDetails.class, new JSONArray(responseData));
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
+  /*  public void saveInventoryTabDetails(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateAllFromJson(RealmInventoryTabData.class, new JSONArray(responseData));
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }*/
+    public void savePODetails(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateObjectFromJson(RealmPOInventory.class, responseData);
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
+
+
+    public void saveGRNDetails(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateObjectFromJson(RealmGRNDetails.class, responseData);
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
+    public void saveBatchDetails(String responseData) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        try {
+            realm.createOrUpdateObjectFromJson(RealmGRNUpdateDetails.class, responseData);
+        } catch (Exception e) {
+            if (realm.isInTransaction())
+                realm.cancelTransaction();
+            e.printStackTrace();
+        } finally {
+            if (realm.isInTransaction())
+                realm.commitTransaction();
+            realm.close();
+        }
+
+    }
 }
 

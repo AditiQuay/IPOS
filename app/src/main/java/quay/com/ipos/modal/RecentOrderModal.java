@@ -9,6 +9,11 @@ public class RecentOrderModal {
     private String title;
     private String value;
     private String lessthan;
+    private String discountValue;
+    private String qty;
+    private boolean isFreeItem;
+    private double unitprice;
+
 
     public String getTitle() {
         return title;
@@ -32,5 +37,37 @@ public class RecentOrderModal {
 
     public void setLessthan(String lessthan) {
         this.lessthan = lessthan;
+    }
+
+    public String getDiscountValue() {
+        return discountValue;
+    }
+
+    public void setDiscountValue(String discountValue) {
+        this.discountValue = discountValue;
+    }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
+    public boolean isFreeItem() {
+        return isFreeItem;
+    }
+
+    public void setFreeItem(boolean freeItem) {
+        isFreeItem = freeItem;
+    }
+
+    public double getUnitprice() {
+        return unitprice;
+    }
+
+    public void setUnitprice(double unitprice) {
+        this.unitprice = unitprice;
     }
 }

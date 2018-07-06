@@ -15,7 +15,10 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 
@@ -26,6 +29,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import quay.com.ipos.R;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.dashboard.adapter.SpinnerDropDownAdapter;
 import quay.com.ipos.modal.SpinnerList;
 import quay.com.ipos.utility.SelectionItemListDialog;
 import quay.com.ipos.utility.Util;
@@ -37,7 +41,8 @@ public class DashboardFragment extends Fragment {
     private ViewPager mViewPager;
     private DashboardAdapter adapter;
     private MainActivity mainActivity;
-    private TextView tvStoreName;
+    private Spinner spStoreName;
+    private LinearLayout llFilter;
     private boolean isPopupVisible = false;
 
 
@@ -59,7 +64,7 @@ public class DashboardFragment extends Fragment {
 
         mainActivity = (MainActivity) mContext;
 
-        tvStoreName=(TextView)view.findViewById(R.id.tvStoreName);
+        spStoreName= view.findViewById(R.id.spStoreName);
 
 
       /*  tvStoreName.setOnClickListener(new View.OnClickListener() {
@@ -69,17 +74,37 @@ public class DashboardFragment extends Fragment {
             }
         });*/
         prepareFilterList();
-        final TextView page1=(TextView)view.findViewById(R.id.tvFirstPage);
-        final TextView page2=(TextView)view.findViewById(R.id.tvSecondPage);
-        final TextView page3=(TextView)view.findViewById(R.id.tvThirdPage);
+        final TextView page1=view.findViewById(R.id.tvFirstPage);
+        final TextView page2=view.findViewById(R.id.tvSecondPage);
+        final TextView page3=view.findViewById(R.id.tvThirdPage);
+        llFilter = view.findViewById(R.id.llFilter);
+        llFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spStoreName.performClick();
+
+            }
+        });
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
-         adapter= new DashboardAdapter(getChildFragmentManager());
+        adapter= new DashboardAdapter(getChildFragmentManager());
         // Set an Adapter on the ViewPager
         mViewPager.setAdapter(adapter);
-     //   mViewPager.setPadding(50, 0, 50, 0);
-     //   mViewPager.setClipToPadding(false);
-     //   mViewPager.setPageMargin(0);
-     //   mViewPager.setOffscreenPageLimit(3);
+        //   mViewPager.setPadding(50, 0, 50, 0);
+        //   mViewPager.setClipToPadding(false);
+        //   mViewPager.setPageMargin(0);
+        //   mViewPager.setOffscreenPageLimit(3);
+        spStoreName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(view.isPressed())
+                mainActivity.onUpdateTitle("dialog");
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -106,32 +131,34 @@ public class DashboardFragment extends Fragment {
                     page3.setTextColor(getResources().getColor(R.color.black));
                     page3.setBackgroundResource(R.drawable.textview_circle_white);
                 }
+
+
             }
 
             @Override
             public void onPageSelected(int position) {
-                if (position==0){
-                    page1.setTextColor(getResources().getColor(R.color.black));
-                    page1.setBackgroundResource(R.drawable.textview_circle_white);
-                    page2.setTextColor(getResources().getColor(R.color.white));
-                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
-                    page3.setTextColor(getResources().getColor(R.color.white));
-                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
-                }else if (position==1){
-                    page1.setTextColor(getResources().getColor(R.color.white));
-                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
-                    page2.setTextColor(getResources().getColor(R.color.black));
-                    page2.setBackgroundResource(R.drawable.textview_circle_white);
-                    page3.setTextColor(getResources().getColor(R.color.white));
-                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
-                }else {
-                    page1.setTextColor(getResources().getColor(R.color.white));
-                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
-                    page2.setTextColor(getResources().getColor(R.color.white));
-                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
-                    page3.setTextColor(getResources().getColor(R.color.black));
-                    page3.setBackgroundResource(R.drawable.textview_circle_white);
-                }
+//                if (position==0){
+//                    page1.setTextColor(getResources().getColor(R.color.black));
+//                    page1.setBackgroundResource(R.drawable.textview_circle_white);
+//                    page2.setTextColor(getResources().getColor(R.color.white));
+//                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                    page3.setTextColor(getResources().getColor(R.color.white));
+//                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                }else if (position==1){
+//                    page1.setTextColor(getResources().getColor(R.color.white));
+//                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                    page2.setTextColor(getResources().getColor(R.color.black));
+//                    page2.setBackgroundResource(R.drawable.textview_circle_white);
+//                    page3.setTextColor(getResources().getColor(R.color.white));
+//                    page3.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                }else {
+//                    page1.setTextColor(getResources().getColor(R.color.white));
+//                    page1.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                    page2.setTextColor(getResources().getColor(R.color.white));
+//                    page2.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                    page3.setTextColor(getResources().getColor(R.color.black));
+//                    page3.setBackgroundResource(R.drawable.textview_circle_white);
+//                }
             }
 
             @Override
@@ -153,6 +180,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        ((MainActivity) getActivity()).setToolbarTitle(getString(R.string.dashboard));
     }
 
 
@@ -183,34 +211,39 @@ public class DashboardFragment extends Fragment {
     }
 
     private void prepareFilterList() {
-        tvStoreName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isPopupVisible) return;
-                isPopupVisible = true;
-                List<SpinnerList> spnPanchyatList = null;
-                final Realm realm = Realm.getDefaultInstance();
-                try {
+//        tvStoreName.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (isPopupVisible) return;
+//                isPopupVisible = true;
+//                List<SpinnerList> spnPanchyatList = null;
+//                final Realm realm = Realm.getDefaultInstance();
+//                try {
+//
+//
+//                    SpinnerList  spn ;
+//                    spnPanchyatList = new ArrayList<>();
+//
+//                    for (int i = 0; i < 5; i++) {
+//                        spn = new SpinnerList();
+//                        spn.setName("My Store"+(i+1));
+//                        spn.setId((i+1)+"");
+//                        spnPanchyatList.add(spn);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    realm.close();
+//                } finally {
+//                    realm.close();
+//                }
+//                showSelectionListPanchyat(getActivity(), tvStoreName, spnPanchyatList, getString(R.string.filter));
+//            }
+//        });
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item,getResources().getStringArray(R.array.stores));
+        SpinnerDropDownAdapter sddadapter = new SpinnerDropDownAdapter(getActivity(),getResources().getStringArray(R.array.stores));
+        sddadapter.setColorBG(R.color.colorPrimary,"sd");
+        spStoreName.setAdapter(sddadapter);
 
-
-                    SpinnerList  spn ;
-                    spnPanchyatList = new ArrayList<>();
-
-                    for (int i = 0; i < 5; i++) {
-                        spn = new SpinnerList();
-                        spn.setName("My Store"+(i+1));
-                        spn.setId((i+1)+"");
-                        spnPanchyatList.add(spn);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    realm.close();
-                } finally {
-                    realm.close();
-                }
-                showSelectionListPanchyat(getActivity(), tvStoreName, spnPanchyatList, getString(R.string.filter));
-            }
-        });
     }
 
     private void showSelectionListPanchyat(Context context, final TextView textView, List<SpinnerList> list, final String defaultMsg) {
@@ -241,7 +274,7 @@ public class DashboardFragment extends Fragment {
             });
         } else {
             isPopupVisible = false;
-         //   showToastMessage(getString(R.string.no_data));
+            //   showToastMessage(getString(R.string.no_data));
         }
     }
 

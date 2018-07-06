@@ -1,5 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,6 +8,7 @@
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/rLayoutOptions"
         android:layout_toRightOf="@+id/rLayoutOptions"
         card_view:cardElevation="@dimen/dim_8">
 
@@ -19,18 +21,6 @@
                 android:id="@+id/header"
                 layout="@layout/nav_header_ipos" />
 
-            <ListView
-                android:id="@+id/listViewContent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/header"
-                android:layout_marginTop="@dimen/dim_16"
-                android:background="@color/expand_list_color"
-                android:divider="@color/white"
-                android:dividerHeight="@dimen/dim_1"
-                android:listSelector="@drawable/selector_list_item"
-                android:choiceMode="singleChoice"
-                android:scrollbars="vertical" />
 
             <ExpandableListView
                 android:id="@+id/expandableListView1"
@@ -38,14 +28,15 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/header"
-                android:layout_marginTop="@dimen/dim_16"
-                android:divider="@null"
-                android:listSelector="@drawable/selector_list_item"
+                android:layout_marginTop="@dimen/dim_6"
+                android:background="@color/menu_strip_color"
                 android:choiceMode="singleChoice"
+                android:divider="@null"
                 android:dividerHeight="@null"
                 android:groupIndicator="@null"
+                android:listSelector="@drawable/selector_list_item"
                 android:scrollbars="vertical"
-                android:visibility="gone"/>
+                android:visibility="visible" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
@@ -54,130 +45,37 @@
         android:id="@+id/rLayoutOptions"
         android:layout_width="70dp"
         android:layout_height="match_parent"
-        android:background="@color/strip_color">
+        android:background="@color/menu_strip_color">
 
-        <LinearLayout
-            android:id="@+id/lLaoutBtnP"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lvMenu"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/rLaoutBtnFour"
+            tools:listitem="@layout/drawer_role_item">
 
-            <View
-                android:id="@+id/viewP"
-                android:layout_width="@dimen/dim_3"
-                android:layout_height="match_parent"
-                android:background="@color/strip_color" />
+        </android.support.v7.widget.RecyclerView><!-- <ListView
+            android:id="@+id/lvMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/rLaoutBtnFour"
+            android:divider="@null">
 
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/dim_8"
-                android:layout_marginTop="@dimen/dim_8"
-                android:fillAfter="false"
-                android:fillEnabled="false"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/textViewP"
-                    style="@style/styleWhiteTextColor16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/menu_background_unselect"
-                    android:gravity="center"
-                    android:alpha="0.7"
-                    android:text="P"
-                    android:textStyle="italic" />
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lLaoutBtnI"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lLaoutBtnP">
-
-            <View
-                android:id="@+id/viewI"
-                android:layout_width="@dimen/dim_3"
-                android:layout_height="match_parent"
-                android:background="@color/strip_color" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dim_8"
-                android:layout_marginTop="@dimen/dim_8"
-                android:fillAfter="false"
-                android:fillEnabled="false"
-                android:gravity="center_horizontal">
-
-
-                <TextView
-                    android:id="@+id/textViewI"
-                    style="@style/styleWhiteTextColor16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:alpha="0.7"
-                    android:background="@drawable/menu_background_unselect"
-                    android:gravity="center"
-                    android:text="i"
-                    android:textStyle="italic" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/lLaoutBtnM"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lLaoutBtnI">
-
-            <View
-                android:id="@+id/viewM"
-                android:layout_width="@dimen/dim_3"
-                android:layout_height="match_parent"
-                android:background="@color/strip_color" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dim_8"
-                android:layout_marginTop="@dimen/dim_8"
-                android:fillAfter="false"
-                android:fillEnabled="false"
-                android:gravity="center_horizontal">
-
-
-                <TextView
-                    android:id="@+id/textViewM"
-                    style="@style/styleWhiteTextColor16"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:alpha="0.7"
-                    android:background="@drawable/menu_background_unselect"
-                    android:gravity="center"
-                    android:text="m"
-                    android:textStyle="italic" />
-            </RelativeLayout>
-        </LinearLayout>
+        </ListView>-->
 
 
         <LinearLayout
             android:id="@+id/rLaoutBtnFour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/rLaoutBtnFive"
+            android:layout_above="@id/llSetting"
             android:layout_marginBottom="@dimen/dim_8">
 
             <View
                 android:id="@+id/view4"
                 android:layout_width="@dimen/dim_5"
                 android:layout_height="match_parent"
-                android:background="@color/strip_color" />
+                android:background="@color/menu_strip_color" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -190,9 +88,11 @@
                 android:gravity="center_horizontal">
 
                 <ImageView
+                    android:id="@+id/imgView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:alpha="0.7"
                     android:src="@drawable/ic_action_help_grey" />
 
 
@@ -200,7 +100,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/rLaoutBtnFive"
+            android:id="@+id/llSetting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/orderCenterImage"
@@ -211,7 +111,7 @@
                 android:id="@+id/view5"
                 android:layout_width="@dimen/dim_5"
                 android:layout_height="match_parent"
-                android:background="@color/strip_color" />
+                android:background="@color/menu_strip_color" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -223,6 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:alpha="0.7"
                     android:src="@drawable/ic_action_settings" />
 
             </RelativeLayout>
@@ -254,4 +155,4 @@
     </RelativeLayout>
 
 
-</RelativeLayout>
+    </RelativeLayout>

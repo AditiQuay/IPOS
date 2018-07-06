@@ -8,7 +8,7 @@ import android.content.SharedPreferences;
 public final class SharedPrefUtil {
 
 
-    public static final String PLOTS_PERF = "plots_perference";
+    public static final String IPOS_PERF = "iPos_perference";
 
 
     private SharedPrefUtil(){
@@ -21,6 +21,14 @@ public final class SharedPrefUtil {
         SharedPreferences.Editor editor = getSharedPreferences(context).edit();
         editor.putString(key, defValue);
         editor.commit();
+    }
+    public static void setStoreID(String key, int value, Context context){
+        SharedPreferences.Editor editor = getSharedPreferences(context).edit();
+        editor.putInt(key, value);
+        editor.commit();
+    }
+    public static int getStoreId(String key, int defValue, Context context) {
+        return getSharedPreferences(context).getInt(key, defValue);
     }
     /**
      *
@@ -238,7 +246,15 @@ public final class SharedPrefUtil {
      * @return
      */
     private static SharedPreferences getSharedPreferences(Context context) {
-        SharedPreferences pref = context.getSharedPreferences(SharedPrefUtil.PLOTS_PERF, Context.MODE_PRIVATE);
+        SharedPreferences pref = context.getSharedPreferences(SharedPrefUtil.IPOS_PERF, Context.MODE_PRIVATE);
         return pref;
     }
+
+    public static void clearSharedPreferences(Context mContext){
+        SharedPreferences pref = mContext.getSharedPreferences(SharedPrefUtil.IPOS_PERF, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.commit();
+    }
+
 }

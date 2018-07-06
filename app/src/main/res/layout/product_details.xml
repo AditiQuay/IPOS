@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent_color">
+    android:background="@color/app_background_color">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -13,25 +13,25 @@
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme"
         app:theme="@style/ToolbarColoredBackArrow"
-        app:titleTextAppearance="@style/Toolbar.TitleText" />
+        app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
     <RelativeLayout
         android:id="@+id/rLayoutProductTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:background="@color/colorPrimary"
-        android:paddingTop="@dimen/dim_4"
-        android:paddingBottom="@dimen/dim_4"
-        android:paddingLeft="@dimen/dim_8"
-        android:paddingRight="@dimen/dim_8">
+        android:background="@color/colorPrimaryDark"
+        android:paddingBottom="@dimen/dim_10"
+        android:paddingLeft="@dimen/dim_10"
+        android:paddingRight="@dimen/dim_10"
+        android:paddingTop="@dimen/dim_10">
 
         <TextView
             android:id="@+id/textViewProductName"
             style="@style/styleWhiteTextColor16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:text="Product Name"
             tools:ignore="RtlSymmetry" />
 
@@ -49,7 +49,12 @@
         android:id="@+id/SliderDots"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/expandableListViewProduct"
+        android:layout_alignStart="@+id/expandableListViewProduct"
         android:layout_below="@+id/viewPager"
+        android:layout_marginBottom="@dimen/dim_16"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="@dimen/dim_8"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="horizontal" />
@@ -57,51 +62,51 @@
     <ExpandableListView
         android:id="@+id/expandableListViewProduct"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/rLayoutBottom"
+        android:layout_height="match_parent"
         android:layout_below="@+id/SliderDots"
-        android:layout_marginBottom="@dimen/dim_4"
-        android:layout_marginLeft="@dimen/dim_4"
-        android:layout_marginRight="@dimen/dim_4"
-        android:layout_marginTop="@dimen/dim_8"
-        android:background="@color/white"
-        android:groupIndicator="@null" />
+        android:layout_marginLeft="@dimen/dim_8"
+        android:layout_marginRight="@dimen/dim_8"
+        android:background="@null"
+        android:divider="@color/app_background_color"
+        android:dividerHeight="@dimen/dim_8"
+        android:groupIndicator="@null"
+        android:scrollbars="none" />
 
-    <RelativeLayout
-        android:id="@+id/rLayoutBottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
-        android:padding="@dimen/dim_8">
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/rLayoutBottom"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--android:padding="@dimen/dim_8">-->
 
-        <Button
-            android:id="@+id/buttonDataSheet"
-            style="@style/styleWhiteTextColor14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:backgroundTint="@android:color/transparent"
-            android:drawableLeft="@drawable/datesheet"
-            android:drawablePadding="@dimen/dim_8"
-            android:text="DataSheet"
-            android:textAllCaps="false" />
-
-
-        <Button
-            android:id="@+id/buttonCalculator"
-            style="@style/styleWhiteTextColor14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@android:color/transparent"
-            android:backgroundTint="@android:color/transparent"
-            android:drawablePadding="@dimen/dim_8"
-            android:drawableRight="@drawable/calculator"
-            android:text="Calculator"
-            android:textAllCaps="false" />
+    <!--<Button-->
+    <!--android:id="@+id/buttonDataSheet"-->
+    <!--style="@style/styleWhiteTextColor14"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:backgroundTint="@android:color/transparent"-->
+    <!--android:drawableLeft="@drawable/datesheet"-->
+    <!--android:drawablePadding="@dimen/dim_8"-->
+    <!--android:text="DataSheet"-->
+    <!--android:textAllCaps="false" />-->
 
 
-    </RelativeLayout>
+    <!--<Button-->
+    <!--android:id="@+id/buttonCalculator"-->
+    <!--style="@style/styleWhiteTextColor14"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:backgroundTint="@android:color/transparent"-->
+    <!--android:drawablePadding="@dimen/dim_8"-->
+    <!--android:drawableRight="@drawable/calculator"-->
+    <!--android:text="Calculator"-->
+    <!--android:textAllCaps="false" />-->
+
+
+    <!--</RelativeLayout>-->
 
 </RelativeLayout>

@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import quay.com.ipos.R;
 import quay.com.ipos.dashboard.modal.LowInventoryModal;
 
-/**
- * Created by gaurav.pandey on 24-01-2018.
- */
+
 
 public class LowInventoryListAdapter extends RecyclerView.Adapter<LowInventoryListAdapter.SurveyViewHolder> {
     private Context mContext;
@@ -43,6 +41,10 @@ public class LowInventoryListAdapter extends RecyclerView.Adapter<LowInventoryLi
 
         holder.tvTitle.setText(stringArrayList.get(position).getTitle());
 
+        if (position==stringArrayList.size()-1){
+            holder.view.setVisibility(View.GONE);
+        }
+
 
 
     }
@@ -63,10 +65,12 @@ public class LowInventoryListAdapter extends RecyclerView.Adapter<LowInventoryLi
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvTitle;
+        private View view;
 
         public SurveyViewHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
+            view=itemView.findViewById(R.id.view);
 
         }
     }

@@ -10,12 +10,13 @@
         android:id="@+id/vItem"
         android:layout_width="@dimen/dim_2"
         android:layout_height="match_parent"
-        android:background="@color/menu_background" />
+        android:background="@color/menu_strip" />
 
     <TextView
         android:id="@+id/textViewChildName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_alignParentRight="true"
         android:layout_gravity="center"
         android:alpha="0.7"
@@ -26,5 +27,14 @@
         android:textColor="@color/menu_text_color"
         android:textSize="@dimen/dim_14" />
 
+    <ImageView
+        android:id="@+id/imvClose"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:paddingRight="@dimen/dim_5"
+        android:paddingLeft="@dimen/dim_10"
+        android:visibility="gone"
+        android:src="@drawable/ic_action_delete"/>
 
 </LinearLayout>

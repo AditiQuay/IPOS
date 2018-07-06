@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.SparseIntArray;
 
 
 import quay.com.ipos.R;
@@ -20,16 +21,18 @@ import static quay.com.ipos.utility.Util.getStringRes;
 public class BaseActivity extends AppCompatActivity {
     //Save the path as a string value
 
-    protected Context mContext;
+    public static Context mContext;
     private ProgressDialog mProgressDialog;
     public boolean isReplaced = false;
 
     public static Activity mActivity;
     protected Fragment fragmentCurrent;
-    private FragmentManager fragmentManager;
+    public FragmentManager fragmentManager;
 
     private String mImageUrl;
     private boolean isUpdateImage = false;
+
+    private SparseIntArray mErrorString;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class BaseActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(containerId, fragment)
+                .add(containerId, fragment).addToBackStack("tag")
                 .commitAllowingStateLoss();
     }
 
@@ -61,7 +64,8 @@ public class BaseActivity extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(containerId, fragment)
-                .addToBackStack(null)
+
+                .addToBackStack("tag")
                 .commitAllowingStateLoss();
     }
 
@@ -71,11 +75,11 @@ public class BaseActivity extends AppCompatActivity {
         return mFrag;
     }
 
-    public void showProgress() {
-        showProgress(getStringRes(R.string.msg_load_default));
+    public void showProgressDialog() {
+        showProgressDialog(getStringRes(R.string.msg_load_default));
     }
 
-    public void showProgress(String msg) {
+    public void showProgressDialog(String msg) {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.setMessage(msg);
         } else {
@@ -87,15 +91,15 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void showProgress(int msgId) {
+    public void showProgressDialog(int msgId) {
         String message = getStringRes(msgId);
-        showProgress(message);
+        showProgressDialog(message);
     }
 
     public void dismissProgress() {
         if (mProgressDialog != null) {
             mProgressDialog.dismiss();
-            mProgressDialog = null;
+        //    mProgressDialog = null;
         }
     }
 

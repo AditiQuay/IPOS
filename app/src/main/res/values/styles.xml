@@ -1,11 +1,15 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccentDark</item>
+    </style>
+
+    <style name="mySpinnerItemStyle" parent="Base.Widget.AppCompat.Spinner">
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView">
@@ -18,13 +22,16 @@
         <!-- The hint text that appears when the user has not typed anything -->
         <item name="queryHint">Search</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">16sp</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -43,6 +50,7 @@
         <item name="android:textColor">@color/dark_grey_color</item>
         <item name="android:textSize">13sp</item>
     </style>
+
 
     <style name="styleDarkGreyColor14">
         <item name="android:textColor">@color/dark_grey_color</item>
@@ -87,6 +95,11 @@
     <style name="stylePrimaryTextColor16">
         <item name="android:textColor">@color/primary_text_color</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="stylePrimaryTextColor17">
+        <item name="android:textColor">@color/primary_text_color</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <style name="stylePrimaryTextColor18">
@@ -332,8 +345,6 @@
     </style>
 
 
-
-
     <!-- Backward-compatible version of ?android:attr/buttonBarStyle -->
     <style name="ButtonBar">
         <item name="android:paddingLeft">2dp</item>
@@ -378,7 +389,7 @@
         <item name="android:textSize">@dimen/appTinyText</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:padding">@dimen/view_small_padding</item>
-        <item name="android:background">@color/app_theme_color</item>
+        <item name="android:background">@color/colorPrimary</item>
     </style>
 
     <style name="appLinear">
@@ -496,6 +507,18 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">normal</item>
     </style>
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">#FFC107</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <!-- Used for the background -->
+        <item name="android:background">#4CAF50</item>
+    </style>
+    <style name="DialogThemeNoTitle" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
 
     <style name="app_custom_dialog_theme" parent="android:Theme.Dialog">
         <item name="android:bottomBright">@color/white</item>
@@ -509,7 +532,7 @@
         <item name="android:topBright">@color/white</item>
         <item name="android:topDark">@color/white</item>
         <item name="android:padding">0dp</item>
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@drawable/rect_four_white</item>
     </style>
 
     <style name="appRowBtn" parent="appSmallText">
@@ -543,7 +566,6 @@
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:textStyle">normal</item>
         <item name="android:text">*</item>
-        <item name="android:typeface"></item>
         <item name="android:textAllCaps">false</item>
     </style>
 
@@ -576,6 +598,7 @@
     </style>
 
     <color name="highlight">#f3f3f3</color>
+
     <style name="MyCustomTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
         <item name="android:textAllCaps">false</item>
@@ -589,5 +612,62 @@
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="colorControlNormal">@color/colorPrimary</item>
         <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
+    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
+
+        <item name="android:textColor">@color/grey</item>
+    </style>
+
+    <style name="MyRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:minHeight">15dp</item>
+        <item name="android:maxHeight">15dp</item>
+        <item name="colorControlNormal">@color/grey</item>
+        <item name="colorControlActivated">@color/dark_primary_color</item>
+        <item name="android:focusable">false</item>
+    </style>
+
+    <style name="MySpinner" parent="@android:style/Widget.Spinner.DropDown">
+        <item name="android:minHeight">15dp</item>
+        <item name="android:maxHeight">15dp</item>
+
+        <item name="android:focusable">false</item>
+    </style>
+
+
+
+
+
+    <style name="fontRegular" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily" tools:ignore="NewApi">@font/titilliumwebregular</item>
+        <item name="android:textColor">@color/dark_grey_color</item>
+    </style>
+
+    <style name="fontSemiBold" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily" tools:ignore="NewApi">@font/titilliumwebsemibold</item>
+        <item name="android:textColor">@color/dark_grey_color</item>
+    </style>
+
+    <style name="TabStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:paddingStart">0dip</item>
+        <item name="android:paddingEnd">0dip</item>
+    </style>
+
+
+    <style name="iposfontstyle" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/titilliumwebregular</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="common_grey_textview" parent="@android:style/TextAppearance.Small">
+        <item name="android:fontFamily">@font/titilliumwebregular</item>
+        <item name="android:textColor">@color/dark_grey_color</item>
+        <item name="android:textSize">@dimen/dim_14</item>
+    </style>
+
+
+    <style name="SwitchCompatStyle" >
+        <item name="thumbTint">@color/switch_color</item>
+        <item name="trackTint">@color/switch_color</item>
+
     </style>
 </resources>

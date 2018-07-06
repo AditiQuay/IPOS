@@ -41,6 +41,8 @@ public class InventoryListAdapter extends RecyclerView.Adapter<InventoryListAdap
 
 
 
+
+
     }
 
     public void setOnItemClickLister(OnItemSelecteListener mListener) {

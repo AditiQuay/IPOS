@@ -3,7 +3,9 @@ package quay.com.ipos.utility;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -17,8 +19,13 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.text.Html;
@@ -46,6 +53,9 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -61,9 +71,12 @@ import java.util.regex.Pattern;
 
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
-import quay.com.ipos.modal.CustomerResult;
+import quay.com.ipos.compliance.constants.Constant;
+import quay.com.ipos.modal.CustomerList;
 import quay.com.ipos.modal.ProductList;
 import quay.com.ipos.realmbean.RealmPinnedResults;
+import quay.com.ipos.ui.MessageDialog;
+import quay.com.ipos.ui.MessageDialogFragment;
 
 
 public class Util {
@@ -113,6 +126,18 @@ public class Util {
         return gb.create();
     }
 
+    /*Util for progress dialog*/
+    public static ProgressDialog showProgressDialog(Context context, String message) {
+        ProgressDialog m_Dialog = new ProgressDialog(context);
+        m_Dialog.setMessage(message);
+        m_Dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        m_Dialog.setCancelable(false);
+        m_Dialog.setCanceledOnTouchOutside(false);
+        m_Dialog.show();
+        return m_Dialog;
+
+    }
+
     /**
      * Sets the typeface.
      *
@@ -126,23 +151,29 @@ public class Util {
         TypedArray values = context.obtainStyledAttributes(attrs, R.styleable.CustomTextView);
         String typefaceName = values.getString(R.styleable.CustomTextView_typeface);
 
-        if (typefaceCache.containsKey(typefaceName)) {
-            textView.setTypeface(typefaceCache.get(typefaceName));
-        } else {
-            Typeface typeface;
-            try {
+//        if (typefaceCache.containsKey(typefaceName)) {
+//            textView.setTypeface(typefaceCache.get(typefaceName));
+//        } else {
+        Typeface typeface;
+        try {
+//                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
+//                        context.getString(R.string.assets_fonts_folder) + typefaceName);
+            if(typefaceName==null)
+                typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
+                        context.getString(R.string.assets_fonts_folder) + "/TitilliumWeb-Regular.ttf");
+            else
                 typeface = Typeface.createFromAsset(textView.getContext().getAssets(),
                         context.getString(R.string.assets_fonts_folder) + typefaceName);
-            } catch (Exception e) {
-                AppLog.v(context.getString(R.string.app_name), e.toString());
+        } catch (Exception e) {
+            AppLog.v(context.getString(R.string.app_name), e.toString());
 //				AppLog.v(context.getString(R.string.app_name),
 //						String.format(context.getString(R.string.typeface_not_found), typefaceName));
-                return;
-            }
-
-            typefaceCache.put(typefaceName, typeface);
-            textView.setTypeface(typeface);
+            return;
         }
+
+        typefaceCache.put(typefaceName, typeface);
+        textView.setTypeface(typeface);
+//        }
 
         values.recycle();
     }
@@ -216,8 +247,8 @@ public class Util {
         return new File(path);
     }
 
-    public static String getCurrentTimeStamp(){
-        Long tsLong = System.currentTimeMillis()/1000;
+    public static String getCurrentTimeStamp() {
+        Long tsLong = System.currentTimeMillis() / 1000;
         String ts = tsLong.toString();
         return ts;
     }
@@ -326,7 +357,14 @@ public class Util {
 
     public static String getCurrentTime() {
         Calendar calander = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.format15);
+
+        String time = simpleDateFormat.format(calander.getTime());
+        return time;
+    }
+    public static String getCurrentDateTime() {
+        Calendar calander = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.format15);
 
         String time = simpleDateFormat.format(calander.getTime());
         return time;
@@ -334,7 +372,7 @@ public class Util {
 
     public static String getCurrentDate() {
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd MMM yyyy");
+        SimpleDateFormat df = new SimpleDateFormat(Constants.formatDate);
         formatedDate = df.format(c.getTime());
         return formatedDate;
     }
@@ -458,6 +496,16 @@ public class Util {
         return null;
     }
 
+    public static String getFormattedDates(Date data) {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date newDate = data;
+            return format.format(newDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     public static void animateView(View v) {
@@ -520,8 +568,7 @@ public class Util {
     /**
      * Gets the app shared preference.
      *
-     * @param aContext
-     *            the a context
+     * @param aContext the a context
      * @return the app shared preference
      */
 
@@ -559,9 +606,9 @@ public class Util {
 
     /**
      * Cache user.
-     *
-     *  user
-     *            the user
+     * <p>
+     * user
+     * the user
      */
 //    public static void cacheUser(User user) {
 //        Context context = SharekhanApplication.getAppInstance().getApplicationContext();
@@ -624,7 +671,7 @@ public class Util {
     }
 
 
-    public static void cacheCustomerData(ArrayList<CustomerResult.Customer> mDatum) {
+    public static void cacheCustomerData(ArrayList<CustomerList.Customer> mDatum) {
         Context context = IPOSApplication.getAppInstance().getApplicationContext();
         SharedPreferences sp = getAppSharedPreference(context);
 
@@ -669,7 +716,7 @@ public class Util {
         return (ArrayList<RealmPinnedResults.Info>) mQuestionList;
     }
 
-        public static void cachePinnedResults(RealmPinnedResults user) {
+    public static void cachePinnedResults(RealmPinnedResults user) {
         Context context = IPOSApplication.getContext();
         SharedPreferences sp = getAppSharedPreference(context);
 
@@ -684,7 +731,7 @@ public class Util {
 
 
     public static RealmPinnedResults getCachedPinnedResults() {
-            RealmPinnedResults user = null;
+        RealmPinnedResults user = null;
         Context context = IPOSApplication.getContext();
         SharedPreferences sp = getAppSharedPreference(context);
 
@@ -700,20 +747,84 @@ public class Util {
     }
 
 
-
-    public static double numberFormat(double number){
-        try{
+    public static double numberFormat(double number) {
+        try {
             NumberFormat nf = NumberFormat.getInstance();
             nf.setMaximumFractionDigits(1);// set as you need
             String myString = nf.format(number);
-            AppLog.e("Util","string : " + myString);
+            AppLog.e("Util", "string : " + myString);
             number = Double.parseDouble(myString);
-        }catch(Exception e){
-            System.out.println("ex="+e);
+        } catch (Exception e) {
+            System.out.println("ex=" + e);
         }
         return number;
     }
 
+    public static void OpenSetting(Context ctx) {
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", ctx.getPackageName(), null);
+        intent.setData(uri);
+        ctx.startActivity(intent);
+    }
+
+    public static void showMessageDialog(Context mContext, MessageDialog.MessageDialogListener listener, String message, String yesButton, String noButton, int mCallType, String Title, FragmentManager supportFragmentManager) {
+        MessageDialog fragment = new MessageDialog(mContext, Title, message, yesButton, noButton, listener, mCallType);
+
+//        fragment.show(supportFragmentManager, "scan_results");
+    }
+    public static void showMessageDialog(Context mContext,MessageDialog.MessageDialogListener listener, String message, String yesButton, String noButton,String cancel, int mCallType, String Title, FragmentManager supportFragmentManager) {
+        MessageDialog fragment = new MessageDialog(mContext,Title, message,yesButton,noButton,cancel, listener,mCallType);
+
+//        fragment.show(supportFragmentManager, "scan_results");
+    }
 
 
+    public static boolean checkExpiryYear(String expYear, String expMonth) {
+
+        Calendar calendar = Calendar.getInstance();
+        int thisYear = calendar.get(Calendar.YEAR);
+        int thisMonth = calendar.get(Calendar.MONTH);
+        int expiryYear = Integer.parseInt(expYear);
+        int expiryMonth = Integer.parseInt(expMonth);
+
+        if (expiryYear < thisYear) {
+            return false;
+        }
+        if (expiryYear == thisYear && expiryMonth <= thisMonth) {
+            return false;
+        }
+//        if (expiryYear > thisYear + 15) {
+//            return false;
+//        }
+//        if(expiryYear>=thisYear+15 && expiryMonth>thisMonth){
+//            return false;
+//        }
+        return true;
+    }
+
+
+    public static String indianNumberFormat(double amount){
+        NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
+
+        String moneyString = formatter.format(amount);
+
+        return moneyString.replaceAll("Rs.","").replaceAll(getStringRes(R.string.Rs),"");
+    }
+
+    public static String getIndianNumberFormat(String str){
+        Format format = NumberFormat.getCurrencyInstance(new Locale("en", "in"));
+        return (format.format(new BigDecimal(str))).replaceAll("Rs.",getStringRes(R.string.Rs).replaceAll(".00",""));
+
+    }
+
+    public static double getLastTwoDigits(double value){
+        return Double.parseDouble(new DecimalFormat("###.##").format(value));
+    }
+
+    public static String generateOrderFormat(int number){
+        String numberAsString = String.valueOf(number);
+        String paddedNumberAsString = "000000".substring(numberAsString.length()) + numberAsString;
+        return paddedNumberAsString;
+    }
 }

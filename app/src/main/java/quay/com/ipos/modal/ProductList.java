@@ -51,6 +51,9 @@ public class ProductList {
         @SerializedName("sDiscountPrice")
         @Expose
         private String sDiscountPrice;
+//        @SerializedName("discount")
+//        @Expose
+//        private Discount discountObj;
         private double OTCDiscount;
         private boolean discSelected = false;
         private boolean discItemSelected = false;
@@ -63,7 +66,13 @@ public class ProductList {
         private double discount;
         private int totalQty;
         private double totalDiscountPrice;
-
+//        public Discount getDiscountObj() {
+//            return discountObj;
+//        }
+//
+//        public void setDiscountObj(Discount discount) {
+//            this.discountObj = discount;
+//        }
         public double getOTCDiscount() {
             return OTCDiscount;
         }
@@ -256,6 +265,45 @@ public class ProductList {
 
         public void setSDiscountPrice(String sDiscountPrice) {
             this.sDiscountPrice = sDiscountPrice;
+        }
+
+    }
+
+
+    public class Discount {
+
+        @SerializedName("isDiscount")
+        @Expose
+        private Boolean isDiscount;
+        @SerializedName("sDiscountName")
+        @Expose
+        private String sDiscountName;
+        @SerializedName("bulk_discount")
+        @Expose
+        private Integer bulkDiscount;
+
+        public Boolean getIsDiscount() {
+            return isDiscount;
+        }
+
+        public void setIsDiscount(Boolean isDiscount) {
+            this.isDiscount = isDiscount;
+        }
+
+        public String getSDiscountName() {
+            return sDiscountName;
+        }
+
+        public void setSDiscountName(String sDiscountName) {
+            this.sDiscountName = sDiscountName;
+        }
+
+        public Integer getBulkDiscount() {
+            return bulkDiscount;
+        }
+
+        public void setBulkDiscount(Integer bulkDiscount) {
+            this.bulkDiscount = bulkDiscount;
         }
 
     }

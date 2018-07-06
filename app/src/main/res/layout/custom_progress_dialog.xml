@@ -21,7 +21,6 @@
             wheel:matProg_rimWidth="0dp"/> 
 
         <quay.com.ipos.ui.CustomTextView
-         	app:typeface="Roboto-Regular.ttf"
             android:id="@+id/tvLoadingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

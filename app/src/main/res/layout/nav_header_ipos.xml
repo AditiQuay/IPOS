@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="bottom"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
@@ -33,7 +34,7 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/dim_16"
             android:alpha="0.5"
-            android:background="@color/menu_background"
+            android:background="@color/menu_strip"
             android:padding="@dimen/dim_16">
 
             <RelativeLayout
@@ -64,15 +65,16 @@
 
         <TextView
             android:id="@+id/textViewMyBusiness"
-            android:textSize="@dimen/dim_16"
             android:layout_width="wrap_content"
-            android:alpha="0.7"
             android:layout_height="wrap_content"
-            android:textColor="@color/menu_text_color"
             android:layout_below="@+id/rLayoutOption"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/dim_8"
-            android:text="My Business" />
+            android:alpha="0.7"
+            android:maxLines="1"
+            android:textColor="@color/menu_text_color"
+            android:textSize="@dimen/dim_16"
+            tools:text="P" />
 
         <TextView
             android:id="@+id/textViewAccount"
@@ -80,11 +82,12 @@
             android:textColor="@color/menu_text_color"
             android:layout_width="wrap_content"
             android:alpha="0.7"
+            android:text="Business"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewMyBusiness"
             android:layout_centerInParent="true"
             android:layout_marginTop="@dimen/dim_4"
-            android:text="Account" />
+            />
 
         <RelativeLayout
             android:layout_width="@dimen/dim_88"
@@ -104,7 +107,7 @@
 
         </RelativeLayout>
 
-        <quay.com.ipos.utility.CircleImageView
+       <!-- <quay.com.ipos.utility.CircleImageView
             android:id="@+id/imageViewProfileDummy"
             android:layout_width="@dimen/dim_80"
             android:layout_height="@dimen/dim_80"
@@ -112,8 +115,23 @@
             android:layout_marginLeft="@dimen/dim_16"
             android:layout_marginStart="@dimen/dim_16"
             android:layout_marginTop="@dimen/dim_20"
-            android:src="@drawable/cystal"
-            app:civ_fill_color="@color/white" />
+
+            android:src="@drawable/icon_ipos_saffire"
+            app:civ_fill_color="@color/white" />-->
+        <ImageView
+            android:id="@+id/imageViewProfileDummy"
+            android:layout_width="@dimen/dim_90"
+            android:layout_height="@dimen/dim_90"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/dim_4"
+            android:layout_marginStart="@dimen/dim_4"
+            android:layout_marginTop="@dimen/dim_16"
+            android:scaleType="centerInside"
+
+            android:src="@drawable/icon_ipos_saffire"
+            android:background="@drawable/dash_circle_bg"
+
+            />
     </RelativeLayout>
 
 

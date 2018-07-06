@@ -6,13 +6,12 @@
     android:orientation="vertical"
     android:background="@color/backgroundgrey"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-  >
+    android:layout_height="wrap_content" >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|center"
         android:background="@color/white"
         android:padding="@dimen/dim_8"
         android:orientation="horizontal">
@@ -30,10 +29,10 @@
             android:contentDescription="TODO" />
         <View
             android:id="@+id/view"
-            android:layout_width="6dp"
+            android:layout_width="3dp"
             android:layout_height="80dp"
             android:layout_toRightOf="@+id/imgCart"
-            android:background="@color/dark_primary_color"/>
+            android:background="@color/colorPrimary"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -42,7 +41,7 @@
             android:layout_toRightOf="@+id/view"
             android:gravity="start"
             android:orientation="vertical">
-            <TextView
+            <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -58,7 +57,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvOrderNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -68,7 +68,8 @@
                     android:text="PO -00001 |"
                     android:textColor="@color/black"
                     />
-                <TextView
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvBillingDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -84,27 +85,52 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvItemNo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:textSize="12sp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginStart="16dp"
-                    android:text="Items 2 |"
+                    android:text="Items 2"
                     android:textColor="@color/black"
                     />
-                <TextView
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="15dp"
+                    android:background="@color/accent_color"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dim_2"
+                    android:layout_marginBottom="@dimen/dim_1"
+                    android:layout_marginLeft="@dimen/dim_5"
+                    />
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvQty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
                     android:textSize="12sp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginStart="8dp"
-                    android:text="QTY 15 |"
+                    android:text="QTY 15"
                     android:textColor="@color/black"
                     />
-                <TextView
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="15dp"
+                    android:background="@color/accent_color"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dim_2"
+                    android:layout_marginBottom="@dimen/dim_1"
+                    android:layout_marginLeft="@dimen/dim_5"
+                    />
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvTotalPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -121,20 +147,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start">
-                <TextView
-                    android:id="@+id/textName"
+                <quay.com.ipos.ui.CustomTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:singleLine="true"
-                    android:textSize="14sp"
+                    android:textSize="10sp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginStart="16dp"
-                    android:text=""
+                    android:text="ETA |"
                     android:textColor="@color/filter_text_color"
                     />
-                <TextView
-                    android:id="@+id/textName2"
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvETADate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -142,7 +167,7 @@
                     android:textSize="10sp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginStart="4dp"
-                    android:text="ETA | 30 March 2018"
+                    android:text="30 March 2018"
                     android:textColor="@color/filter_text_color"
                     />
             </LinearLayout>
@@ -165,7 +190,7 @@
                 android:background="@drawable/email"
                 android:layout_gravity="center"
                 android:contentDescription="TODO" />
-            <TextView
+            <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvValue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -180,7 +205,7 @@
                 />
         </LinearLayout>
 
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
             android:id="@+id/tvLess"
             android:layout_width="0dp"
             android:visibility="gone"
@@ -208,7 +233,6 @@
             android:layout_marginEnd="@dimen/dim_8"
             android:layout_gravity="center"
             android:visibility="visible"
-            android:background="@drawable/ic_click"
             android:contentDescription="TODO" />
 
     </RelativeLayout>

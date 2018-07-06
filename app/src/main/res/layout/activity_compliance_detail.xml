@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<layout
+    tools:context="com.quayintech.compliancetracker.ui.activity.TaskDetailActivity">
+
+    <data>
+
+        <variable
+            name="handler"
+            type="com.quayintech.compliancetracker.interfaces.ComplianceDetailHandler" />
+
+        <variable
+            name="viewModel"
+            type="com.quayintech.compliancetracker.viewModel.ComplianceViewModel" />
+    </data>-->
+
+    <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/headerBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary">
+
+
+            <ImageView
+                android:id="@+id/imgClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="0dp"
+                android:onClick="onClickClose"
+                android:paddingBottom="8dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp"
+                android:src="@drawable/ic_close_white_24dp"
+
+                />
+
+            <TextView
+                android:id="@+id/txtUpdateTaskProgress"
+                style="@style/iposfontstyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="48dp"
+                android:paddingTop="0dp"
+                android:text="@string/title_compliance_detail"
+                android:textColor="#fff"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:id="@+id/btnUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:onClick="onClickUpdate"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="@string/update_compliance"
+                android:textAllCaps="false"
+                android:textAppearance="@style/iposfontstyle"
+                android:textColor="#fff"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgTimelineInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="2dp"
+                android:layout_toLeftOf="@+id/btnUpdate"
+                android:padding="5dp"
+                android:src="@drawable/update" />
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/headerBar"
+            android:background="@color/color_bg_grey"
+            android:clipToPadding="false"
+            android:padding="8dp">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="0dp"
+                android:clipToPadding="false"
+                android:padding="10dp"
+                app:cardCornerRadius="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        app:hintAnimationEnabled="false">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/txtSubCategory"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:cursorVisible="false"
+
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/txtSubCategory"
+                            android:maxLines="1"
+                            />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        app:hintAnimationEnabled="false">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/txtTaskName"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/txtTaskName"
+                            android:maxLines="1"
+                             />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        app:hintAnimationEnabled="false">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/txtTaskDescription"
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/txtTaskDescription"
+                             />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        app:hintAnimationEnabled="false"
+                        app:hintEnabled="true">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/txtTaskAssignTo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="@string/txtTaskAssignTo"
+                            />
+                        <!--   android:onClick="@{(v) -> handler.onClickAssignTo(v)}"-->
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+
+                        app:hintAnimationEnabled="false">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="Due Date"
+
+                             />
+                        <!-- android:onClick="@{(v) -> handler.onClickAddDate(v)}"-->
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+
+                        app:hintAnimationEnabled="false">
+                        <!-- android:onClick="@{(v) -> handler.onClickAddDate(v)}"-->
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/textDueTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+
+                            android:focusableInTouchMode="false"
+                            android:hint="Due Time"
+
+                            />
+                        <!-- android:onClick="@{(v) -> handler.onClickAddTime(v)}"-->
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+
+                        app:hintAnimationEnabled="false">
+                        <!-- android:onClick="@{(v) -> handler.onClickAddDate(v)}"-->
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/textRepeat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+
+                            android:focusableInTouchMode="false"
+                            android:hint="Repeat"
+
+                           />
+                        <!-- android:onClick="@{(v) -> handler.onClickRepeat(v)}"-->
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+                        android:visibility="gone"
+                        app:hintAnimationEnabled="false">
+                        <!-- android:onClick="@{(v) -> handler.onClickAlert(v)}"-->
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/textAlert"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="Alert"
+
+                            />
+                        <!-- android:onClick="@{(v) -> handler.onClickAlert(v)}"-->
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        app:hintAnimationEnabled="false"
+                        app:hintEnabled="true">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="Progress Status"
+                            android:onClick="onClickProgressState"
+
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingBottom="3dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="Sub Task List"
+                        android:textColor="@color/black" />
+
+                    <include layout="@layout/title_seperator_view" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        android:orientation="vertical"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                        app:spanCount="2"
+                        tools:listitem="@layout/adapter_subtask" />
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginBottom="100dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/btnAddSubtask"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorPrimary"
+                            android:onClick="onClickAddSubTask"
+                            android:padding="8dp"
+                            android:text="Add Sub Task"
+                            android:textAppearance="@style/iposfontstyle"
+                            android:textColor="#fff"
+                            android:textStyle="bold"
+                            />
+                    </android.support.v7.widget.CardView>
+
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </android.support.v4.widget.NestedScrollView>
+    </RelativeLayout>
+<!--</layout>-->

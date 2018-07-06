@@ -26,6 +26,7 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:textSize="12sp"
+            android:gravity="start"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:text=" Nidan 4G"
@@ -35,6 +36,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:layout_weight="1">
 
             <ImageView
@@ -45,6 +47,7 @@
                 android:layout_marginStart="8dp"
                 android:background="@drawable/ic_cube_low_inventory"
                 android:layout_gravity="center"
+                android:visibility="gone"
                 android:contentDescription="TODO" />
             <TextView
                 android:id="@+id/tvValue"
@@ -67,14 +70,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
-
+            android:gravity="center"
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:textSize="12sp"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:text=" Less by 500"
-            android:textColor="@color/red"
+            android:textColor="@color/colorPrimary"
             />
 
 
@@ -86,9 +89,16 @@
             android:layout_marginRight="@dimen/dim_8"
             android:layout_marginEnd="@dimen/dim_8"
             android:layout_gravity="center"
-            android:background="@drawable/ic_click"
+            android:visibility="gone"
             android:contentDescription="TODO" />
 
     </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/backgroundgrey"/>
+
 
 </LinearLayout>

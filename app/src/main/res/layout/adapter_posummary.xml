@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+
+    >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+
+        <ImageView
+            android:id="@+id/imageProduct"
+            android:layout_width="63dp"
+            android:layout_height="80dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/order_summary"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/viewSeperatorVertical"
+            android:layout_width="0.5dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:visibility="invisible"
+            android:layout_marginRight="0dp"
+            android:layout_toRightOf="@+id/imageProduct"
+            android:background="@color/grey" />
+
+        <TextView
+            android:id="@+id/textPName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/viewSeperatorVertical"
+            android:fontFamily="@font/titilliumwebregular"
+            android:maxLines="1"
+            android:textColor="@color/dark_grey_color"
+            android:textSize="14sp"
+            tools:text="A1 Agro Chemicals" />
+
+        <TextView
+            android:id="@+id/textRequestCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textPName"
+            android:layout_toRightOf="@+id/viewSeperatorVertical"
+            android:fontFamily="@font/titilliumwebregular"
+            android:maxLines="1"
+            android:textColor="@color/dark_grey_color"
+            android:textSize="12sp"
+
+            tools:text="PO-00001" />
+
+        <TextView
+            android:id="@+id/textItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textRequestCode"
+            android:layout_toRightOf="@+id/viewSeperatorVertical"
+            android:fontFamily="@font/titilliumwebregular"
+            android:maxLines="1"
+            android:text="Items"
+            android:textColor="@color/dark_grey_color"
+
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textItemsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textRequestCode"
+            android:layout_toRightOf="@+id/textItems"
+            android:fontFamily="@font/titilliumwebregular"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+
+            android:textColor="@color/dark_grey_color"
+            android:textSize="12sp"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/textQtyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textRequestCode"
+            android:layout_toRightOf="@+id/textItemsCount"
+            android:fontFamily="@font/titilliumwebregular"
+            android:maxLines="1"
+            android:paddingLeft="20dp"
+            android:text="Qty"
+            android:textColor="@color/dark_grey_color"
+
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/textQty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textRequestCode"
+            android:layout_toRightOf="@+id/textQtyName"
+            android:fontFamily="@font/titilliumwebregular"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+
+            android:textColor="@color/dark_grey_color"
+            android:textSize="12sp"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/textDeliveryReq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textItemsCount"
+            android:layout_toRightOf="@+id/viewSeperatorVertical"
+            android:fontFamily="@font/titilliumwebregular"
+            android:maxLines="1"
+            android:paddingLeft="0dp"
+
+            android:text="Delivery Requested Date"
+            android:textColor="@color/grey"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/textDeliveryReqDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textItemsCount"
+            android:layout_toRightOf="@+id/textDeliveryReq"
+            android:fontFamily="@font/titilliumwebregular"
+            android:maxLines="1"
+            android:paddingLeft="8dp"
+
+            android:text=" "
+            android:textColor="@color/grey"
+            android:textSize="11sp"
+            tools:text="aaaaa"/>
+
+        <View
+            android:id="@+id/viewMiddleRight"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/textModifiedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/viewMiddleRight"
+            android:layout_alignParentRight="true"
+            android:fontFamily="@font/titilliumwebregular"
+            android:maxLines="1"
+            android:textColor="@color/dark_grey_color"
+            android:textSize="12sp"
+
+            tools:text="25-Mar-2018" />
+
+        <TextView
+            android:id="@+id/textOrderValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/viewMiddleRight"
+            android:fontFamily="@font/titilliumwebregular"
+            android:maxLines="1"
+            android:textColor="@color/dark_grey_color"
+            android:textSize="12sp"
+
+            tools:text="5,000" />
+
+
+    </RelativeLayout>
+</RelativeLayout>

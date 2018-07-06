@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
-import quay.com.ipos.customerInfo.CustomerInfoActivity;
+import quay.com.ipos.base.BaseActivity;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.productCatalogue.productCatalogueAdapter.ProductCatalogueViewAllAdapter;
@@ -25,24 +24,25 @@ import quay.com.ipos.utility.FontUtil;
  * Created by niraj.kumar on 4/24/2018.
  */
 
-public class ProductCatalogueViewAll extends AppCompatActivity implements InitInterface, MyListener {
+public class ProductCatalogueViewAll extends BaseActivity implements InitInterface, MyListener {
     private Toolbar toolbar;
     private TextView textViewProductName;
     private RecyclerView recyclerViewProductsList;
     private Context mContext;
-    String ProductGroup;
+    String ProductGroup, sectionProducts;
     private ArrayList<ProductItemModal> productItemModals;
     private ProductCatalogueViewAllAdapter productCatalogueViewAllAdapter;
     private MyListener myListener;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.product_catalogue_view_all);
         mContext = ProductCatalogueViewAll.this;
         myListener = ProductCatalogueViewAll.this;
         Intent i = getIntent();
         ProductGroup = i.getStringExtra("Group");
+        sectionProducts = i.getStringExtra("sectionProduct");
         productItemModals = (ArrayList<ProductItemModal>) i.getSerializableExtra("Products");
         findViewById();
         applyInitValues();
@@ -50,6 +50,7 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
         applyLocalValidation();
 
     }
+
 
     @Override
     public void findViewById() {
@@ -69,7 +70,7 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
         toolbar.setTitle(getResources().getString(R.string.toolbar_title_catalogue_product_details));
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
-        textViewProductName.setText(ProductGroup);
+        textViewProductName.setText(ProductGroup + " - " + sectionProducts);
 
         recyclerViewProductsList.setHasFixedSize(true);
         recyclerViewProductsList.setLayoutManager(new LinearLayoutManager(mContext));
@@ -91,7 +92,7 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
     @Override
     public void applyTypeFace() {
         FontUtil.applyTypeface(textViewProductName, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
-        FontUtil.applyTypeface(toolbar,FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
+        FontUtil.applyTypeface(toolbar, FontUtil.getTypeFaceRobotTiteliumRegular(mContext));
 
     }
 
@@ -103,8 +104,9 @@ public class ProductCatalogueViewAll extends AppCompatActivity implements InitIn
     @Override
     public void onRowClicked(int position) {
         ProductItemModal productItemModal = productItemModals.get(position);
-        Intent i = new Intent(mContext, CustomerInfoActivity.class);
-//        i.putExtra("Product Name", productItemModal.getProductName());
+        Intent i = new Intent(mContext, CatalogueSubProduct.class);
+        i.putExtra("ProductName", productItemModal.getProductName());
+        i.putExtra("ProductId",productItemModal.getProductId());
         startActivity(i);
     }
 

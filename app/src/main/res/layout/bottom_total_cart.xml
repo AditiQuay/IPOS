@@ -4,10 +4,11 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/menu_item_container"
     android:orientation="vertical"
-    android:background="@color/backgroundgrey"
+    android:background="@color/white"
     android:layout_width="match_parent"
+    android:paddingRight="@dimen/dim_10"
     android:layout_height="wrap_content"
-  >
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,11 +18,7 @@
         android:padding="@dimen/dim_4"
         android:orientation="horizontal">
 
-
-
-
-
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,28 +30,28 @@
             android:layout_marginStart="16dp"
             android:text="Total"
             />
-        <TextView
-
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvTotalQty"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:singleLine="true"
             android:textSize="14sp"
             android:gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginStart="18dp"
             android:text="10"
             />
-        <TextView
-
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvTotalPriceBeforeGst"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:singleLine="true"
             android:textSize="14sp"
             android:gravity="end"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginStart="12dp"
             android:text="₹ 7514"
             />
 
@@ -67,11 +64,7 @@
         android:padding="@dimen/dim_4"
         android:orientation="horizontal">
 
-
-
-
-
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -84,8 +77,8 @@
             android:text="CGST"
             />
 
-        <TextView
-
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvCGSTPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -106,11 +99,7 @@
         android:padding="@dimen/dim_4"
         android:orientation="horizontal">
 
-
-
-
-
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -123,8 +112,8 @@
             android:text="SGST"
             />
 
-        <TextView
-
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvSGSTPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -145,11 +134,7 @@
         android:padding="@dimen/dim_4"
         android:orientation="horizontal">
 
-
-
-
-
-        <TextView
+        <quay.com.ipos.ui.CustomTextView
 
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -162,8 +147,8 @@
             android:text="Rounding off"
             />
 
-        <TextView
-
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvRoundingOffPrice"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -173,6 +158,54 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:text="₹ 0.0"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        android:padding="@dimen/dim_4"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/ic_discount_icon"/>
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/discount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:gravity="start"
+                android:textColor="@color/colorPrimary"
+                android:text="₹ 678.90"
+                />
+
+        </LinearLayout>
+
+
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvOrderValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18sp"
+            android:gravity="end"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:textColor="@color/colorPrimary"
+            android:text="Order Value  ₹ 0.0"
             />
 
     </LinearLayout>

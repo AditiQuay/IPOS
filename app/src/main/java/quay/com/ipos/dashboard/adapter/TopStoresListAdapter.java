@@ -39,6 +39,10 @@ public class TopStoresListAdapter extends RecyclerView.Adapter<TopStoresListAdap
 
         holder.tvTitle.setText(stringArrayList.get(position).getTitle());
 
+        if (position==stringArrayList.size()-1){
+            holder.view.setVisibility(View.GONE);
+        }
+
 
 
     }
@@ -59,10 +63,12 @@ public class TopStoresListAdapter extends RecyclerView.Adapter<TopStoresListAdap
     public class SurveyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvTitle;
+        private View view;
 
         public SurveyViewHolder(View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
+            view=itemView.findViewById(R.id.view);
 
         }
     }

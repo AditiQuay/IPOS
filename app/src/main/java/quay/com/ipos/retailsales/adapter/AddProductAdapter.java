@@ -1,26 +1,27 @@
 package quay.com.ipos.retailsales.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
-import quay.com.ipos.application.IPOSApplication;
-import quay.com.ipos.modal.ProductList;
-import quay.com.ipos.ui.FontManager;
+import quay.com.ipos.modal.ProductListResult;
+import quay.com.ipos.modal.ProductSearchResult;
 import quay.com.ipos.utility.AppLog;
 import quay.com.ipos.utility.Util;
+
+import static quay.com.ipos.application.IPOSApplication.mProductListResult;
 
 /**
  * Created by aditi.bhuranda on 23-04-2018.
@@ -30,7 +31,8 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
-
+    public static boolean onBind = true;
+    public static boolean onPressed = false;
     // private OnLoadMoreListener mOnLoadMoreListener;
 
     private boolean isLoading;
@@ -38,11 +40,11 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<ProductList.Datum> mDataset;
+    ArrayList<ProductSearchResult.Datum> mDataset;
     RecyclerView mRecyclerView;
 
     public AddProductAdapter(Context ctx, View.OnClickListener mClickListener, RecyclerView mRecycler,
-                              ArrayList<ProductList.Datum> questionList) {
+                              ArrayList<ProductSearchResult.Datum> questionList) {
         mOnClickListener = mClickListener;
         mContext = ctx;
         mDataset = questionList;
@@ -71,16 +73,21 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvItemName, tvItemWeight, tvPrice, tvAdd;
+        public TextView tvItemName, tvItemWeight, tvStock, tvAdd,tvOfferDetail,tvUnitPrice,tvPoints;
         public ImageView imvProduct;
+        private RelativeLayout llAdd;
 
         public UserViewHolder(View itemView) {
             super(itemView);
             tvItemName =  itemView.findViewById(R.id.tvItemName);
+            tvPoints =  itemView.findViewById(R.id.tvPoints);
             tvItemWeight =  itemView.findViewById(R.id.tvItemWeight);
-            tvPrice =  itemView.findViewById(R.id.tvPrice);
+            tvStock =  itemView.findViewById(R.id.tvStock);
             tvAdd =  itemView.findViewById(R.id.tvAdd);
+            tvOfferDetail =  itemView.findViewById(R.id.tvOfferDetail);
+            tvUnitPrice =  itemView.findViewById(R.id.tvUnitPrice);
             imvProduct =  itemView.findViewById(R.id.imvProduct);
+            llAdd=itemView.findViewById(R.id.llAdd);
         }
     }
 
@@ -94,6 +101,9 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_ITEM) {
             View view = LayoutInflater.from(mContext).inflate(R.layout.add_product_list_item, parent, false);
+            final UserViewHolder userViewHolder = new UserViewHolder(view);
+            userViewHolder.llAdd.setOnClickListener(mOnClickListener);
+            userViewHolder.llAdd.setTag( userViewHolder.getAdapterPosition());
             return new AddProductAdapter.UserViewHolder(view);
         }
         else if (viewType == VIEW_TYPE_LOADING) {
@@ -107,15 +117,48 @@ public class AddProductAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof AddProductAdapter.UserViewHolder) {
-            ProductList.Datum str = mDataset.get(position);
-            AppLog.e(AddProductAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
+            // TODO: Implement this method
+//            holder.setIsRecyclable(false);
+            onBind=true;
+            ProductSearchResult.Datum str = mDataset.get(position);
+//            AppLog.e(AddProductAdapter.class.getSimpleName(), Util.getCustomGson().toJson(str));
             AddProductAdapter.UserViewHolder userViewHolder = (AddProductAdapter.UserViewHolder) holder;
-            userViewHolder.tvItemName.setText(str.getSProductName());
-            userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " gm");
-            userViewHolder.tvPrice.setText(str.getSProductPoints());
+//            if(!onPressed) {
+                userViewHolder.tvItemName.setText(str.getSProductName());
+                userViewHolder.tvItemWeight.setText(str.getSProductWeight() + " ");
+                userViewHolder.tvStock.setText(str.getSProductStock() + "");
+                ImageLoader.getInstance().displayImage(str.getProductImage(), userViewHolder.imvProduct);
 
-            userViewHolder.tvAdd.setOnClickListener(mOnClickListener);
-            userViewHolder.tvAdd.setTag(position);
+                if (str.isAdded()) {
+                    userViewHolder.tvAdd.setText("Added");
+                    userViewHolder.llAdd.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                } else {
+                    userViewHolder.tvAdd.setText("Add");
+                    userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
+                }
+
+                userViewHolder.tvUnitPrice.setText(Util.getIndianNumberFormat(str.getSalesPrice() + ""));
+                if (str.getDiscount().size() > 1) {
+                    userViewHolder.tvOfferDetail.setText(str.getDiscount().size() + " offers available");
+                } else if (str.getDiscount().size() == 1) {
+                    userViewHolder.tvOfferDetail.setText(str.getDiscount().get(0).getSDiscountName());
+                } else {
+                    userViewHolder.tvOfferDetail.setText("");
+//                userViewHolder.tvOfferDetail.setVisibility(View.GONE);
+                }
+                userViewHolder.tvPoints.setText(str.getPoints() + "");
+//            }else {
+//                if (str.isAdded()) {
+//                    userViewHolder.tvAdd.setText("Added");
+//                    userViewHolder.llAdd.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+//                } else {
+//                    userViewHolder.tvAdd.setText("Add");
+//                    userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
+//                }
+//                onPressed=false;
+//            }
+            onBind = false;
+            userViewHolder.llAdd.setTag( position);
 
 
         }

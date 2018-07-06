@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/d1"
+        android:title="1 year"></item>
+    <item
+        android:id="@+id/d2"
+        android:title="2 years"></item>
+    <item
+        android:id="@+id/d3"
+        android:title="3 years"></item>
+    <item
+        android:id="@+id/d4"
+        android:title="4 years"></item>
+    <item
+        android:id="@+id/d5"
+        android:title="5 years"></item>
+    <item
+        android:id="@+id/d6"
+        android:title="6 years"></item>
+    <item
+        android:id="@+id/d7"
+        android:title="7 years"></item>
+    <item
+        android:id="@+id/d8"
+        android:title="8 years"></item>
+    <item
+        android:id="@+id/d9"
+        android:title="9 years"></item>
+    <item
+        android:id="@+id/d10"
+        android:title="10 years"></item>
+
+</menu>

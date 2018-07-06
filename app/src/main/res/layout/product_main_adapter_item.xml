@@ -1,65 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:cardCornerRadius="@dimen/dim_4"
-    app:cardElevation="@dimen/dim_2"
-    app:cardUseCompatPadding="true">
+    android:background="?android:selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="5dp">
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:selectableItemBackground"
-        android:orientation="vertical"
-        android:padding="5dp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textViewHeader"
-                style="@style/stylePrimaryTextColor14"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/textViewViewAll"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="@dimen/dim_4"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:layout_marginStart="@dimen/dim_4"
-                android:layout_toLeftOf="@+id/textViewViewAll"
-                android:layout_toStartOf="@+id/textViewViewAll"
-                android:alpha="0.7"
-                android:ems="18"
-                android:lines="3"
-                tools:ignore="RtlSymmetry" />
+        android:layout_height="wrap_content">
 
 
-            <TextView
-                android:id="@+id/textViewViewAll"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dim_4"
-                android:text="View All"
-                android:textColor="@color/colorPrimary"
-                android:textSize="14sp" />
-
-
-        </RelativeLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerViewItems"
+        <TextView
+            android:id="@+id/textViewHeader"
+            style="@style/stylePrimaryTextColor14"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal" />
+            android:layout_alignTop="@+id/BtnViewAll"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dim_4"
+            android:layout_marginLeft="@dimen/dim_4"
+            android:layout_marginRight="@dimen/dim_4"
+            android:layout_marginStart="@dimen/dim_4"
+            android:layout_marginTop="@dimen/dim_4"
+            android:layout_toLeftOf="@+id/BtnViewAll"
+            android:layout_toStartOf="@+id/BtnViewAll"
+            android:alpha="0.7"
+            android:ems="18"
+            android:text="McCoy Soudal"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/textViewProductDetails"
+            style="@style/stylePrimaryTextColor14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewHeader"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dim_4"
+            android:layout_marginLeft="@dimen/dim_4"
+            android:layout_marginRight="@dimen/dim_4"
+            android:layout_marginStart="@dimen/dim_4"
+            android:layout_toLeftOf="@+id/BtnViewAll"
+            android:layout_toStartOf="@+id/BtnViewAll"
+            android:alpha="0.7"
+            android:ems="18"
+            android:text="McCoy Soudal"
+            tools:ignore="RtlSymmetry" />
+
+        <Button
+            android:id="@+id/BtnViewAll"
+            style="@style/styleWhiteTextColor14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:stateListAnimator="@null"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/colorPrimary"
+            android:drawablePadding="@dimen/dim_4"
+            android:drawableLeft="@drawable/view_all"
+            android:text="View All"
+            android:textAllCaps="false" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/dark_gray"/>
 
 
-    </LinearLayout>
-</android.support.v7.widget.CardView>
+</LinearLayout>

@@ -1,31 +1,41 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/dim_8"
-    android:paddingRight="@dimen/dim_8"
-    android:paddingBottom="@dimen/dim_8">
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:layout_marginLeft="@dimen/dim_8"
+    android:layout_marginRight="@dimen/dim_8"
+    app:cardUseCompatPadding="true"
+    card_view:cardElevation="0dp"
+    app:cardElevation="0dp"
+    app:cardCornerRadius="@dimen/dim_4">
 
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/imageViewProduct"
             android:layout_width="@dimen/dim_100"
+            android:layout_margin="@dimen/dim_4"
             android:layout_height="@dimen/dim_100"
-            android:src="@drawable/window" />
+            android:scaleType="fitCenter"
+            android:src="@drawable/thumb_2" />
 
         <TextView
             android:id="@+id/textViewProductName"
+            android:layout_width="match_parent"
             style="@style/stylePrimaryTextColor12"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/imageViewProduct"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:ems="7"
-            android:text="@string/toolbar_title_login" />
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            android:text="Fiction Stay"
+            android:lines="2"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/dim_8"
+            android:padding="@dimen/dim_4" />
 
-</RelativeLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

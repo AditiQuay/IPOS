@@ -3,8 +3,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
-    <dimen name="nav_header_height">190dp</dimen>
+    <dimen name="nav_header_height">165dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_margin_pc">60dp</dimen>
 
 
 
@@ -1039,6 +1040,7 @@
     <dimen name="universal_text_size15">15sp</dimen>
     <dimen name="universal_text_size22">22sp</dimen>
     <dimen name="universal_text_size20">20sp</dimen>
+    <dimen name="universal_text_size18">18sp</dimen>
     <dimen name="universal_text_size16">16sp</dimen>
 
 
@@ -1078,4 +1080,20 @@
     <dimen name="btnSmallHeight">30dp</dimen>
 
     <dimen name="txtProgressSize">12dp</dimen>
+    <dimen name="text_size_14sp">14sp</dimen>
+    <dimen name="tab_label">12dp</dimen>
+    <dimen name="b2b_text_body">14sp</dimen>
+    <dimen name="profile_pic_width">500dp</dimen>
+    <dimen name="profile_pic_height">500dp</dimen>
+    <dimen name="circle_pager_indicator">17dp</dimen>
+    <dimen name="ipos_block_title_size">12sp</dimen>
+
+
+    <dimen name="circleProgressRadius">20dp</dimen>
+    <dimen name="circleProgressThickness">3dp</dimen>
+
+    <dimen name="curvedTextViewTextSize">15sp</dimen>
+    <dimen name="curvedTextRadius">20dp</dimen>
+    <dimen name="curvedTextPadding">3dp</dimen>
+    <dimen name="spacing">3dp</dimen>
 </resources>

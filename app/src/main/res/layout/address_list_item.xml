@@ -9,12 +9,13 @@
         android:id="@+id/includeCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:padding="@dimen/dim_4">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dim_8">
+            android:padding="@dimen/dim_1">
 
 
 
@@ -23,7 +24,7 @@
                 android:id="@+id/relativeLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/rlImage">
+            >
 
 
 
@@ -32,24 +33,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dim_8"
+                    android:layout_marginRight="8dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@+id/llRight"
+                    android:layout_toStartOf="@+id/llRight"
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/textViewName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Shipping Details"
+                        android:visibility="gone"
+                        android:textStyle="bold"
                         android:textSize="16sp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:gravity="center">
                         <TextView
                             android:id="@+id/textViewHouseNo"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:visibility="visible"
-                            android:text="1/82"
+                            android:text="1/ djdjffjfj f    effff"
                             android:textColor="@color/textColorPrimary"
                             android:textSize="@dimen/dim_14" />
                         <TextView
@@ -57,7 +65,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dim_8"
-                            android:visibility="visible"
+                            android:visibility="gone"
                             android:text="WHS Timber Block"
                             android:textColor="@color/textColorPrimary"
                             android:textSize="@dimen/dim_14" />
@@ -68,6 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Kriti Nagar"
+                        android:visibility="gone"
                         android:textColor="@color/textColorPrimary"
                         android:textSize="@dimen/dim_14" />
                     <TextView
@@ -75,6 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Delhi - 110015"
+                        android:visibility="gone"
                         android:textColor="@color/textColorPrimary"
                         android:textSize="@dimen/dim_14" />
 
@@ -83,17 +93,18 @@
 
                 <LinearLayout
                     android:id="@+id/llRight"
-                    android:layout_width="24dp"
+                    android:layout_width="30dp"
                     android:layout_height="24dp"
                     android:orientation="vertical"
                     android:gravity="center"
-                    android:layout_marginRight="@dimen/dim_8"
                     android:layout_centerInParent="true"
                     android:layout_alignParentRight="true">
 
                     <RadioButton
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:id="@+id/radio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"/>
 
                      </LinearLayout>
 

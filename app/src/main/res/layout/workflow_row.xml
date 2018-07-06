@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="8dp">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/llViews"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="2dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="18dp"
+                    android:visibility="visible"
+                    android:layout_above="@+id/textDot"
+                    android:layout_marginRight="18dp"
+                    android:background="@color/app_theme_color" />
+                <TextView
+                    android:id="@+id/textDot"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/green_circle" />
+
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="2dp"
+                    android:visibility="visible"
+                    android:layout_marginRight="18dp"
+                    android:layout_below="@+id/textDot"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="18dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/app_theme_color" />
+            </RelativeLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/llMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/textViewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_toRightOf="@+id/imgCustomer"
+                    android:text="25 Jul 2018 07:30 PM"
+                    android:textColor="@color/textColorPrimaryDark"
+                    android:textSize="@dimen/text_size_small" />
+
+                <TextView
+                    android:id="@+id/textViewRetailersName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@+id/imgCustomer"
+                    android:text="@string/retailersname"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="@dimen/text_size_small" />
+                <TextView
+                    android:id="@+id/textViewStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@+id/imgCustomer"
+                    android:text=""
+                    android:textColor="@color/green"
+                    android:textSize="@dimen/text_size_small" />
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+</RelativeLayout>
