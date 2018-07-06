@@ -63,7 +63,7 @@
                                 android:id="@+id/tvTransferOut"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:background="@drawable/text_view_circle_grey"
+                                android:background="@drawable/textview_circle_app_color"
                                 android:fontFamily="@font/titilliumwebregular"
                                 android:gravity="center"
                                 android:text="1"
@@ -99,7 +99,7 @@
                                 android:background="@drawable/text_view_circle_grey"
                                 android:fontFamily="@font/titilliumwebregular"
                                 android:gravity="center"
-                                android:text="4"
+                                android:text="2"
                                 android:textColor="@color/white" />
 
                             <TextView
@@ -107,7 +107,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:fontFamily="@font/titilliumwebregular"
-                                android:text="@string/inv"
+                                android:text="@string/shipment"
                                 android:textColor="@color/dashboard_textcolor" />
 
                         </LinearLayout>
@@ -132,7 +132,7 @@
                                 android:background="@drawable/text_view_circle_grey"
                                 android:fontFamily="@font/titilliumwebregular"
                                 android:gravity="center"
-                                android:text="5"
+                                android:text="3"
                                 android:textColor="@color/white" />
 
                             <TextView
@@ -140,7 +140,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:fontFamily="@font/titilliumwebregular"
-                                android:text="@string/pmt"
+                                android:text="@string/transfer_in"
                                 android:textColor="@color/dashboard_textcolor" />
 
                         </LinearLayout>
