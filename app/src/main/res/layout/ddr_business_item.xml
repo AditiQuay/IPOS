@@ -483,7 +483,7 @@
                                     android:layout_height="match_parent"
                                     android:fontFamily="@font/titilliumwebregular"
                                     android:hint="Credit Limit *"
-                                    android:inputType="textCapWords"
+                                    android:inputType="number"
                                     android:maxLines="1"
                                     android:textSize="@dimen/universal_text_size14" />
 

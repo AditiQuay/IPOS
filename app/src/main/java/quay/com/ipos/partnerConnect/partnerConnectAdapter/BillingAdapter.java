@@ -24,8 +24,8 @@ import quay.com.ipos.partnerConnect.model.BillnDelivery;
  */
 
 public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> {
-    private String[] addressTypeArray = {"Bill & Deliver"};
-    private String[] businessTypeArray = {"Shop/Store","Warehouse"};
+    private String[] addressTypeArray = {"Bill", "Delivery", "Bill & Delivery"};
+    private String[] businessTypeArray = {"Shop/Store", "Warehouse"};
 
 
     private List<BillnDelivery> list = new ArrayList<>();
@@ -141,6 +141,7 @@ public class BillingAdapter extends RecyclerView.Adapter<BillingAdapter.MyView> 
         public MyCustomSpinnerListener myCustomSpinnerListener;
 
         public View btnRemove;
+
         public MyView(View itemView, MyCustomEditTextListener myCustomEditTextListener, MyCustomSpinnerListener myCustomSpinnerListener) {
             super(itemView);
             spinnerAddressType = itemView.findViewById(R.id.spinnerAddressType);

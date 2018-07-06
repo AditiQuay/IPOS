@@ -165,6 +165,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         mContext = InventoryGRNDetails.this;
         SharedPreferences = mContext.getSharedPreferences(Preference, Context.MODE_PRIVATE);
         Editor = SharedPreferences.edit();
+
         Intent i = getIntent();
 
         calendar = Calendar.getInstance();
@@ -346,10 +347,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     protected void onStop() {
         super.onStop();
-        SharedPreferences = mContext.getSharedPreferences(Preference, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = SharedPreferences.edit();
-        editor.clear();
-        editor.apply();
+        Log.e(TAG,"OnStop called");
     }
 
     @Override
@@ -717,14 +715,14 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 int balanceQt = (int) realmGRNDetails.getBalanceQty();
 
                 grnNumber.setText(realmGRNDetails.getGrnNumber());
-                if (Util.validateString(realmGRNDetails.getReceivedDate()))
-                et_received_date.setText(realmGRNDetails.getReceivedDate());
+
+
                 et_totalItems.setText(totalItem + "");
                 et_value.setText(realmGRNDetails.getValue() + "");
                 poQty.setText(openQt + "");
                 openQty.setText(poQt + "");
                 balanceQty.setText(balanceQt + "");
-                transporterEWayBillValidityDate = realmGRNDetails.getTransporterEWayBillValidityDate();
+
 
                 //SharedPreference Values
                 String name = SharedPreferences.getString("Name", "");
@@ -738,16 +736,16 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 String address = SharedPreferences.getString("Address", "");
 
 
+                if (TextUtils.isEmpty(receivedDate)){
+                    et_received_date.setText(realmGRNDetails.getReceivedDate());
+                }else{
+                    et_received_date.setText(receivedDate);
+                }
+
                 if (TextUtils.isEmpty(name)) {
                     etName.setText(realmGRNDetails.getTransporterName());
                 } else {
                     etName.setText(name);
-                }
-
-                if (TextUtils.isEmpty(receivedDate)) {
-                    et_received_date.setText(realmGRNDetails.getReceivedDate());
-                } else {
-                    et_received_date.setText(receivedDate);
                 }
 
                 if (TextUtils.isEmpty(lRnNumber)) {
@@ -779,7 +777,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     etEWayBillValidity.setText(realmGRNDetails.getTransporterEWayBillValidityDate());
                 } else {
                     etEWayBillValidity.setText(ewayBillValidity.trim());
-
                 }
 
                 if (TextUtils.isEmpty(driverMobNumber)) {
@@ -970,6 +967,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     attachFileModel.mimeType = jsonObject1.optString("grnAttachmentType");
                     attachFileModels.add(attachFileModel);
                 }
+                textViewAttachment.setText("Attachments " + "(" + attachFileModels.size() + ")");
+
 
                 setGrnItemViewDetail();
                 setGRNInccoTermsDetails();

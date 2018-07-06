@@ -82,6 +82,12 @@ public class DDRDUBusinessAdapter extends RecyclerView.Adapter<DDRDUBusinessAdap
             //  holder.spinnerPartnerType.setText(list.get(holder.getAdapterPosition()).mPartnerType);
             holder.editKeyContactPos.setText(list.get(holder.getAdapterPosition()).mContactPosition);
 
+            holder.ddrTown.setText(list.get(holder.getAdapterPosition()).ddrTown);
+            holder.ddrState.setText(list.get(holder.getAdapterPosition()).ddrState);
+            holder.ddrCity.setText(list.get(holder.getAdapterPosition()).ddrCity);
+            holder.ddrPin.setText(list.get(holder.getAdapterPosition()).ddrPin);
+            holder.ddrCreditLimit.setText(list.get(holder.getAdapterPosition()).ddrCreditLimit);
+
             holder.editPinCode.setText(list.get(holder.getAdapterPosition()).BusinessLocation.mPINCode);
             holder.editCity.setText(list.get(holder.getAdapterPosition()).BusinessLocation.mCity);
             holder.editState.setText(list.get(holder.getAdapterPosition()).BusinessLocation.mState);

@@ -91,10 +91,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:fontFamily="@font/titilliumwebregular"
-                                    android:hint="Drawn on A/c *"
+                                    android:hint="Drawn in the name of *"
                                     android:nextFocusForward="@+id/editChequeNo"
-
-                                    android:inputType="number"
+                                    android:inputType="textPersonName"
                                     android:maxLines="1"
                                     android:textSize="@dimen/universal_text_size14" />
 

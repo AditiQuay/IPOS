@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import quay.com.ipos.R;
@@ -56,6 +57,7 @@ import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.model.Relationship;
 import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.utility.Constants;
+import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.NetUtil;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.Util;
@@ -70,7 +72,7 @@ import static quay.com.ipos.utility.Constants.employeeCode;
  * Created by deepak.kumar on 6/3/2018.
  */
 //DDRCUActivity means DDR_CREATE_AND_UPDATE_ACTIVITY
-public class DDRCUActivity extends RunTimePermissionActivity implements InitInterface{
+public class DDRCUActivity extends RunTimePermissionActivity implements InitInterface {
     private static final String TAG = DDRCUActivity.class.getSimpleName();
     private Activity activity;
     private TabLayout tabLayout;
@@ -99,7 +101,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
         applyLocalValidation();
 
 
-       // getServerData();
+        // getServerData();
         setData();
         initFile();
     }
@@ -258,7 +260,6 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
     };
 
 
-
     private class MyPagerAdapter extends FragmentPagerAdapter {
 
         public MyPagerAdapter(FragmentManager fm) {
@@ -363,7 +364,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
                 if (response.code() != 200) {
                     Log.e(TAG, "Code:" + response.code() + ", Message:" + response.message());
                     Log.e(TAG, "Server Code:" + response.body().statusCode + ",Server Message:" + response.body().errorDescription);
-                     Toast.makeText(DDRCUActivity.this, "Code:" + response.body().statusCode + ", Message:" + response.body().errorDescription, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DDRCUActivity.this, "Code:" + response.body().statusCode + ", Message:" + response.body().errorDescription, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try {
@@ -406,6 +407,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
             }
         });
     }
+
     private void setData() {
         String employeeCode = Prefs.getStringPrefs(Constants.employeeCode);
         PCModel pcModel = new PCModel();
@@ -456,31 +458,29 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
         keyBusinessContactInfo.NewContact = new ArrayList<>();
         keyBusinessContactInfo.NewContact.add(newContact);
 
-        pcModel.Contact =new Contact();
+        pcModel.Contact = new Contact();
         pcModel.Contact.keyBusinessContactInfo = keyBusinessContactInfo;
-
-
 
 
         pcModel.Account = new ArrayList<>();
         Account account = new Account();
-       // List<Cheques> chequesList  = new ArrayList<>();
+        // List<Cheques> chequesList  = new ArrayList<>();
         Cheques cq = new Cheques();
         cq.mChequeNo = "";
         cq.mMaxLimitAmount = "";
         cq.mDrawnAccountNo = "";
         cq.CreateDate = "NA";
         cq.CreatedBy = "NA";
-        cq.EntityBankAcHoderID = "";
+        cq.EntityBankAcHoderID = "0";
+        cq.ModifiedDate = "" + DateAndTimeUtil.toStringDateAndTime(Calendar.getInstance());
+        cq.CreateDate = "" + DateAndTimeUtil.toStringDateAndTime(Calendar.getInstance());
+
         cq.ID = 0;
         cq.ModifiedBy = "NA";
-        cq.ModifiedDate = "NA";
-       // chequesList.add(cq);
-        account.cheques=new ArrayList<>();
+        // chequesList.add(cq);
+        account.cheques = new ArrayList<>();
         account.cheques.add(cq);
         pcModel.Account.add(account);
-
-
 
 
         pcModel.BillandDelivery = new ArrayList<>();
@@ -508,23 +508,15 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
         PCModel pcModelUpdate = getPcModelData().getValue();
         pcModelUpdate.EntityID = Prefs.getIntegerPrefs(Constants.entityCode);
         pcModelUpdate.empCode = Prefs.getStringPrefs(Constants.employeeCode);
-        Log.i("contact",new Gson().toJson(pcModelUpdate.Contact) );
+        Log.i("contact", new Gson().toJson(pcModelUpdate.Contact));
 
         writeFile(new Gson().toJson(pcModelUpdate));
-
 
 
         Call<PartnerConnectUpdateResponse> call = RestService.getApiServiceSimple().DDR_CREATE_AND_UPDATE_API(pcModelUpdate);
         call.enqueue(new Callback<PartnerConnectUpdateResponse>() {
             @Override
             public void onResponse(Call<PartnerConnectUpdateResponse> call, Response<PartnerConnectUpdateResponse> response) {
-               // if(!response.isSuccessful()){
-               /* Gson gson = new Gson();
-                MyErrorMessage message=gson.fromJson(response.errorBody().charStream(),MyErrorMessage.class);
-                IPOSApplication.showToast("Code:" + message.getCode() + " message:" + response.message());
-*/
-                //  return;
-              //  }
 
                 Log.e("data", new Gson().toJson(response.body()));
                 try {
@@ -545,23 +537,10 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
                     Toast.makeText(DDRCUActivity.this, "Code:" + response.body().statusCode + ", Message:" + response.body().errorDescription, Toast.LENGTH_SHORT).show();
 
                     return;
-                }
-                try {
-                    Log.i(TAG, "Code:" + response.code() + " message:" + response.message());
-
-                    IPOSApplication.showToast(""+response.body().message);
+                }else {
                     finish();
-                    Log.i("response", response.body().statusCode + "," + response.body().message);
-                    Log.i("JsonObject", response.toString() + response.body());
-                    if (response.body() != null) {
-                        PartnerConnectUpdateResponse response1 = response.body();
-                        if (response1 != null) {
-                            Log.i("updateDataResponse", new Gson().toJson(response1));
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
+
 
             }
 
@@ -594,7 +573,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
         }
 
 
-       /* if (pcModel.Business == null) {
+        if (pcModel.Business == null) {
             String error = "Business is null";
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
@@ -607,10 +586,10 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
             Log.e(TAG, error);
             IPOSApplication.showToast(error);
             return false;
-        }*/
+        }
 
         //validate business info
-      /*  for (keyBusinessInfo keyBusinessInfo : pcModel.Business.keyBusinessInfo) {
+        for (KeyBusinessInfo keyBusinessInfo : pcModel.Business.keyBusinessInfo) {
 
 
             if (keyBusinessInfo.mPartnerType == null || keyBusinessInfo.mPartnerType.isEmpty()) {
@@ -652,6 +631,41 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
                 IPOSApplication.showToast(error);
                 return false;
             }
+            //new
+
+            if (keyBusinessInfo.ddrCity == null || keyBusinessInfo.ddrCity.isEmpty()) {
+                String error = "BusinessInfo -> City is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.ddrPin == null || keyBusinessInfo.ddrPin.isEmpty()) {
+                String error = "BusinessInfo -> Pin code is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.ddrState == null || keyBusinessInfo.ddrState.isEmpty()) {
+                String error = "BusinessInfo -> State is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.ddrTown == null || keyBusinessInfo.ddrTown.isEmpty()) {
+                String error = "BusinessInfo -> Town is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+            if (keyBusinessInfo.ddrCreditLimit == null || keyBusinessInfo.ddrCreditLimit.isEmpty()) {
+                String error = "BusinessInfo -> Credit Limit is required!";
+                Log.e(TAG, error);
+                IPOSApplication.showToast(error);
+                return false;
+            }
+
+
+            //new
             if (keyBusinessInfo.BusinessLocation == null) {
                 String error = "Business -> BusinessLocation is required!";
                 Log.e(TAG, error);
@@ -685,7 +699,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
             }
 
         }
-*/
+
 
         //validation of contact
         if (pcModel.Contact == null) {
@@ -854,26 +868,26 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
                     }
 
                     if (cheque.mSecurityCheque.contains("Yes")) {*/
-                        if (cheque.mDrawnAccountNo == null || cheque.mDrawnAccountNo.isEmpty()) {
-                            String error = "Account ->   DrawnAccountNo is required!";
-                            Log.e(TAG, error);
-                            IPOSApplication.showToast(error);
-                            return false;
-                        }
-                        if (cheque.mMaxLimitAmount == null || cheque.mMaxLimitAmount.isEmpty()) {
-                            String error = "Account ->   MaxLimitAmount is required!";
-                            Log.e(TAG, error);
-                            IPOSApplication.showToast(error);
-                            return false;
-                        }
-                        if (cheque.mChequeNo == null || cheque.mChequeNo.isEmpty()) {
-                            String error = "Account ->  ChequeNo is required!";
-                            Log.e(TAG, error);
-                            IPOSApplication.showToast(error);
-                            return false;
-                        }
+                    if (cheque.mDrawnAccountNo == null || cheque.mDrawnAccountNo.isEmpty()) {
+                        String error = "Account ->   DrawnAccountNo is required!";
+                        Log.e(TAG, error);
+                        IPOSApplication.showToast(error);
+                        return false;
                     }
-               // }
+                    if (cheque.mMaxLimitAmount == null || cheque.mMaxLimitAmount.isEmpty()) {
+                        String error = "Account ->   MaxLimitAmount is required!";
+                        Log.e(TAG, error);
+                        IPOSApplication.showToast(error);
+                        return false;
+                    }
+                    if (cheque.mChequeNo == null || cheque.mChequeNo.isEmpty()) {
+                        String error = "Account ->  ChequeNo is required!";
+                        Log.e(TAG, error);
+                        IPOSApplication.showToast(error);
+                        return false;
+                    }
+                }
+                // }
 
 
             }
