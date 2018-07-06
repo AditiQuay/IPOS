@@ -63,7 +63,7 @@
                                 android:id="@+id/tvTransferOut"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
-                                android:background="@drawable/text_view_circle_grey"
+                                android:background="@drawable/textview_circle_app_color"
                                 android:fontFamily="@font/titilliumwebregular"
                                 android:gravity="center"
                                 android:text="1"
@@ -94,12 +94,13 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvShipment"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:background="@drawable/text_view_circle_grey"
                                 android:fontFamily="@font/titilliumwebregular"
                                 android:gravity="center"
-                                android:text="4"
+                                android:text="2"
                                 android:textColor="@color/white" />
 
                             <TextView
@@ -107,7 +108,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:fontFamily="@font/titilliumwebregular"
-                                android:text="@string/inv"
+                                android:text="@string/shipment"
                                 android:textColor="@color/dashboard_textcolor" />
 
                         </LinearLayout>
@@ -127,12 +128,13 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvTransferIn"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:background="@drawable/text_view_circle_grey"
                                 android:fontFamily="@font/titilliumwebregular"
                                 android:gravity="center"
-                                android:text="5"
+                                android:text="3"
                                 android:textColor="@color/white" />
 
                             <TextView
@@ -140,7 +142,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:fontFamily="@font/titilliumwebregular"
-                                android:text="@string/pmt"
+                                android:text="@string/transfer_in"
                                 android:textColor="@color/dashboard_textcolor" />
 
                         </LinearLayout>
@@ -157,8 +159,7 @@
                     android:background="@drawable/white_background"
                     android:paddingLeft="@dimen/dim_4"
                     android:paddingRight="@dimen/dim_4"
-                    android:paddingTop="@dimen/dim_4"
-                    android:visibility="gone">
+                    android:paddingTop="@dimen/dim_4">
 
                     <RelativeLayout
                         android:id="@+id/grnHeading"
@@ -166,11 +167,11 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/tvPoNumber"
+                            android:id="@+id/tvTNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/titilliumwebregular"
-                            android:text="PO180001"
+                            android:text="TR180001"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/dim_14"
                             android:visibility="visible" />
@@ -217,7 +218,7 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/poCount"
+                                android:id="@+id/tranferOutCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -225,12 +226,13 @@
                                 android:text="13" />
 
                             <TextView
-                                android:id="@+id/poQtyCountHeading"
-                                android:layout_width="wrap_content"
+                                android:id="@+id/transferOutCountHeading"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:fontFamily="@font/titilliumwebregular"
-                                android:text="PO QTY" />
+                                android:gravity="center"
+                                android:text="Transfer Out QTY" />
 
                             <View
                                 android:layout_width="match_parent"
@@ -238,8 +240,7 @@
                                 android:layout_gravity="bottom"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:background="@color/colorPrimary"
-                                android:foregroundGravity="bottom"
-                                android:visibility="invisible" />
+                                android:foregroundGravity="bottom" />
 
                         </LinearLayout>
 
@@ -252,7 +253,7 @@
 
 
                             <TextView
-                                android:id="@+id/grnCount"
+                                android:id="@+id/tranferInCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -260,12 +261,13 @@
                                 android:text="0" />
 
                             <TextView
-                                android:id="@+id/grnQtyCountHeading"
+                                android:id="@+id/transferInCountHeading"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:gravity="center"
                                 android:fontFamily="@font/titilliumwebregular"
-                                android:text="GRN QTY" />
+                                android:text="Transfer In QTY" />
 
                             <View
                                 android:layout_width="match_parent"
@@ -338,8 +340,7 @@
                                 android:layout_gravity="bottom"
                                 android:layout_marginTop="@dimen/dim_8"
                                 android:background="@color/colorPrimary"
-                                android:foregroundGravity="bottom"
-                                android:visibility="invisible" />
+                                android:foregroundGravity="bottom" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -352,8 +353,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dim_4"
                     android:background="@drawable/white_background"
-                    android:padding="@dimen/dim_8"
-                    android:visibility="gone">
+                    android:padding="@dimen/dim_8">
 
                     <TextView
                         android:id="@+id/tvGrnNumberCount"

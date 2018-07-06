@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\tasklib\\build\\intermediates\\res\\merged\\debug\\menu\\popup_interval_weekly.xml",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\tasklib\\src\\main\\res\\menu\\popup_interval_weekly.xml"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\tasklib\\build\\intermediates\\res\\merged\\debug\\menu\\popup_interval_daily.xml",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\tasklib\\src\\main\\res\\menu\\popup_interval_daily.xml"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\tasklib\\build\\intermediates\\res\\merged\\debug\\menu\\popup_interval_monthly.xml",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\tasklib\\src\\main\\res\\menu\\popup_interval_monthly.xml"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\tasklib\\build\\intermediates\\res\\merged\\debug\\menu\\popup_frequency.xml",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\tasklib\\src\\main\\res\\menu\\popup_frequency.xml"
+    },
+    {
+        "merged": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\tasklib\\build\\intermediates\\res\\merged\\debug\\menu\\popup_interval_yearly.xml",
+        "source": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\tasklib\\src\\main\\res\\menu\\popup_interval_yearly.xml"
+    }
+]

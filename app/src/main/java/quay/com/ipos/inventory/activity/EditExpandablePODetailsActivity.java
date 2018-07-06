@@ -1517,36 +1517,16 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     public void onRowClickedOnItem(final int position, final int percent,final double value) {
 
 
-        runOnUiThread(new Runnable() {
+       /* runOnUiThread(new Runnable() {
             @Override
-            public void run() {
-                double valuetotal=value;
-                if (value==0){
-               //     valuetotal=poItemDetails.get(position).getPoItemUnitPrice();
-                }
-                POItemDetail poItemDetail=new POItemDetail();
-                poItemDetail.setTitle(poItemDetails.get(position).getTitle());
+            public void run() {*/
 
-                poItemDetail.setPoItemUnitPrice(valuetotal);
-                poItemDetail.setPoItemCGSTPer(poItemDetails.get(position).getPoItemCGSTPer());
-                poItemDetail.setPoItemIGSTPer(poItemDetails.get(position).getPoItemIGSTPer());
-                poItemDetail.setMaterialCode(poItemDetails.get(position).getMaterialCode());
-                poItemDetail.setMaterialName(poItemDetails.get(position).getMaterialName());
-                poItemDetail.setPoItemAmount(valuetotal*percent);
-                poItemDetail.setPoItemIGSTValue(((poItemDetails.get(position).getPoItemSGSTPer()+poItemDetails.get(position).getPoItemCGSTPer())*percent*valuetotal)/100);
-                poItemDetail.setPoItemQty(percent);
-                poItemDetails.set(position,poItemDetail);
+        int qty=0;
+        for (int l=0;l<poItemDetails.size();l++) {
+            qty+=poItemDetails.get(l).getPoItemQty();
 
-                itemListDataAdapter.notifyItemChanged(position);
-                int qty=0;
-                for (int l=0;l<poItemDetails.size();l++) {
-                    qty+=poItemDetails.get(l).getPoItemQty();
-
-                }
-                tvHeaderPOItemDetail.setText("Item Details | " + poItemDetails.size() + " Items | Qty " +qty);
-            }
-        });
-
+        }
+        tvHeaderPOItemDetail.setText("Item Details * | " + poItemDetails.size() + " Items | Qty " +qty);
     }
 
     private class AttachVH extends RecyclerView.ViewHolder {
