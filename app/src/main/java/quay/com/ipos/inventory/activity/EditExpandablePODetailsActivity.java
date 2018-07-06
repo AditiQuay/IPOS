@@ -498,7 +498,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(EditExpandablePODetailsActivity.this,InventoryItemAddNewOrderActivity.class);
-                startActivity(i);
+                startActivityForResult(i,600);
             }
         });
         tvAddAttach = findViewById(R.id.tvAddAttach);
@@ -772,6 +772,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     }
 
     private void getProducts(){
+        poItemDetails.clear();
         Realm realm = Realm.getDefaultInstance();
         RealmResults<RealmInventoryProducts> realmNewOrderCarts1 = realm.where(RealmInventoryProducts.class).findAll();
      //   poItemDetails.clear();
@@ -1415,7 +1416,13 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode==600){
+            getProducts();
+        }else
         onActivityResultAttachment(requestCode,resultCode,data);
+
+
     }
 
     public void onActivityResultAttachment(int requestCode, int resultCode, Intent data) {

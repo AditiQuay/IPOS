@@ -318,6 +318,9 @@ public class InventoryItemAddNewOrderActivity extends BaseActivity implements Vi
                         realm.close();
                     }
 
+                    Intent i=getIntent();
+                    setResult(RESULT_OK,i);
+
 
 
                 }else {
