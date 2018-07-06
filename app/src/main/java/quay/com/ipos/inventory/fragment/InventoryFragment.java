@@ -105,6 +105,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     private LinearLayout btnNext, llPOVisible, llInventory, llTransferType;
     private EditText edtPoNumber, edtDate, edtSupplier;
     private ImageView imgSearch;
+    private RelativeLayout rlNewView;
 
 
     @Override
@@ -160,6 +161,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
 */
 
     private void initializeComponent(View rootView) {
+        rlNewView=rootView.findViewById(R.id.rlNewView);
         btnAddNew = rootView.findViewById(R.id.btnAddNew);
         swchInventory = rootView.findViewById(R.id.swchInventory);
         swchPOAvailable = rootView.findViewById(R.id.swchPOAvailable);
@@ -224,9 +226,11 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                     llTransferType.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.VISIBLE);
                     swchType.setChecked(true);
+                    rlNewView.setVisibility(View.GONE);
                     //   llPOVisible.setVisibility(View.VISIBLE);
                     //  llInventory.setVisibility(View.VISIBLE);
                 } else {
+                    rlNewView.setVisibility(View.VISIBLE);
                     btnAddNew.setVisibility(View.GONE);
                     llTransferType.setVisibility(View.GONE);
                     llPOVisible.setVisibility(View.GONE);
