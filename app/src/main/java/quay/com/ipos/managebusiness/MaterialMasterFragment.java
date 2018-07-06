@@ -215,11 +215,11 @@ public class MaterialMasterFragment extends BaseFragment implements InitInterfac
         }
 
 
-//        if(imageBaseString.equalsIgnoreCase("")){
-//            isFail = true;
-//            imageType = "";
-//            Util.showToast("Upload image",mContext);
-//        }
+        if(imageBaseString.equalsIgnoreCase("")){
+            isFail = true;
+            imageType = "";
+            Util.showToast("Upload image",mContext);
+        }
 
         if (!isFail) {
             spSaleUOM.setEnableErrorLabel(false);
@@ -343,11 +343,23 @@ public class MaterialMasterFragment extends BaseFragment implements InitInterfac
         tilGPL = rootView.findViewById(R.id.tilGPL);
         tilHSNCode = rootView.findViewById(R.id.tilHSNCode);
         tvUpload.setOnClickListener(this);
-        btnFullFragmentCancel.setOnClickListener(this);
+        btnFullFragmentCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                checkSubmit();
+                if(isGenerated) {
+                    getFragmentManager().popBackStack();
+                    setToNew();
+                }
+            }
+        });
         btnFullFragmentSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkSubmit();
+                if(isGenerated){
+                    setToNew();
+                }
             }
         });
     }
@@ -590,19 +602,7 @@ public class MaterialMasterFragment extends BaseFragment implements InitInterfac
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btnAccountSubmit:
-                checkSubmit();
-                if(isGenerated){
-                    setToNew();
-                }
-                break;
-            case R.id.btnAccountCancel:
-                checkSubmit();
-                if(isGenerated) {
-                    getFragmentManager().popBackStack();
-                    setToNew();
-                }
-                break;
+
             case R.id.tvUpload:
                 Util.showMessageDialog(mContext,this,"Choose to upload image","Camera","Gallery","Cancel", Constants.App_DIALOG_UPLOAD,"",getFragmentManager());
                 break;
