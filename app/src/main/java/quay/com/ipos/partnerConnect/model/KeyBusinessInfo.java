@@ -23,6 +23,21 @@ public class KeyBusinessInfo {
     @SerializedName("keyContactPosition")
     public String mContactPosition;
 
+    @SerializedName("ddrCreditLimit")
+    public String ddrCreditLimit;
+
+    @SerializedName("ddrState")
+    public String ddrState;
+
+    @SerializedName("ddrCity")
+    public String ddrCity;
+
+    @SerializedName("ddrTown")
+    public String ddrTown;
+
+    @SerializedName("ddrPin")
+    public String ddrPin;
+
 
     // private List<BusinessLocation> BusinessLocation;
     public BusinessLocation BusinessLocation;

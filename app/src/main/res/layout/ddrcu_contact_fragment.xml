@@ -44,6 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:visibility="invisible"
                 android:layout_below="@+id/textViewMadatory"
                 android:layout_marginTop="@dimen/dim_4"
                 android:text="Last Updated : 30 Mar 2018"

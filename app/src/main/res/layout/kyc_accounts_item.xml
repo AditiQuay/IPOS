@@ -51,7 +51,7 @@
                             android:orientation="horizontal"
                             android:padding="@dimen/dim_2">
 
-                            <LinearLayout
+                         <!--   <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -79,7 +79,7 @@
                                     app:ms_hintColor="@color/grey"
                                     app:ms_multiline="false" />
                             </LinearLayout>
-
+-->
                             <LinearLayout
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"

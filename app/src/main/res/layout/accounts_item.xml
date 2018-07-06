@@ -47,7 +47,7 @@
                         android:orientation="horizontal"
                         android:padding="@dimen/dim_2">
 
-                        <LinearLayout
+                      <!--  <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -73,7 +73,7 @@
                                 android:nextFocusForward="@+id/editDrawnAccountNo"
 
                                 app:ms_multiline="false" />
-                        </LinearLayout>
+                        </LinearLayout>-->
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -91,10 +91,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:fontFamily="@font/titilliumwebregular"
-                                    android:hint="Drawn on A/c *"
+                                    android:hint="Drawn in the name of *"
                                     android:nextFocusForward="@+id/editChequeNo"
-
-                                    android:inputType="number"
+                                    android:inputType="textPersonName"
                                     android:maxLines="1"
                                     android:textSize="@dimen/universal_text_size14" />
 

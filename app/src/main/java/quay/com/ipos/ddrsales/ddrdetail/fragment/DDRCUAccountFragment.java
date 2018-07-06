@@ -20,12 +20,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
+import quay.com.ipos.ddrsales.ddrdetail.DDRCUActivity;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.partnerConnect.model.Account;
 import quay.com.ipos.partnerConnect.model.Cheques;
 import quay.com.ipos.partnerConnect.model.PCModel;
@@ -35,7 +36,7 @@ import quay.com.ipos.utility.EqualSpacingItemDecoration;
 
 public class DDRCUAccountFragment extends Fragment implements InitInterface, View.OnClickListener {
     private static final String TAG = DDRCUAccountFragment.class.getSimpleName();
-//    private TextView textViewLastUpdated, textViewAccountInfoHeading, textViewMadatory;
+    //    private TextView textViewLastUpdated, textViewAccountInfoHeading, textViewMadatory;
     private RecyclerView recyclerViewAccountInfo;
 
     private View view;
@@ -108,7 +109,7 @@ public class DDRCUAccountFragment extends Fragment implements InitInterface, Vie
             return;
         }
 
-        PartnerConnectMain mainActivity = (PartnerConnectMain) getActivity();
+        DDRCUActivity mainActivity = (DDRCUActivity) getActivity();
         mainActivity.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,9 +153,9 @@ public class DDRCUAccountFragment extends Fragment implements InitInterface, Vie
     }
 
     private void loadData() {
-        PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
-        if (partnerConnectMain != null) {
-            partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
+        DDRCUActivity DDRCUActivity = (DDRCUActivity) getActivity();
+        if (DDRCUActivity != null) {
+            DDRCUActivity.getPcModelData().observe(this, new Observer<PCModel>() {
                 @Override
                 public void onChanged(@Nullable PCModel pcModel) {
                     mpcModel = pcModel;
@@ -172,9 +173,10 @@ public class DDRCUAccountFragment extends Fragment implements InitInterface, Vie
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }
-        textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , mpcModel.psslastUpdated));
-
-        account = pcModel.Account.get(0);
+        textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :", mpcModel.psslastUpdated));
+        if (pcModel.Account != null && pcModel.Account.size() > 0) {
+            account = pcModel.Account.get(0);
+        }
         if (account != null) {
             //  spinnerAccountType.setText(account.mAccountType);
             editAccountNo.setText(account.mAccountNo);
@@ -288,10 +290,14 @@ public class DDRCUAccountFragment extends Fragment implements InitInterface, Vie
                     Account account = mpcModel.Account.get(0);
                     if (account.cheques != null) {
                         Cheques cheques = new Cheques();
-                        cheques.mSecurityCheque = "Yes";
+
+                        cheques.EntityBankAcHoderID = "0";
+                        cheques.ModifiedDate = "" + DateAndTimeUtil.toStringDateAndTime(Calendar.getInstance());
+                        cheques.CreateDate = "" + DateAndTimeUtil.toStringDateAndTime(Calendar.getInstance());
+
                         account.cheques.add(cheques);
 
-                        PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
+                        DDRCUActivity connectMain = (DDRCUActivity) getActivity();
                         if (connectMain != null) {
                             connectMain.getPcModelData().setValue(mpcModel);
                         }

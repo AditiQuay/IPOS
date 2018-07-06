@@ -27,8 +27,8 @@ import java.util.List;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
 import quay.com.ipos.R;
+import quay.com.ipos.ddrsales.ddrdetail.DDRCUActivity;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.partnerConnect.model.KeyBusinessContactInfo;
 import quay.com.ipos.partnerConnect.model.NewContact;
 import quay.com.ipos.partnerConnect.model.PCModel;
@@ -64,11 +64,7 @@ public class DDRCUContactFragment extends Fragment implements InitInterface, Vie
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.ddrcu_contact_fragment, container, false);
         mContext = getActivity();
-
-
         listPosition = Arrays.asList(partnerKeyPosition);
-
-
         findViewById();
         applyInitValues();
         applyLocalValidation();
@@ -94,7 +90,7 @@ public class DDRCUContactFragment extends Fragment implements InitInterface, Vie
             return;
         }
 
-        PartnerConnectMain mainActivity = (PartnerConnectMain)getActivity();
+        DDRCUActivity mainActivity = (DDRCUActivity)getActivity();
         mainActivity.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,9 +176,9 @@ public class DDRCUContactFragment extends Fragment implements InitInterface, Vie
     }
 
     private void loadData() {
-        PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
-        if (partnerConnectMain != null) {
-            partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
+        DDRCUActivity DDRCUActivity = (DDRCUActivity) getActivity();
+        if (DDRCUActivity != null) {
+            DDRCUActivity.getPcModelData().observe(this, new Observer<PCModel>() {
                 @Override
                 public void onChanged(@Nullable PCModel pcModel) {
                     mpcModel = pcModel;
@@ -329,7 +325,7 @@ public class DDRCUContactFragment extends Fragment implements InitInterface, Vie
                     newContact.Email = "";
                     mpcModel.Contact.keyBusinessContactInfo.NewContact.add(newContact);
 
-                    PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
+                    DDRCUActivity connectMain = (DDRCUActivity) getActivity();
                     if (connectMain != null) {
                         connectMain.getPcModelData().setValue(mpcModel);
                     }

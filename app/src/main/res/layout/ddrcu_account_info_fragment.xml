@@ -47,6 +47,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/textViewMadatory"
                 android:layout_marginTop="@dimen/dim_4"
+                android:visibility="invisible"
                 android:text="Last Updated : 30 Mar 2018"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/universal_text_size14"
@@ -103,7 +104,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
-                                android:paddingBottom="@dimen/dim_4">
+                                 >
 
 
                                 <android.support.design.widget.TextInputLayout
@@ -195,9 +196,9 @@
                                     app:ms_enableFloatingLabel="true"
                                     app:ms_errorColor="@color/red"
                                     app:ms_floatingLabelColor="@color/grey"
-                                    app:ms_floatingLabelText="Key Contact Position *"
+                                    app:ms_floatingLabelText="Account Type *"
                                     app:ms_highlightColor="@color/highlight"
-                                    app:ms_hint="Key Contact Position *"
+                                    app:ms_hint="Account Type *"
                                     app:ms_hintColor="@color/grey"
                                     android:nextFocusForward="@+id/editBankName"
 
@@ -260,7 +261,6 @@
                                         android:hint="IFSC Code *"
                                         android:maxLines="1"
                                         android:nextFocusForward="@+id/editBranchAddress"
-
                                         android:inputType="textCapCharacters"
                                         android:textSize="@dimen/universal_text_size14" />
 
@@ -272,7 +272,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:orientation="vertical"
-                                android:paddingBottom="@dimen/dim_4">
+                                >
 
 
                                 <android.support.design.widget.TextInputLayout
