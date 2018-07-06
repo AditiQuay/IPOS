@@ -1,0 +1,8 @@
+com.quayintech.tasklib.databinding.FragmentDialogPickerWeeksBinding
+com.quayintech.tasklib.databinding.FragmentRepeatBinding
+com.quayintech.tasklib.databinding.AdapterWeeksItemBinding
+com.quayintech.tasklib.databinding.FragmentRepeatMonthDayBinding
+com.quayintech.tasklib.databinding.AdapterAlertItemBinding
+com.quayintech.tasklib.databinding.FragmentDialogAlertpickerBinding
+com.quayintech.tasklib.databinding.FragmentRepeatUntilBinding
+android.databinding.DataBindingComponent
