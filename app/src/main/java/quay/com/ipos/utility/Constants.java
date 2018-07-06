@@ -27,7 +27,8 @@ public class Constants {
      * The Constant APP_SHARED_PREF_NAME.
      */
     public static final String APP_SHARED_PREF_NAME = "profile";
-
+    public static final int GALLERY_PICTURE = 10;
+    public static final int CAMERA_PICTURE = 100;
 
     public static final String DATE_FORMAT = "dd MMM yyyy";
     public static final SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -171,5 +172,6 @@ public class Constants {
     public static String paymentMode="paymentMode";
     public static String outboxMode="outboxMode";
     public static String OrderCenterMode="OrderCenterMode";
+    public static int App_DIALOG_UPLOAD = 8;
 }
 

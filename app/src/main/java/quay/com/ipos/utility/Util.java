@@ -778,6 +778,18 @@ public class Util {
 
 //        fragment.show(supportFragmentManager, "scan_results");
     }
+    /**
+     * Checking device has camera hardware or not
+     */
+    public static boolean isDeviceSupportCamera(Context ctx) {
+        if (ctx.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            // this device has a camera
+            return true;
+        } else {
+            // no camera on this device
+            return false;
+        }
+    }
 
 
     public static boolean checkExpiryYear(String expYear, String expMonth) {

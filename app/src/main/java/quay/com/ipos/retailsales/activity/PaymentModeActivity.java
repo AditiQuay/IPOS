@@ -819,7 +819,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 case R.id.llPoints:
 
                     if (!mCustomerID.equalsIgnoreCase("")) {
-                        if(mCustomerNumber.equalsIgnoreCase("0000000000")) {
+                        if(!mCustomerNumber.equalsIgnoreCase("0000000000")) {
                             if (mCustomerPoints > 0)
                                 setllPoints();
                             else

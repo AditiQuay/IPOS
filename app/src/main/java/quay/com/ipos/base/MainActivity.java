@@ -80,6 +80,7 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
 import quay.com.ipos.listeners.SendScannerBarcodeListener;
 import quay.com.ipos.login.SplashActivity;
+import quay.com.ipos.managebusiness.MaterialMasterFragment;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
@@ -120,7 +121,7 @@ public class MainActivity extends BaseActivity
     private int lastExpandedGroup;
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
-    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null,mRetailOrderCentreFragment=null;
+    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null,mRetailOrderCentreFragment=null,mMaterialMasterFragment=null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
 
@@ -611,7 +612,16 @@ public class MainActivity extends BaseActivity
             case "Manage Store":
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
-
+            case "Material Master":
+                mMaterialMasterFragment = new MaterialMasterFragment();
+                replaceFragment(mMaterialMasterFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.material_master));
+                menu1.findItem(R.id.action_notification).setVisible(false);
+                menu1.findItem(R.id.action_help).setVisible(false);
+                menu1.findItem(R.id.action_filter).setVisible(true);
+                menu1.findItem(R.id.action_search).setVisible(false);
+                break;
             case "Inventory In/Out":
                 inventaortFragment = new InventoryFragment();
                 replaceFragment(inventaortFragment, containerId);

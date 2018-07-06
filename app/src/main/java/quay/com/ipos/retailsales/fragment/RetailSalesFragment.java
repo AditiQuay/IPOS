@@ -1279,7 +1279,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     Util.hideSoftKeyboard(getActivity());
                     if (IPOSApplication.mProductListResult.size() > 0)
                         if (!IPOSApplication.mCustomerID.equalsIgnoreCase(""))
-                            if(mCustomerNumber.equalsIgnoreCase("0000000000")) {
+                            if(!mCustomerNumber.equalsIgnoreCase("0000000000")) {
                                 if (mCustomerPoints > 0.0)
                                     showRedeemLoyaltyPopup(rootView);
                                 else
