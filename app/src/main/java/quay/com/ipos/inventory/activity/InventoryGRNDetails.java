@@ -1849,7 +1849,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                             quanBalanceTotal += jsonObject1.optInt("balanceQty");
                             in += jsonObject1.optInt("inQty");
                             app += jsonObject1.optInt("apQty");
-                            double up = jsonObject2.getDouble("unitPrice");
+                            double up = jsonObject1.getDouble("unitPrice");
 
                             upIn += jsonObject1.optInt("inQty") * up;
                             upApp += jsonObject1.optInt("apQty") * up;

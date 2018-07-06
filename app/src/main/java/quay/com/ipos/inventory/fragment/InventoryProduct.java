@@ -849,7 +849,7 @@ public class InventoryProduct extends AppCompatActivity implements InitInterface
                 quanBalanceTotal += jsonObject1.optInt("balanceQty");
                 quanInQuant += jsonObject1.optInt("inQty");
                 quanApp += jsonObject1.optInt("apQty");
-                double up = jsonObject2.getDouble("unitPrice");
+                double up = jsonObject1.getDouble("unitPrice");
 
                 upIn+= jsonObject1.optInt("inQty")*up;
                 upApp+= jsonObject1.optInt("apQty")*up;
