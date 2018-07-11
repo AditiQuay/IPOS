@@ -14,18 +14,19 @@ import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.modal.BillingSync;
+import quay.com.ipos.modal.FieldModel;
 import quay.com.ipos.modal.Name;
 
 public class NameAdapter extends BaseAdapter {
 
     //storing all the names in the list
-    private ArrayList<BillingSync> names;
+    private ArrayList<FieldModel> names;
 
     //context object
     private Context context;
 
     //constructor 
-    public NameAdapter(Context context, ArrayList<BillingSync> names) {
+    public NameAdapter(Context context, ArrayList<FieldModel> names) {
 //        super(context, resource, names);
         this.context = context;
         this.names = names;
@@ -44,18 +45,18 @@ public class NameAdapter extends BaseAdapter {
         ImageView imageViewStatus = (ImageView) listViewItem.findViewById(R.id.imageViewStatus);
 
         //getting the current name 
-        BillingSync name = names.get(position);
+        FieldModel name = names.get(position);
 
         //setting the name to textview
-        textViewName.setText("Order No. : "+name.getOrderID());
+        textViewName.setText("Order No. : "+name.getFrontField());
 
         //if the synced status is 0 displaying 
         //queued icon 
         //else displaying synced icon 
-        if (name.getSync() == 0)
-            imageViewStatus.setBackgroundResource(R.drawable.ic_action_cloud_off_white);
-        else
-            imageViewStatus.setBackgroundResource(R.drawable.ic_action_check);
+//        if (name.getSync() == 0)
+//            imageViewStatus.setBackgroundResource(R.drawable.ic_action_cloud_off_white);
+//        else
+//            imageViewStatus.setBackgroundResource(R.drawable.ic_action_check);
 
         return listViewItem;
     }

@@ -522,6 +522,11 @@
     <string name="retail_sales_order_centre">Retail Order Center</string>
     <string name="order_date_from">Order Date From</string>
     <string name="order_date_to">Order Date To</string>
+    <string name="not_generated">Not Generated</string>
+    <string name="pss">Partner Self Service</string>
+    <string name="ipos_business">My Business</string>
+    <string name="title_b2b_ddr_master">DDR Master</string>
+    <string name="inventory_toolbar_text">Inventory</string>
     <string name="material_details">Material Details</string>
     <string name="uom_price">UOM &amp; Price</string>
     <string name="properties">Properties</string>
@@ -529,7 +534,7 @@
     <string name="material_master">Material Master</string>
     <string name="upload">Upload</string>
     <string name="invalid_material_code">Enter material code</string>
-    <string name="invalid_product_code">Select Product code</string>
+    <string name="invalid_product_code">Select Product name</string>
     <string name="invalid_description">Enter description</string>
     <string name="invalid_display_name">Enter display name</string>
     <string name="invalid_gross_wt">Enter Gross weight</string>
@@ -538,10 +543,7 @@
     <string name="invalid_sale_uom">Enter Sale UOM</string>
     <string name="invalid_hsn">Enter HSN</string>
     <string name="invalid_basic_price">Enter Basic Price</string>
-    <string name="not_generated">Not Generated</string>
-    <string name="pss">Partner Self Service</string>
-    <string name="ipos_business">My Business</string>
-    <string name="title_b2b_ddr_master">DDR Master</string>
-    <string name="inventory_toolbar_text">Inventory</string>
+    <string name="product_name">Product Name</string>
+    <string name="other_details">Other Details</string>
 
 </resources>

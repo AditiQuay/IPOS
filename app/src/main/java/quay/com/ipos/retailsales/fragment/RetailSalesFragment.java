@@ -1053,11 +1053,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     cart_detail.setHsnCode(datum.getHsnCode());
                 }
                 IPOSApplication.mProductListResult.set(i, datum);
-
                 cartDetail.add(cart_detail);
             }
-            tvItemNo.setText("Items " + (mList.size() - freeItemCount) + " item");
-            paymentRequest.setItemQty((mList.size() - freeItemCount) );
+            tvItemNo.setText("Items : " + (mList.size() - freeItemCount) + " item");
+            paymentRequest.setItemQty((mList.size() - freeItemCount));
             paymentRequest.setFreeItemQty(freeItemCount);
 
             tvItemQty.setText(qty + " Qty");

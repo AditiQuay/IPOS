@@ -91,7 +91,7 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     userViewHolder.llPaidByCard.setVisibility(View.GONE);
                 }else  if(str.getModeOfPayment().equalsIgnoreCase("card")){
                     userViewHolder.tvCardNumber.setText(str.getCardNo()+"");
-                    userViewHolder.tvCardType.setText(str.getCardType()+"");
+                    userViewHolder.tvCardType.setText(str.getCardType().trim()+"");
                     userViewHolder.tvExpiryDate.setText(str.getExpiryDate()+"");
                     userViewHolder.tvPaidByCard.setText(Util.getIndianNumberFormat(str.getAmount()+""));
                     userViewHolder.llPaidByCard.setVisibility(View.VISIBLE);

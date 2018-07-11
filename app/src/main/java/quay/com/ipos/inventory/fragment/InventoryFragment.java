@@ -68,7 +68,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             tvTotalGST, tvTotalItemGSTPrice, tvTotalDiscountDetail, tvTotalDiscountPrice, tvCGSTPrice, tvSGSTPrice,
             tvLessDetails, tvRoundingOffPrice, tvPay, tvPinCount;
 
-    private LinearLayout btnAddNew,btnView;
+    private LinearLayout btnAddNew;
     Switch swchInventory, swchType, swchPOAvailable;
 
     private FrameLayout flScanner;
@@ -102,7 +102,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     private int businessPlaceCode;
     private boolean isSync;
     private String strPlace;
-    private LinearLayout btnNext, llPOVisible, llInventory, llTransferType,btnNew;
+    private LinearLayout btnNext, llPOVisible, llInventory, llTransferType;
     private EditText edtPoNumber, edtDate, edtSupplier;
     private ImageView imgSearch;
     private RelativeLayout rlNewView;
@@ -145,26 +145,6 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                 startActivity(i);
             }
         });
-        btnNew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent i = new Intent(getActivity(), EditTransferOutActivity.class);
-                i.putExtra("request", prepareJson().toString());
-                i.putExtra("businessPlaceId", businessPlaceCode + "");
-                startActivity(i);
-            }
-        });
-
-        btnView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), TransferOutListActivity.class);
-                i.putExtra("request", prepareJson().toString());
-                i.putExtra("businessPlaceId", businessPlaceCode + "");
-                startActivity(i);
-            }
-        });
         return rootView;
     }
 
@@ -181,9 +161,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
 */
 
     private void initializeComponent(View rootView) {
-        btnView=rootView.findViewById(R.id.btnView);
-        btnNew=rootView.findViewById(R.id.btnNew);
-        rlNewView=rootView.findViewById(R.id.rlNewView);
+        rlNewView = rootView.findViewById(R.id.rlNewView);
         btnAddNew = rootView.findViewById(R.id.btnAddNew);
         swchInventory = rootView.findViewById(R.id.swchInventory);
         swchPOAvailable = rootView.findViewById(R.id.swchPOAvailable);

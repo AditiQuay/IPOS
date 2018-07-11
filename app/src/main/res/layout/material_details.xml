@@ -31,25 +31,54 @@
             android:textColor="@color/accent_color"
             android:textSize="@dimen/text_size_15sp" />
 
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:text="@string/product_name"
+            android:paddingLeft="@dimen/dim_15"
+            android:visibility="gone"
+            android:paddingTop="@dimen/dim_10"
+            android:textColor="@color/accent_color"
+            android:textSize="@dimen/text_size_12sp" />
+
         <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/spProductCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dim_4"
             android:layout_marginRight="@dimen/dim_4"
+            android:paddingTop="@dimen/dim_5"
+            android:paddingBottom="@dimen/dim_5"
             app:ms_alignLabels="true"
             app:ms_baseColor="@color/grey"
             app:ms_enableErrorLabel="false"
-            android:textSize="@dimen/universal_text_size16"
             app:ms_enableFloatingLabel="true"
-            app:ms_alwaysShowFloatingLabel="true"
+            android:textSize="@dimen/universal_text_size16"
+            android:entries="@array/choose"
             app:ms_errorColor="@color/red"
-            app:ms_floatingLabelColor="@color/black"
-            app:ms_floatingLabelText="Product Name *"
+            app:ms_floatingLabelColor="@color/grey"
+            app:ms_floatingLabelText="Product Name * "
             app:ms_highlightColor="@color/grey"
-            app:ms_hint="Product Name *"
+            app:ms_hint="Select Product Name * "
             app:ms_hintColor="@color/grey"
             app:ms_multiline="false" />
+
+
+        <!-- <AutoCompleteTextView
+             android:id="@+id/autoProductCode"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_below="@+id/textView"
+             android:hint="Product Name * "
+             android:ems="10"
+             android:text="">
+
+             <requestFocus />
+         </AutoCompleteTextView>-->
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/tilMaterialCode"
@@ -62,8 +91,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Material Code *"
                 android:inputType="text"
+                android:paddingLeft="@dimen/dim_10"
                 android:maxLength="40"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:lines="1"
                 android:textSize="@dimen/universal_text_size16" />
 
@@ -79,8 +108,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Description *"
                 android:inputType="text"
+                android:paddingLeft="@dimen/dim_10"
                 android:maxLength="200"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:lines="1"
                 android:textSize="@dimen/universal_text_size16" />
 
@@ -96,8 +125,8 @@
                 android:layout_height="wrap_content"
                 android:hint="Display Name *"
                 android:inputType="text"
+                android:paddingLeft="@dimen/dim_10"
                 android:maxLength="200"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:lines="1"
                 android:textSize="@dimen/universal_text_size16" />
 
@@ -128,13 +157,14 @@
                     app:ms_enableErrorLabel="false"
                     app:ms_enableFloatingLabel="true"
                     android:textSize="@dimen/universal_text_size16"
+                    android:entries="@array/choose"
                     app:ms_errorColor="@color/red"
                     app:ms_floatingLabelColor="@color/grey"
-                    app:ms_floatingLabelText="Material Category"
+                    app:ms_floatingLabelText="Material Category "
                     app:ms_highlightColor="@color/grey"
-                    app:ms_hint="Material Category"
+                    app:ms_hint="Material Category "
                     app:ms_hintColor="@color/grey"
-                    app:ms_multiline="false" />
+                    app:ms_multiline="false"/>
             </LinearLayout>
 
             <LinearLayout
@@ -155,8 +185,8 @@
                         android:hint="HSN Code *"
                         android:inputType="text"
                         android:maxLength="200"
-                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:lines="1"
+                        android:paddingLeft="@dimen/dim_10"
                         android:textSize="@dimen/universal_text_size16" />
 
                 </android.support.design.widget.TextInputLayout>

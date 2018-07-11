@@ -829,7 +829,11 @@ public class Util {
         return (format.format(new BigDecimal(str))).replaceAll("Rs.",getStringRes(R.string.Rs).replaceAll(".00",""));
 
     }
+    public static String getIndianNumberFormatWithout(double str){
+        Format format = NumberFormat.getCurrencyInstance(new Locale("en", "in"));
+        return (format.format((int)str)).replace(".00","").replaceAll("Rs.",getStringRes(R.string.Rs).replaceAll(".00",""));
 
+    }
     public static double getLastTwoDigits(double value){
         return Double.parseDouble(new DecimalFormat("###.##").format(value));
     }

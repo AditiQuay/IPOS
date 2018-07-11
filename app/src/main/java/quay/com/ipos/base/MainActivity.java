@@ -614,14 +614,8 @@ public class MainActivity extends BaseActivity
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
             case "Material Master":
-                mMaterialMasterFragment = new MaterialMasterFragment();
-                replaceFragment(mMaterialMasterFragment, containerId);
-                drawer.closeDrawer(GravityCompat.START);
-                toolbar.setTitle(getString(R.string.material_master));
-                menu1.findItem(R.id.action_notification).setVisible(false);
-                menu1.findItem(R.id.action_help).setVisible(false);
-                menu1.findItem(R.id.action_filter).setVisible(true);
-                menu1.findItem(R.id.action_search).setVisible(false);
+                setMaterialMaster();
+
                 break;
             case "Inventory In/Out":
                 inventaortFragment = new InventoryFragment();
@@ -721,6 +715,17 @@ public class MainActivity extends BaseActivity
         }
 
 
+    }
+
+    public void setMaterialMaster() {
+        mMaterialMasterFragment = new MaterialMasterFragment();
+        replaceFragment(mMaterialMasterFragment, containerId);
+        drawer.closeDrawer(GravityCompat.START);
+        toolbar.setTitle(getString(R.string.material_master));
+        menu1.findItem(R.id.action_notification).setVisible(false);
+        menu1.findItem(R.id.action_help).setVisible(false);
+        menu1.findItem(R.id.action_filter).setVisible(true);
+        menu1.findItem(R.id.action_search).setVisible(false);
     }
 
     private void saveToDatabase(String imageName) {

@@ -33,48 +33,66 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <fr.ganfra.materialspinner.MaterialSpinner
-                android:id="@+id/spBasicUOM"
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/dim_2"
+            android:paddingRight="@dimen/dim_2"
+            android:paddingTop="@dimen/dim_8"
+            android:orientation="horizontal"
+            android:padding="@dimen/dim_2">
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:layout_marginTop="@dimen/dim_8"
-                app:ms_alignLabels="true"
-                app:ms_baseColor="@color/grey"
-                app:ms_enableErrorLabel="false"
-                android:textSize="@dimen/universal_text_size16"
-                app:ms_enableFloatingLabel="true"
-                app:ms_errorColor="@color/red"
-                app:ms_floatingLabelColor="@color/grey"
-                app:ms_floatingLabelText="Basic UOM *"
-                app:ms_highlightColor="@color/grey"
-                app:ms_hint="Basic UOM *"
-                app:ms_hintColor="@color/grey"
-                app:ms_multiline="false" />
-            <fr.ganfra.materialspinner.MaterialSpinner
-                android:id="@+id/spSaleUOM"
-                android:layout_width="wrap_content"
+                android:paddingTop="@dimen/dim_5"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dim_4">
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/spBasicUOM"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    app:ms_alignLabels="true"
+                    app:ms_baseColor="@color/grey"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_errorColor="@color/red"
+                    app:ms_floatingLabelColor="@color/grey"
+                    app:ms_floatingLabelText="Basic UOM *"
+                    app:ms_highlightColor="@color/highlight"
+                    app:ms_hint="Basic UOM *"
+                    app:ms_hintColor="@color/grey"
+                    app:ms_multiline="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:layout_marginTop="@dimen/dim_8"
-                app:ms_alignLabels="true"
-                app:ms_baseColor="@color/grey"
-                app:ms_enableErrorLabel="false"
-                android:textSize="@dimen/universal_text_size16"
-                app:ms_enableFloatingLabel="true"
-                app:ms_errorColor="@color/red"
-                app:ms_floatingLabelColor="@color/grey"
-                app:ms_floatingLabelText="Sale UOM *"
-                app:ms_highlightColor="@color/grey"
-                app:ms_hint="Sale UOM *"
-                app:ms_hintColor="@color/grey"
-                app:ms_multiline="false" />
+                android:paddingTop="@dimen/dim_5"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dim_4">
+
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/spSaleUOM"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    app:ms_alignLabels="true"
+                    app:ms_baseColor="@color/grey"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_errorColor="@color/red"
+                    app:ms_floatingLabelColor="@color/grey"
+                    app:ms_floatingLabelText="Sale UOM *"
+                    app:ms_highlightColor="@color/highlight"
+                    app:ms_hint="Sale UOM *"
+                    app:ms_hintColor="@color/grey"
+                    app:ms_multiline="false" />
+
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

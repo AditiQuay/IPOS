@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -30,6 +31,8 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
@@ -72,7 +75,6 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     int points=0, points1=0;
     double pointsPer=0;
     int points2=0;
-
     ToggleButton toggleCOD;
     private Button btnPayCash,btnPayCard,buttonSendOtp,buttonVerify,buttonRedeem,btnEditCash,btnEditCard,btnEditPoints;
     Spinner spinner;
@@ -86,7 +88,14 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
     DatabaseHandler db;
     private Menu menu1;
     Toolbar toolbar_default;
-
+    private List<String> mCardArray = new ArrayList<>();
+    CustomerModel customerModel=null;
+    private ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<RealmPinnedResults.Info>();
+    ArrayList<BillingSync> billingSyncs = new ArrayList<>();
+    int orderNumber=0;
+    boolean isContained=false;
+    String billingDate_Time="";
+    String billingTimeStamp="";
     double redeemValue=0;
     Context context;
 
@@ -268,9 +277,13 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         imvBilling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent mIntent = new Intent();
-                setResult(Constants.ACT_PAYMENT_NEW_BILLING,mIntent);
-                finish();
+                if(btnPayCash.getVisibility()==View.VISIBLE && btnPayCard.getVisibility()==View.VISIBLE && buttonRedeem.getVisibility()==View.VISIBLE) {
+                    Intent mIntent = new Intent();
+                    setResult(Constants.ACT_PAYMENT_NEW_BILLING, mIntent);
+                    finish();
+                }else {
+                    Util.showToast("Please finish payment procedure!",PaymentModeActivity.this);
+                }
             }
         });
         etReceivedAmount.addTextChangedListener(new MyTextWatcher());
@@ -418,17 +431,21 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         mSpinnerDropDownAdapter.setColor(true);
         // attaching data adapter to spinner
         spinner.setAdapter(mSpinnerDropDownAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
     }
 
-    CustomerModel customerModel=null;
-    private ArrayList<RealmPinnedResults.Info> mInfoArrayList = new ArrayList<RealmPinnedResults.Info>();
-    ArrayList<BillingSync> billingSyncs = new ArrayList<>();
-    int orderNumber=0;
-    boolean isContained=false;
-    String billingDate_Time="";
-    String billingTimeStamp="";
     //saving the name to local storage
     private void saveBillToLocalStorage(PaymentRequest paymentRequest, int status) {
         if(Prefs.getStringPrefs(Constants.KEY_ORDER_ID)==null || Prefs.getStringPrefs(Constants.KEY_ORDER_ID)==""){
@@ -466,43 +483,43 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 //            billingSyncs = db.getAllRetailBillingOrders();
 //            if(!db.checkIfBillingRecordExist(billingTimeStamp)) {
 
-                if(!mCustomerID.equalsIgnoreCase("")){
-                    customerModel = db.getCustomer(mCustomerID);
-                    RecentOrderList recentOrder = new RecentOrderList();
-                    try {
+            if(!mCustomerID.equalsIgnoreCase("")){
+                customerModel = db.getCustomer(mCustomerID);
+                RecentOrderList recentOrder = new RecentOrderList();
+                try {
 
-                        JSONArray jsonArray = new JSONArray(customerModel.getRecentOrders());
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject3 = jsonArray.getJSONObject(i);
-                            recentOrder = new RecentOrderList();
-                            recentOrder.setFromStoreName(jsonObject3.optString(CustomerEnum.ColoumnFromStoreName.toString().trim()));
-                            recentOrder.setStoreCity(jsonObject3.optString(CustomerEnum.ColoumnStoreCity.toString().trim()));
-                            recentOrder.setStoreState(jsonObject3.optString(CustomerEnum.ColoumnStoreState.toString().trim()));
-                            recentOrder.setBillDate(jsonObject3.optString(CustomerEnum.ColoumnBillDate.toString().trim()));
-                            recentOrder.setBillPrice(jsonObject3.optString(CustomerEnum.ColoumnBillPrice.toString().trim()));
-                            recentOrders.add(recentOrder);
-                        }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    JSONArray jsonArray = new JSONArray(customerModel.getRecentOrders());
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject3 = jsonArray.getJSONObject(i);
+                        recentOrder = new RecentOrderList();
+                        recentOrder.setFromStoreName(jsonObject3.optString(CustomerEnum.ColoumnFromStoreName.toString().trim()));
+                        recentOrder.setStoreCity(jsonObject3.optString(CustomerEnum.ColoumnStoreCity.toString().trim()));
+                        recentOrder.setStoreState(jsonObject3.optString(CustomerEnum.ColoumnStoreState.toString().trim()));
+                        recentOrder.setBillDate(jsonObject3.optString(CustomerEnum.ColoumnBillDate.toString().trim()));
+                        recentOrder.setBillPrice(jsonObject3.optString(CustomerEnum.ColoumnBillPrice.toString().trim()));
+                        recentOrders.add(recentOrder);
                     }
-                    loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",this),LoginResult.class);
-                    recentOrder= new RecentOrderList();
-                    recentOrder.setBillDate(billingDate_Time);
-                    recentOrder.setBillPrice(paymentRequest.getTotalValueWithTax()+"");
-                    recentOrder.setFromStoreName(loginResult.getUserAccess().getStoreName());
-                    recentOrder.setStoreState("");
-                    recentOrder.setStoreCity("");
-                    recentOrders.add(recentOrder);
-                    db.updateCustomerRecentOrders(Util.getCustomGson().toJson(recentOrders), mCustomerID);
-                    db.updateCustomerBillDate(billingDate_Time, mCustomerID);
-                    db.updateCustomerBillPrice(paymentRequest.getTotalValueWithTax()+"", mCustomerID);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                for (int i =0 ; i < paymentRequest.getCartDetail().size(); i++)
-                {
-                    int updatedQty = paymentRequest.getCartDetail().get(i).getMaterialStockAvail()-paymentRequest.getCartDetail().get(i).getMaterialQty();
-                    db.updateProductStock(updatedQty,paymentRequest.getCartDetail().get(i).getMaterialID());
-                }
+                loginResult = Util.getCustomGson().fromJson(SharedPrefUtil.getString(Constants.Login_result,"",this),LoginResult.class);
+                recentOrder= new RecentOrderList();
+                recentOrder.setBillDate(billingDate_Time);
+                recentOrder.setBillPrice(paymentRequest.getTotalValueWithTax()+"");
+                recentOrder.setFromStoreName(loginResult.getUserAccess().getStoreName());
+                recentOrder.setStoreState("");
+                recentOrder.setStoreCity("");
+                recentOrders.add(recentOrder);
+                db.updateCustomerRecentOrders(Util.getCustomGson().toJson(recentOrders), mCustomerID);
+                db.updateCustomerBillDate(billingDate_Time, mCustomerID);
+                db.updateCustomerBillPrice(paymentRequest.getTotalValueWithTax()+"", mCustomerID);
+            }
+            for (int i =0 ; i < paymentRequest.getCartDetail().size(); i++)
+            {
+                int updatedQty = paymentRequest.getCartDetail().get(i).getMaterialStockAvail()-paymentRequest.getCartDetail().get(i).getMaterialQty();
+                db.updateProductStock(updatedQty,paymentRequest.getCartDetail().get(i).getMaterialID());
+            }
 //            }
         }catch (Exception e){
             System.out.println(e);
@@ -573,6 +590,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         mPrintViewResult.setNetTotalAmount(paymentRequest.getNetTotal()+"");
         mPrintViewResult.setRoundingOff(paymentRequest.getTotalRoundingOffValue()+"");
         mPrintViewResult.setTotalIgst(paymentRequest.getTotalIGSTValue()+"");
+        mPrintViewResult.setTotalPointsToRedeem(paymentRequest.getPointsToRedeem()+"");
+        mPrintViewResult.setTotalPointsToRedeemValue(paymentRequest.getPointsToRedeemValue()+"");
 
         if(paymentRequest.getPaymentDetail().size()>0){
             for(int j = 0 ; j < paymentRequest.getPaymentDetail().size(); j++){
@@ -615,12 +634,12 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         billingSync.setReceipt(Util.getCustomGson().toJson(mPrintViewResult));
         try {
 //            if (!db.checkIfBillingRecordExist(billingTimeStamp)) {
-                db.addRetailBilling(billingSync);
+            db.addRetailBilling(billingSync);
 
-                Intent mIntent = new Intent(PaymentModeActivity.this, PrintReceiptActivity.class);
-                mIntent.putExtra(Constants.RECEIPT,Util.getCustomGson().toJson(mPrintViewResult));
-                mIntent.putExtra(Constants.RECEIPT_FROM,Constants.paymentMode);
-                startActivity(mIntent);
+            Intent mIntent = new Intent(PaymentModeActivity.this, PrintReceiptActivity.class);
+            mIntent.putExtra(Constants.RECEIPT,Util.getCustomGson().toJson(mPrintViewResult));
+            mIntent.putExtra(Constants.RECEIPT_FROM,Constants.paymentMode);
+            startActivity(mIntent);
 
 //            }
         }catch (Exception e){
@@ -722,7 +741,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                                 detailInfo1.clear();
                                 paymentDetail = new PaymentRequest().new PaymentDetail();
                                 paymentDetail.setPaymentType("card");
-                              PaymentRequest.DetailInfo mDetailInfo1 = new PaymentRequest().new DetailInfo();
+                                PaymentRequest.DetailInfo mDetailInfo1 = new PaymentRequest().new DetailInfo();
                                 mDetailInfo1.setTotalAmt(0.0);
                                 mDetailInfo1.setCashReceivedAmt(0.0);
                                 mDetailInfo1.setCashReturnAmt(0.0);
@@ -794,6 +813,8 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                                     }
 
 //                            db.updateCustomerPoints(paymentRequest.getOrderLoyality().toString(),mCustomerID);
+                                    paymentRequest.setPointsToRedeem(IPOSApplication.totalpointsToRedeem);
+                                    paymentRequest.setPointsToRedeemValue(IPOSApplication.totalpointsToRedeemValue);
                                 }
                                 customerModel = db.getCustomerMobile(mCustomerNumber);
                                 paymentRequest.setCustomerJson(customerModel);
@@ -997,8 +1018,10 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 
 
                     if(spinner.getSelectedItem()!=null && !spinner.getSelectedItem().toString().equalsIgnoreCase(""))
-                        if(spinner.getSelectedItemPosition()!=0)
-                            cardType = spinner.getSelectedItem().toString();
+                        if(spinner.getSelectedItemPosition()!=0) {
+                            mCardArray = Arrays.asList(getResources().getStringArray(R.array.card_type));
+                            cardType = mCardArray.get(spinner.getSelectedItemPosition());
+                        }
                         else
                             Util.showToast("Please select Card type", PaymentModeActivity.this);
                     else {
