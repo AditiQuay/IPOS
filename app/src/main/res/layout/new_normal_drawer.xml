@@ -28,7 +28,7 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_below="@+id/header"
-                android:layout_marginTop="@dimen/dim_16"
+                android:layout_marginTop="@dimen/dim_6"
                 android:background="@color/menu_strip_color"
                 android:choiceMode="singleChoice"
                 android:divider="@null"

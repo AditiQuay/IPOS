@@ -122,6 +122,7 @@
     </string-array>
 
     <string name="title_partner_connect">Partner Connect</string>
+    <string name="title_ddrcu">New DDR</string>
     <string name="title_kyc_connect">KYC</string>
 
     <string name="total_discount">Total Discount</string>
@@ -334,6 +335,10 @@
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
 
+    <string name="transfer_out">Transfer Out</string>
+    <string name="shipment">Shipment</string>
+    <string name="transfer_in">Transfer In</string>
+
     <string name="listEmptyNewOrder">No New Order</string>
     <string name="listEmptyDeliverd">No Deliver Item</string>
     <string name="string_delivered">Delivered Items</string>
@@ -533,5 +538,10 @@
     <string name="invalid_sale_uom">Enter Sale UOM</string>
     <string name="invalid_hsn">Enter HSN</string>
     <string name="invalid_basic_price">Enter Basic Price</string>
+    <string name="not_generated">Not Generated</string>
+    <string name="pss">Partner Self Service</string>
+    <string name="ipos_business">My Business</string>
+    <string name="title_b2b_ddr_master">DDR Master</string>
+    <string name="inventory_toolbar_text">Inventory</string>
 
 </resources>

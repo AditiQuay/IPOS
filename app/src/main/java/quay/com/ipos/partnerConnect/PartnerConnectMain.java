@@ -58,7 +58,7 @@ import retrofit2.Response;
 import static quay.com.ipos.utility.Constants.employeeCode;
 
 /**
- * Created by niraj.kumar on 6/3/2018.
+ * Created by deepak.kumar on 6/3/2018.
  */
 
 public class PartnerConnectMain extends RunTimePermissionActivity implements InitInterface,
@@ -294,7 +294,7 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+      //  getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -758,14 +758,14 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
             }
             if (account.cheques != null) {
                 for (Cheques cheque : account.cheques) {
-                    if (cheque.mSecurityCheque == null || cheque.mSecurityCheque.isEmpty()) {
+                   /* if (cheque.mSecurityCheque == null || cheque.mSecurityCheque.isEmpty()) {
                         String error = "Account ->   Security Cheque is required!";
                         Log.e(TAG, error);
                         IPOSApplication.showToast(error);
                         return false;
-                    }
+                    }*/
 
-                    if (cheque.mSecurityCheque.contains("Yes")) {
+                   // if (cheque.mSecurityCheque.contains("Yes")) {
                         if (cheque.mDrawnAccountNo == null || cheque.mDrawnAccountNo.isEmpty()) {
                             String error = "Account ->   DrawnAccountNo is required!";
                             Log.e(TAG, error);
@@ -784,7 +784,7 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
                             IPOSApplication.showToast(error);
                             return false;
                         }
-                    }
+                  //  }
                 }
 
 

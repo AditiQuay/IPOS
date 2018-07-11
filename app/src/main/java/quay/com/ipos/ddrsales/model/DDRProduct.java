@@ -56,6 +56,8 @@ public class DDRProduct extends RealmObject{
     private String sProductFeature;
 
 
+
+
     public String getiProductModalId() {
         return iProductModalId;
     }

@@ -24,9 +24,9 @@
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher_new_round"
 
         android:screenOrientation="portrait"
         android:supportsRtl="true"
@@ -84,6 +84,19 @@
         </activity>
         <activity
             android:name=".ddrsales.DDRListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/title_b2b_ddr_select"
+            android:screenOrientation="portrait"
+
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ddrsales.ddrdetail.DDRCUActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_b2b_ddr_select"
             android:screenOrientation="portrait"
@@ -321,6 +334,18 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".inventoryTrasfer.TransferStepsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".inventoryTrasfer.inventoryTransferIn.transferInActivity.TransferInBatchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".inventoryTrasfer.inventoryTransferIn.transferInActivity.TransferInDetailsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".pss_order.activity.AddOrderCentreActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -333,12 +358,11 @@
             android:name=".inventory.activity.EditExpandablePODetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".inventory.activity.InventoryItemAddNewOrderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden" />
         <!---***Compliance Tracker***-->
         <activity
             android:name=".compliance.DashboardActivity"
@@ -366,7 +390,8 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity> <activity
+        </activity>
+        <activity
             android:name=".compliance.SubTaskActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">

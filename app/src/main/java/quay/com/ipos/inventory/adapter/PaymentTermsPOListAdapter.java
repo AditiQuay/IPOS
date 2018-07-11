@@ -57,7 +57,7 @@ public class PaymentTermsPOListAdapter extends RecyclerView.Adapter<PaymentTerms
         }
 
 
-        if (stringArrayList.get(position).getPoPaymentTermsInvoiceDue().contains("Immediate") ||stringArrayList.get(position).getPoPaymentTermsInvoiceDue().contains("Immeiate")){
+        if (stringArrayList.get(position).getPoPaymentTermsInvoiceDue().contains("Immediate")){
             holder.tvGst.setHint("Immediate");
             holder.tvGst.setText("Immediate");
             holder.tvGst.setEnabled(false);

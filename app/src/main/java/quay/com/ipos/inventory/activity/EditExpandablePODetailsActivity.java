@@ -216,7 +216,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         final ArrayList<String> list=new ArrayList<>();
 //        list.add("One Time with Recurring");
         list.add("Milestone Based");
-     //   list.add("On Invoice Based");
+        //   list.add("On Invoice Based");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,list);
         spnMilestone.setAdapter(adapter);
@@ -265,31 +265,31 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
-               if (i!=0) {
-                   int count = 0;
-                   for (int k = 0; k < strings1inco.size(); k++) {
-                       if (strings1inco.get(k).equalsIgnoreCase(strings.get(i)))
-                           count = count + 1;
-                   }
-                   if (!strings1inco.contains(strings.get(i))) {
-                       GrnInccoTermsModel poIncoTerms1 = new GrnInccoTermsModel();
-                       poIncoTerms1.grnIncoDetail = strings.get(i);
-                       poIncoTerms1.grnPayAmount = 0;
-                       poIncoTerms1.grnPayByReceiver = true;
-                       poIncoTerms1.grnPayBySender = false;
-                       strings1inco.add(strings.get(i));
-                       poIncoTerms.add(poIncoTerms1);
-                   } else {
-                       GrnInccoTermsModel poIncoTerms1 = new GrnInccoTermsModel();
-                       poIncoTerms1.grnIncoDetail = strings.get(i) + " " + (count);
-                       poIncoTerms1.grnPayAmount = 0;
-                       poIncoTerms1.grnPayByReceiver = true;
-                       poIncoTerms1.grnPayBySender = false;
-                       strings1inco.add(strings.get(i));
-                       poIncoTerms.add(poIncoTerms1);
-                   }
-                   setIncoTerms();
-               }
+                if (i!=0) {
+                    int count = 0;
+                    for (int k = 0; k < strings1inco.size(); k++) {
+                        if (strings1inco.get(k).equalsIgnoreCase(strings.get(i)))
+                            count = count + 1;
+                    }
+                    if (!strings1inco.contains(strings.get(i))) {
+                        GrnInccoTermsModel poIncoTerms1 = new GrnInccoTermsModel();
+                        poIncoTerms1.grnIncoDetail = strings.get(i);
+                        poIncoTerms1.grnPayAmount = 0;
+                        poIncoTerms1.grnPayByReceiver = true;
+                        poIncoTerms1.grnPayBySender = false;
+                        strings1inco.add(strings.get(i));
+                        poIncoTerms.add(poIncoTerms1);
+                    } else {
+                        GrnInccoTermsModel poIncoTerms1 = new GrnInccoTermsModel();
+                        poIncoTerms1.grnIncoDetail = strings.get(i) + " " + (count);
+                        poIncoTerms1.grnPayAmount = 0;
+                        poIncoTerms1.grnPayByReceiver = true;
+                        poIncoTerms1.grnPayBySender = false;
+                        strings1inco.add(strings.get(i));
+                        poIncoTerms.add(poIncoTerms1);
+                    }
+                    setIncoTerms();
+                }
                 spnOptions.setSelection(0);
             }
 
@@ -317,8 +317,8 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                         erg += "-" + String.valueOf(dayOfMonth);
 
 
-                            poValidate=erg;
-                            edtPoValDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
+                        poValidate=erg;
+                        edtPoValDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
 
 
 
@@ -353,8 +353,8 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                         erg += "-" + String.valueOf(dayOfMonth);
 
 
-                            poDate=erg;
-                            edtPoDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
+                        poDate=erg;
+                        edtPoDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
 
 
 
@@ -375,7 +375,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
 
     private void setPaymentsTerms(int s){
-      //  poPaymentTerms.clear();
+        //  poPaymentTerms.clear();
      /*   JSONArray jsonArray1= null;
 
         if (s==1){
@@ -486,7 +486,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
             @Override
             public void onClick(View view) {
                 if (validate())
-                submitGRNDetails();
+                    submitGRNDetails();
                 else {
 
                 }
@@ -498,7 +498,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(EditExpandablePODetailsActivity.this,InventoryItemAddNewOrderActivity.class);
-                startActivity(i);
+                startActivityForResult(i,600);
             }
         });
         tvAddAttach = findViewById(R.id.tvAddAttach);
@@ -506,7 +506,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         tvAddAttach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 onAttachFileClicked();
+                onAttachFileClicked();
             }
         });
         textTotalIncoTerms = findViewById(R.id.textTotalIncoTerms);
@@ -766,15 +766,16 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
             total=total+jsonObject1.optDouble("poPayAmount");
 */
-            setIncoTerms();
+        setIncoTerms();
 
-      //  }
+        //  }
     }
 
     private void getProducts(){
+        poItemDetails.clear();
         Realm realm = Realm.getDefaultInstance();
         RealmResults<RealmInventoryProducts> realmNewOrderCarts1 = realm.where(RealmInventoryProducts.class).findAll();
-     //   poItemDetails.clear();
+        //   poItemDetails.clear();
 
 
 
@@ -810,7 +811,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
             qty=qty+1;
             if (!isAdded)
-            poItemDetails.add(poItemDetail);
+                poItemDetails.add(poItemDetail);
         }
         tvHeaderPOItemDetail.setText("Item Details * | "+ poItemDetails.size()+" Items | Qty "+qty );
         //  mList.addAll(realmNewOrderCarts1);
@@ -840,7 +841,11 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
                 POPaymentTerms poIncoTerms1=new POPaymentTerms();
                 poIncoTerms1.setPoPaymentTermsDetail(poPaymentTerms.get(j).getPoPaymentTermsDetail());
+                if (poPaymentTerms.get(j).getPoPaymentTermsInvoiceDue().equalsIgnoreCase("Immediate"))
                 poIncoTerms1.setPoPaymentTermsInvoiceDue(poPaymentTerms.get(j).getPoPaymentTermsInvoiceDue());
+                else {
+                    poIncoTerms1.setPoPaymentTermsInvoiceDue(poPaymentTerms.get(j).getPoPaymentTermsInvoiceDue()+" days");
+                }
                 poIncoTerms1.setPoPaymentTermsPer((int) poPaymentTerms.get(j).getPoPaymentTermsPer());
                 percentage+=poPaymentTerms.get(j).getPoPaymentTermsPer();
                 String json=gson.toJson(poIncoTerms1);
@@ -878,7 +883,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                 jsonObject1.remove("title");
                 jsonObject1.put("materialName",poItemDetails.get(j).getMaterialName());
                 if(Util.validateString(poItemDetails.get(j).getMaterialCode()))
-                jsonObject1.put("materialCode",poItemDetails.get(j).getMaterialCode().replace("free",""));
+                    jsonObject1.put("materialCode",poItemDetails.get(j).getMaterialCode().replace("free",""));
                 arrayPoDetails.put(jsonObject1);
 
 
@@ -1005,18 +1010,18 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
         return jsonObject.toString();
 
-      //  new RealmController().saveGRNDetails(jsonObject.toString());
+        //  new RealmController().saveGRNDetails(jsonObject.toString());
 
     }
 
     private void setItemDetails(){
 
 
-         recycler_viewItemDetail=findViewById(R.id.recycler_viewItemDetail);
+        recycler_viewItemDetail=findViewById(R.id.recycler_viewItemDetail);
         recycler_viewItemDetail.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(EditExpandablePODetailsActivity.this);
         recycler_viewItemDetail.setLayoutManager(mLayoutManager);
-         itemListDataAdapter = new ItemsDetailsPOEditListAdapter(EditExpandablePODetailsActivity.this, poItemDetails,this);
+        itemListDataAdapter = new ItemsDetailsPOEditListAdapter(EditExpandablePODetailsActivity.this, poItemDetails,this);
         recycler_viewItemDetail.setAdapter(itemListDataAdapter);
     }
 
@@ -1405,9 +1410,9 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
     public void onAttachFileClicked() {
 
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*/*");
-            startActivityForResult(intent, PICKFILE_RESULT_CODE);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("*/*");
+        startActivityForResult(intent, PICKFILE_RESULT_CODE);
 
     }
 
@@ -1415,7 +1420,13 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        onActivityResultAttachment(requestCode,resultCode,data);
+
+        if (requestCode==600){
+            getProducts();
+        }else
+            onActivityResultAttachment(requestCode,resultCode,data);
+
+
     }
 
     public void onActivityResultAttachment(int requestCode, int resultCode, Intent data) {
@@ -1487,10 +1498,15 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
         }else {
             POPaymentTerms poIncoTerms1 = new POPaymentTerms();
             poIncoTerms1.setPoPaymentTermsDetail(poPaymentTerms.get(position).getPoPaymentTermsDetail());
-            if (days!=null && days.contains("days"))
-            poIncoTerms1.setPoPaymentTermsInvoiceDue(days.replaceAll("days","").replaceAll("day","").replaceAll("da","").replaceAll("d",""));
-            else {
-                poIncoTerms1.setPoPaymentTermsInvoiceDue(days.replaceAll("days","").replaceAll("day","").replaceAll("da","").replaceAll("d",""));
+            if (!poPaymentTerms.get(position).getPoPaymentTermsInvoiceDue().equalsIgnoreCase("Immediate")) {
+                if (days != null && days.contains("days"))
+                    poIncoTerms1.setPoPaymentTermsInvoiceDue(days.replaceAll("days", "").replaceAll("day", "").replaceAll("da", "").replaceAll("d", ""));
+                else {
+                    poIncoTerms1.setPoPaymentTermsInvoiceDue(days.replaceAll("days", "").replaceAll("day", "").replaceAll("da", "").replaceAll("d", ""));
+                }
+            }else {
+                poIncoTerms1.setPoPaymentTermsInvoiceDue("Immediate");
+
             }
             poIncoTerms1.setPoPaymentTermsPer(percent);
 
@@ -1510,7 +1526,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
             public void run() {
                 double valuetotal=value;
                 if (value==0){
-               //     valuetotal=poItemDetails.get(position).getPoItemUnitPrice();
+                    //     valuetotal=poItemDetails.get(position).getPoItemUnitPrice();
                 }
                 POItemDetail poItemDetail=new POItemDetail();
                 poItemDetail.setTitle(poItemDetails.get(position).getTitle());
@@ -1691,7 +1707,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
                                     Util.showToast(jsonObject.optString("code")+" PO created Successfully");
                                     JSONObject jsonObject1=null;
                                     try {
-                                         jsonObject1=new JSONObject(requestJson);
+                                        jsonObject1=new JSONObject(requestJson);
                                         jsonObject1.put("poNumber",jsonObject.optString("code"));
                                         jsonObject1.put("poDate",Util.getCurrentDate());
                                         jsonObject1.put("edtSupplier",msupplierName);
@@ -1764,7 +1780,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
 
         CustomAdapterAddress adapter = new CustomAdapterAddress(mContext, R.layout.spinner_item_pss,R.id.text1,noGetEntityBuisnessPlacesModals);
-       // adapter.setDropDownViewResource(R.layout.spinner_item_pss);
+        // adapter.setDropDownViewResource(R.layout.spinner_item_pss);
 
         spinner.setAdapter(adapter);
     }
@@ -1774,7 +1790,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
 
         CustomAdapterAddress adapter = new CustomAdapterAddress(mContext, R.layout.spinner_item_pss,R.id.text1,supplierName);
-      //  adapter.setDropDownViewResource(R.layout.spinner_item_pss);
+        //  adapter.setDropDownViewResource(R.layout.spinner_item_pss);
         spinner.setAdapter(adapter);
     }
 
@@ -1926,7 +1942,7 @@ public class EditExpandablePODetailsActivity extends BaseActivity implements MyL
 
     @Override
     public void onBackPressed() {
-    //    super.onBackPressed();
+        //    super.onBackPressed();
         confirmationDialog();
     }
 }

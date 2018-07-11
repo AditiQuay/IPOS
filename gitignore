@@ -7,6 +7,7 @@
 /build
 /captures
 .externalNativeBuild
+<<<<<<< HEAD
 
 .bundle
 .DS_Store
@@ -15,3 +16,5 @@ log/*.log
 tmp/
 public/system/images/
 public/system/avatars/
+=======
+>>>>>>> c4d6190c0f6db9b8e5cf12537e393eec4f626610

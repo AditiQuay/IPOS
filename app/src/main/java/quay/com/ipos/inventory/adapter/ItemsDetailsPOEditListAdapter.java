@@ -62,7 +62,7 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
             holder.price.setText("");
             holder.price.setHint("0");
         }else {
-            holder.price.setText(Util.round(stringArrayList.get(position).getPoItemUnitPrice(),2)+"");
+            holder.price.setText(((int)stringArrayList.get(position).getPoItemUnitPrice())+"");
             holder.price.setSelection(holder.price.getText().length());
         }
         onBind = false;
@@ -120,6 +120,7 @@ public class ItemsDetailsPOEditListAdapter extends RecyclerView.Adapter<ItemsDet
                     timer1[0].schedule(new TimerTask() {
                         @Override
                         public void run() {*/
+
                     if (Util.validateString(holder.price.getText().toString())  && Util.validateString(holder.tvQty.getText().toString()) ) {
                         myListener.onRowClickedOnItem(holder.getAdapterPosition(), Integer.parseInt(holder.tvQty.getText().toString()), Double.parseDouble(holder.price.getText().toString()));
                     }else if (Util.validateString(holder.tvQty.getText().toString()) ){

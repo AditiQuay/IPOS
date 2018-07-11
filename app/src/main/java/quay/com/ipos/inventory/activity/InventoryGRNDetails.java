@@ -50,7 +50,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
@@ -157,6 +156,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     private Spinner spnOptions;
     private TextView tvQty;
     final ArrayList<String> strings1 = new ArrayList<>();
+    private TextView textViewAttachment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -165,6 +165,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         mContext = InventoryGRNDetails.this;
         SharedPreferences = mContext.getSharedPreferences(Preference, Context.MODE_PRIVATE);
         Editor = SharedPreferences.edit();
+
         Intent i = getIntent();
 
         calendar = Calendar.getInstance();
@@ -219,6 +220,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         ivItemAdd = findViewById(R.id.ivItemAdd);
         bottom_sheet = findViewById(R.id.bottom_sheet);
 
+        textViewAttachment = findViewById(R.id.textViewAttachment);
+
         ivAttAdd.setOnClickListener(this);
         rGrn.setOnClickListener(this);
         rTransporter.setOnClickListener(this);
@@ -258,8 +261,10 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         et_received_date.setClickable(true);
         et_received_date.setOnClickListener(this);
 
+
         etEWayBillValidity.setClickable(true);
         etEWayBillValidity.setOnClickListener(this);
+
         ivItemAdd.setOnClickListener(this);
 
         imValidtyCalender.setOnClickListener(this);
@@ -342,10 +347,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     protected void onStop() {
         super.onStop();
-        SharedPreferences = mContext.getSharedPreferences(Preference, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = SharedPreferences.edit();
-        editor.clear();
-        editor.apply();
+        Log.e(TAG,"OnStop called");
     }
 
     @Override
@@ -453,6 +455,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     llIncoTerms.setVisibility(View.GONE);
                     llTermsC.setVisibility(View.GONE);
                     ivGrnGroupArrow.setImageResource(R.drawable.ic_action_arrow_right_blue);
+
 
                     isGrnClick = false;
                 } else {
@@ -712,13 +715,14 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 int balanceQt = (int) realmGRNDetails.getBalanceQty();
 
                 grnNumber.setText(realmGRNDetails.getGrnNumber());
-                et_received_date.setText(realmGRNDetails.getReceivedDate());
+
+
                 et_totalItems.setText(totalItem + "");
-                et_value.setText(value + "");
+                et_value.setText(realmGRNDetails.getValue() + "");
                 poQty.setText(openQt + "");
                 openQty.setText(poQt + "");
                 balanceQty.setText(balanceQt + "");
-                transporterEWayBillValidityDate = realmGRNDetails.getTransporterEWayBillValidityDate();
+
 
                 //SharedPreference Values
                 String name = SharedPreferences.getString("Name", "");
@@ -732,16 +736,16 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 String address = SharedPreferences.getString("Address", "");
 
 
-                if (TextUtils.isEmpty(name)) {
-                    etName.setText(realmGRNDetails.getTransporterName());
-                } else {
-                    etName.setText(name);
-                }
-
                 if (TextUtils.isEmpty(receivedDate)) {
                     et_received_date.setText(realmGRNDetails.getReceivedDate());
                 } else {
                     et_received_date.setText(receivedDate);
+                }
+
+                if (TextUtils.isEmpty(name)) {
+                    etName.setText(realmGRNDetails.getTransporterName());
+                } else {
+                    etName.setText(name);
                 }
 
                 if (TextUtils.isEmpty(lRnNumber)) {
@@ -773,7 +777,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     etEWayBillValidity.setText(realmGRNDetails.getTransporterEWayBillValidityDate());
                 } else {
                     etEWayBillValidity.setText(ewayBillValidity.trim());
-
                 }
 
                 if (TextUtils.isEmpty(driverMobNumber)) {
@@ -866,7 +869,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     attachFileModel.mimeType = jsonObject1.optString("grnAttachmentType");
                     attachFileModels.add(attachFileModel);
                 }
-
+                textViewAttachment.setText("Attachments " + "(" + attachFileModels.size() + ")");
 
                 setItemDetails();
                 setIncoTerms();
@@ -964,6 +967,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     attachFileModel.mimeType = jsonObject1.optString("grnAttachmentType");
                     attachFileModels.add(attachFileModel);
                 }
+                textViewAttachment.setText("Attachments " + "(" + attachFileModels.size() + ")");
+
 
                 setGrnItemViewDetail();
                 setGRNInccoTermsDetails();
@@ -1044,7 +1049,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-//                                Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "Response***" + response.body().toString());
                             }
                         });
@@ -1162,7 +1166,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
                                 Log.e(TAG, "Response***" + response.body().toString());
                             }
                         });
@@ -1484,6 +1487,12 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 jsonObject.put("balanceQty", balanceQt);
             }
 
+            if (value == 0) {
+                jsonObject.put("value", 0);
+            } else {
+                jsonObject.put("value", value);
+            }
+
             jsonObject.put("receivedDate", DateAndTimeUtil.toCustomStringDateAndTime(calendar, DATE_AND_TIME_FORMAT_SIMPLE));
             jsonObject.put("transporterName", etName.getText().toString());
             jsonObject.put("transporterLRName", etLrn.getText().toString());
@@ -1551,8 +1560,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mContext, "Success", Toast.LENGTH_SHORT).show();
-//                                Log.e(TAG, "Response***" + response.body().toString());
+                                Toast.makeText(mContext, "GRN sucessfully created", Toast.LENGTH_SHORT).show();
                                 InventoryGRNStepsActivity.fa.finish();
                                 Intent i = new Intent(mContext, InventoryGRNStepsActivity.class);
                                 i.putExtra("newGRNCreated", "GrnCreated");
@@ -1572,7 +1580,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Util.showToast("Save Successfully");
+
                                 }
                             });
 
@@ -1744,6 +1752,8 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
         for (int i = 0; i < attachFileModels.size(); i++) {
             Log.v("attachFileModels", "attachFileModels" + attachFileModels.get(i));
         }
+        textViewAttachment.setText("Attachments " + "(" + attachFileModels.size() + ")");
+
         if (attachFileSize > 0) {
             rvAttachment.setLayoutManager(new LinearLayoutManager(mContext));
             // inventoryAttachmentAdapter = new InventoryAttachmentAdapter(mContext, grnAttachments, this);
@@ -1756,34 +1766,34 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        if (clicked) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.YEAR, year);
-            calendar.set(Calendar.MONTH, monthOfYear);
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            Date date = calendar.getTime();
-
-            String date1 = Util.getFormattedDates(date);
-            Log.e(TAG, "date1" + date1);
-
-            et_received_date.setText(date1);
-            clicked = false;
-
-        }
-        if (isEWayBillClicked) {
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.YEAR, year);
-            calendar.set(Calendar.MONTH, monthOfYear);
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            Date date = calendar.getTime();
-
-            String date1 = Util.getFormattedDates(date);
-            Log.e(TAG, "date1" + date1);
-
-            etEWayBillValidity.setText(date1);
-            isEWayBillClicked = false;
-
-        }
+//        if (clicked) {
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.set(Calendar.YEAR, year);
+//            calendar.set(Calendar.MONTH, monthOfYear);
+//            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//            Date date = calendar.getTime();
+//
+//            String date1 = Util.getFormattedDates(date);
+//            Log.e(TAG, "date1" + date1);
+//
+//            et_received_date.setText(date1);
+//            clicked = false;
+//
+//        }
+//        if (isEWayBillClicked) {
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.set(Calendar.YEAR, year);
+//            calendar.set(Calendar.MONTH, monthOfYear);
+//            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+//            Date date = calendar.getTime();
+//
+//            String date1 = Util.getFormattedDates(date);
+//            Log.e(TAG, "date1" + date1);
+//
+//            etEWayBillValidity.setText(date1);
+//            isEWayBillClicked = false;
+//
+//        }
     }
 
     //Product edit text value changed
@@ -1821,23 +1831,40 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                         jsonObject2.put("inQty", inQty);
                         jsonObject2.put("apQty", appQty);
                         jsonObject2.put("balanceQty", balanceQty);
+
+                        double unitP = 0;
+                        double unitPrice = jsonObject2.getDouble("unitPrice");
+                        double totalUnitPrice = unitPrice * (inQty + appQty);
+                        unitP += totalUnitPrice;
+
+
                         poItemDetailsArray.put(position, jsonObject2);
 
-                        int quanOpenTotal = 0, quanBalanceTotal = 0, quanIn = 0, quanApp = 0, quanPo = 0;
+                        int quanOpenTotal = 0, quanBalanceTotal = 0, quanIn = 0, quanApp = 0, quanPo = 0, totalGRN = 0, in = 0, app = 0;
+                        double unitPri = 0, upIn = 0, upApp = 0;
                         for (int k = 0; k < poItemDetailsArray.length(); k++) {
-
                             JSONObject jsonObject1 = poItemDetailsArray.optJSONObject(k);
                             quanPo += jsonObject1.optInt("poQty");
                             quanOpenTotal += jsonObject1.optInt("openQty");
                             quanBalanceTotal += jsonObject1.optInt("balanceQty");
+                            in += jsonObject1.optInt("inQty");
+                            app += jsonObject1.optInt("apQty");
+                            double up = jsonObject1.getDouble("unitPrice");
 
-                            quanIn += inQts;
-                            quanApp += appQts;
-                            inQts = 0;
-                            appQts = 0;
+                            upIn += jsonObject1.optInt("inQty") * up;
+                            upApp += jsonObject1.optInt("apQty") * up;
+
+//                            quanIn += inQts;
+//                            quanApp += appQts;
+//                            unitPri+=unitP;
+
+//                            inQts = 0;
+//                            appQts = 0;
+//                            unitP=0;
                         }
 
-                        jsonObject.put("poQty", quanPo + (quanIn + quanApp));
+                        jsonObject.put("poQty", quanPo + (in + app));
+                        jsonObject.put("value", upIn + upApp);
                         jsonObject.put("balanceQty", quanBalanceTotal);
                         jsonObject.put("poItemDetails", poItemDetailsArray);
                         jsonObject.put("poAttachments", arrayPoAttachment);
@@ -2054,7 +2081,6 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                     etAddress.setError(null);
                     Editor.putString("Address", etAddress.getText().toString());
                     Editor.commit();
-                    break;
                 default:
                     break;
             }
