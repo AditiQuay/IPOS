@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import quay.com.ipos.R;
-import quay.com.ipos.inventoryTrasfer.modal.TransferOutListModal;
+import quay.com.ipos.inventoryTrasfer.inventoryTransferOut.transferOutModel.TransferOutListModal;
 import quay.com.ipos.utility.Util;
 
 /**

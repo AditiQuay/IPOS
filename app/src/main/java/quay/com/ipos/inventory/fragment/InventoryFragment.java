@@ -48,8 +48,6 @@ import quay.com.ipos.inventory.activity.InventoryGRNStepsActivity;
 import quay.com.ipos.inventory.adapter.CustomAdapter;
 import quay.com.ipos.inventory.modal.NOGetEntityBuisnessPlacesModal;
 import quay.com.ipos.inventory.modal.NoGetEntityResultModal;
-import quay.com.ipos.inventoryTrasfer.transferOut.EditTransferOutActivity;
-import quay.com.ipos.inventoryTrasfer.transferOut.TransferOutListActivity;
 import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.realmbean.RealmController;
