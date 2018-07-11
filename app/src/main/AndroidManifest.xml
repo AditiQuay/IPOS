@@ -346,7 +346,14 @@
             android:name=".inventory.activity.EditExpandablePODetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".inventoryTrasfer.transferOut.EditTransferOutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".inventoryTrasfer.transferOut.TransferOutListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".inventory.activity.InventoryItemAddNewOrderActivity"
             android:screenOrientation="portrait"
