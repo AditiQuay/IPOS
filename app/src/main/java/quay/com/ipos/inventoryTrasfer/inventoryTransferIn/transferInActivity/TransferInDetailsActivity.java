@@ -21,18 +21,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-
 import io.realm.Realm;
 import quay.com.ipos.R;
-import quay.com.ipos.inventory.fragment.InventoryProduct;
-import quay.com.ipos.inventory.modal.GrnItemQtyModel;
 import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInAdapter.TransferInItemAdapter;
 import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail;
 import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.TransferInItemQtyModel;
@@ -43,7 +38,6 @@ import quay.com.ipos.realmbean.RealmController;
 import quay.com.ipos.ui.CustomTextView;
 import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.Util;
-
 import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_INDIA;
 
 
