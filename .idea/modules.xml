@@ -3,7 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/IPOS.iml" filepath="$PROJECT_DIR$/IPOS.iml" />
+<<<<<<< HEAD
+=======
+      <module fileurl="file://C:\Users\Ankush.bansal\AndroidStudioProjects\ipos_project_final\IPOS\app\IPOS-app.iml" filepath="C:\Users\Ankush.bansal\AndroidStudioProjects\ipos_project_final\IPOS\app\IPOS-app.iml" />
+>>>>>>> a8664374b5683efa4525ad245c324655ed386e71
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Ankush.bansal\AndroidStudioProjects\ipos_project_final\IPOS\app\app.iml" filepath="C:\Users\Ankush.bansal\AndroidStudioProjects\ipos_project_final\IPOS\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/tasklib/tasklib.iml" filepath="$PROJECT_DIR$/tasklib/tasklib.iml" />
       <module fileurl="file://$PROJECT_DIR$/zbar/zbar.iml" filepath="$PROJECT_DIR$/zbar/zbar.iml" />
