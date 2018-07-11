@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import quay.com.ipos.R;
-import quay.com.ipos.partnerConnect.PartnerConnectMain;
+import quay.com.ipos.ddrsales.ddrdetail.DDRCUActivity;
 import quay.com.ipos.partnerConnect.model.BillnDelivery;
 import quay.com.ipos.partnerConnect.model.PCModel;
 import quay.com.ipos.partnerConnect.partnerConnectAdapter.BillingAdapter;
@@ -61,7 +61,7 @@ public class DDRCUBillingAddressFragment extends Fragment {
             return;
         }
 
-        PartnerConnectMain mainActivity = (PartnerConnectMain)getActivity();
+        DDRCUActivity mainActivity = (DDRCUActivity)getActivity();
         mainActivity.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,8 +96,8 @@ public class DDRCUBillingAddressFragment extends Fragment {
     }
 
     private void loadData() {
-        PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
-        partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
+        DDRCUActivity DDRCUActivity = (DDRCUActivity) getActivity();
+        DDRCUActivity.getPcModelData().observe(this, new Observer<PCModel>() {
             @Override
             public void onChanged(@Nullable PCModel pcModel) {
                 mpcModel = pcModel;
@@ -120,7 +120,7 @@ public class DDRCUBillingAddressFragment extends Fragment {
             billnDelivery.ID = 0;
             mpcModel.BillandDelivery.add(billnDelivery);
 
-            PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
+            DDRCUActivity connectMain = (DDRCUActivity) getActivity();
             if (connectMain != null) {
                 connectMain.getPcModelData().setValue(mpcModel);
             }

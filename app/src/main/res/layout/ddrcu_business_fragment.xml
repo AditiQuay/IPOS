@@ -49,6 +49,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/textViewMadatory"
                 android:layout_marginTop="@dimen/dim_4"
+                android:visibility="invisible"
                 android:text="Last Updated : 30 Mar 2018"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/universal_text_size14"
@@ -60,9 +61,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
+            android:layout_marginLeft="@dimen/dim_8"
+            android:layout_marginRight="@dimen/dim_8"
             android:nestedScrollingEnabled="false"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            tools:listitem="@layout/business_item"
+            tools:listitem="@layout/ddr_business_item"
 
             tools:spanCount="2" />
 

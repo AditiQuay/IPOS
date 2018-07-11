@@ -63,12 +63,14 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
 
     private FloatingActionButton fab;
 
+    boolean isMaster;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
-
+        isMaster = getIntent().getBooleanExtra("isMaster", false);
 
         setContentView(R.layout.activity_ddrlist);
 
@@ -76,8 +78,10 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle(getResources().getString(R.string.title_b2b_ddr_select));
-
+        if (isMaster)
+            getSupportActionBar().setTitle(getResources().getString(R.string.title_b2b_ddr_master));
+        else
+            getSupportActionBar().setTitle(getResources().getString(R.string.title_b2b_ddr_select));
 
         findViewById();
         applyInitValues();
@@ -85,7 +89,7 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
         applyLocalValidation();
 
         getServerData();
-   }
+    }
 
 
     @Override
@@ -97,7 +101,7 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-      //  getMenuInflater().inflate(R.menu.main, menu);
+        //  getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -116,9 +120,6 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
     }
 
 
-
-
-
     private void getServerData() {
 
         DDRListReq req = new DDRListReq();
@@ -134,8 +135,8 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
                 }
                 try {
                     if (response.body() != null) {
-                      //  GetDDRList getDDRList = response.body();
-                      //  List<DDRInvoiceData> ddrInvoiceDataList=IPOSApplication.getDatabase().ddrInvoiceDao().fetchAllData();
+                        //  GetDDRList getDDRList = response.body();
+                        //  List<DDRInvoiceData> ddrInvoiceDataList=IPOSApplication.getDatabase().ddrInvoiceDao().fetchAllData();
                         mutableLiveData.setValue(response.body());
                     }
                 } catch (Exception e) {
@@ -156,9 +157,6 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
     }
 
 
-
-
-
     private void filter(String charText, List<DDR> responseList) {
         if (filterDDRList != null && responseList != null) {
             charText = charText.toLowerCase(Locale.getDefault());
@@ -172,7 +170,8 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
                         if (wp.mDDRName.toLowerCase(Locale.getDefault()).contains(charText)) {
                             filterDDRList.add(wp);
                         }
-                    }if (wp.mDDRCode != null) {
+                    }
+                    if (wp.mDDRCode != null) {
 
                         if (wp.mDDRCode.toLowerCase(Locale.getDefault()).contains(charText)) {
                             filterDDRList.add(wp);
@@ -186,6 +185,12 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
     @Override
     public void findViewById() {
         fab = findViewById(R.id.fab);
+        if (isMaster) {
+            fab.setVisibility(View.VISIBLE);
+        } else {
+            fab.setVisibility(View.GONE);
+
+        }
 
         searchView = findViewById(R.id.searchView);
         tvClear = findViewById(R.id.tvClear);
@@ -207,13 +212,14 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
         ddrAdapter = new DDRAdapter(activity, filterDDRList, new DDRAdapter.OnDDRSelectListener() {
             @Override
             public void onSelect(DDR ddr) {
+                if (!isMaster) {
+                    InvoiceData.getInstance().cleanData();
+                    new RealmController().clearRealm(DDRProduct.class);
 
-                InvoiceData.getInstance().cleanData();
-                new RealmController().clearRealm(DDRProduct.class);
-
-                Intent mIntent = new Intent(activity, DDRCartDetails.class);
-                mIntent.putExtra("ddr", ddr);
-                startActivityForResult(mIntent, 1);
+                    Intent mIntent = new Intent(activity, DDRCartDetails.class);
+                    mIntent.putExtra("ddr", ddr);
+                    startActivityForResult(mIntent, 1);
+                }
             }
         });
         recyclerView.setAdapter(ddrAdapter);
@@ -255,11 +261,19 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent intent = new Intent(activity, DDRCUActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(activity, DDRCUActivity.class);
+                startActivityForResult(intent, 0);
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            getServerData();
+        }
     }
 
     @Override
@@ -298,6 +312,7 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
     public boolean applyLocalValidation() {
         return false;
     }
+
     public MutableLiveData<GetDDRList> getLiveServerData() {
         return mutableLiveData;
     }

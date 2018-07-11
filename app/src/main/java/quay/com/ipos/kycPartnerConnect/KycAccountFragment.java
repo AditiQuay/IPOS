@@ -216,7 +216,7 @@ public class KycAccountFragment extends Fragment implements InitInterface, View.
                     quay.com.ipos.partnerConnect.model.Account account = mpcModel.Account.get(0);
                     if (account.cheques != null) {
                         Cheques cheques = new Cheques();
-                        cheques.mSecurityCheque = "Yes";
+                        //cheques.mSecurityCheque = "Yes";
                         account.cheques.add(cheques);
 
                         KYCMain connectMain = (KYCMain) getActivity();

@@ -73,6 +73,8 @@ public interface APIService {
     @POST(IPOSAPI.DDR_GetDDRList)
     Call<GetDDRList> DDR_GetDDRList(@Body DDRListReq req);
 
+    @POST(IPOSAPI.DDR_CREATE_AND_UPDATE_API)
+    Call<PartnerConnectUpdateResponse> DDR_CREATE_AND_UPDATE_API(@Body PCModel pcModel);
 
     @POST(IPOSAPI.DDR_GetDDRProductList)
     Call<DDRProductListResponse> DDR_GetDDRProductList(@Body DDRProductReq req);

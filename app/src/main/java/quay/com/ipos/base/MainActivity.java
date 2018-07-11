@@ -71,6 +71,7 @@ import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.local.dao.MostUsedFunDao;
 import quay.com.ipos.data.local.entity.MostUsed;
+import quay.com.ipos.ddrsales.DDRListActivity;
 import quay.com.ipos.ddrsales.DDROrderCenterActivity;
 import quay.com.ipos.enums.CustomerEnum;
 import quay.com.ipos.helper.DatabaseHandler;
@@ -374,7 +375,7 @@ public class MainActivity extends BaseActivity
                     JSONArray jsonArray1 = jsonObject.optJSONArray("data");
                     if (jsonObject.has("key") && jsonArray1.length() > 0 && !Util.validateString(textViewMyBusiness.getText().toString())) {
                         textViewMyBusiness.setText(jsonArray.optJSONObject(i).optString("userName"));
-                        textViewAccount.setText(jsonArray.optJSONObject(i).optString("account"));
+                       // textViewAccount.setText(jsonArray.optJSONObject(i).optString("account"));
                     }
                     if (jsonObject.has("key") && jsonArray1.length() > 0) {
                         modal.setName(jsonObject.optString("key"));
@@ -698,6 +699,13 @@ public class MainActivity extends BaseActivity
                 startActivity(intentKYC);
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
+                case "DDR Master":
+                // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
+                Intent intentDDRMaster = new Intent(mContext, DDRListActivity.class);
+                    intentDDRMaster.putExtra("isMaster", true);
+                startActivity(intentDDRMaster);
+                menu1.findItem(R.id.action_filter).setVisible(false);
+                break;
 
 
         }
@@ -942,7 +950,7 @@ public class MainActivity extends BaseActivity
                 if (matchKey.equalsIgnoreCase(key)) {
                     JSONArray jsonArray1 = jsonObject.optJSONArray("data");
                //     textViewMyBusiness.setText(jsonObject.optString("userName"));
-                    textViewAccount.setText(jsonObject.optString("account"));
+               //     textViewAccount.setText(jsonObject.optString("account"));
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         MenuModal menuModal = new MenuModal();
                         JSONObject jsonObject1 = jsonArray1.optJSONObject(j);
@@ -1136,6 +1144,12 @@ public class MainActivity extends BaseActivity
         try {
             if (position < 2) {
                 imageViewProfileDummy.setImageResource(drawableIdArray[position]);
+            }
+
+            if (position == 0) {
+                textViewAccount.setText(R.string.pss);
+            } if (position == 1) {
+                textViewAccount.setText(R.string.ipos_business);
             }
 
             currentType = position;

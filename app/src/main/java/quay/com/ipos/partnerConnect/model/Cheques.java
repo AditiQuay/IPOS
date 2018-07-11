@@ -6,7 +6,7 @@ public class Cheques {
     public int ID;
     public String EntityBankAcHoderID;
 
-    public String mSecurityCheque;
+   // public String mSecurityCheque;
 
     @SerializedName("entitydrawnAccount")
     public String mDrawnAccountNo;

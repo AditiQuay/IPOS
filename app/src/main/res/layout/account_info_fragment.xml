@@ -195,9 +195,9 @@
                                     app:ms_enableFloatingLabel="true"
                                     app:ms_errorColor="@color/red"
                                     app:ms_floatingLabelColor="@color/grey"
-                                    app:ms_floatingLabelText="Key Contact Position *"
+                                    app:ms_floatingLabelText="Account Type *"
                                     app:ms_highlightColor="@color/highlight"
-                                    app:ms_hint="Key Contact Position *"
+                                    app:ms_hint="Account Type *"
                                     app:ms_hintColor="@color/grey"
                                     android:nextFocusForward="@+id/editBankName"
 

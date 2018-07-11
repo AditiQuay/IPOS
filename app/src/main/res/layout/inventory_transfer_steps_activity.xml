@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background_color"
@@ -87,6 +86,7 @@
                             android:background="@color/app_theme_color" />
 
                         <LinearLayout
+                            android:id="@+id/lLayoutShipment"
                             android:layout_width="0dp"
                             android:layout_height="100dp"
                             android:layout_weight="1"
@@ -94,6 +94,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvShipment"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:background="@drawable/text_view_circle_grey"
@@ -120,6 +121,7 @@
                             android:background="@color/app_theme_color" />
 
                         <LinearLayout
+                            android:id="@+id/lLayoutTransferIn"
                             android:layout_width="0dp"
                             android:layout_height="100dp"
                             android:layout_weight="1"
@@ -127,6 +129,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvTransferIn"
                                 android:layout_width="40dp"
                                 android:layout_height="40dp"
                                 android:background="@drawable/text_view_circle_grey"
@@ -144,7 +147,6 @@
                                 android:textColor="@color/dashboard_textcolor" />
 
                         </LinearLayout>
-
 
                     </LinearLayout>
                 </LinearLayout>
@@ -166,11 +168,11 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/tvPoNumber"
+                            android:id="@+id/tvTransferNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/titilliumwebregular"
-                            android:text="PO180001"
+                            android:text="TR180001"
                             android:textColor="@color/colorPrimary"
                             android:textSize="@dimen/dim_14"
                             android:visibility="visible" />
@@ -208,16 +210,18 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/rLayoutView">
+                        android:layout_below="@+id/rLayoutView"
+                        android:baselineAligned="false">
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="@dimen/dim_2">
 
                             <TextView
-                                android:id="@+id/poCount"
+                                android:id="@+id/tranferOutCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -225,12 +229,13 @@
                                 android:text="13" />
 
                             <TextView
-                                android:id="@+id/poQtyCountHeading"
-                                android:layout_width="wrap_content"
+                                android:id="@+id/transferOutCountHeading"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:fontFamily="@font/titilliumwebregular"
-                                android:text="PO QTY" />
+                                android:gravity="center"
+                                android:text="Transfer Out QTY" />
 
                             <View
                                 android:layout_width="match_parent"
@@ -248,11 +253,12 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/colorPrimary_100"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="@dimen/dim_2">
 
 
                             <TextView
-                                android:id="@+id/grnCount"
+                                android:id="@+id/tranferInCount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -260,12 +266,13 @@
                                 android:text="0" />
 
                             <TextView
-                                android:id="@+id/grnQtyCountHeading"
+                                android:id="@+id/transferInCountHeading"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
                                 android:fontFamily="@font/titilliumwebregular"
-                                android:text="GRN QTY" />
+                                android:gravity="center"
+                                android:text="Transfer In QTY" />
 
                             <View
                                 android:layout_width="match_parent"
@@ -279,9 +286,10 @@
 
                         <LinearLayout
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="@dimen/dim_2">
 
                             <TextView
                                 android:id="@+id/apCount"
@@ -308,13 +316,33 @@
                                 android:foregroundGravity="bottom"
                                 android:visibility="invisible" />
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dim_2"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/dim_8"
+                                android:background="@color/colorPrimary"
+                                android:foregroundGravity="bottom"
+                                android:visibility="invisible" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dim_2"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/dim_8"
+                                android:background="@color/colorPrimary"
+                                android:foregroundGravity="bottom"
+                                android:visibility="invisible" />
+
                         </LinearLayout>
+
 
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:padding="@dimen/dim_2">
 
                             <TextView
                                 android:id="@+id/balanceQtyCount"
@@ -341,13 +369,31 @@
                                 android:foregroundGravity="bottom"
                                 android:visibility="invisible" />
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dim_2"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/dim_8"
+                                android:background="@color/colorPrimary"
+                                android:foregroundGravity="bottom"
+                                android:visibility="invisible" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dim_2"
+                                android:layout_gravity="bottom"
+                                android:layout_marginTop="@dimen/dim_8"
+                                android:background="@color/colorPrimary"
+                                android:foregroundGravity="bottom"
+                                android:visibility="invisible" />
+
                         </LinearLayout>
                     </LinearLayout>
 
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/llgrnn"
+                    android:id="@+id/rGrn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dim_4"
@@ -388,53 +434,12 @@
 
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycleviewCard"
+                    android:id="@+id/recycleviewList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/dim_4"
-                    android:visibility="gone"
-                    tools:listitem="@layout/inventory_grn_list_childs">
+                    android:visibility="gone" />
 
-
-                </android.support.v7.widget.RecyclerView>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycleview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-                </android.support.v7.widget.RecyclerView>
-
-                <LinearLayout
-                    android:id="@+id/llQCList"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-
-                    <TextView
-                        android:id="@+id/tvQCNumberCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/titilliumwebregular"
-                        android:text="QC (0)"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/dim_14"
-                        android:visibility="visible" />
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycleviewQC"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="8dp">
-
-
-                    </android.support.v7.widget.RecyclerView>
-                </LinearLayout>
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>

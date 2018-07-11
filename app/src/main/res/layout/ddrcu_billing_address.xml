@@ -46,6 +46,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/textViewMadatory"
                 android:layout_marginTop="@dimen/dim_4"
+                android:visibility="invisible"
                 android:text="Last Updated : 30 Mar 2018"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/universal_text_size14"

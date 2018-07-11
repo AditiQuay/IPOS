@@ -736,9 +736,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 String address = SharedPreferences.getString("Address", "");
 
 
-                if (TextUtils.isEmpty(receivedDate)){
+                if (TextUtils.isEmpty(receivedDate)) {
                     et_received_date.setText(realmGRNDetails.getReceivedDate());
-                }else{
+                } else {
                     et_received_date.setText(receivedDate);
                 }
 
@@ -1849,7 +1849,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                             quanBalanceTotal += jsonObject1.optInt("balanceQty");
                             in += jsonObject1.optInt("inQty");
                             app += jsonObject1.optInt("apQty");
-                            double up = jsonObject2.getDouble("unitPrice");
+                            double up = jsonObject1.getDouble("unitPrice");
 
                             upIn += jsonObject1.optInt("inQty") * up;
                             upApp += jsonObject1.optInt("apQty") * up;

@@ -20,12 +20,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.ddrsales.ddrdetail.DDRCUActivity;
+import quay.com.ipos.ddrsales.ddrdetail.adapter.DDRDUBusinessAdapter;
 import quay.com.ipos.listeners.InitInterface;
-import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.partnerConnect.model.BusinessLocation;
 import quay.com.ipos.partnerConnect.model.KeyBusinessInfo;
 import quay.com.ipos.partnerConnect.model.PCModel;
-import quay.com.ipos.partnerConnect.partnerConnectAdapter.BusinessAdapter;
 import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.FontUtil;
 
@@ -45,7 +45,7 @@ public class DDRCU_BusinessFragment extends Fragment implements InitInterface, V
    // private View fab;
     private Button btnAdd;
     PCModel mpcModel;
-    private BusinessAdapter businessAdapter;
+    private DDRDUBusinessAdapter businessAdapter;
 
 
 
@@ -77,10 +77,10 @@ public class DDRCU_BusinessFragment extends Fragment implements InitInterface, V
     }
 
     private void loadData() {
-        PartnerConnectMain partnerConnectMain = (PartnerConnectMain) getActivity();
-        if (partnerConnectMain != null) {
+        DDRCUActivity DDRCUActivity = (DDRCUActivity) getActivity();
+        if (DDRCUActivity != null) {
 
-            partnerConnectMain.getPcModelData().observe(this, new Observer<PCModel>() {
+            DDRCUActivity.getPcModelData().observe(this, new Observer<PCModel>() {
                 @Override
                 public void onChanged(@Nullable PCModel pcModel) {
 
@@ -113,21 +113,11 @@ public class DDRCU_BusinessFragment extends Fragment implements InitInterface, V
         textViewLastUpdated = view.findViewById(R.id.textViewLastUpdated);
         recyclerViewBusinessInfo = view.findViewById(R.id.recyclerViewBusinessInfo);
         lLayoutBottom = view.findViewById(R.id.lLayoutBottom);
-//        fab = getActivity().findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                onClick(view);
-//            }
-//        });
-        businessAdapter = new BusinessAdapter(getActivity());
+
+        businessAdapter = new DDRDUBusinessAdapter(getActivity());
         recyclerViewBusinessInfo.setAdapter(businessAdapter);
 
-       /* try {
-            fab.setOnClickListener(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
+
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +188,7 @@ public class DDRCU_BusinessFragment extends Fragment implements InitInterface, V
           //  businessAdapter.loadData(mpcModel.Business.keyBusinessInfo);
 
 
-            PartnerConnectMain connectMain = (PartnerConnectMain) getActivity();
+            DDRCUActivity connectMain = (DDRCUActivity) getActivity();
             if (connectMain != null) {
 
                 connectMain.getPcModelData().setValue(mpcModel);
