@@ -87,7 +87,6 @@ import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.Prefs;
 import quay.com.ipos.utility.SharedPrefUtil;
-import quay.com.ipos.utility.Util;
 
 import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_INDIA;
 import static quay.com.ipos.utility.DateAndTimeUtil.DATE_AND_TIME_FORMAT_SIMPLE;
@@ -347,7 +346,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e(TAG,"OnStop called");
+        Log.e(TAG, "OnStop called");
     }
 
     @Override
@@ -736,9 +735,9 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
                 String address = SharedPreferences.getString("Address", "");
 
 
-                if (TextUtils.isEmpty(receivedDate)){
+                if (TextUtils.isEmpty(receivedDate)) {
                     et_received_date.setText(realmGRNDetails.getReceivedDate());
-                }else{
+                } else {
                     et_received_date.setText(receivedDate);
                 }
 

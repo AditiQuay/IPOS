@@ -526,5 +526,6 @@
     <string name="pss">Partner Self Service</string>
     <string name="ipos_business">My Business</string>
     <string name="title_b2b_ddr_master">DDR Master</string>
+    <string name="inventory_toolbar_text">Inventory</string>
 
 </resources>

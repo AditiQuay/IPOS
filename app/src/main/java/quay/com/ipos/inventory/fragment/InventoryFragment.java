@@ -48,6 +48,8 @@ import quay.com.ipos.inventory.activity.InventoryGRNStepsActivity;
 import quay.com.ipos.inventory.adapter.CustomAdapter;
 import quay.com.ipos.inventory.modal.NOGetEntityBuisnessPlacesModal;
 import quay.com.ipos.inventory.modal.NoGetEntityResultModal;
+import quay.com.ipos.inventoryTrasfer.TransferStepsActivity;
+import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInActivity.TransferInDetailsActivity;
 import quay.com.ipos.modal.NewOrderPinnedResults;
 import quay.com.ipos.modal.OrderList;
 import quay.com.ipos.realmbean.RealmController;
@@ -121,6 +123,8 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
             @Override
             public void onClick(View view) {
                 if (Util.validateString(edtPoNumber.getText().toString().trim())) {
+//                    Intent i = new Intent(mContext, TransferStepsActivity.class);
+//                    startActivity(i);
 
                     Intent i = new Intent(getActivity(), InventoryGRNStepsActivity.class);
                     i.putExtra("request", prepareJson().toString());
@@ -161,7 +165,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
 */
 
     private void initializeComponent(View rootView) {
-        rlNewView=rootView.findViewById(R.id.rlNewView);
+        rlNewView = rootView.findViewById(R.id.rlNewView);
         btnAddNew = rootView.findViewById(R.id.btnAddNew);
         swchInventory = rootView.findViewById(R.id.swchInventory);
         swchPOAvailable = rootView.findViewById(R.id.swchPOAvailable);

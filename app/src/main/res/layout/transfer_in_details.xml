@@ -101,7 +101,7 @@
             </RelativeLayout>
 
             <include
-                layout="@layout/grn_qty"
+                layout="@layout/tranfer_in_detail_grn_qty"
                 android:visibility="gone" />
 
             <RelativeLayout
@@ -164,15 +164,13 @@
                     android:alpha="0.7"
                     android:paddingEnd="@dimen/dim_10"
                     android:paddingRight="@dimen/dim_10"
-                    android:src="@drawable/add_circle"
-                    />
-
+                    android:src="@drawable/add_circle" />
 
 
             </RelativeLayout>
 
             <include
-                layout="@layout/items_details"
+                layout="@layout/transfer_in_items_details"
                 android:visibility="gone" />
 
             <RelativeLayout
@@ -228,54 +226,26 @@
             </RelativeLayout>
 
             <include
-                layout="@layout/transporter"
+                layout="@layout/tranfer_in_transporter"
                 android:visibility="gone" />
 
-            <include
-                layout="@layout/grn_attachment"
-                android:visibility="gone" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-    <LinearLayout
-        android:id="@+id/bottom_sheet"
+
+    <Button
+        android:id="@+id/btnSave"
+        style="@style/styleWhiteTextColor14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:baselineAligned="false"
-        android:clickable="true"
-        android:clipToPadding="true">
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/titilliumwebregular"
+        android:gravity="end|center_vertical"
+        android:paddingRight="@dimen/dim_8"
+        android:stateListAnimator="@null"
+        android:text="@string/ddr_submit"
+        android:textAllCaps="true" />
 
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="@dimen/dim_4">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center">
-
-                <Button
-                    android:id="@+id/btnSave"
-                    style="@style/styleWhiteTextColor14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:fontFamily="@font/titilliumwebregular"
-                    android:gravity="end"
-                    android:paddingRight="@dimen/dim_8"
-                    android:stateListAnimator="@null"
-                    android:text="@string/ddr_submit"
-                    android:textAllCaps="true" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
 </RelativeLayout>

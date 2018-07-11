@@ -159,7 +159,8 @@
                     android:background="@drawable/white_background"
                     android:paddingLeft="@dimen/dim_4"
                     android:paddingRight="@dimen/dim_4"
-                    android:paddingTop="@dimen/dim_4">
+                    android:paddingTop="@dimen/dim_4"
+                    android:visibility="gone">
 
                     <RelativeLayout
                         android:id="@+id/grnHeading"
@@ -392,12 +393,13 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/llgrnn"
+                    android:id="@+id/rGrn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dim_4"
                     android:background="@drawable/white_background"
-                    android:padding="@dimen/dim_8">
+                    android:padding="@dimen/dim_8"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tvGrnNumberCount"
@@ -436,7 +438,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="@dimen/dim_4"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
             </LinearLayout>
 
