@@ -545,5 +545,7 @@
     <string name="invalid_basic_price">Enter Basic Price</string>
     <string name="product_name">Product Name</string>
     <string name="other_details">Other Details</string>
+    <string name="paid_by_points">Paid by Points</string>
+    <string name="points_value">Points Value</string>
 
 </resources>

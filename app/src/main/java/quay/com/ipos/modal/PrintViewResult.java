@@ -314,6 +314,28 @@ public class PrintViewResult {
         @SerializedName("expiryDate")
         @Expose
         private String expiryDate;
+        @SerializedName("pointsToRedeem")
+        @Expose
+        private String pointsToRedeem;
+        @SerializedName("pointsToRedeemValue")
+        @Expose
+        private String pointsToRedeemValue;
+
+        public String getPointsToRedeem() {
+            return pointsToRedeem;
+        }
+
+        public void setPointsToRedeem(String pointsToRedeem) {
+            this.pointsToRedeem = pointsToRedeem;
+        }
+
+        public String getPointsToRedeemValue() {
+            return pointsToRedeemValue;
+        }
+
+        public void setPointsToRedeemValue(String pointsToRedeemValue) {
+            this.pointsToRedeemValue = pointsToRedeemValue;
+        }
 
         public String getOrderNo() {
             return orderNo;

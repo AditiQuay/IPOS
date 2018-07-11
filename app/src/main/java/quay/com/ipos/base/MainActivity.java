@@ -960,8 +960,6 @@ public class MainActivity extends BaseActivity
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.optJSONObject(i);
                 String matchKey = jsonObject.optString("key");
-
-
                 if (matchKey.equalsIgnoreCase(key)) {
                     JSONArray jsonArray1 = jsonObject.optJSONArray("data");
                //     textViewMyBusiness.setText(jsonObject.optString("userName"));

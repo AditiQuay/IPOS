@@ -618,6 +618,13 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         mPaymentsDetail.setCardType(mPDetail.getDetailInfo().get(k).getCardType());
                     }
                 }
+                if(mPDetail.getPaymentType().equalsIgnoreCase("points")) {
+                    for (int k = 0; k < mPDetail.getDetailInfo().size(); k++) {
+                        mPaymentsDetail.setModeOfPayment(mPDetail.getPaymentType());
+                        mPaymentsDetail.setPointsToRedeem(mPDetail.getDetailInfo().get(k).getPointsToRedeem()+"");
+                        mPaymentsDetail.setPointsToRedeemValue(mPDetail.getDetailInfo().get(k).getPointsValue()+"");
+                    }
+                }
 
                 paymentsDetails.add(mPaymentsDetail);
             }
@@ -769,9 +776,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                                 mDetailInfo1.setCardLastDigits("");
                                 mDetailInfo1.setCardType("");
                                 mDetailInfo1.setCardTxnId("");
-                                mDetailInfo.setPointsValue(IPOSApplication.totalpointsToRedeemValue);
-                                mDetailInfo.setPointsToRedeem(IPOSApplication.totalpointsToRedeem);
-                                mDetailInfo.setPointsOtp(etOTP.getText().toString());
+                                mDetailInfo1.setPointsValue(IPOSApplication.totalpointsToRedeemValue);
+                                mDetailInfo1.setPointsToRedeem(IPOSApplication.totalpointsToRedeem);
+                                mDetailInfo1.setPointsOtp(etOTP.getText().toString());
                                 detailInfo2.add(mDetailInfo1);
                                 paymentDetail.setDetailInfo(detailInfo2);
                                 arrPaymentDetail.add(paymentDetail);
@@ -1244,11 +1251,16 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
 //                            if(totalAmount>)
 //                    etPointToRedeem.setText("");
 //                    etRedeemValue.setText(redeemValue + "");
-
+                    etPointToRedeem.setEnabled(true);
+                    etRedeemValue.setEnabled(true);
+                    redeemed=false;
                 } else {
                     etPointToRedeem.setText(IPOSApplication.totalpointsToRedeem + "");
                     etRedeemValue.setText(IPOSApplication.totalpointsToRedeemValue + "");
                     buttonSendOtp.setEnabled(false);
+                    etPointToRedeem.setEnabled(false);
+                    etRedeemValue.setEnabled(false);
+                    redeemed=true;
                     llVerifyRedeem.setVisibility(View.GONE);
                     buttonSendOtp.setBackgroundResource(R.drawable.button_rectangle_light_gray);
                     Util.showToast("Redeem already applied!", PaymentModeActivity.this);
