@@ -190,17 +190,17 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
         tvRoundingOffPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getRoundingOff()));
         tvSaleValue.setText(Util.getIndianNumberFormatWithout(Double.parseDouble(mPrintViewResult.getTotalSaleAmount()))+"");
         tvTotalGSTValue.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalIgst()));
-        try {
-            if(!mPrintViewResult.getTotalPointsToRedeem().equalsIgnoreCase("")){
-                llRedeem.setVisibility(View.VISIBLE);
-                tvTotalRedeemValue.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalPointsToRedeemValue()));
-                tvTotalPoints.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalPointsToRedeem()));
-            }else {
-                llRedeem.setVisibility(View.GONE);
-            }
-        }catch (Exception e){
-
-        }
+//        try {
+//            if(!mPrintViewResult.getTotalPointsToRedeem().equalsIgnoreCase("")){
+//                llRedeem.setVisibility(View.VISIBLE);
+//                tvTotalRedeemValue.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalPointsToRedeemValue()));
+//                tvTotalPoints.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalPointsToRedeem()));
+//            }else {
+//                llRedeem.setVisibility(View.GONE);
+//            }
+//        }catch (Exception e){
+//
+//        }
 //        if(mPrintViewResult.get)
 //        }catch (Exception e){
 //

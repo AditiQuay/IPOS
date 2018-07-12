@@ -550,5 +550,13 @@
     <string name="paid_by_points">Paid by Points</string>
     <string name="points_value">Points Value</string>
     <string name="offer_discount">Offer Discount</string>
+    <string name="lob">LOB</string>
+    <string name="distribution_channel">Distribution Channel</string>
+    <string name="customer_group">Customer Group</string>
+    <string name="zone">Zone</string>
+    <string name="customer">Customer</string>
+    <string name="territory">Territory</string>
+    <string name="region">Region</string>
+    <string name="state">State</string>
 
 </resources>

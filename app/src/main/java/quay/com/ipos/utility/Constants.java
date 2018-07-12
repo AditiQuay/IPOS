@@ -45,6 +45,7 @@ public class Constants {
     public static final String format7 = "dd/MM/yyyy hh:mm:ss a";
     public static final String format12 = "MM/dd/yyyy hh:mm:ss a";
     public static final String format15 = "hh:mm:ss a";
+    public static final String format16 = "hh:mm a";
     public static final SimpleDateFormat format13 = new SimpleDateFormat("dd-MMM-yy");
     public static final SimpleDateFormat format10 = new SimpleDateFormat(Constants.format5);
     public static final String format = "dd/MMM/yyyy";
