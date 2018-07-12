@@ -9,9 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -38,7 +38,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
-import quay.com.ipos.inventory.activity.ExpandablePODetailsActivity;
+import quay.com.ipos.inventory.activity.InventoryGRNDetails;
 import quay.com.ipos.inventory.adapter.AttachmentsPOListAdapter;
 import quay.com.ipos.inventory.adapter.INCOTermsPOListAdapter;
 import quay.com.ipos.inventory.adapter.ItemsDetailsPOListAdapter;
@@ -51,27 +51,31 @@ import quay.com.ipos.inventory.modal.POItemDetail;
 import quay.com.ipos.inventory.modal.POPaymentTerms;
 import quay.com.ipos.inventory.modal.POTermsCondition;
 import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInActivity.TransferInDetailsActivity;
+import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInAdapter.TransferInStepsAdapter;
+import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.TransferInListDataModel;
 import quay.com.ipos.listeners.InitInterface;
+import quay.com.ipos.listeners.LayoutClickListener;
 import quay.com.ipos.modal.MenuModal;
 import quay.com.ipos.service.APIClient;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.SharedPrefUtil;
 import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 7/6/2018.
  */
 
-public class TransferStepsActivity extends AppCompatActivity implements InitInterface, View.OnClickListener {
+public class TransferStepsActivity extends AppCompatActivity implements InitInterface, View.OnClickListener, LayoutClickListener {
     private static final String TAG = TransferStepsActivity.class.getSimpleName();
     private Context mContext;
     private Toolbar toolbar;
     //Tab
-    private LinearLayout lLayTransferOut, lLayoutShipment, lLayoutTransferIn,llShipment,llPODetailsShipment;
+    private LinearLayout lLayTransferOut, lLayoutShipment, lLayoutTransferIn, llShipment, llPODetailsShipment;
     private TextView tvTransferOut, tvShipment, tvTransferIn;
 
     //TransferIn id's
-    private RelativeLayout rlTab, llgrnn,rShipment;
+    private RelativeLayout rlTab, llgrnn, rShipment;
     private TextView tvTransferNumber, tvOpen, tranferOutCount, tranferInCount, apCount, balanceQtyCount;
 
 
@@ -86,41 +90,61 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
     //CustomExpandableListAdapter expandableListAdapter;
     List<String> expandableListTitle;
     LinkedHashMap<MenuModal, List<InventoryPOModal>> expandableListDetail = new LinkedHashMap<MenuModal, List<InventoryPOModal>>();
-    LinearLayout llTermsC,llAttachments,llTRans,llItemsDetails,llIncoTerms,llPaymentTerms;
+    LinearLayout llTermsC, llAttachments, llTRans, llItemsDetails, llIncoTerms, llPaymentTerms;
     RelativeLayout lTransporter;
-    RelativeLayout POHashitems,POitemsDetails,POIncoTerms,POPaymentTerms,POTermsandCondition,POAttachment;
-    EditText edtPoNumber,edtPoDate,edtPoValDate,edtPoValue,edtPoGST,edtSupplierName,edtSupGSTIN,edtDeliveryAddress;
-    private RecyclerView recycler_viewItemDetail,recycler_viewInco,recycler_viewPayment,recycler_viewTerms,recycler_viewAttachment;
+    RelativeLayout POHashitems, POitemsDetails, POIncoTerms, POPaymentTerms, POTermsandCondition, POAttachment;
+    EditText edtPoNumber, edtPoDate, edtPoValDate, edtPoValue, edtPoGST, edtSupplierName, edtSupGSTIN, edtDeliveryAddress;
+    private RecyclerView recycler_viewItemDetail, recycler_viewInco, recycler_viewPayment, recycler_viewTerms, recycler_viewAttachment;
     ItemsDetailsPOListAdapter itemListDataAdapter;
     INCOTermsPOListAdapter incoTermsPOListAdapter;
     MilestonePOListAdapter milestonePOListAdapter;
     TermsPOListAdapter termsPOListAdapter;
     AttachmentsPOListAdapter attachmentsPOListAdapter;
     Context context;
-    ArrayList<POItemDetail> poItemDetails=new ArrayList<>();
-    ArrayList<POIncoTerms> poIncoTerms=new ArrayList<>();
-    ArrayList<POPaymentTerms> poPaymentTerms=new ArrayList<>();
-    ArrayList<POTermsCondition> poTermsConditions=new ArrayList<>();
-    ArrayList<POAttachments> poAttachments=new ArrayList<>();
-    String poNumber,businessPlaceId;
-    private TextView tvHeaderPoNumber,tvHeaderPOItemDetail;
+    ArrayList<POItemDetail> poItemDetails = new ArrayList<>();
+    ArrayList<POIncoTerms> poIncoTerms = new ArrayList<>();
+    ArrayList<POPaymentTerms> poPaymentTerms = new ArrayList<>();
+    ArrayList<POTermsCondition> poTermsConditions = new ArrayList<>();
+    ArrayList<POAttachments> poAttachments = new ArrayList<>();
+    String poNumber, businessPlaceId;
+    private TextView tvHeaderPoNumber, tvHeaderPOItemDetail;
     private Spinner spnMilestone;
-    private boolean isPOHeader,isItemDetails,isInco,isPayment,isTerms,isAttachments,isShipment;
-    private ImageView imgri,imgRight,imgPaymentTerms,imgIncoTerms,imgItems,arrowPO,imgShipment;
-    private String supplierName="";
+    private boolean isPOHeader, isItemDetails, isInco, isPayment, isTerms, isAttachments, isShipment;
+    private ImageView imgri, imgRight, imgPaymentTerms, imgIncoTerms, imgItems, arrowPO, imgShipment;
+    private String supplierName = "";
     private TextView toolbarTtile;
-    private EditText edtDocHash,edtDocValue,edtGSTValue,edtSenderGSTIN,edtReceiverGSTIN,edtDocDate,etTruckNumber,etEwayBill,etEWayBillValidity,
-            etName,etLrn,etDriverName,driverMobileNumber,etAddress;
+    private EditText edtDocHash, edtDocValue, edtGSTValue, edtSenderGSTIN, edtReceiverGSTIN, edtDocDate, etTruckNumber, etEwayBill, etEWayBillValidity,
+            etName, etLrn, etDriverName, driverMobileNumber, etAddress;
+    private String empCode;
+    private ArrayList<TransferInListDataModel> transferInListDataModels = new ArrayList<>();
+
+
+    //GRN details
+    private String poNum, poStatus;
+    private int poItemQty, poGRNQty, poAPQty, poBalanceQty;
+    private boolean qcVisible;
+    private TransferInStepsAdapter transferInStepsAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inventory_transfer_steps_activity);
         mContext = TransferStepsActivity.this;
+
+        empCode = Prefs.getStringPrefs(Constants.employeeCode.trim());
+
+
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
+
+//        rlTab.setVisibility(View.VISIBLE);
+//        rGrn.setVisibility(View.VISIBLE);
+//        tvTransferOut.setBackgroundResource(R.drawable.text_view_circle_grey);
+//        tvTransferIn.setBackgroundResource(R.drawable.textview_circle_app_color);
+//        recycleviewList.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -154,8 +178,8 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
 
 
         //transferOut ids
-        llTransferOut=findViewById(R.id.llTransferOut);
-        llShipment=findViewById(R.id.llShipment);
+        llTransferOut = findViewById(R.id.llTransferOut);
+        llShipment = findViewById(R.id.llShipment);
 
         textViewAdd.setOnClickListener(this);
         lLayoutTransferIn.setOnClickListener(this);
@@ -163,11 +187,11 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         lLayoutShipment.setOnClickListener(this);
 
 
-        Intent i=getIntent();
-        if (i!=null){
-            poNumber=i.getStringExtra("poNumber");
-            businessPlaceId=i.getStringExtra("businessPlaceId");
-            supplierName=i.getStringExtra("supplierName");
+        Intent i = getIntent();
+        if (i != null) {
+            poNumber = i.getStringExtra("poNumber");
+            businessPlaceId = i.getStringExtra("businessPlaceId");
+            supplierName = i.getStringExtra("supplierName");
         }
 
 
@@ -188,6 +212,147 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         toolbar.setTitle("Inventory");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
+    }
+
+    private void getTGrnDetails() {
+        final ProgressDialog progressDialog = new ProgressDialog(mContext);
+        JSONObject jsonObject1 = new JSONObject();
+        try {
+            jsonObject1.put("empCode", empCode);
+            jsonObject1.put("businessPlaceId", businessPlaceId);
+            jsonObject1.put("tranID", poNumber);
+            jsonObject1.put("isGRN", false);
+            jsonObject1.put("isGRNOrQC", "NA");
+            jsonObject1.put("tran", "NA");
+
+            progressDialog.show();
+            OkHttpClient okHttpClient = APIClient.getHttpClient();
+            RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
+
+            String url = IPOSAPI.GET_TRANSFER_OUT_GRN_SUMMARY;
+
+            Log.e(TAG, "Url::" + url);
+            final Request request = APIClient.getPostRequest(this, url, requestBody);
+            okHttpClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, final IOException e) {
+                    progressDialog.dismiss();
+
+                }
+
+                @Override
+                public void onResponse(Call call, final Response response) throws IOException {
+                    // dismissProgress();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressDialog.dismiss();
+                        }
+                    });
+                    try {
+                        if (response != null && response.isSuccessful()) {
+                            transferInListDataModels.clear();
+                            String responseData = response.body().string();
+                            Log.e(TAG, "Response***" + responseData);
+
+                            if (responseData != null) {
+                                JSONObject jsonObject = new JSONObject(responseData);
+                                poNum = jsonObject.optString("poNumber");
+                                poStatus = jsonObject.optString("poStatus");
+                                poItemQty = jsonObject.optInt("poItemQty");
+                                poGRNQty = jsonObject.optInt("poGRNQty");
+                                poAPQty = jsonObject.optInt("poAPQty");
+                                poBalanceQty = jsonObject.optInt("poBalanceQty");
+                                qcVisible = jsonObject.optBoolean("qcVisible");
+
+
+                                JSONArray jsonArray = jsonObject.optJSONArray("gRNList");
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    TransferInListDataModel transferInListDataModel = new TransferInListDataModel();
+                                    JSONObject jsonObject2 = jsonArray.optJSONObject(i);
+                                    transferInListDataModel.setGrnNumber(jsonObject2.optString("grnNumber"));
+                                    transferInListDataModel.setGrnStatus(jsonObject2.optString("grnStatus"));
+                                    transferInListDataModel.setGrnDate(jsonObject2.optString("grnDate"));
+                                    transferInListDataModel.setGrnQty(jsonObject2.optInt("grnQty"));
+                                    transferInListDataModel.setGrnAPQty(jsonObject2.optInt("grnAPQty"));
+                                    transferInListDataModel.setGrnValue(jsonObject2.optInt("grnValue"));
+                                    transferInListDataModel.setAttachment(jsonObject2.optBoolean("isAttachment"));
+                                    transferInListDataModel.setAction(jsonObject2.optBoolean("isAction"));
+                                    transferInListDataModels.add(transferInListDataModel);
+                                }
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setGrnData(poNum, poStatus, poItemQty, poGRNQty, poAPQty, poBalanceQty);
+                                    }
+                                });
+
+
+                            }
+
+
+                        } else if (response.code() == Constants.BAD_REQUEST) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mContext, getResources().getString(R.string.error_bad_request), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else if (response.code() == Constants.INTERNAL_SERVER_ERROR) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mContext, getResources().getString(R.string.error_internal_server_error), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else if (response.code() == Constants.URL_NOT_FOUND) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mContext, getResources().getString(R.string.error_url_not_found), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else if (response.code() == Constants.UNAUTHORIZE_ACCESS) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mContext, getResources().getString(R.string.error_unautorize_access), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else if (response.code() == Constants.CONNECTION_OUT) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(mContext, getResources().getString(R.string.error_connection_timed_out), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
+
+                    }
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setGrnData(String poNum, String poStatus, int poItemQty, int poGRNQty, int poAPQty, int poBalanceQty) {
+        tvTransferNumber.setText(poNum);
+        tvOpen.setText(poStatus);
+        tranferOutCount.setText(poItemQty + "");
+        tranferInCount.setText(poGRNQty + "");
+        apCount.setText(poAPQty + "");
+        balanceQtyCount.setText(poBalanceQty + "");
+
+        transferInStepsAdapter = new TransferInStepsAdapter(mContext, transferInListDataModels, this);
+        recycleviewList.setAdapter(transferInStepsAdapter);
     }
 
     @Override
@@ -215,6 +380,9 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         switch (v.getId()) {
             case R.id.textViewAdd:
                 Intent i = new Intent(mContext, TransferInDetailsActivity.class);
+                i.putExtra("poNumber", tvTransferNumber.getText().toString());
+                String supplier = SharedPrefUtil.getString("supplierName","",mContext);
+                i.putExtra("supplierName",supplier);
                 startActivity(i);
 
                 break;
@@ -227,6 +395,8 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
                 recycleviewList.setVisibility(View.VISIBLE);
                 llTransferOut.setVisibility(View.GONE);
                 llShipment.setVisibility(View.GONE);
+
+                getTGrnDetails();
                 break;
             case R.id.lLayTransferOut:
                 rlTab.setVisibility(View.GONE);
@@ -249,24 +419,25 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
                 llShipment.setVisibility(View.VISIBLE);
                 break;
 
+//                getTGrnDetails();
             default:
                 break;
         }
     }
 
-    private void inializeViews(){
-        llPODetailsShipment=findViewById(R.id.llPODetailsShipment);
-        imgShipment=findViewById(R.id.imgShipment);
-        rShipment=findViewById(R.id.rShipment);
-        edtDocHash=findViewById(R.id.edtDocHash);
-        etTruckNumber=findViewById(R.id.etTruckNumber);
-        etEwayBill=findViewById(R.id.etEwayBill);
-        etEWayBillValidity=findViewById(R.id.etEWayBillValidity);
-        etName=findViewById(R.id.etName);
-        etLrn=findViewById(R.id.etLrn);
-        etDriverName=findViewById(R.id.etDriverName);
-        driverMobileNumber=findViewById(R.id.driverMobileNumber);
-        etAddress=findViewById(R.id.etAddress);
+    private void inializeViews() {
+        llPODetailsShipment = findViewById(R.id.llPODetailsShipment);
+        imgShipment = findViewById(R.id.imgShipment);
+        rShipment = findViewById(R.id.rShipment);
+        edtDocHash = findViewById(R.id.edtDocHash);
+        etTruckNumber = findViewById(R.id.etTruckNumber);
+        etEwayBill = findViewById(R.id.etEwayBill);
+        etEWayBillValidity = findViewById(R.id.etEWayBillValidity);
+        etName = findViewById(R.id.etName);
+        etLrn = findViewById(R.id.etLrn);
+        etDriverName = findViewById(R.id.etDriverName);
+        driverMobileNumber = findViewById(R.id.driverMobileNumber);
+        etAddress = findViewById(R.id.etAddress);
 
         etTruckNumber.setEnabled(false);
         etEwayBill.setEnabled(false);
@@ -278,13 +449,12 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         etAddress.setEnabled(false);
 
 
-
-        edtReceiverGSTIN=findViewById(R.id.edtReceiverGSTIN);
-        edtDocValue=findViewById(R.id.edtDocValue);
-        edtGSTValue=findViewById(R.id.edtGSTValue);
-        edtDocDate=findViewById(R.id.edtDocDate);
-        edtSenderGSTIN=findViewById(R.id.edtSenderGSTIN);
-        edtDeliveryAddress=findViewById(R.id.edtDeliveryAddress);
+        edtReceiverGSTIN = findViewById(R.id.edtReceiverGSTIN);
+        edtDocValue = findViewById(R.id.edtDocValue);
+        edtGSTValue = findViewById(R.id.edtGSTValue);
+        edtDocDate = findViewById(R.id.edtDocDate);
+        edtSenderGSTIN = findViewById(R.id.edtSenderGSTIN);
+        edtDeliveryAddress = findViewById(R.id.edtDeliveryAddress);
 
         edtReceiverGSTIN.setEnabled(false);
         edtDocValue.setEnabled(false);
@@ -294,15 +464,15 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         edtDeliveryAddress.setEnabled(false);
 
 
-        includeCardView=findViewById(R.id.includeCardView);
+        includeCardView = findViewById(R.id.includeCardView);
         //  includeCardView.setVisibility(View.GONE);
-        toolbarTtile=findViewById(R.id.toolbarTtile);
-        imgri=findViewById(R.id.imgri);
-        imgRight=findViewById(R.id.imgRight);
-        imgPaymentTerms=findViewById(R.id.imgPaymentTerms);
-        imgIncoTerms=findViewById(R.id.imgIncoTerms);
-        imgItems=findViewById(R.id.imgItems);
-        arrowPO=findViewById(R.id.arrowPO);
+        toolbarTtile = findViewById(R.id.toolbarTtile);
+        imgri = findViewById(R.id.imgri);
+        imgRight = findViewById(R.id.imgRight);
+        imgPaymentTerms = findViewById(R.id.imgPaymentTerms);
+        imgIncoTerms = findViewById(R.id.imgIncoTerms);
+        imgItems = findViewById(R.id.imgItems);
+        arrowPO = findViewById(R.id.arrowPO);
 
         imgri.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
         imgRight.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
@@ -312,55 +482,45 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         arrowPO.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
 
 
+        spnMilestone = findViewById(R.id.spnMilestone);
+        tvHeaderPoNumber = findViewById(R.id.tvHeaderPoNumber);
+        tvHeaderPOItemDetail = findViewById(R.id.tvHeaderPOItemDetail);
+        llTRans = findViewById(R.id.llTRans);
+        llItemsDetails = findViewById(R.id.llItemsDetails);
+        llIncoTerms = findViewById(R.id.llIncoTerms);
 
-        spnMilestone=findViewById(R.id.spnMilestone);
-        tvHeaderPoNumber=findViewById(R.id.tvHeaderPoNumber);
-        tvHeaderPOItemDetail=findViewById(R.id.tvHeaderPOItemDetail);
-        llTRans=findViewById(R.id.llTRans);
-        llItemsDetails=findViewById(R.id.llItemsDetails);
-        llIncoTerms=findViewById(R.id.llIncoTerms);
+        lTransporter = findViewById(R.id.lTransporter);
+        llTermsC = findViewById(R.id.llTermsC);
+        llAttachments = findViewById(R.id.llAttachments);
 
-        lTransporter=findViewById(R.id.lTransporter);
-        llTermsC=findViewById(R.id.llTermsC);
-        llAttachments=findViewById(R.id.llAttachments);
-
-        POHashitems=findViewById(R.id.POHashitems);
-        POitemsDetails=findViewById(R.id.POitemsDetails);
-        POIncoTerms=findViewById(R.id.POIncoTerms);
-        POPaymentTerms=findViewById(R.id.POPaymentTerms);
-        POTermsandCondition=findViewById(R.id.POTermsandCondition);
-        POAttachment=findViewById(R.id.POAttachment);
-
+        POHashitems = findViewById(R.id.POHashitems);
+        POitemsDetails = findViewById(R.id.POitemsDetails);
+        POIncoTerms = findViewById(R.id.POIncoTerms);
+        POPaymentTerms = findViewById(R.id.POPaymentTerms);
+        POTermsandCondition = findViewById(R.id.POTermsandCondition);
+        POAttachment = findViewById(R.id.POAttachment);
 
 
-        edtDeliveryAddress=findViewById(R.id.edtDeliveryAddress);
+        edtDeliveryAddress = findViewById(R.id.edtDeliveryAddress);
 
 
-
-
-
-        edtSupGSTIN=findViewById(R.id.edtSupGSTIN);
-        edtSupplierName=findViewById(R.id.edtSupplierName);
-
+        edtSupGSTIN = findViewById(R.id.edtSupGSTIN);
+        edtSupplierName = findViewById(R.id.edtSupplierName);
 
 
         edtDeliveryAddress.setEnabled(false);
-
-
-
 
 
         edtSupGSTIN.setEnabled(false);
         edtSupplierName.setEnabled(false);
 
 
-
     }
 
-    private void setItemDetails(){
+    private void setItemDetails() {
 
 
-        recycler_viewItemDetail=findViewById(R.id.recycler_viewItemDetail);
+        recycler_viewItemDetail = findViewById(R.id.recycler_viewItemDetail);
         recycler_viewItemDetail.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(TransferStepsActivity.this);
         recycler_viewItemDetail.setLayoutManager(mLayoutManager);
@@ -368,10 +528,10 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         recycler_viewItemDetail.setAdapter(itemListDataAdapter);
     }
 
-    private void setIncoTerms(){
+    private void setIncoTerms() {
 
 
-        recycler_viewInco=findViewById(R.id.recycler_viewInco);
+        recycler_viewInco = findViewById(R.id.recycler_viewInco);
         recycler_viewInco.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(TransferStepsActivity.this);
         recycler_viewInco.setLayoutManager(mLayoutManager);
@@ -379,10 +539,10 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         recycler_viewInco.setAdapter(incoTermsPOListAdapter);
     }
 
-    private void setPaymentTerms(){
+    private void setPaymentTerms() {
 
 
-        recycler_viewPayment=findViewById(R.id.recycler_viewPayment);
+        recycler_viewPayment = findViewById(R.id.recycler_viewPayment);
         recycler_viewPayment.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(TransferStepsActivity.this);
         recycler_viewPayment.setLayoutManager(mLayoutManager);
@@ -390,10 +550,10 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         recycler_viewPayment.setAdapter(milestonePOListAdapter);
     }
 
-    private void setTermsCondition(){
+    private void setTermsCondition() {
 
 
-        recycler_viewTerms=findViewById(R.id.recycler_viewTerms);
+        recycler_viewTerms = findViewById(R.id.recycler_viewTerms);
         recycler_viewTerms.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(TransferStepsActivity.this);
         recycler_viewTerms.setLayoutManager(mLayoutManager);
@@ -402,10 +562,10 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
     }
 
 
-    private void setAttahcments(){
+    private void setAttahcments() {
 
 
-        recycler_viewAttachment=findViewById(R.id.recycler_viewAttachment);
+        recycler_viewAttachment = findViewById(R.id.recycler_viewAttachment);
         recycler_viewAttachment.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(TransferStepsActivity.this);
         recycler_viewAttachment.setLayoutManager(mLayoutManager);
@@ -413,20 +573,20 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         recycler_viewAttachment.setAdapter(attachmentsPOListAdapter);
     }
 
-    private void setLisner(){
+    private void setLisner() {
 
         POHashitems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (!isPOHeader){
+                if (!isPOHeader) {
                     llTRans.setVisibility(View.VISIBLE);
-                    isPOHeader=true;
+                    isPOHeader = true;
                     arrowPO.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
-                }else {
+                } else {
                     arrowPO.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
                     llTRans.setVisibility(View.GONE);
-                    isPOHeader=false;
+                    isPOHeader = false;
                 }
             /*    llItemsDetails.setVisibility(View.GONE);
                 llIncoTerms.setVisibility(View.GONE);
@@ -440,14 +600,14 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         POitemsDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isItemDetails){
+                if (!isItemDetails) {
                     llItemsDetails.setVisibility(View.VISIBLE);
-                    isItemDetails=true;
+                    isItemDetails = true;
                     imgItems.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
-                }else {
+                } else {
                     imgItems.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
                     llItemsDetails.setVisibility(View.GONE);
-                    isItemDetails=false;
+                    isItemDetails = false;
                 }
                 /*llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.VISIBLE);
@@ -461,14 +621,14 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         POIncoTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isInco){
+                if (!isInco) {
                     llIncoTerms.setVisibility(View.VISIBLE);
-                    isInco=true;
+                    isInco = true;
                     imgIncoTerms.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
-                }else {
+                } else {
                     imgIncoTerms.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
                     llIncoTerms.setVisibility(View.GONE);
-                    isInco=false;
+                    isInco = false;
                 }
                /* llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
@@ -481,14 +641,14 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         POPaymentTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isPayment){
+                if (!isPayment) {
                     lTransporter.setVisibility(View.VISIBLE);
-                    isPayment=true;
+                    isPayment = true;
                     imgPaymentTerms.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
-                }else {
+                } else {
                     imgPaymentTerms.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
                     lTransporter.setVisibility(View.GONE);
-                    isPayment=false;
+                    isPayment = false;
                 }
           /*      llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
@@ -501,14 +661,14 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         POTermsandCondition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isTerms){
+                if (!isTerms) {
                     llTermsC.setVisibility(View.VISIBLE);
-                    isTerms=true;
+                    isTerms = true;
                     imgRight.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
-                }else {
+                } else {
                     imgRight.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
                     llTermsC.setVisibility(View.GONE);
-                    isTerms=false;
+                    isTerms = false;
                 }
            /*     llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
@@ -521,14 +681,14 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         POAttachment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isAttachments){
+                if (!isAttachments) {
                     llAttachments.setVisibility(View.VISIBLE);
-                    isAttachments=true;
+                    isAttachments = true;
                     imgri.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
-                }else {
+                } else {
                     imgri.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
                     llAttachments.setVisibility(View.GONE);
-                    isAttachments=false;
+                    isAttachments = false;
                 }
                /* llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
@@ -541,14 +701,14 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         rShipment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isShipment){
+                if (!isShipment) {
                     llPODetailsShipment.setVisibility(View.VISIBLE);
-                    isShipment=true;
+                    isShipment = true;
                     imgShipment.setBackgroundResource(R.drawable.ic_action_arrow_right_blue);
-                }else {
+                } else {
                     imgShipment.setBackgroundResource(R.drawable.ic_action_arrow_down_blue);
                     llPODetailsShipment.setVisibility(View.GONE);
-                    isShipment=false;
+                    isShipment = false;
                 }
                /* llPODetails.setVisibility(View.GONE);
                 llItemsDetails.setVisibility(View.GONE);
@@ -560,22 +720,20 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         });
 
 
-
-
     }
 
 
-    private void getExpandableData(String response){
+    private void getExpandableData(String response) {
 
         try {
-            JSONObject jsonObject=new JSONObject(response);
+            JSONObject jsonObject = new JSONObject(response);
 
             edtDocHash.setText(jsonObject.optString("documentNumber"));
             edtDeliveryAddress.setText(jsonObject.optString("receiverBusinessPlaceAddress"));
             edtSupplierName.setText(jsonObject.optString("senderBusinessPlaceAddress"));
             edtDocDate.setText(jsonObject.optString("documentDate"));
-            edtGSTValue.setText(Util.round(jsonObject.optDouble("documentIGSTValue"),2)+"");
-            edtDocValue.setText(Util.round(jsonObject.optDouble("documentValue"),2)+"");
+            edtGSTValue.setText(Util.round(jsonObject.optDouble("documentIGSTValue"), 2) + "");
+            edtDocValue.setText(Util.round(jsonObject.optDouble("documentValue"), 2) + "");
             edtSenderGSTIN.setText(jsonObject.optString("senderBusinessPlaceGSTIN"));
             edtReceiverGSTIN.setText(jsonObject.optString("receiverBusinessPlaceGSTIN"));
 
@@ -599,10 +757,10 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
             spnMilestone.setAdapter(adapter);*/
 
 
-            JSONArray array=jsonObject.optJSONArray("itemDetails");
+            JSONArray array = jsonObject.optJSONArray("itemDetails");
 
 
-            if (array!=null) {
+            if (array != null) {
                 int qty = 0;
                 for (int j = 0; j < array.length(); j++) {
 
@@ -619,27 +777,26 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
 
                 tvHeaderPOItemDetail.setText("Item Details | " + array.length() + " Items | Qty " + qty);
             }
-            JSONArray jsonArray=jsonObject.optJSONArray("incoTerms");
+            JSONArray jsonArray = jsonObject.optJSONArray("incoTerms");
 
 
-            double total=0;
+            double total = 0;
             for (int j = 0; j < jsonArray.length(); j++) {
 
                 JSONObject jsonObject1 = jsonArray.optJSONObject(j);
 
-                POIncoTerms poIncoTerms1=new POIncoTerms();
+                POIncoTerms poIncoTerms1 = new POIncoTerms();
                 poIncoTerms1.setPoIncoDetail(jsonObject1.optString("poIncoDetail"));
                 poIncoTerms1.setPoPayAmount(jsonObject1.optDouble("poPayAmount"));
                 poIncoTerms1.setPoPayByReceiver(jsonObject1.optBoolean("poPayByReceiver"));
                 poIncoTerms1.setPoPayBySender(jsonObject1.optBoolean("poPayBySender"));
                 poIncoTerms.add(poIncoTerms1);
 
-                total=total+jsonObject1.optDouble("poPayAmount");
-
+                total = total + jsonObject1.optDouble("poPayAmount");
 
 
             }
-            POIncoTerms poIncoTerms2=new POIncoTerms();
+            POIncoTerms poIncoTerms2 = new POIncoTerms();
             poIncoTerms2.setPoIncoDetail("Total");
             poIncoTerms2.setPoPayAmount(total);
             poIncoTerms2.setPoPayByReceiver(false);
@@ -680,14 +837,14 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
 
             }
 */
-            JSONArray jsonArray3=jsonObject.optJSONArray("attachments");
+            JSONArray jsonArray3 = jsonObject.optJSONArray("attachments");
 
 
             for (int j = 0; j < jsonArray3.length(); j++) {
 
                 JSONObject jsonObject1 = jsonArray3.optJSONObject(j);
 
-                POAttachments poAttachments1=new POAttachments();
+                POAttachments poAttachments1 = new POAttachments();
                 poAttachments1.setpOAttachmentName(jsonObject1.optString("pOAttachmentName"));
                 poAttachments1.setpOAttachmentType(jsonObject1.optString("pOAttachmentType"));
                 poAttachments1.setpOAttachmentUrl(jsonObject1.optString("pOAttachmentUrl"));
@@ -701,9 +858,8 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
             setItemDetails();
             setIncoTerms();
             setAttahcments();
-          //  setPaymentTerms();
-          //  setTermsCondition();
-
+            //  setPaymentTerms();
+            //  setTermsCondition();
 
 
         } catch (JSONException e) {
@@ -711,19 +867,16 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         }
 
 
-
-
-
     }
 
     public void getPODetails() {
-        final ProgressDialog progressDialog=new ProgressDialog(TransferStepsActivity.this);
-        JSONObject jsonObject1=new JSONObject();
+        final ProgressDialog progressDialog = new ProgressDialog(TransferStepsActivity.this);
+        JSONObject jsonObject1 = new JSONObject();
 
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("businessPlaceId",businessPlaceId);
-            jsonObject1.put("tranID",poNumber);
+            jsonObject1.put("businessPlaceId", businessPlaceId);
+            jsonObject1.put("tranID", poNumber);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -758,7 +911,7 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
 
                         final String responseData = response.body().string();
                         if (responseData != null) {
-                            JSONObject jsonObject=new JSONObject(responseData);
+                            JSONObject jsonObject = new JSONObject(responseData);
 
                             // saveResponseLocalCreateOrder(jsonObject,requestId);
                             runOnUiThread(new Runnable() {
@@ -772,7 +925,7 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
                         }
 
 
-                    }else if (response.code() == Constants.BAD_REQUEST) {
+                    } else if (response.code() == Constants.BAD_REQUEST) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -813,9 +966,13 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
                     e.printStackTrace();
 
 
-
                 }
             }
         });
+    }
+
+    @Override
+    public void onCardClicked(int position) {
+
     }
 }

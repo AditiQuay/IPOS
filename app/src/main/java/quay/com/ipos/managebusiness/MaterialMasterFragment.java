@@ -687,7 +687,7 @@ boolean isExit=false;
                 getFragmentManager().popBackStack();
             }else{
                 setToNew();
-                ((MainActivity) mContext).setMaterialMaster();
+               // ((MainActivity) mContext).setMaterialMaster();
             }
         }
     }

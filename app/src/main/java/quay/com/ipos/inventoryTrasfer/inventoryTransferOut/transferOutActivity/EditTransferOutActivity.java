@@ -1,4 +1,4 @@
-package quay.com.ipos.inventoryTrasfer.transferOut;
+package quay.com.ipos.inventoryTrasfer.inventoryTransferOut.transferOutActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;

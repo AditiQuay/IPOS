@@ -61,7 +61,6 @@ import quay.com.ipos.adapter.DrawerRoleAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.compliance.DashboardActivity;
-import quay.com.ipos.compliance.constants.Constant;
 import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerModel;
@@ -71,6 +70,7 @@ import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.local.dao.MostUsedFunDao;
 import quay.com.ipos.data.local.entity.MostUsed;
+import quay.com.ipos.dayClosure.dayClosureActivity.DayClosureMain;
 import quay.com.ipos.ddrsales.DDRListActivity;
 import quay.com.ipos.ddrsales.DDROrderCenterActivity;
 import quay.com.ipos.enums.CustomerEnum;
@@ -81,10 +81,8 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.ScanFilterListener;
 import quay.com.ipos.listeners.SendScannerBarcodeListener;
 import quay.com.ipos.login.SplashActivity;
-import quay.com.ipos.managebusiness.MaterialMasterFragment;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
-import quay.com.ipos.offerdiscount.fragment.OfferDiscountFragment;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.partnerConnect.kyc.KYCActivity;
 import quay.com.ipos.productCatalogue.ProductMain;
@@ -97,7 +95,6 @@ import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.utility.AppLog;
-import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.NetUtil;
@@ -123,7 +120,7 @@ public class MainActivity extends BaseActivity
     private int lastExpandedGroup;
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
-    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null,mRetailOrderCentreFragment=null,mMaterialMasterFragment=null,mOfferDiscountFragment=null;
+    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null, mRetailOrderCentreFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
 
@@ -377,7 +374,7 @@ public class MainActivity extends BaseActivity
                     JSONArray jsonArray1 = jsonObject.optJSONArray("data");
                     if (jsonObject.has("key") && jsonArray1.length() > 0 && !Util.validateString(textViewMyBusiness.getText().toString())) {
                         textViewMyBusiness.setText(jsonArray.optJSONObject(i).optString("userName"));
-                       // textViewAccount.setText(jsonArray.optJSONObject(i).optString("account"));
+                        // textViewAccount.setText(jsonArray.optJSONObject(i).optString("account"));
                     }
                     if (jsonObject.has("key") && jsonArray1.length() > 0) {
                         modal.setName(jsonObject.optString("key"));
@@ -614,10 +611,7 @@ public class MainActivity extends BaseActivity
             case "Manage Store":
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
-            case "Material Master":
-                setMaterialMaster();
 
-                break;
             case "Inventory In/Out":
                 inventaortFragment = new InventoryFragment();
                 replaceFragment(inventaortFragment, containerId);
@@ -627,6 +621,10 @@ public class MainActivity extends BaseActivity
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 drawer.closeDrawer(GravityCompat.START);
 
+                break;
+            case "Day Closure":
+                Intent i = new Intent(mContext, DayClosureMain.class);
+                startActivity(i);
                 break;
             case "Manage KycBusiness":
                 menu1.findItem(R.id.action_filter).setVisible(false);
@@ -655,12 +653,6 @@ public class MainActivity extends BaseActivity
                 toolbar.setTitle(getString(R.string.order_centre));
                 drawer.closeDrawer(GravityCompat.START);
                 menu1.findItem(R.id.action_filter).setVisible(false);
-                break;
-            case "Offer Discount":
-                mOfferDiscountFragment = new OfferDiscountFragment();
-                replaceFragment(mOfferDiscountFragment, containerId);
-                drawer.closeDrawer(GravityCompat.START);
-                toolbar.setTitle(getString(R.string.offer_discount));
                 break;
             case "Dashboard & Insights":
                 dashboardFragment = new McCOYDashboardFragment();
@@ -713,7 +705,7 @@ public class MainActivity extends BaseActivity
             case "DDR Master":
                 // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
                 Intent intentDDRMaster = new Intent(mContext, DDRListActivity.class);
-                    intentDDRMaster.putExtra("isMaster", true);
+                intentDDRMaster.putExtra("isMaster", true);
                 startActivity(intentDDRMaster);
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
@@ -722,17 +714,6 @@ public class MainActivity extends BaseActivity
         }
 
 
-    }
-
-    public void setMaterialMaster() {
-        mMaterialMasterFragment = new MaterialMasterFragment();
-        replaceFragment(mMaterialMasterFragment, containerId);
-        drawer.closeDrawer(GravityCompat.START);
-        toolbar.setTitle(getString(R.string.material_master));
-        menu1.findItem(R.id.action_notification).setVisible(false);
-        menu1.findItem(R.id.action_help).setVisible(false);
-        menu1.findItem(R.id.action_filter).setVisible(true);
-        menu1.findItem(R.id.action_search).setVisible(false);
     }
 
     private void saveToDatabase(String imageName) {
@@ -967,10 +948,12 @@ public class MainActivity extends BaseActivity
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.optJSONObject(i);
                 String matchKey = jsonObject.optString("key");
+
+
                 if (matchKey.equalsIgnoreCase(key)) {
                     JSONArray jsonArray1 = jsonObject.optJSONArray("data");
-               //     textViewMyBusiness.setText(jsonObject.optString("userName"));
-               //     textViewAccount.setText(jsonObject.optString("account"));
+                    //     textViewMyBusiness.setText(jsonObject.optString("userName"));
+                    //     textViewAccount.setText(jsonObject.optString("account"));
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         MenuModal menuModal = new MenuModal();
                         JSONObject jsonObject1 = jsonArray1.optJSONObject(j);
@@ -1168,7 +1151,8 @@ public class MainActivity extends BaseActivity
 
             if (position == 0) {
                 textViewAccount.setText(R.string.pss);
-            } if (position == 1) {
+            }
+            if (position == 1) {
                 textViewAccount.setText(R.string.ipos_business);
             }
 
@@ -1233,6 +1217,7 @@ public class MainActivity extends BaseActivity
     }
 
     private boolean isLoginClicked;
+
     private void funLogout() {
         if (isLoginClicked) {
             return;
@@ -1251,7 +1236,7 @@ public class MainActivity extends BaseActivity
 
 
                     DatabaseHandler dbHelper = new DatabaseHandler(mContext);
-                    if(!dbHelper.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL))
+                    if (!dbHelper.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL))
                         dbHelper.deleteTable(DatabaseHandler.TABLE_RETAIL);
                     dbHelper.removeAll();
                     new RealmController().clearRealm();
@@ -1283,7 +1268,8 @@ public class MainActivity extends BaseActivity
             }
         }.start();
     }
-    private  void setVersionNumber() {
+
+    private void setVersionNumber() {
         try {
             PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;

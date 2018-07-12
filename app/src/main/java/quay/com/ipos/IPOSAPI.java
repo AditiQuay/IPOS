@@ -93,4 +93,8 @@ public class IPOSAPI {
     //compliance
     public static final String COMPLIANCE_DATA = "/api/ComplianceTracker/GetTaskschedularDetails";
 
+    //TransferIn
+    public static final String GET_TRANSFER_OUT_GRN_SUMMARY = WEB_SERVICE_BASE_URL+"Inventory/GetTransferOutGRNSummary";
+    public static final String GET_TRANSFER_OUT_GRN_SUMMARY_DETAIL = WEB_SERVICE_BASE_URL+"GetTransferOutGRNSummaryDetail";
+
 }
