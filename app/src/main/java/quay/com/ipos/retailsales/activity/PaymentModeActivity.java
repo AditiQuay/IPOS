@@ -842,7 +842,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                                     paymentRequest.setPointsToRedeemValue(IPOSApplication.totalpointsToRedeemValue);
                                 }
                                 customerModel = db.getCustomerMobile(mCustomerNumber);
-//                                paymentRequest.setCustomerJson(customerModel);
+                                paymentRequest.setCustomerJson(customerModel);
                             }catch (Exception e){
 
                             }
@@ -863,17 +863,30 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     }
                     break;
                 case R.id.llPoints:
+                    if (cvPoints.getVisibility() == View.GONE) {
+                        if (totalAmount > 0.0) {
+                            if (!mCustomerID.equalsIgnoreCase("")) {
+                                if(!mCustomerNumber.equalsIgnoreCase("0000000000")) {
+                                    if (mCustomerPoints > 0) {
+                                        setllPoints();
 
-                    if (!mCustomerID.equalsIgnoreCase("")) {
-                        if(!mCustomerNumber.equalsIgnoreCase("0000000000")) {
-                            if (mCustomerPoints > 0)
-                                setllPoints();
-                            else
-                                Util.showToast(getString(R.string.redeem_customer_points_not_sufficient), mContext);
+                                    }
+                                    else
+                                        Util.showToast(getString(R.string.redeem_customer_points_not_sufficient), mContext);
+                                } else
+                                    Util.showToast(getString(R.string.redeem_customer_phone_not_authorised), mContext);
+                            } else {
+                                Util.showToast("Please select customer first.", PaymentModeActivity.this);
+                            }
                         } else
-                            Util.showToast(getString(R.string.redeem_customer_phone_not_authorised), mContext);
+                            Util.showToast("Balance is empty!", PaymentModeActivity.this);
+
+
                     } else {
-                        Util.showToast("Please select customer first.", PaymentModeActivity.this);
+                        if (buttonRedeem.getVisibility() == View.VISIBLE) {
+                            cvPoints.setVisibility(View.GONE);
+                            llPoints.setBackgroundResource(R.drawable.rect_four_white);
+                        }
                     }
                     if(cvCash.getVisibility()==View.GONE && cvCard.getVisibility()==View.GONE && cvPoints.getVisibility()==View.GONE){
                         cvPoints.setVisibility(View.VISIBLE);
@@ -1134,57 +1147,62 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     }
                     break;
                 case R.id.buttonSendOtp:
-                    if(!mCustomerEmail.trim().equalsIgnoreCase("")) {
-                        if (!etPointToRedeem.getText().toString().equalsIgnoreCase("")) {
-                            if (!sendOTP)
-                                if(points1>=points2) {
-                                    points1= points2;
-                                    totalpointsToRedeem = points1;
-                                    totalpointsToRedeemValue = redeemValue;
-                                    if (points1 > 0) {
-                                        if (redeemValue > 0) {
-                                            sendOTP = true;
-                                            etPointToRedeem.setEnabled(false);
-                                            etRedeemValue.setEnabled(false);
-                                            tvResendOTP.setVisibility(View.VISIBLE);
-                                            sendOTPtoServer();
-                                        } else
+                    if(totalAmount>0) {
+                        if (!mCustomerEmail.trim().equalsIgnoreCase("")) {
+                            if (!etPointToRedeem.getText().toString().equalsIgnoreCase("")) {
+                                if (!sendOTP)
+                                    if (points1 >= points2) {
+                                        points1 = points2;
+                                        totalpointsToRedeem = points1;
+                                        totalpointsToRedeemValue = redeemValue;
+                                        if (points1 > 0) {
+                                            if (redeemValue > 0) {
+                                                sendOTP = true;
+                                                etPointToRedeem.setEnabled(false);
+                                                etRedeemValue.setEnabled(false);
+                                                tvResendOTP.setVisibility(View.VISIBLE);
+                                                sendOTPtoServer();
+                                            } else
+                                                Util.showToast("No points to redeem", PaymentModeActivity.this);
+                                        } else {
                                             Util.showToast("No points to redeem", PaymentModeActivity.this);
+                                        }
                                     } else {
-                                        Util.showToast("No points to redeem", PaymentModeActivity.this);
+                                        Util.showToast("Points exceeded!", PaymentModeActivity.this);
                                     }
-                                }else {
-                                    Util.showToast("Points exceeded!", PaymentModeActivity.this);
-                                }
+                            } else {
+                                Util.showToast("Enter points to redeem", PaymentModeActivity.this);
+                            }
                         } else {
-                            Util.showToast("Enter points to redeem", PaymentModeActivity.this);
+                            Util.showToast(getString(R.string.redeem_customer_email_not_authorised), PaymentModeActivity.this);
                         }
-                    }
-                    else {
-                        Util.showToast(getString(R.string.redeem_customer_email_not_authorised), PaymentModeActivity.this);
-                    }
+                    }else
+                        Util.showToast("Balance is empty", PaymentModeActivity.this);
                     break;
                 case R.id.tvResendOTP:
-                    if(!mCustomerEmail.trim().equalsIgnoreCase("")) {
-                        if(!sendVerify){
-                            if(redeemValue>0) {
-                                if(redeemValue<=points) {
-                                    sendOTP = true;
-                                    etPointToRedeem.setEnabled(false);
-                                    etRedeemValue.setEnabled(false);
-                                    sendOTPtoServer();
-                                }
-                                else {
-                                    Util.showToast("Redeem points exceeds", PaymentModeActivity.this);
-                                }
-                            }else
-                                Util.showToast("No points to redeem", PaymentModeActivity.this );
-                        }else {
-                            Util.showToast("ID already verified!", PaymentModeActivity.this );
+                    if(totalAmount>0) {
+                        if(!mCustomerEmail.trim().equalsIgnoreCase("")) {
+                            if(!sendVerify){
+                                if(redeemValue>0) {
+                                    if(redeemValue<=points) {
+                                        sendOTP = true;
+                                        etPointToRedeem.setEnabled(false);
+                                        etRedeemValue.setEnabled(false);
+                                        sendOTPtoServer();
+                                    }
+                                    else {
+                                        Util.showToast("Redeem points exceeds", PaymentModeActivity.this);
+                                    }
+                                }else
+                                    Util.showToast("No points to redeem", PaymentModeActivity.this );
+                            }else {
+                                Util.showToast("ID already verified!", PaymentModeActivity.this );
+                            }
+                        } else {
+                            Util.showToast(getString(R.string.redeem_customer_email_not_authorised), PaymentModeActivity.this);
                         }
-                    } else {
-                        Util.showToast("Enter points to redeem", PaymentModeActivity.this);
-                    }
+                    }else
+                        Util.showToast("Balance is empty", PaymentModeActivity.this);
                     break;
                 case R.id.buttonVerify:
                     if(!sendVerify)
@@ -1276,6 +1294,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     etRedeemValue.setEnabled(true);
                     redeemed=false;
                 } else {
+                    totalAmount = totalAmount - (int) IPOSApplication.totalpointsToRedeemValue;
                     etPointToRedeem.setText(IPOSApplication.totalpointsToRedeem + "");
                     etRedeemValue.setText(IPOSApplication.totalpointsToRedeemValue + "");
                     buttonSendOtp.setEnabled(false);
@@ -1431,23 +1450,28 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                 CustomerPointsRedeemResult customerPointsRedeemResult = (CustomerPointsRedeemResult) resultObj;
                 if (customerPointsRedeemResult != null) {
                     if (customerPointsRedeemResult.getError() == 200) {
-                        if (sendVerify) {
-                            sendVerify = false;
-                            Util.showToast(customerPointsRedeemResult.getMessage(), PaymentModeActivity.this);
-                            llVerifyRedeem.setVisibility(View.VISIBLE);
+                        if(customerPointsRedeemResult.getIsValid()) {
+                            if (sendVerify) {
+                                sendVerify = false;
+                                Util.showToast(customerPointsRedeemResult.getMessage(), PaymentModeActivity.this);
+                                llVerifyRedeem.setVisibility(View.VISIBLE);
 
-                            buttonVerify.setVisibility(View.VISIBLE);
-                            buttonVerify.setBackgroundResource(R.drawable.button_rectangle_light_gray);
-                            buttonVerify.setEnabled(false);
+                                buttonVerify.setVisibility(View.VISIBLE);
+                                buttonVerify.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                                buttonVerify.setEnabled(false);
 
-                            tvResendOTP.setEnabled(false);
-                            buttonRedeem.setVisibility(View.VISIBLE);
-                            buttonRedeem.setEnabled(true);
-                            buttonRedeem.setBackgroundResource(R.drawable.button_drawable);
+                                tvResendOTP.setEnabled(false);
+                                buttonRedeem.setVisibility(View.VISIBLE);
+                                buttonRedeem.setEnabled(true);
+                                buttonRedeem.setBackgroundResource(R.drawable.button_drawable);
 
-                            buttonSendOtp.setBackgroundResource(R.drawable.button_rectangle_light_gray);
-                            buttonSendOtp.setEnabled(false);
+                                buttonSendOtp.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                                buttonSendOtp.setEnabled(false);
+                            } else {
+                                sendVerify = false;
+                            }
                         } else {
+                            Util.showToast(customerPointsRedeemResult.getMessage(), PaymentModeActivity.this);
                             sendVerify = false;
                         }
                     }

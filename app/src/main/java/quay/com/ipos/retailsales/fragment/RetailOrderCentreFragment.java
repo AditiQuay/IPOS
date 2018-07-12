@@ -33,7 +33,9 @@ import java.util.Calendar;
 
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
+import quay.com.ipos.base.MainActivity;
 import quay.com.ipos.dashboard.adapter.SpinnerDropDownAdapter;
 import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.modal.RetailOrderCenterListResult;
@@ -106,6 +108,12 @@ public class RetailOrderCentreFragment extends BaseFragment implements ServiceTa
                 break;
         }
         return false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+//        ((MainActivity) IPOSApplication.getContext()).setToolbarTitle(getString(R.string.retail_sales_order_centre));
     }
     public void onOutBoxButton() {
         Intent mIntent = new Intent(getActivity(), OutboxActivity.class);

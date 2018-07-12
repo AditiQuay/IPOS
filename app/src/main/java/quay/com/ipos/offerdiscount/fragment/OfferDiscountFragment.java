@@ -13,8 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import quay.com.ipos.R;
+import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.BaseFragment;
-import quay.com.ipos.retailsales.fragment.OfferDiscountOverviewFragment;
+import quay.com.ipos.base.MainActivity;
 
 /**
  * Created by aditi.bhuranda on 11-07-2018.
@@ -48,7 +49,11 @@ public class OfferDiscountFragment extends BaseFragment {
         tabLayout.setupWithViewPager(viewPager);
         createTabIcons();
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((MainActivity) IPOSApplication.getContext()).setToolbarTitle(getString(R.string.offer_discount));
+    }
     ViewPager.OnPageChangeListener myOnPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         //declare key
@@ -131,9 +136,9 @@ public class OfferDiscountFragment extends BaseFragment {
             case 0:
                 return OfferDiscountOverviewFragment.newInstance("FirstFragment, Instance 1", "0");
             case 1:
-                return new OfferDiscountOverviewFragment();
+                return new ScopeFragment();
             case 2:
-                return new OfferDiscountOverviewFragment();
+                return new RuleFragment();
 
             default:
                 return OfferDiscountOverviewFragment.newInstance("FirstFragment, Instance 1", "0");

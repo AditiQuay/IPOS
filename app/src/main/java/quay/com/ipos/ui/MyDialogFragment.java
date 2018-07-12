@@ -187,18 +187,21 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
                     if (!etPointToRedeem.getText().toString().equalsIgnoreCase("")) {
                         if (!sendOTP)
                             if (points1 > 0) {
-                                if (redeemValue > 0) {
-                                    if (redeemValue <= points) {
-                                        sendOTP = true;
-                                        etPointToRedeem.setEnabled(false);
-                                        etRedeemValue.setEnabled(false);
-                                        tvResendOTP.setVisibility(View.VISIBLE);
-                                        sendOTPtoServer();
-                                    } else {
-                                        Util.showToast("Redeem points exceeds", getActivity());
-                                    }
+                                if(points1<=points){
+                                    if (redeemValue > 0) {
+                                        if (redeemValue <= points) {
+                                            sendOTP = true;
+                                            etPointToRedeem.setEnabled(false);
+                                            etRedeemValue.setEnabled(false);
+                                            tvResendOTP.setVisibility(View.VISIBLE);
+                                            sendOTPtoServer();
+                                        } else {
+                                            Util.showToast("Redeem points exceeds", getActivity());
+                                        }
+                                    } else
+                                        Util.showToast("No points to redeem", getActivity());
                                 } else
-                                    Util.showToast("No points to redeem", getActivity());
+                                    Util.showToast("Redeem points exceeds", getActivity());
                             } else {
                                 Util.showToast("No points to redeem", getActivity());
                             }
@@ -217,6 +220,7 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
                             sendOTP = true;
                             etPointToRedeem.setEnabled(false);
                             etRedeemValue.setEnabled(false);
+
                             sendOTPtoServer();
                         } else
                             Util.showToast("No points to redeem", getActivity());
@@ -324,10 +328,11 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
                                 buttonSendOtp.setBackgroundResource(R.drawable.button_rectangle_light_gray);
                                 buttonSendOtp.setEnabled(false);
                             } else {
-                                sendVerify = true;
+                                sendVerify = false;
                             }
                         } else {
-                            sendVerify = true;
+                            Util.showToast(customerPointsRedeemResult.getMessage(), getActivity());
+                            sendVerify = false;
                         }
                     }
                 }
