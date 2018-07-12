@@ -61,7 +61,6 @@ import quay.com.ipos.adapter.DrawerRoleAdapter;
 import quay.com.ipos.adapter.NavigationViewExpeListViewAdapter;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.compliance.DashboardActivity;
-import quay.com.ipos.compliance.constants.Constant;
 import quay.com.ipos.constant.ExpandableListDataPump;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
 import quay.com.ipos.customerInfo.customerInfoModal.CustomerServerModel;
@@ -71,6 +70,7 @@ import quay.com.ipos.dashboard.fragment.McCOYDashboardFragment;
 import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.local.dao.MostUsedFunDao;
 import quay.com.ipos.data.local.entity.MostUsed;
+import quay.com.ipos.dayClosure.dayClosureActivity.DayClosureMain;
 import quay.com.ipos.ddrsales.DDRListActivity;
 import quay.com.ipos.ddrsales.DDROrderCenterActivity;
 import quay.com.ipos.enums.CustomerEnum;
@@ -95,7 +95,6 @@ import quay.com.ipos.retailsales.fragment.RetailSalesFragment;
 import quay.com.ipos.service.ServiceTask;
 import quay.com.ipos.ui.MessageDialog;
 import quay.com.ipos.utility.AppLog;
-import quay.com.ipos.utility.CircleImageView;
 import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.FontUtil;
 import quay.com.ipos.utility.NetUtil;
@@ -121,7 +120,7 @@ public class MainActivity extends BaseActivity
     private int lastExpandedGroup;
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
-    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null,mRetailOrderCentreFragment=null;
+    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null, mRetailOrderCentreFragment = null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
 
@@ -375,7 +374,7 @@ public class MainActivity extends BaseActivity
                     JSONArray jsonArray1 = jsonObject.optJSONArray("data");
                     if (jsonObject.has("key") && jsonArray1.length() > 0 && !Util.validateString(textViewMyBusiness.getText().toString())) {
                         textViewMyBusiness.setText(jsonArray.optJSONObject(i).optString("userName"));
-                       // textViewAccount.setText(jsonArray.optJSONObject(i).optString("account"));
+                        // textViewAccount.setText(jsonArray.optJSONObject(i).optString("account"));
                     }
                     if (jsonObject.has("key") && jsonArray1.length() > 0) {
                         modal.setName(jsonObject.optString("key"));
@@ -623,6 +622,10 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
 
                 break;
+            case "Day Closure":
+                Intent i = new Intent(mContext, DayClosureMain.class);
+                startActivity(i);
+                break;
             case "Manage KycBusiness":
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
@@ -699,10 +702,10 @@ public class MainActivity extends BaseActivity
                 startActivity(intentKYC);
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
-                case "DDR Master":
+            case "DDR Master":
                 // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
                 Intent intentDDRMaster = new Intent(mContext, DDRListActivity.class);
-                    intentDDRMaster.putExtra("isMaster", true);
+                intentDDRMaster.putExtra("isMaster", true);
                 startActivity(intentDDRMaster);
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
@@ -949,8 +952,8 @@ public class MainActivity extends BaseActivity
 
                 if (matchKey.equalsIgnoreCase(key)) {
                     JSONArray jsonArray1 = jsonObject.optJSONArray("data");
-               //     textViewMyBusiness.setText(jsonObject.optString("userName"));
-               //     textViewAccount.setText(jsonObject.optString("account"));
+                    //     textViewMyBusiness.setText(jsonObject.optString("userName"));
+                    //     textViewAccount.setText(jsonObject.optString("account"));
                     for (int j = 0; j < jsonArray1.length(); j++) {
                         MenuModal menuModal = new MenuModal();
                         JSONObject jsonObject1 = jsonArray1.optJSONObject(j);
@@ -1148,7 +1151,8 @@ public class MainActivity extends BaseActivity
 
             if (position == 0) {
                 textViewAccount.setText(R.string.pss);
-            } if (position == 1) {
+            }
+            if (position == 1) {
                 textViewAccount.setText(R.string.ipos_business);
             }
 
@@ -1213,6 +1217,7 @@ public class MainActivity extends BaseActivity
     }
 
     private boolean isLoginClicked;
+
     private void funLogout() {
         if (isLoginClicked) {
             return;
@@ -1231,7 +1236,7 @@ public class MainActivity extends BaseActivity
 
 
                     DatabaseHandler dbHelper = new DatabaseHandler(mContext);
-                    if(!dbHelper.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL))
+                    if (!dbHelper.isRetailMasterEmpty(DatabaseHandler.TABLE_RETAIL))
                         dbHelper.deleteTable(DatabaseHandler.TABLE_RETAIL);
                     dbHelper.removeAll();
                     new RealmController().clearRealm();
@@ -1263,7 +1268,8 @@ public class MainActivity extends BaseActivity
             }
         }.start();
     }
-    private  void setVersionNumber() {
+
+    private void setVersionNumber() {
         try {
             PackageInfo pInfo = this.getPackageManager().getPackageInfo(getPackageName(), 0);
             String version = pInfo.versionName;

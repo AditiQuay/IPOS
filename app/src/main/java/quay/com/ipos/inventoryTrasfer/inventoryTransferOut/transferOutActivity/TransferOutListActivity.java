@@ -124,7 +124,6 @@ public class TransferOutListActivity extends BaseActivity implements View.OnClic
             recycler_viewDispatch.setAdapter(orderCentreDisListAdapter);
         }
 
-
     }
 
     private void setRealmData(int key){

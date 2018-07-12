@@ -527,5 +527,10 @@
     <string name="ipos_business">My Business</string>
     <string name="title_b2b_ddr_master">DDR Master</string>
     <string name="inventory_toolbar_text">Inventory</string>
+    <string name="day_closure">Day Closure</string>
+
+
+    <string name="date_from">Date From</string>
+    <string name="date_to">Date To</string>
 
 </resources>

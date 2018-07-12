@@ -28,11 +28,14 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
     public Context mContext;
     private List<GRNProductDetailModel> list;
     EdittClickListener edittClickListener;
-    public interface NotifyCount{
+
+    public interface NotifyCount {
         void notifyQty();
     }
+
     NotifyCount notifyCount;
-    public InventoryProdcutDetailAdapter(Context mContext, List<GRNProductDetailModel> list, EdittClickListener edittClickListener,NotifyCount notifyCount) {
+
+    public InventoryProdcutDetailAdapter(Context mContext, List<GRNProductDetailModel> list, EdittClickListener edittClickListener, NotifyCount notifyCount) {
         this.mContext = mContext;
         this.list = list;
         this.edittClickListener = edittClickListener;
@@ -60,7 +63,7 @@ public class InventoryProdcutDetailAdapter extends RecyclerView.Adapter<Inventor
             holder.batchRemark.setVisibility(View.VISIBLE);
             holder.batchRemark.setText(grnProductDetailModel.getActionTitle());
         }
-        if (TextUtils.isEmpty(grnProductDetailModel.getActionTitle())){
+        if (TextUtils.isEmpty(grnProductDetailModel.getActionTitle())) {
             holder.batchRemark.setVisibility(View.GONE);
         }
         holder.checkBox1.setChecked(grnProductDetailModel.isSelected());

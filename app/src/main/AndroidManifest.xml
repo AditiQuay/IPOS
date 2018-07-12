@@ -49,6 +49,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".dayClosure.dayClosureActivity.DayClosureMain"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".partnerConnect.PartnerConnectMain"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_partner_connect"
