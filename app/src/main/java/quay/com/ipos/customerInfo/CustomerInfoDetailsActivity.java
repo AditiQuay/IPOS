@@ -396,6 +396,7 @@ public class CustomerInfoDetailsActivity extends AppCompatActivity implements In
                 editor.putString("MobileNumber", customerModel.getCustomerPhone());
                 editor.putString("email", customerModel.getCustomerEmail());
                 editor.putString("bDay", customerModel.getCustomerBday());
+                editor.putString("customerModel", Util.getCustomGson().toJson(customerModel));
                 editor.apply();
 
                 Intent i = new Intent(mContext, CustomerAddMain.class);

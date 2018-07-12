@@ -41,8 +41,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
 
     class UserViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvPaidByCash,  tvPaidByCard, tvTenderChanges, tvCardNumber, tvExpiryDate, tvCardType;
-        public LinearLayout llPaidByCash,llPaidByCard;
+        public TextView tvPaidByCash,  tvPaidByCard, tvTenderChanges, tvCardNumber, tvExpiryDate, tvCardType,tvPaidByPoints,tvPointsValue;
+        public LinearLayout llPaidByCash,llPaidByCard,llPaidByPoints;
         public UserViewHolder(View itemView) {
             super(itemView);
             tvCardNumber =  itemView.findViewById(R.id.tvCardNumber);
@@ -53,6 +53,9 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             tvExpiryDate =  itemView.findViewById(R.id.tvExpiryDate);
             llPaidByCash =  itemView.findViewById(R.id.llPaidByCash);
             llPaidByCard =  itemView.findViewById(R.id.llPaidByCard);
+            llPaidByPoints =  itemView.findViewById(R.id.llPaidByPoints);
+            tvPointsValue =  itemView.findViewById(R.id.tvPointsValue);
+            tvPaidByPoints =  itemView.findViewById(R.id.tvPaidByPoints);
         }
     }
 
@@ -89,14 +92,23 @@ public class PaymentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     userViewHolder.tvTenderChanges.setText(Util.getIndianNumberFormat(str.getReturnValue()+""));
                     userViewHolder.llPaidByCash.setVisibility(View.VISIBLE);
                     userViewHolder.llPaidByCard.setVisibility(View.GONE);
+                    userViewHolder.llPaidByPoints.setVisibility(View.GONE);
                 }else  if(str.getModeOfPayment().equalsIgnoreCase("card")){
                     userViewHolder.tvCardNumber.setText(str.getCardNo()+"");
-                    userViewHolder.tvCardType.setText(str.getCardType()+"");
+                    userViewHolder.tvCardType.setText(str.getCardType().trim()+"");
                     userViewHolder.tvExpiryDate.setText(str.getExpiryDate()+"");
                     userViewHolder.tvPaidByCard.setText(Util.getIndianNumberFormat(str.getAmount()+""));
                     userViewHolder.llPaidByCard.setVisibility(View.VISIBLE);
                     userViewHolder.llPaidByCash.setVisibility(View.GONE);
-                }else {
+                    userViewHolder.llPaidByPoints.setVisibility(View.GONE);
+                }else  if(str.getModeOfPayment().equalsIgnoreCase("points")){
+                    userViewHolder.tvPointsValue.setText(Util.getIndianNumberFormat(str.getPointsToRedeemValue()));
+                    userViewHolder.tvPaidByPoints.setText(str.getPointsToRedeem());
+                    userViewHolder.llPaidByCard.setVisibility(View.GONE);
+                    userViewHolder.llPaidByCash.setVisibility(View.GONE);
+                    userViewHolder.llPaidByPoints.setVisibility(View.VISIBLE);
+                }
+                else {
                     userViewHolder.llPaidByCash.setVisibility(View.GONE);
                     userViewHolder.llPaidByCard.setVisibility(View.GONE);
                 }

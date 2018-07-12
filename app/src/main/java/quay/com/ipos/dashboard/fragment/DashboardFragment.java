@@ -96,6 +96,7 @@ public class DashboardFragment extends Fragment {
         spStoreName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(view!=null)
                 if(view.isPressed())
                 mainActivity.onUpdateTitle("dialog");
             }

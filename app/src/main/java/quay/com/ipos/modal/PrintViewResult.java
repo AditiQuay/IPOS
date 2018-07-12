@@ -61,7 +61,12 @@ public class PrintViewResult {
     @SerializedName("roundingOff")
     @Expose
     private String roundingOff;
-
+    @SerializedName("totalPointsToRedeem")
+    @Expose
+    private String totalPointsToRedeem;
+    @SerializedName("totalPointsToRedeemValue")
+    @Expose
+    private String totalPointsToRedeemValue;
     @SerializedName("customerName")
     @Expose
     private String customerName;
@@ -70,13 +75,13 @@ public class PrintViewResult {
     private String mobile;
     @SerializedName("itemDetails")
     @Expose
-    private ArrayList<ItemDetail> itemDetails = null;
+    private ArrayList<ItemDetail> itemDetails = new ArrayList<>();
     @SerializedName("paymentsDetails")
     @Expose
-    private ArrayList<PaymentsDetail> paymentsDetails = null;
+    private ArrayList<PaymentsDetail> paymentsDetails = new ArrayList<>();
     @SerializedName("gstSummary")
     @Expose
-    private ArrayList<GstSummary> gstSummary = null;
+    private ArrayList<GstSummary> gstSummary = new ArrayList<>();
 
     public String getLocationName() {
         return locationName;
@@ -92,6 +97,22 @@ public class PrintViewResult {
 
     public void setBusinessPlaceName(String businessPlaceName) {
         this.businessPlaceName = businessPlaceName;
+    }
+
+    public String getTotalPointsToRedeem() {
+        return totalPointsToRedeem;
+    }
+
+    public void setTotalPointsToRedeem(String totalPointsToRedeem) {
+        this.totalPointsToRedeem = totalPointsToRedeem;
+    }
+
+    public String getTotalPointsToRedeemValue() {
+        return totalPointsToRedeemValue;
+    }
+
+    public void setTotalPointsToRedeemValue(String totalPointsToRedeemValue) {
+        this.totalPointsToRedeemValue = totalPointsToRedeemValue;
     }
 
     public String getTotalItem() {
@@ -293,6 +314,28 @@ public class PrintViewResult {
         @SerializedName("expiryDate")
         @Expose
         private String expiryDate;
+        @SerializedName("pointsToRedeem")
+        @Expose
+        private String pointsToRedeem;
+        @SerializedName("pointsToRedeemValue")
+        @Expose
+        private String pointsToRedeemValue;
+
+        public String getPointsToRedeem() {
+            return pointsToRedeem;
+        }
+
+        public void setPointsToRedeem(String pointsToRedeem) {
+            this.pointsToRedeem = pointsToRedeem;
+        }
+
+        public String getPointsToRedeemValue() {
+            return pointsToRedeemValue;
+        }
+
+        public void setPointsToRedeemValue(String pointsToRedeemValue) {
+            this.pointsToRedeemValue = pointsToRedeemValue;
+        }
 
         public String getOrderNo() {
             return orderNo;
