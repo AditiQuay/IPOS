@@ -6,7 +6,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/rGrn"
+        android:id="@+id/rShipment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dim_4"
@@ -43,7 +43,7 @@
             android:textSize="@dimen/universal_text_size14" />
 
         <ImageView
-            android:id="@+id/ivGrnGroupArrow"
+            android:id="@+id/imgShipment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
