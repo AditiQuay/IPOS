@@ -634,9 +634,10 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject1.put("businessPlaceId", Prefs.getIntegerPrefs("WorklocationID"));
-            jsonObject1.put("poNumber", poNumber);
+            jsonObject1.put("tranID", poNumber);
             jsonObject1.put("isGRN", false);
             jsonObject1.put("isGRNOrQC", "NA");
+            jsonObject1.put("tran", "NA");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -644,7 +645,7 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
         progressDialog.show();
         OkHttpClient okHttpClient = APIClient.getHttpClient();
         RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
-        String url = IPOSAPI.WEB_SERVICE_GET_GRN_SUMMARY_DETAIL;
+        String url = IPOSAPI.GET_TRANSFER_OUT_GRN_SUMMARY_DETAIL;
 
         final Request request = APIClient.getPostRequest(this, url, requestBody);
         okHttpClient.newCall(request).enqueue(new Callback() {

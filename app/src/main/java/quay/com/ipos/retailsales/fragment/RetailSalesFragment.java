@@ -1053,11 +1053,10 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     cart_detail.setHsnCode(datum.getHsnCode());
                 }
                 IPOSApplication.mProductListResult.set(i, datum);
-
                 cartDetail.add(cart_detail);
             }
-            tvItemNo.setText("Items " + (mList.size() - freeItemCount) + " item");
-            paymentRequest.setItemQty((mList.size() - freeItemCount) );
+            tvItemNo.setText("Items : " + (mList.size() - freeItemCount) + " item");
+            paymentRequest.setItemQty((mList.size() - freeItemCount));
             paymentRequest.setFreeItemQty(freeItemCount);
 
             tvItemQty.setText(qty + " Qty");
@@ -1279,7 +1278,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                     Util.hideSoftKeyboard(getActivity());
                     if (IPOSApplication.mProductListResult.size() > 0)
                         if (!IPOSApplication.mCustomerID.equalsIgnoreCase(""))
-                            if(mCustomerNumber.equalsIgnoreCase("0000000000")) {
+                            if(!mCustomerNumber.equalsIgnoreCase("0000000000")) {
                                 if (mCustomerPoints > 0.0)
                                     showRedeemLoyaltyPopup(rootView);
                                 else

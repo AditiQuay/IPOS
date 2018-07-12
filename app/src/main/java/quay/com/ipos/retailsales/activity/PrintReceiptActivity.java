@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -154,7 +155,10 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
         tvStoreName.setText(mPrintViewResult.getLocationName()+"");
         tvStoreAddress.setText(mPrintViewResult.getBusinessPlaceName()+"");
         tvStorePhone.setText("Phone: "+mPrintViewResult.getLocationPhone1()+"");
-        tvStoreEmail.setText("Email: "+mPrintViewResult.getLocationEmail1()+"");
+        if(mPrintViewResult.getLocationEmail1()==null)
+            tvStoreEmail.setText("Email: "+"");
+        else
+            tvStoreEmail.setText("Email: "+mPrintViewResult.getLocationEmail1()+"");
         tvStoreGSTIN.setText("GSTIN: "+mPrintViewResult.getGstin()+"");
         tvStoreCIN.setText("CIN: "+mPrintViewResult.getCin()+"");
         tvBillNumber.setText(mPrintViewResult.getOrderNo()+"");
@@ -184,8 +188,19 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
         tvCGSTPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalCgst()));
         tvSGSTPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalSgst()));
         tvRoundingOffPrice.setText(Util.getIndianNumberFormat(mPrintViewResult.getRoundingOff()));
-        tvSaleValue.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalSaleAmount()));
+        tvSaleValue.setText(Util.getIndianNumberFormatWithout(Double.parseDouble(mPrintViewResult.getTotalSaleAmount()))+"");
         tvTotalGSTValue.setText(Util.getIndianNumberFormat( mPrintViewResult.getTotalIgst()));
+        try {
+            if(!mPrintViewResult.getTotalPointsToRedeem().equalsIgnoreCase("")){
+                llRedeem.setVisibility(View.VISIBLE);
+                tvTotalRedeemValue.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalPointsToRedeemValue()));
+                tvTotalPoints.setText(Util.getIndianNumberFormat(mPrintViewResult.getTotalPointsToRedeem()));
+            }else {
+                llRedeem.setVisibility(View.GONE);
+            }
+        }catch (Exception e){
+
+        }
 //        if(mPrintViewResult.get)
 //        }catch (Exception e){
 //
@@ -294,16 +309,16 @@ public class PrintReceiptActivity extends BaseActivity implements ServiceTask.Se
         dismissProgress();
         if(httpStatusCode == Constants.SUCCESS){
 //            try {
-                if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_CENTER_PRINT)) {
-                    if (resultObj != null) {
-                        mPrintViewResult = (PrintViewResult) resultObj;
-                        if (mPrintViewResult != null) {
-                            setValues();
-                            setAdapterItemDetails();
-                        }
-
+            if (serviceMethod.equalsIgnoreCase(IPOSAPI.WEB_SERVICE_RETAIL_ORDER_CENTER_PRINT)) {
+                if (resultObj != null) {
+                    mPrintViewResult = (PrintViewResult) resultObj;
+                    if (mPrintViewResult != null) {
+                        setValues();
+                        setAdapterItemDetails();
                     }
+
                 }
+            }
 //            }catch (Exception e){
 //
 //            }

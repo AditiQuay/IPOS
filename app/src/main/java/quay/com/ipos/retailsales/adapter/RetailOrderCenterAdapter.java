@@ -87,7 +87,8 @@ public class RetailOrderCenterAdapter  extends RecyclerView.Adapter<RecyclerView
             RetailOrderCenterListResult.ListOrderCenter str = mDataset.get(position);
             RetailOrderCenterAdapter.UserViewHolder userViewHolder = (RetailOrderCenterAdapter.UserViewHolder) holder;
             userViewHolder.tvOrderNumber.setText(str.getOrderNo()+"");
-            userViewHolder.tvValue.setText(mContext.getResources().getString(R.string.Rs)+" "+str.getOrderValue()+"");
+//            double total = Double.parseDouble( Util.getIndianNumberFormatWithout(str.getOrderValue()));
+            userViewHolder.tvValue.setText(Util.getIndianNumberFormatWithout(str.getOrderValue()));
             userViewHolder.tvDateTime.setText(str.getOrderDate());
             userViewHolder.tvPaymentMode.setText(str.getPaymentStatus());
             userViewHolder.tvCustomerDetails.setText(str.getMobile()+" - "+str.getCustomerName());

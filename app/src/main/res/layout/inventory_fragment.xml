@@ -320,7 +320,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -430,67 +429,94 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:id="@+id/rlNewView"
-                android:layout_width="match_parent"
+            android:id="@+id/rlNewView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginTop="8dp">
+
+            <LinearLayout
+                android:id="@+id/btnNew"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_round_app"
+                android:gravity="center"
+                android:padding="8dp"
+                android:paddingLeft="8dp"
                 android:visibility="visible"
-                android:layout_marginTop="8dp">
+                android:paddingRight="8dp"
+                android:layout_alignParentRight="true">
 
-                <LinearLayout
-                    android:id="@+id/btnNew"
-                    android:layout_width="100dp"
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_round_app"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:paddingLeft="8dp"
-                    android:visibility="gone"
-                    android:paddingRight="8dp"
-                    android:layout_alignParentRight="true">
+                    android:text="New"
+                    android:textColor="@color/white"/>
 
-                    <quay.com.ipos.ui.CustomTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="New"
-                        android:textColor="@color/white"/>
-
-                    <ImageView
-                        android:layout_width="@dimen/dim_24"
-                        android:layout_height="@dimen/dim_24"
-                        android:layout_marginLeft="8dp"
-                        android:background="@drawable/ic_action_arrow_right"/>
+                <ImageView
+                    android:layout_width="@dimen/dim_24"
+                    android:layout_height="@dimen/dim_24"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_action_arrow_right"/>
 
 
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/btnView"
-                    android:layout_width="100dp"
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnInNext"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_round_app"
+                android:gravity="center"
+                android:padding="8dp"
+                android:paddingLeft="8dp"
+                android:visibility="gone"
+                android:paddingRight="8dp"
+                android:layout_alignParentRight="true">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_round_app"
-                    android:gravity="center"
-                    android:padding="8dp"
+                    android:text="Next"
+                    android:textColor="@color/white"/>
 
-                    android:paddingLeft="8dp"
-                    android:visibility="gone"
-                    android:paddingRight="8dp"
-                    android:layout_alignParentLeft="true">
-
-                    <quay.com.ipos.ui.CustomTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="View"
-                        android:textColor="@color/white"/>
-
-                    <ImageView
-                        android:layout_width="@dimen/dim_24"
-                        android:layout_height="@dimen/dim_24"
-                        android:layout_marginLeft="8dp"
-                        android:background="@drawable/ic_action_arrow_right"/>
+                <ImageView
+                    android:layout_width="@dimen/dim_24"
+                    android:layout_height="@dimen/dim_24"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_action_arrow_right"/>
 
 
-                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnView"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_round_app"
+                android:gravity="center"
+                android:padding="8dp"
 
-            </RelativeLayout>
+                android:paddingLeft="8dp"
+                android:visibility="visible"
+                android:paddingRight="8dp"
+                android:layout_alignParentLeft="true">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View"
+                    android:textColor="@color/white"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dim_24"
+                    android:layout_height="@dimen/dim_24"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_action_arrow_right"/>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
         </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
 

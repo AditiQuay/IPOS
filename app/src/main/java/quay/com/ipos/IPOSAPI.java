@@ -15,6 +15,7 @@ public class IPOSAPI {
     public static String WEB_SERVICE_SEARCH_PRODUCT = "Retail/SearchRetailProduct";
     public static String WEB_SERVICE_RETAIL_ORDER_SUBMIT = "Retail/RetailOrderSubmit";
     public static String WEB_SERVICE_RETAIL_ORDER_CENTER = "Retail/RetailOrderCenter";
+    public static String WEB_SERVICE_RETAIL_CreateMaterialMaster = "Retail/CreateMaterialMaster";
     public static String WEB_SERVICE_RETAIL_CustomerPointsRedeemRequest = "Retail/CustomerPointsRedeemRequest";
     public static String WEB_SERVICE_RETAIL_ValidateCustomerPointsRedeemRequest = "Retail/ValidateCustomerPointsRedeemRequest";
     public static String WEB_SERVICE_ProductDetailUsingBarCode = "Retail/ProductDetailUsingBarCode";
@@ -56,7 +57,15 @@ public class IPOSAPI {
     public static String WEB_SERVICE_GET_GRN_SUMMARY_SUBMIT = WEB_SERVICE_BASE_URL+"Inventory/SubmitGRNSummaryDetail";
     public static String WEB_SERVICE_GET_PO_CREATE = WEB_SERVICE_BASE_URL+"Inventory/SubmitPODetail";
     public static String WEB_SERVICE_GetPODETAILS = WEB_SERVICE_BASE_URL + "Inventory/PODetail";
+
+    //inventory Transfer Out
+
+    public static String WEB_SERVICE_GetTransferOutDetail = WEB_SERVICE_BASE_URL + "Inventory/TransferOutDetail";
+    public static String WEB_SERVICE_SubmitTransferOut = WEB_SERVICE_BASE_URL + "Inventory/SubmitTransferOut";
+    public static String WEB_SERVICE_TransferOutSummary = WEB_SERVICE_BASE_URL + "Inventory/TransferOutSummary";
+    public static String WEB_SERVICE_TransferOutSummaryDetail = WEB_SERVICE_BASE_URL + "Inventory/TransferOutSummaryDetail";
     //------------niraj and ankush end
+
     //redeem
     public static String WEB_SERVICE_NOPointsRedeem = WEB_SERVICE_BASE_URL + "PSSNewOrder/NOPointsRedeem";
     public static String WEB_SERVICE_ValidateNOCustomerRedeemPoint = WEB_SERVICE_BASE_URL + "PSSNewOrder/ValidateNOCustomerRedeemPoint";
@@ -85,6 +94,7 @@ public class IPOSAPI {
     public static final String COMPLIANCE_DATA = "/api/ComplianceTracker/GetTaskschedularDetails";
 
     //TransferIn
-    public static final String GET_TRANSFER_OUT_GRN_SUMMARY = "/api/Inventory/GetTransferOutGRNSummary";
+    public static final String GET_TRANSFER_OUT_GRN_SUMMARY = WEB_SERVICE_BASE_URL+"Inventory/GetTransferOutGRNSummary";
+    public static final String GET_TRANSFER_OUT_GRN_SUMMARY_DETAIL = WEB_SERVICE_BASE_URL+"GetTransferOutGRNSummaryDetail";
 
 }

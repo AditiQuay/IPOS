@@ -151,6 +151,21 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/llShipment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
+                    <include layout="@layout/shiment_tracking_layout"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/llTransferOut"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <include layout="@layout/transfer_out_view_layout"/>
+
+                </LinearLayout>
                 <RelativeLayout
                     android:id="@+id/rlTab"
                     android:layout_width="match_parent"

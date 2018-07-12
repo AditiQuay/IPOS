@@ -108,6 +108,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
     private EditText edtPoNumber, edtDate, edtSupplier;
     private ImageView imgSearch;
     private RelativeLayout rlNewView;
+    private LinearLayout btnInNext;
 
 
     @Override
@@ -167,6 +168,15 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                 startActivity(i);
             }
         });
+        btnInNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), TransferOutListActivity.class);
+                i.putExtra("request", prepareJson().toString());
+                i.putExtra("businessPlaceId", businessPlaceCode + "");
+                startActivity(i);
+            }
+        });
         return rootView;
     }
 
@@ -190,6 +200,7 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
         swchInventory = rootView.findViewById(R.id.swchInventory);
         swchPOAvailable = rootView.findViewById(R.id.swchPOAvailable);
         swchType = rootView.findViewById(R.id.swchType);
+        btnInNext = rootView.findViewById(R.id.btnInNext);
         edtSupplier = rootView.findViewById(R.id.edtSupplier);
         edtDate = rootView.findViewById(R.id.edtDate);
         edtPoNumber = rootView.findViewById(R.id.edtPoNumber);
@@ -248,16 +259,20 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                 if (!b) {
                     btnAddNew.setVisibility(View.GONE);
                     llTransferType.setVisibility(View.VISIBLE);
-                    btnNext.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.GONE);
+                    btnInNext.setVisibility(View.VISIBLE);
                     swchType.setChecked(true);
-                    rlNewView.setVisibility(View.GONE);
+                    btnNew.setVisibility(View.GONE);
+                    btnView.setVisibility(View.GONE);
                     //   llPOVisible.setVisibility(View.VISIBLE);
                     //  llInventory.setVisibility(View.VISIBLE);
                 } else {
-                    rlNewView.setVisibility(View.VISIBLE);
+                    btnNew.setVisibility(View.VISIBLE);
+                    btnView.setVisibility(View.VISIBLE);
                     btnAddNew.setVisibility(View.GONE);
                     llTransferType.setVisibility(View.GONE);
                     llPOVisible.setVisibility(View.GONE);
+                    btnInNext.setVisibility(View.GONE);
                     llInventory.setVisibility(View.GONE);
                     btnNext.setVisibility(View.GONE);
                 }
@@ -272,11 +287,15 @@ public class InventoryFragment extends BaseFragment implements ServiceTask.Servi
                     llPOVisible.setVisibility(View.GONE);
                     llInventory.setVisibility(View.GONE);
                     btnNext.setVisibility(View.GONE);
+                    btnInNext.setVisibility(View.VISIBLE);
+
                 } else {
                     btnAddNew.setVisibility(View.VISIBLE);
                     llPOVisible.setVisibility(View.GONE);
                     llInventory.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.GONE);
+                    btnInNext.setVisibility(View.GONE);
+
                 }
             }
         });

@@ -399,6 +399,9 @@ public class AddProductActivity extends BaseActivity implements View.OnClickList
 
                     mProductSearchResult = (ProductSearchResult) resultObj;
                     data.addAll(mProductSearchResult.getData());
+                    SharedPrefUtil.putBoolean(Constants.isOTC, mProductSearchResult.getIsOTC(), mContext);
+                    SharedPrefUtil.putInt(Constants.otcPerc, mProductSearchResult.getOtcPerc(), mContext);
+                    SharedPrefUtil.putInt(Constants.otcValue, mProductSearchResult.getOtcValue(), mContext);
                     arrSearchlist.addAll(data);
                     setAdapter();
                     IPOSApplication.datumArrayList.clear();
