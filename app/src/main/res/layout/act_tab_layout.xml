@@ -53,7 +53,7 @@
         android:layout_marginRight="@dimen/fab_margin"
         android:visibility="gone"
         app:backgroundTint="@color/colorPrimary"
-        app:layout_anchor="@+id/bottom_sheet"
+        app:layout_anchor="@id/bottom_sheet"
         app:layout_anchorGravity="top|end"
         app:srcCompat="@drawable/icon_plus"
         tools:ignore="VectorDrawableCompat" />
