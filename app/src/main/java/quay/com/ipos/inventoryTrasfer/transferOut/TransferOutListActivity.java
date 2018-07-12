@@ -49,6 +49,7 @@ import quay.com.ipos.inventory.adapter.WorkFLowUserAdapter;
 import quay.com.ipos.inventory.modal.NOGetEntityBuisnessPlacesModal;
 import quay.com.ipos.inventory.modal.NoGetEntityResultModal;
 import quay.com.ipos.inventory.modal.UserModal;
+import quay.com.ipos.inventoryTrasfer.TransferStepsActivity;
 import quay.com.ipos.inventoryTrasfer.adapter.TransferOutPendingAdapter;
 import quay.com.ipos.inventoryTrasfer.adapter.TransferOutShortAdapter;
 import quay.com.ipos.inventoryTrasfer.adapter.TransferOutTransitAdapter;
@@ -110,13 +111,17 @@ public class TransferOutListActivity extends BaseActivity implements View.OnClic
     private LinearLayout llNewRecyclerDispatch,llNewRecyclerAccept,llNewRecycler;
 
     int click=1;
+    private String businessPlaceId="";
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_center_detail);
+        setContentView(R.layout.transfer_out_list_activity);
 
         setHeader();
+
+        Intent i=getIntent();
+        businessPlaceId=i.getStringExtra("businessPlaceId");
         clearData();
         initializeComponent();
         setAdapter();
@@ -188,21 +193,15 @@ public class TransferOutListActivity extends BaseActivity implements View.OnClic
                             JSONObject jsonObject = array1.optJSONObject(k);
                             TransferOutListModal orderCentreModal = new TransferOutListModal();
 
-                            orderCentreModal.setDate("14 May 2018");
-                            orderCentreModal.setAmount(654444);
-                            orderCentreModal.setId("TR18190001");
-                            orderCentreModal.setReceiverAddress("KGM Traders, Palam Vihar,Haryana");
+                            orderCentreModal.setDate(jsonObject.optString("tranDate"));
+                            orderCentreModal.setAmount(jsonObject.optDouble("totalTransferValue"));
+                            orderCentreModal.setId(jsonObject.optString("tranID"));
+                            orderCentreModal.setReceiverAddress(jsonObject.optString("receiverBusinessPlaceName"));
                             orderCentreModal.setReceiverName("Receiver");
-                            orderCentreModal.setSenderAddress("KGM Traders, Kriti Nagar,Delhi,Haryana");
+                            orderCentreModal.setSenderAddress(jsonObject.optString("senderBusinessPlaceName"));
                             orderCentreModal.setSenderName("Sender");
 
 
-                       /*     orderCentreModal.setEtaDate(jsonObject.optString("etaDate"));
-                            orderCentreModal.setItemQty(jsonObject.optInt("itemQty"));
-                            orderCentreModal.setModifiedDate(jsonObject.optString("modifiedDate"));
-                            orderCentreModal.setOrderValue(jsonObject.optInt("orderValue"));
-                            orderCentreModal.setRequestCode(jsonObject.optString("requestCode"));
-                            orderCentreModal.setTotalItem(jsonObject.optInt("totalItem"));*/
 
                             if (realmOrderCentreSummary.getId()==1)
                                 orderList.add(orderCentreModal);
@@ -374,20 +373,18 @@ public class TransferOutListActivity extends BaseActivity implements View.OnClic
 
                     if (Util.isConnected()) {
                         if (click==1){
-                            Intent mIntent = new Intent(TransferOutListActivity.this, OrderCentreDetailsActivity.class);
-                            mIntent.putExtra("etaDate", orderList.get(mSelectedpos).getDate().replace("PO", ""));
-                            mIntent.putExtra("requestCode", orderList.get(mSelectedpos).getId().replace("PO", ""));
+                            Intent mIntent = new Intent(TransferOutListActivity.this, TransferStepsActivity.class);
+                            mIntent.putExtra("poNumber", orderList.get(mSelectedpos).getId());
+                            mIntent.putExtra("businessPlaceId", businessPlaceId);
                             TransferOutListActivity.this.startActivity(mIntent);
                         }else if (click==2){
-                            Intent mIntent = new Intent(TransferOutListActivity.this, OrderCentreDetailsActivity.class);
-                            mIntent.putExtra("etaDate", orderListA.get(mSelectedpos).getDate().replace("PO", ""));
-                            mIntent.putExtra("requestCode", orderListA.get(mSelectedpos).getId().replace("PO", ""));
-                            TransferOutListActivity.this.startActivity(mIntent);
+                            Intent mIntent = new Intent(TransferOutListActivity.this, TransferStepsActivity.class);
+                            mIntent.putExtra("poNumber", orderList.get(mSelectedpos).getId());
+                            mIntent.putExtra("businessPlaceId", businessPlaceId);   TransferOutListActivity.this.startActivity(mIntent);
                         }else if (click==3){
-                            Intent mIntent = new Intent(TransferOutListActivity.this, OrderCentreDetailsActivity.class);
-                            mIntent.putExtra("etaDate", orderListDis.get(mSelectedpos).getDate().replace("PO", ""));
-                            mIntent.putExtra("requestCode", orderListDis.get(mSelectedpos).getId().replace("PO", ""));
-                            TransferOutListActivity.this.startActivity(mIntent);
+                            Intent mIntent = new Intent(TransferOutListActivity.this, TransferStepsActivity.class);
+                            mIntent.putExtra("poNumber", orderList.get(mSelectedpos).getId());
+                            mIntent.putExtra("businessPlaceId", businessPlaceId);  TransferOutListActivity.this.startActivity(mIntent);
                         }
 
                     }else {
@@ -592,11 +589,11 @@ public class TransferOutListActivity extends BaseActivity implements View.OnClic
         JSONObject jsonObject1=new JSONObject();
 
         try {
-            jsonObject1.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("employeeRole",Prefs.getStringPrefs(Constants.employeeRole));
-            jsonObject1.put("businessCode","1");
-            jsonObject1.put("entityID",Prefs.getIntegerPrefs(Constants.entityCode));
-            jsonObject1.put("type","string");
+            jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
+
+            jsonObject1.put("businessPlaceId",businessPlaceId);
+
+            jsonObject1.put("tranID","string");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -604,7 +601,7 @@ public class TransferOutListActivity extends BaseActivity implements View.OnClic
 
         OkHttpClient okHttpClient = APIClient.getHttpClient();
         RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
-        String url = IPOSAPI.WEB_SERVICE_NOSummary;
+        String url = IPOSAPI.WEB_SERVICE_TransferOutSummary;
 
         final Request request = APIClient.getPostRequest(TransferOutListActivity.this, url, requestBody);
         okHttpClient.newCall(request).enqueue(new Callback() {

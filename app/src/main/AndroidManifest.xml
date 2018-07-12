@@ -322,6 +322,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".inventoryTrasfer.transferOut.TransferOutListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".inventory.activity.InventoryWorkFlowActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

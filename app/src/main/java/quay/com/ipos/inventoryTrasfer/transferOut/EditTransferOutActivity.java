@@ -86,6 +86,7 @@ import quay.com.ipos.inventory.modal.InventoryPOModal;
 import quay.com.ipos.inventory.modal.POItemDetail;
 import quay.com.ipos.inventory.modal.POPaymentTerms;
 import quay.com.ipos.inventory.modal.POTermsCondition;
+import quay.com.ipos.inventoryTrasfer.TransferStepsActivity;
 import quay.com.ipos.listeners.AttachmentListener;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.listeners.MyListenerOnitemClick;
@@ -155,7 +156,11 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
     private boolean isPOHeader,isItemDetails,isInco,isPayment,isTerms,isAttachments;
     private ImageView imgri,imgRight,imgPaymentTerms,imgIncoTerms,imgItems,arrowPO;
 
-    private EditText edtDocHash,edtDocValue,edtGSTValue,edtSenderGSTIN,edtReceiverGSTIN;
+    private EditText edtDocHash,edtDocValue,edtGSTValue,edtSenderGSTIN,edtReceiverGSTIN,edtDocDate,etTruckNumber,etEwayBill,etEWayBillValidity,
+    etName,etLrn,etDriverName,driverMobileNumber,etAddress;
+    private LinearLayout llEWayBillDate;
+    private String senderBusinessPlaceAddress,senderBusinessPlaceGSTIN,senderBusinessPlaceCode,receiverBusinessPlaceGSTIN,
+            receiverBusinessPlaceCode,receiverBusinessPlaceAddress;
 
 
     @Override
@@ -164,16 +169,25 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
         setContentView(R.layout.transfer_out_details);
         context=EditTransferOutActivity.this;
         setHeader();
-
+        Intent i=getIntent();
+        if (i!=null){
+            requestJson = i.getStringExtra("request");
+            businessPlaceId=i.getStringExtra("businessPlaceId");
+        }
         clearRealm();
         myDialog = new Dialog(this);
         myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         inializeViews();
         setLisner();
-        //getPODetails();
+        getPODetails();
         //setPaymentsTerms(0);
         setIncotermsData();
-
+        llEWayBillDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dateDialogfrom(0);
+            }
+        });
         llPoDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -242,7 +256,7 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
         int m = c.get(Calendar.MONTH);
         int d = c.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog dp = new DatePickerDialog(mContext,
+        DatePickerDialog dp = new DatePickerDialog(EditTransferOutActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year,
@@ -254,7 +268,7 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
 
 
                             poValidate=erg;
-                            edtPoValDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
+                        edtDocDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
 
 
 
@@ -278,7 +292,7 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
         int m = c.get(Calendar.MONTH);
         int d = c.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog dp = new DatePickerDialog(mContext,
+        DatePickerDialog dp = new DatePickerDialog(EditTransferOutActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year,
@@ -290,7 +304,7 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
 
 
                             poDate=erg;
-                            edtPoDate.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
+                            etEWayBillValidity.setText(Util.getFormattedDates(erg,Constants.format6,Constants.format2));
 
 
 
@@ -374,7 +388,23 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
     private void inializeViews(){
 
 
+        llEWayBillDate=findViewById(R.id.llEWayBillDate);
+        etTruckNumber=findViewById(R.id.etTruckNumber);
+        etEwayBill=findViewById(R.id.etEwayBill);
+        etEWayBillValidity=findViewById(R.id.etEWayBillValidity);
+        etName=findViewById(R.id.etName);
+        etLrn=findViewById(R.id.etLrn);
+        etDriverName=findViewById(R.id.etDriverName);
+        driverMobileNumber=findViewById(R.id.driverMobileNumber);
+        etAddress=findViewById(R.id.etAddress);
 
+
+        edtReceiverGSTIN=findViewById(R.id.edtReceiverGSTIN);
+        edtDocValue=findViewById(R.id.edtDocValue);
+        edtGSTValue=findViewById(R.id.edtGSTValue);
+        edtDocDate=findViewById(R.id.edtDocDate);
+        edtSenderGSTIN=findViewById(R.id.edtSenderGSTIN);
+        edtDeliveryAddress=findViewById(R.id.edtDeliveryAddress);
         imgri=findViewById(R.id.imgri);
         imgRight=findViewById(R.id.imgRight);
         imgPaymentTerms=findViewById(R.id.imgPaymentTerms);
@@ -413,7 +443,6 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
         llSuppierNameOthers=findViewById(R.id.llSuppierNameOthers);
         llSuppierOthers=findViewById(R.id.llSuppierOthers);
         llSupplierInfo=findViewById(R.id.llSupplierInfo);
-        llSupplierInfo.setVisibility(View.GONE);
         llPoDate=findViewById(R.id.llDocDate);
         llPoVal=findViewById(R.id.llPoVal);
         btnSave=findViewById(R.id.btnSave);
@@ -422,9 +451,9 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
             @Override
             public void onClick(View view) {
                 if (validate()){
-
+                    submitGRNDetails();
                 }
-              //  submitGRNDetails();
+              //
 
             }
         });
@@ -580,17 +609,20 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i!=0) {
+                    senderBusinessPlaceAddress= supplierName.get(i).getAddress();
+                    senderBusinessPlaceCode= supplierName.get(i).getId();
+
                     msupplierName = supplierName.get(i).getId();
                     supName = supplierName.get(i).getAddress();
                     if (i == supplierName.size() - 1) {
-                        edtSupGSTIN.setText("");
+                        edtSenderGSTIN.setText("");
                         edtSupOther.setText("");
                         NameView.setVisibility(View.VISIBLE);
                         llSuppierNameOthers.setVisibility(View.VISIBLE);
 
                     } else {
                         edtSupOther.setText(supplierName.get(i).getNameAddress());
-                        edtSupGSTIN.setText(supplierName.get(i).getSupplierGSTIN());
+                        edtSenderGSTIN.setText(supplierName.get(i).getSupplierGSTIN());
                         NameView.setVisibility(View.GONE);
                         llSuppierNameOthers.setVisibility(View.GONE);
                     }
@@ -632,12 +664,16 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
 
 
                 if (i!=0) {
+                    receiverBusinessPlaceAddress= supplierName.get(i).getAddress();
+                    receiverBusinessPlaceCode= supplierName.get(i).getId();
                     postionBilling = i;
                     deliveryAddress = noGetEntityBuisnessPlacesModals.get(i).getId();
                     if (i == noGetEntityBuisnessPlacesModals.size() - 1) {
+                        edtReceiverGSTIN.setText("");
                         deliveryView.setVisibility(View.VISIBLE);
                         llSuppierDeliveryOthers.setVisibility(View.VISIBLE);
                     } else {
+                        edtReceiverGSTIN.setText( noGetEntityBuisnessPlacesModals.get(i).getSupplierGSTIN());
                         deliveryView.setVisibility(View.GONE);
                         llSuppierDeliveryOthers.setVisibility(View.GONE);
                     }
@@ -887,13 +923,12 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
 
 
 
-            jsonObject.put("poNumber", edtPoNumber.getText().toString());
-            jsonObject.put("poDate", "na");
-            jsonObject.put("poValidityDate", "na");
-            jsonObject.put("poValue", poValue);
-            jsonObject.put("poIGSTValue",poGST);
-            jsonObject.put("poCGSTValue",0);
-            jsonObject.put("poSGSTValue", 0);
+
+
+
+
+/*
+
             jsonObject.put("supplierCode", msupplierName);
             if (Util.validateString(supName)) {
                 jsonObject.put("supplierName", supName);
@@ -926,16 +961,43 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
                 jsonObject.put("deliveryAddressOther", edtSupDeliveryOther.getText().toString().trim());
                 jsonObject.put("deliveryAddress", "Other");
             }
+*/
 
 
-            jsonObject.put("poItemDetails", arrayPoDetails);
-            jsonObject.put("poIncoTerms", IncoTermsArray);
-            jsonObject.put("poPaymentTerms",jsonArray1);
+            jsonObject.put("itemDetails", arrayPoDetails);
+            jsonObject.put("incoTerms", IncoTermsArray);
+         /*   jsonObject.put("poPaymentTerms",jsonArray1);
             jsonObject.put("poPaymentTermsType", "Milestone based");
-            jsonObject.put("poTermsAndConditions",arrayTerms);
-            jsonObject.put("poAttachments", jsonArrayAttachments);
+            jsonObject.put("poTermsAndConditions",arrayTerms);*/
+            jsonObject.put("attachments", jsonArrayAttachments);
             jsonObject.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject.put("businessPlaceId",businessPlaceId);
+
+
+            jsonObject.put("transporterAddress",etAddress.getText().toString().trim());
+            jsonObject.put("transporterDriverMobileNumber",driverMobileNumber.getText().toString().trim());
+            jsonObject.put("transporterDriverName",etDriverName.getText().toString().trim());
+            jsonObject.put("transporterEWayBillValidityDate",poDate);
+            jsonObject.put("transporterEWayBillNumber",etEwayBill.getText().toString().trim());
+            jsonObject.put("transporterTruckNumber",etTruckNumber.getText().toString().trim());
+            jsonObject.put("transporterLRName",etLrn.getText().toString().trim());
+            jsonObject.put("transporterName",etName.getText().toString().trim());
+
+            jsonObject.put("receiverBusinessPlaceGSTIN",edtReceiverGSTIN.getText().toString().trim());
+            jsonObject.put("receiverBusinessPlaceAddress",receiverBusinessPlaceAddress);
+            jsonObject.put("receiverBusinessPlaceCode",receiverBusinessPlaceCode);
+
+            jsonObject.put("senderBusinessPlaceGSTIN",edtSenderGSTIN.getText().toString().trim());
+            jsonObject.put("senderBusinessPlaceAddress",senderBusinessPlaceAddress);
+            jsonObject.put("senderBusinessPlaceCode",senderBusinessPlaceCode);
+            jsonObject.put("documentSGSTValue",poGST/2);
+            jsonObject.put("documentCGSTValue",poGST/2);
+            jsonObject.put("documentIGSTValue",poGST);
+            jsonObject.put("documentValue",poValue);
+            jsonObject.put("documentDate",Util.getCurrentDate());
+            jsonObject.put("documentNumber","na");
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1141,7 +1203,7 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
             modal.setAddress("Select Name");
             modal.setId("0");
             modal.setSupplierGSTIN("");
-            supplierName.add(modal);
+          /*  supplierName.add(modal);
 
             JSONArray jsonArray=jsonObject.optJSONArray("supplierDetails");
             for (int i=0;i<jsonArray.length();i++){
@@ -1152,7 +1214,7 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
                 noGetEntityBuisnessPlacesModal.setSupplierGSTIN(jsonObject1.optString("supplierGSTIN"));
                 noGetEntityBuisnessPlacesModal.setNameAddress(jsonObject1.optString("supplierAddress"));
                 supplierName.add(noGetEntityBuisnessPlacesModal);
-            }
+            }*/
 
             CommonModal commonModal=new CommonModal();
             commonModal.setAddress("Select Address");
@@ -1160,15 +1222,18 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
 
             noGetEntityBuisnessPlacesModals.add(commonModal);
             supplierAddress.add(commonModal);
+            supplierName.add(commonModal);
             JSONArray jsonArray4=jsonObject.optJSONArray("address");
             for (int i=0;i<jsonArray4.length();i++){
                 JSONObject jsonObject1=jsonArray4.optJSONObject(i);
                 CommonModal noGetEntityBuisnessPlacesModal=new CommonModal();
                 noGetEntityBuisnessPlacesModal.setAddress(jsonObject1.optString("buisnessPlaceName"));
                 noGetEntityBuisnessPlacesModal.setId(jsonObject1.optString("buisnessPlaceId"));
+                noGetEntityBuisnessPlacesModal.setSupplierGSTIN(jsonObject1.optString("gstin"));
 
                 noGetEntityBuisnessPlacesModals.add(noGetEntityBuisnessPlacesModal);
                 supplierAddress.add(noGetEntityBuisnessPlacesModal);
+                supplierName.add(noGetEntityBuisnessPlacesModal);
             }
 
             CommonModal noGetEntityBuisnessPlacesModal=new CommonModal();
@@ -1226,7 +1291,7 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
         progressDialog.show();
         OkHttpClient okHttpClient = APIClient.getHttpClient();
         RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
-        String url = IPOSAPI.WEB_SERVICE_GetPODETAILS;
+        String url = IPOSAPI.WEB_SERVICE_GetTransferOutDetail;
 
         final Request request = APIClient.getPostRequest(this, url, requestBody);
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -1451,18 +1516,41 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
 
     @Override
     public void onRowClickedOnItem(final int position, final int percent,final double value) {
-
-
-       /* runOnUiThread(new Runnable() {
+        runOnUiThread(new Runnable() {
             @Override
-            public void run() {*/
+            public void run() {
+                double valuetotal=value;
+                if (value==0){
+                    //     valuetotal=poItemDetails.get(position).getPoItemUnitPrice();
+                }
+                POItemDetail poItemDetail=new POItemDetail();
+                poItemDetail.setTitle(poItemDetails.get(position).getTitle());
 
-        int qty=0;
-        for (int l=0;l<poItemDetails.size();l++) {
-            qty+=poItemDetails.get(l).getPoItemQty();
+                poItemDetail.setPoItemUnitPrice(valuetotal);
+                poItemDetail.setPoItemCGSTPer(poItemDetails.get(position).getPoItemCGSTPer());
+                poItemDetail.setPoItemIGSTPer(poItemDetails.get(position).getPoItemIGSTPer());
+                poItemDetail.setMaterialCode(poItemDetails.get(position).getMaterialCode());
+                poItemDetail.setMaterialName(poItemDetails.get(position).getMaterialName());
+                poItemDetail.setPoItemAmount(valuetotal*percent);
+                poItemDetail.setPoItemIGSTValue(((poItemDetails.get(position).getPoItemSGSTPer()+poItemDetails.get(position).getPoItemCGSTPer())*percent*valuetotal)/100);
+                poItemDetail.setPoItemQty(percent);
+                poItemDetails.set(position,poItemDetail);
 
-        }
-        tvHeaderPOItemDetail.setText("Item Details * | " + poItemDetails.size() + " Items | Qty " +qty);
+                itemListDataAdapter.notifyItemChanged(position);
+                int qty=0;
+                double gstValue=0,docValue=0;
+                for (int l=0;l<poItemDetails.size();l++) {
+                    qty+=poItemDetails.get(l).getPoItemQty();
+                    gstValue+=poItemDetails.get(l).getPoItemIGSTValue();
+                    docValue+=poItemDetails.get(l).getPoItemAmount();
+
+                }
+                edtDocValue.setText(docValue+"");
+                edtGSTValue.setText(gstValue+"");
+                tvHeaderPOItemDetail.setText("Item Details | " + poItemDetails.size() + " Items | Qty " +qty);
+            }
+        });
+
     }
 
     private class AttachVH extends RecyclerView.ViewHolder {
@@ -1571,7 +1659,7 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
         progressDialog.show();
         OkHttpClient okHttpClient = APIClient.getHttpClient();
         RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, createJson());
-        String url = IPOSAPI.WEB_SERVICE_GET_PO_CREATE;
+        String url = IPOSAPI.WEB_SERVICE_SubmitTransferOut;
 
         final Request request = APIClient.getPostRequest(this, url, requestBody);
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -1616,7 +1704,7 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Util.showToast(jsonObject.optString("code")+" PO created Successfully");
+                                    Util.showToast(jsonObject.optString("code")+"  Created Successfully");
                                     JSONObject jsonObject1=null;
                                     try {
                                          jsonObject1=new JSONObject(requestJson);
@@ -1626,7 +1714,7 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                    Intent i = new Intent(EditTransferOutActivity.this, InventoryGRNStepsActivity.class);
+                                    Intent i = new Intent(EditTransferOutActivity.this, TransferStepsActivity.class);
                                     assert jsonObject1 != null;
                                     i.putExtra("request", jsonObject1.toString());
                                     i.putExtra("businessPlaceId", businessPlaceId + "");
@@ -1719,38 +1807,63 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
 
         boolean valid=true;
 
-        if (!Util.validateString(supName)){
+        if (!Util.validateString(senderBusinessPlaceAddress)){
             valid=false;
         }
-        if (!Util.validateString(edtSupOther.getText().toString())){
+        if (!Util.validateString(receiverBusinessPlaceAddress)){
             valid=false;
         }
-        if (!Util.validateString(edtSupGSTIN.getText().toString().trim()) || edtSupGSTIN.getText().toString().length()<15){
+        if (!Util.validateString(etName.getText().toString().trim())){
             valid=false;
         }
-        if (!Util.validateString(billingAddress)){
-            valid=false;
-        }
-        if (!Util.validateString(deliveryAddress)){
-            valid=false;
-        }
-        if (poItemDetails.isEmpty()){
-            valid=false;
-        }
-        if (poPaymentTerms.isEmpty()){
+        if (!Util.validateString(poDate)){
             valid=false;
         }
 
-        if (msupplierName.equalsIgnoreCase("Other")){
+        if (!Util.validateString(etAddress.getText().toString().trim())){
+            valid=false;
+        }
+        if (!Util.validateString(etDriverName.getText().toString().trim())){
+            valid=false;
+        }
+        if (!Util.validateString(etEwayBill.getText().toString().trim())){
+            valid=false;
+        }
+        if (!Util.validateString(etTruckNumber.getText().toString().trim())){
+            valid=false;
+        }
+        if (!Util.validateString(etLrn.getText().toString().trim())){
+            valid=false;
+        }
+        if (!Util.validateString(driverMobileNumber.getText().toString().trim())){
+            valid=false;
+        }
+
+        if (!Util.validateString(edtSenderGSTIN.getText().toString().trim()) || edtSenderGSTIN.getText().toString().length()<9){
+            valid=false;
+        }
+        if (!Util.validateString(edtReceiverGSTIN.getText().toString().trim()) || edtReceiverGSTIN.getText().toString().length()<9){
+            valid=false;
+        }
+
+       /* if (!Util.validateString(deliveryAddress)){
+            valid=false;
+        }*/
+        if (poItemDetails.isEmpty()){
+            valid=false;
+        }
+
+
+      /*  if (msupplierName.equalsIgnoreCase("Other")){
             if (!Util.validateString(edtSupNameOther.getText().toString().trim())){
                 valid=false;
             }
         }
-       /* if (msupplierAddress.equalsIgnoreCase("Other")){
+       *//* if (msupplierAddress.equalsIgnoreCase("Other")){
             if (!Util.validateString(edtSupOther.getText().toString().trim())){
                 valid=false;
             }
-        }*/
+        }*//*
         if (deliveryAddress.equalsIgnoreCase("Other")){
             if (!Util.validateString(edtSupDeliveryOther.getText().toString().trim())){
                 valid=false;
@@ -1760,26 +1873,10 @@ public class EditTransferOutActivity extends BaseActivity implements MyListenerO
             if (!Util.validateString(edtSupBillingOther.getText().toString().trim())){
                 valid=false;
             }
-        }
+        }*/
 
         if (valid){
-            double percentage=0;
-            for (int j = 0; j < poPaymentTerms.size(); j++) {
 
-                percentage+=poPaymentTerms.get(j).getPoPaymentTermsPer();
-
-
-            }
-
-            if (percentage==100) {
-
-                valid=true;
-
-            }else {
-                Util.showToast("Payment Terms total percentage should not be greater or less than 100%");
-                valid=false;
-
-            }
         }else {
             Util.showToast("Please fill all required (*) fields");
         }

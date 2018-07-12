@@ -200,6 +200,7 @@
                     android:background="@drawable/ipos_line_black" />
 
                 <LinearLayout
+                    android:id="@+id/llEWayBillDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
