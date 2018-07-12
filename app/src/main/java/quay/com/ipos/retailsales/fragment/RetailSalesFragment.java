@@ -854,6 +854,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
 
     private void setUpdateValues(ArrayList<ProductSearchResult.Datum> mList) {
 
+
         AppLog.e(RetailSalesFragment.class.getSimpleName(), "IPOSApplication.mProductListResult:Frag: " + Util.getCustomGson().toJson(IPOSApplication.mProductListResult));
         if (mList.size() == 1 || mList.size() == 0) {
             tvItemNo.setText("Item " + mList.size() + " item");
@@ -2045,20 +2046,7 @@ public class RetailSalesFragment extends BaseFragment implements  View.OnClickLi
                 IPOSApplication.datumSameCode.clear();
                 datumArrayList1.clear();
                 for (int j = 0; j < IPOSApplication.datumArrayList.size(); j++) {
-//                    if(IPOSApplication.datumArrayList.get(j).getProductCode().equalsIgnoreCase(IPOSApplication.mProductListResult.get(position).getProductCode())){
                     ProductSearchResult.Datum datum = IPOSApplication.datumArrayList.get(j);
-
-//                        if (datumArrayList1.size()>0) {
-//                            for (int k = 0; k < datumArrayList1.size(); k++) {
-//                                if (datum.getProductCode().equalsIgnoreCase(datumArrayList1.get(k).getProductCode())) {
-//                                    datumArrayList1.add(datum);
-//                                    return;
-//
-//                                }
-//                            }
-//                        }else {
-//                            datumArrayList1.add(datum);
-//                        }
                     if (IPOSApplication.mProductListResult.size() > 0) {
                         if (IPOSApplication.datumArrayList.get(j).getProductCode().equalsIgnoreCase(IPOSApplication.mProductListResult.get(position).getProductCode())) {
                             datumArrayList1.add(datum);

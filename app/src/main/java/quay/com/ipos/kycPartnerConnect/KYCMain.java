@@ -89,7 +89,7 @@ public class KYCMain extends AppCompatActivity implements InitInterface,
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = this;
-        setContentView(R.layout.kyc_partner_pss);
+        setContentView(R.layout.act_tab_layout);
         entityName = Prefs.getStringPrefs(Constants.entityName);
         myDialog = new Dialog(this);
         myDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

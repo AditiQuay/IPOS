@@ -334,7 +334,9 @@
     <string name="grn">GRN</string>
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
-
+    <string name="od_tab_1">Overview</string>
+    <string name="od_tab_2">Scope</string>
+    <string name="od_tab_3">Rule</string>
     <string name="transfer_out">Transfer Out</string>
     <string name="shipment">Shipment</string>
     <string name="transfer_in">Transfer In</string>
@@ -547,5 +549,6 @@
     <string name="other_details">Other Details</string>
     <string name="paid_by_points">Paid by Points</string>
     <string name="points_value">Points Value</string>
+    <string name="offer_discount">Offer Discount</string>
 
 </resources>

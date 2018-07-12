@@ -84,6 +84,7 @@ import quay.com.ipos.login.SplashActivity;
 import quay.com.ipos.managebusiness.MaterialMasterFragment;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
+import quay.com.ipos.offerdiscount.fragment.OfferDiscountFragment;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.partnerConnect.kyc.KYCActivity;
 import quay.com.ipos.productCatalogue.ProductMain;
@@ -122,7 +123,7 @@ public class MainActivity extends BaseActivity
     private int lastExpandedGroup;
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
-    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null,mRetailOrderCentreFragment=null,mMaterialMasterFragment=null;
+    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null,mRetailOrderCentreFragment=null,mMaterialMasterFragment=null,mOfferDiscountFragment=null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
 
@@ -655,6 +656,12 @@ public class MainActivity extends BaseActivity
                 drawer.closeDrawer(GravityCompat.START);
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
+            case "Offer Discount":
+                mOfferDiscountFragment = new OfferDiscountFragment();
+                replaceFragment(mOfferDiscountFragment, containerId);
+                drawer.closeDrawer(GravityCompat.START);
+                toolbar.setTitle(getString(R.string.offer_discount));
+                break;
             case "Dashboard & Insights":
                 dashboardFragment = new McCOYDashboardFragment();
                 replaceFragment(dashboardFragment, containerId);
@@ -703,7 +710,7 @@ public class MainActivity extends BaseActivity
                 startActivity(intentKYC);
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;
-                case "DDR Master":
+            case "DDR Master":
                 // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
                 Intent intentDDRMaster = new Intent(mContext, DDRListActivity.class);
                     intentDDRMaster.putExtra("isMaster", true);

@@ -307,23 +307,27 @@ public class MyDialogFragment extends BaseDialogFragment implements View.OnClick
                 CustomerPointsRedeemResult customerPointsRedeemResult = (CustomerPointsRedeemResult) resultObj;
                 if (customerPointsRedeemResult != null) {
                     if (customerPointsRedeemResult.getError() == 200) {
-                        if (sendVerify) {
-                            sendVerify = false;
-                            Util.showToast(customerPointsRedeemResult.getMessage(), getActivity());
-                            llVerifyRedeem.setVisibility(View.VISIBLE);
+                        if(customerPointsRedeemResult.getIsValid()) {
+                            if (sendVerify) {
+                                sendVerify = false;
+                                Util.showToast(customerPointsRedeemResult.getMessage(), getActivity());
+                                llVerifyRedeem.setVisibility(View.VISIBLE);
 
-                            buttonVerify.setVisibility(View.VISIBLE);
-                            buttonVerify.setBackgroundResource(R.drawable.button_rectangle_light_gray);
-                            buttonVerify.setEnabled(false);
+                                buttonVerify.setVisibility(View.VISIBLE);
+                                buttonVerify.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                                buttonVerify.setEnabled(false);
 
-                            buttonRedeem.setVisibility(View.VISIBLE);
-                            buttonRedeem.setEnabled(true);
-                            buttonRedeem.setBackgroundResource(R.drawable.button_drawable);
+                                buttonRedeem.setVisibility(View.VISIBLE);
+                                buttonRedeem.setEnabled(true);
+                                buttonRedeem.setBackgroundResource(R.drawable.button_drawable);
 
-                            buttonSendOtp.setBackgroundResource(R.drawable.button_rectangle_light_gray);
-                            buttonSendOtp.setEnabled(false);
+                                buttonSendOtp.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                                buttonSendOtp.setEnabled(false);
+                            } else {
+                                sendVerify = true;
+                            }
                         } else {
-                            sendVerify = false;
+                            sendVerify = true;
                         }
                     }
                 }

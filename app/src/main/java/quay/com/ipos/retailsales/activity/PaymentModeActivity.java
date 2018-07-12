@@ -65,6 +65,8 @@ import static quay.com.ipos.application.IPOSApplication.mCustomerID;
 import static quay.com.ipos.application.IPOSApplication.mCustomerNumber;
 import static quay.com.ipos.application.IPOSApplication.mCustomerPoints;
 import static quay.com.ipos.application.IPOSApplication.mCustomerPointsPer;
+import static quay.com.ipos.application.IPOSApplication.totalpointsToRedeem;
+import static quay.com.ipos.application.IPOSApplication.totalpointsToRedeemValue;
 
 /**
  * Created by aditi.bhuranda on 30-04-2018.
@@ -687,6 +689,22 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     btnEditPoints.setVisibility(View.GONE);
 //                btnP.setVisibility(View.VISIBLE);
 //                llPoints.performClick();
+                    cvPoints.setVisibility(View.VISIBLE);
+                    llPoints.setBackgroundResource(R.drawable.button_rectangle_light_gray);
+                    tvAvailablePoints.setText(mCustomerPoints + "");
+                    points = mCustomerPoints;
+                    pointsPer = IPOSApplication.mCustomerPointsPer;
+                    redeemValue = points * pointsPer;
+                    if (totalAmount >= redeemValue) {
+                        points1 = (int)(redeemValue / pointsPer);
+                        redeemValue = points1 * pointsPer;
+                    } else {
+                        points1 = (int)(totalAmount / pointsPer);
+                        redeemValue = points1 * pointsPer;
+                    }
+                    etPointToRedeem.setEnabled(true);
+                    etRedeemValue.setEnabled(true);
+                    redeemed=false;
                     sendRedeem=false;
                     sendVerify=false;
                     sendOTP=false;
@@ -824,7 +842,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                                     paymentRequest.setPointsToRedeemValue(IPOSApplication.totalpointsToRedeemValue);
                                 }
                                 customerModel = db.getCustomerMobile(mCustomerNumber);
-                                paymentRequest.setCustomerJson(customerModel);
+//                                paymentRequest.setCustomerJson(customerModel);
                             }catch (Exception e){
 
                             }
@@ -1120,6 +1138,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         if (!etPointToRedeem.getText().toString().equalsIgnoreCase("")) {
                             if (!sendOTP)
                                 if(points1>=points2) {
+                                    points1= points2;
+                                    totalpointsToRedeem = points1;
+                                    totalpointsToRedeemValue = redeemValue;
                                     if (points1 > 0) {
                                         if (redeemValue > 0) {
                                             sendOTP = true;
