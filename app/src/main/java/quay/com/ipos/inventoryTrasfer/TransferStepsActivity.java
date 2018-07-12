@@ -1,5 +1,6 @@
 package quay.com.ipos.inventoryTrasfer;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,7 +40,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
-import quay.com.ipos.inventory.activity.InventoryGRNDetails;
 import quay.com.ipos.inventory.adapter.AttachmentsPOListAdapter;
 import quay.com.ipos.inventory.adapter.INCOTermsPOListAdapter;
 import quay.com.ipos.inventory.adapter.ItemsDetailsPOListAdapter;
@@ -124,26 +125,58 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
     private int poItemQty, poGRNQty, poAPQty, poBalanceQty;
     private boolean qcVisible;
     private TransferInStepsAdapter transferInStepsAdapter;
+    public static Activity fa;
+    private String isGrn = "";
+    private String newGRNCreated;
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.inventory_transfer_steps_activity);
         mContext = TransferStepsActivity.this;
+        fa = this;
+
+        Intent i = getIntent();
+        poNumber = i.getStringExtra("poNumber");
+        newGRNCreated = i.getStringExtra("newGRNCreated");
+        supplierName = i.getStringExtra("supplierName");
+        isGrn = i.getStringExtra("isGrn");
 
         empCode = Prefs.getStringPrefs(Constants.employeeCode.trim());
-
 
         findViewById();
         applyInitValues();
         applyLocalValidation();
         applyTypeFace();
 
-//        rlTab.setVisibility(View.VISIBLE);
-//        rGrn.setVisibility(View.VISIBLE);
-//        tvTransferOut.setBackgroundResource(R.drawable.text_view_circle_grey);
-//        tvTransferIn.setBackgroundResource(R.drawable.textview_circle_app_color);
-//        recycleviewList.setVisibility(View.VISIBLE);
+        if (TextUtils.isEmpty(newGRNCreated)) {
+            getPODetails();
+        } else {
+            rlTab.setVisibility(View.VISIBLE);
+            rGrn.setVisibility(View.VISIBLE);
+            tvTransferOut.setBackgroundResource(R.drawable.text_view_circle_grey);
+            tvShipment.setBackgroundResource(R.drawable.text_view_circle_grey);
+            tvTransferIn.setBackgroundResource(R.drawable.textview_circle_app_color);
+            recycleviewList.setVisibility(View.VISIBLE);
+            llTransferOut.setVisibility(View.GONE);
+            llShipment.setVisibility(View.GONE);
+            getTGrnDetails();
+        }
+
+//        if (!TextUtils.isEmpty(isGrn)) {
+//            if (isGrn.equalsIgnoreCase("1")) {
+//                rlTab.setVisibility(View.VISIBLE);
+//                rGrn.setVisibility(View.VISIBLE);
+//                tvTransferOut.setBackgroundResource(R.drawable.text_view_circle_grey);
+//                tvShipment.setBackgroundResource(R.drawable.text_view_circle_grey);
+//                tvTransferIn.setBackgroundResource(R.drawable.textview_circle_app_color);
+//                recycleviewList.setVisibility(View.VISIBLE);
+//                llTransferOut.setVisibility(View.GONE);
+//                llShipment.setVisibility(View.GONE);
+//                getTGrnDetails();
+//            }
+//        }
 
     }
 
@@ -212,6 +245,9 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         toolbar.setTitle("Inventory");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
+        layoutManager = new LinearLayoutManager(mContext);
+        recycleviewList.setHasFixedSize(true);
+        recycleviewList.setLayoutManager(layoutManager);
     }
 
     private void getTGrnDetails() {
@@ -219,7 +255,7 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         JSONObject jsonObject1 = new JSONObject();
         try {
             jsonObject1.put("empCode", empCode);
-            jsonObject1.put("businessPlaceId", businessPlaceId);
+            jsonObject1.put("businessPlaceId", String.valueOf(Prefs.getIntegerPrefs("WorklocationID")));
             jsonObject1.put("tranID", poNumber);
             jsonObject1.put("isGRN", false);
             jsonObject1.put("isGRNOrQC", "NA");
@@ -350,6 +386,7 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
         tranferInCount.setText(poGRNQty + "");
         apCount.setText(poAPQty + "");
         balanceQtyCount.setText(poBalanceQty + "");
+        tvGrnNumberCount.setText("GRN (" + transferInListDataModels.size() + ")");
 
         transferInStepsAdapter = new TransferInStepsAdapter(mContext, transferInListDataModels, this);
         recycleviewList.setAdapter(transferInStepsAdapter);
@@ -381,8 +418,9 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
             case R.id.textViewAdd:
                 Intent i = new Intent(mContext, TransferInDetailsActivity.class);
                 i.putExtra("poNumber", tvTransferNumber.getText().toString());
-                String supplier = SharedPrefUtil.getString("supplierName","",mContext);
-                i.putExtra("supplierName",supplier);
+                i.putExtra("businessPlaceId",businessPlaceId);
+                String supplier = SharedPrefUtil.getString("supplierName", "", mContext);
+                i.putExtra("supplierName", supplier);
                 startActivity(i);
 
                 break;
@@ -756,7 +794,7 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
                     android.R.layout.simple_spinner_item,list);
             spnMilestone.setAdapter(adapter);*/
 
-
+            poItemDetails.clear();
             JSONArray array = jsonObject.optJSONArray("itemDetails");
 
 
@@ -779,7 +817,7 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
             }
             JSONArray jsonArray = jsonObject.optJSONArray("incoTerms");
 
-
+            poIncoTerms.clear();
             double total = 0;
             for (int j = 0; j < jsonArray.length(); j++) {
 
@@ -875,7 +913,7 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
 
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("businessPlaceId", businessPlaceId);
+            jsonObject1.put("businessPlaceId", String.valueOf(Prefs.getIntegerPrefs("WorklocationID")));
             jsonObject1.put("tranID", poNumber);
 
         } catch (JSONException e) {
@@ -973,6 +1011,13 @@ public class TransferStepsActivity extends AppCompatActivity implements InitInte
 
     @Override
     public void onCardClicked(int position) {
+        TransferInListDataModel transferInListDataModel = transferInListDataModels.get(position);
 
+        Intent i = new Intent(mContext, TransferInDetailsActivity.class);
+        i.putExtra("grnNumber", transferInListDataModel.getGrnNumber());
+        i.putExtra("cardClick", "yes");
+        i.putExtra("poNumber", tvTransferNumber.getText().toString());
+        i.putExtra("supplierName", supplierName);
+        startActivity(i);
     }
 }

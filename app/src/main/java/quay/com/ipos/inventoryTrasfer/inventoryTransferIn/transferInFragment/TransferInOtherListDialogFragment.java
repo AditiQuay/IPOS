@@ -82,7 +82,7 @@ public class TransferInOtherListDialogFragment extends DialogFragment implements
     public void otherTabListner(int position) {
         TransferInOtherTabList transferInOtherTabList = list.get(position);
         // Return input text back to activity through the implemented listener
-        ListDialogFragment.DialogListener listener = (ListDialogFragment.DialogListener) getActivity();
+        TransferInOtherListDialogFragment.DialogListener listener = (TransferInOtherListDialogFragment.DialogListener) getActivity();
         if (listener != null) {
             listener.onFinishListDialog(transferInOtherTabList.tabId, transferInOtherTabList.tabTitle);
             dismiss();

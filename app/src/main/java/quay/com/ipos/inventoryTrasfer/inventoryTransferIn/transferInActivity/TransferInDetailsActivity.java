@@ -44,8 +44,10 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
-import quay.com.ipos.inventory.activity.InventoryGRNStepsActivity;
 import quay.com.ipos.inventory.adapter.TransferInDetailViewAdapter;
+import quay.com.ipos.inventory.fragment.InventoryProduct;
+import quay.com.ipos.inventory.modal.GrnItemQtyModel;
+import quay.com.ipos.inventoryTrasfer.TransferStepsActivity;
 import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInAdapter.TransferInItemAdapter;
 import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail;
 import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.TransferInItemQtyModel;
@@ -130,6 +132,7 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
         cardClick = i.getStringExtra("cardClick");
         supplierName = i.getStringExtra("supplierName");
 
+
         findViewById();
         applyInitValues();
         applyTypeFace();
@@ -209,7 +212,6 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
 
     @Override
     public void onRowClicked(int position) {
-
         if (TextUtils.isEmpty(cardClick)) {
             TransferInItemQtyModel transferInItemQtyModel = transferInItemQtyModels.get(position);
             Intent gotToProductDetail = new Intent(mContext, TransferInBatchActivity.class);
@@ -219,6 +221,17 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
             gotToProductDetail.putExtra("lengthOfProduct", transferInItemQtyModels.size());
             startActivityForResult(gotToProductDetail, 1);
         }
+
+
+//        if (TextUtils.isEmpty(cardClick)) {
+//            TransferInItemQtyModel transferInItemQtyModel = transferInItemQtyModels.get(position);
+//            Intent gotToProductDetail = new Intent(mContext, TransferInBatchActivity.class);
+//            gotToProductDetail.putExtra("position", position);
+//            gotToProductDetail.putExtra("poQty", poQuantity);
+//            gotToProductDetail.putExtra("openQty", transferInItemQtyModel.getOpenQty());
+//            gotToProductDetail.putExtra("lengthOfProduct", transferInItemQtyModels.size());
+//            startActivityForResult(gotToProductDetail, 1);
+//        }
     }
 
     @Override
@@ -340,7 +353,6 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
 
 
         public void afterTextChanged(Editable editable) {
-            String text = editable.toString();
             switch (view.getId()) {
                 case R.id.etName:
                     etName.setError(null);
@@ -413,6 +425,7 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
             getSupportActionBar().setDisplayShowCustomEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
+
         if (TextUtils.isEmpty(cardClick)) {
             addTranferInDetails();
         } else {
@@ -442,11 +455,11 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
 
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("businessPlaceId", Prefs.getIntegerPrefs("WorklocationID"));
-            jsonObject1.put("po", poNumber);
-            jsonObject1.put("poNumber", getGrnNumber);
+            jsonObject1.put("businessPlaceId", String.valueOf(Prefs.getIntegerPrefs("WorklocationID")));
+            jsonObject1.put("tranID", getGrnNumber);
             jsonObject1.put("isGRN", true);
-            jsonObject1.put("isGRNOrQC", "grn");
+            jsonObject1.put("isGRNOrQC", "trgrn");
+            jsonObject1.put("tran", poNumber);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -455,7 +468,7 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
         progressDialog.show();
         OkHttpClient okHttpClient = APIClient.getHttpClient();
         RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject1.toString());
-        String url = IPOSAPI.WEB_SERVICE_GET_GRN_SUMMARY_DETAIL;
+        String url = IPOSAPI.GET_TRANSFER_OUT_GRN_SUMMARY_DETAIL;
 
         final Request request = APIClient.getPostRequest(this, url, requestBody);
         okHttpClient.newCall(request).enqueue(new Callback() {
@@ -633,7 +646,7 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
         JSONObject jsonObject1 = new JSONObject();
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("businessPlaceId", Prefs.getIntegerPrefs("WorklocationID"));
+            jsonObject1.put("businessPlaceId", String.valueOf(Prefs.getIntegerPrefs("WorklocationID")));
             jsonObject1.put("tranID", poNumber);
             jsonObject1.put("isGRN", false);
             jsonObject1.put("isGRNOrQC", "NA");
@@ -1124,7 +1137,9 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
             jsonObject.put("transporterAddress", etAddress.getText().toString());
             jsonObject.put("poItemDetails", poDetails);
             jsonObject.put("poPaymentTermsType", "");
+            jsonObject.put("poPaymentTerms", new JSONArray());
             jsonObject.put("poTermsAndConditions", new JSONArray());
+            jsonObject.put("poIncoTerms", new JSONArray());
             jsonObject.put("poAttachments", new JSONArray());
             jsonObject.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
             Log.e(TAG, "Requuest::" + jsonObject.toString());
@@ -1137,7 +1152,7 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
 
         OkHttpClient okHttpClient = APIClient.getHttpClient();
         RequestBody requestBody = RequestBody.create(IPOSAPI.JSON, jsonObject.toString().replaceAll("\\\\", ""));
-        String url = IPOSAPI.WEB_SERVICE_GET_GRN_SUMMARY_SUBMIT;
+        String url = IPOSAPI.GET_TRANSFER_OUT_GRN_SUBMIT_DETAIL;
         final Request request = APIClient.getPostRequest(this, url, requestBody);
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
@@ -1167,9 +1182,8 @@ public class TransferInDetailsActivity extends AppCompatActivity implements Init
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(mContext, "GRN sucessfully created", Toast.LENGTH_SHORT).show();
-                                InventoryGRNStepsActivity.fa.finish();
-                                Intent i = new Intent(mContext, InventoryGRNStepsActivity.class);
+                                TransferStepsActivity.fa.finish();
+                                Intent i = new Intent(mContext, TransferStepsActivity.class);
                                 i.putExtra("newGRNCreated", "GrnCreated");
                                 i.putExtra("poNumber", poNumber);
                                 i.putExtra("isGrn", "0");

@@ -57,7 +57,6 @@ import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.listeners.MyListener;
 import quay.com.ipos.listeners.TabListenerr;
 import quay.com.ipos.realmbean.RealmController;
-import quay.com.ipos.realmbean.RealmGRNDetails;
 
 /**
  * Created by niraj.kumar on 7/10/2018.
@@ -162,6 +161,10 @@ public class TransferInBatchActivity extends AppCompatActivity implements InitIn
         toolbar.setTitle("INVENTORY");
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
 
+//        if (lengthOgItem==1){
+//            imgArrowRight.setVisibility(View.GONE);
+//            imgArrowLeft.setVisibility(View.GONE);
+//        }
         recyclerviewButton.setHasFixedSize(false);
         recyclerviewButton.setLayoutManager(new GridLayoutManager(this, 2));
         if (realmInventoryTabData.size() > 0) {
@@ -172,13 +175,14 @@ public class TransferInBatchActivity extends AppCompatActivity implements InitIn
         recyclerviewButton.setAdapter(transferInTabListAdapter);
         setBatchTab(pos);
 
+
     }
 
     private void setBatchTab(int position) {
         Realm realm = Realm.getDefaultInstance();
-        RealmGRNDetails realmGRNDetails = realm.where(RealmGRNDetails.class).findFirst();
+        RealmTransferDetail realmTransferDetail = realm.where(RealmTransferDetail.class).findFirst();
         Gson gson = new GsonBuilder().create();
-        String json = gson.toJson(realm.copyFromRealm(realmGRNDetails));
+        String json = gson.toJson(realm.copyFromRealm(realmTransferDetail));
         try {
 
             JSONObject jsonObject = new JSONObject(json);
@@ -397,15 +401,22 @@ public class TransferInBatchActivity extends AppCompatActivity implements InitIn
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgArrowRight:
-                int count = pos + 1;
-                saveDataToLocal(count - 1);
-                setBatchTab(count);
-                imgArrowLeft.setVisibility(View.VISIBLE);
-                pos = count;
-                if (pos == lengthOgItem - 1) {
+                if (lengthOgItem > 1) {
+                    int count = pos + 1;
+                    saveDataToLocal(count - 1);
+                    setBatchTab(count);
+                    imgArrowLeft.setVisibility(View.VISIBLE);
+                    pos = count;
+                    if (pos == lengthOgItem - 1) {
+                        imgArrowRight.setVisibility(View.GONE);
+                    }
+                } else {
+                    saveDataToLocal(pos);
+                    setBatchTab(pos);
                     imgArrowRight.setVisibility(View.GONE);
-
+                    imgArrowLeft.setVisibility(View.GONE);
                 }
+
                 break;
             case R.id.imgArrowLeft:
                 if (pos == 0) {

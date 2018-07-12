@@ -113,6 +113,7 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
         setContentView(R.layout.grn_steps_activity);
         mContext = InventoryGRNStepsActivity.this;
         fa = this;
+
         Intent i = getIntent();
         poNumber = i.getStringExtra("poNumber");
         newGRNCreated = i.getStringExtra("newGRNCreated");
@@ -278,12 +279,11 @@ public class InventoryGRNStepsActivity extends AppCompatActivity implements Init
     }
 
     private void getGrnDetails() {
-        busineesPlaceId = "1";
         final ProgressDialog progressDialog = new ProgressDialog(InventoryGRNStepsActivity.this);
         JSONObject jsonObject1 = new JSONObject();
         try {
             jsonObject1.put("empCode", empCode);
-            jsonObject1.put("businessPlaceId", busineesPlaceId);
+            jsonObject1.put("businessPlaceId", Prefs.getIntegerPrefs("WorklocationID"));
             jsonObject1.put("poNumber", poNumber);
             jsonObject1.put("isGRN", false);
             jsonObject1.put("isGRNOrQC", "NA");

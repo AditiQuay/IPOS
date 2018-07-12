@@ -1005,7 +1005,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("businessPlaceId", Prefs.getIntegerPrefs("WorklocationID"));
+            jsonObject1.put("businessPlaceId", String.valueOf(Prefs.getIntegerPrefs("WorklocationID")));
             jsonObject1.put("poNumber", poNumber);
             jsonObject1.put("isGRN", false);
             jsonObject1.put("isGRNOrQC", "NA");
@@ -1121,7 +1121,7 @@ public class InventoryGRNDetails extends AppCompatActivity implements InitInterf
 
         try {
             jsonObject1.put("empCode", Prefs.getStringPrefs(Constants.employeeCode));
-            jsonObject1.put("businessPlaceId", Prefs.getIntegerPrefs("WorklocationID"));
+            jsonObject1.put("businessPlaceId", String.valueOf(Prefs.getIntegerPrefs("WorklocationID")));
             jsonObject1.put("po", poNumber);
             jsonObject1.put("poNumber", getGrnNumber);
             jsonObject1.put("isGRN", true);

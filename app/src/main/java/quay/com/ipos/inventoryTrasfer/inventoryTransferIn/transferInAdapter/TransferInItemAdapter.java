@@ -168,7 +168,7 @@ public class TransferInItemAdapter extends RecyclerView.Adapter<TransferInItemAd
                             timer.schedule(new TimerTask() {
                                 @Override
                                 public void run() {
-//                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
+                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
                                     // do your actual work here
                                 }
                             }, 600); // 600ms delay before the timer executes the „run“ method from TimerTask
@@ -197,7 +197,7 @@ public class TransferInItemAdapter extends RecyclerView.Adapter<TransferInItemAd
                             timer.schedule(new TimerTask() {
                                 @Override
                                 public void run() {
-//                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
+                                    dataUpdateListener.onUpdateData(holder.getAdapterPosition(), Integer.parseInt(inQty), Integer.parseInt(appQty), balanceQty);
 
                                     // do your actual work here
                                 }

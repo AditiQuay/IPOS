@@ -95,6 +95,7 @@ public class IPOSAPI {
 
     //TransferIn
     public static final String GET_TRANSFER_OUT_GRN_SUMMARY = WEB_SERVICE_BASE_URL+"Inventory/GetTransferOutGRNSummary";
-    public static final String GET_TRANSFER_OUT_GRN_SUMMARY_DETAIL = WEB_SERVICE_BASE_URL+"GetTransferOutGRNSummaryDetail";
+    public static final String GET_TRANSFER_OUT_GRN_SUMMARY_DETAIL = WEB_SERVICE_BASE_URL+"Inventory/GetTransferOutGRNSummaryDetail";
+    public static final String GET_TRANSFER_OUT_GRN_SUBMIT_DETAIL = WEB_SERVICE_BASE_URL+"Inventory/SubmitTransferOutGRNSummaryDetail";
 
 }

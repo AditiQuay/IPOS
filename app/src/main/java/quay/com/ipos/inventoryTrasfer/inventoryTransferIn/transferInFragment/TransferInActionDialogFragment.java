@@ -14,6 +14,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import quay.com.ipos.R;
+import quay.com.ipos.inventory.fragment.ActionDialogFragment;
+import quay.com.ipos.inventory.modal.ActionListModel;
 import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInAdapter.TransferInActionListAdapter;
 import quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.TransferInActionList;
 import quay.com.ipos.listeners.ActionListClick;
@@ -35,11 +37,6 @@ public class TransferInActionDialogFragment extends DialogFragment implements Ac
     }
 
     public TransferInActionDialogFragment() {
-
-    }
-
-    @Override
-    public void actionListClicked(int position) {
 
     }
 
@@ -78,5 +75,11 @@ public class TransferInActionDialogFragment extends DialogFragment implements Ac
         TransferInActionListAdapter transferInActionListAdapter = new TransferInActionListAdapter(mContext, list, this);
         rvList.setAdapter(transferInActionListAdapter);
     }
-
+    @Override
+    public void actionListClicked(int position) {
+        TransferInActionList actionListModel = list.get(position);
+        TransferInActionDialogFragment.ActionListener actionListener = (TransferInActionDialogFragment.ActionListener) mContext;
+        actionListener.onActionListClicked(actionListModel.actionID, actionListModel.actionTitle);
+        dismiss();
+    }
 }
