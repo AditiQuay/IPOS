@@ -71,6 +71,7 @@ import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.local.dao.MostUsedFunDao;
 import quay.com.ipos.data.local.entity.MostUsed;
 import quay.com.ipos.dayClosure.dayClosureActivity.DayClosureMain;
+import quay.com.ipos.dayClosure.dayClosureActivity.DayClosureSales;
 import quay.com.ipos.ddrsales.DDRListActivity;
 import quay.com.ipos.ddrsales.DDROrderCenterActivity;
 import quay.com.ipos.enums.CustomerEnum;
@@ -623,7 +624,7 @@ public class MainActivity extends BaseActivity
 
                 break;
             case "Day Closure":
-                Intent i = new Intent(mContext, DayClosureMain.class);
+                Intent i = new Intent(mContext, DayClosureSales.class);
                 startActivity(i);
                 break;
             case "Manage KycBusiness":

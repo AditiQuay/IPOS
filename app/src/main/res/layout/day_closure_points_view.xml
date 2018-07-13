@@ -22,7 +22,7 @@
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dim_16"
-                android:src="@drawable/ic_action_badge_blue" />
+                android:src="@drawable/loyalty_app" />
 
             <quay.com.ipos.ui.CustomTextView
                 android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dim_4"
-                android:text="Total card sale"
+                android:text="Total points sale"
                 android:textAllCaps="true"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/text_size_14sp"
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dim_4"
-                android:text="Confirm swipe machine value"
+                android:text="Confirm points sale value"
                 android:textAllCaps="true"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/text_size_14sp"
@@ -159,6 +159,36 @@
             android:background="@color/backgroundgrey" />
 
         <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_8"
+            android:padding="@dimen/dim_4">
+
+
+            <quay.com.ipos.ui.CustomEditText
+                android:id="@+id/tiePointsRemark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:fontFamily="@font/titilliumwebregular"
+                android:gravity="left"
+                android:hint="@string/remark"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textColor="@color/dark_text_color"
+                android:textColorHint="@color/grey"
+                android:textSize="14dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dim_8"
+            android:background="@color/backgroundgrey" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dim_8"
@@ -169,8 +199,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/colorPrimary"
-                android:textColor="@color/colorPrimary"
-                android:text="I agree" />
+                android:text="I agree"
+                android:textColor="@color/colorPrimary" />
 
         </RelativeLayout>
 

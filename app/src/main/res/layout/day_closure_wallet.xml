@@ -95,8 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_marginLeft="@dimen/dim_4"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="Confirm wallet sale value"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
@@ -140,10 +140,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dim_4"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="Difference"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
-                android:fontFamily="@font/titilliumwebregular"
                 android:textSize="@dimen/text_size_16sp"
                 android:textStyle="bold"
                 app:textAllCaps="false" />
@@ -155,13 +155,43 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dim_8"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="9292.00"
                 android:textAllCaps="false"
-                android:fontFamily="@font/titilliumwebregular"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/text_size_14sp"
                 android:textStyle="bold"
                 app:textAllCaps="false" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dim_8"
+            android:background="@color/backgroundgrey" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_8"
+            android:padding="@dimen/dim_4">
+
+
+            <quay.com.ipos.ui.CustomEditText
+                android:id="@+id/tieWalletRemark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:fontFamily="@font/titilliumwebregular"
+                android:gravity="left"
+                android:hint="@string/remark"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textColor="@color/dark_text_color"
+                android:textColorHint="@color/grey"
+                android:textSize="14dp" />
+
         </RelativeLayout>
 
         <View
@@ -180,10 +210,10 @@
                 android:id="@+id/checkBoxWalletAgree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/titilliumwebregular"
                 android:buttonTint="@color/colorPrimary"
-                android:textColor="@color/colorPrimary"
-                android:text="I agree" />
+                android:fontFamily="@font/titilliumwebregular"
+                android:text="I agree"
+                android:textColor="@color/colorPrimary" />
 
         </RelativeLayout>
 

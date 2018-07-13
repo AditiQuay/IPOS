@@ -564,5 +564,7 @@
 
     <string name="date_from">Date From</string>
     <string name="date_to">Date To</string>
+    <string name="remark">Write remark</string>
+    <string name="enter_bank_deposit_amount">Enter deposit amount</string>
 
 </resources>

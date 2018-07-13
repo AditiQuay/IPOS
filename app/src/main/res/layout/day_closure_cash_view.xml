@@ -32,8 +32,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dim_8"
                 android:layout_marginRight="@dimen/dim_40"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_toRightOf="@+id/cashIcon"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="@string/cash"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
@@ -45,8 +45,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_marginRight="@dimen/dim_8"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="AMOUNT"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimary"
@@ -71,8 +71,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_marginLeft="@dimen/dim_4"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="Opening balance"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
@@ -85,8 +85,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_marginRight="@dimen/dim_8"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="9292.00"
                 android:textAllCaps="true"
                 android:textColor="@color/grey"
@@ -111,8 +111,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_marginLeft="@dimen/dim_4"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="Cash sales"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
@@ -123,10 +123,10 @@
                 android:id="@+id/tvCashSalesAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dim_8"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="9292.00"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
@@ -150,9 +150,9 @@
                 android:id="@+id/tvTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dim_4"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="Total"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
@@ -167,8 +167,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dim_8"
-                android:text="19892.00"
                 android:fontFamily="@font/titilliumwebregular"
+                android:text="19892.00"
                 android:textAllCaps="true"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/text_size_14sp"
@@ -188,21 +188,14 @@
             android:layout_marginTop="@dimen/dim_8"
             android:padding="@dimen/dim_4">
 
-            <CheckBox
-                android:id="@+id/checkBoxBalance"
-                android:fontFamily="@font/titilliumwebregular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
             <quay.com.ipos.ui.CustomTextView
                 android:id="@+id/tvBalanceInHand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_marginLeft="@dimen/dim_4"
-                android:layout_toRightOf="@+id/checkBoxBalance"
-                android:text="Balance in hand"
+                android:fontFamily="@font/titilliumwebregular"
+                android:text="Enter balance in hand"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
                 android:textSize="@dimen/text_size_14sp"
@@ -212,10 +205,10 @@
                 android:id="@+id/tieBalanceInHand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="center"
                 android:background="@null"
+                android:fontFamily="@font/titilliumwebregular"
                 android:gravity="right"
                 android:hint="@string/enter_cash_amount"
                 android:inputType="number"
@@ -242,9 +235,9 @@
                 android:id="@+id/tvDifference"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/titilliumwebregular"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dim_4"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="Difference"
                 android:textAllCaps="false"
                 android:textColor="@color/grey"
@@ -293,19 +286,54 @@
                 android:textSize="@dimen/text_size_14sp"
                 app:textAllCaps="false" />
 
-            <quay.com.ipos.ui.CustomTextView
+            <quay.com.ipos.ui.CustomEditText
                 android:id="@+id/tvBankDepositAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dim_8"
+                android:layout_gravity="center"
+                android:background="@null"
                 android:fontFamily="@font/titilliumwebregular"
-                android:text="9292.00"
-                android:textAllCaps="true"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/text_size_14sp"
-                app:textAllCaps="false" />
+                android:gravity="right"
+                android:hint="@string/enter_bank_deposit_amount"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textColor="@color/dark_text_color"
+                android:textColorHint="@color/grey"
+                android:textSize="14dp" />
+
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/dim_8"
+            android:background="@color/backgroundgrey" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_8"
+            android:padding="@dimen/dim_4">
+
+
+            <quay.com.ipos.ui.CustomEditText
+                android:id="@+id/tieCashRemark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:fontFamily="@font/titilliumwebregular"
+                android:gravity="left"
+                android:hint="@string/remark"
+                android:inputType="number"
+                android:padding="5dp"
+                android:textColor="@color/dark_text_color"
+                android:textColorHint="@color/grey"
+                android:textSize="14dp" />
+
         </RelativeLayout>
 
         <View
@@ -324,8 +352,8 @@
                 android:id="@+id/checkBoxAgree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/titilliumwebregular"
                 android:buttonTint="@color/colorPrimary"
+                android:fontFamily="@font/titilliumwebregular"
                 android:text="I agree"
                 android:textColor="@color/colorPrimary" />
 

@@ -26,9 +26,9 @@ public class DayClosureSales extends AppCompatActivity implements InitInterface 
 
 
     //Cash Amount
-    private CustomTextView tvOpeningBalanceAmount, tvCashSalesAmount, tvTotalAmount, tvDifferenceAmount, tvBankDepositAmount;
+    private CustomTextView tvOpeningBalanceAmount, tvCashSalesAmount, tvTotalAmount, tvDifferenceAmount;
     private CheckBox checkBoxBalance, checkBoxAgree;
-    private CustomEditText tieBalanceInHand;
+    private CustomEditText tieBalanceInHand,tvBankDepositAmount;
 
     //Card Amount
     private CustomTextView tvTotalWalletSaleAmount, tvCardDifferenceAmount;
@@ -67,7 +67,6 @@ public class DayClosureSales extends AppCompatActivity implements InitInterface 
         tieBalanceInHand = findViewById(R.id.tieBalanceInHand);
         tvDifferenceAmount = findViewById(R.id.tvDifferenceAmount);
         tvBankDepositAmount = findViewById(R.id.tvBankDepositAmount);
-        checkBoxBalance = findViewById(R.id.checkBoxBalance);
         checkBoxAgree = findViewById(R.id.checkBoxAgree);
 
         //Card amount and check box
