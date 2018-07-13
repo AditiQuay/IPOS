@@ -1586,7 +1586,7 @@
 
                             android:textColor="@color/dark_grey_color"
                             android:textSize="13sp"
-                            android:visibility="invisible" />
+                            android:visibility="visible" />
 
                         <ImageView
                             android:layout_width="wrap_content"

@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -53,11 +54,13 @@ import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.ddrsales.model.InvoiceData;
 import quay.com.ipos.ddrsales.model.LogisticsData;
 import quay.com.ipos.ddrsales.model.RealmDDROrderList;
+import quay.com.ipos.ddrsales.model.request.DDRBatchReq;
 import quay.com.ipos.ddrsales.model.request.DDRDetailInfo;
 import quay.com.ipos.ddrsales.model.request.DDRProductCart;
 import quay.com.ipos.ddrsales.model.request.DDRPaymentDetail;
 import quay.com.ipos.ddrsales.model.request.InvoiceDataSubmit;
 import quay.com.ipos.ddrsales.model.response.Address;
+import quay.com.ipos.ddrsales.model.response.DDRBatchMasterResponse;
 import quay.com.ipos.ddrsales.model.response.DDRIncoTerm;
 import quay.com.ipos.listeners.InitInterface;
 
@@ -99,6 +102,8 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
     private TextView textTotalIncoTerms;
 
+
+    private View btnAutoBatch;
 
     private RecyclerView recycleViewBillingAddress;
     private RecyclerView recycleViewShippingAddress;
@@ -286,6 +291,8 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         recycleViewIncoTerms.setAdapter(adapterIncoTerms);
 
         //batch
+        btnAutoBatch = findViewById(R.id.btnAutoBatch);
+        btnAutoBatch.setOnClickListener(this);
         recycleViewProductBatch.setLayoutManager(new LinearLayoutManager(mContext));
         adapterProductBatch = new DDRProductBatchAdapter(mContext, ddrProductCartList);
         recycleViewProductBatch.setAdapter(adapterProductBatch);
@@ -374,6 +381,9 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         switch (view.getId()) {
             case R.id.textIncoTermsOthers:
                 addOtherIncoTerms();
+                break;
+            case R.id.btnAutoBatch:
+                importBatchMaster();
                 break;
         }
 
@@ -628,7 +638,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                 Log.e(TAG, "data is null");
                 return;
             }
-              saveDataInLocal(data);
+            saveDataInLocal(data);
             return;
         }
 
@@ -943,5 +953,37 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         });
     }
 
+    private void importBatchMaster() {
+        try {
 
+            if (ddrProductCartList != null) {
+
+                int size = ddrProductCartList.size();
+                List<String> stringList = new ArrayList<>();
+                for (DDRProductCart productCart : ddrProductCartList) {
+                    stringList.add(productCart.iProductModalId);
+                }
+
+                String result = TextUtils.join(", ", stringList);
+
+                DDRBatchReq batchReq = new DDRBatchReq("" + result, mDdr);
+                Call<DDRBatchMasterResponse> call = RestService.getApiServiceSimple().DDR_GETDDRBATCHUPDATEDETAIL(batchReq);
+                call.enqueue(new Callback<DDRBatchMasterResponse>() {
+                    @Override
+                    public void onResponse(Call<DDRBatchMasterResponse> call, Response<DDRBatchMasterResponse> response) {
+                        Log.d(TAG, "response.raw().request().url();" + response.raw().request().url());
+                        Log.i(TAG, "Code:" + response.code() + " message:" + response.message());
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<DDRBatchMasterResponse> call, Throwable t) {
+
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
