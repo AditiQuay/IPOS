@@ -4,7 +4,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 
 import java.util.List;
@@ -17,9 +16,14 @@ import quay.com.ipos.data.remote.RestService;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class SyncData extends AsyncTask<Void, Void, Long> {
+public class SyncData extends AsyncTask<Void, Void, Boolean> {
 
     private static final String TAG = SyncData.class.getSimpleName();
+    private List<SubTask> subTaskList;
+
+    public SyncData(List<SubTask> subTaskList) {
+        this.subTaskList = subTaskList;
+    }
 
     @Override
     protected void onPreExecute() {
@@ -29,68 +33,66 @@ public class SyncData extends AsyncTask<Void, Void, Long> {
     }
 
     @Override
-    protected Long doInBackground(Void... voids) {
+    protected Boolean doInBackground(Void... voids) {
         try {
 
 
-            List<SubTask> subTaskList = AppDatabase.getAppDatabase(IPOSApplication.getContext()).subtaskDao().getAllUnSyncSubTask(true);
-            Gson gson = new GsonBuilder()
+           // List<SubTask> subTaskList = AppDatabase.getAppDatabase(IPOSApplication.getContext()).subtaskDao().getAllUnSyncSubTask(true);
+          /*  Gson gson = new GsonBuilder()
                     .excludeFieldsWithoutExposeAnnotation()
                     .serializeNulls()
-                    .create();
+                    .create();*/
 
-            Log.i("data", gson.toJson(subTaskList));
+            Log.i("data", new Gson().toJson(subTaskList));
             Call<List<SynResponse>> call = RestService.getApiServiceSimple().syncData(subTaskList);
-            Response<List<SynResponse>> response =  call.execute();
+            Response<List<SynResponse>> response = call.execute();
             Log.i(TAG, "Message" + response.code() + "," + response.message());
-            Log.i(TAG, "body" +   gson.toJson(response.body()));
+            Log.i(TAG, "body" + new Gson().toJson(response.body()));
             if (response.body() != null) {
-
                 for (SynResponse synResponse : response.body()) {
                     int localKey = Integer.parseInt(synResponse.PrevId);
                     int serverKey = Integer.parseInt(synResponse.NewId);
-                    SubTask subTask = AppDatabase.getAppDatabase(IPOSApplication.getContext()).subtaskDao().getSyncSubTaskById(localKey);
-                   // AppController.getDatabase().subtaskDao().deleteSubTask(subTask);
-                    subTask.isSync = false;
-                    subTask.setServerId(serverKey);
-                    AppDatabase.getAppDatabase(IPOSApplication.getContext()).subtaskDao().saveSubTask(subTask);
-
-                }
-            }
-      /*  RestService.getApiService(AppController.context).syncData(subTaskList).enqueue(new Callback<List<SynResponse>>() {
-            @Override
-            public void onResponse(Call<List<SynResponse>> call, Response<List<SynResponse>> response) {
-                Log.i(TAG, "Message" + response.code() + "," + response.message());
-                if (response.body() != null) {
-
-                    for (SynResponse synResponse : response.body()) {
-                        int localKey = Integer.parseInt(synResponse.PrevId);
-                        int serverKey = Integer.parseInt(synResponse.NewId);
-                        SubTask subTask = AppController.getDatabase().subtaskDao().getSyncSubTaskById(localKey);
-                        AppController.getDatabase().subtaskDao().deleteSubTask(subTask);
-                        subTask.isSync = false;
-                        subTask.setSub_task_id(serverKey);
-                        AppController.getDatabase().subtaskDao().saveSubTask(subTask);
-
+                    //    List<SubTask> subTask = IPOSApplication.getDatabase().subtaskDao().getSyncSubTaskById(localKey);
+                    // if (subTask != null) {
+                    for (SubTask task : subTaskList) {
+                        // if (task.id == localKey) {
+                        //  task.isSync = false;
+                        task.setServerId(serverKey);
+                        IPOSApplication.getDatabase().subtaskDao().saveSubTask(task);
+                        return true;
                     }
                 }
-            }
+                    Log.e(TAG, "SubTask is not null");
+                    } else {
+                        Log.e(TAG, "SubTask is null");
+                    }
 
-            @Override
-            public void onFailure(Call<List<SynResponse>> call, Throwable t) {
 
-            }
-        });*/
+
             Log.i("subTaskList size", subTaskList.size() + "");
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return null;
+        return false;
     }
 
     @Override
-    protected void onPostExecute(Long subtaskSavedId) {
-        super.onPostExecute(subtaskSavedId);
+    protected void onPostExecute(Boolean isSync) {
+        super.onPostExecute(isSync);
+        if (listener != null) {
+            listener.onDataSync(isSync);
 
+        }
+    }
+
+    public void setListener(OnDataSyncListener listener) {
+        this.listener = listener;
+    }
+
+    private OnDataSyncListener listener;
+
+    public interface OnDataSyncListener {
+        void onDataSync(boolean isSync);
     }
 }

@@ -7,18 +7,20 @@ import quay.com.ipos.utility.Prefs;
 public class DDRBatchReq {
    /* {
 
-  "employeeCode": "string",
-  "employeeRole": "string",
-  "businessPlaceId": "string",
+ {
+  "employeeCode": "600001",
+  "employeeRole": "user",
+  "businessPlaceId": "1",
   "stateCode": "string",
   "entityID": "string",
   "entityType": "string",
   "entityUserCode": "string",
   "entityUserRole": "string",
-  "poNumber": "string",
+  "poNumber": "BAVISTIN 2LT",
   "searchParam": "string",
-  "moduleType": "string",
-  "barCodeNumber": "string"
+  "moduleType": "DDR",
+  "barCodeNumber": "NA"
+}
 
     }*/
 

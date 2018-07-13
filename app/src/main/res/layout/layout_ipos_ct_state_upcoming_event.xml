@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.support.v4.app.Fragment" />
+
+        <variable
+            name="progressState"
+            type="quay.com.ipos.compliance.viewModel.ProgressStateViewModel" />
+
+        <variable
+            name="storeViewModel"
+            type="quay.com.ipos.compliance.viewModel.StoreViewModel" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="90dp"
         android:orientation="vertical">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
             android:background="@color/colorPrimary"
-           />
+            android:visibility="@{progressState.viewUpcoming?View.VISIBLE:View.INVISIBLE}" />
 
 
         <ProgressBar
@@ -38,12 +56,14 @@
             android:layout_marginBottom="0dp"
             android:layout_marginTop="0dp"
             android:indeterminate="false"
-
-            tools:max="10"
-            tools:progress="5"
+            android:max="@{storeViewModel.maxSize}"
+            android:progress="@{storeViewModel.progressUpcoming}"
 
             android:progressDrawable="@drawable/circle_progress_foreground_ct_state_upcoming_event"
-            android:rotation="90" />
+            android:rotation="90"
+
+            tools:max="10"
+            tools:progress="5" />
 
         <TextView
             android:id="@+id/textProgressDone"
@@ -53,11 +73,11 @@
             android:layout_marginBottom="14dp"
             android:layout_marginTop="17dp"
             android:gravity="center"
-
-            tools:text="10"
+            android:text="@{storeViewModel.progressUpcomingText}"
             android:textAppearance="@style/iposfontstyle"
             android:textColor="@color/color_upcoming_event"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            tools:text="10" />
 
         <TextView
             android:id="@+id/mIpos_ct_ProgressBarTitle"
@@ -66,8 +86,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="0dp"
-            android:paddingBottom="4dp"
             android:gravity="center"
+            android:paddingBottom="4dp"
             android:text="Upcoming\nEvents"
 
 
@@ -76,3 +96,4 @@
 
     </RelativeLayout>
 
+</layout>

@@ -5,6 +5,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.support.annotation.WorkerThread;
 
 import java.util.List;
 
@@ -24,8 +25,9 @@ public interface DDRInvoiceDao {
     LiveData<List<DDRInvoiceData>> getTaskByPlace(String id);
 
 
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long saveTask(DDRInvoiceData mostUsed);
+     void saveTask(DDRInvoiceData mostUsed);
 
  /*   @Query(" UPDATE 'ddr_invoice_data' SET count = count + 1 WHERE funName=:funName ")
     int updateFunction(String funName);

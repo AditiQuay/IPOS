@@ -44,7 +44,7 @@ public class AssignTaskDialogFragment extends BottomSheetDialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // dismissAllowingStateLoss();
-        /*        List<UserProfileModel> userProfileModelList = new RushSearch().find(UserProfileModel.class);*/
+
         IPOSApplication.getDatabase().employeeDao().fetchAllData().observe(getActivity(), new Observer<List<Employee>>() {
             @Override
             public void onChanged(@Nullable List<Employee> employees) {

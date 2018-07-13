@@ -47,6 +47,7 @@ import quay.com.ipos.data.remote.model.ErrorUtils;
 import quay.com.ipos.ddrsales.adapter.AddressAdapter;
 import quay.com.ipos.ddrsales.adapter.DDRIncoTermsAdapter;
 import quay.com.ipos.ddrsales.adapter.DDRProductBatchAdapter;
+import quay.com.ipos.ddrsales.model.AddressType;
 import quay.com.ipos.ddrsales.model.DDR;
 
 import quay.com.ipos.ddrsales.model.InvoiceData;
@@ -250,12 +251,12 @@ public class DDRApproveInvoiceActivity extends RunTimePermissionActivity impleme
         //billing and shipping
         recycleViewBillingAddress = findViewById(R.id.recycleViewBillingAddress);
         recycleViewBillingAddress.setLayoutManager(new LinearLayoutManager(mContext));
-        adapterAddBilling = new AddressAdapter(mContext, addressList, this, Address.ADDRESS_TYPE_BILLING);
+        adapterAddBilling = new AddressAdapter(mContext, addressList, this, AddressType.ADDRESS_TYPE_BILLING);
         recycleViewBillingAddress.setAdapter(adapterAddBilling);
 
         recycleViewShippingAddress = findViewById(R.id.recycleViewShippingAddress);
         recycleViewShippingAddress.setLayoutManager(new LinearLayoutManager(mContext));
-        adapterAddShipping = new AddressAdapter(mContext, addressList, this, Address.ADDRESS_TYPE_SHIPPING);
+        adapterAddShipping = new AddressAdapter(mContext, addressList, this, AddressType.ADDRESS_TYPE_SHIPPING);
         recycleViewShippingAddress.setAdapter(adapterAddShipping);
 
 
@@ -322,15 +323,17 @@ public class DDRApproveInvoiceActivity extends RunTimePermissionActivity impleme
         }
       //  bottomBar.setVisibility(data.isApprover==1 ? View.VISIBLE : View.INVISIBLE);
 
-        InvoiceData.getInstance().setInitData2(data);
+       // InvoiceData.setInitData2(data);
+        InvoiceData invoiceData = new InvoiceData();
+        invoiceData.setInitData2(data);
 
        // setAllData();
-        logisticsData = InvoiceData.getInstance().logisticsData;
+        logisticsData = invoiceData.logisticsData;
         if (logisticsData != null) {
             setTransportMode();
         }
 
-        List<Address> address = InvoiceData.getInstance().address;
+        List<Address> address = invoiceData.address;
         addressList.clear();
         addressList.addAll(address);
 
@@ -345,7 +348,7 @@ public class DDRApproveInvoiceActivity extends RunTimePermissionActivity impleme
 
 
         incoTermsList.clear();
-        incoTermsList.addAll(InvoiceData.getInstance().ddrIncoTerms);
+        incoTermsList.addAll(invoiceData.ddrIncoTerms);
         adapterIncoTerms.notifyDataSetChanged();
 
     }
@@ -851,10 +854,10 @@ public class DDRApproveInvoiceActivity extends RunTimePermissionActivity impleme
 
     @Override
     public void onItemSelected(int position, int addressType) {
-        if (addressType == Address.ADDRESS_TYPE_SHIPPING) {
+        if (addressType == AddressType.ADDRESS_TYPE_SHIPPING) {
             billing = addressList.get(position);
         }
-        if (addressType == Address.ADDRESS_TYPE_BILLING) {
+        if (addressType == AddressType.ADDRESS_TYPE_BILLING) {
             shipping = addressList.get(position);
         }
     }

@@ -6,15 +6,13 @@ import java.util.ArrayList;
 //Key Constants
 public class KeyConstants {
 
-    public static final String KEY_ROLE_CCHEAD = "CCHead";
-    public static final String KEY_ROLE_RM = "Manager";
-    public static final String KEY_ROLE_USER = "User";
+
 
 
     public static final String KEY_USERID = "userId";
 
     public static  final String KEY_TYPE_BUSINESS = "Business";
-    public static  final String KEY_TYPE_STATUTORY = "Stattutory";
+    public static  final String KEY_TYPE_STATUTORY = "Statutory";
 
     public static  final String KEY_TASK_TYPE_SUBTASK = "task";
     public static  final String KEY_TASK_TYPE_TASK = "subtask";

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -197,6 +198,7 @@ public class AccountFragment extends Fragment implements InitInterface, View.OnC
             ArrayAdapter partnerTypeHeading = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, accountTypeArray);
             partnerTypeHeading.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerAccountType.setAdapter(partnerTypeHeading);
+
 
             if (account.mAccountType != null) {
 

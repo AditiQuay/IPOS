@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.support.v4.app.Fragment" />
+
+        <variable
+            name="progressState"
+            type="quay.com.ipos.compliance.viewModel.ProgressStateViewModel" />
+
+        <variable
+            name="storeViewModel"
+            type="quay.com.ipos.compliance.viewModel.StoreViewModel" />
+
+    </data>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="90dp">
 
@@ -9,12 +28,12 @@
             android:id="@+id/viewSelectedDone"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
             android:background="@color/colorPrimary"
-             />
+            android:visibility="@{progressState.viewDone?View.VISIBLE:View.INVISIBLE}" />
 
         <ProgressBar
             style="?android:attr/progressBarStyleHorizontal"
@@ -36,7 +55,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="0dp"
             android:indeterminate="false"
-
+            android:max="@{storeViewModel.maxSize}"
+            android:progress="@{storeViewModel.progressDone}"
             android:progressDrawable="@drawable/circle_progress_foreground_ct_state_done"
             android:rotation="90"
             tools:progress="70" />
@@ -48,10 +68,11 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="17dp"
             android:gravity="center"
+            android:text="@{storeViewModel.progressDoneText}"
             android:textAppearance="@style/iposfontstyle"
             android:textColor="@color/color_done"
             android:textSize="11sp"
-            android:text="0/0"
+
             tools:text="10/10" />
 
         <TextView
@@ -67,6 +88,5 @@
             android:textSize="11sp" />
 
 
-
     </RelativeLayout>
-
+</layout>

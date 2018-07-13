@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.BaseObservable;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -23,21 +24,22 @@ import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.compliance.BaseTaskActivity;
 import quay.com.ipos.compliance.SubTaskActivity;
 import quay.com.ipos.compliance.constants.AnnotationTaskState;
-import quay.com.ipos.compliance.constants.KeyConstants;
 import quay.com.ipos.compliance.data.local.entity.AttachmentEntity;
 import quay.com.ipos.compliance.data.local.entity.Employee;
 import quay.com.ipos.compliance.data.local.entity.SubTask;
 import quay.com.ipos.compliance.data.remote.SyncData;
 import quay.com.ipos.compliance.receiver.AlarmReceiver;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.DateAndTimeUtil;
-import quay.com.ipos.utility.SharedPrefUtil;
+import quay.com.ipos.utility.Prefs;
+import quay.com.ipos.utility.Util;
 
 
 /**
  * Created by deepak.kumar1 on 03-04-2018.
  */
 
-public class SubTaskViewModel  {
+public class SubTaskViewModel extends BaseObservable {
     private static final String TAG = SubTaskViewModel.class.getSimpleName();
     private Calendar calendar;
     private SubTask subTask;
@@ -70,7 +72,7 @@ public class SubTaskViewModel  {
 
 
     public SubTaskViewModel(int taskId, Context context) {
-        this.empId = SharedPrefUtil.getUserId(KeyConstants.KEY_USERID, "", context);
+        this.empId = Prefs.getStringPrefs(Constants.employeeCode);
         strTaskAssignTo = this.empId;//by default
         strTaskAssignToName = "Self";
         setStrRepeat(recurrenceTask.getRepeatFrequency());
@@ -86,7 +88,7 @@ public class SubTaskViewModel  {
         strDueDate = "Today";
         strDueTime = "Now";
         //realm = Realm.getDefaultInstance();
-      //  notifyChange();
+        notifyChange();
     }
 
     public String getStrName() {
@@ -99,7 +101,7 @@ public class SubTaskViewModel  {
 
     public void setSubTask(SubTask subTask) {
         this.subTask = subTask;
-       // notifyChange();
+        notifyChange();
     }
 
 
@@ -116,7 +118,7 @@ public class SubTaskViewModel  {
             string = "Pending";
         }
         this.strProgressState = string;
-       // notifyChange();
+        notifyChange();
     }
 
     public String getStrDueDate() {
@@ -134,12 +136,12 @@ public class SubTaskViewModel  {
 
     public void setStrDueDate(String date) {
         this.strDueDate = date;
-       // notifyChange();
+        notifyChange();
     }
 
     public void setStrDueTime(String strDueTime) {
         this.strDueTime = strDueTime;
-       // notifyChange();
+        notifyChange();
     }
 
     public void saveSubTask() {
@@ -151,12 +153,12 @@ public class SubTaskViewModel  {
     private void validation() {
         if (strName == null || strName.isEmpty()) {
             mNameError = true;
-            //notifyChange();
+             notifyChange();
             return;
         }
         if (strDesc == null || strDesc.isEmpty()) {
             mDescError = true;
-            //notifyChange();
+             notifyChange();
             return;
         }
     }
@@ -183,7 +185,7 @@ public class SubTaskViewModel  {
             public void onChanged(@Nullable Employee employee) {
                 if (employee != null) {
                     strTaskAssignToName = employee.empName;
-                   // notifyChange();
+                  notifyChange();
                 }
             }
         });
@@ -208,7 +210,7 @@ public class SubTaskViewModel  {
         setStrReminder(recurrenceReminder.getRepeatFrequency());
 
 
-       // notifyChange();
+         notifyChange();
     }
 
     private String getStrTaskAssignTo() {
@@ -228,7 +230,7 @@ public class SubTaskViewModel  {
         this.employee = userProfileModel;
         strTaskAssignToName = getStrTaskAssignTo();
         strTaskAssignTo = userProfileModel.empCode;
-        //notifyChange();
+        notifyChange();
     }
 
     public Recurrence getRecurrenceTask() {
@@ -253,21 +255,28 @@ public class SubTaskViewModel  {
 
     public void setStrRepeat(String strRepeat) {
         this.strRepeat = strRepeat;
-        //notifyChange();
+        notifyChange();
     }
 
     public void setStrReminder(String strReminder) {
         this.strReminder = strReminder;
-       // notifyChange();
+       notifyChange();
     }
 
     public void setAlert(Alert alert) {
         this.alert = alert;
         this.strAlert = alert.getLabel();
-       // notifyChange();
+       notifyChange();
     }
 
     private void saveToDB() {
+
+        if (strTaskAssignTo == null || strTaskAssignTo.isEmpty()) {
+            Util.showToast("Task Assign To is Required!");
+            return;
+        }
+
+
         if (mServerId == 0) {
             subTask = new SubTask();
             int uniqueID = (int) System.currentTimeMillis();
@@ -284,7 +293,7 @@ public class SubTaskViewModel  {
         subTask.setSubTaskName(strName);
         subTask.setSubTaskDescription(strDesc);
         subTask.setTask_assign_to(strTaskAssignTo);
-
+        subTask.task_type = "subtask";
 
         subTask.setNext_schedule_date(DateAndTimeUtil.toStringDateAndTime(calendar));
         subTask.setSubTaskStartDate(DateAndTimeUtil.toStringDateAndTime(calendar));
@@ -309,7 +318,8 @@ public class SubTaskViewModel  {
 
         }
 
-        new DatabaseAsync().execute();
+      //new DatabaseAsync().execute();
+        loadToServer(subTask);
 
 
 
@@ -416,15 +426,29 @@ public class SubTaskViewModel  {
 
             //To after addition operation here.
 
-            ((Activity) context).finish();
+           // ((Activity) context).finish();
 
-            loadToServer();
+           // loadToServer();
         }
     }
 
 
-    private void loadToServer() {
-        new SyncData().execute();
+    private void loadToServer(SubTask subTask) {
+
+        List<SubTask> subTaskList = new ArrayList<>();
+        subTaskList.add(subTask);
+        SyncData syncData =   new SyncData(subTaskList);
+        syncData.setListener(new SyncData.OnDataSyncListener() {
+            @Override
+            public void onDataSync(boolean isSync) {
+                if(isSync)
+                ((Activity) context).finish();
+                else {
+                    Util.showToast("Data not update to Server!");
+                }
+            }
+        });
+      syncData.execute();
     }
 
 

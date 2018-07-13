@@ -56,6 +56,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -70,13 +71,17 @@ import quay.com.ipos.IPOSAPI;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.MainActivity;
+import quay.com.ipos.data.local.entity.DDRInvoiceData;
 import quay.com.ipos.data.remote.RestService;
 import quay.com.ipos.ddrsales.adapter.DDRCartListAdapter;
 import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.ddrsales.model.DDRProduct;
 import quay.com.ipos.ddrsales.model.InvoiceData;
+import quay.com.ipos.ddrsales.model.LogisticsData;
 import quay.com.ipos.ddrsales.model.RealmDDROrderList;
+import quay.com.ipos.ddrsales.model.request.DDRProductCart;
 import quay.com.ipos.ddrsales.model.request.DDRProductReq;
+import quay.com.ipos.ddrsales.model.request.InvoiceDataSubmit;
 import quay.com.ipos.ddrsales.model.response.DDRNewOrderProductsResult;
 import quay.com.ipos.ddrsales.model.response.DDRProductListResponse;
 import quay.com.ipos.enums.NoGetEntityEnums;
@@ -140,12 +145,10 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     private double totalAmount = 0;
     private boolean isFragmentDisplayed = true;
     private ArrayList<DDRProduct> mList = new ArrayList<>();
-    Double afterDiscountPrice;
     ArrayList<NewOrderPinnedResults.Info> mOrderInfoArrayList = new ArrayList<>();
-    private String json;
-    private RelativeLayout llBelowPaymentDetail;
+
     private TextView tvMessage, btnNext;
-    private AppCompatSpinner spnAddress;
+
     private Context mContext;
     private ArrayList<NoGetEntityResultModal.BuisnessPlacesBean> noGetEntityBuisnessPlacesModals = new ArrayList<>();
     private String entityStateCode = "";
@@ -153,7 +156,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     private boolean isSync;
     private String strPlace;
     private ImageView imvStatus;
-    private String poNumber;
+
     private int postionCheckStock;
     private LinearLayout llArrows, llSearch;
     private ImageView imgArrow;
@@ -165,7 +168,8 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     private Activity activity;
 
     private MutableLiveData<DDRProductListResponse> mutableLiveData = new MutableLiveData<>();
-    private boolean openProductSearch =true;
+    private boolean openProductSearch = true;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -188,18 +192,65 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         getLiveServerData().observe(this, new Observer<DDRProductListResponse>() {
             @Override
             public void onChanged(@Nullable DDRProductListResponse response) {
-
+                invoiceData = new InvoiceData();
+                invoiceData.address = response.address;
+                invoiceData.ddrIncoTerms = response.ddrIncoTerms;
 
             }
         });
-        getServerData();
 
 
-        if(openProductSearch){
-            openProductSearch = false;
-            onSearchButton();
+        IPOSApplication.getDatabase().ddrInvoiceDao().getTaskByPlace(mDdr.mDDRCode).observe(this, new Observer<List<DDRInvoiceData>>() {
+            @Override
+            public void onChanged(@Nullable List<DDRInvoiceData> ddrInvoiceData) {
+                Log.i(TAG, "size" + ddrInvoiceData.size() + "");
+                if (ddrInvoiceData.size() > 0) {
+                    getLocalData(ddrInvoiceData.get(0));
+                } else {
+                    getServerData();
+                    if (openProductSearch) {
+                        openProductSearch = false;
+                        onSearchButton();
+                    }
+                }
+            }
+        });
+
+
+    }
+
+    private InvoiceData invoiceData;
+
+    private void getLocalData(DDRInvoiceData ddrInvoiceData) {
+        Log.i(TAG, "ddrInvoiceData: " + ddrInvoiceData.invoiceData);
+        invoiceData = new Gson().fromJson(ddrInvoiceData.invoiceData, InvoiceData.class);
+        if (invoiceData != null) {
+            Realm realm = Realm.getDefaultInstance();
+            if (!realm.isInTransaction())
+                realm.beginTransaction();
+            try {
+               /* List<DDRProduct> jsonSubmitReq = new ArrayList<>();
+                for (DDRProduct dDRCartDetail : invoiceData.cartList) {
+                    DDRProduct ddrProduct = new DDRProduct();
+                    ddrProduct.setData(dDRCart);
+                }*/
+                realm.insertOrUpdate(invoiceData.cartList);
+            } catch (Exception e) {
+                if (realm.isInTransaction())
+                    realm.cancelTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+            } finally {
+                if (realm.isInTransaction())
+                    realm.commitTransaction();
+                if (!realm.isClosed())
+                    realm.close();
+
+
+                getProduct();
+            }
+
         }
-
     }
 
 
@@ -210,10 +261,10 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     }
 
     public void setHeader() {
-     //   Toolbar toolbar = findViewById(R.id.appBar);
-     //   toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+        //   Toolbar toolbar = findViewById(R.id.appBar);
+        //   toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
 
-      //   setSupportActionBar(toolbar);
+        //   setSupportActionBar(toolbar);
        /* toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,10 +340,6 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         setListener();
         setAdapter();
 
-        Intent i = getIntent();
-        if (i != null) {
-            poNumber = i.getStringExtra("poNumber");
-        }
 
     }
 
@@ -624,6 +671,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                 if (mList.size() > 0) {
                     createOrder();
                     Intent intent = new Intent(DDRCartDetails.this, DDRInvoicePreviewActivity.class);
+                    intent.putExtra("invoiceData", invoiceData);
                     intent.putExtra("ddr", mDdr);
                     startActivity(intent);
                 } else {
@@ -803,7 +851,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                                         } else {
                                             isApplied = getQuantityBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
 
-                                         //   isApplied = getValueBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
+                                            //   isApplied = getValueBasedOnDiscountItems(isApplied, realmNewOrderCarts, slabFrom, slabTO, opsCriteria, sDiscountBasedOn, realm, packSize, productCode);
 
                                         }
 
@@ -1491,7 +1539,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             }
         });
 
-      //  Util.hideSoftKeyboard(DDRCartDetails.this);
+        //  Util.hideSoftKeyboard(DDRCartDetails.this);
     }
 
 
@@ -1579,51 +1627,6 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 */
     }
 
-
-    private void showViews() {
-        // TODO uncomment this Hide Footer in android when Scrolling
-        llBelowPaymentDetail.animate().alpha(1.0f).translationY(0).setInterpolator(new DecelerateInterpolator(1.4f)).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                llBelowPaymentDetail.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                llBelowPaymentDetail.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-            }
-        });
-    }
-
-    private void hideViews() {
-        // TODO (+mToolbar)  plus means  2 view forward ho jaye or not visible to user
-        llBelowPaymentDetail.animate().alpha(0f).translationY(+llBelowPaymentDetail.getHeight()).setInterpolator(new AccelerateInterpolator(1.4f)).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                llBelowPaymentDetail.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-            }
-        });
-    }
 
     @Override
     public void onResult(String serviceUrl, String serviceMethod, int httpStatusCode, Type resultType, Object resultObj, String serverResponse) {
@@ -1808,7 +1811,9 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
     private void createOrder() {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<DDRProduct> realmNewOrderCarts1 = realm.where(DDRProduct.class).findAll();
-
+        if (realmNewOrderCarts1 != null) {
+            invoiceData.cartList = realm.copyFromRealm(realmNewOrderCarts1);
+        }
         JSONArray arrayCart = new JSONArray();
         int qty = 0;
         double payAmount = 0.0;
@@ -1821,7 +1826,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
         double discountPrice = 0.0;
         int totalPoints = 0;
         int noOfItems = 0;
-        String poNumber = null;
+        //  String poNumber = null;
         double accumulatedPoints = 0;
         double discountPartiItem = 0;
         for (DDRProduct realmNewOrderCart : realmNewOrderCarts1) {
@@ -1829,7 +1834,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             JSONObject jsonObjectCartDetail = new JSONObject();
             if (!realmNewOrderCart.isFreeItem())
                 noOfItems = noOfItems + 1;
-            poNumber = realmNewOrderCart.getOrderId();
+            //  poNumber = realmNewOrderCart.getOrderId();
             accumulatedPoints = realmNewOrderCart.getAccumulatedLoyality();
             qty = qty + realmNewOrderCart.getQty();
             totalItemsAmount = totalItemsAmount + realmNewOrderCart.getTotalPrice();
@@ -1857,8 +1862,8 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             gst = gst + totalGST;
 
 
-            cgst = cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100.0);
-            sgst = sgst + (realmNewOrderCart.getSgst() *( realmNewOrderCart.getTotalPrice()-discountPartiItem) / 100.0);
+            cgst = cgst + (realmNewOrderCart.getCgst() * (realmNewOrderCart.getTotalPrice() - discountPartiItem) / 100.0);
+            sgst = sgst + (realmNewOrderCart.getSgst() * (realmNewOrderCart.getTotalPrice() - discountPartiItem) / 100.0);
 
 
             totalPoints = totalPoints + realmNewOrderCart.getTotalPoints();
@@ -1922,20 +1927,20 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             arrayCart.put(jsonObjectCartDetail);
 
         }
-        payAmount = (totalItemsAmount + (cgst+sgst) - discountPrice);
+        payAmount = (totalItemsAmount + (cgst + sgst) - discountPrice);
 
         double totalValueWithTax = totalItemsAmount + gst;
         double totalValueWithoutTax = totalItemsAmount;
         JSONObject jsonObject = new JSONObject();
-        double roundOff=Math.floor(payAmount);
-        double roundofff=payAmount-roundOff;
+        double roundOff = Math.floor(payAmount);
+        double roundofff = payAmount - roundOff;
 
         try {
             jsonObject.put("employeeCode", Prefs.getStringPrefs(Constants.employeeCode));
             jsonObject.put("employeeRole", Prefs.getStringPrefs(Constants.employeeRole));
             jsonObject.put("poDate", Util.getCurrentDate());
             jsonObject.put("poStatus", "Pending");
-            jsonObject.put("orderValue", payAmount-Util.round(roundofff,3));
+            jsonObject.put("orderValue", payAmount - Util.round(roundofff, 3));
             jsonObject.put("discountValue", discountPrice);
             jsonObject.put("deliveryBy", Util.getCurrentDate());
             jsonObject.put("orderLoyality", totalPoints);
@@ -1951,7 +1956,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             jsonObject.put("totalValueWithoutTax", totalValueWithoutTax);
             jsonObject.put("totalTaxValue", cgst + sgst);
             jsonObject.put("totalDiscountValue", discountPrice);
-            jsonObject.put("totalRoundingOffValue", Util.round(roundofff,3));
+            jsonObject.put("totalRoundingOffValue", Util.round(roundofff, 3));
             jsonObject.put("cartDetail", arrayCart);
             //  jsonObject.put("listspendRequestHistoryPhaseModel",new JSONArray());
             jsonObject.put("approvalStat", 1);
@@ -2101,7 +2106,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                     //  Log.e( "Received data : ", data);
 
                     //searchProductCall(data);
-                    searchProductCall(data,true);
+                    searchProductCall(data, true);
                 }
             }
         }
@@ -2114,45 +2119,45 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
 
     }
 
-    private void searchProductCall(String s,boolean isBarCode) {
+    private void searchProductCall(String s, boolean isBarCode) {
         ServiceTask mTask = new ServiceTask();
         mTask.setApiUrl(IPOSAPI.BASE_URL);
         mTask.setApiMethod(IPOSAPI.DDR_GetDDRProductList);
         mTask.setApiCallType(Constants.API_METHOD_POST);
-        mTask.setParamObj(new DDRProductReq(s,mDdr,isBarCode));
+        mTask.setParamObj(new DDRProductReq(s, mDdr, isBarCode));
         mTask.setListener(this);
         mTask.setResultType(DDRNewOrderProductsResult.class);
-        if(Util.isConnected())
-            mTask.execute();
-        else
-            Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
-    }
-
-   /* private void searchProductCall(String s) {
-//        showProgress(getResources().getString(R.string.please_wait));
-        ProductSearchRequest productSearchRequest = new ProductSearchRequest();
-        productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode) + "");
-        productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
-        productSearchRequest.setEntityStateCode(entityStateCode);
-        productSearchRequest.setSearchParam("NA");
-        productSearchRequest.setBusinessPlaceCode(businessPlaceCode + "");
-        productSearchRequest.setBarCodeNumber(s);
-        productSearchRequest.setModuleType("NO");
-        productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
-        productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
-        ServiceTask mTask = new ServiceTask();
-        mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
-        mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH);
-        mTask.setApiCallType(Constants.API_METHOD_POST);
-        mTask.setParamObj(productSearchRequest);
-        mTask.setListener(this);
-        mTask.setResultType(NewOrderProductsResult.class);
         if (Util.isConnected())
             mTask.execute();
         else
             Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
     }
-*/
+
+    /* private void searchProductCall(String s) {
+ //        showProgress(getResources().getString(R.string.please_wait));
+         ProductSearchRequest productSearchRequest = new ProductSearchRequest();
+         productSearchRequest.setEntityCode(Prefs.getIntegerPrefs(Constants.entityCode) + "");
+         productSearchRequest.setEntityRole(Prefs.getStringPrefs(Constants.entityRole));
+         productSearchRequest.setEntityStateCode(entityStateCode);
+         productSearchRequest.setSearchParam("NA");
+         productSearchRequest.setBusinessPlaceCode(businessPlaceCode + "");
+         productSearchRequest.setBarCodeNumber(s);
+         productSearchRequest.setModuleType("NO");
+         productSearchRequest.setEmployeeCode(Prefs.getStringPrefs(Constants.employeeCode));
+         productSearchRequest.setEmployeeRole(Prefs.getStringPrefs(Constants.employeeRole));
+         ServiceTask mTask = new ServiceTask();
+         mTask.setApiUrl(IPOSAPI.WEB_SERVICE_BASE_URL);
+         mTask.setApiMethod(IPOSAPI.WEB_SERVICE_NOPRODUCTSEARCH);
+         mTask.setApiCallType(Constants.API_METHOD_POST);
+         mTask.setParamObj(productSearchRequest);
+         mTask.setListener(this);
+         mTask.setResultType(NewOrderProductsResult.class);
+         if (Util.isConnected())
+             mTask.execute();
+         else
+             Util.showToast(getResources().getString(R.string.no_internet_connection_warning_server_error));
+     }
+ */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
       /*  getMenuInflater().inflate(R.menu.main, menu);
@@ -2253,7 +2258,7 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
             return;
         }
 
-        final DDRProductReq req = new DDRProductReq("NA",mDdr,false);
+        final DDRProductReq req = new DDRProductReq("NA", mDdr, false);
         Log.i("mProductList", new Gson().toJson(req));
         retrofit2.Call<DDRProductListResponse> call = RestService.getApiServiceSimple().DDR_GetDDRProductList(req);
         call.enqueue(new retrofit2.Callback<DDRProductListResponse>() {
@@ -2265,11 +2270,11 @@ public class DDRCartDetails extends AppCompatActivity implements SendScannerBarc
                 }
                 if (response.code() != 200) {
                     Toast.makeText(activity, "Code:" + response.code() + ", Message:" + response.message(), Toast.LENGTH_SHORT).show();
-                     return;
+                    return;
                 }
                 try {
                     if (response.body() != null) {
-                        InvoiceData.getInstance().setInitData(response.body());
+
                         mutableLiveData.setValue(response.body());
                     }
                 } catch (Exception e) {

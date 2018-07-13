@@ -36,6 +36,7 @@ import quay.com.ipos.compliance.fragment.TaskStateSelectorDialogFragment;
 import quay.com.ipos.compliance.interfaces.SubTaskHandler;
 import quay.com.ipos.compliance.interfaces.UserSelectionListener;
 import quay.com.ipos.compliance.viewModel.SubTaskViewModel;
+import quay.com.ipos.databinding.ActivitySubTaskBinding;
 import quay.com.ipos.utility.DateAndTimeUtil;
 
 public class SubTaskActivity extends BaseTaskActivity implements SubTaskHandler {
@@ -49,8 +50,8 @@ public class SubTaskActivity extends BaseTaskActivity implements SubTaskHandler 
     private boolean isAddTask;
 
 
-     private Task mTask;
-     //mTask.task_end_date 2018-05-21T13:07:46.203
+    private Task mTask;
+    //mTask.task_end_date 2018-05-21T13:07:46.203
     private Calendar mTaskEndDateCalender;
 
 
@@ -62,7 +63,9 @@ public class SubTaskActivity extends BaseTaskActivity implements SubTaskHandler 
         super.onCreate(savedInstanceState);
         activity = SubTaskActivity.this;
         try {
-            setContentView( R.layout.activity_sub_task);
+            ActivitySubTaskBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_sub_task);
+
+
             task_id = getIntent().getIntExtra("task_id", -1);
             id = getIntent().getIntExtra("id", -1);
             title = findViewById(R.id.title);
@@ -81,8 +84,11 @@ public class SubTaskActivity extends BaseTaskActivity implements SubTaskHandler 
 
 
             viewModel = new SubTaskViewModel(task_id, activity);
-            //subTaskBinding.setHandler(this);
-            //subTaskBinding.setViewModel(viewModel);
+
+
+            binding.setViewModel(viewModel);
+            binding.setHandler(this);
+            binding.setViewModel(viewModel);
 
             loadData();
 
@@ -98,32 +104,28 @@ public class SubTaskActivity extends BaseTaskActivity implements SubTaskHandler 
 
     private void loadData() {
 
-            IPOSApplication.getDatabase().taskDao().getTaskById(task_id).observe(this, new Observer<Task>() {
-                @Override
-                public void onChanged(@Nullable Task task) {
-                    if (task == null) {
-                        Log.e(TAG, "No Task Found from id" + task_id);
-                        Toast.makeText(activity, "No Task Found from id" + task_id, Toast.LENGTH_SHORT).show();
-                        return;
+        IPOSApplication.getDatabase().taskDao().getTaskById(task_id).observe(this, new Observer<Task>() {
+            @Override
+            public void onChanged(@Nullable Task task) {
+                if (task == null) {
+                    Log.e(TAG, "No Task Found from id" + task_id);
+                    Toast.makeText(activity, "No Task Found from id" + task_id, Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    mTask = task;
+                    if (mTask.task_end_date != null) {
+                        Log.i(TAG, "mTask.task_end_date " + mTask.task_end_date);
+                        mTaskEndDateCalender = DateAndTimeUtil.parseDateAndTime("2018-06-21T13:07:46.203");
+                        loadSubTaskData();
                     } else {
-                        mTask = task;
-                        if (mTask.task_end_date != null) {
-                            Log.i(TAG, "mTask.task_end_date " + mTask.task_end_date);
-                            mTaskEndDateCalender = DateAndTimeUtil.parseDateAndTime("2018-06-21T13:07:46.203");
-                            loadSubTaskData();
-                        } else {
-                            Toast.makeText(activity, "No End Date of Task Mention!", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-
-
-
+                        Toast.makeText(activity, "No End Date of Task Mention!", Toast.LENGTH_SHORT).show();
+                        return;
                     }
+
+
                 }
-            });
-
-
-
+            }
+        });
 
 
     }
@@ -187,21 +189,27 @@ public class SubTaskActivity extends BaseTaskActivity implements SubTaskHandler 
     @Override
     public void onClickAddDate(View view) {
 
-            // DatePickerFragment.showDatePickerDialog(getSupportFragmentManager(), System.currentTimeMillis(), taskData.task_due_date);
-            final Calendar calendar = viewModel.getCalendar();
-            DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    calendar.set(Calendar.YEAR, year);
-                    calendar.set(Calendar.MONTH, month);
-                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    viewModel.setStrDueDate(DateAndTimeUtil.toStringReadableDate(calendar));
+        // DatePickerFragment.showDatePickerDialog(getSupportFragmentManager(), System.currentTimeMillis(), taskData.task_due_date);
+        final Calendar calendar = viewModel.getCalendar();
+        DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, month);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                viewModel.setStrDueDate(DateAndTimeUtil.toStringReadableDate(calendar));
 
-                }
-            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            }
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+
+
+        //
+        if (mTaskEndDateCalender.getTime().getTime()>mTaskEndDateCalender.getTime().getTime()) {
             datePicker.getDatePicker().setMaxDate(mTaskEndDateCalender.getTime().getTime());
             datePicker.getDatePicker().setMinDate(System.currentTimeMillis());
             datePicker.show();
+
+        }
         }
 
 
@@ -246,7 +254,6 @@ public class SubTaskActivity extends BaseTaskActivity implements SubTaskHandler 
             public void onUserSlected(Employee userProfileModel) {
                 viewModel.setAssignUser(userProfileModel);
             }
-
 
         });
 

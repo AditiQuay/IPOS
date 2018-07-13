@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<layout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.quayintech.compliancetracker.ui.activity.SubTaskActivity">
 
     <data>
 
         <variable
             name="handler"
-            type="com.quayintech.compliancetracker.interfaces.SubTaskHandler" />
+            type="quay.com.ipos.compliance.interfaces.SubTaskHandler" />
 
         <variable
             name="viewModel"
-            type="com.quayintech.compliancetracker.viewModel.SubTaskViewModel" />
-    </data>-->
+            type="quay.com.ipos.compliance.viewModel.SubTaskViewModel" />
+    </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -57,7 +57,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-                android:onClick="onClickAddSubtask"
+                android:onClick="@{(v) -> handler.onClickAddSubtask(v)}"
                 android:padding="8dp"
 
                 android:src="@drawable/ic_subtask_done"
@@ -98,7 +98,8 @@
                             android:layout_height="wrap_content"
                             android:hint="@string/subtaskname"
                             android:maxLines="1"
-
+                            android:onTextChanged="@{viewModel::onTextChanged}"
+                            android:text="@{viewModel.strName}"
 
                             />
 
@@ -108,15 +109,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/activity_horizontal_margin"
-                        android:onClick="onClickDescription"
+                        android:onClick="@{(v) -> handler.onClickDescription(v)}"
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Description"
-
-                           />
+                            android:onTextChanged="@{viewModel::onTextChangedDesc}"
+                            android:text="@{viewModel.strDesc}" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -139,8 +140,8 @@
                             android:focusableInTouchMode="false"
                             android:hint="@string/txtTaskAssignTo"
 
-                            android:onClick="onClickAssignTo"
-                             />
+                            android:onClick="@{(v) -> handler.onClickAssignTo(v)}"
+                            android:text="@{viewModel.strTaskAssignToName}" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -158,8 +159,8 @@
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:hint="Due Date"
-                            android:onClick="onClickAddDate"
-                            />
+                            android:onClick="@{(v) -> handler.onClickAddDate(v)}"
+                            android:text="@{viewModel.strDueDate}" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -178,8 +179,8 @@
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:hint="Due Time"
-                            android:onClick="onClickAddTime"
-                             />
+                            android:onClick="@{(v) -> handler.onClickAddTime(v)}"
+                            android:text="@{viewModel.strDueTime}" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -187,7 +188,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/activity_horizontal_margin"
-
+                        android:onClick="@{(v) -> handler.onClickAddDate(v)}"
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
@@ -198,8 +199,8 @@
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:hint="Repeat"
-                            android:onClick="onClickRepeat"
-                            />
+                            android:onClick="@{(v) -> handler.onClickRepeat(v)}"
+                            android:text="@{viewModel.strRepeat}" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -218,7 +219,8 @@
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:hint="Reminder"
-                            android:onClick="onClickRemRepeat" />
+                            android:onClick="@{(v) -> handler.onClickRemRepeat(v)}"
+                            android:text="@{viewModel.strReminder}" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -226,7 +228,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/activity_horizontal_margin"
-
+                        android:onClick="@{(v) -> handler.onClickAlert(v)}"
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
@@ -237,8 +239,8 @@
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:hint="Alert"
-                            android:onClick="onClickAlert"
-                              />
+                            android:onClick="@{(v) -> handler.onClickAlert(v)}"
+                            android:text="@{viewModel.strAlert}" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -259,8 +261,8 @@
                             android:focusableInTouchMode="false"
                             android:hint="Progress Status"
 
-                            android:onClick="onClickProgressState"
-                             />
+                            android:onClick="@{(v) -> handler.onClickProgressState(v)}"
+                            android:text="@{viewModel.strProgressState}" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -274,4 +276,4 @@
     </LinearLayout>
 
 
-<!--</layout>-->
+</layout>

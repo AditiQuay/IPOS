@@ -26,5 +26,6 @@ public interface AttachmentDao {
     @Query("SELECT * FROM 'attachment' WHERE txId=:txId")
     LiveData<List<AttachmentEntity>> getAttachments(long txId);
 
-
+    @Query("DELETE FROM attachment")
+    void delete();
 }

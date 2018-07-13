@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -689,6 +690,14 @@ public class MainActivity extends BaseActivity
 
             case "Compliance Tracking":
                 // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
+              /*  IPOSApplication.getDatabase().taskDao().delete();
+                IPOSApplication.getDatabase().subtaskDao().delete();
+                IPOSApplication.getDatabase().placeDao().delete();
+                IPOSApplication.getDatabase().employeeDao().delete();
+                IPOSApplication.getDatabase().attachmentDao().delete();
+                IPOSApplication.getDatabase().transactionDao().delete();
+*/
+
                 Intent intentCompliance = new Intent(mContext, DashboardActivity.class);
                 startActivity(intentCompliance);
                 menu1.findItem(R.id.action_filter).setVisible(false);
