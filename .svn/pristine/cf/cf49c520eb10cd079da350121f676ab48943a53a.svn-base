@@ -1,0 +1,77 @@
+{
+  "media": [
+    {
+      "isImage": true,
+      "isVideo": false,
+      "imageUrl": "",
+      "video": "",
+      "videoPreviewImage": ""
+    },
+    {
+      "isImage": false,
+      "isVideo": true,
+      "imageUrl": "",
+      "video": "",
+      "videoPreviewImage": ""
+    },
+    {
+      "isImage": true,
+      "isVideo": false,
+      "imageUrl": "",
+      "video": "",
+      "videoPreviewImage": ""
+    }
+  ],
+  "productDetail":
+    {
+      "data": [
+        {
+          "title": "Product Details",
+          "icon": "",
+          "dataDescription": [
+            {
+              "heading": "",
+              "description": "Loreum lipsum",
+              "isCheckStock": false
+            }
+          ]
+        },
+        {
+          "title": "Offers & Discount",
+          "icon": "",
+          "dataDescription": [
+            {
+              "heading": "",
+              "description": "Loreum lipsum",
+              "isCheckStock": false
+            }
+          ]
+        },
+        {
+          "title": "Packaging & Availibility",
+          "icon": "",
+          "dataDescription": [
+            {
+              "heading": "",
+              "description": "Loreum lipsum",
+              "isCheckStock": true
+            }
+          ]
+        },
+        {
+          "title": "How to use",
+          "icon": "",
+          "dataDescription": [
+            {
+              "heading": "",
+              "description": "Loreum lipsum",
+              "isCheckStock": false
+            }
+          ]
+        }
+      ]
+    }
+}
+
+
+

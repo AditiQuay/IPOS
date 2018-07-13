@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dim_4"
+    android:background="@drawable/item_bg"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="70dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/imvProduct"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="centerInside"
+            android:src="@drawable/if_light_bulb" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginLeft="@dimen/dim_8"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="@dimen/dim_10"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvItemName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dim_10"
+                android:text="Missile"
+                android:textColor="@color/accent_color"
+                android:textSize="@dimen/text_size_12sp"
+                app:typeface="TitilliumWeb-SemiBold.ttf" />
+
+
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvItemWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dim_5"
+                android:text="@string/qty"
+                android:textSize="@dimen/text_size_12sp"
+                app:typeface="TitilliumWeb-SemiBold.ttf" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingTop="@dimen/dim_6">
+
+            <ImageView
+                android:id="@+id/stockIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_stock_gray" />
+
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvStock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_toRightOf="@+id/stockIcon"
+                android:gravity="top|center_vertical"
+                android:paddingLeft="@dimen/dim_5"
+                android:text="225"
+                android:textSize="@dimen/text_size_10sp"
+                app:typeface="TitilliumWeb-Bold.ttf" />
+
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvUnitPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/tvStock"
+                android:gravity="top|center_vertical"
+                android:paddingLeft="@dimen/dim_15"
+                android:text="225"
+                android:textSize="@dimen/text_size_10sp"
+                app:typeface="TitilliumWeb-Bold.ttf" />
+
+            <RelativeLayout
+                android:id="@+id/llAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/button_drawable"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="4dp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="@dimen/dim_12"
+                    android:layout_height="@dimen/dim_12"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_action_cart_white" />
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_toRightOf="@+id/image"
+                    android:text="@string/add"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_12sp" />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dim_6"
+
+            android:orientation="horizontal"
+            android:padding="@dimen/dim_5">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_badge" />
+
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="top|center_vertical"
+                android:paddingLeft="@dimen/dim_4"
+                android:text="225 Pts."
+                android:textColor="@color/green"
+                android:textSize="@dimen/text_size_10sp"
+                app:typeface="TitilliumWeb-Bold.ttf" />
+
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvOfferDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/dim_16"
+                android:gravity="top|center_vertical"
+                android:paddingLeft="@dimen/dim_4"
+                android:text="Season Discount(10%)"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_size_10sp"
+                app:typeface="TitilliumWeb-Bold.ttf" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

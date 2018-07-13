@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/dim_8"
+    android:paddingRight="@dimen/dim_8"
+    android:paddingBottom="@dimen/dim_8">
+
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rLayoutHeader"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+
+        <!--<TextView-->
+            <!--android:id="@+id/textViewName"-->
+            <!--style="@style/stylePrimaryTextColor14"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_toLeftOf="@+id/imageViewIcon"-->
+            <!--android:layout_toStartOf="@+id/imageViewIcon"-->
+            <!--android:ems="18"-->
+            <!--android:lines="2"-->
+            <!--android:paddingEnd="10dp"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:text="Item Name" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textViewViewAll"-->
+            <!--style="@style/styleWhiteTextColor14"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:background="@drawable/round_shape_view_all"-->
+            <!--android:padding="@dimen/dim_8"-->
+            <!--android:text="View All" />-->
+    <!--</RelativeLayout>-->
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageViewProduct"
+            android:layout_width="@dimen/dim_100"
+            android:layout_height="@dimen/dim_100"
+            android:adjustViewBounds="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/window" />
+
+        <TextView
+            android:id="@+id/textViewProductName"
+            style="@style/stylePrimaryTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/imageViewProduct"
+            android:layout_marginTop="@dimen/dim_8"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:ems="7"
+            android:lines="2"
+            android:text="@string/toolbar_title_login" />
+    </RelativeLayout>
+
+</RelativeLayout>

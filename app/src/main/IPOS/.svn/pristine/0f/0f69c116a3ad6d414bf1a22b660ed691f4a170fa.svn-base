@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:id="@+id/POHashitems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dim_4">
+
+            <ImageView
+                android:id="@+id/imgPO"
+                android:layout_width="@dimen/dim_30"
+                android:layout_height="@dimen/dim_30"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:background="@drawable/order_summary"/>
+
+            <TextView
+                android:id="@+id/tvHeaderPoNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imgPO"
+                android:layout_toRightOf="@+id/imgPO"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:text="Transfer Out Header"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/universal_text_size14" />
+
+            <ImageView
+                android:id="@+id/arrowPO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10" />
+
+        </RelativeLayout>
+
+
+        <include layout="@layout/transfer_out_view"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/POitemsDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dim_4">
+
+            <ImageView
+                android:id="@+id/imgItemDetails"
+                android:layout_width="@dimen/dim_30"
+                android:layout_height="@dimen/dim_30"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:background="@drawable/detail"/>
+
+            <TextView
+                android:id="@+id/tvHeaderPOItemDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imgItemDetails"
+                android:layout_toRightOf="@+id/imgItemDetails"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:text="Items Details | 0 Items | Qty 0 "
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/universal_text_size14" />
+            <TextView
+                android:id="@+id/tvAddItems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:visibility="gone"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/white"
+                android:background="@drawable/button_rectangle_primary"
+                android:layout_toLeftOf="@+id/imgItems"
+                android:gravity="center"
+                android:textSize="@dimen/dim_18"/>
+            <ImageView
+                android:id="@+id/imgItems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10" />
+
+        </RelativeLayout>
+        <include layout="@layout/item_detail_po"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/POPaymentTerms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dim_4">
+
+            <ImageView
+                android:id="@+id/imgPayment"
+                android:layout_width="@dimen/dim_30"
+                android:layout_height="@dimen/dim_30"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:background="@drawable/cash"/>
+
+            <TextView
+                android:id="@+id/tvHeaderPOPaymentTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imgPayment"
+                android:layout_toRightOf="@+id/imgPayment"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:text="Logistics"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/universal_text_size14" />
+
+            <ImageView
+                android:id="@+id/imgPaymentTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10" />
+
+        </RelativeLayout>
+        <include layout="@layout/transporter"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/POIncoTerms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dim_4">
+
+            <ImageView
+                android:id="@+id/imgInco"
+                android:layout_width="@dimen/dim_30"
+                android:layout_height="@dimen/dim_30"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:background="@drawable/order_summary"/>
+
+            <TextView
+                android:id="@+id/tvHeaderPOIncoTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imgInco"
+                android:layout_toRightOf="@+id/imgInco"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:text="INCO terms"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/universal_text_size14" />
+
+            <ImageView
+                android:id="@+id/imgIncoTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10" />
+
+        </RelativeLayout>
+        <include layout="@layout/inco_terms_items_detail"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/POTermsandCondition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:visibility="gone"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dim_4">
+
+            <ImageView
+                android:id="@+id/imgTerms"
+                android:layout_width="@dimen/dim_30"
+                android:layout_height="@dimen/dim_30"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:background="@drawable/order_summary"/>
+
+            <TextView
+                android:id="@+id/tvHeaderPOTermsCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imgTerms"
+                android:layout_toRightOf="@+id/imgTerms"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:text="Terms &amp; Conditions"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/universal_text_size14" />
+
+            <TextView
+                android:id="@+id/tvAddTerms"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:visibility="gone"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/white"
+                android:background="@drawable/button_rectangle_primary"
+                android:layout_toLeftOf="@+id/imgRight"
+                android:gravity="center"
+                android:textSize="@dimen/dim_18"/>
+
+            <ImageView
+                android:id="@+id/imgRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"/>
+
+        </RelativeLayout>
+
+        <include layout="@layout/expandable_po_items"
+            android:visibility="gone"/>
+        <RelativeLayout
+            android:id="@+id/POAttachment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="@color/white"
+            android:layout_margin="@dimen/dim_4">
+
+            <ImageView
+                android:id="@+id/imgAttach"
+                android:layout_width="@dimen/dim_30"
+                android:layout_height="@dimen/dim_30"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:background="@drawable/attachment"/>
+
+            <TextView
+                android:id="@+id/tvHeaderPOAttachement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imgAttach"
+                android:layout_toRightOf="@+id/imgAttach"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10"
+                android:text="Attachments"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/universal_text_size14" />
+            <TextView
+                android:id="@+id/tvAddAttach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:visibility="gone"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/white"
+                android:background="@drawable/button_rectangle_primary"
+                android:layout_toLeftOf="@+id/imgri"
+                android:gravity="center"
+                android:textSize="@dimen/dim_18"/>
+
+            <ImageView
+                android:id="@+id/imgri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:alpha="0.7"
+                android:paddingEnd="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10" />
+
+
+        </RelativeLayout>
+
+        <include layout="@layout/attachments_po_items"
+            android:visibility="gone"/>
+        <ExpandableListView
+            android:id="@+id/expandableListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/SliderDots"
+            android:layout_marginLeft="@dimen/dim_8"
+            android:layout_marginRight="@dimen/dim_8"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:background="@null"
+            android:divider="@color/app_background_color"
+            android:dividerHeight="@dimen/dim_8"
+            android:groupIndicator="@null"
+            android:scrollbars="none" />
+        <Button
+            android:id="@+id/btnSave"
+            style="@style/styleWhiteTextColor14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:visibility="gone"
+            android:backgroundTint="@color/colorPrimary"
+            android:fontFamily="@font/titilliumwebregular"
+            android:stateListAnimator="@null"
+            android:text="Submit"
+            android:textAllCaps="true" />
+    </LinearLayout>
+
+</LinearLayout>

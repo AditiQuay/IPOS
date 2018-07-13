@@ -1,0 +1,780 @@
+package io.realm;
+
+
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.util.JsonReader;
+import android.util.JsonToken;
+import io.realm.RealmObjectSchema;
+import io.realm.RealmSchema;
+import io.realm.exceptions.RealmMigrationNeededException;
+import io.realm.internal.ColumnInfo;
+import io.realm.internal.LinkView;
+import io.realm.internal.RealmObjectProxy;
+import io.realm.internal.Row;
+import io.realm.internal.SharedRealm;
+import io.realm.internal.Table;
+import io.realm.internal.android.JsonUtils;
+import io.realm.log.RealmLog;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class RealmBusinessPlacesRealmProxy extends quay.com.ipos.realmbean.RealmBusinessPlaces
+    implements RealmObjectProxy, RealmBusinessPlacesRealmProxyInterface {
+
+    static final class RealmBusinessPlacesColumnInfo extends ColumnInfo
+        implements Cloneable {
+
+        public long buisnessPlaceIdIndex;
+        public long buisnessPlaceNameIndex;
+        public long buisnessLocationStateCodeIndex;
+        public long headerIndex;
+        public long isSelectedIndex;
+
+        RealmBusinessPlacesColumnInfo(String path, Table table) {
+            final Map<String, Long> indicesMap = new HashMap<String, Long>(5);
+            this.buisnessPlaceIdIndex = getValidColumnIndex(path, table, "RealmBusinessPlaces", "buisnessPlaceId");
+            indicesMap.put("buisnessPlaceId", this.buisnessPlaceIdIndex);
+            this.buisnessPlaceNameIndex = getValidColumnIndex(path, table, "RealmBusinessPlaces", "buisnessPlaceName");
+            indicesMap.put("buisnessPlaceName", this.buisnessPlaceNameIndex);
+            this.buisnessLocationStateCodeIndex = getValidColumnIndex(path, table, "RealmBusinessPlaces", "buisnessLocationStateCode");
+            indicesMap.put("buisnessLocationStateCode", this.buisnessLocationStateCodeIndex);
+            this.headerIndex = getValidColumnIndex(path, table, "RealmBusinessPlaces", "header");
+            indicesMap.put("header", this.headerIndex);
+            this.isSelectedIndex = getValidColumnIndex(path, table, "RealmBusinessPlaces", "isSelected");
+            indicesMap.put("isSelected", this.isSelectedIndex);
+
+            setIndicesMap(indicesMap);
+        }
+
+        @Override
+        public final void copyColumnInfoFrom(ColumnInfo other) {
+            final RealmBusinessPlacesColumnInfo otherInfo = (RealmBusinessPlacesColumnInfo) other;
+            this.buisnessPlaceIdIndex = otherInfo.buisnessPlaceIdIndex;
+            this.buisnessPlaceNameIndex = otherInfo.buisnessPlaceNameIndex;
+            this.buisnessLocationStateCodeIndex = otherInfo.buisnessLocationStateCodeIndex;
+            this.headerIndex = otherInfo.headerIndex;
+            this.isSelectedIndex = otherInfo.isSelectedIndex;
+
+            setIndicesMap(otherInfo.getIndicesMap());
+        }
+
+        @Override
+        public final RealmBusinessPlacesColumnInfo clone() {
+            return (RealmBusinessPlacesColumnInfo) super.clone();
+        }
+
+    }
+    private RealmBusinessPlacesColumnInfo columnInfo;
+    private ProxyState<quay.com.ipos.realmbean.RealmBusinessPlaces> proxyState;
+    private static final List<String> FIELD_NAMES;
+    static {
+        List<String> fieldNames = new ArrayList<String>();
+        fieldNames.add("buisnessPlaceId");
+        fieldNames.add("buisnessPlaceName");
+        fieldNames.add("buisnessLocationStateCode");
+        fieldNames.add("header");
+        fieldNames.add("isSelected");
+        FIELD_NAMES = Collections.unmodifiableList(fieldNames);
+    }
+
+    RealmBusinessPlacesRealmProxy() {
+        proxyState.setConstructionFinished();
+    }
+
+    @Override
+    public void realm$injectObjectContext() {
+        if (this.proxyState != null) {
+            return;
+        }
+        final BaseRealm.RealmObjectContext context = BaseRealm.objectContext.get();
+        this.columnInfo = (RealmBusinessPlacesColumnInfo) context.getColumnInfo();
+        this.proxyState = new ProxyState<quay.com.ipos.realmbean.RealmBusinessPlaces>(this);
+        proxyState.setRealm$realm(context.getRealm());
+        proxyState.setRow$realm(context.getRow());
+        proxyState.setAcceptDefaultValue$realm(context.getAcceptDefaultValue());
+        proxyState.setExcludeFields$realm(context.getExcludeFields());
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$buisnessPlaceId() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.buisnessPlaceIdIndex);
+    }
+
+    @Override
+    public void realmSet$buisnessPlaceId(int value) {
+        if (proxyState.isUnderConstruction()) {
+            // default value of the primary key is always ignored.
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        throw new io.realm.exceptions.RealmException("Primary key field 'buisnessPlaceId' cannot be changed after object was created.");
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$buisnessPlaceName() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.buisnessPlaceNameIndex);
+    }
+
+    @Override
+    public void realmSet$buisnessPlaceName(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.buisnessPlaceNameIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.buisnessPlaceNameIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.buisnessPlaceNameIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.buisnessPlaceNameIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$buisnessLocationStateCode() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.buisnessLocationStateCodeIndex);
+    }
+
+    @Override
+    public void realmSet$buisnessLocationStateCode(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.buisnessLocationStateCodeIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.buisnessLocationStateCodeIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.buisnessLocationStateCodeIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.buisnessLocationStateCodeIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$header() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.headerIndex);
+    }
+
+    @Override
+    public void realmSet$header(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.headerIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.headerIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.headerIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.headerIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public boolean realmGet$isSelected() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (boolean) proxyState.getRow$realm().getBoolean(columnInfo.isSelectedIndex);
+    }
+
+    @Override
+    public void realmSet$isSelected(boolean value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setBoolean(columnInfo.isSelectedIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setBoolean(columnInfo.isSelectedIndex, value);
+    }
+
+    public static RealmObjectSchema createRealmObjectSchema(RealmSchema realmSchema) {
+        if (!realmSchema.contains("RealmBusinessPlaces")) {
+            RealmObjectSchema realmObjectSchema = realmSchema.create("RealmBusinessPlaces");
+            realmObjectSchema.add("buisnessPlaceId", RealmFieldType.INTEGER, Property.PRIMARY_KEY, Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("buisnessPlaceName", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("buisnessLocationStateCode", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("header", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("isSelected", RealmFieldType.BOOLEAN, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            return realmObjectSchema;
+        }
+        return realmSchema.get("RealmBusinessPlaces");
+    }
+
+    public static RealmBusinessPlacesColumnInfo validateTable(SharedRealm sharedRealm, boolean allowExtraColumns) {
+        if (!sharedRealm.hasTable("class_RealmBusinessPlaces")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "The 'RealmBusinessPlaces' class is missing from the schema for this Realm.");
+        }
+        Table table = sharedRealm.getTable("class_RealmBusinessPlaces");
+        final long columnCount = table.getColumnCount();
+        if (columnCount != 5) {
+            if (columnCount < 5) {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field count is less than expected - expected 5 but was " + columnCount);
+            }
+            if (allowExtraColumns) {
+                RealmLog.debug("Field count is more than expected - expected 5 but was %1$d", columnCount);
+            } else {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field count is more than expected - expected 5 but was " + columnCount);
+            }
+        }
+        Map<String, RealmFieldType> columnTypes = new HashMap<String, RealmFieldType>();
+        for (long i = 0; i < columnCount; i++) {
+            columnTypes.put(table.getColumnName(i), table.getColumnType(i));
+        }
+
+        final RealmBusinessPlacesColumnInfo columnInfo = new RealmBusinessPlacesColumnInfo(sharedRealm.getPath(), table);
+
+        if (!table.hasPrimaryKey()) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Primary key not defined for field 'buisnessPlaceId' in existing Realm file. @PrimaryKey was added.");
+        } else {
+            if (table.getPrimaryKey() != columnInfo.buisnessPlaceIdIndex) {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Primary Key annotation definition was changed, from field " + table.getColumnName(table.getPrimaryKey()) + " to field buisnessPlaceId");
+            }
+        }
+
+        if (!columnTypes.containsKey("buisnessPlaceId")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'buisnessPlaceId' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("buisnessPlaceId") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'buisnessPlaceId' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.buisnessPlaceIdIndex) && table.findFirstNull(columnInfo.buisnessPlaceIdIndex) != Table.NO_MATCH) {
+            throw new IllegalStateException("Cannot migrate an object with null value in field 'buisnessPlaceId'. Either maintain the same type for primary key field 'buisnessPlaceId', or remove the object with null value before migration.");
+        }
+        if (!table.hasSearchIndex(table.getColumnIndex("buisnessPlaceId"))) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Index not defined for field 'buisnessPlaceId' in existing Realm file. Either set @Index or migrate using io.realm.internal.Table.removeSearchIndex().");
+        }
+        if (!columnTypes.containsKey("buisnessPlaceName")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'buisnessPlaceName' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("buisnessPlaceName") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'buisnessPlaceName' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.buisnessPlaceNameIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'buisnessPlaceName' is required. Either set @Required to field 'buisnessPlaceName' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("buisnessLocationStateCode")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'buisnessLocationStateCode' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("buisnessLocationStateCode") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'buisnessLocationStateCode' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.buisnessLocationStateCodeIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'buisnessLocationStateCode' is required. Either set @Required to field 'buisnessLocationStateCode' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("header")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'header' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("header") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'header' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.headerIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'header' is required. Either set @Required to field 'header' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("isSelected")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'isSelected' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("isSelected") != RealmFieldType.BOOLEAN) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'boolean' for field 'isSelected' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.isSelectedIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'isSelected' does support null values in the existing Realm file. Use corresponding boxed type for field 'isSelected' or migrate using RealmObjectSchema.setNullable().");
+        }
+
+        return columnInfo;
+    }
+
+    public static String getTableName() {
+        return "class_RealmBusinessPlaces";
+    }
+
+    public static List<String> getFieldNames() {
+        return FIELD_NAMES;
+    }
+
+    @SuppressWarnings("cast")
+    public static quay.com.ipos.realmbean.RealmBusinessPlaces createOrUpdateUsingJsonObject(Realm realm, JSONObject json, boolean update)
+        throws JSONException {
+        final List<String> excludeFields = Collections.<String> emptyList();
+        quay.com.ipos.realmbean.RealmBusinessPlaces obj = null;
+        if (update) {
+            Table table = realm.getTable(quay.com.ipos.realmbean.RealmBusinessPlaces.class);
+            long pkColumnIndex = table.getPrimaryKey();
+            long rowIndex = Table.NO_MATCH;
+            if (!json.isNull("buisnessPlaceId")) {
+                rowIndex = table.findFirstLong(pkColumnIndex, json.getLong("buisnessPlaceId"));
+            }
+            if (rowIndex != Table.NO_MATCH) {
+                final BaseRealm.RealmObjectContext objectContext = BaseRealm.objectContext.get();
+                try {
+                    objectContext.set(realm, table.getUncheckedRow(rowIndex), realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmBusinessPlaces.class), false, Collections.<String> emptyList());
+                    obj = new io.realm.RealmBusinessPlacesRealmProxy();
+                } finally {
+                    objectContext.clear();
+                }
+            }
+        }
+        if (obj == null) {
+            if (json.has("buisnessPlaceId")) {
+                if (json.isNull("buisnessPlaceId")) {
+                    obj = (io.realm.RealmBusinessPlacesRealmProxy) realm.createObjectInternal(quay.com.ipos.realmbean.RealmBusinessPlaces.class, null, true, excludeFields);
+                } else {
+                    obj = (io.realm.RealmBusinessPlacesRealmProxy) realm.createObjectInternal(quay.com.ipos.realmbean.RealmBusinessPlaces.class, json.getInt("buisnessPlaceId"), true, excludeFields);
+                }
+            } else {
+                throw new IllegalArgumentException("JSON object doesn't have the primary key field 'buisnessPlaceId'.");
+            }
+        }
+        if (json.has("buisnessPlaceName")) {
+            if (json.isNull("buisnessPlaceName")) {
+                ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$buisnessPlaceName(null);
+            } else {
+                ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$buisnessPlaceName((String) json.getString("buisnessPlaceName"));
+            }
+        }
+        if (json.has("buisnessLocationStateCode")) {
+            if (json.isNull("buisnessLocationStateCode")) {
+                ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$buisnessLocationStateCode(null);
+            } else {
+                ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$buisnessLocationStateCode((String) json.getString("buisnessLocationStateCode"));
+            }
+        }
+        if (json.has("header")) {
+            if (json.isNull("header")) {
+                ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$header(null);
+            } else {
+                ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$header((String) json.getString("header"));
+            }
+        }
+        if (json.has("isSelected")) {
+            if (json.isNull("isSelected")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'isSelected' to null.");
+            } else {
+                ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$isSelected((boolean) json.getBoolean("isSelected"));
+            }
+        }
+        return obj;
+    }
+
+    @SuppressWarnings("cast")
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static quay.com.ipos.realmbean.RealmBusinessPlaces createUsingJsonStream(Realm realm, JsonReader reader)
+        throws IOException {
+        boolean jsonHasPrimaryKey = false;
+        quay.com.ipos.realmbean.RealmBusinessPlaces obj = new quay.com.ipos.realmbean.RealmBusinessPlaces();
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (false) {
+            } else if (name.equals("buisnessPlaceId")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'buisnessPlaceId' to null.");
+                } else {
+                    ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$buisnessPlaceId((int) reader.nextInt());
+                }
+                jsonHasPrimaryKey = true;
+            } else if (name.equals("buisnessPlaceName")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$buisnessPlaceName(null);
+                } else {
+                    ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$buisnessPlaceName((String) reader.nextString());
+                }
+            } else if (name.equals("buisnessLocationStateCode")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$buisnessLocationStateCode(null);
+                } else {
+                    ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$buisnessLocationStateCode((String) reader.nextString());
+                }
+            } else if (name.equals("header")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$header(null);
+                } else {
+                    ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$header((String) reader.nextString());
+                }
+            } else if (name.equals("isSelected")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'isSelected' to null.");
+                } else {
+                    ((RealmBusinessPlacesRealmProxyInterface) obj).realmSet$isSelected((boolean) reader.nextBoolean());
+                }
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+        if (!jsonHasPrimaryKey) {
+            throw new IllegalArgumentException("JSON object doesn't have the primary key field 'buisnessPlaceId'.");
+        }
+        obj = realm.copyToRealm(obj);
+        return obj;
+    }
+
+    public static quay.com.ipos.realmbean.RealmBusinessPlaces copyOrUpdate(Realm realm, quay.com.ipos.realmbean.RealmBusinessPlaces object, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy) object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy) object).realmGet$proxyState().getRealm$realm().threadId != realm.threadId) {
+            throw new IllegalArgumentException("Objects which belong to Realm instances in other threads cannot be copied into this Realm instance.");
+        }
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return object;
+        }
+        final BaseRealm.RealmObjectContext objectContext = BaseRealm.objectContext.get();
+        RealmObjectProxy cachedRealmObject = cache.get(object);
+        if (cachedRealmObject != null) {
+            return (quay.com.ipos.realmbean.RealmBusinessPlaces) cachedRealmObject;
+        } else {
+            quay.com.ipos.realmbean.RealmBusinessPlaces realmObject = null;
+            boolean canUpdate = update;
+            if (canUpdate) {
+                Table table = realm.getTable(quay.com.ipos.realmbean.RealmBusinessPlaces.class);
+                long pkColumnIndex = table.getPrimaryKey();
+                long rowIndex = table.findFirstLong(pkColumnIndex, ((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId());
+                if (rowIndex != Table.NO_MATCH) {
+                    try {
+                        objectContext.set(realm, table.getUncheckedRow(rowIndex), realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmBusinessPlaces.class), false, Collections.<String> emptyList());
+                        realmObject = new io.realm.RealmBusinessPlacesRealmProxy();
+                        cache.put(object, (RealmObjectProxy) realmObject);
+                    } finally {
+                        objectContext.clear();
+                    }
+                } else {
+                    canUpdate = false;
+                }
+            }
+
+            if (canUpdate) {
+                return update(realm, realmObject, object, cache);
+            } else {
+                return copy(realm, object, update, cache);
+            }
+        }
+    }
+
+    public static quay.com.ipos.realmbean.RealmBusinessPlaces copy(Realm realm, quay.com.ipos.realmbean.RealmBusinessPlaces newObject, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
+        RealmObjectProxy cachedRealmObject = cache.get(newObject);
+        if (cachedRealmObject != null) {
+            return (quay.com.ipos.realmbean.RealmBusinessPlaces) cachedRealmObject;
+        } else {
+            // rejecting default values to avoid creating unexpected objects from RealmModel/RealmList fields.
+            quay.com.ipos.realmbean.RealmBusinessPlaces realmObject = realm.createObjectInternal(quay.com.ipos.realmbean.RealmBusinessPlaces.class, ((RealmBusinessPlacesRealmProxyInterface) newObject).realmGet$buisnessPlaceId(), false, Collections.<String>emptyList());
+            cache.put(newObject, (RealmObjectProxy) realmObject);
+            ((RealmBusinessPlacesRealmProxyInterface) realmObject).realmSet$buisnessPlaceName(((RealmBusinessPlacesRealmProxyInterface) newObject).realmGet$buisnessPlaceName());
+            ((RealmBusinessPlacesRealmProxyInterface) realmObject).realmSet$buisnessLocationStateCode(((RealmBusinessPlacesRealmProxyInterface) newObject).realmGet$buisnessLocationStateCode());
+            ((RealmBusinessPlacesRealmProxyInterface) realmObject).realmSet$header(((RealmBusinessPlacesRealmProxyInterface) newObject).realmGet$header());
+            ((RealmBusinessPlacesRealmProxyInterface) realmObject).realmSet$isSelected(((RealmBusinessPlacesRealmProxyInterface) newObject).realmGet$isSelected());
+            return realmObject;
+        }
+    }
+
+    public static long insert(Realm realm, quay.com.ipos.realmbean.RealmBusinessPlaces object, Map<RealmModel,Long> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex();
+        }
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmBusinessPlaces.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmBusinessPlacesColumnInfo columnInfo = (RealmBusinessPlacesColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmBusinessPlaces.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        long rowIndex = Table.NO_MATCH;
+        Object primaryKeyValue = ((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId();
+        if (primaryKeyValue != null) {
+            rowIndex = Table.nativeFindFirstInt(tableNativePtr, pkColumnIndex, ((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId());
+        }
+        if (rowIndex == Table.NO_MATCH) {
+            rowIndex = table.addEmptyRowWithPrimaryKey(((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId(), false);
+        } else {
+            Table.throwDuplicatePrimaryKeyException(primaryKeyValue);
+        }
+        cache.put(object, rowIndex);
+        String realmGet$buisnessPlaceName = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$buisnessPlaceName();
+        if (realmGet$buisnessPlaceName != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.buisnessPlaceNameIndex, rowIndex, realmGet$buisnessPlaceName, false);
+        }
+        String realmGet$buisnessLocationStateCode = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$buisnessLocationStateCode();
+        if (realmGet$buisnessLocationStateCode != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.buisnessLocationStateCodeIndex, rowIndex, realmGet$buisnessLocationStateCode, false);
+        }
+        String realmGet$header = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$header();
+        if (realmGet$header != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.headerIndex, rowIndex, realmGet$header, false);
+        }
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isSelectedIndex, rowIndex, ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$isSelected(), false);
+        return rowIndex;
+    }
+
+    public static void insert(Realm realm, Iterator<? extends RealmModel> objects, Map<RealmModel,Long> cache) {
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmBusinessPlaces.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmBusinessPlacesColumnInfo columnInfo = (RealmBusinessPlacesColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmBusinessPlaces.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        quay.com.ipos.realmbean.RealmBusinessPlaces object = null;
+        while (objects.hasNext()) {
+            object = (quay.com.ipos.realmbean.RealmBusinessPlaces) objects.next();
+            if(!cache.containsKey(object)) {
+                if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+                    cache.put(object, ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex());
+                    continue;
+                }
+                long rowIndex = Table.NO_MATCH;
+                Object primaryKeyValue = ((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId();
+                if (primaryKeyValue != null) {
+                    rowIndex = Table.nativeFindFirstInt(tableNativePtr, pkColumnIndex, ((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId());
+                }
+                if (rowIndex == Table.NO_MATCH) {
+                    rowIndex = table.addEmptyRowWithPrimaryKey(((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId(), false);
+                } else {
+                    Table.throwDuplicatePrimaryKeyException(primaryKeyValue);
+                }
+                cache.put(object, rowIndex);
+                String realmGet$buisnessPlaceName = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$buisnessPlaceName();
+                if (realmGet$buisnessPlaceName != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.buisnessPlaceNameIndex, rowIndex, realmGet$buisnessPlaceName, false);
+                }
+                String realmGet$buisnessLocationStateCode = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$buisnessLocationStateCode();
+                if (realmGet$buisnessLocationStateCode != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.buisnessLocationStateCodeIndex, rowIndex, realmGet$buisnessLocationStateCode, false);
+                }
+                String realmGet$header = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$header();
+                if (realmGet$header != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.headerIndex, rowIndex, realmGet$header, false);
+                }
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isSelectedIndex, rowIndex, ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$isSelected(), false);
+            }
+        }
+    }
+
+    public static long insertOrUpdate(Realm realm, quay.com.ipos.realmbean.RealmBusinessPlaces object, Map<RealmModel,Long> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex();
+        }
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmBusinessPlaces.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmBusinessPlacesColumnInfo columnInfo = (RealmBusinessPlacesColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmBusinessPlaces.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        long rowIndex = Table.NO_MATCH;
+        Object primaryKeyValue = ((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId();
+        if (primaryKeyValue != null) {
+            rowIndex = Table.nativeFindFirstInt(tableNativePtr, pkColumnIndex, ((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId());
+        }
+        if (rowIndex == Table.NO_MATCH) {
+            rowIndex = table.addEmptyRowWithPrimaryKey(((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId(), false);
+        }
+        cache.put(object, rowIndex);
+        String realmGet$buisnessPlaceName = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$buisnessPlaceName();
+        if (realmGet$buisnessPlaceName != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.buisnessPlaceNameIndex, rowIndex, realmGet$buisnessPlaceName, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.buisnessPlaceNameIndex, rowIndex, false);
+        }
+        String realmGet$buisnessLocationStateCode = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$buisnessLocationStateCode();
+        if (realmGet$buisnessLocationStateCode != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.buisnessLocationStateCodeIndex, rowIndex, realmGet$buisnessLocationStateCode, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.buisnessLocationStateCodeIndex, rowIndex, false);
+        }
+        String realmGet$header = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$header();
+        if (realmGet$header != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.headerIndex, rowIndex, realmGet$header, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.headerIndex, rowIndex, false);
+        }
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isSelectedIndex, rowIndex, ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$isSelected(), false);
+        return rowIndex;
+    }
+
+    public static void insertOrUpdate(Realm realm, Iterator<? extends RealmModel> objects, Map<RealmModel,Long> cache) {
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmBusinessPlaces.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmBusinessPlacesColumnInfo columnInfo = (RealmBusinessPlacesColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmBusinessPlaces.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        quay.com.ipos.realmbean.RealmBusinessPlaces object = null;
+        while (objects.hasNext()) {
+            object = (quay.com.ipos.realmbean.RealmBusinessPlaces) objects.next();
+            if(!cache.containsKey(object)) {
+                if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+                    cache.put(object, ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex());
+                    continue;
+                }
+                long rowIndex = Table.NO_MATCH;
+                Object primaryKeyValue = ((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId();
+                if (primaryKeyValue != null) {
+                    rowIndex = Table.nativeFindFirstInt(tableNativePtr, pkColumnIndex, ((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId());
+                }
+                if (rowIndex == Table.NO_MATCH) {
+                    rowIndex = table.addEmptyRowWithPrimaryKey(((RealmBusinessPlacesRealmProxyInterface) object).realmGet$buisnessPlaceId(), false);
+                }
+                cache.put(object, rowIndex);
+                String realmGet$buisnessPlaceName = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$buisnessPlaceName();
+                if (realmGet$buisnessPlaceName != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.buisnessPlaceNameIndex, rowIndex, realmGet$buisnessPlaceName, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.buisnessPlaceNameIndex, rowIndex, false);
+                }
+                String realmGet$buisnessLocationStateCode = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$buisnessLocationStateCode();
+                if (realmGet$buisnessLocationStateCode != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.buisnessLocationStateCodeIndex, rowIndex, realmGet$buisnessLocationStateCode, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.buisnessLocationStateCodeIndex, rowIndex, false);
+                }
+                String realmGet$header = ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$header();
+                if (realmGet$header != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.headerIndex, rowIndex, realmGet$header, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.headerIndex, rowIndex, false);
+                }
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isSelectedIndex, rowIndex, ((RealmBusinessPlacesRealmProxyInterface)object).realmGet$isSelected(), false);
+            }
+        }
+    }
+
+    public static quay.com.ipos.realmbean.RealmBusinessPlaces createDetachedCopy(quay.com.ipos.realmbean.RealmBusinessPlaces realmObject, int currentDepth, int maxDepth, Map<RealmModel, CacheData<RealmModel>> cache) {
+        if (currentDepth > maxDepth || realmObject == null) {
+            return null;
+        }
+        CacheData<RealmModel> cachedObject = cache.get(realmObject);
+        quay.com.ipos.realmbean.RealmBusinessPlaces unmanagedObject;
+        if (cachedObject != null) {
+            // Reuse cached object or recreate it because it was encountered at a lower depth.
+            if (currentDepth >= cachedObject.minDepth) {
+                return (quay.com.ipos.realmbean.RealmBusinessPlaces)cachedObject.object;
+            } else {
+                unmanagedObject = (quay.com.ipos.realmbean.RealmBusinessPlaces)cachedObject.object;
+                cachedObject.minDepth = currentDepth;
+            }
+        } else {
+            unmanagedObject = new quay.com.ipos.realmbean.RealmBusinessPlaces();
+            cache.put(realmObject, new RealmObjectProxy.CacheData<RealmModel>(currentDepth, unmanagedObject));
+        }
+        ((RealmBusinessPlacesRealmProxyInterface) unmanagedObject).realmSet$buisnessPlaceId(((RealmBusinessPlacesRealmProxyInterface) realmObject).realmGet$buisnessPlaceId());
+        ((RealmBusinessPlacesRealmProxyInterface) unmanagedObject).realmSet$buisnessPlaceName(((RealmBusinessPlacesRealmProxyInterface) realmObject).realmGet$buisnessPlaceName());
+        ((RealmBusinessPlacesRealmProxyInterface) unmanagedObject).realmSet$buisnessLocationStateCode(((RealmBusinessPlacesRealmProxyInterface) realmObject).realmGet$buisnessLocationStateCode());
+        ((RealmBusinessPlacesRealmProxyInterface) unmanagedObject).realmSet$header(((RealmBusinessPlacesRealmProxyInterface) realmObject).realmGet$header());
+        ((RealmBusinessPlacesRealmProxyInterface) unmanagedObject).realmSet$isSelected(((RealmBusinessPlacesRealmProxyInterface) realmObject).realmGet$isSelected());
+        return unmanagedObject;
+    }
+
+    static quay.com.ipos.realmbean.RealmBusinessPlaces update(Realm realm, quay.com.ipos.realmbean.RealmBusinessPlaces realmObject, quay.com.ipos.realmbean.RealmBusinessPlaces newObject, Map<RealmModel, RealmObjectProxy> cache) {
+        ((RealmBusinessPlacesRealmProxyInterface) realmObject).realmSet$buisnessPlaceName(((RealmBusinessPlacesRealmProxyInterface) newObject).realmGet$buisnessPlaceName());
+        ((RealmBusinessPlacesRealmProxyInterface) realmObject).realmSet$buisnessLocationStateCode(((RealmBusinessPlacesRealmProxyInterface) newObject).realmGet$buisnessLocationStateCode());
+        ((RealmBusinessPlacesRealmProxyInterface) realmObject).realmSet$header(((RealmBusinessPlacesRealmProxyInterface) newObject).realmGet$header());
+        ((RealmBusinessPlacesRealmProxyInterface) realmObject).realmSet$isSelected(((RealmBusinessPlacesRealmProxyInterface) newObject).realmGet$isSelected());
+        return realmObject;
+    }
+
+    @Override
+    @SuppressWarnings("ArrayToString")
+    public String toString() {
+        if (!RealmObject.isValid(this)) {
+            return "Invalid object";
+        }
+        StringBuilder stringBuilder = new StringBuilder("RealmBusinessPlaces = [");
+        stringBuilder.append("{buisnessPlaceId:");
+        stringBuilder.append(realmGet$buisnessPlaceId());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{buisnessPlaceName:");
+        stringBuilder.append(realmGet$buisnessPlaceName() != null ? realmGet$buisnessPlaceName() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{buisnessLocationStateCode:");
+        stringBuilder.append(realmGet$buisnessLocationStateCode() != null ? realmGet$buisnessLocationStateCode() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{header:");
+        stringBuilder.append(realmGet$header() != null ? realmGet$header() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{isSelected:");
+        stringBuilder.append(realmGet$isSelected());
+        stringBuilder.append("}");
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public ProxyState<?> realmGet$proxyState() {
+        return proxyState;
+    }
+
+    @Override
+    public int hashCode() {
+        String realmName = proxyState.getRealm$realm().getPath();
+        String tableName = proxyState.getRow$realm().getTable().getName();
+        long rowIndex = proxyState.getRow$realm().getIndex();
+
+        int result = 17;
+        result = 31 * result + ((realmName != null) ? realmName.hashCode() : 0);
+        result = 31 * result + ((tableName != null) ? tableName.hashCode() : 0);
+        result = 31 * result + (int) (rowIndex ^ (rowIndex >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RealmBusinessPlacesRealmProxy aRealmBusinessPlaces = (RealmBusinessPlacesRealmProxy)o;
+
+        String path = proxyState.getRealm$realm().getPath();
+        String otherPath = aRealmBusinessPlaces.proxyState.getRealm$realm().getPath();
+        if (path != null ? !path.equals(otherPath) : otherPath != null) return false;
+
+        String tableName = proxyState.getRow$realm().getTable().getName();
+        String otherTableName = aRealmBusinessPlaces.proxyState.getRow$realm().getTable().getName();
+        if (tableName != null ? !tableName.equals(otherTableName) : otherTableName != null) return false;
+
+        if (proxyState.getRow$realm().getIndex() != aRealmBusinessPlaces.proxyState.getRow$realm().getIndex()) return false;
+
+        return true;
+    }
+
+}

@@ -1,0 +1,144 @@
+package quay.com.ipos.data.local.dao;
+
+import android.arch.lifecycle.ComputableLiveData;
+import android.arch.lifecycle.LiveData;
+import android.arch.persistence.db.SupportSQLiteStatement;
+import android.arch.persistence.room.EntityInsertionAdapter;
+import android.arch.persistence.room.InvalidationTracker.Observer;
+import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.RoomSQLiteQuery;
+import android.database.Cursor;
+import android.support.annotation.NonNull;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import quay.com.ipos.data.local.entity.DDRInvoiceData;
+
+@SuppressWarnings("unchecked")
+public class DDRInvoiceDao_Impl implements DDRInvoiceDao {
+  private final RoomDatabase __db;
+
+  private final EntityInsertionAdapter __insertionAdapterOfDDRInvoiceData;
+
+  public DDRInvoiceDao_Impl(RoomDatabase __db) {
+    this.__db = __db;
+    this.__insertionAdapterOfDDRInvoiceData = new EntityInsertionAdapter<DDRInvoiceData>(__db) {
+      @Override
+      public String createQuery() {
+        return "INSERT OR REPLACE INTO `ddr_invoice_data`(`ddrCode`,`invoiceData`) VALUES (?,?)";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, DDRInvoiceData value) {
+        if (value.ddrCode == null) {
+          stmt.bindNull(1);
+        } else {
+          stmt.bindString(1, value.ddrCode);
+        }
+        if (value.invoiceData == null) {
+          stmt.bindNull(2);
+        } else {
+          stmt.bindString(2, value.invoiceData);
+        }
+      }
+    };
+  }
+
+  @Override
+  public void saveAllEmployees(List<DDRInvoiceData> taskList) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfDDRInvoiceData.insert(taskList);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public long saveTask(DDRInvoiceData mostUsed) {
+    __db.beginTransaction();
+    try {
+      long _result = __insertionAdapterOfDDRInvoiceData.insertAndReturnId(mostUsed);
+      __db.setTransactionSuccessful();
+      return _result;
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public List<DDRInvoiceData> fetchAllData() {
+    final String _sql = "SELECT * FROM 'ddr_invoice_data'";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    final Cursor _cursor = __db.query(_statement);
+    try {
+      final int _cursorIndexOfDdrCode = _cursor.getColumnIndexOrThrow("ddrCode");
+      final int _cursorIndexOfInvoiceData = _cursor.getColumnIndexOrThrow("invoiceData");
+      final List<DDRInvoiceData> _result = new ArrayList<DDRInvoiceData>(_cursor.getCount());
+      while(_cursor.moveToNext()) {
+        final DDRInvoiceData _item;
+        _item = new DDRInvoiceData();
+        _item.ddrCode = _cursor.getString(_cursorIndexOfDdrCode);
+        _item.invoiceData = _cursor.getString(_cursorIndexOfInvoiceData);
+        _result.add(_item);
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+
+  @Override
+  public LiveData<List<DDRInvoiceData>> getTaskByPlace(String id) {
+    final String _sql = "SELECT * FROM 'ddr_invoice_data' WHERE ddrCode=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    if (id == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, id);
+    }
+    return new ComputableLiveData<List<DDRInvoiceData>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<DDRInvoiceData> compute() {
+        if (_observer == null) {
+          _observer = new Observer("ddr_invoice_data") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfDdrCode = _cursor.getColumnIndexOrThrow("ddrCode");
+          final int _cursorIndexOfInvoiceData = _cursor.getColumnIndexOrThrow("invoiceData");
+          final List<DDRInvoiceData> _result = new ArrayList<DDRInvoiceData>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final DDRInvoiceData _item;
+            _item = new DDRInvoiceData();
+            _item.ddrCode = _cursor.getString(_cursorIndexOfDdrCode);
+            _item.invoiceData = _cursor.getString(_cursorIndexOfInvoiceData);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+}

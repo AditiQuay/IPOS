@@ -1,0 +1,546 @@
+<resources>
+    <string name="app_name">IPOS</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_outbox">Outbox</string>
+    <string name="action_logout">Logout</string>
+    <string name="msg_load_default">Loading...</string>
+    <string name="assets_fonts_folder">fonts</string>
+    <string name="mandatory">mandatory</string>
+    <string name="superscript">&lt;sup&gt;*&lt;/sup&gt;</string>
+    <string name="typeface_not_found">Typeface not found!!</string>
+    <string name="fa_user_plus">&#xf234;</string>
+    <string name="fa_thumb_tack">&#xf08d;</string>
+    <string name="fa_qrcode">&#xf029;</string>
+    <string name="fa_redeem">&#xf290;</string>
+    <string name="billing_n_cash">Billing &amp; Cash</string>
+    <string name="retail_sales">Retail Sales</string>
+    <string name="ddr_sales">DDR Sales (B2B)</string>
+    <string name="please_wait">Please Wait...</string>
+    <string name="Rs">\u20B9</string>
+    <string name="toggle_flash">Flash</string>
+    <string name="flash_on">Flash [ON]</string>
+    <string name="flash_off">Flash [OFF]</string>
+    <string name="auto_focus_on">Auto Focus [ON]</string>
+    <string name="auto_focus_off">Auto Focus [OFF]</string>
+    <string name="formats">Formats</string>
+    <string name="choose_formats">Choose Formats</string>
+
+    <string name="internet_connection_error_string">No Internet Connection</string>
+    <string name="internet_refresh_button_text">Refresh</string>
+    <string name="internet_ok_button_text">OK</string>
+    <string name="play_service_error_string">Google Play Service Not Found</string>
+    <string name="welcome_text_activity_login">Welcome, Good Morning !</string>
+    <string name="email_hint_activity_login">Email</string>
+    <string name="password_hint_activity_login">Password</string>
+    <string name="login_button_text_activity_login">LOGIN</string>
+    <string name="text_forgot_password_activity_login">Forgot Password?</string>
+    <string name="toolbar_title_login">USER LOGIN</string>
+    <string name="insight"><![CDATA[Insights & Analytics]]></string>
+    <string name="dashboard">Dashboard</string>
+    <string name="my_store">My Store 1</string>
+    <string name="focus">Focus</string>
+    <string name="pending_orders_to_deliver">Pending Orders to Deliver</string>
+    <string name="my_store_">My Store</string>
+    <string name="online_store">Online Store</string>
+    <string name="other_store">Other Stores</string>
+    <string name="low_inventory">Low Inventory</string>
+    <string name="total_sales">Total Sales</string>
+    <string name="_32k">\u20A8 32k</string>
+    <string name="total_sales_">63% below Target (₹ 86k) 37% Achievement</string>
+    <string name="schema_performance">Scheme Performances</string>
+    <string name="end_of_season">End of Season</string>
+    <string name="awcollection">A/W Collection 2018</string>
+    <string name="top_performing_stores">Top Performing Stores</string>
+    <string name="fast_moving">Fast Moving</string>
+    <string name="compliance">Compliance Summary</string>
+    <string name="no_internet_connection_warning_server_error">No internet connection available</string>
+    <string name="immediate">Immediate Attention</string>
+    <string name="upcoming">Upcoming Events</string>
+    <string name="pending">Pending</string>
+    <string name="done">Done</string>
+    <string name="store">Store</string>
+    <string name="day">Day</string>
+    <string name="month">Month</string>
+    <string name="month_sales">Month Sales</string>
+    <string name="day_sales">Day Sales</string>
+    <string name="product">Product</string>
+    <string name="store_sales_summary">Store Sales Summary</string>
+    <string name="week">Week</string>
+    <string name="store_status">Store Status</string>
+    <string name="opened">Opened @ 10:00 am today</string>
+    <string name="customer_footprints">Customer Footprints</string>
+    <string name="customer_feedback">Customer Feedback</string>
+    <string name="warehouse">Warehouse</string>
+    <string name="supplier">Supplier</string>
+    <string name="inventory">Inventory in transit</string>
+    <string name="barcode">Barcode</string>
+    <string name="items">Items</string>
+    <string name="qty">Qty</string>
+    <string name="total_gst">Total GST</string>
+    <string name="more_details">More Details</string>
+    <string name="pay">Pay</string>
+    <string name="fa_right">&#xf061;</string>
+    <string name="fa_left_arrow">&#xf359;</string>
+    <string name="fa_cross">&#xf00d;</string>
+    <string name="search">Search</string>
+    <string name="search_by_name">Search by name</string>
+    <string name="add">Add</string>
+    <string name="fa_trash">&#xf1f8;</string>
+    <string name="select_camera">Select Camera</string>
+    <string name="ok_button">OK</string>
+    <string name="cancel_button">Cancel</string>
+
+    <string name="toolBar_title_kyc_activity">KYC</string>
+    <string name="toolbar_title_catalogue_product_details">PRODUCT CATALOGUE</string>
+    <string name="toolbar_title_customer_screen">Customer Information</string>
+    <string name="toolbar_title_payment_screen">Payment Mode</string>
+    <string name="toolbar_title_customer_screen_details">Customer Details</string>
+    <string-array name="navigation_drawer_items_array">
+        <item>Dashboard &amp; Insight</item>
+        <item>Product Catalogue</item>
+        <item>Stock &amp; Price</item>
+        <item>Loyalty Program</item>
+        <item>Partner Connect</item>
+    </string-array>
+    <string-array name="months">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string name="title_partner_connect">Partner Connect</string>
+    <string name="title_ddrcu">New DDR</string>
+    <string name="title_kyc_connect">KYC</string>
+
+    <string name="total_discount">Total Discount</string>
+    <string name="rounding_off">Rounding off</string>
+    <string name="less_details">Less Details</string>
+    <string name="select_all">Select All</string>
+    <string name="otc_discount">OTC Discount</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="otc_discount_details">OTC Discount Details</string>
+    <string name="fa_cross_circle">&#xf057;</string>
+    <string name="discount_value">Discount Value</string>
+    <string name="apply">Apply</string>
+    <string name="otc_approval_details">This action needs an approval &amp; the same has been initiated. Check approval status on workflow menu.</string>
+    <string name="otc_discount_workflow_approval">OTC Discount Workflow Approval</string>
+    <string name="viewall">View All</string>
+    <string name="order_tracking">Order Tracking</string>
+    <string name="accepted">Accepted</string>
+    <string name="dispatched">Dispatched</string>
+    <string name="upcoming_shipment">Upcoming Shipment</string>
+    <string name="loyalty">Loyalty Program</string>
+    <string name="redeem_points">Redeem Points</string>
+    <string name="earned_points">Earned Points</string>
+    <string name="redeemed_points">Redeemed Points</string>
+    <string name="available_points">Available Points</string>
+    <string name="order_value">Value of Orders by Period</string>
+    <string name="mtd">MTD</string>
+    <string name="ytd">YTD</string>
+    <string name="products">Products</string>
+    <string name="order_values">Order Value</string>
+    <string name="top">Top 5</string>
+    <string name="retail_sale">Retail Sales</string>
+    <string name="enter_number">Enter Mobile Number</string>
+    <string name="customer_details">Customer Details</string>
+    <string name="address">Billing address - 145, Sector 40, Gurugram, 122018</string>
+    <string name="suggest_to_buy">Suggest to buy</string>
+    <string name="suggest_dummy">Trizole was out of stock on last billing. its now available</string>
+    <string name="recent_orders">Recent Orders</string>
+    <string name="enter_product">Enter Product</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="discounts">Discounts</string>
+    <string name="deliverby">Deliver by</string>
+
+    <string name="this_order">This Order</string>
+    <string name="accumulated">Accumulated</string>
+    <string name="total">Total</string>
+    <string name="new_">New</string>
+    <string name="delivered">Delivered</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="new_orders">New Order</string>
+    <string name="order_centre">Order Center</string>
+    <string name="accept">Accept</string>
+    <string name="redeem_value">Redeem Value</string>
+    <string name="points_to_redeem">Points to Redeem</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="otp">OTP</string>
+    <string name="verify">Verify</string>
+    <string name="no_match_found">No Match Found!</string>
+    <string name="redeem">Redeem</string>
+    <string name="cancel">Cancel</string>
+    <string name="filter">Filter</string>
+    <string name="Rs_">\u20B9 3902.90</string>
+    <string name="retail">Retail</string>
+    <string name="payment_mode">Payment Mode</string>
+    <string name="cash">Cash</string>
+    <string name="card">Card</string>
+    <string name="upi">UPI</string>
+    <string name="credit">Credit</string>
+    <string name="voucher">Voucher</string>
+    <string name="wallet">Wallet</string>
+    <string name="enter_cash_amount">Enter cash amount</string>
+    <string name="Rs_0">\u20B9 0.00</string>
+    <string name="enter_card_amount">Enter card amount</string>
+    <string name="select_card_type">Select card type</string>
+    <string name="enter_last_digit">Enter last 4 digits</string>
+    <string name="enter_transaction_number">Enter transaction number</string>
+    <string name="balance">Balance</string>
+    <string name="print_receipt">Print Receipt</string>
+    <string name="cod">COD</string>
+    <string name="payment">Payment</string>
+    <string name="Perc">%</string>
+    <string name="togglebutton1">ToggleButton1</string>
+    <string name="togglebutton2">ToggleButton2</string>
+    <string name="resend_otp">Resend OTP</string>
+    <string name="enter_otp">Please Enter OTP</string>
+    <string name="qty_available">quantity available</string>
+
+    <string name="proceed_update">Update &amp; Proceed</string>
+    <string name="stock">Stock</string>
+    <string name="available">Available</string>
+    <string name="check_stock">Check Stock</string>
+    <string name="reserved">Reserved</string>
+    <string name="cart">Cart</string>
+    <string name="an_offer">An Offer</string>
+    <string-array name="ordervalue">
+        <item>KGM Traders</item>
+    </string-array>
+    <string-array name="payment_type">
+        <item>Select Payment Mode</item>
+        <item>Cash</item>
+        <item>Card</item>
+        <item>Points</item>
+    </string-array>
+    <string-array name="addressvalue">
+        <item>Kirti Nagar, ND</item>
+        <item>Saket, ND</item>
+        <item>XYZ, ND</item>
+    </string-array>
+    <string-array name="card_type">
+        <item>Select Card Type</item>
+        <item>Master Card</item>
+        <item>Maestro Card</item>
+        <item>RuPay</item>
+        <item>VISA</item>
+        <item>AMEX</item>
+    </string-array>
+    <string-array name="stores">
+        <item>Store 1</item>
+        <item>Store 2</item>
+        <item>Store 3</item>
+    </string-array>
+    <string-array name="days">
+        <item>Day</item>
+        <item>Month</item>
+        <item>Year</item>
+    </string-array>
+    <string-array name="top_list">
+        <item>Top 10</item>
+        <item>Top 20</item>
+        <item>Top 50</item>
+    </string-array>
+    <string name="edittext_email_error_activity_login">Please enter a valid email address!</string>
+    <string name="edittext_password_error_activity_login">Please enter password</string>
+    <string name="runtime_permissions_txt">Please enable ALL permissions.</string>
+    <string name="error_bad_request">Bad Request</string>
+    <string name="error_internal_server_error">Internal server error</string>
+    <string name="error_url_not_found">URL not found</string>
+    <string name="error_unautorize_access">UnAuthorize access</string>
+    <string name="error_connection_timed_out">Connection timed out!</string>
+    <string name="retailersname">KGM Traders</string>
+    <string name="mobile_no">Mobile</string>
+    <string name="pinned_msg">Do you want to remove this pinned Item?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="delete_item_message">Do you want to Delete this Item?</string>
+    <string name="confirm_action">Confirm Action</string>
+    <string name="redeem_cannot_applied">Redeem cannot be applied with empty list</string>
+    <string name="redeem_customer_not_authorised">Please select customer first.</string>
+    <string name="pinned_empty">Pinned List is empty</string>
+    <string name="sending_otp">Sending OTP</string>
+    <string name="add_item">Add Item</string>
+    <string name="pinned_retail">Retail Pinned</string>
+    <string name="product_not_found">Product not found</string>
+    <string name="product_added_successfully">Product added Successfully</string>
+    <string name="product_not_added">Product not added</string>
+    <string name="save_cart_message">Do you want to save the Cart?</string>
+    <string name="exit_message">Do you want to Exit?</string>
+    <string name="pinned_message">Do you want to remove this pinned Item?</string>
+
+    <string name="text_Last_Billing">"Last Billing "</string>
+    <string name="text_birthday">"Wish Birthday ("</string>
+    <string name="text_points">" Pts."</string>
+    <string name="product_removed_successfully">Product Removed Successfully</string>
+
+    <string name="morning_text">Good Morning !</string>
+    <string name="afternoon_text">Good Afternoon !</string>
+    <string name="evening_text">Good Evening !</string>
+    <string name="night_text">Good Night !</string>
+    <string name="sale_value">Sale Value</string>
+    <string name="click_icon_for_add_product">Click the search icon to add product</string>
+    <string name="first_name_hint">First Name *</string>
+    <string name="string_name">First Name<font color="#ff0000"><bold>*</bold></font></string>
+
+    <string name="invalid_title">Please enter a valid Title</string>
+    <string name="invalid_f_name">Please enter a valid First Name</string>
+    <string name="invalid_l_name">Please enter a valid Last Name</string>
+    <string name="invalid_gender">Please enter a valid Gender</string>
+    <string name="invalid_maritalStatus">Please enter your Marital status</string>
+    <string name="invalid_email">Please enter a valid email</string>
+    <string name="invalid_designation">Please enter a designation</string>
+    <string name="invalid_company">Enter company name</string>
+
+    <string name="invalid_confirm_email">Email does not match</string>
+    <string name="invalid_password">Please enter a valid password</string>
+    <string name="invalid_spouse_f_name">Please enter a valid Spouse First Name</string>
+    <string name="invalid_spouse_l_name">Please enter a valid Spouse Last Name</string>
+    <string name="invalid_confirm_password">Password does not match</string>
+    <string name="invalid_phone">Mobile number is mandatory</string>
+    <string name="invalid_age">Age must be between 12 and 60.</string>
+    <string name="dateerror">Enter a valid date</string>
+    <string name="points">Points</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="enter_received_amount">Enter Received Amount</string>
+    <string name="enter_return_amount">Enter Return Amount</string>
+    <string name="enter_expiration_date">Expiration Date</string>
+    <string name="new_billing_cart_message">Do you want to save cart &amp; Proceed?</string>
+    <string name="form_submitted_successfully">Form submitted successfully</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pc_tab_1">Relationship</string>
+    <string name="pc_tab_2">Business</string>
+    <string name="pc_tab_3">Contact</string>
+    <string name="pc_tab_4">Account</string>
+    <string name="pc_tab_5"><![CDATA[Bill & Delivery]]></string>
+    <string name="pc_tab_6">Documents</string>
+    <string name="pr">PR</string>
+    <string name="po">PO</string>
+    <string name="grn">GRN</string>
+    <string name="inv">INV</string>
+    <string name="pmt">PMT</string>
+
+    <string name="transfer_out">Transfer Out</string>
+    <string name="shipment">Shipment</string>
+    <string name="transfer_in">Transfer In</string>
+
+    <string name="listEmptyNewOrder">No New Order</string>
+    <string name="listEmptyDeliverd">No Deliver Item</string>
+    <string name="string_delivered">Delivered Items</string>
+    <string name="listEmptyDispatched">No Dispatched Item</string>
+    <string name="Dispatched">Dispatched</string>
+    <string name="listEmptyAccepted">No Accepted Item</string>
+    <string name="stringAccepted">Accepted</string>
+    <string name="ddrb2bNew">New</string>
+    <string name="ddrb2bAccepted">Accepted</string>
+    <string name="ddrb2bDispatched">Dispatched</string>
+    <string name="ddrb2bDelivered">Delivered</string>
+    <string name="ddrb2bCancelled">Cancelled</string>
+    <string name="title_b2bsales">B2B Sales</string>
+
+
+    <string name="ddr_b2b_search_hint">Enter DDR Code/Name</string>
+
+
+    <!--Compliance Tracker Start-->
+
+    <string name="save_close"><![CDATA[Save & Close]]></string>
+    <string name="hsn">HSN</string>
+    <string name="gst_perc">GST%</string>
+    <string name="mrp">MRP</string>
+    <string name="nrv">NRV</string>
+    <string name="gpl">GPL</string>
+    <string name="sales_price">Sales Price</string>
+    <string name="sub_category">Sub Category</string>
+    <string name="brand">Brand</string>
+    <string name="sgst_perc">SGST %</string>
+    <string name="cgst_perc">CGST %</string>
+    <string name="redeem_voucher_details">Redeem Voucher Details</string>
+    <string name="category">Category</string>
+    <string name="tnc"><![CDATA[hereby acknowledge that I have read and understood the T&C as provided in the app.]]></string>
+    <string name="redemption_request_summary">Redemption Request Summary</string>
+    <string name="issued">Issued</string>
+    <string name="new_redemption_request">New Redemption Request</string>
+
+    <string name="title_b2b_order_center">B2B Order Center</string>
+    <string name="title_b2b_ddr_select">B2B DDR Select</string>
+    <string name="no_item_available">No Item Available</string>
+    <string name="auto">Auto</string>
+    <string name="manual">Manual</string>
+    <string name="stock_update">Stock Update</string>
+    <string name="retail_product">Retail Product</string>
+    <string name="redeem_customer_email_not_authorised">Please update customer email ID</string>
+    <string name="redeem_customer_phone_not_authorised">Cannot redeem points of default customers!</string>
+    <string name="redeem_customer_points_not_sufficient">Customer points not sufficient</string>
+    <string name="ddr_items_details">Items Details</string>
+    <string name="ddr_save_close"><![CDATA[SAVE & CLOSE]]></string>
+    <string name="ddr_submit">Submit</string>
+    <string name="ddr_close">Close</string>
+    <string name="net_total">Net Total (-Disc)</string>
+    <string name="retail_outbox">Retail Outbox</string>
+    <string name="string_cancelled">Cancelled</string>
+    <string name="listEmptyCancelled">List is empty</string>
+    <string name="add_mark">+</string>
+    <string name="otc_discount_validation">Please enter valid discount percentage</string>
+    <string name="discount_perc_exceeds">Discount percentage exceeds!</string>
+    <string name="discount_val_exceeds">Discount value exceeds!</string>
+    <string name="disc_perc_val_validation">Please enter discount value/percentage</string>
+
+
+    <string name="ct_statutory_business_compliance"><![CDATA[Statutory & Business Compliance]]></string>
+    <string name="ct_business_compliance"><![CDATA[Business Compliance]]></string>
+    <string name="ct_statutory_compliance"><![CDATA[Statutory Compliance]]></string>
+    <string name="ct_storewise">Store Wise Compliance Summary</string>
+
+    <string name="compliance_tracking">COMPLIANCE TRACKING</string>
+    <string name="title_activity_storewise_compliance">StorewiseComplianceActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_compliance_detail">Compliance Details</string>
+    <string name="txtSubCategory">Sub Category</string>
+    <string name="txtSubCategoryDetail">Month End Activity</string>
+    <string name="txtTaskName">Task Name</string>
+    <string name="txtTaskNameDetail">Monthly Book Closing</string>
+    <string name="txtTaskDescription">Task Description</string>
+    <string name="txtTaskAssignTo">Task Assign To</string>
+    <string name="txtTaskDescriptionDetail">Monthly activity of bill book closing for the respective month</string>
+    <string name="txtDueDate">Due Date</string>
+    <string name="txtDueDateDetail">30-Feb-2018</string>
+    <string name="txtProgressState">Progress State</string>
+    <string name="txtProgressStateDetail">In progress</string>
+    <string name="compliance_update">Compliance Update</string>
+    <string name="task_immediateattention">Immediate Attention</string>
+    <string name="task_upcoming">Upcoming Events</string>
+    <string name="task_pending">Pending</string>
+    <string name="task_done">Done</string>
+    <string name="task_cancel">Cancel</string>
+
+    <string name="error_message_loading_users">There seems to have been some error.</string>
+    <string name="default_message_loading_users">Press the button to load people!</string>
+    <string name="github">Github</string>
+    <string name="splash_screen">splash_screen</string>
+    <string name="update_compliance">Update</string>
+    <string name="subtaskname">Sub Task Name</string>
+    <string name="txtallstore">All Store</string>
+    <string name="txtPickStore">Pick a store</string>
+    <string name="listEmptyPending">No Pendind Data Found!</string>
+    <string name="listEmptyDone">No Done Found!</string>
+    <string name="listEmptyImmediate">No Immediate Event Found!</string>
+    <string name="listEmptyUpcomingEvent">No Upcoming Event Found!</string>
+    <string name="date_today">Today</string>
+    <string name="mark_as_done">Mark as done</string>
+    <string name="snooze">Snooze</string>
+    <string name="ok">Ok</string>
+    <string name="snooze_length">Snooze length</string>
+    <!--Server error text end-->
+
+    <string name="password_validation">Password length must be of atleast 8 character,1 special character ,1 Uppercase,1 lowercase and 1 number  !!</string>
+    <string name="progress_title_activity_login">Authenticating...</string>
+
+    <string name="subscribe_to_news">Subscribe To News</string>
+    <string name="log_token">Log Token</string>
+
+    <string name="msg_subscribed">Subscribed to news topic</string>
+    <string name="msg_token_fmt" translatable="false">InstanceID Token: %s</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!--
+        This is the name that users will see when interacting with this channel.
+        It should describe the category of notifications that will be sent through this channel
+     -->
+    <string name="default_notification_channel_name" translatable="true">News</string>
+    <!--Server error text start-->
+
+
+    <string name="connection_timed_out_server_error">Connection timed out! please try again</string>
+
+
+    <string name="internal_server_error">Internal server error</string>
+
+    <string name="invalid_credential_server_error">Invalid credentials</string>
+
+    <string name="parsing_server_error">Parsing error! Please try again !!</string>
+    <string name="no_stock_available">No stock available</string>
+    <string name="free">Free</string>
+    <string name="information">Information</string>
+    <string name="discount_perc">Discount Percentage</string>
+    <string name="edit">Edit</string>
+    <string name="phone_">Phone:</string>
+    <string name="email_">Email:</string>
+    <string name="cin_">CIN</string>
+    <string name="gstin_">GSTIN:</string>
+    <string name="bill_number_">Bill Number:</string>
+    <string name="date_n_time"><![CDATA[Date & Time:]]></string>
+    <string name="customer_">Customer:</string>
+    <string name="item_details">Item Details</string>
+    <string name="unit_price">Unit Price</string>
+    <string name="discount">Discount</string>
+    <string name="amount">Amount</string>
+    <string name="hsn_code">HSN Code</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="paid_by_cash">Paid By Cash:</string>
+    <string name="tender_changes_">Tender Changes:</string>
+    <string name="paid_by_card">Paid By Card</string>
+    <string name="card_type_">Card Type:</string>
+    <string name="number_">Number:</string>
+    <string name="card_number_">Card Number:</string>
+    <string name="expiry_date_">Expiry Date:</string>
+    <string name="gst_summary">GST Summary</string>
+    <string name="value">Value</string>
+    <string name="gst">GST</string>
+    <string name="total_gst_value">Total GST Value</string>
+    <string name="gst_value">GST Value</string>
+
+    <!--Compliance Tracker END-->
+
+    <!--Inventory GRN string values-->
+    <string name="iv_error_name">Please enter name</string>
+    <string name="iv_error_eway_billNumber">Please enter EWayBillNumber</string>
+    <string name="iv_error_LRNumber">Please enter LRNumber</string>
+    <string name="iv_error_driver_name">Please enter Driver Name</string>
+    <string name="iv_error_truck_number">Please enter Truck Number</string>
+    <string name="iv_error_eway_billValidity">Please enter EWayBillValidity</string>
+    <string name="iv_error_mobile_number">Please enter Driver Mobile Number</string>
+    <string name="iv_error_track_number">Please enter Track Number</string>
+    <string name="iv_error_address">Please enter Address</string>
+    <string name="retail_sales_order_centre">Retail Order Center</string>
+    <string name="order_date_from">Order Date From</string>
+    <string name="order_date_to">Order Date To</string>
+    <string name="not_generated">Not Generated</string>
+    <string name="pss">Partner Self Service</string>
+    <string name="ipos_business">My Business</string>
+    <string name="title_b2b_ddr_master">DDR Master</string>
+    <string name="material_details">Material Details</string>
+    <string name="uom_price">UOM &amp; Price</string>
+    <string name="properties">Properties</string>
+    <string name="others">Others</string>
+    <string name="material_master">Material Master</string>
+    <string name="upload">Upload</string>
+    <string name="invalid_material_code">Enter material code</string>
+    <string name="invalid_product_code">Select Product code</string>
+    <string name="invalid_description">Enter description</string>
+    <string name="invalid_display_name">Enter display name</string>
+    <string name="invalid_gross_wt">Enter Gross weight</string>
+    <string name="invalid_net_wt">Enter Net weight</string>
+    <string name="invalid_basic_uom">Enter Basic UOM</string>
+    <string name="invalid_sale_uom">Enter Sale UOM</string>
+    <string name="invalid_hsn">Enter HSN</string>
+    <string name="invalid_basic_price">Enter Basic Price</string>
+
+</resources>

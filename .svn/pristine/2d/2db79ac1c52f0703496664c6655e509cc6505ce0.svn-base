@@ -1,0 +1,51 @@
+package io.realm;
+
+
+public interface RealmTransferDetailRealmProxyInterface {
+    public String realmGet$grnNumber();
+    public void realmSet$grnNumber(String value);
+    public String realmGet$poNumber();
+    public void realmSet$poNumber(String value);
+    public String realmGet$receivedDate();
+    public void realmSet$receivedDate(String value);
+    public double realmGet$totalItems();
+    public void realmSet$totalItems(double value);
+    public double realmGet$value();
+    public void realmSet$value(double value);
+    public double realmGet$poQty();
+    public void realmSet$poQty(double value);
+    public double realmGet$openQty();
+    public void realmSet$openQty(double value);
+    public double realmGet$balanceQty();
+    public void realmSet$balanceQty(double value);
+    public String realmGet$transporterName();
+    public void realmSet$transporterName(String value);
+    public String realmGet$transporterLRName();
+    public void realmSet$transporterLRName(String value);
+    public String realmGet$transporterTruckNumber();
+    public void realmSet$transporterTruckNumber(String value);
+    public String realmGet$transporterEWayBillNumber();
+    public void realmSet$transporterEWayBillNumber(String value);
+    public String realmGet$transporterEWayBillValidityDate();
+    public void realmSet$transporterEWayBillValidityDate(String value);
+    public String realmGet$transporterDriverName();
+    public void realmSet$transporterDriverName(String value);
+    public String realmGet$transporterDriverMobileNumber();
+    public void realmSet$transporterDriverMobileNumber(String value);
+    public String realmGet$transporterAddress();
+    public void realmSet$transporterAddress(String value);
+    public String realmGet$poPaymentTermsType();
+    public void realmSet$poPaymentTermsType(String value);
+    public String realmGet$poItemDetails();
+    public void realmSet$poItemDetails(String value);
+    public String realmGet$poIncoTerms();
+    public void realmSet$poIncoTerms(String value);
+    public String realmGet$poPaymentTerms();
+    public void realmSet$poPaymentTerms(String value);
+    public String realmGet$poTermsAndConditions();
+    public void realmSet$poTermsAndConditions(String value);
+    public String realmGet$poAttachments();
+    public void realmSet$poAttachments(String value);
+    public String realmGet$employeeCode();
+    public void realmSet$employeeCode(String value);
+}

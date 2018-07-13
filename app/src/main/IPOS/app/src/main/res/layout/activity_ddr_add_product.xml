@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundgrey"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/abc_action_bar_default_height_material"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            app:titleTextColor="@color/white" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp">
+
+            <TextView
+                android:id="@+id/mDDRDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/titilliumwebregular"
+
+                android:paddingRight="50dp"
+                android:text="A1234 - Sample"
+                android:textColor="#fff"
+                android:textSize="@dimen/b2b_text_body" />
+
+            <ImageView
+                android:id="@+id/mDDRDetailsIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/titilliumwebregular"
+                android:paddingBottom="4dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:src="@drawable/person"
+                android:textSize="@dimen/b2b_text_body" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="16dp">
+
+            <include
+                layout="@layout/ddr_search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_toLeftOf="@+id/imvBarcode" />
+
+            <ImageView
+                android:id="@+id/imvBarcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dp"
+                android:paddingRight="16dp"
+                android:src="@drawable/ic_action_qr_code1" />
+
+        </RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        android:clipToPadding="false">
+
+
+        <LinearLayout
+            android:id="@+id/llSearch"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:visibility="gone"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llSearch"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:paddingTop="@dimen/dim_10"
+            android:visibility="gone">
+
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvItemSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="@dimen/dim_2"
+                android:layout_weight="1"
+                android:paddingBottom="@dimen/dim_5"
+                android:paddingTop="@dimen/dim_5"
+                android:text=""
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:id="@+id/llAdded"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dim_2"
+                    android:layout_marginRight="@dimen/dim_10"
+                    android:text="@string/add_item"
+                    android:textColor="@color/white" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/item_bg"
+                    android:orientation="horizontal">
+
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvItemAddedSize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="@dimen/dim_2"
+                        android:paddingLeft="@dimen/dim_10"
+                        android:singleLine="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/dim_14" />
+
+                    <ImageView
+                        android:id="@+id/imvClearAdded"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/dim_4"
+                        android:src="@drawable/ic_action_close_blue" />
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llSize"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dim_4"
+            android:paddingBottom="100dp"
+            android:clipToPadding="false"
+            android:background="@color/backgroundgrey"
+            android:scrollbars="none">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvNoItemAvailable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/dim_2"
+            android:background="@color/backgroundgrey"
+            android:gravity="center"
+            android:padding="@dimen/dim_10"
+            android:text="@string/no_match_found"
+            android:textColor="@color/accent_color"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/llAccept"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_20"
+            android:paddingTop="@dimen/dim_10"
+            android:visibility="gone">
+
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvAccept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/dim_2"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Checkout"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_action_check" />
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

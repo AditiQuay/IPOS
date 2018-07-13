@@ -1,0 +1,686 @@
+package io.realm;
+
+
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.util.JsonReader;
+import android.util.JsonToken;
+import io.realm.RealmObjectSchema;
+import io.realm.RealmSchema;
+import io.realm.exceptions.RealmMigrationNeededException;
+import io.realm.internal.ColumnInfo;
+import io.realm.internal.LinkView;
+import io.realm.internal.RealmObjectProxy;
+import io.realm.internal.Row;
+import io.realm.internal.SharedRealm;
+import io.realm.internal.Table;
+import io.realm.internal.android.JsonUtils;
+import io.realm.log.RealmLog;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class RealmInventoryTabDataOldRealmProxy extends quay.com.ipos.inventory.modal.RealmInventoryTabDataOld
+    implements RealmObjectProxy, RealmInventoryTabDataOldRealmProxyInterface {
+
+    static final class RealmInventoryTabDataOldColumnInfo extends ColumnInfo
+        implements Cloneable {
+
+        public long tabTitleIndex;
+        public long tabIdIndex;
+        public long countIndex;
+        public long modelIndex;
+
+        RealmInventoryTabDataOldColumnInfo(String path, Table table) {
+            final Map<String, Long> indicesMap = new HashMap<String, Long>(4);
+            this.tabTitleIndex = getValidColumnIndex(path, table, "RealmInventoryTabDataOld", "tabTitle");
+            indicesMap.put("tabTitle", this.tabTitleIndex);
+            this.tabIdIndex = getValidColumnIndex(path, table, "RealmInventoryTabDataOld", "tabId");
+            indicesMap.put("tabId", this.tabIdIndex);
+            this.countIndex = getValidColumnIndex(path, table, "RealmInventoryTabDataOld", "count");
+            indicesMap.put("count", this.countIndex);
+            this.modelIndex = getValidColumnIndex(path, table, "RealmInventoryTabDataOld", "model");
+            indicesMap.put("model", this.modelIndex);
+
+            setIndicesMap(indicesMap);
+        }
+
+        @Override
+        public final void copyColumnInfoFrom(ColumnInfo other) {
+            final RealmInventoryTabDataOldColumnInfo otherInfo = (RealmInventoryTabDataOldColumnInfo) other;
+            this.tabTitleIndex = otherInfo.tabTitleIndex;
+            this.tabIdIndex = otherInfo.tabIdIndex;
+            this.countIndex = otherInfo.countIndex;
+            this.modelIndex = otherInfo.modelIndex;
+
+            setIndicesMap(otherInfo.getIndicesMap());
+        }
+
+        @Override
+        public final RealmInventoryTabDataOldColumnInfo clone() {
+            return (RealmInventoryTabDataOldColumnInfo) super.clone();
+        }
+
+    }
+    private RealmInventoryTabDataOldColumnInfo columnInfo;
+    private ProxyState<quay.com.ipos.inventory.modal.RealmInventoryTabDataOld> proxyState;
+    private static final List<String> FIELD_NAMES;
+    static {
+        List<String> fieldNames = new ArrayList<String>();
+        fieldNames.add("tabTitle");
+        fieldNames.add("tabId");
+        fieldNames.add("count");
+        fieldNames.add("model");
+        FIELD_NAMES = Collections.unmodifiableList(fieldNames);
+    }
+
+    RealmInventoryTabDataOldRealmProxy() {
+        proxyState.setConstructionFinished();
+    }
+
+    @Override
+    public void realm$injectObjectContext() {
+        if (this.proxyState != null) {
+            return;
+        }
+        final BaseRealm.RealmObjectContext context = BaseRealm.objectContext.get();
+        this.columnInfo = (RealmInventoryTabDataOldColumnInfo) context.getColumnInfo();
+        this.proxyState = new ProxyState<quay.com.ipos.inventory.modal.RealmInventoryTabDataOld>(this);
+        proxyState.setRealm$realm(context.getRealm());
+        proxyState.setRow$realm(context.getRow());
+        proxyState.setAcceptDefaultValue$realm(context.getAcceptDefaultValue());
+        proxyState.setExcludeFields$realm(context.getExcludeFields());
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$tabTitle() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.tabTitleIndex);
+    }
+
+    @Override
+    public void realmSet$tabTitle(String value) {
+        if (proxyState.isUnderConstruction()) {
+            // default value of the primary key is always ignored.
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        throw new io.realm.exceptions.RealmException("Primary key field 'tabTitle' cannot be changed after object was created.");
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$tabId() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.tabIdIndex);
+    }
+
+    @Override
+    public void realmSet$tabId(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.tabIdIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.tabIdIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$count() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.countIndex);
+    }
+
+    @Override
+    public void realmSet$count(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.countIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.countIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$model() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.modelIndex);
+    }
+
+    @Override
+    public void realmSet$model(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.modelIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.modelIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.modelIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.modelIndex, value);
+    }
+
+    public static RealmObjectSchema createRealmObjectSchema(RealmSchema realmSchema) {
+        if (!realmSchema.contains("RealmInventoryTabDataOld")) {
+            RealmObjectSchema realmObjectSchema = realmSchema.create("RealmInventoryTabDataOld");
+            realmObjectSchema.add("tabTitle", RealmFieldType.STRING, Property.PRIMARY_KEY, Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("tabId", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("count", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("model", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            return realmObjectSchema;
+        }
+        return realmSchema.get("RealmInventoryTabDataOld");
+    }
+
+    public static RealmInventoryTabDataOldColumnInfo validateTable(SharedRealm sharedRealm, boolean allowExtraColumns) {
+        if (!sharedRealm.hasTable("class_RealmInventoryTabDataOld")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "The 'RealmInventoryTabDataOld' class is missing from the schema for this Realm.");
+        }
+        Table table = sharedRealm.getTable("class_RealmInventoryTabDataOld");
+        final long columnCount = table.getColumnCount();
+        if (columnCount != 4) {
+            if (columnCount < 4) {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field count is less than expected - expected 4 but was " + columnCount);
+            }
+            if (allowExtraColumns) {
+                RealmLog.debug("Field count is more than expected - expected 4 but was %1$d", columnCount);
+            } else {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field count is more than expected - expected 4 but was " + columnCount);
+            }
+        }
+        Map<String, RealmFieldType> columnTypes = new HashMap<String, RealmFieldType>();
+        for (long i = 0; i < columnCount; i++) {
+            columnTypes.put(table.getColumnName(i), table.getColumnType(i));
+        }
+
+        final RealmInventoryTabDataOldColumnInfo columnInfo = new RealmInventoryTabDataOldColumnInfo(sharedRealm.getPath(), table);
+
+        if (!table.hasPrimaryKey()) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Primary key not defined for field 'tabTitle' in existing Realm file. @PrimaryKey was added.");
+        } else {
+            if (table.getPrimaryKey() != columnInfo.tabTitleIndex) {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Primary Key annotation definition was changed, from field " + table.getColumnName(table.getPrimaryKey()) + " to field tabTitle");
+            }
+        }
+
+        if (!columnTypes.containsKey("tabTitle")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'tabTitle' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("tabTitle") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'tabTitle' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.tabTitleIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(),"@PrimaryKey field 'tabTitle' does not support null values in the existing Realm file. Migrate using RealmObjectSchema.setNullable(), or mark the field as @Required.");
+        }
+        if (!table.hasSearchIndex(table.getColumnIndex("tabTitle"))) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Index not defined for field 'tabTitle' in existing Realm file. Either set @Index or migrate using io.realm.internal.Table.removeSearchIndex().");
+        }
+        if (!columnTypes.containsKey("tabId")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'tabId' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("tabId") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'tabId' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.tabIdIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'tabId' does support null values in the existing Realm file. Use corresponding boxed type for field 'tabId' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("count")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'count' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("count") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'count' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.countIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'count' does support null values in the existing Realm file. Use corresponding boxed type for field 'count' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("model")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'model' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("model") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'model' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.modelIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'model' is required. Either set @Required to field 'model' or migrate using RealmObjectSchema.setNullable().");
+        }
+
+        return columnInfo;
+    }
+
+    public static String getTableName() {
+        return "class_RealmInventoryTabDataOld";
+    }
+
+    public static List<String> getFieldNames() {
+        return FIELD_NAMES;
+    }
+
+    @SuppressWarnings("cast")
+    public static quay.com.ipos.inventory.modal.RealmInventoryTabDataOld createOrUpdateUsingJsonObject(Realm realm, JSONObject json, boolean update)
+        throws JSONException {
+        final List<String> excludeFields = Collections.<String> emptyList();
+        quay.com.ipos.inventory.modal.RealmInventoryTabDataOld obj = null;
+        if (update) {
+            Table table = realm.getTable(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class);
+            long pkColumnIndex = table.getPrimaryKey();
+            long rowIndex = Table.NO_MATCH;
+            if (json.isNull("tabTitle")) {
+                rowIndex = table.findFirstNull(pkColumnIndex);
+            } else {
+                rowIndex = table.findFirstString(pkColumnIndex, json.getString("tabTitle"));
+            }
+            if (rowIndex != Table.NO_MATCH) {
+                final BaseRealm.RealmObjectContext objectContext = BaseRealm.objectContext.get();
+                try {
+                    objectContext.set(realm, table.getUncheckedRow(rowIndex), realm.schema.getColumnInfo(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class), false, Collections.<String> emptyList());
+                    obj = new io.realm.RealmInventoryTabDataOldRealmProxy();
+                } finally {
+                    objectContext.clear();
+                }
+            }
+        }
+        if (obj == null) {
+            if (json.has("tabTitle")) {
+                if (json.isNull("tabTitle")) {
+                    obj = (io.realm.RealmInventoryTabDataOldRealmProxy) realm.createObjectInternal(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class, null, true, excludeFields);
+                } else {
+                    obj = (io.realm.RealmInventoryTabDataOldRealmProxy) realm.createObjectInternal(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class, json.getString("tabTitle"), true, excludeFields);
+                }
+            } else {
+                throw new IllegalArgumentException("JSON object doesn't have the primary key field 'tabTitle'.");
+            }
+        }
+        if (json.has("tabId")) {
+            if (json.isNull("tabId")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'tabId' to null.");
+            } else {
+                ((RealmInventoryTabDataOldRealmProxyInterface) obj).realmSet$tabId((int) json.getInt("tabId"));
+            }
+        }
+        if (json.has("count")) {
+            if (json.isNull("count")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'count' to null.");
+            } else {
+                ((RealmInventoryTabDataOldRealmProxyInterface) obj).realmSet$count((int) json.getInt("count"));
+            }
+        }
+        if (json.has("model")) {
+            if (json.isNull("model")) {
+                ((RealmInventoryTabDataOldRealmProxyInterface) obj).realmSet$model(null);
+            } else {
+                ((RealmInventoryTabDataOldRealmProxyInterface) obj).realmSet$model((String) json.getString("model"));
+            }
+        }
+        return obj;
+    }
+
+    @SuppressWarnings("cast")
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static quay.com.ipos.inventory.modal.RealmInventoryTabDataOld createUsingJsonStream(Realm realm, JsonReader reader)
+        throws IOException {
+        boolean jsonHasPrimaryKey = false;
+        quay.com.ipos.inventory.modal.RealmInventoryTabDataOld obj = new quay.com.ipos.inventory.modal.RealmInventoryTabDataOld();
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (false) {
+            } else if (name.equals("tabTitle")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmInventoryTabDataOldRealmProxyInterface) obj).realmSet$tabTitle(null);
+                } else {
+                    ((RealmInventoryTabDataOldRealmProxyInterface) obj).realmSet$tabTitle((String) reader.nextString());
+                }
+                jsonHasPrimaryKey = true;
+            } else if (name.equals("tabId")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'tabId' to null.");
+                } else {
+                    ((RealmInventoryTabDataOldRealmProxyInterface) obj).realmSet$tabId((int) reader.nextInt());
+                }
+            } else if (name.equals("count")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'count' to null.");
+                } else {
+                    ((RealmInventoryTabDataOldRealmProxyInterface) obj).realmSet$count((int) reader.nextInt());
+                }
+            } else if (name.equals("model")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmInventoryTabDataOldRealmProxyInterface) obj).realmSet$model(null);
+                } else {
+                    ((RealmInventoryTabDataOldRealmProxyInterface) obj).realmSet$model((String) reader.nextString());
+                }
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+        if (!jsonHasPrimaryKey) {
+            throw new IllegalArgumentException("JSON object doesn't have the primary key field 'tabTitle'.");
+        }
+        obj = realm.copyToRealm(obj);
+        return obj;
+    }
+
+    public static quay.com.ipos.inventory.modal.RealmInventoryTabDataOld copyOrUpdate(Realm realm, quay.com.ipos.inventory.modal.RealmInventoryTabDataOld object, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy) object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy) object).realmGet$proxyState().getRealm$realm().threadId != realm.threadId) {
+            throw new IllegalArgumentException("Objects which belong to Realm instances in other threads cannot be copied into this Realm instance.");
+        }
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return object;
+        }
+        final BaseRealm.RealmObjectContext objectContext = BaseRealm.objectContext.get();
+        RealmObjectProxy cachedRealmObject = cache.get(object);
+        if (cachedRealmObject != null) {
+            return (quay.com.ipos.inventory.modal.RealmInventoryTabDataOld) cachedRealmObject;
+        } else {
+            quay.com.ipos.inventory.modal.RealmInventoryTabDataOld realmObject = null;
+            boolean canUpdate = update;
+            if (canUpdate) {
+                Table table = realm.getTable(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class);
+                long pkColumnIndex = table.getPrimaryKey();
+                String value = ((RealmInventoryTabDataOldRealmProxyInterface) object).realmGet$tabTitle();
+                long rowIndex = Table.NO_MATCH;
+                if (value == null) {
+                    rowIndex = table.findFirstNull(pkColumnIndex);
+                } else {
+                    rowIndex = table.findFirstString(pkColumnIndex, value);
+                }
+                if (rowIndex != Table.NO_MATCH) {
+                    try {
+                        objectContext.set(realm, table.getUncheckedRow(rowIndex), realm.schema.getColumnInfo(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class), false, Collections.<String> emptyList());
+                        realmObject = new io.realm.RealmInventoryTabDataOldRealmProxy();
+                        cache.put(object, (RealmObjectProxy) realmObject);
+                    } finally {
+                        objectContext.clear();
+                    }
+                } else {
+                    canUpdate = false;
+                }
+            }
+
+            if (canUpdate) {
+                return update(realm, realmObject, object, cache);
+            } else {
+                return copy(realm, object, update, cache);
+            }
+        }
+    }
+
+    public static quay.com.ipos.inventory.modal.RealmInventoryTabDataOld copy(Realm realm, quay.com.ipos.inventory.modal.RealmInventoryTabDataOld newObject, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
+        RealmObjectProxy cachedRealmObject = cache.get(newObject);
+        if (cachedRealmObject != null) {
+            return (quay.com.ipos.inventory.modal.RealmInventoryTabDataOld) cachedRealmObject;
+        } else {
+            // rejecting default values to avoid creating unexpected objects from RealmModel/RealmList fields.
+            quay.com.ipos.inventory.modal.RealmInventoryTabDataOld realmObject = realm.createObjectInternal(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class, ((RealmInventoryTabDataOldRealmProxyInterface) newObject).realmGet$tabTitle(), false, Collections.<String>emptyList());
+            cache.put(newObject, (RealmObjectProxy) realmObject);
+            ((RealmInventoryTabDataOldRealmProxyInterface) realmObject).realmSet$tabId(((RealmInventoryTabDataOldRealmProxyInterface) newObject).realmGet$tabId());
+            ((RealmInventoryTabDataOldRealmProxyInterface) realmObject).realmSet$count(((RealmInventoryTabDataOldRealmProxyInterface) newObject).realmGet$count());
+            ((RealmInventoryTabDataOldRealmProxyInterface) realmObject).realmSet$model(((RealmInventoryTabDataOldRealmProxyInterface) newObject).realmGet$model());
+            return realmObject;
+        }
+    }
+
+    public static long insert(Realm realm, quay.com.ipos.inventory.modal.RealmInventoryTabDataOld object, Map<RealmModel,Long> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex();
+        }
+        Table table = realm.getTable(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmInventoryTabDataOldColumnInfo columnInfo = (RealmInventoryTabDataOldColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        String primaryKeyValue = ((RealmInventoryTabDataOldRealmProxyInterface) object).realmGet$tabTitle();
+        long rowIndex = Table.NO_MATCH;
+        if (primaryKeyValue == null) {
+            rowIndex = Table.nativeFindFirstNull(tableNativePtr, pkColumnIndex);
+        } else {
+            rowIndex = Table.nativeFindFirstString(tableNativePtr, pkColumnIndex, primaryKeyValue);
+        }
+        if (rowIndex == Table.NO_MATCH) {
+            rowIndex = table.addEmptyRowWithPrimaryKey(primaryKeyValue, false);
+        } else {
+            Table.throwDuplicatePrimaryKeyException(primaryKeyValue);
+        }
+        cache.put(object, rowIndex);
+        Table.nativeSetLong(tableNativePtr, columnInfo.tabIdIndex, rowIndex, ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$tabId(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.countIndex, rowIndex, ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$count(), false);
+        String realmGet$model = ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$model();
+        if (realmGet$model != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.modelIndex, rowIndex, realmGet$model, false);
+        }
+        return rowIndex;
+    }
+
+    public static void insert(Realm realm, Iterator<? extends RealmModel> objects, Map<RealmModel,Long> cache) {
+        Table table = realm.getTable(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmInventoryTabDataOldColumnInfo columnInfo = (RealmInventoryTabDataOldColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        quay.com.ipos.inventory.modal.RealmInventoryTabDataOld object = null;
+        while (objects.hasNext()) {
+            object = (quay.com.ipos.inventory.modal.RealmInventoryTabDataOld) objects.next();
+            if(!cache.containsKey(object)) {
+                if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+                    cache.put(object, ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex());
+                    continue;
+                }
+                String primaryKeyValue = ((RealmInventoryTabDataOldRealmProxyInterface) object).realmGet$tabTitle();
+                long rowIndex = Table.NO_MATCH;
+                if (primaryKeyValue == null) {
+                    rowIndex = Table.nativeFindFirstNull(tableNativePtr, pkColumnIndex);
+                } else {
+                    rowIndex = Table.nativeFindFirstString(tableNativePtr, pkColumnIndex, primaryKeyValue);
+                }
+                if (rowIndex == Table.NO_MATCH) {
+                    rowIndex = table.addEmptyRowWithPrimaryKey(primaryKeyValue, false);
+                } else {
+                    Table.throwDuplicatePrimaryKeyException(primaryKeyValue);
+                }
+                cache.put(object, rowIndex);
+                Table.nativeSetLong(tableNativePtr, columnInfo.tabIdIndex, rowIndex, ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$tabId(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.countIndex, rowIndex, ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$count(), false);
+                String realmGet$model = ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$model();
+                if (realmGet$model != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.modelIndex, rowIndex, realmGet$model, false);
+                }
+            }
+        }
+    }
+
+    public static long insertOrUpdate(Realm realm, quay.com.ipos.inventory.modal.RealmInventoryTabDataOld object, Map<RealmModel,Long> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex();
+        }
+        Table table = realm.getTable(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmInventoryTabDataOldColumnInfo columnInfo = (RealmInventoryTabDataOldColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        String primaryKeyValue = ((RealmInventoryTabDataOldRealmProxyInterface) object).realmGet$tabTitle();
+        long rowIndex = Table.NO_MATCH;
+        if (primaryKeyValue == null) {
+            rowIndex = Table.nativeFindFirstNull(tableNativePtr, pkColumnIndex);
+        } else {
+            rowIndex = Table.nativeFindFirstString(tableNativePtr, pkColumnIndex, primaryKeyValue);
+        }
+        if (rowIndex == Table.NO_MATCH) {
+            rowIndex = table.addEmptyRowWithPrimaryKey(primaryKeyValue, false);
+        }
+        cache.put(object, rowIndex);
+        Table.nativeSetLong(tableNativePtr, columnInfo.tabIdIndex, rowIndex, ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$tabId(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.countIndex, rowIndex, ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$count(), false);
+        String realmGet$model = ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$model();
+        if (realmGet$model != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.modelIndex, rowIndex, realmGet$model, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.modelIndex, rowIndex, false);
+        }
+        return rowIndex;
+    }
+
+    public static void insertOrUpdate(Realm realm, Iterator<? extends RealmModel> objects, Map<RealmModel,Long> cache) {
+        Table table = realm.getTable(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmInventoryTabDataOldColumnInfo columnInfo = (RealmInventoryTabDataOldColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        quay.com.ipos.inventory.modal.RealmInventoryTabDataOld object = null;
+        while (objects.hasNext()) {
+            object = (quay.com.ipos.inventory.modal.RealmInventoryTabDataOld) objects.next();
+            if(!cache.containsKey(object)) {
+                if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+                    cache.put(object, ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex());
+                    continue;
+                }
+                String primaryKeyValue = ((RealmInventoryTabDataOldRealmProxyInterface) object).realmGet$tabTitle();
+                long rowIndex = Table.NO_MATCH;
+                if (primaryKeyValue == null) {
+                    rowIndex = Table.nativeFindFirstNull(tableNativePtr, pkColumnIndex);
+                } else {
+                    rowIndex = Table.nativeFindFirstString(tableNativePtr, pkColumnIndex, primaryKeyValue);
+                }
+                if (rowIndex == Table.NO_MATCH) {
+                    rowIndex = table.addEmptyRowWithPrimaryKey(primaryKeyValue, false);
+                }
+                cache.put(object, rowIndex);
+                Table.nativeSetLong(tableNativePtr, columnInfo.tabIdIndex, rowIndex, ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$tabId(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.countIndex, rowIndex, ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$count(), false);
+                String realmGet$model = ((RealmInventoryTabDataOldRealmProxyInterface)object).realmGet$model();
+                if (realmGet$model != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.modelIndex, rowIndex, realmGet$model, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.modelIndex, rowIndex, false);
+                }
+            }
+        }
+    }
+
+    public static quay.com.ipos.inventory.modal.RealmInventoryTabDataOld createDetachedCopy(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld realmObject, int currentDepth, int maxDepth, Map<RealmModel, CacheData<RealmModel>> cache) {
+        if (currentDepth > maxDepth || realmObject == null) {
+            return null;
+        }
+        CacheData<RealmModel> cachedObject = cache.get(realmObject);
+        quay.com.ipos.inventory.modal.RealmInventoryTabDataOld unmanagedObject;
+        if (cachedObject != null) {
+            // Reuse cached object or recreate it because it was encountered at a lower depth.
+            if (currentDepth >= cachedObject.minDepth) {
+                return (quay.com.ipos.inventory.modal.RealmInventoryTabDataOld)cachedObject.object;
+            } else {
+                unmanagedObject = (quay.com.ipos.inventory.modal.RealmInventoryTabDataOld)cachedObject.object;
+                cachedObject.minDepth = currentDepth;
+            }
+        } else {
+            unmanagedObject = new quay.com.ipos.inventory.modal.RealmInventoryTabDataOld();
+            cache.put(realmObject, new RealmObjectProxy.CacheData<RealmModel>(currentDepth, unmanagedObject));
+        }
+        ((RealmInventoryTabDataOldRealmProxyInterface) unmanagedObject).realmSet$tabTitle(((RealmInventoryTabDataOldRealmProxyInterface) realmObject).realmGet$tabTitle());
+        ((RealmInventoryTabDataOldRealmProxyInterface) unmanagedObject).realmSet$tabId(((RealmInventoryTabDataOldRealmProxyInterface) realmObject).realmGet$tabId());
+        ((RealmInventoryTabDataOldRealmProxyInterface) unmanagedObject).realmSet$count(((RealmInventoryTabDataOldRealmProxyInterface) realmObject).realmGet$count());
+        ((RealmInventoryTabDataOldRealmProxyInterface) unmanagedObject).realmSet$model(((RealmInventoryTabDataOldRealmProxyInterface) realmObject).realmGet$model());
+        return unmanagedObject;
+    }
+
+    static quay.com.ipos.inventory.modal.RealmInventoryTabDataOld update(Realm realm, quay.com.ipos.inventory.modal.RealmInventoryTabDataOld realmObject, quay.com.ipos.inventory.modal.RealmInventoryTabDataOld newObject, Map<RealmModel, RealmObjectProxy> cache) {
+        ((RealmInventoryTabDataOldRealmProxyInterface) realmObject).realmSet$tabId(((RealmInventoryTabDataOldRealmProxyInterface) newObject).realmGet$tabId());
+        ((RealmInventoryTabDataOldRealmProxyInterface) realmObject).realmSet$count(((RealmInventoryTabDataOldRealmProxyInterface) newObject).realmGet$count());
+        ((RealmInventoryTabDataOldRealmProxyInterface) realmObject).realmSet$model(((RealmInventoryTabDataOldRealmProxyInterface) newObject).realmGet$model());
+        return realmObject;
+    }
+
+    @Override
+    @SuppressWarnings("ArrayToString")
+    public String toString() {
+        if (!RealmObject.isValid(this)) {
+            return "Invalid object";
+        }
+        StringBuilder stringBuilder = new StringBuilder("RealmInventoryTabDataOld = [");
+        stringBuilder.append("{tabTitle:");
+        stringBuilder.append(realmGet$tabTitle() != null ? realmGet$tabTitle() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{tabId:");
+        stringBuilder.append(realmGet$tabId());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{count:");
+        stringBuilder.append(realmGet$count());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{model:");
+        stringBuilder.append(realmGet$model() != null ? realmGet$model() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public ProxyState<?> realmGet$proxyState() {
+        return proxyState;
+    }
+
+    @Override
+    public int hashCode() {
+        String realmName = proxyState.getRealm$realm().getPath();
+        String tableName = proxyState.getRow$realm().getTable().getName();
+        long rowIndex = proxyState.getRow$realm().getIndex();
+
+        int result = 17;
+        result = 31 * result + ((realmName != null) ? realmName.hashCode() : 0);
+        result = 31 * result + ((tableName != null) ? tableName.hashCode() : 0);
+        result = 31 * result + (int) (rowIndex ^ (rowIndex >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RealmInventoryTabDataOldRealmProxy aRealmInventoryTabDataOld = (RealmInventoryTabDataOldRealmProxy)o;
+
+        String path = proxyState.getRealm$realm().getPath();
+        String otherPath = aRealmInventoryTabDataOld.proxyState.getRealm$realm().getPath();
+        if (path != null ? !path.equals(otherPath) : otherPath != null) return false;
+
+        String tableName = proxyState.getRow$realm().getTable().getName();
+        String otherTableName = aRealmInventoryTabDataOld.proxyState.getRow$realm().getTable().getName();
+        if (tableName != null ? !tableName.equals(otherTableName) : otherTableName != null) return false;
+
+        if (proxyState.getRow$realm().getIndex() != aRealmInventoryTabDataOld.proxyState.getRow$realm().getIndex()) return false;
+
+        return true;
+    }
+
+}

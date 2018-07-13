@@ -1,0 +1,11 @@
+package io.realm;
+
+
+public interface RealmUserDetailRealmProxyInterface {
+    public int realmGet$Code();
+    public void realmSet$Code(int value);
+    public String realmGet$UserAccess();
+    public void realmSet$UserAccess(String value);
+    public String realmGet$UserMenu();
+    public void realmSet$UserMenu(String value);
+}

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:fontFamily="@font/titilliumwebregular"
+            android:gravity="center"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/toolbarTtile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:ellipsize="end"
+                android:fontFamily="@font/titilliumwebregular"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:visibility="visible" />
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dim_10">
+
+            <LinearLayout
+                android:id="@+id/llDateFrom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dim_5"
+                android:layout_marginTop="@dimen/dim_5"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_4">
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilFromDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/tieFromDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:focusable="false"
+                        android:hint="From *"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/universal_text_size14" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ivFromDate"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="@dimen/dim_6"
+                    android:src="@drawable/calendar" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llDateTo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dim_5"
+                android:layout_marginTop="@dimen/dim_5"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_4">
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tilToDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/tieToDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:hint="To *"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/universal_text_size16" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/ivToDate"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="@dimen/dim_6"
+                    android:src="@drawable/calendar" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dim_5"
+                android:layout_marginTop="@dimen/dim_5"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_4">
+
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/businessSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_2"
+                    android:layout_marginRight="@dimen/dim_2"
+                    android:textSize="@dimen/universal_text_size16"
+                    app:ms_alignLabels="true"
+                    android:fontFamily="@font/titilliumwebregular"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_errorColor="@color/red"
+                    app:ms_floatingLabelColor="@color/grey"
+                    app:ms_floatingLabelText="Business place *"
+                    app:ms_highlightColor="@color/highlight"
+                    app:ms_hint="Business place *"
+                    app:ms_hintColor="@color/grey"
+                    app:ms_multiline="false" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dim_5"
+                android:layout_marginTop="@dimen/dim_5"
+                android:orientation="horizontal"
+                android:padding="@dimen/dim_4">
+
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/userSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_2"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:layout_marginRight="@dimen/dim_2"
+                    android:textSize="@dimen/universal_text_size16"
+                    app:ms_alignLabels="true"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_enableFloatingLabel="true"
+                    app:ms_errorColor="@color/red"
+                    app:ms_floatingLabelColor="@color/grey"
+                    app:ms_floatingLabelText="User *"
+                    app:ms_highlightColor="@color/highlight"
+                    app:ms_hint="User *"
+                    app:ms_hintColor="@color/grey"
+                    app:ms_multiline="false" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:baselineAligned="false"
+        android:clickable="true"
+        android:clipToPadding="true">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/dim_4">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnReset"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/dark_gray"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:stateListAnimator="@null"
+                    android:text="Reset"
+                    android:textAllCaps="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:padding="@dimen/dim_4">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:stateListAnimator="@null"
+                    android:text="@string/ddr_submit"
+                    android:textAllCaps="true" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

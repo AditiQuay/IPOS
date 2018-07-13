@@ -193,6 +193,7 @@
     <string name="credit">Credit</string>
     <string name="voucher">Voucher</string>
     <string name="wallet">Wallet</string>
+    <string name="wallet_sale_heading">Wallet</string>
     <string name="enter_cash_amount">Enter cash amount</string>
     <string name="Rs_0">\u20B9 0.00</string>
     <string name="enter_card_amount">Enter card amount</string>
@@ -334,7 +335,9 @@
     <string name="grn">GRN</string>
     <string name="inv">INV</string>
     <string name="pmt">PMT</string>
-    
+    <string name="od_tab_1">Overview</string>
+    <string name="od_tab_2">Scope</string>
+    <string name="od_tab_3">Rule</string>
     <string name="transfer_out">Transfer Out</string>
     <string name="shipment">Shipment</string>
     <string name="transfer_in">Transfer In</string>
@@ -526,5 +529,42 @@
     <string name="pss">Partner Self Service</string>
     <string name="ipos_business">My Business</string>
     <string name="title_b2b_ddr_master">DDR Master</string>
+    <string name="inventory_toolbar_text">Inventory</string>
+    <string name="material_details">Material Details</string>
+    <string name="uom_price">UOM &amp; Price</string>
+    <string name="properties">Properties</string>
+    <string name="others">Others</string>
+    <string name="material_master">Material Master</string>
+    <string name="upload">Upload</string>
+    <string name="invalid_material_code">Enter material code</string>
+    <string name="invalid_product_code">Select Product name</string>
+    <string name="invalid_description">Enter description</string>
+    <string name="invalid_display_name">Enter display name</string>
+    <string name="invalid_gross_wt">Enter Gross weight</string>
+    <string name="invalid_net_wt">Enter Net weight</string>
+    <string name="invalid_basic_uom">Enter Basic UOM</string>
+    <string name="invalid_sale_uom">Enter Sale UOM</string>
+    <string name="invalid_hsn">Enter HSN</string>
+    <string name="invalid_basic_price">Enter Basic Price</string>
+    <string name="product_name">Product Name</string>
+    <string name="other_details">Other Details</string>
+    <string name="paid_by_points">Paid by Points</string>
+    <string name="points_value">Points Value</string>
+    <string name="offer_discount">Offer Discount</string>
+    <string name="lob">LOB</string>
+    <string name="distribution_channel">Distribution Channel</string>
+    <string name="customer_group">Customer Group</string>
+    <string name="zone">Zone</string>
+    <string name="customer">Customer</string>
+    <string name="territory">Territory</string>
+    <string name="region">Region</string>
+    <string name="state">State</string>
+    <string name="day_closure">Day Closure</string>
+
+
+    <string name="date_from">Date From</string>
+    <string name="date_to">Date To</string>
+    <string name="remark">Write remark</string>
+    <string name="enter_bank_deposit_amount">Enter deposit amount</string>
 
 </resources>

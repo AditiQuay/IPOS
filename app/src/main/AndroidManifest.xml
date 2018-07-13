@@ -49,6 +49,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".dayClosure.dayClosureActivity.DayClosureMain"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".dayClosure.dayClosureActivity.DayClosureSales"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden"/>
+        <activity
             android:name=".partnerConnect.PartnerConnectMain"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_partner_connect"
@@ -167,7 +177,6 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/title_b2bsales"
             android:screenOrientation="portrait"
-
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
@@ -322,6 +331,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".inventoryTrasfer.inventoryTransferOut.transferOutActivity.TransferOutListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".inventoryTrasfer.inventoryTransferOut.transferOutActivity.EditTransferOutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".inventory.activity.InventoryWorkFlowActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -335,6 +352,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".inventoryTrasfer.TransferStepsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".inventoryTrasfer.inventoryTransferIn.transferInActivity.TransferInBatchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".inventoryTrasfer.inventoryTransferIn.transferInActivity.TransferInDetailsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

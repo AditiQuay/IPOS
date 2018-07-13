@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="50dp">
+
+    <include layout="@layout/view_layout_without_dot" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/titilliumwebregular"
+            android:text="Performa Invoice"
+            android:textColor="@color/dark_grey_color"
+            android:textSize="@dimen/dim_13" />
+
+        <TextView
+            android:id="@+id/textBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/titilliumwebregular"
+            android:text="@string/not_generated"
+            android:textColor="@color/dark_grey_color"
+            android:textSize="@dimen/dim_13" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/dim_10"
+        android:layout_marginRight="@dimen/dim_10"
+        android:layout_marginTop="@dimen/dim_15"
+        android:alpha="0.6"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/dim_2"
+            android:src="@drawable/generate"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/btnView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/dim_2"
+            android:src="@drawable/ic_action_eyes"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/btnPrint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/dim_2"
+            android:src="@drawable/print"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/btnMail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/dim_2"
+            android:src="@drawable/pc_rel_email"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</RelativeLayout>

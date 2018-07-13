@@ -1,0 +1,17 @@
+package io.realm;
+
+
+public interface RealmPOInventoryRealmProxyInterface {
+    public String realmGet$poNumber();
+    public void realmSet$poNumber(String value);
+    public String realmGet$id();
+    public void realmSet$id(String value);
+    public String realmGet$date();
+    public void realmSet$date(String value);
+    public double realmGet$value();
+    public void realmSet$value(double value);
+    public String realmGet$company();
+    public void realmSet$company(String value);
+    public String realmGet$poStatus();
+    public void realmSet$poStatus(String value);
+}
