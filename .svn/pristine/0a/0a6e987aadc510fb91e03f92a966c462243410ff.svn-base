@@ -1,0 +1,248 @@
+package quay.com.ipos.compliance.data.local.dao;
+
+import android.arch.lifecycle.ComputableLiveData;
+import android.arch.lifecycle.LiveData;
+import android.arch.persistence.db.SupportSQLiteStatement;
+import android.arch.persistence.room.EntityInsertionAdapter;
+import android.arch.persistence.room.InvalidationTracker.Observer;
+import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.RoomSQLiteQuery;
+import android.database.Cursor;
+import android.support.annotation.NonNull;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import quay.com.ipos.compliance.data.local.entity.TransactionEntity;
+
+@SuppressWarnings("unchecked")
+public class TransactionDao_AppDatabase_1_Impl implements TransactionDao {
+  private final RoomDatabase __db;
+
+  private final EntityInsertionAdapter __insertionAdapterOfTransactionEntity;
+
+  public TransactionDao_AppDatabase_1_Impl(RoomDatabase __db) {
+    this.__db = __db;
+    this.__insertionAdapterOfTransactionEntity = new EntityInsertionAdapter<TransactionEntity>(__db) {
+      @Override
+      public String createQuery() {
+        return "INSERT OR REPLACE INTO `transaction`(`id`,`taskId`,`taskName`,`taskDescription`,`taskStartDateTime`,`taskEndDateTime`,`assignTo`,`status`,`remarks`,`completedDateTime`,`remNextScheduleDateTime`,`remLastRunDateTime`,`remIntervalType`,`remIntervalValue`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, TransactionEntity value) {
+        stmt.bindLong(1, value.id);
+        stmt.bindLong(2, value.taskId);
+        if (value.taskName == null) {
+          stmt.bindNull(3);
+        } else {
+          stmt.bindString(3, value.taskName);
+        }
+        if (value.taskDescription == null) {
+          stmt.bindNull(4);
+        } else {
+          stmt.bindString(4, value.taskDescription);
+        }
+        if (value.taskStartDateTime == null) {
+          stmt.bindNull(5);
+        } else {
+          stmt.bindString(5, value.taskStartDateTime);
+        }
+        if (value.taskEndDateTime == null) {
+          stmt.bindNull(6);
+        } else {
+          stmt.bindString(6, value.taskEndDateTime);
+        }
+        if (value.assignTo == null) {
+          stmt.bindNull(7);
+        } else {
+          stmt.bindString(7, value.assignTo);
+        }
+        if (value.status == null) {
+          stmt.bindNull(8);
+        } else {
+          stmt.bindString(8, value.status);
+        }
+        if (value.remarks == null) {
+          stmt.bindNull(9);
+        } else {
+          stmt.bindString(9, value.remarks);
+        }
+        if (value.completedDateTime == null) {
+          stmt.bindNull(10);
+        } else {
+          stmt.bindString(10, value.completedDateTime);
+        }
+        if (value.remNextScheduleDateTime == null) {
+          stmt.bindNull(11);
+        } else {
+          stmt.bindString(11, value.remNextScheduleDateTime);
+        }
+        if (value.remLastRunDateTime == null) {
+          stmt.bindNull(12);
+        } else {
+          stmt.bindString(12, value.remLastRunDateTime);
+        }
+        if (value.remIntervalType == null) {
+          stmt.bindNull(13);
+        } else {
+          stmt.bindString(13, value.remIntervalType);
+        }
+        if (value.remIntervalValue == null) {
+          stmt.bindNull(14);
+        } else {
+          stmt.bindString(14, value.remIntervalValue);
+        }
+      }
+    };
+  }
+
+  @Override
+  public void savePlaces(List<TransactionEntity> txList) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfTransactionEntity.insert(txList);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public LiveData<List<TransactionEntity>> loadTx() {
+    final String _sql = "SELECT * FROM `transaction`";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return new ComputableLiveData<List<TransactionEntity>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<TransactionEntity> compute() {
+        if (_observer == null) {
+          _observer = new Observer("transaction") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+          final int _cursorIndexOfTaskId = _cursor.getColumnIndexOrThrow("taskId");
+          final int _cursorIndexOfTaskName = _cursor.getColumnIndexOrThrow("taskName");
+          final int _cursorIndexOfTaskDescription = _cursor.getColumnIndexOrThrow("taskDescription");
+          final int _cursorIndexOfTaskStartDateTime = _cursor.getColumnIndexOrThrow("taskStartDateTime");
+          final int _cursorIndexOfTaskEndDateTime = _cursor.getColumnIndexOrThrow("taskEndDateTime");
+          final int _cursorIndexOfAssignTo = _cursor.getColumnIndexOrThrow("assignTo");
+          final int _cursorIndexOfStatus = _cursor.getColumnIndexOrThrow("status");
+          final int _cursorIndexOfRemarks = _cursor.getColumnIndexOrThrow("remarks");
+          final int _cursorIndexOfCompletedDateTime = _cursor.getColumnIndexOrThrow("completedDateTime");
+          final int _cursorIndexOfRemNextScheduleDateTime = _cursor.getColumnIndexOrThrow("remNextScheduleDateTime");
+          final int _cursorIndexOfRemLastRunDateTime = _cursor.getColumnIndexOrThrow("remLastRunDateTime");
+          final int _cursorIndexOfRemIntervalType = _cursor.getColumnIndexOrThrow("remIntervalType");
+          final int _cursorIndexOfRemIntervalValue = _cursor.getColumnIndexOrThrow("remIntervalValue");
+          final List<TransactionEntity> _result = new ArrayList<TransactionEntity>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final TransactionEntity _item;
+            _item = new TransactionEntity();
+            _item.id = _cursor.getInt(_cursorIndexOfId);
+            _item.taskId = _cursor.getInt(_cursorIndexOfTaskId);
+            _item.taskName = _cursor.getString(_cursorIndexOfTaskName);
+            _item.taskDescription = _cursor.getString(_cursorIndexOfTaskDescription);
+            _item.taskStartDateTime = _cursor.getString(_cursorIndexOfTaskStartDateTime);
+            _item.taskEndDateTime = _cursor.getString(_cursorIndexOfTaskEndDateTime);
+            _item.assignTo = _cursor.getString(_cursorIndexOfAssignTo);
+            _item.status = _cursor.getString(_cursorIndexOfStatus);
+            _item.remarks = _cursor.getString(_cursorIndexOfRemarks);
+            _item.completedDateTime = _cursor.getString(_cursorIndexOfCompletedDateTime);
+            _item.remNextScheduleDateTime = _cursor.getString(_cursorIndexOfRemNextScheduleDateTime);
+            _item.remLastRunDateTime = _cursor.getString(_cursorIndexOfRemLastRunDateTime);
+            _item.remIntervalType = _cursor.getString(_cursorIndexOfRemIntervalType);
+            _item.remIntervalValue = _cursor.getString(_cursorIndexOfRemIntervalValue);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public LiveData<TransactionEntity> getTxs(int id) {
+    final String _sql = "SELECT * FROM 'transaction' WHERE id=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, id);
+    return new ComputableLiveData<TransactionEntity>() {
+      private Observer _observer;
+
+      @Override
+      protected TransactionEntity compute() {
+        if (_observer == null) {
+          _observer = new Observer("transaction") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+          final int _cursorIndexOfTaskId = _cursor.getColumnIndexOrThrow("taskId");
+          final int _cursorIndexOfTaskName = _cursor.getColumnIndexOrThrow("taskName");
+          final int _cursorIndexOfTaskDescription = _cursor.getColumnIndexOrThrow("taskDescription");
+          final int _cursorIndexOfTaskStartDateTime = _cursor.getColumnIndexOrThrow("taskStartDateTime");
+          final int _cursorIndexOfTaskEndDateTime = _cursor.getColumnIndexOrThrow("taskEndDateTime");
+          final int _cursorIndexOfAssignTo = _cursor.getColumnIndexOrThrow("assignTo");
+          final int _cursorIndexOfStatus = _cursor.getColumnIndexOrThrow("status");
+          final int _cursorIndexOfRemarks = _cursor.getColumnIndexOrThrow("remarks");
+          final int _cursorIndexOfCompletedDateTime = _cursor.getColumnIndexOrThrow("completedDateTime");
+          final int _cursorIndexOfRemNextScheduleDateTime = _cursor.getColumnIndexOrThrow("remNextScheduleDateTime");
+          final int _cursorIndexOfRemLastRunDateTime = _cursor.getColumnIndexOrThrow("remLastRunDateTime");
+          final int _cursorIndexOfRemIntervalType = _cursor.getColumnIndexOrThrow("remIntervalType");
+          final int _cursorIndexOfRemIntervalValue = _cursor.getColumnIndexOrThrow("remIntervalValue");
+          final TransactionEntity _result;
+          if(_cursor.moveToFirst()) {
+            _result = new TransactionEntity();
+            _result.id = _cursor.getInt(_cursorIndexOfId);
+            _result.taskId = _cursor.getInt(_cursorIndexOfTaskId);
+            _result.taskName = _cursor.getString(_cursorIndexOfTaskName);
+            _result.taskDescription = _cursor.getString(_cursorIndexOfTaskDescription);
+            _result.taskStartDateTime = _cursor.getString(_cursorIndexOfTaskStartDateTime);
+            _result.taskEndDateTime = _cursor.getString(_cursorIndexOfTaskEndDateTime);
+            _result.assignTo = _cursor.getString(_cursorIndexOfAssignTo);
+            _result.status = _cursor.getString(_cursorIndexOfStatus);
+            _result.remarks = _cursor.getString(_cursorIndexOfRemarks);
+            _result.completedDateTime = _cursor.getString(_cursorIndexOfCompletedDateTime);
+            _result.remNextScheduleDateTime = _cursor.getString(_cursorIndexOfRemNextScheduleDateTime);
+            _result.remLastRunDateTime = _cursor.getString(_cursorIndexOfRemLastRunDateTime);
+            _result.remIntervalType = _cursor.getString(_cursorIndexOfRemIntervalType);
+            _result.remIntervalValue = _cursor.getString(_cursorIndexOfRemIntervalValue);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+}

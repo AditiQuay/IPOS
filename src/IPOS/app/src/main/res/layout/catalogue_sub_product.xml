@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background_color">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbarCatalogueSubProduct"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme"
+        app:theme="@style/ToolbarColoredBackArrow"
+        app:titleTextAppearance="@style/Toolbar.TitleText"/>
+
+    <RelativeLayout
+        android:id="@+id/rLayoutProductTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbarCatalogueSubProduct"
+        android:background="@color/toolbar_blue"
+        android:padding="@dimen/dim_8">
+
+        <TextView
+            android:id="@+id/textViewProductName"
+            style="@style/styleWhiteTextColor16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Product Name"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/textViewProductCountTitle"
+            style="@style/styleWhiteTextColor16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dim_8"
+            android:layout_toLeftOf="@+id/textViewProductCount"
+            android:text="Product"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/textViewProductCount"
+            style="@style/stylePrimaryTextColor12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dim_10"
+            android:background="@drawable/product_count"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:paddingTop="@dimen/dim_4"
+            android:paddingBottom="@dimen/dim_4"
+            android:text="0"
+            tools:ignore="RtlSymmetry" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerviewProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rLayoutProductTitle"
+        android:overScrollMode="never"
+        android:scrollbars="none" />
+</RelativeLayout>

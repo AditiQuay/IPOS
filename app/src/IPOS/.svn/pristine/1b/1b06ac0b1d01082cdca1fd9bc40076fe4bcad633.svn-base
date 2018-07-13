@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#1cade4</color>
+    <color name="colorPrimaryDark">#199BCD</color>
+    <color name="colorAccent">#DBDBDB</color>
+    <color name="colorAccentDark">#556892</color>
+    <color name="app_background_color">#eeeeee</color>
+    <color name="colorAccentGreen">#70bf1a</color>
+    <color name="colorAccentRed">#ff0000</color>
+    <color name="dark_text_color">#132E67</color>
+    <color name="color_text">#91cdeb</color>
+
+    <color name="colorPrimary_70">#701cade4</color>
+    <color name="colorPrimary_80">#801cade4</color>
+    <color name="colorPrimary_90">#901cade4</color>
+    <color name="colorPrimary_100">#d9e8ed</color>
+    <color name="black_trans">#99000000</color>
+    <color name="card">#fbfbfb</color>
+
+
+    <color name="app_theme_color">#4C98CF</color>
+
+
+    <color name="menu_background">#b7b7b7</color>
+    <color name="expand_list_color">#b7b7b7</color>
+    <color name="strip_color">#A8ADD8E6</color>
+
+    <!--Niraj colors starts-->
+    <color name="menu_strip">#1cade4</color>
+    <color name="menu_expand_list_color">#f2f2f2</color>
+    <color name="menu_strip_color">#eeeeee</color>
+    <color name="light_green">#9bd25d</color>
+    <color name="dark_gold">#dcb210</color>
+    <color name="light_gold">#f2c416</color>
+    <color name="button_tint_gray">#a9a9a9</color>
+    <color name="toolbar_blue">#56b9e0</color>
+    <color name="bold_green">#70be1a</color>
+    <color name="strip">#8bd3ec</color>
+    <color name="side_view">#546893</color>
+    <color name="circle_color">#dcdadd</color>
+    <color name="yellow">#e4be01</color>
+    <!--Niraj colors end-->
+    <color name="app_background_color_card">#f1f1f1</color>
+    <color name="sky_blue">#ADD8E6</color>
+    <color name="light_blue">#A8ADD8E6</color>
+    <color name="survey_background_color">#f2f2f2</color>
+    <color name="textColorPrimary">#464646</color>
+    <color name="textColorPrimaryDark">#000000</color>
+    <color name="divider_color">#d3d3d3</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="backgroundgrey">#EEEEEE</color>
+    <color name="label_gray">#F6F6F6</color>
+    <color name="red">#e64f20</color>
+    <color name="light_grey_one">#b7b7b7</color>
+    <color name="grey">#747474</color>
+    <color name="light_grey_two">#f5f5f5</color>
+    <color name="light_grey_">#ccc</color>
+    <color name="list_item_selected_state">#F4F6F6</color>
+    <color name="list_item_normal_state">#FFFFFF</color>
+    <color name="green">#70bf1a</color>
+    <color name="dark_green">#5da748</color>
+    <color name="buttoncolor">#40C8C2</color>
+    <color name="filter_color">#EBEBEB</color>
+    <color name="filter_text_color">#9c9ca0</color>
+    <color name="buttoncolor1">#F27373</color>
+
+
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="background_color">#f4f4f4</color>
+
+
+    <!--    Application color constants     -->
+    <color name="dark_primary_color">#e4be00</color>
+    <color name="primary_color">#ffcc03</color>
+    <color name="light_primary_color">#FFE0B2</color>
+    <color name="primary_text_color">#848484</color>
+    <color name="secondary_text_color">#727272</color>
+    <color name="divider_text_color">#B6B6B6</color>
+    <color name="dark_grey_color">#606060</color>
+    <color name="pager_bullet_active">#FFD700</color>
+    <color name="pager_bullet_inactive">#B6B6B6</color>
+    <color name="accent_color">#848484</color>
+    <color name="button_bg">#dddee2</color>
+    <color name="search_background_color">#f7f7f9</color>
+
+    <color name="light_grey_color">#DFDFDF</color>
+    <color name="bg_color">#808285</color>
+    <color name="white_text_color">#FFFFFF</color>
+    <color name="transparent_color">#e3e4e6</color>
+    <color name="transparent_color2">#00ffffff</color>
+    <color name="edit_contact_color">#324560</color>
+    <color name="list_selector">#c8c8c8</color>
+    <color name="loader_bg">#b7b7b7</color>
+    <color name="ipos_circle_small_color">#D9D9D9</color>
+    <color name="ipos_block_title_color">#000000</color>
+    <color name="ipos_progress_bottom_title2">#7F7F7F</color>
+    <color name="dark_gray">#BFBFBF</color>
+
+    <color name="header_1">#fb9b36</color>
+    <color name="header_2">#455a64</color>
+    <color name="header_3">#6d1948</color>
+    <color name="transparent">#00000000</color>
+    <color name="black_overlay">#66000000</color>
+
+
+    <color name="blue_green">#008080</color>
+    <color name="border">#d9dadc</color>
+    <color name="gold">#FFD700</color>
+    <color name="spring_bud">#A7FC00</color>
+    <color name="water_bondi_beach">#0095B6</color>
+    <color name="coral">#FF4040</color>
+    <color name="lime">#00FF00</color>
+    <color name="may_green">#4C9141</color>
+    <color name="mauveine">#EF0097</color>
+    <color name="blue">#1FCECB</color>
+    <color name="orange">#FFA500</color>
+    <color name="gentianaceae_blue">#2A6478</color>
+    <color name="blue_krayola">#1F75FE</color>
+    <color name="white_blue">#00BFFF</color>
+    <color name="pink">#FF7A7A</color>
+    <color name="white_green">#A9FF80</color>
+    <color name="black_transparent_20">#20000000</color>
+    <color name="black_transparent_30">#30000000</color>
+    <color name="black_transparent_50">#50000000</color>
+    <color name="white_transparent_80">#80FFFFFF</color>
+
+
+    <color name="sinch_purple">#ff63029d</color>
+    <color name="off_white">#fffafafa</color>
+    <color name="greyish">#fff2f1f2</color>
+    <color name="menu_text_color">#132e67</color>
+    <color name="payment_color">#132E67</color>
+
+    <color name="dashboard_mtd">#DADADA</color>
+    <color name="app_blue">#5CBFE8</color>
+    <color name="green_transulent">#3070bf1a</color>
+    <color name="orange_transulent">#30e4be00</color>
+    <color name="coloryPrimary_transulent">#305CBFE8</color>
+    <color name="red_transulent">#30e64f20</color>
+    <color name="dashboard_textcolor">#848484</color>
+    <color name="ddr_light_grey">#AEAEAE</color>
+    <color name="color_bg_grey">#F4F4F4</color>
+    <color name="color_bg_master">#E9E7E8</color>
+
+
+    <color name="coral_blue1">#E76F43</color>
+    <color name="dark_blue1">#E76F43</color>
+    <color name="color_done">#43e761</color>
+    <color name="color_immediate_action">#e74351</color>
+    <color name="color_upcoming_event">#434ee7</color>
+    <color name="color_pending">#f7af4a</color>
+
+    <color name="circleProgressCompleteEndGradient">@color/coral_blue1</color>
+    <color name="circleProgressCompleteStartGradient">@color/dark_blue1</color>
+    <color name="circleProgressIncompleteEndGradient">@color/grey</color>
+    <color name="circleProgressIncompleteStartGradient">@color/grey</color>
+
+
+    <color name="colorContentTheme">#FFFFFF</color>
+    <color name="colorDividerItem">#E1E1E1</color>
+
+    <color name="ipos_progress_foreground_color">#D9D9D9</color>
+    <color name="ipos_progress_background_color">#D9E4EB</color>
+    <color name="ipos_progress_bottom_title">#000000</color>
+
+    <color name="colorText">#ffffff</color>
+
+
+    <color name="dark_grey_outline_color">#CEDFDE</color>
+    <color name="colorWhite">#ffffff</color>
+
+
+    <color name="colorHeaderBackground">#1CADE4</color>
+
+
+    <color name="switchTrack">#501cade4</color>
+    <color name="switchTrackDisable">#1cade4</color>
+    <color name="switchTrackActive">#1cade4</color>
+    <color name="switchTrackNormal">#1cade4</color>
+    <color name="switchThumbBgActive">#1cade4</color>
+    <color name="switchThumbActive">#1cade4</color>
+    <color name="switchThumbkNormal">#1cade4</color>
+</resources>
+

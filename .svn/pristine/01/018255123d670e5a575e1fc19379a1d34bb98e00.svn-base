@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:visibility="visible"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvDialogTitle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/dim_10"
+            android:textSize="@dimen/text_size_15sp"
+            android:textColor="@color/white"
+            android:text="@string/confirm_action"
+            android:background="@color/colorPrimary"
+            app:typeface="TitilliumWeb-Bold.ttf"/>
+
+
+
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/tvDialogMessage"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/dim_10"
+            android:textSize="@dimen/text_size_15sp" />
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvMessageOK"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/ok_button"
+                    android:layout_marginTop="@dimen/dim_10"
+                    android:layout_marginBottom="@dimen/dim_10"
+                    android:layout_marginLeft="@dimen/dim_7"
+                    android:layout_marginRight="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_20"
+                    android:paddingRight="@dimen/dim_20"
+                    android:paddingTop="@dimen/dim_5"
+                    android:paddingBottom="@dimen/dim_5"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_drawable"
+                    android:textSize="@dimen/text_size_15sp" />
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvMessageNO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/no"
+                    android:layout_marginTop="@dimen/dim_10"
+                    android:layout_marginBottom="@dimen/dim_10"
+                    android:layout_marginLeft="@dimen/dim_7"
+                    android:layout_marginRight="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_20"
+                    android:paddingRight="@dimen/dim_15"
+                    android:paddingTop="@dimen/dim_5"
+                    android:paddingBottom="@dimen/dim_5"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_drawable"
+                    android:textSize="@dimen/text_size_15sp" />
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvMessageCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/cancel_button"
+                    android:layout_marginTop="@dimen/dim_10"
+                    android:layout_marginBottom="@dimen/dim_10"
+                    android:layout_marginLeft="@dimen/dim_7"
+                    android:layout_marginRight="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_20"
+                    android:paddingRight="@dimen/dim_15"
+                    android:paddingTop="@dimen/dim_5"
+                    android:paddingBottom="@dimen/dim_5"
+                    android:textColor="@color/white"
+                    android:background="@drawable/button_drawable"
+                    android:textSize="@dimen/text_size_15sp" />
+        </LinearLayout>
+</LinearLayout>

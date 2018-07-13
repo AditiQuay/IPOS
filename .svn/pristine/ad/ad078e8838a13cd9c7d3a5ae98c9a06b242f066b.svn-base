@@ -1,0 +1,35 @@
+package io.realm;
+
+
+public interface CatalogueModalRealmProxyInterface {
+    public String realmGet$count();
+    public void realmSet$count(String value);
+    public String realmGet$companyName();
+    public void realmSet$companyName(String value);
+    public String realmGet$productId();
+    public void realmSet$productId(String value);
+    public String realmGet$sProductUrl();
+    public void realmSet$sProductUrl(String value);
+    public String realmGet$storeID();
+    public void realmSet$storeID(String value);
+    public String realmGet$productCode();
+    public void realmSet$productCode(String value);
+    public String realmGet$sProductName();
+    public void realmSet$sProductName(String value);
+    public String realmGet$sProductFeature();
+    public void realmSet$sProductFeature(String value);
+    public String realmGet$sProductPrice();
+    public void realmSet$sProductPrice(String value);
+    public String realmGet$sDataSheet();
+    public void realmSet$sDataSheet(String value);
+    public String realmGet$sDataCalculator();
+    public void realmSet$sDataCalculator(String value);
+    public String realmGet$sPoints();
+    public void realmSet$sPoints(String value);
+    public boolean realmGet$isOnOffer();
+    public void realmSet$isOnOffer(boolean value);
+    public boolean realmGet$isCalculator();
+    public void realmSet$isCalculator(boolean value);
+    public boolean realmGet$isDataSheet();
+    public void realmSet$isDataSheet(boolean value);
+}

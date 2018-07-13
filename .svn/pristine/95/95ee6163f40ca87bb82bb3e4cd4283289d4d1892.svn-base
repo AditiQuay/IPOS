@@ -1,0 +1,318 @@
+package quay.com.ipos.compliance.data.local.dao;
+
+import android.arch.lifecycle.ComputableLiveData;
+import android.arch.lifecycle.LiveData;
+import android.arch.persistence.db.SupportSQLiteStatement;
+import android.arch.persistence.room.EntityDeletionOrUpdateAdapter;
+import android.arch.persistence.room.EntityInsertionAdapter;
+import android.arch.persistence.room.InvalidationTracker.Observer;
+import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.RoomSQLiteQuery;
+import android.database.Cursor;
+import android.support.annotation.NonNull;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import quay.com.ipos.compliance.data.local.entity.BusinessPlaceEntity;
+
+@SuppressWarnings("unchecked")
+public class BusinessPlaceDao_AppDatabase_1_Impl implements BusinessPlaceDao {
+  private final RoomDatabase __db;
+
+  private final EntityInsertionAdapter __insertionAdapterOfBusinessPlaceEntity;
+
+  private final EntityDeletionOrUpdateAdapter __deletionAdapterOfBusinessPlaceEntity;
+
+  public BusinessPlaceDao_AppDatabase_1_Impl(RoomDatabase __db) {
+    this.__db = __db;
+    this.__insertionAdapterOfBusinessPlaceEntity = new EntityInsertionAdapter<BusinessPlaceEntity>(__db) {
+      @Override
+      public String createQuery() {
+        return "INSERT OR REPLACE INTO `places`(`id`,`name`,`address1`,`city`,`state`,`roleCode`,`empCode`) VALUES (?,?,?,?,?,?,?)";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, BusinessPlaceEntity value) {
+        stmt.bindLong(1, value.id);
+        if (value.name == null) {
+          stmt.bindNull(2);
+        } else {
+          stmt.bindString(2, value.name);
+        }
+        if (value.address1 == null) {
+          stmt.bindNull(3);
+        } else {
+          stmt.bindString(3, value.address1);
+        }
+        if (value.city == null) {
+          stmt.bindNull(4);
+        } else {
+          stmt.bindString(4, value.city);
+        }
+        if (value.state == null) {
+          stmt.bindNull(5);
+        } else {
+          stmt.bindString(5, value.state);
+        }
+        stmt.bindLong(6, value.roleCode);
+        if (value.empCode == null) {
+          stmt.bindNull(7);
+        } else {
+          stmt.bindString(7, value.empCode);
+        }
+      }
+    };
+    this.__deletionAdapterOfBusinessPlaceEntity = new EntityDeletionOrUpdateAdapter<BusinessPlaceEntity>(__db) {
+      @Override
+      public String createQuery() {
+        return "DELETE FROM `places` WHERE `id` = ?";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, BusinessPlaceEntity value) {
+        stmt.bindLong(1, value.id);
+      }
+    };
+  }
+
+  @Override
+  public void savePlace(List<BusinessPlaceEntity> placeEntityList) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfBusinessPlaceEntity.insert(placeEntityList);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void savePlace(BusinessPlaceEntity placeEntity) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfBusinessPlaceEntity.insert(placeEntity);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void insertOnlySingleRecord(BusinessPlaceEntity entity) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfBusinessPlaceEntity.insert(entity);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void deleteRecord(BusinessPlaceEntity entity) {
+    __db.beginTransaction();
+    try {
+      __deletionAdapterOfBusinessPlaceEntity.handle(entity);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public LiveData<List<BusinessPlaceEntity>> loadPlaces() {
+    final String _sql = "SELECT * FROM places";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return new ComputableLiveData<List<BusinessPlaceEntity>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<BusinessPlaceEntity> compute() {
+        if (_observer == null) {
+          _observer = new Observer("places") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+          final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
+          final int _cursorIndexOfAddress1 = _cursor.getColumnIndexOrThrow("address1");
+          final int _cursorIndexOfCity = _cursor.getColumnIndexOrThrow("city");
+          final int _cursorIndexOfState = _cursor.getColumnIndexOrThrow("state");
+          final int _cursorIndexOfRoleCode = _cursor.getColumnIndexOrThrow("roleCode");
+          final int _cursorIndexOfEmpCode = _cursor.getColumnIndexOrThrow("empCode");
+          final List<BusinessPlaceEntity> _result = new ArrayList<BusinessPlaceEntity>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final BusinessPlaceEntity _item;
+            _item = new BusinessPlaceEntity();
+            _item.id = _cursor.getInt(_cursorIndexOfId);
+            _item.name = _cursor.getString(_cursorIndexOfName);
+            _item.address1 = _cursor.getString(_cursorIndexOfAddress1);
+            _item.city = _cursor.getString(_cursorIndexOfCity);
+            _item.state = _cursor.getString(_cursorIndexOfState);
+            _item.roleCode = _cursor.getInt(_cursorIndexOfRoleCode);
+            _item.empCode = _cursor.getString(_cursorIndexOfEmpCode);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public LiveData<BusinessPlaceEntity> getPlaces(int id) {
+    final String _sql = "SELECT * FROM places WHERE id=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, id);
+    return new ComputableLiveData<BusinessPlaceEntity>() {
+      private Observer _observer;
+
+      @Override
+      protected BusinessPlaceEntity compute() {
+        if (_observer == null) {
+          _observer = new Observer("places") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+          final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
+          final int _cursorIndexOfAddress1 = _cursor.getColumnIndexOrThrow("address1");
+          final int _cursorIndexOfCity = _cursor.getColumnIndexOrThrow("city");
+          final int _cursorIndexOfState = _cursor.getColumnIndexOrThrow("state");
+          final int _cursorIndexOfRoleCode = _cursor.getColumnIndexOrThrow("roleCode");
+          final int _cursorIndexOfEmpCode = _cursor.getColumnIndexOrThrow("empCode");
+          final BusinessPlaceEntity _result;
+          if(_cursor.moveToFirst()) {
+            _result = new BusinessPlaceEntity();
+            _result.id = _cursor.getInt(_cursorIndexOfId);
+            _result.name = _cursor.getString(_cursorIndexOfName);
+            _result.address1 = _cursor.getString(_cursorIndexOfAddress1);
+            _result.city = _cursor.getString(_cursorIndexOfCity);
+            _result.state = _cursor.getString(_cursorIndexOfState);
+            _result.roleCode = _cursor.getInt(_cursorIndexOfRoleCode);
+            _result.empCode = _cursor.getString(_cursorIndexOfEmpCode);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public LiveData<List<BusinessPlaceEntity>> fetchAllData() {
+    final String _sql = "SELECT * FROM places";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return new ComputableLiveData<List<BusinessPlaceEntity>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<BusinessPlaceEntity> compute() {
+        if (_observer == null) {
+          _observer = new Observer("places") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+          final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
+          final int _cursorIndexOfAddress1 = _cursor.getColumnIndexOrThrow("address1");
+          final int _cursorIndexOfCity = _cursor.getColumnIndexOrThrow("city");
+          final int _cursorIndexOfState = _cursor.getColumnIndexOrThrow("state");
+          final int _cursorIndexOfRoleCode = _cursor.getColumnIndexOrThrow("roleCode");
+          final int _cursorIndexOfEmpCode = _cursor.getColumnIndexOrThrow("empCode");
+          final List<BusinessPlaceEntity> _result = new ArrayList<BusinessPlaceEntity>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final BusinessPlaceEntity _item;
+            _item = new BusinessPlaceEntity();
+            _item.id = _cursor.getInt(_cursorIndexOfId);
+            _item.name = _cursor.getString(_cursorIndexOfName);
+            _item.address1 = _cursor.getString(_cursorIndexOfAddress1);
+            _item.city = _cursor.getString(_cursorIndexOfCity);
+            _item.state = _cursor.getString(_cursorIndexOfState);
+            _item.roleCode = _cursor.getInt(_cursorIndexOfRoleCode);
+            _item.empCode = _cursor.getString(_cursorIndexOfEmpCode);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public List<BusinessPlaceEntity> fetchAllDataWithoutLive() {
+    final String _sql = "SELECT * FROM places";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    final Cursor _cursor = __db.query(_statement);
+    try {
+      final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+      final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
+      final int _cursorIndexOfAddress1 = _cursor.getColumnIndexOrThrow("address1");
+      final int _cursorIndexOfCity = _cursor.getColumnIndexOrThrow("city");
+      final int _cursorIndexOfState = _cursor.getColumnIndexOrThrow("state");
+      final int _cursorIndexOfRoleCode = _cursor.getColumnIndexOrThrow("roleCode");
+      final int _cursorIndexOfEmpCode = _cursor.getColumnIndexOrThrow("empCode");
+      final List<BusinessPlaceEntity> _result = new ArrayList<BusinessPlaceEntity>(_cursor.getCount());
+      while(_cursor.moveToNext()) {
+        final BusinessPlaceEntity _item;
+        _item = new BusinessPlaceEntity();
+        _item.id = _cursor.getInt(_cursorIndexOfId);
+        _item.name = _cursor.getString(_cursorIndexOfName);
+        _item.address1 = _cursor.getString(_cursorIndexOfAddress1);
+        _item.city = _cursor.getString(_cursorIndexOfCity);
+        _item.state = _cursor.getString(_cursorIndexOfState);
+        _item.roleCode = _cursor.getInt(_cursorIndexOfRoleCode);
+        _item.empCode = _cursor.getString(_cursorIndexOfEmpCode);
+        _result.add(_item);
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+}

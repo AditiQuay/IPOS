@@ -1,0 +1,94 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sl\\values-sl.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\materialdatetimepicker-3.6.0.aar\\219612c38b613a6f45dbe2df157971ae\\res\\values-sl\\values-sl.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,166,233,337,454,538,647,766,880,976,1065,1159,1248",
+                        "endColumns": "60,66,103,116,83,108,118,113,95,88,93,88,97",
+                        "endOffsets": "161,228,332,449,533,642,761,875,971,1060,1154,1243,1341"
+                    },
+                    "to": {
+                        "startLines": "21,22,23,24,25,26,27,28,29,30,31,32,33",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "2210,2271,2338,2442,2559,2643,2752,2871,2985,3081,3170,3264,3353",
+                        "endColumns": "60,66,103,116,83,108,118,113,95,88,93,88,97",
+                        "endOffsets": "2266,2333,2437,2554,2638,2747,2866,2980,3076,3165,3259,3348,3446"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-12.0.1.aar\\10ae1dc56beda481ff675cbb15a59a33\\res\\values-sl\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "198",
+                        "endOffsets": "445"
+                    },
+                    "to": {
+                        "startLines": "19",
+                        "startColumns": "4",
+                        "startOffsets": "1907",
+                        "endColumns": "198",
+                        "endOffsets": "2101"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\72c2bd49f51c7b81ad5ead2e5b069bfc\\res\\values-sl\\values-sl.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,212,319,427,514,617,736,821,905,989,1097,1206,1306,1419,1526,1630,1810,1907",
+                        "endColumns": "106,106,107,86,102,118,84,83,83,107,108,99,112,106,103,179,96,82",
+                        "endOffsets": "207,314,422,509,612,731,816,900,984,1092,1201,1301,1414,1521,1625,1805,1902,1985"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,34",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,212,319,427,514,617,736,821,905,989,1097,1206,1306,1419,1526,1630,1810,3451",
+                        "endColumns": "106,106,107,86,102,118,84,83,83,107,108,99,112,106,103,179,96,82",
+                        "endOffsets": "207,314,422,509,612,731,816,900,984,1092,1201,1301,1414,1521,1625,1805,1902,3529"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-12.0.1.aar\\0151830402b75edc8678837d576caa2f\\res\\values-sl\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "205",
+                        "endColumns": "99",
+                        "endOffsets": "304"
+                    },
+                    "to": {
+                        "startLines": "20",
+                        "startColumns": "4",
+                        "startOffsets": "2106",
+                        "endColumns": "103",
+                        "endOffsets": "2205"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\1c00bf9d8d93879909d330ee9901b235\\res\\values-sl\\values-sl.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "35",
+                        "startColumns": "4",
+                        "startOffsets": "3534",
+                        "endColumns": "100",
+                        "endOffsets": "3630"
+                    }
+                }
+            ]
+        }
+    ]
+}

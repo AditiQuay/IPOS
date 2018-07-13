@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.SearchView
+        android:id="@+id/searchViewCatalogue"
+        style="@style/SearchViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:elevation="2dp"
+        app:iconifiedByDefault="false" />
+
+    <View
+        android:id="@+id/viewBorder"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/searchViewCatalogue"
+        android:background="@color/light_grey_" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/viewBorder"
+        android:fillViewport="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dim_8">
+
+            <RelativeLayout
+                android:id="@+id/rLayoutHeader1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dim_4">
+
+
+                <TextView
+                    android:id="@+id/textViewHeader1"
+                    style="@style/stylePrimaryTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    android:layout_toLeftOf="@+id/textViewViewAll1"
+                    android:layout_toStartOf="@+id/textViewViewAll1"
+                    android:alpha="0.7"
+                    android:ems="18"
+                    android:lines="2"
+                    android:text="McCoy Soudal - PU foam, Sealants &amp; Adhesives"
+                    tools:ignore="RtlSymmetry" />
+
+
+                <Button
+                    android:id="@+id/textViewViewAll1"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dim_30"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/round_shape_view_all"
+                    android:text="View All"
+                    android:textAllCaps="false" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerviewCategory1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rLayoutHeader1"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+
+            <View
+                android:id="@+id/viewBorder1"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/recyclerviewCategory1"
+                android:layout_marginTop="@dimen/dim_8"
+                android:background="@color/light_grey_" />
+
+            <RelativeLayout
+                android:id="@+id/rLayoutHeader2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/viewBorder1"
+                android:padding="@dimen/dim_4">
+
+
+                <TextView
+                    android:id="@+id/textViewHeader2"
+                    style="@style/stylePrimaryTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    android:layout_toLeftOf="@+id/textViewViewAll2"
+                    android:layout_toStartOf="@+id/textViewViewAll2"
+                    android:alpha="0.7"
+                    android:ems="18"
+                    android:lines="2"
+                    android:text="McCoy 8m-Building Door Windows Hardware"
+                    tools:ignore="RtlSymmetry" />
+
+                <Button
+                    android:id="@+id/textViewViewAll2"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dim_30"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/round_shape_view_all"
+                    android:text="View All"
+                    android:textAllCaps="false" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerviewCategory2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rLayoutHeader2"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+
+            <View
+                android:id="@+id/viewBorder2"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/recyclerviewCategory2"
+                android:layout_marginTop="@dimen/dim_8"
+                android:background="@color/light_grey_" />
+
+            <RelativeLayout
+                android:id="@+id/rLayoutHeader3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/viewBorder2"
+                android:padding="@dimen/dim_4">
+
+
+                <TextView
+                    android:id="@+id/textViewHeader3"
+                    style="@style/stylePrimaryTextColor14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    android:layout_toLeftOf="@+id/textViewViewAll3"
+                    android:layout_toStartOf="@+id/textViewViewAll3"
+                    android:alpha="0.7"
+                    android:ems="18"
+                    android:lines="2"
+                    android:text="McCopy Fly Screen-Protect your family with McCoy fly screen"
+                    tools:ignore="RtlSymmetry" />
+
+                <Button
+                    android:id="@+id/textViewViewAll3"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dim_30"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/round_shape_view_all"
+                    android:text="View All"
+                    android:textAllCaps="false" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerviewCategory3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rLayoutHeader3"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

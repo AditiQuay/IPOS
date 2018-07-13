@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background_color"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="100dp">
+
+        <RelativeLayout
+            android:id="@+id/rLayoutProductTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/app_background_color"
+            android:paddingBottom="@dimen/dim_4"
+            android:paddingLeft="@dimen/dim_8"
+            android:paddingRight="@dimen/dim_8"
+            android:paddingTop="@dimen/dim_8">
+
+            <TextView
+                android:id="@+id/textViewBusinessInfoHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Key Business Info"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/universal_text_size16" />
+
+            <TextView
+                android:id="@+id/textViewMadatory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="* Mandatory"
+                android:textColor="@color/red"
+                android:textSize="@dimen/universal_text_size13"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/textViewLastUpdated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textViewMadatory"
+                android:layout_marginTop="@dimen/dim_4"
+                android:text="Last Updated : 30 Mar 2018"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/universal_text_size14"
+                tools:ignore="RtlSymmetry" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewBusinessInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:nestedScrollingEnabled="false"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            tools:listitem="@layout/business_item"
+
+            tools:spanCount="2" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:background="#fff"
+            android:visibility="gone"
+            android:text="Add" />
+
+        <Button
+            android:id="@+id/btnClearAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="10dp"
+            android:text="Clear All"
+            android:visibility="gone" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

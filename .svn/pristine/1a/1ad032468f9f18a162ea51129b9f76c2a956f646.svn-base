@@ -1,0 +1,94 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\niraj.kumar\\AndroidStudioProjects\\IPOS\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sk\\values-sk.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-12.0.1.aar\\10ae1dc56beda481ff675cbb15a59a33\\res\\values-sk\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "247",
+                        "endColumns": "197",
+                        "endOffsets": "444"
+                    },
+                    "to": {
+                        "startLines": "19",
+                        "startColumns": "4",
+                        "startOffsets": "1884",
+                        "endColumns": "197",
+                        "endOffsets": "2077"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\72c2bd49f51c7b81ad5ead2e5b069bfc\\res\\values-sk\\values-sk.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,212,312,423,509,617,735,816,897,981,1086,1195,1294,1400,1511,1620,1786,1884",
+                        "endColumns": "106,99,110,85,107,117,80,80,83,104,108,98,105,110,108,165,97,87",
+                        "endOffsets": "207,307,418,504,612,730,811,892,976,1081,1190,1289,1395,1506,1615,1781,1879,1967"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,34",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,212,312,423,509,617,735,816,897,981,1086,1195,1294,1400,1511,1620,1786,3436",
+                        "endColumns": "106,99,110,85,107,117,80,80,83,104,108,98,105,110,108,165,97,87",
+                        "endOffsets": "207,307,418,504,612,730,811,892,976,1081,1190,1289,1395,1506,1615,1781,1879,3519"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-12.0.1.aar\\0151830402b75edc8678837d576caa2f\\res\\values-sk\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "205",
+                        "endColumns": "99",
+                        "endOffsets": "304"
+                    },
+                    "to": {
+                        "startLines": "20",
+                        "startColumns": "4",
+                        "startOffsets": "2082",
+                        "endColumns": "103",
+                        "endOffsets": "2181"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\materialdatetimepicker-3.6.0.aar\\219612c38b613a6f45dbe2df157971ae\\res\\values-sk\\values-sk.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,166,234,342,457,538,647,778,889,984,1075,1168,1255",
+                        "endColumns": "60,67,107,114,80,108,130,110,94,90,92,86,99",
+                        "endOffsets": "161,229,337,452,533,642,773,884,979,1070,1163,1250,1350"
+                    },
+                    "to": {
+                        "startLines": "21,22,23,24,25,26,27,28,29,30,31,32,33",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "2186,2247,2315,2423,2538,2619,2728,2859,2970,3065,3156,3249,3336",
+                        "endColumns": "60,67,107,114,80,108,130,110,94,90,92,86,99",
+                        "endOffsets": "2242,2310,2418,2533,2614,2723,2854,2965,3060,3151,3244,3331,3431"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\niraj.kumar\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\1c00bf9d8d93879909d330ee9901b235\\res\\values-sk\\values-sk.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "35",
+                        "startColumns": "4",
+                        "startOffsets": "3524",
+                        "endColumns": "100",
+                        "endOffsets": "3620"
+                    }
+                }
+            ]
+        }
+    ]
+}

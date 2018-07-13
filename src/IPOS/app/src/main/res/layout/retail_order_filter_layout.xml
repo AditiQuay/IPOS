@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/primary_bg_color"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/rLayoutLoyalty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dim_8">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageViewLoyalty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:alpha="0.7"
+                android:src="@drawable/ic_action_filter_white" />
+
+            <quay.com.ipos.ui.CustomTextView
+                style="@style/stylePrimaryTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:paddingLeft="@dimen/dim_4"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_15sp"
+                android:layout_marginTop="@dimen/dim_5"
+                android:text="Filter" />
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/imageViewCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_action_close_white" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dim_10"
+        android:background="@drawable/rect_bottom_corner">
+
+        <LinearLayout
+            android:id="@+id/llDateFrom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/dim_5"
+            android:layout_marginTop="@dimen/dim_5"
+            android:padding="@dimen/dim_10"
+            android:background="@drawable/button_rectangle_light_gray"
+            >
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvDateFrom"
+                style="@style/stylePrimaryTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="@dimen/dim_4"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/text_size_15sp"
+                android:text="@string/order_date_from" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/calendar"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llDateTo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/dim_5"
+            android:layout_marginTop="@dimen/dim_5"
+            android:padding="@dimen/dim_10"
+            android:background="@drawable/button_rectangle_light_gray"
+            >
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/tvDateTo"
+                style="@style/stylePrimaryTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="@dimen/dim_4"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/text_size_15sp"
+                android:text="@string/order_date_to" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/calendar"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/dim_5"
+            android:layout_marginTop="@dimen/dim_5"
+            android:padding="@dimen/dim_10"
+            android:background="@drawable/button_rectangle_light_gray"
+            >
+            <Spinner
+                android:id="@+id/spPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:entries="@array/payment_type"
+                android:layout_weight="1"/>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_action_arrow_down_blue"/>
+        </LinearLayout>
+
+        <include
+            layout="@layout/bottom_buttons"/>
+    </LinearLayout>
+</LinearLayout>

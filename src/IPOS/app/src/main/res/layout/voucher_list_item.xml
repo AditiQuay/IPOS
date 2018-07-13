@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="6dp"
+        android:paddingRight="6dp"
+        android:paddingLeft="6dp"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/imvProduct"
+            android:src="@drawable/window"
+            android:layout_width="160dp"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="top"
+            android:background="@drawable/button_rectangle_light_gray"
+            android:layout_marginRight="@dimen/dim_10"
+            android:scaleType="fitXY"
+            android:layout_height="80dp" />
+
+
+
+
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dim_5"
+            android:visibility="gone"
+            android:background="@color/divider_color"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_gravity="start"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dim_5"
+                android:layout_marginLeft="@dimen/dim_5"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvItemName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="Value"
+                        android:paddingRight="@dimen/dim_20"
+                        android:textSize="@dimen/text_size_14sp"
+                        android:lines="1"
+                        android:singleLine="true"
+                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvItemPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:paddingRight="@dimen/dim_8"
+                        android:text="250"
+                        android:textSize="@dimen/text_size_12sp"
+                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvCategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:paddingRight="@dimen/dim_8"
+                        android:text="@string/category"
+                        android:textSize="@dimen/text_size_12sp"
+                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+                    <quay.com.ipos.ui.CustomTextView
+                        android:id="@+id/tvCategoryPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:paddingRight="@dimen/dim_8"
+                        android:text="250"
+                        android:textSize="@dimen/text_size_12sp"
+                        app:typeface="TitilliumWeb-SemiBold.ttf" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/llAddMinus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+android:layout_marginLeft="@dimen/dim_15"
+                android:layout_marginTop="@dimen/dim_12"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvMinus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_rectangle_primary"
+                    android:paddingLeft="@dimen/dim_14"
+                    android:paddingRight="@dimen/dim_14"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="-"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_21sp"
+                    app:typeface="TitilliumWeb-SemiBold.ttf" />
+
+                <quay.com.ipos.ui.CustomEditText
+                    android:id="@+id/etQtySelected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:paddingBottom="@dimen/dim_6"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:paddingTop="@dimen/dim_6"
+                    android:text="1"
+                    android:textColor="@color/dashboard_textcolor"
+                    android:textSize="@dimen/text_size_12sp"
+                    app:typeface="TitilliumWeb-SemiBold.ttf" />
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvPlus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/button_rectangle_primary"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp"
+                    android:text="+"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_21sp"
+                    app:typeface="TitilliumWeb-SemiBold.ttf" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

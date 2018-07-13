@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="handler"
+            type="com.quayintech.tasklib.interfaces.RepeatUntilPageHandler" />
+
+        <variable
+            name="viewModel"
+            type="com.quayintech.tasklib.viewmodel.DayofMonthViewModel" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/btnClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:onClick="@{(v) -> handler.onClickCloseTask(v)}"
+                android:padding="10dp"
+                android:src="@drawable/ic_close_white_24dp"
+                tools:background="#00000000" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/btnClose">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Repeat"
+                    android:textAppearance="@style/iposfontstyle"
+                    android:textColor="#fff"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/subTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/title"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Forever"
+                    android:textAppearance="@style/iposfontstyle"
+                    android:textColor="#fff"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/btnDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:onClick="@{(v) -> handler.onClickAddSubtask(v)}"
+                android:padding="8dp"
+
+                android:src="@drawable/ic_subtask_done"
+                tools:background="#00000000" />
+
+        </RelativeLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_bg_grey"
+            android:clipToPadding="false"
+            android:padding="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp">
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:clipToPadding="false"
+                    android:padding="0dp"
+                    app:cardCornerRadius="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="0dp"
+                        android:paddingRight="0dp">
+
+                        <RadioGroup
+                            android:id="@+id/radioGroup"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/checkBoxDefault"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_gravity="start"
+                                android:layout_marginRight="20dp"
+                                android:checked="@{viewModel.viewCalender}"
+                                android:layoutDirection="rtl"
+                                android:onClick="@{(v) -> handler.onClickDefault(v)}"
+                                android:paddingLeft="16dp"
+                                android:text="@string/same_day_each_month"
+                                android:textAlignment="textStart"
+
+                                android:textAppearance="@style/iposfontstyle"
+                                android:textSize="15sp" />
+
+                            <RadioButton
+                                android:id="@+id/checkBoxSpecific"
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_gravity="start"
+                                android:layout_marginRight="20dp"
+                                android:checked="@{viewModel.viewWeek}"
+                                android:layoutDirection="rtl"
+                                android:onClick="@{(v) -> handler.onClickSpecific(v)}"
+                                android:paddingLeft="16dp"
+                                android:text="@string/same_week_each_month"
+                                android:textAppearance="@style/iposfontstyle"
+
+                                android:textSize="15sp" />
+                        </RadioGroup>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.7dp"
+                            android:background="#b1b1b1" />
+
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <!--  <CalendarView
+                      android:id="@+id/mCalendarView"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:visibility="@{viewModel.viewCalender ? View.VISIBLE : View.GONE}" />
+    -->
+                <com.quayintech.tasklib.view.DayOfMonthPickerView
+                    android:id="@+id/mCalendarView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="@{viewModel.viewCalender ? View.VISIBLE : View.GONE}" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="@{viewModel.viewWeek ? View.VISIBLE : View.GONE}">
+
+                    <NumberPicker
+                        android:id="@+id/mNumberPickerSlots"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_weight="1"
+                        android:theme="@style/NumberPickerText"
+                        android:divider="@android:color/transparent"
+                        android:textSize="16sp" />
+
+                    <NumberPicker
+                        android:id="@+id/mNumberPickerWeeks"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:theme="@style/NumberPickerText"
+                        android:layout_weight="1"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout>
+
+
+</layout>
+

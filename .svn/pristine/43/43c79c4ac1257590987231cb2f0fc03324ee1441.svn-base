@@ -1,0 +1,604 @@
+package quay.com.ipos.compliance.data.local.dao;
+
+import android.arch.lifecycle.ComputableLiveData;
+import android.arch.lifecycle.LiveData;
+import android.arch.persistence.db.SupportSQLiteStatement;
+import android.arch.persistence.room.EntityInsertionAdapter;
+import android.arch.persistence.room.InvalidationTracker.Observer;
+import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.RoomSQLiteQuery;
+import android.database.Cursor;
+import android.support.annotation.NonNull;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import quay.com.ipos.compliance.data.local.entity.Task;
+
+@SuppressWarnings("unchecked")
+public class TaskDao_AppDatabase_1_Impl implements TaskDao {
+  private final RoomDatabase __db;
+
+  private final EntityInsertionAdapter __insertionAdapterOfTask;
+
+  public TaskDao_AppDatabase_1_Impl(RoomDatabase __db) {
+    this.__db = __db;
+    this.__insertionAdapterOfTask = new EntityInsertionAdapter<Task>(__db) {
+      @Override
+      public String createQuery() {
+        return "INSERT OR REPLACE INTO `task`(`task_id`,`isSync`,`control_master_id`,`task_type`,`store_id`,`task_category`,`task_sub_category`,`task_name`,`task_description`,`task_start_date`,`task_end_date`,`task_created_date`,`task_complete_date`,`next_schedule_date`,`last_run_date`,`progress_state`,`task_assign_to`,`task_due_date`,`alertBeforeDueDateAndTime`,`label`,`isSelected`,`mRepeatFrequency`,`mRepeatInterval`,`mRepeatOnDays`,`mRepeatUntil`,`mRepeatSummary`,`numberToShow`,`numberShown`,`colour`,`icon`,`content`,`title`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, Task value) {
+        stmt.bindLong(1, value.task_id);
+        final int _tmp;
+        _tmp = value.isSync ? 1 : 0;
+        stmt.bindLong(2, _tmp);
+        stmt.bindLong(3, value.control_master_id);
+        if (value.task_type == null) {
+          stmt.bindNull(4);
+        } else {
+          stmt.bindString(4, value.task_type);
+        }
+        stmt.bindLong(5, value.store_id);
+        if (value.task_category == null) {
+          stmt.bindNull(6);
+        } else {
+          stmt.bindString(6, value.task_category);
+        }
+        if (value.task_sub_category == null) {
+          stmt.bindNull(7);
+        } else {
+          stmt.bindString(7, value.task_sub_category);
+        }
+        if (value.task_name == null) {
+          stmt.bindNull(8);
+        } else {
+          stmt.bindString(8, value.task_name);
+        }
+        if (value.task_description == null) {
+          stmt.bindNull(9);
+        } else {
+          stmt.bindString(9, value.task_description);
+        }
+        if (value.task_start_date == null) {
+          stmt.bindNull(10);
+        } else {
+          stmt.bindString(10, value.task_start_date);
+        }
+        if (value.task_end_date == null) {
+          stmt.bindNull(11);
+        } else {
+          stmt.bindString(11, value.task_end_date);
+        }
+        if (value.task_created_date == null) {
+          stmt.bindNull(12);
+        } else {
+          stmt.bindString(12, value.task_created_date);
+        }
+        if (value.task_complete_date == null) {
+          stmt.bindNull(13);
+        } else {
+          stmt.bindString(13, value.task_complete_date);
+        }
+        if (value.next_schedule_date == null) {
+          stmt.bindNull(14);
+        } else {
+          stmt.bindString(14, value.next_schedule_date);
+        }
+        if (value.last_run_date == null) {
+          stmt.bindNull(15);
+        } else {
+          stmt.bindString(15, value.last_run_date);
+        }
+        stmt.bindLong(16, value.progress_state);
+        if (value.task_assign_to == null) {
+          stmt.bindNull(17);
+        } else {
+          stmt.bindString(17, value.task_assign_to);
+        }
+        if (value.task_due_date == null) {
+          stmt.bindNull(18);
+        } else {
+          stmt.bindString(18, value.task_due_date);
+        }
+        stmt.bindLong(19, value.alertBeforeDueDateAndTime);
+        if (value.label == null) {
+          stmt.bindNull(20);
+        } else {
+          stmt.bindString(20, value.label);
+        }
+        final int _tmp_1;
+        _tmp_1 = value.isSelected ? 1 : 0;
+        stmt.bindLong(21, _tmp_1);
+        if (value.mRepeatFrequency == null) {
+          stmt.bindNull(22);
+        } else {
+          stmt.bindString(22, value.mRepeatFrequency);
+        }
+        if (value.mRepeatInterval == null) {
+          stmt.bindNull(23);
+        } else {
+          stmt.bindString(23, value.mRepeatInterval);
+        }
+        if (value.mRepeatOnDays == null) {
+          stmt.bindNull(24);
+        } else {
+          stmt.bindString(24, value.mRepeatOnDays);
+        }
+        if (value.mRepeatUntil == null) {
+          stmt.bindNull(25);
+        } else {
+          stmt.bindString(25, value.mRepeatUntil);
+        }
+        if (value.mRepeatSummary == null) {
+          stmt.bindNull(26);
+        } else {
+          stmt.bindString(26, value.mRepeatSummary);
+        }
+        stmt.bindLong(27, value.numberToShow);
+        stmt.bindLong(28, value.numberShown);
+        if (value.colour == null) {
+          stmt.bindNull(29);
+        } else {
+          stmt.bindString(29, value.colour);
+        }
+        if (value.icon == null) {
+          stmt.bindNull(30);
+        } else {
+          stmt.bindString(30, value.icon);
+        }
+        if (value.content == null) {
+          stmt.bindNull(31);
+        } else {
+          stmt.bindString(31, value.content);
+        }
+        if (value.title == null) {
+          stmt.bindNull(32);
+        } else {
+          stmt.bindString(32, value.title);
+        }
+      }
+    };
+  }
+
+  @Override
+  public void saveAllTask(List<Task> taskList) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfTask.insert(taskList);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public long saveTask(Task task) {
+    __db.beginTransaction();
+    try {
+      long _result = __insertionAdapterOfTask.insertAndReturnId(task);
+      __db.setTransactionSuccessful();
+      return _result;
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public LiveData<List<Task>> getAllTask() {
+    final String _sql = "SELECT * FROM 'task'";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return new ComputableLiveData<List<Task>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<Task> compute() {
+        if (_observer == null) {
+          _observer = new Observer("task") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfTaskId = _cursor.getColumnIndexOrThrow("task_id");
+          final int _cursorIndexOfIsSync = _cursor.getColumnIndexOrThrow("isSync");
+          final int _cursorIndexOfControlMasterId = _cursor.getColumnIndexOrThrow("control_master_id");
+          final int _cursorIndexOfTaskType = _cursor.getColumnIndexOrThrow("task_type");
+          final int _cursorIndexOfStoreId = _cursor.getColumnIndexOrThrow("store_id");
+          final int _cursorIndexOfTaskCategory = _cursor.getColumnIndexOrThrow("task_category");
+          final int _cursorIndexOfTaskSubCategory = _cursor.getColumnIndexOrThrow("task_sub_category");
+          final int _cursorIndexOfTaskName = _cursor.getColumnIndexOrThrow("task_name");
+          final int _cursorIndexOfTaskDescription = _cursor.getColumnIndexOrThrow("task_description");
+          final int _cursorIndexOfTaskStartDate = _cursor.getColumnIndexOrThrow("task_start_date");
+          final int _cursorIndexOfTaskEndDate = _cursor.getColumnIndexOrThrow("task_end_date");
+          final int _cursorIndexOfTaskCreatedDate = _cursor.getColumnIndexOrThrow("task_created_date");
+          final int _cursorIndexOfTaskCompleteDate = _cursor.getColumnIndexOrThrow("task_complete_date");
+          final int _cursorIndexOfNextScheduleDate = _cursor.getColumnIndexOrThrow("next_schedule_date");
+          final int _cursorIndexOfLastRunDate = _cursor.getColumnIndexOrThrow("last_run_date");
+          final int _cursorIndexOfProgressState = _cursor.getColumnIndexOrThrow("progress_state");
+          final int _cursorIndexOfTaskAssignTo = _cursor.getColumnIndexOrThrow("task_assign_to");
+          final int _cursorIndexOfTaskDueDate = _cursor.getColumnIndexOrThrow("task_due_date");
+          final int _cursorIndexOfAlertBeforeDueDateAndTime = _cursor.getColumnIndexOrThrow("alertBeforeDueDateAndTime");
+          final int _cursorIndexOfLabel = _cursor.getColumnIndexOrThrow("label");
+          final int _cursorIndexOfIsSelected = _cursor.getColumnIndexOrThrow("isSelected");
+          final int _cursorIndexOfMRepeatFrequency = _cursor.getColumnIndexOrThrow("mRepeatFrequency");
+          final int _cursorIndexOfMRepeatInterval = _cursor.getColumnIndexOrThrow("mRepeatInterval");
+          final int _cursorIndexOfMRepeatOnDays = _cursor.getColumnIndexOrThrow("mRepeatOnDays");
+          final int _cursorIndexOfMRepeatUntil = _cursor.getColumnIndexOrThrow("mRepeatUntil");
+          final int _cursorIndexOfMRepeatSummary = _cursor.getColumnIndexOrThrow("mRepeatSummary");
+          final int _cursorIndexOfNumberToShow = _cursor.getColumnIndexOrThrow("numberToShow");
+          final int _cursorIndexOfNumberShown = _cursor.getColumnIndexOrThrow("numberShown");
+          final int _cursorIndexOfColour = _cursor.getColumnIndexOrThrow("colour");
+          final int _cursorIndexOfIcon = _cursor.getColumnIndexOrThrow("icon");
+          final int _cursorIndexOfContent = _cursor.getColumnIndexOrThrow("content");
+          final int _cursorIndexOfTitle = _cursor.getColumnIndexOrThrow("title");
+          final List<Task> _result = new ArrayList<Task>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final Task _item;
+            _item = new Task();
+            _item.task_id = _cursor.getInt(_cursorIndexOfTaskId);
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsSync);
+            _item.isSync = _tmp != 0;
+            _item.control_master_id = _cursor.getLong(_cursorIndexOfControlMasterId);
+            _item.task_type = _cursor.getString(_cursorIndexOfTaskType);
+            _item.store_id = _cursor.getLong(_cursorIndexOfStoreId);
+            _item.task_category = _cursor.getString(_cursorIndexOfTaskCategory);
+            _item.task_sub_category = _cursor.getString(_cursorIndexOfTaskSubCategory);
+            _item.task_name = _cursor.getString(_cursorIndexOfTaskName);
+            _item.task_description = _cursor.getString(_cursorIndexOfTaskDescription);
+            _item.task_start_date = _cursor.getString(_cursorIndexOfTaskStartDate);
+            _item.task_end_date = _cursor.getString(_cursorIndexOfTaskEndDate);
+            _item.task_created_date = _cursor.getString(_cursorIndexOfTaskCreatedDate);
+            _item.task_complete_date = _cursor.getString(_cursorIndexOfTaskCompleteDate);
+            _item.next_schedule_date = _cursor.getString(_cursorIndexOfNextScheduleDate);
+            _item.last_run_date = _cursor.getString(_cursorIndexOfLastRunDate);
+            _item.progress_state = _cursor.getInt(_cursorIndexOfProgressState);
+            _item.task_assign_to = _cursor.getString(_cursorIndexOfTaskAssignTo);
+            _item.task_due_date = _cursor.getString(_cursorIndexOfTaskDueDate);
+            _item.alertBeforeDueDateAndTime = _cursor.getInt(_cursorIndexOfAlertBeforeDueDateAndTime);
+            _item.label = _cursor.getString(_cursorIndexOfLabel);
+            final int _tmp_1;
+            _tmp_1 = _cursor.getInt(_cursorIndexOfIsSelected);
+            _item.isSelected = _tmp_1 != 0;
+            _item.mRepeatFrequency = _cursor.getString(_cursorIndexOfMRepeatFrequency);
+            _item.mRepeatInterval = _cursor.getString(_cursorIndexOfMRepeatInterval);
+            _item.mRepeatOnDays = _cursor.getString(_cursorIndexOfMRepeatOnDays);
+            _item.mRepeatUntil = _cursor.getString(_cursorIndexOfMRepeatUntil);
+            _item.mRepeatSummary = _cursor.getString(_cursorIndexOfMRepeatSummary);
+            _item.numberToShow = _cursor.getInt(_cursorIndexOfNumberToShow);
+            _item.numberShown = _cursor.getInt(_cursorIndexOfNumberShown);
+            _item.colour = _cursor.getString(_cursorIndexOfColour);
+            _item.icon = _cursor.getString(_cursorIndexOfIcon);
+            _item.content = _cursor.getString(_cursorIndexOfContent);
+            _item.title = _cursor.getString(_cursorIndexOfTitle);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public List<Task> fetchAllDataFilterByPlace(long id) {
+    final String _sql = "SELECT * FROM 'task' WHERE store_id=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, id);
+    final Cursor _cursor = __db.query(_statement);
+    try {
+      final int _cursorIndexOfTaskId = _cursor.getColumnIndexOrThrow("task_id");
+      final int _cursorIndexOfIsSync = _cursor.getColumnIndexOrThrow("isSync");
+      final int _cursorIndexOfControlMasterId = _cursor.getColumnIndexOrThrow("control_master_id");
+      final int _cursorIndexOfTaskType = _cursor.getColumnIndexOrThrow("task_type");
+      final int _cursorIndexOfStoreId = _cursor.getColumnIndexOrThrow("store_id");
+      final int _cursorIndexOfTaskCategory = _cursor.getColumnIndexOrThrow("task_category");
+      final int _cursorIndexOfTaskSubCategory = _cursor.getColumnIndexOrThrow("task_sub_category");
+      final int _cursorIndexOfTaskName = _cursor.getColumnIndexOrThrow("task_name");
+      final int _cursorIndexOfTaskDescription = _cursor.getColumnIndexOrThrow("task_description");
+      final int _cursorIndexOfTaskStartDate = _cursor.getColumnIndexOrThrow("task_start_date");
+      final int _cursorIndexOfTaskEndDate = _cursor.getColumnIndexOrThrow("task_end_date");
+      final int _cursorIndexOfTaskCreatedDate = _cursor.getColumnIndexOrThrow("task_created_date");
+      final int _cursorIndexOfTaskCompleteDate = _cursor.getColumnIndexOrThrow("task_complete_date");
+      final int _cursorIndexOfNextScheduleDate = _cursor.getColumnIndexOrThrow("next_schedule_date");
+      final int _cursorIndexOfLastRunDate = _cursor.getColumnIndexOrThrow("last_run_date");
+      final int _cursorIndexOfProgressState = _cursor.getColumnIndexOrThrow("progress_state");
+      final int _cursorIndexOfTaskAssignTo = _cursor.getColumnIndexOrThrow("task_assign_to");
+      final int _cursorIndexOfTaskDueDate = _cursor.getColumnIndexOrThrow("task_due_date");
+      final int _cursorIndexOfAlertBeforeDueDateAndTime = _cursor.getColumnIndexOrThrow("alertBeforeDueDateAndTime");
+      final int _cursorIndexOfLabel = _cursor.getColumnIndexOrThrow("label");
+      final int _cursorIndexOfIsSelected = _cursor.getColumnIndexOrThrow("isSelected");
+      final int _cursorIndexOfMRepeatFrequency = _cursor.getColumnIndexOrThrow("mRepeatFrequency");
+      final int _cursorIndexOfMRepeatInterval = _cursor.getColumnIndexOrThrow("mRepeatInterval");
+      final int _cursorIndexOfMRepeatOnDays = _cursor.getColumnIndexOrThrow("mRepeatOnDays");
+      final int _cursorIndexOfMRepeatUntil = _cursor.getColumnIndexOrThrow("mRepeatUntil");
+      final int _cursorIndexOfMRepeatSummary = _cursor.getColumnIndexOrThrow("mRepeatSummary");
+      final int _cursorIndexOfNumberToShow = _cursor.getColumnIndexOrThrow("numberToShow");
+      final int _cursorIndexOfNumberShown = _cursor.getColumnIndexOrThrow("numberShown");
+      final int _cursorIndexOfColour = _cursor.getColumnIndexOrThrow("colour");
+      final int _cursorIndexOfIcon = _cursor.getColumnIndexOrThrow("icon");
+      final int _cursorIndexOfContent = _cursor.getColumnIndexOrThrow("content");
+      final int _cursorIndexOfTitle = _cursor.getColumnIndexOrThrow("title");
+      final List<Task> _result = new ArrayList<Task>(_cursor.getCount());
+      while(_cursor.moveToNext()) {
+        final Task _item;
+        _item = new Task();
+        _item.task_id = _cursor.getInt(_cursorIndexOfTaskId);
+        final int _tmp;
+        _tmp = _cursor.getInt(_cursorIndexOfIsSync);
+        _item.isSync = _tmp != 0;
+        _item.control_master_id = _cursor.getLong(_cursorIndexOfControlMasterId);
+        _item.task_type = _cursor.getString(_cursorIndexOfTaskType);
+        _item.store_id = _cursor.getLong(_cursorIndexOfStoreId);
+        _item.task_category = _cursor.getString(_cursorIndexOfTaskCategory);
+        _item.task_sub_category = _cursor.getString(_cursorIndexOfTaskSubCategory);
+        _item.task_name = _cursor.getString(_cursorIndexOfTaskName);
+        _item.task_description = _cursor.getString(_cursorIndexOfTaskDescription);
+        _item.task_start_date = _cursor.getString(_cursorIndexOfTaskStartDate);
+        _item.task_end_date = _cursor.getString(_cursorIndexOfTaskEndDate);
+        _item.task_created_date = _cursor.getString(_cursorIndexOfTaskCreatedDate);
+        _item.task_complete_date = _cursor.getString(_cursorIndexOfTaskCompleteDate);
+        _item.next_schedule_date = _cursor.getString(_cursorIndexOfNextScheduleDate);
+        _item.last_run_date = _cursor.getString(_cursorIndexOfLastRunDate);
+        _item.progress_state = _cursor.getInt(_cursorIndexOfProgressState);
+        _item.task_assign_to = _cursor.getString(_cursorIndexOfTaskAssignTo);
+        _item.task_due_date = _cursor.getString(_cursorIndexOfTaskDueDate);
+        _item.alertBeforeDueDateAndTime = _cursor.getInt(_cursorIndexOfAlertBeforeDueDateAndTime);
+        _item.label = _cursor.getString(_cursorIndexOfLabel);
+        final int _tmp_1;
+        _tmp_1 = _cursor.getInt(_cursorIndexOfIsSelected);
+        _item.isSelected = _tmp_1 != 0;
+        _item.mRepeatFrequency = _cursor.getString(_cursorIndexOfMRepeatFrequency);
+        _item.mRepeatInterval = _cursor.getString(_cursorIndexOfMRepeatInterval);
+        _item.mRepeatOnDays = _cursor.getString(_cursorIndexOfMRepeatOnDays);
+        _item.mRepeatUntil = _cursor.getString(_cursorIndexOfMRepeatUntil);
+        _item.mRepeatSummary = _cursor.getString(_cursorIndexOfMRepeatSummary);
+        _item.numberToShow = _cursor.getInt(_cursorIndexOfNumberToShow);
+        _item.numberShown = _cursor.getInt(_cursorIndexOfNumberShown);
+        _item.colour = _cursor.getString(_cursorIndexOfColour);
+        _item.icon = _cursor.getString(_cursorIndexOfIcon);
+        _item.content = _cursor.getString(_cursorIndexOfContent);
+        _item.title = _cursor.getString(_cursorIndexOfTitle);
+        _result.add(_item);
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+
+  @Override
+  public LiveData<List<Task>> getTaskByPlace(long id) {
+    final String _sql = "SELECT * FROM 'task' WHERE store_id=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, id);
+    return new ComputableLiveData<List<Task>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<Task> compute() {
+        if (_observer == null) {
+          _observer = new Observer("task") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfTaskId = _cursor.getColumnIndexOrThrow("task_id");
+          final int _cursorIndexOfIsSync = _cursor.getColumnIndexOrThrow("isSync");
+          final int _cursorIndexOfControlMasterId = _cursor.getColumnIndexOrThrow("control_master_id");
+          final int _cursorIndexOfTaskType = _cursor.getColumnIndexOrThrow("task_type");
+          final int _cursorIndexOfStoreId = _cursor.getColumnIndexOrThrow("store_id");
+          final int _cursorIndexOfTaskCategory = _cursor.getColumnIndexOrThrow("task_category");
+          final int _cursorIndexOfTaskSubCategory = _cursor.getColumnIndexOrThrow("task_sub_category");
+          final int _cursorIndexOfTaskName = _cursor.getColumnIndexOrThrow("task_name");
+          final int _cursorIndexOfTaskDescription = _cursor.getColumnIndexOrThrow("task_description");
+          final int _cursorIndexOfTaskStartDate = _cursor.getColumnIndexOrThrow("task_start_date");
+          final int _cursorIndexOfTaskEndDate = _cursor.getColumnIndexOrThrow("task_end_date");
+          final int _cursorIndexOfTaskCreatedDate = _cursor.getColumnIndexOrThrow("task_created_date");
+          final int _cursorIndexOfTaskCompleteDate = _cursor.getColumnIndexOrThrow("task_complete_date");
+          final int _cursorIndexOfNextScheduleDate = _cursor.getColumnIndexOrThrow("next_schedule_date");
+          final int _cursorIndexOfLastRunDate = _cursor.getColumnIndexOrThrow("last_run_date");
+          final int _cursorIndexOfProgressState = _cursor.getColumnIndexOrThrow("progress_state");
+          final int _cursorIndexOfTaskAssignTo = _cursor.getColumnIndexOrThrow("task_assign_to");
+          final int _cursorIndexOfTaskDueDate = _cursor.getColumnIndexOrThrow("task_due_date");
+          final int _cursorIndexOfAlertBeforeDueDateAndTime = _cursor.getColumnIndexOrThrow("alertBeforeDueDateAndTime");
+          final int _cursorIndexOfLabel = _cursor.getColumnIndexOrThrow("label");
+          final int _cursorIndexOfIsSelected = _cursor.getColumnIndexOrThrow("isSelected");
+          final int _cursorIndexOfMRepeatFrequency = _cursor.getColumnIndexOrThrow("mRepeatFrequency");
+          final int _cursorIndexOfMRepeatInterval = _cursor.getColumnIndexOrThrow("mRepeatInterval");
+          final int _cursorIndexOfMRepeatOnDays = _cursor.getColumnIndexOrThrow("mRepeatOnDays");
+          final int _cursorIndexOfMRepeatUntil = _cursor.getColumnIndexOrThrow("mRepeatUntil");
+          final int _cursorIndexOfMRepeatSummary = _cursor.getColumnIndexOrThrow("mRepeatSummary");
+          final int _cursorIndexOfNumberToShow = _cursor.getColumnIndexOrThrow("numberToShow");
+          final int _cursorIndexOfNumberShown = _cursor.getColumnIndexOrThrow("numberShown");
+          final int _cursorIndexOfColour = _cursor.getColumnIndexOrThrow("colour");
+          final int _cursorIndexOfIcon = _cursor.getColumnIndexOrThrow("icon");
+          final int _cursorIndexOfContent = _cursor.getColumnIndexOrThrow("content");
+          final int _cursorIndexOfTitle = _cursor.getColumnIndexOrThrow("title");
+          final List<Task> _result = new ArrayList<Task>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final Task _item;
+            _item = new Task();
+            _item.task_id = _cursor.getInt(_cursorIndexOfTaskId);
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsSync);
+            _item.isSync = _tmp != 0;
+            _item.control_master_id = _cursor.getLong(_cursorIndexOfControlMasterId);
+            _item.task_type = _cursor.getString(_cursorIndexOfTaskType);
+            _item.store_id = _cursor.getLong(_cursorIndexOfStoreId);
+            _item.task_category = _cursor.getString(_cursorIndexOfTaskCategory);
+            _item.task_sub_category = _cursor.getString(_cursorIndexOfTaskSubCategory);
+            _item.task_name = _cursor.getString(_cursorIndexOfTaskName);
+            _item.task_description = _cursor.getString(_cursorIndexOfTaskDescription);
+            _item.task_start_date = _cursor.getString(_cursorIndexOfTaskStartDate);
+            _item.task_end_date = _cursor.getString(_cursorIndexOfTaskEndDate);
+            _item.task_created_date = _cursor.getString(_cursorIndexOfTaskCreatedDate);
+            _item.task_complete_date = _cursor.getString(_cursorIndexOfTaskCompleteDate);
+            _item.next_schedule_date = _cursor.getString(_cursorIndexOfNextScheduleDate);
+            _item.last_run_date = _cursor.getString(_cursorIndexOfLastRunDate);
+            _item.progress_state = _cursor.getInt(_cursorIndexOfProgressState);
+            _item.task_assign_to = _cursor.getString(_cursorIndexOfTaskAssignTo);
+            _item.task_due_date = _cursor.getString(_cursorIndexOfTaskDueDate);
+            _item.alertBeforeDueDateAndTime = _cursor.getInt(_cursorIndexOfAlertBeforeDueDateAndTime);
+            _item.label = _cursor.getString(_cursorIndexOfLabel);
+            final int _tmp_1;
+            _tmp_1 = _cursor.getInt(_cursorIndexOfIsSelected);
+            _item.isSelected = _tmp_1 != 0;
+            _item.mRepeatFrequency = _cursor.getString(_cursorIndexOfMRepeatFrequency);
+            _item.mRepeatInterval = _cursor.getString(_cursorIndexOfMRepeatInterval);
+            _item.mRepeatOnDays = _cursor.getString(_cursorIndexOfMRepeatOnDays);
+            _item.mRepeatUntil = _cursor.getString(_cursorIndexOfMRepeatUntil);
+            _item.mRepeatSummary = _cursor.getString(_cursorIndexOfMRepeatSummary);
+            _item.numberToShow = _cursor.getInt(_cursorIndexOfNumberToShow);
+            _item.numberShown = _cursor.getInt(_cursorIndexOfNumberShown);
+            _item.colour = _cursor.getString(_cursorIndexOfColour);
+            _item.icon = _cursor.getString(_cursorIndexOfIcon);
+            _item.content = _cursor.getString(_cursorIndexOfContent);
+            _item.title = _cursor.getString(_cursorIndexOfTitle);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public LiveData<Task> getTaskById(long id) {
+    final String _sql = "SELECT * FROM 'task' WHERE task_id=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, id);
+    return new ComputableLiveData<Task>() {
+      private Observer _observer;
+
+      @Override
+      protected Task compute() {
+        if (_observer == null) {
+          _observer = new Observer("task") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfTaskId = _cursor.getColumnIndexOrThrow("task_id");
+          final int _cursorIndexOfIsSync = _cursor.getColumnIndexOrThrow("isSync");
+          final int _cursorIndexOfControlMasterId = _cursor.getColumnIndexOrThrow("control_master_id");
+          final int _cursorIndexOfTaskType = _cursor.getColumnIndexOrThrow("task_type");
+          final int _cursorIndexOfStoreId = _cursor.getColumnIndexOrThrow("store_id");
+          final int _cursorIndexOfTaskCategory = _cursor.getColumnIndexOrThrow("task_category");
+          final int _cursorIndexOfTaskSubCategory = _cursor.getColumnIndexOrThrow("task_sub_category");
+          final int _cursorIndexOfTaskName = _cursor.getColumnIndexOrThrow("task_name");
+          final int _cursorIndexOfTaskDescription = _cursor.getColumnIndexOrThrow("task_description");
+          final int _cursorIndexOfTaskStartDate = _cursor.getColumnIndexOrThrow("task_start_date");
+          final int _cursorIndexOfTaskEndDate = _cursor.getColumnIndexOrThrow("task_end_date");
+          final int _cursorIndexOfTaskCreatedDate = _cursor.getColumnIndexOrThrow("task_created_date");
+          final int _cursorIndexOfTaskCompleteDate = _cursor.getColumnIndexOrThrow("task_complete_date");
+          final int _cursorIndexOfNextScheduleDate = _cursor.getColumnIndexOrThrow("next_schedule_date");
+          final int _cursorIndexOfLastRunDate = _cursor.getColumnIndexOrThrow("last_run_date");
+          final int _cursorIndexOfProgressState = _cursor.getColumnIndexOrThrow("progress_state");
+          final int _cursorIndexOfTaskAssignTo = _cursor.getColumnIndexOrThrow("task_assign_to");
+          final int _cursorIndexOfTaskDueDate = _cursor.getColumnIndexOrThrow("task_due_date");
+          final int _cursorIndexOfAlertBeforeDueDateAndTime = _cursor.getColumnIndexOrThrow("alertBeforeDueDateAndTime");
+          final int _cursorIndexOfLabel = _cursor.getColumnIndexOrThrow("label");
+          final int _cursorIndexOfIsSelected = _cursor.getColumnIndexOrThrow("isSelected");
+          final int _cursorIndexOfMRepeatFrequency = _cursor.getColumnIndexOrThrow("mRepeatFrequency");
+          final int _cursorIndexOfMRepeatInterval = _cursor.getColumnIndexOrThrow("mRepeatInterval");
+          final int _cursorIndexOfMRepeatOnDays = _cursor.getColumnIndexOrThrow("mRepeatOnDays");
+          final int _cursorIndexOfMRepeatUntil = _cursor.getColumnIndexOrThrow("mRepeatUntil");
+          final int _cursorIndexOfMRepeatSummary = _cursor.getColumnIndexOrThrow("mRepeatSummary");
+          final int _cursorIndexOfNumberToShow = _cursor.getColumnIndexOrThrow("numberToShow");
+          final int _cursorIndexOfNumberShown = _cursor.getColumnIndexOrThrow("numberShown");
+          final int _cursorIndexOfColour = _cursor.getColumnIndexOrThrow("colour");
+          final int _cursorIndexOfIcon = _cursor.getColumnIndexOrThrow("icon");
+          final int _cursorIndexOfContent = _cursor.getColumnIndexOrThrow("content");
+          final int _cursorIndexOfTitle = _cursor.getColumnIndexOrThrow("title");
+          final Task _result;
+          if(_cursor.moveToFirst()) {
+            _result = new Task();
+            _result.task_id = _cursor.getInt(_cursorIndexOfTaskId);
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsSync);
+            _result.isSync = _tmp != 0;
+            _result.control_master_id = _cursor.getLong(_cursorIndexOfControlMasterId);
+            _result.task_type = _cursor.getString(_cursorIndexOfTaskType);
+            _result.store_id = _cursor.getLong(_cursorIndexOfStoreId);
+            _result.task_category = _cursor.getString(_cursorIndexOfTaskCategory);
+            _result.task_sub_category = _cursor.getString(_cursorIndexOfTaskSubCategory);
+            _result.task_name = _cursor.getString(_cursorIndexOfTaskName);
+            _result.task_description = _cursor.getString(_cursorIndexOfTaskDescription);
+            _result.task_start_date = _cursor.getString(_cursorIndexOfTaskStartDate);
+            _result.task_end_date = _cursor.getString(_cursorIndexOfTaskEndDate);
+            _result.task_created_date = _cursor.getString(_cursorIndexOfTaskCreatedDate);
+            _result.task_complete_date = _cursor.getString(_cursorIndexOfTaskCompleteDate);
+            _result.next_schedule_date = _cursor.getString(_cursorIndexOfNextScheduleDate);
+            _result.last_run_date = _cursor.getString(_cursorIndexOfLastRunDate);
+            _result.progress_state = _cursor.getInt(_cursorIndexOfProgressState);
+            _result.task_assign_to = _cursor.getString(_cursorIndexOfTaskAssignTo);
+            _result.task_due_date = _cursor.getString(_cursorIndexOfTaskDueDate);
+            _result.alertBeforeDueDateAndTime = _cursor.getInt(_cursorIndexOfAlertBeforeDueDateAndTime);
+            _result.label = _cursor.getString(_cursorIndexOfLabel);
+            final int _tmp_1;
+            _tmp_1 = _cursor.getInt(_cursorIndexOfIsSelected);
+            _result.isSelected = _tmp_1 != 0;
+            _result.mRepeatFrequency = _cursor.getString(_cursorIndexOfMRepeatFrequency);
+            _result.mRepeatInterval = _cursor.getString(_cursorIndexOfMRepeatInterval);
+            _result.mRepeatOnDays = _cursor.getString(_cursorIndexOfMRepeatOnDays);
+            _result.mRepeatUntil = _cursor.getString(_cursorIndexOfMRepeatUntil);
+            _result.mRepeatSummary = _cursor.getString(_cursorIndexOfMRepeatSummary);
+            _result.numberToShow = _cursor.getInt(_cursorIndexOfNumberToShow);
+            _result.numberShown = _cursor.getInt(_cursorIndexOfNumberShown);
+            _result.colour = _cursor.getString(_cursorIndexOfColour);
+            _result.icon = _cursor.getString(_cursorIndexOfIcon);
+            _result.content = _cursor.getString(_cursorIndexOfContent);
+            _result.title = _cursor.getString(_cursorIndexOfTitle);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+}

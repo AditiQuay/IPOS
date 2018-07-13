@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">8dp</dimen>
+    <dimen name="text_form_size">16sp</dimen>
+    <dimen name="calendar_view_day_selection_size">35dp</dimen>
+    <dimen name="calendar_view_week_day_font_size">14dp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    fragment_repeat
+</resources>

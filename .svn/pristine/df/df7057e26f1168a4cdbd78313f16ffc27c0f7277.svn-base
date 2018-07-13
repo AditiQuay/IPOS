@@ -1,0 +1,812 @@
+package quay.com.ipos.compliance.data.local.dao;
+
+import android.arch.lifecycle.ComputableLiveData;
+import android.arch.lifecycle.LiveData;
+import android.arch.persistence.db.SupportSQLiteStatement;
+import android.arch.persistence.room.EntityDeletionOrUpdateAdapter;
+import android.arch.persistence.room.EntityInsertionAdapter;
+import android.arch.persistence.room.InvalidationTracker.Observer;
+import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.RoomSQLiteQuery;
+import android.database.Cursor;
+import android.support.annotation.NonNull;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import quay.com.ipos.compliance.data.local.entity.SubTask;
+
+@SuppressWarnings("unchecked")
+public class SubTaskDao_AppDatabase_1_Impl implements SubTaskDao {
+  private final RoomDatabase __db;
+
+  private final EntityInsertionAdapter __insertionAdapterOfSubTask;
+
+  private final EntityDeletionOrUpdateAdapter __deletionAdapterOfSubTask;
+
+  public SubTaskDao_AppDatabase_1_Impl(RoomDatabase __db) {
+    this.__db = __db;
+    this.__insertionAdapterOfSubTask = new EntityInsertionAdapter<SubTask>(__db) {
+      @Override
+      public String createQuery() {
+        return "INSERT OR REPLACE INTO `sub_task`(`sub_task_id`,`id`,`isSync`,`task_scheduler_id`,`task_type`,`task_name`,`task_description`,`task_start_date`,`task_end_date`,`task_created_date`,`task_complete_date`,`task_assign_to`,`recurrence_count`,`next_schedule_date`,`last_run_date`,`interval_type_id`,`interval_type`,`interval_value`,`progress_state`,`remarks`,`completed_datetime`,`rem_next_schedule_datetime`,`rem_last_run_datetime`,`rem_interval_type_id`,`rem_interval_type`,`rem_interval_value`,`task_due_date`,`alertBeforeDueDateAndTime`,`label`,`mRepeatFrequency`,`mRepeatInterval`,`mRepeatOnDays`,`mRepeatUntil`,`mRepeatSummary`,`numberToShow`,`numberShown`,`colour`,`icon`,`content`,`title`) VALUES (nullif(?, 0),?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, SubTask value) {
+        stmt.bindLong(1, value.sub_task_id);
+        stmt.bindLong(2, value.id);
+        final int _tmp;
+        _tmp = value.isSync ? 1 : 0;
+        stmt.bindLong(3, _tmp);
+        stmt.bindLong(4, value.task_scheduler_id);
+        if (value.task_type == null) {
+          stmt.bindNull(5);
+        } else {
+          stmt.bindString(5, value.task_type);
+        }
+        if (value.task_name == null) {
+          stmt.bindNull(6);
+        } else {
+          stmt.bindString(6, value.task_name);
+        }
+        if (value.task_description == null) {
+          stmt.bindNull(7);
+        } else {
+          stmt.bindString(7, value.task_description);
+        }
+        if (value.task_start_date == null) {
+          stmt.bindNull(8);
+        } else {
+          stmt.bindString(8, value.task_start_date);
+        }
+        if (value.task_end_date == null) {
+          stmt.bindNull(9);
+        } else {
+          stmt.bindString(9, value.task_end_date);
+        }
+        if (value.task_created_date == null) {
+          stmt.bindNull(10);
+        } else {
+          stmt.bindString(10, value.task_created_date);
+        }
+        if (value.task_complete_date == null) {
+          stmt.bindNull(11);
+        } else {
+          stmt.bindString(11, value.task_complete_date);
+        }
+        if (value.task_assign_to == null) {
+          stmt.bindNull(12);
+        } else {
+          stmt.bindString(12, value.task_assign_to);
+        }
+        stmt.bindLong(13, value.recurrence_count);
+        if (value.next_schedule_date == null) {
+          stmt.bindNull(14);
+        } else {
+          stmt.bindString(14, value.next_schedule_date);
+        }
+        if (value.last_run_date == null) {
+          stmt.bindNull(15);
+        } else {
+          stmt.bindString(15, value.last_run_date);
+        }
+        stmt.bindLong(16, value.interval_type_id);
+        if (value.interval_type == null) {
+          stmt.bindNull(17);
+        } else {
+          stmt.bindString(17, value.interval_type);
+        }
+        stmt.bindLong(18, value.interval_value);
+        stmt.bindLong(19, value.progress_state);
+        if (value.remarks == null) {
+          stmt.bindNull(20);
+        } else {
+          stmt.bindString(20, value.remarks);
+        }
+        if (value.completed_datetime == null) {
+          stmt.bindNull(21);
+        } else {
+          stmt.bindString(21, value.completed_datetime);
+        }
+        if (value.rem_next_schedule_datetime == null) {
+          stmt.bindNull(22);
+        } else {
+          stmt.bindString(22, value.rem_next_schedule_datetime);
+        }
+        if (value.rem_last_run_datetime == null) {
+          stmt.bindNull(23);
+        } else {
+          stmt.bindString(23, value.rem_last_run_datetime);
+        }
+        stmt.bindLong(24, value.rem_interval_type_id);
+        if (value.rem_interval_type == null) {
+          stmt.bindNull(25);
+        } else {
+          stmt.bindString(25, value.rem_interval_type);
+        }
+        stmt.bindLong(26, value.rem_interval_value);
+        if (value.task_due_date == null) {
+          stmt.bindNull(27);
+        } else {
+          stmt.bindString(27, value.task_due_date);
+        }
+        stmt.bindLong(28, value.alertBeforeDueDateAndTime);
+        if (value.label == null) {
+          stmt.bindNull(29);
+        } else {
+          stmt.bindString(29, value.label);
+        }
+        if (value.mRepeatFrequency == null) {
+          stmt.bindNull(30);
+        } else {
+          stmt.bindString(30, value.mRepeatFrequency);
+        }
+        if (value.mRepeatInterval == null) {
+          stmt.bindNull(31);
+        } else {
+          stmt.bindString(31, value.mRepeatInterval);
+        }
+        if (value.mRepeatOnDays == null) {
+          stmt.bindNull(32);
+        } else {
+          stmt.bindString(32, value.mRepeatOnDays);
+        }
+        if (value.mRepeatUntil == null) {
+          stmt.bindNull(33);
+        } else {
+          stmt.bindString(33, value.mRepeatUntil);
+        }
+        if (value.mRepeatSummary == null) {
+          stmt.bindNull(34);
+        } else {
+          stmt.bindString(34, value.mRepeatSummary);
+        }
+        stmt.bindLong(35, value.numberToShow);
+        stmt.bindLong(36, value.numberShown);
+        if (value.colour == null) {
+          stmt.bindNull(37);
+        } else {
+          stmt.bindString(37, value.colour);
+        }
+        if (value.icon == null) {
+          stmt.bindNull(38);
+        } else {
+          stmt.bindString(38, value.icon);
+        }
+        if (value.content == null) {
+          stmt.bindNull(39);
+        } else {
+          stmt.bindString(39, value.content);
+        }
+        if (value.title == null) {
+          stmt.bindNull(40);
+        } else {
+          stmt.bindString(40, value.title);
+        }
+      }
+    };
+    this.__deletionAdapterOfSubTask = new EntityDeletionOrUpdateAdapter<SubTask>(__db) {
+      @Override
+      public String createQuery() {
+        return "DELETE FROM `sub_task` WHERE `sub_task_id` = ?";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, SubTask value) {
+        stmt.bindLong(1, value.sub_task_id);
+      }
+    };
+  }
+
+  @Override
+  public void saveAllSubTask(List<SubTask> taskList) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfSubTask.insert(taskList);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public long saveSubTask(SubTask task) {
+    __db.beginTransaction();
+    try {
+      long _result = __insertionAdapterOfSubTask.insertAndReturnId(task);
+      __db.setTransactionSuccessful();
+      return _result;
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void deleteSubTask(SubTask subTask) {
+    __db.beginTransaction();
+    try {
+      __deletionAdapterOfSubTask.handle(subTask);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public LiveData<List<SubTask>> fetchAllData() {
+    final String _sql = "SELECT * FROM 'sub_task'";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return new ComputableLiveData<List<SubTask>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<SubTask> compute() {
+        if (_observer == null) {
+          _observer = new Observer("sub_task") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfSubTaskId = _cursor.getColumnIndexOrThrow("sub_task_id");
+          final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+          final int _cursorIndexOfIsSync = _cursor.getColumnIndexOrThrow("isSync");
+          final int _cursorIndexOfTaskSchedulerId = _cursor.getColumnIndexOrThrow("task_scheduler_id");
+          final int _cursorIndexOfTaskType = _cursor.getColumnIndexOrThrow("task_type");
+          final int _cursorIndexOfTaskName = _cursor.getColumnIndexOrThrow("task_name");
+          final int _cursorIndexOfTaskDescription = _cursor.getColumnIndexOrThrow("task_description");
+          final int _cursorIndexOfTaskStartDate = _cursor.getColumnIndexOrThrow("task_start_date");
+          final int _cursorIndexOfTaskEndDate = _cursor.getColumnIndexOrThrow("task_end_date");
+          final int _cursorIndexOfTaskCreatedDate = _cursor.getColumnIndexOrThrow("task_created_date");
+          final int _cursorIndexOfTaskCompleteDate = _cursor.getColumnIndexOrThrow("task_complete_date");
+          final int _cursorIndexOfTaskAssignTo = _cursor.getColumnIndexOrThrow("task_assign_to");
+          final int _cursorIndexOfRecurrenceCount = _cursor.getColumnIndexOrThrow("recurrence_count");
+          final int _cursorIndexOfNextScheduleDate = _cursor.getColumnIndexOrThrow("next_schedule_date");
+          final int _cursorIndexOfLastRunDate = _cursor.getColumnIndexOrThrow("last_run_date");
+          final int _cursorIndexOfIntervalTypeId = _cursor.getColumnIndexOrThrow("interval_type_id");
+          final int _cursorIndexOfIntervalType = _cursor.getColumnIndexOrThrow("interval_type");
+          final int _cursorIndexOfIntervalValue = _cursor.getColumnIndexOrThrow("interval_value");
+          final int _cursorIndexOfProgressState = _cursor.getColumnIndexOrThrow("progress_state");
+          final int _cursorIndexOfRemarks = _cursor.getColumnIndexOrThrow("remarks");
+          final int _cursorIndexOfCompletedDatetime = _cursor.getColumnIndexOrThrow("completed_datetime");
+          final int _cursorIndexOfRemNextScheduleDatetime = _cursor.getColumnIndexOrThrow("rem_next_schedule_datetime");
+          final int _cursorIndexOfRemLastRunDatetime = _cursor.getColumnIndexOrThrow("rem_last_run_datetime");
+          final int _cursorIndexOfRemIntervalTypeId = _cursor.getColumnIndexOrThrow("rem_interval_type_id");
+          final int _cursorIndexOfRemIntervalType = _cursor.getColumnIndexOrThrow("rem_interval_type");
+          final int _cursorIndexOfRemIntervalValue = _cursor.getColumnIndexOrThrow("rem_interval_value");
+          final int _cursorIndexOfTaskDueDate = _cursor.getColumnIndexOrThrow("task_due_date");
+          final int _cursorIndexOfAlertBeforeDueDateAndTime = _cursor.getColumnIndexOrThrow("alertBeforeDueDateAndTime");
+          final int _cursorIndexOfLabel = _cursor.getColumnIndexOrThrow("label");
+          final int _cursorIndexOfMRepeatFrequency = _cursor.getColumnIndexOrThrow("mRepeatFrequency");
+          final int _cursorIndexOfMRepeatInterval = _cursor.getColumnIndexOrThrow("mRepeatInterval");
+          final int _cursorIndexOfMRepeatOnDays = _cursor.getColumnIndexOrThrow("mRepeatOnDays");
+          final int _cursorIndexOfMRepeatUntil = _cursor.getColumnIndexOrThrow("mRepeatUntil");
+          final int _cursorIndexOfMRepeatSummary = _cursor.getColumnIndexOrThrow("mRepeatSummary");
+          final int _cursorIndexOfNumberToShow = _cursor.getColumnIndexOrThrow("numberToShow");
+          final int _cursorIndexOfNumberShown = _cursor.getColumnIndexOrThrow("numberShown");
+          final int _cursorIndexOfColour = _cursor.getColumnIndexOrThrow("colour");
+          final int _cursorIndexOfIcon = _cursor.getColumnIndexOrThrow("icon");
+          final int _cursorIndexOfContent = _cursor.getColumnIndexOrThrow("content");
+          final int _cursorIndexOfTitle = _cursor.getColumnIndexOrThrow("title");
+          final List<SubTask> _result = new ArrayList<SubTask>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final SubTask _item;
+            _item = new SubTask();
+            _item.sub_task_id = _cursor.getInt(_cursorIndexOfSubTaskId);
+            _item.id = _cursor.getInt(_cursorIndexOfId);
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsSync);
+            _item.isSync = _tmp != 0;
+            _item.task_scheduler_id = _cursor.getInt(_cursorIndexOfTaskSchedulerId);
+            _item.task_type = _cursor.getString(_cursorIndexOfTaskType);
+            _item.task_name = _cursor.getString(_cursorIndexOfTaskName);
+            _item.task_description = _cursor.getString(_cursorIndexOfTaskDescription);
+            _item.task_start_date = _cursor.getString(_cursorIndexOfTaskStartDate);
+            _item.task_end_date = _cursor.getString(_cursorIndexOfTaskEndDate);
+            _item.task_created_date = _cursor.getString(_cursorIndexOfTaskCreatedDate);
+            _item.task_complete_date = _cursor.getString(_cursorIndexOfTaskCompleteDate);
+            _item.task_assign_to = _cursor.getString(_cursorIndexOfTaskAssignTo);
+            _item.recurrence_count = _cursor.getInt(_cursorIndexOfRecurrenceCount);
+            _item.next_schedule_date = _cursor.getString(_cursorIndexOfNextScheduleDate);
+            _item.last_run_date = _cursor.getString(_cursorIndexOfLastRunDate);
+            _item.interval_type_id = _cursor.getInt(_cursorIndexOfIntervalTypeId);
+            _item.interval_type = _cursor.getString(_cursorIndexOfIntervalType);
+            _item.interval_value = _cursor.getInt(_cursorIndexOfIntervalValue);
+            _item.progress_state = _cursor.getInt(_cursorIndexOfProgressState);
+            _item.remarks = _cursor.getString(_cursorIndexOfRemarks);
+            _item.completed_datetime = _cursor.getString(_cursorIndexOfCompletedDatetime);
+            _item.rem_next_schedule_datetime = _cursor.getString(_cursorIndexOfRemNextScheduleDatetime);
+            _item.rem_last_run_datetime = _cursor.getString(_cursorIndexOfRemLastRunDatetime);
+            _item.rem_interval_type_id = _cursor.getInt(_cursorIndexOfRemIntervalTypeId);
+            _item.rem_interval_type = _cursor.getString(_cursorIndexOfRemIntervalType);
+            _item.rem_interval_value = _cursor.getInt(_cursorIndexOfRemIntervalValue);
+            _item.task_due_date = _cursor.getString(_cursorIndexOfTaskDueDate);
+            _item.alertBeforeDueDateAndTime = _cursor.getInt(_cursorIndexOfAlertBeforeDueDateAndTime);
+            _item.label = _cursor.getString(_cursorIndexOfLabel);
+            _item.mRepeatFrequency = _cursor.getString(_cursorIndexOfMRepeatFrequency);
+            _item.mRepeatInterval = _cursor.getString(_cursorIndexOfMRepeatInterval);
+            _item.mRepeatOnDays = _cursor.getString(_cursorIndexOfMRepeatOnDays);
+            _item.mRepeatUntil = _cursor.getString(_cursorIndexOfMRepeatUntil);
+            _item.mRepeatSummary = _cursor.getString(_cursorIndexOfMRepeatSummary);
+            _item.numberToShow = _cursor.getInt(_cursorIndexOfNumberToShow);
+            _item.numberShown = _cursor.getInt(_cursorIndexOfNumberShown);
+            _item.colour = _cursor.getString(_cursorIndexOfColour);
+            _item.icon = _cursor.getString(_cursorIndexOfIcon);
+            _item.content = _cursor.getString(_cursorIndexOfContent);
+            _item.title = _cursor.getString(_cursorIndexOfTitle);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public LiveData<List<SubTask>> getAllSubTaskofTask(long taskId) {
+    final String _sql = "SELECT * FROM 'sub_task' WHERE task_scheduler_id=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, taskId);
+    return new ComputableLiveData<List<SubTask>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<SubTask> compute() {
+        if (_observer == null) {
+          _observer = new Observer("sub_task") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfSubTaskId = _cursor.getColumnIndexOrThrow("sub_task_id");
+          final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+          final int _cursorIndexOfIsSync = _cursor.getColumnIndexOrThrow("isSync");
+          final int _cursorIndexOfTaskSchedulerId = _cursor.getColumnIndexOrThrow("task_scheduler_id");
+          final int _cursorIndexOfTaskType = _cursor.getColumnIndexOrThrow("task_type");
+          final int _cursorIndexOfTaskName = _cursor.getColumnIndexOrThrow("task_name");
+          final int _cursorIndexOfTaskDescription = _cursor.getColumnIndexOrThrow("task_description");
+          final int _cursorIndexOfTaskStartDate = _cursor.getColumnIndexOrThrow("task_start_date");
+          final int _cursorIndexOfTaskEndDate = _cursor.getColumnIndexOrThrow("task_end_date");
+          final int _cursorIndexOfTaskCreatedDate = _cursor.getColumnIndexOrThrow("task_created_date");
+          final int _cursorIndexOfTaskCompleteDate = _cursor.getColumnIndexOrThrow("task_complete_date");
+          final int _cursorIndexOfTaskAssignTo = _cursor.getColumnIndexOrThrow("task_assign_to");
+          final int _cursorIndexOfRecurrenceCount = _cursor.getColumnIndexOrThrow("recurrence_count");
+          final int _cursorIndexOfNextScheduleDate = _cursor.getColumnIndexOrThrow("next_schedule_date");
+          final int _cursorIndexOfLastRunDate = _cursor.getColumnIndexOrThrow("last_run_date");
+          final int _cursorIndexOfIntervalTypeId = _cursor.getColumnIndexOrThrow("interval_type_id");
+          final int _cursorIndexOfIntervalType = _cursor.getColumnIndexOrThrow("interval_type");
+          final int _cursorIndexOfIntervalValue = _cursor.getColumnIndexOrThrow("interval_value");
+          final int _cursorIndexOfProgressState = _cursor.getColumnIndexOrThrow("progress_state");
+          final int _cursorIndexOfRemarks = _cursor.getColumnIndexOrThrow("remarks");
+          final int _cursorIndexOfCompletedDatetime = _cursor.getColumnIndexOrThrow("completed_datetime");
+          final int _cursorIndexOfRemNextScheduleDatetime = _cursor.getColumnIndexOrThrow("rem_next_schedule_datetime");
+          final int _cursorIndexOfRemLastRunDatetime = _cursor.getColumnIndexOrThrow("rem_last_run_datetime");
+          final int _cursorIndexOfRemIntervalTypeId = _cursor.getColumnIndexOrThrow("rem_interval_type_id");
+          final int _cursorIndexOfRemIntervalType = _cursor.getColumnIndexOrThrow("rem_interval_type");
+          final int _cursorIndexOfRemIntervalValue = _cursor.getColumnIndexOrThrow("rem_interval_value");
+          final int _cursorIndexOfTaskDueDate = _cursor.getColumnIndexOrThrow("task_due_date");
+          final int _cursorIndexOfAlertBeforeDueDateAndTime = _cursor.getColumnIndexOrThrow("alertBeforeDueDateAndTime");
+          final int _cursorIndexOfLabel = _cursor.getColumnIndexOrThrow("label");
+          final int _cursorIndexOfMRepeatFrequency = _cursor.getColumnIndexOrThrow("mRepeatFrequency");
+          final int _cursorIndexOfMRepeatInterval = _cursor.getColumnIndexOrThrow("mRepeatInterval");
+          final int _cursorIndexOfMRepeatOnDays = _cursor.getColumnIndexOrThrow("mRepeatOnDays");
+          final int _cursorIndexOfMRepeatUntil = _cursor.getColumnIndexOrThrow("mRepeatUntil");
+          final int _cursorIndexOfMRepeatSummary = _cursor.getColumnIndexOrThrow("mRepeatSummary");
+          final int _cursorIndexOfNumberToShow = _cursor.getColumnIndexOrThrow("numberToShow");
+          final int _cursorIndexOfNumberShown = _cursor.getColumnIndexOrThrow("numberShown");
+          final int _cursorIndexOfColour = _cursor.getColumnIndexOrThrow("colour");
+          final int _cursorIndexOfIcon = _cursor.getColumnIndexOrThrow("icon");
+          final int _cursorIndexOfContent = _cursor.getColumnIndexOrThrow("content");
+          final int _cursorIndexOfTitle = _cursor.getColumnIndexOrThrow("title");
+          final List<SubTask> _result = new ArrayList<SubTask>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final SubTask _item;
+            _item = new SubTask();
+            _item.sub_task_id = _cursor.getInt(_cursorIndexOfSubTaskId);
+            _item.id = _cursor.getInt(_cursorIndexOfId);
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsSync);
+            _item.isSync = _tmp != 0;
+            _item.task_scheduler_id = _cursor.getInt(_cursorIndexOfTaskSchedulerId);
+            _item.task_type = _cursor.getString(_cursorIndexOfTaskType);
+            _item.task_name = _cursor.getString(_cursorIndexOfTaskName);
+            _item.task_description = _cursor.getString(_cursorIndexOfTaskDescription);
+            _item.task_start_date = _cursor.getString(_cursorIndexOfTaskStartDate);
+            _item.task_end_date = _cursor.getString(_cursorIndexOfTaskEndDate);
+            _item.task_created_date = _cursor.getString(_cursorIndexOfTaskCreatedDate);
+            _item.task_complete_date = _cursor.getString(_cursorIndexOfTaskCompleteDate);
+            _item.task_assign_to = _cursor.getString(_cursorIndexOfTaskAssignTo);
+            _item.recurrence_count = _cursor.getInt(_cursorIndexOfRecurrenceCount);
+            _item.next_schedule_date = _cursor.getString(_cursorIndexOfNextScheduleDate);
+            _item.last_run_date = _cursor.getString(_cursorIndexOfLastRunDate);
+            _item.interval_type_id = _cursor.getInt(_cursorIndexOfIntervalTypeId);
+            _item.interval_type = _cursor.getString(_cursorIndexOfIntervalType);
+            _item.interval_value = _cursor.getInt(_cursorIndexOfIntervalValue);
+            _item.progress_state = _cursor.getInt(_cursorIndexOfProgressState);
+            _item.remarks = _cursor.getString(_cursorIndexOfRemarks);
+            _item.completed_datetime = _cursor.getString(_cursorIndexOfCompletedDatetime);
+            _item.rem_next_schedule_datetime = _cursor.getString(_cursorIndexOfRemNextScheduleDatetime);
+            _item.rem_last_run_datetime = _cursor.getString(_cursorIndexOfRemLastRunDatetime);
+            _item.rem_interval_type_id = _cursor.getInt(_cursorIndexOfRemIntervalTypeId);
+            _item.rem_interval_type = _cursor.getString(_cursorIndexOfRemIntervalType);
+            _item.rem_interval_value = _cursor.getInt(_cursorIndexOfRemIntervalValue);
+            _item.task_due_date = _cursor.getString(_cursorIndexOfTaskDueDate);
+            _item.alertBeforeDueDateAndTime = _cursor.getInt(_cursorIndexOfAlertBeforeDueDateAndTime);
+            _item.label = _cursor.getString(_cursorIndexOfLabel);
+            _item.mRepeatFrequency = _cursor.getString(_cursorIndexOfMRepeatFrequency);
+            _item.mRepeatInterval = _cursor.getString(_cursorIndexOfMRepeatInterval);
+            _item.mRepeatOnDays = _cursor.getString(_cursorIndexOfMRepeatOnDays);
+            _item.mRepeatUntil = _cursor.getString(_cursorIndexOfMRepeatUntil);
+            _item.mRepeatSummary = _cursor.getString(_cursorIndexOfMRepeatSummary);
+            _item.numberToShow = _cursor.getInt(_cursorIndexOfNumberToShow);
+            _item.numberShown = _cursor.getInt(_cursorIndexOfNumberShown);
+            _item.colour = _cursor.getString(_cursorIndexOfColour);
+            _item.icon = _cursor.getString(_cursorIndexOfIcon);
+            _item.content = _cursor.getString(_cursorIndexOfContent);
+            _item.title = _cursor.getString(_cursorIndexOfTitle);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public LiveData<SubTask> getSubTaskById(int id) {
+    final String _sql = "SELECT * FROM 'sub_task' WHERE sub_task_id=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, id);
+    return new ComputableLiveData<SubTask>() {
+      private Observer _observer;
+
+      @Override
+      protected SubTask compute() {
+        if (_observer == null) {
+          _observer = new Observer("sub_task") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfSubTaskId = _cursor.getColumnIndexOrThrow("sub_task_id");
+          final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+          final int _cursorIndexOfIsSync = _cursor.getColumnIndexOrThrow("isSync");
+          final int _cursorIndexOfTaskSchedulerId = _cursor.getColumnIndexOrThrow("task_scheduler_id");
+          final int _cursorIndexOfTaskType = _cursor.getColumnIndexOrThrow("task_type");
+          final int _cursorIndexOfTaskName = _cursor.getColumnIndexOrThrow("task_name");
+          final int _cursorIndexOfTaskDescription = _cursor.getColumnIndexOrThrow("task_description");
+          final int _cursorIndexOfTaskStartDate = _cursor.getColumnIndexOrThrow("task_start_date");
+          final int _cursorIndexOfTaskEndDate = _cursor.getColumnIndexOrThrow("task_end_date");
+          final int _cursorIndexOfTaskCreatedDate = _cursor.getColumnIndexOrThrow("task_created_date");
+          final int _cursorIndexOfTaskCompleteDate = _cursor.getColumnIndexOrThrow("task_complete_date");
+          final int _cursorIndexOfTaskAssignTo = _cursor.getColumnIndexOrThrow("task_assign_to");
+          final int _cursorIndexOfRecurrenceCount = _cursor.getColumnIndexOrThrow("recurrence_count");
+          final int _cursorIndexOfNextScheduleDate = _cursor.getColumnIndexOrThrow("next_schedule_date");
+          final int _cursorIndexOfLastRunDate = _cursor.getColumnIndexOrThrow("last_run_date");
+          final int _cursorIndexOfIntervalTypeId = _cursor.getColumnIndexOrThrow("interval_type_id");
+          final int _cursorIndexOfIntervalType = _cursor.getColumnIndexOrThrow("interval_type");
+          final int _cursorIndexOfIntervalValue = _cursor.getColumnIndexOrThrow("interval_value");
+          final int _cursorIndexOfProgressState = _cursor.getColumnIndexOrThrow("progress_state");
+          final int _cursorIndexOfRemarks = _cursor.getColumnIndexOrThrow("remarks");
+          final int _cursorIndexOfCompletedDatetime = _cursor.getColumnIndexOrThrow("completed_datetime");
+          final int _cursorIndexOfRemNextScheduleDatetime = _cursor.getColumnIndexOrThrow("rem_next_schedule_datetime");
+          final int _cursorIndexOfRemLastRunDatetime = _cursor.getColumnIndexOrThrow("rem_last_run_datetime");
+          final int _cursorIndexOfRemIntervalTypeId = _cursor.getColumnIndexOrThrow("rem_interval_type_id");
+          final int _cursorIndexOfRemIntervalType = _cursor.getColumnIndexOrThrow("rem_interval_type");
+          final int _cursorIndexOfRemIntervalValue = _cursor.getColumnIndexOrThrow("rem_interval_value");
+          final int _cursorIndexOfTaskDueDate = _cursor.getColumnIndexOrThrow("task_due_date");
+          final int _cursorIndexOfAlertBeforeDueDateAndTime = _cursor.getColumnIndexOrThrow("alertBeforeDueDateAndTime");
+          final int _cursorIndexOfLabel = _cursor.getColumnIndexOrThrow("label");
+          final int _cursorIndexOfMRepeatFrequency = _cursor.getColumnIndexOrThrow("mRepeatFrequency");
+          final int _cursorIndexOfMRepeatInterval = _cursor.getColumnIndexOrThrow("mRepeatInterval");
+          final int _cursorIndexOfMRepeatOnDays = _cursor.getColumnIndexOrThrow("mRepeatOnDays");
+          final int _cursorIndexOfMRepeatUntil = _cursor.getColumnIndexOrThrow("mRepeatUntil");
+          final int _cursorIndexOfMRepeatSummary = _cursor.getColumnIndexOrThrow("mRepeatSummary");
+          final int _cursorIndexOfNumberToShow = _cursor.getColumnIndexOrThrow("numberToShow");
+          final int _cursorIndexOfNumberShown = _cursor.getColumnIndexOrThrow("numberShown");
+          final int _cursorIndexOfColour = _cursor.getColumnIndexOrThrow("colour");
+          final int _cursorIndexOfIcon = _cursor.getColumnIndexOrThrow("icon");
+          final int _cursorIndexOfContent = _cursor.getColumnIndexOrThrow("content");
+          final int _cursorIndexOfTitle = _cursor.getColumnIndexOrThrow("title");
+          final SubTask _result;
+          if(_cursor.moveToFirst()) {
+            _result = new SubTask();
+            _result.sub_task_id = _cursor.getInt(_cursorIndexOfSubTaskId);
+            _result.id = _cursor.getInt(_cursorIndexOfId);
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsSync);
+            _result.isSync = _tmp != 0;
+            _result.task_scheduler_id = _cursor.getInt(_cursorIndexOfTaskSchedulerId);
+            _result.task_type = _cursor.getString(_cursorIndexOfTaskType);
+            _result.task_name = _cursor.getString(_cursorIndexOfTaskName);
+            _result.task_description = _cursor.getString(_cursorIndexOfTaskDescription);
+            _result.task_start_date = _cursor.getString(_cursorIndexOfTaskStartDate);
+            _result.task_end_date = _cursor.getString(_cursorIndexOfTaskEndDate);
+            _result.task_created_date = _cursor.getString(_cursorIndexOfTaskCreatedDate);
+            _result.task_complete_date = _cursor.getString(_cursorIndexOfTaskCompleteDate);
+            _result.task_assign_to = _cursor.getString(_cursorIndexOfTaskAssignTo);
+            _result.recurrence_count = _cursor.getInt(_cursorIndexOfRecurrenceCount);
+            _result.next_schedule_date = _cursor.getString(_cursorIndexOfNextScheduleDate);
+            _result.last_run_date = _cursor.getString(_cursorIndexOfLastRunDate);
+            _result.interval_type_id = _cursor.getInt(_cursorIndexOfIntervalTypeId);
+            _result.interval_type = _cursor.getString(_cursorIndexOfIntervalType);
+            _result.interval_value = _cursor.getInt(_cursorIndexOfIntervalValue);
+            _result.progress_state = _cursor.getInt(_cursorIndexOfProgressState);
+            _result.remarks = _cursor.getString(_cursorIndexOfRemarks);
+            _result.completed_datetime = _cursor.getString(_cursorIndexOfCompletedDatetime);
+            _result.rem_next_schedule_datetime = _cursor.getString(_cursorIndexOfRemNextScheduleDatetime);
+            _result.rem_last_run_datetime = _cursor.getString(_cursorIndexOfRemLastRunDatetime);
+            _result.rem_interval_type_id = _cursor.getInt(_cursorIndexOfRemIntervalTypeId);
+            _result.rem_interval_type = _cursor.getString(_cursorIndexOfRemIntervalType);
+            _result.rem_interval_value = _cursor.getInt(_cursorIndexOfRemIntervalValue);
+            _result.task_due_date = _cursor.getString(_cursorIndexOfTaskDueDate);
+            _result.alertBeforeDueDateAndTime = _cursor.getInt(_cursorIndexOfAlertBeforeDueDateAndTime);
+            _result.label = _cursor.getString(_cursorIndexOfLabel);
+            _result.mRepeatFrequency = _cursor.getString(_cursorIndexOfMRepeatFrequency);
+            _result.mRepeatInterval = _cursor.getString(_cursorIndexOfMRepeatInterval);
+            _result.mRepeatOnDays = _cursor.getString(_cursorIndexOfMRepeatOnDays);
+            _result.mRepeatUntil = _cursor.getString(_cursorIndexOfMRepeatUntil);
+            _result.mRepeatSummary = _cursor.getString(_cursorIndexOfMRepeatSummary);
+            _result.numberToShow = _cursor.getInt(_cursorIndexOfNumberToShow);
+            _result.numberShown = _cursor.getInt(_cursorIndexOfNumberShown);
+            _result.colour = _cursor.getString(_cursorIndexOfColour);
+            _result.icon = _cursor.getString(_cursorIndexOfIcon);
+            _result.content = _cursor.getString(_cursorIndexOfContent);
+            _result.title = _cursor.getString(_cursorIndexOfTitle);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public SubTask getSyncSubTaskById(int id) {
+    final String _sql = "SELECT * FROM 'sub_task' WHERE sub_task_id=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, id);
+    final Cursor _cursor = __db.query(_statement);
+    try {
+      final int _cursorIndexOfSubTaskId = _cursor.getColumnIndexOrThrow("sub_task_id");
+      final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+      final int _cursorIndexOfIsSync = _cursor.getColumnIndexOrThrow("isSync");
+      final int _cursorIndexOfTaskSchedulerId = _cursor.getColumnIndexOrThrow("task_scheduler_id");
+      final int _cursorIndexOfTaskType = _cursor.getColumnIndexOrThrow("task_type");
+      final int _cursorIndexOfTaskName = _cursor.getColumnIndexOrThrow("task_name");
+      final int _cursorIndexOfTaskDescription = _cursor.getColumnIndexOrThrow("task_description");
+      final int _cursorIndexOfTaskStartDate = _cursor.getColumnIndexOrThrow("task_start_date");
+      final int _cursorIndexOfTaskEndDate = _cursor.getColumnIndexOrThrow("task_end_date");
+      final int _cursorIndexOfTaskCreatedDate = _cursor.getColumnIndexOrThrow("task_created_date");
+      final int _cursorIndexOfTaskCompleteDate = _cursor.getColumnIndexOrThrow("task_complete_date");
+      final int _cursorIndexOfTaskAssignTo = _cursor.getColumnIndexOrThrow("task_assign_to");
+      final int _cursorIndexOfRecurrenceCount = _cursor.getColumnIndexOrThrow("recurrence_count");
+      final int _cursorIndexOfNextScheduleDate = _cursor.getColumnIndexOrThrow("next_schedule_date");
+      final int _cursorIndexOfLastRunDate = _cursor.getColumnIndexOrThrow("last_run_date");
+      final int _cursorIndexOfIntervalTypeId = _cursor.getColumnIndexOrThrow("interval_type_id");
+      final int _cursorIndexOfIntervalType = _cursor.getColumnIndexOrThrow("interval_type");
+      final int _cursorIndexOfIntervalValue = _cursor.getColumnIndexOrThrow("interval_value");
+      final int _cursorIndexOfProgressState = _cursor.getColumnIndexOrThrow("progress_state");
+      final int _cursorIndexOfRemarks = _cursor.getColumnIndexOrThrow("remarks");
+      final int _cursorIndexOfCompletedDatetime = _cursor.getColumnIndexOrThrow("completed_datetime");
+      final int _cursorIndexOfRemNextScheduleDatetime = _cursor.getColumnIndexOrThrow("rem_next_schedule_datetime");
+      final int _cursorIndexOfRemLastRunDatetime = _cursor.getColumnIndexOrThrow("rem_last_run_datetime");
+      final int _cursorIndexOfRemIntervalTypeId = _cursor.getColumnIndexOrThrow("rem_interval_type_id");
+      final int _cursorIndexOfRemIntervalType = _cursor.getColumnIndexOrThrow("rem_interval_type");
+      final int _cursorIndexOfRemIntervalValue = _cursor.getColumnIndexOrThrow("rem_interval_value");
+      final int _cursorIndexOfTaskDueDate = _cursor.getColumnIndexOrThrow("task_due_date");
+      final int _cursorIndexOfAlertBeforeDueDateAndTime = _cursor.getColumnIndexOrThrow("alertBeforeDueDateAndTime");
+      final int _cursorIndexOfLabel = _cursor.getColumnIndexOrThrow("label");
+      final int _cursorIndexOfMRepeatFrequency = _cursor.getColumnIndexOrThrow("mRepeatFrequency");
+      final int _cursorIndexOfMRepeatInterval = _cursor.getColumnIndexOrThrow("mRepeatInterval");
+      final int _cursorIndexOfMRepeatOnDays = _cursor.getColumnIndexOrThrow("mRepeatOnDays");
+      final int _cursorIndexOfMRepeatUntil = _cursor.getColumnIndexOrThrow("mRepeatUntil");
+      final int _cursorIndexOfMRepeatSummary = _cursor.getColumnIndexOrThrow("mRepeatSummary");
+      final int _cursorIndexOfNumberToShow = _cursor.getColumnIndexOrThrow("numberToShow");
+      final int _cursorIndexOfNumberShown = _cursor.getColumnIndexOrThrow("numberShown");
+      final int _cursorIndexOfColour = _cursor.getColumnIndexOrThrow("colour");
+      final int _cursorIndexOfIcon = _cursor.getColumnIndexOrThrow("icon");
+      final int _cursorIndexOfContent = _cursor.getColumnIndexOrThrow("content");
+      final int _cursorIndexOfTitle = _cursor.getColumnIndexOrThrow("title");
+      final SubTask _result;
+      if(_cursor.moveToFirst()) {
+        _result = new SubTask();
+        _result.sub_task_id = _cursor.getInt(_cursorIndexOfSubTaskId);
+        _result.id = _cursor.getInt(_cursorIndexOfId);
+        final int _tmp;
+        _tmp = _cursor.getInt(_cursorIndexOfIsSync);
+        _result.isSync = _tmp != 0;
+        _result.task_scheduler_id = _cursor.getInt(_cursorIndexOfTaskSchedulerId);
+        _result.task_type = _cursor.getString(_cursorIndexOfTaskType);
+        _result.task_name = _cursor.getString(_cursorIndexOfTaskName);
+        _result.task_description = _cursor.getString(_cursorIndexOfTaskDescription);
+        _result.task_start_date = _cursor.getString(_cursorIndexOfTaskStartDate);
+        _result.task_end_date = _cursor.getString(_cursorIndexOfTaskEndDate);
+        _result.task_created_date = _cursor.getString(_cursorIndexOfTaskCreatedDate);
+        _result.task_complete_date = _cursor.getString(_cursorIndexOfTaskCompleteDate);
+        _result.task_assign_to = _cursor.getString(_cursorIndexOfTaskAssignTo);
+        _result.recurrence_count = _cursor.getInt(_cursorIndexOfRecurrenceCount);
+        _result.next_schedule_date = _cursor.getString(_cursorIndexOfNextScheduleDate);
+        _result.last_run_date = _cursor.getString(_cursorIndexOfLastRunDate);
+        _result.interval_type_id = _cursor.getInt(_cursorIndexOfIntervalTypeId);
+        _result.interval_type = _cursor.getString(_cursorIndexOfIntervalType);
+        _result.interval_value = _cursor.getInt(_cursorIndexOfIntervalValue);
+        _result.progress_state = _cursor.getInt(_cursorIndexOfProgressState);
+        _result.remarks = _cursor.getString(_cursorIndexOfRemarks);
+        _result.completed_datetime = _cursor.getString(_cursorIndexOfCompletedDatetime);
+        _result.rem_next_schedule_datetime = _cursor.getString(_cursorIndexOfRemNextScheduleDatetime);
+        _result.rem_last_run_datetime = _cursor.getString(_cursorIndexOfRemLastRunDatetime);
+        _result.rem_interval_type_id = _cursor.getInt(_cursorIndexOfRemIntervalTypeId);
+        _result.rem_interval_type = _cursor.getString(_cursorIndexOfRemIntervalType);
+        _result.rem_interval_value = _cursor.getInt(_cursorIndexOfRemIntervalValue);
+        _result.task_due_date = _cursor.getString(_cursorIndexOfTaskDueDate);
+        _result.alertBeforeDueDateAndTime = _cursor.getInt(_cursorIndexOfAlertBeforeDueDateAndTime);
+        _result.label = _cursor.getString(_cursorIndexOfLabel);
+        _result.mRepeatFrequency = _cursor.getString(_cursorIndexOfMRepeatFrequency);
+        _result.mRepeatInterval = _cursor.getString(_cursorIndexOfMRepeatInterval);
+        _result.mRepeatOnDays = _cursor.getString(_cursorIndexOfMRepeatOnDays);
+        _result.mRepeatUntil = _cursor.getString(_cursorIndexOfMRepeatUntil);
+        _result.mRepeatSummary = _cursor.getString(_cursorIndexOfMRepeatSummary);
+        _result.numberToShow = _cursor.getInt(_cursorIndexOfNumberToShow);
+        _result.numberShown = _cursor.getInt(_cursorIndexOfNumberShown);
+        _result.colour = _cursor.getString(_cursorIndexOfColour);
+        _result.icon = _cursor.getString(_cursorIndexOfIcon);
+        _result.content = _cursor.getString(_cursorIndexOfContent);
+        _result.title = _cursor.getString(_cursorIndexOfTitle);
+      } else {
+        _result = null;
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+
+  @Override
+  public List<SubTask> getAllUnSyncSubTask(boolean forSync) {
+    final String _sql = "SELECT * FROM 'sub_task' WHERE isSync=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    final int _tmp;
+    _tmp = forSync ? 1 : 0;
+    _statement.bindLong(_argIndex, _tmp);
+    final Cursor _cursor = __db.query(_statement);
+    try {
+      final int _cursorIndexOfSubTaskId = _cursor.getColumnIndexOrThrow("sub_task_id");
+      final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+      final int _cursorIndexOfIsSync = _cursor.getColumnIndexOrThrow("isSync");
+      final int _cursorIndexOfTaskSchedulerId = _cursor.getColumnIndexOrThrow("task_scheduler_id");
+      final int _cursorIndexOfTaskType = _cursor.getColumnIndexOrThrow("task_type");
+      final int _cursorIndexOfTaskName = _cursor.getColumnIndexOrThrow("task_name");
+      final int _cursorIndexOfTaskDescription = _cursor.getColumnIndexOrThrow("task_description");
+      final int _cursorIndexOfTaskStartDate = _cursor.getColumnIndexOrThrow("task_start_date");
+      final int _cursorIndexOfTaskEndDate = _cursor.getColumnIndexOrThrow("task_end_date");
+      final int _cursorIndexOfTaskCreatedDate = _cursor.getColumnIndexOrThrow("task_created_date");
+      final int _cursorIndexOfTaskCompleteDate = _cursor.getColumnIndexOrThrow("task_complete_date");
+      final int _cursorIndexOfTaskAssignTo = _cursor.getColumnIndexOrThrow("task_assign_to");
+      final int _cursorIndexOfRecurrenceCount = _cursor.getColumnIndexOrThrow("recurrence_count");
+      final int _cursorIndexOfNextScheduleDate = _cursor.getColumnIndexOrThrow("next_schedule_date");
+      final int _cursorIndexOfLastRunDate = _cursor.getColumnIndexOrThrow("last_run_date");
+      final int _cursorIndexOfIntervalTypeId = _cursor.getColumnIndexOrThrow("interval_type_id");
+      final int _cursorIndexOfIntervalType = _cursor.getColumnIndexOrThrow("interval_type");
+      final int _cursorIndexOfIntervalValue = _cursor.getColumnIndexOrThrow("interval_value");
+      final int _cursorIndexOfProgressState = _cursor.getColumnIndexOrThrow("progress_state");
+      final int _cursorIndexOfRemarks = _cursor.getColumnIndexOrThrow("remarks");
+      final int _cursorIndexOfCompletedDatetime = _cursor.getColumnIndexOrThrow("completed_datetime");
+      final int _cursorIndexOfRemNextScheduleDatetime = _cursor.getColumnIndexOrThrow("rem_next_schedule_datetime");
+      final int _cursorIndexOfRemLastRunDatetime = _cursor.getColumnIndexOrThrow("rem_last_run_datetime");
+      final int _cursorIndexOfRemIntervalTypeId = _cursor.getColumnIndexOrThrow("rem_interval_type_id");
+      final int _cursorIndexOfRemIntervalType = _cursor.getColumnIndexOrThrow("rem_interval_type");
+      final int _cursorIndexOfRemIntervalValue = _cursor.getColumnIndexOrThrow("rem_interval_value");
+      final int _cursorIndexOfTaskDueDate = _cursor.getColumnIndexOrThrow("task_due_date");
+      final int _cursorIndexOfAlertBeforeDueDateAndTime = _cursor.getColumnIndexOrThrow("alertBeforeDueDateAndTime");
+      final int _cursorIndexOfLabel = _cursor.getColumnIndexOrThrow("label");
+      final int _cursorIndexOfMRepeatFrequency = _cursor.getColumnIndexOrThrow("mRepeatFrequency");
+      final int _cursorIndexOfMRepeatInterval = _cursor.getColumnIndexOrThrow("mRepeatInterval");
+      final int _cursorIndexOfMRepeatOnDays = _cursor.getColumnIndexOrThrow("mRepeatOnDays");
+      final int _cursorIndexOfMRepeatUntil = _cursor.getColumnIndexOrThrow("mRepeatUntil");
+      final int _cursorIndexOfMRepeatSummary = _cursor.getColumnIndexOrThrow("mRepeatSummary");
+      final int _cursorIndexOfNumberToShow = _cursor.getColumnIndexOrThrow("numberToShow");
+      final int _cursorIndexOfNumberShown = _cursor.getColumnIndexOrThrow("numberShown");
+      final int _cursorIndexOfColour = _cursor.getColumnIndexOrThrow("colour");
+      final int _cursorIndexOfIcon = _cursor.getColumnIndexOrThrow("icon");
+      final int _cursorIndexOfContent = _cursor.getColumnIndexOrThrow("content");
+      final int _cursorIndexOfTitle = _cursor.getColumnIndexOrThrow("title");
+      final List<SubTask> _result = new ArrayList<SubTask>(_cursor.getCount());
+      while(_cursor.moveToNext()) {
+        final SubTask _item;
+        _item = new SubTask();
+        _item.sub_task_id = _cursor.getInt(_cursorIndexOfSubTaskId);
+        _item.id = _cursor.getInt(_cursorIndexOfId);
+        final int _tmp_1;
+        _tmp_1 = _cursor.getInt(_cursorIndexOfIsSync);
+        _item.isSync = _tmp_1 != 0;
+        _item.task_scheduler_id = _cursor.getInt(_cursorIndexOfTaskSchedulerId);
+        _item.task_type = _cursor.getString(_cursorIndexOfTaskType);
+        _item.task_name = _cursor.getString(_cursorIndexOfTaskName);
+        _item.task_description = _cursor.getString(_cursorIndexOfTaskDescription);
+        _item.task_start_date = _cursor.getString(_cursorIndexOfTaskStartDate);
+        _item.task_end_date = _cursor.getString(_cursorIndexOfTaskEndDate);
+        _item.task_created_date = _cursor.getString(_cursorIndexOfTaskCreatedDate);
+        _item.task_complete_date = _cursor.getString(_cursorIndexOfTaskCompleteDate);
+        _item.task_assign_to = _cursor.getString(_cursorIndexOfTaskAssignTo);
+        _item.recurrence_count = _cursor.getInt(_cursorIndexOfRecurrenceCount);
+        _item.next_schedule_date = _cursor.getString(_cursorIndexOfNextScheduleDate);
+        _item.last_run_date = _cursor.getString(_cursorIndexOfLastRunDate);
+        _item.interval_type_id = _cursor.getInt(_cursorIndexOfIntervalTypeId);
+        _item.interval_type = _cursor.getString(_cursorIndexOfIntervalType);
+        _item.interval_value = _cursor.getInt(_cursorIndexOfIntervalValue);
+        _item.progress_state = _cursor.getInt(_cursorIndexOfProgressState);
+        _item.remarks = _cursor.getString(_cursorIndexOfRemarks);
+        _item.completed_datetime = _cursor.getString(_cursorIndexOfCompletedDatetime);
+        _item.rem_next_schedule_datetime = _cursor.getString(_cursorIndexOfRemNextScheduleDatetime);
+        _item.rem_last_run_datetime = _cursor.getString(_cursorIndexOfRemLastRunDatetime);
+        _item.rem_interval_type_id = _cursor.getInt(_cursorIndexOfRemIntervalTypeId);
+        _item.rem_interval_type = _cursor.getString(_cursorIndexOfRemIntervalType);
+        _item.rem_interval_value = _cursor.getInt(_cursorIndexOfRemIntervalValue);
+        _item.task_due_date = _cursor.getString(_cursorIndexOfTaskDueDate);
+        _item.alertBeforeDueDateAndTime = _cursor.getInt(_cursorIndexOfAlertBeforeDueDateAndTime);
+        _item.label = _cursor.getString(_cursorIndexOfLabel);
+        _item.mRepeatFrequency = _cursor.getString(_cursorIndexOfMRepeatFrequency);
+        _item.mRepeatInterval = _cursor.getString(_cursorIndexOfMRepeatInterval);
+        _item.mRepeatOnDays = _cursor.getString(_cursorIndexOfMRepeatOnDays);
+        _item.mRepeatUntil = _cursor.getString(_cursorIndexOfMRepeatUntil);
+        _item.mRepeatSummary = _cursor.getString(_cursorIndexOfMRepeatSummary);
+        _item.numberToShow = _cursor.getInt(_cursorIndexOfNumberToShow);
+        _item.numberShown = _cursor.getInt(_cursorIndexOfNumberShown);
+        _item.colour = _cursor.getString(_cursorIndexOfColour);
+        _item.icon = _cursor.getString(_cursorIndexOfIcon);
+        _item.content = _cursor.getString(_cursorIndexOfContent);
+        _item.title = _cursor.getString(_cursorIndexOfTitle);
+        _result.add(_item);
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+}

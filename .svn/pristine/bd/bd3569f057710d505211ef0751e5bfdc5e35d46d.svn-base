@@ -1,0 +1,3 @@
+# Referenced at C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\build\intermediates\manifests\full\debug\AndroidManifest.xml:38
+-keep class quay.com.ipos.application.IPOSApplication { <init>(...); }
+

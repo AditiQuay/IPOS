@@ -1,0 +1,94 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/cardViewProduct"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dim_8"
+    android:maxHeight="@dimen/dim_200"
+    app:cardCornerRadius="@dimen/dim_8"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true"
+    card_view:cardElevation="0dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dim_8">
+
+        <RelativeLayout
+            android:id="@+id/rLayoutMyStore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textViewStoreName"
+                style="@style/stylePrimaryTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dim_4"
+                android:layout_centerVertical="true"
+                android:text="My Store 1" />
+
+            <TextView
+                android:id="@+id/viewBorder"
+                android:textColor="@color/grey"
+                android:textSize="@dimen/universal_text_size16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/textViewStoreName"
+                android:layout_toRightOf="@+id/textViewStoreName"
+                android:text="|" />
+
+            <TextView
+                android:id="@+id/textViewStoreAddress"
+                style="@style/stylePrimaryTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/viewBorder"
+                android:layout_toRightOf="@+id/viewBorder"
+                android:text="Rohtak, Haryana" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rLayoutMyStore"
+            android:layout_marginTop="@dimen/dim_10">
+
+            <ImageView
+                android:id="@+id/imageViewCalender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/calendar_gray" />
+
+
+            <TextView
+                android:id="@+id/textViewBillingDate"
+                style="@style/stylePrimaryTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageViewCalender"
+                android:layout_toRightOf="@+id/imageViewCalender"
+                android:paddingLeft="@dimen/dim_8"
+                android:paddingRight="@dimen/dim_8" />
+
+            <TextView
+                android:id="@+id/textViewBillingAmount"
+                style="@style/stylePrimaryTextColor14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/textViewBillingDate"
+                android:layout_toRightOf="@+id/textViewBillingDate"
+                android:paddingLeft="@dimen/dim_10"
+                android:paddingRight="@dimen/dim_10" />
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

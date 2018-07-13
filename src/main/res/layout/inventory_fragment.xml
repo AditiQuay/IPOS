@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/tabanim_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:orientation="vertical"
+                android:layout_gravity="top"
+                android:gravity="center"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:background="@color/colorPrimaryDark">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:layout_height="match_parent">
+                        <ImageView
+                            android:id="@+id/imvPin"
+                            android:paddingLeft="@dimen/dim_10"
+                            android:paddingRight="@dimen/dim_5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_action_pin"/>
+                        <quay.com.ipos.ui.CustomTextView
+                            android:id="@+id/tvPinCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="15dp"
+                            android:gravity="top"
+                            android:layout_alignParentTop="true"
+                            android:background="@drawable/yellow_circle"
+                            android:text="2"
+                            android:textSize="@dimen/text_size_11sp"
+                            android:alpha="0.8"
+                            android:visibility="gone"
+                            android:layout_alignRight="@id/imvPin"
+                            android:paddingLeft="@dimen/dim_5"
+                            android:paddingRight="@dimen/dim_5"
+                            />
+                    </RelativeLayout>
+
+
+                    <quay.com.ipos.ui.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"
+                        android:gravity="right"
+                        android:layout_weight="1"
+                        android:text="@string/barcode"
+                        android:visibility="gone"
+                        android:textColor="@color/dark_text_color"
+                        android:paddingRight="@dimen/dim_5"
+                        android:textSize="@dimen/text_size_15sp"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:background="@color/colorPrimaryDark">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dim_16"
+                        android:background="@drawable/full_rectangle">
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@android:style/Widget.Holo.Light.Spinner"
+                            android:layout_weight="1"
+                            android:entries="@array/ordervalue"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/dim_12"
+                        android:background="@drawable/full_rectangle">
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spnAddress"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        style="@android:style/Widget.Holo.Light.Spinner"
+                        />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tabanim_appbar">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:background="@drawable/rect_four_white">
+
+
+               <TextView
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="0.5"
+                   android:text="Inventory"
+                   />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="In"
+                        android:gravity="end"
+                        android:minWidth="60dp"
+                        android:textSize="@dimen/dim_11"
+                        />
+
+                    <Switch
+                        android:id="@+id/swchInventory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:track="@drawable/switch_track_custom"
+                        android:thumb="@drawable/switch_color_draw"
+                        android:checked="true"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Out"
+                        android:minWidth="60dp"
+                        android:textSize="@dimen/dim_11"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <include layout="@layout/view_layout_without_dot"/>
+            <LinearLayout
+                android:id="@+id/llTransferType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:background="@color/white">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Transaction Type"
+
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Purchase"
+                        android:gravity="end"
+                        android:singleLine="true"
+                        android:minWidth="60dp"
+                        android:textSize="@dimen/dim_11"
+                        />
+
+                    <Switch
+                        android:id="@+id/swchType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:track="@drawable/switch_track_custom"
+                        android:thumb="@drawable/switch_color_draw"                        android:layout_marginLeft="8dp"
+
+                        android:checked="true"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/dim_11"
+                        android:minWidth="60dp"
+                        android:singleLine="true"
+                        android:text="Transfer"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <include layout="@layout/view_layout_without_dot"/>
+            <LinearLayout
+                android:id="@+id/llInventory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:visibility="gone"
+                android:background="@color/white">
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Is PO Available"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No"
+                        android:gravity="end"
+                        android:minWidth="@dimen/dim_60"
+                        android:textSize="@dimen/dim_11"
+                        />
+
+                    <Switch
+                        android:id="@+id/swchPOAvailable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:track="@drawable/switch_track_custom"
+                        android:thumb="@drawable/switch_color_draw"                        android:checked="false"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Yes"
+                        android:minWidth="@dimen/dim_60"
+                        android:textSize="@dimen/dim_11"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+            <include layout="@layout/view_layout_without_dot"/>
+            <LinearLayout
+                android:id="@+id/btnAddNew"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_round_app"
+                android:layout_gravity="end"
+                android:padding="6dp"
+                android:layout_marginTop="8dp"
+                android:visibility="gone"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:gravity="center"
+                android:layout_alignParentRight="true">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next"
+                    android:gravity="center"
+                    android:textColor="@color/white"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dim_24"
+                    android:layout_height="@dimen/dim_24"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_action_arrow_right"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llPOVisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:background="@color/white">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="PO Number"
+                        />
+
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edtPoNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text=""
+                            android:hint="Enter PO Number"
+                            android:textSize="@dimen/dim_14"
+                            android:background="@color/transparent"
+                            />
+
+                        <ImageView
+                            android:id="@+id/imgSearch"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="end"
+                            android:background="@drawable/ic_action_search_"
+                            />
+                    </RelativeLayout>
+                </LinearLayout>
+                <include layout="@layout/view_layout_without_dot"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:background="@color/white">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="PO Date"
+                        />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+                        <EditText
+                            android:id="@+id/edtDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+
+                            android:textSize="@dimen/dim_14"
+                            android:background="@color/transparent"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <include layout="@layout/view_layout_without_dot"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:background="@color/white">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:text="Supplier Name"
+                        />
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <EditText
+                            android:id="@+id/edtSupplier"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textSize="@dimen/dim_14"
+                            android:background="@color/transparent"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <include layout="@layout/view_layout_without_dot"/>
+            </LinearLayout>
+
+            <RelativeLayout
+            android:id="@+id/rlNewView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginTop="8dp">
+
+            <LinearLayout
+                android:id="@+id/btnNew"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_round_app"
+                android:gravity="center"
+                android:padding="8dp"
+                android:paddingLeft="8dp"
+                android:visibility="visible"
+                android:paddingRight="8dp"
+                android:layout_alignParentRight="true">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New"
+                    android:textColor="@color/white"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dim_24"
+                    android:layout_height="@dimen/dim_24"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_action_arrow_right"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnInNext"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_round_app"
+                android:gravity="center"
+                android:padding="8dp"
+                android:paddingLeft="8dp"
+                android:visibility="gone"
+                android:paddingRight="8dp"
+                android:layout_alignParentRight="true">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next"
+                    android:textColor="@color/white"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dim_24"
+                    android:layout_height="@dimen/dim_24"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_action_arrow_right"/>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/btnView"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_round_app"
+                android:gravity="center"
+                android:padding="8dp"
+
+                android:paddingLeft="8dp"
+                android:visibility="visible"
+                android:paddingRight="8dp"
+                android:layout_alignParentLeft="true">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="View"
+                    android:textColor="@color/white"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dim_24"
+                    android:layout_height="@dimen/dim_24"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_action_arrow_right"/>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_alignParentBottom="true"
+            android:padding="12dp">
+
+            <LinearLayout
+                android:id="@+id/btnNext"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_round_app"
+                android:gravity="center"
+                android:padding="8dp"
+                android:paddingLeft="8dp"
+                android:visibility="gone"
+                android:paddingRight="8dp"
+                android:layout_alignParentRight="true">
+
+                <quay.com.ipos.ui.CustomTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Next"
+                    android:textColor="@color/white"/>
+
+                <ImageView
+                    android:layout_width="@dimen/dim_24"
+                    android:layout_height="@dimen/dim_24"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/ic_action_arrow_right"/>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

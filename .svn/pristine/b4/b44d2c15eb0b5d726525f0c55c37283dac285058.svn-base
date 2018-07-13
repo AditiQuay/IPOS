@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "documentId": 1,
+      "documentName": "Primary Contact Photo",
+      "approvalStatus": "Approved",
+      "productUrl": "",
+      "message": ""
+    },
+    {
+      "documentId": 2,
+      "documentName": "Pan Card",
+      "approvalStatus": "Approved",
+      "productUrl": "",
+      "message": ""
+    },
+    {
+      "documentId": 3,
+      "documentName": "Appointment Form",
+      "approvalStatus": "Pending",
+      "productUrl": "",
+      "message": ""
+    },
+    {
+      "documentId": 4,
+      "documentName": "Annexure Documents",
+      "approvalStatus": "Declined",
+      "productUrl": "",
+      "message": ""
+    }
+  ]
+}

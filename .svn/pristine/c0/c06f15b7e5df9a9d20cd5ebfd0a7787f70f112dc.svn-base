@@ -1,0 +1,694 @@
+package io.realm;
+
+
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.util.JsonReader;
+import android.util.JsonToken;
+import io.realm.RealmObjectSchema;
+import io.realm.RealmSchema;
+import io.realm.exceptions.RealmMigrationNeededException;
+import io.realm.internal.ColumnInfo;
+import io.realm.internal.LinkView;
+import io.realm.internal.RealmObjectProxy;
+import io.realm.internal.Row;
+import io.realm.internal.SharedRealm;
+import io.realm.internal.Table;
+import io.realm.internal.android.JsonUtils;
+import io.realm.log.RealmLog;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class RealmOrderCentreSummaryRealmProxy extends quay.com.ipos.realmbean.RealmOrderCentreSummary
+    implements RealmObjectProxy, RealmOrderCentreSummaryRealmProxyInterface {
+
+    static final class RealmOrderCentreSummaryColumnInfo extends ColumnInfo
+        implements Cloneable {
+
+        public long titleIndex;
+        public long idIndex;
+        public long countIndex;
+        public long modelIndex;
+
+        RealmOrderCentreSummaryColumnInfo(String path, Table table) {
+            final Map<String, Long> indicesMap = new HashMap<String, Long>(4);
+            this.titleIndex = getValidColumnIndex(path, table, "RealmOrderCentreSummary", "title");
+            indicesMap.put("title", this.titleIndex);
+            this.idIndex = getValidColumnIndex(path, table, "RealmOrderCentreSummary", "id");
+            indicesMap.put("id", this.idIndex);
+            this.countIndex = getValidColumnIndex(path, table, "RealmOrderCentreSummary", "count");
+            indicesMap.put("count", this.countIndex);
+            this.modelIndex = getValidColumnIndex(path, table, "RealmOrderCentreSummary", "model");
+            indicesMap.put("model", this.modelIndex);
+
+            setIndicesMap(indicesMap);
+        }
+
+        @Override
+        public final void copyColumnInfoFrom(ColumnInfo other) {
+            final RealmOrderCentreSummaryColumnInfo otherInfo = (RealmOrderCentreSummaryColumnInfo) other;
+            this.titleIndex = otherInfo.titleIndex;
+            this.idIndex = otherInfo.idIndex;
+            this.countIndex = otherInfo.countIndex;
+            this.modelIndex = otherInfo.modelIndex;
+
+            setIndicesMap(otherInfo.getIndicesMap());
+        }
+
+        @Override
+        public final RealmOrderCentreSummaryColumnInfo clone() {
+            return (RealmOrderCentreSummaryColumnInfo) super.clone();
+        }
+
+    }
+    private RealmOrderCentreSummaryColumnInfo columnInfo;
+    private ProxyState<quay.com.ipos.realmbean.RealmOrderCentreSummary> proxyState;
+    private static final List<String> FIELD_NAMES;
+    static {
+        List<String> fieldNames = new ArrayList<String>();
+        fieldNames.add("title");
+        fieldNames.add("id");
+        fieldNames.add("count");
+        fieldNames.add("model");
+        FIELD_NAMES = Collections.unmodifiableList(fieldNames);
+    }
+
+    RealmOrderCentreSummaryRealmProxy() {
+        proxyState.setConstructionFinished();
+    }
+
+    @Override
+    public void realm$injectObjectContext() {
+        if (this.proxyState != null) {
+            return;
+        }
+        final BaseRealm.RealmObjectContext context = BaseRealm.objectContext.get();
+        this.columnInfo = (RealmOrderCentreSummaryColumnInfo) context.getColumnInfo();
+        this.proxyState = new ProxyState<quay.com.ipos.realmbean.RealmOrderCentreSummary>(this);
+        proxyState.setRealm$realm(context.getRealm());
+        proxyState.setRow$realm(context.getRow());
+        proxyState.setAcceptDefaultValue$realm(context.getAcceptDefaultValue());
+        proxyState.setExcludeFields$realm(context.getExcludeFields());
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$title() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.titleIndex);
+    }
+
+    @Override
+    public void realmSet$title(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.titleIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.titleIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.titleIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.titleIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$id() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.idIndex);
+    }
+
+    @Override
+    public void realmSet$id(int value) {
+        if (proxyState.isUnderConstruction()) {
+            // default value of the primary key is always ignored.
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        throw new io.realm.exceptions.RealmException("Primary key field 'id' cannot be changed after object was created.");
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$count() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.countIndex);
+    }
+
+    @Override
+    public void realmSet$count(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.countIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.countIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$model() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.modelIndex);
+    }
+
+    @Override
+    public void realmSet$model(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.modelIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.modelIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.modelIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.modelIndex, value);
+    }
+
+    public static RealmObjectSchema createRealmObjectSchema(RealmSchema realmSchema) {
+        if (!realmSchema.contains("RealmOrderCentreSummary")) {
+            RealmObjectSchema realmObjectSchema = realmSchema.create("RealmOrderCentreSummary");
+            realmObjectSchema.add("title", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("id", RealmFieldType.INTEGER, Property.PRIMARY_KEY, Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("count", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("model", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            return realmObjectSchema;
+        }
+        return realmSchema.get("RealmOrderCentreSummary");
+    }
+
+    public static RealmOrderCentreSummaryColumnInfo validateTable(SharedRealm sharedRealm, boolean allowExtraColumns) {
+        if (!sharedRealm.hasTable("class_RealmOrderCentreSummary")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "The 'RealmOrderCentreSummary' class is missing from the schema for this Realm.");
+        }
+        Table table = sharedRealm.getTable("class_RealmOrderCentreSummary");
+        final long columnCount = table.getColumnCount();
+        if (columnCount != 4) {
+            if (columnCount < 4) {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field count is less than expected - expected 4 but was " + columnCount);
+            }
+            if (allowExtraColumns) {
+                RealmLog.debug("Field count is more than expected - expected 4 but was %1$d", columnCount);
+            } else {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field count is more than expected - expected 4 but was " + columnCount);
+            }
+        }
+        Map<String, RealmFieldType> columnTypes = new HashMap<String, RealmFieldType>();
+        for (long i = 0; i < columnCount; i++) {
+            columnTypes.put(table.getColumnName(i), table.getColumnType(i));
+        }
+
+        final RealmOrderCentreSummaryColumnInfo columnInfo = new RealmOrderCentreSummaryColumnInfo(sharedRealm.getPath(), table);
+
+        if (!table.hasPrimaryKey()) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Primary key not defined for field 'id' in existing Realm file. @PrimaryKey was added.");
+        } else {
+            if (table.getPrimaryKey() != columnInfo.idIndex) {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Primary Key annotation definition was changed, from field " + table.getColumnName(table.getPrimaryKey()) + " to field id");
+            }
+        }
+
+        if (!columnTypes.containsKey("title")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'title' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("title") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'title' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.titleIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'title' is required. Either set @Required to field 'title' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("id")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'id' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("id") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'id' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.idIndex) && table.findFirstNull(columnInfo.idIndex) != Table.NO_MATCH) {
+            throw new IllegalStateException("Cannot migrate an object with null value in field 'id'. Either maintain the same type for primary key field 'id', or remove the object with null value before migration.");
+        }
+        if (!table.hasSearchIndex(table.getColumnIndex("id"))) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Index not defined for field 'id' in existing Realm file. Either set @Index or migrate using io.realm.internal.Table.removeSearchIndex().");
+        }
+        if (!columnTypes.containsKey("count")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'count' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("count") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'count' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.countIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'count' does support null values in the existing Realm file. Use corresponding boxed type for field 'count' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("model")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'model' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("model") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'model' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.modelIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'model' is required. Either set @Required to field 'model' or migrate using RealmObjectSchema.setNullable().");
+        }
+
+        return columnInfo;
+    }
+
+    public static String getTableName() {
+        return "class_RealmOrderCentreSummary";
+    }
+
+    public static List<String> getFieldNames() {
+        return FIELD_NAMES;
+    }
+
+    @SuppressWarnings("cast")
+    public static quay.com.ipos.realmbean.RealmOrderCentreSummary createOrUpdateUsingJsonObject(Realm realm, JSONObject json, boolean update)
+        throws JSONException {
+        final List<String> excludeFields = Collections.<String> emptyList();
+        quay.com.ipos.realmbean.RealmOrderCentreSummary obj = null;
+        if (update) {
+            Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentreSummary.class);
+            long pkColumnIndex = table.getPrimaryKey();
+            long rowIndex = Table.NO_MATCH;
+            if (!json.isNull("id")) {
+                rowIndex = table.findFirstLong(pkColumnIndex, json.getLong("id"));
+            }
+            if (rowIndex != Table.NO_MATCH) {
+                final BaseRealm.RealmObjectContext objectContext = BaseRealm.objectContext.get();
+                try {
+                    objectContext.set(realm, table.getUncheckedRow(rowIndex), realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentreSummary.class), false, Collections.<String> emptyList());
+                    obj = new io.realm.RealmOrderCentreSummaryRealmProxy();
+                } finally {
+                    objectContext.clear();
+                }
+            }
+        }
+        if (obj == null) {
+            if (json.has("id")) {
+                if (json.isNull("id")) {
+                    obj = (io.realm.RealmOrderCentreSummaryRealmProxy) realm.createObjectInternal(quay.com.ipos.realmbean.RealmOrderCentreSummary.class, null, true, excludeFields);
+                } else {
+                    obj = (io.realm.RealmOrderCentreSummaryRealmProxy) realm.createObjectInternal(quay.com.ipos.realmbean.RealmOrderCentreSummary.class, json.getInt("id"), true, excludeFields);
+                }
+            } else {
+                throw new IllegalArgumentException("JSON object doesn't have the primary key field 'id'.");
+            }
+        }
+        if (json.has("title")) {
+            if (json.isNull("title")) {
+                ((RealmOrderCentreSummaryRealmProxyInterface) obj).realmSet$title(null);
+            } else {
+                ((RealmOrderCentreSummaryRealmProxyInterface) obj).realmSet$title((String) json.getString("title"));
+            }
+        }
+        if (json.has("count")) {
+            if (json.isNull("count")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'count' to null.");
+            } else {
+                ((RealmOrderCentreSummaryRealmProxyInterface) obj).realmSet$count((int) json.getInt("count"));
+            }
+        }
+        if (json.has("model")) {
+            if (json.isNull("model")) {
+                ((RealmOrderCentreSummaryRealmProxyInterface) obj).realmSet$model(null);
+            } else {
+                ((RealmOrderCentreSummaryRealmProxyInterface) obj).realmSet$model((String) json.getString("model"));
+            }
+        }
+        return obj;
+    }
+
+    @SuppressWarnings("cast")
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static quay.com.ipos.realmbean.RealmOrderCentreSummary createUsingJsonStream(Realm realm, JsonReader reader)
+        throws IOException {
+        boolean jsonHasPrimaryKey = false;
+        quay.com.ipos.realmbean.RealmOrderCentreSummary obj = new quay.com.ipos.realmbean.RealmOrderCentreSummary();
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (false) {
+            } else if (name.equals("title")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreSummaryRealmProxyInterface) obj).realmSet$title(null);
+                } else {
+                    ((RealmOrderCentreSummaryRealmProxyInterface) obj).realmSet$title((String) reader.nextString());
+                }
+            } else if (name.equals("id")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'id' to null.");
+                } else {
+                    ((RealmOrderCentreSummaryRealmProxyInterface) obj).realmSet$id((int) reader.nextInt());
+                }
+                jsonHasPrimaryKey = true;
+            } else if (name.equals("count")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'count' to null.");
+                } else {
+                    ((RealmOrderCentreSummaryRealmProxyInterface) obj).realmSet$count((int) reader.nextInt());
+                }
+            } else if (name.equals("model")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreSummaryRealmProxyInterface) obj).realmSet$model(null);
+                } else {
+                    ((RealmOrderCentreSummaryRealmProxyInterface) obj).realmSet$model((String) reader.nextString());
+                }
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+        if (!jsonHasPrimaryKey) {
+            throw new IllegalArgumentException("JSON object doesn't have the primary key field 'id'.");
+        }
+        obj = realm.copyToRealm(obj);
+        return obj;
+    }
+
+    public static quay.com.ipos.realmbean.RealmOrderCentreSummary copyOrUpdate(Realm realm, quay.com.ipos.realmbean.RealmOrderCentreSummary object, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy) object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy) object).realmGet$proxyState().getRealm$realm().threadId != realm.threadId) {
+            throw new IllegalArgumentException("Objects which belong to Realm instances in other threads cannot be copied into this Realm instance.");
+        }
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return object;
+        }
+        final BaseRealm.RealmObjectContext objectContext = BaseRealm.objectContext.get();
+        RealmObjectProxy cachedRealmObject = cache.get(object);
+        if (cachedRealmObject != null) {
+            return (quay.com.ipos.realmbean.RealmOrderCentreSummary) cachedRealmObject;
+        } else {
+            quay.com.ipos.realmbean.RealmOrderCentreSummary realmObject = null;
+            boolean canUpdate = update;
+            if (canUpdate) {
+                Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentreSummary.class);
+                long pkColumnIndex = table.getPrimaryKey();
+                long rowIndex = table.findFirstLong(pkColumnIndex, ((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id());
+                if (rowIndex != Table.NO_MATCH) {
+                    try {
+                        objectContext.set(realm, table.getUncheckedRow(rowIndex), realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentreSummary.class), false, Collections.<String> emptyList());
+                        realmObject = new io.realm.RealmOrderCentreSummaryRealmProxy();
+                        cache.put(object, (RealmObjectProxy) realmObject);
+                    } finally {
+                        objectContext.clear();
+                    }
+                } else {
+                    canUpdate = false;
+                }
+            }
+
+            if (canUpdate) {
+                return update(realm, realmObject, object, cache);
+            } else {
+                return copy(realm, object, update, cache);
+            }
+        }
+    }
+
+    public static quay.com.ipos.realmbean.RealmOrderCentreSummary copy(Realm realm, quay.com.ipos.realmbean.RealmOrderCentreSummary newObject, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
+        RealmObjectProxy cachedRealmObject = cache.get(newObject);
+        if (cachedRealmObject != null) {
+            return (quay.com.ipos.realmbean.RealmOrderCentreSummary) cachedRealmObject;
+        } else {
+            // rejecting default values to avoid creating unexpected objects from RealmModel/RealmList fields.
+            quay.com.ipos.realmbean.RealmOrderCentreSummary realmObject = realm.createObjectInternal(quay.com.ipos.realmbean.RealmOrderCentreSummary.class, ((RealmOrderCentreSummaryRealmProxyInterface) newObject).realmGet$id(), false, Collections.<String>emptyList());
+            cache.put(newObject, (RealmObjectProxy) realmObject);
+            ((RealmOrderCentreSummaryRealmProxyInterface) realmObject).realmSet$title(((RealmOrderCentreSummaryRealmProxyInterface) newObject).realmGet$title());
+            ((RealmOrderCentreSummaryRealmProxyInterface) realmObject).realmSet$count(((RealmOrderCentreSummaryRealmProxyInterface) newObject).realmGet$count());
+            ((RealmOrderCentreSummaryRealmProxyInterface) realmObject).realmSet$model(((RealmOrderCentreSummaryRealmProxyInterface) newObject).realmGet$model());
+            return realmObject;
+        }
+    }
+
+    public static long insert(Realm realm, quay.com.ipos.realmbean.RealmOrderCentreSummary object, Map<RealmModel,Long> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex();
+        }
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentreSummary.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmOrderCentreSummaryColumnInfo columnInfo = (RealmOrderCentreSummaryColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentreSummary.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        long rowIndex = Table.NO_MATCH;
+        Object primaryKeyValue = ((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id();
+        if (primaryKeyValue != null) {
+            rowIndex = Table.nativeFindFirstInt(tableNativePtr, pkColumnIndex, ((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id());
+        }
+        if (rowIndex == Table.NO_MATCH) {
+            rowIndex = table.addEmptyRowWithPrimaryKey(((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id(), false);
+        } else {
+            Table.throwDuplicatePrimaryKeyException(primaryKeyValue);
+        }
+        cache.put(object, rowIndex);
+        String realmGet$title = ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$title();
+        if (realmGet$title != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.titleIndex, rowIndex, realmGet$title, false);
+        }
+        Table.nativeSetLong(tableNativePtr, columnInfo.countIndex, rowIndex, ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$count(), false);
+        String realmGet$model = ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$model();
+        if (realmGet$model != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.modelIndex, rowIndex, realmGet$model, false);
+        }
+        return rowIndex;
+    }
+
+    public static void insert(Realm realm, Iterator<? extends RealmModel> objects, Map<RealmModel,Long> cache) {
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentreSummary.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmOrderCentreSummaryColumnInfo columnInfo = (RealmOrderCentreSummaryColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentreSummary.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        quay.com.ipos.realmbean.RealmOrderCentreSummary object = null;
+        while (objects.hasNext()) {
+            object = (quay.com.ipos.realmbean.RealmOrderCentreSummary) objects.next();
+            if(!cache.containsKey(object)) {
+                if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+                    cache.put(object, ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex());
+                    continue;
+                }
+                long rowIndex = Table.NO_MATCH;
+                Object primaryKeyValue = ((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id();
+                if (primaryKeyValue != null) {
+                    rowIndex = Table.nativeFindFirstInt(tableNativePtr, pkColumnIndex, ((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id());
+                }
+                if (rowIndex == Table.NO_MATCH) {
+                    rowIndex = table.addEmptyRowWithPrimaryKey(((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id(), false);
+                } else {
+                    Table.throwDuplicatePrimaryKeyException(primaryKeyValue);
+                }
+                cache.put(object, rowIndex);
+                String realmGet$title = ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$title();
+                if (realmGet$title != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.titleIndex, rowIndex, realmGet$title, false);
+                }
+                Table.nativeSetLong(tableNativePtr, columnInfo.countIndex, rowIndex, ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$count(), false);
+                String realmGet$model = ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$model();
+                if (realmGet$model != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.modelIndex, rowIndex, realmGet$model, false);
+                }
+            }
+        }
+    }
+
+    public static long insertOrUpdate(Realm realm, quay.com.ipos.realmbean.RealmOrderCentreSummary object, Map<RealmModel,Long> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex();
+        }
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentreSummary.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmOrderCentreSummaryColumnInfo columnInfo = (RealmOrderCentreSummaryColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentreSummary.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        long rowIndex = Table.NO_MATCH;
+        Object primaryKeyValue = ((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id();
+        if (primaryKeyValue != null) {
+            rowIndex = Table.nativeFindFirstInt(tableNativePtr, pkColumnIndex, ((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id());
+        }
+        if (rowIndex == Table.NO_MATCH) {
+            rowIndex = table.addEmptyRowWithPrimaryKey(((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id(), false);
+        }
+        cache.put(object, rowIndex);
+        String realmGet$title = ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$title();
+        if (realmGet$title != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.titleIndex, rowIndex, realmGet$title, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.titleIndex, rowIndex, false);
+        }
+        Table.nativeSetLong(tableNativePtr, columnInfo.countIndex, rowIndex, ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$count(), false);
+        String realmGet$model = ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$model();
+        if (realmGet$model != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.modelIndex, rowIndex, realmGet$model, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.modelIndex, rowIndex, false);
+        }
+        return rowIndex;
+    }
+
+    public static void insertOrUpdate(Realm realm, Iterator<? extends RealmModel> objects, Map<RealmModel,Long> cache) {
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentreSummary.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmOrderCentreSummaryColumnInfo columnInfo = (RealmOrderCentreSummaryColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentreSummary.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        quay.com.ipos.realmbean.RealmOrderCentreSummary object = null;
+        while (objects.hasNext()) {
+            object = (quay.com.ipos.realmbean.RealmOrderCentreSummary) objects.next();
+            if(!cache.containsKey(object)) {
+                if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+                    cache.put(object, ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex());
+                    continue;
+                }
+                long rowIndex = Table.NO_MATCH;
+                Object primaryKeyValue = ((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id();
+                if (primaryKeyValue != null) {
+                    rowIndex = Table.nativeFindFirstInt(tableNativePtr, pkColumnIndex, ((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id());
+                }
+                if (rowIndex == Table.NO_MATCH) {
+                    rowIndex = table.addEmptyRowWithPrimaryKey(((RealmOrderCentreSummaryRealmProxyInterface) object).realmGet$id(), false);
+                }
+                cache.put(object, rowIndex);
+                String realmGet$title = ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$title();
+                if (realmGet$title != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.titleIndex, rowIndex, realmGet$title, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.titleIndex, rowIndex, false);
+                }
+                Table.nativeSetLong(tableNativePtr, columnInfo.countIndex, rowIndex, ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$count(), false);
+                String realmGet$model = ((RealmOrderCentreSummaryRealmProxyInterface)object).realmGet$model();
+                if (realmGet$model != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.modelIndex, rowIndex, realmGet$model, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.modelIndex, rowIndex, false);
+                }
+            }
+        }
+    }
+
+    public static quay.com.ipos.realmbean.RealmOrderCentreSummary createDetachedCopy(quay.com.ipos.realmbean.RealmOrderCentreSummary realmObject, int currentDepth, int maxDepth, Map<RealmModel, CacheData<RealmModel>> cache) {
+        if (currentDepth > maxDepth || realmObject == null) {
+            return null;
+        }
+        CacheData<RealmModel> cachedObject = cache.get(realmObject);
+        quay.com.ipos.realmbean.RealmOrderCentreSummary unmanagedObject;
+        if (cachedObject != null) {
+            // Reuse cached object or recreate it because it was encountered at a lower depth.
+            if (currentDepth >= cachedObject.minDepth) {
+                return (quay.com.ipos.realmbean.RealmOrderCentreSummary)cachedObject.object;
+            } else {
+                unmanagedObject = (quay.com.ipos.realmbean.RealmOrderCentreSummary)cachedObject.object;
+                cachedObject.minDepth = currentDepth;
+            }
+        } else {
+            unmanagedObject = new quay.com.ipos.realmbean.RealmOrderCentreSummary();
+            cache.put(realmObject, new RealmObjectProxy.CacheData<RealmModel>(currentDepth, unmanagedObject));
+        }
+        ((RealmOrderCentreSummaryRealmProxyInterface) unmanagedObject).realmSet$title(((RealmOrderCentreSummaryRealmProxyInterface) realmObject).realmGet$title());
+        ((RealmOrderCentreSummaryRealmProxyInterface) unmanagedObject).realmSet$id(((RealmOrderCentreSummaryRealmProxyInterface) realmObject).realmGet$id());
+        ((RealmOrderCentreSummaryRealmProxyInterface) unmanagedObject).realmSet$count(((RealmOrderCentreSummaryRealmProxyInterface) realmObject).realmGet$count());
+        ((RealmOrderCentreSummaryRealmProxyInterface) unmanagedObject).realmSet$model(((RealmOrderCentreSummaryRealmProxyInterface) realmObject).realmGet$model());
+        return unmanagedObject;
+    }
+
+    static quay.com.ipos.realmbean.RealmOrderCentreSummary update(Realm realm, quay.com.ipos.realmbean.RealmOrderCentreSummary realmObject, quay.com.ipos.realmbean.RealmOrderCentreSummary newObject, Map<RealmModel, RealmObjectProxy> cache) {
+        ((RealmOrderCentreSummaryRealmProxyInterface) realmObject).realmSet$title(((RealmOrderCentreSummaryRealmProxyInterface) newObject).realmGet$title());
+        ((RealmOrderCentreSummaryRealmProxyInterface) realmObject).realmSet$count(((RealmOrderCentreSummaryRealmProxyInterface) newObject).realmGet$count());
+        ((RealmOrderCentreSummaryRealmProxyInterface) realmObject).realmSet$model(((RealmOrderCentreSummaryRealmProxyInterface) newObject).realmGet$model());
+        return realmObject;
+    }
+
+    @Override
+    @SuppressWarnings("ArrayToString")
+    public String toString() {
+        if (!RealmObject.isValid(this)) {
+            return "Invalid object";
+        }
+        StringBuilder stringBuilder = new StringBuilder("RealmOrderCentreSummary = [");
+        stringBuilder.append("{title:");
+        stringBuilder.append(realmGet$title() != null ? realmGet$title() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{id:");
+        stringBuilder.append(realmGet$id());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{count:");
+        stringBuilder.append(realmGet$count());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{model:");
+        stringBuilder.append(realmGet$model() != null ? realmGet$model() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public ProxyState<?> realmGet$proxyState() {
+        return proxyState;
+    }
+
+    @Override
+    public int hashCode() {
+        String realmName = proxyState.getRealm$realm().getPath();
+        String tableName = proxyState.getRow$realm().getTable().getName();
+        long rowIndex = proxyState.getRow$realm().getIndex();
+
+        int result = 17;
+        result = 31 * result + ((realmName != null) ? realmName.hashCode() : 0);
+        result = 31 * result + ((tableName != null) ? tableName.hashCode() : 0);
+        result = 31 * result + (int) (rowIndex ^ (rowIndex >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RealmOrderCentreSummaryRealmProxy aRealmOrderCentreSummary = (RealmOrderCentreSummaryRealmProxy)o;
+
+        String path = proxyState.getRealm$realm().getPath();
+        String otherPath = aRealmOrderCentreSummary.proxyState.getRealm$realm().getPath();
+        if (path != null ? !path.equals(otherPath) : otherPath != null) return false;
+
+        String tableName = proxyState.getRow$realm().getTable().getName();
+        String otherTableName = aRealmOrderCentreSummary.proxyState.getRow$realm().getTable().getName();
+        if (tableName != null ? !tableName.equals(otherTableName) : otherTableName != null) return false;
+
+        if (proxyState.getRow$realm().getIndex() != aRealmOrderCentreSummary.proxyState.getRow$realm().getIndex()) return false;
+
+        return true;
+    }
+
+}

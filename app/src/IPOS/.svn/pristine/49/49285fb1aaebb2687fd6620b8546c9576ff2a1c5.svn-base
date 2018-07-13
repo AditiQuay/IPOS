@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="80dp"
+    android:clipToPadding="false"
+    tools:background="@color/app_background_color"
+    tools:context=".ddrsales.DDROrderCenterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+
+            android:layout_marginTop="16dp"
+            android:background="@drawable/customer_half_rect">
+
+            <RelativeLayout
+                android:id="@+id/boxContainerTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/ipos_block_txt1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/btnViewAll"
+                    android:layout_centerVertical="true"
+                    android:drawableLeft="@drawable/order_summary"
+                    android:drawablePadding="4dp"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="25dp"
+                    android:text="Order Summary"
+                    android:textColor="@color/app_blue"
+                    android:textSize="15sp" />
+
+
+                <Button
+                    android:id="@+id/btnViewAll"
+                    style="@style/styleWhiteTextColor14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="4dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:drawableLeft="@drawable/view_all"
+                    android:drawablePadding="@dimen/dim_4"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:stateListAnimator="@null"
+                    android:text="View All"
+                    android:textAllCaps="false" />
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/rLayoutValidPhotoDocument"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/boxContainerTitle"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="@dimen/dim_4"
+                android:background="@color/colorPrimary_100"
+                android:minHeight="55dp"
+                >
+
+                <LinearLayout
+                    android:id="@+id/lLayoutNew"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_menu_bg_left"
+
+                    android:orientation="vertical"
+                    android:paddingTop="7dp">
+
+                    <TextView
+                        android:id="@+id/textNewCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:gravity="center"
+
+                        android:text="0"
+                        android:textColor="@color/tab_menu_text"
+                        android:textSize="@dimen/dim_12" />
+
+                    <TextView
+                        android:id="@+id/textViewNew"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:gravity="center"
+                        android:text="@string/ddrb2bNew"
+                        android:textColor="@color/tab_menu_text"
+                        android:textSize="@dimen/dim_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lLayoutAccepted"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_menu_bg"
+                    android:orientation="vertical"
+                    android:paddingTop="7dp">
+
+                    <TextView
+                        android:id="@+id/textAcceptedCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:text="0"
+                        android:textColor="@color/tab_menu_text"
+                        android:textSize="@dimen/dim_12" />
+
+                    <TextView
+                        android:id="@+id/textViewInProcess"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:text="@string/ddrb2bAccepted"
+                        android:textColor="@color/tab_menu_text"
+                        android:textSize="@dimen/dim_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lLayoutDispatched"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_menu_bg"
+                    android:orientation="vertical"
+
+                    android:paddingTop="7dp">
+
+                    <TextView
+                        android:id="@+id/textDispatchedCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:text="0"
+                        android:textColor="@color/tab_menu_text"
+                        android:textSize="@dimen/dim_12" />
+
+                    <TextView
+                        android:id="@+id/textViewVerified"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:maxLines="1"
+                        android:text="@string/ddrb2bDispatched"
+                        android:textColor="@color/tab_menu_text"
+                        android:textSize="@dimen/dim_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lLayoutDelivered"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_menu_bg"
+                    android:orientation="vertical"
+                    android:paddingTop="7dp">
+
+                    <TextView
+                        android:id="@+id/textDeliveredCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:text="0"
+                        android:textColor="@color/tab_menu_text"
+                        android:textSize="@dimen/dim_12" />
+
+                    <TextView
+                        android:id="@+id/textViewAllPartners"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:text="@string/ddrb2bDelivered"
+                        android:textColor="@color/tab_menu_text"
+                        android:textSize="@dimen/dim_12" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lLayoutCancelled"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_menu_bg_right"
+                    android:orientation="vertical"
+                    android:paddingTop="7dp">
+
+                    <TextView
+                        android:id="@+id/textCancelledCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:text="0"
+                        android:textColor="@color/tab_menu_text"
+                        android:textSize="@dimen/dim_12" />
+
+                    <TextView
+                        android:id="@+id/textViewCancelled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/titilliumwebregular"
+                        android:text="@string/ddrb2bCancelled"
+                        android:textColor="@color/tab_menu_text"
+                        android:textSize="@dimen/dim_12" />
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/blockNew"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ddr_rect_white"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textNew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:drawableLeft="@drawable/add_shopping_cart_blue"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/titilliumwebregular"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp"
+                android:text="New Order"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/b2b_text_body" />
+
+
+            <quay.com.ipos.utility.RecyclerViewEmptySupport
+                android:id="@+id/recyclerViewNew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                tools:itemCount="3" />
+
+            <TextView
+                android:id="@+id/listEmptyNew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:text="@string/listEmptyNewOrder"
+                android:visibility="gone"
+                tools:visibility="visible"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blockAccepted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ddr_rect_white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/ddr_rect_white"
+                    android:drawableLeft="@drawable/add_shopping_cart_blue"
+                    android:drawablePadding="16dp"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+
+                    android:paddingTop="8dp"
+                    android:text="@string/stringAccepted"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/b2b_text_body" />
+
+
+            </RelativeLayout>
+
+
+            <quay.com.ipos.utility.RecyclerViewEmptySupport
+                android:id="@+id/recyclerViewAccepted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                 />
+
+            <TextView
+                android:id="@+id/listEmptyAccepted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:text="@string/listEmptyAccepted"
+                android:visibility="gone"
+                tools:visibility="visible"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blockDispatched"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ddr_rect_white"
+            android:orientation="vertical"
+
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:drawableLeft="@drawable/add_shopping_cart_blue"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/titilliumwebregular"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+
+                android:paddingTop="8dp"
+                android:text="@string/Dispatched"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/b2b_text_body" />
+
+
+            <quay.com.ipos.utility.RecyclerViewEmptySupport
+                android:id="@+id/recyclerViewDispatched"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"
+                 />
+
+            <TextView
+                android:id="@+id/listEmptyDispatched"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:text="@string/listEmptyDispatched"
+                android:visibility="gone"
+                tools:visibility="visible"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blockDelivered"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ddr_rect_white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+
+                android:drawableLeft="@drawable/add_shopping_cart_blue"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/titilliumwebregular"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+
+                android:paddingTop="8dp"
+                android:text="@string/string_delivered"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/b2b_text_body" />
+
+
+            <quay.com.ipos.utility.RecyclerViewEmptySupport
+                android:id="@+id/recyclerViewDelivered"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="true"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:id="@+id/listEmptyDelivered"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:text="@string/listEmptyDeliverd"
+                android:visibility="gone"
+                tools:visibility="visible"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/blockCancelled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ddr_rect_white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+
+                android:drawableLeft="@drawable/add_shopping_cart_blue"
+                android:drawablePadding="16dp"
+                android:fontFamily="@font/titilliumwebregular"
+                android:gravity="center_vertical"
+                android:paddingBottom="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+
+                android:paddingTop="8dp"
+                android:text="@string/string_cancelled"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/b2b_text_body" />
+
+
+            <quay.com.ipos.utility.RecyclerViewEmptySupport
+                android:id="@+id/recyclerViewCancelled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="true"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:id="@+id/listEmptyCancelled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:text="@string/listEmptyCancelled"
+                android:visibility="gone"
+                tools:visibility="visible"
+
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

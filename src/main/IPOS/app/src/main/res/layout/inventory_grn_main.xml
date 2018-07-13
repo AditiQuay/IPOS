@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/cardViewProduct"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dim_8"
+    android:layout_marginLeft="@dimen/dim_8"
+    android:layout_marginRight="@dimen/dim_8"
+    app:cardCornerRadius="@dimen/dim_8"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="true"
+    card_view:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/dim_8">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/textViewHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/BtnViewAll"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dim_16"
+                    android:layout_marginTop="@dimen/dim_4"
+                    android:layout_toRightOf="@+id/iconiv"
+                    android:alpha="0.7"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="KYC Updates"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/universal_text_size16" />
+
+                <TextView
+                    android:id="@+id/tvOpen"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:text="open"
+                    android:padding="8dp"
+                    android:gravity="center"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="16dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/rect_one_side_round_grey"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/dim_14" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dim_0.5"
+            android:layout_marginTop="@dimen/dim_16"
+            android:background="@color/grey"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/dim_8"
+            android:paddingBottom="@dimen/dim_8">
+
+            <LinearLayout
+                android:id="@+id/lLayoutNew"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dim_4"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingRight="@dimen/dim_4">
+
+                <TextView
+                    android:id="@+id/textViewPoCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:alpha="0.7"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewPo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:alpha="0.7"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:gravity="center"
+                    android:text="PO"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size16"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/textViewPoQty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:gravity="center"
+                    android:text="Qty"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lLayoutGrn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingRight="@dimen/dim_4"
+                android:paddingLeft="@dimen/dim_4">
+
+                <TextView
+                    android:id="@+id/textViewGrnCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:alpha="0.7"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="1"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewGrn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:alpha="0.7"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="GRN"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewGrnQty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:gravity="center"
+                    android:text="Qty"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lLayoutAp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dim_4"
+                android:paddingRight="@dimen/dim_4">
+
+                <TextView
+                    android:id="@+id/textViewApCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:alpha="0.7"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="1"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewAp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:alpha="0.7"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="AP Qty"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewApQty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:gravity="center"
+                    android:text="(Action Pend)"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size14" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lLayoutBalance"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingRight="@dimen/dim_4"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingLeft="@dimen/dim_4">
+
+                <TextView
+                    android:id="@+id/textViewAllBalanceCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:alpha="0.7"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="1"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size14"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:alpha="0.7"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:text="Balance"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size16"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textViewBalanceQty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:gravity="center"
+                    android:text="Qty"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size14" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

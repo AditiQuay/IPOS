@@ -1,0 +1,23 @@
+package io.realm;
+
+
+public interface RealmCustomerInfoModalRealmProxyInterface {
+    public int realmGet$customerID();
+    public void realmSet$customerID(int value);
+    public String realmGet$customer_name();
+    public void realmSet$customer_name(String value);
+    public String realmGet$customer_points();
+    public void realmSet$customer_points(String value);
+    public String realmGet$customer_phone();
+    public void realmSet$customer_phone(String value);
+    public String realmGet$customer_email();
+    public void realmSet$customer_email(String value);
+    public String realmGet$customer_bday();
+    public void realmSet$customer_bday(String value);
+    public String realmGet$customer_address();
+    public void realmSet$customer_address(String value);
+    public String realmGet$last_billing();
+    public void realmSet$last_billing(String value);
+    public String realmGet$recent_orders();
+    public void realmSet$recent_orders(String value);
+}

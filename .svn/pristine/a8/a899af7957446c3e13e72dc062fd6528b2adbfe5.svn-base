@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background_color">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/AppTheme"
+        app:theme="@style/ToolbarColoredBackArrow"
+        app:titleTextAppearance="@style/Toolbar.TitleText"/>
+
+    <RelativeLayout
+        android:id="@+id/rLayoutProductTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/colorPrimaryDark"
+        android:paddingBottom="@dimen/dim_10"
+        android:paddingLeft="@dimen/dim_10"
+        android:paddingRight="@dimen/dim_10"
+        android:paddingTop="@dimen/dim_10">
+
+        <TextView
+            android:id="@+id/textViewProductName"
+            style="@style/styleWhiteTextColor16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="Product Name"
+            tools:ignore="RtlSymmetry" />
+
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_below="@+id/rLayoutProductTitle"
+        android:layout_marginBottom="8dp"
+        android:background="@color/grey" />
+
+    <LinearLayout
+        android:id="@+id/SliderDots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/expandableListViewProduct"
+        android:layout_alignStart="@+id/expandableListViewProduct"
+        android:layout_below="@+id/viewPager"
+        android:layout_marginBottom="@dimen/dim_16"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="@dimen/dim_8"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal" />
+
+    <ExpandableListView
+        android:id="@+id/expandableListViewProduct"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/SliderDots"
+        android:layout_marginLeft="@dimen/dim_8"
+        android:layout_marginRight="@dimen/dim_8"
+        android:background="@null"
+        android:divider="@color/app_background_color"
+        android:dividerHeight="@dimen/dim_8"
+        android:groupIndicator="@null"
+        android:scrollbars="none" />
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/rLayoutBottom"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:background="@color/colorPrimary"-->
+    <!--android:padding="@dimen/dim_8">-->
+
+    <!--<Button-->
+    <!--android:id="@+id/buttonDataSheet"-->
+    <!--style="@style/styleWhiteTextColor14"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:backgroundTint="@android:color/transparent"-->
+    <!--android:drawableLeft="@drawable/datesheet"-->
+    <!--android:drawablePadding="@dimen/dim_8"-->
+    <!--android:text="DataSheet"-->
+    <!--android:textAllCaps="false" />-->
+
+
+    <!--<Button-->
+    <!--android:id="@+id/buttonCalculator"-->
+    <!--style="@style/styleWhiteTextColor14"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:backgroundTint="@android:color/transparent"-->
+    <!--android:drawablePadding="@dimen/dim_8"-->
+    <!--android:drawableRight="@drawable/calculator"-->
+    <!--android:text="Calculator"-->
+    <!--android:textAllCaps="false" />-->
+
+
+    <!--</RelativeLayout>-->
+
+</RelativeLayout>
