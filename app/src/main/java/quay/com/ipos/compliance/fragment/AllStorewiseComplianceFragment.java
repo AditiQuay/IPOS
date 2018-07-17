@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,6 +30,7 @@ import quay.com.ipos.compliance.data.local.entity.BusinessPlaceEntity;
 import quay.com.ipos.compliance.data.local.entity.Task;
 import quay.com.ipos.compliance.viewModel.StoreViewModel;
 import quay.com.ipos.data.local.AppDatabase;
+import quay.com.ipos.databinding.CFragmentComplianceAllstoreAbsBinding;
 import quay.com.ipos.utility.UiUtils;
 
 public class AllStorewiseComplianceFragment extends Fragment {
@@ -91,11 +93,11 @@ public class AllStorewiseComplianceFragment extends Fragment {
     }
 
 
-    public static AllStorewiseComplianceFragment newInstance(String param1, int param2) {
+    public static AllStorewiseComplianceFragment newInstance(String param1, int position) {
         AllStorewiseComplianceFragment fragment = new AllStorewiseComplianceFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putInt(ARG_PARAM2, param2);
+        args.putInt(ARG_PARAM2, position);
         fragment.setArguments(args);
 
         return fragment;
@@ -114,7 +116,11 @@ public class AllStorewiseComplianceFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.c_fragment_compliance_allstore_abs, container, false);
-        storeViewModel = StoreViewModel.getInstance(this);
+        CFragmentComplianceAllstoreAbsBinding binding = DataBindingUtil.bind(view);
+        storeViewModel = new StoreViewModel();
+        binding.setStoreViewModel(storeViewModel);
+
+
         return view;
 
     }

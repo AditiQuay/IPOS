@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_action"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:minHeight="@dimen/abc_action_bar_default_height_material">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fa_left_arrow"
+            android:padding="@dimen/dim_5"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15sp"/>
+
+        <quay.com.ipos.ui.CustomTextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:textColor="@color/accent_color"
+            android:textSize="@dimen/text_size_15sp"
+            app:typeface="Roboto-Regular.ttf" />
+    </LinearLayout>
+</android.support.v7.widget.Toolbar>

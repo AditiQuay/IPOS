@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/llSearch"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/white"
+        android:focusable="true"
+        android:orientation="horizontal">
+        <LinearLayout android:focusable="true"
+            android:focusableInTouchMode="true" android:layout_width="0px"
+            android:layout_height="0px" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/dim_10"
+            android:src="@drawable/ic_action_search_"/>
+        <quay.com.ipos.ui.CustomEditText
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="@dimen/dim_10"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:background="@null"
+            android:hint="@string/search"
+            android:inputType="number"
+            android:visibility="visible" />
+        <ImageView
+            android:id="@+id/imvClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:gravity="center"
+            android:src="@drawable/ic_action_close_gray"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvOutBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <quay.com.ipos.ui.CustomTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/tvNoItemAvailable"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/no_item_available"/>
+</LinearLayout>

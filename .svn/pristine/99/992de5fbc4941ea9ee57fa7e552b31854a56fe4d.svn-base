@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundgrey"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim_45"
+        android:background="@color/colorPrimary">
+
+
+        <LinearLayout
+            android:id="@+id/llFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dim_16"
+            android:gravity="center">
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spStoreName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:entries="@array/stores"
+                android:background="@null"
+                style="@style/mySpinnerItemStyle"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark"
+                android:spinnerMode="dialog"/>
+            <ImageView
+                android:id="@+id/imgFilter"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/ic_action_filter_white"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+             />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_marginRight="@dimen/dim_8"
+            android:layout_marginEnd="@dimen/dim_8"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:id="@+id/dots"
+            >
+            <TextView
+                android:id="@+id/tvFocus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dim_8"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:text="@string/focus"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2dp"
+                android:background="@drawable/circle_shape">
+
+
+
+            <TextView
+                android:id="@+id/tvFirstPage"
+                android:layout_width="@dimen/dim_16"
+                android:layout_height="@dimen/dim_16"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:elevation="4dp"
+                android:textSize="@dimen/dim_10"
+                android:background="@drawable/textview_circle_white"
+                android:text="F"/>
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:visibility="gone"
+                android:layout_gravity="center_vertical"
+                android:background="@color/backgroundgrey"/>
+            <TextView
+                android:id="@+id/tvSecondPage"
+                android:layout_width="@dimen/dim_16"
+                android:layout_height="@dimen/dim_16"
+                android:layout_marginLeft="@dimen/dim_20"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:elevation="4dp"
+                android:textSize="@dimen/dim_10"
+                android:background="@drawable/textview_circle_app_color"
+                android:text="D"/>
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                android:visibility="gone"
+                android:layout_gravity="center_vertical"
+                android:background="@color/backgroundgrey"/>
+            <TextView
+                android:id="@+id/tvThirdPage"
+                android:layout_width="@dimen/dim_16"
+                android:layout_height="@dimen/dim_16"
+                android:layout_marginLeft="20dp"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:elevation="4dp"
+                android:textSize="@dimen/dim_10"
+                android:background="@drawable/textview_circle_app_color"
+                android:text="A"/>
+            </LinearLayout>
+        </LinearLayout>
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabDots"
+            android:layout_width="100dp"
+            android:layout_height="20dp"
+            android:layout_gravity="end"
+
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"/>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    </android.support.v4.view.ViewPager>
+
+
+
+</LinearLayout>

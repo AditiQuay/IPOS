@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/cardViewProduct"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/dim_8"
+    android:orientation="vertical">
+
+
+
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/lLayoutBottom"
+        android:layout_below="@+id/rLayoutKeyTitle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/lLayoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dim_8"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnContactCancel"
+                style="@style/styleWhiteTextColor14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_40"
+                android:background="@drawable/button_rectangle_grey"
+                android:stateListAnimator="@null"
+                android:text="Cancel"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dim_8"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnContactSubmit"
+                style="@style/styleWhiteTextColor14"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_40"
+                android:background="@drawable/button_drawable_blue"
+                android:backgroundTint="@color/colorPrimary"
+                android:stateListAnimator="@null"
+                android:text="Submit"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
+

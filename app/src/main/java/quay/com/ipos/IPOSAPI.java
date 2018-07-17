@@ -88,6 +88,7 @@ public class IPOSAPI {
     public static final String DDR_GetDDRList = "/api/DDR/GetDDRList";
     public static final String DDR_GetDDRProductList = "/api/DDR/GetDDRProductList";
     public static final String DDR_SUBMIT = "/api/DDR/SubmitDDRDetail";
+    public static final String DDR_GETDDRBATCHUPDATEDETAIL = "/api/DDR/GetDDRBatchUpdateDetail";
 
 
     //compliance
@@ -95,6 +96,7 @@ public class IPOSAPI {
 
     //TransferIn
     public static final String GET_TRANSFER_OUT_GRN_SUMMARY = WEB_SERVICE_BASE_URL+"Inventory/GetTransferOutGRNSummary";
-    public static final String GET_TRANSFER_OUT_GRN_SUMMARY_DETAIL = WEB_SERVICE_BASE_URL+"GetTransferOutGRNSummaryDetail";
+    public static final String GET_TRANSFER_OUT_GRN_SUMMARY_DETAIL = WEB_SERVICE_BASE_URL+"Inventory/GetTransferOutGRNSummaryDetail";
+    public static final String GET_TRANSFER_OUT_GRN_SUBMIT_DETAIL = WEB_SERVICE_BASE_URL+"Inventory/SubmitTransferOutGRNSummaryDetail";
 
 }

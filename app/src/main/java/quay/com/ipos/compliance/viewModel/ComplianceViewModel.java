@@ -3,6 +3,7 @@ package quay.com.ipos.compliance.viewModel;
 import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
+import android.databinding.BaseObservable;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -23,6 +24,7 @@ import quay.com.ipos.compliance.constants.KeyConstants;
 import quay.com.ipos.compliance.data.local.entity.Employee;
 import quay.com.ipos.compliance.data.local.entity.Task;
 import quay.com.ipos.data.local.AppDatabase;
+import quay.com.ipos.utility.Constants;
 import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.SharedPrefUtil;
 
@@ -30,7 +32,7 @@ import quay.com.ipos.utility.SharedPrefUtil;
  * Created by deepak.kumar1 on 30-03-2018.
  */
 
-public class ComplianceViewModel  {
+public class ComplianceViewModel  extends BaseObservable {
 
     private Context context;
     public String strDueDate;
@@ -58,7 +60,7 @@ public class ComplianceViewModel  {
 
     public ComplianceViewModel(Context context) {
         this.context = context;
-        this.empId = SharedPrefUtil.getUserId(KeyConstants.KEY_USERID, "", context);
+        this.empId = SharedPrefUtil.getUserId(Constants.employeeCode, "", context);
         strTaskAssignTo = this.empId;//by default
         strTaskAssignToName = "Self";
 
@@ -118,7 +120,7 @@ public class ComplianceViewModel  {
                 public void onChanged(@Nullable Employee employee) {
                     if (employee != null) {
                         strTaskAssignToName = employee.empName;
-                       // notifyChange();
+                      notifyChange();
                     }
                 }
             });
@@ -166,7 +168,7 @@ public class ComplianceViewModel  {
                 this.strProgressState = context.getString(R.string.task_cancel);
 
             }
-           // notifyChange();
+          notifyChange();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -183,18 +185,18 @@ public class ComplianceViewModel  {
             string = "Pending";
         }
         this.strProgressState = string;
-      //  notifyChange();
+        notifyChange();
     }
 
 
     public void setStrDueDate(String date) {
         this.strDueDate = date;
-       // notifyChange();
+      notifyChange();
     }
 
     public void setStrDueTime(String strDueTime) {
         this.strDueTime = strDueTime;
-       // notifyChange();
+      notifyChange();
     }
 
     private String getStrTaskAssignTo() {
@@ -213,7 +215,7 @@ public class ComplianceViewModel  {
     public void setAssignUser(Employee userProfileModel) {
         this.userProfileModel = userProfileModel;
         strTaskAssignTo = getStrTaskAssignTo();
-        //notifyChange();
+         notifyChange();
     }
 
     public void updateTask(final long task_id) {
@@ -222,11 +224,7 @@ public class ComplianceViewModel  {
             return;
         }
         if (task != null) {
-            if (strProgressState.contentEquals(context.getString(R.string.task_pending))) {
-                task.progress_state = AnnotationTaskState.PENDING;
-            } else {
-                task.progress_state = AnnotationTaskState.DONE;
-            }
+
             task.task_description = strDesc;
             task.task_assign_to = strTaskAssignTo;
             task.setDateAndTime(DateAndTimeUtil.toStringDateAndTime(calendar));
@@ -293,7 +291,7 @@ public class ComplianceViewModel  {
     public void setAlert(Alert alert) {
         this.alert = alert;
         this.strAlert = alert.getLabel();
-       // notifyChange();
+      notifyChange();
     }
 
     public void setRecurrence(Recurrence recurrence) {
@@ -303,7 +301,7 @@ public class ComplianceViewModel  {
 
     public void setStrRepeat(String strRepeat) {
         this.strRepeat = strRepeat;
-       // notifyChange();
+      notifyChange();
     }
 
     public Recurrence getRecurrence() {

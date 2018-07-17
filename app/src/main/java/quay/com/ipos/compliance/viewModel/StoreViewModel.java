@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 
+import android.databinding.BaseObservable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -24,7 +25,7 @@ import quay.com.ipos.utility.DateAndTimeUtil;
  * Created by deepak.kumar1 on 29-03-2018.
  */
 
-public class StoreViewModel extends ViewModel {
+public class StoreViewModel extends BaseObservable {
     private static final String TAG = StoreViewModel.class.getSimpleName();
     public int progressDone = 0;
     public int progressPending = 0;
@@ -40,13 +41,13 @@ public class StoreViewModel extends ViewModel {
     public StoreViewModel() {
     }
 
-    public static  StoreViewModel getInstance(FragmentActivity fragmentActivity) {
+   /* public static  StoreViewModel getInstance(FragmentActivity fragmentActivity) {
         return ViewModelProviders.of(fragmentActivity).get(StoreViewModel.class);
     }
 
     public  static  StoreViewModel getInstance(Fragment fragment) {
         return ViewModelProviders.of(fragment).get(StoreViewModel.class);
-    }
+    }*/
 
     public void updateUI(List<BusinessPlaceEntity> stores, int position) {
 
@@ -67,7 +68,7 @@ public class StoreViewModel extends ViewModel {
 
         for (BusinessPlaceEntity store : stores) {
             if (store.getComplianceList() == null || store.getComplianceList().size() == 0) {
-                Log.e("TAG", "No any Compliance Record!");
+                Log.e(TAG, "No any Compliance Record!");
                 return;
             }
             for (Task taskData : store.getComplianceList()) {
@@ -116,7 +117,7 @@ public class StoreViewModel extends ViewModel {
         maxSize = total_task_size;
         progressUpcoming = com_upcoming_size;
         progressImmediate = com_immediate_size;
-        //    notifyChange();
+            notifyChange();
 
 
     }
@@ -148,7 +149,8 @@ public class StoreViewModel extends ViewModel {
         for (Task taskData : compliances) {
 
             if (taskData.task_category == null) {
-                taskData.task_category = "";
+                Log.e(TAG, "task_category can not be null");
+                return ;
             }
             if (complianceType.contentEquals("all") || taskData.task_category.contentEquals(complianceType)) {
 
@@ -201,13 +203,13 @@ public class StoreViewModel extends ViewModel {
         progressUpcoming = com_upcoming_size;
 
         progressImmediate = com_immediate_size;
-        // notifyChange();
+          notifyChange();
 
 
     }
 
-    @Override
+  /*  @Override
     protected void onCleared() {
         super.onCleared();
-    }
+    }*/
 }

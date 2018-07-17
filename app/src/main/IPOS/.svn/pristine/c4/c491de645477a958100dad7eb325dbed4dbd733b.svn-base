@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/llToggle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_margin="@dimen/dim_10">
+
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/auto"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorPrimary" />
+
+        <ToggleButton
+            android:id="@+id/toggleSettings"
+            android:layout_width="40dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="@dimen/dim_8"
+            android:layout_marginRight="@dimen/dim_8"
+            android:background="@drawable/toggle_selector"
+            android:checked="true"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:textOff=""
+            android:textOn=""/>
+
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/manual"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorPrimary" />
+
+
+        <ImageView
+            android:id="@+id/tvSelectTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/dim_10"
+            android:src="@drawable/ic_action_access_time"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llStockUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dim_10">
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stock_update"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingStart="@dimen/dim_10"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorPrimary" />
+
+
+        <ImageView
+            android:id="@+id/tvSyncStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/dim_10"
+            android:src="@drawable/ic_action_sync_disabled"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llRetailProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dim_10">
+
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retail_product"
+            android:layout_weight="1"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingStart="@dimen/dim_10"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorPrimary" />
+
+
+        <ImageView
+            android:id="@+id/tvSyncRetailProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="@dimen/dim_10"
+            android:src="@drawable/ic_action_sync"/>
+
+    </LinearLayout>
+
+</LinearLayout>

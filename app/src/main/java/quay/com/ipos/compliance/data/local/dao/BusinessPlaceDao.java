@@ -40,4 +40,8 @@ public interface BusinessPlaceDao {
     @Delete
     void deleteRecord(BusinessPlaceEntity entity);
 
+
+    @Query("DELETE FROM places")
+    void delete();
+
 }

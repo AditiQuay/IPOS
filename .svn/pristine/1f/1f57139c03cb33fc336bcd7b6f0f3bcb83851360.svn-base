@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/cardViewProduct"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dim_8"
+    android:layout_marginLeft="@dimen/dim_8"
+    android:layout_marginRight="@dimen/dim_8"
+    app:cardCornerRadius="@dimen/dim_8"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="true"
+    card_view:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/dim_8">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/iconiv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/thumb" />
+
+                <TextView
+                    android:id="@+id/textViewHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/BtnViewAll"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dim_16"
+                    android:layout_marginTop="@dimen/dim_4"
+                    android:layout_toRightOf="@+id/iconiv"
+                    android:alpha="0.7"
+                    android:text="KYC Pending for Approval"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/universal_text_size16" />
+
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dim_1"
+                android:layout_marginBottom="@dimen/dim_4"
+                android:layout_marginTop="@dimen/dim_4"
+                android:background="@color/app_background_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_4"
+                android:background="@color/white"
+                android:baselineAligned="false">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textViewKycNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="KYC-00023"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/universal_text_size14" />
+
+                        <TextView
+                            android:id="@+id/textViewBorder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dim_4"
+                            android:layout_marginRight="@dimen/dim_4"
+                            android:layout_toRightOf="@+id/textViewKycNumber"
+                            android:text="|"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/universal_text_size14" />
+
+                        <TextView
+                            android:id="@+id/textViewKycPartner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dim_12"
+                            android:layout_toRightOf="@+id/textViewKycNumber"
+                            android:text="KGN Traders"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/universal_text_size14" />
+
+                        <TextView
+                            android:id="@+id/textViewKycStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/textViewKycNumber"
+                            android:layout_marginTop="@dimen/dim_4"
+                            android:text="Status"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/universal_text_size12" />
+
+                        <TextView
+                            android:id="@+id/textViewKycPendingSince"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="Pending Sinc"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/universal_text_size14" />
+
+                        <TextView
+                            android:id="@+id/textViewKycPendingTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/textViewKycPendingSince"
+                            android:text="6 April 18 11:00"
+                            android:textColor="@color/grey"
+                            android:textSize="@dimen/universal_text_size12" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/rLayoutValidPhotoDocument"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="@dimen/dim_4"
+            android:padding="@dimen/dim_8">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/kyc_update" />
+
+                <TextView
+                    android:id="@+id/textViewBank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:gravity="center"
+                    android:text="Bank Account"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size14" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/dim_1"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dim_8"
+                android:layout_marginRight="@dimen/dim_4"
+                android:background="@color/app_background_color" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/product_detail" />
+
+                <TextView
+                    android:id="@+id/textViewDocuments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/dim_8"
+                    android:gravity="center"
+                    android:text="Documents"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/universal_text_size14" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="@dimen/dim_1"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dim_8"
+                android:layout_marginRight="@dimen/dim_4"
+                android:background="@color/app_background_color" />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

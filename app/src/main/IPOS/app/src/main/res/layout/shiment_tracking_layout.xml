@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:id="@+id/rShipment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dim_4"
+        android:layout_marginRight="@dimen/dim_4"
+        android:layout_marginTop="@dimen/dim_4"
+        android:background="@color/white"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/imageViewGroupIcon"
+            android:layout_width="@dimen/dim_30"
+            android:layout_height="@dimen/dim_30"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:src="@drawable/summary" />
+
+        <TextView
+            android:id="@+id/textViewGroupName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/imageViewGroupIcon"
+            android:layout_toRightOf="@+id/imageViewGroupIcon"
+            android:fontFamily="@font/titilliumwebregular"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:text="Shipment Tracking"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/universal_text_size14" />
+
+        <ImageView
+            android:id="@+id/imgShipment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:alpha="0.7"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:src="@drawable/ic_action_arrow_right_blue" />
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/shipment_tracking_item"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rItemsDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dim_4"
+        android:layout_marginRight="@dimen/dim_4"
+        android:layout_marginTop="@dimen/dim_4"
+        android:background="@color/white"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/ivItemDetailsGroupIcon"
+            android:layout_width="@dimen/dim_30"
+            android:layout_height="@dimen/dim_30"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:src="@drawable/detail" />
+
+        <TextView
+            android:id="@+id/textViewItemDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/ivItemDetailsGroupIcon"
+            android:layout_toRightOf="@+id/ivItemDetailsGroupIcon"
+            android:fontFamily="@font/titilliumwebregular"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:text="Timeline"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/universal_text_size14" />
+
+        <ImageView
+            android:id="@+id/ivItemDetailsGroupArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:alpha="0.7"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:src="@drawable/ic_action_arrow_right_blue" />
+
+        <ImageView
+            android:id="@+id/ivItemAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/ivItemDetailsGroupArrow"
+            android:alpha="0.7"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:src="@drawable/add_circle"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/timeline_layout"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/rTransporter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dim_4"
+        android:layout_marginRight="@dimen/dim_4"
+        android:layout_marginTop="@dimen/dim_4"
+        android:background="@color/white"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/ivtransporterGroupIcon"
+            android:layout_width="@dimen/dim_30"
+            android:layout_height="@dimen/dim_30"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:src="@drawable/shipment" />
+
+        <TextView
+            android:id="@+id/textViewTransporter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/ivtransporterGroupIcon"
+            android:layout_toRightOf="@+id/ivtransporterGroupIcon"
+            android:fontFamily="@font/titilliumwebregular"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:text="Map"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/universal_text_size14" />
+
+        <ImageView
+            android:id="@+id/ivTransporterGroupArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:alpha="0.7"
+            android:paddingEnd="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10"
+            android:src="@drawable/ic_action_arrow_right_blue" />
+
+    </RelativeLayout>
+
+</LinearLayout>

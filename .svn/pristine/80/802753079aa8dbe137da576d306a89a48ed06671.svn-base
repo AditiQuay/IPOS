@@ -1,0 +1,282 @@
+package quay.com.ipos.data.local.dao;
+
+import android.arch.lifecycle.ComputableLiveData;
+import android.arch.lifecycle.LiveData;
+import android.arch.persistence.db.SupportSQLiteStatement;
+import android.arch.persistence.room.EntityInsertionAdapter;
+import android.arch.persistence.room.InvalidationTracker.Observer;
+import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.RoomSQLiteQuery;
+import android.arch.persistence.room.SharedSQLiteStatement;
+import android.database.Cursor;
+import android.support.annotation.NonNull;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import quay.com.ipos.data.local.entity.MostUsed;
+
+@SuppressWarnings("unchecked")
+public class MostUsedFunDao_Impl implements MostUsedFunDao {
+  private final RoomDatabase __db;
+
+  private final EntityInsertionAdapter __insertionAdapterOfMostUsed;
+
+  private final SharedSQLiteStatement __preparedStmtOfUpdateFunction;
+
+  public MostUsedFunDao_Impl(RoomDatabase __db) {
+    this.__db = __db;
+    this.__insertionAdapterOfMostUsed = new EntityInsertionAdapter<MostUsed>(__db) {
+      @Override
+      public String createQuery() {
+        return "INSERT OR REPLACE INTO `most_used`(`funName`,`count`) VALUES (?,?)";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, MostUsed value) {
+        if (value.funName == null) {
+          stmt.bindNull(1);
+        } else {
+          stmt.bindString(1, value.funName);
+        }
+        stmt.bindLong(2, value.count);
+      }
+    };
+    this.__preparedStmtOfUpdateFunction = new SharedSQLiteStatement(__db) {
+      @Override
+      public String createQuery() {
+        final String _query = " UPDATE 'most_used' SET count = count + 1 WHERE funName=? ";
+        return _query;
+      }
+    };
+  }
+
+  @Override
+  public void saveAllEmployees(List<MostUsed> taskList) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfMostUsed.insert(taskList);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public long saveTask(MostUsed mostUsed) {
+    __db.beginTransaction();
+    try {
+      long _result = __insertionAdapterOfMostUsed.insertAndReturnId(mostUsed);
+      __db.setTransactionSuccessful();
+      return _result;
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public int updateFunction(String funName) {
+    final SupportSQLiteStatement _stmt = __preparedStmtOfUpdateFunction.acquire();
+    __db.beginTransaction();
+    try {
+      int _argIndex = 1;
+      if (funName == null) {
+        _stmt.bindNull(_argIndex);
+      } else {
+        _stmt.bindString(_argIndex, funName);
+      }
+      final int _result = _stmt.executeUpdateDelete();
+      __db.setTransactionSuccessful();
+      return _result;
+    } finally {
+      __db.endTransaction();
+      __preparedStmtOfUpdateFunction.release(_stmt);
+    }
+  }
+
+  @Override
+  public LiveData<List<MostUsed>> fetchAllData() {
+    final String _sql = "SELECT * FROM 'most_used'";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return new ComputableLiveData<List<MostUsed>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<MostUsed> compute() {
+        if (_observer == null) {
+          _observer = new Observer("most_used") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfFunName = _cursor.getColumnIndexOrThrow("funName");
+          final int _cursorIndexOfCount = _cursor.getColumnIndexOrThrow("count");
+          final List<MostUsed> _result = new ArrayList<MostUsed>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final MostUsed _item;
+            _item = new MostUsed();
+            _item.funName = _cursor.getString(_cursorIndexOfFunName);
+            _item.count = _cursor.getInt(_cursorIndexOfCount);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public LiveData<List<MostUsed>> fetchAllDataWITHLIMIT() {
+    final String _sql = "SELECT * FROM 'most_used' ORDER BY count DESC LIMIT 3 ";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return new ComputableLiveData<List<MostUsed>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<MostUsed> compute() {
+        if (_observer == null) {
+          _observer = new Observer("most_used") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfFunName = _cursor.getColumnIndexOrThrow("funName");
+          final int _cursorIndexOfCount = _cursor.getColumnIndexOrThrow("count");
+          final List<MostUsed> _result = new ArrayList<MostUsed>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final MostUsed _item;
+            _item = new MostUsed();
+            _item.funName = _cursor.getString(_cursorIndexOfFunName);
+            _item.count = _cursor.getInt(_cursorIndexOfCount);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public LiveData<List<MostUsed>> getTaskByPlace(String id) {
+    final String _sql = "SELECT * FROM 'most_used' WHERE funName=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    if (id == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, id);
+    }
+    return new ComputableLiveData<List<MostUsed>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<MostUsed> compute() {
+        if (_observer == null) {
+          _observer = new Observer("most_used") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfFunName = _cursor.getColumnIndexOrThrow("funName");
+          final int _cursorIndexOfCount = _cursor.getColumnIndexOrThrow("count");
+          final List<MostUsed> _result = new ArrayList<MostUsed>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final MostUsed _item;
+            _item = new MostUsed();
+            _item.funName = _cursor.getString(_cursorIndexOfFunName);
+            _item.count = _cursor.getInt(_cursorIndexOfCount);
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public LiveData<MostUsed> getTaskById(String id) {
+    final String _sql = "SELECT * FROM 'most_used' WHERE funName=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    if (id == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, id);
+    }
+    return new ComputableLiveData<MostUsed>() {
+      private Observer _observer;
+
+      @Override
+      protected MostUsed compute() {
+        if (_observer == null) {
+          _observer = new Observer("most_used") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfFunName = _cursor.getColumnIndexOrThrow("funName");
+          final int _cursorIndexOfCount = _cursor.getColumnIndexOrThrow("count");
+          final MostUsed _result;
+          if(_cursor.moveToFirst()) {
+            _result = new MostUsed();
+            _result.funName = _cursor.getString(_cursorIndexOfFunName);
+            _result.count = _cursor.getInt(_cursorIndexOfCount);
+          } else {
+            _result = null;
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+}

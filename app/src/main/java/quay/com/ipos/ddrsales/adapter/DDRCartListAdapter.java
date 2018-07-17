@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -273,7 +274,7 @@ public class DDRCartListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     }*/
                     userViewHolder.llAddMinus.setVisibility(View.VISIBLE);
                 }
-                Picasso.get().load(str.getProductImage()).into(userViewHolder.imvProduct);
+                Glide.with(mContext).load(str.getProductImage()).into(userViewHolder.imvProduct);
 
 
                 onBind = false;

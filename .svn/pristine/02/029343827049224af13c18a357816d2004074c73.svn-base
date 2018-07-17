@@ -1,0 +1,1786 @@
+package quay.com.ipos.helper;
+
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+
+import quay.com.ipos.customerInfo.customerInfoModal.CustomerModel;
+import quay.com.ipos.customerInfo.customerInfoModal.CustomerSpinner;
+import quay.com.ipos.enums.CustomerEnum;
+import quay.com.ipos.modal.BillingSync;
+import quay.com.ipos.modal.CustomerList;
+import quay.com.ipos.modal.PrintViewResult;
+import quay.com.ipos.modal.ProductSearchResult;
+import quay.com.ipos.utility.AppLog;
+import quay.com.ipos.utility.Util;
+
+import static quay.com.ipos.customerInfo.customerInfoModal.CustomerModel.TABLE_NAME;
+import static quay.com.ipos.customerInfo.customerInfoModal.CustomerModel.TABLE_SPINNER;
+
+public class DatabaseHandler extends SQLiteOpenHelper {
+
+    // All Static variables
+    // Database Version
+    private static final int DATABASE_VERSION = 1;
+
+    // Database Name
+    public static final String DATABASE_NAME = "IPOS_MANAGER";
+
+    // Retail table name
+    public static final String TABLE_RETAIL = "RetailTable";
+    public static final String TABLE_RETAIL_CART = "RetailTableCart";
+    public static final String TABLE_RETAIL_BILLING = "RetailBilling";
+    public static final String TABLE_RETAIL_GST = "RetailGST";
+
+    // OpnionTable table name
+//	public static final String TABLE_OPINION = "OpnionTable";
+
+    // TestTable name
+//	public static final String TABLE_TEST = "TestTable";
+
+    // Retail Table Columns names
+    private static final String KEY_ID = "iId";
+    private static final String KEY_productCode = "productCode";
+    private static final String KEY_iProductModalId = "iProductModalId";
+    private static final String KEY_sProductName = "sProductName";
+    private static final String KEY_sProductFeature = "sProductFeature";
+    private static final String KEY_sProductImage = "productImage";
+    private static final String KEY_sProductPrice = "sProductPrice";
+    private static final String KEY_sProductStock = "sProductStock";
+    private static final String KEY_sProductWeight = "sProductWeight";
+    private static final String KEY_isDiscount = "isDiscount";
+    private static final String KEY_gstPerc = "gstPerc";
+    private static final String KEY_cgst = "cgst";
+    private static final String KEY_sgst = "sgst";
+    private static final String KEY_salesPrice = "salesPrice";
+    private static final String KEY_nrv = "nrv";
+    private static final String KEY_gpl = "gpl";
+    private static final String KEY_mrp = "mrp";
+    private static final String KEY_barCodeNumber = "barCodeNumber";
+    private static final String KEY_discount = "discount";
+    private static final String KEY_points = "points";
+    private static final String KEY_pointsBasedOn = "pointsBasedOn";
+    private static final String KEY_valueFrom = "valueFrom";
+    private static final String KEY_valueTo = "valueTo";
+    private static final String KEY_conversionFactor = "conversionFactor";
+    private static final String KEY_hsnCode = "hsnCode";
+    private static final String KEY_hsnName = "hsnName";
+    private static final String KEY_categoryName = "categoryName";
+    private static final String KEY_subCategoryName = "subCategoryName";
+    private static final String KEY_pointsPer = "pointsPer";
+    private static final String KEY_brandName = "brandName";
+    private static final String KEY_customerID = "customerID";
+    private static final String KEY_orderID = "orderID";
+    private static final String KEY_billing = "billing";
+    private static final String KEY_sync = "sync";
+    private static final String KEY_date_time = "date_time";
+    private static final String KEY_timestamp = "timestamp";
+    private static final String KEY_print_receipt = "print_receipt";
+
+    private static final String KEY_cGSTRate = "cGSTRate";
+    private static final String KEY_sGSTRate = "sGSTRate";
+    private static final String KEY_cGSTValue = "cGSTValue";
+    private static final String KEY_sGSTValue = "sGSTValue";
+    private static final String KEY_totalPrice = "totalPrice";
+
+
+    public DatabaseHandler(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+
+    ProductSearchResult mProductSearchResult = new ProductSearchResult();
+    BillingSync billingSync = new BillingSync();
+//	OpinionPollListResult mOpinionPollListResult = new OpinionPollListResult();
+//	LearnTestResult mLearnTestResult = new LearnTestResult();
+
+    // Creating Tables
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        String CREATE_RETAIL_TABLE = "CREATE TABLE " + TABLE_RETAIL + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_productCode + " TEXT," + KEY_iProductModalId + " TEXT," + KEY_sProductName + " TEXT," + KEY_sProductFeature + " TEXT," + KEY_sProductImage + " TEXT," + KEY_sProductPrice + " REAL," + KEY_sProductStock + " INTEGER," + KEY_sProductWeight + " TEXT," + KEY_isDiscount + " INTEGER," + KEY_gstPerc + " REAL," + KEY_cgst + " REAL," + KEY_sgst + " REAL," + KEY_salesPrice + " REAL," + KEY_nrv + " REAL," + KEY_gpl + " REAL," + KEY_mrp + " REAL," + KEY_barCodeNumber + " TEXT," + KEY_discount + " TEXT," + KEY_points + " INTEGER," + KEY_pointsBasedOn + " TEXT," + KEY_pointsPer + " INTEGER," + KEY_valueFrom + " INTEGER," + KEY_valueTo + " INTEGER," + KEY_conversionFactor + " INTEGER," + KEY_hsnCode + " TEXT," + KEY_hsnName + " TEXT," + KEY_categoryName + " TEXT," + KEY_subCategoryName + " TEXT," + KEY_brandName + " TEXT" + ")";
+        db.execSQL(CREATE_RETAIL_TABLE);
+
+
+        String CREATE_TABLE_BILLING = "CREATE TABLE " + TABLE_RETAIL_BILLING + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_customerID + " TEXT,"+KEY_orderID+" TEXT," + KEY_billing + " TEXT," + KEY_date_time + " TEXT," + KEY_timestamp + " TEXT," + KEY_sync + " TINYINT,"+KEY_print_receipt + " TEXT" + ")";
+        db.execSQL(CREATE_TABLE_BILLING);
+
+        String CREATE_TABLE_GST = "CREATE TABLE " + TABLE_RETAIL_GST + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," + KEY_cGSTRate + " REAL,"+KEY_sGSTRate+" REAL," + KEY_cGSTValue + " REAL,"+KEY_sGSTValue + " REAL," + KEY_totalPrice + " REAL" + ")";
+        db.execSQL(CREATE_TABLE_GST);
+
+        // create notes table
+        db.execSQL(CustomerModel.CREATE_TABLE);
+        db.execSQL(CustomerModel.SPINNER_TABLE_CREATE);
+
+    }
+
+    // Upgrading database
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL_BILLING);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RETAIL_GST);
+
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SPINNER);
+
+
+        // Create tables again
+        // onCreate(db);
+
+//		db.execSQL("DROP TABLE IF EXISTS " + TABLE_OPINION);
+
+        // Create tables again
+        // onCreate(db);
+
+//		db.execSQL("DROP TABLE IF EXISTS " + TABLE_TEST);
+
+        // Create tables again
+        onCreate(db);
+    }
+
+    /**
+     * All CRUD(Create, Read, Update, Delete) Operations
+     */
+
+    public void addGST(PrintViewResult.GstSummary datum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_cGSTRate, datum.getCGSTRate());
+        values.put(KEY_sGSTRate, datum.getSGSTRate());
+        values.put(KEY_cGSTValue, datum.getCGSTValue()); //
+        values.put(KEY_sGSTValue, datum.getSGSTValue()); //
+        values.put(KEY_totalPrice, datum.getTotalPrice()); //
+        // Inserting Row
+        db.insert(TABLE_RETAIL_GST, null, values);
+        db.close(); // Closing database connection
+    }
+    public ArrayList<PrintViewResult.GstSummary> getGST() {
+        ArrayList<PrintViewResult.GstSummary> gstSummaries = new ArrayList<PrintViewResult.GstSummary>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_RETAIL_GST ;
+        AppLog.e(DatabaseHandler.class.getSimpleName(), "selectQuery: " +selectQuery);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                PrintViewResult.GstSummary datum = new PrintViewResult(). new GstSummary();
+                datum.setCGSTRate(cursor.getDouble(1));
+                datum.setSGSTRate(cursor.getDouble(2));
+                datum.setCGSTValue(cursor.getDouble(3));
+                datum.setSGSTValue(cursor.getDouble(4));
+                datum.setTotalPrice(cursor.getDouble(5));
+                AppLog.e(DatabaseHandler.class.getSimpleName(), "datum: " +Util.getCustomGson().toJson(datum));
+                gstSummaries.add(datum);
+            } while (cursor.moveToNext());
+        }
+
+        // return question List
+        return gstSummaries;
+    }
+
+    public ArrayList<PrintViewResult.GstSummary> getGSTGROUPBY() {
+        ArrayList<PrintViewResult.GstSummary> gstSummaries = new ArrayList<PrintViewResult.GstSummary>();
+        // Select All Query
+        String selectQuery = "SELECT SUM("+ KEY_totalPrice +") totalPrice,SUM("+ KEY_sGSTValue +") sGSTValue,sum("+KEY_cGSTValue+") cGSTValue,"+KEY_cGSTRate+" ,"+KEY_sGSTRate+" FROM " + TABLE_RETAIL_GST +" group by cGSTRate,sGSTRate ;";
+        AppLog.e(DatabaseHandler.class.getSimpleName(), "selectQuery: " +selectQuery);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                PrintViewResult.GstSummary datum = new PrintViewResult(). new GstSummary();
+//                datum.setCGSTRate(cursor.getDouble(0));
+//                datum.setSGSTRate(cursor.getDouble(1));
+//                datum.setCGSTValue(cursor.getDouble(2));
+//                datum.setSGSTValue(cursor.getDouble(3));
+//                datum.setTotalPrice(cursor.getDouble(4));
+                datum.setCGSTRate(cursor.getDouble(4));
+                datum.setSGSTRate(cursor.getDouble(3));
+                datum.setCGSTValue(cursor.getDouble(2));
+                datum.setSGSTValue(cursor.getDouble(1));
+                datum.setTotalPrice(cursor.getDouble(0));
+                AppLog.e(DatabaseHandler.class.getSimpleName(), "datum: " +Util.getCustomGson().toJson(datum));
+                gstSummaries.add(datum);
+            } while (cursor.moveToNext());
+        }
+        AppLog.e(DatabaseHandler.class.getSimpleName(), "gstSummaries: " +Util.getCustomGson().toJson(gstSummaries));
+        // return question List
+        return gstSummaries;
+    }
+
+
+//	// Adding new contact
+    public void addProduct(ProductSearchResult.Datum datum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_productCode, datum.getProductCode());
+        values.put(KEY_iProductModalId, datum.getIProductModalId());
+        values.put(KEY_sProductName, datum.getSProductName()); //
+        values.put(KEY_sProductFeature, Util.getCustomGson().toJson(datum.getSProductFeature())); //
+        values.put(KEY_sProductImage, datum.getProductImage()); //
+        values.put(KEY_sProductPrice, datum.getSProductPrice()); //
+        values.put(KEY_sProductStock, datum.getSProductStock()); //
+        values.put(KEY_sProductWeight, datum.getSProductWeight()); //
+        if (datum.getIsDiscount())
+            values.put(KEY_isDiscount, 1); //
+        else
+            values.put(KEY_isDiscount, 0); //
+        values.put(KEY_gstPerc, datum.getGstPerc()); //
+        values.put(KEY_cgst, datum.getCgst()); //
+        values.put(KEY_sgst, datum.getSgst()); //
+        values.put(KEY_salesPrice, datum.getSalesPrice()); //
+        values.put(KEY_nrv, datum.getNrv()); //
+        values.put(KEY_gpl, datum.getGpl()); //
+        values.put(KEY_mrp, datum.getMrp()); //
+        values.put(KEY_barCodeNumber, datum.getBarCodeNumber()); //
+        values.put(KEY_discount, Util.getCustomGson().toJson(datum.getDiscount())); //
+        values.put(KEY_points, datum.getPoints()); //
+        values.put(KEY_pointsBasedOn, datum.getPointsBasedOn()); //
+        values.put(KEY_pointsPer, datum.getPointsPer()); //
+        values.put(KEY_valueTo, datum.getValueTo()); //
+        values.put(KEY_valueFrom, datum.getValueFrom()); //
+        values.put(KEY_conversionFactor, datum.getConversionFactor()); //
+        values.put(KEY_hsnCode, datum.getHsnCode()); //
+        values.put(KEY_hsnName, datum.getHsnName()); //
+        values.put(KEY_categoryName, datum.getCategoryName()); //
+        values.put(KEY_subCategoryName, datum.getSubCategoryName()); //
+        values.put(KEY_brandName, datum.getBrandName()); //
+        // Inserting Row
+        db.insert(TABLE_RETAIL, null, values);
+        db.close(); // Closing database connection
+    }
+
+    public void addProductinCart(ProductSearchResult.Datum datum) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_productCode, datum.getProductCode());
+        values.put(KEY_iProductModalId, datum.getIProductModalId());
+        values.put(KEY_sProductName, datum.getSProductName()); //
+        values.put(KEY_sProductFeature, Util.getCustomGson().toJson(datum.getSProductFeature())); //
+        values.put(KEY_sProductImage, datum.getProductImage()); //
+        values.put(KEY_sProductPrice, datum.getSProductPrice()); //
+        values.put(KEY_sProductStock, datum.getSProductStock()); //
+        values.put(KEY_sProductWeight, datum.getSProductWeight()); //
+        if (datum.getIsDiscount())
+            values.put(KEY_isDiscount, 1); //
+        else
+            values.put(KEY_isDiscount, 0); //
+        values.put(KEY_gstPerc, datum.getGstPerc()); //
+        values.put(KEY_cgst, datum.getCgst()); //
+        values.put(KEY_sgst, datum.getSgst()); //
+        values.put(KEY_salesPrice, datum.getSalesPrice()); //
+        values.put(KEY_nrv, datum.getNrv()); //
+        values.put(KEY_gpl, datum.getGpl()); //
+        values.put(KEY_mrp, datum.getMrp()); //
+        values.put(KEY_barCodeNumber, datum.getBarCodeNumber()); //
+        values.put(KEY_discount, Util.getCustomGson().toJson(datum.getDiscount())); //
+        values.put(KEY_points, datum.getPoints()); //
+        values.put(KEY_pointsBasedOn, datum.getPointsBasedOn()); //
+        values.put(KEY_pointsPer, datum.getPointsPer()); //
+        values.put(KEY_valueTo, datum.getValueTo()); //
+        values.put(KEY_valueFrom, datum.getValueFrom()); //
+        values.put(KEY_conversionFactor, datum.getConversionFactor()); //
+        values.put(KEY_hsnCode, datum.getHsnCode()); //
+        values.put(KEY_hsnName, datum.getHsnName()); //
+        values.put(KEY_categoryName, datum.getCategoryName()); //
+        values.put(KEY_subCategoryName, datum.getSubCategoryName()); //
+        values.put(KEY_brandName, datum.getBrandName()); //
+        // Inserting Row
+        db.insert(TABLE_RETAIL_CART, null, values);
+        db.close(); // Closing database connection
+    }
+
+    //
+//	// Adding new test
+//	public void addTestQuestionaire(
+//			QuestionList mQuestionListData) {
+//		SQLiteDatabase db = this.getWritableDatabase();
+//
+//		ContentValues values = new ContentValues();
+//		values.put(KEY_TEST_ID, mQuestionListData.getQuestionId());
+//		values.put(KEY_TEST_QUESTION, mQuestionListData.getQuestion()); //
+//		// Questionnaire
+//		// Question
+//		values.put(KEY_TEST_ANSWER, mQuestionListData.getAnswer()); //
+//		// Questionnaire
+//		// Answer
+//		// Inserting Row
+//		db.insert(TABLE_TEST, null, values);
+//		db.close(); // Closing database connection
+//	}
+//
+//	// Adding new contact
+//	public void addOptionQuestionaire(OpinionList mOpinionList) {
+//		SQLiteDatabase db = this.getWritableDatabase();
+//
+//		ContentValues values = new ContentValues();
+//		values.put(KEY_OPINION_ID, mOpinionList.getOpinionId());
+//		values.put(KEY_OPINION_QUESTION, mOpinionList.getOpinionQuestion()); //
+//		// Questionnaire
+//		// Question
+//		values.put(KEY_OPINION_ANSWER, mOpinionList.getAnswer()); //
+//		// Questionnaire
+//		// Answer
+//		// Inserting Row
+//		db.insert(TABLE_OPINION, null, values);
+//		db.close(); // Closing database connection
+//	}
+//
+//	// Getting single QUESTION
+//	public LearnTestResult.QuestionList getTestQuestionaire(int id) {
+//		SQLiteDatabase db = this.getReadableDatabase();
+//
+//		Cursor cursor = db.query(TABLE_TEST, new String[] { KEY_TEST_ID, KEY_TEST_QUESTION, KEY_TEST_ANSWER },
+//				KEY_TEST_ID + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
+//		if (cursor != null)
+//			cursor.moveToFirst();
+//
+//		LearnTestResult.QuestionList questionaire = mLearnTestResult.new QuestionList(
+//				Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getInt(2));
+//		// return questionnaire
+//		return questionaire;
+//	}
+//
+//	public ContestQuestionResult.QuestionList getQuestionaire(int id) {
+//		SQLiteDatabase db = this.getReadableDatabase();
+//
+//		Cursor cursor = db.query(TABLE_QUESTION, new String[] { KEY_ID, KEY_QUESTION, KEY_OPTION_ANSWER },
+//				KEY_ID + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
+//		if (cursor != null)
+//			cursor.moveToFirst();
+//
+//		ContestQuestionResult.QuestionList questionaire = mContestQuestionResult.new QuestionList(Integer.parseInt(cursor.getString(0)),
+//				cursor.getString(1), cursor.getInt(2));
+//		// return questionnaire
+//		return questionaire;
+//	}
+//
+//	// Getting single QUESTION
+//	public OpinionList getOpinionQuestionaire(int id) {
+//		SQLiteDatabase db = this.getReadableDatabase();
+//
+//		Cursor cursor = db.query(TABLE_OPINION,
+//				new String[] { KEY_OPINION_ID, KEY_OPINION_QUESTION, KEY_OPINION_ANSWER }, KEY_OPINION_ID + "=?",
+//				new String[] { String.valueOf(id) }, null, null, null, null);
+//		if (cursor != null)
+//			cursor.moveToFirst();
+//
+//		OpinionList mOpinionList = mOpinionPollListResult.new OpinionList(Integer.parseInt(cursor.getString(0)),
+//				cursor.getString(1), cursor.getInt(2));
+//		// return questionnaire
+//		return mOpinionList;
+//	}
+//
+//	public ContestQuestionResult.QuestionList findQuestionByQuestionID(int questionId) {
+//		String query = "Select * FROM " + TABLE_QUESTION + " WHERE " + KEY_ID + " = \"" + questionId + "\"";
+//
+//		SQLiteDatabase db = this.getWritableDatabase();
+//
+//		Cursor cursor = db.rawQuery(query, null);
+//
+//		ContestQuestionResult.QuestionList questionaire = mContestQuestionResult.new QuestionList();
+//
+//		if (cursor.moveToFirst()) {
+//			cursor.moveToFirst();
+//			questionaire.setQuestionId(cursor.getString(0));
+//			questionaire.setQuestion(cursor.getString(1));
+//			questionaire.setAnswer(Integer.parseInt(cursor.getString(2)));
+//			cursor.close();
+//		} else {
+//			questionaire = null;
+//		}
+//		db.close();
+//		return questionaire;
+//	}
+//
+//	public LearnTestResult.QuestionList findTestByQuestionID(int questionId) {
+//		String query = "Select * FROM " + TABLE_TEST + " WHERE " + KEY_TEST_ID + " = \"" + questionId + "\"";
+//
+//		SQLiteDatabase db = this.getWritableDatabase();
+//
+//		Cursor cursor = db.rawQuery(query, null);
+//
+//		LearnTestResult.QuestionList questionaire = mLearnTestResult.new QuestionList();
+//
+//		if (cursor.moveToFirst()) {
+//			cursor.moveToFirst();
+//			questionaire.setQuestionId(cursor.getString(0));
+//			questionaire.setQuestion(cursor.getString(1));
+//			questionaire.setAnswer(Integer.parseInt(cursor.getString(2)));
+//			cursor.close();
+//		} else {
+//			questionaire = null;
+//		}
+//		db.close();
+//		return questionaire;
+//	}
+//
+
+    public boolean isRetailMasterEmpty(String TableName) {
+
+        boolean flag;
+        String quString = "select exists(select * from " + TableName + ");";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(quString, null);
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        if (count == 1) {
+            flag = false;
+        } else {
+            flag = true;
+        }
+        cursor.close();
+        db.close();
+
+        return flag;
+    }
+
+    public long getBillingRecordsCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        long count = DatabaseUtils.queryNumEntries(db, TABLE_RETAIL_BILLING);
+        db.close();
+        return count;
+    }
+
+    ArrayList<ProductSearchResult.Discount> searchResult = new ArrayList<>();
+    ArrayList<ProductSearchResult.SProductFeature> productFeatures = new
+            ArrayList<>();
+//    ArrayList<BillingSync> billingSyncList = new ArrayList<>();
+
+    public void addRetailBilling(BillingSync billingSync) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+        ContentValues values = new ContentValues();
+        //KEY_ID
+        values.put(KEY_customerID, billingSync.getCustomerID());
+        values.put(KEY_orderID, billingSync.getOrderID());
+        values.put(KEY_billing, billingSync.getBilling());
+        values.put(KEY_date_time, billingSync.getOrderDateTime());
+        values.put(KEY_timestamp, billingSync.getOrderTimestamp());
+        values.put(KEY_sync, billingSync.getSync());
+        values.put(KEY_print_receipt, billingSync.getReceipt());
+        // Inserting Row
+        db.insert(TABLE_RETAIL_BILLING, null, values);
+        db.setTransactionSuccessful();
+        db.endTransaction();
+        db.close(); // Closing database connection
+    }
+
+    public boolean checkIfBillingRecordExist(String searchKey) {
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String selectQuery = "SELECT " + KEY_timestamp + " FROM " + TABLE_RETAIL_BILLING + " WHERE " + KEY_timestamp + " = " + searchKey + ";";
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            if (cursor.moveToFirst()) {
+                db.close();
+                Log.e("Record  Already Exists", "Table is:" + TABLE_RETAIL_BILLING + " ColumnName:" + searchKey);
+                return true;//record Exists
+
+            }
+            db.close();
+        } catch (Exception errorException) {
+            Log.d("Exception occured", "Exception occured " + errorException);
+            // db.close();
+        }
+        return false;
+    }
+
+    /*
+    * this method is for getting all the unsynced name
+    * so that we can sync it with database
+    * */
+    public ArrayList<BillingSync> getUnSyncedRetailOrders() {
+        ArrayList<BillingSync> billingSyncs = new ArrayList<BillingSync>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_RETAIL_BILLING + " WHERE " + KEY_sync + " = 0;";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                BillingSync datum = new BillingSync();
+                datum.setCustomerID(cursor.getString(1));
+                datum.setOrderID(cursor.getString(2));
+                datum.setBilling(cursor.getString(3));
+                datum.setOrderDateTime(cursor.getString(4));
+                datum.setOrderTimestamp(cursor.getString(5));
+                datum.setSync(cursor.getInt(6));
+                datum.setReceipt(cursor.getString(7));
+                billingSyncs.add(datum);
+            } while (cursor.moveToNext());
+        }
+
+        // return question List
+        return billingSyncs;
+    }
+
+    public ArrayList<BillingSync> getAllRetailBillingOrders() {
+        ArrayList<BillingSync> billingSyncs = new ArrayList<BillingSync>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_RETAIL_BILLING;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                BillingSync datum = new BillingSync();
+                datum.setCustomerID(cursor.getString(1));
+                datum.setOrderID(cursor.getString(2));
+                datum.setBilling(cursor.getString(3));
+                datum.setOrderDateTime(cursor.getString(4));
+                datum.setOrderTimestamp(cursor.getString(5));
+                datum.setSync(cursor.getInt(6));
+                datum.setReceipt(cursor.getString(7));
+                billingSyncs.add(datum);
+            } while (cursor.moveToNext());
+        }
+
+        // return question List
+        return billingSyncs;
+    }
+
+
+    public ArrayList<BillingSync> getBillingProduct() {
+        ArrayList<BillingSync> billingSyncs = new ArrayList<BillingSync>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_RETAIL_BILLING;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                BillingSync datum = new BillingSync();
+                datum.setCustomerID(cursor.getString(1));
+                datum.setOrderID(cursor.getString(2));
+                datum.setBilling(cursor.getString(3));
+                datum.setOrderDateTime(cursor.getString(4));
+                datum.setOrderTimestamp(cursor.getString(5));
+                datum.setSync(cursor.getInt(6));
+                datum.setReceipt(cursor.getString(7));
+                billingSyncs.add(datum);
+            } while (cursor.moveToNext());
+        }
+
+        // return question List
+        return billingSyncs;
+    }
+
+    //	// Getting All Questionaire
+    public ArrayList<ProductSearchResult.Datum> getAllQuestionaIdByQuestionId(String questionId) {
+        ArrayList<ProductSearchResult.Datum> questionList = new ArrayList<ProductSearchResult.Datum>();
+        // Select All Query
+        String selectQuery = "Select * FROM " + TABLE_RETAIL + " WHERE " + KEY_iProductModalId + " = \"" + questionId + "\"";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                ProductSearchResult.Datum datum = mProductSearchResult.new Datum();
+                datum.setProductCode(cursor.getString(1));
+                datum.setIProductModalId(cursor.getString(2));
+
+                datum.setSProductName(cursor.getString(3));
+                productFeatures = Util.getCustomGson().fromJson(cursor.getString(4), new TypeToken<ArrayList<ProductSearchResult.SProductFeature>>() {
+                }.getType());
+                datum.setDiscount(searchResult);
+                datum.setSProductFeature(productFeatures);
+                datum.setProductImage(cursor.getString(5));
+                datum.setSProductPrice(cursor.getDouble(6));
+                datum.setSProductStock(cursor.getInt(7));
+                datum.setSProductWeight(cursor.getString(8));
+                if (cursor.getInt(9) == 0)
+                    datum.setIsDiscount(false);
+                else
+                    datum.setIsDiscount(true);
+                datum.setGstPerc(cursor.getDouble(10));
+                datum.setCgst(cursor.getDouble(11));
+                datum.setSgst(cursor.getDouble(12));
+                datum.setSalesPrice(cursor.getDouble(13));
+                datum.setNrv(cursor.getDouble(14));
+                datum.setGpl(cursor.getDouble(15));
+                datum.setMrp(cursor.getDouble(16));
+                datum.setBarCodeNumber(cursor.getString(17));
+                searchResult = Util.getCustomGson().fromJson(cursor.getString(18), new TypeToken<ArrayList<ProductSearchResult.Discount>>() {
+                }.getType());
+                datum.setDiscount(searchResult);
+                datum.setPoints(cursor.getInt(19)); //
+                datum.setPointsBasedOn(cursor.getString(20)); //
+                datum.setPointsPer(cursor.getInt(21)); //
+                datum.setValueTo(cursor.getInt(22)); //
+                datum.setValueFrom(cursor.getInt(23)); //
+                datum.setConversionFactor(cursor.getInt(24)); //
+                datum.setHsnCode(cursor.getString(25)); //
+                datum.setHsnName(cursor.getString(26)); //
+                datum.setCategoryName(cursor.getString(27)); //
+                datum.setSubCategoryName(cursor.getString(28)); //
+                datum.setBrandName(cursor.getString(29)); //
+                // Adding question to List
+                questionList.add(datum);
+            } while (cursor.moveToNext());
+        }
+
+        // return question List
+        return questionList;
+    }
+
+
+    //
+//	// Getting All Questionaire
+    public ArrayList<ProductSearchResult.Datum> getAllProduct() {
+        ArrayList<ProductSearchResult.Datum> questionList = new ArrayList<ProductSearchResult.Datum>();
+        // Select All Query
+        String selectQuery = "SELECT * FROM " + TABLE_RETAIL;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                ProductSearchResult.Datum datum = mProductSearchResult.new Datum();
+                datum.setProductCode(cursor.getString(1));
+                datum.setIProductModalId(cursor.getString(2));
+
+                datum.setSProductName(cursor.getString(3));
+                productFeatures = Util.getCustomGson().fromJson(cursor.getString(4), new TypeToken<ArrayList<ProductSearchResult.SProductFeature>>() {
+                }.getType());
+                datum.setDiscount(searchResult);
+                datum.setSProductFeature(productFeatures);
+                datum.setProductImage(cursor.getString(5));
+                datum.setSProductPrice(cursor.getDouble(6));
+                datum.setSProductStock(cursor.getInt(7));
+                datum.setSProductWeight(cursor.getString(8));
+                if (cursor.getInt(9) == 0)
+                    datum.setIsDiscount(false);
+                else
+                    datum.setIsDiscount(true);
+                datum.setGstPerc(cursor.getDouble(10));
+                datum.setCgst(cursor.getDouble(11));
+                datum.setSgst(cursor.getDouble(12));
+                datum.setSalesPrice(cursor.getDouble(13));
+                datum.setNrv(cursor.getDouble(14));
+                datum.setGpl(cursor.getDouble(15));
+                datum.setMrp(cursor.getDouble(16));
+                datum.setBarCodeNumber(cursor.getString(17));
+                searchResult = Util.getCustomGson().fromJson(cursor.getString(18), new TypeToken<ArrayList<ProductSearchResult.Discount>>() {
+                }.getType());
+                datum.setDiscount(searchResult);
+                datum.setPoints(cursor.getInt(19)); //
+                datum.setPointsBasedOn(cursor.getString(20)); //
+                datum.setPointsPer(cursor.getInt(21)); //
+                datum.setValueTo(cursor.getInt(22)); //
+                datum.setValueFrom(cursor.getInt(23)); //
+                datum.setConversionFactor(cursor.getInt(24)); //
+                datum.setHsnCode(cursor.getString(25)); //
+                datum.setHsnName(cursor.getString(26)); //
+                datum.setCategoryName(cursor.getString(27)); //
+                datum.setSubCategoryName(cursor.getString(28)); //
+                datum.setBrandName(cursor.getString(29)); //
+                // Adding question to List
+                questionList.add(datum);
+            } while (cursor.moveToNext());
+        }
+
+        // return contact list
+        return questionList;
+    }
+
+    //
+//	public ArrayList<LearnTestResult.QuestionList> getAllTestQuestionaire() {
+//		ArrayList<LearnTestResult.QuestionList> contactList = new ArrayList<LearnTestResult.QuestionList>();
+//		// Select All Query
+//		String selectQuery = "SELECT * FROM " + TABLE_TEST;
+//
+//		SQLiteDatabase db = this.getWritableDatabase();
+//		Cursor cursor = db.rawQuery(selectQuery, null);
+//
+//		// looping through all rows and adding to list
+//		if (cursor.moveToFirst()) {
+//			do {
+//				LearnTestResult.QuestionList mQuestionListData = mLearnTestResult.new QuestionList();
+//				mQuestionListData.setQuestionId(cursor.getString(0));
+//				mQuestionListData.setQuestion(cursor.getString(1));
+//				mQuestionListData.setAnswer(cursor.getInt(2));
+//				// Adding contact to list
+//				contactList.add(mQuestionListData);
+//			} while (cursor.moveToNext());
+//		}
+//
+//		// return contact list
+//		return contactList;
+//	}
+//
+//	// Getting All Questionaire
+//	public ArrayList<OpinionList> getAllOpinionQuestionaire() {
+//		ArrayList<OpinionList> mOpinionList = new ArrayList<OpinionList>();
+//		// Select All Query
+//		String selectQuery = "SELECT * FROM " + TABLE_OPINION;
+//
+//		SQLiteDatabase db = this.getWritableDatabase();
+//		Cursor cursor = db.rawQuery(selectQuery, null);
+//
+//		// looping through all rows and adding to list
+//		if (cursor.moveToFirst()) {
+//			do {
+//				OpinionList mQuestionListData = mOpinionPollListResult.new OpinionList();
+//				mQuestionListData.setOpinionId(cursor.getString(0));
+//				mQuestionListData.setOpinionQuestion(cursor.getString(1));
+//				mQuestionListData.setAnswer(cursor.getInt(2));
+//				// Adding contact to list
+//				mOpinionList.add(mQuestionListData);
+//			} while (cursor.moveToNext());
+//		}
+//
+//		// return contact list
+//		return mOpinionList;
+//	}
+//
+//	public ArrayList<ContestQuestionResult.QuestionList> getResultQuestionaire() {
+//		ArrayList<ContestQuestionResult.QuestionList> contactList = new ArrayList<ContestQuestionResult.QuestionList>();
+//		// Select All Query
+//		String selectQuery = "SELECT * FROM " + TABLE_QUESTION;
+//
+//		SQLiteDatabase db = this.getWritableDatabase();
+//		Cursor cursor = db.rawQuery(selectQuery, null);
+//
+//		// looping through all rows and adding to list
+//		if (cursor.moveToFirst()) {
+//			do {
+//				ContestQuestionResult.QuestionList mQuestionListData = mContestQuestionResult.new QuestionList();
+//				mQuestionListData.setQuestionId(cursor.getString(0));
+//				mQuestionListData.setAnswer(cursor.getInt(2));
+//				// Adding contact to list
+//				contactList.add(mQuestionListData);
+//			} while (cursor.moveToNext());
+//		}
+//
+//		// return contact list
+//		return contactList;
+//	}
+//
+//	public ArrayList<LearnTestResult.QuestionList> getTestResultQuestionaire() {
+//		ArrayList<LearnTestResult.QuestionList> contactList = new ArrayList<LearnTestResult.QuestionList>();
+//		// Select All Query
+//		String selectQuery = "SELECT * FROM " + TABLE_TEST;
+//
+//		SQLiteDatabase db = this.getWritableDatabase();
+//		Cursor cursor = db.rawQuery(selectQuery, null);
+//
+//		// looping through all rows and adding to list
+//		if (cursor.moveToFirst()) {
+//			do {
+//				.LearnTestResult.QuestionList mQuestionListData = mLearnTestResult.new QuestionList();
+//				mQuestionListData.setQuestionId(cursor.getString(0));
+//				mQuestionListData.setAnswer(cursor.getInt(2));
+//				// Adding contact to list
+//				contactList.add(mQuestionListData);
+//			} while (cursor.moveToNext());
+//		}
+//
+//		// return contact list
+//		return contactList;
+//	}
+//
+//	public ArrayList<OpinionList> getResultOpinionQuestionaire() {
+//		ArrayList<OpinionList> contactList = new ArrayList<OpinionList>();
+//		// Select All Query
+//		String selectQuery = "SELECT * FROM " + TABLE_OPINION;
+//
+//		SQLiteDatabase db = this.getWritableDatabase();
+//		Cursor cursor = db.rawQuery(selectQuery, null);
+//
+//		// looping through all rows and adding to list
+//		if (cursor.moveToFirst()) {
+//			do {
+//				OpinionList mOpinionList = mOpinionPollListResult.new OpinionList();
+//				mOpinionList.setOpinionId(cursor.getString(0));
+//				mOpinionList.setAnswer(cursor.getInt(2));
+//				// Adding contact to list
+//				contactList.add(mOpinionList);
+//			} while (cursor.moveToNext());
+//		}
+//		// return contact list
+//		return contactList;
+//	}
+//
+    // Updating single contact
+    public int updateSync(int status, String timestamp) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_sync, status);
+
+        // updating row
+        // return the number of rows affected
+        return db.update(TABLE_RETAIL_BILLING, values, KEY_timestamp + " = ?", new String[]{timestamp + ""});
+        // new String[] { String.valueOf(questionaire.getQuesId()) });
+    }
+
+    public int updateProductStock(int stock, String productID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_sProductStock, stock);
+
+        // updating row
+        // return the number of rows affected
+        return db.update(TABLE_RETAIL, values, KEY_iProductModalId + " = ?", new String[]{productID + ""});
+        // new String[] { String.valueOf(questionaire.getQuesId()) });
+    }
+
+    public int updateCustomerPoints(String points, String customerID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(CustomerEnum.ColoumnCustomerPoint.toString(), points);
+
+        // updating row
+        // return the number of rows affected
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?", new String[]{customerID + ""});
+        // new String[] { String.valueOf(questionaire.getQuesId()) });
+    }
+
+    public int updateCustomerRecentOrders(String recentOrders,String customerID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(CustomerEnum.ColoumnRecentOrders.toString(), recentOrders);
+
+        // updating row
+        // return the number of rows affected
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?", new String[]{customerID + ""});
+        // new String[] { String.valueOf(questionaire.getQuesId()) });
+    }
+    public int updateCustomerBillPrice( String billPrice,String customerID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(CustomerEnum.ColoumnLastBillingAmount.toString(), billPrice);
+
+        // updating row
+        // return the number of rows affected
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?", new String[]{customerID});
+        // new String[] { String.valueOf(questionaire.getQuesId()) });
+    }
+    public int updateCustomerBillDate( String orderDateTime,String customerID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CustomerEnum.ColoumnLastBillingDate.toString(), orderDateTime);
+
+        // updating row
+        // return the number of rows affected
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?", new String[]{customerID + ""});
+        // new String[] { String.valueOf(questionaire.getQuesId()) });
+    }
+    //
+//	// Updating single contact
+//	public int updateTestAnswer(LearnTestResult.QuestionList questionaire, int questionId) {
+//		SQLiteDatabase db = this.getWritableDatabase();
+//
+//		ContentValues values = new ContentValues();
+//		// values.put(KEY_QUESTION, questionaire.getQuestion()); // questionaire
+//		// Question
+//		// values.put(KEY_CATEGORY, questionaire.getQuestionCategory()); //
+//		// questionaire Category
+//		values.put(KEY_TEST_ANSWER, questionaire.getAnswer());
+//
+//		// updating row
+//		// return the number of rows affected
+//		return db.update(TABLE_TEST, values, KEY_TEST_ID + " = ?", new String[] { questionId + "" });
+//		// new String[] { String.valueOf(questionaire.getQuesId()) });
+//	}
+//
+//	// Updating single contact
+//	public int updateOpinionAnswer(OpinionList questionaire, int questionId) {
+//		SQLiteDatabase db = this.getWritableDatabase();
+//
+//		ContentValues values = new ContentValues();
+//		// values.put(KEY_QUESTION, questionaire.getQuestion()); // questionaire
+//		// Question
+//		// values.put(KEY_CATEGORY, questionaire.getQuestionCategory()); //
+//		// questionaire Category
+//		values.put(KEY_OPINION_ANSWER, questionaire.getAnswer());
+//
+//		// updating row
+//		// return the number of rows affected
+//		return db.update(TABLE_OPINION, values, KEY_OPINION_ID + " = ?", new String[] { questionId + "" });
+//		// new String[] { String.valueOf(questionaire.getQuesId()) });
+//	}
+//
+//	// Deleting single question
+    public void deleteRetailBillingTable(String timestamp) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.delete(TABLE_RETAIL, KEY_timestamp + " = ?", new String[]{timestamp});
+        db.close();
+    }
+
+    //
+//	public void deleteTestQuestionaire(LearnTestResult.QuestionList questionaire) {
+//		SQLiteDatabase db = this.getWritableDatabase();
+//		db.delete(TABLE_TEST, KEY_TEST_ID + " = ?", new String[] { String.valueOf(questionaire.getQuestionId()) });
+//		db.close();
+//	}
+//
+//	public void deleteOpinionQuestionaire(OpinionList questionaire) {
+//		SQLiteDatabase db = this.getWritableDatabase();
+//		db.delete(TABLE_OPINION, KEY_OPINION_ID + " = ?", new String[] { String.valueOf(questionaire.getOpinionId()) });
+//		db.close();
+//	}
+//
+    public void deleteTable(String TABLE_NAME) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + TABLE_NAME);
+    }
+//
+//	// Getting Questionaire Count
+//	public int getQuestionaireCount() {
+//		String countQuery = "SELECT * FROM " + TABLE_QUESTION;
+//		SQLiteDatabase db = this.getReadableDatabase();
+//		Cursor cursor = db.rawQuery(countQuery, null);
+//		cursor.close();
+//
+//		// return count
+//		return cursor.getCount();
+//	}
+
+
+//    /*
+//    * Custoemr List and details CRUD operation
+//    *
+//    * */
+//    //Getting customer detail
+//    public CustomerModel getCustomerDetails(String id) {
+//        // get readable database as we are not inserting anything
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.query(TABLE_NAME,
+//                new String[]{CustomerEnum.ColoumnCustomerID.toString(), CustomerEnum.ColoumnCustomerTitle.toString(), CustomerEnum.ColoumnCustomerName.toString(), CustomerEnum.ColoumnCustomerFirstName.toString(), CustomerEnum.ColoumnCustomerLastName.toString(),
+//                        CustomerEnum.ColoumnCustomerGender.toString(), CustomerEnum.ColoumnCustomerBday.toString(), CustomerEnum.ColoumnCustomerMaritalStatus.toString(), CustomerEnum.ColoumnCustomerSpouseFirstName.toString(),
+//                        CustomerEnum.ColoumnCustomerSpouseLastName.toString(), CustomerEnum.ColoumnCustomerSpouseDob.toString(), CustomerEnum.ColoumnCustomerChildStatus.toString(), CustomerEnum.ColoumnCustomerChild.toString(),
+//                        CustomerEnum.ColoumnCustomerEmail.toString(), CustomerEnum.ColoumnCustomerEmail2.toString(), CustomerEnum.ColoumnCustomerPhone.toString(), CustomerEnum.ColoumnCustomerPhone2.toString(), CustomerEnum.ColoumnCustomerPhone3.toString(), CustomerEnum.ColoumnCustomerAddress.toString(), CustomerEnum.ColoumnCustomerState.toString(), CustomerEnum.ColoumnCustomerCity.toString(), CustomerEnum.ColoumnCustomerPin.toString(), CustomerEnum.ColoumnCustomerCountry.toString(), CustomerEnum.ColoumnCustomerDesignation.toString(), CustomerEnum.ColoumnCustomerCompany.toString(),
+//                        CustomerEnum.ColoumnCustomerGstin.toString(), CustomerEnum.ColoumnCustomer.toString(), CustomerEnum.ColoumnCustomerRelationship.toString(), CustomerEnum.ColoumnCustomerImage.toString(), CustomerEnum.ColoumnLastBillingDate.toString(), CustomerEnum.ColoumnLastBillingAmount.toString(), CustomerEnum.ColoumnIsSuggestion.toString(), CustomerEnum.ColoumnSuggestion.toString(),
+//                        CustomerEnum.ColoumnCustomerPoint.toString(), CustomerEnum.ColoumnRecentOrders.toString(), CustomerEnum.ColoumnCustomerCustomerStatus.toString(), CustomerEnum.ColoumncFactor.toString(), CustomerEnum.ColoumncType.toString(), CustomerEnum.ColoumncCustomerDOM.toString(), CustomerEnum.ColoumnIsSync.toString()},
+//                CustomerEnum.ColoumnCustomerID.toString() + "=?",
+//                new String[]{id}, null, null, null, null);
+//
+//
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//
+//        // prepare note object
+//        assert cursor != null;
+//        CustomerModel note = new CustomerModel(
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerFirstName.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerLastName.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGender.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerBday.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerMaritalStatus.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseFirstName.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseLastName.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseDob.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChildStatus.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChild.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail2.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone2.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone3.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerAddress.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerState.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCity.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPin.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCountry.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerDesignation.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCompany.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomer.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerRelationship.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerImage.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingDate.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingAmount.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnIsSuggestion.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnSuggestion.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPoint.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRecentOrders.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCustomerStatus.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
+//                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
+//                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
+//
+//
+//        // close the db connection
+//        cursor.close();
+//
+//        return note;
+//    }
+
+    //Insert Customer Data
+    public long insertCustomer(String customerID,
+                               String customerTitle,
+                               String customerName,
+                               String customerFirstName,
+                               String customerLastName,
+                               String customerGender,
+                               String customerBday,
+                               String customerMaritalStatus,
+                               String customerSpouseFirstName,
+                               String customerSpouseLastName,
+                               String customerSpouseDob,
+                               String customerChildSatus,
+                               String customerChild,
+                               String customerEmail,
+                               String customerEmail2,
+                               String customerPhone,
+                               String customerPhone2,
+                               String customerPhone3,
+                               String customerAddress,
+                               String customerState,
+                               String customerCity,
+                               String customerPin,
+                               String customerCountry,
+                               String customerDesignation,
+                               String customerCompany,
+                               String customerGstin,
+                               String customer,
+                               String customerRelationship,
+                               String customerImage,
+                               String lastBillingDate,
+                               String lastBillingAmount,
+                               String issuggestion,
+                               String suggestion,
+                               String customerPoints,
+                               String recent_orders,
+                               String customerStatus,
+                               String cfactor,
+                               String customerType,
+                               String customerDom,
+                               String customerCode,
+                               String registeredBusinessPlaceID,
+                               double customerPointsValue,
+                               double customerRedeemPoints,
+                               double customerAdjustPoint,
+                               double customerExpirePoint,
+                               double customerReversePoint,
+                               int sync) {
+        // get writable database as we want to write data
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        // `id` and `timestamp` will be inserted automatically.
+        // no need to add them
+
+        values.put(CustomerEnum.ColoumnCustomerID.toString(), customerID);
+        values.put(CustomerEnum.ColoumnCustomerTitle.toString(), customerTitle);
+        values.put(CustomerEnum.ColoumnCustomerName.toString(), customerName);
+        values.put(CustomerEnum.ColoumnCustomerFirstName.toString(), customerFirstName);
+        values.put(CustomerEnum.ColoumnCustomerLastName.toString(), customerLastName);
+        values.put(CustomerEnum.ColoumnCustomerGender.toString(), customerGender);
+        values.put(CustomerEnum.ColoumnCustomerBday.toString(), customerBday);
+        values.put(CustomerEnum.ColoumnCustomerMaritalStatus.toString(), customerMaritalStatus);
+        values.put(CustomerEnum.ColoumnCustomerSpouseFirstName.toString(), customerSpouseFirstName);
+        values.put(CustomerEnum.ColoumnCustomerSpouseLastName.toString(), customerSpouseLastName);
+        values.put(CustomerEnum.ColoumnCustomerSpouseDob.toString(), customerSpouseDob);
+        values.put(CustomerEnum.ColoumnCustomerChildStatus.toString(), customerChildSatus);
+        values.put(CustomerEnum.ColoumnCustomerChild.toString(), customerChild);
+        values.put(CustomerEnum.ColoumnCustomerEmail.toString(), customerEmail);
+        values.put(CustomerEnum.ColoumnCustomerEmail2.toString(), customerEmail2);
+        values.put(CustomerEnum.ColoumnCustomerPhone.toString(), customerPhone);
+        values.put(CustomerEnum.ColoumnCustomerPhone2.toString(), customerPhone2);
+        values.put(CustomerEnum.ColoumnCustomerPhone3.toString(), customerPhone3);
+        values.put(CustomerEnum.ColoumnCustomerAddress.toString(), customerAddress);
+        values.put(CustomerEnum.ColoumnCustomerState.toString(), customerState);
+        values.put(CustomerEnum.ColoumnCustomerCity.toString(), customerCity);
+        values.put(CustomerEnum.ColoumnCustomerPin.toString(), customerPin);
+        values.put(CustomerEnum.ColoumnCustomerCountry.toString(), customerCountry);
+        values.put(CustomerEnum.ColoumnCustomerDesignation.toString(), customerDesignation);
+        values.put(CustomerEnum.ColoumnCustomerCompany.toString(), customerCompany);
+        values.put(CustomerEnum.ColoumnCustomerGstin.toString(), customerGstin);
+        values.put(CustomerEnum.ColoumnCustomer.toString(), customer);
+        values.put(CustomerEnum.ColoumnCustomerRelationship.toString(), customerRelationship);
+        values.put(CustomerEnum.ColoumnCustomerImage.toString(), customerImage);
+        values.put(CustomerEnum.ColoumnLastBillingDate.toString(), lastBillingDate);
+        values.put(CustomerEnum.ColoumnLastBillingAmount.toString(), lastBillingAmount);
+        values.put(CustomerEnum.ColoumnIsSuggestion.toString(), issuggestion);
+        values.put(CustomerEnum.ColoumnSuggestion.toString(), suggestion);
+        values.put(CustomerEnum.ColoumnCustomerPoint.toString(), customerPoints);
+        values.put(CustomerEnum.ColoumnRecentOrders.toString(), recent_orders);
+        values.put(CustomerEnum.ColoumnCustomerCustomerStatus.toString(), customerStatus);
+        values.put(CustomerEnum.ColoumncFactor.toString(), cfactor);
+        values.put(CustomerEnum.ColoumncType.toString(), customerType);
+        values.put(CustomerEnum.ColoumncCustomerDOM.toString(), customerDom);
+        values.put(CustomerEnum.ColoumnCustomerCode.toString(), customerCode);
+        values.put(CustomerEnum.ColoumnRegisteredBusinessPlace.toString(), registeredBusinessPlaceID);
+        values.put(CustomerEnum.ColoumnPointsPerValue.toString(), customerPointsValue);
+        values.put(CustomerEnum.ColumnRedeemPoints.toString(), customerRedeemPoints);
+        values.put(CustomerEnum.ColumnAdjustedPoints.toString(), customerAdjustPoint);
+        values.put(CustomerEnum.ColumnExpirePoints.toString(), customerExpirePoint);
+        values.put(CustomerEnum.CoulmnReversePoints.toString(), customerReversePoint);
+        values.put(CustomerEnum.ColoumnIsSync.toString(), sync);
+
+        // insert row
+        long id = db.insert(TABLE_NAME, null, values);
+        // close db connection
+        db.close();
+        // return newly inserted row id
+        return id;
+    }
+
+    //Delete Customer Data
+    public void deleteCustomerData(String id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, CustomerEnum.ColoumnCustomerID.toString() + " = ?",
+                new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    public int updateServerId(int localId, String serverId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CustomerEnum.ColoumnCustomerID.toString(), serverId);
+        values.put(CustomerEnum.ColoumnIsSync.toString(), 1);
+
+        // insert row
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnLocalID.toString() + " = ?", new String[]{String.valueOf(localId)});
+
+    }
+
+    //Update Customer Data
+    public int updateCustomer(String customerID,
+                              String customerTitle,
+                              String customerName,
+                              String customerFirstName,
+                              String customerLastName,
+                              String customerGender,
+                              String customerBday,
+                              String customerMaritalStatus,
+                              String customerSpouseFirstName,
+                              String customerSpouseLastName,
+                              String customerSpouseDob,
+                              String customerChildSatus,
+                              String customerChild,
+                              String customerEmail,
+                              String customerEmail2,
+                              String customerPhone,
+                              String customerPhone2,
+                              String customerPhone3,
+                              String customerAddress,
+                              String customerState,
+                              String customerCity,
+                              String customerPin,
+                              String customerCountry,
+                              String customerDesignation,
+                              String customerCompany,
+                              String customerGstin,
+                              String customer,
+                              String customerRelationship,
+                              String customerImage,
+                              String lastBillingDate,
+                              String lastBillingAmount,
+                              String issuggestion,
+                              String suggestion,
+                              String customerPoints,
+                              String recent_orders,
+                              String customerStatus,
+                              String cfactor,
+                              String customerType,
+                              String customerDom,
+                              String customerCode,
+                              String registeredBusinessPlaceID,
+                              double customerPointsPervalue,
+                              double customerRedeemPoints,
+                              double customerAdjustedPoints,
+                              double customerExpirePoints,
+                              double customerReversePoints,
+                              int sync) {
+        // get writable database as we want to write data
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        // `id` and `timestamp` will be inserted automatically.
+        // no need to add them
+        values.put(CustomerEnum.ColoumnCustomerID.toString(), customerID);
+        values.put(CustomerEnum.ColoumnCustomerTitle.toString(), customerTitle);
+        values.put(CustomerEnum.ColoumnCustomerName.toString(), customerName);
+        values.put(CustomerEnum.ColoumnCustomerFirstName.toString(), customerFirstName);
+        values.put(CustomerEnum.ColoumnCustomerLastName.toString(), customerLastName);
+        values.put(CustomerEnum.ColoumnCustomerGender.toString(), customerGender);
+        values.put(CustomerEnum.ColoumnCustomerBday.toString(), customerBday);
+        values.put(CustomerEnum.ColoumnCustomerMaritalStatus.toString(), customerMaritalStatus);
+        values.put(CustomerEnum.ColoumnCustomerSpouseFirstName.toString(), customerSpouseFirstName);
+        values.put(CustomerEnum.ColoumnCustomerSpouseLastName.toString(), customerSpouseLastName);
+        values.put(CustomerEnum.ColoumnCustomerSpouseDob.toString(), customerSpouseDob);
+        values.put(CustomerEnum.ColoumnCustomerChildStatus.toString(), customerChildSatus);
+        values.put(CustomerEnum.ColoumnCustomerChild.toString(), customerChild);
+        values.put(CustomerEnum.ColoumnCustomerEmail.toString(), customerEmail);
+        values.put(CustomerEnum.ColoumnCustomerEmail2.toString(), customerEmail2);
+        values.put(CustomerEnum.ColoumnCustomerPhone.toString(), customerPhone);
+        values.put(CustomerEnum.ColoumnCustomerPhone2.toString(), customerPhone2);
+        values.put(CustomerEnum.ColoumnCustomerPhone3.toString(), customerPhone3);
+        values.put(CustomerEnum.ColoumnCustomerAddress.toString(), customerAddress);
+        values.put(CustomerEnum.ColoumnCustomerState.toString(), customerState);
+        values.put(CustomerEnum.ColoumnCustomerCity.toString(), customerCity);
+        values.put(CustomerEnum.ColoumnCustomerPin.toString(), customerPin);
+        values.put(CustomerEnum.ColoumnCustomerCountry.toString(), customerCountry);
+        values.put(CustomerEnum.ColoumnCustomerDesignation.toString(), customerDesignation);
+        values.put(CustomerEnum.ColoumnCustomerCompany.toString(), customerCompany);
+        values.put(CustomerEnum.ColoumnCustomerGstin.toString(), customerGstin);
+        values.put(CustomerEnum.ColoumnCustomer.toString(), customer);
+        values.put(CustomerEnum.ColoumnCustomerRelationship.toString(), customerRelationship);
+        values.put(CustomerEnum.ColoumnCustomerImage.toString(), customerImage);
+        values.put(CustomerEnum.ColoumnLastBillingDate.toString(), lastBillingDate);
+        values.put(CustomerEnum.ColoumnLastBillingAmount.toString(), lastBillingAmount);
+        values.put(CustomerEnum.ColoumnIsSuggestion.toString(), issuggestion);
+        values.put(CustomerEnum.ColoumnSuggestion.toString(), suggestion);
+        values.put(CustomerEnum.ColoumnCustomerPoint.toString(), customerPoints);
+        values.put(CustomerEnum.ColoumnRecentOrders.toString(), recent_orders);
+        values.put(CustomerEnum.ColoumnCustomerCustomerStatus.toString(), customerStatus);
+        values.put(CustomerEnum.ColoumncFactor.toString(), cfactor);
+        values.put(CustomerEnum.ColoumncType.toString(), customerType);
+        values.put(CustomerEnum.ColoumncCustomerDOM.toString(), customerDom);
+        values.put(CustomerEnum.ColoumnCustomerCode.toString(), customerCode);
+        values.put(CustomerEnum.ColoumnRegisteredBusinessPlace.toString(), registeredBusinessPlaceID);
+        values.put(CustomerEnum.ColoumnPointsPerValue.toString(), customerPointsPervalue);
+        values.put(CustomerEnum.ColumnRedeemPoints.toString(), customerRedeemPoints);
+        values.put(CustomerEnum.ColumnAdjustedPoints.toString(), customerAdjustedPoints);
+        values.put(CustomerEnum.ColumnExpirePoints.toString(), customerExpirePoints);
+        values.put(CustomerEnum.CoulmnReversePoints.toString(), customerReversePoints);
+        values.put(CustomerEnum.ColoumnIsSync.toString(), sync);
+        // insert row
+        return db.update(TABLE_NAME, values, CustomerEnum.ColoumnCustomerID.toString() + " = ?",
+                new String[]{customerID});
+
+        // return newly inserted row id
+    }
+
+    //Get Customer Record
+    public long getRecordsCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        long count = DatabaseUtils.queryNumEntries(db, TABLE_NAME);
+        db.close();
+        return count;
+    }
+
+    //Get customer details
+    public CustomerModel getCustomerMobile(String id) {
+        // get readable database as we are not inserting anything
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{
+                        CustomerEnum.ColoumnCustomerID.toString(),
+                        CustomerEnum.ColoumnCustomerTitle.toString(),
+                        CustomerEnum.ColoumnCustomerName.toString(),
+                        CustomerEnum.ColoumnCustomerFirstName.toString(),
+                        CustomerEnum.ColoumnCustomerLastName.toString(),
+                        CustomerEnum.ColoumnCustomerGender.toString(),
+                        CustomerEnum.ColoumnCustomerBday.toString(),
+                        CustomerEnum.ColoumnCustomerMaritalStatus.toString(),
+                        CustomerEnum.ColoumnCustomerSpouseFirstName.toString(),
+                        CustomerEnum.ColoumnCustomerSpouseLastName.toString(),
+                        CustomerEnum.ColoumnCustomerSpouseDob.toString(),
+                        CustomerEnum.ColoumnCustomerChildStatus.toString(),
+                        CustomerEnum.ColoumnCustomerChild.toString(),
+                        CustomerEnum.ColoumnCustomerEmail.toString(),
+                        CustomerEnum.ColoumnCustomerEmail2.toString(),
+                        CustomerEnum.ColoumnCustomerPhone.toString(),
+                        CustomerEnum.ColoumnCustomerPhone2.toString(),
+                        CustomerEnum.ColoumnCustomerPhone3.toString(),
+                        CustomerEnum.ColoumnCustomerAddress.toString(),
+                        CustomerEnum.ColoumnCustomerState.toString(),
+                        CustomerEnum.ColoumnCustomerCity.toString(),
+                        CustomerEnum.ColoumnCustomerPin.toString(),
+                        CustomerEnum.ColoumnCustomerCountry.toString(),
+                        CustomerEnum.ColoumnCustomerDesignation.toString(),
+                        CustomerEnum.ColoumnCustomerCompany.toString(),
+                        CustomerEnum.ColoumnCustomerGstin.toString(),
+                        CustomerEnum.ColoumnCustomer.toString(),
+                        CustomerEnum.ColoumnCustomerRelationship.toString(),
+                        CustomerEnum.ColoumnCustomerImage.toString(),
+                        CustomerEnum.ColoumnLastBillingDate.toString(),
+                        CustomerEnum.ColoumnLastBillingAmount.toString(),
+                        CustomerEnum.ColoumnIsSuggestion.toString(),
+                        CustomerEnum.ColoumnSuggestion.toString(),
+                        CustomerEnum.ColoumnCustomerPoint.toString(),
+                        CustomerEnum.ColoumnRecentOrders.toString(),
+                        CustomerEnum.ColoumnCustomerCustomerStatus.toString(),
+                        CustomerEnum.ColoumncFactor.toString(),
+                        CustomerEnum.ColoumncType.toString(),
+                        CustomerEnum.ColoumncCustomerDOM.toString(),
+                        CustomerEnum.ColoumnCustomerCode.toString(),
+                        CustomerEnum.ColoumnRegisteredBusinessPlace.toString(),
+                        CustomerEnum.ColoumnPointsPerValue.toString(),
+                        CustomerEnum.ColumnRedeemPoints.toString(),
+                        CustomerEnum.ColumnAdjustedPoints.toString(),
+                        CustomerEnum.ColumnExpirePoints.toString(),
+                        CustomerEnum.CoulmnReversePoints.toString(),
+                        CustomerEnum.ColoumnIsSync.toString()},
+                CustomerEnum.ColoumnCustomerPhone.toString() + "=?",
+                new String[]{id}, null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+        // prepare note object
+        assert cursor != null;
+        CustomerModel note = new CustomerModel(
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerFirstName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerLastName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGender.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerBday.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerMaritalStatus.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseFirstName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseLastName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseDob.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChildStatus.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChild.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail2.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone2.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone3.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerAddress.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerState.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCity.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPin.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCountry.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerDesignation.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCompany.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomer.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerRelationship.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerImage.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingDate.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingAmount.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnIsSuggestion.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnSuggestion.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPoint.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRecentOrders.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCustomerStatus.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnRedeemPoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnAdjustedPoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnExpirePoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.CoulmnReversePoints.toString())),
+                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
+
+        // close the db connection
+        cursor.close();
+
+        return note;
+    }
+
+    //Get customer details
+    public CustomerModel getCustomer(String id) {
+        // get readable database as we are not inserting anything
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{
+                        CustomerEnum.ColoumnCustomerID.toString(),
+                        CustomerEnum.ColoumnCustomerTitle.toString(),
+                        CustomerEnum.ColoumnCustomerName.toString(),
+                        CustomerEnum.ColoumnCustomerFirstName.toString(),
+                        CustomerEnum.ColoumnCustomerLastName.toString(),
+                        CustomerEnum.ColoumnCustomerGender.toString(),
+                        CustomerEnum.ColoumnCustomerBday.toString(),
+                        CustomerEnum.ColoumnCustomerMaritalStatus.toString(),
+                        CustomerEnum.ColoumnCustomerSpouseFirstName.toString(),
+                        CustomerEnum.ColoumnCustomerSpouseLastName.toString(),
+                        CustomerEnum.ColoumnCustomerSpouseDob.toString(),
+                        CustomerEnum.ColoumnCustomerChildStatus.toString(),
+                        CustomerEnum.ColoumnCustomerChild.toString(),
+                        CustomerEnum.ColoumnCustomerEmail.toString(),
+                        CustomerEnum.ColoumnCustomerEmail2.toString(),
+                        CustomerEnum.ColoumnCustomerPhone.toString(),
+                        CustomerEnum.ColoumnCustomerPhone2.toString(),
+                        CustomerEnum.ColoumnCustomerPhone3.toString(),
+                        CustomerEnum.ColoumnCustomerAddress.toString(),
+                        CustomerEnum.ColoumnCustomerState.toString(),
+                        CustomerEnum.ColoumnCustomerCity.toString(),
+                        CustomerEnum.ColoumnCustomerPin.toString(),
+                        CustomerEnum.ColoumnCustomerCountry.toString(),
+                        CustomerEnum.ColoumnCustomerDesignation.toString(),
+                        CustomerEnum.ColoumnCustomerCompany.toString(),
+                        CustomerEnum.ColoumnCustomerGstin.toString(),
+                        CustomerEnum.ColoumnCustomer.toString(),
+                        CustomerEnum.ColoumnCustomerRelationship.toString(),
+                        CustomerEnum.ColoumnCustomerImage.toString(),
+                        CustomerEnum.ColoumnLastBillingDate.toString(),
+                        CustomerEnum.ColoumnLastBillingAmount.toString(),
+                        CustomerEnum.ColoumnIsSuggestion.toString(),
+                        CustomerEnum.ColoumnSuggestion.toString(),
+                        CustomerEnum.ColoumnCustomerPoint.toString(),
+                        CustomerEnum.ColoumnRecentOrders.toString(),
+                        CustomerEnum.ColoumnCustomerCustomerStatus.toString(),
+                        CustomerEnum.ColoumncFactor.toString(),
+                        CustomerEnum.ColoumncType.toString(),
+                        CustomerEnum.ColoumncCustomerDOM.toString(),
+                        CustomerEnum.ColoumnCustomerCode.toString(),
+                        CustomerEnum.ColoumnRegisteredBusinessPlace.toString(),
+                        CustomerEnum.ColoumnPointsPerValue.toString(),
+                        CustomerEnum.ColumnRedeemPoints.toString(),
+                        CustomerEnum.ColumnAdjustedPoints.toString(),
+                        CustomerEnum.ColumnExpirePoints.toString(),
+                        CustomerEnum.CoulmnReversePoints.toString(),
+                        CustomerEnum.ColoumnIsSync.toString()},
+                CustomerEnum.ColoumnCustomerID.toString() + "=?",
+                new String[]{id}, null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+        // prepare note object
+        assert cursor != null;
+        CustomerModel note = new CustomerModel(
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerFirstName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerLastName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGender.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerBday.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerMaritalStatus.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseFirstName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseLastName.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseDob.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChildStatus.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChild.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail2.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone2.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone3.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerAddress.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerState.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCity.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPin.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCountry.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerDesignation.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCompany.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomer.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerRelationship.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerImage.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingDate.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingAmount.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnIsSuggestion.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnSuggestion.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPoint.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRecentOrders.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCustomerStatus.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())),
+                cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnRedeemPoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnAdjustedPoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnExpirePoints.toString())),
+                cursor.getDouble(cursor.getColumnIndex(CustomerEnum.CoulmnReversePoints.toString())),
+                cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
+
+        // close the db connection
+        cursor.close();
+
+        return note;
+    }
+
+    /**
+     * Remove all users and groups from database.
+     */
+    public void removeAll() {
+        // db.delete(String tableName, String whereClause, String[] whereArgs);
+        // If whereClause is null, it will delete all rows.
+        SQLiteDatabase db = this.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
+        db.delete(TABLE_NAME, null, null);
+        db.delete(TABLE_SPINNER, null, null);
+    }
+
+    //Getting Offline customer
+    public ArrayList<CustomerModel> getAllOfflineCustomer() {
+        ArrayList<CustomerModel> notes = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABLE_NAME + " WHERE " + CustomerEnum.ColoumnIsSync.toString() + " = "
+                + 0, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                CustomerModel note = new CustomerModel();
+                Log.e("LocalId**", String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString()))));
+                note.setLocalId(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString())));
+                note.setCustomerID(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString()))));
+                note.setCustomerTitle(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())));
+                note.setCustomerName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())));
+                note.setCustomerFirstName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerFirstName.toString())));
+                note.setCustomerLastName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerLastName.toString())));
+                note.setCustomerGender(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGender.toString())));
+                note.setCustomerBday(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerBday.toString())));
+                note.setCustomerMaritalStatus(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerMaritalStatus.toString())));
+                note.setCustomerSpouseFirstName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseFirstName.toString())));
+                note.setCustomerSpouseLastName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseLastName.toString())));
+                note.setCustomerSpouseDob(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseDob.toString())));
+                note.setCustomerChildSatus(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChildStatus.toString())));
+                note.setCustomerChild(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChild.toString())));
+                note.setCustomerEmail(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail.toString())));
+                note.setCustomerEmail2(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail2.toString())));
+                note.setCustomerPhone(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone.toString())));
+                note.setCustomerPhone2(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone2.toString())));
+                note.setCustomerPhone3(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone3.toString())));
+                note.setCustomerAddress(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerAddress.toString())));
+                note.setCustomerState(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerState.toString())));
+                note.setCustomerCity(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCity.toString())));
+                note.setCustomerPin(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPin.toString())));
+                note.setCustomerCountry(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCountry.toString())));
+                note.setCustomerDesignation(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerDesignation.toString())));
+                note.setCustomerCompany(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCompany.toString())));
+                note.setCustoemrGstin(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())));
+                note.setCustomerRelationship(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerRelationship.toString())));
+                note.setCustomerStatus(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCustomerStatus.toString())));
+                note.setCfactor(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())));
+                note.setCustomerType(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())));
+                note.setCustomerDom(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())));
+                note.setCustomerCode(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())));
+                note.setRegisteredBusinessPlaceID(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())));
+                note.setPointsPerValue(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())));
+                note.setCustomerChild(new Gson().toJson(note.getCustomerChild()));
+                notes.add(note);
+            } while (cursor.moveToNext());
+        }
+
+        // close db connection
+        db.close();
+
+        // return notes list
+        return notes;
+    }
+
+    public boolean checkIfRecordExist(String searchKey) {
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor cursor = db.rawQuery("SELECT " + CustomerEnum.ColoumnCustomerPhone.toString() + " FROM " + TABLE_NAME + " WHERE " +CustomerEnum.ColoumnCustomerPhone.toString() +" = " + searchKey + ";", null);
+            if (cursor.moveToFirst()) {
+                db.close();
+                Log.d("Record  Already Exists", "Table is:" + TABLE_NAME + " ColumnName:" + searchKey);
+                return true;//record Exists
+
+            }
+            db.close();
+        } catch (Exception errorException) {
+            Log.d("Exception occured", "Exception occured " + errorException);
+            // db.close();
+        }
+        return false;
+    }
+
+//    public boolean dbHasData(String searchColumn, String searchKey) {
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = null;
+//        String query = "Select * from " + TABLE_NAME + " where " + searchColumn + " = ?";
+//        cursor = db.rawQuery(query,new String[]{searchKey});
+//        cursor.moveToFirst();
+//        db.close();
+//        return dbHasData;
+//    }
+//
+
+    //Get All records from customer Database
+    public ArrayList<CustomerModel> getAllNotes() {
+        ArrayList<CustomerModel> notes = new ArrayList<>();
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT  * FROM " + TABLE_NAME, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                CustomerModel note = new CustomerModel();
+                Log.e("LocalId**", String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString()))));
+
+                note.setLocalId(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnLocalID.toString())));
+                note.setCustomerID(String.valueOf(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerID.toString()))));
+                note.setCustomerTitle(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerTitle.toString())));
+                note.setCustomerName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerName.toString())));
+                note.setCustomerFirstName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerFirstName.toString())));
+                note.setCustomerLastName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerLastName.toString())));
+                note.setCustomerGender(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGender.toString())));
+                note.setCustomerBday(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerBday.toString())));
+                note.setCustomerMaritalStatus(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerMaritalStatus.toString())));
+                note.setCustomerSpouseFirstName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseFirstName.toString())));
+                note.setCustomerSpouseLastName(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseLastName.toString())));
+                note.setCustomerSpouseDob(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerSpouseDob.toString())));
+                note.setCustomerChildSatus(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChildStatus.toString())));
+                note.setCustomerChild(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerChild.toString())));
+                note.setCustomerEmail(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail.toString())));
+                note.setCustomerEmail2(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerEmail2.toString())));
+                note.setCustomerPhone(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone.toString())));
+                note.setCustomerPhone2(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone2.toString())));
+                note.setCustomerPhone3(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPhone3.toString())));
+                note.setCustomerAddress(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerAddress.toString())));
+                note.setCustomerState(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerState.toString())));
+                note.setCustomerCity(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCity.toString())));
+                note.setCustomerPin(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPin.toString())));
+                note.setCustomerCountry(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCountry.toString())));
+                note.setCustomerDesignation(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerDesignation.toString())));
+                note.setCustomerCompany(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCompany.toString())));
+                note.setCustoemrGstin(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerGstin.toString())));
+                note.setCustomer(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomer.toString())));
+                note.setCustomerRelationship(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerRelationship.toString())));
+                note.setCustomerImage(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerImage.toString())));
+                note.setLastBillingDate(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingDate.toString())));
+                note.setLastBillingAmount(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnLastBillingAmount.toString())));
+                note.setIssuggestion(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnIsSuggestion.toString())));
+                note.setSuggestion(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnSuggestion.toString())));
+                note.setCustomerPoints(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerPoint.toString())));
+                note.setRecentOrders(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRecentOrders.toString())));
+                note.setCustomerStatus(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCustomerStatus.toString())));
+                note.setCfactor(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncFactor.toString())));
+                note.setCustomerType(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncType.toString())));
+                note.setCustomerDom(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumncCustomerDOM.toString())));
+                note.setCustomerCode(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCustomerCode.toString())));
+                note.setRegisteredBusinessPlaceID(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRegisteredBusinessPlace.toString())));
+                note.setPointsPerValue(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColoumnPointsPerValue.toString())));
+                note.setCustomerRedeemPoints(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnRedeemPoints.toString())));
+                note.setCustomerAdjustPoints(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnAdjustedPoints.toString())));
+                note.setCustomerExpirePoints(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.ColumnExpirePoints.toString())));
+                note.setCustomerReversePoints(cursor.getDouble(cursor.getColumnIndex(CustomerEnum.CoulmnReversePoints.toString())));
+                note.setIsSync(cursor.getInt(cursor.getColumnIndex(CustomerEnum.ColoumnIsSync.toString())));
+                notes.add(note);
+            } while (cursor.moveToNext());
+        }
+
+        // close db connection
+        db.close();
+
+        // return notes list
+        return notes;
+    }
+
+    //Insert Customer Data
+    public void insertSpinnerItems(String cityList, String stateList, String countryList, String designationList, String companyList, String relationshipList, String customerType) {
+        // get writable database as we want to write data
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        // `id` and `timestamp` will be inserted automatically.
+        // no need to add them
+        values.put(CustomerEnum.ColoumnCityList.toString(), cityList);
+        values.put(CustomerEnum.ColoumnStateList.toString(), stateList);
+        values.put(CustomerEnum.ColoumnCountryList.toString(), countryList);
+        values.put(CustomerEnum.ColoumnDesignationList.toString(), designationList);
+        values.put(CustomerEnum.ColoumnCompanyList.toString(), companyList);
+        values.put(CustomerEnum.ColoumnRelationShipList.toString(), relationshipList);
+        values.put(CustomerEnum.ColoumnTypeList.toString(), customerType);
+
+
+        // insert row
+        long id = db.insert(TABLE_SPINNER, null, values);
+        // close db connection
+        db.close();
+        // return newly inserted row id
+    }
+
+    //Get All records from customer Database
+    public ArrayList<CustomerSpinner> getCustomerSpinner() {
+        ArrayList<CustomerSpinner> notes = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("SELECT  * FROM " + TABLE_SPINNER, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                CustomerSpinner note = new CustomerSpinner();
+                note.setCityList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCityList.toString()))));
+                note.setStateList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnStateList.toString()))));
+                note.setCountryList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCountryList.toString()))));
+                note.setDesignationList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnDesignationList.toString()))));
+                note.setCompanyList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnCompanyList.toString()))));
+                note.setRelationshipList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnRelationShipList.toString()))));
+                note.setCustomerTypeList(String.valueOf(cursor.getString(cursor.getColumnIndex(CustomerEnum.ColoumnTypeList.toString()))));
+                notes.add(note);
+            } while (cursor.moveToNext());
+        }
+
+        // close db connection
+        db.close();
+
+        // return notes list
+        return notes;
+    }
+
+    /**
+     * Remove all users and groups from database.
+     */
+    public void removeSpinnerList() {
+        // db.delete(String tableName, String whereClause, String[] whereArgs);
+        // If whereClause is null, it will delete all rows.
+        SQLiteDatabase db = this.getWritableDatabase(); // helper is object extends SQLiteOpenHelper
+        db.delete(TABLE_SPINNER, null, null);
+    }
+
+    public boolean isCustomerDataEmpty() {
+
+        boolean flag;
+        String quString = "select exists(select * from " + TABLE_NAME + ");";
+
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(quString, null);
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        if (count == 1) {
+            flag = false;
+        } else {
+            flag = true;
+        }
+        cursor.close();
+        db.close();
+
+        return flag;
+    }
+
+
+    /**
+     * Remove all users and groups from database.
+     */
+
+}

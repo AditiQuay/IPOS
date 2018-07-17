@@ -1,0 +1,69 @@
+{
+  "spinnerData": {
+    "cityList": [
+      {
+        "city": "New Delhi"
+      },
+      {
+        "city": "Gurgaon"
+      },
+      {
+        "city": "Noida"
+      }
+    ],
+    "stateList": [
+      {
+        "state": "Delhi"
+      },
+      {
+        "state": "Haryana"
+      },
+      {
+        "state": "Rajasthan"
+      }
+    ],
+    "countryList": [
+      {
+        "country": "India"
+      },
+      {
+        "country": "US"
+      }
+    ],
+    "designationList": [
+      {
+        "designation": "Mobile Developer"
+      },
+      {
+        "designation": "Backend Developer"
+      }
+    ],
+    "companyList": [
+      {
+        "company": "Quay Intech pvt ltd"
+      },
+      {
+        "company": "Crystal crop"
+      }
+    ],
+    "customerList": [
+      {
+        "customer": "Niraj"
+      },
+      {
+        "customer": "Arjun"
+      },
+      {
+        "customer": "Niteesh"
+      }
+    ],
+    "relationshipList": [
+      {
+        "relationship": "Retailer"
+      },
+      {
+        "relationship": "Wholeseller"
+      }
+    ]
+  }
+}

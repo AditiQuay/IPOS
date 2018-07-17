@@ -1,0 +1,9 @@
+package io.realm;
+
+
+public interface RealmKycDetailsRealmProxyInterface {
+    public String realmGet$Name();
+    public void realmSet$Name(String value);
+    public String realmGet$data();
+    public void realmSet$data(String value);
+}

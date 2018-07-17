@@ -1,5 +1,6 @@
 package quay.com.ipos.compliance.viewModel;
 
+import android.databinding.BaseObservable;
 import android.view.View;
 
 
@@ -8,7 +9,7 @@ import android.view.View;
  * Created by deepak.kumar1 on 26-03-2018.
  */
 
-public class ProgressStateViewModel {
+public class ProgressStateViewModel extends BaseObservable {
     public boolean viewDone = false;
     public boolean viewPending = false;
     public boolean viewUpcoming = false;
@@ -28,7 +29,7 @@ public class ProgressStateViewModel {
         viewUpcoming = true;
         viewImmediate = true;
         this.listner.onViewAllSelected();
-        //notifyChange();
+        notifyChange();
     }
 
     public void setViewDone(View view, boolean viewDone) {
@@ -36,14 +37,14 @@ public class ProgressStateViewModel {
         setAllFalse();
         this.viewDone = true;
         listner.onDoneSelected();
-     //   notifyChange();
+         notifyChange();
     }
 
     public void setViewImmediate(boolean viewImmediate) {
         setAllFalse();
         this.viewImmediate = viewImmediate;
         this.listner.onImmediateSelected();
-    //    notifyChange();
+        notifyChange();
 
     }
 
@@ -51,7 +52,7 @@ public class ProgressStateViewModel {
         setAllFalse();
         this.viewPending = viewPending;
         this.listner.onPendingSelected();
-        //notifyChange();
+       notifyChange();
 
     }
 
@@ -59,7 +60,7 @@ public class ProgressStateViewModel {
         setAllFalse();
         this.viewUpcoming = viewUpcoming;
         this.listner.onUpcomingSelected();
-       // notifyChange();
+      notifyChange();
 
     }
 

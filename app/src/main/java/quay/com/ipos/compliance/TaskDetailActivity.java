@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.quayintech.tasklib.RepeatTaskActivity;
+import com.quayintech.tasklib.fragment.AlertPickerDialogFragment;
+import com.quayintech.tasklib.interfaces.AlertSelectionListener;
+import com.quayintech.tasklib.model.Alert;
 import com.quayintech.tasklib.model.Recurrence;
 
 import java.util.Calendar;
@@ -30,8 +33,12 @@ import quay.com.ipos.compliance.adapter.SubTaskAdapter;
 import quay.com.ipos.compliance.data.local.entity.Employee;
 import quay.com.ipos.compliance.data.local.entity.SubTask;
 import quay.com.ipos.compliance.data.local.entity.Task;
+import quay.com.ipos.compliance.fragment.AssignTaskDialogFragment;
+import quay.com.ipos.compliance.fragment.TaskStateSelectorDialogFragment;
 import quay.com.ipos.compliance.interfaces.ComplianceDetailHandler;
+import quay.com.ipos.compliance.interfaces.UserSelectionListener;
 import quay.com.ipos.compliance.viewModel.ComplianceViewModel;
+import quay.com.ipos.databinding.ActivityComplianceDetailBinding;
 import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.UiUtils;
 
@@ -59,7 +66,8 @@ public class TaskDetailActivity extends AppCompatActivity implements
         this.activity = TaskDetailActivity.this;
 
 
-        setContentView( R.layout.activity_compliance_detail);
+//        setContentView(R.layout.activity_compliance_detail);
+        ActivityComplianceDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_compliance_detail);
         task_id = getIntent().getIntExtra("task_id", -1);
         if (task_id == -1) {
             Log.e(TAG, "task_id" + task_id);
@@ -70,7 +78,8 @@ public class TaskDetailActivity extends AppCompatActivity implements
         try {
 
             viewModel = new ComplianceViewModel(TaskDetailActivity.this);
-          //  binding.setViewModel(viewModel);
+            binding.setHandler(this);
+            binding.setViewModel(viewModel);
 
 
             IPOSApplication.getDatabase().taskDao().getTaskById(task_id).observe(this, new Observer<Task>() {
@@ -184,7 +193,7 @@ public class TaskDetailActivity extends AppCompatActivity implements
 
     @Override
     public void onClickAlert(View view) {
-      /*  AlertPickerDialogFragment dialogFragment = AlertPickerDialogFragment.showDialog(getSupportFragmentManager(), viewModel.strAlert);
+       AlertPickerDialogFragment dialogFragment = AlertPickerDialogFragment.showDialog(getSupportFragmentManager(), viewModel.strAlert);
         dialogFragment.setListener(new AlertSelectionListener() {
             @Override
             public void onAlertSelected(Alert alert) {
@@ -192,7 +201,7 @@ public class TaskDetailActivity extends AppCompatActivity implements
                 viewModel.setAlert(alert);
 
             }
-        });*/
+        });
     }
 
     @Override
@@ -209,19 +218,19 @@ public class TaskDetailActivity extends AppCompatActivity implements
 
     @Override
     public void onClickProgressState(View view) {
-//        TaskStateSelectorDialogFragment dialogFragment = TaskStateSelectorDialogFragment.showDialog(getSupportFragmentManager());
-//        dialogFragment.setListener(new TaskStateSelectorDialogFragment.ProgressStateListener() {
-//            @Override
-//            public void onStateSlected(int mTaskType) {
-//                viewModel.setStrProgressState(mTaskType);
-//
-//            }
-//        });
+        TaskStateSelectorDialogFragment dialogFragment = TaskStateSelectorDialogFragment.showDialog(getSupportFragmentManager());
+        dialogFragment.setListener(new TaskStateSelectorDialogFragment.ProgressStateListener() {
+            @Override
+            public void onStateSlected(int mTaskType) {
+                viewModel.setStrProgressState(mTaskType);
+
+            }
+        });
     }
 
     @Override
     public void onClickAssignTo(final View view) {
-       /* AssignTaskDialogFragment dialogFragment = AssignTaskDialogFragment.showDialog(getSupportFragmentManager());
+       AssignTaskDialogFragment dialogFragment = AssignTaskDialogFragment.showDialog(getSupportFragmentManager());
         dialogFragment.setListener(new UserSelectionListener() {
             @Override
             public void onUserSlected(Employee userProfileModel) {
@@ -230,7 +239,7 @@ public class TaskDetailActivity extends AppCompatActivity implements
 
 
         });
-*/
+
     }
 
     @Override

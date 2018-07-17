@@ -1,0 +1,15 @@
+package io.realm;
+
+
+public interface RealmBusinessPlacesRealmProxyInterface {
+    public int realmGet$buisnessPlaceId();
+    public void realmSet$buisnessPlaceId(int value);
+    public String realmGet$buisnessPlaceName();
+    public void realmSet$buisnessPlaceName(String value);
+    public String realmGet$buisnessLocationStateCode();
+    public void realmSet$buisnessLocationStateCode(String value);
+    public String realmGet$header();
+    public void realmSet$header(String value);
+    public boolean realmGet$isSelected();
+    public void realmSet$isSelected(boolean value);
+}

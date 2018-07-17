@@ -400,7 +400,6 @@ public class DDRAddProductActivity extends BaseActivity implements InitInterface
                 }
                 try {
                     if (response.body() != null) {
-                        InvoiceData.getInstance().setInitData(response.body());
                         mutableLiveData.setValue(response.body());
                     }
                 } catch (Exception e) {

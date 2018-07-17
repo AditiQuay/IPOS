@@ -2,13 +2,16 @@ package quay.com.ipos.ddrsales;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -22,11 +25,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -37,27 +42,26 @@ import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.RunTimePermissionActivity;
 import quay.com.ipos.dashboard.adapter.SpinnerDropDownAdapter;
+import quay.com.ipos.data.local.AppDatabase;
+import quay.com.ipos.data.local.entity.DDRInvoiceData;
 import quay.com.ipos.data.remote.RestService;
-import quay.com.ipos.data.remote.model.APIError;
 import quay.com.ipos.data.remote.model.DDRSubmitResponse;
-import quay.com.ipos.data.remote.model.ErrorUtils;
 import quay.com.ipos.ddrsales.adapter.AddressAdapter;
 import quay.com.ipos.ddrsales.adapter.DDRIncoTermsAdapter;
 import quay.com.ipos.ddrsales.adapter.DDRProductBatchAdapter;
+import quay.com.ipos.ddrsales.model.AddressType;
 import quay.com.ipos.ddrsales.model.DDR;
 import quay.com.ipos.ddrsales.model.InvoiceData;
 import quay.com.ipos.ddrsales.model.LogisticsData;
 import quay.com.ipos.ddrsales.model.RealmDDROrderList;
+import quay.com.ipos.ddrsales.model.request.DDRBatchReq;
 import quay.com.ipos.ddrsales.model.request.DDRDetailInfo;
 import quay.com.ipos.ddrsales.model.request.DDRProductCart;
 import quay.com.ipos.ddrsales.model.request.DDRPaymentDetail;
 import quay.com.ipos.ddrsales.model.request.InvoiceDataSubmit;
 import quay.com.ipos.ddrsales.model.response.Address;
-import quay.com.ipos.ddrsales.model.response.DDRBatch;
+import quay.com.ipos.ddrsales.model.response.DDRBatchMasterResponse;
 import quay.com.ipos.ddrsales.model.response.DDRIncoTerm;
-import quay.com.ipos.inventory.activity.EditExpandablePODetailsActivity;
-import quay.com.ipos.inventory.adapter.InventorPOInccoAdapter;
-import quay.com.ipos.inventory.modal.GrnInccoTermsModel;
 import quay.com.ipos.listeners.InitInterface;
 
 import quay.com.ipos.utility.DateAndTimeUtil;
@@ -98,6 +102,8 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
     private TextView textTotalIncoTerms;
 
+
+    private View btnAutoBatch;
 
     private RecyclerView recycleViewBillingAddress;
     private RecyclerView recycleViewShippingAddress;
@@ -159,10 +165,8 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
     public void onSubmitAction(View view) {
 
         Realm realm = Realm.getDefaultInstance();
-        // RealmDDROrderList realmOrderLists = realm.where(RealmDDROrderList.class).equalTo("poNumber", "P00001").findFirst();
         RealmDDROrderList realmOrderLists = realm.where(RealmDDROrderList.class).findFirst();
-
-        updateDataToWS(realmOrderLists);
+        updateDataToWS(realmOrderLists, false);
 
     }
 
@@ -176,9 +180,36 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
     }
 
     public void onSaveAndCloseAction(View view) {
-        Intent intent = new Intent(activity, DDROrderCenterActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        Realm realm = Realm.getDefaultInstance();
+        RealmDDROrderList realmOrderLists = realm.where(RealmDDROrderList.class).findFirst();
+        updateDataToWS(realmOrderLists, true);
+
+
+    }
+
+    private void saveDataInLocal(final String invoiceDataSubmit) {
+
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                DDRInvoiceData ddrInvoiceData = new DDRInvoiceData();
+                ddrInvoiceData.ddrCode = mDdr.mDDRCode;
+                ddrInvoiceData.invoiceData = invoiceDataSubmit;
+                IPOSApplication.getDatabase().ddrInvoiceDao().saveTask(ddrInvoiceData);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                dismissProgress();
+                Intent intent = new Intent(activity, DDRListActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        }.execute();
+
     }
 
 
@@ -238,17 +269,17 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         //billing and shipping
         recycleViewBillingAddress = findViewById(R.id.recycleViewBillingAddress);
         recycleViewBillingAddress.setLayoutManager(new LinearLayoutManager(mContext));
-        adapterAddBilling = new AddressAdapter(mContext, addressList, this, Address.ADDRESS_TYPE_BILLING);
+        adapterAddBilling = new AddressAdapter(mContext, addressList, this, AddressType.ADDRESS_TYPE_BILLING);
         recycleViewBillingAddress.setAdapter(adapterAddBilling);
 
         recycleViewShippingAddress = findViewById(R.id.recycleViewShippingAddress);
         recycleViewShippingAddress.setLayoutManager(new LinearLayoutManager(mContext));
-        adapterAddShipping = new AddressAdapter(mContext, addressList, this, Address.ADDRESS_TYPE_SHIPPING);
+        adapterAddShipping = new AddressAdapter(mContext, addressList, this, AddressType.ADDRESS_TYPE_SHIPPING);
         recycleViewShippingAddress.setAdapter(adapterAddShipping);
 
 
         textIncoTermsOthers = findViewById(R.id.textIncoTermsOthers);
-      //  textIncoTermsOthers.setOnClickListener(this);
+        //  textIncoTermsOthers.setOnClickListener(this);
 
         recycleViewIncoTerms = findViewById(R.id.recycleViewIncoTerms);
         recycleViewProductBatch = findViewById(R.id.recycleViewProductBatch);
@@ -260,12 +291,16 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         recycleViewIncoTerms.setAdapter(adapterIncoTerms);
 
         //batch
+        btnAutoBatch = findViewById(R.id.btnAutoBatch);
+        btnAutoBatch.setOnClickListener(this);
         recycleViewProductBatch.setLayoutManager(new LinearLayoutManager(mContext));
         adapterProductBatch = new DDRProductBatchAdapter(mContext, ddrProductCartList);
         recycleViewProductBatch.setAdapter(adapterProductBatch);
 
 
     }
+
+    private InvoiceData invoiceData;
 
     @Override
     public void applyInitValues() {
@@ -279,38 +314,29 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                 }
             });
         }
-       setIncotermsData();
+        setIncotermsData();
         setAllData();
-        logisticsData = InvoiceData.getInstance().logisticsData;
+
+
+        Intent intent = getIntent();
+        invoiceData = (InvoiceData) intent.getSerializableExtra("invoiceData");
+
+        logisticsData = invoiceData.logisticsData;
         if (logisticsData != null) {
             setTransportMode();
         }
 
-        List<Address> address = InvoiceData.getInstance().address;
+        List<Address> address = invoiceData.address;
         addressList.clear();
         addressList.addAll(address);
 
-       /* if (addressList.size() > 0) {
-             boolean isSelected ;
-            for (Address address1 : addressList) {
-                if (address1.isSelected) {
-                    isSelected = true;
-                }
-            }
-
-            if(!isSelected) {
-                billing = shipping = addressList.get(0);
-                billing.setSelected(true);
-                shipping.setSelected(true);
-            }
-        }*/
 
         adapterAddBilling.notifyDataSetChanged();
         adapterAddShipping.notifyDataSetChanged();
 
 
         incoTermsList.clear();
-        incoTermsList.addAll(InvoiceData.getInstance().ddrIncoTerms);
+        incoTermsList.addAll(invoiceData.ddrIncoTerms);
         adapterIncoTerms.notifyDataSetChanged();
 
         /*ddrProductCartList.clear();
@@ -355,6 +381,9 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         switch (view.getId()) {
             case R.id.textIncoTermsOthers:
                 addOtherIncoTerms();
+                break;
+            case R.id.btnAutoBatch:
+                importBatchMaster();
                 break;
         }
 
@@ -525,8 +554,8 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         // orderDiscount.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
 
 
-        tvTotalItemPrice.setText( getResources().getString(R.string.Rs) + " " +  Util.indianNumberFormat(realmOrderLists.getTotalValueWithoutTax()));
-        textDiscount.setText("- "+getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
+        tvTotalItemPrice.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getTotalValueWithoutTax()));
+        textDiscount.setText("- " + getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getDiscountValue()));
         tvItemQty.setText(realmOrderLists.getQuantity() + "");
         tvTotalPriceBeforeGst.setText(getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat((realmOrderLists.getTotalValueWithoutTax() - realmOrderLists.getDiscountValue())));
         textCGST.setText("+ " + getResources().getString(R.string.Rs) + " " + Util.indianNumberFormat(realmOrderLists.getTotalCGSTValue()) + "");
@@ -554,7 +583,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                 cartDetailsSubmit.materialName = jsonObject.optString("materialName");
                 String materialCode = jsonObject.optString("materialCode");
                 if (materialCode.contains("free")) {
-                    materialCode =   materialCode.replace("free", "");
+                    materialCode = materialCode.replace("free", "");
                 }
                 Log.i("TAG Material Code", materialCode);
                 cartDetailsSubmit.materialCode = materialCode;// jsonObject.optString("materialCode");
@@ -576,7 +605,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
     private boolean isSubmitReq = false;
 
-    private void updateDataToWS(RealmDDROrderList realmOrderLists) {
+    private void updateDataToWS(RealmDDROrderList realmOrderLists, boolean isSaveAndClose) {
         this.invoiceSummary = realmOrderLists;
         ddrIncoTerms = incoTermsList;
         dDRCartDetails = ddrProductCartList;
@@ -590,6 +619,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
             return;
         }
         isSubmitReq = true;
+
         showProgress("Please Wait...");
         InvoiceDataSubmit invoiceDataSubmit = new InvoiceDataSubmit(mDdr,
                 invoiceSummary,
@@ -600,7 +630,18 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                 dDRCartDetails,
                 dDRPaymentDetails);
 
-        Log.i("contact", new Gson().toJson(invoiceDataSubmit));
+
+        String data = new Gson().toJson(invoiceData);
+        Log.i("contact", data);
+        if (isSaveAndClose) {
+            if (data == null) {
+                Log.e(TAG, "data is null");
+                return;
+            }
+            saveDataInLocal(data);
+            return;
+        }
+
 
         //  writeFile(new Gson().toJson(pcModelUpdate));
 
@@ -650,7 +691,7 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
                         DDRSubmitResponse ddrSubmitResponse = response.body();
                         if (ddrSubmitResponse != null) {
                             Log.i("updateDataResponse", new Gson().toJson(ddrSubmitResponse));
-                            onSubmitSuccess(ddrSubmitResponse.ddrOrderId,ddrSubmitResponse.ddrOrderDate);
+                            onSubmitSuccess(ddrSubmitResponse.ddrOrderId, ddrSubmitResponse.ddrOrderDate);
                         }
                     }
                 } catch (Exception e) {
@@ -844,10 +885,10 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 
     @Override
     public void onItemSelected(int position, int addressType) {
-        if (addressType == Address.ADDRESS_TYPE_SHIPPING) {
+        if (addressType == AddressType.ADDRESS_TYPE_SHIPPING) {
             billing = addressList.get(position);
         }
-        if (addressType == Address.ADDRESS_TYPE_BILLING) {
+        if (addressType == AddressType.ADDRESS_TYPE_BILLING) {
             shipping = addressList.get(position);
         }
     }
@@ -871,8 +912,8 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
 //        ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(this,
 //                android.R.layout.simple_spinner_item, strings);
 //        textIncoTermsOthers.setAdapter(stringArrayAdapter);
-        String[] stringsArray={"Options","Loading","Shipping","Unload","Toll","E-Way Bill"};
-        SpinnerDropDownAdapter spinnerDropDownAdapter = new SpinnerDropDownAdapter(this,stringsArray);
+        String[] stringsArray = {"Options", "Loading", "Shipping", "Unload", "Toll", "E-Way Bill"};
+        SpinnerDropDownAdapter spinnerDropDownAdapter = new SpinnerDropDownAdapter(this, stringsArray);
         spinnerDropDownAdapter.setColor(true);
 
         textIncoTermsOthers.setAdapter(spinnerDropDownAdapter);
@@ -912,5 +953,37 @@ public class DDRInvoicePreviewActivity extends RunTimePermissionActivity impleme
         });
     }
 
+    private void importBatchMaster() {
+        try {
 
+            if (ddrProductCartList != null) {
+
+                int size = ddrProductCartList.size();
+                List<String> stringList = new ArrayList<>();
+                for (DDRProductCart productCart : ddrProductCartList) {
+                    stringList.add(productCart.iProductModalId);
+                }
+
+                String result = TextUtils.join(", ", stringList);
+
+                DDRBatchReq batchReq = new DDRBatchReq("" + result, mDdr);
+                Call<DDRBatchMasterResponse> call = RestService.getApiServiceSimple().DDR_GETDDRBATCHUPDATEDETAIL(batchReq);
+                call.enqueue(new Callback<DDRBatchMasterResponse>() {
+                    @Override
+                    public void onResponse(Call<DDRBatchMasterResponse> call, Response<DDRBatchMasterResponse> response) {
+                        Log.d(TAG, "response.raw().request().url();" + response.raw().request().url());
+                        Log.i(TAG, "Code:" + response.code() + " message:" + response.message());
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<DDRBatchMasterResponse> call, Throwable t) {
+
+                    }
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package quay.com.ipos.ddrsales.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,35 +10,35 @@ import quay.com.ipos.ddrsales.model.response.DDRBatch;
 import quay.com.ipos.ddrsales.model.response.DDRIncoTerm;
 import quay.com.ipos.ddrsales.model.response.DDRProductListResponse;
 
-public class InvoiceData {
+public class InvoiceData implements Serializable {
 
-    public List<Address> address=new ArrayList<>();
+    public List<Address> address = new ArrayList<>();
     public List<DDRProduct> cartList = new ArrayList<>();
     public List<DDRIncoTerm> ddrIncoTerms = new ArrayList<>();
     public List<DDRBatch> ddtProductBatchList = new ArrayList<>();
-
-    public LogisticsData logisticsData  = new LogisticsData();
+    public LogisticsData logisticsData = new LogisticsData();
     private boolean initDataFeed = false;
-    private static final InvoiceData ourInstance = new InvoiceData() {
-    };
 
-    public static InvoiceData getInstance() {
-        return ourInstance;
-    }
 
-    private InvoiceData() {
+    /*   private static final InvoiceData ourInstance = new InvoiceData() {};
+
+      public static InvoiceData getInstance() {
+          return ourInstance;
+      }
+  */
+    public InvoiceData() {
     }
 
     public void setInitData(DDRProductListResponse response) {
-        if(initDataFeed)
+        if (initDataFeed)
             return;
         initDataFeed = true;
         this.address = response.address;
         ddrIncoTerms = new ArrayList<>();
     }
 
-    public void setInitData2(DDROrderDetail response) {
-        if(initDataFeed)
+    public   void setInitData2(DDROrderDetail response) {
+        if (initDataFeed)
             return;
         initDataFeed = true;
 
@@ -59,13 +60,13 @@ public class InvoiceData {
     }
 
     public void cleanData() {
+
         initDataFeed = false;
-        this.address =new ArrayList<>();
+        this.address = new ArrayList<>();
         ddrIncoTerms = new ArrayList<>();
         cartList = new ArrayList<>();
-        ddtProductBatchList = new ArrayList<>();
-
-
-
+        //ddtProductBatchList = new ArrayList<>();
     }
+
+
 }

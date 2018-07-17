@@ -25,11 +25,11 @@ public interface SubTaskDao {
     void saveAllSubTask(List<SubTask> taskList);
 
 
-    @Query("SELECT * FROM 'sub_task' WHERE sub_task_id=:id")
+    @Query("SELECT * FROM 'sub_task' WHERE id=:id")
     LiveData<SubTask> getSubTaskById(int id);
 
-     @Query("SELECT * FROM 'sub_task' WHERE sub_task_id=:id")
-     SubTask getSyncSubTaskById(int id);
+     @Query("SELECT * FROM 'sub_task' WHERE id=:id")
+     List<SubTask> getSyncSubTaskById(int id);
 
 
 
@@ -41,4 +41,8 @@ public interface SubTaskDao {
 
     @Delete
     void deleteSubTask(SubTask subTask);
+
+
+    @Query("DELETE FROM sub_task")
+    void delete();
 }

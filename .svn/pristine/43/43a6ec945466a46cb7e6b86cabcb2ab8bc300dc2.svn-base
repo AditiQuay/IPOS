@@ -1,0 +1,13 @@
+package io.realm;
+
+
+public interface RealmInventoryTabDataOldRealmProxyInterface {
+    public String realmGet$tabTitle();
+    public void realmSet$tabTitle(String value);
+    public int realmGet$tabId();
+    public void realmSet$tabId(int value);
+    public int realmGet$count();
+    public void realmSet$count(int value);
+    public String realmGet$model();
+    public void realmSet$model(String value);
+}

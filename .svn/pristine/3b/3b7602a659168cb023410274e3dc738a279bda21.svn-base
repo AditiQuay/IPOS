@@ -1,0 +1,198 @@
+package quay.com.ipos.compliance.data.local.dao;
+
+import android.arch.lifecycle.ComputableLiveData;
+import android.arch.lifecycle.LiveData;
+import android.arch.persistence.db.SupportSQLiteStatement;
+import android.arch.persistence.room.EntityInsertionAdapter;
+import android.arch.persistence.room.InvalidationTracker.Observer;
+import android.arch.persistence.room.RoomDatabase;
+import android.arch.persistence.room.RoomSQLiteQuery;
+import android.database.Cursor;
+import android.support.annotation.NonNull;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import quay.com.ipos.compliance.data.local.entity.AttachmentEntity;
+
+@SuppressWarnings("unchecked")
+public class AttachmentDao_AppDatabase_0_Impl implements AttachmentDao {
+  private final RoomDatabase __db;
+
+  private final EntityInsertionAdapter __insertionAdapterOfAttachmentEntity;
+
+  public AttachmentDao_AppDatabase_0_Impl(RoomDatabase __db) {
+    this.__db = __db;
+    this.__insertionAdapterOfAttachmentEntity = new EntityInsertionAdapter<AttachmentEntity>(__db) {
+      @Override
+      public String createQuery() {
+        return "INSERT OR REPLACE INTO `attachment`(`id`,`txId`,`base`,`ext`,`type`,`name`,`isSync`) VALUES (nullif(?, 0),?,?,?,?,?,?)";
+      }
+
+      @Override
+      public void bind(SupportSQLiteStatement stmt, AttachmentEntity value) {
+        stmt.bindLong(1, value.id);
+        stmt.bindLong(2, value.txId);
+        if (value.base == null) {
+          stmt.bindNull(3);
+        } else {
+          stmt.bindString(3, value.base);
+        }
+        if (value.ext == null) {
+          stmt.bindNull(4);
+        } else {
+          stmt.bindString(4, value.ext);
+        }
+        if (value.type == null) {
+          stmt.bindNull(5);
+        } else {
+          stmt.bindString(5, value.type);
+        }
+        if (value.name == null) {
+          stmt.bindNull(6);
+        } else {
+          stmt.bindString(6, value.name);
+        }
+        final int _tmp;
+        _tmp = value.isSync ? 1 : 0;
+        stmt.bindLong(7, _tmp);
+      }
+    };
+  }
+
+  @Override
+  public void saveAttachment(List<AttachmentEntity> attachmentList) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfAttachmentEntity.insert(attachmentList);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public void saveAttachment(AttachmentEntity attachmentList) {
+    __db.beginTransaction();
+    try {
+      __insertionAdapterOfAttachmentEntity.insert(attachmentList);
+      __db.setTransactionSuccessful();
+    } finally {
+      __db.endTransaction();
+    }
+  }
+
+  @Override
+  public LiveData<List<AttachmentEntity>> loadAttachment() {
+    final String _sql = "SELECT * FROM `attachment`";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    return new ComputableLiveData<List<AttachmentEntity>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<AttachmentEntity> compute() {
+        if (_observer == null) {
+          _observer = new Observer("attachment") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+          final int _cursorIndexOfTxId = _cursor.getColumnIndexOrThrow("txId");
+          final int _cursorIndexOfBase = _cursor.getColumnIndexOrThrow("base");
+          final int _cursorIndexOfExt = _cursor.getColumnIndexOrThrow("ext");
+          final int _cursorIndexOfType = _cursor.getColumnIndexOrThrow("type");
+          final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
+          final int _cursorIndexOfIsSync = _cursor.getColumnIndexOrThrow("isSync");
+          final List<AttachmentEntity> _result = new ArrayList<AttachmentEntity>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final AttachmentEntity _item;
+            _item = new AttachmentEntity();
+            _item.id = _cursor.getLong(_cursorIndexOfId);
+            _item.txId = _cursor.getLong(_cursorIndexOfTxId);
+            _item.base = _cursor.getString(_cursorIndexOfBase);
+            _item.ext = _cursor.getString(_cursorIndexOfExt);
+            _item.type = _cursor.getString(_cursorIndexOfType);
+            _item.name = _cursor.getString(_cursorIndexOfName);
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsSync);
+            _item.isSync = _tmp != 0;
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+
+  @Override
+  public LiveData<List<AttachmentEntity>> getAttachments(long txId) {
+    final String _sql = "SELECT * FROM 'attachment' WHERE txId=?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
+    int _argIndex = 1;
+    _statement.bindLong(_argIndex, txId);
+    return new ComputableLiveData<List<AttachmentEntity>>() {
+      private Observer _observer;
+
+      @Override
+      protected List<AttachmentEntity> compute() {
+        if (_observer == null) {
+          _observer = new Observer("attachment") {
+            @Override
+            public void onInvalidated(@NonNull Set<String> tables) {
+              invalidate();
+            }
+          };
+          __db.getInvalidationTracker().addWeakObserver(_observer);
+        }
+        final Cursor _cursor = __db.query(_statement);
+        try {
+          final int _cursorIndexOfId = _cursor.getColumnIndexOrThrow("id");
+          final int _cursorIndexOfTxId = _cursor.getColumnIndexOrThrow("txId");
+          final int _cursorIndexOfBase = _cursor.getColumnIndexOrThrow("base");
+          final int _cursorIndexOfExt = _cursor.getColumnIndexOrThrow("ext");
+          final int _cursorIndexOfType = _cursor.getColumnIndexOrThrow("type");
+          final int _cursorIndexOfName = _cursor.getColumnIndexOrThrow("name");
+          final int _cursorIndexOfIsSync = _cursor.getColumnIndexOrThrow("isSync");
+          final List<AttachmentEntity> _result = new ArrayList<AttachmentEntity>(_cursor.getCount());
+          while(_cursor.moveToNext()) {
+            final AttachmentEntity _item;
+            _item = new AttachmentEntity();
+            _item.id = _cursor.getLong(_cursorIndexOfId);
+            _item.txId = _cursor.getLong(_cursorIndexOfTxId);
+            _item.base = _cursor.getString(_cursorIndexOfBase);
+            _item.ext = _cursor.getString(_cursorIndexOfExt);
+            _item.type = _cursor.getString(_cursorIndexOfType);
+            _item.name = _cursor.getString(_cursorIndexOfName);
+            final int _tmp;
+            _tmp = _cursor.getInt(_cursorIndexOfIsSync);
+            _item.isSync = _tmp != 0;
+            _result.add(_item);
+          }
+          return _result;
+        } finally {
+          _cursor.close();
+        }
+      }
+
+      @Override
+      protected void finalize() {
+        _statement.release();
+      }
+    }.getLiveData();
+  }
+}

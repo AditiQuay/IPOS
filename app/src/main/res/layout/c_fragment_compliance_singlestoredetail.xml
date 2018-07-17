@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"
+ <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
@@ -12,18 +12,15 @@
 
         <variable
             name="progressState"
-            type="com.quayintech.compliancetracker.viewModel.ProgressStateViewModel" />
+            type="quay.com.ipos.compliance.viewModel.ProgressStateViewModel" />
 
         <variable
             name="storeViewModel"
-            type="com.quayintech.compliancetracker.viewModel.StoreViewModel" />
+            type="quay.com.ipos.compliance.viewModel.StoreViewModel" />
 
-    </data>-->
+    </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:bind="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffff"
@@ -93,7 +90,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:onClick="setViewDone"
+                                android:onClick="@{(v) -> progressState.setViewDone(v,true)}"
                                 tools:background="@color/colorPrimary">
 
 
@@ -101,14 +98,17 @@
                                     layout="@layout/layout_ipos_ct_state_done"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                     />
+                                    bind:progressState="@{progressState}"
+                                    bind:storeViewModel="@{storeViewModel}" />
+
+                                />
                             </FrameLayout>
 
                             <FrameLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:onClick="setViewPending"
+                                android:onClick="@{() -> progressState.setViewPending(true)}"
 
 
                                 tools:background="@color/colorPrimary">
@@ -117,6 +117,8 @@
                                     layout="@layout/layout_ipos_ct_state_pending"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    bind:progressState="@{progressState}"
+                                    bind:storeViewModel="@{storeViewModel}"
 
 
                                     />
@@ -126,13 +128,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                >
+                                android:onClick="@{() -> progressState.setViewUpcoming(true)}">
+
+                            >
 
 
                                 <include
                                     layout="@layout/layout_ipos_ct_state_upcoming_event"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    bind:progressState="@{progressState}"
+                                    bind:storeViewModel="@{storeViewModel}"
 
 
                                     />
@@ -142,12 +148,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                 >
+                                android:onClick="@{() -> progressState.setViewImmediate(true)}">
+
+                            >
 
                                 <include
                                     layout="@layout/layout_ipos_ct_state_immediate_action"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    bind:progressState="@{progressState}"
+                                    bind:storeViewModel="@{storeViewModel}"
 
 
                                     />
@@ -184,7 +194,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    >
+                    android:visibility="@{progressState.viewImmediate ? View.VISIBLE : View.GONE}">
+                >
 
                     <TextView
                         android:id="@+id/ipos_block_txt2"
@@ -238,6 +249,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:visibility="@{progressState.viewUpcoming ? View.VISIBLE : View.GONE}"
 
                     >
 
@@ -323,6 +335,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:visibility="@{progressState.viewPending ? View.VISIBLE : View.GONE}"
 
                     >
 
@@ -374,9 +387,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    >
+                    android:visibility="@{progressState.viewDone ? View.VISIBLE : View.GONE}">
 
-                    <TextView
+                <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="0dp"
@@ -426,5 +439,5 @@
 
 
     </RelativeLayout>
-<!--
-</layout>-->
+
+</layout>

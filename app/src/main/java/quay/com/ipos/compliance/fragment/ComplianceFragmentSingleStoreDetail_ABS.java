@@ -2,6 +2,7 @@ package quay.com.ipos.compliance.fragment;
 
 
 import android.arch.lifecycle.Observer;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,12 +29,13 @@ import quay.com.ipos.compliance.data.local.entity.Task;
 import quay.com.ipos.compliance.viewModel.ProgressStateViewModel;
 import quay.com.ipos.compliance.viewModel.StoreViewModel;
 import quay.com.ipos.data.local.AppDatabase;
+import quay.com.ipos.databinding.CFragmentComplianceSinglestoredetailBinding;
 import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.RecyclerViewEmptySupport;
 import quay.com.ipos.utility.UiUtils;
 
 
-public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements ComplianceViewFilterSelectionListner {
+public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements ComplianceViewFilterSelectionListner, quay.com.ipos.compliance.viewModel.ComplianceViewFilterSelectionListner {
 
     private static final String TAG = ComplianceFragmentSingleStoreDetail_ABS.class.getSimpleName();
     private static final String ARG_PARAM1 = "param1";
@@ -56,13 +58,14 @@ public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements
     private ComplianceAdapter adapterImmediate;
 
     private View btnViewAll;
-   // private ProgressStateViewModel progressStateViewModel;
+    private ProgressStateViewModel progressStateViewModel;
     private View txtShowCountContainer;
 
     private List<Task> taskList = new ArrayList<>();
 
     private static final int Pending = 0;
     private TextView txtShowCount;
+    CFragmentComplianceSinglestoredetailBinding binding;
 
 
     public ComplianceFragmentSingleStoreDetail_ABS() {
@@ -96,13 +99,12 @@ public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements
 
 
         View view = inflater.inflate(R.layout.c_fragment_compliance_singlestoredetail, container, false);
-        //View view = binding.getRoot();
-        //progressStateViewModel = new ProgressStateViewModel(null);
-        //progressStateViewModel.setAllTrue();
-        //binding.setProgressState(progressStateViewModel);
-        // binding.setStoreViewModel(storeViewModel);
-        storeViewModel = StoreViewModel.getInstance(this);
-
+        binding = DataBindingUtil.bind(view);
+        progressStateViewModel = new ProgressStateViewModel(this);
+        storeViewModel = new StoreViewModel();
+        progressStateViewModel.setAllTrue();
+        binding.setProgressState(progressStateViewModel);
+        binding.setStoreViewModel(storeViewModel);
 
         return view;
     }
@@ -257,7 +259,7 @@ public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements
 
                         return true;
                     case R.id.next15:
-                         txtShowCount.setText("Next 15 days");
+                        txtShowCount.setText("Next 15 days");
                         try {
                             loadUpcomingTaskNew(15);
 

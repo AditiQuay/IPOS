@@ -193,6 +193,7 @@
     <string name="credit">Credit</string>
     <string name="voucher">Voucher</string>
     <string name="wallet">Wallet</string>
+    <string name="wallet_sale_heading">Wallet</string>
     <string name="enter_cash_amount">Enter cash amount</string>
     <string name="Rs_0">\u20B9 0.00</string>
     <string name="enter_card_amount">Enter card amount</string>
@@ -563,6 +564,8 @@
 
     <string name="date_from">Date From</string>
     <string name="date_to">Date To</string>
+    <string name="remark">Write remark</string>
+    <string name="enter_bank_deposit_amount">Enter deposit amount</string>
     <string name="scheme_type">Scheme Type</string>
     <string name="sku">SKU</string>
     <string name="slab_details">Slab Details</string>

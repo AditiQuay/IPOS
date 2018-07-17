@@ -106,7 +106,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreWiseVH>
             complianceType = KeyConstants.KEY_TYPE_STATUTORY;
         }
         if (store.getComplianceList() == null || store.getComplianceList().size() == 0) {
-            Log.e("TAG", "No any Compliance Record!");
+            Log.e(TAG, "No any Compliance Record!");
             return;
         }
         for (Task taskData : store.getComplianceList()) {

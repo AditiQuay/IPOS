@@ -1,0 +1,269 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/cardViewProduct"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_marginBottom="@dimen/dim_8"
+    android:maxHeight="@dimen/dim_200"
+    app:cardCornerRadius="@dimen/dim_8"
+    card_view:cardElevation="0dp"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
+
+
+    <RelativeLayout
+        android:id="@+id/rLayoutdeatukls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rLayoutContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dim_18"
+            android:layout_marginStart="@dimen/dim_18"
+            android:layout_toEndOf="@+id/rLayoutImage"
+            android:layout_toRightOf="@+id/rLayoutImage">
+
+            <RelativeLayout
+                android:id="@+id/rLayoutTopStrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/card_strip"
+                android:padding="@dimen/dim_8">
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/important_white" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rLayoutUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_12"
+                android:layout_marginStart="@dimen/dim_12"
+                android:layout_marginTop="@dimen/dim_16"
+                android:layout_toLeftOf="@+id/rLayoutTopStrip"
+                android:layout_toStartOf="@+id/rLayoutTopStrip">
+
+
+                <ImageView
+                    android:id="@+id/imageViewUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/person_gray" />
+
+                <TextView
+                    android:id="@+id/textViewUserName"
+                    style="@style/stylePrimaryTextColor12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageViewUser"
+                    android:layout_toRightOf="@+id/imageViewUser"
+                    android:paddingLeft="@dimen/dim_8"
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="Ramesh" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rLayoutMob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rLayoutUser"
+                android:layout_marginLeft="@dimen/dim_12"
+                android:layout_marginStart="@dimen/dim_12"
+                android:layout_marginTop="@dimen/dim_4">
+
+
+                <ImageView
+                    android:id="@+id/imageViewMob"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/phone_gray" />
+
+                <TextView
+                    android:id="@+id/textViewMob"
+                    style="@style/stylePrimaryTextColor12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageViewMob"
+                    android:layout_toRightOf="@+id/imageViewMob"
+                    android:paddingLeft="@dimen/dim_8"
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="9999999999" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rLayoutEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rLayoutMob"
+                android:layout_marginLeft="@dimen/dim_12"
+                android:layout_marginStart="@dimen/dim_12"
+                android:layout_marginTop="@dimen/dim_4">
+
+
+                <ImageView
+                    android:id="@+id/imageViewEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/mail_gray" />
+
+                <TextView
+                    android:id="@+id/textViewEmail"
+                    style="@style/stylePrimaryTextColor12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageViewEmail"
+                    android:layout_toRightOf="@+id/imageViewEmail"
+                    android:paddingLeft="@dimen/dim_8"
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="ram.verma@gmail.com" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rLayoutBill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rLayoutEmail"
+                android:layout_marginLeft="@dimen/dim_12"
+                android:layout_marginStart="@dimen/dim_12"
+                android:layout_marginTop="@dimen/dim_4">
+
+
+                <ImageView
+                    android:id="@+id/imageViewBill"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/biling_gray" />
+
+                <TextView
+                    android:id="@+id/textViewBill"
+                    style="@style/stylePrimaryTextColor12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageViewBill"
+                    android:layout_toRightOf="@+id/imageViewBill"
+                    android:paddingLeft="@dimen/dim_8"
+                    android:paddingRight="@dimen/dim_8"
+                    android:text="ramesh@gmail.com" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rLayoutBirthDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rLayoutBill"
+                android:layout_marginLeft="@dimen/dim_12"
+                android:layout_marginStart="@dimen/dim_12"
+                android:layout_marginTop="@dimen/dim_4">
+
+
+                <ImageView
+                    android:id="@+id/imageViewCake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:src="@drawable/cake_gray" />
+
+                <TextView
+                    android:id="@+id/textViewCake"
+                    style="@style/stylePrimaryTextColor12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageViewCake"
+                    android:layout_toRightOf="@+id/imageViewCake"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dim_8"
+                    android:paddingStart="@dimen/dim_8"
+                    android:text="Wish Birthday (28th Feb)" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rLayoutImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dim_16">
+
+
+            <quay.com.ipos.utility.CircleImageView
+                android:id="@+id/imageViewProfileDummy"
+                android:layout_width="@dimen/dim_90"
+                android:layout_height="@dimen/dim_90"
+                android:layout_marginLeft="@dimen/dim_18"
+                android:layout_marginStart="@dimen/dim_18"
+                app:civ_border_color="@color/menu_strip"
+                app:civ_border_width="@dimen/dim_3"
+                app:civ_fill_color="@color/white" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="@dimen/dim_16">
+
+            <RelativeLayout
+                android:id="@+id/rLayoutPoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/card_strip_left"
+                android:padding="@dimen/dim_8">
+
+
+                <ImageView
+                    android:id="@+id/imageViewBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/badge_white" />
+
+                <TextView
+                    android:id="@+id/textViewProName"
+                    style="@style/styleWhiteTextColor12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/imageViewBadge"
+                    android:paddingLeft="@dimen/dim_8"
+                    android:text="500 Pts." />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/rLayoutPoints"
+                android:background="@drawable/card_strip_right"
+                android:padding="@dimen/dim_8">
+
+                <ImageView
+                    android:id="@+id/imageViewInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/info_white" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

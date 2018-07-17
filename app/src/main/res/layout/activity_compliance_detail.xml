@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<layout
-    tools:context="com.quayintech.compliancetracker.ui.activity.TaskDetailActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".compliance.TaskDetailActivity">
 
     <data>
 
         <variable
             name="handler"
-            type="com.quayintech.compliancetracker.interfaces.ComplianceDetailHandler" />
+            type="quay.com.ipos.compliance.interfaces.ComplianceDetailHandler" />
 
         <variable
             name="viewModel"
-            type="com.quayintech.compliancetracker.viewModel.ComplianceViewModel" />
-    </data>-->
+            type="quay.com.ipos.compliance.viewModel.ComplianceViewModel" />
+    </data>
 
-    <RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -33,7 +33,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="0dp"
-                android:onClick="onClickClose"
+                android:onClick="@{(v)->handler.onClickClose(v)}"
                 android:paddingBottom="8dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="8dp"
@@ -63,7 +63,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:gravity="center"
-                android:onClick="onClickUpdate"
+                android:onClick="@{(v)->handler.onClickUpdate(v)}"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="@string/update_compliance"
@@ -118,7 +118,6 @@
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/txtSubCategory"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:cursorVisible="false"
@@ -127,7 +126,7 @@
                             android:focusableInTouchMode="false"
                             android:hint="@string/txtSubCategory"
                             android:maxLines="1"
-                            />
+                            android:text="@{viewModel.txtSubCategory}" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -140,8 +139,6 @@
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/txtTaskName"
-
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:cursorVisible="false"
@@ -150,7 +147,7 @@
                             android:focusableInTouchMode="false"
                             android:hint="@string/txtTaskName"
                             android:maxLines="1"
-                             />
+                            android:text="@{viewModel.txtTaskName}" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -163,8 +160,6 @@
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/txtTaskDescription"
-
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="false"
@@ -173,7 +168,8 @@
 
                             android:focusableInTouchMode="false"
                             android:hint="@string/txtTaskDescription"
-                             />
+                            android:onTextChanged="@{viewModel::onTextChangedDesc}"
+                            android:text="@{viewModel.strDesc}" />
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -187,7 +183,6 @@
                         app:hintEnabled="true">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/txtTaskAssignTo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="false"
@@ -196,7 +191,7 @@
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:hint="@string/txtTaskAssignTo"
-                            />
+                            android:text="@{viewModel.strTaskAssignToName}" />
                         <!--   android:onClick="@{(v) -> handler.onClickAssignTo(v)}"-->
                     </android.support.design.widget.TextInputLayout>
 
@@ -217,7 +212,7 @@
                             android:focusableInTouchMode="false"
                             android:hint="Due Date"
 
-                             />
+                            android:text="@{viewModel.strDueDate}" />
                         <!-- android:onClick="@{(v) -> handler.onClickAddDate(v)}"-->
                     </android.support.design.widget.TextInputLayout>
 
@@ -239,7 +234,7 @@
                             android:focusableInTouchMode="false"
                             android:hint="Due Time"
 
-                            />
+                            android:text="@{viewModel.strDueTime}" />
                         <!-- android:onClick="@{(v) -> handler.onClickAddTime(v)}"-->
                     </android.support.design.widget.TextInputLayout>
 
@@ -261,7 +256,7 @@
                             android:focusableInTouchMode="false"
                             android:hint="Repeat"
 
-                           />
+                            android:text="@{viewModel.strRepeat}" />
                         <!-- android:onClick="@{(v) -> handler.onClickRepeat(v)}"-->
                     </android.support.design.widget.TextInputLayout>
 
@@ -283,7 +278,7 @@
                             android:focusableInTouchMode="false"
                             android:hint="Alert"
 
-                            />
+                            android:text="@{viewModel.strAlert}" />
                         <!-- android:onClick="@{(v) -> handler.onClickAlert(v)}"-->
                     </android.support.design.widget.TextInputLayout>
 
@@ -306,9 +301,9 @@
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:hint="Progress Status"
-                            android:onClick="onClickProgressState"
+                            android:onClick="@{(v) -> handler.onClickProgressState(v)}"
 
-                            />
+                            android:text="@{viewModel.strProgressState}" />
                     </android.support.design.widget.TextInputLayout>
 
                     <TextView
@@ -347,7 +342,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@color/colorPrimary"
-                            android:onClick="onClickAddSubTask"
+                            android:onClick="@{(v)->handler.onClickAddSubTask(v)}"
                             android:padding="8dp"
                             android:text="Add Sub Task"
                             android:textAppearance="@style/iposfontstyle"
@@ -361,4 +356,4 @@
             </android.support.v7.widget.CardView>
         </android.support.v4.widget.NestedScrollView>
     </RelativeLayout>
-<!--</layout>-->
+    </layout>

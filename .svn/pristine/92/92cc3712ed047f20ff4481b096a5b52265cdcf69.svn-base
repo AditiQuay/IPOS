@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llGrp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/layout_border"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/vBorderItem"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dim_1"
+        android:background="@color/white" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/listPreferredItemHeightSmall">
+
+
+        <View
+            android:id="@+id/vGrp"
+            android:layout_width="@dimen/dim_2"
+            android:layout_height="match_parent"
+            android:background="@color/menu_strip"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/imageViewGroupIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/dim_10"
+            android:layout_marginRight="@dimen/dim_10"
+            android:alpha="0.5"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="@dimen/dim_10" />
+
+        <TextView
+            android:id="@+id/textViewGroupName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:layout_toRightOf="@+id/imageViewGroupIcon"
+            android:alpha="0.7"
+            android:paddingLeft="@dimen/dim_10"
+            android:paddingRight="10dp"
+            android:text="Item Name"
+            android:textColor="@color/menu_text_color"
+            android:textSize="@dimen/dim_14" />
+    </LinearLayout>
+
+
+</LinearLayout>

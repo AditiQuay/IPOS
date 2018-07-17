@@ -31,4 +31,7 @@ public interface TaskDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long saveTask(Task task);
+
+    @Query("DELETE FROM task")
+    void delete();
 }

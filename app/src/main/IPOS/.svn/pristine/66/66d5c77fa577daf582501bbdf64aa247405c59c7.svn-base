@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rLayoutMain"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:orientation="horizontal">
+
+
+    <View
+        android:id="@+id/vItem"
+        android:layout_width="@dimen/dim_2"
+        android:layout_height="match_parent"
+        android:background="@color/menu_strip" />
+
+    <TextView
+        android:id="@+id/textViewChildName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="center"
+        android:alpha="0.7"
+        android:paddingEnd="10dp"
+        android:paddingLeft="@dimen/dim_10"
+        android:paddingRight="10dp"
+        android:text="Item Name"
+        android:textColor="@color/menu_text_color"
+        android:textSize="@dimen/dim_14" />
+
+    <ImageView
+        android:id="@+id/imvClose"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:paddingRight="@dimen/dim_5"
+        android:paddingLeft="@dimen/dim_10"
+        android:visibility="gone"
+        android:src="@drawable/ic_action_delete"/>
+
+</LinearLayout>

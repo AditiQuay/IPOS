@@ -1,9 +1,14 @@
 package quay.com.ipos.ddrsales.model;
 
+import android.arch.persistence.room.ForeignKey;
+
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import quay.com.ipos.ddrsales.model.request.DDRProductCart;
 
-public class DDRProduct extends RealmObject{
+public class DDRProduct extends RealmObject implements Serializable{
     @PrimaryKey
     public String iProductModalId;
     private String productCode;
@@ -448,5 +453,23 @@ public class DDRProduct extends RealmObject{
 
     public void setsProductFeature(String sProductFeature) {
         this.sProductFeature = sProductFeature;
+    }
+
+    public void setData(DDRProductCart dDRCartDetail) {
+        this.iProductModalId = dDRCartDetail.iProductModalId;
+        this.productCode = dDRCartDetail.productCode;
+        this.sProductName = dDRCartDetail.materialName;
+        this.productImage=dDRCartDetail.productImage;
+        this.sProductPrice = dDRCartDetail.salesPrice;
+        this.sProductStock = dDRCartDetail.sProductStock;
+        this.sProductWeight = dDRCartDetail.sProductWeight;
+        this.isDiscount = dDRCartDetail.isDiscount;
+     //   this.gstPerc = dDRCartDetail.gs;
+        this.cgst = (int)dDRCartDetail.materialCGSTRate;
+        this.sgst = (int)dDRCartDetail.materialSGSTRate;
+        this.salesPrice = (int)dDRCartDetail.salesPrice;
+       // this. = (int)dDRCartDetail.salesPrice;
+
+
     }
 }

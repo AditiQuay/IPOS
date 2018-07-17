@@ -1,0 +1,3110 @@
+package io.realm;
+
+
+import android.annotation.TargetApi;
+import android.os.Build;
+import android.util.JsonReader;
+import android.util.JsonToken;
+import io.realm.RealmObjectSchema;
+import io.realm.RealmSchema;
+import io.realm.exceptions.RealmMigrationNeededException;
+import io.realm.internal.ColumnInfo;
+import io.realm.internal.LinkView;
+import io.realm.internal.RealmObjectProxy;
+import io.realm.internal.Row;
+import io.realm.internal.SharedRealm;
+import io.realm.internal.Table;
+import io.realm.internal.android.JsonUtils;
+import io.realm.log.RealmLog;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class RealmOrderCentreRealmProxy extends quay.com.ipos.realmbean.RealmOrderCentre
+    implements RealmObjectProxy, RealmOrderCentreRealmProxyInterface {
+
+    static final class RealmOrderCentreColumnInfo extends ColumnInfo
+        implements Cloneable {
+
+        public long iProductModalIdIndex;
+        public long productCodeIndex;
+        public long sProductNameIndex;
+        public long productImageIndex;
+        public long sProductPriceIndex;
+        public long sProductStockIndex;
+        public long sProductWeightIndex;
+        public long isDiscountIndex;
+        public long gstPercIndex;
+        public long cgstIndex;
+        public long sgstIndex;
+        public long salesPriceIndex;
+        public long nrvIndex;
+        public long gplIndex;
+        public long mrpIndex;
+        public long barCodeNumberIndex;
+        public long pointsIndex;
+        public long pointsBasedOnIndex;
+        public long valueFromIndex;
+        public long valueToIndex;
+        public long pointsPerIndex;
+        public long isReserveStockIndex;
+        public long isCheckStockIndex;
+        public long isStockDisplayIndex;
+        public long discountIndex;
+        public long isSyncIndex;
+        public long isUpdateIndex;
+        public long OrderIdIndex;
+        public long isAddedIndex;
+        public long qtyIndex;
+        public long totalPriceIndex;
+        public long discountPriceIndex;
+        public long totalPointsIndex;
+        public long totalStockIndex;
+        public long isFreeItemIndex;
+        public long isRuleAppliedIndex;
+        public long parentProductIdIndex;
+        public long accumulatedLoyalityIndex;
+        public long mCheckStockIndex;
+        public long checkStockClickIndex;
+
+        RealmOrderCentreColumnInfo(String path, Table table) {
+            final Map<String, Long> indicesMap = new HashMap<String, Long>(40);
+            this.iProductModalIdIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "iProductModalId");
+            indicesMap.put("iProductModalId", this.iProductModalIdIndex);
+            this.productCodeIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "productCode");
+            indicesMap.put("productCode", this.productCodeIndex);
+            this.sProductNameIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "sProductName");
+            indicesMap.put("sProductName", this.sProductNameIndex);
+            this.productImageIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "productImage");
+            indicesMap.put("productImage", this.productImageIndex);
+            this.sProductPriceIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "sProductPrice");
+            indicesMap.put("sProductPrice", this.sProductPriceIndex);
+            this.sProductStockIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "sProductStock");
+            indicesMap.put("sProductStock", this.sProductStockIndex);
+            this.sProductWeightIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "sProductWeight");
+            indicesMap.put("sProductWeight", this.sProductWeightIndex);
+            this.isDiscountIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "isDiscount");
+            indicesMap.put("isDiscount", this.isDiscountIndex);
+            this.gstPercIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "gstPerc");
+            indicesMap.put("gstPerc", this.gstPercIndex);
+            this.cgstIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "cgst");
+            indicesMap.put("cgst", this.cgstIndex);
+            this.sgstIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "sgst");
+            indicesMap.put("sgst", this.sgstIndex);
+            this.salesPriceIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "salesPrice");
+            indicesMap.put("salesPrice", this.salesPriceIndex);
+            this.nrvIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "nrv");
+            indicesMap.put("nrv", this.nrvIndex);
+            this.gplIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "gpl");
+            indicesMap.put("gpl", this.gplIndex);
+            this.mrpIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "mrp");
+            indicesMap.put("mrp", this.mrpIndex);
+            this.barCodeNumberIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "barCodeNumber");
+            indicesMap.put("barCodeNumber", this.barCodeNumberIndex);
+            this.pointsIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "points");
+            indicesMap.put("points", this.pointsIndex);
+            this.pointsBasedOnIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "pointsBasedOn");
+            indicesMap.put("pointsBasedOn", this.pointsBasedOnIndex);
+            this.valueFromIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "valueFrom");
+            indicesMap.put("valueFrom", this.valueFromIndex);
+            this.valueToIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "valueTo");
+            indicesMap.put("valueTo", this.valueToIndex);
+            this.pointsPerIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "pointsPer");
+            indicesMap.put("pointsPer", this.pointsPerIndex);
+            this.isReserveStockIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "isReserveStock");
+            indicesMap.put("isReserveStock", this.isReserveStockIndex);
+            this.isCheckStockIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "isCheckStock");
+            indicesMap.put("isCheckStock", this.isCheckStockIndex);
+            this.isStockDisplayIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "isStockDisplay");
+            indicesMap.put("isStockDisplay", this.isStockDisplayIndex);
+            this.discountIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "discount");
+            indicesMap.put("discount", this.discountIndex);
+            this.isSyncIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "isSync");
+            indicesMap.put("isSync", this.isSyncIndex);
+            this.isUpdateIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "isUpdate");
+            indicesMap.put("isUpdate", this.isUpdateIndex);
+            this.OrderIdIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "OrderId");
+            indicesMap.put("OrderId", this.OrderIdIndex);
+            this.isAddedIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "isAdded");
+            indicesMap.put("isAdded", this.isAddedIndex);
+            this.qtyIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "qty");
+            indicesMap.put("qty", this.qtyIndex);
+            this.totalPriceIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "totalPrice");
+            indicesMap.put("totalPrice", this.totalPriceIndex);
+            this.discountPriceIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "discountPrice");
+            indicesMap.put("discountPrice", this.discountPriceIndex);
+            this.totalPointsIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "totalPoints");
+            indicesMap.put("totalPoints", this.totalPointsIndex);
+            this.totalStockIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "totalStock");
+            indicesMap.put("totalStock", this.totalStockIndex);
+            this.isFreeItemIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "isFreeItem");
+            indicesMap.put("isFreeItem", this.isFreeItemIndex);
+            this.isRuleAppliedIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "isRuleApplied");
+            indicesMap.put("isRuleApplied", this.isRuleAppliedIndex);
+            this.parentProductIdIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "parentProductId");
+            indicesMap.put("parentProductId", this.parentProductIdIndex);
+            this.accumulatedLoyalityIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "accumulatedLoyality");
+            indicesMap.put("accumulatedLoyality", this.accumulatedLoyalityIndex);
+            this.mCheckStockIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "mCheckStock");
+            indicesMap.put("mCheckStock", this.mCheckStockIndex);
+            this.checkStockClickIndex = getValidColumnIndex(path, table, "RealmOrderCentre", "checkStockClick");
+            indicesMap.put("checkStockClick", this.checkStockClickIndex);
+
+            setIndicesMap(indicesMap);
+        }
+
+        @Override
+        public final void copyColumnInfoFrom(ColumnInfo other) {
+            final RealmOrderCentreColumnInfo otherInfo = (RealmOrderCentreColumnInfo) other;
+            this.iProductModalIdIndex = otherInfo.iProductModalIdIndex;
+            this.productCodeIndex = otherInfo.productCodeIndex;
+            this.sProductNameIndex = otherInfo.sProductNameIndex;
+            this.productImageIndex = otherInfo.productImageIndex;
+            this.sProductPriceIndex = otherInfo.sProductPriceIndex;
+            this.sProductStockIndex = otherInfo.sProductStockIndex;
+            this.sProductWeightIndex = otherInfo.sProductWeightIndex;
+            this.isDiscountIndex = otherInfo.isDiscountIndex;
+            this.gstPercIndex = otherInfo.gstPercIndex;
+            this.cgstIndex = otherInfo.cgstIndex;
+            this.sgstIndex = otherInfo.sgstIndex;
+            this.salesPriceIndex = otherInfo.salesPriceIndex;
+            this.nrvIndex = otherInfo.nrvIndex;
+            this.gplIndex = otherInfo.gplIndex;
+            this.mrpIndex = otherInfo.mrpIndex;
+            this.barCodeNumberIndex = otherInfo.barCodeNumberIndex;
+            this.pointsIndex = otherInfo.pointsIndex;
+            this.pointsBasedOnIndex = otherInfo.pointsBasedOnIndex;
+            this.valueFromIndex = otherInfo.valueFromIndex;
+            this.valueToIndex = otherInfo.valueToIndex;
+            this.pointsPerIndex = otherInfo.pointsPerIndex;
+            this.isReserveStockIndex = otherInfo.isReserveStockIndex;
+            this.isCheckStockIndex = otherInfo.isCheckStockIndex;
+            this.isStockDisplayIndex = otherInfo.isStockDisplayIndex;
+            this.discountIndex = otherInfo.discountIndex;
+            this.isSyncIndex = otherInfo.isSyncIndex;
+            this.isUpdateIndex = otherInfo.isUpdateIndex;
+            this.OrderIdIndex = otherInfo.OrderIdIndex;
+            this.isAddedIndex = otherInfo.isAddedIndex;
+            this.qtyIndex = otherInfo.qtyIndex;
+            this.totalPriceIndex = otherInfo.totalPriceIndex;
+            this.discountPriceIndex = otherInfo.discountPriceIndex;
+            this.totalPointsIndex = otherInfo.totalPointsIndex;
+            this.totalStockIndex = otherInfo.totalStockIndex;
+            this.isFreeItemIndex = otherInfo.isFreeItemIndex;
+            this.isRuleAppliedIndex = otherInfo.isRuleAppliedIndex;
+            this.parentProductIdIndex = otherInfo.parentProductIdIndex;
+            this.accumulatedLoyalityIndex = otherInfo.accumulatedLoyalityIndex;
+            this.mCheckStockIndex = otherInfo.mCheckStockIndex;
+            this.checkStockClickIndex = otherInfo.checkStockClickIndex;
+
+            setIndicesMap(otherInfo.getIndicesMap());
+        }
+
+        @Override
+        public final RealmOrderCentreColumnInfo clone() {
+            return (RealmOrderCentreColumnInfo) super.clone();
+        }
+
+    }
+    private RealmOrderCentreColumnInfo columnInfo;
+    private ProxyState<quay.com.ipos.realmbean.RealmOrderCentre> proxyState;
+    private static final List<String> FIELD_NAMES;
+    static {
+        List<String> fieldNames = new ArrayList<String>();
+        fieldNames.add("iProductModalId");
+        fieldNames.add("productCode");
+        fieldNames.add("sProductName");
+        fieldNames.add("productImage");
+        fieldNames.add("sProductPrice");
+        fieldNames.add("sProductStock");
+        fieldNames.add("sProductWeight");
+        fieldNames.add("isDiscount");
+        fieldNames.add("gstPerc");
+        fieldNames.add("cgst");
+        fieldNames.add("sgst");
+        fieldNames.add("salesPrice");
+        fieldNames.add("nrv");
+        fieldNames.add("gpl");
+        fieldNames.add("mrp");
+        fieldNames.add("barCodeNumber");
+        fieldNames.add("points");
+        fieldNames.add("pointsBasedOn");
+        fieldNames.add("valueFrom");
+        fieldNames.add("valueTo");
+        fieldNames.add("pointsPer");
+        fieldNames.add("isReserveStock");
+        fieldNames.add("isCheckStock");
+        fieldNames.add("isStockDisplay");
+        fieldNames.add("discount");
+        fieldNames.add("isSync");
+        fieldNames.add("isUpdate");
+        fieldNames.add("OrderId");
+        fieldNames.add("isAdded");
+        fieldNames.add("qty");
+        fieldNames.add("totalPrice");
+        fieldNames.add("discountPrice");
+        fieldNames.add("totalPoints");
+        fieldNames.add("totalStock");
+        fieldNames.add("isFreeItem");
+        fieldNames.add("isRuleApplied");
+        fieldNames.add("parentProductId");
+        fieldNames.add("accumulatedLoyality");
+        fieldNames.add("mCheckStock");
+        fieldNames.add("checkStockClick");
+        FIELD_NAMES = Collections.unmodifiableList(fieldNames);
+    }
+
+    RealmOrderCentreRealmProxy() {
+        proxyState.setConstructionFinished();
+    }
+
+    @Override
+    public void realm$injectObjectContext() {
+        if (this.proxyState != null) {
+            return;
+        }
+        final BaseRealm.RealmObjectContext context = BaseRealm.objectContext.get();
+        this.columnInfo = (RealmOrderCentreColumnInfo) context.getColumnInfo();
+        this.proxyState = new ProxyState<quay.com.ipos.realmbean.RealmOrderCentre>(this);
+        proxyState.setRealm$realm(context.getRealm());
+        proxyState.setRow$realm(context.getRow());
+        proxyState.setAcceptDefaultValue$realm(context.getAcceptDefaultValue());
+        proxyState.setExcludeFields$realm(context.getExcludeFields());
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$iProductModalId() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.iProductModalIdIndex);
+    }
+
+    @Override
+    public void realmSet$iProductModalId(String value) {
+        if (proxyState.isUnderConstruction()) {
+            // default value of the primary key is always ignored.
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        throw new io.realm.exceptions.RealmException("Primary key field 'iProductModalId' cannot be changed after object was created.");
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$productCode() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.productCodeIndex);
+    }
+
+    @Override
+    public void realmSet$productCode(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.productCodeIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.productCodeIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.productCodeIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.productCodeIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$sProductName() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.sProductNameIndex);
+    }
+
+    @Override
+    public void realmSet$sProductName(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.sProductNameIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.sProductNameIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.sProductNameIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.sProductNameIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$productImage() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.productImageIndex);
+    }
+
+    @Override
+    public void realmSet$productImage(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.productImageIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.productImageIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.productImageIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.productImageIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$sProductPrice() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.sProductPriceIndex);
+    }
+
+    @Override
+    public void realmSet$sProductPrice(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.sProductPriceIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.sProductPriceIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$sProductStock() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.sProductStockIndex);
+    }
+
+    @Override
+    public void realmSet$sProductStock(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.sProductStockIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.sProductStockIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.sProductStockIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.sProductStockIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$sProductWeight() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.sProductWeightIndex);
+    }
+
+    @Override
+    public void realmSet$sProductWeight(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.sProductWeightIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.sProductWeightIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public boolean realmGet$isDiscount() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (boolean) proxyState.getRow$realm().getBoolean(columnInfo.isDiscountIndex);
+    }
+
+    @Override
+    public void realmSet$isDiscount(boolean value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setBoolean(columnInfo.isDiscountIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setBoolean(columnInfo.isDiscountIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$gstPerc() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.gstPercIndex);
+    }
+
+    @Override
+    public void realmSet$gstPerc(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.gstPercIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.gstPercIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$cgst() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.cgstIndex);
+    }
+
+    @Override
+    public void realmSet$cgst(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.cgstIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.cgstIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$sgst() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.sgstIndex);
+    }
+
+    @Override
+    public void realmSet$sgst(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.sgstIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.sgstIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$salesPrice() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.salesPriceIndex);
+    }
+
+    @Override
+    public void realmSet$salesPrice(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.salesPriceIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.salesPriceIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$nrv() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.nrvIndex);
+    }
+
+    @Override
+    public void realmSet$nrv(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.nrvIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.nrvIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$gpl() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.gplIndex);
+    }
+
+    @Override
+    public void realmSet$gpl(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.gplIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.gplIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$mrp() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.mrpIndex);
+    }
+
+    @Override
+    public void realmSet$mrp(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.mrpIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.mrpIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$barCodeNumber() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.barCodeNumberIndex);
+    }
+
+    @Override
+    public void realmSet$barCodeNumber(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.barCodeNumberIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.barCodeNumberIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.barCodeNumberIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.barCodeNumberIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$points() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.pointsIndex);
+    }
+
+    @Override
+    public void realmSet$points(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.pointsIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.pointsIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$pointsBasedOn() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.pointsBasedOnIndex);
+    }
+
+    @Override
+    public void realmSet$pointsBasedOn(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.pointsBasedOnIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.pointsBasedOnIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.pointsBasedOnIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.pointsBasedOnIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$valueFrom() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.valueFromIndex);
+    }
+
+    @Override
+    public void realmSet$valueFrom(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.valueFromIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.valueFromIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$valueTo() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.valueToIndex);
+    }
+
+    @Override
+    public void realmSet$valueTo(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.valueToIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.valueToIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$pointsPer() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.pointsPerIndex);
+    }
+
+    @Override
+    public void realmSet$pointsPer(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.pointsPerIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.pointsPerIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public boolean realmGet$isReserveStock() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (boolean) proxyState.getRow$realm().getBoolean(columnInfo.isReserveStockIndex);
+    }
+
+    @Override
+    public void realmSet$isReserveStock(boolean value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setBoolean(columnInfo.isReserveStockIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setBoolean(columnInfo.isReserveStockIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public boolean realmGet$isCheckStock() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (boolean) proxyState.getRow$realm().getBoolean(columnInfo.isCheckStockIndex);
+    }
+
+    @Override
+    public void realmSet$isCheckStock(boolean value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setBoolean(columnInfo.isCheckStockIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setBoolean(columnInfo.isCheckStockIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public boolean realmGet$isStockDisplay() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (boolean) proxyState.getRow$realm().getBoolean(columnInfo.isStockDisplayIndex);
+    }
+
+    @Override
+    public void realmSet$isStockDisplay(boolean value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setBoolean(columnInfo.isStockDisplayIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setBoolean(columnInfo.isStockDisplayIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$discount() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.discountIndex);
+    }
+
+    @Override
+    public void realmSet$discount(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.discountIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.discountIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.discountIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.discountIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public boolean realmGet$isSync() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (boolean) proxyState.getRow$realm().getBoolean(columnInfo.isSyncIndex);
+    }
+
+    @Override
+    public void realmSet$isSync(boolean value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setBoolean(columnInfo.isSyncIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setBoolean(columnInfo.isSyncIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public boolean realmGet$isUpdate() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (boolean) proxyState.getRow$realm().getBoolean(columnInfo.isUpdateIndex);
+    }
+
+    @Override
+    public void realmSet$isUpdate(boolean value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setBoolean(columnInfo.isUpdateIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setBoolean(columnInfo.isUpdateIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$OrderId() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.OrderIdIndex);
+    }
+
+    @Override
+    public void realmSet$OrderId(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.OrderIdIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.OrderIdIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.OrderIdIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.OrderIdIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public boolean realmGet$isAdded() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (boolean) proxyState.getRow$realm().getBoolean(columnInfo.isAddedIndex);
+    }
+
+    @Override
+    public void realmSet$isAdded(boolean value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setBoolean(columnInfo.isAddedIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setBoolean(columnInfo.isAddedIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$qty() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.qtyIndex);
+    }
+
+    @Override
+    public void realmSet$qty(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.qtyIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.qtyIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$totalPrice() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.totalPriceIndex);
+    }
+
+    @Override
+    public void realmSet$totalPrice(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.totalPriceIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.totalPriceIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public double realmGet$discountPrice() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (double) proxyState.getRow$realm().getDouble(columnInfo.discountPriceIndex);
+    }
+
+    @Override
+    public void realmSet$discountPrice(double value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setDouble(columnInfo.discountPriceIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setDouble(columnInfo.discountPriceIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$totalPoints() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.totalPointsIndex);
+    }
+
+    @Override
+    public void realmSet$totalPoints(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.totalPointsIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.totalPointsIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$totalStock() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.totalStockIndex);
+    }
+
+    @Override
+    public void realmSet$totalStock(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.totalStockIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.totalStockIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public boolean realmGet$isFreeItem() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (boolean) proxyState.getRow$realm().getBoolean(columnInfo.isFreeItemIndex);
+    }
+
+    @Override
+    public void realmSet$isFreeItem(boolean value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setBoolean(columnInfo.isFreeItemIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setBoolean(columnInfo.isFreeItemIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public boolean realmGet$isRuleApplied() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (boolean) proxyState.getRow$realm().getBoolean(columnInfo.isRuleAppliedIndex);
+    }
+
+    @Override
+    public void realmSet$isRuleApplied(boolean value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setBoolean(columnInfo.isRuleAppliedIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setBoolean(columnInfo.isRuleAppliedIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public String realmGet$parentProductId() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (java.lang.String) proxyState.getRow$realm().getString(columnInfo.parentProductIdIndex);
+    }
+
+    @Override
+    public void realmSet$parentProductId(String value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            if (value == null) {
+                row.getTable().setNull(columnInfo.parentProductIdIndex, row.getIndex(), true);
+                return;
+            }
+            row.getTable().setString(columnInfo.parentProductIdIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        if (value == null) {
+            proxyState.getRow$realm().setNull(columnInfo.parentProductIdIndex);
+            return;
+        }
+        proxyState.getRow$realm().setString(columnInfo.parentProductIdIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public double realmGet$accumulatedLoyality() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (double) proxyState.getRow$realm().getDouble(columnInfo.accumulatedLoyalityIndex);
+    }
+
+    @Override
+    public void realmSet$accumulatedLoyality(double value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setDouble(columnInfo.accumulatedLoyalityIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setDouble(columnInfo.accumulatedLoyalityIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public int realmGet$mCheckStock() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (int) proxyState.getRow$realm().getLong(columnInfo.mCheckStockIndex);
+    }
+
+    @Override
+    public void realmSet$mCheckStock(int value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setLong(columnInfo.mCheckStockIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setLong(columnInfo.mCheckStockIndex, value);
+    }
+
+    @Override
+    @SuppressWarnings("cast")
+    public boolean realmGet$checkStockClick() {
+        proxyState.getRealm$realm().checkIfValid();
+        return (boolean) proxyState.getRow$realm().getBoolean(columnInfo.checkStockClickIndex);
+    }
+
+    @Override
+    public void realmSet$checkStockClick(boolean value) {
+        if (proxyState.isUnderConstruction()) {
+            if (!proxyState.getAcceptDefaultValue$realm()) {
+                return;
+            }
+            final Row row = proxyState.getRow$realm();
+            row.getTable().setBoolean(columnInfo.checkStockClickIndex, row.getIndex(), value, true);
+            return;
+        }
+
+        proxyState.getRealm$realm().checkIfValid();
+        proxyState.getRow$realm().setBoolean(columnInfo.checkStockClickIndex, value);
+    }
+
+    public static RealmObjectSchema createRealmObjectSchema(RealmSchema realmSchema) {
+        if (!realmSchema.contains("RealmOrderCentre")) {
+            RealmObjectSchema realmObjectSchema = realmSchema.create("RealmOrderCentre");
+            realmObjectSchema.add("iProductModalId", RealmFieldType.STRING, Property.PRIMARY_KEY, Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("productCode", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("sProductName", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("productImage", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("sProductPrice", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("sProductStock", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("sProductWeight", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("isDiscount", RealmFieldType.BOOLEAN, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("gstPerc", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("cgst", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("sgst", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("salesPrice", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("nrv", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("gpl", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("mrp", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("barCodeNumber", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("points", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("pointsBasedOn", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("valueFrom", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("valueTo", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("pointsPer", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("isReserveStock", RealmFieldType.BOOLEAN, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("isCheckStock", RealmFieldType.BOOLEAN, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("isStockDisplay", RealmFieldType.BOOLEAN, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("discount", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("isSync", RealmFieldType.BOOLEAN, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("isUpdate", RealmFieldType.BOOLEAN, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("OrderId", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("isAdded", RealmFieldType.BOOLEAN, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("qty", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("totalPrice", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("discountPrice", RealmFieldType.DOUBLE, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("totalPoints", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("totalStock", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("isFreeItem", RealmFieldType.BOOLEAN, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("isRuleApplied", RealmFieldType.BOOLEAN, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("parentProductId", RealmFieldType.STRING, !Property.PRIMARY_KEY, !Property.INDEXED, !Property.REQUIRED);
+            realmObjectSchema.add("accumulatedLoyality", RealmFieldType.DOUBLE, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("mCheckStock", RealmFieldType.INTEGER, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            realmObjectSchema.add("checkStockClick", RealmFieldType.BOOLEAN, !Property.PRIMARY_KEY, !Property.INDEXED, Property.REQUIRED);
+            return realmObjectSchema;
+        }
+        return realmSchema.get("RealmOrderCentre");
+    }
+
+    public static RealmOrderCentreColumnInfo validateTable(SharedRealm sharedRealm, boolean allowExtraColumns) {
+        if (!sharedRealm.hasTable("class_RealmOrderCentre")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "The 'RealmOrderCentre' class is missing from the schema for this Realm.");
+        }
+        Table table = sharedRealm.getTable("class_RealmOrderCentre");
+        final long columnCount = table.getColumnCount();
+        if (columnCount != 40) {
+            if (columnCount < 40) {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field count is less than expected - expected 40 but was " + columnCount);
+            }
+            if (allowExtraColumns) {
+                RealmLog.debug("Field count is more than expected - expected 40 but was %1$d", columnCount);
+            } else {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field count is more than expected - expected 40 but was " + columnCount);
+            }
+        }
+        Map<String, RealmFieldType> columnTypes = new HashMap<String, RealmFieldType>();
+        for (long i = 0; i < columnCount; i++) {
+            columnTypes.put(table.getColumnName(i), table.getColumnType(i));
+        }
+
+        final RealmOrderCentreColumnInfo columnInfo = new RealmOrderCentreColumnInfo(sharedRealm.getPath(), table);
+
+        if (!table.hasPrimaryKey()) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Primary key not defined for field 'iProductModalId' in existing Realm file. @PrimaryKey was added.");
+        } else {
+            if (table.getPrimaryKey() != columnInfo.iProductModalIdIndex) {
+                throw new RealmMigrationNeededException(sharedRealm.getPath(), "Primary Key annotation definition was changed, from field " + table.getColumnName(table.getPrimaryKey()) + " to field iProductModalId");
+            }
+        }
+
+        if (!columnTypes.containsKey("iProductModalId")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'iProductModalId' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("iProductModalId") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'iProductModalId' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.iProductModalIdIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(),"@PrimaryKey field 'iProductModalId' does not support null values in the existing Realm file. Migrate using RealmObjectSchema.setNullable(), or mark the field as @Required.");
+        }
+        if (!table.hasSearchIndex(table.getColumnIndex("iProductModalId"))) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Index not defined for field 'iProductModalId' in existing Realm file. Either set @Index or migrate using io.realm.internal.Table.removeSearchIndex().");
+        }
+        if (!columnTypes.containsKey("productCode")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'productCode' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("productCode") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'productCode' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.productCodeIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'productCode' is required. Either set @Required to field 'productCode' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("sProductName")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'sProductName' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("sProductName") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'sProductName' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.sProductNameIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'sProductName' is required. Either set @Required to field 'sProductName' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("productImage")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'productImage' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("productImage") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'productImage' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.productImageIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'productImage' is required. Either set @Required to field 'productImage' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("sProductPrice")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'sProductPrice' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("sProductPrice") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'sProductPrice' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.sProductPriceIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'sProductPrice' does support null values in the existing Realm file. Use corresponding boxed type for field 'sProductPrice' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("sProductStock")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'sProductStock' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("sProductStock") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'sProductStock' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.sProductStockIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'sProductStock' is required. Either set @Required to field 'sProductStock' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("sProductWeight")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'sProductWeight' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("sProductWeight") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'sProductWeight' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.sProductWeightIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'sProductWeight' does support null values in the existing Realm file. Use corresponding boxed type for field 'sProductWeight' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("isDiscount")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'isDiscount' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("isDiscount") != RealmFieldType.BOOLEAN) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'boolean' for field 'isDiscount' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.isDiscountIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'isDiscount' does support null values in the existing Realm file. Use corresponding boxed type for field 'isDiscount' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("gstPerc")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'gstPerc' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("gstPerc") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'gstPerc' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.gstPercIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'gstPerc' does support null values in the existing Realm file. Use corresponding boxed type for field 'gstPerc' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("cgst")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'cgst' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("cgst") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'cgst' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.cgstIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'cgst' does support null values in the existing Realm file. Use corresponding boxed type for field 'cgst' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("sgst")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'sgst' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("sgst") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'sgst' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.sgstIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'sgst' does support null values in the existing Realm file. Use corresponding boxed type for field 'sgst' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("salesPrice")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'salesPrice' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("salesPrice") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'salesPrice' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.salesPriceIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'salesPrice' does support null values in the existing Realm file. Use corresponding boxed type for field 'salesPrice' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("nrv")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'nrv' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("nrv") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'nrv' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.nrvIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'nrv' does support null values in the existing Realm file. Use corresponding boxed type for field 'nrv' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("gpl")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'gpl' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("gpl") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'gpl' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.gplIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'gpl' does support null values in the existing Realm file. Use corresponding boxed type for field 'gpl' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("mrp")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'mrp' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("mrp") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'mrp' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.mrpIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'mrp' does support null values in the existing Realm file. Use corresponding boxed type for field 'mrp' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("barCodeNumber")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'barCodeNumber' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("barCodeNumber") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'barCodeNumber' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.barCodeNumberIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'barCodeNumber' is required. Either set @Required to field 'barCodeNumber' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("points")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'points' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("points") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'points' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.pointsIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'points' does support null values in the existing Realm file. Use corresponding boxed type for field 'points' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("pointsBasedOn")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'pointsBasedOn' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("pointsBasedOn") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'pointsBasedOn' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.pointsBasedOnIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'pointsBasedOn' is required. Either set @Required to field 'pointsBasedOn' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("valueFrom")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'valueFrom' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("valueFrom") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'valueFrom' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.valueFromIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'valueFrom' does support null values in the existing Realm file. Use corresponding boxed type for field 'valueFrom' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("valueTo")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'valueTo' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("valueTo") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'valueTo' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.valueToIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'valueTo' does support null values in the existing Realm file. Use corresponding boxed type for field 'valueTo' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("pointsPer")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'pointsPer' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("pointsPer") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'pointsPer' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.pointsPerIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'pointsPer' does support null values in the existing Realm file. Use corresponding boxed type for field 'pointsPer' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("isReserveStock")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'isReserveStock' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("isReserveStock") != RealmFieldType.BOOLEAN) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'boolean' for field 'isReserveStock' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.isReserveStockIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'isReserveStock' does support null values in the existing Realm file. Use corresponding boxed type for field 'isReserveStock' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("isCheckStock")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'isCheckStock' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("isCheckStock") != RealmFieldType.BOOLEAN) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'boolean' for field 'isCheckStock' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.isCheckStockIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'isCheckStock' does support null values in the existing Realm file. Use corresponding boxed type for field 'isCheckStock' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("isStockDisplay")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'isStockDisplay' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("isStockDisplay") != RealmFieldType.BOOLEAN) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'boolean' for field 'isStockDisplay' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.isStockDisplayIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'isStockDisplay' does support null values in the existing Realm file. Use corresponding boxed type for field 'isStockDisplay' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("discount")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'discount' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("discount") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'discount' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.discountIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'discount' is required. Either set @Required to field 'discount' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("isSync")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'isSync' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("isSync") != RealmFieldType.BOOLEAN) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'boolean' for field 'isSync' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.isSyncIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'isSync' does support null values in the existing Realm file. Use corresponding boxed type for field 'isSync' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("isUpdate")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'isUpdate' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("isUpdate") != RealmFieldType.BOOLEAN) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'boolean' for field 'isUpdate' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.isUpdateIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'isUpdate' does support null values in the existing Realm file. Use corresponding boxed type for field 'isUpdate' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("OrderId")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'OrderId' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("OrderId") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'OrderId' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.OrderIdIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'OrderId' is required. Either set @Required to field 'OrderId' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("isAdded")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'isAdded' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("isAdded") != RealmFieldType.BOOLEAN) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'boolean' for field 'isAdded' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.isAddedIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'isAdded' does support null values in the existing Realm file. Use corresponding boxed type for field 'isAdded' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("qty")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'qty' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("qty") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'qty' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.qtyIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'qty' does support null values in the existing Realm file. Use corresponding boxed type for field 'qty' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("totalPrice")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'totalPrice' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("totalPrice") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'totalPrice' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.totalPriceIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'totalPrice' does support null values in the existing Realm file. Use corresponding boxed type for field 'totalPrice' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("discountPrice")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'discountPrice' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("discountPrice") != RealmFieldType.DOUBLE) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'double' for field 'discountPrice' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.discountPriceIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'discountPrice' does support null values in the existing Realm file. Use corresponding boxed type for field 'discountPrice' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("totalPoints")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'totalPoints' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("totalPoints") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'totalPoints' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.totalPointsIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'totalPoints' does support null values in the existing Realm file. Use corresponding boxed type for field 'totalPoints' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("totalStock")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'totalStock' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("totalStock") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'totalStock' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.totalStockIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'totalStock' does support null values in the existing Realm file. Use corresponding boxed type for field 'totalStock' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("isFreeItem")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'isFreeItem' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("isFreeItem") != RealmFieldType.BOOLEAN) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'boolean' for field 'isFreeItem' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.isFreeItemIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'isFreeItem' does support null values in the existing Realm file. Use corresponding boxed type for field 'isFreeItem' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("isRuleApplied")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'isRuleApplied' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("isRuleApplied") != RealmFieldType.BOOLEAN) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'boolean' for field 'isRuleApplied' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.isRuleAppliedIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'isRuleApplied' does support null values in the existing Realm file. Use corresponding boxed type for field 'isRuleApplied' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("parentProductId")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'parentProductId' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("parentProductId") != RealmFieldType.STRING) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'String' for field 'parentProductId' in existing Realm file.");
+        }
+        if (!table.isColumnNullable(columnInfo.parentProductIdIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'parentProductId' is required. Either set @Required to field 'parentProductId' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("accumulatedLoyality")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'accumulatedLoyality' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("accumulatedLoyality") != RealmFieldType.DOUBLE) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'double' for field 'accumulatedLoyality' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.accumulatedLoyalityIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'accumulatedLoyality' does support null values in the existing Realm file. Use corresponding boxed type for field 'accumulatedLoyality' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("mCheckStock")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'mCheckStock' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("mCheckStock") != RealmFieldType.INTEGER) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'int' for field 'mCheckStock' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.mCheckStockIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'mCheckStock' does support null values in the existing Realm file. Use corresponding boxed type for field 'mCheckStock' or migrate using RealmObjectSchema.setNullable().");
+        }
+        if (!columnTypes.containsKey("checkStockClick")) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Missing field 'checkStockClick' in existing Realm file. Either remove field or migrate using io.realm.internal.Table.addColumn().");
+        }
+        if (columnTypes.get("checkStockClick") != RealmFieldType.BOOLEAN) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Invalid type 'boolean' for field 'checkStockClick' in existing Realm file.");
+        }
+        if (table.isColumnNullable(columnInfo.checkStockClickIndex)) {
+            throw new RealmMigrationNeededException(sharedRealm.getPath(), "Field 'checkStockClick' does support null values in the existing Realm file. Use corresponding boxed type for field 'checkStockClick' or migrate using RealmObjectSchema.setNullable().");
+        }
+
+        return columnInfo;
+    }
+
+    public static String getTableName() {
+        return "class_RealmOrderCentre";
+    }
+
+    public static List<String> getFieldNames() {
+        return FIELD_NAMES;
+    }
+
+    @SuppressWarnings("cast")
+    public static quay.com.ipos.realmbean.RealmOrderCentre createOrUpdateUsingJsonObject(Realm realm, JSONObject json, boolean update)
+        throws JSONException {
+        final List<String> excludeFields = Collections.<String> emptyList();
+        quay.com.ipos.realmbean.RealmOrderCentre obj = null;
+        if (update) {
+            Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentre.class);
+            long pkColumnIndex = table.getPrimaryKey();
+            long rowIndex = Table.NO_MATCH;
+            if (json.isNull("iProductModalId")) {
+                rowIndex = table.findFirstNull(pkColumnIndex);
+            } else {
+                rowIndex = table.findFirstString(pkColumnIndex, json.getString("iProductModalId"));
+            }
+            if (rowIndex != Table.NO_MATCH) {
+                final BaseRealm.RealmObjectContext objectContext = BaseRealm.objectContext.get();
+                try {
+                    objectContext.set(realm, table.getUncheckedRow(rowIndex), realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentre.class), false, Collections.<String> emptyList());
+                    obj = new io.realm.RealmOrderCentreRealmProxy();
+                } finally {
+                    objectContext.clear();
+                }
+            }
+        }
+        if (obj == null) {
+            if (json.has("iProductModalId")) {
+                if (json.isNull("iProductModalId")) {
+                    obj = (io.realm.RealmOrderCentreRealmProxy) realm.createObjectInternal(quay.com.ipos.realmbean.RealmOrderCentre.class, null, true, excludeFields);
+                } else {
+                    obj = (io.realm.RealmOrderCentreRealmProxy) realm.createObjectInternal(quay.com.ipos.realmbean.RealmOrderCentre.class, json.getString("iProductModalId"), true, excludeFields);
+                }
+            } else {
+                throw new IllegalArgumentException("JSON object doesn't have the primary key field 'iProductModalId'.");
+            }
+        }
+        if (json.has("productCode")) {
+            if (json.isNull("productCode")) {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$productCode(null);
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$productCode((String) json.getString("productCode"));
+            }
+        }
+        if (json.has("sProductName")) {
+            if (json.isNull("sProductName")) {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductName(null);
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductName((String) json.getString("sProductName"));
+            }
+        }
+        if (json.has("productImage")) {
+            if (json.isNull("productImage")) {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$productImage(null);
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$productImage((String) json.getString("productImage"));
+            }
+        }
+        if (json.has("sProductPrice")) {
+            if (json.isNull("sProductPrice")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'sProductPrice' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductPrice((int) json.getInt("sProductPrice"));
+            }
+        }
+        if (json.has("sProductStock")) {
+            if (json.isNull("sProductStock")) {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductStock(null);
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductStock((String) json.getString("sProductStock"));
+            }
+        }
+        if (json.has("sProductWeight")) {
+            if (json.isNull("sProductWeight")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'sProductWeight' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductWeight((int) json.getInt("sProductWeight"));
+            }
+        }
+        if (json.has("isDiscount")) {
+            if (json.isNull("isDiscount")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'isDiscount' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isDiscount((boolean) json.getBoolean("isDiscount"));
+            }
+        }
+        if (json.has("gstPerc")) {
+            if (json.isNull("gstPerc")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'gstPerc' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$gstPerc((int) json.getInt("gstPerc"));
+            }
+        }
+        if (json.has("cgst")) {
+            if (json.isNull("cgst")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'cgst' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$cgst((int) json.getInt("cgst"));
+            }
+        }
+        if (json.has("sgst")) {
+            if (json.isNull("sgst")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'sgst' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sgst((int) json.getInt("sgst"));
+            }
+        }
+        if (json.has("salesPrice")) {
+            if (json.isNull("salesPrice")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'salesPrice' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$salesPrice((int) json.getInt("salesPrice"));
+            }
+        }
+        if (json.has("nrv")) {
+            if (json.isNull("nrv")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'nrv' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$nrv((int) json.getInt("nrv"));
+            }
+        }
+        if (json.has("gpl")) {
+            if (json.isNull("gpl")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'gpl' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$gpl((int) json.getInt("gpl"));
+            }
+        }
+        if (json.has("mrp")) {
+            if (json.isNull("mrp")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'mrp' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$mrp((int) json.getInt("mrp"));
+            }
+        }
+        if (json.has("barCodeNumber")) {
+            if (json.isNull("barCodeNumber")) {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$barCodeNumber(null);
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$barCodeNumber((String) json.getString("barCodeNumber"));
+            }
+        }
+        if (json.has("points")) {
+            if (json.isNull("points")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'points' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$points((int) json.getInt("points"));
+            }
+        }
+        if (json.has("pointsBasedOn")) {
+            if (json.isNull("pointsBasedOn")) {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$pointsBasedOn(null);
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$pointsBasedOn((String) json.getString("pointsBasedOn"));
+            }
+        }
+        if (json.has("valueFrom")) {
+            if (json.isNull("valueFrom")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'valueFrom' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$valueFrom((int) json.getInt("valueFrom"));
+            }
+        }
+        if (json.has("valueTo")) {
+            if (json.isNull("valueTo")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'valueTo' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$valueTo((int) json.getInt("valueTo"));
+            }
+        }
+        if (json.has("pointsPer")) {
+            if (json.isNull("pointsPer")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'pointsPer' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$pointsPer((int) json.getInt("pointsPer"));
+            }
+        }
+        if (json.has("isReserveStock")) {
+            if (json.isNull("isReserveStock")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'isReserveStock' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isReserveStock((boolean) json.getBoolean("isReserveStock"));
+            }
+        }
+        if (json.has("isCheckStock")) {
+            if (json.isNull("isCheckStock")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'isCheckStock' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isCheckStock((boolean) json.getBoolean("isCheckStock"));
+            }
+        }
+        if (json.has("isStockDisplay")) {
+            if (json.isNull("isStockDisplay")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'isStockDisplay' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isStockDisplay((boolean) json.getBoolean("isStockDisplay"));
+            }
+        }
+        if (json.has("discount")) {
+            if (json.isNull("discount")) {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$discount(null);
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$discount((String) json.getString("discount"));
+            }
+        }
+        if (json.has("isSync")) {
+            if (json.isNull("isSync")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'isSync' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isSync((boolean) json.getBoolean("isSync"));
+            }
+        }
+        if (json.has("isUpdate")) {
+            if (json.isNull("isUpdate")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'isUpdate' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isUpdate((boolean) json.getBoolean("isUpdate"));
+            }
+        }
+        if (json.has("OrderId")) {
+            if (json.isNull("OrderId")) {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$OrderId(null);
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$OrderId((String) json.getString("OrderId"));
+            }
+        }
+        if (json.has("isAdded")) {
+            if (json.isNull("isAdded")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'isAdded' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isAdded((boolean) json.getBoolean("isAdded"));
+            }
+        }
+        if (json.has("qty")) {
+            if (json.isNull("qty")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'qty' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$qty((int) json.getInt("qty"));
+            }
+        }
+        if (json.has("totalPrice")) {
+            if (json.isNull("totalPrice")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'totalPrice' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$totalPrice((int) json.getInt("totalPrice"));
+            }
+        }
+        if (json.has("discountPrice")) {
+            if (json.isNull("discountPrice")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'discountPrice' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$discountPrice((double) json.getDouble("discountPrice"));
+            }
+        }
+        if (json.has("totalPoints")) {
+            if (json.isNull("totalPoints")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'totalPoints' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$totalPoints((int) json.getInt("totalPoints"));
+            }
+        }
+        if (json.has("totalStock")) {
+            if (json.isNull("totalStock")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'totalStock' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$totalStock((int) json.getInt("totalStock"));
+            }
+        }
+        if (json.has("isFreeItem")) {
+            if (json.isNull("isFreeItem")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'isFreeItem' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isFreeItem((boolean) json.getBoolean("isFreeItem"));
+            }
+        }
+        if (json.has("isRuleApplied")) {
+            if (json.isNull("isRuleApplied")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'isRuleApplied' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isRuleApplied((boolean) json.getBoolean("isRuleApplied"));
+            }
+        }
+        if (json.has("parentProductId")) {
+            if (json.isNull("parentProductId")) {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$parentProductId(null);
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$parentProductId((String) json.getString("parentProductId"));
+            }
+        }
+        if (json.has("accumulatedLoyality")) {
+            if (json.isNull("accumulatedLoyality")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'accumulatedLoyality' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$accumulatedLoyality((double) json.getDouble("accumulatedLoyality"));
+            }
+        }
+        if (json.has("mCheckStock")) {
+            if (json.isNull("mCheckStock")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'mCheckStock' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$mCheckStock((int) json.getInt("mCheckStock"));
+            }
+        }
+        if (json.has("checkStockClick")) {
+            if (json.isNull("checkStockClick")) {
+                throw new IllegalArgumentException("Trying to set non-nullable field 'checkStockClick' to null.");
+            } else {
+                ((RealmOrderCentreRealmProxyInterface) obj).realmSet$checkStockClick((boolean) json.getBoolean("checkStockClick"));
+            }
+        }
+        return obj;
+    }
+
+    @SuppressWarnings("cast")
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static quay.com.ipos.realmbean.RealmOrderCentre createUsingJsonStream(Realm realm, JsonReader reader)
+        throws IOException {
+        boolean jsonHasPrimaryKey = false;
+        quay.com.ipos.realmbean.RealmOrderCentre obj = new quay.com.ipos.realmbean.RealmOrderCentre();
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (false) {
+            } else if (name.equals("iProductModalId")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$iProductModalId(null);
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$iProductModalId((String) reader.nextString());
+                }
+                jsonHasPrimaryKey = true;
+            } else if (name.equals("productCode")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$productCode(null);
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$productCode((String) reader.nextString());
+                }
+            } else if (name.equals("sProductName")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductName(null);
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductName((String) reader.nextString());
+                }
+            } else if (name.equals("productImage")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$productImage(null);
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$productImage((String) reader.nextString());
+                }
+            } else if (name.equals("sProductPrice")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'sProductPrice' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductPrice((int) reader.nextInt());
+                }
+            } else if (name.equals("sProductStock")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductStock(null);
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductStock((String) reader.nextString());
+                }
+            } else if (name.equals("sProductWeight")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'sProductWeight' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sProductWeight((int) reader.nextInt());
+                }
+            } else if (name.equals("isDiscount")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'isDiscount' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isDiscount((boolean) reader.nextBoolean());
+                }
+            } else if (name.equals("gstPerc")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'gstPerc' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$gstPerc((int) reader.nextInt());
+                }
+            } else if (name.equals("cgst")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'cgst' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$cgst((int) reader.nextInt());
+                }
+            } else if (name.equals("sgst")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'sgst' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$sgst((int) reader.nextInt());
+                }
+            } else if (name.equals("salesPrice")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'salesPrice' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$salesPrice((int) reader.nextInt());
+                }
+            } else if (name.equals("nrv")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'nrv' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$nrv((int) reader.nextInt());
+                }
+            } else if (name.equals("gpl")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'gpl' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$gpl((int) reader.nextInt());
+                }
+            } else if (name.equals("mrp")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'mrp' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$mrp((int) reader.nextInt());
+                }
+            } else if (name.equals("barCodeNumber")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$barCodeNumber(null);
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$barCodeNumber((String) reader.nextString());
+                }
+            } else if (name.equals("points")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'points' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$points((int) reader.nextInt());
+                }
+            } else if (name.equals("pointsBasedOn")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$pointsBasedOn(null);
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$pointsBasedOn((String) reader.nextString());
+                }
+            } else if (name.equals("valueFrom")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'valueFrom' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$valueFrom((int) reader.nextInt());
+                }
+            } else if (name.equals("valueTo")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'valueTo' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$valueTo((int) reader.nextInt());
+                }
+            } else if (name.equals("pointsPer")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'pointsPer' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$pointsPer((int) reader.nextInt());
+                }
+            } else if (name.equals("isReserveStock")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'isReserveStock' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isReserveStock((boolean) reader.nextBoolean());
+                }
+            } else if (name.equals("isCheckStock")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'isCheckStock' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isCheckStock((boolean) reader.nextBoolean());
+                }
+            } else if (name.equals("isStockDisplay")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'isStockDisplay' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isStockDisplay((boolean) reader.nextBoolean());
+                }
+            } else if (name.equals("discount")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$discount(null);
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$discount((String) reader.nextString());
+                }
+            } else if (name.equals("isSync")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'isSync' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isSync((boolean) reader.nextBoolean());
+                }
+            } else if (name.equals("isUpdate")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'isUpdate' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isUpdate((boolean) reader.nextBoolean());
+                }
+            } else if (name.equals("OrderId")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$OrderId(null);
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$OrderId((String) reader.nextString());
+                }
+            } else if (name.equals("isAdded")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'isAdded' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isAdded((boolean) reader.nextBoolean());
+                }
+            } else if (name.equals("qty")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'qty' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$qty((int) reader.nextInt());
+                }
+            } else if (name.equals("totalPrice")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'totalPrice' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$totalPrice((int) reader.nextInt());
+                }
+            } else if (name.equals("discountPrice")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'discountPrice' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$discountPrice((double) reader.nextDouble());
+                }
+            } else if (name.equals("totalPoints")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'totalPoints' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$totalPoints((int) reader.nextInt());
+                }
+            } else if (name.equals("totalStock")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'totalStock' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$totalStock((int) reader.nextInt());
+                }
+            } else if (name.equals("isFreeItem")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'isFreeItem' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isFreeItem((boolean) reader.nextBoolean());
+                }
+            } else if (name.equals("isRuleApplied")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'isRuleApplied' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$isRuleApplied((boolean) reader.nextBoolean());
+                }
+            } else if (name.equals("parentProductId")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$parentProductId(null);
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$parentProductId((String) reader.nextString());
+                }
+            } else if (name.equals("accumulatedLoyality")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'accumulatedLoyality' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$accumulatedLoyality((double) reader.nextDouble());
+                }
+            } else if (name.equals("mCheckStock")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'mCheckStock' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$mCheckStock((int) reader.nextInt());
+                }
+            } else if (name.equals("checkStockClick")) {
+                if (reader.peek() == JsonToken.NULL) {
+                    reader.skipValue();
+                    throw new IllegalArgumentException("Trying to set non-nullable field 'checkStockClick' to null.");
+                } else {
+                    ((RealmOrderCentreRealmProxyInterface) obj).realmSet$checkStockClick((boolean) reader.nextBoolean());
+                }
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+        if (!jsonHasPrimaryKey) {
+            throw new IllegalArgumentException("JSON object doesn't have the primary key field 'iProductModalId'.");
+        }
+        obj = realm.copyToRealm(obj);
+        return obj;
+    }
+
+    public static quay.com.ipos.realmbean.RealmOrderCentre copyOrUpdate(Realm realm, quay.com.ipos.realmbean.RealmOrderCentre object, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy) object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy) object).realmGet$proxyState().getRealm$realm().threadId != realm.threadId) {
+            throw new IllegalArgumentException("Objects which belong to Realm instances in other threads cannot be copied into this Realm instance.");
+        }
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return object;
+        }
+        final BaseRealm.RealmObjectContext objectContext = BaseRealm.objectContext.get();
+        RealmObjectProxy cachedRealmObject = cache.get(object);
+        if (cachedRealmObject != null) {
+            return (quay.com.ipos.realmbean.RealmOrderCentre) cachedRealmObject;
+        } else {
+            quay.com.ipos.realmbean.RealmOrderCentre realmObject = null;
+            boolean canUpdate = update;
+            if (canUpdate) {
+                Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentre.class);
+                long pkColumnIndex = table.getPrimaryKey();
+                String value = ((RealmOrderCentreRealmProxyInterface) object).realmGet$iProductModalId();
+                long rowIndex = Table.NO_MATCH;
+                if (value == null) {
+                    rowIndex = table.findFirstNull(pkColumnIndex);
+                } else {
+                    rowIndex = table.findFirstString(pkColumnIndex, value);
+                }
+                if (rowIndex != Table.NO_MATCH) {
+                    try {
+                        objectContext.set(realm, table.getUncheckedRow(rowIndex), realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentre.class), false, Collections.<String> emptyList());
+                        realmObject = new io.realm.RealmOrderCentreRealmProxy();
+                        cache.put(object, (RealmObjectProxy) realmObject);
+                    } finally {
+                        objectContext.clear();
+                    }
+                } else {
+                    canUpdate = false;
+                }
+            }
+
+            if (canUpdate) {
+                return update(realm, realmObject, object, cache);
+            } else {
+                return copy(realm, object, update, cache);
+            }
+        }
+    }
+
+    public static quay.com.ipos.realmbean.RealmOrderCentre copy(Realm realm, quay.com.ipos.realmbean.RealmOrderCentre newObject, boolean update, Map<RealmModel,RealmObjectProxy> cache) {
+        RealmObjectProxy cachedRealmObject = cache.get(newObject);
+        if (cachedRealmObject != null) {
+            return (quay.com.ipos.realmbean.RealmOrderCentre) cachedRealmObject;
+        } else {
+            // rejecting default values to avoid creating unexpected objects from RealmModel/RealmList fields.
+            quay.com.ipos.realmbean.RealmOrderCentre realmObject = realm.createObjectInternal(quay.com.ipos.realmbean.RealmOrderCentre.class, ((RealmOrderCentreRealmProxyInterface) newObject).realmGet$iProductModalId(), false, Collections.<String>emptyList());
+            cache.put(newObject, (RealmObjectProxy) realmObject);
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$productCode(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$productCode());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$sProductName(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$sProductName());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$productImage(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$productImage());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$sProductPrice(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$sProductPrice());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$sProductStock(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$sProductStock());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$sProductWeight(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$sProductWeight());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isDiscount(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isDiscount());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$gstPerc(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$gstPerc());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$cgst(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$cgst());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$sgst(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$sgst());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$salesPrice(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$salesPrice());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$nrv(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$nrv());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$gpl(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$gpl());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$mrp(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$mrp());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$barCodeNumber(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$barCodeNumber());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$points(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$points());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$pointsBasedOn(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$pointsBasedOn());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$valueFrom(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$valueFrom());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$valueTo(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$valueTo());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$pointsPer(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$pointsPer());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isReserveStock(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isReserveStock());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isCheckStock(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isCheckStock());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isStockDisplay(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isStockDisplay());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$discount(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$discount());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isSync(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isSync());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isUpdate(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isUpdate());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$OrderId(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$OrderId());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isAdded(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isAdded());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$qty(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$qty());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$totalPrice(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$totalPrice());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$discountPrice(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$discountPrice());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$totalPoints(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$totalPoints());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$totalStock(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$totalStock());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isFreeItem(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isFreeItem());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isRuleApplied(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isRuleApplied());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$parentProductId(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$parentProductId());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$accumulatedLoyality(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$accumulatedLoyality());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$mCheckStock(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$mCheckStock());
+            ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$checkStockClick(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$checkStockClick());
+            return realmObject;
+        }
+    }
+
+    public static long insert(Realm realm, quay.com.ipos.realmbean.RealmOrderCentre object, Map<RealmModel,Long> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex();
+        }
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentre.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmOrderCentreColumnInfo columnInfo = (RealmOrderCentreColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentre.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        String primaryKeyValue = ((RealmOrderCentreRealmProxyInterface) object).realmGet$iProductModalId();
+        long rowIndex = Table.NO_MATCH;
+        if (primaryKeyValue == null) {
+            rowIndex = Table.nativeFindFirstNull(tableNativePtr, pkColumnIndex);
+        } else {
+            rowIndex = Table.nativeFindFirstString(tableNativePtr, pkColumnIndex, primaryKeyValue);
+        }
+        if (rowIndex == Table.NO_MATCH) {
+            rowIndex = table.addEmptyRowWithPrimaryKey(primaryKeyValue, false);
+        } else {
+            Table.throwDuplicatePrimaryKeyException(primaryKeyValue);
+        }
+        cache.put(object, rowIndex);
+        String realmGet$productCode = ((RealmOrderCentreRealmProxyInterface)object).realmGet$productCode();
+        if (realmGet$productCode != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.productCodeIndex, rowIndex, realmGet$productCode, false);
+        }
+        String realmGet$sProductName = ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductName();
+        if (realmGet$sProductName != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.sProductNameIndex, rowIndex, realmGet$sProductName, false);
+        }
+        String realmGet$productImage = ((RealmOrderCentreRealmProxyInterface)object).realmGet$productImage();
+        if (realmGet$productImage != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.productImageIndex, rowIndex, realmGet$productImage, false);
+        }
+        Table.nativeSetLong(tableNativePtr, columnInfo.sProductPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductPrice(), false);
+        String realmGet$sProductStock = ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductStock();
+        if (realmGet$sProductStock != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.sProductStockIndex, rowIndex, realmGet$sProductStock, false);
+        }
+        Table.nativeSetLong(tableNativePtr, columnInfo.sProductWeightIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductWeight(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isDiscountIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isDiscount(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.gstPercIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$gstPerc(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.cgstIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$cgst(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.sgstIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sgst(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.salesPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$salesPrice(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.nrvIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$nrv(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.gplIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$gpl(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.mrpIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$mrp(), false);
+        String realmGet$barCodeNumber = ((RealmOrderCentreRealmProxyInterface)object).realmGet$barCodeNumber();
+        if (realmGet$barCodeNumber != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.barCodeNumberIndex, rowIndex, realmGet$barCodeNumber, false);
+        }
+        Table.nativeSetLong(tableNativePtr, columnInfo.pointsIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$points(), false);
+        String realmGet$pointsBasedOn = ((RealmOrderCentreRealmProxyInterface)object).realmGet$pointsBasedOn();
+        if (realmGet$pointsBasedOn != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.pointsBasedOnIndex, rowIndex, realmGet$pointsBasedOn, false);
+        }
+        Table.nativeSetLong(tableNativePtr, columnInfo.valueFromIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$valueFrom(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.valueToIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$valueTo(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.pointsPerIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$pointsPer(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isReserveStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isReserveStock(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isCheckStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isCheckStock(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isStockDisplayIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isStockDisplay(), false);
+        String realmGet$discount = ((RealmOrderCentreRealmProxyInterface)object).realmGet$discount();
+        if (realmGet$discount != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.discountIndex, rowIndex, realmGet$discount, false);
+        }
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isSyncIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isSync(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isUpdateIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isUpdate(), false);
+        String realmGet$OrderId = ((RealmOrderCentreRealmProxyInterface)object).realmGet$OrderId();
+        if (realmGet$OrderId != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.OrderIdIndex, rowIndex, realmGet$OrderId, false);
+        }
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isAddedIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isAdded(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.qtyIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$qty(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.totalPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalPrice(), false);
+        Table.nativeSetDouble(tableNativePtr, columnInfo.discountPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$discountPrice(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.totalPointsIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalPoints(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.totalStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalStock(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isFreeItemIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isFreeItem(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isRuleAppliedIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isRuleApplied(), false);
+        String realmGet$parentProductId = ((RealmOrderCentreRealmProxyInterface)object).realmGet$parentProductId();
+        if (realmGet$parentProductId != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.parentProductIdIndex, rowIndex, realmGet$parentProductId, false);
+        }
+        Table.nativeSetDouble(tableNativePtr, columnInfo.accumulatedLoyalityIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$accumulatedLoyality(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.mCheckStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$mCheckStock(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.checkStockClickIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$checkStockClick(), false);
+        return rowIndex;
+    }
+
+    public static void insert(Realm realm, Iterator<? extends RealmModel> objects, Map<RealmModel,Long> cache) {
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentre.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmOrderCentreColumnInfo columnInfo = (RealmOrderCentreColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentre.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        quay.com.ipos.realmbean.RealmOrderCentre object = null;
+        while (objects.hasNext()) {
+            object = (quay.com.ipos.realmbean.RealmOrderCentre) objects.next();
+            if(!cache.containsKey(object)) {
+                if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+                    cache.put(object, ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex());
+                    continue;
+                }
+                String primaryKeyValue = ((RealmOrderCentreRealmProxyInterface) object).realmGet$iProductModalId();
+                long rowIndex = Table.NO_MATCH;
+                if (primaryKeyValue == null) {
+                    rowIndex = Table.nativeFindFirstNull(tableNativePtr, pkColumnIndex);
+                } else {
+                    rowIndex = Table.nativeFindFirstString(tableNativePtr, pkColumnIndex, primaryKeyValue);
+                }
+                if (rowIndex == Table.NO_MATCH) {
+                    rowIndex = table.addEmptyRowWithPrimaryKey(primaryKeyValue, false);
+                } else {
+                    Table.throwDuplicatePrimaryKeyException(primaryKeyValue);
+                }
+                cache.put(object, rowIndex);
+                String realmGet$productCode = ((RealmOrderCentreRealmProxyInterface)object).realmGet$productCode();
+                if (realmGet$productCode != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.productCodeIndex, rowIndex, realmGet$productCode, false);
+                }
+                String realmGet$sProductName = ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductName();
+                if (realmGet$sProductName != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.sProductNameIndex, rowIndex, realmGet$sProductName, false);
+                }
+                String realmGet$productImage = ((RealmOrderCentreRealmProxyInterface)object).realmGet$productImage();
+                if (realmGet$productImage != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.productImageIndex, rowIndex, realmGet$productImage, false);
+                }
+                Table.nativeSetLong(tableNativePtr, columnInfo.sProductPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductPrice(), false);
+                String realmGet$sProductStock = ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductStock();
+                if (realmGet$sProductStock != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.sProductStockIndex, rowIndex, realmGet$sProductStock, false);
+                }
+                Table.nativeSetLong(tableNativePtr, columnInfo.sProductWeightIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductWeight(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isDiscountIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isDiscount(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.gstPercIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$gstPerc(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.cgstIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$cgst(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.sgstIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sgst(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.salesPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$salesPrice(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.nrvIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$nrv(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.gplIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$gpl(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.mrpIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$mrp(), false);
+                String realmGet$barCodeNumber = ((RealmOrderCentreRealmProxyInterface)object).realmGet$barCodeNumber();
+                if (realmGet$barCodeNumber != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.barCodeNumberIndex, rowIndex, realmGet$barCodeNumber, false);
+                }
+                Table.nativeSetLong(tableNativePtr, columnInfo.pointsIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$points(), false);
+                String realmGet$pointsBasedOn = ((RealmOrderCentreRealmProxyInterface)object).realmGet$pointsBasedOn();
+                if (realmGet$pointsBasedOn != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.pointsBasedOnIndex, rowIndex, realmGet$pointsBasedOn, false);
+                }
+                Table.nativeSetLong(tableNativePtr, columnInfo.valueFromIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$valueFrom(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.valueToIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$valueTo(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.pointsPerIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$pointsPer(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isReserveStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isReserveStock(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isCheckStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isCheckStock(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isStockDisplayIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isStockDisplay(), false);
+                String realmGet$discount = ((RealmOrderCentreRealmProxyInterface)object).realmGet$discount();
+                if (realmGet$discount != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.discountIndex, rowIndex, realmGet$discount, false);
+                }
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isSyncIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isSync(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isUpdateIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isUpdate(), false);
+                String realmGet$OrderId = ((RealmOrderCentreRealmProxyInterface)object).realmGet$OrderId();
+                if (realmGet$OrderId != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.OrderIdIndex, rowIndex, realmGet$OrderId, false);
+                }
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isAddedIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isAdded(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.qtyIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$qty(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.totalPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalPrice(), false);
+                Table.nativeSetDouble(tableNativePtr, columnInfo.discountPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$discountPrice(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.totalPointsIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalPoints(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.totalStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalStock(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isFreeItemIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isFreeItem(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isRuleAppliedIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isRuleApplied(), false);
+                String realmGet$parentProductId = ((RealmOrderCentreRealmProxyInterface)object).realmGet$parentProductId();
+                if (realmGet$parentProductId != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.parentProductIdIndex, rowIndex, realmGet$parentProductId, false);
+                }
+                Table.nativeSetDouble(tableNativePtr, columnInfo.accumulatedLoyalityIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$accumulatedLoyality(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.mCheckStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$mCheckStock(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.checkStockClickIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$checkStockClick(), false);
+            }
+        }
+    }
+
+    public static long insertOrUpdate(Realm realm, quay.com.ipos.realmbean.RealmOrderCentre object, Map<RealmModel,Long> cache) {
+        if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+            return ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex();
+        }
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentre.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmOrderCentreColumnInfo columnInfo = (RealmOrderCentreColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentre.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        String primaryKeyValue = ((RealmOrderCentreRealmProxyInterface) object).realmGet$iProductModalId();
+        long rowIndex = Table.NO_MATCH;
+        if (primaryKeyValue == null) {
+            rowIndex = Table.nativeFindFirstNull(tableNativePtr, pkColumnIndex);
+        } else {
+            rowIndex = Table.nativeFindFirstString(tableNativePtr, pkColumnIndex, primaryKeyValue);
+        }
+        if (rowIndex == Table.NO_MATCH) {
+            rowIndex = table.addEmptyRowWithPrimaryKey(primaryKeyValue, false);
+        }
+        cache.put(object, rowIndex);
+        String realmGet$productCode = ((RealmOrderCentreRealmProxyInterface)object).realmGet$productCode();
+        if (realmGet$productCode != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.productCodeIndex, rowIndex, realmGet$productCode, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.productCodeIndex, rowIndex, false);
+        }
+        String realmGet$sProductName = ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductName();
+        if (realmGet$sProductName != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.sProductNameIndex, rowIndex, realmGet$sProductName, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.sProductNameIndex, rowIndex, false);
+        }
+        String realmGet$productImage = ((RealmOrderCentreRealmProxyInterface)object).realmGet$productImage();
+        if (realmGet$productImage != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.productImageIndex, rowIndex, realmGet$productImage, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.productImageIndex, rowIndex, false);
+        }
+        Table.nativeSetLong(tableNativePtr, columnInfo.sProductPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductPrice(), false);
+        String realmGet$sProductStock = ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductStock();
+        if (realmGet$sProductStock != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.sProductStockIndex, rowIndex, realmGet$sProductStock, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.sProductStockIndex, rowIndex, false);
+        }
+        Table.nativeSetLong(tableNativePtr, columnInfo.sProductWeightIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductWeight(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isDiscountIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isDiscount(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.gstPercIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$gstPerc(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.cgstIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$cgst(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.sgstIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sgst(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.salesPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$salesPrice(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.nrvIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$nrv(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.gplIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$gpl(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.mrpIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$mrp(), false);
+        String realmGet$barCodeNumber = ((RealmOrderCentreRealmProxyInterface)object).realmGet$barCodeNumber();
+        if (realmGet$barCodeNumber != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.barCodeNumberIndex, rowIndex, realmGet$barCodeNumber, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.barCodeNumberIndex, rowIndex, false);
+        }
+        Table.nativeSetLong(tableNativePtr, columnInfo.pointsIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$points(), false);
+        String realmGet$pointsBasedOn = ((RealmOrderCentreRealmProxyInterface)object).realmGet$pointsBasedOn();
+        if (realmGet$pointsBasedOn != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.pointsBasedOnIndex, rowIndex, realmGet$pointsBasedOn, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.pointsBasedOnIndex, rowIndex, false);
+        }
+        Table.nativeSetLong(tableNativePtr, columnInfo.valueFromIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$valueFrom(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.valueToIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$valueTo(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.pointsPerIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$pointsPer(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isReserveStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isReserveStock(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isCheckStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isCheckStock(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isStockDisplayIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isStockDisplay(), false);
+        String realmGet$discount = ((RealmOrderCentreRealmProxyInterface)object).realmGet$discount();
+        if (realmGet$discount != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.discountIndex, rowIndex, realmGet$discount, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.discountIndex, rowIndex, false);
+        }
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isSyncIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isSync(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isUpdateIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isUpdate(), false);
+        String realmGet$OrderId = ((RealmOrderCentreRealmProxyInterface)object).realmGet$OrderId();
+        if (realmGet$OrderId != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.OrderIdIndex, rowIndex, realmGet$OrderId, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.OrderIdIndex, rowIndex, false);
+        }
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isAddedIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isAdded(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.qtyIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$qty(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.totalPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalPrice(), false);
+        Table.nativeSetDouble(tableNativePtr, columnInfo.discountPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$discountPrice(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.totalPointsIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalPoints(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.totalStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalStock(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isFreeItemIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isFreeItem(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.isRuleAppliedIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isRuleApplied(), false);
+        String realmGet$parentProductId = ((RealmOrderCentreRealmProxyInterface)object).realmGet$parentProductId();
+        if (realmGet$parentProductId != null) {
+            Table.nativeSetString(tableNativePtr, columnInfo.parentProductIdIndex, rowIndex, realmGet$parentProductId, false);
+        } else {
+            Table.nativeSetNull(tableNativePtr, columnInfo.parentProductIdIndex, rowIndex, false);
+        }
+        Table.nativeSetDouble(tableNativePtr, columnInfo.accumulatedLoyalityIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$accumulatedLoyality(), false);
+        Table.nativeSetLong(tableNativePtr, columnInfo.mCheckStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$mCheckStock(), false);
+        Table.nativeSetBoolean(tableNativePtr, columnInfo.checkStockClickIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$checkStockClick(), false);
+        return rowIndex;
+    }
+
+    public static void insertOrUpdate(Realm realm, Iterator<? extends RealmModel> objects, Map<RealmModel,Long> cache) {
+        Table table = realm.getTable(quay.com.ipos.realmbean.RealmOrderCentre.class);
+        long tableNativePtr = table.getNativeTablePointer();
+        RealmOrderCentreColumnInfo columnInfo = (RealmOrderCentreColumnInfo) realm.schema.getColumnInfo(quay.com.ipos.realmbean.RealmOrderCentre.class);
+        long pkColumnIndex = table.getPrimaryKey();
+        quay.com.ipos.realmbean.RealmOrderCentre object = null;
+        while (objects.hasNext()) {
+            object = (quay.com.ipos.realmbean.RealmOrderCentre) objects.next();
+            if(!cache.containsKey(object)) {
+                if (object instanceof RealmObjectProxy && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm() != null && ((RealmObjectProxy)object).realmGet$proxyState().getRealm$realm().getPath().equals(realm.getPath())) {
+                    cache.put(object, ((RealmObjectProxy)object).realmGet$proxyState().getRow$realm().getIndex());
+                    continue;
+                }
+                String primaryKeyValue = ((RealmOrderCentreRealmProxyInterface) object).realmGet$iProductModalId();
+                long rowIndex = Table.NO_MATCH;
+                if (primaryKeyValue == null) {
+                    rowIndex = Table.nativeFindFirstNull(tableNativePtr, pkColumnIndex);
+                } else {
+                    rowIndex = Table.nativeFindFirstString(tableNativePtr, pkColumnIndex, primaryKeyValue);
+                }
+                if (rowIndex == Table.NO_MATCH) {
+                    rowIndex = table.addEmptyRowWithPrimaryKey(primaryKeyValue, false);
+                }
+                cache.put(object, rowIndex);
+                String realmGet$productCode = ((RealmOrderCentreRealmProxyInterface)object).realmGet$productCode();
+                if (realmGet$productCode != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.productCodeIndex, rowIndex, realmGet$productCode, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.productCodeIndex, rowIndex, false);
+                }
+                String realmGet$sProductName = ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductName();
+                if (realmGet$sProductName != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.sProductNameIndex, rowIndex, realmGet$sProductName, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.sProductNameIndex, rowIndex, false);
+                }
+                String realmGet$productImage = ((RealmOrderCentreRealmProxyInterface)object).realmGet$productImage();
+                if (realmGet$productImage != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.productImageIndex, rowIndex, realmGet$productImage, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.productImageIndex, rowIndex, false);
+                }
+                Table.nativeSetLong(tableNativePtr, columnInfo.sProductPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductPrice(), false);
+                String realmGet$sProductStock = ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductStock();
+                if (realmGet$sProductStock != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.sProductStockIndex, rowIndex, realmGet$sProductStock, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.sProductStockIndex, rowIndex, false);
+                }
+                Table.nativeSetLong(tableNativePtr, columnInfo.sProductWeightIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sProductWeight(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isDiscountIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isDiscount(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.gstPercIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$gstPerc(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.cgstIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$cgst(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.sgstIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$sgst(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.salesPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$salesPrice(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.nrvIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$nrv(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.gplIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$gpl(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.mrpIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$mrp(), false);
+                String realmGet$barCodeNumber = ((RealmOrderCentreRealmProxyInterface)object).realmGet$barCodeNumber();
+                if (realmGet$barCodeNumber != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.barCodeNumberIndex, rowIndex, realmGet$barCodeNumber, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.barCodeNumberIndex, rowIndex, false);
+                }
+                Table.nativeSetLong(tableNativePtr, columnInfo.pointsIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$points(), false);
+                String realmGet$pointsBasedOn = ((RealmOrderCentreRealmProxyInterface)object).realmGet$pointsBasedOn();
+                if (realmGet$pointsBasedOn != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.pointsBasedOnIndex, rowIndex, realmGet$pointsBasedOn, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.pointsBasedOnIndex, rowIndex, false);
+                }
+                Table.nativeSetLong(tableNativePtr, columnInfo.valueFromIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$valueFrom(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.valueToIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$valueTo(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.pointsPerIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$pointsPer(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isReserveStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isReserveStock(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isCheckStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isCheckStock(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isStockDisplayIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isStockDisplay(), false);
+                String realmGet$discount = ((RealmOrderCentreRealmProxyInterface)object).realmGet$discount();
+                if (realmGet$discount != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.discountIndex, rowIndex, realmGet$discount, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.discountIndex, rowIndex, false);
+                }
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isSyncIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isSync(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isUpdateIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isUpdate(), false);
+                String realmGet$OrderId = ((RealmOrderCentreRealmProxyInterface)object).realmGet$OrderId();
+                if (realmGet$OrderId != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.OrderIdIndex, rowIndex, realmGet$OrderId, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.OrderIdIndex, rowIndex, false);
+                }
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isAddedIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isAdded(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.qtyIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$qty(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.totalPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalPrice(), false);
+                Table.nativeSetDouble(tableNativePtr, columnInfo.discountPriceIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$discountPrice(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.totalPointsIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalPoints(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.totalStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$totalStock(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isFreeItemIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isFreeItem(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.isRuleAppliedIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$isRuleApplied(), false);
+                String realmGet$parentProductId = ((RealmOrderCentreRealmProxyInterface)object).realmGet$parentProductId();
+                if (realmGet$parentProductId != null) {
+                    Table.nativeSetString(tableNativePtr, columnInfo.parentProductIdIndex, rowIndex, realmGet$parentProductId, false);
+                } else {
+                    Table.nativeSetNull(tableNativePtr, columnInfo.parentProductIdIndex, rowIndex, false);
+                }
+                Table.nativeSetDouble(tableNativePtr, columnInfo.accumulatedLoyalityIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$accumulatedLoyality(), false);
+                Table.nativeSetLong(tableNativePtr, columnInfo.mCheckStockIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$mCheckStock(), false);
+                Table.nativeSetBoolean(tableNativePtr, columnInfo.checkStockClickIndex, rowIndex, ((RealmOrderCentreRealmProxyInterface)object).realmGet$checkStockClick(), false);
+            }
+        }
+    }
+
+    public static quay.com.ipos.realmbean.RealmOrderCentre createDetachedCopy(quay.com.ipos.realmbean.RealmOrderCentre realmObject, int currentDepth, int maxDepth, Map<RealmModel, CacheData<RealmModel>> cache) {
+        if (currentDepth > maxDepth || realmObject == null) {
+            return null;
+        }
+        CacheData<RealmModel> cachedObject = cache.get(realmObject);
+        quay.com.ipos.realmbean.RealmOrderCentre unmanagedObject;
+        if (cachedObject != null) {
+            // Reuse cached object or recreate it because it was encountered at a lower depth.
+            if (currentDepth >= cachedObject.minDepth) {
+                return (quay.com.ipos.realmbean.RealmOrderCentre)cachedObject.object;
+            } else {
+                unmanagedObject = (quay.com.ipos.realmbean.RealmOrderCentre)cachedObject.object;
+                cachedObject.minDepth = currentDepth;
+            }
+        } else {
+            unmanagedObject = new quay.com.ipos.realmbean.RealmOrderCentre();
+            cache.put(realmObject, new RealmObjectProxy.CacheData<RealmModel>(currentDepth, unmanagedObject));
+        }
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$iProductModalId(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$iProductModalId());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$productCode(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$productCode());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$sProductName(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$sProductName());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$productImage(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$productImage());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$sProductPrice(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$sProductPrice());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$sProductStock(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$sProductStock());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$sProductWeight(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$sProductWeight());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$isDiscount(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$isDiscount());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$gstPerc(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$gstPerc());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$cgst(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$cgst());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$sgst(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$sgst());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$salesPrice(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$salesPrice());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$nrv(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$nrv());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$gpl(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$gpl());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$mrp(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$mrp());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$barCodeNumber(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$barCodeNumber());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$points(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$points());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$pointsBasedOn(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$pointsBasedOn());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$valueFrom(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$valueFrom());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$valueTo(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$valueTo());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$pointsPer(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$pointsPer());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$isReserveStock(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$isReserveStock());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$isCheckStock(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$isCheckStock());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$isStockDisplay(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$isStockDisplay());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$discount(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$discount());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$isSync(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$isSync());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$isUpdate(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$isUpdate());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$OrderId(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$OrderId());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$isAdded(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$isAdded());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$qty(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$qty());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$totalPrice(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$totalPrice());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$discountPrice(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$discountPrice());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$totalPoints(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$totalPoints());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$totalStock(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$totalStock());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$isFreeItem(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$isFreeItem());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$isRuleApplied(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$isRuleApplied());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$parentProductId(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$parentProductId());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$accumulatedLoyality(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$accumulatedLoyality());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$mCheckStock(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$mCheckStock());
+        ((RealmOrderCentreRealmProxyInterface) unmanagedObject).realmSet$checkStockClick(((RealmOrderCentreRealmProxyInterface) realmObject).realmGet$checkStockClick());
+        return unmanagedObject;
+    }
+
+    static quay.com.ipos.realmbean.RealmOrderCentre update(Realm realm, quay.com.ipos.realmbean.RealmOrderCentre realmObject, quay.com.ipos.realmbean.RealmOrderCentre newObject, Map<RealmModel, RealmObjectProxy> cache) {
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$productCode(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$productCode());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$sProductName(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$sProductName());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$productImage(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$productImage());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$sProductPrice(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$sProductPrice());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$sProductStock(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$sProductStock());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$sProductWeight(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$sProductWeight());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isDiscount(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isDiscount());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$gstPerc(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$gstPerc());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$cgst(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$cgst());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$sgst(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$sgst());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$salesPrice(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$salesPrice());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$nrv(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$nrv());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$gpl(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$gpl());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$mrp(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$mrp());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$barCodeNumber(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$barCodeNumber());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$points(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$points());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$pointsBasedOn(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$pointsBasedOn());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$valueFrom(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$valueFrom());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$valueTo(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$valueTo());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$pointsPer(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$pointsPer());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isReserveStock(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isReserveStock());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isCheckStock(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isCheckStock());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isStockDisplay(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isStockDisplay());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$discount(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$discount());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isSync(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isSync());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isUpdate(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isUpdate());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$OrderId(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$OrderId());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isAdded(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isAdded());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$qty(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$qty());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$totalPrice(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$totalPrice());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$discountPrice(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$discountPrice());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$totalPoints(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$totalPoints());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$totalStock(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$totalStock());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isFreeItem(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isFreeItem());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$isRuleApplied(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$isRuleApplied());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$parentProductId(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$parentProductId());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$accumulatedLoyality(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$accumulatedLoyality());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$mCheckStock(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$mCheckStock());
+        ((RealmOrderCentreRealmProxyInterface) realmObject).realmSet$checkStockClick(((RealmOrderCentreRealmProxyInterface) newObject).realmGet$checkStockClick());
+        return realmObject;
+    }
+
+    @Override
+    @SuppressWarnings("ArrayToString")
+    public String toString() {
+        if (!RealmObject.isValid(this)) {
+            return "Invalid object";
+        }
+        StringBuilder stringBuilder = new StringBuilder("RealmOrderCentre = [");
+        stringBuilder.append("{iProductModalId:");
+        stringBuilder.append(realmGet$iProductModalId() != null ? realmGet$iProductModalId() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{productCode:");
+        stringBuilder.append(realmGet$productCode() != null ? realmGet$productCode() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{sProductName:");
+        stringBuilder.append(realmGet$sProductName() != null ? realmGet$sProductName() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{productImage:");
+        stringBuilder.append(realmGet$productImage() != null ? realmGet$productImage() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{sProductPrice:");
+        stringBuilder.append(realmGet$sProductPrice());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{sProductStock:");
+        stringBuilder.append(realmGet$sProductStock() != null ? realmGet$sProductStock() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{sProductWeight:");
+        stringBuilder.append(realmGet$sProductWeight());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{isDiscount:");
+        stringBuilder.append(realmGet$isDiscount());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{gstPerc:");
+        stringBuilder.append(realmGet$gstPerc());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{cgst:");
+        stringBuilder.append(realmGet$cgst());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{sgst:");
+        stringBuilder.append(realmGet$sgst());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{salesPrice:");
+        stringBuilder.append(realmGet$salesPrice());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{nrv:");
+        stringBuilder.append(realmGet$nrv());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{gpl:");
+        stringBuilder.append(realmGet$gpl());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{mrp:");
+        stringBuilder.append(realmGet$mrp());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{barCodeNumber:");
+        stringBuilder.append(realmGet$barCodeNumber() != null ? realmGet$barCodeNumber() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{points:");
+        stringBuilder.append(realmGet$points());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{pointsBasedOn:");
+        stringBuilder.append(realmGet$pointsBasedOn() != null ? realmGet$pointsBasedOn() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{valueFrom:");
+        stringBuilder.append(realmGet$valueFrom());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{valueTo:");
+        stringBuilder.append(realmGet$valueTo());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{pointsPer:");
+        stringBuilder.append(realmGet$pointsPer());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{isReserveStock:");
+        stringBuilder.append(realmGet$isReserveStock());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{isCheckStock:");
+        stringBuilder.append(realmGet$isCheckStock());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{isStockDisplay:");
+        stringBuilder.append(realmGet$isStockDisplay());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{discount:");
+        stringBuilder.append(realmGet$discount() != null ? realmGet$discount() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{isSync:");
+        stringBuilder.append(realmGet$isSync());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{isUpdate:");
+        stringBuilder.append(realmGet$isUpdate());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{OrderId:");
+        stringBuilder.append(realmGet$OrderId() != null ? realmGet$OrderId() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{isAdded:");
+        stringBuilder.append(realmGet$isAdded());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{qty:");
+        stringBuilder.append(realmGet$qty());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{totalPrice:");
+        stringBuilder.append(realmGet$totalPrice());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{discountPrice:");
+        stringBuilder.append(realmGet$discountPrice());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{totalPoints:");
+        stringBuilder.append(realmGet$totalPoints());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{totalStock:");
+        stringBuilder.append(realmGet$totalStock());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{isFreeItem:");
+        stringBuilder.append(realmGet$isFreeItem());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{isRuleApplied:");
+        stringBuilder.append(realmGet$isRuleApplied());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{parentProductId:");
+        stringBuilder.append(realmGet$parentProductId() != null ? realmGet$parentProductId() : "null");
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{accumulatedLoyality:");
+        stringBuilder.append(realmGet$accumulatedLoyality());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{mCheckStock:");
+        stringBuilder.append(realmGet$mCheckStock());
+        stringBuilder.append("}");
+        stringBuilder.append(",");
+        stringBuilder.append("{checkStockClick:");
+        stringBuilder.append(realmGet$checkStockClick());
+        stringBuilder.append("}");
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public ProxyState<?> realmGet$proxyState() {
+        return proxyState;
+    }
+
+    @Override
+    public int hashCode() {
+        String realmName = proxyState.getRealm$realm().getPath();
+        String tableName = proxyState.getRow$realm().getTable().getName();
+        long rowIndex = proxyState.getRow$realm().getIndex();
+
+        int result = 17;
+        result = 31 * result + ((realmName != null) ? realmName.hashCode() : 0);
+        result = 31 * result + ((tableName != null) ? tableName.hashCode() : 0);
+        result = 31 * result + (int) (rowIndex ^ (rowIndex >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RealmOrderCentreRealmProxy aRealmOrderCentre = (RealmOrderCentreRealmProxy)o;
+
+        String path = proxyState.getRealm$realm().getPath();
+        String otherPath = aRealmOrderCentre.proxyState.getRealm$realm().getPath();
+        if (path != null ? !path.equals(otherPath) : otherPath != null) return false;
+
+        String tableName = proxyState.getRow$realm().getTable().getName();
+        String otherTableName = aRealmOrderCentre.proxyState.getRow$realm().getTable().getName();
+        if (tableName != null ? !tableName.equals(otherTableName) : otherTableName != null) return false;
+
+        if (proxyState.getRow$realm().getIndex() != aRealmOrderCentre.proxyState.getRow$realm().getIndex()) return false;
+
+        return true;
+    }
+
+}

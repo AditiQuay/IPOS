@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rect_top_corner"
+    android:layout_margin="@dimen/dim_10"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_alignParentLeft="true"
+            android:id="@+id/tvOrderNumber"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/dim_5"
+            android:padding="@dimen/dim_5"
+            android:textColor="@color/dark_grey_color"
+            android:layout_height="wrap_content" />
+
+        <quay.com.ipos.ui.CustomTextView
+            android:layout_alignParentLeft="true"
+            android:id="@+id/tvPaymentMode"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/green"
+            android:text="xcvbdf"
+            android:gravity="end|right|center"
+            android:paddingRight="@dimen/dim_10"
+            android:layout_gravity="end|right"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <include
+        layout="@layout/view_layout"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:src="@drawable/ic_action_cloud_off"
+            android:id="@+id/imvStatus"
+android:layout_margin="@dimen/dim_15"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="@dimen/dim_5"
+            android:layout_height="wrap_content">
+            <quay.com.ipos.ui.CustomTextView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/tvCustomerDetails"
+                android:layout_width="wrap_content"
+                android:textColor="@color/dark_grey_color"
+                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <quay.com.ipos.ui.CustomTextView
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/tvDateTime"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/dark_grey_color"
+                        android:textSize="@dimen/text_size_14sp"
+                        android:layout_height="wrap_content" />
+                    <quay.com.ipos.ui.CustomTextView
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/text_size_12sp"
+                        android:text="Date"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/dim_10"
+                    android:layout_marginLeft="@dimen/dim_5"
+                    android:padding="@dimen/dim_5"
+                    android:orientation="vertical">
+                    <quay.com.ipos.ui.CustomTextView
+                        android:layout_alignParentLeft="true"
+                        android:id="@+id/tvValue"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/dark_grey_color"
+                        android:textSize="@dimen/text_size_14sp"
+                        android:layout_height="wrap_content" />
+                    <quay.com.ipos.ui.CustomTextView
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/grey"
+                        android:textSize="@dimen/text_size_12sp"
+                        android:text="Value"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/appLinear"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_row_selector">
+
+
+    <CheckedTextView
+        android:id="@+id/tvCheckedItem"
+        style="@style/appTinyText"
+        android:drawablePadding="@dimen/view_small_padding"
+        android:drawableRight="@drawable/icon_answer_selector"
+        android:gravity="center_vertical"
+        android:padding="@dimen/view_padding"
+        android:singleLine="false"
+        android:textColor="@color/black"></CheckedTextView>
+
+
+</LinearLayout>

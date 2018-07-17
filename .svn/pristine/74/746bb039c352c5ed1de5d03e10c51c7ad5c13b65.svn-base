@@ -1,0 +1,477 @@
+package quay.com.ipos.data.local;
+
+import android.arch.persistence.db.SupportSQLiteDatabase;
+import android.arch.persistence.db.SupportSQLiteOpenHelper;
+import android.arch.persistence.db.SupportSQLiteOpenHelper.Callback;
+import android.arch.persistence.db.SupportSQLiteOpenHelper.Configuration;
+import android.arch.persistence.room.DatabaseConfiguration;
+import android.arch.persistence.room.InvalidationTracker;
+import android.arch.persistence.room.RoomOpenHelper;
+import android.arch.persistence.room.RoomOpenHelper.Delegate;
+import android.arch.persistence.room.util.TableInfo;
+import android.arch.persistence.room.util.TableInfo.Column;
+import android.arch.persistence.room.util.TableInfo.ForeignKey;
+import android.arch.persistence.room.util.TableInfo.Index;
+import java.lang.IllegalStateException;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
+import java.util.HashMap;
+import java.util.HashSet;
+import quay.com.ipos.compliance.data.local.dao.AttachmentDao;
+import quay.com.ipos.compliance.data.local.dao.AttachmentDao_AppDatabase_1_Impl;
+import quay.com.ipos.compliance.data.local.dao.BusinessPlaceDao;
+import quay.com.ipos.compliance.data.local.dao.BusinessPlaceDao_AppDatabase_1_Impl;
+import quay.com.ipos.compliance.data.local.dao.EmployeeDao;
+import quay.com.ipos.compliance.data.local.dao.EmployeeDao_AppDatabase_1_Impl;
+import quay.com.ipos.compliance.data.local.dao.SubTaskDao;
+import quay.com.ipos.compliance.data.local.dao.SubTaskDao_AppDatabase_1_Impl;
+import quay.com.ipos.compliance.data.local.dao.TaskDao;
+import quay.com.ipos.compliance.data.local.dao.TaskDao_AppDatabase_1_Impl;
+import quay.com.ipos.compliance.data.local.dao.TransactionDao;
+import quay.com.ipos.compliance.data.local.dao.TransactionDao_AppDatabase_1_Impl;
+import quay.com.ipos.data.local.dao.DDRInvoiceDao;
+import quay.com.ipos.data.local.dao.DDRInvoiceDao_Impl;
+import quay.com.ipos.data.local.dao.MostUsedFunDao;
+import quay.com.ipos.data.local.dao.MostUsedFunDao_Impl;
+
+@SuppressWarnings("unchecked")
+public class AppDatabase_Impl extends AppDatabase {
+  private volatile MostUsedFunDao _mostUsedFunDao;
+
+  private volatile DDRInvoiceDao _dDRInvoiceDao;
+
+  private volatile BusinessPlaceDao _businessPlaceDao;
+
+  private volatile TaskDao _taskDao;
+
+  private volatile SubTaskDao _subTaskDao;
+
+  private volatile EmployeeDao _employeeDao;
+
+  private volatile TransactionDao _transactionDao;
+
+  private volatile AttachmentDao _attachmentDao;
+
+  @Override
+  protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration configuration) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(configuration, new RoomOpenHelper.Delegate(1) {
+      @Override
+      public void createAllTables(SupportSQLiteDatabase _db) {
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `most_used` (`funName` TEXT NOT NULL, `count` INTEGER NOT NULL, PRIMARY KEY(`funName`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `ddr_invoice_data` (`ddrCode` TEXT NOT NULL, `invoiceData` TEXT, PRIMARY KEY(`ddrCode`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `task` (`task_id` INTEGER NOT NULL, `isSync` INTEGER NOT NULL, `control_master_id` INTEGER NOT NULL, `task_type` TEXT, `store_id` INTEGER NOT NULL, `task_category` TEXT, `task_sub_category` TEXT, `task_name` TEXT, `task_description` TEXT, `task_start_date` TEXT, `task_end_date` TEXT, `task_created_date` TEXT, `task_complete_date` TEXT, `next_schedule_date` TEXT, `last_run_date` TEXT, `progress_state` INTEGER NOT NULL, `task_assign_to` TEXT, `task_due_date` TEXT, `alertBeforeDueDateAndTime` INTEGER NOT NULL, `label` TEXT, `isSelected` INTEGER NOT NULL, `mRepeatFrequency` TEXT, `mRepeatInterval` TEXT, `mRepeatOnDays` TEXT, `mRepeatUntil` TEXT, `mRepeatSummary` TEXT, `numberToShow` INTEGER NOT NULL, `numberShown` INTEGER NOT NULL, `colour` TEXT, `icon` TEXT, `content` TEXT, `title` TEXT, PRIMARY KEY(`task_id`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `sub_task` (`sub_task_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER NOT NULL, `isSync` INTEGER NOT NULL, `task_scheduler_id` INTEGER NOT NULL, `task_type` TEXT, `task_name` TEXT NOT NULL, `task_description` TEXT, `task_start_date` TEXT NOT NULL, `task_end_date` TEXT NOT NULL, `task_created_date` TEXT, `task_complete_date` TEXT, `task_assign_to` TEXT, `recurrence_count` INTEGER NOT NULL, `next_schedule_date` TEXT NOT NULL, `last_run_date` TEXT, `interval_type_id` INTEGER NOT NULL, `interval_type` TEXT, `interval_value` INTEGER NOT NULL, `progress_state` INTEGER NOT NULL, `remarks` TEXT, `completed_datetime` TEXT, `rem_next_schedule_datetime` TEXT, `rem_last_run_datetime` TEXT, `rem_interval_type_id` INTEGER NOT NULL, `rem_interval_type` TEXT, `rem_interval_value` INTEGER NOT NULL, `task_due_date` TEXT, `alertBeforeDueDateAndTime` INTEGER NOT NULL, `label` TEXT, `mRepeatFrequency` TEXT, `mRepeatInterval` TEXT, `mRepeatOnDays` TEXT, `mRepeatUntil` TEXT, `mRepeatSummary` TEXT, `numberToShow` INTEGER NOT NULL, `numberShown` INTEGER NOT NULL, `colour` TEXT, `icon` TEXT, `content` TEXT, `title` TEXT)");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `places` (`id` INTEGER NOT NULL, `name` TEXT, `address1` TEXT, `city` TEXT, `state` TEXT, `roleCode` INTEGER NOT NULL, `empCode` TEXT, PRIMARY KEY(`id`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `employee` (`empCode` TEXT NOT NULL, `empName` TEXT, PRIMARY KEY(`empCode`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `task_scheduler` (`id` INTEGER NOT NULL, `placeId` INTEGER NOT NULL, `complianceRecordID` TEXT, `complianceType` TEXT, `complianceName` TEXT, `subFunction` TEXT, `taskName` TEXT, `taskDescription` TEXT, `taskEndDateTime` TEXT, `taskStartDateTime` TEXT, `taskAssignTo` TEXT, `status` INTEGER NOT NULL, `statusType` TEXT, `intervalType` TEXT, `intervalValue` INTEGER NOT NULL, `controlName` TEXT, `priority` TEXT, `remNextScheduleDateTime` TEXT, `remLastScheduleDateTime` TEXT, `remIntervalTypeID` TEXT, `remIntervalValue` TEXT, PRIMARY KEY(`id`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `transaction` (`id` INTEGER NOT NULL, `taskId` INTEGER NOT NULL, `taskName` TEXT, `taskDescription` TEXT, `taskStartDateTime` TEXT, `taskEndDateTime` TEXT, `assignTo` TEXT, `status` TEXT, `remarks` TEXT, `completedDateTime` TEXT, `remNextScheduleDateTime` TEXT, `remLastRunDateTime` TEXT, `remIntervalType` TEXT, `remIntervalValue` TEXT, PRIMARY KEY(`id`))");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `attachment` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `txId` INTEGER NOT NULL, `base` TEXT, `ext` TEXT, `type` TEXT, `name` TEXT, `isSync` INTEGER NOT NULL)");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"b77bd4aef1efe5e265da75263686a974\")");
+      }
+
+      @Override
+      public void dropAllTables(SupportSQLiteDatabase _db) {
+        _db.execSQL("DROP TABLE IF EXISTS `most_used`");
+        _db.execSQL("DROP TABLE IF EXISTS `ddr_invoice_data`");
+        _db.execSQL("DROP TABLE IF EXISTS `task`");
+        _db.execSQL("DROP TABLE IF EXISTS `sub_task`");
+        _db.execSQL("DROP TABLE IF EXISTS `places`");
+        _db.execSQL("DROP TABLE IF EXISTS `employee`");
+        _db.execSQL("DROP TABLE IF EXISTS `task_scheduler`");
+        _db.execSQL("DROP TABLE IF EXISTS `transaction`");
+        _db.execSQL("DROP TABLE IF EXISTS `attachment`");
+      }
+
+      @Override
+      protected void onCreate(SupportSQLiteDatabase _db) {
+        if (mCallbacks != null) {
+          for (int _i = 0, _size = mCallbacks.size(); _i < _size; _i++) {
+            mCallbacks.get(_i).onCreate(_db);
+          }
+        }
+      }
+
+      @Override
+      public void onOpen(SupportSQLiteDatabase _db) {
+        mDatabase = _db;
+        internalInitInvalidationTracker(_db);
+        if (mCallbacks != null) {
+          for (int _i = 0, _size = mCallbacks.size(); _i < _size; _i++) {
+            mCallbacks.get(_i).onOpen(_db);
+          }
+        }
+      }
+
+      @Override
+      protected void validateMigration(SupportSQLiteDatabase _db) {
+        final HashMap<String, TableInfo.Column> _columnsMostUsed = new HashMap<String, TableInfo.Column>(2);
+        _columnsMostUsed.put("funName", new TableInfo.Column("funName", "TEXT", true, 1));
+        _columnsMostUsed.put("count", new TableInfo.Column("count", "INTEGER", true, 0));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysMostUsed = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesMostUsed = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoMostUsed = new TableInfo("most_used", _columnsMostUsed, _foreignKeysMostUsed, _indicesMostUsed);
+        final TableInfo _existingMostUsed = TableInfo.read(_db, "most_used");
+        if (! _infoMostUsed.equals(_existingMostUsed)) {
+          throw new IllegalStateException("Migration didn't properly handle most_used(quay.com.ipos.data.local.entity.MostUsed).\n"
+                  + " Expected:\n" + _infoMostUsed + "\n"
+                  + " Found:\n" + _existingMostUsed);
+        }
+        final HashMap<String, TableInfo.Column> _columnsDdrInvoiceData = new HashMap<String, TableInfo.Column>(2);
+        _columnsDdrInvoiceData.put("ddrCode", new TableInfo.Column("ddrCode", "TEXT", true, 1));
+        _columnsDdrInvoiceData.put("invoiceData", new TableInfo.Column("invoiceData", "TEXT", false, 0));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysDdrInvoiceData = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesDdrInvoiceData = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoDdrInvoiceData = new TableInfo("ddr_invoice_data", _columnsDdrInvoiceData, _foreignKeysDdrInvoiceData, _indicesDdrInvoiceData);
+        final TableInfo _existingDdrInvoiceData = TableInfo.read(_db, "ddr_invoice_data");
+        if (! _infoDdrInvoiceData.equals(_existingDdrInvoiceData)) {
+          throw new IllegalStateException("Migration didn't properly handle ddr_invoice_data(quay.com.ipos.data.local.entity.DDRInvoiceData).\n"
+                  + " Expected:\n" + _infoDdrInvoiceData + "\n"
+                  + " Found:\n" + _existingDdrInvoiceData);
+        }
+        final HashMap<String, TableInfo.Column> _columnsTask = new HashMap<String, TableInfo.Column>(32);
+        _columnsTask.put("task_id", new TableInfo.Column("task_id", "INTEGER", true, 1));
+        _columnsTask.put("isSync", new TableInfo.Column("isSync", "INTEGER", true, 0));
+        _columnsTask.put("control_master_id", new TableInfo.Column("control_master_id", "INTEGER", true, 0));
+        _columnsTask.put("task_type", new TableInfo.Column("task_type", "TEXT", false, 0));
+        _columnsTask.put("store_id", new TableInfo.Column("store_id", "INTEGER", true, 0));
+        _columnsTask.put("task_category", new TableInfo.Column("task_category", "TEXT", false, 0));
+        _columnsTask.put("task_sub_category", new TableInfo.Column("task_sub_category", "TEXT", false, 0));
+        _columnsTask.put("task_name", new TableInfo.Column("task_name", "TEXT", false, 0));
+        _columnsTask.put("task_description", new TableInfo.Column("task_description", "TEXT", false, 0));
+        _columnsTask.put("task_start_date", new TableInfo.Column("task_start_date", "TEXT", false, 0));
+        _columnsTask.put("task_end_date", new TableInfo.Column("task_end_date", "TEXT", false, 0));
+        _columnsTask.put("task_created_date", new TableInfo.Column("task_created_date", "TEXT", false, 0));
+        _columnsTask.put("task_complete_date", new TableInfo.Column("task_complete_date", "TEXT", false, 0));
+        _columnsTask.put("next_schedule_date", new TableInfo.Column("next_schedule_date", "TEXT", false, 0));
+        _columnsTask.put("last_run_date", new TableInfo.Column("last_run_date", "TEXT", false, 0));
+        _columnsTask.put("progress_state", new TableInfo.Column("progress_state", "INTEGER", true, 0));
+        _columnsTask.put("task_assign_to", new TableInfo.Column("task_assign_to", "TEXT", false, 0));
+        _columnsTask.put("task_due_date", new TableInfo.Column("task_due_date", "TEXT", false, 0));
+        _columnsTask.put("alertBeforeDueDateAndTime", new TableInfo.Column("alertBeforeDueDateAndTime", "INTEGER", true, 0));
+        _columnsTask.put("label", new TableInfo.Column("label", "TEXT", false, 0));
+        _columnsTask.put("isSelected", new TableInfo.Column("isSelected", "INTEGER", true, 0));
+        _columnsTask.put("mRepeatFrequency", new TableInfo.Column("mRepeatFrequency", "TEXT", false, 0));
+        _columnsTask.put("mRepeatInterval", new TableInfo.Column("mRepeatInterval", "TEXT", false, 0));
+        _columnsTask.put("mRepeatOnDays", new TableInfo.Column("mRepeatOnDays", "TEXT", false, 0));
+        _columnsTask.put("mRepeatUntil", new TableInfo.Column("mRepeatUntil", "TEXT", false, 0));
+        _columnsTask.put("mRepeatSummary", new TableInfo.Column("mRepeatSummary", "TEXT", false, 0));
+        _columnsTask.put("numberToShow", new TableInfo.Column("numberToShow", "INTEGER", true, 0));
+        _columnsTask.put("numberShown", new TableInfo.Column("numberShown", "INTEGER", true, 0));
+        _columnsTask.put("colour", new TableInfo.Column("colour", "TEXT", false, 0));
+        _columnsTask.put("icon", new TableInfo.Column("icon", "TEXT", false, 0));
+        _columnsTask.put("content", new TableInfo.Column("content", "TEXT", false, 0));
+        _columnsTask.put("title", new TableInfo.Column("title", "TEXT", false, 0));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysTask = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesTask = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoTask = new TableInfo("task", _columnsTask, _foreignKeysTask, _indicesTask);
+        final TableInfo _existingTask = TableInfo.read(_db, "task");
+        if (! _infoTask.equals(_existingTask)) {
+          throw new IllegalStateException("Migration didn't properly handle task(quay.com.ipos.compliance.data.local.entity.Task).\n"
+                  + " Expected:\n" + _infoTask + "\n"
+                  + " Found:\n" + _existingTask);
+        }
+        final HashMap<String, TableInfo.Column> _columnsSubTask = new HashMap<String, TableInfo.Column>(40);
+        _columnsSubTask.put("sub_task_id", new TableInfo.Column("sub_task_id", "INTEGER", true, 1));
+        _columnsSubTask.put("id", new TableInfo.Column("id", "INTEGER", true, 0));
+        _columnsSubTask.put("isSync", new TableInfo.Column("isSync", "INTEGER", true, 0));
+        _columnsSubTask.put("task_scheduler_id", new TableInfo.Column("task_scheduler_id", "INTEGER", true, 0));
+        _columnsSubTask.put("task_type", new TableInfo.Column("task_type", "TEXT", false, 0));
+        _columnsSubTask.put("task_name", new TableInfo.Column("task_name", "TEXT", true, 0));
+        _columnsSubTask.put("task_description", new TableInfo.Column("task_description", "TEXT", false, 0));
+        _columnsSubTask.put("task_start_date", new TableInfo.Column("task_start_date", "TEXT", true, 0));
+        _columnsSubTask.put("task_end_date", new TableInfo.Column("task_end_date", "TEXT", true, 0));
+        _columnsSubTask.put("task_created_date", new TableInfo.Column("task_created_date", "TEXT", false, 0));
+        _columnsSubTask.put("task_complete_date", new TableInfo.Column("task_complete_date", "TEXT", false, 0));
+        _columnsSubTask.put("task_assign_to", new TableInfo.Column("task_assign_to", "TEXT", false, 0));
+        _columnsSubTask.put("recurrence_count", new TableInfo.Column("recurrence_count", "INTEGER", true, 0));
+        _columnsSubTask.put("next_schedule_date", new TableInfo.Column("next_schedule_date", "TEXT", true, 0));
+        _columnsSubTask.put("last_run_date", new TableInfo.Column("last_run_date", "TEXT", false, 0));
+        _columnsSubTask.put("interval_type_id", new TableInfo.Column("interval_type_id", "INTEGER", true, 0));
+        _columnsSubTask.put("interval_type", new TableInfo.Column("interval_type", "TEXT", false, 0));
+        _columnsSubTask.put("interval_value", new TableInfo.Column("interval_value", "INTEGER", true, 0));
+        _columnsSubTask.put("progress_state", new TableInfo.Column("progress_state", "INTEGER", true, 0));
+        _columnsSubTask.put("remarks", new TableInfo.Column("remarks", "TEXT", false, 0));
+        _columnsSubTask.put("completed_datetime", new TableInfo.Column("completed_datetime", "TEXT", false, 0));
+        _columnsSubTask.put("rem_next_schedule_datetime", new TableInfo.Column("rem_next_schedule_datetime", "TEXT", false, 0));
+        _columnsSubTask.put("rem_last_run_datetime", new TableInfo.Column("rem_last_run_datetime", "TEXT", false, 0));
+        _columnsSubTask.put("rem_interval_type_id", new TableInfo.Column("rem_interval_type_id", "INTEGER", true, 0));
+        _columnsSubTask.put("rem_interval_type", new TableInfo.Column("rem_interval_type", "TEXT", false, 0));
+        _columnsSubTask.put("rem_interval_value", new TableInfo.Column("rem_interval_value", "INTEGER", true, 0));
+        _columnsSubTask.put("task_due_date", new TableInfo.Column("task_due_date", "TEXT", false, 0));
+        _columnsSubTask.put("alertBeforeDueDateAndTime", new TableInfo.Column("alertBeforeDueDateAndTime", "INTEGER", true, 0));
+        _columnsSubTask.put("label", new TableInfo.Column("label", "TEXT", false, 0));
+        _columnsSubTask.put("mRepeatFrequency", new TableInfo.Column("mRepeatFrequency", "TEXT", false, 0));
+        _columnsSubTask.put("mRepeatInterval", new TableInfo.Column("mRepeatInterval", "TEXT", false, 0));
+        _columnsSubTask.put("mRepeatOnDays", new TableInfo.Column("mRepeatOnDays", "TEXT", false, 0));
+        _columnsSubTask.put("mRepeatUntil", new TableInfo.Column("mRepeatUntil", "TEXT", false, 0));
+        _columnsSubTask.put("mRepeatSummary", new TableInfo.Column("mRepeatSummary", "TEXT", false, 0));
+        _columnsSubTask.put("numberToShow", new TableInfo.Column("numberToShow", "INTEGER", true, 0));
+        _columnsSubTask.put("numberShown", new TableInfo.Column("numberShown", "INTEGER", true, 0));
+        _columnsSubTask.put("colour", new TableInfo.Column("colour", "TEXT", false, 0));
+        _columnsSubTask.put("icon", new TableInfo.Column("icon", "TEXT", false, 0));
+        _columnsSubTask.put("content", new TableInfo.Column("content", "TEXT", false, 0));
+        _columnsSubTask.put("title", new TableInfo.Column("title", "TEXT", false, 0));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysSubTask = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesSubTask = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoSubTask = new TableInfo("sub_task", _columnsSubTask, _foreignKeysSubTask, _indicesSubTask);
+        final TableInfo _existingSubTask = TableInfo.read(_db, "sub_task");
+        if (! _infoSubTask.equals(_existingSubTask)) {
+          throw new IllegalStateException("Migration didn't properly handle sub_task(quay.com.ipos.compliance.data.local.entity.SubTask).\n"
+                  + " Expected:\n" + _infoSubTask + "\n"
+                  + " Found:\n" + _existingSubTask);
+        }
+        final HashMap<String, TableInfo.Column> _columnsPlaces = new HashMap<String, TableInfo.Column>(7);
+        _columnsPlaces.put("id", new TableInfo.Column("id", "INTEGER", true, 1));
+        _columnsPlaces.put("name", new TableInfo.Column("name", "TEXT", false, 0));
+        _columnsPlaces.put("address1", new TableInfo.Column("address1", "TEXT", false, 0));
+        _columnsPlaces.put("city", new TableInfo.Column("city", "TEXT", false, 0));
+        _columnsPlaces.put("state", new TableInfo.Column("state", "TEXT", false, 0));
+        _columnsPlaces.put("roleCode", new TableInfo.Column("roleCode", "INTEGER", true, 0));
+        _columnsPlaces.put("empCode", new TableInfo.Column("empCode", "TEXT", false, 0));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysPlaces = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesPlaces = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoPlaces = new TableInfo("places", _columnsPlaces, _foreignKeysPlaces, _indicesPlaces);
+        final TableInfo _existingPlaces = TableInfo.read(_db, "places");
+        if (! _infoPlaces.equals(_existingPlaces)) {
+          throw new IllegalStateException("Migration didn't properly handle places(quay.com.ipos.compliance.data.local.entity.BusinessPlaceEntity).\n"
+                  + " Expected:\n" + _infoPlaces + "\n"
+                  + " Found:\n" + _existingPlaces);
+        }
+        final HashMap<String, TableInfo.Column> _columnsEmployee = new HashMap<String, TableInfo.Column>(2);
+        _columnsEmployee.put("empCode", new TableInfo.Column("empCode", "TEXT", true, 1));
+        _columnsEmployee.put("empName", new TableInfo.Column("empName", "TEXT", false, 0));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysEmployee = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesEmployee = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoEmployee = new TableInfo("employee", _columnsEmployee, _foreignKeysEmployee, _indicesEmployee);
+        final TableInfo _existingEmployee = TableInfo.read(_db, "employee");
+        if (! _infoEmployee.equals(_existingEmployee)) {
+          throw new IllegalStateException("Migration didn't properly handle employee(quay.com.ipos.compliance.data.local.entity.Employee).\n"
+                  + " Expected:\n" + _infoEmployee + "\n"
+                  + " Found:\n" + _existingEmployee);
+        }
+        final HashMap<String, TableInfo.Column> _columnsTaskScheduler = new HashMap<String, TableInfo.Column>(21);
+        _columnsTaskScheduler.put("id", new TableInfo.Column("id", "INTEGER", true, 1));
+        _columnsTaskScheduler.put("placeId", new TableInfo.Column("placeId", "INTEGER", true, 0));
+        _columnsTaskScheduler.put("complianceRecordID", new TableInfo.Column("complianceRecordID", "TEXT", false, 0));
+        _columnsTaskScheduler.put("complianceType", new TableInfo.Column("complianceType", "TEXT", false, 0));
+        _columnsTaskScheduler.put("complianceName", new TableInfo.Column("complianceName", "TEXT", false, 0));
+        _columnsTaskScheduler.put("subFunction", new TableInfo.Column("subFunction", "TEXT", false, 0));
+        _columnsTaskScheduler.put("taskName", new TableInfo.Column("taskName", "TEXT", false, 0));
+        _columnsTaskScheduler.put("taskDescription", new TableInfo.Column("taskDescription", "TEXT", false, 0));
+        _columnsTaskScheduler.put("taskEndDateTime", new TableInfo.Column("taskEndDateTime", "TEXT", false, 0));
+        _columnsTaskScheduler.put("taskStartDateTime", new TableInfo.Column("taskStartDateTime", "TEXT", false, 0));
+        _columnsTaskScheduler.put("taskAssignTo", new TableInfo.Column("taskAssignTo", "TEXT", false, 0));
+        _columnsTaskScheduler.put("status", new TableInfo.Column("status", "INTEGER", true, 0));
+        _columnsTaskScheduler.put("statusType", new TableInfo.Column("statusType", "TEXT", false, 0));
+        _columnsTaskScheduler.put("intervalType", new TableInfo.Column("intervalType", "TEXT", false, 0));
+        _columnsTaskScheduler.put("intervalValue", new TableInfo.Column("intervalValue", "INTEGER", true, 0));
+        _columnsTaskScheduler.put("controlName", new TableInfo.Column("controlName", "TEXT", false, 0));
+        _columnsTaskScheduler.put("priority", new TableInfo.Column("priority", "TEXT", false, 0));
+        _columnsTaskScheduler.put("remNextScheduleDateTime", new TableInfo.Column("remNextScheduleDateTime", "TEXT", false, 0));
+        _columnsTaskScheduler.put("remLastScheduleDateTime", new TableInfo.Column("remLastScheduleDateTime", "TEXT", false, 0));
+        _columnsTaskScheduler.put("remIntervalTypeID", new TableInfo.Column("remIntervalTypeID", "TEXT", false, 0));
+        _columnsTaskScheduler.put("remIntervalValue", new TableInfo.Column("remIntervalValue", "TEXT", false, 0));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysTaskScheduler = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesTaskScheduler = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoTaskScheduler = new TableInfo("task_scheduler", _columnsTaskScheduler, _foreignKeysTaskScheduler, _indicesTaskScheduler);
+        final TableInfo _existingTaskScheduler = TableInfo.read(_db, "task_scheduler");
+        if (! _infoTaskScheduler.equals(_existingTaskScheduler)) {
+          throw new IllegalStateException("Migration didn't properly handle task_scheduler(quay.com.ipos.compliance.data.local.entity.TaskSchedulerEntity).\n"
+                  + " Expected:\n" + _infoTaskScheduler + "\n"
+                  + " Found:\n" + _existingTaskScheduler);
+        }
+        final HashMap<String, TableInfo.Column> _columnsTransaction = new HashMap<String, TableInfo.Column>(14);
+        _columnsTransaction.put("id", new TableInfo.Column("id", "INTEGER", true, 1));
+        _columnsTransaction.put("taskId", new TableInfo.Column("taskId", "INTEGER", true, 0));
+        _columnsTransaction.put("taskName", new TableInfo.Column("taskName", "TEXT", false, 0));
+        _columnsTransaction.put("taskDescription", new TableInfo.Column("taskDescription", "TEXT", false, 0));
+        _columnsTransaction.put("taskStartDateTime", new TableInfo.Column("taskStartDateTime", "TEXT", false, 0));
+        _columnsTransaction.put("taskEndDateTime", new TableInfo.Column("taskEndDateTime", "TEXT", false, 0));
+        _columnsTransaction.put("assignTo", new TableInfo.Column("assignTo", "TEXT", false, 0));
+        _columnsTransaction.put("status", new TableInfo.Column("status", "TEXT", false, 0));
+        _columnsTransaction.put("remarks", new TableInfo.Column("remarks", "TEXT", false, 0));
+        _columnsTransaction.put("completedDateTime", new TableInfo.Column("completedDateTime", "TEXT", false, 0));
+        _columnsTransaction.put("remNextScheduleDateTime", new TableInfo.Column("remNextScheduleDateTime", "TEXT", false, 0));
+        _columnsTransaction.put("remLastRunDateTime", new TableInfo.Column("remLastRunDateTime", "TEXT", false, 0));
+        _columnsTransaction.put("remIntervalType", new TableInfo.Column("remIntervalType", "TEXT", false, 0));
+        _columnsTransaction.put("remIntervalValue", new TableInfo.Column("remIntervalValue", "TEXT", false, 0));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysTransaction = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesTransaction = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoTransaction = new TableInfo("transaction", _columnsTransaction, _foreignKeysTransaction, _indicesTransaction);
+        final TableInfo _existingTransaction = TableInfo.read(_db, "transaction");
+        if (! _infoTransaction.equals(_existingTransaction)) {
+          throw new IllegalStateException("Migration didn't properly handle transaction(quay.com.ipos.compliance.data.local.entity.TransactionEntity).\n"
+                  + " Expected:\n" + _infoTransaction + "\n"
+                  + " Found:\n" + _existingTransaction);
+        }
+        final HashMap<String, TableInfo.Column> _columnsAttachment = new HashMap<String, TableInfo.Column>(7);
+        _columnsAttachment.put("id", new TableInfo.Column("id", "INTEGER", true, 1));
+        _columnsAttachment.put("txId", new TableInfo.Column("txId", "INTEGER", true, 0));
+        _columnsAttachment.put("base", new TableInfo.Column("base", "TEXT", false, 0));
+        _columnsAttachment.put("ext", new TableInfo.Column("ext", "TEXT", false, 0));
+        _columnsAttachment.put("type", new TableInfo.Column("type", "TEXT", false, 0));
+        _columnsAttachment.put("name", new TableInfo.Column("name", "TEXT", false, 0));
+        _columnsAttachment.put("isSync", new TableInfo.Column("isSync", "INTEGER", true, 0));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysAttachment = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesAttachment = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoAttachment = new TableInfo("attachment", _columnsAttachment, _foreignKeysAttachment, _indicesAttachment);
+        final TableInfo _existingAttachment = TableInfo.read(_db, "attachment");
+        if (! _infoAttachment.equals(_existingAttachment)) {
+          throw new IllegalStateException("Migration didn't properly handle attachment(quay.com.ipos.compliance.data.local.entity.AttachmentEntity).\n"
+                  + " Expected:\n" + _infoAttachment + "\n"
+                  + " Found:\n" + _existingAttachment);
+        }
+      }
+    }, "b77bd4aef1efe5e265da75263686a974", "0ccd4d112d55ede4e200b19d1c0c5272");
+    final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
+        .name(configuration.name)
+        .callback(_openCallback)
+        .build();
+    final SupportSQLiteOpenHelper _helper = configuration.sqliteOpenHelperFactory.create(_sqliteConfig);
+    return _helper;
+  }
+
+  @Override
+  protected InvalidationTracker createInvalidationTracker() {
+    return new InvalidationTracker(this, "most_used","ddr_invoice_data","task","sub_task","places","employee","task_scheduler","transaction","attachment");
+  }
+
+  @Override
+  public void clearAllTables() {
+    super.assertNotMainThread();
+    final SupportSQLiteDatabase _db = super.getOpenHelper().getWritableDatabase();
+    try {
+      super.beginTransaction();
+      _db.execSQL("DELETE FROM `most_used`");
+      _db.execSQL("DELETE FROM `ddr_invoice_data`");
+      _db.execSQL("DELETE FROM `task`");
+      _db.execSQL("DELETE FROM `sub_task`");
+      _db.execSQL("DELETE FROM `places`");
+      _db.execSQL("DELETE FROM `employee`");
+      _db.execSQL("DELETE FROM `task_scheduler`");
+      _db.execSQL("DELETE FROM `transaction`");
+      _db.execSQL("DELETE FROM `attachment`");
+      super.setTransactionSuccessful();
+    } finally {
+      super.endTransaction();
+      _db.query("PRAGMA wal_checkpoint(FULL)").close();
+      if (!_db.inTransaction()) {
+        _db.execSQL("VACUUM");
+      }
+    }
+  }
+
+  @Override
+  public MostUsedFunDao mostUsedFunDao() {
+    if (_mostUsedFunDao != null) {
+      return _mostUsedFunDao;
+    } else {
+      synchronized(this) {
+        if(_mostUsedFunDao == null) {
+          _mostUsedFunDao = new MostUsedFunDao_Impl(this);
+        }
+        return _mostUsedFunDao;
+      }
+    }
+  }
+
+  @Override
+  public DDRInvoiceDao ddrInvoiceDao() {
+    if (_dDRInvoiceDao != null) {
+      return _dDRInvoiceDao;
+    } else {
+      synchronized(this) {
+        if(_dDRInvoiceDao == null) {
+          _dDRInvoiceDao = new DDRInvoiceDao_Impl(this);
+        }
+        return _dDRInvoiceDao;
+      }
+    }
+  }
+
+  @Override
+  public BusinessPlaceDao placeDao() {
+    if (_businessPlaceDao != null) {
+      return _businessPlaceDao;
+    } else {
+      synchronized(this) {
+        if(_businessPlaceDao == null) {
+          _businessPlaceDao = new BusinessPlaceDao_AppDatabase_1_Impl(this);
+        }
+        return _businessPlaceDao;
+      }
+    }
+  }
+
+  @Override
+  public TaskDao taskDao() {
+    if (_taskDao != null) {
+      return _taskDao;
+    } else {
+      synchronized(this) {
+        if(_taskDao == null) {
+          _taskDao = new TaskDao_AppDatabase_1_Impl(this);
+        }
+        return _taskDao;
+      }
+    }
+  }
+
+  @Override
+  public SubTaskDao subtaskDao() {
+    if (_subTaskDao != null) {
+      return _subTaskDao;
+    } else {
+      synchronized(this) {
+        if(_subTaskDao == null) {
+          _subTaskDao = new SubTaskDao_AppDatabase_1_Impl(this);
+        }
+        return _subTaskDao;
+      }
+    }
+  }
+
+  @Override
+  public EmployeeDao employeeDao() {
+    if (_employeeDao != null) {
+      return _employeeDao;
+    } else {
+      synchronized(this) {
+        if(_employeeDao == null) {
+          _employeeDao = new EmployeeDao_AppDatabase_1_Impl(this);
+        }
+        return _employeeDao;
+      }
+    }
+  }
+
+  @Override
+  public TransactionDao transactionDao() {
+    if (_transactionDao != null) {
+      return _transactionDao;
+    } else {
+      synchronized(this) {
+        if(_transactionDao == null) {
+          _transactionDao = new TransactionDao_AppDatabase_1_Impl(this);
+        }
+        return _transactionDao;
+      }
+    }
+  }
+
+  @Override
+  public AttachmentDao attachmentDao() {
+    if (_attachmentDao != null) {
+      return _attachmentDao;
+    } else {
+      synchronized(this) {
+        if(_attachmentDao == null) {
+          _attachmentDao = new AttachmentDao_AppDatabase_1_Impl(this);
+        }
+        return _attachmentDao;
+      }
+    }
+  }
+}

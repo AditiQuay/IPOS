@@ -1,6 +1,8 @@
 package quay.com.ipos.ddrsales.model.response;
 
-public class DDRBatch {
+import java.io.Serializable;
+
+public class DDRBatch implements Serializable {
 
     public String number;
     public String actionTitle="NA";

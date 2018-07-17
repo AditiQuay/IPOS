@@ -13,9 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.ddrsales.model.response.DDRNewOrderProductsResult;
@@ -39,7 +41,7 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private int lastVisibleItem, totalItemCount;
     View.OnClickListener mOnClickListener;
     static Context mContext;
-    ArrayList<DDRNewOrderProductsResult.DataBean> mDataset;
+    List<DDRNewOrderProductsResult.DataBean> mDataset;
     private OnCartAddListener cartAddListener;
     public interface OnCartAddListener{
        void onCartAdded(int pos, DDRNewOrderProductsResult.DataBean product);
@@ -47,13 +49,11 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
 
     public DDRProductCartAdapter(Context ctx, View.OnClickListener mClickListener,
-                                 ArrayList<DDRNewOrderProductsResult.DataBean> questionList, AdapterListener listener, OnCartAddListener cartAddListener) {
+                                 List<DDRNewOrderProductsResult.DataBean> questionList, AdapterListener listener, OnCartAddListener cartAddListener) {
         this.mOnClickListener = mClickListener;
         mContext = ctx;
         mDataset = questionList;
-
         this.listener = listener;
-
         this.cartAddListener = cartAddListener;
     }
 
@@ -139,7 +139,7 @@ public class DDRProductCartAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 userViewHolder.llAdd.setBackgroundResource(R.drawable.button_drawable);
             }
             userViewHolder.tvItemName.setText(product.getSProductName());
-            Picasso.get().load(product.getProductImage()).into(userViewHolder.imvProduct);
+            Glide.with(mContext).load(product.getProductImage()).into(userViewHolder.imvProduct);
             userViewHolder.tvItemPrice.setText(mContext.getResources().getString(R.string.Rs)+" "+ Util.indianNumberFormat(product.getSProductPrice()));
             String stokAvaialable = product.getSProductStock().substring(0, 1).toUpperCase() + product.getSProductStock().substring(1).toLowerCase();
             Log.i("stokAvaialable", stokAvaialable);

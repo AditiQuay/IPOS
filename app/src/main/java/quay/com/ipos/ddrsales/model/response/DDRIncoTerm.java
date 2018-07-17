@@ -1,6 +1,8 @@
 package quay.com.ipos.ddrsales.model.response;
 
-public class DDRIncoTerm {
+import java.io.Serializable;
+
+public class DDRIncoTerm  implements Serializable{
     public int grnIncoId;
     public String grnIncoDetail;
     public boolean grnPayBySender;

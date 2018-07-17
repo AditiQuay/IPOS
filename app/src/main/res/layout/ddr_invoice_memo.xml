@@ -1586,7 +1586,7 @@
 
                             android:textColor="@color/dark_grey_color"
                             android:textSize="13sp"
-                            android:visibility="invisible" />
+                            android:visibility="visible" />
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -1651,7 +1651,7 @@
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="@dimen/text_size_15sp"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/textSubmit"

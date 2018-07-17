@@ -1,0 +1,1070 @@
+-- Merging decision tree log ---
+manifest
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-456:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-456:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-456:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-456:12
+MERGED from [io.realm:realm-android-library:3.1.3] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\realm-android-library-3.1.3.aar\5cbbd1722fd87c9ed73c7aa5706bec57\AndroidManifest.xml:2:1-11:12
+MERGED from [:tasklib] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\tasklib\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-57:12
+MERGED from [com.github.ganfra:material-spinner:2.0.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\material-spinner-2.0.0.aar\f3b44a1c8b841fb3c4cf4340a285078e\AndroidManifest.xml:2:1-10:12
+MERGED from [com.basgeekball:awesome-validation:2.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\awesome-validation-2.0.aar\fade8fd130d2ce333c603599d8117483\AndroidManifest.xml:2:1-11:12
+MERGED from [com.wdullaer:materialdatetimepicker:3.6.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\materialdatetimepicker-3.6.0.aar\219612c38b613a6f45dbe2df157971ae\AndroidManifest.xml:17:1-30:12
+MERGED from [com.android.support:design:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\ac6516ae061c357989c799b3b5532505\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:recyclerview-v7:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.1.aar\6b3b4ee36d5eed6cc276bb02f38c7c21\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\4899128a1b28da29b7203c635db5c9da\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\72c2bd49f51c7b81ad5ead2e5b069bfc\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\5277b2650f17f5971b188a36a2f5c235\AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\0151830402b75edc8678837d576caa2f\AndroidManifest.xml:17:1-37:12
+MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\1aa0660af02260bca4adb68c2e1e4106\AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:17:1-54:12
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:17:1-40:12
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:17:1-59:12
+MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\4c01a85d56992fd681d68301fd6685d0\AndroidManifest.xml:2:1-15:12
+MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\ecb709e63d2aaac7b2a65b8e91f70ee8\AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\10ae1dc56beda481ff675cbb15a59a33\AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v13:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-v13-27.1.1.aar\c2ce994c89a7d2d6ed2b5c4ea49c3b41\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\49933c859b1f15e2157479872294096e\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0a3546a475d51cd71d2014d1a4360bc6\AndroidManifest.xml:17:1-28:12
+MERGED from [:zbar] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [:core] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\build\intermediates\manifests\full\debug\AndroidManifest.xml:2:1-7:12
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\picasso-2.71828.aar\a9162f54bfad5e45309a1eab33793e9c\AndroidManifest.xml:2:1-14:12
+MERGED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\929be6c4fbeec4f9beca4a27fcdb9cd0\AndroidManifest.xml:17:1-30:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\963f6d8d4b2ddda433386c18f8a801ca\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\497d9bc3a16c4d760460a24fb4370bf7\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\82a7c01098b639613c46a9f91fa86dd6\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.persistence.room:runtime:1.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\30b2d693f0084ec45be111419717d51f\AndroidManifest.xml:17:1-22:12
+MERGED from [com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\searchablespinnerlibrary-1.3.1.aar\23001b72e7e8ccf9934e71195252c30c\AndroidManifest.xml:2:1-17:12
+MERGED from [com.getkeepsafe.relinker:relinker:1.2.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\relinker-1.2.2.aar\4709e60cc35bfa831f392e7bc722414e\AndroidManifest.xml:2:1-9:12
+MERGED from [com.android.support:exifinterface:27.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\exifinterface-27.1.0.aar\d0140aa6042094206ac0f86fda701fcc\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\e1ed6a6a55fdca7b4c34352af93dc0af\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\4a008638bf7d3eb8fa781a90be73ebfe\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.databinding:adapters:3.1.3] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\adapters-3.1.3.aar\2e0093992ef194aa456a41b55b0ac952\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.databinding:library:3.1.3] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\library-3.1.3.aar\14e6ce277a78c064ca29b8923436554c\AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\b544a737bb15eb528ec8589cfe1a8a51\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\912f735deafb851f0b2a017fe87a5a73\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\e669ea5aba1537003f79641872ca27ab\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\d6468247f353382a67659472df1c28df\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:transition:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\transition-27.1.1.aar\c400af6e88386053cf10f00e7f1a6a11\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\8eca49bd9f51b7a0fdb45ada0bfe71fb\AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\1c00bf9d8d93879909d330ee9901b235\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\3ca4af3e7cff827d087c48d114511f15\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.persistence:db-framework:1.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\db-framework-1.1.0.aar\167cac3a9299d62691429af3af9b6c3a\AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.persistence:db:1.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\db-1.1.0.aar\106e94734af1b90ef52845d456f76300\AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\f0099c7b941526a8d866c83c6ca9f9f6\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\1a19558a5d30bbeae1c2a29fde462bb2\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-license-12.0.1.aar\ea136b2347c59838a425bc1f824d956c\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\c9099ad56440377c4af5ce3269fd2b68\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\81a9ef6cc68d72f6c5163fa4bdc674bd\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\a3f96e20a9485be951c13213f28d1155\AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\96afe4d17a5b807587fbf1a91c7c6987\AndroidManifest.xml:17:1-24:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-456:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-456:12
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-456:12
+	package
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:3:5-28
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-456:12
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:1-456:12
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.CALL_PHONE
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:5:5-69
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:5:22-66
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:6:5-67
+MERGED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:23:5-67
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:23:5-67
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:6:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:7:5-79
+MERGED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:24:5-79
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:22:5-79
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:7:22-76
+uses-permission#android.permission.CAMERA
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:8:5-65
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:8:22-62
+uses-permission#android.permission.GET_TASKS
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:9:5-68
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:9:22-65
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:10:5-75
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:10:22-72
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:11:5-80
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:11:22-77
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:12:5-81
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:12:22-78
+permission#android.permission.CALL_PRIVILEGED
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:14:5-16:58
+	android:protectionLevel
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:16:9-55
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:15:9-58
+uses-feature#android.hardware.camera
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:18:5-20:35
+	android:required
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:20:9-32
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:19:9-47
+application
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:22:5-454:19
+MERGED from [:tasklib] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\tasklib\build\intermediates\manifests\full\debug\AndroidManifest.xml:55:5-20
+MERGED from [:tasklib] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\tasklib\build\intermediates\manifests\full\debug\AndroidManifest.xml:55:5-20
+MERGED from [com.wdullaer:materialdatetimepicker:3.6.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\materialdatetimepicker-3.6.0.aar\219612c38b613a6f45dbe2df157971ae\AndroidManifest.xml:28:5-20
+MERGED from [com.wdullaer:materialdatetimepicker:3.6.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\materialdatetimepicker-3.6.0.aar\219612c38b613a6f45dbe2df157971ae\AndroidManifest.xml:28:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\5277b2650f17f5971b188a36a2f5c235\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\5277b2650f17f5971b188a36a2f5c235\AndroidManifest.xml:9:5-20
+MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\0151830402b75edc8678837d576caa2f\AndroidManifest.xml:22:5-35:19
+MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\0151830402b75edc8678837d576caa2f\AndroidManifest.xml:22:5-35:19
+MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\1aa0660af02260bca4adb68c2e1e4106\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\1aa0660af02260bca4adb68c2e1e4106\AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:27:5-52:19
+MERGED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:27:5-52:19
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:27:5-38:19
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:27:5-38:19
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:34:5-57:19
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:34:5-57:19
+MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\4c01a85d56992fd681d68301fd6685d0\AndroidManifest.xml:7:5-13:19
+MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\4c01a85d56992fd681d68301fd6685d0\AndroidManifest.xml:7:5-13:19
+MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\ecb709e63d2aaac7b2a65b8e91f70ee8\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\ecb709e63d2aaac7b2a65b8e91f70ee8\AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\10ae1dc56beda481ff675cbb15a59a33\AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\10ae1dc56beda481ff675cbb15a59a33\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0a3546a475d51cd71d2014d1a4360bc6\AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0a3546a475d51cd71d2014d1a4360bc6\AndroidManifest.xml:22:5-26:19
+MERGED from [:zbar] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\build\intermediates\manifests\full\debug\AndroidManifest.xml:5:5-20
+MERGED from [:zbar] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\zbar\build\intermediates\manifests\full\debug\AndroidManifest.xml:5:5-20
+MERGED from [:core] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\build\intermediates\manifests\full\debug\AndroidManifest.xml:5:5-20
+MERGED from [:core] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\core\build\intermediates\manifests\full\debug\AndroidManifest.xml:5:5-20
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\picasso-2.71828.aar\a9162f54bfad5e45309a1eab33793e9c\AndroidManifest.xml:7:5-12:19
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\picasso-2.71828.aar\a9162f54bfad5e45309a1eab33793e9c\AndroidManifest.xml:7:5-12:19
+MERGED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\929be6c4fbeec4f9beca4a27fcdb9cd0\AndroidManifest.xml:22:5-28:19
+MERGED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\929be6c4fbeec4f9beca4a27fcdb9cd0\AndroidManifest.xml:22:5-28:19
+MERGED from [com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\searchablespinnerlibrary-1.3.1.aar\23001b72e7e8ccf9934e71195252c30c\AndroidManifest.xml:11:5-15:19
+MERGED from [com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\searchablespinnerlibrary-1.3.1.aar\23001b72e7e8ccf9934e71195252c30c\AndroidManifest.xml:11:5-15:19
+MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\f0099c7b941526a8d866c83c6ca9f9f6\AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\f0099c7b941526a8d866c83c6ca9f9f6\AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\1a19558a5d30bbeae1c2a29fde462bb2\AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\1a19558a5d30bbeae1c2a29fde462bb2\AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-license-12.0.1.aar\ea136b2347c59838a425bc1f824d956c\AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-license-12.0.1.aar\ea136b2347c59838a425bc1f824d956c\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\c9099ad56440377c4af5ce3269fd2b68\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\c9099ad56440377c4af5ce3269fd2b68\AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\81a9ef6cc68d72f6c5163fa4bdc674bd\AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\81a9ef6cc68d72f6c5163fa4bdc674bd\AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\a3f96e20a9485be951c13213f28d1155\AndroidManifest.xml:22:5-20
+MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\a3f96e20a9485be951c13213f28d1155\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\96afe4d17a5b807587fbf1a91c7c6987\AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\96afe4d17a5b807587fbf1a91c7c6987\AndroidManifest.xml:22:5-20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:31:9-45
+	android:supportsRtl
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:32:9-35
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:27:9-41
+	android:hardwareAccelerated
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:25:9-43
+	android:roundIcon
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:29:9-58
+	android:largeHeap
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:28:9-33
+	android:icon
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:26:9-43
+	android:allowBackup
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:24:9-35
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:33:9-40
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:23:9-52
+activity#quay.com.ipos.login.SplashActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:34:9-42:20
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:36:13-45
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:37:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:35:13-49
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:38:13-41:29
+action#android.intent.action.MAIN
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:39:17-69
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:39:25-66
+category#android.intent.category.LAUNCHER
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:40:17-77
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:40:27-74
+activity#quay.com.ipos.login.LoginActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:43:9-46:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:45:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:46:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:44:13-48
+activity#quay.com.ipos.retailsales.activity.OutboxActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:47:9-50:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:49:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:50:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:48:13-64
+activity#quay.com.ipos.dayClosure.dayClosureActivity.DayClosureMain
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:51:9-55:67
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:53:13-49
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:55:13-64
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:54:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:52:13-73
+activity#quay.com.ipos.dayClosure.dayClosureActivity.DayClosureSales
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:56:9-60:66
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:58:13-49
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:60:13-64
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:59:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:57:13-74
+activity#quay.com.ipos.partnerConnect.PartnerConnectMain
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:61:9-72:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:65:13-49
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:64:13-58
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:67:13-64
+	android:configChanges
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:63:13-63
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:66:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:62:13-62
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.DEFAULT
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:68:13-71:29
+category#android.intent.category.DEFAULT
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:70:17-76
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:70:27-73
+activity#quay.com.ipos.kycPartnerConnect.KYCMain
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:73:9-80:67
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:77:13-49
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:76:13-58
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:80:13-64
+	android:configChanges
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:75:13-63
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:79:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:74:13-54
+activity#quay.com.ipos.ddrsales.DDROrderCenterActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:84:9-94:20
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:87:13-59
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:89:13-64
+	android:configChanges
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:86:13-63
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:88:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:85:13-60
+activity#quay.com.ipos.ddrsales.DDRListActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:95:9-107:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:99:13-49
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:98:13-57
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:102:13-64
+	android:configChanges
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:97:13-63
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:101:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:96:13-53
+activity#quay.com.ipos.ddrsales.ddrdetail.DDRCUActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:108:9-120:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:112:13-49
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:111:13-57
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:115:13-64
+	android:configChanges
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:110:13-63
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:114:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:109:13-61
+activity#quay.com.ipos.ddrsales.DDRAddProductActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:121:9-133:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:125:13-49
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:124:13-51
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:128:13-64
+	android:configChanges
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:123:13-63
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:127:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:122:13-59
+activity#quay.com.ipos.ddrsales.DDRAddNewProductActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:135:9-147:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:139:13-49
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:138:13-51
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:142:13-64
+	android:configChanges
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:137:13-63
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:141:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:136:13-62
+activity#quay.com.ipos.ddrsales.DDRCartDetails
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:149:9-161:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:153:13-49
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:152:13-51
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:156:13-64
+	android:configChanges
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:151:13-63
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:155:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:150:13-52
+activity#quay.com.ipos.ddrsales.DDRInvoicePreviewActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:162:9-174:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:166:13-49
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:165:13-51
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:169:13-64
+	android:configChanges
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:164:13-63
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:168:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:163:13-63
+activity#quay.com.ipos.ddrsales.DDRApproveInvoiceActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:175:9-186:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:179:13-49
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:178:13-51
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:181:13-64
+	android:configChanges
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:177:13-63
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:180:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:176:13-63
+activity#quay.com.ipos.ddrsales.DDRBillPreviewActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:187:9-199:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:191:13-49
+	android:label
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:190:13-51
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:194:13-64
+	android:configChanges
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:189:13-63
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:193:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:188:13-60
+activity#quay.com.ipos.customerInfo.customerAdd.CustomerAddMain
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:205:9-213:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:207:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:208:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:206:13-69
+activity#quay.com.ipos.retailsales.activity.PaymentModeActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:215:9-219:57
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:217:13-49
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:219:13-54
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:218:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:216:13-69
+activity#quay.com.ipos.login.McCoyLoginActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:220:9-223:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:222:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:223:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:221:13-53
+activity#quay.com.ipos.inventory.fragment.InventoryProduct
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:226:9-229:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:228:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:229:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:227:13-64
+activity#quay.com.ipos.inventory.activity.InventoryGRNDetails
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:231:9-234:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:233:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:234:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:232:13-67
+activity#quay.com.ipos.partnerConnect.kyc.KYCActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:236:9-239:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:238:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:239:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:237:13-59
+activity#quay.com.ipos.partnerConnect.kyc.KYCViewAll
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:240:9-243:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:242:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:243:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:241:13-58
+activity#quay.com.ipos.productCatalogue.WebViewActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:245:9-248:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:247:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:248:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:246:13-61
+activity#quay.com.ipos.customerInfo.CustomerInfoActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:250:9-259:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:252:13-49
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:254:13-60
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:253:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:251:13-62
+activity#quay.com.ipos.customerInfo.CustomerInfoDetailsActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:261:9-264:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:263:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:264:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:262:13-69
+activity#quay.com.ipos.productCatalogue.CatalogueSubProduct
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:266:9-269:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:268:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:269:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:267:13-65
+activity#quay.com.ipos.productCatalogue.ProductCatalogueViewAll
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:271:9-274:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:273:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:274:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:272:13-69
+activity#quay.com.ipos.productCatalogue.ProductDetails
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:276:9-279:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:278:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:279:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:277:13-60
+activity#quay.com.ipos.base.MainActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:281:9-285:57
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:283:13-49
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:285:13-54
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:284:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:282:13-46
+activity#quay.com.ipos.retailsales.activity.PinnedRetailActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:286:9-289:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:288:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:289:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:287:13-83
+activity#quay.com.ipos.pss_order.activity.PinnedOrderActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:290:9-293:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:292:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:293:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:291:13-80
+activity#quay.com.ipos.retailsales.activity.FullScannerActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:294:9-297:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:296:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:297:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:295:13-69
+activity#quay.com.ipos.retailsales.activity.AddProductActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:299:9-302:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:301:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:302:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:300:13-68
+activity#quay.com.ipos.dashboard.activity.UpcomingShipmentActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:304:9-307:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:306:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:307:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:305:13-72
+activity#quay.com.ipos.pss_order.activity.NewOrderDetailsActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:308:9-311:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:310:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:311:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:309:13-71
+activity#quay.com.ipos.pss_order.activity.OrderCentreDetailsActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:312:9-315:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:314:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:315:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:313:13-74
+activity#quay.com.ipos.pss_order.activity.AddNewOrderActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:316:9-319:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:318:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:319:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:317:13-80
+activity#quay.com.ipos.retailsales.activity.PrintReceiptActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:320:9-324:63
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:322:13-49
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:324:13-60
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:323:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:321:13-83
+activity#quay.com.ipos.pss_order.activity.EditOrderCentreActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:329:9-332:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:331:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:332:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:330:13-71
+activity#quay.com.ipos.inventoryTrasfer.inventoryTransferOut.transferOutActivity.TransferOutListActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:333:9-336:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:335:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:336:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:334:13-110
+activity#quay.com.ipos.inventoryTrasfer.inventoryTransferOut.transferOutActivity.EditTransferOutActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:337:9-340:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:339:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:340:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:338:13-110
+activity#quay.com.ipos.inventory.activity.InventoryWorkFlowActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:341:9-344:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:343:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:344:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:342:13-73
+activity#quay.com.ipos.productCatalogue.ProductRangeActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:345:9-348:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:347:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:348:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:346:13-66
+activity#quay.com.ipos.inventory.activity.InventoryGRNStepsActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:349:9-352:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:351:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:352:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:350:13-73
+activity#quay.com.ipos.inventoryTrasfer.TransferStepsActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:353:9-356:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:355:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:356:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:354:13-67
+activity#quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInActivity.TransferInBatchActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:357:9-360:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:359:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:360:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:358:13-108
+activity#quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInActivity.TransferInDetailsActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:361:9-364:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:363:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:364:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:362:13-110
+activity#quay.com.ipos.pss_order.activity.AddOrderCentreActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:365:9-368:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:367:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:368:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:366:13-70
+activity#quay.com.ipos.inventory.activity.ExpandablePODetailsActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:369:9-372:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:371:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:372:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:370:13-75
+activity#quay.com.ipos.inventory.activity.EditExpandablePODetailsActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:374:9-377:59
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:376:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:377:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:375:13-79
+activity#quay.com.ipos.inventory.activity.InventoryItemAddNewOrderActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:379:9-383:57
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:381:13-49
+	android:windowSoftInputMode
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:383:13-54
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:382:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:380:13-80
+activity#quay.com.ipos.compliance.DashboardActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:385:9-393:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:387:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:388:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:386:13-57
+activity#quay.com.ipos.compliance.StorewiseComplianceActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:394:9-402:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:396:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:397:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:395:13-67
+activity#quay.com.ipos.compliance.TaskDetailActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:403:9-411:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:405:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:406:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:404:13-58
+activity#quay.com.ipos.compliance.SubTaskActivity
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:412:9-420:20
+	android:screenOrientation
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:414:13-49
+	android:theme
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:415:13-56
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:413:13-55
+service#quay.com.ipos.notifications.MyFirebaseMessagingService
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:425:9-433:19
+	android:enabled
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:427:13-35
+	android:exported
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:428:13-36
+	android:stopWithTask
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:429:13-41
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:426:13-69
+intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:430:13-432:29
+action#com.google.firebase.MESSAGING_EVENT
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:431:17-78
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:431:25-75
+service#quay.com.ipos.notifications.MyFirebaseInstanceIDService
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:434:9-438:19
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:434:18-75
+intent-filter#action:name:com.google.firebase.INSTANCE_ID_EVENT
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:435:13-437:29
+action#com.google.firebase.INSTANCE_ID_EVENT
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:436:17-80
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:436:25-77
+provider#android.support.v4.content.FileProvider
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:440:9-448:20
+	android:grantUriPermissions
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:444:13-47
+	android:authorities
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:442:13-61
+	android:exported
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:443:13-37
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:441:13-67
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:445:13-447:64
+	android:resource
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:447:17-51
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:446:17-67
+receiver#quay.com.ipos.ui.NetworkStateChecker
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:449:9-453:20
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:449:19-57
+intent-filter#action:name:android.net.conn.CONNECTIVITY_CHANGE
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:450:13-452:29
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:451:17-79
+	android:name
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml:451:25-76
+uses-sdk
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+MERGED from [io.realm:realm-android-library:3.1.3] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\realm-android-library-3.1.3.aar\5cbbd1722fd87c9ed73c7aa5706bec57\AndroidManifest.xml:7:5-9:41
+MERGED from [io.realm:realm-android-library:3.1.3] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\realm-android-library-3.1.3.aar\5cbbd1722fd87c9ed73c7aa5706bec57\AndroidManifest.xml:7:5-9:41
+MERGED from [:tasklib] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\tasklib\build\intermediates\manifests\full\debug\AndroidManifest.xml:51:5-53:41
+MERGED from [:tasklib] C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\tasklib\build\intermediates\manifests\full\debug\AndroidManifest.xml:51:5-53:41
+MERGED from [com.github.ganfra:material-spinner:2.0.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\material-spinner-2.0.0.aar\f3b44a1c8b841fb3c4cf4340a285078e\AndroidManifest.xml:6:5-8:41
+MERGED from [com.github.ganfra:material-spinner:2.0.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\material-spinner-2.0.0.aar\f3b44a1c8b841fb3c4cf4340a285078e\AndroidManifest.xml:6:5-8:41
+MERGED from [com.basgeekball:awesome-validation:2.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\awesome-validation-2.0.aar\fade8fd130d2ce333c603599d8117483\AndroidManifest.xml:7:5-9:41
+MERGED from [com.basgeekball:awesome-validation:2.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\awesome-validation-2.0.aar\fade8fd130d2ce333c603599d8117483\AndroidManifest.xml:7:5-9:41
+MERGED from [com.wdullaer:materialdatetimepicker:3.6.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\materialdatetimepicker-3.6.0.aar\219612c38b613a6f45dbe2df157971ae\AndroidManifest.xml:22:5-24:41
+MERGED from [com.wdullaer:materialdatetimepicker:3.6.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\materialdatetimepicker-3.6.0.aar\219612c38b613a6f45dbe2df157971ae\AndroidManifest.xml:22:5-24:41
+MERGED from [com.android.support:design:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\ac6516ae061c357989c799b3b5532505\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:design:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\design-27.1.1.aar\ac6516ae061c357989c799b3b5532505\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.1.aar\6b3b4ee36d5eed6cc276bb02f38c7c21\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:recyclerview-v7:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.1.aar\6b3b4ee36d5eed6cc276bb02f38c7c21\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\4899128a1b28da29b7203c635db5c9da\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:multidex:1.0.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\multidex-1.0.2.aar\4899128a1b28da29b7203c635db5c9da\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\72c2bd49f51c7b81ad5ead2e5b069bfc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\72c2bd49f51c7b81ad5ead2e5b069bfc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\5277b2650f17f5971b188a36a2f5c235\AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\constraint-layout-1.0.2.aar\5277b2650f17f5971b188a36a2f5c235\AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\0151830402b75edc8678837d576caa2f\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\0151830402b75edc8678837d576caa2f\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\1aa0660af02260bca4adb68c2e1e4106\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-core:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-core-12.0.1.aar\1aa0660af02260bca4adb68c2e1e4106\AndroidManifest.xml:4:5-43
+MERGED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\4c01a85d56992fd681d68301fd6685d0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\4c01a85d56992fd681d68301fd6685d0\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\ecb709e63d2aaac7b2a65b8e91f70ee8\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-12.0.1.aar\ecb709e63d2aaac7b2a65b8e91f70ee8\AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\10ae1dc56beda481ff675cbb15a59a33\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\10ae1dc56beda481ff675cbb15a59a33\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v13:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-v13-27.1.1.aar\c2ce994c89a7d2d6ed2b5c4ea49c3b41\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v13:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-v13-27.1.1.aar\c2ce994c89a7d2d6ed2b5c4ea49c3b41\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\49933c859b1f15e2157479872294096e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-v4-27.1.1.aar\49933c859b1f15e2157479872294096e\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0a3546a475d51cd71d2014d1a4360bc6\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0a3546a475d51cd71d2014d1a4360bc6\AndroidManifest.xml:20:5-44
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\picasso-2.71828.aar\a9162f54bfad5e45309a1eab33793e9c\AndroidManifest.xml:5:5-44
+MERGED from [com.squareup.picasso:picasso:2.71828] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\picasso-2.71828.aar\a9162f54bfad5e45309a1eab33793e9c\AndroidManifest.xml:5:5-44
+MERGED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\929be6c4fbeec4f9beca4a27fcdb9cd0\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\929be6c4fbeec4f9beca4a27fcdb9cd0\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\963f6d8d4b2ddda433386c18f8a801ca\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\livedata-1.1.1.aar\963f6d8d4b2ddda433386c18f8a801ca\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\497d9bc3a16c4d760460a24fb4370bf7\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\497d9bc3a16c4d760460a24fb4370bf7\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\82a7c01098b639613c46a9f91fa86dd6\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.1.aar\82a7c01098b639613c46a9f91fa86dd6\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence.room:runtime:1.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\30b2d693f0084ec45be111419717d51f\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence.room:runtime:1.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\30b2d693f0084ec45be111419717d51f\AndroidManifest.xml:20:5-44
+MERGED from [com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\searchablespinnerlibrary-1.3.1.aar\23001b72e7e8ccf9934e71195252c30c\AndroidManifest.xml:7:5-9:41
+MERGED from [com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\searchablespinnerlibrary-1.3.1.aar\23001b72e7e8ccf9934e71195252c30c\AndroidManifest.xml:7:5-9:41
+MERGED from [com.getkeepsafe.relinker:relinker:1.2.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\relinker-1.2.2.aar\4709e60cc35bfa831f392e7bc722414e\AndroidManifest.xml:7:5-43
+MERGED from [com.getkeepsafe.relinker:relinker:1.2.2] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\relinker-1.2.2.aar\4709e60cc35bfa831f392e7bc722414e\AndroidManifest.xml:7:5-43
+MERGED from [com.android.support:exifinterface:27.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\exifinterface-27.1.0.aar\d0140aa6042094206ac0f86fda701fcc\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:exifinterface:27.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\exifinterface-27.1.0.aar\d0140aa6042094206ac0f86fda701fcc\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\e1ed6a6a55fdca7b4c34352af93dc0af\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.1.aar\e1ed6a6a55fdca7b4c34352af93dc0af\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\4a008638bf7d3eb8fa781a90be73ebfe\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\4a008638bf7d3eb8fa781a90be73ebfe\AndroidManifest.xml:20:5-44
+MERGED from [com.android.databinding:adapters:3.1.3] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\adapters-3.1.3.aar\2e0093992ef194aa456a41b55b0ac952\AndroidManifest.xml:22:5-44
+MERGED from [com.android.databinding:adapters:3.1.3] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\adapters-3.1.3.aar\2e0093992ef194aa456a41b55b0ac952\AndroidManifest.xml:22:5-44
+MERGED from [com.android.databinding:library:3.1.3] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\library-3.1.3.aar\14e6ce277a78c064ca29b8923436554c\AndroidManifest.xml:22:5-44
+MERGED from [com.android.databinding:library:3.1.3] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\library-3.1.3.aar\14e6ce277a78c064ca29b8923436554c\AndroidManifest.xml:22:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\b544a737bb15eb528ec8589cfe1a8a51\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\b544a737bb15eb528ec8589cfe1a8a51\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\912f735deafb851f0b2a017fe87a5a73\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\912f735deafb851f0b2a017fe87a5a73\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\e669ea5aba1537003f79641872ca27ab\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\e669ea5aba1537003f79641872ca27ab\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\d6468247f353382a67659472df1c28df\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\d6468247f353382a67659472df1c28df\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\transition-27.1.1.aar\c400af6e88386053cf10f00e7f1a6a11\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\transition-27.1.1.aar\c400af6e88386053cf10f00e7f1a6a11\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\8eca49bd9f51b7a0fdb45ada0bfe71fb\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\8eca49bd9f51b7a0fdb45ada0bfe71fb\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\1c00bf9d8d93879909d330ee9901b235\AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:27.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\1c00bf9d8d93879909d330ee9901b235\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\3ca4af3e7cff827d087c48d114511f15\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\runtime-1.1.1.aar\3ca4af3e7cff827d087c48d114511f15\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence:db-framework:1.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\db-framework-1.1.0.aar\167cac3a9299d62691429af3af9b6c3a\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence:db-framework:1.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\db-framework-1.1.0.aar\167cac3a9299d62691429af3af9b6c3a\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence:db:1.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\db-1.1.0.aar\106e94734af1b90ef52845d456f76300\AndroidManifest.xml:20:5-44
+MERGED from [android.arch.persistence:db:1.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\db-1.1.0.aar\106e94734af1b90ef52845d456f76300\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\f0099c7b941526a8d866c83c6ca9f9f6\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-messaging-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-license-12.0.1.aar\f0099c7b941526a8d866c83c6ca9f9f6\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\1a19558a5d30bbeae1c2a29fde462bb2\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-license-12.0.1.aar\1a19558a5d30bbeae1c2a29fde462bb2\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-license-12.0.1.aar\ea136b2347c59838a425bc1f824d956c\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-iid-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-license-12.0.1.aar\ea136b2347c59838a425bc1f824d956c\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\c9099ad56440377c4af5ce3269fd2b68\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-license-12.0.1.aar\c9099ad56440377c4af5ce3269fd2b68\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\81a9ef6cc68d72f6c5163fa4bdc674bd\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-common-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-license-12.0.1.aar\81a9ef6cc68d72f6c5163fa4bdc674bd\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\a3f96e20a9485be951c13213f28d1155\AndroidManifest.xml:20:5-44
+MERGED from [com.google.firebase:firebase-analytics-impl-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-12.0.1.aar\a3f96e20a9485be951c13213f28d1155\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\96afe4d17a5b807587fbf1a91c7c6987\AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-tasks-license:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-tasks-license-12.0.1.aar\96afe4d17a5b807587fbf1a91c7c6987\AndroidManifest.xml:20:5-44
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+		ADDED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Users\niraj.kumar\AndroidStudioProjects\IPOS\app\src\main\AndroidManifest.xml
+uses-permission#android.permission.VIBRATE
+ADDED from [com.wdullaer:materialdatetimepicker:3.6.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\materialdatetimepicker-3.6.0.aar\219612c38b613a6f45dbe2df157971ae\AndroidManifest.xml:26:5-66
+	android:name
+		ADDED from [com.wdullaer:materialdatetimepicker:3.6.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\materialdatetimepicker-3.6.0.aar\219612c38b613a6f45dbe2df157971ae\AndroidManifest.xml:26:22-63
+service#com.google.firebase.messaging.FirebaseMessagingService
+ADDED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\0151830402b75edc8678837d576caa2f\AndroidManifest.xml:28:9-34:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\0151830402b75edc8678837d576caa2f\AndroidManifest.xml:30:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-messaging:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-messaging-12.0.1.aar\0151830402b75edc8678837d576caa2f\AndroidManifest.xml:29:13-82
+uses-permission#android.permission.WAKE_LOCK
+ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:25:5-68
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:25:5-68
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:25:5-68
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:24:5-68
+MERGED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:24:5-68
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:25:22-65
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:28:9-32:20
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:28:9-32:20
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:28:9-32:20
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:30:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:31:13-37
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:29:13-85
+receiver#com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver
+ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:33:9-41:20
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:35:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:36:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:37:13-69
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:34:13-100
+intent-filter#action:name:com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:38:13-40:29
+action#com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:39:17-79
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:39:25-76
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:43:9-46:40
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:34:9-37:40
+MERGED from [com.google.firebase:firebase-analytics-impl:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-12.0.1.aar\c142276f976bc19ebdf82a0e5afb2042\AndroidManifest.xml:34:9-37:40
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:45:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:46:13-37
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:44:13-84
+service#com.google.android.gms.measurement.AppMeasurementJobService
+ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:47:9-51:72
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:49:13-35
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:50:13-37
+	android:permission
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:51:13-69
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-analytics-12.0.1.aar\c55cdb97e098ff745ecb4a2577c9f42e\AndroidManifest.xml:48:13-87
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:26:5-82
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:26:22-79
+permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:28:5-30:47
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:30:9-44
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:29:9-63
+permission#quay.com.ipos.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:28:5-30:47
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:30:9-44
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:29:9-63
+uses-permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:32:5-79
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:32:22-76
+uses-permission#quay.com.ipos.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:32:5-79
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:32:22-76
+receiver#com.google.firebase.iid.FirebaseInstanceIdReceiver
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:35:9-44:20
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:37:13-36
+	android:permission
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:38:13-73
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:36:13-78
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE+category:name:${applicationId}
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:39:13-43:29
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE+category:name:quay.com.ipos
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:39:13-43:29
+action#com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:40:17-81
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:40:25-78
+category#${applicationId}
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:42:17-61
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:42:27-58
+category#quay.com.ipos
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:42:17-61
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:42:27-58
+service#com.google.firebase.iid.FirebaseInstanceIdService
+ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:50:9-56:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:52:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-iid-12.0.1.aar\f93d23b26fa5008b1d202ffe80e18a0a\AndroidManifest.xml:51:13-77
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\4c01a85d56992fd681d68301fd6685d0\AndroidManifest.xml:8:9-12:39
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\4c01a85d56992fd681d68301fd6685d0\AndroidManifest.xml:10:13-72
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\4c01a85d56992fd681d68301fd6685d0\AndroidManifest.xml:11:13-37
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\4c01a85d56992fd681d68301fd6685d0\AndroidManifest.xml:12:13-36
+	android:name
+		ADDED from [com.google.firebase:firebase-common:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\firebase-common-12.0.1.aar\4c01a85d56992fd681d68301fd6685d0\AndroidManifest.xml:9:13-77
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\10ae1dc56beda481ff675cbb15a59a33\AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\10ae1dc56beda481ff675cbb15a59a33\AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:12.0.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\play-services-basement-12.0.1.aar\10ae1dc56beda481ff675cbb15a59a33\AndroidManifest.xml:24:13-58
+meta-data#android.support.VERSION
+ADDED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0a3546a475d51cd71d2014d1a4360bc6\AndroidManifest.xml:23:9-25:38
+	android:value
+		ADDED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0a3546a475d51cd71d2014d1a4360bc6\AndroidManifest.xml:25:13-35
+	android:name
+		ADDED from [com.android.support:cardview-v7:26.1.0] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\cardview-v7-26.1.0.aar\0a3546a475d51cd71d2014d1a4360bc6\AndroidManifest.xml:24:13-51
+provider#com.squareup.picasso.PicassoProvider
+ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\picasso-2.71828.aar\a9162f54bfad5e45309a1eab33793e9c\AndroidManifest.xml:8:9-11:40
+	android:authorities
+		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\picasso-2.71828.aar\a9162f54bfad5e45309a1eab33793e9c\AndroidManifest.xml:10:13-72
+	android:exported
+		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\picasso-2.71828.aar\a9162f54bfad5e45309a1eab33793e9c\AndroidManifest.xml:11:13-37
+	android:name
+		ADDED from [com.squareup.picasso:picasso:2.71828] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\picasso-2.71828.aar\a9162f54bfad5e45309a1eab33793e9c\AndroidManifest.xml:9:13-64
+provider#android.arch.lifecycle.ProcessLifecycleOwnerInitializer
+ADDED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\929be6c4fbeec4f9beca4a27fcdb9cd0\AndroidManifest.xml:23:9-27:43
+	android:authorities
+		ADDED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\929be6c4fbeec4f9beca4a27fcdb9cd0\AndroidManifest.xml:25:13-68
+	android:multiprocess
+		ADDED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\929be6c4fbeec4f9beca4a27fcdb9cd0\AndroidManifest.xml:27:13-40
+	android:exported
+		ADDED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\929be6c4fbeec4f9beca4a27fcdb9cd0\AndroidManifest.xml:26:13-37
+	android:name
+		ADDED from [android.arch.lifecycle:extensions:1.1.1] C:\Users\niraj.kumar\.gradle\caches\transforms-1\files-1.1\extensions-1.1.1.aar\929be6c4fbeec4f9beca4a27fcdb9cd0\AndroidManifest.xml:24:13-83

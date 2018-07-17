@@ -1,0 +1,901 @@
+package io.realm;
+
+
+import android.util.JsonReader;
+import io.realm.RealmObjectSchema;
+import io.realm.internal.ColumnInfo;
+import io.realm.internal.RealmObjectProxy;
+import io.realm.internal.RealmProxyMediator;
+import io.realm.internal.Row;
+import io.realm.internal.SharedRealm;
+import io.realm.internal.Table;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+@io.realm.annotations.RealmModule
+class DefaultRealmModuleMediator extends RealmProxyMediator {
+
+    private static final Set<Class<? extends RealmModel>> MODEL_CLASSES;
+    static {
+        Set<Class<? extends RealmModel>> modelClasses = new HashSet<Class<? extends RealmModel>>();
+        modelClasses.add(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class);
+        modelClasses.add(quay.com.ipos.realmbean.RealmOrderCentre.class);
+        modelClasses.add(quay.com.ipos.realmbean.RealmInventoryProducts.class);
+        modelClasses.add(quay.com.ipos.realmbean.RealmNewOrderCart.class);
+        modelClasses.add(quay.com.ipos.realmbean.RealmPOInventory.class);
+        modelClasses.add(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class);
+        modelClasses.add(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class);
+        modelClasses.add(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class);
+        modelClasses.add(quay.com.ipos.realmbean.RealmUserDetail.class);
+        modelClasses.add(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class);
+        modelClasses.add(quay.com.ipos.realmbean.RealmBusinessPlaces.class);
+        modelClasses.add(quay.com.ipos.ddrsales.model.DDRProduct.class);
+        modelClasses.add(quay.com.ipos.realmbean.RealmOrderList.class);
+        modelClasses.add(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class);
+        modelClasses.add(quay.com.ipos.realmbean.RealmGRNDetails.class);
+        modelClasses.add(quay.com.ipos.realmbean.RealmOrderCentreSummary.class);
+        modelClasses.add(quay.com.ipos.realmbean.RealmCustomerInfoModal.class);
+        modelClasses.add(quay.com.ipos.ddrsales.model.RealmDDROrderList.class);
+        MODEL_CLASSES = Collections.unmodifiableSet(modelClasses);
+    }
+
+    @Override
+    public RealmObjectSchema createRealmObjectSchema(Class<? extends RealmModel> clazz, RealmSchema realmSchema) {
+        checkClass(clazz);
+
+        if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+            return io.realm.RealmKycDetailsRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+            return io.realm.RealmOrderCentreRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+            return io.realm.RealmInventoryProductsRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+            return io.realm.RealmNewOrderCartRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+            return io.realm.RealmPOInventoryRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+            return io.realm.RealmInventoryTabDataOldRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+            return io.realm.RealmGRNUpdateDetailsRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+            return io.realm.CatalogueModalRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+            return io.realm.RealmUserDetailRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+            return io.realm.RealmTransferDetailsUpdateRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+            return io.realm.RealmBusinessPlacesRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+            return io.realm.DDRProductRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+            return io.realm.RealmOrderListRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+            return io.realm.RealmTransferDetailRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+            return io.realm.RealmGRNDetailsRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+            return io.realm.RealmOrderCentreSummaryRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+            return io.realm.RealmCustomerInfoModalRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+            return io.realm.RealmDDROrderListRealmProxy.createRealmObjectSchema(realmSchema);
+        }
+        throw getMissingProxyClassException(clazz);
+    }
+
+    @Override
+    public ColumnInfo validateTable(Class<? extends RealmModel> clazz, SharedRealm sharedRealm, boolean allowExtraColumns) {
+        checkClass(clazz);
+
+        if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+            return io.realm.RealmKycDetailsRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+            return io.realm.RealmOrderCentreRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+            return io.realm.RealmInventoryProductsRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+            return io.realm.RealmNewOrderCartRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+            return io.realm.RealmPOInventoryRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+            return io.realm.RealmInventoryTabDataOldRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+            return io.realm.RealmGRNUpdateDetailsRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+            return io.realm.CatalogueModalRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+            return io.realm.RealmUserDetailRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+            return io.realm.RealmTransferDetailsUpdateRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+            return io.realm.RealmBusinessPlacesRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+            return io.realm.DDRProductRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+            return io.realm.RealmOrderListRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+            return io.realm.RealmTransferDetailRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+            return io.realm.RealmGRNDetailsRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+            return io.realm.RealmOrderCentreSummaryRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+            return io.realm.RealmCustomerInfoModalRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+            return io.realm.RealmDDROrderListRealmProxy.validateTable(sharedRealm, allowExtraColumns);
+        }
+        throw getMissingProxyClassException(clazz);
+    }
+
+    @Override
+    public List<String> getFieldNames(Class<? extends RealmModel> clazz) {
+        checkClass(clazz);
+
+        if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+            return io.realm.RealmKycDetailsRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+            return io.realm.RealmOrderCentreRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+            return io.realm.RealmInventoryProductsRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+            return io.realm.RealmNewOrderCartRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+            return io.realm.RealmPOInventoryRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+            return io.realm.RealmInventoryTabDataOldRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+            return io.realm.RealmGRNUpdateDetailsRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+            return io.realm.CatalogueModalRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+            return io.realm.RealmUserDetailRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+            return io.realm.RealmTransferDetailsUpdateRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+            return io.realm.RealmBusinessPlacesRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+            return io.realm.DDRProductRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+            return io.realm.RealmOrderListRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+            return io.realm.RealmTransferDetailRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+            return io.realm.RealmGRNDetailsRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+            return io.realm.RealmOrderCentreSummaryRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+            return io.realm.RealmCustomerInfoModalRealmProxy.getFieldNames();
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+            return io.realm.RealmDDROrderListRealmProxy.getFieldNames();
+        }
+        throw getMissingProxyClassException(clazz);
+    }
+
+    @Override
+    public String getTableName(Class<? extends RealmModel> clazz) {
+        checkClass(clazz);
+
+        if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+            return io.realm.RealmKycDetailsRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+            return io.realm.RealmOrderCentreRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+            return io.realm.RealmInventoryProductsRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+            return io.realm.RealmNewOrderCartRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+            return io.realm.RealmPOInventoryRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+            return io.realm.RealmInventoryTabDataOldRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+            return io.realm.RealmGRNUpdateDetailsRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+            return io.realm.CatalogueModalRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+            return io.realm.RealmUserDetailRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+            return io.realm.RealmTransferDetailsUpdateRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+            return io.realm.RealmBusinessPlacesRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+            return io.realm.DDRProductRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+            return io.realm.RealmOrderListRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+            return io.realm.RealmTransferDetailRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+            return io.realm.RealmGRNDetailsRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+            return io.realm.RealmOrderCentreSummaryRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+            return io.realm.RealmCustomerInfoModalRealmProxy.getTableName();
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+            return io.realm.RealmDDROrderListRealmProxy.getTableName();
+        }
+        throw getMissingProxyClassException(clazz);
+    }
+
+    @Override
+    public <E extends RealmModel> E newInstance(Class<E> clazz, Object baseRealm, Row row, ColumnInfo columnInfo, boolean acceptDefaultValue, List<String> excludeFields) {
+        final BaseRealm.RealmObjectContext objectContext = BaseRealm.objectContext.get();
+        try {
+            objectContext.set((BaseRealm) baseRealm, row, columnInfo, acceptDefaultValue, excludeFields);
+            checkClass(clazz);
+
+            if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+                return clazz.cast(new io.realm.RealmKycDetailsRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+                return clazz.cast(new io.realm.RealmOrderCentreRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+                return clazz.cast(new io.realm.RealmInventoryProductsRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+                return clazz.cast(new io.realm.RealmNewOrderCartRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+                return clazz.cast(new io.realm.RealmPOInventoryRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+                return clazz.cast(new io.realm.RealmInventoryTabDataOldRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+                return clazz.cast(new io.realm.RealmGRNUpdateDetailsRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+                return clazz.cast(new io.realm.CatalogueModalRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+                return clazz.cast(new io.realm.RealmUserDetailRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+                return clazz.cast(new io.realm.RealmTransferDetailsUpdateRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+                return clazz.cast(new io.realm.RealmBusinessPlacesRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+                return clazz.cast(new io.realm.DDRProductRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+                return clazz.cast(new io.realm.RealmOrderListRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+                return clazz.cast(new io.realm.RealmTransferDetailRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+                return clazz.cast(new io.realm.RealmGRNDetailsRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+                return clazz.cast(new io.realm.RealmOrderCentreSummaryRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+                return clazz.cast(new io.realm.RealmCustomerInfoModalRealmProxy());
+            }
+            if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+                return clazz.cast(new io.realm.RealmDDROrderListRealmProxy());
+            }
+            throw getMissingProxyClassException(clazz);
+        } finally {
+            objectContext.clear();
+        }
+    }
+
+    @Override
+    public Set<Class<? extends RealmModel>> getModelClasses() {
+        return MODEL_CLASSES;
+    }
+
+    @Override
+    public <E extends RealmModel> E copyOrUpdate(Realm realm, E obj, boolean update, Map<RealmModel, RealmObjectProxy> cache) {
+        // This cast is correct because obj is either
+        // generated by RealmProxy or the original type extending directly from RealmObject
+        @SuppressWarnings("unchecked") Class<E> clazz = (Class<E>) ((obj instanceof RealmObjectProxy) ? obj.getClass().getSuperclass() : obj.getClass());
+
+        if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+            return clazz.cast(io.realm.RealmKycDetailsRealmProxy.copyOrUpdate(realm, (quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+            return clazz.cast(io.realm.RealmOrderCentreRealmProxy.copyOrUpdate(realm, (quay.com.ipos.realmbean.RealmOrderCentre) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+            return clazz.cast(io.realm.RealmInventoryProductsRealmProxy.copyOrUpdate(realm, (quay.com.ipos.realmbean.RealmInventoryProducts) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+            return clazz.cast(io.realm.RealmNewOrderCartRealmProxy.copyOrUpdate(realm, (quay.com.ipos.realmbean.RealmNewOrderCart) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+            return clazz.cast(io.realm.RealmPOInventoryRealmProxy.copyOrUpdate(realm, (quay.com.ipos.realmbean.RealmPOInventory) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+            return clazz.cast(io.realm.RealmInventoryTabDataOldRealmProxy.copyOrUpdate(realm, (quay.com.ipos.inventory.modal.RealmInventoryTabDataOld) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+            return clazz.cast(io.realm.RealmGRNUpdateDetailsRealmProxy.copyOrUpdate(realm, (quay.com.ipos.inventory.modal.RealmGRNUpdateDetails) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+            return clazz.cast(io.realm.CatalogueModalRealmProxy.copyOrUpdate(realm, (quay.com.ipos.productCatalogue.productModal.CatalogueModal) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+            return clazz.cast(io.realm.RealmUserDetailRealmProxy.copyOrUpdate(realm, (quay.com.ipos.realmbean.RealmUserDetail) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+            return clazz.cast(io.realm.RealmTransferDetailsUpdateRealmProxy.copyOrUpdate(realm, (quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+            return clazz.cast(io.realm.RealmBusinessPlacesRealmProxy.copyOrUpdate(realm, (quay.com.ipos.realmbean.RealmBusinessPlaces) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+            return clazz.cast(io.realm.DDRProductRealmProxy.copyOrUpdate(realm, (quay.com.ipos.ddrsales.model.DDRProduct) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+            return clazz.cast(io.realm.RealmOrderListRealmProxy.copyOrUpdate(realm, (quay.com.ipos.realmbean.RealmOrderList) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+            return clazz.cast(io.realm.RealmTransferDetailRealmProxy.copyOrUpdate(realm, (quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+            return clazz.cast(io.realm.RealmGRNDetailsRealmProxy.copyOrUpdate(realm, (quay.com.ipos.realmbean.RealmGRNDetails) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+            return clazz.cast(io.realm.RealmOrderCentreSummaryRealmProxy.copyOrUpdate(realm, (quay.com.ipos.realmbean.RealmOrderCentreSummary) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+            return clazz.cast(io.realm.RealmCustomerInfoModalRealmProxy.copyOrUpdate(realm, (quay.com.ipos.realmbean.RealmCustomerInfoModal) obj, update, cache));
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+            return clazz.cast(io.realm.RealmDDROrderListRealmProxy.copyOrUpdate(realm, (quay.com.ipos.ddrsales.model.RealmDDROrderList) obj, update, cache));
+        }
+        throw getMissingProxyClassException(clazz);
+    }
+
+    @Override
+    public void insert(Realm realm, RealmModel object, Map<RealmModel, Long> cache) {
+        // This cast is correct because obj is either
+        // generated by RealmProxy or the original type extending directly from RealmObject
+        @SuppressWarnings("unchecked") Class<RealmModel> clazz = (Class<RealmModel>) ((object instanceof RealmObjectProxy) ? object.getClass().getSuperclass() : object.getClass());
+
+        if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+            io.realm.RealmKycDetailsRealmProxy.insert(realm, (quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails) object, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+            io.realm.RealmOrderCentreRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmOrderCentre) object, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+            io.realm.RealmInventoryProductsRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmInventoryProducts) object, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+            io.realm.RealmNewOrderCartRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmNewOrderCart) object, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+            io.realm.RealmPOInventoryRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmPOInventory) object, cache);
+        } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+            io.realm.RealmInventoryTabDataOldRealmProxy.insert(realm, (quay.com.ipos.inventory.modal.RealmInventoryTabDataOld) object, cache);
+        } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+            io.realm.RealmGRNUpdateDetailsRealmProxy.insert(realm, (quay.com.ipos.inventory.modal.RealmGRNUpdateDetails) object, cache);
+        } else if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+            io.realm.CatalogueModalRealmProxy.insert(realm, (quay.com.ipos.productCatalogue.productModal.CatalogueModal) object, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+            io.realm.RealmUserDetailRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmUserDetail) object, cache);
+        } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+            io.realm.RealmTransferDetailsUpdateRealmProxy.insert(realm, (quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate) object, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+            io.realm.RealmBusinessPlacesRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmBusinessPlaces) object, cache);
+        } else if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+            io.realm.DDRProductRealmProxy.insert(realm, (quay.com.ipos.ddrsales.model.DDRProduct) object, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+            io.realm.RealmOrderListRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmOrderList) object, cache);
+        } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+            io.realm.RealmTransferDetailRealmProxy.insert(realm, (quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail) object, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+            io.realm.RealmGRNDetailsRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmGRNDetails) object, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+            io.realm.RealmOrderCentreSummaryRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmOrderCentreSummary) object, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+            io.realm.RealmCustomerInfoModalRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmCustomerInfoModal) object, cache);
+        } else if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+            io.realm.RealmDDROrderListRealmProxy.insert(realm, (quay.com.ipos.ddrsales.model.RealmDDROrderList) object, cache);
+        } else {
+            throw getMissingProxyClassException(clazz);
+        }
+    }
+
+    @Override
+    public void insert(Realm realm, Collection<? extends RealmModel> objects) {
+        Iterator<? extends RealmModel> iterator = objects.iterator();
+        RealmModel object = null;
+        Map<RealmModel, Long> cache = new HashMap<RealmModel, Long>(objects.size());
+        if (iterator.hasNext()) {
+            //  access the first element to figure out the clazz for the routing below
+            object = iterator.next();
+            // This cast is correct because obj is either
+            // generated by RealmProxy or the original type extending directly from RealmObject
+            @SuppressWarnings("unchecked") Class<RealmModel> clazz = (Class<RealmModel>) ((object instanceof RealmObjectProxy) ? object.getClass().getSuperclass() : object.getClass());
+
+            if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+                io.realm.RealmKycDetailsRealmProxy.insert(realm, (quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+                io.realm.RealmOrderCentreRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmOrderCentre) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+                io.realm.RealmInventoryProductsRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmInventoryProducts) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+                io.realm.RealmNewOrderCartRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmNewOrderCart) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+                io.realm.RealmPOInventoryRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmPOInventory) object, cache);
+            } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+                io.realm.RealmInventoryTabDataOldRealmProxy.insert(realm, (quay.com.ipos.inventory.modal.RealmInventoryTabDataOld) object, cache);
+            } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+                io.realm.RealmGRNUpdateDetailsRealmProxy.insert(realm, (quay.com.ipos.inventory.modal.RealmGRNUpdateDetails) object, cache);
+            } else if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+                io.realm.CatalogueModalRealmProxy.insert(realm, (quay.com.ipos.productCatalogue.productModal.CatalogueModal) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+                io.realm.RealmUserDetailRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmUserDetail) object, cache);
+            } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+                io.realm.RealmTransferDetailsUpdateRealmProxy.insert(realm, (quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+                io.realm.RealmBusinessPlacesRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmBusinessPlaces) object, cache);
+            } else if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+                io.realm.DDRProductRealmProxy.insert(realm, (quay.com.ipos.ddrsales.model.DDRProduct) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+                io.realm.RealmOrderListRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmOrderList) object, cache);
+            } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+                io.realm.RealmTransferDetailRealmProxy.insert(realm, (quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+                io.realm.RealmGRNDetailsRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmGRNDetails) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+                io.realm.RealmOrderCentreSummaryRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmOrderCentreSummary) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+                io.realm.RealmCustomerInfoModalRealmProxy.insert(realm, (quay.com.ipos.realmbean.RealmCustomerInfoModal) object, cache);
+            } else if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+                io.realm.RealmDDROrderListRealmProxy.insert(realm, (quay.com.ipos.ddrsales.model.RealmDDROrderList) object, cache);
+            } else {
+                throw getMissingProxyClassException(clazz);
+            }
+            if (iterator.hasNext()) {
+                if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+                    io.realm.RealmKycDetailsRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+                    io.realm.RealmOrderCentreRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+                    io.realm.RealmInventoryProductsRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+                    io.realm.RealmNewOrderCartRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+                    io.realm.RealmPOInventoryRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+                    io.realm.RealmInventoryTabDataOldRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+                    io.realm.RealmGRNUpdateDetailsRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+                    io.realm.CatalogueModalRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+                    io.realm.RealmUserDetailRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+                    io.realm.RealmTransferDetailsUpdateRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+                    io.realm.RealmBusinessPlacesRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+                    io.realm.DDRProductRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+                    io.realm.RealmOrderListRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+                    io.realm.RealmTransferDetailRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+                    io.realm.RealmGRNDetailsRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+                    io.realm.RealmOrderCentreSummaryRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+                    io.realm.RealmCustomerInfoModalRealmProxy.insert(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+                    io.realm.RealmDDROrderListRealmProxy.insert(realm, iterator, cache);
+                } else {
+                    throw getMissingProxyClassException(clazz);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void insertOrUpdate(Realm realm, RealmModel obj, Map<RealmModel, Long> cache) {
+        // This cast is correct because obj is either
+        // generated by RealmProxy or the original type extending directly from RealmObject
+        @SuppressWarnings("unchecked") Class<RealmModel> clazz = (Class<RealmModel>) ((obj instanceof RealmObjectProxy) ? obj.getClass().getSuperclass() : obj.getClass());
+
+        if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+            io.realm.RealmKycDetailsRealmProxy.insertOrUpdate(realm, (quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+            io.realm.RealmOrderCentreRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmOrderCentre) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+            io.realm.RealmInventoryProductsRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmInventoryProducts) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+            io.realm.RealmNewOrderCartRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmNewOrderCart) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+            io.realm.RealmPOInventoryRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmPOInventory) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+            io.realm.RealmInventoryTabDataOldRealmProxy.insertOrUpdate(realm, (quay.com.ipos.inventory.modal.RealmInventoryTabDataOld) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+            io.realm.RealmGRNUpdateDetailsRealmProxy.insertOrUpdate(realm, (quay.com.ipos.inventory.modal.RealmGRNUpdateDetails) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+            io.realm.CatalogueModalRealmProxy.insertOrUpdate(realm, (quay.com.ipos.productCatalogue.productModal.CatalogueModal) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+            io.realm.RealmUserDetailRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmUserDetail) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+            io.realm.RealmTransferDetailsUpdateRealmProxy.insertOrUpdate(realm, (quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+            io.realm.RealmBusinessPlacesRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmBusinessPlaces) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+            io.realm.DDRProductRealmProxy.insertOrUpdate(realm, (quay.com.ipos.ddrsales.model.DDRProduct) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+            io.realm.RealmOrderListRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmOrderList) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+            io.realm.RealmTransferDetailRealmProxy.insertOrUpdate(realm, (quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+            io.realm.RealmGRNDetailsRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmGRNDetails) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+            io.realm.RealmOrderCentreSummaryRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmOrderCentreSummary) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+            io.realm.RealmCustomerInfoModalRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmCustomerInfoModal) obj, cache);
+        } else if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+            io.realm.RealmDDROrderListRealmProxy.insertOrUpdate(realm, (quay.com.ipos.ddrsales.model.RealmDDROrderList) obj, cache);
+        } else {
+            throw getMissingProxyClassException(clazz);
+        }
+    }
+
+    @Override
+    public void insertOrUpdate(Realm realm, Collection<? extends RealmModel> objects) {
+        Iterator<? extends RealmModel> iterator = objects.iterator();
+        RealmModel object = null;
+        Map<RealmModel, Long> cache = new HashMap<RealmModel, Long>(objects.size());
+        if (iterator.hasNext()) {
+            //  access the first element to figure out the clazz for the routing below
+            object = iterator.next();
+            // This cast is correct because obj is either
+            // generated by RealmProxy or the original type extending directly from RealmObject
+            @SuppressWarnings("unchecked") Class<RealmModel> clazz = (Class<RealmModel>) ((object instanceof RealmObjectProxy) ? object.getClass().getSuperclass() : object.getClass());
+
+            if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+                io.realm.RealmKycDetailsRealmProxy.insertOrUpdate(realm, (quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+                io.realm.RealmOrderCentreRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmOrderCentre) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+                io.realm.RealmInventoryProductsRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmInventoryProducts) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+                io.realm.RealmNewOrderCartRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmNewOrderCart) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+                io.realm.RealmPOInventoryRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmPOInventory) object, cache);
+            } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+                io.realm.RealmInventoryTabDataOldRealmProxy.insertOrUpdate(realm, (quay.com.ipos.inventory.modal.RealmInventoryTabDataOld) object, cache);
+            } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+                io.realm.RealmGRNUpdateDetailsRealmProxy.insertOrUpdate(realm, (quay.com.ipos.inventory.modal.RealmGRNUpdateDetails) object, cache);
+            } else if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+                io.realm.CatalogueModalRealmProxy.insertOrUpdate(realm, (quay.com.ipos.productCatalogue.productModal.CatalogueModal) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+                io.realm.RealmUserDetailRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmUserDetail) object, cache);
+            } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+                io.realm.RealmTransferDetailsUpdateRealmProxy.insertOrUpdate(realm, (quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+                io.realm.RealmBusinessPlacesRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmBusinessPlaces) object, cache);
+            } else if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+                io.realm.DDRProductRealmProxy.insertOrUpdate(realm, (quay.com.ipos.ddrsales.model.DDRProduct) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+                io.realm.RealmOrderListRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmOrderList) object, cache);
+            } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+                io.realm.RealmTransferDetailRealmProxy.insertOrUpdate(realm, (quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+                io.realm.RealmGRNDetailsRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmGRNDetails) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+                io.realm.RealmOrderCentreSummaryRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmOrderCentreSummary) object, cache);
+            } else if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+                io.realm.RealmCustomerInfoModalRealmProxy.insertOrUpdate(realm, (quay.com.ipos.realmbean.RealmCustomerInfoModal) object, cache);
+            } else if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+                io.realm.RealmDDROrderListRealmProxy.insertOrUpdate(realm, (quay.com.ipos.ddrsales.model.RealmDDROrderList) object, cache);
+            } else {
+                throw getMissingProxyClassException(clazz);
+            }
+            if (iterator.hasNext()) {
+                if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+                    io.realm.RealmKycDetailsRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+                    io.realm.RealmOrderCentreRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+                    io.realm.RealmInventoryProductsRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+                    io.realm.RealmNewOrderCartRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+                    io.realm.RealmPOInventoryRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+                    io.realm.RealmInventoryTabDataOldRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+                    io.realm.RealmGRNUpdateDetailsRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+                    io.realm.CatalogueModalRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+                    io.realm.RealmUserDetailRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+                    io.realm.RealmTransferDetailsUpdateRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+                    io.realm.RealmBusinessPlacesRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+                    io.realm.DDRProductRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+                    io.realm.RealmOrderListRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+                    io.realm.RealmTransferDetailRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+                    io.realm.RealmGRNDetailsRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+                    io.realm.RealmOrderCentreSummaryRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+                    io.realm.RealmCustomerInfoModalRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+                    io.realm.RealmDDROrderListRealmProxy.insertOrUpdate(realm, iterator, cache);
+                } else {
+                    throw getMissingProxyClassException(clazz);
+                }
+            }
+        }
+    }
+
+    @Override
+    public <E extends RealmModel> E createOrUpdateUsingJsonObject(Class<E> clazz, Realm realm, JSONObject json, boolean update)
+        throws JSONException {
+        checkClass(clazz);
+
+        if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+            return clazz.cast(io.realm.RealmKycDetailsRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+            return clazz.cast(io.realm.RealmOrderCentreRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+            return clazz.cast(io.realm.RealmInventoryProductsRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+            return clazz.cast(io.realm.RealmNewOrderCartRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+            return clazz.cast(io.realm.RealmPOInventoryRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+            return clazz.cast(io.realm.RealmInventoryTabDataOldRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+            return clazz.cast(io.realm.RealmGRNUpdateDetailsRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+            return clazz.cast(io.realm.CatalogueModalRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+            return clazz.cast(io.realm.RealmUserDetailRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+            return clazz.cast(io.realm.RealmTransferDetailsUpdateRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+            return clazz.cast(io.realm.RealmBusinessPlacesRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+            return clazz.cast(io.realm.DDRProductRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+            return clazz.cast(io.realm.RealmOrderListRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+            return clazz.cast(io.realm.RealmTransferDetailRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+            return clazz.cast(io.realm.RealmGRNDetailsRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+            return clazz.cast(io.realm.RealmOrderCentreSummaryRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+            return clazz.cast(io.realm.RealmCustomerInfoModalRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+            return clazz.cast(io.realm.RealmDDROrderListRealmProxy.createOrUpdateUsingJsonObject(realm, json, update));
+        }
+        throw getMissingProxyClassException(clazz);
+    }
+
+    @Override
+    public <E extends RealmModel> E createUsingJsonStream(Class<E> clazz, Realm realm, JsonReader reader)
+        throws IOException {
+        checkClass(clazz);
+
+        if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+            return clazz.cast(io.realm.RealmKycDetailsRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+            return clazz.cast(io.realm.RealmOrderCentreRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+            return clazz.cast(io.realm.RealmInventoryProductsRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+            return clazz.cast(io.realm.RealmNewOrderCartRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+            return clazz.cast(io.realm.RealmPOInventoryRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+            return clazz.cast(io.realm.RealmInventoryTabDataOldRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+            return clazz.cast(io.realm.RealmGRNUpdateDetailsRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+            return clazz.cast(io.realm.CatalogueModalRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+            return clazz.cast(io.realm.RealmUserDetailRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+            return clazz.cast(io.realm.RealmTransferDetailsUpdateRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+            return clazz.cast(io.realm.RealmBusinessPlacesRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+            return clazz.cast(io.realm.DDRProductRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+            return clazz.cast(io.realm.RealmOrderListRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+            return clazz.cast(io.realm.RealmTransferDetailRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+            return clazz.cast(io.realm.RealmGRNDetailsRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+            return clazz.cast(io.realm.RealmOrderCentreSummaryRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+            return clazz.cast(io.realm.RealmCustomerInfoModalRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+            return clazz.cast(io.realm.RealmDDROrderListRealmProxy.createUsingJsonStream(realm, reader));
+        }
+        throw getMissingProxyClassException(clazz);
+    }
+
+    @Override
+    public <E extends RealmModel> E createDetachedCopy(E realmObject, int maxDepth, Map<RealmModel, RealmObjectProxy.CacheData<RealmModel>> cache) {
+        // This cast is correct because obj is either
+        // generated by RealmProxy or the original type extending directly from RealmObject
+        @SuppressWarnings("unchecked") Class<E> clazz = (Class<E>) realmObject.getClass().getSuperclass();
+
+        if (clazz.equals(quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails.class)) {
+            return clazz.cast(io.realm.RealmKycDetailsRealmProxy.createDetachedCopy((quay.com.ipos.partnerConnect.kyc.model.RealmKycDetails) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentre.class)) {
+            return clazz.cast(io.realm.RealmOrderCentreRealmProxy.createDetachedCopy((quay.com.ipos.realmbean.RealmOrderCentre) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmInventoryProducts.class)) {
+            return clazz.cast(io.realm.RealmInventoryProductsRealmProxy.createDetachedCopy((quay.com.ipos.realmbean.RealmInventoryProducts) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmNewOrderCart.class)) {
+            return clazz.cast(io.realm.RealmNewOrderCartRealmProxy.createDetachedCopy((quay.com.ipos.realmbean.RealmNewOrderCart) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmPOInventory.class)) {
+            return clazz.cast(io.realm.RealmPOInventoryRealmProxy.createDetachedCopy((quay.com.ipos.realmbean.RealmPOInventory) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmInventoryTabDataOld.class)) {
+            return clazz.cast(io.realm.RealmInventoryTabDataOldRealmProxy.createDetachedCopy((quay.com.ipos.inventory.modal.RealmInventoryTabDataOld) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.inventory.modal.RealmGRNUpdateDetails.class)) {
+            return clazz.cast(io.realm.RealmGRNUpdateDetailsRealmProxy.createDetachedCopy((quay.com.ipos.inventory.modal.RealmGRNUpdateDetails) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.productCatalogue.productModal.CatalogueModal.class)) {
+            return clazz.cast(io.realm.CatalogueModalRealmProxy.createDetachedCopy((quay.com.ipos.productCatalogue.productModal.CatalogueModal) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmUserDetail.class)) {
+            return clazz.cast(io.realm.RealmUserDetailRealmProxy.createDetachedCopy((quay.com.ipos.realmbean.RealmUserDetail) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate.class)) {
+            return clazz.cast(io.realm.RealmTransferDetailsUpdateRealmProxy.createDetachedCopy((quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetailsUpdate) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmBusinessPlaces.class)) {
+            return clazz.cast(io.realm.RealmBusinessPlacesRealmProxy.createDetachedCopy((quay.com.ipos.realmbean.RealmBusinessPlaces) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.DDRProduct.class)) {
+            return clazz.cast(io.realm.DDRProductRealmProxy.createDetachedCopy((quay.com.ipos.ddrsales.model.DDRProduct) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderList.class)) {
+            return clazz.cast(io.realm.RealmOrderListRealmProxy.createDetachedCopy((quay.com.ipos.realmbean.RealmOrderList) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail.class)) {
+            return clazz.cast(io.realm.RealmTransferDetailRealmProxy.createDetachedCopy((quay.com.ipos.inventoryTrasfer.inventoryTransferIn.transferInModel.RealmTransferDetail) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmGRNDetails.class)) {
+            return clazz.cast(io.realm.RealmGRNDetailsRealmProxy.createDetachedCopy((quay.com.ipos.realmbean.RealmGRNDetails) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmOrderCentreSummary.class)) {
+            return clazz.cast(io.realm.RealmOrderCentreSummaryRealmProxy.createDetachedCopy((quay.com.ipos.realmbean.RealmOrderCentreSummary) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.realmbean.RealmCustomerInfoModal.class)) {
+            return clazz.cast(io.realm.RealmCustomerInfoModalRealmProxy.createDetachedCopy((quay.com.ipos.realmbean.RealmCustomerInfoModal) realmObject, 0, maxDepth, cache));
+        }
+        if (clazz.equals(quay.com.ipos.ddrsales.model.RealmDDROrderList.class)) {
+            return clazz.cast(io.realm.RealmDDROrderListRealmProxy.createDetachedCopy((quay.com.ipos.ddrsales.model.RealmDDROrderList) realmObject, 0, maxDepth, cache));
+        }
+        throw getMissingProxyClassException(clazz);
+    }
+
+}

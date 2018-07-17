@@ -30,4 +30,8 @@ public interface EmployeeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long saveTask(Employee task);
+
+
+    @Query("DELETE FROM employee")
+    void delete();
 }

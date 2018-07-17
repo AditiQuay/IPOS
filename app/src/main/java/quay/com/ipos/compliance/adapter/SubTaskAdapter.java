@@ -14,6 +14,7 @@ import java.util.List;
 
 import quay.com.ipos.R;
 import quay.com.ipos.compliance.SubTaskActivity;
+import quay.com.ipos.compliance.constants.AnnotationTaskState;
 import quay.com.ipos.compliance.data.local.entity.SubTask;
 import quay.com.ipos.utility.DateAndTimeUtil;
 
@@ -44,7 +45,7 @@ public class SubTaskAdapter extends RecyclerView.Adapter<SubTaskAdapter.SubTaskV
     public void onBindViewHolder(final SubTaskVH holder, int position) {
         try {
             final SubTask subTask = list.get(position);
-            holder.textName.setText("lid:"+subTask.getSub_task_id()+", sid:"+subTask.id+", Name"+subTask.task_name);
+            holder.textName.setText("subTaskID:"+subTask.id+", Name"+subTask.task_name);
             Calendar calendar = DateAndTimeUtil.parseDateAndTime(subTask.getDateAndTime());
 
             String strDueDate = DateAndTimeUtil.toStringReadableDate(calendar);
@@ -52,7 +53,7 @@ public class SubTaskAdapter extends RecyclerView.Adapter<SubTaskAdapter.SubTaskV
             holder.txtDueDate.setText(strDueDate + " " + strDueTime);
             String strProgressState;
 
-            if (subTask.progress_state == 0) {
+            if (subTask.progress_state == AnnotationTaskState.PENDING) {
                 strProgressState = context.getString(R.string.task_pending);
             } else {
                 strProgressState = context.getString(R.string.task_done);
@@ -65,7 +66,7 @@ public class SubTaskAdapter extends RecyclerView.Adapter<SubTaskAdapter.SubTaskV
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), SubTaskActivity.class);
-                    intent.putExtra("id", subTask.getSub_task_id());
+                    intent.putExtra("id", subTask.id);
                     intent.putExtra("task_id", subTask.getTask_scheduler_id());
                     view.getContext().startActivity(intent);
 

@@ -213,7 +213,7 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
             @Override
             public void onSelect(DDR ddr) {
                 if (!isMaster) {
-                    InvoiceData.getInstance().cleanData();
+
                     new RealmController().clearRealm(DDRProduct.class);
 
                     Intent mIntent = new Intent(activity, DDRCartDetails.class);

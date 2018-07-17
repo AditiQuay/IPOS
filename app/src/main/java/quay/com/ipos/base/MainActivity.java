@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -71,6 +72,7 @@ import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.local.dao.MostUsedFunDao;
 import quay.com.ipos.data.local.entity.MostUsed;
 import quay.com.ipos.dayClosure.dayClosureActivity.DayClosureMain;
+import quay.com.ipos.dayClosure.dayClosureActivity.DayClosureSales;
 import quay.com.ipos.ddrsales.DDRListActivity;
 import quay.com.ipos.ddrsales.DDROrderCenterActivity;
 import quay.com.ipos.enums.CustomerEnum;
@@ -624,7 +626,7 @@ public class MainActivity extends BaseActivity
 
                 break;
             case "Day Closure":
-                Intent i = new Intent(mContext, DayClosureMain.class);
+                Intent i = new Intent(mContext, DayClosureSales.class);
                 startActivity(i);
                 break;
             case "Offer Discount":
@@ -699,6 +701,14 @@ public class MainActivity extends BaseActivity
 
             case "Compliance Tracking":
                 // Toast.makeText(mContext, "Compliance Tracking", Toast.LENGTH_SHORT).show();
+              /*  IPOSApplication.getDatabase().taskDao().delete();
+                IPOSApplication.getDatabase().subtaskDao().delete();
+                IPOSApplication.getDatabase().placeDao().delete();
+                IPOSApplication.getDatabase().employeeDao().delete();
+                IPOSApplication.getDatabase().attachmentDao().delete();
+                IPOSApplication.getDatabase().transactionDao().delete();
+*/
+
                 Intent intentCompliance = new Intent(mContext, DashboardActivity.class);
                 startActivity(intentCompliance);
                 menu1.findItem(R.id.action_filter).setVisible(false);

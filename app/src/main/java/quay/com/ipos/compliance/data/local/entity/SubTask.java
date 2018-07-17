@@ -21,14 +21,15 @@ import quay.com.ipos.compliance.constants.KeyConstant;
 @Entity(tableName = "sub_task")
 public class SubTask {
 
-    @Expose
+  /*  @Expose
     @SerializedName("LocalID")
     @PrimaryKey(autoGenerate = true)
     public int sub_task_id;//used as notification_id.//Local auto increment primary key
 
-
+*/
     @Expose
     @SerializedName("ID")
+    @PrimaryKey
     public int id;//serverKey.//it is zero by default and updated by server key
 
 
@@ -226,7 +227,7 @@ public class SubTask {
     }
 
     public int getSub_task_id() {
-        return sub_task_id;
+        return id;
     }
 
    /* public void setSub_task_id(int sub_task_id) {

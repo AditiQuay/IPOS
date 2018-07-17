@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundgrey"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:fontFamily="@font/titilliumwebregular"
+            android:gravity="center"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <quay.com.ipos.ui.CustomTextView
+                android:id="@+id/toolbarTtile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:ellipsize="end"
+                android:fontFamily="@font/titilliumwebregular"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:visibility="visible" />
+
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/appbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/rGrn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:layout_marginTop="@dimen/dim_4"
+                android:background="@color/white"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/imageViewGroupIcon"
+                    android:layout_width="@dimen/dim_30"
+                    android:layout_height="@dimen/dim_30"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/summary" />
+
+                <TextView
+                    android:id="@+id/textViewGroupName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageViewGroupIcon"
+                    android:layout_toRightOf="@+id/imageViewGroupIcon"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:text="GRN Header"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/universal_text_size14" />
+
+                <ImageView
+                    android:id="@+id/ivGrnGroupArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.7"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/ic_action_arrow_right_blue" />
+
+            </RelativeLayout>
+
+            <include
+                layout="@layout/tranfer_in_detail_grn_qty"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/rItemsDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:layout_marginTop="@dimen/dim_4"
+                android:background="@color/white"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/ivItemDetailsGroupIcon"
+                    android:layout_width="@dimen/dim_30"
+                    android:layout_height="@dimen/dim_30"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/detail" />
+
+                <TextView
+                    android:id="@+id/textViewItemDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ivItemDetailsGroupIcon"
+                    android:layout_toRightOf="@+id/ivItemDetailsGroupIcon"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:text="Item Details"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/universal_text_size14" />
+
+                <ImageView
+                    android:id="@+id/ivItemDetailsGroupArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.7"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/ic_action_arrow_right_blue" />
+
+                <ImageView
+                    android:id="@+id/ivItemAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/ivItemDetailsGroupArrow"
+                    android:alpha="0.7"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/add_circle" />
+
+
+            </RelativeLayout>
+
+            <include
+                layout="@layout/transfer_in_items_details"
+                android:visibility="gone" />
+
+            <RelativeLayout
+                android:id="@+id/rTransporter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:layout_marginRight="@dimen/dim_4"
+                android:layout_marginTop="@dimen/dim_4"
+                android:background="@color/white"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/ivtransporterGroupIcon"
+                    android:layout_width="@dimen/dim_30"
+                    android:layout_height="@dimen/dim_30"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/shipment" />
+
+                <TextView
+                    android:id="@+id/textViewTransporter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/ivtransporterGroupIcon"
+                    android:layout_toRightOf="@+id/ivtransporterGroupIcon"
+                    android:fontFamily="@font/titilliumwebregular"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingLeft="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:text="Transporter"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/universal_text_size14" />
+
+                <ImageView
+                    android:id="@+id/ivTransporterGroupArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:alpha="0.7"
+                    android:paddingEnd="@dimen/dim_10"
+                    android:paddingRight="@dimen/dim_10"
+                    android:src="@drawable/ic_action_arrow_right_blue" />
+
+            </RelativeLayout>
+
+            <include
+                layout="@layout/tranfer_in_transporter"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <Button
+        android:id="@+id/btnSave"
+        style="@style/styleWhiteTextColor14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:fontFamily="@font/titilliumwebregular"
+        android:gravity="end|center_vertical"
+        android:paddingRight="@dimen/dim_8"
+        android:stateListAnimator="@null"
+        android:text="@string/ddr_submit"
+        android:textAllCaps="true" />
+
+
+</RelativeLayout>

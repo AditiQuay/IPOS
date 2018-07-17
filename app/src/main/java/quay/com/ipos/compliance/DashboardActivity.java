@@ -470,6 +470,11 @@ public class DashboardActivity extends AppCompatActivity
                     Log.i(TAG, "Task List is null");
                     return false;
                 }
+
+
+               /* appDatabase.taskDao().delete();
+                appDatabase.subtaskDao().delete();
+*/
                 List<Task> taskList = compResp.response.taskList;
                 appDatabase.taskDao().saveAllTask(taskList);
 

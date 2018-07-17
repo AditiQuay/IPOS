@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/fqNever"
+        android:title="Never"></item>
+    <item
+        android:id="@+id/fqDaily"
+        android:title="Daily"></item>
+    <item
+        android:id="@+id/fqWeekly"
+        android:title="Weekly"></item>
+    <item
+        android:id="@+id/fqMonthly"
+        android:title="Monthly"></item>
+    <item
+        android:id="@+id/fqYearly"
+        android:title="Yearly"></item>
+</menu>

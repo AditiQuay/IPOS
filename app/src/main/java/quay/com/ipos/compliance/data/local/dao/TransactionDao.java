@@ -23,4 +23,7 @@ public interface TransactionDao {
     @Query("SELECT * FROM 'transaction' WHERE id=:id")
     LiveData<TransactionEntity> getTxs(int id);
 
+    @Query("DELETE FROM `transaction`")
+    void delete();
+
 }
