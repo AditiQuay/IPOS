@@ -563,5 +563,14 @@
 
     <string name="date_from">Date From</string>
     <string name="date_to">Date To</string>
+    <string name="scheme_type">Scheme Type</string>
+    <string name="sku">SKU</string>
+    <string name="slab_details">Slab Details</string>
+    <string name="scheme_period">Scheme Period</string>
+    <string name="notes">Notes</string>
+    <string name="product_based">Product Based</string>
+    <string name="value_based">Value Based</string>
+    <string name="business_places">Business Places</string>
+    <string name="entity">Entity</string>
 
 </resources>

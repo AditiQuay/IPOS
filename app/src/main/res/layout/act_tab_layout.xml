@@ -51,7 +51,7 @@
         android:layout_marginBottom="@dimen/fab_margin_pc"
         android:layout_marginLeft="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
-        android:visibility="gone"
+        android:visibility="visible"
         app:backgroundTint="@color/colorPrimary"
         app:layout_anchor="@id/bottom_sheet"
         app:layout_anchorGravity="top|end"
