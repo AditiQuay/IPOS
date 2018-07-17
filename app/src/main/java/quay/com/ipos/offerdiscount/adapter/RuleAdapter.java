@@ -103,7 +103,7 @@ public class RuleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof RuleAdapter.UserViewHolder) {
             onBind = true;
             RuleModel str = mDataset.get(position);
@@ -127,6 +127,13 @@ public class RuleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             userViewHolder.rbProduct.setOnCheckedChangeListener(onCheckedChangeListener);
             userViewHolder.rbOthers.setOnCheckedChangeListener(onCheckedChangeListener);
             userViewHolder.rbValue.setOnCheckedChangeListener(onCheckedChangeListener);
+            ((UserViewHolder) holder).imvRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mDataset.remove(position);
+                    notifyDataSetChanged();
+                }
+            });
         }
         else if (holder instanceof RuleAdapter.LoadingViewHolder) {
             RuleAdapter.LoadingViewHolder loadingViewHolder = (RuleAdapter.LoadingViewHolder) holder;
