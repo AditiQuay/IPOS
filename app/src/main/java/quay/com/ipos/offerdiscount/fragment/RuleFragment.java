@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import quay.com.ipos.R;
 import quay.com.ipos.base.BaseFragment;
+import quay.com.ipos.modal.LoginResult;
 import quay.com.ipos.offerdiscount.Model.OfferDiscountModel;
 import quay.com.ipos.offerdiscount.Model.RuleModel;
 import quay.com.ipos.offerdiscount.adapter.RuleAdapter;
@@ -26,7 +28,7 @@ import quay.com.ipos.partnerConnect.PartnerConnectMain;
 public class RuleFragment extends BaseFragment  implements View.OnClickListener{
 
     private View rootView;
-    private ArrayList<RuleModel> ruleModels = new ArrayList<>();
+   // private ArrayList<RuleModel> ruleModels = new ArrayList<>();
     private RecyclerView rvRule;
     OfferDiscountModel mOfferDiscountModel;
     RuleAdapter ruleAdapter;
@@ -36,11 +38,9 @@ public class RuleFragment extends BaseFragment  implements View.OnClickListener{
         rootView = getView() != null ? getView() : inflater.inflate(R.layout.fragment_rule, container, false);
 
         initializeComponent(rootView);
-        if(ruleModels.size()==0) {
-            addNewField1();
-        }
-        ruleAdapter= new RuleAdapter(getActivity(), ruleModels,this);
-        rvRule.setAdapter(ruleAdapter);
+
+        //ruleAdapter= new RuleAdapter(getActivity(), ruleModels,this);
+       // rvRule.setAdapter(ruleAdapter);
         return rootView;
     }
 
@@ -64,22 +64,37 @@ public class RuleFragment extends BaseFragment  implements View.OnClickListener{
                 @Override
                 public void onChanged( OfferDiscountModel pcModel) {
                     mOfferDiscountModel = pcModel;
-                    if(mOfferDiscountModel.getRuleModels().size()>0)
-                        ruleModels = mOfferDiscountModel.getRuleModels();
+                    Log.v("sssssnnns", mOfferDiscountModel.getRuleModels().size() + "");
+
+                   /*
+                    ruleModels.clear();
+                    ruleModels.addAll(mOfferDiscountModel.getRuleModels());
+                    ruleAdapter.notifyDataSetChanged();*/
+                   setData(pcModel);
+//                    if(mOfferDiscountModel.getRuleModels().size()>0) {
+////                        ruleModels.clear();
+////                        ruleModels.addAll(mOfferDiscountModel.getRuleModels());
+//                    }
 //                    setData(pcModel);
-                    ruleAdapter.notifyDataSetChanged();
+                 //   ruleAdapter.notifyDataSetChanged();
+
+                    if(pcModel.getRuleModels().size()==0) {
+                        addNewField1();
+                    }
                 }
             });
         }
     }
 
     private void setData(OfferDiscountModel pcModel) {
-        if(pcModel.getRuleModels()!=null){
+       /* if(pcModel.getRuleModels()!=null){
             if(pcModel.getRuleModels().size()>0){
                 addNewField();
             }
-        }
-        rvRule.setAdapter(new RuleAdapter(getActivity(), ruleModels,this));
+        }*/
+
+        rvRule.setAdapter(new RuleAdapter(getActivity(), pcModel.getRuleModels(), this));
+        rvRule.getAdapter().notifyDataSetChanged();
     }
 
     @Override
@@ -108,19 +123,22 @@ public class RuleFragment extends BaseFragment  implements View.OnClickListener{
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            // load data here
-
-            getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getActivity(), "ffmmf", Toast.LENGTH_SHORT).show();
-                    addNewField();
+        try {
+            if (isVisibleToUser) {
+                // load data here
+                getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getActivity(), "ffmmf", Toast.LENGTH_SHORT).show();
+                        addNewField();
 //                    return;
-                }
-            });
-        }else{
-            // fragment is no longer visible
+                    }
+                });
+            } else {
+                // fragment is no longer visible
+            }
+        }catch (Exception e){
+
         }
     }
 
@@ -148,8 +166,16 @@ public class RuleFragment extends BaseFragment  implements View.OnClickListener{
             ruleModel.setsSchemeType("");
             ruleModel.setsSKU("");
             ruleModel.setsStartDate("");
-            ruleModels.add(ruleModel);
-            mOfferDiscountModel.setRuleModels(ruleModels);
+
+            if (mOfferDiscountModel.getRuleModels() != null) {
+                mOfferDiscountModel.getRuleModels().add(ruleModel);
+            }
+
+            Log.v("ssssss", mOfferDiscountModel.getRuleModels().size() + "");
+            /*else {
+                ruleModels.add(ruleModel);
+                mOfferDiscountModel.setRuleModels(ruleModels);
+            }*/
 
             OfferDiscountFragment offerDiscountFragment = (OfferDiscountFragment) getActivity();
             if (offerDiscountFragment != null) {
@@ -181,8 +207,18 @@ public class RuleFragment extends BaseFragment  implements View.OnClickListener{
         ruleModel.setsSchemeType("");
         ruleModel.setsSKU("");
         ruleModel.setsStartDate("");
-        ruleModels.add(ruleModel);
+       // ruleModels.add(ruleModel);
+        if (mOfferDiscountModel.getRuleModels() != null) {
+            mOfferDiscountModel.getRuleModels().add(ruleModel);
+        }/*else {
+                ruleModels.add(ruleModel);
+                mOfferDiscountModel.setRuleModels(ruleModels);
+            }*/
 
+        OfferDiscountFragment offerDiscountFragment = (OfferDiscountFragment) getActivity();
+        if (offerDiscountFragment != null) {
+            offerDiscountFragment.getPcModelData().setValue(mOfferDiscountModel);
+        }
     }
 
     @Override

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dim_10"
+    android:background="@drawable/lightgray_stroke_corner"
+    android:orientation="vertical">
+<include
+    layout="@layout/header_layout"/>
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dim_8">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/tieNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="3"
+            android:inputType="textMultiLine"
+            android:layout_gravity="bottom|center_vertical"
+            android:gravity="bottom|center_vertical"
+            android:hint="Notes "
+            android:textSize="@dimen/universal_text_size16" />
+
+    </android.support.design.widget.TextInputLayout>
+    <include
+        layout="@layout/bottom_buttons"/>
+</LinearLayout>

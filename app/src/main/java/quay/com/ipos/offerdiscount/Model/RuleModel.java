@@ -28,6 +28,24 @@ public class RuleModel {
     int iValue;
     int iFrom;
     int iTo;
+  boolean isCrossBundle;
+  String mCriteria;
+
+    public boolean isCrossBundle() {
+        return isCrossBundle;
+    }
+
+    public void setCrossBundle(boolean crossBundle) {
+        isCrossBundle = crossBundle;
+    }
+
+    public String getmCriteria() {
+        return mCriteria;
+    }
+
+    public void setmCriteria(String mCriteria) {
+        this.mCriteria = mCriteria;
+    }
 
     public int getiValue() {
         return iValue;

@@ -13,90 +13,39 @@
     app:cardElevation="0dp"
     app:cardPreventCornerOverlap="true"
     card_view:cardElevation="0dp">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="@dimen/dim_8">
-            <ImageView
-                android:id="@+id/imvRemove"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:padding="5dp"
-                android:src="@drawable/ic_action_delete" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/lightgray_stroke_corner"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <quay.com.ipos.ui.CustomTextView
-                    android:id="@+id/tvSchemeType"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tvRuleNo"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="left|center_vertical"
                     android:padding="@dimen/dim_5"
-                    android:text="@string/scheme_type"
-                    android:drawableEnd="@drawable/arrow_down_small_blue"
-                    android:background="@drawable/button_rectangle_light_gray"
-                    android:textColor="@color/grey"
+                    android:text="@string/rule_no"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/text_size_14sp" />
-                <LinearLayout
-                    android:id="@+id/llSchemeType"
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/imvRemove"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <RadioGroup
-                        android:id="@+id/rgSchemeType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <RadioButton
-                                android:id="@+id/rbProduct"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:checked="true"/>
-                            <quay.com.ipos.ui.CustomTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/product_based"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <RadioButton
-                                android:id="@+id/rbValue"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                            <quay.com.ipos.ui.CustomTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/value_based"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <RadioButton
-                                android:id="@+id/rbOthers"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                            <quay.com.ipos.ui.CustomTextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/others"/>
-                        </LinearLayout>
-                    </RadioGroup>
-                </LinearLayout>
+                    android:layout_gravity="end"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_action_delete" />
             </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -110,12 +59,99 @@
                     android:layout_gravity="center"
                     android:padding="@dimen/dim_5"
                     android:gravity="left|center_vertical"
-                    android:drawableEnd="@drawable/arrow_down_small_blue"                    android:background="@drawable/button_rectangle_light_gray"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"                    android:background="@drawable/white_background_top"
                     android:text="@string/product"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/text_size_14sp" />
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvProduct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    android:layout_marginBottom="@dimen/dim_4"
+                    android:scrollbars="none"
+                    android:visibility="gone"
+                    android:background="@color/backgroundgrey"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvProductGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/dim_5"
+                    android:gravity="left|center_vertical"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"                    android:background="@drawable/white_background_top"
+                    android:text="@string/product_group"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvProductGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    android:layout_marginBottom="@dimen/dim_4"
+                    android:scrollbars="none"
+                    android:visibility="gone"
+                    android:background="@color/backgroundgrey"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvProductCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/dim_5"
+                    android:gravity="left|center_vertical"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"                    android:background="@drawable/white_background_top"
+                    android:text="@string/product_category"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvProductCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    android:layout_marginBottom="@dimen/dim_4"
+                    android:scrollbars="none"
+                    android:visibility="gone"
+                    android:background="@color/backgroundgrey"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvSubCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/dim_5"
+                    android:gravity="left|center_vertical"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"                    android:background="@drawable/white_background_top"
+                    android:text="@string/sub_category"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvSubCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dim_4"
@@ -140,7 +176,7 @@
                     android:gravity="left|center_vertical"
                     android:drawableEnd="@drawable/arrow_down_small_blue"
                     android:padding="@dimen/dim_5"
-                    android:background="@drawable/button_rectangle_light_gray"
+                    android:background="@drawable/white_background_top"
                     android:text="@string/sku"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/text_size_14sp" />
@@ -163,6 +199,74 @@
                 android:background="@drawable/lightgray_stroke_corner"
                 android:orientation="vertical">
                 <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvBrand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left|center_vertical"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"
+                    android:padding="@dimen/dim_5"
+                    android:background="@drawable/white_background_top"
+                    android:text="@string/brand"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvBrand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    android:layout_marginBottom="@dimen/dim_4"
+                    android:scrollbars="none"
+                    android:visibility="gone"
+                    android:background="@color/backgroundgrey"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvSchemeType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="left|center_vertical"
+                    android:padding="@dimen/dim_5"
+                    android:text="@string/scheme_type"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"
+                    android:background="@drawable/white_background_top"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/spSchemeType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dim_4"
+                        android:layout_marginRight="@dimen/dim_4"
+                        app:ms_alignLabels="true"
+                        android:entries="@array/scheme_type"
+                        app:ms_baseColor="@color/grey"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_enableFloatingLabel="false"
+                        app:ms_errorColor="@color/red"
+                        app:ms_floatingLabelColor="@color/grey"
+                        app:ms_floatingLabelText=" SchemeT ype *"
+                        app:ms_highlightColor="@color/highlight"
+                        app:ms_hint="Select Scheme Type *"
+                        app:ms_hintColor="@color/grey"
+                        app:ms_multiline="false" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvSlabDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -171,7 +275,7 @@
                     android:drawableEnd="@drawable/arrow_down_small_blue"
                     android:padding="@dimen/dim_5"
                     android:text="@string/slab_details"
-                    android:background="@drawable/button_rectangle_light_gray"
+                    android:background="@drawable/white_background_top"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/text_size_14sp" />
                 <LinearLayout
@@ -180,6 +284,26 @@
                     android:layout_height="wrap_content"
                     android:visibility="visible"
                     android:orientation="vertical">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/tilSlabSelectedFrom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dim_5"
+                        android:paddingBottom="@dimen/dim_5">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/tieSlabSelectedFrom"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="1"
+                            android:inputType="number"
+                            android:layout_gravity="bottom|center_vertical"
+                            android:gravity="bottom|center_vertical"
+                            android:hint="Slab From "
+                            android:textSize="@dimen/universal_text_size16" />
+
+                    </android.support.design.widget.TextInputLayout>
                     <android.support.design.widget.TextInputLayout
                         android:id="@+id/tilSlabSelectedTo"
                         android:layout_width="match_parent"
@@ -200,25 +324,64 @@
 
                     </android.support.design.widget.TextInputLayout>
                     <android.support.design.widget.TextInputLayout
-                        android:id="@+id/tilSlabSelectedFrom"
+                        android:id="@+id/tilSlabValue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dim_5"
                         android:paddingBottom="@dimen/dim_5">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/tieSlabSelectedFrom"
+                            android:id="@+id/tieSlabValue"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:lines="1"
                             android:inputType="number"
                             android:layout_gravity="bottom|center_vertical"
                             android:gravity="bottom|center_vertical"
-                            android:hint="Slab From "
+                            android:hint="Value "
                             android:textSize="@dimen/universal_text_size16" />
 
                     </android.support.design.widget.TextInputLayout>
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/spCrossBundle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dim_4"
+                        android:layout_marginRight="@dimen/dim_4"
+                        android:enabled="false"
+                        android:nextFocusForward="@id/spCriteria"
+                        app:ms_alignLabels="true"
+                        app:ms_baseColor="@color/grey"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_errorColor="@color/red"
+                        android:entries="@array/choose"
+                        app:ms_floatingLabelColor="@color/grey"
+                        app:ms_floatingLabelText="Cross Bundle *"
+                        app:ms_highlightColor="@color/highlight"
+                        app:ms_hint="Select Cross Bundle *"
+                        app:ms_hintColor="@color/grey"
+                        app:ms_multiline="false" />
+                    <fr.ganfra.materialspinner.MaterialSpinner
+                        android:id="@+id/spCriteria"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dim_4"
+                        android:layout_marginRight="@dimen/dim_4"
+                        app:ms_alignLabels="true"
+                        android:entries="@array/criteria"
+                        app:ms_baseColor="@color/grey"
+                        app:ms_enableErrorLabel="false"
+                        app:ms_enableFloatingLabel="true"
+                        app:ms_errorColor="@color/red"
+                        app:ms_floatingLabelColor="@color/grey"
+                        app:ms_floatingLabelText=" Criteria *"
+                        app:ms_highlightColor="@color/highlight"
+                        app:ms_hint="Select Criteria *"
+                        app:ms_hintColor="@color/grey"
+                        app:ms_multiline="false" />
                 </LinearLayout>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -234,7 +397,7 @@
                     android:gravity="left|center_vertical"
                     android:drawableEnd="@drawable/arrow_down_small_blue"
                     android:text="@string/scheme_period"
-                    android:background="@drawable/button_rectangle_light_gray"
+                    android:background="@drawable/white_background_top"
                     android:padding="@dimen/dim_5"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/text_size_14sp" />
@@ -242,7 +405,7 @@
                     android:id="@+id/llSchemePeriod"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:orientation="vertical">
                     <LinearLayout
                         android:id="@+id/llSelectTo"
@@ -295,6 +458,117 @@
                 android:background="@drawable/lightgray_stroke_corner"
                 android:orientation="vertical">
                 <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvEligibilityBasedOn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left|center_vertical"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"
+                    android:padding="@dimen/dim_5"
+                    android:background="@drawable/white_background_top"
+                    android:text="@string/eligibility_based_on"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/spEligibilityBasedOn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    app:ms_alignLabels="true"
+                    android:entries="@array/criteria"
+                    app:ms_baseColor="@color/transparent"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_enableFloatingLabel="false"
+                    app:ms_errorColor="@color/red"
+                    app:ms_floatingLabelColor="@color/grey"
+                    app:ms_highlightColor="@color/highlight"
+                    app:ms_hint="Select Eligibility Based On *"
+                    app:ms_hintColor="@color/grey"
+                    app:ms_multiline="false" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvDiscountType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left|center_vertical"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"
+                    android:padding="@dimen/dim_5"
+                    android:background="@drawable/white_background_top"
+                    android:text="@string/discount_type"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/spDiscountType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    app:ms_alignLabels="true"
+                    android:entries="@array/discount_type"
+                    app:ms_baseColor="@color/transparent"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_enableFloatingLabel="false"
+                    app:ms_errorColor="@color/red"
+                    app:ms_floatingLabelColor="@color/grey"
+                    app:ms_floatingLabelText="Discount Type *"
+                    app:ms_highlightColor="@color/highlight"
+                    app:ms_hint="Select Discount Type *"
+                    app:ms_hintColor="@color/grey"
+                    app:ms_multiline="false" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvDiscountBasedOn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left|center_vertical"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"
+                    android:padding="@dimen/dim_5"
+                    android:background="@drawable/white_background_top"
+                    android:text="@string/discount_based_on"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+                <fr.ganfra.materialspinner.MaterialSpinner
+                    android:id="@+id/spDiscountBasedOn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    app:ms_alignLabels="true"
+                    android:entries="@array/discount_based_on"
+                    app:ms_baseColor="@color/transparent"
+                    app:ms_enableErrorLabel="false"
+                    app:ms_enableFloatingLabel="false"
+                    app:ms_errorColor="@color/red"
+                    app:ms_floatingLabelColor="@color/grey"
+                    app:ms_floatingLabelText="Discount Based On *"
+                    app:ms_highlightColor="@color/highlight"
+                    app:ms_hint="Select Discount Based On *"
+                    app:ms_hintColor="@color/grey"
+                    app:ms_multiline="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
                     android:id="@+id/tvNotes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -316,7 +590,7 @@
                         android:id="@+id/tieNotes"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:lines="4"
+                        android:lines="3"
                         android:inputType="textMultiLine"
                         android:layout_gravity="bottom|center_vertical"
                         android:gravity="bottom|center_vertical"
@@ -327,4 +601,5 @@
             </LinearLayout>
 
         </LinearLayout>
+    </ScrollView>
 </android.support.v7.widget.CardView>

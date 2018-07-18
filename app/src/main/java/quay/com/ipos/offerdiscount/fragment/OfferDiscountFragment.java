@@ -51,7 +51,7 @@ public class OfferDiscountFragment extends RunTimePermissionActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle(getResources().getString(R.string.offer_discount));
-       // viewPager.setOffscreenPageLimit(0);
+        // viewPager.setOffscreenPageLimit(0);
 
         viewPager.addOnPageChangeListener(myOnPageChangeListener);
         viewPager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
@@ -62,7 +62,7 @@ public class OfferDiscountFragment extends RunTimePermissionActivity {
         tabLayout =  findViewById(R.id.tabs);
         btnReject =  findViewById(R.id.btnReject);
         btnAccept =  findViewById(R.id.btnAccept);
-        btnAccept.setText("Apply & Next");
+        btnAccept.setText("Apply");
         btnReject.setText("Reset");
         tabLayout.setupWithViewPager(viewPager);
         createTabIcons();
@@ -99,9 +99,13 @@ public class OfferDiscountFragment extends RunTimePermissionActivity {
         @Override
         public void onPageSelected(int position) {
 
-          if (position == 2 ) {
+            if (position == 2 ) {
+                btnAccept.setVisibility(View.VISIBLE);
+                btnReject.setVisibility(View.VISIBLE);
                 fab.setVisibility(View.VISIBLE);
             } else {
+                btnAccept.setVisibility(View.GONE);
+                btnReject.setVisibility(View.GONE);
                 fab.setVisibility(View.GONE);
             }
         }
