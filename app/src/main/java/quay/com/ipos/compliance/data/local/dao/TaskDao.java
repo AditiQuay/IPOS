@@ -26,12 +26,17 @@ public interface TaskDao {
     @Query("SELECT * FROM 'task' WHERE store_id=:id")
     LiveData<List<Task>> getTaskByPlace(long id);
 
+    @Query("SELECT * FROM 'task' WHERE store_id=:id AND task_category LIKE :task_category")
+    LiveData<List<Task>> getTaskByPlaceAndCompliance(long id,String task_category);
+
     @Query("SELECT * FROM 'task' WHERE task_id=:id")
     LiveData<Task> getTaskById(long id);
+
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long saveTask(Task task);
 
-    @Query("DELETE FROM task")
+    @Query("DELETE FROM 'task'")
     void delete();
 }

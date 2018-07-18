@@ -13,6 +13,11 @@ public interface ComplianceDetailHandler {
 
     void onClickClose(View view);
 
+    void onClickAddStartDate(View view);
+
+    void onClickAddStartTime(View view);
+
+
     void onClickAddDate(View view);
 
     void onClickAddTime(View view);

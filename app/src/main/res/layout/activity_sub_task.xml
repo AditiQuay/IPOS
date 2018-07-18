@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="handler"
             type="quay.com.ipos.compliance.interfaces.SubTaskHandler" />
@@ -60,6 +62,7 @@
                 android:onClick="@{(v) -> handler.onClickAddSubtask(v)}"
                 android:padding="8dp"
 
+                android:visibility="@{viewModel.isComplete()? View.GONE : View.VISIBLE}"
                 android:src="@drawable/ic_subtask_done"
                 tools:background="#00000000" />
 
@@ -144,23 +147,23 @@
                             android:text="@{viewModel.strTaskAssignToName}" />
                     </android.support.design.widget.TextInputLayout>
 
+
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/activity_horizontal_margin"
-                        android:onClick="@{(v) -> handler.onClickAddDate(v)}"
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/textDueDate"
+                            android:id="@+id/textStartDate"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:hint="Due Date"
-                            android:onClick="@{(v) -> handler.onClickAddDate(v)}"
-                            android:text="@{viewModel.strDueDate}" />
+                            android:hint="Start Date"
+                            android:onClick="@{(v) -> handler.onClickAddStartDate(v)}"
+                            android:text="@{viewModel.strStartDate}" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -168,19 +171,39 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/activity_horizontal_margin"
-                        android:onClick="@{(v) -> handler.onClickAddDate(v)}"
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/textDueTime"
+                            android:id="@+id/textStartTime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:hint="Due Time"
-                            android:onClick="@{(v) -> handler.onClickAddTime(v)}"
-                            android:text="@{viewModel.strDueTime}" />
+                            android:hint="Start Time"
+                            android:onClick="@{(v) -> handler.onClickAddStartTime(v)}"
+                            android:text="@{viewModel.strStartTime}" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+
+                        app:hintAnimationEnabled="false">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/textEndDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="End Date"
+                            android:onClick="@{(v) -> handler.onClickAddEndDate(v)}"
+                            android:text="@{viewModel.strEndDate}" />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -188,7 +211,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/activity_horizontal_margin"
-                        android:onClick="@{(v) -> handler.onClickAddDate(v)}"
+                        app:hintAnimationEnabled="false">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/textEndTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="End Time"
+                            android:onClick="@{(v) -> handler.onClickAddEndTime(v)}"
+                            android:text="@{viewModel.strEndTime}" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
@@ -208,7 +249,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/activity_horizontal_margin"
-                        android:onClick="@{(v) -> handler.onClickAddDate(v)}"
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
@@ -228,7 +268,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/activity_horizontal_margin"
-                        android:onClick="@{(v) -> handler.onClickAlert(v)}"
+
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
@@ -246,21 +286,20 @@
 
 
                     <android.support.design.widget.TextInputLayout
+                        android:id="@+id/viewProgressState"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/activity_horizontal_margin"
                         android:focusableInTouchMode="false"
-                        android:onClick="@{(v) -> handler.onClickProgressState(v)}"
+                        android:visibility="@{viewModel.isComplete()? View.GONE : View.VISIBLE}"
                         app:hintAnimationEnabled="false">
 
                         <android.support.design.widget.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:clickable="true"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
                             android:hint="Progress Status"
-
                             android:onClick="@{(v) -> handler.onClickProgressState(v)}"
                             android:text="@{viewModel.strProgressState}" />
 

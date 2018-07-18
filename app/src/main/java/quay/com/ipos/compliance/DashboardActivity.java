@@ -2,6 +2,7 @@ package quay.com.ipos.compliance;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,14 +14,11 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +39,7 @@ import quay.com.ipos.compliance.fragment.ComplianceFragmentMain;
 import quay.com.ipos.data.local.AppDatabase;
 import quay.com.ipos.data.remote.APIService;
 import quay.com.ipos.data.remote.RestService;
+import quay.com.ipos.databinding.ActivityComplianceDashboardBinding;
 import quay.com.ipos.utility.SharedPrefUtil;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,6 +55,7 @@ public class DashboardActivity extends AppCompatActivity
     private ComplianceFragmentMain complianceFragmentMain;
     private Activity activity;
     private AppDatabase appDatabase;
+    private ActivityComplianceDashboardBinding binding;
 
 
 
@@ -64,7 +64,7 @@ public class DashboardActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         activity = this;
         appDatabase = AppDatabase.getAppDatabase(activity);
-        setContentView(R.layout.c_activity_dashboard);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_compliance_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -93,6 +93,16 @@ public class DashboardActivity extends AppCompatActivity
 
 
         loadCompliances();
+        binding.commonbottomBar.btnNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activity, TaskDetailActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 
     @Override
@@ -472,9 +482,9 @@ public class DashboardActivity extends AppCompatActivity
                 }
 
 
-               /* appDatabase.taskDao().delete();
-                appDatabase.subtaskDao().delete();
-*/
+                 appDatabase.taskDao().delete();
+                 appDatabase.subtaskDao().delete();
+
                 List<Task> taskList = compResp.response.taskList;
                 appDatabase.taskDao().saveAllTask(taskList);
 

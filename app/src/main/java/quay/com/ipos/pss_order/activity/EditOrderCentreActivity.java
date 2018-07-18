@@ -257,7 +257,7 @@ public class EditOrderCentreActivity extends AppCompatActivity implements SendSc
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
       //  mRecyclerView.addOnScrollListener(listener);
-        llBelowPaymentDetail = findViewById(R.id.bottomBar);
+        llBelowPaymentDetail = findViewById(R.id.commonbottomBar);
 
         setSpinnerData();
         setListener();

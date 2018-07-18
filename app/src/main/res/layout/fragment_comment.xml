@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".compliance.fragment.CommentFragment">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="@dimen/dim_70"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="Enter Remark"
+                android:textColor="#fff"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/txtLayoutRejectNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/header"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/dim_20"
+            android:layout_marginRight="@dimen/dim_20">
+
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/aTxtRejectNotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter remark here..."
+                android:textSize="16sp" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/txtLayoutRejectNotes"
+            android:layout_marginTop="@dimen/dim_50"
+            android:layout_marginLeft="@dimen/dim_20"
+            android:layout_marginRight="@dimen/dim_20"
+            android:layout_marginBottom="@dimen/dim_20"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnOk"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="OK"
+                android:layout_marginRight="@dimen/dim_4"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/dim_4"
+                android:background="@color/colorPrimary"
+                android:text="Cancel"
+                android:textColor="#fff"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

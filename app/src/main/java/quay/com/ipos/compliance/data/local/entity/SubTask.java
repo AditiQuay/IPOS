@@ -18,18 +18,21 @@ import quay.com.ipos.compliance.constants.KeyConstant;
 /**
  * Created by deepak.kumar1 on 28-03-2018.
  */
-@Entity(tableName = "sub_task")
+@Entity(tableName = "sub_task", primaryKeys = {"taskTrId", "id"})
 public class SubTask {
 
-  /*  @Expose
-    @SerializedName("LocalID")
-    @PrimaryKey(autoGenerate = true)
-    public int sub_task_id;//used as notification_id.//Local auto increment primary key
+    /*  @Expose
+      @SerializedName("LocalID")
+      @PrimaryKey(autoGenerate = true)
+      public int sub_task_id;//used as notification_id.//Local auto increment primary key
 
-*/
+  */
     @Expose
+    @SerializedName("taskTrId")
+    public int taskTrId;//serverKey.//it is zero by default and updated by server key
+
+
     @SerializedName("ID")
-    @PrimaryKey
     public int id;//serverKey.//it is zero by default and updated by server key
 
 
@@ -386,7 +389,8 @@ public class SubTask {
     public void setServerId(int id) {
         this.id = id;
     }
-    public int getServerId(){
+
+    public int getServerId() {
         return id;
     }
 
@@ -394,18 +398,19 @@ public class SubTask {
     //for local use
     public Recurrence getRepeat() {
         Recurrence reminder = null;
-            reminder = new RecurrenceNever();
-            reminder.setRepeatFrequencyId(this.interval_type_id);
-            reminder.setRepeatFrequency(this.interval_type);
-            reminder.setRepeatInterval(this.interval_value);
-           return reminder;
-    } public Recurrence getReminder() {
-        Recurrence reminder = null;
-            reminder = new RecurrenceNever();
-            reminder.setRepeatFrequencyId(this.rem_interval_type_id);
-            reminder.setRepeatFrequency(this.rem_interval_type);
-            reminder.setRepeatInterval(this.rem_interval_value);
+        reminder = new RecurrenceNever();
+        reminder.setRepeatFrequencyId(this.interval_type_id);
+        reminder.setRepeatFrequency(this.interval_type);
+        reminder.setRepeatInterval(this.interval_value);
+        return reminder;
+    }
 
+    public Recurrence getReminder() {
+        Recurrence reminder = null;
+        reminder = new RecurrenceNever();
+        reminder.setRepeatFrequencyId(this.rem_interval_type_id);
+        reminder.setRepeatFrequency(this.rem_interval_type);
+        reminder.setRepeatInterval(this.rem_interval_value);
 
 
         return reminder;

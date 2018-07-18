@@ -228,7 +228,7 @@ public class NewOrderFragment extends BaseFragment implements SendScannerBarcode
                 new ItemDecorationAlbumColumns(getResources().getDimensionPixelSize(R.dimen.dim_5),
                         getResources().getInteger(R.integer.photo_list_preview_columns)));
       //  mRecyclerView.addOnScrollListener(listener);
-        llBelowPaymentDetail = rootView.findViewById(R.id.bottomBar);
+        llBelowPaymentDetail = rootView.findViewById(R.id.commonbottomBar);
 
         setSpinnerData();
         setListener();

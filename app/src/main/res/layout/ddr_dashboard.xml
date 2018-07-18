@@ -202,12 +202,12 @@
             android:paddingRight="@dimen/dim_10"
             android:paddingBottom="50dp"
             android:clipToPadding="false"
-            android:layout_above="@id/bottomBar"
+            android:layout_above="@id/commonbottomBar"
             android:layout_below="@+id/flScanner"
             />
 
         <LinearLayout
-            android:id="@+id/bottomBar"
+            android:id="@+id/commonbottomBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"

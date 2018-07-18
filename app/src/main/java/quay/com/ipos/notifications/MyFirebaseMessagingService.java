@@ -9,6 +9,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import quay.com.ipos.compliance.DashboardActivity;
+import quay.com.ipos.compliance.TaskDetailActivity;
 
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
@@ -78,7 +79,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void handleNotification(String message) {
         if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
             // app is in background, show the notification in notification tray
-            Intent resultIntent = new Intent(getApplicationContext(), DashboardActivity.class);
+            Intent resultIntent = new Intent(getApplicationContext(), TaskDetailActivity.class);
             resultIntent.putExtra("message", message);
             showNotificationMessage(getApplicationContext(), message, resultIntent);
 
@@ -87,7 +88,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationUtils.playNotificationSound();
         } else {
 
-            Intent resultIntent = new Intent(getApplicationContext(), DashboardActivity.class);
+            Intent resultIntent = new Intent(getApplicationContext(), TaskDetailActivity.class);
             resultIntent.putExtra("message", message);
             showNotificationMessage(getApplicationContext(), message, resultIntent);
 

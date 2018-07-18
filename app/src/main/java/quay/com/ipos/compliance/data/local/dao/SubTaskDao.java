@@ -28,9 +28,12 @@ public interface SubTaskDao {
     @Query("SELECT * FROM 'sub_task' WHERE id=:id")
     LiveData<SubTask> getSubTaskById(int id);
 
-     @Query("SELECT * FROM 'sub_task' WHERE id=:id")
-     List<SubTask> getSyncSubTaskById(int id);
 
+    @Query("SELECT * FROM 'sub_task' WHERE id=:id  AND taskTrId =:trId")
+    LiveData<SubTask> getSubTaskByTRID_And_Id(int id, int trId);
+
+    @Query("SELECT * FROM 'sub_task' WHERE id=:id")
+    List<SubTask> getSyncSubTaskById(int id);
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -43,6 +46,6 @@ public interface SubTaskDao {
     void deleteSubTask(SubTask subTask);
 
 
-    @Query("DELETE FROM sub_task")
+    @Query("DELETE FROM 'sub_task'")
     void delete();
 }

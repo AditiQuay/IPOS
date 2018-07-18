@@ -32,11 +32,15 @@ import quay.com.ipos.utility.SharedPrefUtil;
  * Created by deepak.kumar1 on 30-03-2018.
  */
 
-public class ComplianceViewModel  extends BaseObservable {
+public class ComplianceViewModel extends BaseObservable {
 
     private Context context;
+    public String strStartDate;
+    public String strStartTime;
     public String strDueDate;
     public String strDueTime;
+    private Calendar calendarStart = Calendar.getInstance();
+
     private Calendar calendar = Calendar.getInstance();
 
     public String strDesc;
@@ -45,7 +49,7 @@ public class ComplianceViewModel  extends BaseObservable {
     public String strTaskAssignTo;
     public String strTaskAssignToName = "Self";
 
-    private String empId ;
+    private String empId;
     private Employee userProfileModel;
     public String txtTaskName, txtSubCategory;
 
@@ -57,6 +61,8 @@ public class ComplianceViewModel  extends BaseObservable {
     public String strAlert = alert.getLabel();
 
     private Task task;
+
+    private boolean isComplete;
 
     public ComplianceViewModel(Context context) {
         this.context = context;
@@ -104,7 +110,7 @@ public class ComplianceViewModel  extends BaseObservable {
          calendar = DateAndTimeUtil.parseDateAndTime(task.getDateAndTime());
 
          this.strDueDate = DateAndTimeUtil.toStringReadableDate(calendar);
-         this.strDueTime = DateAndTimeUtil.toStringReadableTime(calendar, context);
+         this.strEndTime = DateAndTimeUtil.toStringReadableTime(calendar, context);
          if (task.progress_state == 0) {
              this.strProgressState = context.getString(R.string.task_pending);
          } else {
@@ -113,6 +119,11 @@ public class ComplianceViewModel  extends BaseObservable {
          }
          notifyChange();
      } */
+
+    public Task getTask() {
+        return task;
+    }
+
     public void setTask(Task task) {
         try {
             AppDatabase.getAppDatabase(IPOSApplication.getContext()).employeeDao().getTaskById(task.getTask_assign_to()).observe((TaskDetailActivity) context, new Observer<Employee>() {
@@ -120,7 +131,7 @@ public class ComplianceViewModel  extends BaseObservable {
                 public void onChanged(@Nullable Employee employee) {
                     if (employee != null) {
                         strTaskAssignToName = employee.empName;
-                      notifyChange();
+                        notifyChange();
                     }
                 }
             });
@@ -155,20 +166,36 @@ public class ComplianceViewModel  extends BaseObservable {
             if (task.task_assign_to != null) {
                 this.strTaskAssignTo = task.task_assign_to;
             }
-            calendar = DateAndTimeUtil.parseDateAndTime(task.getDateAndTime());
+
+            calendarStart = DateAndTimeUtil.parseDateAndTime(task.task_start_date);
+
+            calendar = DateAndTimeUtil.parseDateAndTime(task.task_end_date);
+
+            this.strStartDate = DateAndTimeUtil.toStringReadableDate(calendarStart);
+            this.strStartTime = DateAndTimeUtil.toStringReadableTime(calendarStart, context);
+
+
+
+
 
             this.strDueDate = DateAndTimeUtil.toStringReadableDate(calendar);
             this.strDueTime = DateAndTimeUtil.toStringReadableTime(calendar, context);
+
+
+
             if (task.progress_state == AnnotationTaskState.PENDING) {
                 this.strProgressState = context.getString(R.string.task_pending);
+                setComplete(false);
             } else if (task.progress_state == AnnotationTaskState.DONE) {
                 this.strProgressState = context.getString(R.string.task_done);
+                setComplete(true);
 
             } else if (task.progress_state == AnnotationTaskState.CANCEL) {
                 this.strProgressState = context.getString(R.string.task_cancel);
+                setComplete(false);
 
             }
-          notifyChange();
+            notifyChange();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -184,6 +211,9 @@ public class ComplianceViewModel  extends BaseObservable {
         if (mTaskType == AnnotationTaskState.PENDING) {
             string = "Pending";
         }
+        if (mTaskType == AnnotationTaskState.CANCEL) {
+            string = "Cancel";
+        }
         this.strProgressState = string;
         notifyChange();
     }
@@ -191,12 +221,12 @@ public class ComplianceViewModel  extends BaseObservable {
 
     public void setStrDueDate(String date) {
         this.strDueDate = date;
-      notifyChange();
+        notifyChange();
     }
 
     public void setStrDueTime(String strDueTime) {
         this.strDueTime = strDueTime;
-      notifyChange();
+        notifyChange();
     }
 
     private String getStrTaskAssignTo() {
@@ -215,7 +245,7 @@ public class ComplianceViewModel  extends BaseObservable {
     public void setAssignUser(Employee userProfileModel) {
         this.userProfileModel = userProfileModel;
         strTaskAssignTo = getStrTaskAssignTo();
-         notifyChange();
+        notifyChange();
     }
 
     public void updateTask(final long task_id) {
@@ -231,9 +261,11 @@ public class ComplianceViewModel  extends BaseObservable {
 
             if (strProgressState.contentEquals(context.getString(R.string.task_pending))) {
                 task.progress_state = AnnotationTaskState.PENDING;
+                setComplete(false);
+
             } else {
                 task.progress_state = AnnotationTaskState.DONE;
-
+                setComplete(true);
             }
 
 
@@ -244,7 +276,7 @@ public class ComplianceViewModel  extends BaseObservable {
 
             //for recurrence
             task.setmRepeatFrequency(recurrence.getRepeatFrequency());
-          //  task.setmRepeatInterval(recurrence.getRepeatInterval());
+            //  task.setmRepeatInterval(recurrence.getRepeatInterval());
             task.setmRepeatOnDays(recurrence.getRepeatOnDays());
             task.setmRepeatUntil(recurrence.getRepeatUntil());
             task.setmRepeatSummary(recurrence.getRepeatSummary());
@@ -291,7 +323,7 @@ public class ComplianceViewModel  extends BaseObservable {
     public void setAlert(Alert alert) {
         this.alert = alert;
         this.strAlert = alert.getLabel();
-      notifyChange();
+        notifyChange();
     }
 
     public void setRecurrence(Recurrence recurrence) {
@@ -301,11 +333,20 @@ public class ComplianceViewModel  extends BaseObservable {
 
     public void setStrRepeat(String strRepeat) {
         this.strRepeat = strRepeat;
-      notifyChange();
+        notifyChange();
     }
 
     public Recurrence getRecurrence() {
         return recurrence;
+    }
+
+    public boolean isComplete() {
+        return isComplete;
+    }
+
+    public void setComplete(boolean complete) {
+        isComplete = complete;
+        notifyChange();
     }
 
 

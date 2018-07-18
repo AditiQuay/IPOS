@@ -45,19 +45,22 @@ public class SubTaskAdapter extends RecyclerView.Adapter<SubTaskAdapter.SubTaskV
     public void onBindViewHolder(final SubTaskVH holder, int position) {
         try {
             final SubTask subTask = list.get(position);
-            holder.textName.setText("subTaskID:"+subTask.id+", Name"+subTask.task_name);
-            Calendar calendar = DateAndTimeUtil.parseDateAndTime(subTask.getDateAndTime());
+            holder.textName.setText("ID: " + subTask.id +", tID: " + subTask.taskTrId + ", Name: " + subTask.task_name);
+            Calendar calendar = DateAndTimeUtil.parseDateAndTime(subTask.task_end_date);
 
             String strDueDate = DateAndTimeUtil.toStringReadableDate(calendar);
             String strDueTime = DateAndTimeUtil.toStringReadableTime(calendar, context);
-            holder.txtDueDate.setText(strDueDate + " " + strDueTime);
-            String strProgressState;
+            holder.txtDueDate.setText("End Date: " + strDueDate + " " + strDueTime);
+            String strProgressState = "";
 
+            if (subTask.progress_state == AnnotationTaskState.DONE) {
+                strProgressState = context.getString(R.string.task_done);
+            }
             if (subTask.progress_state == AnnotationTaskState.PENDING) {
                 strProgressState = context.getString(R.string.task_pending);
-            } else {
-                strProgressState = context.getString(R.string.task_done);
-
+            }
+            if (subTask.progress_state == AnnotationTaskState.CANCEL) {
+                strProgressState = context.getString(R.string.task_cancel);
             }
             holder.textProgressState.setText(strProgressState);
 
@@ -67,6 +70,7 @@ public class SubTaskAdapter extends RecyclerView.Adapter<SubTaskAdapter.SubTaskV
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), SubTaskActivity.class);
                     intent.putExtra("id", subTask.id);
+                    intent.putExtra("taskTrId", subTask.taskTrId);
                     intent.putExtra("task_id", subTask.getTask_scheduler_id());
                     view.getContext().startActivity(intent);
 

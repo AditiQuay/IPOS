@@ -11,10 +11,13 @@ public interface SubTaskHandler {
 
     void onClickAddSubtask(View view);
 
+    void onClickAddStartDate(View view);
 
-    void onClickAddDate(View view);
+    void onClickAddStartTime(View view);
 
-    void onClickAddTime(View view);
+    void onClickAddEndDate(View view);
+
+    void onClickAddEndTime(View view);
 
     void onClickAlert(View view);
 

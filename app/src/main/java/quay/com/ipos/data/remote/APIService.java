@@ -4,12 +4,12 @@ package quay.com.ipos.data.remote;
 import java.util.List;
 
 import quay.com.ipos.IPOSAPI;
-import quay.com.ipos.compliance.constants.URLStorage;
 import quay.com.ipos.compliance.data.local.entity.SubTask;
 import quay.com.ipos.compliance.data.remote.model.AccessTokenRequest;
 import quay.com.ipos.compliance.data.remote.model.AccessTokenResponse;
 import quay.com.ipos.compliance.data.remote.model.ComplianceDetailsResponse;
 import quay.com.ipos.compliance.data.remote.model.SynResponse;
+import quay.com.ipos.compliance.data.remote.model.TaskProgressReq;
 import quay.com.ipos.data.remote.model.DDRSubmitResponse;
 import quay.com.ipos.data.remote.model.KCYApproveResponse;
 import quay.com.ipos.data.remote.model.KycPartnerConnectResponse;
@@ -30,6 +30,7 @@ import quay.com.ipos.kycPartnerConnect.KYCAcceptData;
 
 import quay.com.ipos.partnerConnect.model.PCModel;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -95,11 +96,13 @@ public interface APIService {
     @POST(IPOSAPI.COMPLIANCE_DATA)
     Call<ComplianceDetailsResponse> loadComplianceDetail();
 
-    @POST(URLStorage.SYNC_DATA_URL)
+
+    @POST(IPOSAPI.SYNC_DATA_URL)
     Call<List<SynResponse>> syncData(@Body List<SubTask> subTaskList);
 
-    @POST(URLStorage.LOGIN_URL)
-    Call<AccessTokenResponse> loadAccessToken(@Body AccessTokenRequest accessTokenRequest);
+
+    @POST(IPOSAPI.COMPLIANCE_TASK_APPROVE)
+    Call<PartnerConnectUpdateResponse> COMPLIANCE_TASK_APPROVE(@Body TaskProgressReq taskProgressReq);
 
 
     /***&&&&& Compliance API&&&&&***/

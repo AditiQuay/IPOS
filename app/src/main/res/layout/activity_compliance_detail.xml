@@ -5,6 +5,7 @@
     tools:context=".compliance.TaskDetailActivity">
 
     <data>
+        <import type="android.view.View" />
 
         <variable
             name="handler"
@@ -67,7 +68,8 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="@string/update_compliance"
-                android:textAllCaps="false"
+                android:visibility="invisible"
+                android:textAllCaps= "false"
                 android:textAppearance="@style/iposfontstyle"
                 android:textColor="#fff"
                 android:textSize="14sp"
@@ -195,6 +197,47 @@
                         <!--   android:onClick="@{(v) -> handler.onClickAssignTo(v)}"-->
                     </android.support.design.widget.TextInputLayout>
 
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+                        app:hintAnimationEnabled="false">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/textStartDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="Start Date"
+                            android:onClick="@{(v) -> handler.onClickAddStartDate(v)}"
+                            android:text="@{viewModel.strStartDate}" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/activity_horizontal_margin"
+                        app:hintAnimationEnabled="false">
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/textStartTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:hint="Start Time"
+                            android:onClick="@{(v) -> handler.onClickAddStartTime(v)}"
+                            android:text="@{viewModel.strStartTime}" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -210,10 +253,10 @@
 
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:hint="Due Date"
+                            android:hint="End Date"
 
                             android:text="@{viewModel.strDueDate}" />
-                        <!-- android:onClick="@{(v) -> handler.onClickAddDate(v)}"-->
+                        <!-- android:onClick="@{(v) -> handler.onClickAddEndDate(v)}"-->
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -222,20 +265,19 @@
                         android:layout_margin="@dimen/activity_horizontal_margin"
 
                         app:hintAnimationEnabled="false">
-                        <!-- android:onClick="@{(v) -> handler.onClickAddDate(v)}"-->
+                        <!-- android:onClick="@{(v) -> handler.onClickAddEndDate(v)}"-->
                         <android.support.design.widget.TextInputEditText
-                            android:id="@+id/textDueTime"
+                            android:id="@+id/textEndTime"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:cursorVisible="false"
                             android:focusable="false"
-
                             android:focusableInTouchMode="false"
-                            android:hint="Due Time"
+                            android:hint="End Time"
 
                             android:text="@{viewModel.strDueTime}" />
-                        <!-- android:onClick="@{(v) -> handler.onClickAddTime(v)}"-->
+                        <!-- android:onClick="@{(v) -> handler.onClickAddEndTime(v)}"-->
                     </android.support.design.widget.TextInputLayout>
 
                     <android.support.design.widget.TextInputLayout
@@ -244,7 +286,7 @@
                         android:layout_margin="@dimen/activity_horizontal_margin"
 
                         app:hintAnimationEnabled="false">
-                        <!-- android:onClick="@{(v) -> handler.onClickAddDate(v)}"-->
+                        <!-- android:onClick="@{(v) -> handler.onClickAddEndDate(v)}"-->
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/textRepeat"
                             android:layout_width="match_parent"
@@ -335,6 +377,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_marginBottom="100dp"
                         android:layout_marginLeft="10dp"
+                        android:visibility="@{viewModel.isComplete() ? View.GONE : View.VISIBLE}"
                         android:layout_marginTop="10dp">
 
                         <TextView

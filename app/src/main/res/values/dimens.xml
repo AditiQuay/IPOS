@@ -6,7 +6,8 @@
     <dimen name="nav_header_height">165dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="fab_margin_pc">60dp</dimen>
-
+    <dimen name="popup_width">250dp</dimen>
+    <dimen name="popup_height">400dp</dimen>
 
 
     <dimen name="dim_0">0dp</dimen>

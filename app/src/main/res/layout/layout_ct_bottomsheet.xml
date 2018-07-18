@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+        <import type="android.view.View" />
+        <import type="android.support.v4.app.Fragment" />
+    </data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="56dp"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+    tools:context=".compliance.DashboardActivity"
+    tools:showIn="@layout/activity_compliance_dashboard"
+    android:clickable="true"
+    android:clipToPadding="true"
+
+ >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center_vertical"
+        android:minHeight="55dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <LinearLayout
+            android:id="@+id/btnMyPendingAction"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/btnMyPendingActionProgressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circle_white"
+                android:gravity="center"
+                android:textAppearance="@style/iposfontstyle"
+                android:textColor="#000000"
+                android:textSize="11sp"
+                android:text="0"
+                tools:text="2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/iposfontstyle"
+                android:textColor="#ffffff"
+                android:textSize="11sp"
+                android:text="My Pending Actions" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnDependentAction"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/btnDependentActionProgressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circle_white"
+                android:gravity="center"
+                android:textAppearance="@style/iposfontstyle"
+                android:textColor="#000000"
+                android:textSize="11sp"
+                tools:text="5"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/iposfontstyle"
+                android:textColor="#ffffff"
+                android:textSize="11sp"
+                android:text="Dependent Actions" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnAlerts"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/btnAlertsProgressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circle_white"
+                android:gravity="center"
+                android:textAppearance="@style/iposfontstyle"
+                android:textColor="#000000"
+                android:textSize="11sp"
+                android:text="0"
+                tools:text="5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/iposfontstyle"
+                android:textColor="#ffffff"
+                android:textSize="11sp"
+                android:text="Alerts" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnNotifications"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
+
+            <TextView
+                android:id="@+id/btnNotificationsProgressText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circle_white"
+                android:gravity="center"
+                android:textAppearance="@style/iposfontstyle"
+                android:textColor="#000000"
+                android:textSize="11sp"
+                tools:text="2"
+                android:text="0"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textAppearance="@style/iposfontstyle"
+                android:textColor="#ffffff"
+                android:textSize="11sp"
+                android:text="Notifications" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
+</layout>

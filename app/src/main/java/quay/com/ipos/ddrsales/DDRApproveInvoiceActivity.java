@@ -201,7 +201,7 @@ public class DDRApproveInvoiceActivity extends RunTimePermissionActivity impleme
 
     @Override
     public void findViewById() {
-        bottomBar = findViewById(R.id.bottomBar);
+        bottomBar = findViewById(R.id.commonbottomBar);
 
         mDDRDetails = findViewById(R.id.mDDRDetails);
         mDDRDetailsIcon = findViewById(R.id.mDDRDetailsIcon);

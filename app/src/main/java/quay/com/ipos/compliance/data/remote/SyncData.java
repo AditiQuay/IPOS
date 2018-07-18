@@ -58,6 +58,7 @@ public class SyncData extends AsyncTask<Void, Void, Boolean> {
                         // if (task.id == localKey) {
                         //  task.isSync = false;
                         task.setServerId(serverKey);
+                        task.taskTrId = synResponse.taskTransactionID;
                         IPOSApplication.getDatabase().subtaskDao().saveSubTask(task);
                         return true;
                     }

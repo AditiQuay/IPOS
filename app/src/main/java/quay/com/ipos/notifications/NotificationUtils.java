@@ -51,8 +51,14 @@ public class NotificationUtils {
     }
 
     public void showNotificationMessage(String message, Intent intent) {
-        showNotificationMessage(message, intent, null);
-        Log.e(TAG, "isAppIsInBackground");
+        try {
+            showNotificationMessage(message, intent, null);
+            Log.e(TAG, "isAppIsInBackground");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     public void showNotificationMessage(final String message, Intent intent, String imageUrl) {

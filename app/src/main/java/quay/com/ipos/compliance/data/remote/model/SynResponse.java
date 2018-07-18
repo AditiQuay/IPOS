@@ -4,8 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class SynResponse {
-
-
     @Expose
     @SerializedName("PrevID")
     public String PrevId;
@@ -13,6 +11,8 @@ public class SynResponse {
     @Expose
     @SerializedName("NewId")
     public String NewId;
+
+    public int taskTransactionID;
 
 }
    /* [

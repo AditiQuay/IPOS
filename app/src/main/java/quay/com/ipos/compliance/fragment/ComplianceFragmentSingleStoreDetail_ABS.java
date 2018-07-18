@@ -1,6 +1,7 @@
 package quay.com.ipos.compliance.fragment;
 
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
@@ -315,17 +316,8 @@ public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements
     private void fetchDataFromLocal() {
         try {
 
-           /* new RushSearch()
-                    .whereEqual("store_id", store_id)
-                    .find(TaskData.class, new RushSearchCallback<TaskData>() {
-                        @Override
-                        public void complete(List<TaskData> list) {
-                            int size = list.size();
-                            Log.i(TAG, "Size of save list in db : " + size);
-                            storeViewModel.updateUI(list, mParam2, store_id);
-                        }
-                    });*/
-            AppDatabase.getAppDatabase(IPOSApplication.getContext()).taskDao().getTaskByPlace(Long.parseLong(store_id)).observe(getActivity(),
+
+            getTaskData().observe(getActivity(),
                     new Observer<List<Task>>() {
                         @Override
                         public void onChanged(@Nullable List<Task> tasks) {
@@ -339,80 +331,23 @@ public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements
                     });
 
 
-           /* new RushSearch()
-                    .whereEqual("store_id", store_id)
-                    .and()
-                    .whereEqual("progress_state", 1)
-                    .find(TaskData.class, new RushSearchCallback<TaskData>() {
-                        @Override
-                        public void complete(final List<TaskData> list) {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    int size = list.size();
-                                    Log.i(TAG, "Size of save list in db : " + size);
-                                    //   if (size > 0) {
-                                    adapterDone.setData(list, mParam2);
-
-                                    // }
-                                }
-                            });
-
-                        }
-                    });*/
-
-          /*  new RushSearch()
-                    .whereEqual("store_id", store_id)
-                    .and()
-                    .whereEqual("progress_state", Pending)
-                    .find(TaskData.class, new RushSearchCallback<TaskData>() {
-                        @Override
-                        public void complete(final List<TaskData> list) {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    {
-                                        int size = list.size();
-                                        Log.i(TAG, "Size of save list in db : " + size);
-                                        //if (size > 0) {
-                                        adapterPending.setData(list, mParam2);
-
-                                        //}
-                                    }
-                                }
-                            });
-                        }
-                    });
-*/
-
-            //   loadImmediateTask();
-
-          /*  new RushSearch()
-                    .whereEqual("store_id", store_id)
-                    .and()
-                    .whereEqual("is_immediate", true)
-                    .find(Task.class, new RushSearchCallback<Task>() {
-                        @Override
-                        public void complete(final List<Task> list) {
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    int size = list.size();
-                                    Log.i(TAG, "Size of save list in db : " + size);
-                                    adapterImmediate.setData(list, mParam2);
-
-                                }
-                            });
-                        }
-                    });
-*/
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    LiveData<List<Task>> getTaskData() {
+        if (mParam2 == 0) {
+            return AppDatabase.getAppDatabase(IPOSApplication.getContext()).taskDao().getTaskByPlace(Long.parseLong(store_id));
+        }
+        if (mParam2 == 1) {
+            return AppDatabase.getAppDatabase(IPOSApplication.getContext()).taskDao().getTaskByPlaceAndCompliance(Long.parseLong(store_id), "Business");
+        }
+        if (mParam2 == 2) {
+            return AppDatabase.getAppDatabase(IPOSApplication.getContext()).taskDao().getTaskByPlaceAndCompliance(Long.parseLong(store_id), "Statutory");
+        }
+        return AppDatabase.getAppDatabase(IPOSApplication.getContext()).taskDao().getTaskByPlace(Long.parseLong(store_id));
     }
 
     private void loadDataInAdapter(List<Task> tasks) {
@@ -453,66 +388,8 @@ public class ComplianceFragmentSingleStoreDetail_ABS extends Fragment implements
         adapterDone.setData(taskDoneList, mParam2);
         adapterPending.setData(taskPendingList, mParam2);
         adapterImmediate.setData(taskImmediateList, mParam2);
-
         loadUpcomingTaskNew(7);
 
     }
-
-    /* private void loadImmediateTask() {
-        DatabaseHelper.getInstance(getActivity()).getImmediateTaskListAsync(store_id, new RushSearchCallback<TaskData>() {
-            @Override
-            public void complete(final List<TaskData> list) {
-                int size = list.size();
-                Log.i(TAG, "Size loadImmediateTask in db : " + size);
-                getActivity().runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        adapterImmediate.setData(list, mParam2);
-                        // Stuff that updates the UI
-
-                    }
-                });
-
-            }
-        });
-    }*/
-
-  /*  private void loadUpcomingTask(int uptoNextUpcomingDay) {
-        Calendar calAftertomorrow = Calendar.getInstance();
-        calAftertomorrow.add(Calendar.DAY_OF_YEAR, 1);
-        // long aftertomorrow = calAftertomorrow.getTimeInMillis();
-        String aftertomorrow = DateAndTimeUtil.toStringDateAndTime(calAftertomorrow);
-
-        Calendar calendarNext = Calendar.getInstance();
-        calendarNext.add(Calendar.DAY_OF_YEAR, uptoNextUpcomingDay);
-        // long upcomingDay = calendarNext.getTimeInMillis();
-        String upcomingDay = DateAndTimeUtil.toStringDateAndTime(calendarNext);
-
-        new RushSearch()
-                .whereEqual("store_id", store_id)
-                .and()
-                .whereGreaterThan("task_due_date", Long.parseLong(aftertomorrow))
-                .and()
-                .whereLessThan("task_due_date", Long.parseLong(upcomingDay))
-
-
-                //.whereEqual("progress_state", Pending)
-                .find(TaskData.class, new RushSearchCallback<TaskData>() {
-                    @Override
-                    public void complete(final List<TaskData> list) {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                int size = list.size();
-                                Log.i(TAG, "Size of save list in db : " + size);
-                                adapterUpcoming.setData(list, mParam2);
-
-                            }
-                        });
-                    }
-                });
-    }*/
 
 }

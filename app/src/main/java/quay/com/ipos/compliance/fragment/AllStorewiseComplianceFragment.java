@@ -153,6 +153,8 @@ public class AllStorewiseComplianceFragment extends Fragment {
     }
 
     private void loadStoreViewModel() {
+
+
         AppDatabase.getAppDatabase(IPOSApplication.getContext()).taskDao().getAllTask().observe(getActivity(), new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable List<Task> tasks) {
