@@ -31,9 +31,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:gravity="left"
+                    android:gravity="left|center_vertical"
                     android:padding="@dimen/dim_5"
                     android:text="@string/lob"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"
                     android:background="@drawable/button_rectangle_light_gray"
                     android:textColor="@color/grey"
                     android:textSize="@dimen/text_size_14sp" />
@@ -46,156 +47,131 @@
                     android:layout_marginBottom="@dimen/dim_4"
                     android:scrollbars="none"
                     android:visibility="gone"
+                    android:background="@color/white"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llEntity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvEntity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left|center_vertical"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"
+                    android:text="@string/entity"
+                    android:background="@drawable/button_rectangle_light_gray"
+                    android:padding="@dimen/dim_5"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvEntity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    android:layout_marginBottom="@dimen/dim_4"
+                    android:scrollbars="none"
+                    android:visibility="gone"
                     android:background="@color/backgroundgrey"
                     android:layout_gravity="center"/>
             </LinearLayout>
-            <quay.com.ipos.ui.CustomTextView
-                android:id="@+id/tvDistributionChannel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="left"
-                android:padding="@dimen/dim_5"
-                android:text="@string/distribution_channel"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/text_size_14sp" />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvDistributionChannel"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:layout_marginBottom="@dimen/dim_4"
-                android:scrollbars="none"
-                android:visibility="gone"
-                android:background="@color/backgroundgrey"
-                android:layout_gravity="center"/>
-            <quay.com.ipos.ui.CustomTextView
-                android:id="@+id/tvCustomerGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="left"
-                android:padding="@dimen/dim_5"
-                android:text="@string/customer_group"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/text_size_14sp" />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvCustomerGroup"
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left|center_vertical"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"
+                    android:text="@string/state"
+                    android:background="@drawable/button_rectangle_light_gray"
+                    android:padding="@dimen/dim_5"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvState"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    android:layout_marginBottom="@dimen/dim_4"
+                    android:scrollbars="none"
+                    android:visibility="gone"
+                    android:background="@color/backgroundgrey"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:layout_marginBottom="@dimen/dim_4"
-                android:scrollbars="none"
-                android:visibility="gone"
-                android:background="@color/backgroundgrey"
-                android:layout_gravity="center"/>
-            <quay.com.ipos.ui.CustomTextView
-                android:id="@+id/tvZone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="left"
-                android:padding="@dimen/dim_5"
-                android:text="@string/zone"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/text_size_14sp" />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvZone"
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvBusinessPlaces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left|center_vertical"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"
+                    android:padding="@dimen/dim_5"
+                    android:background="@drawable/button_rectangle_light_gray"
+                    android:text="@string/business_places"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvBusinessPlaces"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    android:layout_marginBottom="@dimen/dim_4"
+                    android:scrollbars="none"
+                    android:visibility="gone"
+                    android:background="@color/backgroundgrey"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:layout_marginBottom="@dimen/dim_4"
-                android:scrollbars="none"
-                android:visibility="gone"
-                android:background="@color/backgroundgrey"
-                android:layout_gravity="center"/>
-            <quay.com.ipos.ui.CustomTextView
-                android:id="@+id/tvState"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="left"
-                android:text="@string/state"
-                android:padding="@dimen/dim_5"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/text_size_14sp" />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvState"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:layout_marginBottom="@dimen/dim_4"
-                android:scrollbars="none"
-                android:visibility="gone"
-                android:background="@color/backgroundgrey"
-                android:layout_gravity="center"/>
-            <quay.com.ipos.ui.CustomTextView
-                android:id="@+id/tvRegion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="left"
-                android:padding="@dimen/dim_5"
-                android:text="@string/region"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/text_size_14sp" />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvRegion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:layout_marginBottom="@dimen/dim_4"
-                android:scrollbars="none"
-                android:visibility="gone"
-                android:background="@color/backgroundgrey"
-                android:layout_gravity="center"/>
-            <quay.com.ipos.ui.CustomTextView
-                android:id="@+id/tvTerritory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="left"
-                android:padding="@dimen/dim_5"
-                android:text="@string/territory"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/text_size_14sp" />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvTerritory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:layout_marginBottom="@dimen/dim_4"
-                android:scrollbars="none"
-                android:visibility="gone"
-                android:background="@color/backgroundgrey"
-                android:layout_gravity="center"/>
-            <quay.com.ipos.ui.CustomTextView
-                android:id="@+id/tvCustomer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="left"
-                android:padding="@dimen/dim_5"
-                android:text="@string/customer"
-                android:textColor="@color/grey"
-                android:textSize="@dimen/text_size_14sp" />
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvCustomer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dim_4"
-                android:layout_marginRight="@dimen/dim_4"
-                android:layout_marginBottom="@dimen/dim_4"
-                android:scrollbars="none"
-                android:visibility="gone"
-                android:background="@color/backgroundgrey"
-                android:layout_gravity="center"/>
+                android:layout_marginTop="@dimen/dim_10"
+                android:background="@drawable/lightgray_stroke_corner"
+                android:orientation="vertical">
+                <quay.com.ipos.ui.CustomTextView
+                    android:id="@+id/tvCustomerGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="left|center_vertical"
+                    android:drawableEnd="@drawable/arrow_down_small_blue"
+                    android:padding="@dimen/dim_5"
+                    android:background="@drawable/button_rectangle_light_gray"
+                    android:text="@string/customer_group"
+                    android:textColor="@color/grey"
+                    android:textSize="@dimen/text_size_14sp" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvCustomerGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dim_4"
+                    android:layout_marginRight="@dimen/dim_4"
+                    android:layout_marginBottom="@dimen/dim_4"
+                    android:scrollbars="none"
+                    android:visibility="gone"
+                    android:background="@color/backgroundgrey"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </android.support.v7.widget.CardView>

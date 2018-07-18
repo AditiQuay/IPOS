@@ -566,5 +566,21 @@
     <string name="date_to">Date To</string>
     <string name="remark">Write remark</string>
     <string name="enter_bank_deposit_amount">Enter deposit amount</string>
+    <string name="scheme_type">Scheme Type</string>
+    <string name="sku">SKU</string>
+    <string name="slab_details">Slab Details</string>
+    <string name="scheme_period">Scheme Period</string>
+    <string name="notes">Notes</string>
+    <string name="product_based">Product Based</string>
+    <string name="value_based">Value Based</string>
+    <string name="business_places">Business Places</string>
+    <string name="entity">Entity</string>
+    <string name="rule_no">Rule #</string>
+    <string name="product_group">Product Group</string>
+    <string name="product_category">Product Category</string>
+    <string name="eligibility_based_on">Eligibility Based On</string>
+    <string name="discount_type">Discount Type</string>
+    <string name="discount_based_on">Discount Based On</string>
+    <string name="rule_type">Rule Type</string>
 
 </resources>

@@ -35,6 +35,7 @@ import quay.com.ipos.partnerConnect.partnerConnectAdapter.ContactInfoAdapter;
 import quay.com.ipos.utility.DateAndTimeUtil;
 import quay.com.ipos.utility.EqualSpacingItemDecoration;
 import quay.com.ipos.utility.FontUtil;
+import quay.com.ipos.utility.Util;
 
 /**
  * Created by niraj.kumar on 6/7/2018.
@@ -83,6 +84,7 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
             onResume();
         }
     }
+
 
     @Override
     public void onResume()
@@ -335,7 +337,5 @@ public class ContactFragment extends Fragment implements InitInterface, View.OnC
                 }
             }
         }
-
-
     }
 }

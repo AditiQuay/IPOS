@@ -70,6 +70,19 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".offerdiscount.fragment.OfferDiscountFragment"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/offer_discount"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".kycPartnerConnect.KYCMain"
             android:configChanges="orientation|keyboardHidden"

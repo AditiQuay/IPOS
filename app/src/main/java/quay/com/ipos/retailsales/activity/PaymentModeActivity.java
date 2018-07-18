@@ -186,6 +186,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
         tvBalance.setText(getResources().getString(R.string.Rs) + " " +totalAmount+"");
         etCashAmount.setText(totalAmount+"");
         etCardAmount.setText(totalAmount+"");
+        if(IPOSApplication.totalpointsToRedeemValue!=0){
+            setllPoints();
+        }
     }
 
     private void findViewbyId() {
@@ -893,6 +896,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         llPoints.setBackgroundResource(R.drawable.button_rectangle_light_gray);
 
                     }
+                    if(redeemed){
+                        cvPoints.setVisibility(View.VISIBLE);
+                    }
                     break;
                 case R.id.llCard:
                     if (cvCard.getVisibility() == View.GONE) {
@@ -911,6 +917,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         cvCard.setVisibility(View.VISIBLE);
                         llCard.setBackgroundResource(R.drawable.button_rectangle_light_gray);
 
+                    }
+                    if(btnPayCard.getVisibility()==View.GONE){
+                        cvCard.setVisibility(View.VISIBLE);
                     }
                     break;
                 case R.id.llCash:
@@ -931,6 +940,9 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                         cvCash.setVisibility(View.VISIBLE);
                         llCash.setBackgroundResource(R.drawable.button_rectangle_light_gray);
 
+                    }
+                    if(btnPayCash.getVisibility()==View.GONE){
+                        cvCash.setVisibility(View.VISIBLE);
                     }
                     break;
                 case R.id.btnPayCash:
@@ -1294,7 +1306,7 @@ public class PaymentModeActivity extends BaseActivity implements View.OnClickLis
                     etRedeemValue.setEnabled(true);
                     redeemed=false;
                 } else {
-                    totalAmount = totalAmount - (int) IPOSApplication.totalpointsToRedeemValue;
+
                     etPointToRedeem.setText(IPOSApplication.totalpointsToRedeem + "");
                     etRedeemValue.setText(IPOSApplication.totalpointsToRedeemValue + "");
                     buttonSendOtp.setEnabled(false);

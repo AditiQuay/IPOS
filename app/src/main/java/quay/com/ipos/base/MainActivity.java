@@ -85,6 +85,7 @@ import quay.com.ipos.listeners.SendScannerBarcodeListener;
 import quay.com.ipos.login.SplashActivity;
 import quay.com.ipos.modal.DrawerRoleModal;
 import quay.com.ipos.modal.MenuModal;
+import quay.com.ipos.offerdiscount.fragment.OfferDiscountFragment;
 import quay.com.ipos.partnerConnect.PartnerConnectMain;
 import quay.com.ipos.partnerConnect.kyc.KYCActivity;
 import quay.com.ipos.productCatalogue.ProductMain;
@@ -122,7 +123,7 @@ public class MainActivity extends BaseActivity
     private int lastExpandedGroup;
     public static int containerId;
     private static final int CAMERA_PERMISSION = 1;
-    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null, mRetailOrderCentreFragment = null;
+    private Fragment dashboardFragment = null, inventaortFragment = null, productCatalogueMainFragment = null, retailSalesFragment = null, mNewOrderFragment = null, mOrderCentreListFragment = null, mRetailOrderCentreFragment = null,mOfferDiscountFragment =null;
     boolean doubleBackToExitPressedOnce = false, exit = false, toggle = false;
     private Menu menu1;
 
@@ -628,6 +629,12 @@ public class MainActivity extends BaseActivity
                 Intent i = new Intent(mContext, DayClosureSales.class);
                 startActivity(i);
                 break;
+            case "Offer Discount":
+                Intent intent2 = new Intent(getApplicationContext(), OfferDiscountFragment.class);
+                startActivity(intent2);
+                menu1.findItem(R.id.action_filter).setVisible(false);
+                break;
+
             case "Manage KycBusiness":
                 menu1.findItem(R.id.action_filter).setVisible(false);
                 break;

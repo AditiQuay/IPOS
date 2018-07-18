@@ -4,4 +4,31 @@
         <item>Yes</item>
         <item>No</item>
     </string-array>
+    <string-array name="criteria" >
+        <item>Lowest</item>
+        <item>Highest</item>
+    </string-array>
+    <string-array name="scheme_type" >
+        <item>Product Based</item>
+        <item>Value Based</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="eligibility_based_on" >
+        <item>Quantity</item>
+        <item>Value</item>
+    </string-array>
+    <string-array name="discount_type" >
+        <item>Percentage</item>
+        <item>Value</item>
+    </string-array>
+    <string-array name="discount_based_on" >
+        <item>Sale Price</item>
+        <item>MRP</item>
+        <item>GRP</item>
+        <item>NRV</item>
+    </string-array>
+    <string-array name="rule_type" >
+        <item>Independent</item>
+        <item>Dependent</item>
+    </string-array>
 </resources>
