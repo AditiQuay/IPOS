@@ -198,7 +198,7 @@ public class DDRCUContactFragment extends Fragment implements InitInterface, Vie
             }
 
 
-            textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , mpcModel.psslastUpdated));
+        //    textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , mpcModel.psslastUpdated));
 
             if (pcModel.Contact.keyBusinessContactInfo == null) {
                 Log.i(TAG, "keyBusinessContactInfo is null");

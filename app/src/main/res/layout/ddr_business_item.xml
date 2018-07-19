@@ -505,6 +505,7 @@
         android:minHeight="@dimen/dim_250"
         app:cardCornerRadius="@dimen/dim_8"
         app:cardElevation="0dp"
+        android:visibility="gone"
         app:cardPreventCornerOverlap="true"
         card_view:cardElevation="0dp">
 

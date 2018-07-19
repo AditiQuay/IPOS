@@ -219,6 +219,10 @@ public class DDRListActivity extends AppCompatActivity implements InitInterface 
                     Intent mIntent = new Intent(activity, DDRCartDetails.class);
                     mIntent.putExtra("ddr", ddr);
                     startActivityForResult(mIntent, 1);
+                } else  {
+                    Intent mIntent = new Intent(activity, DDRCUActivity.class);
+                    mIntent.putExtra("ddr", ddr);
+                    startActivityForResult(mIntent, 1);
                 }
             }
         });

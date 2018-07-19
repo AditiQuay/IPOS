@@ -13,6 +13,8 @@ import quay.com.ipos.compliance.data.remote.model.TaskProgressReq;
 import quay.com.ipos.data.remote.model.DDRSubmitResponse;
 import quay.com.ipos.data.remote.model.KCYApproveResponse;
 import quay.com.ipos.data.remote.model.KycPartnerConnectResponse;
+import quay.com.ipos.ddrsales.model.DDRMasterViewReq;
+import quay.com.ipos.ddrsales.model.DDRMasterViewResponse;
 import quay.com.ipos.ddrsales.model.POSummary;
 import quay.com.ipos.data.remote.model.PartnerConnectResponse;
 import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
@@ -66,6 +68,16 @@ public interface APIService {
 
     /***DDR Sales API***/
 
+    //DDR MASTER
+    @POST(IPOSAPI.DDR_CREATE_AND_UPDATE_API)
+    Call<PartnerConnectUpdateResponse> DDR_CREATE_AND_UPDATE_API(@Body PCModel pcModel);
+
+
+    @POST(IPOSAPI.DDR_MASTER_VIEW_API)
+    Call<PCModel> DDR_MASTER_VIEW_API(@Body DDRMasterViewReq ddrMasterViewReq);
+
+    //DDR MASTER END
+
     @POST(IPOSAPI.DDR_NO_SUMMARY)
     Call<POSummary> DDR_NO_SUMMARY(@Body POSummaryReq poSummaryReq);
 
@@ -76,8 +88,6 @@ public interface APIService {
     @POST(IPOSAPI.DDR_GetDDRList)
     Call<GetDDRList> DDR_GetDDRList(@Body DDRListReq req);
 
-    @POST(IPOSAPI.DDR_CREATE_AND_UPDATE_API)
-    Call<PartnerConnectUpdateResponse> DDR_CREATE_AND_UPDATE_API(@Body PCModel pcModel);
 
     @POST(IPOSAPI.DDR_GetDDRProductList)
     Call<DDRProductListResponse> DDR_GetDDRProductList(@Body DDRProductReq req);

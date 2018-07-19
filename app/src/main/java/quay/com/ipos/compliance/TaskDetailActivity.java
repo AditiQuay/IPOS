@@ -291,6 +291,7 @@ public class TaskDetailActivity extends AppCompatActivity implements
                         return false;
                     }
                 }
+                return true;
             } else {
                 return true;
             }

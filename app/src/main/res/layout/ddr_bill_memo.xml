@@ -46,7 +46,7 @@
                         android:layout_marginLeft="@dimen/dim_10"
                         android:gravity="center"
                         android:padding="@dimen/dim_10"
-                        android:text="BB123456"
+                        tools:text="BB123456"
                         android:textColor="@color/colorPrimary" />
 
                     <TextView

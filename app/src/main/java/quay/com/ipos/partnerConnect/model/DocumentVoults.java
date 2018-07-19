@@ -9,7 +9,7 @@ public class DocumentVoults {
     public String RequestNo;
 
 
-    public int EntityId;
+    public String EntityId;
 
 
     @SerializedName("DocFilename")
@@ -35,8 +35,8 @@ public class DocumentVoults {
             "DocFilename": "mypan.png",
             "DocFileBase64": null
     },*/
-  public DocumentVoults(int EntiId,String mDocType){
-      this.EntityId = EntiId;
+  public DocumentVoults(String EntiId,String mDocType){
+      this.EntityId = EntiId+"";
       this.Doctype = mDocType;
       this.RequestNo = "0";
       this.isApproved = false;

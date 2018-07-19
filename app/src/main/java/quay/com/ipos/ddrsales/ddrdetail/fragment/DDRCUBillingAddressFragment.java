@@ -101,7 +101,7 @@ public class DDRCUBillingAddressFragment extends Fragment {
             @Override
             public void onChanged(@Nullable PCModel pcModel) {
                 mpcModel = pcModel;
-                textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , mpcModel.psslastUpdated));
+               // textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , mpcModel.psslastUpdated));
 
                 if (pcModel.BillandDelivery != null && pcModel.BillandDelivery.size() == 0) {
                     BillnDelivery billnDelivery = new BillnDelivery();

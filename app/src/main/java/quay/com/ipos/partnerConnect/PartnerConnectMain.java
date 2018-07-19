@@ -418,7 +418,7 @@ public class PartnerConnectMain extends RunTimePermissionActivity implements Ini
         isSubmitReq = true;
         showProgress("Please Wait...");
         PCModel pcModelUpdate = getPcModelData().getValue();
-        pcModelUpdate.EntityID = Prefs.getIntegerPrefs(Constants.entityCode);
+        pcModelUpdate.EntityID = Prefs.getIntegerPrefs(Constants.entityCode)+"";
         pcModelUpdate.empCode = Prefs.getStringPrefs(Constants.employeeCode);
         Log.i("contact",new Gson().toJson(pcModelUpdate.Contact) );
 

@@ -455,8 +455,6 @@ public class SubTaskActivity extends BaseTaskActivity implements SubTaskHandler 
                             protected Void doInBackground(Void... voids) {
                                 SubTask subTask = viewModel.getSubTask();
                                 subTask.setProgress_state(AnnotationTaskState.DONE);
-
-
                                 IPOSApplication.getDatabase().subtaskDao().saveSubTask(subTask);
                                 return null;
                             }

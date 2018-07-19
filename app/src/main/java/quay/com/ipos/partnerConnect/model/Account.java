@@ -7,7 +7,7 @@ import java.util.List;
 public class Account {
 
     public int BankDetailRowId;
-    public int EntityID;
+    public String EntityID;
 
 
     @SerializedName("entityAcountHolderName")

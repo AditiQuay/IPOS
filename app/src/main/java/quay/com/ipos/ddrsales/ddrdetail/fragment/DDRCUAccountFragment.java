@@ -173,7 +173,7 @@ public class DDRCUAccountFragment extends Fragment implements InitInterface, Vie
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }
-        textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :", mpcModel.psslastUpdated));
+      //  textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :", mpcModel.psslastUpdated));
         if (pcModel.Account != null && pcModel.Account.size() > 0) {
             account = pcModel.Account.get(0);
         }

@@ -97,7 +97,7 @@ public class DDRCU_BusinessFragment extends Fragment implements InitInterface, V
             Log.i(TAG, "pcModel or pcModel.Business is null");
             return;
         }
-        textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , pcModel.psslastUpdated));
+//        textViewLastUpdated.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , pcModel.psslastUpdated));
 
         List<KeyBusinessInfo> data = pcModel.Business.keyBusinessInfo;
         businessAdapter.loadData(data);

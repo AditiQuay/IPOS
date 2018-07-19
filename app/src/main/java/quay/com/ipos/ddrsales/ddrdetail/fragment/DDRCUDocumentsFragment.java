@@ -81,7 +81,7 @@ public class DDRCUDocumentsFragment extends Fragment implements InitInterface, V
     private Drawable mDrawableApproved;
     private Drawable mDrawableUnApproved;
 
-    private int mEntityId;
+    private String mEntityId;
 
     private PictureManager pictureManager;
 
@@ -92,7 +92,7 @@ public class DDRCUDocumentsFragment extends Fragment implements InitInterface, V
         Resources resources = getResources();
         mDrawableApproved = resources.getDrawable(mApprovedResId);
         mDrawableUnApproved = resources.getDrawable(mUnApprovedResId);
-        mEntityId = Prefs.getIntegerPrefs(Constants.entityCode.trim());
+        mEntityId = Prefs.getIntegerPrefs(Constants.entityCode.trim())+"";
 
 
         pictureManager = new PictureManager(getContext());

@@ -118,7 +118,7 @@ public class DDRCU_RelationShipFragment extends Fragment {
         }
         //Toast.makeText(getActivity(), "I am here", Toast.LENGTH_SHORT).show();
         mRelationShipName.setText(pcModel.RelationShipName);
-        mLastUpdate.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , pcModel.psslastUpdated));
+      //  mLastUpdate.setText(DateAndTimeUtil.getMyDateAndTime("Last Updated :" , pcModel.psslastUpdated));
         mtxtPssEntityName.setText(pcModel.Relationship.pssEntityName);
         recyclerViewOne.setAdapter(new RelOneAdapter(pcModel.Relationship.pssLOBS));
         recyclerViewTwo.setAdapter(new RelTwoAdapter(pcModel.Relationship.pssPrincipleContact));

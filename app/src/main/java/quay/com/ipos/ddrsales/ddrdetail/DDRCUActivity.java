@@ -34,10 +34,13 @@ import java.util.List;
 import quay.com.ipos.R;
 import quay.com.ipos.application.IPOSApplication;
 import quay.com.ipos.base.RunTimePermissionActivity;
+import quay.com.ipos.compliance.data.local.entity.Task;
 import quay.com.ipos.data.remote.RestService;
-import quay.com.ipos.data.remote.model.PartnerConnectResponse;
 import quay.com.ipos.data.remote.model.PartnerConnectUpdateResponse;
-import quay.com.ipos.ddrsales.ddrdetail.fragment.DDRCU_RelationShipFragment;
+
+import quay.com.ipos.ddrsales.model.DDR;
+import quay.com.ipos.ddrsales.model.DDRMasterViewReq;
+import quay.com.ipos.ddrsales.model.DDRMasterViewResponse;
 import quay.com.ipos.listeners.InitInterface;
 import quay.com.ipos.ddrsales.ddrdetail.fragment.DDRCUAccountFragment;
 import quay.com.ipos.ddrsales.ddrdetail.fragment.DDRCUBillingAddressFragment;
@@ -86,6 +89,8 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
     File myExternalFile;
     String myData = "";
 
+    private DDR mDdr;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,14 +99,20 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
 
         setContentView(R.layout.activity_ddr_create_and_update);
 
+        mDdr = (DDR) getIntent().getSerializableExtra("ddr");
+
+
+
+
 
         findViewById();
         applyInitValues();
         applyTypeFace();
         applyLocalValidation();
 
-
-        // getServerData();
+        if (mDdr != null) {
+            getServerData();
+        }
         setData();
         initFile();
     }
@@ -327,7 +338,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
 
 
         String localData = getLocalData();
-        PartnerConnectResponse pcModel = new Gson().fromJson(localData, PartnerConnectResponse.class);
+        DDRMasterViewResponse pcModel = new Gson().fromJson(localData, DDRMasterViewResponse.class);
         Log.i("localData", pcModel.toString());
         pcModelLiveData.setValue(pcModel.response);
     }
@@ -339,7 +350,10 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
     }
 
     private void getServerData() {
-
+        if (mDdr == null) {
+            Log.e(TAG, "DDR Not Present");
+            return;
+        }
 
         int entityCode = Prefs.getIntegerPrefs(Constants.entityCode);
         Log.i(TAG + "entityCode", entityCode + "");
@@ -348,32 +362,33 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
             entityCode = 1;
             Log.i(TAG, "entityCode Hardcoded if entityCode is 0" + entityCode + "");
         }
-
-        Call<PartnerConnectResponse> call = RestService.getApiServiceSimple().loadPartnerConnectData(entityCode + "");
+        DDRMasterViewReq ddrMasterViewReq = new DDRMasterViewReq(mDdr);
+        Log.e(TAG, "ddrMasterViewReq:" + new Gson().toJson(ddrMasterViewReq));
+        Call<PCModel> call = RestService.getApiServiceSimple().DDR_MASTER_VIEW_API(ddrMasterViewReq);
 
         if (!NetUtil.isNetworkConnected(activity)) {
             Toast.makeText(activity, "" + getResources().getString(R.string.internet_connection_error_string), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        call.enqueue(new Callback<PartnerConnectResponse>() {
+        call.enqueue(new Callback<PCModel>() {
             @Override
-            public void onResponse(Call<PartnerConnectResponse> call, Response<PartnerConnectResponse> response) {
+            public void onResponse(Call<PCModel> call, Response<PCModel> response) {
                 Log.d(TAG, "response.raw().request().url();" + response.raw().request().url());
 
                 if (response.code() != 200) {
                     Log.e(TAG, "Code:" + response.code() + ", Message:" + response.message());
-                    Log.e(TAG, "Server Code:" + response.body().statusCode + ",Server Message:" + response.body().errorDescription);
-                    Toast.makeText(DDRCUActivity.this, "Code:" + response.body().statusCode + ", Message:" + response.body().errorDescription, Toast.LENGTH_SHORT).show();
+                   // Log.e(TAG, "Server Code:" + response.body().statusCode + ",Server Message:" + response.body().errorDescription);
+                   // Toast.makeText(DDRCUActivity.this, "Code:" + response.body().statusCode + ", Message:" + response.body().errorDescription, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 try {
                     // Log.i("response", response.body().statusCode + "," + response.body().message);
                     // Log.i("JsonObject", response.toString() + response.body());
                     if (response.body() != null) {
-                        PartnerConnectResponse response1 = response.body();
+                        PCModel response1 = response.body();
                         if (response1 != null) {
-                            PCModel pcModel = response1.response;
+                            PCModel pcModel = response1;
                             if (pcModel != null) {
                                 String empId = Prefs.getStringPrefs(employeeCode);
                                 Log.i(TAG, "empId" + empId);
@@ -383,9 +398,9 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
                                 }
                                 Log.i(TAG + " pcModel response:", new Gson().toJson(pcModel));
                                 pcModel.empCode = empId;
-                                if (response1.keyValuePairs == null) {
+                                /*if (response1.keyValuePairs == null) {
                                     response1.setDefaultValue();
-                                }
+                                }*/
 
                                 pcModelLiveData.setValue(pcModel);
                             }
@@ -398,7 +413,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
             }
 
             @Override
-            public void onFailure(Call<PartnerConnectResponse> call, Throwable t) {
+            public void onFailure(Call<PCModel> call, Throwable t) {
                 Toast.makeText(DDRCUActivity.this, " Message:" + t.getMessage(), Toast.LENGTH_SHORT).show();
 
                 Log.e(TAG, "ERROR OCCURED");
@@ -412,7 +427,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
         String employeeCode = Prefs.getStringPrefs(Constants.employeeCode);
         PCModel pcModel = new PCModel();
         pcModel.empCode = employeeCode;
-        pcModel.EntityID = 1;
+        pcModel.EntityID = "1";
 
         Relationship relationship = new Relationship();
         relationship.pssEntityName = "Test";
@@ -506,7 +521,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
         isSubmitReq = true;
         showProgress("Please Wait...");
         PCModel pcModelUpdate = getPcModelData().getValue();
-        pcModelUpdate.EntityID = Prefs.getIntegerPrefs(Constants.entityCode);
+        pcModelUpdate.EntityID = Prefs.getIntegerPrefs(Constants.entityCode)+"";
         pcModelUpdate.empCode = Prefs.getStringPrefs(Constants.employeeCode);
         Log.i("contact", new Gson().toJson(pcModelUpdate.Contact));
 
@@ -666,7 +681,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
 
 
             //new
-            if (keyBusinessInfo.BusinessLocation == null) {
+           /* if (keyBusinessInfo.BusinessLocation == null) {
                 String error = "Business -> BusinessLocation is required!";
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
@@ -696,7 +711,7 @@ public class DDRCUActivity extends RunTimePermissionActivity implements InitInte
                 Log.e(TAG, error);
                 IPOSApplication.showToast(error);
                 return false;
-            }
+            }*/
 
         }
 

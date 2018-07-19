@@ -7,7 +7,7 @@ import java.util.List;
 public class PCModel {
 
     public String empCode;
-    public int EntityID;//": 1
+    public String EntityID;//": 1
     @SerializedName("UpdatedDate")
     public String psslastUpdated;
     //null,, 5 , 3, 6, show  Updated show     else show---(1,0)(not updated)
